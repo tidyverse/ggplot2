@@ -7,7 +7,7 @@
 * URL: https://github.com/coseal/aslib-r/
 * BugReports: https://github.com/coseal/aslib-r/issues
 * Date/Publication: 2016-11-25 08:42:53
-* Number of recursive dependencies: 80
+* Number of recursive dependencies: 79
 
 Run `revdep_details(,"aslib")` for more info
 
@@ -65,12 +65,12 @@ ERROR: lazy loading failed for package ‘aslib’
 
 <details>
 
-* Version: 0.3
+* Version: 0.5.0
 * Source code: https://github.com/cran/av
 * URL: https://docs.ropensci.org/av (website), https://github.com/ropensci/av (devel)
 * BugReports: https://github.com/ropensci/av/issues
-* Date/Publication: 2019-08-21 16:30:02 UTC
-* Number of recursive dependencies: 52
+* Date/Publication: 2020-01-29 09:20:02 UTC
+* Number of recursive dependencies: 51
 
 Run `revdep_details(,"av")` for more info
 
@@ -96,12 +96,14 @@ Found pkg-config cflags and libs!
 Using PKG_CFLAGS=-I/usr/local/Cellar/ffmpeg/4.1/include
 Using PKG_LIBS=-L/usr/local/Cellar/ffmpeg/4.1/lib -lavfilter
 ** libs
-rm -f av.so formats.o info.o init.o video.o
+rm -f av.so fft.o formats.o info.o init.o video.o winfunc.o
+/usr/local/clang8/bin/clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I/usr/local/Cellar/ffmpeg/4.1/include  -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c fft.c -o fft.o
 /usr/local/clang8/bin/clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I/usr/local/Cellar/ffmpeg/4.1/include  -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c formats.c -o formats.o
 /usr/local/clang8/bin/clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I/usr/local/Cellar/ffmpeg/4.1/include  -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c info.c -o info.o
 /usr/local/clang8/bin/clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I/usr/local/Cellar/ffmpeg/4.1/include  -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c init.c -o init.o
 /usr/local/clang8/bin/clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I/usr/local/Cellar/ffmpeg/4.1/include  -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c video.c -o video.o
-/usr/local/clang8/bin/clang++ -std=gnu++11 -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/clang8/lib -o av.so formats.o info.o init.o video.o -L/usr/local/Cellar/ffmpeg/4.1/lib -lavfilter -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
+/usr/local/clang8/bin/clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I/usr/local/Cellar/ffmpeg/4.1/include  -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c winfunc.c -o winfunc.o
+/usr/local/clang8/bin/clang++ -std=gnu++11 -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/clang8/lib -o av.so fft.o formats.o info.o init.o video.o winfunc.o -L/usr/local/Cellar/ffmpeg/4.1/lib -lavfilter -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
 installing to /Users/max/github/forks/ggplot2/revdep/checks.noindex/av/new/av.Rcheck/00LOCK-av/00new/av/libs
 ** R
 ** inst
@@ -131,12 +133,14 @@ Found pkg-config cflags and libs!
 Using PKG_CFLAGS=-I/usr/local/Cellar/ffmpeg/4.1/include
 Using PKG_LIBS=-L/usr/local/Cellar/ffmpeg/4.1/lib -lavfilter
 ** libs
-rm -f av.so formats.o info.o init.o video.o
+rm -f av.so fft.o formats.o info.o init.o video.o winfunc.o
+/usr/local/clang8/bin/clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I/usr/local/Cellar/ffmpeg/4.1/include  -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c fft.c -o fft.o
 /usr/local/clang8/bin/clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I/usr/local/Cellar/ffmpeg/4.1/include  -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c formats.c -o formats.o
 /usr/local/clang8/bin/clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I/usr/local/Cellar/ffmpeg/4.1/include  -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c info.c -o info.o
 /usr/local/clang8/bin/clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I/usr/local/Cellar/ffmpeg/4.1/include  -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c init.c -o init.o
 /usr/local/clang8/bin/clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I/usr/local/Cellar/ffmpeg/4.1/include  -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c video.c -o video.o
-/usr/local/clang8/bin/clang++ -std=gnu++11 -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/clang8/lib -o av.so formats.o info.o init.o video.o -L/usr/local/Cellar/ffmpeg/4.1/lib -lavfilter -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
+/usr/local/clang8/bin/clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I/usr/local/Cellar/ffmpeg/4.1/include  -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c winfunc.c -o winfunc.o
+/usr/local/clang8/bin/clang++ -std=gnu++11 -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/clang8/lib -o av.so fft.o formats.o info.o init.o video.o winfunc.o -L/usr/local/Cellar/ffmpeg/4.1/lib -lavfilter -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
 installing to /Users/max/github/forks/ggplot2/revdep/checks.noindex/av/old/av.Rcheck/00LOCK-av/00new/av/libs
 ** R
 ** inst
@@ -163,7 +167,7 @@ ERROR: loading failed
 * Version: 1.10.0
 * Source code: https://github.com/cran/BaalChIP
 * Date/Publication: 2019-05-02
-* Number of recursive dependencies: 100
+* Number of recursive dependencies: 99
 
 Run `revdep_details(,"BaalChIP")` for more info
 
@@ -209,7 +213,7 @@ Run `revdep_details(,"BaalChIP")` for more info
 * Version: 1.3
 * Source code: https://github.com/cran/BACA
 * Date/Publication: 2015-05-27 08:55:17
-* Number of recursive dependencies: 77
+* Number of recursive dependencies: 74
 
 Run `revdep_details(,"BACA")` for more info
 
@@ -274,7 +278,7 @@ ERROR: lazy loading failed for package ‘BACA’
 * Version: 1.0
 * Source code: https://github.com/cran/BACCT
 * Date/Publication: 2016-06-25 19:07:22
-* Number of recursive dependencies: 41
+* Number of recursive dependencies: 39
 
 Run `revdep_details(,"BACCT")` for more info
 
@@ -335,7 +339,7 @@ ERROR: lazy loading failed for package ‘BACCT’
 * Version: 3.3.2
 * Source code: https://github.com/cran/bamdit
 * Date/Publication: 2019-07-09 14:10:07 UTC
-* Number of recursive dependencies: 63
+* Number of recursive dependencies: 61
 
 Run `revdep_details(,"bamdit")` for more info
 
@@ -402,7 +406,7 @@ ERROR: lazy loading failed for package ‘bamdit’
 * URL: https://github.com/ShanaScogin/BayesPostEst
 * BugReports: https://github.com/ShanaScogin/BayesPostEst/issues
 * Date/Publication: 2019-12-14 23:10:02 UTC
-* Number of recursive dependencies: 140
+* Number of recursive dependencies: 139
 
 Run `revdep_details(,"BayesPostEst")` for more info
 
@@ -501,7 +505,7 @@ ERROR: lazy loading failed for package ‘BayesPostEst’
 * Version: 0.1.3
 * Source code: https://github.com/cran/BayesRS
 * Date/Publication: 2018-04-06 06:39:35 UTC
-* Number of recursive dependencies: 63
+* Number of recursive dependencies: 62
 
 Run `revdep_details(,"BayesRS")` for more info
 
@@ -569,7 +573,7 @@ ERROR: lazy loading failed for package ‘BayesRS’
 * Source code: https://github.com/cran/BNSP
 * URL: http://www.bbk.ac.uk/ems/faculty/papageorgiou/BNSP
 * Date/Publication: 2019-12-05 09:00:17 UTC
-* Number of recursive dependencies: 70
+* Number of recursive dependencies: 68
 
 Run `revdep_details(,"BNSP")` for more info
 
@@ -596,22 +600,22 @@ Run `revdep_details(,"BNSP")` for more info
 /usr/local/clang8/bin/clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/BNSP/cubature/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c BayesMult.c -o BayesMult.o
 /usr/local/clang8/bin/clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/BNSP/cubature/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c BayesMultG.c -o BayesMultG.o
 /usr/local/clang8/bin/clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/BNSP/cubature/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c BayesMultGV.c -o BayesMultGV.o
-BayesMultG.c:26:10: fatal error: 'gsl/gsl_matrix.h' file not found
+BayesMult.c:26:10: fatal error: 'gsl/gsl_matrix.h' file not found
 #include <gsl/gsl_matrix.h>
          ^~~~~~~~~~~~~~~~~~
 BayesMultGV.c:26:10: fatal error: 'gsl/gsl_matrix.h' file not found
-BayesMult.c#include <gsl/gsl_matrix.h>
+#include <gsl/gsl_matrix.h>
          ^~~~~~~~~~~~~~~~~~
-:26:10: fatal error: 'gsl/gsl_matrix.h' file not found
+BayesMultG.c:26:10: fatal error: 'gsl/gsl_matrix.h' file not found
 #include <gsl/gsl_matrix.h>
          ^~~~~~~~~~~~~~~~~~
 1 error generated.
 1 error generated.
 1 error generated.
-make: *** [BayesMultG.o] Error 1
-make: *** Waiting for unfinished jobs....
 make: *** [BayesMult.o] Error 1
+make: *** Waiting for unfinished jobs....
 make: *** [BayesMultGV.o] Error 1
+make: *** [BayesMultG.o] Error 1
 ERROR: compilation failed for package ‘BNSP’
 * removing ‘/Users/max/github/forks/ggplot2/revdep/checks.noindex/BNSP/new/BNSP.Rcheck/BNSP’
 
@@ -627,13 +631,13 @@ ERROR: compilation failed for package ‘BNSP’
 /usr/local/clang8/bin/clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/BNSP/cubature/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c BayesMult.c -o BayesMult.o
 /usr/local/clang8/bin/clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/BNSP/cubature/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c BayesMultG.c -o BayesMultG.o
 /usr/local/clang8/bin/clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/BNSP/cubature/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c BayesMultGV.c -o BayesMultGV.o
+BayesMultGV.cBayesMultG.c:26:10: fatal error: 'gsl/gsl_matrix.h' file not found
+#include <gsl/gsl_matrix.h>
+         ^~~~~~~~~~~~~~~~~~
+:26:10: fatal error: 'gsl/gsl_matrix.h' file not found
+#include <gsl/gsl_matrix.h>
+         ^~~~~~~~~~~~~~~~~~
 BayesMult.c:26:10: fatal error: 'gsl/gsl_matrix.h' file not found
-#include <gsl/gsl_matrix.h>
-         ^~~~~~~~~~~~~~~~~~
-BayesMultG.c:26:10: fatal error: 'gsl/gsl_matrix.h' file not found
-#include <gsl/gsl_matrix.h>
-         ^~~~~~~~~~~~~~~~~~
-BayesMultGV.c:26:10: fatal error: 'gsl/gsl_matrix.h' file not found
 #include <gsl/gsl_matrix.h>
          ^~~~~~~~~~~~~~~~~~
 1 error generated.
@@ -654,7 +658,7 @@ ERROR: compilation failed for package ‘BNSP’
 * Version: 1.3.0
 * Source code: https://github.com/cran/BPEC
 * Date/Publication: 2018-08-29 20:56:48 UTC
-* Number of recursive dependencies: 87
+* Number of recursive dependencies: 85
 
 Run `revdep_details(,"BPEC")` for more info
 
@@ -741,7 +745,7 @@ ERROR: lazy loading failed for package ‘BPEC’
 * URL: https://github.com/ianjonsen/bsam
 * BugReports: https://github.com/ianjonsen/bsam/issues
 * Date/Publication: 2017-07-01 02:50:50 UTC
-* Number of recursive dependencies: 54
+* Number of recursive dependencies: 52
 
 Run `revdep_details(,"bsam")` for more info
 
@@ -813,7 +817,7 @@ ERROR: lazy loading failed for package ‘bsam’
 * Source code: https://github.com/cran/BTSPAS
 * URL: http://www.stat.sfu.ca/~cschwarz/Consulting/Trinity/Phase2
 * Date/Publication: 2019-12-04 22:20:26 UTC
-* Number of recursive dependencies: 60
+* Number of recursive dependencies: 58
 
 Run `revdep_details(,"BTSPAS")` for more info
 
@@ -889,9 +893,10 @@ Run `revdep_details(,"")` for more info
 
 ```
 
-  There is a binary version available but the source version is later:
-        binary source needs_compilation
-stringi  1.4.3  1.4.4              TRUE
+  There are binary versions available but the source versions are later:
+           binary  source needs_compilation
+checkmate   1.9.4   2.0.0              TRUE
+nlme      3.1-143 3.1-144              TRUE
 
   Binaries will be installed
 
@@ -905,9 +910,10 @@ installing the source package ‘reactome.db’
 
 ```
 
-  There is a binary version available but the source version is later:
-        binary source needs_compilation
-stringi  1.4.3  1.4.4              TRUE
+  There are binary versions available but the source versions are later:
+           binary  source needs_compilation
+checkmate   1.9.4   2.0.0              TRUE
+nlme      3.1-143 3.1-144              TRUE
 
   Binaries will be installed
 
@@ -937,9 +943,10 @@ Run `revdep_details(,"")` for more info
 
 ```
 
-  There is a binary version available but the source version is later:
-        binary source needs_compilation
-stringi  1.4.3  1.4.4              TRUE
+  There are binary versions available but the source versions are later:
+           binary  source needs_compilation
+checkmate   1.9.4   2.0.0              TRUE
+nlme      3.1-143 3.1-144              TRUE
 
   Binaries will be installed
 
@@ -953,9 +960,10 @@ installing the source package ‘reactome.db’
 
 ```
 
-  There is a binary version available but the source version is later:
-        binary source needs_compilation
-stringi  1.4.3  1.4.4              TRUE
+  There are binary versions available but the source versions are later:
+           binary  source needs_compilation
+checkmate   1.9.4   2.0.0              TRUE
+nlme      3.1-143 3.1-144              TRUE
 
   Binaries will be installed
 
@@ -974,11 +982,16 @@ installing the source package ‘reactome.db’
 * URL: https://github.com/scristia/CNPBayes
 * BugReports: https://github.com/scristia/CNPBayes/issues
 * Date/Publication: 2019-01-05
-* Number of recursive dependencies: 163
+* Number of recursive dependencies: 162
 
 Run `revdep_details(,"CNPBayes")` for more info
 
 </details>
+
+## Newly broken
+
+*   R CMD check timed out
+    
 
 ## In both
 
@@ -1008,8 +1021,27 @@ Run `revdep_details(,"CNPBayes")` for more info
     We detected these problematic arguments:
     ```
 
-*   R CMD check timed out
-    
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      
+      [31m──[39m [31m4. Failure: easy mendelian example (@test_trios.R#524) [39m [31m─────────────────────────────────────────────────────────────────────────────────[39m
+      `z.m` not identical to 2L.
+      1/1 mismatches
+      [1] 3 - 2 == 1
+      
+      ══ testthat results  ═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+      [ OK: 305 | SKIPPED: 3 | WARNINGS: 3 | FAILED: 4 ]
+      1. Failure: sigma2_pooled (@test_SingleBatchPooled.R#24) 
+      2. Failure: ggfun (@test_ggfuns.R#9) 
+      3. Failure: kbatch (@test_multibatch.R#271) 
+      4. Failure: easy mendelian example (@test_trios.R#524) 
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
 
 *   checking for missing documentation entries ... WARNING
     ```
@@ -1137,7 +1169,7 @@ Run `revdep_details(,"CNPBayes")` for more info
 * Source code: https://github.com/cran/CNVrd2
 * URL: https://github.com/hoangtn/CNVrd2
 * Date/Publication: 2019-05-02
-* Number of recursive dependencies: 98
+* Number of recursive dependencies: 96
 
 Run `revdep_details(,"CNVrd2")` for more info
 
@@ -1206,7 +1238,7 @@ ERROR: lazy loading failed for package ‘CNVrd2’
 * URL: https://bitbucket.org/kindlychung/collapsabel2/overview
 * BugReports: https://bitbucket.org/kindlychung/collapsabel2/issues
 * Date/Publication: 2016-12-11 20:35:07
-* Number of recursive dependencies: 111
+* Number of recursive dependencies: 110
 
 Run `revdep_details(,"CollapsABEL")` for more info
 
@@ -1271,7 +1303,7 @@ ERROR: lazy loading failed for package ‘CollapsABEL’
 * Version: 1.20.0
 * Source code: https://github.com/cran/CompGO
 * Date/Publication: 2019-05-02
-* Number of recursive dependencies: 107
+* Number of recursive dependencies: 105
 
 Run `revdep_details(,"CompGO")` for more info
 
@@ -1340,7 +1372,7 @@ ERROR: lazy loading failed for package ‘CompGO’
 * URL: https://github.com/roche/crmPack
 * BugReports: https://github.com/roche/crmPack/issues
 * Date/Publication: 2019-06-13 07:30:03 UTC
-* Number of recursive dependencies: 64
+* Number of recursive dependencies: 62
 
 Run `revdep_details(,"crmPack")` for more info
 
@@ -1405,7 +1437,7 @@ ERROR: lazy loading failed for package ‘crmPack’
 * URL: https://github.com/kornl/Crossover/wiki
 * BugReports: https://github.com/kornl/Crossover/issues
 * Date/Publication: 2019-05-05 20:20:10 UTC
-* Number of recursive dependencies: 72
+* Number of recursive dependencies: 71
 
 Run `revdep_details(,"Crossover")` for more info
 
@@ -1481,35 +1513,33 @@ ERROR: lazy loading failed for package ‘Crossover’
 
 <details>
 
-* Version: 3.0.9
+* Version: 3.1.0
 * Source code: https://github.com/cran/ctsem
 * URL: https://github.com/cdriveraus/ctsem
-* Date/Publication: 2019-12-18 15:30:13 UTC
-* Number of recursive dependencies: 122
+* Date/Publication: 2020-01-27 10:10:02 UTC
+* Number of recursive dependencies: 121
 
 Run `revdep_details(,"ctsem")` for more info
 
 </details>
 
-## Newly broken
+## In both
 
 *   R CMD check timed out
     
 
-## In both
-
 *   checking installed package size ... NOTE
     ```
-      installed size is  9.6Mb
+      installed size is  8.7Mb
       sub-directories of 1Mb or more:
         R      1.0Mb
-        data   1.7Mb
-        libs   5.7Mb
+        libs   5.8Mb
     ```
 
 *   checking dependencies in R code ... NOTE
     ```
-    Namespace in Imports field not imported from: ‘pkgbuild’
+    Namespaces in Imports field not imported from:
+      ‘numDeriv’ ‘pkgbuild’
       All declared Imports should be used.
     ```
 
@@ -1525,7 +1555,7 @@ Run `revdep_details(,"ctsem")` for more info
 * Version: 1.8.0
 * Source code: https://github.com/cran/DaMiRseq
 * Date/Publication: 2019-05-02
-* Number of recursive dependencies: 216
+* Number of recursive dependencies: 228
 
 Run `revdep_details(,"DaMiRseq")` for more info
 
@@ -1591,7 +1621,7 @@ ERROR: lazy loading failed for package ‘DaMiRseq’
 * Source code: https://github.com/cran/Deducer
 * URL: http://www.deducer.org/manual.html http://www.fellstat.com
 * Date/Publication: 2015-12-29 22:16:31
-* Number of recursive dependencies: 123
+* Number of recursive dependencies: 122
 
 Run `revdep_details(,"Deducer")` for more info
 
@@ -1658,7 +1688,7 @@ ERROR: lazy loading failed for package ‘Deducer’
 * Version: 2.12.0
 * Source code: https://github.com/cran/DiffBind
 * Date/Publication: 2019-05-02
-* Number of recursive dependencies: 166
+* Number of recursive dependencies: 165
 
 Run `revdep_details(,"DiffBind")` for more info
 
@@ -1703,6 +1733,57 @@ Run `revdep_details(,"DiffBind")` for more info
     See ‘Writing portable packages’ in the ‘Writing R Extensions’ manual.
     ```
 
+# DistributionOptimization
+
+<details>
+
+* Version: 1.2.4
+* Source code: https://github.com/cran/DistributionOptimization
+* Date/Publication: 2019-11-25 14:30:02 UTC
+* Number of recursive dependencies: 59
+
+Run `revdep_details(,"DistributionOptimization")` for more info
+
+</details>
+
+## In both
+
+*   checking whether package ‘DistributionOptimization’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/Users/max/github/forks/ggplot2/revdep/checks.noindex/DistributionOptimization/new/DistributionOptimization.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘DistributionOptimization’ ...
+** package ‘DistributionOptimization’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** byte-compile and prepare package for lazy loading
+Error: object ‘OptimalNoBins’ is not exported by 'namespace:AdaptGauss'
+Execution halted
+ERROR: lazy loading failed for package ‘DistributionOptimization’
+* removing ‘/Users/max/github/forks/ggplot2/revdep/checks.noindex/DistributionOptimization/new/DistributionOptimization.Rcheck/DistributionOptimization’
+
+```
+### CRAN
+
+```
+* installing *source* package ‘DistributionOptimization’ ...
+** package ‘DistributionOptimization’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** byte-compile and prepare package for lazy loading
+Error: object ‘OptimalNoBins’ is not exported by 'namespace:AdaptGauss'
+Execution halted
+ERROR: lazy loading failed for package ‘DistributionOptimization’
+* removing ‘/Users/max/github/forks/ggplot2/revdep/checks.noindex/DistributionOptimization/old/DistributionOptimization.Rcheck/DistributionOptimization’
+
+```
 # DiversityOccupancy
 
 <details>
@@ -1710,7 +1791,7 @@ Run `revdep_details(,"DiffBind")` for more info
 * Version: 1.0.6
 * Source code: https://github.com/cran/DiversityOccupancy
 * Date/Publication: 2017-03-02 18:32:36
-* Number of recursive dependencies: 88
+* Number of recursive dependencies: 86
 
 Run `revdep_details(,"DiversityOccupancy")` for more info
 
@@ -1777,7 +1858,7 @@ ERROR: lazy loading failed for package ‘DiversityOccupancy’
 * Version: 1.2.0
 * Source code: https://github.com/cran/DuoClustering2018
 * Date/Publication: 2019-05-07
-* Number of recursive dependencies: 140
+* Number of recursive dependencies: 137
 
 Run `revdep_details(,"DuoClustering2018")` for more info
 
@@ -1806,10 +1887,10 @@ Run `revdep_details(,"DuoClustering2018")` for more info
 ** building package indices
 ** installing vignettes
 ** testing if installed package can be loaded from temporary location
-Using temporary cache /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpWmSjk2/BiocFileCache
+Using temporary cache /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpEnLrbp/BiocFileCache
 snapshotDate(): 2019-10-22
-Using temporary cache /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpWmSjk2/BiocFileCache
-Using temporary cache /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpWmSjk2/BiocFileCache
+Using temporary cache /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpEnLrbp/BiocFileCache
+Using temporary cache /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpEnLrbp/BiocFileCache
 Error: package or namespace load failed for ‘DuoClustering2018’:
  .onLoad failed in loadNamespace() for 'DuoClustering2018', details:
   call: FUN(X[[i]], ...)
@@ -1833,10 +1914,10 @@ ERROR: loading failed
 ** building package indices
 ** installing vignettes
 ** testing if installed package can be loaded from temporary location
-Using temporary cache /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpOHaGmb/BiocFileCache
+Using temporary cache /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpgoLGe2/BiocFileCache
 snapshotDate(): 2019-10-22
-Using temporary cache /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpOHaGmb/BiocFileCache
-Using temporary cache /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpOHaGmb/BiocFileCache
+Using temporary cache /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpgoLGe2/BiocFileCache
+Using temporary cache /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpgoLGe2/BiocFileCache
 Error: package or namespace load failed for ‘DuoClustering2018’:
  .onLoad failed in loadNamespace() for 'DuoClustering2018', details:
   call: FUN(X[[i]], ...)
@@ -1854,7 +1935,7 @@ ERROR: loading failed
 * Version: 0.1.15-1
 * Source code: https://github.com/cran/dynr
 * Date/Publication: 2019-10-05 06:50:02 UTC
-* Number of recursive dependencies: 120
+* Number of recursive dependencies: 119
 
 Run `revdep_details(,"dynr")` for more info
 
@@ -1901,7 +1982,7 @@ ERROR: configuration failed for package ‘dynr’
 * Version: 2.8.3
 * Source code: https://github.com/cran/ELMER
 * Date/Publication: 2019-09-06
-* Number of recursive dependencies: 211
+* Number of recursive dependencies: 210
 
 Run `revdep_details(,"ELMER")` for more info
 
@@ -1967,10 +2048,10 @@ Run `revdep_details(,"")` for more info
 ```
 
   There are binary versions available but the source versions are later:
-        binary source needs_compilation
-mvtnorm 1.0-11 1.0-12              TRUE
-stringi  1.4.3  1.4.4              TRUE
-WGCNA     1.66   1.68              TRUE
+           binary  source needs_compilation
+checkmate   1.9.4   2.0.0              TRUE
+nlme      3.1-143 3.1-144              TRUE
+WGCNA        1.66    1.68              TRUE
 
   Binaries will be installed
 
@@ -1985,10 +2066,10 @@ installing the source package ‘reactome.db’
 ```
 
   There are binary versions available but the source versions are later:
-        binary source needs_compilation
-mvtnorm 1.0-11 1.0-12              TRUE
-stringi  1.4.3  1.4.4              TRUE
-WGCNA     1.66   1.68              TRUE
+           binary  source needs_compilation
+checkmate   1.9.4   2.0.0              TRUE
+nlme      3.1-143 3.1-144              TRUE
+WGCNA        1.66    1.68              TRUE
 
   Binaries will be installed
 
@@ -2007,7 +2088,7 @@ installing the source package ‘reactome.db’
 * URL: https://github.com/wzthu/esATAC
 * BugReports: https://github.com/wzthu/esATAC/issues
 * Date/Publication: 2019-05-15
-* Number of recursive dependencies: 193
+* Number of recursive dependencies: 189
 
 Run `revdep_details(,"esATAC")` for more info
 
@@ -2125,7 +2206,7 @@ ERROR: lazy loading failed for package ‘esATAC’
 * URL: https://github.com/antonio-pgarcia/evoper
 * BugReports: https://github.com/antonio-pgarcia/evoper/issues
 * Date/Publication: 2018-08-30 23:20:06 UTC
-* Number of recursive dependencies: 74
+* Number of recursive dependencies: 73
 
 Run `revdep_details(,"evoper")` for more info
 
@@ -2194,7 +2275,7 @@ ERROR: lazy loading failed for package ‘evoper’
 * URL: https://github.com/dnzmarcio/ewoc/
 * BugReports: https://github.com/dnzmarcio/ewoc/issues
 * Date/Publication: 2018-01-20 21:16:49 UTC
-* Number of recursive dependencies: 46
+* Number of recursive dependencies: 44
 
 Run `revdep_details(,"ewoc")` for more info
 
@@ -2269,8 +2350,8 @@ Run `revdep_details(,"")` for more info
 ```
 
   There is a binary version available but the source version is later:
-        binary source needs_compilation
-stringi  1.4.3  1.4.4              TRUE
+      binary  source needs_compilation
+nlme 3.1-143 3.1-144              TRUE
 
   Binaries will be installed
 
@@ -2285,8 +2366,8 @@ installing the source package ‘reactome.db’
 ```
 
   There is a binary version available but the source version is later:
-        binary source needs_compilation
-stringi  1.4.3  1.4.4              TRUE
+      binary  source needs_compilation
+nlme 3.1-143 3.1-144              TRUE
 
   Binaries will be installed
 
@@ -2304,7 +2385,7 @@ installing the source package ‘reactome.db’
 * Source code: https://github.com/cran/fingerPro
 * URL: https://github.com/eead-csic-eesa
 * Date/Publication: 2018-08-28 10:04:54 UTC
-* Number of recursive dependencies: 142
+* Number of recursive dependencies: 141
 
 Run `revdep_details(,"fingerPro")` for more info
 
@@ -2380,10 +2461,10 @@ ERROR: compilation failed for package ‘fingerPro’
 
 <details>
 
-* Version: 0.4-6
+* Version: 0.4-9
 * Source code: https://github.com/cran/fsdaR
-* Date/Publication: 2019-03-14 05:30:03 UTC
-* Number of recursive dependencies: 46
+* Date/Publication: 2020-01-14 16:40:02 UTC
+* Number of recursive dependencies: 43
 
 Run `revdep_details(,"fsdaR")` for more info
 
@@ -2451,7 +2532,7 @@ ERROR: lazy loading failed for package ‘fsdaR’
 * Source code: https://github.com/cran/G2Sd
 * URL: https://cran.r-project.org/package=G2Sd, http://regisgallon.wordpress.com/r-software/
 * Date/Publication: 2015-12-07 22:13:45
-* Number of recursive dependencies: 53
+* Number of recursive dependencies: 51
 
 Run `revdep_details(,"G2Sd")` for more info
 
@@ -2518,7 +2599,7 @@ ERROR: lazy loading failed for package ‘G2Sd’
 * Version: 1.4.0
 * Source code: https://github.com/cran/GARS
 * Date/Publication: 2019-05-02
-* Number of recursive dependencies: 220
+* Number of recursive dependencies: 232
 
 Run `revdep_details(,"GARS")` for more info
 
@@ -2583,7 +2664,7 @@ ERROR: lazy loading failed for package ‘GARS’
 * Version: 1.12.1
 * Source code: https://github.com/cran/genphen
 * Date/Publication: 2019-08-01
-* Number of recursive dependencies: 90
+* Number of recursive dependencies: 89
 
 Run `revdep_details(,"genphen")` for more info
 
@@ -2603,7 +2684,7 @@ Run `revdep_details(,"genphen")` for more info
 * URL: https://github.com/yxlin/ggdmc
 * BugReports: https://github.com/yxlin/ggdmc/issues
 * Date/Publication: 2019-04-29 05:10:03 UTC
-* Number of recursive dependencies: 55
+* Number of recursive dependencies: 54
 
 Run `revdep_details(,"ggdmc")` for more info
 
@@ -2661,7 +2742,7 @@ ERROR: configuration failed for package ‘ggdmc’
 * Source code: https://github.com/cran/ggtern
 * URL: http://www.ggtern.com
 * Date/Publication: 2018-12-19 11:20:03 UTC
-* Number of recursive dependencies: 48
+* Number of recursive dependencies: 46
 
 Run `revdep_details(,"ggtern")` for more info
 
@@ -2723,7 +2804,7 @@ ERROR: lazy loading failed for package ‘ggtern’
 * Version: 5.20.0
 * Source code: https://github.com/cran/GGtools
 * Date/Publication: 2019-05-02
-* Number of recursive dependencies: 150
+* Number of recursive dependencies: 149
 
 Run `revdep_details(,"GGtools")` for more info
 
@@ -2799,97 +2880,6 @@ Run `revdep_details(,"GGtools")` for more info
     Packages unavailable to check Rd xrefs: ‘MatrixEQTL’, ‘gwascat’
     ```
 
-# gQTLstats
-
-<details>
-
-* Version: 1.16.0
-* Source code: https://github.com/cran/gQTLstats
-* Date/Publication: 2019-05-02
-* Number of recursive dependencies: 195
-
-Run `revdep_details(,"gQTLstats")` for more info
-
-</details>
-
-## In both
-
-*   R CMD check timed out
-    
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is 65.7Mb
-      sub-directories of 1Mb or more:
-        data        11.0Mb
-        doc          1.1Mb
-        registries  18.8Mb
-        vcf         33.8Mb
-    ```
-
-*   checking R code for possible problems ... NOTE
-    ```
-    ...
-      ‘permScore_3’
-    storeToMaxAssocBySNP: no visible global function definition for ‘nth’
-    storeToMaxAssocBySNP: no visible binding for global variable ‘MAF’
-    storeToMaxAssocBySNP: no visible binding for global variable ‘probeid’
-    storeToMaxAssocBySNP: no visible binding for global variable ‘mindist’
-    tqbrowser: no visible global function definition for ‘experiments’
-    tqbrowser : server: no visible global function definition for
-      ‘experiments’
-    tqbrowser : server: no visible global function definition for
-      ‘TabixFile’
-    tqbrowser : server: no visible binding for global variable ‘assoc’
-    tqbrowser : server: no visible binding for global variable ‘stateid’
-    tqbrowser : server: no visible binding for global variable ‘state’
-    transTable: no visible binding for global variable ‘i’
-    tsByRank_sing: no visible binding for global variable ‘i’
-    tsByRank_sing : <anonymous>: no visible binding for global variable ‘i’
-    boxswarm,SnpToGeneQTL: no visible binding for global variable ‘g1’
-    Undefined global functions or variables:
-      DNAStringSetList MAF TabixFile TxDb assoc calls ch chisq criterion ex
-      exonsBy experiments g1 geom_boxplot gt i id maf mindist ml10fdr nth
-      permScore_1 permScore_2 permScore_3 probeid snp state stateid value x
-    ```
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Package unavailable to check Rd xrefs: ‘MultiAssayExperiment’
-    ```
-
-*   checking contents of ‘data’ directory ... NOTE
-    ```
-    ...
-      names
-      class
-          filterUsed
-        <environment: namespace:base>
-      x
-          class
-      package
-              [2]
-            [1]
-            [2]
-          names
-          out.attrs
-        [1]
-        [2]
-      [1]
-      [2]
-      names
-          row.names
-          class
-            names
-              names
-    ```
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 8 marked Latin-1 strings
-      Note: found 12 marked UTF-8 strings
-    ```
-
 # GRENITS
 
 <details>
@@ -2897,7 +2887,7 @@ Run `revdep_details(,"gQTLstats")` for more info
 * Version: 1.36.0
 * Source code: https://github.com/cran/GRENITS
 * Date/Publication: 2019-05-02
-* Number of recursive dependencies: 41
+* Number of recursive dependencies: 39
 
 Run `revdep_details(,"GRENITS")` for more info
 
@@ -2923,18 +2913,18 @@ Run `revdep_details(,"GRENITS")` for more info
 /usr/local/clang8/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/GRENITS/Rcpp/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/GRENITS/RcppArmadillo/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c AR1_Student_biocond.cc -o AR1_Student_biocond.o
 /usr/local/clang8/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/GRENITS/Rcpp/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/GRENITS/RcppArmadillo/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c AR1_biocond.cc -o AR1_biocond.o
 /usr/local/clang8/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/GRENITS/Rcpp/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/GRENITS/RcppArmadillo/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c PSplines_biocond.cc -o PSplines_biocond.o
-AR1_Student_biocond.cc:49:30: warning: unused variable 'numDiag' [-Wunused-variable]
-  int           num_fixedON, numDiag, p_sqr, free_gammas;
-                             ^
-PSplines_biocond.cc:45:63: warning: unused variable 'numDiag' [-Wunused-variable]
-  int                 num_fixedON, nodesSpline, degreeSpline, numDiag, free_gammas;
-                                                              ^
 AR1_Gauss_biocond.cc:49:30: warning: unused variable 'numDiag' [-Wunused-variable]
   int           num_fixedON, numDiag, p_sqr, free_gammas;
                              ^
 AR1_biocond.cc:48:30: warning: unused variable 'numDiag' [-Wunused-variable]
   int           num_fixedON, numDiag, p_sqr, free_gammas;
                              ^
+AR1_Student_biocond.cc:49:30: warning: unused variable 'numDiag' [-Wunused-variable]
+  int           num_fixedON, numDiag, p_sqr, free_gammas;
+                             ^
+PSplines_biocond.cc:45:63: warning: unused variable 'numDiag' [-Wunused-variable]
+  int                 num_fixedON, nodesSpline, degreeSpline, numDiag, free_gammas;
+                                                              ^
 1 warning generated.
 /usr/local/clang8/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/GRENITS/Rcpp/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/GRENITS/RcppArmadillo/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c R_C_interface.cpp -o R_C_interface.o
 1 warning generated.
@@ -2996,10 +2986,10 @@ AR1_biocond.cc:48:30: warning: unused variable 'numDiag' [-Wunused-variable]
 PSplines_biocond.cc:45:63: warning: unused variable 'numDiag' [-Wunused-variable]
   int                 num_fixedON, nodesSpline, degreeSpline, numDiag, free_gammas;
                                                               ^
-AR1_Student_biocond.cc:49:30: warning: unused variable 'numDiag' [-Wunused-variable]
+AR1_Gauss_biocond.cc:49:30: warning: unused variable 'numDiag' [-Wunused-variable]
   int           num_fixedON, numDiag, p_sqr, free_gammas;
                              ^
-AR1_Gauss_biocond.cc:49:30: warning: unused variable 'numDiag' [-Wunused-variable]
+AR1_Student_biocond.cc:49:30: warning: unused variable 'numDiag' [-Wunused-variable]
   int           num_fixedON, numDiag, p_sqr, free_gammas;
                              ^
 1 warning generated.
@@ -3047,72 +3037,6 @@ ERROR: compilation failed for package ‘GRENITS’
 * removing ‘/Users/max/github/forks/ggplot2/revdep/checks.noindex/GRENITS/old/GRENITS.Rcheck/GRENITS’
 
 ```
-# growthPheno
-
-<details>
-
-* Version: 1.0-15
-* Source code: https://github.com/cran/growthPheno
-* URL: http://chris.brien.name
-* Date/Publication: 2019-07-15 08:10:02 UTC
-* Number of recursive dependencies: 90
-
-Run `revdep_details(,"growthPheno")` for more info
-
-</details>
-
-## In both
-
-*   checking whether package ‘growthPheno’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/max/github/forks/ggplot2/revdep/checks.noindex/growthPheno/new/growthPheno.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘growthPheno’ ...
-** package ‘growthPheno’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** data
-** inst
-** byte-compile and prepare package for lazy loading
-Error: .onLoad failed in loadNamespace() for 'rJava', details:
-  call: dyn.load(file, DLLpath = DLLpath, ...)
-  error: unable to load shared object '/Users/max/github/forks/ggplot2/revdep/library.noindex/growthPheno/rJava/libs/rJava.so':
-  dlopen(/Users/max/github/forks/ggplot2/revdep/library.noindex/growthPheno/rJava/libs/rJava.so, 6): Library not loaded: /Library/Java/JavaVirtualMachines/jdk-11.0.1.jdk/Contents/Home/lib/server/libjvm.dylib
-  Referenced from: /Users/max/github/forks/ggplot2/revdep/library.noindex/growthPheno/rJava/libs/rJava.so
-  Reason: image not found
-Execution halted
-ERROR: lazy loading failed for package ‘growthPheno’
-* removing ‘/Users/max/github/forks/ggplot2/revdep/checks.noindex/growthPheno/new/growthPheno.Rcheck/growthPheno’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘growthPheno’ ...
-** package ‘growthPheno’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** data
-** inst
-** byte-compile and prepare package for lazy loading
-Error: .onLoad failed in loadNamespace() for 'rJava', details:
-  call: dyn.load(file, DLLpath = DLLpath, ...)
-  error: unable to load shared object '/Users/max/github/forks/ggplot2/revdep/library.noindex/growthPheno/rJava/libs/rJava.so':
-  dlopen(/Users/max/github/forks/ggplot2/revdep/library.noindex/growthPheno/rJava/libs/rJava.so, 6): Library not loaded: /Library/Java/JavaVirtualMachines/jdk-11.0.1.jdk/Contents/Home/lib/server/libjvm.dylib
-  Referenced from: /Users/max/github/forks/ggplot2/revdep/library.noindex/growthPheno/rJava/libs/rJava.so
-  Reason: image not found
-Execution halted
-ERROR: lazy loading failed for package ‘growthPheno’
-* removing ‘/Users/max/github/forks/ggplot2/revdep/checks.noindex/growthPheno/old/growthPheno.Rcheck/growthPheno’
-
-```
 # GUIgems
 
 <details>
@@ -3120,7 +3044,7 @@ ERROR: lazy loading failed for package ‘growthPheno’
 * Version: 0.1
 * Source code: https://github.com/cran/GUIgems
 * Date/Publication: 2017-05-18 14:14:46 UTC
-* Number of recursive dependencies: 45
+* Number of recursive dependencies: 43
 
 Run `revdep_details(,"GUIgems")` for more info
 
@@ -3185,7 +3109,7 @@ ERROR: lazy loading failed for package ‘GUIgems’
 * Version: 1.1.2
 * Source code: https://github.com/cran/hbbr
 * Date/Publication: 2019-10-25 08:20:02 UTC
-* Number of recursive dependencies: 58
+* Number of recursive dependencies: 57
 
 Run `revdep_details(,"hbbr")` for more info
 
@@ -3256,7 +3180,7 @@ ERROR: lazy loading failed for package ‘hbbr’
 * URL: https://github.com/waldronlab/HMP16SData
 * BugReports: https://github.com/waldronlab/HMP16SData/issues
 * Date/Publication: 2019-05-23
-* Number of recursive dependencies: 181
+* Number of recursive dependencies: 180
 
 Run `revdep_details(,"HMP16SData")` for more info
 
@@ -3287,11 +3211,11 @@ Run `revdep_details(,"HMP16SData")` for more info
 ** building package indices
 ** installing vignettes
 ** testing if installed package can be loaded from temporary location
-Using temporary cache /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpQetpmO/BiocFileCache
+Using temporary cache /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpGMzVeI/BiocFileCache
 snapshotDate(): 2019-10-22
-Using temporary cache /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpQetpmO/BiocFileCache
-Using temporary cache /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpQetpmO/BiocFileCache
-Using temporary cache /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpQetpmO/BiocFileCache
+Using temporary cache /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpGMzVeI/BiocFileCache
+Using temporary cache /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpGMzVeI/BiocFileCache
+Using temporary cache /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpGMzVeI/BiocFileCache
 Error: package or namespace load failed for ‘HMP16SData’:
  .onLoad failed in loadNamespace() for 'HMP16SData', details:
   call: function_list[[k]](value)
@@ -3317,11 +3241,11 @@ ERROR: loading failed
 ** building package indices
 ** installing vignettes
 ** testing if installed package can be loaded from temporary location
-Using temporary cache /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpBFs4h1/BiocFileCache
+Using temporary cache /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//Rtmp6E5Ujw/BiocFileCache
 snapshotDate(): 2019-10-22
-Using temporary cache /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpBFs4h1/BiocFileCache
-Using temporary cache /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpBFs4h1/BiocFileCache
-Using temporary cache /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpBFs4h1/BiocFileCache
+Using temporary cache /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//Rtmp6E5Ujw/BiocFileCache
+Using temporary cache /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//Rtmp6E5Ujw/BiocFileCache
+Using temporary cache /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//Rtmp6E5Ujw/BiocFileCache
 Error: package or namespace load failed for ‘HMP16SData’:
  .onLoad failed in loadNamespace() for 'HMP16SData', details:
   call: function_list[[k]](value)
@@ -3340,7 +3264,7 @@ ERROR: loading failed
 * Source code: https://github.com/cran/iBMQ
 * URL: http://www.rglab.org
 * Date/Publication: 2019-05-02
-* Number of recursive dependencies: 41
+* Number of recursive dependencies: 39
 
 Run `revdep_details(,"iBMQ")` for more info
 
@@ -3429,7 +3353,7 @@ ERROR: configuration failed for package ‘iBMQ’
 * Version: 1.4.0
 * Source code: https://github.com/cran/iCNV
 * Date/Publication: 2019-05-02
-* Number of recursive dependencies: 93
+* Number of recursive dependencies: 91
 
 Run `revdep_details(,"iCNV")` for more info
 
@@ -3485,7 +3409,7 @@ ERROR: lazy loading failed for package ‘iCNV’
 * Source code: https://github.com/cran/imageData
 * URL: http://chris.brien.name
 * Date/Publication: 2019-05-15 13:50:02 UTC
-* Number of recursive dependencies: 90
+* Number of recursive dependencies: 89
 
 Run `revdep_details(,"imageData")` for more info
 
@@ -3552,7 +3476,7 @@ ERROR: lazy loading failed for package ‘imageData’
 * URL: https://github.com/broadinstitute/inferCNV/wiki
 * BugReports: https://github.com/broadinstitute/inferCNV/issues
 * Date/Publication: 2019-09-16
-* Number of recursive dependencies: 128
+* Number of recursive dependencies: 127
 
 Run `revdep_details(,"infercnv")` for more info
 
@@ -3619,7 +3543,7 @@ ERROR: lazy loading failed for package ‘infercnv’
 * URL: https://github.com/verbal-autopsy-software/InSilicoVA
 * BugReports: https://github.com/verbal-autopsy-software/InSilicoVA/issues
 * Date/Publication: 2018-10-29 05:40:11 UTC
-* Number of recursive dependencies: 49
+* Number of recursive dependencies: 47
 
 Run `revdep_details(,"InSilicoVA")` for more info
 
@@ -3688,7 +3612,7 @@ ERROR: lazy loading failed for package ‘InSilicoVA’
 * Version: 1.7.2
 * Source code: https://github.com/cran/jarbes
 * Date/Publication: 2019-03-11 16:50:03 UTC
-* Number of recursive dependencies: 66
+* Number of recursive dependencies: 64
 
 Run `revdep_details(,"jarbes")` for more info
 
@@ -3753,7 +3677,7 @@ ERROR: lazy loading failed for package ‘jarbes’
 * URL: https://nerler.github.io/JointAI
 * BugReports: https://github.com/nerler/JointAI/issues
 * Date/Publication: 2019-08-31 17:40:02 UTC
-* Number of recursive dependencies: 86
+* Number of recursive dependencies: 85
 
 Run `revdep_details(,"JointAI")` for more info
 
@@ -3825,7 +3749,7 @@ ERROR: lazy loading failed for package ‘JointAI’
 * Source code: https://github.com/cran/L0Learn
 * URL: https://arxiv.org/abs/1803.01454
 * Date/Publication: 2019-08-30 15:00:02 UTC
-* Number of recursive dependencies: 52
+* Number of recursive dependencies: 50
 
 Run `revdep_details(,"L0Learn")` for more info
 
@@ -3884,7 +3808,7 @@ ERROR: configuration failed for package ‘L0Learn’
 * URL: https://github.com/lanagarmire/lilikoi
 * BugReports: https://github.com/lanagarmire/lilikoi/issues
 * Date/Publication: 2018-07-30 11:10:03 UTC
-* Number of recursive dependencies: 151
+* Number of recursive dependencies: 150
 
 Run `revdep_details(,"lilikoi")` for more info
 
@@ -3964,13 +3888,18 @@ Run `revdep_details(,"")` for more info
 
 ```
 
-  There is a binary version available but the source version is later:
-        binary source needs_compilation
-stringi  1.4.3  1.4.4              TRUE
+  There are binary versions available but the source versions are later:
+           binary  source needs_compilation
+checkmate   1.9.4   2.0.0              TRUE
+nlme      3.1-143 3.1-144              TRUE
 
   Binaries will be installed
 
 
+Warning: unable to access index for repository https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.6:
+  cannot open URL 'https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.6/PACKAGES'
+Warning: unable to access index for repository https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.6:
+  cannot open URL 'https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.6/PACKAGES'
 installing the source package ‘reactome.db’
 
 
@@ -3980,13 +3909,18 @@ installing the source package ‘reactome.db’
 
 ```
 
-  There is a binary version available but the source version is later:
-        binary source needs_compilation
-stringi  1.4.3  1.4.4              TRUE
+  There are binary versions available but the source versions are later:
+           binary  source needs_compilation
+checkmate   1.9.4   2.0.0              TRUE
+nlme      3.1-143 3.1-144              TRUE
 
   Binaries will be installed
 
 
+Warning: unable to access index for repository https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.6:
+  cannot open URL 'https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.6/PACKAGES'
+Warning: unable to access index for repository https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.6:
+  cannot open URL 'https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.6/PACKAGES'
 installing the source package ‘reactome.db’
 
 
@@ -4000,7 +3934,7 @@ installing the source package ‘reactome.db’
 * Source code: https://github.com/cran/llama
 * URL: https://bitbucket.org/lkotthoff/llama
 * Date/Publication: 2018-07-11 14:30:03 UTC
-* Number of recursive dependencies: 61
+* Number of recursive dependencies: 60
 
 Run `revdep_details(,"llama")` for more info
 
@@ -4067,7 +4001,7 @@ ERROR: lazy loading failed for package ‘llama’
 * URL: https://CRAN.R-project.org/package=LLSR
 * BugReports: https://github.com/diegofcoelho/LLSR/issues
 * Date/Publication: 2019-03-05 22:20:11 UTC
-* Number of recursive dependencies: 67
+* Number of recursive dependencies: 66
 
 Run `revdep_details(,"LLSR")` for more info
 
@@ -4147,13 +4081,18 @@ Run `revdep_details(,"")` for more info
 
 ```
 
-  There is a binary version available but the source version is later:
-        binary source needs_compilation
-stringi  1.4.3  1.4.4              TRUE
+  There are binary versions available but the source versions are later:
+           binary  source needs_compilation
+checkmate   1.9.4   2.0.0              TRUE
+nlme      3.1-143 3.1-144              TRUE
 
   Binaries will be installed
 
 
+Warning: unable to access index for repository https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.6:
+  cannot open URL 'https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.6/PACKAGES'
+Warning: unable to access index for repository https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.6:
+  cannot open URL 'https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.6/PACKAGES'
 installing the source packages ‘hugene10sttranscriptcluster.db’, ‘reactome.db’
 
 
@@ -4163,13 +4102,18 @@ installing the source packages ‘hugene10sttranscriptcluster.db’, ‘reactome
 
 ```
 
-  There is a binary version available but the source version is later:
-        binary source needs_compilation
-stringi  1.4.3  1.4.4              TRUE
+  There are binary versions available but the source versions are later:
+           binary  source needs_compilation
+checkmate   1.9.4   2.0.0              TRUE
+nlme      3.1-143 3.1-144              TRUE
 
   Binaries will be installed
 
 
+Warning: unable to access index for repository https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.6:
+  cannot open URL 'https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.6/PACKAGES'
+Warning: unable to access index for repository https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.6:
+  cannot open URL 'https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.6/PACKAGES'
 installing the source packages ‘hugene10sttranscriptcluster.db’, ‘reactome.db’
 
 
@@ -4179,12 +4123,12 @@ installing the source packages ‘hugene10sttranscriptcluster.db’, ‘reactome
 
 <details>
 
-* Version: 1.0-1
+* Version: 1.0-2
 * Source code: https://github.com/cran/matchingMarkets
 * URL: http://matchingMarkets.org, http://klein.uk
 * BugReports: https://github.com/thiloklein/matchingMarkets/issues
-* Date/Publication: 2019-02-04 22:40:02 UTC
-* Number of recursive dependencies: 54
+* Date/Publication: 2020-01-12 10:00:02 UTC
+* Number of recursive dependencies: 52
 
 Run `revdep_details(,"matchingMarkets")` for more info
 
@@ -4246,20 +4190,6 @@ In file included from Options.cc:21:
         char*   end;
                    ^
                     = nullptr
-In file included from System.cc:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp.h:76:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/sugar/sugar.h:28:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/hash/hash.h:25:10: warning: non-portable path to file '<IntTypes.h>'; specified path differs in case from file name on disk [-Wnonportable-include-path]
-#include <inttypes.h>                   // needed with g++-4.7 to declare intptr_t
-         ^~~~~~~~~~~~
-         <IntTypes.h>
-In file included from Options.cc:24:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp.h:76:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/sugar/sugar.h:28:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/hash/hash.h:25:10: warning: non-portable path to file '<IntTypes.h>'; specified path differs in case from file name on disk [-Wnonportable-include-path]
-#include <inttypes.h>                   // needed with g++-4.7 to declare intptr_t
-         ^~~~~~~~~~~~
-         <IntTypes.h>
 In file included from kprmatcher.cc:41:
 In file included from ../inst/include/kprmatcher.h:36:
 In file included from ../inst/include/damatcher.h:36:
@@ -4281,16 +4211,30 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mat
 #   include <inttypes.h>
             ^~~~~~~~~~~~
             <IntTypes.h>
+In file included from Options.cc:24:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp.h:76:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/sugar/sugar.h:28:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/hash/hash.h:25:10: warning: non-portable path to file '<IntTypes.h>'; specified path differs in case from file name on disk [-Wnonportable-include-path]
+#include <inttypes.h>                   // needed with g++-4.7 to declare intptr_t
+         ^~~~~~~~~~~~
+         <IntTypes.h>
+In file included from System.cc:25:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp.h:76:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/sugar/sugar.h:28:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/hash/hash.h:25:10: warning: non-portable path to file '<IntTypes.h>'; specified path differs in case from file name on disk [-Wnonportable-include-path]
+#include <inttypes.h>                   // needed with g++-4.7 to declare intptr_t
+         ^~~~~~~~~~~~
+         <IntTypes.h>
 2 warnings generated.
 /usr/local/clang8/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/RcppProgress/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -fopenmp -fPIC  -Wall -g -O2  -c params.cc -o params.o
 5 warnings generated.
+/usr/local/clang8/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/RcppProgress/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -fopenmp -fPIC  -Wall -g -O2  -c problem.cc -o problem.o
 In file included from params.cc:32:
 In file included from ../inst/include/Options.h:28:
 ../inst/include/inttypes.h:34:13: warning: non-portable path to file '<IntTypes.h>'; specified path differs in case from file name on disk [-Wnonportable-include-path]
 #   include <inttypes.h>
             ^~~~~~~~~~~~
             <IntTypes.h>
-/usr/local/clang8/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/RcppProgress/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -fopenmp -fPIC  -Wall -g -O2  -c problem.cc -o problem.o
 In file included from params.cc:32:
 ../inst/include/Options.h:147:13: warning: variable 'end' is uninitialized when used here [-Wuninitialized]
         if (end == NULL) 
@@ -4617,14 +4561,14 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mat
 #   include <inttypes.h>
             ^~~~~~~~~~~~
             <IntTypes.h>
-In file included from Options.cc:24:
+In file included from System.cc:25:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp.h:76:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/sugar/sugar.h:28:
 /Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/hash/hash.h:25:10: warning: non-portable path to file '<IntTypes.h>'; specified path differs in case from file name on disk [-Wnonportable-include-path]
 #include <inttypes.h>                   // needed with g++-4.7 to declare intptr_t
          ^~~~~~~~~~~~
          <IntTypes.h>
-In file included from System.cc:25:
+In file included from Options.cc:24:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp.h:76:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/sugar/sugar.h:28:
 /Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/hash/hash.h:25:10: warning: non-portable path to file '<IntTypes.h>'; specified path differs in case from file name on disk [-Wnonportable-include-path]
@@ -4634,13 +4578,13 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mat
 2 warnings generated.
 /usr/local/clang8/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/RcppProgress/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -fopenmp -fPIC  -Wall -g -O2  -c params.cc -o params.o
 5 warnings generated.
-/usr/local/clang8/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/RcppProgress/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -fopenmp -fPIC  -Wall -g -O2  -c problem.cc -o problem.o
 In file included from params.cc:32:
 In file included from ../inst/include/Options.h:28:
 ../inst/include/inttypes.h:34:13: warning: non-portable path to file '<IntTypes.h>'; specified path differs in case from file name on disk [-Wnonportable-include-path]
 #   include <inttypes.h>
             ^~~~~~~~~~~~
             <IntTypes.h>
+/usr/local/clang8/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/RcppProgress/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -fopenmp -fPIC  -Wall -g -O2  -c problem.cc -o problem.o
 In file included from params.cc:32:
 ../inst/include/Options.h:147:13: warning: variable 'end' is uninitialized when used here [-Wuninitialized]
         if (end == NULL) 
@@ -4663,6 +4607,8 @@ In file included from params.cc:32:
         char*   end;
                    ^
                     = nullptr
+2 warnings generated.
+/usr/local/clang8/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/RcppProgress/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -fopenmp -fPIC  -Wall -g -O2  -c rcp.cc -o rcp.o
 In file included from RcppExports.cpp:4:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include/RcppArmadillo.h:34:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp.h:76:
@@ -4680,8 +4626,6 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mat
 #   include <inttypes.h>
             ^~~~~~~~~~~~
             <IntTypes.h>
-2 warnings generated.
-/usr/local/clang8/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/RcppProgress/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -fopenmp -fPIC  -Wall -g -O2  -c rcp.cc -o rcp.o
 In file included from params.cc:36:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp.h:76:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/sugar/sugar.h:28:
@@ -4729,6 +4673,8 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mat
             <IntTypes.h>
 2 warnings generated.
 /usr/local/clang8/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/RcppProgress/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -fopenmp -fPIC  -Wall -g -O2  -c runMatch.cpp -o runMatch.o
+2 warnings generated.
+/usr/local/clang8/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/RcppProgress/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -fopenmp -fPIC  -Wall -g -O2  -c stabit2Mat0.cpp -o stabit2Mat0.o
 In file included from rpmatcher.cc:46:
 In file included from ../inst/include/rpmatcher.h:36:
 In file included from ../inst/include/damatcher.h:36:
@@ -4750,8 +4696,6 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mat
 #   include <inttypes.h>
             ^~~~~~~~~~~~
             <IntTypes.h>
-2 warnings generated.
-/usr/local/clang8/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/RcppProgress/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -fopenmp -fPIC  -Wall -g -O2  -c stabit2Mat0.cpp -o stabit2Mat0.o
 In file included from runMatch.cpp:1:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp.h:76:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/sugar/sugar.h:28:
@@ -4907,7 +4851,7 @@ ERROR: lazy loading failed for package ‘matchingMarkets’
 * Version: 1.0.1
 * Source code: https://github.com/cran/mbgraphic
 * Date/Publication: 2019-04-28 19:20:03 UTC
-* Number of recursive dependencies: 93
+* Number of recursive dependencies: 91
 
 Run `revdep_details(,"mbgraphic")` for more info
 
@@ -4990,7 +4934,7 @@ ERROR: lazy loading failed for package ‘mbgraphic’
 * URL: https://www.math.uzh.ch/pages/mcmcabn/
 * BugReports: https://git.math.uzh.ch/gkratz/mcmcabn/issues
 * Date/Publication: 2019-07-01 19:00:03 UTC
-* Number of recursive dependencies: 104
+* Number of recursive dependencies: 103
 
 Run `revdep_details(,"mcmcabn")` for more info
 
@@ -5057,7 +5001,7 @@ ERROR: lazy loading failed for package ‘mcmcabn’
 * Version: 1.14.0
 * Source code: https://github.com/cran/MEAL
 * Date/Publication: 2019-05-02
-* Number of recursive dependencies: 212
+* Number of recursive dependencies: 208
 
 Run `revdep_details(,"MEAL")` for more info
 
@@ -5117,7 +5061,7 @@ ERROR: lazy loading failed for package ‘MEAL’
 * Version: 0.2-1
 * Source code: https://github.com/cran/MergeGUI
 * Date/Publication: 2014-01-27 22:44:16
-* Number of recursive dependencies: 44
+* Number of recursive dependencies: 42
 
 Run `revdep_details(,"MergeGUI")` for more info
 
@@ -5232,7 +5176,7 @@ ERROR: lazy loading failed for package ‘MergeGUI’
 * Version: 0.3
 * Source code: https://github.com/cran/metaMix
 * Date/Publication: 2019-02-11 16:20:03 UTC
-* Number of recursive dependencies: 49
+* Number of recursive dependencies: 47
 
 Run `revdep_details(,"metaMix")` for more info
 
@@ -5323,13 +5267,17 @@ Run `revdep_details(,"")` for more info
 ```
 
   There is a binary version available but the source version is later:
-        binary source needs_compilation
-stringi  1.4.3  1.4.4              TRUE
+      binary  source needs_compilation
+nlme 3.1-143 3.1-144              TRUE
 
   Binaries will be installed
   These will not be installed
 
 
+Warning: unable to access index for repository https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.6:
+  cannot open URL 'https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.6/PACKAGES'
+Warning: unable to access index for repository https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.6:
+  cannot open URL 'https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.6/PACKAGES'
 Packages which are only available in source form, and may need
   compilation of C/C++/Fortran: ‘FDb.InfiniumMethylation.hg19’
   ‘IlluminaHumanMethylation450kmanifest’
@@ -5343,13 +5291,17 @@ installing the source package ‘reactome.db’
 ```
 
   There is a binary version available but the source version is later:
-        binary source needs_compilation
-stringi  1.4.3  1.4.4              TRUE
+      binary  source needs_compilation
+nlme 3.1-143 3.1-144              TRUE
 
   Binaries will be installed
   These will not be installed
 
 
+Warning: unable to access index for repository https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.6:
+  cannot open URL 'https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.6/PACKAGES'
+Warning: unable to access index for repository https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.6:
+  cannot open URL 'https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.6/PACKAGES'
 Packages which are only available in source form, and may need
   compilation of C/C++/Fortran: ‘FDb.InfiniumMethylation.hg19’
   ‘IlluminaHumanMethylation450kmanifest’
@@ -5367,7 +5319,7 @@ installing the source package ‘reactome.db’
 * URL: https://github.com/ankargren/mfbvar
 * BugReports: https://github.com/ankargren/mfbvar/issues
 * Date/Publication: 2020-01-09 13:40:02 UTC
-* Number of recursive dependencies: 82
+* Number of recursive dependencies: 81
 
 Run `revdep_details(,"mfbvar")` for more info
 
@@ -5424,7 +5376,7 @@ ERROR: configuration failed for package ‘mfbvar’
 * Version: 0.2-5
 * Source code: https://github.com/cran/MissingDataGUI
 * Date/Publication: 2016-04-25 08:58:53
-* Number of recursive dependencies: 105
+* Number of recursive dependencies: 104
 
 Run `revdep_details(,"MissingDataGUI")` for more info
 
@@ -5538,12 +5490,12 @@ ERROR: lazy loading failed for package ‘MissingDataGUI’
 
 <details>
 
-* Version: 0.1.3
+* Version: 1.0.0
 * Source code: https://github.com/cran/mleap
 * URL: https://github.com/rstudio/mleap
 * BugReports: https://github.com/rstudio/mleap/issues
-* Date/Publication: 2018-11-01 09:40:03 UTC
-* Number of recursive dependencies: 81
+* Date/Publication: 2020-01-10 22:20:02 UTC
+* Number of recursive dependencies: 80
 
 Run `revdep_details(,"mleap")` for more info
 
@@ -5623,7 +5575,7 @@ ERROR: loading failed
 * Source code: https://github.com/cran/mlm4omics
 * URL: https://doi.org/10.1101/153049
 * Date/Publication: 2019-05-02
-* Number of recursive dependencies: 80
+* Number of recursive dependencies: 79
 
 Run `revdep_details(,"mlm4omics")` for more info
 
@@ -5652,34 +5604,482 @@ Wrote C++ file "stan_files/mmlm_code.cc"
 Wrote C++ file "stan_files/mlmc_code.cc"
 /usr/local/clang8/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I"../inst/include" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" --vanilla -e "cat(system.file('include', 'src', package = 'StanHeaders'))"`" -DBOOST_RESULT_OF_USE_TR1 -DBOOST_NO_DECLTYPE -DBOOST_DISABLE_ASSERTS -DEIGEN_NO_DEBUG -DBOOST_MATH_OVERFLOW_ERROR_POLICY=errno_on_error -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/BH/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/Rcpp/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c stan_files/mmlm_code.cc -o stan_files/mmlm_code.o
 /usr/local/clang8/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I"../inst/include" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" --vanilla -e "cat(system.file('include', 'src', package = 'StanHeaders'))"`" -DBOOST_RESULT_OF_USE_TR1 -DBOOST_NO_DECLTYPE -DBOOST_DISABLE_ASSERTS -DEIGEN_NO_DEBUG -DBOOST_MATH_OVERFLOW_ERROR_POLICY=errno_on_error -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/BH/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/Rcpp/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c stan_files/mlmc_code.cc -o stan_files/mlmc_code.o
-In file included from stan_files/mmlm_code.cc:3:
-In file included from stan_files/mmlm_code.hpp:18:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:535:
 In file included from stan_files/mlmc_code.cc:3:
 In file included from stan_files/mlmc_code.hpp:18:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:22:30: error: no template named 'conditional_t' in namespace 'std'; did you mean 'conditional'?
+using double_return_t = std::conditional_t<std::is_const<std::remove_reference_t<T>>::value,
+                        ~~~~~^~~~~~~~~~~~~
+                             conditional
+/usr/local/clang8/bin/../include/c++/v1/type_traits:429:33: note: 'conditional' declared here
+    struct _LIBCPP_TEMPLATE_VIS conditional {typedef _If type;};
+                                ^
+In file included from stan_files/mmlm_code.cc:3:
+In file included from stan_files/mmlm_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:22:30: error: no template named 'conditional_t' in namespace 'std'; did you mean 'conditional'?
+using double_return_t = std::conditional_t<std::is_const<std::remove_reference_t<T>>::value,
+                        ~~~~~^~~~~~~~~~~~~
+                             conditional
+/usr/local/clang8/bin/../include/c++/v1/type_traits:429:33: note: 'conditional' declared here
+    struct _LIBCPP_TEMPLATE_VIS conditional {typedef _If type;};
+                                ^
+In file included from stan_files/mlmc_code.cc:3:
+In file included from stan_files/mlmc_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:22:63: error: no template named 'remove_reference_t' in namespace 'std'; did you mean 'remove_reference'?
+using double_return_t = std::conditional_t<std::is_const<std::remove_reference_t<T>>::value,
+                                                         ~~~~~^~~~~~~~~~~~~~~~~~
+                                                              remove_reference
+/usr/local/clang8/bin/../include/c++/v1/type_traits:1112:50: note: 'remove_reference' declared here
+template <class _Tp> struct _LIBCPP_TEMPLATE_VIS remove_reference        {typedef _Tp type;};
+                                                 ^
+In file included from stan_files/mlmc_code.cc:3:
+In file included from stan_files/mlmc_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:26:31: error: no template named 'conditional_t' in namespace 'std'; did you mean 'conditional'?
+using reverse_return_t = std::conditional_t<std::is_const<std::remove_reference_t<T>>::value,
+                         ~~~~~^~~~~~~~~~~~~
+                              conditional
+/usr/local/clang8/bin/../include/c++/v1/type_traits:429:33: note: 'conditional' declared here
+    struct _LIBCPP_TEMPLATE_VIS conditional {typedef _If type;};
+                                ^
+In file included from stan_files/mmlm_code.cc:3:
+In file included from stan_files/mmlm_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:22:63: error: no template named 'remove_reference_t' in namespace 'std'; did you mean 'remove_reference'?
+using double_return_t = std::conditional_t<std::is_const<std::remove_reference_t<T>>::value,
+                                                         ~~~~~^~~~~~~~~~~~~~~~~~
+                                                              remove_reference
+/usr/local/clang8/bin/../include/c++/v1/type_traits:1112:50: note: 'remove_reference' declared here
+template <class _Tp> struct _LIBCPP_TEMPLATE_VIS remove_reference        {typedef _Tp type;};
+                                                 ^
+In file included from stan_files/mlmc_code.cc:3:
+In file included from stan_files/mlmc_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:26:64: error: no template named 'remove_reference_t' in namespace 'std'; did you mean 'remove_reference'?
+using reverse_return_t = std::conditional_t<std::is_const<std::remove_reference_t<T>>::value,
+                                                          ~~~~~^~~~~~~~~~~~~~~~~~
+                                                               remove_reference
+/usr/local/clang8/bin/../include/c++/v1/type_traits:1112:50: note: 'remove_reference' declared here
+template <class _Tp> struct _LIBCPP_TEMPLATE_VIS remove_reference        {typedef _Tp type;};
+                                                 ^
+In file included from stan_files/mmlm_code.cc:3:
+In file included from stan_files/mmlm_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:26:31: error: no template named 'conditional_t' in namespace 'std'; did you mean 'conditional'?
+using reverse_return_t = std::conditional_t<std::is_const<std::remove_reference_t<T>>::value,
+                         ~~~~~^~~~~~~~~~~~~
+                              conditional
+/usr/local/clang8/bin/../include/c++/v1/type_traits:429:33: note: 'conditional' declared here
+    struct _LIBCPP_TEMPLATE_VIS conditional {typedef _If type;};
+                                ^
+In file included from stan_files/mlmc_code.cc:3:
+In file included from stan_files/mlmc_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:31:28: error: no template named 'conditional_t' in namespace 'std'; did you mean 'conditional'?
+using vari_return_t = std::conditional_t<std::is_const<std::remove_reference_t<T>>::value,
+                      ~~~~~^~~~~~~~~~~~~
+                           conditional
+/usr/local/clang8/bin/../include/c++/v1/type_traits:429:33: note: 'conditional' declared here
+    struct _LIBCPP_TEMPLATE_VIS conditional {typedef _If type;};
+                                ^
+In file included from stan_files/mmlm_code.cc:3:
+In file included from stan_files/mmlm_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:26:64: error: no template named 'remove_reference_t' in namespace 'std'; did you mean 'remove_reference'?
+using reverse_return_t = std::conditional_t<std::is_const<std::remove_reference_t<T>>::value,
+                                                          ~~~~~^~~~~~~~~~~~~~~~~~
+                                                               remove_reference
+/usr/local/clang8/bin/../include/c++/v1/type_traits:1112:50: note: 'remove_reference' declared here
+template <class _Tp> struct _LIBCPP_TEMPLATE_VIS remove_reference        {typedef _Tp type;};
+                                                 ^
+In file included from stan_files/mlmc_code.cc:3:
+In file included from stan_files/mlmc_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:31:61: error: no template named 'remove_reference_t' in namespace 'std'; did you mean 'remove_reference'?
+using vari_return_t = std::conditional_t<std::is_const<std::remove_reference_t<T>>::value,
+                                                       ~~~~~^~~~~~~~~~~~~~~~~~
+                                                            remove_reference
+/usr/local/clang8/bin/../include/c++/v1/type_traits:1112:50: note: 'remove_reference' declared here
+template <class _Tp> struct _LIBCPP_TEMPLATE_VIS remove_reference        {typedef _Tp type;};
+                                                 ^
+In file included from stan_files/mmlm_code.cc:3:
+In file included from stan_files/mmlm_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:31:28: error: no template named 'conditional_t' in namespace 'std'; did you mean 'conditional'?
+using vari_return_t = std::conditional_t<std::is_const<std::remove_reference_t<T>>::value,
+                      ~~~~~^~~~~~~~~~~~~
+                           conditional
+/usr/local/clang8/bin/../include/c++/v1/type_traits:429:33: note: 'conditional' declared here
+    struct _LIBCPP_TEMPLATE_VIS conditional {typedef _If type;};
+                                ^
+In file included from stan_files/mlmc_code.cc:3:
+In file included from stan_files/mlmc_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:36:31: error: no template named 'conditional_t' in namespace 'std'; did you mean 'conditional'?
+using forward_return_t = std::conditional_t<std::is_const<std::remove_reference_t<T>>::value,
+                         ~~~~~^~~~~~~~~~~~~
+                              conditional
+/usr/local/clang8/bin/../include/c++/v1/type_traits:429:33: note: 'conditional' declared here
+    struct _LIBCPP_TEMPLATE_VIS conditional {typedef _If type;};
+                                ^
+In file included from stan_files/mmlm_code.cc:3:
+In file included from stan_files/mmlm_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:31:61: error: no template named 'remove_reference_t' in namespace 'std'; did you mean 'remove_reference'?
+using vari_return_t = std::conditional_t<std::is_const<std::remove_reference_t<T>>::value,
+                                                       ~~~~~^~~~~~~~~~~~~~~~~~
+                                                            remove_reference
+/usr/local/clang8/bin/../include/c++/v1/type_traits:1112:50: note: 'remove_reference' declared here
+template <class _Tp> struct _LIBCPP_TEMPLATE_VIS remove_reference        {typedef _Tp type;};
+                                                 ^
+In file included from stan_files/mlmc_code.cc:3:
+In file included from stan_files/mlmc_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:36:64: error: no template named 'remove_reference_t' in namespace 'std'; did you mean 'remove_reference'?
+using forward_return_t = std::conditional_t<std::is_const<std::remove_reference_t<T>>::value,
+                                                          ~~~~~^~~~~~~~~~~~~~~~~~
+                                                               remove_reference
+/usr/local/clang8/bin/../include/c++/v1/type_traits:1112:50: note: 'remove_reference' declared here
+template <class _Tp> struct _LIBCPP_TEMPLATE_VIS remove_reference        {typedef _Tp type;};
+                                                 ^
+In file included from stan_files/mmlm_code.cc:3:
+In file included from stan_files/mmlm_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:36:31: error: no template named 'conditional_t' in namespace 'std'; did you mean 'conditional'?
+using forward_return_t = std::conditional_t<std::is_const<std::remove_reference_t<T>>::value,
+                         ~~~~~^~~~~~~~~~~~~
+                              conditional
+/usr/local/clang8/bin/../include/c++/v1/type_traits:429:33: note: 'conditional' declared here
+    struct _LIBCPP_TEMPLATE_VIS conditional {typedef _If type;};
+                                ^
+In file included from stan_files/mlmc_code.cc:3:
+In file included from stan_files/mlmc_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:60:10: error: no template named 'enable_if_t' in namespace 'std'; did you mean 'enable_if'?
+    std::enable_if_t<std::is_pointer<T>::value, reverse_return_t<T>>
+    ~~~~~^~~~~~~~~~~
+         enable_if
+/usr/local/clang8/bin/../include/c++/v1/type_traits:440:63: note: 'enable_if' declared here
+template <bool, class _Tp = void> struct _LIBCPP_TEMPLATE_VIS enable_if {};
+                                                              ^
+In file included from stan_files/mmlm_code.cc:3:
+In file included from stan_files/mmlm_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:36:64: error: no template named 'remove_reference_t' in namespace 'std'; did you mean 'remove_reference'?
+using forward_return_t = std::conditional_t<std::is_const<std::remove_reference_t<T>>::value,
+                                                          ~~~~~^~~~~~~~~~~~~~~~~~
+                                                               remove_reference
+/usr/local/clang8/bin/../include/c++/v1/type_traits:1112:50: note: 'remove_reference' declared here
+template <class _Tp> struct _LIBCPP_TEMPLATE_VIS remove_reference        {typedef _Tp type;};
+                                                 ^
+In file included from stan_files/mlmc_code.cc:3:
+In file included from stan_files/mlmc_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:66:10: error: no template named 'enable_if_t' in namespace 'std'; did you mean 'enable_if'?
+    std::enable_if_t<(!std::is_pointer<T>::value && !is_fvar<T>::value
+    ~~~~~^~~~~~~~~~~
+         enable_if
+/usr/local/clang8/bin/../include/c++/v1/type_traits:440:63: note: 'enable_if' declared here
+template <bool, class _Tp = void> struct _LIBCPP_TEMPLATE_VIS enable_if {};
+                                                              ^
+In file included from stan_files/mmlm_code.cc:3:
+In file included from stan_files/mmlm_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:60:10: error: no template named 'enable_if_t' in namespace 'std'; did you mean 'enable_if'?
+    std::enable_if_t<std::is_pointer<T>::value, reverse_return_t<T>>
+    ~~~~~^~~~~~~~~~~
+         enable_if
+/usr/local/clang8/bin/../include/c++/v1/type_traits:440:63: note: 'enable_if' declared here
+template <bool, class _Tp = void> struct _LIBCPP_TEMPLATE_VIS enable_if {};
+                                                              ^
+In file included from stan_files/mlmc_code.cc:3:
+In file included from stan_files/mlmc_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:73:10: error: no template named 'enable_if_t' in namespace 'std'; did you mean 'enable_if'?
+    std::enable_if_t<is_fvar<T>::value, forward_return_t<T>>
+    ~~~~~^~~~~~~~~~~
+         enable_if
+/usr/local/clang8/bin/../include/c++/v1/type_traits:440:63: note: 'enable_if' declared here
+template <bool, class _Tp = void> struct _LIBCPP_TEMPLATE_VIS enable_if {};
+                                                              ^
+In file included from stan_files/mmlm_code.cc:3:
+In file included from stan_files/mmlm_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:66:10: error: no template named 'enable_if_t' in namespace 'std'; did you mean 'enable_if'?
+    std::enable_if_t<(!std::is_pointer<T>::value && !is_fvar<T>::value
+    ~~~~~^~~~~~~~~~~
+         enable_if
+/usr/local/clang8/bin/../include/c++/v1/type_traits:440:63: note: 'enable_if' declared here
+template <bool, class _Tp = void> struct _LIBCPP_TEMPLATE_VIS enable_if {};
+                                                              ^
+In file included from stan_files/mlmc_code.cc:3:
+In file included from stan_files/mlmc_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:79:10: error: no template named 'enable_if_t' in namespace 'std'; did you mean 'enable_if'?
+    std::enable_if_t<std::is_arithmetic<T>::value, double_return_t<T>>
+    ~~~~~^~~~~~~~~~~
+         enable_if
+/usr/local/clang8/bin/../include/c++/v1/type_traits:440:63: note: 'enable_if' declared here
+template <bool, class _Tp = void> struct _LIBCPP_TEMPLATE_VIS enable_if {};
+                                                              ^
+In file included from stan_files/mmlm_code.cc:3:
+In file included from stan_files/mmlm_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:73:10: error: no template named 'enable_if_t' in namespace 'std'; did you mean 'enable_if'?
+    std::enable_if_t<is_fvar<T>::value, forward_return_t<T>>
+    ~~~~~^~~~~~~~~~~
+         enable_if
+/usr/local/clang8/bin/../include/c++/v1/type_traits:440:63: note: 'enable_if' declared here
+template <bool, class _Tp = void> struct _LIBCPP_TEMPLATE_VIS enable_if {};
+                                                              ^
+In file included from stan_files/mmlm_code.cc:3:
+In file included from stan_files/mmlm_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:79:10: error: no template named 'enable_if_t' in namespace 'std'; did you mean 'enable_if'?
+    std::enable_if_t<std::is_arithmetic<T>::value, double_return_t<T>>
+    ~~~~~^~~~~~~~~~~
+         enable_if
+/usr/local/clang8/bin/../include/c++/v1/type_traits:440:63: note: 'enable_if' declared here
+template <bool, class _Tp = void> struct _LIBCPP_TEMPLATE_VIS enable_if {};
+                                                              ^
+In file included from stan_files/mlmc_code.cc:3:
+In file included from stan_files/mlmc_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:148:10: error: no template named 'enable_if_t' in namespace 'std'; did you mean 'enable_if'?
+    std::enable_if_t<std::is_pointer<T>::value, reverse_return_t<T>>
+    ~~~~~^~~~~~~~~~~
+         enable_if
+/usr/local/clang8/bin/../include/c++/v1/type_traits:440:63: note: 'enable_if' declared here
+template <bool, class _Tp = void> struct _LIBCPP_TEMPLATE_VIS enable_if {};
+                                                              ^
+In file included from stan_files/mlmc_code.cc:3:
+In file included from stan_files/mlmc_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:154:10: error: no template named 'enable_if_t' in namespace 'std'; did you mean 'enable_if'?
+    std::enable_if_t<!std::is_pointer<T>::value, reverse_return_t<T>>
+    ~~~~~^~~~~~~~~~~
+         enable_if
+/usr/local/clang8/bin/../include/c++/v1/type_traits:440:63: note: 'enable_if' declared here
+template <bool, class _Tp = void> struct _LIBCPP_TEMPLATE_VIS enable_if {};
+                                                              ^
+In file included from stan_files/mmlm_code.cc:3:
+In file included from stan_files/mmlm_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:148:10: error: no template named 'enable_if_t' in namespace 'std'; did you mean 'enable_if'?
+    std::enable_if_t<std::is_pointer<T>::value, reverse_return_t<T>>
+    ~~~~~^~~~~~~~~~~
+         enable_if
+/usr/local/clang8/bin/../include/c++/v1/type_traits:440:63: note: 'enable_if' declared here
+template <bool, class _Tp = void> struct _LIBCPP_TEMPLATE_VIS enable_if {};
+                                                              ^
+In file included from stan_files/mmlm_code.cc:3:
+In file included from stan_files/mmlm_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:154:10: error: no template named 'enable_if_t' in namespace 'std'; did you mean 'enable_if'?
+    std::enable_if_t<!std::is_pointer<T>::value, reverse_return_t<T>>
+    ~~~~~^~~~~~~~~~~
+         enable_if
+/usr/local/clang8/bin/../include/c++/v1/type_traits:440:63: note: 'enable_if' declared here
+template <bool, class _Tp = void> struct _LIBCPP_TEMPLATE_VIS enable_if {};
+                                                              ^
+In file included from stan_files/mlmc_code.cc:3:
+In file included from stan_files/mlmc_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:535:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10    #pragma clang diagnostic pop:30: warning: 
-                             ^
-pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
     #pragma clang diagnostic pop
                              ^
 In file included from stan_files/mmlm_code.cc:3:
 In file included from stan_files/mmlm_code.hpp:18:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:535:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from stan_files/mlmc_code.cc:3:
+In file included from stan_files/mlmc_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:2:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/LU:47:
 /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
@@ -5688,20 +6088,43 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm
 In file included from stan_files/mlmc_code.cc:3:
 In file included from stan_files/mlmc_code.hpp:18:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:2:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/LU:47:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Cholesky:12:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Jacobi:29:
 /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
     #pragma clang diagnostic pop
                              ^
 In file included from stan_files/mmlm_code.cc:3:
 In file included from stan_files/mmlm_code.hpp:18:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:2:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/LU:47:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from stan_files/mlmc_code.cc:3:
+In file included from stan_files/mlmc_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Cholesky:43:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from stan_files/mmlm_code.cc:3:
+In file included from stan_files/mmlm_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:3:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Cholesky:12:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Jacobi:29:
@@ -5711,55 +6134,9 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm
 In file included from stan_files/mlmc_code.cc:3:
 In file included from stan_files/mlmc_code.hpp:18:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Cholesky:12:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Jacobi:29:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from stan_files/mmlm_code.cc:3:
-In file included from stan_files/mmlm_code.hpp:18:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Cholesky:43:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from stan_files/mlmc_code.cc:3:
-In file included from stan_files/mlmc_code.hpp:18:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Cholesky:43:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from stan_files/mmlm_code.cc:3:
-In file included from stan_files/mmlm_code.hpp:18:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:4:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/QR:17:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Householder:27:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from stan_files/mlmc_code.cc:3:
-In file included from stan_files/mlmc_code.hpp:18:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:4:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/QR:17:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Householder:27:
@@ -5769,9 +6146,43 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm
 In file included from stan_files/mmlm_code.cc:3:
 In file included from stan_files/mmlm_code.hpp:18:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Cholesky:43:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from stan_files/mmlm_code.cc:3:
+In file included from stan_files/mmlm_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/QR:17:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Householder:27:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from stan_files/mlmc_code.cc:3:
+In file included from stan_files/mlmc_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:5:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/SVD:48:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from stan_files/mmlm_code.cc:3:
+In file included from stan_files/mmlm_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:5:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/SVD:48:
 /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
@@ -5780,31 +6191,9 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm
 In file included from stan_files/mlmc_code.cc:3:
 In file included from stan_files/mlmc_code.hpp:18:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:5:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/SVD:48:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from stan_files/mmlm_code.cc:3:
-In file included from stan_files/mmlm_code.hpp:18:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:6:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Geometry:58:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from stan_files/mlmc_code.cc:3:
-In file included from stan_files/mlmc_code.hpp:18:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:6:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Geometry:58:
 /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
@@ -5813,9 +6202,31 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm
 In file included from stan_files/mmlm_code.cc:3:
 In file included from stan_files/mmlm_code.hpp:18:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:6:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Geometry:58:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from stan_files/mlmc_code.cc:3:
+In file included from stan_files/mlmc_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:7:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Eigenvalues:58:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from stan_files/mmlm_code.cc:3:
+In file included from stan_files/mmlm_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:7:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Eigenvalues:58:
 /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
@@ -5824,20 +6235,9 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm
 In file included from stan_files/mlmc_code.cc:3:
 In file included from stan_files/mlmc_code.hpp:18:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:7:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Eigenvalues:58:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from stan_files/mmlm_code.cc:3:
-In file included from stan_files/mmlm_code.hpp:18:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:14:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Sparse:26:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/SparseCore:66:
 /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
@@ -5846,53 +6246,31 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm
 In file included from stan_files/mlmc_code.cc:3:
 In file included from stan_files/mlmc_code.hpp:18:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:14:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Sparse:27:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/OrderingMethods:71:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from stan_files/mmlm_code.cc:3:
+In file included from stan_files/mmlm_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:14:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Sparse:26:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/SparseCore:66:
 /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
     #pragma clang diagnostic pop
                              ^
-In file included from stan_files/mmlm_code.cc:3:
-In file included from stan_files/mmlm_code.hpp:18:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:31:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Sparse:27:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/OrderingMethods:71:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from stan_files/mmlm_code.cc:3:
-In file included from stan_files/mmlm_code.hpp:18:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:31:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Sparse:29:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/SparseCholesky:43:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
 In file included from stan_files/mlmc_code.cc:3:
 In file included from stan_files/mlmc_code.hpp:18:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:31:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Sparse:27:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/OrderingMethods:71:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from stan_files/mlmc_code.cc:3:
-In file included from stan_files/mlmc_code.hpp:18:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:14:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Sparse:29:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/SparseCholesky:43:
 /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
@@ -5901,20 +6279,31 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm
 In file included from stan_files/mmlm_code.cc:3:
 In file included from stan_files/mmlm_code.hpp:18:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:31:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Sparse:32:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/SparseQR:35:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:14:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Sparse:27:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/OrderingMethods:71:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from stan_files/mmlm_code.cc:3:
+In file included from stan_files/mmlm_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:14:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Sparse:29:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/SparseCholesky:43:
 /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
     #pragma clang diagnostic pop
                              ^
 In file included from stan_files/mlmc_code.cc:3:
 In file included from stan_files/mlmc_code.hpp:18:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:14:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Sparse:32:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/SparseQR:35:
 /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
@@ -5923,9 +6312,31 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm
 In file included from stan_files/mmlm_code.cc:3:
 In file included from stan_files/mmlm_code.hpp:18:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:14:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Sparse:32:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/SparseQR:35:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from stan_files/mlmc_code.cc:3:
+In file included from stan_files/mlmc_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:14:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Sparse:33:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/IterativeLinearSolvers:46:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from stan_files/mmlm_code.cc:3:
+In file included from stan_files/mmlm_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:14:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Sparse:33:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/IterativeLinearSolvers:46:
 /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
@@ -5938,17 +6349,6 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:32:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/CholmodSupport:45:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from stan_files/mlmc_code.cc:3:
-In file included from stan_files/mlmc_code.hpp:18:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:31:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Sparse:33:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/IterativeLinearSolvers:46:
 /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
     #pragma clang diagnostic pop
                              ^
@@ -6022,44 +6422,6 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm
 /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
     #pragma clang diagnostic pop
                              ^
-In file included from stan_files/mlmc_code.cc:3:
-In file included from stan_files/mlmc_code.hpp:18:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:35:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:41:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/ordered_constrain.hpp:6:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:31:27: error: no template named 'index_sequence' in namespace 'std'; did you mean 'boost::fusion::detail::index_sequence'?
-                          std::index_sequence<I...> i) {
-                          ^~~~~~~~~~~~~~~~~~~
-                          boost::fusion::detail::index_sequence
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/BH/include/boost/fusion/support/detail/index_sequence.hpp:37:12: note: 'boost::fusion::detail::index_sequence' declared here
-    struct index_sequence
-           ^
-In file included from stan_files/mlmc_code.cc:3:
-In file included from stan_files/mlmc_code.hpp:18:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:35:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:41:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/ordered_constrain.hpp:6:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:30:11: error: 'auto' return without trailing return type; deduced return types are a C++14 extension
-constexpr auto apply_impl(const F& f, const Tuple& t,
-          ^
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:48:11: error: 'auto' return without trailing return type; deduced return types are a C++14 extension
-constexpr auto apply(const F& f, const Tuple& t) {
-          ^
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:49:27: error: no template named 'make_index_sequence' in namespace 'std'; did you mean 'boost::fusion::detail::make_index_sequence'?
-  return apply_impl(f, t, std::make_index_sequence<std::tuple_size<Tuple>{}>{});
-                          ^~~~~~~~~~~~~~~~~~~~~~~~
-                          boost::fusion::detail::make_index_sequence
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/BH/include/boost/fusion/support/detail/index_sequence.hpp:59:12: note: 'boost::fusion::detail::make_index_sequence' declared here
-    struct make_index_sequence
-           ^
 In file included from stan_files/mmlm_code.cc:3:
 In file included from stan_files/mmlm_code.hpp:18:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
@@ -6067,30 +6429,20 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:41:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/ordered_constrain.hpp:6:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:31:27: error: no template named 'index_sequence' in namespace 'std'; did you mean 'boost::fusion::detail::index_sequence'?
-                          std::index_sequence<I...> i) {
-                          ^~~~~~~~~~~~~~~~~~~
-                          boost::fusion::detail::index_sequence
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/BH/include/boost/fusion/support/detail/index_sequence.hpp:37:12: note: 'boost::fusion::detail::index_sequence' declared here
-    struct index_sequence
-           ^
-In file included from stan_files/mmlm_code.cc:3:
-In file included from stan_files/mmlm_code.hpp:18:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:35:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:41:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/ordered_constrain.hpp:6:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:30:11: error: 'auto' return without trailing return type; deduced return types are a C++14 extension
-constexpr auto apply_impl(const F& f, const Tuple& t,
-          ^
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:48:11: error: 'auto' return without trailing return type; deduced return types are a C++14 extension
-constexpr auto apply(const F& f, const Tuple& t) {
-          ^
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:6:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/core.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/core/autodiffstackstorage.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/memory/stack_alloc.hpp:7:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/meta.hpp:5:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/arr/meta/index_type.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/arr/meta/is_vector.hpp:4:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/scal/meta/is_vector.hpp:23:26: error: no template named 'decay_t' in namespace 'std'; did you mean 'decay'?
+    : bool_constant<std::decay_t<T>::RowsAtCompileTime == 1> {};
+                    ~~~~~^~~~~~~
+                         decay
+/usr/local/clang8/bin/../include/c++/v1/type_traits:1363:29: note: 'decay' declared here
+struct _LIBCPP_TEMPLATE_VIS decay
+                            ^
 In file included from stan_files/mlmc_code.cc:3:
 In file included from stan_files/mlmc_code.hpp:18:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
@@ -6098,15 +6450,41 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:41:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/ordered_constrain.hpp:6:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:151:14: error: no template named 'result_of_t' in namespace 'std'; did you mean 'result_of'?
-      = std::result_of_t<F(decltype(is_var_), decltype(value_of(Targs()))...)>;
-        ~~~~~^~~~~~~~~~~
-             result_of
-/usr/local/clang8/bin/../include/c++/v1/type_traits:2877:34: note: 'result_of' declared here
-template <class _Callable> class result_of;
-                                 ^
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:6:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/core.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/core/autodiffstackstorage.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/memory/stack_alloc.hpp:7:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/meta.hpp:5:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/arr/meta/index_type.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/arr/meta/is_vector.hpp:4:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/scal/meta/is_vector.hpp:23:26: error: no template named 'decay_t' in namespace 'std'; did you mean 'decay'?
+    : bool_constant<std::decay_t<T>::RowsAtCompileTime == 1> {};
+                    ~~~~~^~~~~~~
+                         decay
+/usr/local/clang8/bin/../include/c++/v1/type_traits:1363:29: note: 'decay' declared here
+struct _LIBCPP_TEMPLATE_VIS decay
+                            ^
+In file included from stan_files/mmlm_code.cc:3:
+In file included from stan_files/mmlm_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:35:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:6:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/core.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/core/autodiffstackstorage.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/memory/stack_alloc.hpp:7:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/meta.hpp:5:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/arr/meta/index_type.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/arr/meta/is_vector.hpp:4:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/scal/meta/is_vector.hpp:36:41: error: no template named 'decay_t' in namespace 'std'; did you mean 'decay'?
+    : std::integral_constant<bool, std::decay_t<T>::ColsAtCompileTime == 1> {};
+                                   ~~~~~^~~~~~~
+                                        decay
+/usr/local/clang8/bin/../include/c++/v1/type_traits:1363:29: note: 'decay' declared here
+struct _LIBCPP_TEMPLATE_VIS decay
+                            ^
 In file included from stan_files/mlmc_code.cc:3:
 In file included from stan_files/mlmc_code.hpp:18:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
@@ -6114,20 +6492,40 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:41:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/ordered_constrain.hpp:6:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:408:3: error: 'auto' return without trailing return type; deduced return types are a C++14 extension
-  auto operator()(const Targs&... args) {
-  ^
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:536:16: error: 'auto' not allowed in lambda parameter
-        [this](auto&&... args) { this->accumulate_adjoints(args...); },
-               ^~~~
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:536:22: error: type 'int &&' of function parameter pack does not contain any unexpanded parameter packs
-        [this](auto&&... args) { this->accumulate_adjoints(args...); },
-               ~~~~~~^~~~~~~~
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:616:1: error: 'auto' return without trailing return type; deduced return types are a C++14 extension
-auto adj_jac_apply(const Targs&... args) {
-^
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:6:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/core.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/core/autodiffstackstorage.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/memory/stack_alloc.hpp:7:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/meta.hpp:5:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/arr/meta/index_type.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/arr/meta/is_vector.hpp:4:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/scal/meta/is_vector.hpp:36:41: error: no template named 'decay_t' in namespace 'std'; did you mean 'decay'?
+    : std::integral_constant<bool, std::decay_t<T>::ColsAtCompileTime == 1> {};
+                                   ~~~~~^~~~~~~
+                                        decay
+/usr/local/clang8/bin/../include/c++/v1/type_traits:1363:29: note: 'decay' declared here
+struct _LIBCPP_TEMPLATE_VIS decay
+                            ^
+In file included from stan_files/mmlm_code.cc:3:
+In file included from stan_files/mmlm_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:35:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:6:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/core.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/core/autodiffstackstorage.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/memory/stack_alloc.hpp:7:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/meta.hpp:5:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/arr/meta/index_type.hpp:4:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/arr/meta/is_vector.hpp:32:13: error: no template named 'enable_if_t' in namespace 'std'; did you mean 'enable_if'?
+    T, std::enable_if_t<internal::is_std_vector_impl<std::decay_t<T>>::value>>
+       ~~~~~^~~~~~~~~~~
+            enable_if
+/usr/local/clang8/bin/../include/c++/v1/type_traits:440:63: note: 'enable_if' declared here
+template <bool, class _Tp = void> struct _LIBCPP_TEMPLATE_VIS enable_if {};
+                                                              ^
 In file included from stan_files/mlmc_code.cc:3:
 In file included from stan_files/mlmc_code.hpp:18:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
@@ -6135,16 +6533,39 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:41:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/ordered_constrain.hpp:60:3: error: 'auto' return without trailing return type; deduced return types are a C++14 extension
-  auto multiply_adjoint_jacobian(const std::array<bool, size>& needs_adj,
-  ^
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/ordered_constrain.hpp:73:12: error: no viable conversion from returned value of type 'tuple<typename __unwrap_ref_decay<Matrix<double, -1, 1, 0, -1, 1> &>::type>' (aka 'tuple<Eigen::Matrix<double, -1, 1, 0, -1, 1> >') to function return type 'int'
-    return std::make_tuple(adj_times_jac);
-           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/ordered_constrain.hpp:88:10: error: no matching function for call to 'adj_jac_apply'
-  return adj_jac_apply<internal::ordered_constrain_op>(x);
-         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:6:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/core.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/core/autodiffstackstorage.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/memory/stack_alloc.hpp:7:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/meta.hpp:5:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/arr/meta/index_type.hpp:4:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/arr/meta/is_vector.hpp:32:13: error: no template named 'enable_if_t' in namespace 'std'; did you mean 'enable_if'?
+    T, std::enable_if_t<internal::is_std_vector_impl<std::decay_t<T>>::value>>
+       ~~~~~^~~~~~~~~~~
+            enable_if
+/usr/local/clang8/bin/../include/c++/v1/type_traits:440:63: note: 'enable_if' declared here
+template <bool, class _Tp = void> struct _LIBCPP_TEMPLATE_VIS enable_if {};
+                                                              ^
+In file included from stan_files/mmlm_code.cc:3:
+In file included from stan_files/mmlm_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:35:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:6:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/core.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/core/autodiffstackstorage.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/memory/stack_alloc.hpp:7:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/meta.hpp:5:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/arr/meta/index_type.hpp:4:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/arr/meta/is_vector.hpp:32:59: error: no template named 'decay_t' in namespace 'std'; did you mean 'decay'?
+    T, std::enable_if_t<internal::is_std_vector_impl<std::decay_t<T>>::value>>
+                                                     ~~~~~^~~~~~~
+                                                          decay
+/usr/local/clang8/bin/../include/c++/v1/type_traits:1363:29: note: 'decay' declared here
+struct _LIBCPP_TEMPLATE_VIS decay
+                            ^
 In file included from stan_files/mlmc_code.cc:3:
 In file included from stan_files/mlmc_code.hpp:18:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
@@ -6152,23 +6573,39 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:42:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/positive_ordered_constrain.hpp:61:3: error: 'auto' return without trailing return type; deduced return types are a C++14 extension
-  auto multiply_adjoint_jacobian(const std::array<bool, size>& needs_adj,
-  ^
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/positive_ordered_constrain.hpp:71:12: error: no viable conversion from returned value of type 'tuple<typename __unwrap_ref_decay<Matrix<double, -1, 1, 0, -1, 1> &>::type>' (aka 'tuple<Eigen::Matrix<double, -1, 1, 0, -1, 1> >') to function return type 'int'
-    return std::make_tuple(adj_times_jac);
-           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/positive_ordered_constrain.hpp:86:10: error: no matching function for call to 'adj_jac_apply'
-  return adj_jac_apply<internal::positive_ordered_constrain_op>(x);
-         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:49:27: error: no template named 'make_index_sequence' in namespace 'std'; did you mean 'boost::fusion::detail::make_index_sequence'?
-  return apply_impl(f, t, std::make_index_sequence<std::tuple_size<Tuple>{}>{});
-                          ^~~~~~~~~~~~~~~~~~~~~~~~
-                          boost::fusion::detail::make_index_sequence
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/BH/include/boost/fusion/support/detail/index_sequence.hpp:59:12: note: 'boost::fusion::detail::make_index_sequence' declared here
-    struct make_index_sequence
-           ^
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:6:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/core.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/core/autodiffstackstorage.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/memory/stack_alloc.hpp:7:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/meta.hpp:5:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/arr/meta/index_type.hpp:4:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/arr/meta/is_vector.hpp:32:59: error: no template named 'decay_t' in namespace 'std'; did you mean 'decay'?
+    T, std::enable_if_t<internal::is_std_vector_impl<std::decay_t<T>>::value>>
+                                                     ~~~~~^~~~~~~
+                                                          decay
+/usr/local/clang8/bin/../include/c++/v1/type_traits:1363:29: note: 'decay' declared here
+struct _LIBCPP_TEMPLATE_VIS decay
+                            ^
+In file included from stan_files/mmlm_code.cc:3:
+In file included from stan_files/mmlm_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:35:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:6:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/core.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/core/autodiffstackstorage.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/memory/stack_alloc.hpp:7:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/meta.hpp:5:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/arr/meta/index_type.hpp:5:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/scal/meta/index_type.hpp:28:27: error: no template named 'enable_if_t' in namespace 'std'; did you mean 'enable_if'?
+struct index_type<T, std::enable_if_t<std::is_pointer<T>::value>> {
+                     ~~~~~^~~~~~~~~~~
+                          enable_if
+/usr/local/clang8/bin/../include/c++/v1/type_traits:440:63: note: 'enable_if' declared here
+template <bool, class _Tp = void> struct _LIBCPP_TEMPLATE_VIS enable_if {};
+                                                              ^
 In file included from stan_files/mlmc_code.cc:3:
 In file included from stan_files/mlmc_code.hpp:18:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
@@ -6176,130 +6613,25 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:48:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/simplex_constrain.hpp:66:3: error: 'auto' return without trailing return type; deduced return types are a C++14 extension
-  auto multiply_adjoint_jacobian(const std::array<bool, size>& needs_adj,
-  ^
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/simplex_constrain.hpp:79:12: error: no viable conversion from returned value of type 'tuple<typename __unwrap_ref_decay<Matrix<double, -1, 1, 0, -1, 1> &>::type>' (aka 'tuple<Eigen::Matrix<double, -1, 1, 0, -1, 1> >') to function return type 'int'
-    return std::make_tuple(adj_times_jac);
-           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/simplex_constrain.hpp:97:10: error: no matching function for call to 'adj_jac_apply'
-  return adj_jac_apply<internal::simplex_constrain_op>(y);
-         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-In file included from stan_files/mlmc_code.cc:3:
-In file included from stan_files/mlmc_code.hpp:18:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:35:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:49:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/softmax.hpp:78:10: error: no matching function for call to 'adj_jac_apply'
-  return adj_jac_apply<internal::softmax_op>(alpha);
-         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-In file included from stan_files/mmlm_code.cc:3:
-In file included from stan_files/mmlm_code.hpp:18:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:35:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:41:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/ordered_constrain.hpp:6:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:151:14: error: no template named 'result_of_t' in namespace 'std'; did you mean 'result_of'?
-      = std::result_of_t<F(decltype(is_var_), decltype(value_of(Targs()))...)>;
-        ~~~~~^~~~~~~~~~~
-             result_of
-/usr/local/clang8/bin/../include/c++/v1/type_traits:2877:34: note: 'result_of' declared here
-template <class _Callable> class result_of;
-                                 ^
-In file included from stan_files/mmlm_code.cc:3:
-In file included from stan_files/mmlm_code.hpp:18:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:35:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:41:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/ordered_constrain.hpp:6:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:408:3: error: 'auto' return without trailing return type; deduced return types are a C++14 extension
-  auto operator()(const Targs&... args) {
-  ^
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:536:16: error: 'auto' not allowed in lambda parameter
-        [this](auto&&... args) { this->accumulate_adjoints(args...); },
-               ^~~~
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:536:22: error: type 'int &&' of function parameter pack does not contain any unexpanded parameter packs
-        [this](auto&&... args) { this->accumulate_adjoints(args...); },
-               ~~~~~~^~~~~~~~
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:616:1: error: 'auto' return without trailing return type; deduced return types are a C++14 extension
-auto adj_jac_apply(const Targs&... args) {
-^
-In file included from stan_files/mmlm_code.cc:3:
-In file included from stan_files/mmlm_code.hpp:18:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:35:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:41:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/ordered_constrain.hpp:60:3: error: 'auto' return without trailing return type; deduced return types are a C++14 extension
-  auto multiply_adjoint_jacobian(const std::array<bool, size>& needs_adj,
-  ^
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/ordered_constrain.hpp:73:12: error: no viable conversion from returned value of type 'tuple<typename __unwrap_ref_decay<Matrix<double, -1, 1, 0, -1, 1> &>::type>' (aka 'tuple<Eigen::Matrix<double, -1, 1, 0, -1, 1> >') to function return type 'int'
-    return std::make_tuple(adj_times_jac);
-           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/ordered_constrain.hpp:88:10: error: no matching function for call to 'adj_jac_apply'
-  return adj_jac_apply<internal::ordered_constrain_op>(x);
-         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-In file included from stan_files/mmlm_code.cc:3:
-In file included from stan_files/mmlm_code.hpp:18:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:35:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:42:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/positive_ordered_constrain.hpp:61:3: error: 'auto' return without trailing return type; deduced return types are a C++14 extension
-  auto multiply_adjoint_jacobian(const std::array<bool, size>& needs_adj,
-  ^
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/positive_ordered_constrain.hpp:71:12: error: no viable conversion from returned value of type 'tuple<typename __unwrap_ref_decay<Matrix<double, -1, 1, 0, -1, 1> &>::type>' (aka 'tuple<Eigen::Matrix<double, -1, 1, 0, -1, 1> >') to function return type 'int'
-    return std::make_tuple(adj_times_jac);
-           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/positive_ordered_constrain.hpp:86:10: error: no matching function for call to 'adj_jac_apply'
-  return adj_jac_apply<internal::positive_ordered_constrain_op>(x);
-         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-In file included from stan_files/mmlm_code.cc:3:
-In file included from stan_files/mmlm_code.hpp:18:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:35:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:48:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/simplex_constrain.hpp:66:3: error: 'auto' return without trailing return type; deduced return types are a C++14 extension
-  auto multiply_adjoint_jacobian(const std::array<bool, size>& needs_adj,
-  ^
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/simplex_constrain.hpp:79:12: error: no viable conversion from returned value of type 'tuple<typename __unwrap_ref_decay<Matrix<double, -1, 1, 0, -1, 1> &>::type>' (aka 'tuple<Eigen::Matrix<double, -1, 1, 0, -1, 1> >') to function return type 'int'
-    return std::make_tuple(adj_times_jac);
-           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/simplex_constrain.hpp:97:10: error: no matching function for call to 'adj_jac_apply'
-  return adj_jac_apply<internal::simplex_constrain_op>(y);
-         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-In file included from stan_files/mmlm_code.cc:3:
-In file included from stan_files/mmlm_code.hpp:18:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:35:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:49:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/softmax.hpp:78:10: error: no matching function for call to 'adj_jac_apply'
-  return adj_jac_apply<internal::softmax_op>(alpha);
-         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-17 warnings and 19 errors generated.
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:6:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/core.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/core/autodiffstackstorage.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/memory/stack_alloc.hpp:7:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/meta.hpp:5:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/arr/meta/index_type.hpp:5:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/scal/meta/index_type.hpp:28:27: error: no template named 'enable_if_t' in namespace 'std'; did you mean 'enable_if'?
+struct index_type<T, std::enable_if_t<std::is_pointer<T>::value>> {
+                     ~~~~~^~~~~~~~~~~
+                          enable_if
+/usr/local/clang8/bin/../include/c++/v1/type_traits:440:63: note: 'enable_if' declared here
+template <bool, class _Tp = void> struct _LIBCPP_TEMPLATE_VIS enable_if {};
+                                                              ^
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+17 warnings and 20 errors generated.
 make: *** [stan_files/mlmc_code.o] Error 1
 make: *** Waiting for unfinished jobs....
-17 warnings and 19 errors generated.
+17 warnings and 20 errors generated.
 make: *** [stan_files/mmlm_code.o] Error 1
 rm stan_files/mlmc_code.cc stan_files/mmlm_code.cc
 ERROR: compilation failed for package ‘mlm4omics’
@@ -6315,16 +6647,464 @@ ERROR: compilation failed for package ‘mlm4omics’
 "/Library/Frameworks/R.framework/Resources/bin/Rscript" -e "source(file.path('..', 'tools', 'make_cc.R')); make_cc(commandArgs(TRUE))" stan_files/mlmc_code.stan
 "/Library/Frameworks/R.framework/Resources/bin/Rscript" -e "source(file.path('..', 'tools', 'make_cc.R')); make_cc(commandArgs(TRUE))" stan_files/mmlm_code.stan
 /usr/local/clang8/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I"../inst/include" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" --vanilla -e "cat(system.file('include', 'src', package = 'StanHeaders'))"`" -DBOOST_RESULT_OF_USE_TR1 -DBOOST_NO_DECLTYPE -DBOOST_DISABLE_ASSERTS -DEIGEN_NO_DEBUG -DBOOST_MATH_OVERFLOW_ERROR_POLICY=errno_on_error -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/BH/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/Rcpp/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c init.cpp -o init.o
-Wrote C++ file "stan_files/mlmc_code.cc"
 Wrote C++ file "stan_files/mmlm_code.cc"
+Wrote C++ file "stan_files/mlmc_code.cc"
 /usr/local/clang8/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I"../inst/include" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" --vanilla -e "cat(system.file('include', 'src', package = 'StanHeaders'))"`" -DBOOST_RESULT_OF_USE_TR1 -DBOOST_NO_DECLTYPE -DBOOST_DISABLE_ASSERTS -DEIGEN_NO_DEBUG -DBOOST_MATH_OVERFLOW_ERROR_POLICY=errno_on_error -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/BH/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/Rcpp/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c stan_files/mmlm_code.cc -o stan_files/mmlm_code.o
 /usr/local/clang8/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I"../inst/include" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" --vanilla -e "cat(system.file('include', 'src', package = 'StanHeaders'))"`" -DBOOST_RESULT_OF_USE_TR1 -DBOOST_NO_DECLTYPE -DBOOST_DISABLE_ASSERTS -DEIGEN_NO_DEBUG -DBOOST_MATH_OVERFLOW_ERROR_POLICY=errno_on_error -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/BH/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/Rcpp/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c stan_files/mlmc_code.cc -o stan_files/mlmc_code.o
 In file included from stan_files/mmlm_code.cc:3:
 In file included from stan_files/mmlm_code.hpp:18:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:22:30: error: no template named 'conditional_t' in namespace 'std'; did you mean 'conditional'?
+using double_return_t = std::conditional_t<std::is_const<std::remove_reference_t<T>>::value,
+                        ~~~~~^~~~~~~~~~~~~
+                             conditional
+/usr/local/clang8/bin/../include/c++/v1/type_traits:429:33: note: 'conditional' declared here
+    struct _LIBCPP_TEMPLATE_VIS conditional {typedef _If type;};
+                                ^
+In file included from stan_files/mmlm_code.cc:3:
+In file included from stan_files/mmlm_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:22:63: error: no template named 'remove_reference_t' in namespace 'std'; did you mean 'remove_reference'?
+using double_return_t = std::conditional_t<std::is_const<std::remove_reference_t<T>>::value,
+                                                         ~~~~~^~~~~~~~~~~~~~~~~~
+                                                              remove_reference
+/usr/local/clang8/bin/../include/c++/v1/type_traits:1112:50: note: 'remove_reference' declared here
+template <class _Tp> struct _LIBCPP_TEMPLATE_VIS remove_reference        {typedef _Tp type;};
+                                                 ^
+In file included from stan_files/mmlm_code.cc:3:
+In file included from stan_files/mmlm_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:26:31: error: no template named 'conditional_t' in namespace 'std'; did you mean 'conditional'?
+using reverse_return_t = std::conditional_t<std::is_const<std::remove_reference_t<T>>::value,
+                         ~~~~~^~~~~~~~~~~~~
+                              conditional
+/usr/local/clang8/bin/../include/c++/v1/type_traits:429:33: note: 'conditional' declared here
+    struct _LIBCPP_TEMPLATE_VIS conditional {typedef _If type;};
+                                ^
+In file included from stan_files/mlmc_code.cc:3:
+In file included from stan_files/mlmc_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:22:30: error: no template named 'conditional_t' in namespace 'std'; did you mean 'conditional'?
+using double_return_t = std::conditional_t<std::is_const<std::remove_reference_t<T>>::value,
+                        ~~~~~^~~~~~~~~~~~~
+                             conditional
+/usr/local/clang8/bin/../include/c++/v1/type_traits:429:33: note: 'conditional' declared here
+    struct _LIBCPP_TEMPLATE_VIS conditional {typedef _If type;};
+                                ^
+In file included from stan_files/mmlm_code.cc:3:
+In file included from stan_files/mmlm_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:26:64: error: no template named 'remove_reference_t' in namespace 'std'; did you mean 'remove_reference'?
+using reverse_return_t = std::conditional_t<std::is_const<std::remove_reference_t<T>>::value,
+                                                          ~~~~~^~~~~~~~~~~~~~~~~~
+                                                               remove_reference
+/usr/local/clang8/bin/../include/c++/v1/type_traits:1112:50: note: 'remove_reference' declared here
+template <class _Tp> struct _LIBCPP_TEMPLATE_VIS remove_reference        {typedef _Tp type;};
+                                                 ^
+In file included from stan_files/mlmc_code.cc:3:
+In file included from stan_files/mlmc_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:22:63: error: no template named 'remove_reference_t' in namespace 'std'; did you mean 'remove_reference'?
+using double_return_t = std::conditional_t<std::is_const<std::remove_reference_t<T>>::value,
+                                                         ~~~~~^~~~~~~~~~~~~~~~~~
+                                                              remove_reference
+/usr/local/clang8/bin/../include/c++/v1/type_traits:1112:50: note: 'remove_reference' declared here
+template <class _Tp> struct _LIBCPP_TEMPLATE_VIS remove_reference        {typedef _Tp type;};
+                                                 ^
+In file included from stan_files/mmlm_code.cc:3:
+In file included from stan_files/mmlm_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:31:28: error: no template named 'conditional_t' in namespace 'std'; did you mean 'conditional'?
+using vari_return_t = std::conditional_t<std::is_const<std::remove_reference_t<T>>::value,
+                      ~~~~~^~~~~~~~~~~~~
+                           conditional
+/usr/local/clang8/bin/../include/c++/v1/type_traits:429:33: note: 'conditional' declared here
+    struct _LIBCPP_TEMPLATE_VIS conditional {typedef _If type;};
+                                ^
+In file included from stan_files/mlmc_code.cc:3:
+In file included from stan_files/mlmc_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:26:31: error: no template named 'conditional_t' in namespace 'std'; did you mean 'conditional'?
+using reverse_return_t = std::conditional_t<std::is_const<std::remove_reference_t<T>>::value,
+                         ~~~~~^~~~~~~~~~~~~
+                              conditional
+/usr/local/clang8/bin/../include/c++/v1/type_traits:429:33: note: 'conditional' declared here
+    struct _LIBCPP_TEMPLATE_VIS conditional {typedef _If type;};
+                                ^
+In file included from stan_files/mmlm_code.cc:3:
+In file included from stan_files/mmlm_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:31:61: error: no template named 'remove_reference_t' in namespace 'std'; did you mean 'remove_reference'?
+using vari_return_t = std::conditional_t<std::is_const<std::remove_reference_t<T>>::value,
+                                                       ~~~~~^~~~~~~~~~~~~~~~~~
+                                                            remove_reference
+/usr/local/clang8/bin/../include/c++/v1/type_traits:1112:50: note: 'remove_reference' declared here
+template <class _Tp> struct _LIBCPP_TEMPLATE_VIS remove_reference        {typedef _Tp type;};
+                                                 ^
+In file included from stan_files/mlmc_code.cc:3:
+In file included from stan_files/mlmc_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:26:64: error: no template named 'remove_reference_t' in namespace 'std'; did you mean 'remove_reference'?
+using reverse_return_t = std::conditional_t<std::is_const<std::remove_reference_t<T>>::value,
+                                                          ~~~~~^~~~~~~~~~~~~~~~~~
+                                                               remove_reference
+/usr/local/clang8/bin/../include/c++/v1/type_traits:1112:50: note: 'remove_reference' declared here
+template <class _Tp> struct _LIBCPP_TEMPLATE_VIS remove_reference        {typedef _Tp type;};
+                                                 ^
+In file included from stan_files/mmlm_code.cc:3:
+In file included from stan_files/mmlm_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:36:31: error: no template named 'conditional_t' in namespace 'std'; did you mean 'conditional'?
+using forward_return_t = std::conditional_t<std::is_const<std::remove_reference_t<T>>::value,
+                         ~~~~~^~~~~~~~~~~~~
+                              conditional
+/usr/local/clang8/bin/../include/c++/v1/type_traits:429:33: note: 'conditional' declared here
+    struct _LIBCPP_TEMPLATE_VIS conditional {typedef _If type;};
+                                ^
+In file included from stan_files/mlmc_code.cc:3:
+In file included from stan_files/mlmc_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:31:28: error: no template named 'conditional_t' in namespace 'std'; did you mean 'conditional'?
+using vari_return_t = std::conditional_t<std::is_const<std::remove_reference_t<T>>::value,
+                      ~~~~~^~~~~~~~~~~~~
+                           conditional
+/usr/local/clang8/bin/../include/c++/v1/type_traits:429:33: note: 'conditional' declared here
+    struct _LIBCPP_TEMPLATE_VIS conditional {typedef _If type;};
+                                ^
+In file included from stan_files/mmlm_code.cc:3:
+In file included from stan_files/mmlm_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:36:64: error: no template named 'remove_reference_t' in namespace 'std'; did you mean 'remove_reference'?
+using forward_return_t = std::conditional_t<std::is_const<std::remove_reference_t<T>>::value,
+                                                          ~~~~~^~~~~~~~~~~~~~~~~~
+                                                               remove_reference
+/usr/local/clang8/bin/../include/c++/v1/type_traits:1112:50: note: 'remove_reference' declared here
+template <class _Tp> struct _LIBCPP_TEMPLATE_VIS remove_reference        {typedef _Tp type;};
+                                                 ^
+In file included from stan_files/mlmc_code.cc:3:
+In file included from stan_files/mlmc_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:31:61: error: no template named 'remove_reference_t' in namespace 'std'; did you mean 'remove_reference'?
+using vari_return_t = std::conditional_t<std::is_const<std::remove_reference_t<T>>::value,
+                                                       ~~~~~^~~~~~~~~~~~~~~~~~
+                                                            remove_reference
+/usr/local/clang8/bin/../include/c++/v1/type_traits:1112:50: note: 'remove_reference' declared here
+template <class _Tp> struct _LIBCPP_TEMPLATE_VIS remove_reference        {typedef _Tp type;};
+                                                 ^
+In file included from stan_files/mmlm_code.cc:3:
+In file included from stan_files/mmlm_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:60:10: error: no template named 'enable_if_t' in namespace 'std'; did you mean 'enable_if'?
+    std::enable_if_t<std::is_pointer<T>::value, reverse_return_t<T>>
+    ~~~~~^~~~~~~~~~~
+         enable_if
+/usr/local/clang8/bin/../include/c++/v1/type_traits:440:63: note: 'enable_if' declared here
+template <bool, class _Tp = void> struct _LIBCPP_TEMPLATE_VIS enable_if {};
+                                                              ^
+In file included from stan_files/mlmc_code.cc:3:
+In file included from stan_files/mlmc_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:36:31: error: no template named 'conditional_t' in namespace 'std'; did you mean 'conditional'?
+using forward_return_t = std::conditional_t<std::is_const<std::remove_reference_t<T>>::value,
+                         ~~~~~^~~~~~~~~~~~~
+                              conditional
+/usr/local/clang8/bin/../include/c++/v1/type_traits:429:33: note: 'conditional' declared here
+    struct _LIBCPP_TEMPLATE_VIS conditional {typedef _If type;};
+                                ^
+In file included from stan_files/mmlm_code.cc:3:
+In file included from stan_files/mmlm_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:66:10: error: no template named 'enable_if_t' in namespace 'std'; did you mean 'enable_if'?
+    std::enable_if_t<(!std::is_pointer<T>::value && !is_fvar<T>::value
+    ~~~~~^~~~~~~~~~~
+         enable_if
+/usr/local/clang8/bin/../include/c++/v1/type_traits:440:63: note: 'enable_if' declared here
+template <bool, class _Tp = void> struct _LIBCPP_TEMPLATE_VIS enable_if {};
+                                                              ^
+In file included from stan_files/mmlm_code.cc:3:
+In file included from stan_files/mmlm_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:73:10: error: no template named 'enable_if_t' in namespace 'std'; did you mean 'enable_if'?
+    std::enable_if_t<is_fvar<T>::value, forward_return_t<T>>
+    ~~~~~^~~~~~~~~~~
+         enable_if
+/usr/local/clang8/bin/../include/c++/v1/type_traits:440:63: note: 'enable_if' declared here
+template <bool, class _Tp = void> struct _LIBCPP_TEMPLATE_VIS enable_if {};
+                                                              ^
+In file included from stan_files/mlmc_code.cc:3:
+In file included from stan_files/mlmc_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:36:64: error: no template named 'remove_reference_t' in namespace 'std'; did you mean 'remove_reference'?
+using forward_return_t = std::conditional_t<std::is_const<std::remove_reference_t<T>>::value,
+                                                          ~~~~~^~~~~~~~~~~~~~~~~~
+                                                               remove_reference
+/usr/local/clang8/bin/../include/c++/v1/type_traits:1112:50: note: 'remove_reference' declared here
+template <class _Tp> struct _LIBCPP_TEMPLATE_VIS remove_reference        {typedef _Tp type;};
+                                                 ^
+In file included from stan_files/mlmc_code.cc:3:
+In file included from stan_files/mlmc_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:60:10: error: no template named 'enable_if_t' in namespace 'std'; did you mean 'enable_if'?
+    std::enable_if_t<std::is_pointer<T>::value, reverse_return_t<T>>
+    ~~~~~^~~~~~~~~~~
+         enable_if
+/usr/local/clang8/bin/../include/c++/v1/type_traits:440:63: note: 'enable_if' declared here
+template <bool, class _Tp = void> struct _LIBCPP_TEMPLATE_VIS enable_if {};
+                                                              ^
+In file included from stan_files/mmlm_code.cc:3:
+In file included from stan_files/mmlm_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:79:10: error: no template named 'enable_if_t' in namespace 'std'; did you mean 'enable_if'?
+    std::enable_if_t<std::is_arithmetic<T>::value, double_return_t<T>>
+    ~~~~~^~~~~~~~~~~
+         enable_if
+/usr/local/clang8/bin/../include/c++/v1/type_traits:440:63: note: 'enable_if' declared here
+template <bool, class _Tp = void> struct _LIBCPP_TEMPLATE_VIS enable_if {};
+                                                              ^
+In file included from stan_files/mlmc_code.cc:3:
+In file included from stan_files/mlmc_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:66:10: error: no template named 'enable_if_t' in namespace 'std'; did you mean 'enable_if'?
+    std::enable_if_t<(!std::is_pointer<T>::value && !is_fvar<T>::value
+    ~~~~~^~~~~~~~~~~
+         enable_if
+/usr/local/clang8/bin/../include/c++/v1/type_traits:440:63: note: 'enable_if' declared here
+template <bool, class _Tp = void> struct _LIBCPP_TEMPLATE_VIS enable_if {};
+                                                              ^
+In file included from stan_files/mmlm_code.cc:3:
+In file included from stan_files/mmlm_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:148:10: error: no template named 'enable_if_t' in namespace 'std'; did you mean 'enable_if'?
+    std::enable_if_t<std::is_pointer<T>::value, reverse_return_t<T>>
+    ~~~~~^~~~~~~~~~~
+         enable_if
+/usr/local/clang8/bin/../include/c++/v1/type_traits:440:63: note: 'enable_if' declared here
+template <bool, class _Tp = void> struct _LIBCPP_TEMPLATE_VIS enable_if {};
+                                                              ^
+In file included from stan_files/mlmc_code.cc:3:
+In file included from stan_files/mlmc_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:73:10: error: no template named 'enable_if_t' in namespace 'std'; did you mean 'enable_if'?
+    std::enable_if_t<is_fvar<T>::value, forward_return_t<T>>
+    ~~~~~^~~~~~~~~~~
+         enable_if
+/usr/local/clang8/bin/../include/c++/v1/type_traits:440:63: note: 'enable_if' declared here
+In file included from template <bool, class _Tp = void> struct _LIBCPP_TEMPLATE_VIS enable_if {};
+                                                              ^
+stan_files/mmlm_code.cc:3:
+In file included from stan_files/mmlm_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:154:10: error: no template named 'enable_if_t' in namespace 'std'; did you mean 'enable_if'?
+    std::enable_if_t<!std::is_pointer<T>::value, reverse_return_t<T>>
+    ~~~~~^~~~~~~~~~~
+         enable_if
+/usr/local/clang8/bin/../include/c++/v1/type_traits:440:63: note: 'enable_if' declared here
+template <bool, class _Tp = void> struct _LIBCPP_TEMPLATE_VIS enable_if {};
+                                                              ^
+In file included from stan_files/mlmc_code.cc:3:
+In file included from stan_files/mlmc_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:79:10: error: no template named 'enable_if_t' in namespace 'std'; did you mean 'enable_if'?
+    std::enable_if_t<std::is_arithmetic<T>::value, double_return_t<T>>
+    ~~~~~^~~~~~~~~~~
+         enable_if
+/usr/local/clang8/bin/../include/c++/v1/type_traits:440:63: note: 'enable_if' declared here
+template <bool, class _Tp = void> struct _LIBCPP_TEMPLATE_VIS enable_if {};
+                                                              ^
+In file included from stan_files/mlmc_code.cc:3:
+In file included from stan_files/mlmc_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:148:10: error: no template named 'enable_if_t' in namespace 'std'; did you mean 'enable_if'?
+    std::enable_if_t<std::is_pointer<T>::value, reverse_return_t<T>>
+    ~~~~~^~~~~~~~~~~
+         enable_if
+/usr/local/clang8/bin/../include/c++/v1/type_traits:440:63: note: 'enable_if' declared here
+template <bool, class _Tp = void> struct _LIBCPP_TEMPLATE_VIS enable_if {};
+                                                              ^
+In file included from stan_files/mlmc_code.cc:3:
+In file included from stan_files/mlmc_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:436:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/MatrixBase.h:130:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/eigen_plugins.h:154:10: error: no template named 'enable_if_t' in namespace 'std'; did you mean 'enable_if'?
+    std::enable_if_t<!std::is_pointer<T>::value, reverse_return_t<T>>
+    ~~~~~^~~~~~~~~~~
+         enable_if
+/usr/local/clang8/bin/../include/c++/v1/type_traits:440:63: note: 'enable_if' declared here
+template <bool, class _Tp = void> struct _LIBCPP_TEMPLATE_VIS enable_if {};
+                                                              ^
+In file included from stan_files/mmlm_code.cc:3:
+In file included from stan_files/mmlm_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:535:
 /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
@@ -6333,9 +7113,9 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm
 In file included from stan_files/mmlm_code.cc:3:
 In file included from stan_files/mmlm_code.hpp:18:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:2:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/LU:47:
 /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
@@ -6344,21 +7124,32 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm
 In file included from stan_files/mmlm_code.cc:3:
 In file included from stan_files/mmlm_code.hpp:18:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:3:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Cholesky:12:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Jacobi:29:
 /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
     #pragma clang diagnostic pop
                              ^
+In file included from stan_files/mlmc_code.cc:3:
+In file included from stan_files/mlmc_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:535:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
 In file included from stan_files/mmlm_code.cc:3:
 In file included from stan_files/mmlm_code.hpp:18:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:3:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Cholesky:43:
 /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
@@ -6367,20 +7158,9 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm
 In file included from stan_files/mmlm_code.cc:3:
 In file included from stan_files/mmlm_code.hpp:18:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from stan_files/mlmc_code.cc:3:
-In file included from stan_files/mlmc_code.hpp:18:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:1:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Core:535:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h    #pragma clang diagnostic pop
-                             ^
-:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:4:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/QR:17:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Householder:27:
@@ -6390,9 +7170,9 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm
 In file included from stan_files/mlmc_code.cc:3:
 In file included from stan_files/mlmc_code.hpp:18:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:2:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/LU:47:
 /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
@@ -6401,9 +7181,9 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm
 In file included from stan_files/mlmc_code.cc:3:
 In file included from stan_files/mlmc_code.hpp:18:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:3:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Cholesky:12:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Jacobi:29:
@@ -6413,9 +7193,9 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm
 In file included from stan_files/mlmc_code.cc:3:
 In file included from stan_files/mlmc_code.hpp:18:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:3:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Cholesky:43:
 /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
@@ -6424,9 +7204,9 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm
 In file included from stan_files/mlmc_code.cc:3:
 In file included from stan_files/mlmc_code.hpp:18:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:4:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/QR:17:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Householder:27:
@@ -6436,9 +7216,9 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm
 In file included from stan_files/mmlm_code.cc:3:
 In file included from stan_files/mmlm_code.hpp:18:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:5:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/SVD:48:
 /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
@@ -6447,9 +7227,9 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm
 In file included from stan_files/mlmc_code.cc:3:
 In file included from stan_files/mlmc_code.hpp:18:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:5:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/SVD:48:
 /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
@@ -6458,31 +7238,9 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm
 In file included from stan_files/mmlm_code.cc:3:
 In file included from stan_files/mmlm_code.hpp:18:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:6:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Geometry:58:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from stan_files/mmlm_code.cc:3:
-In file included from stan_files/mmlm_code.hpp:18:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:7:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Eigenvalues:58:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from stan_files/mlmc_code.cc:3:
-In file included from stan_files/mlmc_code.hpp:18:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:6:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Geometry:58:
 /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
@@ -6491,9 +7249,31 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm
 In file included from stan_files/mlmc_code.cc:3:
 In file included from stan_files/mlmc_code.hpp:18:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:6:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Geometry:58:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from stan_files/mmlm_code.cc:3:
+In file included from stan_files/mmlm_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:7:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Eigenvalues:58:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from stan_files/mlmc_code.cc:3:
+In file included from stan_files/mlmc_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Dense:7:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Eigenvalues:58:
 /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
@@ -6502,9 +7282,9 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm
 In file included from stan_files/mmlm_code.cc:3:
 In file included from stan_files/mmlm_code.hpp:18:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:14:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Sparse:26:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/SparseCore:66:
 /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
@@ -6513,9 +7293,9 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm
 In file included from stan_files/mmlm_code.cc:3:
 In file included from stan_files/mmlm_code.hpp:18:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:14:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Sparse:27:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/OrderingMethods:71:
 /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
@@ -6524,9 +7304,9 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm
 In file included from stan_files/mmlm_code.cc:3:
 In file included from stan_files/mmlm_code.hpp:18:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:14:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Sparse:29:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/SparseCholesky:43:
 /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
@@ -6535,9 +7315,9 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm
 In file included from stan_files/mlmc_code.cc:3:
 In file included from stan_files/mlmc_code.hpp:18:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:14:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Sparse:26:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/SparseCore:66:
 /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
@@ -6546,20 +7326,53 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm
 In file included from stan_files/mlmc_code.cc:3:
 In file included from stan_files/mlmc_code.hpp:18:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:14:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Sparse:27:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/OrderingMethods:71:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from stan_files/mlmc_code.cc:3:
+In file included from stan_files/mlmc_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:14:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Sparse:29:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/SparseCholesky:43:
 /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
     #pragma clang diagnostic pop
                              ^
 In file included from stan_files/mmlm_code.cc:3:
 In file included from stan_files/mmlm_code.hpp:18:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:14:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Sparse:32:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/SparseQR:35:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from stan_files/mmlm_code.cc:3:
+In file included from stan_files/mmlm_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:14:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Sparse:33:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/IterativeLinearSolvers:46:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from stan_files/mlmc_code.cc:3:
+In file included from stan_files/mlmc_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:14:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Sparse:32:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/SparseQR:35:
 /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
@@ -6568,20 +7381,9 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm
 In file included from stan_files/mlmc_code.cc:3:
 In file included from stan_files/mlmc_code.hpp:18:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:31:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Sparse:29:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/SparseCholesky:43:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from stan_files/mmlm_code.cc:3:
-In file included from stan_files/mmlm_code.hpp:18:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:11:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/version.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:14:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Sparse:33:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/IterativeLinearSolvers:46:
 /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
@@ -6594,28 +7396,6 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:32:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/CholmodSupport:45:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from stan_files/mlmc_code.cc:3:
-In file included from stan_files/mlmc_code.hpp:18:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:31:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Sparse:32:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/SparseQR:35:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from stan_files/mlmc_code.cc:3:
-In file included from stan_files/mlmc_code.hpp:18:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:22:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/RcppEigenForward.h:31:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/Sparse:33:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/IterativeLinearSolvers:46:
 /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
     #pragma clang diagnostic pop
                              ^
@@ -6696,15 +7476,20 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:41:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/ordered_constrain.hpp:6:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:31:27: error: no template named 'index_sequence' in namespace 'std'; did you mean 'boost::fusion::detail::index_sequence'?
-                          std::index_sequence<I...> i) {
-                          ^~~~~~~~~~~~~~~~~~~
-                          boost::fusion::detail::index_sequence
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/BH/include/boost/fusion/support/detail/index_sequence.hpp:37:12: note: 'boost::fusion::detail::index_sequence' declared here
-    struct index_sequence
-           ^
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:6:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/core.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/core/autodiffstackstorage.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/memory/stack_alloc.hpp:7:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/meta.hpp:5:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/arr/meta/index_type.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/arr/meta/is_vector.hpp:4:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/scal/meta/is_vector.hpp:23:26: error: no template named 'decay_t' in namespace 'std'; did you mean 'decay'?
+    : bool_constant<std::decay_t<T>::RowsAtCompileTime == 1> {};
+                    ~~~~~^~~~~~~
+                         decay
+/usr/local/clang8/bin/../include/c++/v1/type_traits:1363:29: note: 'decay' declared here
+struct _LIBCPP_TEMPLATE_VIS decay
+                            ^
 In file included from stan_files/mmlm_code.cc:3:
 In file included from stan_files/mmlm_code.hpp:18:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
@@ -6712,14 +7497,20 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:41:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/ordered_constrain.hpp:6:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:30:11: error: 'auto' return without trailing return type; deduced return types are a C++14 extension
-constexpr auto apply_impl(const F& f, const Tuple& t,
-          ^
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:48:11: error: 'auto' return without trailing return type; deduced return types are a C++14 extension
-constexpr auto apply(const F& f, const Tuple& t) {
-          ^
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:6:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/core.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/core/autodiffstackstorage.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/memory/stack_alloc.hpp:7:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/meta.hpp:5:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/arr/meta/index_type.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/arr/meta/is_vector.hpp:4:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/scal/meta/is_vector.hpp:36:41: error: no template named 'decay_t' in namespace 'std'; did you mean 'decay'?
+    : std::integral_constant<bool, std::decay_t<T>::ColsAtCompileTime == 1> {};
+                                   ~~~~~^~~~~~~
+                                        decay
+/usr/local/clang8/bin/../include/c++/v1/type_traits:1363:29: note: 'decay' declared here
+struct _LIBCPP_TEMPLATE_VIS decay
+                            ^
 In file included from stan_files/mlmc_code.cc:3:
 In file included from stan_files/mlmc_code.hpp:18:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
@@ -6727,44 +7518,20 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:41:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/ordered_constrain.hpp:6:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:31:27: error: no template named 'index_sequence' in namespace 'std'; did you mean 'boost::fusion::detail::index_sequence'?
-                          std::index_sequence<I...> i) {
-                          ^~~~~~~~~~~~~~~~~~~
-                          boost::fusion::detail::index_sequence
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/BH/include/boost/fusion/support/detail/index_sequence.hpp:37:12: note: 'boost::fusion::detail::index_sequence' declared here
-    struct index_sequence
-           ^
-In file included from stan_files/mlmc_code.cc:3:
-In file included from stan_files/mlmc_code.hpp:18:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:35:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:41:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/ordered_constrain.hpp:6:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:30:11: error: 'auto' return without trailing return type; deduced return types are a C++14 extension
-constexpr auto apply_impl(const F& f, const Tuple& t,
-          ^
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:48:11: error: 'auto' return without trailing return type; deduced return types are a C++14 extension
-constexpr auto apply(const F& f, const Tuple& t) {
-          ^
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:49:27: error: no template named 'make_index_sequence' in namespace 'std'; did you mean 'boost::fusion::detail::make_index_sequence'?
-  return apply_impl(f, t, std::make_index_sequence<std::tuple_size<Tuple>{}>{});
-                          ^~~~~~~~~~~~~~~~~~~~~~~~
-                          boost::fusion::detail::make_index_sequence
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/BH/include/boost/fusion/support/detail/index_sequence.hpp:59:12: note: 'boost::fusion::detail::make_index_sequence' declared here
-    struct make_index_sequence
-           ^
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:49:27: error: no template named 'make_index_sequence' in namespace 'std'; did you mean 'boost::fusion::detail::make_index_sequence'?
-  return apply_impl(f, t, std::make_index_sequence<std::tuple_size<Tuple>{}>{});
-                          ^~~~~~~~~~~~~~~~~~~~~~~~
-                          boost::fusion::detail::make_index_sequence
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/BH/include/boost/fusion/support/detail/index_sequence.hpp:59:12: note: 'boost::fusion::detail::make_index_sequence' declared here
-    struct make_index_sequence
-           ^
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:6:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/core.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/core/autodiffstackstorage.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/memory/stack_alloc.hpp:7:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/meta.hpp:5:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/arr/meta/index_type.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/arr/meta/is_vector.hpp:4:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/scal/meta/is_vector.hpp:23:26: error: no template named 'decay_t' in namespace 'std'; did you mean 'decay'?
+    : bool_constant<std::decay_t<T>::RowsAtCompileTime == 1> {};
+                    ~~~~~^~~~~~~
+                         decay
+/usr/local/clang8/bin/../include/c++/v1/type_traits:1363:29: note: 'decay' declared here
+struct _LIBCPP_TEMPLATE_VIS decay
+                            ^
 In file included from stan_files/mmlm_code.cc:3:
 In file included from stan_files/mmlm_code.hpp:18:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
@@ -6772,15 +7539,40 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:41:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/ordered_constrain.hpp:6:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:151:14: error: no template named 'result_of_t' in namespace 'std'; did you mean 'result_of'?
-      = std::result_of_t<F(decltype(is_var_), decltype(value_of(Targs()))...)>;
-        ~~~~~^~~~~~~~~~~
-             result_of
-/usr/local/clang8/bin/../include/c++/v1/type_traits:2877:34: note: 'result_of' declared here
-template <class _Callable> class result_of;
-                                 ^
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:6:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/core.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/core/autodiffstackstorage.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/memory/stack_alloc.hpp:7:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/meta.hpp:5:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/arr/meta/index_type.hpp:4:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/arr/meta/is_vector.hpp:32:13: error: no template named 'enable_if_t' in namespace 'std'; did you mean 'enable_if'?
+    T, std::enable_if_t<internal::is_std_vector_impl<std::decay_t<T>>::value>>
+       ~~~~~^~~~~~~~~~~
+            enable_if
+/usr/local/clang8/bin/../include/c++/v1/type_traits:440:63: note: 'enable_if' declared here
+template <bool, class _Tp = void> struct _LIBCPP_TEMPLATE_VIS enable_if {};
+                                                              ^
+In file included from stan_files/mlmc_code.cc:3:
+In file included from stan_files/mlmc_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:35:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:6:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/core.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/core/autodiffstackstorage.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/memory/stack_alloc.hpp:7:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/meta.hpp:5:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/arr/meta/index_type.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/arr/meta/is_vector.hpp:4:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/scal/meta/is_vector.hpp:36:41: error: no template named 'decay_t' in namespace 'std'; did you mean 'decay'?
+    : std::integral_constant<bool, std::decay_t<T>::ColsAtCompileTime == 1> {};
+                                   ~~~~~^~~~~~~
+                                        decay
+/usr/local/clang8/bin/../include/c++/v1/type_traits:1363:29: note: 'decay' declared here
+struct _LIBCPP_TEMPLATE_VIS decay
+                            ^
 In file included from stan_files/mmlm_code.cc:3:
 In file included from stan_files/mmlm_code.hpp:18:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
@@ -6788,20 +7580,39 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:41:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/ordered_constrain.hpp:6:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:408:3: error: 'auto' return without trailing return type; deduced return types are a C++14 extension
-  auto operator()(const Targs&... args) {
-  ^
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:536:16: error: 'auto' not allowed in lambda parameter
-        [this](auto&&... args) { this->accumulate_adjoints(args...); },
-               ^~~~
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:536:22: error: type 'int &&' of function parameter pack does not contain any unexpanded parameter packs
-        [this](auto&&... args) { this->accumulate_adjoints(args...); },
-               ~~~~~~^~~~~~~~
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:616:1: error: 'auto' return without trailing return type; deduced return types are a C++14 extension
-auto adj_jac_apply(const Targs&... args) {
-^
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:6:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/core.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/core/autodiffstackstorage.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/memory/stack_alloc.hpp:7:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/meta.hpp:5:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/arr/meta/index_type.hpp:4:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/arr/meta/is_vector.hpp:32:59: error: no template named 'decay_t' in namespace 'std'; did you mean 'decay'?
+    T, std::enable_if_t<internal::is_std_vector_impl<std::decay_t<T>>::value>>
+                                                     ~~~~~^~~~~~~
+                                                          decay
+/usr/local/clang8/bin/../include/c++/v1/type_traits:1363:29: note: 'decay' declared here
+struct _LIBCPP_TEMPLATE_VIS decay
+                            ^
+In file included from stan_files/mlmc_code.cc:3:
+In file included from stan_files/mlmc_code.hpp:18:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:35:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:6:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/core.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/core/autodiffstackstorage.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/memory/stack_alloc.hpp:7:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/meta.hpp:5:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/arr/meta/index_type.hpp:4:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/arr/meta/is_vector.hpp:32:13: error: no template named 'enable_if_t' in namespace 'std'; did you mean 'enable_if'?
+    T, std::enable_if_t<internal::is_std_vector_impl<std::decay_t<T>>::value>>
+       ~~~~~^~~~~~~~~~~
+            enable_if
+/usr/local/clang8/bin/../include/c++/v1/type_traits:440:63: note: 'enable_if' declared here
+template <bool, class _Tp = void> struct _LIBCPP_TEMPLATE_VIS enable_if {};
+                                                              ^
 In file included from stan_files/mmlm_code.cc:3:
 In file included from stan_files/mmlm_code.hpp:18:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
@@ -6809,61 +7620,19 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:41:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/ordered_constrain.hpp:60:3: error: 'auto' return without trailing return type; deduced return types are a C++14 extension
-  auto multiply_adjoint_jacobian(const std::array<bool, size>& needs_adj,
-  ^
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/ordered_constrain.hpp:73:12: error: no viable conversion from returned value of type 'tuple<typename __unwrap_ref_decay<Matrix<double, -1, 1, 0, -1, 1> &>::type>' (aka 'tuple<Eigen::Matrix<double, -1, 1, 0, -1, 1> >') to function return type 'int'
-    return std::make_tuple(adj_times_jac);
-           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/ordered_constrain.hpp:88:10: error: no matching function for call to 'adj_jac_apply'
-  return adj_jac_apply<internal::ordered_constrain_op>(x);
-         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-In file included from stan_files/mmlm_code.cc:3:
-In file included from stan_files/mmlm_code.hpp:18:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:35:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:42:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/positive_ordered_constrain.hpp:61:3: error: 'auto' return without trailing return type; deduced return types are a C++14 extension
-  auto multiply_adjoint_jacobian(const std::array<bool, size>& needs_adj,
-  ^
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/positive_ordered_constrain.hpp:71:12: error: no viable conversion from returned value of type 'tuple<typename __unwrap_ref_decay<Matrix<double, -1, 1, 0, -1, 1> &>::type>' (aka 'tuple<Eigen::Matrix<double, -1, 1, 0, -1, 1> >') to function return type 'int'
-    return std::make_tuple(adj_times_jac);
-           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/positive_ordered_constrain.hpp:86:10: error: no matching function for call to 'adj_jac_apply'
-  return adj_jac_apply<internal::positive_ordered_constrain_op>(x);
-         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-In file included from stan_files/mmlm_code.cc:3:
-In file included from stan_files/mmlm_code.hpp:18:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:35:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:48:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/simplex_constrain.hpp:66:3: error: 'auto' return without trailing return type; deduced return types are a C++14 extension
-  auto multiply_adjoint_jacobian(const std::array<bool, size>& needs_adj,
-  ^
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/simplex_constrain.hpp:79:12: error: no viable conversion from returned value of type 'tuple<typename __unwrap_ref_decay<Matrix<double, -1, 1, 0, -1, 1> &>::type>' (aka 'tuple<Eigen::Matrix<double, -1, 1, 0, -1, 1> >') to function return type 'int'
-    return std::make_tuple(adj_times_jac);
-           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/simplex_constrain.hpp:97:10: error: no matching function for call to 'adj_jac_apply'
-  return adj_jac_apply<internal::simplex_constrain_op>(y);
-         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-In file included from stan_files/mmlm_code.cc:3:
-In file included from stan_files/mmlm_code.hpp:18:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:35:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:49:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/softmax.hpp:78:10: error: no matching function for call to 'adj_jac_apply'
-  return adj_jac_apply<internal::softmax_op>(alpha);
-         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:6:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/core.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/core/autodiffstackstorage.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/memory/stack_alloc.hpp:7:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/meta.hpp:5:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/arr/meta/index_type.hpp:5:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/scal/meta/index_type.hpp:28:27: error: no template named 'enable_if_t' in namespace 'std'; did you mean 'enable_if'?
+struct index_type<T, std::enable_if_t<std::is_pointer<T>::value>> {
+                     ~~~~~^~~~~~~~~~~
+                          enable_if
+/usr/local/clang8/bin/../include/c++/v1/type_traits:440:63: note: 'enable_if' declared here
+template <bool, class _Tp = void> struct _LIBCPP_TEMPLATE_VIS enable_if {};
+                                                              ^
 In file included from stan_files/mlmc_code.cc:3:
 In file included from stan_files/mlmc_code.hpp:18:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
@@ -6871,15 +7640,20 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:41:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/ordered_constrain.hpp:6:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:151:14: error: no template named 'result_of_t' in namespace 'std'; did you mean 'result_of'?
-      = std::result_of_t<F(decltype(is_var_), decltype(value_of(Targs()))...)>;
-        ~~~~~^~~~~~~~~~~
-             result_of
-/usr/local/clang8/bin/../include/c++/v1/type_traits:2877:34: note: 'result_of' declared here
-template <class _Callable> class result_of;
-                                 ^
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:6:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/core.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/core/autodiffstackstorage.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/memory/stack_alloc.hpp:7:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/meta.hpp:5:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/arr/meta/index_type.hpp:4:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/arr/meta/is_vector.hpp:32:59: error: no template named 'decay_t' in namespace 'std'; did you mean 'decay'?
+    T, std::enable_if_t<internal::is_std_vector_impl<std::decay_t<T>>::value>>
+                                                     ~~~~~^~~~~~~
+                                                          decay
+/usr/local/clang8/bin/../include/c++/v1/type_traits:1363:29: note: 'decay' declared here
+struct _LIBCPP_TEMPLATE_VIS decay
+                            ^
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
 In file included from stan_files/mlmc_code.cc:3:
 In file included from stan_files/mlmc_code.hpp:18:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
@@ -6887,86 +7661,24 @@ In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
 In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:41:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/ordered_constrain.hpp:6:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:408:3: error: 'auto' return without trailing return type; deduced return types are a C++14 extension
-  auto operator()(const Targs&... args) {
-  ^
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:536:16: error: 'auto' not allowed in lambda parameter
-        [this](auto&&... args) { this->accumulate_adjoints(args...); },
-               ^~~~
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:536:22: error: type 'int &&' of function parameter pack does not contain any unexpanded parameter packs
-        [this](auto&&... args) { this->accumulate_adjoints(args...); },
-               ~~~~~~^~~~~~~~
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:616:1: error: 'auto' return without trailing return type; deduced return types are a C++14 extension
-auto adj_jac_apply(const Targs&... args) {
-^
-In file included from stan_files/mlmc_code.cc:3:
-In file included from stan_files/mlmc_code.hpp:18:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:35:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:41:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/ordered_constrain.hpp:60:3: error: 'auto' return without trailing return type; deduced return types are a C++14 extension
-  auto multiply_adjoint_jacobian(const std::array<bool, size>& needs_adj,
-  ^
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/ordered_constrain.hpp:73:12: error: no viable conversion from returned value of type 'tuple<typename __unwrap_ref_decay<Matrix<double, -1, 1, 0, -1, 1> &>::type>' (aka 'tuple<Eigen::Matrix<double, -1, 1, 0, -1, 1> >') to function return type 'int'
-    return std::make_tuple(adj_times_jac);
-           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/ordered_constrain.hpp:88:10: error: no matching function for call to 'adj_jac_apply'
-  return adj_jac_apply<internal::ordered_constrain_op>(x);
-         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-In file included from stan_files/mlmc_code.cc:3:
-In file included from stan_files/mlmc_code.hpp:18:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:35:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:42:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/positive_ordered_constrain.hpp:61:3: error: 'auto' return without trailing return type; deduced return types are a C++14 extension
-  auto multiply_adjoint_jacobian(const std::array<bool, size>& needs_adj,
-  ^
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/positive_ordered_constrain.hpp:71:12: error: no viable conversion from returned value of type 'tuple<typename __unwrap_ref_decay<Matrix<double, -1, 1, 0, -1, 1> &>::type>' (aka 'tuple<Eigen::Matrix<double, -1, 1, 0, -1, 1> >') to function return type 'int'
-    return std::make_tuple(adj_times_jac);
-           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/positive_ordered_constrain.hpp:86:10: error: no matching function for call to 'adj_jac_apply'
-  return adj_jac_apply<internal::positive_ordered_constrain_op>(x);
-         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-In file included from stan_files/mlmc_code.cc:3:
-In file included from stan_files/mlmc_code.hpp:18:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:35:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:48:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/simplex_constrain.hpp:66:3: error: 'auto' return without trailing return type; deduced return types are a C++14 extension
-  auto multiply_adjoint_jacobian(const std::array<bool, size>& needs_adj,
-  ^
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/simplex_constrain.hpp:79:12: error: no viable conversion from returned value of type 'tuple<typename __unwrap_ref_decay<Matrix<double, -1, 1, 0, -1, 1> &>::type>' (aka 'tuple<Eigen::Matrix<double, -1, 1, 0, -1, 1> >') to function return type 'int'
-    return std::make_tuple(adj_times_jac);
-           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/simplex_constrain.hpp:97:10: error: no matching function for call to 'adj_jac_apply'
-  return adj_jac_apply<internal::simplex_constrain_op>(y);
-         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-In file included from stan_files/mlmc_code.cc:3:
-In file included from stan_files/mlmc_code.hpp:18:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/rstaninc.hpp:3:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/rstan/include/rstan/stan_fit.hpp:35:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
-In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:49:
-/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat/fun/softmax.hpp:78:10: error: no matching function for call to 'adj_jac_apply'
-  return adj_jac_apply<internal::softmax_op>(alpha);
-         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-17 warnings and 19 errors generated.
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/mat.hpp:6:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/core.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/rev/core/autodiffstackstorage.hpp:4:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/memory/stack_alloc.hpp:7:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/meta.hpp:5:
+In file included from /Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/arr/meta/index_type.hpp:5:
+/Users/max/github/forks/ggplot2/revdep/library.noindex/mlm4omics/StanHeaders/include/stan/math/prim/scal/meta/index_type.hpp:28:27: error: no template named 'enable_if_t' in namespace 'std'; did you mean 'enable_if'?
+struct index_type<T, std::enable_if_t<std::is_pointer<T>::value>> {
+                     ~~~~~^~~~~~~~~~~
+                          enable_if
+/usr/local/clang8/bin/../include/c++/v1/type_traits:440:63: note: 'enable_if' declared here
+template <bool, class _Tp = void> struct _LIBCPP_TEMPLATE_VIS enable_if {};
+                                                              ^
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+17 warnings and 20 errors generated.
+17 warnings and 20 errors generated.
 make: *** [stan_files/mmlm_code.o] Error 1
 make: *** Waiting for unfinished jobs....
-17 warnings and 19 errors generated.
 make: *** [stan_files/mlmc_code.o] Error 1
 rm stan_files/mlmc_code.cc stan_files/mmlm_code.cc
 ERROR: compilation failed for package ‘mlm4omics’
@@ -6982,7 +7694,7 @@ ERROR: compilation failed for package ‘mlm4omics’
 * URL: https://cran.r-project.org/package=morse
 * BugReports: https://github.com/pveber/morse
 * Date/Publication: 2019-09-27 08:50:02 UTC
-* Number of recursive dependencies: 74
+* Number of recursive dependencies: 73
 
 Run `revdep_details(,"morse")` for more info
 
@@ -7051,7 +7763,7 @@ ERROR: lazy loading failed for package ‘morse’
 * URL: https://github.com/lgatto/MSnbase
 * BugReports: https://github.com/lgatto/MSnbase/issues
 * Date/Publication: 2019-05-31
-* Number of recursive dependencies: 221
+* Number of recursive dependencies: 220
 
 Run `revdep_details(,"MSnbase")` for more info
 
@@ -7066,7 +7778,7 @@ Run `revdep_details(,"MSnbase")` for more info
     ```
       installed size is 13.1Mb
       sub-directories of 1Mb or more:
-        R      2.1Mb
+        R      2.0Mb
         data   1.9Mb
         doc    7.7Mb
     ```
@@ -7110,7 +7822,7 @@ Run `revdep_details(,"MSnbase")` for more info
 * URL: https://github.com/jrwishart/mwaved
 * BugReports: https://github.com/jrwishart/mwaved/issues
 * Date/Publication: 2019-11-10 11:30:02 UTC
-* Number of recursive dependencies: 71
+* Number of recursive dependencies: 70
 
 Run `revdep_details(,"mwaved")` for more info
 
@@ -7184,11 +7896,11 @@ ERROR: compilation failed for package ‘mwaved’
 
 <details>
 
-* Version: 1.1.1-3
+* Version: 1.1.1-5
 * Source code: https://github.com/cran/nlmixr
 * URL: https://github.com/nlmixrdevelopment/nlmixr
-* Date/Publication: 2019-11-13 13:20:02 UTC
-* Number of recursive dependencies: 167
+* Date/Publication: 2020-01-27 13:20:02 UTC
+* Number of recursive dependencies: 163
 
 Run `revdep_details(,"nlmixr")` for more info
 
@@ -7248,7 +7960,7 @@ ERROR: configuration failed for package ‘nlmixr’
 * Source code: https://github.com/cran/OpenStreetMap
 * URL: https://github.com/ifellows/ROSM http://www.fellstat.com http://blog.fellstat.com/?cat=15
 * Date/Publication: 2019-05-31 17:40:02 UTC
-* Number of recursive dependencies: 45
+* Number of recursive dependencies: 43
 
 Run `revdep_details(,"OpenStreetMap")` for more info
 
@@ -7315,7 +8027,7 @@ ERROR: lazy loading failed for package ‘OpenStreetMap’
 * URL: https://github.com/verbal-autopsy-software/openVA
 * BugReports: https://github.com/verbal-autopsy-software/openVA/issues
 * Date/Publication: 2019-02-18 06:40:02 UTC
-* Number of recursive dependencies: 53
+* Number of recursive dependencies: 51
 
 Run `revdep_details(,"openVA")` for more info
 
@@ -7377,7 +8089,7 @@ ERROR: lazy loading failed for package ‘openVA’
 * Source code: https://github.com/cran/petro.One
 * URL: https://github.com/f0nzie/petro.One
 * Date/Publication: 2019-01-13 16:20:03 UTC
-* Number of recursive dependencies: 93
+* Number of recursive dependencies: 92
 
 Run `revdep_details(,"petro.One")` for more info
 
@@ -7444,7 +8156,7 @@ ERROR: lazy loading failed for package ‘petro.One’
 * Version: 1.0.1
 * Source code: https://github.com/cran/phase1PRMD
 * Date/Publication: 2019-02-03 17:00:03 UTC
-* Number of recursive dependencies: 81
+* Number of recursive dependencies: 79
 
 Run `revdep_details(,"phase1PRMD")` for more info
 
@@ -7509,7 +8221,7 @@ ERROR: lazy loading failed for package ‘phase1PRMD’
 * Version: 1.0.8
 * Source code: https://github.com/cran/phase1RMD
 * Date/Publication: 2017-11-27 08:49:15 UTC
-* Number of recursive dependencies: 53
+* Number of recursive dependencies: 51
 
 Run `revdep_details(,"phase1RMD")` for more info
 
@@ -7577,7 +8289,7 @@ ERROR: lazy loading failed for package ‘phase1RMD’
 * Source code: https://github.com/cran/PortfolioEffectHFT
 * URL: https://www.portfolioeffect.com/
 * Date/Publication: 2017-03-24 19:54:25 UTC
-* Number of recursive dependencies: 53
+* Number of recursive dependencies: 52
 
 Run `revdep_details(,"PortfolioEffectHFT")` for more info
 
@@ -7639,34 +8351,6 @@ ERROR: lazy loading failed for package ‘PortfolioEffectHFT’
 * removing ‘/Users/max/github/forks/ggplot2/revdep/checks.noindex/PortfolioEffectHFT/old/PortfolioEffectHFT.Rcheck/PortfolioEffectHFT’
 
 ```
-# PureCN
-
-<details>
-
-* Version: 1.14.3
-* Source code: https://github.com/cran/PureCN
-* URL: https://github.com/lima1/PureCN
-* Date/Publication: 2019-08-28
-* Number of recursive dependencies: 134
-
-Run `revdep_details(,"PureCN")` for more info
-
-</details>
-
-## In both
-
-*   R CMD check timed out
-    
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  8.2Mb
-      sub-directories of 1Mb or more:
-        data      1.1Mb
-        doc       2.7Mb
-        extdata   3.8Mb
-    ```
-
 # qdap
 
 <details>
@@ -7676,7 +8360,7 @@ Run `revdep_details(,"PureCN")` for more info
 * URL: http://trinker.github.com/qdap/
 * BugReports: http://github.com/trinker/qdap/issues
 * Date/Publication: 2020-01-09 18:30:06 UTC
-* Number of recursive dependencies: 101
+* Number of recursive dependencies: 100
 
 Run `revdep_details(,"qdap")` for more info
 
@@ -7744,7 +8428,7 @@ ERROR: lazy loading failed for package ‘qdap’
 * Source code: https://github.com/cran/rcellminer
 * URL: http://discover.nci.nih.gov/cellminer/
 * Date/Publication: 2019-05-02
-* Number of recursive dependencies: 111
+* Number of recursive dependencies: 110
 
 Run `revdep_details(,"rcellminer")` for more info
 
@@ -7818,11 +8502,11 @@ ERROR: lazy loading failed for package ‘rcellminer’
 
 <details>
 
-* Version: 0.91.2
+* Version: 0.91.3
 * Source code: https://github.com/cran/RclusTool
 * URL: http://mawenzi.univ-littoral.fr/RclusTool/
-* Date/Publication: 2020-01-09 13:50:02 UTC
-* Number of recursive dependencies: 105
+* Date/Publication: 2020-02-04 16:20:05 UTC
+* Number of recursive dependencies: 103
 
 Run `revdep_details(,"RclusTool")` for more info
 
@@ -7840,7 +8524,7 @@ Run `revdep_details(,"RclusTool")` for more info
 * Version: 1.1
 * Source code: https://github.com/cran/RcmdrPlugin.FuzzyClust
 * Date/Publication: 2016-09-04 09:36:21
-* Number of recursive dependencies: 122
+* Number of recursive dependencies: 121
 
 Run `revdep_details(,"RcmdrPlugin.FuzzyClust")` for more info
 
@@ -7859,7 +8543,7 @@ Run `revdep_details(,"RcmdrPlugin.FuzzyClust")` for more info
 * Source code: https://github.com/cran/RDAVIDWebService
 * URL: http://www.bdmg.com.ar, http://david.abcc.ncifcrf.gov/
 * Date/Publication: 2019-05-02
-* Number of recursive dependencies: 69
+* Number of recursive dependencies: 66
 
 Run `revdep_details(,"RDAVIDWebService")` for more info
 
@@ -7922,7 +8606,7 @@ ERROR: lazy loading failed for package ‘RDAVIDWebService’
 * Version: 1.1.1
 * Source code: https://github.com/cran/Rdrools
 * Date/Publication: 2018-12-08 15:00:13 UTC
-* Number of recursive dependencies: 80
+* Number of recursive dependencies: 79
 
 Run `revdep_details(,"Rdrools")` for more info
 
@@ -8006,13 +8690,18 @@ Run `revdep_details(,"")` for more info
 
 ```
 
-  There is a binary version available but the source version is later:
-        binary source needs_compilation
-stringi  1.4.3  1.4.4              TRUE
+  There are binary versions available but the source versions are later:
+           binary  source needs_compilation
+checkmate   1.9.4   2.0.0              TRUE
+nlme      3.1-143 3.1-144              TRUE
 
   Binaries will be installed
 
 
+Warning: unable to access index for repository https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.6:
+  cannot open URL 'https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.6/PACKAGES'
+Warning: unable to access index for repository https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.6:
+  cannot open URL 'https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.6/PACKAGES'
 installing the source package ‘reactome.db’
 
 
@@ -8022,13 +8711,18 @@ installing the source package ‘reactome.db’
 
 ```
 
-  There is a binary version available but the source version is later:
-        binary source needs_compilation
-stringi  1.4.3  1.4.4              TRUE
+  There are binary versions available but the source versions are later:
+           binary  source needs_compilation
+checkmate   1.9.4   2.0.0              TRUE
+nlme      3.1-143 3.1-144              TRUE
 
   Binaries will be installed
 
 
+Warning: unable to access index for repository https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.6:
+  cannot open URL 'https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.6/PACKAGES'
+Warning: unable to access index for repository https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.6:
+  cannot open URL 'https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.6/PACKAGES'
 installing the source package ‘reactome.db’
 
 
@@ -8038,11 +8732,11 @@ installing the source package ‘reactome.db’
 
 <details>
 
-* Version: 1.3.0
+* Version: 1.3.1
 * Source code: https://github.com/cran/rmcfs
-* URL: www.ipipan.eu/staff/m.draminski/mcfs.html
-* Date/Publication: 2019-05-12 05:00:13 UTC
-* Number of recursive dependencies: 66
+* URL: https://home.ipipan.waw.pl/m.draminski/mcfs.html
+* Date/Publication: 2020-01-20 12:40:03 UTC
+* Number of recursive dependencies: 65
 
 Run `revdep_details(,"rmcfs")` for more info
 
@@ -8109,7 +8803,7 @@ ERROR: lazy loading failed for package ‘rmcfs’
 * Version: 2.2.0
 * Source code: https://github.com/cran/RnBeads
 * Date/Publication: 2019-05-02
-* Number of recursive dependencies: 230
+* Number of recursive dependencies: 226
 
 Run `revdep_details(,"RnBeads")` for more info
 
@@ -8183,7 +8877,7 @@ ERROR: lazy loading failed for package ‘RnBeads’
 * Source code: https://github.com/cran/Roleswitch
 * URL: http://www.cs.utoronto.ca/~yueli/roleswitch.html
 * Date/Publication: 2019-05-02
-* Number of recursive dependencies: 73
+* Number of recursive dependencies: 71
 
 Run `revdep_details(,"Roleswitch")` for more info
 
@@ -8228,7 +8922,7 @@ Run `revdep_details(,"Roleswitch")` for more info
 * Version: 1.1-4
 * Source code: https://github.com/cran/rpanel
 * Date/Publication: 2018-05-07 14:58:19 UTC
-* Number of recursive dependencies: 77
+* Number of recursive dependencies: 75
 
 Run `revdep_details(,"rpanel")` for more info
 
@@ -8299,7 +8993,7 @@ ERROR: lazy loading failed for package ‘rpanel’
 * URL: https://github.com/andrie/rrd/, https://andrie.github.io/rrd/
 * BugReports: https://github.com/andrie/rrd/issues
 * Date/Publication: 2019-07-05 17:10:05 UTC
-* Number of recursive dependencies: 61
+* Number of recursive dependencies: 60
 
 Run `revdep_details(,"rrd")` for more info
 
@@ -8386,7 +9080,7 @@ ERROR: configuration failed for package ‘rrd’
 * URL: https://github.com/antonio-pgarcia/rrepast
 * BugReports: https://github.com/antonio-pgarcia/RRepast/issues
 * Date/Publication: 2018-06-25 18:29:13 UTC
-* Number of recursive dependencies: 50
+* Number of recursive dependencies: 48
 
 Run `revdep_details(,"rrepast")` for more info
 
@@ -8450,11 +9144,11 @@ ERROR: lazy loading failed for package ‘rrepast’
 
 <details>
 
-* Version: 1.0.0
+* Version: 1.1.0
 * Source code: https://github.com/cran/RSCAT
 * BugReports: https://github.com/act-org/RSCAT/issues
-* Date/Publication: 2019-04-12 08:32:42 UTC
-* Number of recursive dependencies: 67
+* Date/Publication: 2020-01-17 10:00:02 UTC
+* Number of recursive dependencies: 66
 
 Run `revdep_details(,"RSCAT")` for more info
 
@@ -8523,7 +9217,7 @@ ERROR: lazy loading failed for package ‘RSCAT’
 * URL: https://mc-stan.org/rstanarm/, https://discourse.mc-stan.org
 * BugReports: https://github.com/stan-dev/rstanarm/issues
 * Date/Publication: 2019-10-03 18:00:02 UTC
-* Number of recursive dependencies: 123
+* Number of recursive dependencies: 122
 
 Run `revdep_details(,"rstanarm")` for more info
 
@@ -8536,11 +9230,11 @@ Run `revdep_details(,"rstanarm")` for more info
 
 *   checking installed package size ... NOTE
     ```
-      installed size is 17.2Mb
+      installed size is 17.5Mb
       sub-directories of 1Mb or more:
-        R      2.1Mb
+        R      2.0Mb
         doc    1.2Mb
-        libs  13.3Mb
+        libs  13.7Mb
     ```
 
 *   checking for GNU extensions in Makefiles ... NOTE
@@ -8557,7 +9251,7 @@ Run `revdep_details(,"rstanarm")` for more info
 * URL: https://github.com/jeroen/rsvg#readme
 * BugReports: https://github.com/jeroen/rsvg/issues
 * Date/Publication: 2018-05-10 12:17:28 UTC
-* Number of recursive dependencies: 57
+* Number of recursive dependencies: 55
 
 Run `revdep_details(,"rsvg")` for more info
 
@@ -8640,7 +9334,7 @@ ERROR: configuration failed for package ‘rsvg’
 * Version: 1.2
 * Source code: https://github.com/cran/RtutoR
 * Date/Publication: 2018-09-14 07:50:07 UTC
-* Number of recursive dependencies: 122
+* Number of recursive dependencies: 121
 
 Run `revdep_details(,"RtutoR")` for more info
 
@@ -8700,12 +9394,12 @@ ERROR: lazy loading failed for package ‘RtutoR’
 
 <details>
 
-* Version: 0.9.1-8
+* Version: 0.9.1-9
 * Source code: https://github.com/cran/RxODE
 * URL: https://nlmixrdevelopment.github.io/RxODE/
 * BugReports: https://github.com/nlmixrdevelopment/RxODE/issues
-* Date/Publication: 2019-11-12 14:30:06 UTC
-* Number of recursive dependencies: 122
+* Date/Publication: 2020-01-10 23:20:06 UTC
+* Number of recursive dependencies: 121
 
 Run `revdep_details(,"RxODE")` for more info
 
@@ -8762,6 +9456,86 @@ ERROR: configuration failed for package ‘RxODE’
 * removing ‘/Users/max/github/forks/ggplot2/revdep/checks.noindex/RxODE/old/RxODE.Rcheck/RxODE’
 
 ```
+# scPipe
+
+<details>
+
+* Version: 1.6.0
+* Source code: https://github.com/cran/scPipe
+* URL: https://github.com/LuyiTian/scPipe
+* BugReports: https://github.com/LuyiTian/scPipe
+* Date/Publication: 2019-05-02
+* Number of recursive dependencies: 117
+
+Run `revdep_details(,"scPipe")` for more info
+
+</details>
+
+## In both
+
+*   R CMD check timed out
+    
+
+*   checking whether package ‘scPipe’ can be installed ... WARNING
+    ```
+    Found the following significant warnings:
+      trimbarcode.cpp:92:5: warning: ignoring return value of function declared with 'warn_unused_result' attribute [-Wunused-result]
+      transcriptmapping.cpp:756:5: warning: ignoring return value of function declared with 'warn_unused_result' attribute [-Wunused-result]
+    See ‘/Users/max/github/forks/ggplot2/revdep/checks.noindex/scPipe/new/scPipe.Rcheck/00install.out’ for details.
+    ```
+
+*   checking whether the namespace can be loaded with stated dependencies ... WARNING
+    ```
+    Error in dyn.load(file, DLLpath = DLLpath, ...) : 
+      unable to load shared object '/Users/max/github/forks/ggplot2/revdep/library.noindex/scPipe/Rhtslib/libs/Rhtslib.so':
+      dlopen(/Users/max/github/forks/ggplot2/revdep/library.noindex/scPipe/Rhtslib/libs/Rhtslib.so, 6): Symbol not found: _lzma_easy_buffer_encode
+      Referenced from: /Users/max/github/forks/ggplot2/revdep/library.noindex/scPipe/Rhtslib/libs/Rhtslib.so
+      Expected in: flat namespace
+     in /Users/max/github/forks/ggplot2/revdep/library.noindex/scPipe/Rhtslib/libs/Rhtslib.so
+    Calls: <Anonymous> ... namespaceImport -> loadNamespace -> library.dynam -> dyn.load
+    Execution halted
+    
+    A namespace must be able to be loaded with just the base namespace
+    loaded: otherwise if the namespace gets loaded by a saved object, the
+    session will be unable to start.
+    
+    Probably some imports need to be declared in the NAMESPACE file.
+    ```
+
+*   checking for hidden files and directories ... NOTE
+    ```
+    Found the following hidden files and directories:
+      .BBSoptions
+    These were most likely included in error. See section ‘Package
+    structure’ in the ‘Writing R Extensions’ manual.
+    ```
+
+*   checking R code for possible problems ... NOTE
+    ```
+    ...
+    anno_to_saf: no visible binding for global variable ‘GeneID’
+    infer_gene_id_from_parent : <local>: no visible binding for global
+      variable ‘transcript_id’
+    infer_gene_id_from_parent : <local>: no visible binding for global
+      variable ‘Parent’
+    infer_gene_id_from_parent: no visible binding for global variable
+      ‘type’
+    infer_gene_id_from_parent: no visible binding for global variable
+      ‘Parent’
+    infer_gene_id_from_parent: no visible binding for global variable
+      ‘gene_id’
+    plot_demultiplex: no visible binding for global variable ‘status’
+    plot_demultiplex: no visible binding for global variable ‘count’
+    plot_demultiplex: no visible binding for global variable ‘label_y’
+    plot_demultiplex: no visible binding for global variable ‘label_tx’
+    Undefined global functions or variables:
+      GeneID Parent count end gene_id label_tx label_y seqnames start
+      status strand transcript_id type
+    Consider adding
+      importFrom("stats", "end", "start")
+    to your NAMESPACE file.
+    ```
+
 # SeqFeatR
 
 <details>
@@ -8769,7 +9543,7 @@ ERROR: configuration failed for package ‘RxODE’
 * Version: 0.3.1
 * Source code: https://github.com/cran/SeqFeatR
 * Date/Publication: 2019-04-12 12:02:37 UTC
-* Number of recursive dependencies: 62
+* Number of recursive dependencies: 60
 
 Run `revdep_details(,"SeqFeatR")` for more info
 
@@ -8833,12 +9607,12 @@ ERROR: lazy loading failed for package ‘SeqFeatR’
 
 <details>
 
-* Version: 0.8-0
+* Version: 0.8-1
 * Source code: https://github.com/cran/sf
 * URL: https://github.com/r-spatial/sf/, https://r-spatial.github.io/sf/
 * BugReports: https://github.com/r-spatial/sf/issues/
-* Date/Publication: 2019-09-17 04:40:03 UTC
-* Number of recursive dependencies: 140
+* Date/Publication: 2020-01-28 11:20:07 UTC
+* Number of recursive dependencies: 137
 
 Run `revdep_details(,"sf")` for more info
 
@@ -8899,7 +9673,7 @@ checking GDAL: checking whether PROJ is available for linking:... yes
 checking GDAL: checking whether PROJ is available fur running:... dyld: Library not loaded: /usr/local/opt/openssl/lib/libcrypto.1.0.0.dylib
   Referenced from: /usr/local/opt/gdal/lib/libgdal.20.dylib
   Reason: image not found
-./configure: line 3625: 71700 Abort trap: 6           ./gdal_proj
+./configure: line 3625: 66275 Abort trap: 6           ./gdal_proj
 no
 configure: error: OGRCoordinateTransformation() does not return a coord.trans: PROJ not available?
 ERROR: configuration failed for package ‘sf’
@@ -8951,7 +9725,7 @@ checking GDAL: checking whether PROJ is available for linking:... yes
 checking GDAL: checking whether PROJ is available fur running:... dyld: Library not loaded: /usr/local/opt/openssl/lib/libcrypto.1.0.0.dylib
   Referenced from: /usr/local/opt/gdal/lib/libgdal.20.dylib
   Reason: image not found
-./configure: line 3625: 70626 Abort trap: 6           ./gdal_proj
+./configure: line 3625: 65953 Abort trap: 6           ./gdal_proj
 no
 configure: error: OGRCoordinateTransformation() does not return a coord.trans: PROJ not available?
 ERROR: configuration failed for package ‘sf’
@@ -8965,7 +9739,7 @@ ERROR: configuration failed for package ‘sf’
 * Version: 0.4.1
 * Source code: https://github.com/cran/simmr
 * Date/Publication: 2019-07-03 18:20:03 UTC
-* Number of recursive dependencies: 78
+* Number of recursive dependencies: 76
 
 Run `revdep_details(,"simmr")` for more info
 
@@ -9036,7 +9810,7 @@ ERROR: lazy loading failed for package ‘simmr’
 * Version: 0.62.0
 * Source code: https://github.com/cran/smartR
 * Date/Publication: 2018-11-30 23:40:03 UTC
-* Number of recursive dependencies: 137
+* Number of recursive dependencies: 134
 
 Run `revdep_details(,"smartR")` for more info
 
@@ -9116,13 +9890,18 @@ Run `revdep_details(,"")` for more info
 
 ```
 
-  There is a binary version available but the source version is later:
-        binary source needs_compilation
-stringi  1.4.3  1.4.4              TRUE
+  There are binary versions available but the source versions are later:
+           binary  source needs_compilation
+checkmate   1.9.4   2.0.0              TRUE
+nlme      3.1-143 3.1-144              TRUE
 
   Binaries will be installed
 
 
+Warning: unable to access index for repository https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.6:
+  cannot open URL 'https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.6/PACKAGES'
+Warning: unable to access index for repository https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.6:
+  cannot open URL 'https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.6/PACKAGES'
 installing the source package ‘reactome.db’
 
 
@@ -9132,26 +9911,72 @@ installing the source package ‘reactome.db’
 
 ```
 
-  There is a binary version available but the source version is later:
-        binary source needs_compilation
-stringi  1.4.3  1.4.4              TRUE
+  There are binary versions available but the source versions are later:
+           binary  source needs_compilation
+checkmate   1.9.4   2.0.0              TRUE
+nlme      3.1-143 3.1-144              TRUE
 
   Binaries will be installed
 
 
+Warning: unable to access index for repository https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.6:
+  cannot open URL 'https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.6/PACKAGES'
+Warning: unable to access index for repository https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.6:
+  cannot open URL 'https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.6/PACKAGES'
 installing the source package ‘reactome.db’
 
 
 
 ```
+# SNPhood
+
+<details>
+
+* Version: 1.14.0
+* Source code: https://github.com/cran/SNPhood
+* URL: https://bioconductor.org/packages/SNPhood
+* BugReports: christian.arnold@embl.de
+* Date/Publication: 2019-05-02
+* Number of recursive dependencies: 129
+
+Run `revdep_details(,"SNPhood")` for more info
+
+</details>
+
+## In both
+
+*   R CMD check timed out
+    
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is 10.9Mb
+      sub-directories of 1Mb or more:
+        data   3.8Mb
+        doc    6.4Mb
+    ```
+
+*   checking DESCRIPTION meta-information ... NOTE
+    ```
+    BugReports field is not a suitable URL but appears to contain an email address
+      not specified by mailto: nor contained in < >
+    ```
+
+*   checking R code for possible problems ... NOTE
+    ```
+    .calcBinomTestVector: no visible binding for global variable ‘pp’
+    Undefined global functions or variables:
+      pp
+    ```
+
 # spcosa
 
 <details>
 
-* Version: 0.3-8
+* Version: 0.3-9
 * Source code: https://github.com/cran/spcosa
-* Date/Publication: 2018-03-30 12:52:26 UTC
-* Number of recursive dependencies: 77
+* Date/Publication: 2020-01-13 14:00:02 UTC
+* Number of recursive dependencies: 75
 
 Run `revdep_details(,"spcosa")` for more info
 
@@ -9221,7 +10046,7 @@ ERROR: lazy loading failed for package ‘spcosa’
 * Source code: https://github.com/cran/stpp
 * BugReports: https://github.com/stpp-GitHub-community
 * Date/Publication: 2018-02-14 19:02:33 UTC
-* Number of recursive dependencies: 85
+* Number of recursive dependencies: 83
 
 Run `revdep_details(,"stpp")` for more info
 
@@ -9322,7 +10147,7 @@ ERROR: lazy loading failed for package ‘stpp’
 * URL: https://github.com/BioinformaticsFMRP/TCGAbiolinks
 * BugReports: https://github.com/BioinformaticsFMRP/TCGAbiolinks/issues
 * Date/Publication: 2019-09-05
-* Number of recursive dependencies: 266
+* Number of recursive dependencies: 265
 
 Run `revdep_details(,"TCGAbiolinks")` for more info
 
@@ -9335,10 +10160,10 @@ Run `revdep_details(,"TCGAbiolinks")` for more info
 
 *   checking installed package size ... NOTE
     ```
-      installed size is 97.1Mb
+      installed size is 96.0Mb
       sub-directories of 1Mb or more:
-        R      2.5Mb
-        data   4.3Mb
+        R      1.7Mb
+        data   3.9Mb
         doc   90.1Mb
     ```
 
@@ -9382,7 +10207,7 @@ Run `revdep_details(,"TCGAbiolinks")` for more info
 * Version: 2.10
 * Source code: https://github.com/cran/TeachingDemos
 * Date/Publication: 2016-02-12 07:40:49
-* Number of recursive dependencies: 76
+* Number of recursive dependencies: 74
 
 Run `revdep_details(,"TeachingDemos")` for more info
 
@@ -9398,6 +10223,98 @@ Run `revdep_details(,"TeachingDemos")` for more info
     Package suggested but not available for checking: ‘R2wd’
     ```
 
+# trialr
+
+<details>
+
+* Version: 0.1.3
+* Source code: https://github.com/cran/trialr
+* URL: https://github.com/brockk/trialr
+* BugReports: https://github.com/brockk/trialr/issues
+* Date/Publication: 2020-01-08 22:30:10 UTC
+* Number of recursive dependencies: 102
+
+Run `revdep_details(,"trialr")` for more info
+
+</details>
+
+## In both
+
+*   checking whether package ‘trialr’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/Users/max/github/forks/ggplot2/revdep/checks.noindex/trialr/new/trialr.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘trialr’ ...
+** package ‘trialr’ successfully unpacked and MD5 sums checked
+** using staged installation
+** libs
+"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e "source(file.path('..', 'tools', 'make_cc.R')); make_cc(commandArgs(TRUE))" stan_files/AugBin2T1A.stan
+"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e "source(file.path('..', 'tools', 'make_cc.R')); make_cc(commandArgs(TRUE))" stan_files/BebopInPeps2.stan
+"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e "source(file.path('..', 'tools', 'make_cc.R')); make_cc(commandArgs(TRUE))" stan_files/CrmEmpiricNormalPrior.stan
+"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e "source(file.path('..', 'tools', 'make_cc.R')); make_cc(commandArgs(TRUE))" stan_files/CrmOneParamLogisticGammaPrior.stan
+Wrote C++ file "stan_files/CrmEmpiricNormalPrior.cc"
+Wrote C++ file "stan_files/CrmOneParamLogisticGammaPrior.cc"
+Wrote C++ file "stan_files/AugBin2T1A.cc"
+Wrote C++ file "stan_files/BebopInPeps2.cc"
+Error in readRDS("/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//Rtmp45Qwiv/file9f1c2321b36e") : 
+  error reading from connection
+Calls: .Last -> readRDS
+Execution halted
+"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e "source(file.path('..', 'tools', 'make_cc.R')); make_cc(commandArgs(TRUE))" stan_files/CrmOneParamLogisticNormalPrior.stan
+"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e "source(file.path('..', 'tools', 'make_cc.R')); make_cc(commandArgs(TRUE))" stan_files/CrmTwoParamLogisticNormalPrior.stan
+make: *** [stan_files/BebopInPeps2.cc] Error 1
+make: *** Waiting for unfinished jobs....
+Wrote C++ file "stan_files/CrmOneParamLogisticNormalPrior.cc"
+Wrote C++ file "stan_files/CrmTwoParamLogisticNormalPrior.cc"
+rm stan_files/BebopInPeps2.cc stan_files/CrmEmpiricNormalPrior.cc stan_files/CrmTwoParamLogisticNormalPrior.cc stan_files/CrmOneParamLogisticNormalPrior.cc stan_files/CrmOneParamLogisticGammaPrior.cc stan_files/AugBin2T1A.cc
+ERROR: compilation failed for package ‘trialr’
+* removing ‘/Users/max/github/forks/ggplot2/revdep/checks.noindex/trialr/new/trialr.Rcheck/trialr’
+
+```
+### CRAN
+
+```
+* installing *source* package ‘trialr’ ...
+** package ‘trialr’ successfully unpacked and MD5 sums checked
+** using staged installation
+** libs
+"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e "source(file.path('..', 'tools', 'make_cc.R')); make_cc(commandArgs(TRUE))" stan_files/AugBin2T1A.stan
+"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e "source(file.path('..', 'tools', 'make_cc.R')); make_cc(commandArgs(TRUE))" stan_files/BebopInPeps2.stan
+"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e "source(file.path('..', 'tools', 'make_cc.R')); make_cc(commandArgs(TRUE))" stan_files/CrmEmpiricNormalPrior.stan
+"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e "source(file.path('..', 'tools', 'make_cc.R')); make_cc(commandArgs(TRUE))" stan_files/CrmOneParamLogisticGammaPrior.stan
+Wrote C++ file "stan_files/CrmEmpiricNormalPrior.cc"
+Wrote C++ file "stan_files/CrmOneParamLogisticGammaPrior.cc"
+Wrote C++ file "stan_files/AugBin2T1A.cc"
+Wrote C++ file "stan_files/BebopInPeps2.cc"
+"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e "source(file.path('..', 'tools', 'make_cc.R')); make_cc(commandArgs(TRUE))" stan_files/CrmOneParamLogisticNormalPrior.stan
+"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e "source(file.path('..', 'tools', 'make_cc.R')); make_cc(commandArgs(TRUE))" stan_files/CrmTwoParamLogisticNormalPrior.stan
+"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e "source(file.path('..', 'tools', 'make_cc.R')); make_cc(commandArgs(TRUE))" stan_files/EffTox.stan
+"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e "source(file.path('..', 'tools', 'make_cc.R')); make_cc(commandArgs(TRUE))" stan_files/ThallHierarchicalBinary.stan
+
+
+Wrote C++ file "stan_files/EffTox.cc"
+Wrote C++ file "stan_files/CrmTwoParamLogisticNormalPrior.cc"
+Wrote C++ file "stan_files/CrmOneParamLogisticNormalPrior.cc"
+Wrote C++ file "stan_files/ThallHierarchicalBinary.cc"
+/usr/local/clang8/bin/clang++ -std=gnu++14 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I"../inst/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/trialr/StanHeaders/include/src" -DBOOST_DISABLE_ASSERTS -DEIGEN_NO_DEBUG -DBOOST_MATH_OVERFLOW_ERROR_POLICY=errno_on_error -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/trialr/StanHeaders/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/trialr/rstan/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/trialr/BH/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/trialr/Rcpp/include" -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/trialr/RcppEigen/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c init.cpp -o init.o
+Error in readRDS("/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//Rtmp45Qwiv/file9f1c692ed645") : 
+  error reading from connection
+Calls: .Last -> readRDS
+Execution halted
+make: *** [stan_files/CrmTwoParamLogisticNormalPrior.cc] Error 1
+make: *** Waiting for unfinished jobs....
+rm stan_files/EffTox.cc stan_files/BebopInPeps2.cc stan_files/CrmEmpiricNormalPrior.cc stan_files/ThallHierarchicalBinary.cc stan_files/CrmTwoParamLogisticNormalPrior.cc stan_files/CrmOneParamLogisticNormalPrior.cc stan_files/CrmOneParamLogisticGammaPrior.cc stan_files/AugBin2T1A.cc
+ERROR: compilation failed for package ‘trialr’
+* removing ‘/Users/max/github/forks/ggplot2/revdep/checks.noindex/trialr/old/trialr.Rcheck/trialr’
+
+```
 # vortexR
 
 <details>
@@ -9407,7 +10324,7 @@ Run `revdep_details(,"TeachingDemos")` for more info
 * URL: https://github.com/carlopacioni/vortexR/
 * BugReports: https://github.com/carlopacioni/vortexR/issues
 * Date/Publication: 2019-02-06 12:50:03 UTC
-* Number of recursive dependencies: 123
+* Number of recursive dependencies: 122
 
 Run `revdep_details(,"vortexR")` for more info
 
@@ -9469,12 +10386,12 @@ ERROR: lazy loading failed for package ‘vortexR’
 
 <details>
 
-* Version: 0.1.0
+* Version: 0.1.1
 * Source code: https://github.com/cran/WaveSampling
-* URL: https://github.com/RJauslin/wave
-* BugReports: https://github.com/RJauslin/wave/issues
-* Date/Publication: 2019-10-16 12:00:11 UTC
-* Number of recursive dependencies: 68
+* URL: https://github.com/RJauslin/WaveSampling
+* BugReports: https://github.com/RJauslin/WaveSampling/issues
+* Date/Publication: 2020-01-30 12:00:09 UTC
+* Number of recursive dependencies: 66
 
 Run `revdep_details(,"WaveSampling")` for more info
 
@@ -9532,7 +10449,7 @@ ERROR: configuration failed for package ‘WaveSampling’
 * Source code: https://github.com/cran/XBSeq
 * URL: https://github.com/Liuy12/XBSeq
 * Date/Publication: 2019-05-02
-* Number of recursive dependencies: 130
+* Number of recursive dependencies: 129
 
 Run `revdep_details(,"XBSeq")` for more info
 
@@ -9589,7 +10506,7 @@ Run `revdep_details(,"XBSeq")` for more info
 * URL: http://www.mirai-solutions.com https://github.com/miraisolutions/xlconnect
 * BugReports: https://github.com/miraisolutions/xlconnect/issues
 * Date/Publication: 2018-04-05 17:20:46 UTC
-* Number of recursive dependencies: 43
+* Number of recursive dependencies: 41
 
 Run `revdep_details(,"XLConnect")` for more info
 
@@ -9663,7 +10580,7 @@ ERROR: lazy loading failed for package ‘XLConnect’
 * Source code: https://github.com/cran/zenplots
 * URL: https://github.com/great-northern-diver/zenplots
 * Date/Publication: 2019-08-01 16:40:02 UTC
-* Number of recursive dependencies: 108
+* Number of recursive dependencies: 105
 
 Run `revdep_details(,"zenplots")` for more info
 
@@ -9738,7 +10655,7 @@ ERROR: lazy loading failed for package ‘zenplots’
 * URL: http://www.zooarchgui.org/, https://zooarchgui.github.io/zooaRchGUI/
 * BugReports: https://github.com/zooaRchGUI/zooaRchGUI/issues
 * Date/Publication: 2017-06-15 15:09:03 UTC
-* Number of recursive dependencies: 133
+* Number of recursive dependencies: 131
 
 Run `revdep_details(,"zooaRchGUI")` for more info
 
