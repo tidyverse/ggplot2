@@ -194,7 +194,7 @@ make_labels <- function(mapping) {
       return(aesthetic)
     }
     mapping <- strip_stage(mapping)
-    mapping <- strip_dots(mapping)
+    mapping <- strip_dots(mapping, strip_pronoun = TRUE)
     if (is_quosure(mapping) && quo_is_symbol(mapping)) {
       name <- as_string(quo_get_expr(mapping))
     } else {
