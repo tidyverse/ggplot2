@@ -121,10 +121,10 @@ to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more 
 \code{boundary}, may be specified for a single plot. \code{center} specifies the
 center of one of the bins. \code{boundary} specifies the boundary between two
 bins. Note that if either is above or below the range of the data, things
-will be shifted by the appropriate integer multiple of \code{width}.
-For example, to center on integers use \code{width = 1} and \code{center = 0}, even
+will be shifted by the appropriate integer multiple of \code{binwidth}.
+For example, to center on integers use \code{binwidth = 1} and \code{center = 0}, even
 if \code{0} is outside the range of the data. Alternatively, this same alignment
-can be specified with \code{width = 1} and \code{boundary = 0.5}, even if \code{0.5} is
+can be specified with \code{binwidth = 1} and \code{boundary = 0.5}, even if \code{0.5} is
 outside the range of the data.}
 
 \item{breaks}{Alternatively, you can supply a numeric vector giving
