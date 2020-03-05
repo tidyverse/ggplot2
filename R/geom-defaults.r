@@ -14,7 +14,7 @@
 update_geom_defaults <- function(geom, new) {
   g <- check_subclass(geom, "Geom", env = parent.frame())
 
-  env <- new.env()
+  env <-  new_data_mask(new.env())
   env$theme <- theme_get()
   old <- rlang::eval_tidy(g$default_aes, env)
 
