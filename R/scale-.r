@@ -291,7 +291,7 @@ binned_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 #'   position scales, only the continuous range is reset.
 #'
 #' - `map()` Map transformed data values to some output value as
-#'   determined by `self$rescale()` and `self$pallete` (except for position scales,
+#'   determined by `self$rescale()` and `self$palette` (except for position scales,
 #'   which do not use the default implementation of this method). The output corresponds
 #'   to the transformed data value in aesthetic space (e.g., a color, line width, or size).
 #'
@@ -746,7 +746,11 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
 
     cat("<", class(self)[[1]], ">\n", sep = "")
     cat(" Range:  ", show_range(self$range$range), "\n", sep = "")
-    cat(" Limits: ", show_range(self$dimension()), "\n", sep = "")
+    if (is.function(self$limits)) {
+      cat(" Limits: function()\n")
+    } else {
+      cat(" Limits: ", show_range(self$dimension()), "\n", sep = "")
+    }
   }
 )
 

@@ -429,7 +429,7 @@ a vector of (possibly) new values.
 \item \code{reset()} Reset the \code{self$range} of observed data values. For discrete
 position scales, only the continuous range is reset.
 \item \code{map()} Map transformed data values to some output value as
-determined by \code{self$rescale()} and \code{self$pallete} (except for position scales,
+determined by \code{self$rescale()} and \code{self$palette} (except for position scales,
 which do not use the default implementation of this method). The output corresponds
 to the transformed data value in aesthetic space (e.g., a color, line width, or size).
 \item \code{rescale()} Rescale transformed data to the the range 0, 1. This is most useful for

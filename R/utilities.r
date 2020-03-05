@@ -653,3 +653,10 @@ flipped_names <- function(flip = FALSE) {
   names(ret) <- c(x_aes, y_aes)
   ret
 }
+
+split_with_index <- function(x, f, n = max(f)) {
+  if (n == 1) return(list(x))
+  f <- as.integer(f)
+  attributes(f) <- list(levels = as.character(seq_len(n)), class = "factor")
+  unname(split(x, f))
+}

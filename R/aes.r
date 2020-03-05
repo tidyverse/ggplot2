@@ -226,7 +226,7 @@ is_position_aes <- function(vars) {
 #' [substitute()] to generate a call to `aes()`.
 #'
 #' I recommend using `aes_()`, because creating the equivalents of
-#' `aes(colour = "my colour")` or \code{aes{x = `X$1`}}
+#' `aes(colour = "my colour")` or \code{aes(x = `X$1`)}
 #' with `aes_string()` is quite clunky.
 #'
 #'

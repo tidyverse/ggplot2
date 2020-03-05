@@ -440,7 +440,7 @@ labeller <- function(..., .rows = NULL, .cols = NULL,
       labellers <- lapply(dots, as_labeller)
     } else {
       margin_labeller <- as_labeller(margin_labeller, default = .default,
-        multi_line = .multi_line)
+                                     multi_line = .multi_line)
 
       # Check that variable-specific labellers do not overlap with
       # margin-wide labeller
@@ -510,8 +510,8 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
                                  theme, horizontal, clip = "on")
 
     grobs_bottom <- lapply(labels, element_render, theme = theme,
-                          element = "strip.text.x.bottom", margin_x = TRUE,
-                          margin_y = TRUE)
+                           element = "strip.text.x.bottom", margin_x = TRUE,
+                           margin_y = TRUE)
     grobs_bottom <- assemble_strips(matrix(grobs_bottom, ncol = ncol, nrow = nrow),
                                     theme, horizontal, clip = "on")
 
