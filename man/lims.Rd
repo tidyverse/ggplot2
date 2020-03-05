@@ -13,15 +13,17 @@ xlim(...)
 ylim(...)
 }
 \arguments{
-\item{...}{A name-value pair. The name must be an aesthetic, and the value
+\item{...}{For \code{xlim()} and \code{ylim()}: Two numeric values, specifying the left/lower
+limit and the right/upper limit of the scale. If the larger value is given first,
+the scale will be reversed. You can leave one value as \code{NA} if you want to compute
+the corresponding limit from the range of the data.
+
+For \code{lims()}: A name--value pair. The name must be an aesthetic, and the value
 must be either a length-2 numeric, a character, a factor, or a date/time.
-
-A numeric value will create a continuous scale. If the larger value
-comes first, the scale will be reversed. You can leave one value as
-\code{NA} to compute from the range of the data.
-
+A numeric value will create a continuous scale. If the larger value comes first,
+the scale will be reversed. You can leave one value as \code{NA} if you want
+to compute the corresponding limit from the range of the data.
 A character or factor value will create a discrete scale.
-
 A date-time value will create a continuous date/time scale.}
 }
 \description{

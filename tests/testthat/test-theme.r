@@ -252,7 +252,7 @@ test_that("theme validation happens at build stage", {
 
   # the error occurs when we try to render the plot
   p <- ggplot() + theme(text = 0)
-  expect_error(print(p), "must be an `element_text`")
+  expect_error(print(p), "must be an object of type `element_text`")
 
   # without validation, the error occurs when the element is accessed
   p <- ggplot() + theme(text = 0, validate = FALSE)

@@ -1,5 +1,11 @@
 # ggplot2 (development version)
 
+* `annotation_raster()` adds support for native rasters. For large rasters,
+  native rasters render significantly faster than arrays (@kent37, #3388)
+  
+* Support graphics devices that use the `file` argument instead of `fileneame` 
+  in `ggsave()` (@bwiernik, #3810)
+  
 # ggplot2 3.3.0
 
 * Fix a bug in `geom_raster()` that squeezed the image when it went outside 
@@ -334,7 +340,10 @@ as the tidyverse is committed to support 5 major versions of R.
 
 ## Breaking changes
 
-This is a minor release and breaking changes have been kept to a minimum. End users of ggplot2 are unlikely to encounter any issues. However, there are a few items that developers of ggplot2 extensions should be aware of. For additional details, see also the discussion accompanying issue #2890.
+This is a minor release and breaking changes have been kept to a minimum. End users of 
+ggplot2 are unlikely to encounter any issues. However, there are a few items that developers 
+of ggplot2 extensions should be aware of. For additional details, see also the discussion 
+accompanying issue #2890.
 
 *   In non-user-facing internal code (specifically in the `aes()` function and in
     the `aesthetics` argument of scale functions), ggplot2 now always uses the British
@@ -934,25 +943,45 @@ This is a minor release and breaking changes have been kept to a minimum. End us
 
 ### Subtitle and caption
 
-Thanks to @hrbrmstr plots now have subtitles and captions, which can be set with the `subtitle`  and `caption` arguments to `ggtitle()` and `labs()`. You can control their appearance with the theme settings `plot.caption` and `plot.subtitle`. The main plot title is now left-aligned to better work better with a subtitle. The caption is right-aligned (@hrbrmstr).
+Thanks to @hrbrmstr plots now have subtitles and captions, which can be set with 
+the `subtitle`  and `caption` arguments to `ggtitle()` and `labs()`. You can 
+control their appearance with the theme settings `plot.caption` and 
+`plot.subtitle`. The main plot title is now left-aligned to better work better 
+with a subtitle. The caption is right-aligned (@hrbrmstr).
 
 ### Stacking
 
-`position_stack()` and `position_fill()` now sort the stacking order to match grouping order. This allows you to control the order through grouping, and ensures that the default legend matches the plot (#1552, #1593). If you want the opposite order (useful if you have horizontal bars and horizontal legend), you can request reverse stacking by using `position = position_stack(reverse = TRUE)` (#1837).
+`position_stack()` and `position_fill()` now sort the stacking order to match 
+grouping order. This allows you to control the order through grouping, and 
+ensures that the default legend matches the plot (#1552, #1593). If you want the 
+opposite order (useful if you have horizontal bars and horizontal legend), you 
+can request reverse stacking by using `position = position_stack(reverse = TRUE)` 
+(#1837).
   
-`position_stack()` and `position_fill()` now accepts negative values which will create stacks extending below the x-axis (#1691).
+`position_stack()` and `position_fill()` now accepts negative values which will 
+create stacks extending below the x-axis (#1691).
 
-`position_stack()` and `position_fill()` gain a `vjust` argument which makes it easy to (e.g.) display labels in the middle of stacked bars (#1821).
+`position_stack()` and `position_fill()` gain a `vjust` argument which makes it 
+easy to (e.g.) display labels in the middle of stacked bars (#1821).
 
 ### Layers
 
-`geom_col()` was added to complement `geom_bar()` (@hrbrmstr). It uses `stat="identity"` by default, making the `y` aesthetic mandatory. It does not support any other `stat_()` and does not provide fallback support for the `binwidth` parameter. Examples and references in other functions were updated to demonstrate `geom_col()` usage. 
+`geom_col()` was added to complement `geom_bar()` (@hrbrmstr). It uses 
+`stat="identity"` by default, making the `y` aesthetic mandatory. It does not 
+support any other `stat_()` and does not provide fallback support for the 
+`binwidth` parameter. Examples and references in other functions were updated to
+demonstrate `geom_col()` usage. 
 
-When creating a layer, ggplot2 will warn if you use an unknown aesthetic or an unknown parameter. Compared to the previous version, this is stricter for aesthetics (previously there was no message), and less strict for parameters (previously this threw an error) (#1585).
+When creating a layer, ggplot2 will warn if you use an unknown aesthetic or an 
+unknown parameter. Compared to the previous version, this is stricter for 
+aesthetics (previously there was no message), and less strict for parameters 
+(previously this threw an error) (#1585).
 
 ### Facetting
 
-The facet system, as well as the internal panel class, has been rewritten in ggproto. Facets are now extendable in the same manner as geoms and stats, as described in `vignette("extending-ggplot2")`.
+The facet system, as well as the internal panel class, has been rewritten in 
+ggproto. Facets are now extendable in the same manner as geoms and stats, as 
+described in `vignette("extending-ggplot2")`.
 
 We have also added the following new fatures.
   
@@ -974,7 +1003,10 @@ We have also added the following new fatures.
 
 ### Extensions
 
-Unfortunately there was a major oversight in the construction of ggproto which lead to extensions capturing the super object at package build time, instead of at package run time (#1826). This problem has been fixed, but requires re-installation of all extension packages.
+Unfortunately there was a major oversight in the construction of ggproto which 
+lead to extensions capturing the super object at package build time, instead of 
+at package run time (#1826). This problem has been fixed, but requires 
+re-installation of all extension packages.
 
 ## Scales
 
@@ -1009,7 +1041,10 @@ Unfortunately there was a major oversight in the construction of ggproto which l
 
 ### Discrete scales
 
-The treatment of missing values by discrete scales has been thoroughly overhauled (#1584). The underlying principle is that we can naturally represent missing values on discrete variables (by treating just like another level), so by default we should. 
+The treatment of missing values by discrete scales has been thoroughly 
+overhauled (#1584). The underlying principle is that we can naturally represent 
+missing values on discrete variables (by treating just like another level), so 
+by default we should. 
 
 This principle applies to:
 
@@ -1340,7 +1375,8 @@ There were a number of tweaks to the theme elements that control legends:
 
 ### Extensibility
 
-There is now an official mechanism for defining Stats, Geoms, and Positions in other packages. See `vignette("extending-ggplot2")` for details.
+There is now an official mechanism for defining Stats, Geoms, and Positions in 
+other packages. See `vignette("extending-ggplot2")` for details.
 
 * All Geoms, Stats and Positions are now exported, so you can inherit from them
   when making your own objects (#989).
@@ -1411,7 +1447,7 @@ A number of geoms have been renamed to be internally consistent:
   to `geom_density_2d()`/`stat_density_2d()`.
 
 * `stat_spoke()` is now `geom_spoke()` since I realised it's a
-  reparameterisation of `geom_segment().
+  reparameterisation of `geom_segment()`.
 
 * `stat_bindot()` has been removed because it's so tightly coupled to
   `geom_dotplot()`. If you happened to use `stat_bindot()`, just change to
@@ -1580,7 +1616,7 @@ version of ggplot.
   
     *  `geom_smooth()` gains explicit `method`, `se` and `formula` arguments.
     
-    * `geom_histogram()` gains `binwidth`, `bins`, origin` and `right` 
+    * `geom_histogram()` gains `binwidth`, `bins`, `origin` and `right` 
       arguments.
       
     * `geom_jitter()` gains `width` and `height` arguments to make it easier
