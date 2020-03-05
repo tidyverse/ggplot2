@@ -42,9 +42,11 @@
 
 
 <meta property="og:title" content="Set scale limits — lims" />
-<meta property="og:description" content="This is a shortcut for supplying the limits argument to the
-individual scales. Note that, by default, any values outside the limits
-will be replaced with NA." />
+<meta property="og:description" content="This is a shortcut for supplying the limits argument to the individual
+scales. By default, any values outside the limits specified are replaced with
+NA. Be warned that this will remove data outside the limits and this can
+produce unintended results. For changing x or y axis limits without
+dropping data observations, see coord_cartesian()." />
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -182,9 +184,11 @@ will be replaced with NA." />
     </div>
 
     <div class="ref-description">
-    <p>This is a shortcut for supplying the <code>limits</code> argument to the
-individual scales. Note that, by default, any values outside the limits
-will be replaced with <code>NA</code>.</p>
+    <p>This is a shortcut for supplying the <code>limits</code> argument to the individual
+scales. By default, any values outside the limits specified are replaced with
+<code>NA</code>. Be warned that this will remove data outside the limits and this can
+produce unintended results. For changing x or y axis limits <strong>without</strong>
+dropping data observations, see <code><a href='coord_cartesian.html'>coord_cartesian()</a></code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>lims</span>(<span class='no'>...</span>)
@@ -214,10 +218,9 @@ A date-time value will create a continuous date/time scale.</p></td>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>For changing x or y axis limits <strong>without</strong> dropping data
-observations, see <code><a href='coord_cartesian.html'>coord_cartesian()</a></code>. To expand the range of
-a plot to always include certain values, see <code><a href='expand_limits.html'>expand_limits()</a></code>. For other
-types of data, see <code><a href='scale_discrete.html'>scale_x_discrete()</a></code>, <code><a href='scale_continuous.html'>scale_x_continuous()</a></code>, <code><a href='scale_date.html'>scale_x_date()</a></code>.</p></div>
+    <div class='dont-index'><p>To expand the range of a plot to always include
+certain values, see <code><a href='expand_limits.html'>expand_limits()</a></code>. For other types of data, see
+<code><a href='scale_discrete.html'>scale_x_discrete()</a></code>, <code><a href='scale_continuous.html'>scale_x_continuous()</a></code>, <code><a href='scale_date.html'>scale_x_date()</a></code>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Zoom into a specified area</span>
