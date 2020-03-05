@@ -8,7 +8,7 @@
 #'   It can be set to a string containing any of `"trbl"`, for top, right,
 #'   bottom, and left.
 #' @param outside logical that controls whether to move the log ticks outside
-#' of the plot area. Default is off (FALSE). You will also need to use
+#' of the plot area. Default is off (`FALSE`). You will also need to use
 #' `coord_cartesian(clip = "off")`. See examples.
 #' @param short a [grid::unit()] object specifying the length of the
 #'   short tick marks
