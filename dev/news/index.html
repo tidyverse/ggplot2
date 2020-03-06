@@ -184,11 +184,12 @@
 <ul>
 <li><p><code><a href="../reference/annotation_raster.html">annotation_raster()</a></code> adds support for native rasters. For large rasters, native rasters render significantly faster than arrays (<a href='https://github.com/kent37'>@kent37</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3388'>#3388</a>)</p></li>
 <li><p>Support graphics devices that use the <code>file</code> argument instead of <code>fileneame</code> in <code><a href="../reference/ggsave.html">ggsave()</a></code> (<a href='https://github.com/bwiernik'>@bwiernik</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3810'>#3810</a>)</p></li>
+<li><p>Added an <code>outside</code> option to <code><a href="../reference/annotation_logticks.html">annotation_logticks()</a></code> that places tick marks outside of the plot bounds. (<a href='https://github.com/tidyverse/ggplot2/issues/3783'>#3783</a>, <a href='https://github.com/kbodwin'>@kbodwin</a>)</p></li>
 </ul>
 </div>
     <div id="ggplot2-3-3-0" class="section level1">
 <h1 class="page-header">
-<a href="#ggplot2-3-3-0" class="anchor"></a>ggplot2 3.3.0<small> Unreleased </small>
+<a href="#ggplot2-3-3-0" class="anchor"></a>ggplot2 3.3.0<small> 2020-03-05 </small>
 </h1>
 <ul>
 <li><p>Fix a bug in <code><a href="../reference/geom_tile.html">geom_raster()</a></code> that squeezed the image when it went outside scale limits (<a href='https://github.com/tidyverse/ggplot2/issues/3539'>#3539</a>, <a href='https://github.com/thomasp85'>@thomasp85</a>)</p></li>
@@ -862,7 +863,7 @@ to determine which elements overlap, and spreads overlapping elements evenly wit
 <a href="#major-changes" class="anchor"></a>Major changes</h2>
 <ul>
 <li><p>ggplot no longer throws an error if your plot has no layers. Instead it automatically adds <code><a href="../reference/geom_blank.html">geom_blank()</a></code> (<a href='https://github.com/tidyverse/ggplot2/issues/1246'>#1246</a>).</p></li>
-<li><p>New <code><a href="../reference/cut_interval.html">cut_width()</a></code> is a convenient replacement for the verbose <code><a href="https://rdrr.io/pkg/plyr/man/round_any.html">plyr::round_any()</a></code>, with the additional benefit of offering finer control.</p></li>
+<li><p>New <code><a href="../reference/cut_interval.html">cut_width()</a></code> is a convenient replacement for the verbose <code>plyr::round_any()</code>, with the additional benefit of offering finer control.</p></li>
 <li><p>New <code><a href="../reference/geom_count.html">geom_count()</a></code> is a convenient alias to <code><a href="../reference/geom_count.html">stat_sum()</a></code>. Use it when you have overlapping points on a scatterplot. <code><a href="../reference/geom_count.html">stat_sum()</a></code> now defaults to using counts instead of proportions.</p></li>
 <li><p>New <code><a href="../reference/geom_segment.html">geom_curve()</a></code> adds curved lines, with a similar specification to <code><a href="../reference/geom_segment.html">geom_segment()</a></code> (<a href='https://github.com/veraanadi'>@veraanadi</a>, <a href='https://github.com/tidyverse/ggplot2/issues/1088'>#1088</a>).</p></li>
 <li><p>Date and datetime scales now have <code>date_breaks</code>, <code>date_minor_breaks</code> and <code>date_labels</code> arguments so that you never need to use the long <code><a href="https://scales.r-lib.org//reference/date_breaks.html">scales::date_breaks()</a></code> or <code><a href="https://scales.r-lib.org//reference/label_date.html">scales::date_format()</a></code>.</p></li>
