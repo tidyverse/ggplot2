@@ -4,6 +4,9 @@
 * Support graphics devices that use the `file` argument instead of `fileneame` 
   in `ggsave()` (@bwiernik, #3810)
 
+* Added an `outside` option to `annotation_logticks()` that places tick marks
+  outside of the plot bounds. (#3783, @kbodwin)
+
 # ggplot2 3.3.0
 
 This is a minor release but does contain a range of substantial new features, 
