@@ -55,7 +55,15 @@ To keep track of changes focused on improving the performance of gtable they
 are summarised below:
 
 ### v`r packageVersion('ggplot2')`
+- **Avoid costly factor construction in scale_apply** This issue only really 
+  appeared when plotting huge datasets (>1e6 rows). In order to train and map 
+  the position aesthetics rows has to be matched based on their panel. This 
+  require splitting the row indexes by panel which included a `factor()` call. 
+  The factor constructor is very slow for large vectors and can be simplified 
+  considerably for this specific case. Further, the split can be avoided 
+  completely when there is only one panel
 
+### v3.1.0
 - **Caching of calls to `grid::descentDetails()`** The absolute biggest offender
   was the construction of titles. In recent versions this has included calls to
   `grid::descentDetails()` to ensure that they are aligned across plots, but 

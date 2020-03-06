@@ -121,10 +121,10 @@ to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more 
 \code{boundary}, may be specified for a single plot. \code{center} specifies the
 center of one of the bins. \code{boundary} specifies the boundary between two
 bins. Note that if either is above or below the range of the data, things
-will be shifted by the appropriate integer multiple of \code{width}.
-For example, to center on integers use \code{width = 1} and \code{center = 0}, even
+will be shifted by the appropriate integer multiple of \code{binwidth}.
+For example, to center on integers use \code{binwidth = 1} and \code{center = 0}, even
 if \code{0} is outside the range of the data. Alternatively, this same alignment
-can be specified with \code{width = 1} and \code{boundary = 0.5}, even if \code{0.5} is
+can be specified with \code{binwidth = 1} and \code{boundary = 0.5}, even if \code{0.5} is
 outside the range of the data.}
 
 \item{breaks}{Alternatively, you can supply a numeric vector giving
@@ -155,6 +155,10 @@ different number of bins. You can also experiment modifying the \code{binwidth} 
 \code{center} or \code{boundary} arguments. \code{binwidth} overrides \code{bins} so you should do
 one change at a time. You may need to look at a few options to uncover
 the full story behind your data.
+
+In addition to \code{geom_histogram}, you can create a histogram plot by using
+\code{scale_x_binned()} with \code{\link[=geom_bar]{geom_bar()}}. This method by default plots tick marks
+in between each bar.  .
 }
 \section{Orientation}{
 
@@ -187,6 +191,12 @@ ggplot(diamonds, aes(carat)) +
 # Map values to y to flip the orientation
 ggplot(diamonds, aes(y = carat)) +
   geom_histogram()
+
+# For histograms with tick marks between each bin, use `geom_bar` with
+# `scale_x_binned`.
+ggplot(diamonds, aes(carat)) +
+  geom_bar() +
+  scale_x_binned()
 
 # Rather than stacking histograms, it's easier to compare frequency
 # polygons
