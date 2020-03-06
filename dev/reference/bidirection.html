@@ -128,6 +128,9 @@ are used when implementing Geom, Stat, and Position classes." />
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
     <li>
+      <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
+    </li>
+    <li>
       <a href="https://www.tidyverse.org/articles/2019/06/ggplot2-3-2-0/">Version 3.2.0</a>
     </li>
     <li>
@@ -155,7 +158,7 @@ are used when implementing Geom, Stat, and Position classes." />
   </ul>
 </li>
         <li>
-  <a href="http://www.ggplot2-exts.org/gallery/">Extensions</a>
+  <a href="https://www.ggplot2-exts.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2">
@@ -194,7 +197,8 @@ are used when implementing <code>Geom</code>, <code>Stat</code>, and <code>Posit
   <span class='kw'>range_is_orthogonal</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
   <span class='kw'>group_has_equal</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>ambiguous</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>main_is_continuous</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+  <span class='kw'>main_is_continuous</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>main_is_optional</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )
 
 <span class='fu'>flip_data</span>(<span class='no'>data</span>, <span class='kw'>flip</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
@@ -239,6 +243,11 @@ will only be flipped if <code>params$orientation == "y"</code></p></td>
       <th>main_is_continuous</th>
       <td><p>If there is a discrete and continuous axis, does
 the continuous one correspond to the main orientation?</p></td>
+    </tr>
+    <tr>
+      <th>main_is_optional</th>
+      <td><p>Is the main axis aesthetic optional and, if not
+given, set to <code>0</code></p></td>
     </tr>
     <tr>
       <th>flip</th>
@@ -297,6 +306,10 @@ the one which is not discrete-like. Conversely, if <code>FALSE</code> the main a
 will be the discrete-like one. Examples of <code>TRUE</code> is <code><a href='geom_density.html'>stat_density()</a></code> and
 <code><a href='geom_histogram.html'>stat_bin()</a></code>, while examples of <code>FALSE</code> is <code><a href='geom_violin.html'>stat_ydensity()</a></code> and
 <code><a href='geom_boxplot.html'>stat_boxplot()</a></code></p></li>
+<li><p><code>main_is_optional</code>: This argument controls the rare case of layers were the
+main direction is an optional aesthetic. This is only seen in
+<code><a href='geom_boxplot.html'>stat_boxplot()</a></code> where <code>x</code> is set to <code>0</code> if not given. If <code>TRUE</code> there will
+be a check for whether all <code>x</code> or all <code>y</code> are equal to <code>0</code></p></li>
 </ul>
 
 

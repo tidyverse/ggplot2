@@ -131,6 +131,9 @@ guide if they are mapped in the same way." />
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
     <li>
+      <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
+    </li>
+    <li>
       <a href="https://www.tidyverse.org/articles/2019/06/ggplot2-3-2-0/">Version 3.2.0</a>
     </li>
     <li>
@@ -158,7 +161,7 @@ guide if they are mapped in the same way." />
   </ul>
 </li>
         <li>
-  <a href="http://www.ggplot2-exts.org/gallery/">Extensions</a>
+  <a href="https://www.ggplot2-exts.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2">
@@ -344,6 +347,20 @@ labels and ticks.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A guide object</p>
+    <h2 class="hasAnchor" id="use-with-discrete-scale"><a class="anchor" href="#use-with-discrete-scale"></a>Use with discrete scale</h2>
+
+    
+
+<p>This guide is intended to show binned data and work together with ggplot2's
+binning scales. However, it is sometimes desirable to perform the binning in
+a separate step, either as part of a stat (e.g. <code><a href='geom_contour.html'>stat_contour_filled()</a></code>) or
+prior to the visualisation. If you want to use this guide for discrete data
+the levels must follow the naming scheme implemented by <code><a href='https://rdrr.io/r/base/cut.html'>base::cut()</a></code>. This
+means that a bin must be encoded as <code>"(&lt;lower&gt;, &lt;upper&gt;]"</code> with <code>&lt;lower&gt;</code>
+giving the lower bound of the bin and <code>&lt;upper&gt;</code> giving the upper bound
+(<code>"[&lt;lower&gt;, &lt;upper&gt;)"</code> is also accepted). If you use <code><a href='https://rdrr.io/r/base/cut.html'>base::cut()</a></code> to
+perform the binning everything should work as expected, if not, some recoding
+may be needed.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other guides: 
@@ -377,6 +394,7 @@ labels and ticks.</p></td>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
+      <li><a href="#use-with-discrete-scale">Use with discrete scale</a></li>
       <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>

@@ -125,6 +125,9 @@
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
     <li>
+      <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
+    </li>
+    <li>
       <a href="https://www.tidyverse.org/articles/2019/06/ggplot2-3-2-0/">Version 3.2.0</a>
     </li>
     <li>
@@ -152,7 +155,7 @@
   </ul>
 </li>
         <li>
-  <a href="http://www.ggplot2-exts.org/gallery/">Extensions</a>
+  <a href="https://www.ggplot2-exts.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2">
@@ -414,7 +417,7 @@
       <tr>
         <th colspan="3">
           <h2 id="section-layer-stats" class="hasAnchor"><a href="#section-layer-stats" class="anchor"></a>Layer: stats</h2>
-          <p class="section-desc"><p>A handful of layers are more easily specified with a <code>stat_</code> function, drawing attention to the statistical transformation rather than the visual appearance. The computed variables can be mapped using <code><a href="../reference/aes_eval.html">stat()</a></code>.</p></p>
+          <p class="section-desc"><p>A handful of layers are more easily specified with a <code>stat_</code> function, drawing attention to the statistical transformation rather than the visual appearance. The computed variables can be mapped using <code><a href="../reference/aes_eval.html">after_stat()</a></code>.</p></p>
         </th>
       </tr>
       <tr>
@@ -736,10 +739,16 @@
       <tr>
         <th colspan="3">
           <h2 id="section-guides-axes-and-legends" class="hasAnchor"><a href="#section-guides-axes-and-legends" class="anchor"></a>Guides: axes and legends</h2>
-          <p class="section-desc"><p>The guides (the axes and legends) help readers interpret your plots. Guides are mostly controlled via the scale (e.g. with the <code>limits</code>, <code>breaks</code>, and <code>labels</code> arguments), but sometimes you will need additional control over guide appearance. Use <code><a href="../reference/guides.html">guides()</a></code> or the <code>guide</code> argument to individual scales along with <code><a href="../reference/guide_colourbar.html">guide_colourbar()</a></code> or <code><a href="../reference/guide_legend.html">guide_legend()</a></code>.</p></p>
+          <p class="section-desc"><p>The guides (the axes and legends) help readers interpret your plots. Guides are mostly controlled via the scale (e.g. with the <code>limits</code>, <code>breaks</code>, and <code>labels</code> arguments), but sometimes you will need additional control over guide appearance. Use <code><a href="../reference/guides.html">guides()</a></code> or the <code>guide</code> argument to individual scales along with <code>guide_*()</code> functions.</p></p>
         </th>
       </tr>
       <tr>
+        <td></td>
+        <td>
+          <p><code><a href="draw_key.html">draw_key_point()</a></code> <code><a href="draw_key.html">draw_key_abline()</a></code> <code><a href="draw_key.html">draw_key_rect()</a></code> <code><a href="draw_key.html">draw_key_polygon()</a></code> <code><a href="draw_key.html">draw_key_blank()</a></code> <code><a href="draw_key.html">draw_key_boxplot()</a></code> <code><a href="draw_key.html">draw_key_crossbar()</a></code> <code><a href="draw_key.html">draw_key_path()</a></code> <code><a href="draw_key.html">draw_key_vpath()</a></code> <code><a href="draw_key.html">draw_key_dotplot()</a></code> <code><a href="draw_key.html">draw_key_pointrange()</a></code> <code><a href="draw_key.html">draw_key_smooth()</a></code> <code><a href="draw_key.html">draw_key_text()</a></code> <code><a href="draw_key.html">draw_key_label()</a></code> <code><a href="draw_key.html">draw_key_vline()</a></code> <code><a href="draw_key.html">draw_key_timeseries()</a></code> </p>
+        </td>
+        <td><p>Key glyphs for legends</p></td>
+      </tr><tr>
         <td></td>
         <td>
           <p><code><a href="guide_colourbar.html">guide_colourbar()</a></code> <code><a href="guide_colourbar.html">guide_colorbar()</a></code> </p>
@@ -751,6 +760,30 @@
           <p><code><a href="guide_legend.html">guide_legend()</a></code> </p>
         </td>
         <td><p>Legend guide</p></td>
+      </tr><tr>
+        <td></td>
+        <td>
+          <p><code><a href="guide_axis.html">guide_axis()</a></code> </p>
+        </td>
+        <td><p>Axis guide</p></td>
+      </tr><tr>
+        <td></td>
+        <td>
+          <p><code><a href="guide_bins.html">guide_bins()</a></code> </p>
+        </td>
+        <td><p>A binned version of guide_legend</p></td>
+      </tr><tr>
+        <td></td>
+        <td>
+          <p><code><a href="guide_coloursteps.html">guide_coloursteps()</a></code> <code><a href="guide_coloursteps.html">guide_colorsteps()</a></code> </p>
+        </td>
+        <td><p>Discretized colourbar guide</p></td>
+      </tr><tr>
+        <td></td>
+        <td>
+          <p><code><a href="guide_none.html">guide_none()</a></code> </p>
+        </td>
+        <td><p>Empty guide</p></td>
       </tr><tr>
         <td></td>
         <td>

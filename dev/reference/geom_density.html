@@ -128,6 +128,9 @@ data that comes from an underlying smooth distribution." />
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
     <li>
+      <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
+    </li>
+    <li>
       <a href="https://www.tidyverse.org/articles/2019/06/ggplot2-3-2-0/">Version 3.2.0</a>
     </li>
     <li>
@@ -155,7 +158,7 @@ data that comes from an underlying smooth distribution." />
   </ul>
 </li>
         <li>
-  <a href="http://www.ggplot2-exts.org/gallery/">Extensions</a>
+  <a href="https://www.ggplot2-exts.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2">
@@ -196,7 +199,8 @@ data that comes from an underlying smooth distribution.</p>
   <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
   <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>outline.type</span> <span class='kw'>=</span> <span class='st'>"upper"</span>
 )
 
 <span class='fu'>stat_density</span>(
@@ -278,6 +282,12 @@ display.</p></td>
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. <code><a href='borders.html'>borders()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>outline.type</th>
+      <td><p>Type of the outline of the area; <code>"both"</code> draws both the
+upper and lower lines, <code>"upper"</code>/<code>"lower"</code> draws the either lines only.
+<code>"full"</code> draws a closed polygon around the area.</p></td>
     </tr>
     <tr>
       <th>geom, stat</th>

@@ -88,6 +88,9 @@
   <ul class="dropdown-menu" role="menu">
 <li class="dropdown-header">Release notes</li>
     <li>
+      <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
+    </li>
+    <li>
       <a href="https://www.tidyverse.org/articles/2019/06/ggplot2-3-2-0/">Version 3.2.0</a>
     </li>
     <li>
@@ -115,7 +118,7 @@
   </ul>
 </li>
         <li>
-  <a href="http://www.ggplot2-exts.org/gallery/">Extensions</a>
+  <a href="https://www.ggplot2-exts.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2">
@@ -569,7 +572,7 @@
 <a class="sourceLine" id="cb19-8" data-line-number="8"><span class="co">#&gt;     function (data, params) </span></a>
 <a class="sourceLine" id="cb19-9" data-line-number="9"><span class="co">#&gt; {</span></a>
 <a class="sourceLine" id="cb19-10" data-line-number="10"><span class="co">#&gt;     params$flipped_aes &lt;- has_flipped_aes(data, params, main_is_orthogonal = TRUE, </span></a>
-<a class="sourceLine" id="cb19-11" data-line-number="11"><span class="co">#&gt;         group_has_equal = TRUE)</span></a>
+<a class="sourceLine" id="cb19-11" data-line-number="11"><span class="co">#&gt;         group_has_equal = TRUE, main_is_optional = TRUE)</span></a>
 <a class="sourceLine" id="cb19-12" data-line-number="12"><span class="co">#&gt;     data &lt;- flip_data(data, params$flipped_aes)</span></a>
 <a class="sourceLine" id="cb19-13" data-line-number="13"><span class="co">#&gt;     has_x &lt;- !(is.null(data$x) &amp;&amp; is.null(params$x))</span></a>
 <a class="sourceLine" id="cb19-14" data-line-number="14"><span class="co">#&gt;     has_y &lt;- !(is.null(data$y) &amp;&amp; is.null(params$y))</span></a>

@@ -125,6 +125,9 @@
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
     <li>
+      <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
+    </li>
+    <li>
       <a href="https://www.tidyverse.org/articles/2019/06/ggplot2-3-2-0/">Version 3.2.0</a>
     </li>
     <li>
@@ -152,7 +155,7 @@
   </ul>
 </li>
         <li>
-  <a href="http://www.ggplot2-exts.org/gallery/">Extensions</a>
+  <a href="https://www.ggplot2-exts.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2">
@@ -191,43 +194,71 @@
 <h1 class="page-header">
 <a href="#ggplot2-3-3-0" class="anchor"></a>ggplot2 3.3.0<small> 2020-03-05 </small>
 </h1>
+<p>This is a minor release but does contain a range of substantial new features, along with the standard bug fixes. The release contains a few visual breaking changes, along with breaking changes for extension developers due to a shift in internal representation of the position scales and their axes. No user breaking changes are included.</p>
+<p>This release also adds Dewey Dunnington (<a href='https://github.com/paleolimbot'>@paleolimbot</a>) to the core team.</p>
+<div id="breaking-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#breaking-changes" class="anchor"></a>Breaking changes</h2>
+<p>There are no user-facing breaking changes, but a change in some internal representations that extension developers may have relied on, along with a few breaking visual changes which may cause visual tests in downstream packages to fail.</p>
 <ul>
-<li><p>Fix a bug in <code><a href="../reference/geom_tile.html">geom_raster()</a></code> that squeezed the image when it went outside scale limits (<a href='https://github.com/tidyverse/ggplot2/issues/3539'>#3539</a>, <a href='https://github.com/thomasp85'>@thomasp85</a>)</p></li>
+<li><p>The <code>panel_params</code> field in the <code>Layout</code> now contains a list of list of <code>ViewScale</code> objects, describing the trained coordinate system scales, instead of the list object used before. Any extensions that use this field will likely break, as will unit tests that checks aspects of this.</p></li>
+<li><p><code><a href="../reference/element.html">element_text()</a></code> now issues a warning when vectorized arguments are provided, as in <code>colour = c("red", "green", "blue")</code>. Such use is discouraged and not officially supported (<a href='https://github.com/clauswilke'>@clauswilke</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3492'>#3492</a>).</p></li>
+<li><p>Changed <code><a href="../reference/ggtheme.html">theme_grey()</a></code> setting for legend key so that it creates no border (<code>NA</code>) rather than drawing a white one. (<a href='https://github.com/annennenne'>@annennenne</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3180'>#3180</a>)</p></li>
+<li><p><code><a href="../reference/geom_ribbon.html">geom_ribbon()</a></code> now draws separate lines for the upper and lower intervals if <code>colour</code> is mapped. Similarly, <code><a href="../reference/geom_ribbon.html">geom_area()</a></code> and <code><a href="../reference/geom_density.html">geom_density()</a></code> now draw the upper lines only in the same case by default. If you want old-style full stroking, use <code>outline.type = "full"</code> (<a href='https://github.com/yutannihilation'>@yutannihilation</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3503'>#3503</a> / <a href='https://github.com/thomasp85'>@thomasp85</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3708'>#3708</a>).</p></li>
+</ul>
+</div>
+<div id="new-features" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features" class="anchor"></a>New features</h2>
+<ul>
 <li><p>The evaluation time of aesthetics can now be controlled to a finer degree. <code><a href="../reference/aes_eval.html">after_stat()</a></code> supersedes the use of <code><a href="../reference/aes_eval.html">stat()</a></code> and <code>..var..</code>-notation, and is joined by <code><a href="../reference/aes_eval.html">after_scale()</a></code> to allow for mapping to scaled aesthetic values. Remapping of the same aesthetic is now supported with <code><a href="../reference/aes_eval.html">stage()</a></code>, so you can map a data variable to a stat aesthetic, and remap the same aesthetic to something else after statistical transformation (<a href='https://github.com/thomasp85'>@thomasp85</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3534'>#3534</a>)</p></li>
-<li><p>ggplot2 no longer depends on reshape2, which means that it no longer (recursively) needs plyr, stringr, or stringi packages.</p></li>
-<li><p><code><a href="../reference/ggsf.html">geom_sf()</a></code> now determines the legend type automatically (<a href='https://github.com/microly'>@microly</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3646'>#3646</a>).</p></li>
-<li><p><code><a href="../reference/scale_continuous.html">scale_x_continuous()</a></code> and <code><a href="../reference/scale_continuous.html">scale_y_continuous()</a></code> gains an <code>n.breaks</code> argument guiding the number of automatic generated breaks (<a href='https://github.com/thomasp85'>@thomasp85</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3102'>#3102</a>)</p></li>
-<li><p><code><a href="../reference/ggsf.html">geom_sf()</a></code> now removes rows that can’t be plotted due to <code>NA</code> aesthetics (<a href='https://github.com/tidyverse/ggplot2/issues/3546'>#3546</a>, <a href='https://github.com/thomasp85'>@thomasp85</a>)</p></li>
-<li><p>A new scale type has been added, that allows binning of aesthetics at the scale level. It has versions for both position and non-position aesthetics and comes with two new guides (<code>guide_bins</code> and <code>guide_coloursteps</code>) (<a href='https://github.com/thomasp85'>@thomasp85</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3096'>#3096</a>)</p></li>
+<li><p>All <code>coord_*()</code> functions with <code>xlim</code> and <code>ylim</code> arguments now accept vectors with <code>NA</code> as a placeholder for the minimum or maximum value (e.g., <code>ylim = c(0, NA)</code> would zoom the y-axis from 0 to the maximum value observed in the data). This mimics the behaviour of the <code>limits</code> argument in continuous scale functions (<a href='https://github.com/paleolimbot'>@paleolimbot</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2907'>#2907</a>).</p></li>
+<li><p>Allowed reversing of discrete scales by re-writing <code>get_limits()</code> (<a href='https://github.com/AnneLyng'>@AnneLyng</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3115'>#3115</a>)</p></li>
+<li><p>All geoms and stats that had a direction (i.e. where the x and y axes had different interpretation), can now freely choose their direction, instead of relying on <code><a href="../reference/coord_flip.html">coord_flip()</a></code>. The direction is deduced from the aesthetic mapping, but can also be specified directly with the new <code>orientation</code> argument (<a href='https://github.com/thomasp85'>@thomasp85</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3506'>#3506</a>).</p></li>
 <li><p>Position guides can now be customized using the new <code><a href="../reference/guide_axis.html">guide_axis()</a></code>, which can be passed to position <code>scale_*()</code> functions or via <code><a href="../reference/guides.html">guides()</a></code>. The new axis guide (<code><a href="../reference/guide_axis.html">guide_axis()</a></code>) comes with arguments <code>check.overlap</code> (automatic removal of overlapping labels), <code>angle</code> (easy rotation of axis labels), and <code>n.dodge</code> (dodge labels into multiple rows/columns) (<a href='https://github.com/paleolimbot'>@paleolimbot</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3322'>#3322</a>).</p></li>
+<li><p>A new scale type has been added, that allows binning of aesthetics at the scale level. It has versions for both position and non-position aesthetics and comes with two new guides (<code>guide_bins</code> and <code>guide_coloursteps</code>) (<a href='https://github.com/thomasp85'>@thomasp85</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3096'>#3096</a>)</p></li>
+<li><p><code><a href="../reference/scale_continuous.html">scale_x_continuous()</a></code> and <code><a href="../reference/scale_continuous.html">scale_y_continuous()</a></code> gains an <code>n.breaks</code> argument guiding the number of automatic generated breaks (<a href='https://github.com/thomasp85'>@thomasp85</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3102'>#3102</a>)</p></li>
+<li><p>Added <code><a href="../reference/geom_contour.html">stat_contour_filled()</a></code> and <code><a href="../reference/geom_contour.html">geom_contour_filled()</a></code>, which compute and draw filled contours of gridded data (<a href='https://github.com/paleolimbot'>@paleolimbot</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3044'>#3044</a>). <code><a href="../reference/geom_contour.html">geom_contour()</a></code> and <code><a href="../reference/geom_contour.html">stat_contour()</a></code> now use the isoband package to compute contour lines. The <code>complete</code> parameter (which was undocumented and has been unused for at least four years) was removed (<a href='https://github.com/paleolimbot'>@paleolimbot</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3044'>#3044</a>).</p></li>
+<li><p>Themes have gained two new parameters, <code>plot.title.position</code> and <code>plot.caption.position</code>, that can be used to customize how plot title/subtitle and plot caption are positioned relative to the overall plot (<a href='https://github.com/clauswilke'>@clauswilke</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3252'>#3252</a>).</p></li>
+</ul>
+</div>
+<div id="extensions" class="section level2">
+<h2 class="hasAnchor">
+<a href="#extensions" class="anchor"></a>Extensions</h2>
+<ul>
 <li><p><code>Geom</code> now gains a <code>setup_params()</code> method in line with the other ggproto classes (<a href='https://github.com/thomasp85'>@thomasp85</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3509'>#3509</a>)</p></li>
 <li><p>The newly added function <code><a href="../reference/register_theme_elements.html">register_theme_elements()</a></code> now allows developers of extension packages to define their own new theme elements and place them into the ggplot2 element tree (<a href='https://github.com/clauswilke'>@clauswilke</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2540'>#2540</a>).</p></li>
-<li><p><code><a href="../reference/element.html">element_text()</a></code> now issues a warning when vectorized arguments are provided, as in <code>colour = c("red", "green", "blue")</code>. Such use is discouraged and not officially supported (<a href='https://github.com/clauswilke'>@clauswilke</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3492'>#3492</a>).</p></li>
-<li><p>Addition of partial themes to plots has been made more predictable; stepwise addition of individual partial themes is now equivalent to addition of multple theme elements at once (<a href='https://github.com/clauswilke'>@clauswilke</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3039'>#3039</a>).</p></li>
-<li><p>stacking text when calculating the labels and the y axis with <code><a href="../reference/stat_summary.html">stat_summary()</a></code> now works (<a href='https://github.com/ikosmidis'>@ikosmidis</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2709'>#2709</a>)</p></li>
-<li><p>Allowed reversing of discrete scales by re-writing <code>get_limits()</code> (<a href='https://github.com/AnneLyng'>@AnneLyng</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3115'>#3115</a>)</p></li>
-<li><p>Added <code><a href="../reference/geom_contour.html">stat_contour_filled()</a></code> and <code><a href="../reference/geom_contour.html">geom_contour_filled()</a></code>, which compute and draw filled contours of gridded data (<a href='https://github.com/paleolimbot'>@paleolimbot</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3044'>#3044</a>).</p></li>
-<li><p><code><a href="../reference/geom_contour.html">geom_contour()</a></code> and <code><a href="../reference/geom_contour.html">stat_contour()</a></code> now use the isoband package to compute contour lines. The <code>complete</code> parameter (which was undocumented and has been unused for at least four years) was removed (<a href='https://github.com/paleolimbot'>@paleolimbot</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3044'>#3044</a>).</p></li>
-<li><p><code><a href="../reference/geom_smooth.html">stat_smooth()</a></code> uses <code>REML</code> by default, if <code>method = "gam"</code> and <code>gam</code>’s method is not specified (<a href='https://github.com/ikosmidis'>@ikosmidis</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2630'>#2630</a>).</p></li>
-<li><p>Changed <code><a href="../reference/ggtheme.html">theme_grey()</a></code> setting for legend key so that it creates no border (<code>NA</code>) rather than drawing a white one. (<a href='https://github.com/annennenne'>@annennenne</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3180'>#3180</a>)</p></li>
-<li><p>Themes have gained two new parameters, <code>plot.title.position</code> and <code>plot.caption.position</code>, that can be used to customize how plot title/subtitle and plot caption are positioned relative to the overall plot (<a href='https://github.com/clauswilke'>@clauswilke</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3252'>#3252</a>).</p></li>
-<li><p>Added function <code>ggplot_add.by()</code> for lists created with <code><a href="https://rdrr.io/r/base/by.html">by()</a></code> (<a href='https://github.com/tidyverse/ggplot2/issues/2734'>#2734</a>, <a href='https://github.com/Maschette'>@Maschette</a>)</p></li>
-<li><p><code><a href="../reference/gg_dep.html">gg_dep()</a></code> was deprecated (<a href='https://github.com/perezp44'>@perezp44</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3382'>#3382</a>).</p></li>
-<li><p>Added weight aesthetic option to <code><a href="../reference/geom_density.html">stat_density()</a></code> and made scaling of weights the default (<a href='https://github.com/annennenne'>@annennenne</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2902'>#2902</a>)</p></li>
-<li><p><code><a href="../reference/expansion.html">expand_scale()</a></code> was deprecated in favour of <code><a href="../reference/expansion.html">expansion()</a></code> for setting the <code>expand</code> argument of <code>x</code> and <code>y</code> scales (<a href='https://github.com/paleolimbot'>@paleolimbot</a>).</p></li>
+</ul>
+</div>
+<div id="minor-improvements-and-bug-fixes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#minor-improvements-and-bug-fixes" class="anchor"></a>Minor improvements and bug fixes</h2>
+<ul>
 <li><p><code><a href="../reference/coord_trans.html">coord_trans()</a></code> now draws second axes and accepts <code>xlim</code>, <code>ylim</code>, and <code>expand</code> arguments to bring it up to feature parity with <code><a href="../reference/coord_cartesian.html">coord_cartesian()</a></code>. The <code>xtrans</code> and <code>ytrans</code> arguments that were deprecated in version 1.0.1 in favour of <code>x</code> and <code>y</code> were removed (<a href='https://github.com/paleolimbot'>@paleolimbot</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2990'>#2990</a>).</p></li>
 <li><p><code><a href="../reference/coord_trans.html">coord_trans()</a></code> now calculates breaks using the expanded range (previously these were calculated using the unexpanded range, which resulted in differences between plots made with <code><a href="../reference/coord_trans.html">coord_trans()</a></code> and those made with <code><a href="../reference/coord_cartesian.html">coord_cartesian()</a></code>). The expansion for discrete axes in <code><a href="../reference/coord_trans.html">coord_trans()</a></code> was also updated such that it behaves identically to that in <code><a href="../reference/coord_cartesian.html">coord_cartesian()</a></code> (<a href='https://github.com/paleolimbot'>@paleolimbot</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3338'>#3338</a>).</p></li>
-<li><p>All <code>coord_*()</code> functions with <code>xlim</code> and <code>ylim</code> arguments now accept vectors with <code>NA</code> as a placeholder for the minimum or maximum value (e.g., <code>ylim = c(0, NA)</code> would zoom the y-axis from 0 to the maximum value observed in the data). This mimics the behaviour of the <code>limits</code> argument in continuous scale functions (<a href='https://github.com/paleolimbot'>@paleolimbot</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2907'>#2907</a>).</p></li>
+<li><p><code><a href="../reference/expansion.html">expand_scale()</a></code> was deprecated in favour of <code><a href="../reference/expansion.html">expansion()</a></code> for setting the <code>expand</code> argument of <code>x</code> and <code>y</code> scales (<a href='https://github.com/paleolimbot'>@paleolimbot</a>).</p></li>
 <li><p><code><a href="../reference/geom_abline.html">geom_abline()</a></code>, <code><a href="../reference/geom_abline.html">geom_hline()</a></code>, and <code><a href="../reference/geom_abline.html">geom_vline()</a></code> now issue more informative warnings when supplied with set aesthetics (i.e., <code>slope</code>, <code>intercept</code>, <code>yintercept</code>, and/or <code>xintercept</code>) and mapped aesthetics (i.e., <code>data</code> and/or <code>mapping</code>).</p></li>
-<li><p><code><a href="../reference/geom_density_2d.html">stat_density2d()</a></code> can now take an <code>adjust</code> parameter to scale the default bandwidth. (<a href='https://github.com/tidyverse/ggplot2/issues/2860'>#2860</a>, <a href='https://github.com/haleyjeppson'>@haleyjeppson</a>)</p></li>
-<li><p>Fix a bug when <code>show.legend</code> is a named logical vector (<a href='https://github.com/tidyverse/ggplot2/issues/3461'>#3461</a>, <a href='https://github.com/yutannihilation'>@yutannihilation</a>).</p></li>
-<li><p>Increase the default <code>nbin</code> of <code><a href="../reference/guide_colourbar.html">guide_colourbar()</a></code> to place the ticks more precisely (<a href='https://github.com/tidyverse/ggplot2/issues/3508'>#3508</a>, <a href='https://github.com/yutannihilation'>@yutannihilation</a>).</p></li>
+<li><p>Fix a bug in <code><a href="../reference/geom_tile.html">geom_raster()</a></code> that squeezed the image when it went outside scale limits (<a href='https://github.com/tidyverse/ggplot2/issues/3539'>#3539</a>, <a href='https://github.com/thomasp85'>@thomasp85</a>)</p></li>
+<li><p><code><a href="../reference/ggsf.html">geom_sf()</a></code> now determines the legend type automatically (<a href='https://github.com/microly'>@microly</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3646'>#3646</a>).</p></li>
+<li><p><code><a href="../reference/ggsf.html">geom_sf()</a></code> now removes rows that can’t be plotted due to <code>NA</code> aesthetics (<a href='https://github.com/tidyverse/ggplot2/issues/3546'>#3546</a>, <a href='https://github.com/thomasp85'>@thomasp85</a>)</p></li>
 <li><p><code><a href="../reference/ggsf.html">geom_sf()</a></code> now applies alpha to linestring geometries (<a href='https://github.com/tidyverse/ggplot2/issues/3589'>#3589</a>, <a href='https://github.com/yutannihilation'>@yutannihilation</a>).</p></li>
+<li><p><code><a href="../reference/gg_dep.html">gg_dep()</a></code> was deprecated (<a href='https://github.com/perezp44'>@perezp44</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3382'>#3382</a>).</p></li>
+<li><p>Added function <code>ggplot_add.by()</code> for lists created with <code><a href="https://rdrr.io/r/base/by.html">by()</a></code>, allowing such lists to be added to ggplot objects (<a href='https://github.com/tidyverse/ggplot2/issues/2734'>#2734</a>, <a href='https://github.com/Maschette'>@Maschette</a>)</p></li>
+<li><p>ggplot2 no longer depends on reshape2, which means that it no longer (recursively) needs plyr, stringr, or stringi packages.</p></li>
+<li><p>Increase the default <code>nbin</code> of <code><a href="../reference/guide_colourbar.html">guide_colourbar()</a></code> to place the ticks more precisely (<a href='https://github.com/tidyverse/ggplot2/issues/3508'>#3508</a>, <a href='https://github.com/yutannihilation'>@yutannihilation</a>).</p></li>
 <li><p><code>manual_scale()</code> now matches <code>values</code> with the order of <code>breaks</code> whenever <code>values</code> is an unnamed vector. Previously, unnamed <code>values</code> would match with the limits of the scale and ignore the order of any <code>breaks</code> provided. Note that this may change the appearance of plots that previously relied on the unordered behaviour (<a href='https://github.com/tidyverse/ggplot2/issues/2429'>#2429</a>, <a href='https://github.com/idno0001'>@idno0001</a>).</p></li>
-<li><p><code><a href="../reference/stat_summary.html">stat_summary()</a></code> and related functions now support rlang-style lambda functions (<a href='https://github.com/tidyverse/ggplot2/issues/3568'>#3568</a>, <a href='https://github.com/dkahle'>@dkahle</a>).</p></li>
-<li><p><code><a href="../reference/geom_ribbon.html">geom_ribbon()</a></code> now draws separate lines for the upper and lower intervals if <code>colour</code> is mapped by default. Similarly, <code><a href="../reference/geom_ribbon.html">geom_area()</a></code> now draws lines for the upper in the same case by default. If you want old-style full stroking, use <code>outline.type = "legacy"</code> (<a href='https://github.com/tidyverse/ggplot2/issues/3503'>#3503</a>, <a href='https://github.com/yutannihilation'>@yutannihilation</a>).</p></li>
 <li><p><code>scale_manual_*(limits = ...)</code> now actually limits the scale (<a href='https://github.com/tidyverse/ggplot2/issues/3262'>#3262</a>, <a href='https://github.com/yutannihilation'>@yutannihilation</a>).</p></li>
+<li><p>Fix a bug when <code>show.legend</code> is a named logical vector (<a href='https://github.com/tidyverse/ggplot2/issues/3461'>#3461</a>, <a href='https://github.com/yutannihilation'>@yutannihilation</a>).</p></li>
+<li><p>Added weight aesthetic option to <code><a href="../reference/geom_density.html">stat_density()</a></code> and made scaling of weights the default (<a href='https://github.com/annennenne'>@annennenne</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2902'>#2902</a>)</p></li>
+<li><p><code><a href="../reference/geom_density_2d.html">stat_density2d()</a></code> can now take an <code>adjust</code> parameter to scale the default bandwidth. (<a href='https://github.com/tidyverse/ggplot2/issues/2860'>#2860</a>, <a href='https://github.com/haleyjeppson'>@haleyjeppson</a>)</p></li>
+<li><p><code><a href="../reference/geom_smooth.html">stat_smooth()</a></code> uses <code>REML</code> by default, if <code>method = "gam"</code> and <code>gam</code>’s method is not specified (<a href='https://github.com/ikosmidis'>@ikosmidis</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2630'>#2630</a>).</p></li>
+<li><p>stacking text when calculating the labels and the y axis with <code><a href="../reference/stat_summary.html">stat_summary()</a></code> now works (<a href='https://github.com/ikosmidis'>@ikosmidis</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2709'>#2709</a>)</p></li>
+<li><p><code><a href="../reference/stat_summary.html">stat_summary()</a></code> and related functions now support rlang-style lambda functions (<a href='https://github.com/tidyverse/ggplot2/issues/3568'>#3568</a>, <a href='https://github.com/dkahle'>@dkahle</a>).</p></li>
+<li><p>The data mask pronoun, <code>.data</code>, is now stripped from default labels.</p></li>
+<li><p>Addition of partial themes to plots has been made more predictable; stepwise addition of individual partial themes is now equivalent to addition of multple theme elements at once (<a href='https://github.com/clauswilke'>@clauswilke</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3039'>#3039</a>).</p></li>
+<li><p>Facets now don’t fail even when some variable in the spec are not available in all layers (<a href='https://github.com/yutannihilation'>@yutannihilation</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2963'>#2963</a>).</p></li>
 </ul>
+</div>
 </div>
     <div id="ggplot2-3-2-1" class="section level1">
 <h1 class="page-header">
@@ -247,17 +278,17 @@
 </h1>
 <p>This is a minor release with an emphasis on internal changes to make ggplot2 faster and more consistent. The few interface changes will only affect the aesthetics of the plot in minor ways, and will only potentially break code of extension developers if they have relied on internals that have been changed. This release also sees the addition of Hiroaki Yutani (<a href='https://github.com/yutannihilation'>@yutannihilation</a>) to the core developer team.</p>
 <p>With the release of R 3.6, ggplot2 now requires the R version to be at least 3.2, as the tidyverse is committed to support 5 major versions of R.</p>
-<div id="breaking-changes" class="section level2">
+<div id="breaking-changes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#breaking-changes" class="anchor"></a>Breaking changes</h2>
+<a href="#breaking-changes-1" class="anchor"></a>Breaking changes</h2>
 <ul>
 <li><p>Two patches (<a href='https://github.com/tidyverse/ggplot2/issues/2996'>#2996</a> and <a href='https://github.com/tidyverse/ggplot2/issues/3050'>#3050</a>) fixed minor rendering problems. In most cases, the visual changes are so subtle that they are difficult to see with the naked eye. However, these changes are detected by the vdiffr package, and therefore any package developers who use vdiffr to test for visual correctness of ggplot2 plots will have to regenerate all reference images.</p></li>
 <li><p>In some cases, ggplot2 now produces a warning or an error for code that previously produced plot output. In all these cases, the previous plot output was accidental, and the plotting code uses the ggplot2 API in a way that would lead to undefined behavior. Examples include a missing <code>group</code> aesthetic in <code><a href="../reference/geom_boxplot.html">geom_boxplot()</a></code> (<a href='https://github.com/tidyverse/ggplot2/issues/3316'>#3316</a>), annotations across multiple facets (<a href='https://github.com/tidyverse/ggplot2/issues/3305'>#3305</a>), and not using aesthetic mappings when drawing ribbons with <code><a href="../reference/geom_ribbon.html">geom_ribbon()</a></code> (<a href='https://github.com/tidyverse/ggplot2/issues/3318'>#3318</a>).</p></li>
 </ul>
 </div>
-<div id="new-features" class="section level2">
+<div id="new-features-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features" class="anchor"></a>New features</h2>
+<a href="#new-features-1" class="anchor"></a>New features</h2>
 <ul>
 <li>
 <p>This release includes a range of internal changes that speeds up plot generation. None of the changes are user facing and will not break any code, but in general ggplot2 should feel much faster. The changes includes, but are not limited to:</p>
@@ -276,9 +307,9 @@
 <li><p>All geoms now take a <code>key_glyph</code> paramter that allows users to customize how legend keys are drawn (<a href='https://github.com/clauswilke'>@clauswilke</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3145'>#3145</a>). In addition, a new key glyph <code>timeseries</code> is provided to draw nice legends for time series (<a href='https://github.com/mitchelloharawild'>@mitchelloharawild</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3145'>#3145</a>).</p></li>
 </ul>
 </div>
-<div id="extensions" class="section level2">
+<div id="extensions-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#extensions" class="anchor"></a>Extensions</h2>
+<a href="#extensions-1" class="anchor"></a>Extensions</h2>
 <ul>
 <li><p>Layers now have a new member function <code>setup_layer()</code> which is called at the very beginning of the plot building process and which has access to the original input data and the plot object being built. This function allows the creation of custom layers that autogenerate aesthetic mappings based on the input data or that filter the input data in some form. For the time being, this feature is not exported, but it has enabled the development of a new layer type, <code><a href="../reference/layer_sf.html">layer_sf()</a></code> (see next item). Other special-purpose layer types may be added in the future (<a href='https://github.com/clauswilke'>@clauswilke</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2872'>#2872</a>).</p></li>
 <li><p>A new layer type <code><a href="../reference/layer_sf.html">layer_sf()</a></code> can auto-detect and auto-map sf geometry columns in the data. It should be used by extension developers who are writing new sf-based geoms or stats (<a href='https://github.com/clauswilke'>@clauswilke</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3232'>#3232</a>).</p></li>
@@ -286,9 +317,9 @@
 <li><p>Continuous scale limits now accept functions which accept the default limits and return adjusted limits. This makes it possible to write a function that e.g. ensures the limits are always a multiple of 100, regardless of the data (<a href='https://github.com/econandrew'>@econandrew</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2307'>#2307</a>).</p></li>
 </ul>
 </div>
-<div id="minor-improvements-and-bug-fixes" class="section level2">
+<div id="minor-improvements-and-bug-fixes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#minor-improvements-and-bug-fixes" class="anchor"></a>Minor improvements and bug fixes</h2>
+<a href="#minor-improvements-and-bug-fixes-1" class="anchor"></a>Minor improvements and bug fixes</h2>
 <ul>
 <li><p><code><a href="../reference/cut_interval.html">cut_width()</a></code> now accepts <code>...</code> to pass further arguments to <code><a href="https://rdrr.io/r/base/cut.html">base::cut.default()</a></code> like <code><a href="../reference/cut_interval.html">cut_number()</a></code> and <code><a href="../reference/cut_interval.html">cut_interval()</a></code> already did (<a href='https://github.com/cderv'>@cderv</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3055'>#3055</a>)</p></li>
 <li><p><code><a href="../reference/coord_map.html">coord_map()</a></code> now can have axes on the top and right (<a href='https://github.com/karawoo'>@karawoo</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3042'>#3042</a>).</p></li>
@@ -339,9 +370,9 @@
 <h1 class="page-header">
 <a href="#ggplot2-3-1-0" class="anchor"></a>ggplot2 3.1.0<small> 2018-10-25 </small>
 </h1>
-<div id="breaking-changes-1" class="section level2">
+<div id="breaking-changes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#breaking-changes-1" class="anchor"></a>Breaking changes</h2>
+<a href="#breaking-changes-2" class="anchor"></a>Breaking changes</h2>
 <p>This is a minor release and breaking changes have been kept to a minimum. End users of ggplot2 are unlikely to encounter any issues. However, there are a few items that developers of ggplot2 extensions should be aware of. For additional details, see also the discussion accompanying issue <a href='https://github.com/tidyverse/ggplot2/issues/2890'>#2890</a>.</p>
 <ul>
 <li><p>In non-user-facing internal code (specifically in the <code><a href="../reference/aes.html">aes()</a></code> function and in the <code>aesthetics</code> argument of scale functions), ggplot2 now always uses the British spelling for aesthetics containing the word “colour”. When users specify a “color” aesthetic it is automatically renamed to “colour”. This renaming is also applied to non-standard aesthetics that contain the word “color”. For example, “point_color” is renamed to “point_colour”. This convention makes it easier to support both British and American spelling for novel, non-standard aesthetics, but it may require some adjustment for packages that have previously introduced non-standard color aesthetics using American spelling. A new function <code><a href="../reference/standardise_aes_names.html">standardise_aes_names()</a></code> is provided in case extension writers need to perform this renaming in their own code (<a href='https://github.com/clauswilke'>@clauswilke</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2649'>#2649</a>).</p></li>
@@ -349,9 +380,9 @@
 <li><p><code>Coord</code> objects now have a function <code>backtransform_range()</code> that returns the panel range in data coordinates. This change may affect developers of custom coords, who now should implement this function. It may also affect developers of custom geoms that use the <code><a href="https://rdrr.io/r/base/range.html">range()</a></code> function. In some applications, <code>backtransform_range()</code> may be more appropriate (<a href='https://github.com/clauswilke'>@clauswilke</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2821'>#2821</a>).</p></li>
 </ul>
 </div>
-<div id="new-features-1" class="section level2">
+<div id="new-features-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-1" class="anchor"></a>New features</h2>
+<a href="#new-features-2" class="anchor"></a>New features</h2>
 <ul>
 <li><p><code><a href="../reference/ggsf.html">coord_sf()</a></code> has much improved customization of axis tick labels. Labels can now be set manually, and there are two new parameters, <code>label_graticule</code> and <code>label_axes</code>, that can be used to specify which graticules to label on which side of the plot (<a href='https://github.com/clauswilke'>@clauswilke</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2846'>#2846</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2857'>#2857</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2881'>#2881</a>).</p></li>
 <li><p>Two new geoms <code><a href="../reference/ggsf.html">geom_sf_label()</a></code> and <code><a href="../reference/ggsf.html">geom_sf_text()</a></code> can draw labels and text on sf objects. Under the hood, a new <code><a href="../reference/stat_sf_coordinates.html">stat_sf_coordinates()</a></code> calculates the x and y coordinates from the coordinates of the sf geometries. You can customize the calculation method via <code>fun.geometry</code> argument (<a href='https://github.com/yutannihilation'>@yutannihilation</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2761'>#2761</a>).</p></li>
@@ -388,9 +419,9 @@
 <h1 class="page-header">
 <a href="#ggplot2-3-0-0" class="anchor"></a>ggplot2 3.0.0<small> 2018-07-03 </small>
 </h1>
-<div id="breaking-changes-2" class="section level2">
+<div id="breaking-changes-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#breaking-changes-2" class="anchor"></a>Breaking changes</h2>
+<a href="#breaking-changes-3" class="anchor"></a>Breaking changes</h2>
 <ul>
 <li>
 <p>ggplot2 now supports/uses tidy evaluation (as described below). This is a major change and breaks a number of packages; we made this breaking change because it is important to make ggplot2 more programmable, and to be more consistent with the rest of the tidyverse. The best general (and detailed) introduction to tidy evaluation can be found in the meta programming chapters in <a href="https://adv-r.hadley.nz">Advanced R</a>.</p>
@@ -465,9 +496,9 @@
 </ul>
 </div>
 </div>
-<div id="new-features-2" class="section level2">
+<div id="new-features-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-2" class="anchor"></a>New features</h2>
+<a href="#new-features-3" class="anchor"></a>New features</h2>
 <ul>
 <li><p>ggplot2 now works on R 3.1 onwards, and uses the <a href="https://github.com/lionel-/vdiffr">vdiffr</a> package for visual testing.</p></li>
 <li><p>In most cases, accidentally using <code>%&gt;%</code> instead of <code><a href="https://rdrr.io/r/base/Arithmetic.html">+</a></code> will generate an informative error (<a href='https://github.com/tidyverse/ggplot2/issues/2400'>#2400</a>).</p></li>
@@ -688,9 +719,9 @@ to determine which elements overlap, and spreads overlapping elements evenly wit
 <li><p>The theme option <code>panel.margin</code> has been deprecated in favour of <code>panel.spacing</code> to more clearly communicate intent.</p></li>
 </ul>
 </div>
-<div id="extensions-1" class="section level3">
+<div id="extensions-2" class="section level3">
 <h3 class="hasAnchor">
-<a href="#extensions-1" class="anchor"></a>Extensions</h3>
+<a href="#extensions-2" class="anchor"></a>Extensions</h3>
 <p>Unfortunately there was a major oversight in the construction of ggproto which lead to extensions capturing the super object at package build time, instead of at package run time (<a href='https://github.com/tidyverse/ggplot2/issues/1826'>#1826</a>). This problem has been fixed, but requires re-installation of all extension packages.</p>
 </div>
 </div>
@@ -798,9 +829,9 @@ to determine which elements overlap, and spreads overlapping elements evenly wit
 <h1 class="page-header">
 <a href="#ggplot2-2-1-0" class="anchor"></a>ggplot2 2.1.0<small> 2016-03-01 </small>
 </h1>
-<div id="new-features-3" class="section level2">
+<div id="new-features-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-3" class="anchor"></a>New features</h2>
+<a href="#new-features-4" class="anchor"></a>New features</h2>
 <ul>
 <li><p>When mapping an aesthetic to a constant (e.g. <code>geom_smooth(aes(colour = "loess")))</code>), the default guide title is the name of the aesthetic (i.e. “colour”), not the value (i.e. “loess”) (<a href='https://github.com/tidyverse/ggplot2/issues/1431'>#1431</a>).</p></li>
 <li><p><code><a href="../reference/layer.html">layer()</a></code> now accepts a function as the data argument. The function will be applied to the data passed to the <code><a href="../reference/ggplot.html">ggplot()</a></code> function and must return a data.frame (<a href='https://github.com/tidyverse/ggplot2/issues/1527'>#1527</a>, <a href='https://github.com/thomasp85'>@thomasp85</a>). This is a more general version of the deprecated <code>subset</code> argument.</p></li>
