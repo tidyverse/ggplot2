@@ -86,6 +86,20 @@ This guide is version of \code{\link[=guide_colourbar]{guide_colourbar()}} for b
 scales. It shows areas between breaks as a single constant colour instead of
 the gradient known from the colourbar counterpart.
 }
+\section{Use with discrete scale}{
+
+This guide is intended to show binned data and work together with ggplot2's
+binning scales. However, it is sometimes desirable to perform the binning in
+a separate step, either as part of a stat (e.g. \code{\link[=stat_contour_filled]{stat_contour_filled()}}) or
+prior to the visualisation. If you want to use this guide for discrete data
+the levels must follow the naming scheme implemented by \code{\link[base:cut]{base::cut()}}. This
+means that a bin must be encoded as \code{"(<lower>, <upper>]"} with \verb{<lower>}
+giving the lower bound of the bin and \verb{<upper>} giving the upper bound
+(\code{"[<lower>, <upper>)"} is also accepted). If you use \code{\link[base:cut]{base::cut()}} to
+perform the binning everything should work as expected, if not, some recoding
+may be needed.
+}
+
 \examples{
 df <- expand.grid(X1 = 1:10, X2 = 1:10)
 df$value <- df$X1 * df$X2
