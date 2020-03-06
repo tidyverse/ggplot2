@@ -27,7 +27,9 @@ annotation_logticks(
 It can be set to a string containing any of \code{"trbl"}, for top, right,
 bottom, and left.}
 
-\item{outside}{logical that controls whether to move the log ticks outside of the plot area. Default is off (FALSE). You will also need to use \code{coord_cartesian(clip = "off")}. See examples.}
+\item{outside}{logical that controls whether to move the log ticks outside
+of the plot area. Default is off (\code{FALSE}). You will also need to use
+\code{coord_cartesian(clip = "off")}. See examples.}
 
 \item{scaled}{is the data already log-scaled? This should be \code{TRUE}
 (default) when the data is already transformed with \code{log10()} or when
@@ -77,7 +79,8 @@ a + annotation_logticks()                # Default: log ticks on bottom and left
 a + annotation_logticks(sides = "lr")    # Log ticks for y, on left and right
 a + annotation_logticks(sides = "trbl")  # All four sides
 
-#' a + annotation_logticks(sides = "lr", outside = TRUE)  # Ticks outside plot
+a + annotation_logticks(sides = "lr", outside = TRUE) +
+ coord_cartesian(clip = "off")  # Ticks outside plot
 
 # Hide the minor grid lines because they don't align with the ticks
 a + annotation_logticks(sides = "trbl") + theme(panel.grid.minor = element_blank())
