@@ -1,0 +1,24 @@
+on:
+  push:
+    branches: master
+
+name: pkgdown
+
+jobs:
+  pkgdown:
+    runs-on: macOS-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: r-lib/actions/setup-r@master
+      - uses: r-lib/actions/setup-pandoc@master
+      - name: Install dependencies
+        run: |
+          install.packages("remotes")
+          remotes::install_deps(dependencies = TRUE)
+          remotes::install_dev("pkgdown")
+        shell: Rscript {0}
+      - name: Install package
+        run: R CMD INSTALL .
+      - name: Deploy package
+        run: pkgdown::deploy_to_branch(new_process = FALSE)
+        shell: Rscript {0}

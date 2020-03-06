@@ -1,0 +1,86 @@
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+name: R-CMD-check
+
+jobs:
+  R-CMD-check:
+    runs-on: ${{ matrix.config.os }}
+
+    name: ${{ matrix.config.os }} (${{ matrix.config.r }})
+
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - {os: windows-latest, r: '3.6'}
+          - {os: macOS-latest, r: '3.6'}
+          - {os: macOS-latest, r: 'devel'}
+          - {os: ubuntu-16.04, r: '3.2', cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
+          - {os: ubuntu-16.04, r: '3.3', cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
+          - {os: ubuntu-16.04, r: '3.4', cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
+          - {os: ubuntu-16.04, r: '3.5', cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
+          - {os: ubuntu-16.04, r: '3.6', cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
+
+    env:
+      R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
+      CRAN: ${{ matrix.config.cran }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: r-lib/actions/setup-r@master
+        with:
+          r-version: ${{ matrix.config.r }}
+
+      - uses: r-lib/actions/setup-pandoc@master
+
+      - name: Query dependencies
+        run: |
+          install.packages('remotes')
+          saveRDS(remotes::dev_package_deps(dependencies = TRUE), "depends.Rds", version = 2)
+        shell: Rscript {0}
+
+      - name: Cache R packages
+        if: runner.os != 'Windows'
+        uses: actions/cache@v1
+        with:
+          path: ${{ env.R_LIBS_USER }}
+          key: ${{ runner.os }}-r-${{ matrix.config.r }}-${{ hashFiles('depends.Rds') }}
+          restore-keys: ${{ runner.os }}-r-${{ matrix.config.r }}-
+
+      - name: Install system dependencies
+        if: runner.os == 'Linux'
+        env:
+          RHUB_PLATFORM: linux-x86_64-ubuntu-gcc
+        run: |
+          Rscript -e "remotes::install_github('r-hub/sysreqs')"
+          sysreqs=$(Rscript -e "cat(sysreqs::sysreq_commands('DESCRIPTION'))")
+          sudo -s eval "$sysreqs"
+
+      - name: Install dependencies
+        run: |
+          remotes::install_deps(dependencies = TRUE)
+          remotes::install_cran("rcmdcheck")
+        shell: Rscript {0}
+
+      - name: Check
+        run: rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "warning", check_dir = "check")
+        shell: Rscript {0}
+
+      - name: Upload check results
+        if: failure()
+        uses: actions/upload-artifact@master
+        with:
+          name: ${{ runner.os }}-r${{ matrix.config.r }}-results
+          path: check
+
+      - name: Test coverage
+        if: matrix.config.os == 'macOS-latest' && matrix.config.r == '3.6'
+        run: covr::codecov(token = "${{secrets.CODECOV_TOKEN}}")
+        shell: Rscript {0}
