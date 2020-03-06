@@ -19,7 +19,7 @@ jobs:
       matrix:
         config:
           - {os: windows-latest, r: '3.6', vdiffr: false}
-          - {os: macOS-latest, r: '3.6', vdiffr: true}
+          - {os: macOS-latest, r: '3.6', vdiffr: true, vdiffr_log: "../vdiffr.Rout.fail"}
           - {os: macOS-latest, r: 'devel', vdiffr: false}
           - {os: ubuntu-16.04, r: '3.2', vdiffr: false, cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
           - {os: ubuntu-16.04, r: '3.3', vdiffr: false, cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
@@ -29,8 +29,12 @@ jobs:
 
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
-      VDIFFR_RUN_TESTS: ${{ matrix.config.vdiffr }}
       CRAN: ${{ matrix.config.cran }}
+      # don't treat missing suggested packages as error
+      _R_CHECK_FORCE_SUGGESTS_: false
+      # Runs vdiffr test only on macOS with the latest version of R
+      VDIFFR_RUN_TESTS: ${{ matrix.config.vdiffr }}
+      VDIFFR_LOG_PATH: ${{ matrix.config.vdiffr_log }}
 
     steps:
       - uses: actions/checkout@v2
