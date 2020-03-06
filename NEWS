@@ -6,10 +6,6 @@ ggplot2 1.0.1
 * Improvements to order of colours and legend display for continuous colour
   scales extracted from colorbrewer palettes by `scale_*_distiller()` (@jiho, 1076)
 
-* Added an `outside` option to `annotation_logticks()` that places tick marks
-  outside of the plot bounds. (#3783, @kbodwin)
-
-
 ggplot2 1.0.0
 ----------------------------------------------------------------
 
