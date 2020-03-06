@@ -53,6 +53,21 @@ LayerSf <- ggproto("LayerSf", Layer,
       self$show.legend <- TRUE
     }
     data
+  },
+
+  draw_geom = function(self, data, layout, theme) {
+    if (empty(data)) {
+      n <- nrow(layout$layout)
+      return(rep(list(zeroGrob()), n))
+    }
+
+    data <- self$geom$handle_na(data, self$geom_params)
+
+    if(inherits(self$geom, "GeomSf")){
+    self$geom$draw_layer(data, self$geom_params, layout, layout$coord, theme)
+      } else{
+      self$geom$draw_layer(data, self$geom_params, layout, layout$coord)
+    }
   }
 )
 

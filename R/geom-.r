@@ -108,12 +108,24 @@ Geom <- ggproto("Geom",
 
   setup_data = function(data, params) data,
 
-  # Combine data with defaults and set aesthetics from parameters
-  use_defaults = function(self, data, params = list(), modifiers = aes()) {
-    # Fill in missing aesthetics with their defaults
-    missing_aes <- setdiff(names(self$default_aes), names(data))
+  # evaluate defaults according to theme
+  eval_defaults = function(self, theme) {
 
-    missing_eval <- lapply(self$default_aes[missing_aes], eval_tidy)
+    if (length(theme) == 0) theme <- theme_get()
+
+    from_theme <- function(aes, element = "geom") {
+      theme[[element]][[aes]]
+    }
+
+    lapply(self$default_aes, rlang::eval_tidy, data = list(from_theme = from_theme))
+  },
+
+  # Combine data with defaults and set aesthetics from parameters
+  use_defaults = function(self, data, defaults, params = list(), modifiers = aes()) {
+    # Fill in missing aesthetics with their defaults
+    missing_aes <- setdiff(names(defaults), names(data))
+    missing_eval <- lapply(defaults[missing_aes], eval_tidy)
+
     # Needed for geoms with defaults set to NULL (e.g. GeomSf)
     missing_eval <- compact(missing_eval)
 

@@ -156,10 +156,11 @@ guide_merge.bins <- function(guide, new_guide) {
 }
 
 #' @export
-guide_geom.bins <- function(guide, layers, default_mapping) {
+guide_geom.bins <- function(guide, layers, default_mapping, theme) {
   # arrange common data for vertical and horizontal guide
   guide$geoms <- lapply(layers, function(layer) {
     matched <- matched_aes(layer, guide, default_mapping)
+    defaults <- layer$geom$eval_defaults(theme = theme)
 
     # check if this layer should be included
     include <- include_layer_in_guide(layer, matched)
@@ -173,9 +174,9 @@ guide_geom.bins <- function(guide, layers, default_mapping) {
       n <- vapply(layer$aes_params, length, integer(1))
       params <- layer$aes_params[n == 1]
 
-      data <- layer$geom$use_defaults(guide$key[matched], params)
+      data <- layer$geom$use_defaults(guide$key[matched], defaults = defaults,  params)
     } else {
-      data <- layer$geom$use_defaults(NULL, layer$aes_params)[rep(1, nrow(guide$key)), ]
+      data <- layer$geom$use_defaults(NULL, defaults = defaults, layer$aes_params)[rep(1, nrow(guide$key)), ]
     }
 
     # override.aes in guide_legend manually changes the geom

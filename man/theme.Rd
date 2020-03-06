@@ -9,6 +9,7 @@ theme(
   rect,
   text,
   title,
+  geom,
   aspect.ratio,
   axis.title,
   axis.title.x,
@@ -111,6 +112,8 @@ theme(
 
 \item{title}{all title elements: plot, axes, legends (\code{\link[=element_text]{element_text()}};
 inherits from \code{text})}
+
+\item{geom}{default geom aesthetics}
 
 \item{aspect.ratio}{aspect ratio of the panel}
 

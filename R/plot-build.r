@@ -97,7 +97,7 @@ ggplot_build.ggplot <- function(plot) {
   }
 
   # Fill in defaults etc.
-  data <- by_layer(function(l, d) l$compute_geom_2(d))
+  data <- by_layer(function(l, d) l$compute_geom_2(d, plot))
 
   # Let layer stat have a final say before rendering
   data <- by_layer(function(l, d) l$finish_statistics(d))
@@ -136,7 +136,7 @@ layer_scales <- function(plot, i = 1L, j = 1L) {
 layer_grob <- function(plot, i = 1L) {
   b <- ggplot_build(plot)
 
-  b$plot$layers[[i]]$draw_geom(b$data[[i]], b$layout)
+  b$plot$layers[[i]]$draw_geom(b$data[[i]], b$layout, plot_theme(plot))
 }
 
 #' Build a plot with all the usual bits and pieces.
@@ -165,7 +165,7 @@ ggplot_gtable.ggplot_built <- function(data) {
   data <- data$data
   theme <- plot_theme(plot)
 
-  geom_grobs <- Map(function(l, d) l$draw_geom(d, layout), plot$layers, data)
+  geom_grobs <- Map(function(l, d) l$draw_geom(d, layout, theme = theme), plot$layers, data)
   layout$setup_panel_guides(plot$guides, plot$layers, plot$mapping)
   plot_table <- layout$render(geom_grobs, data, theme, plot$labels)
 

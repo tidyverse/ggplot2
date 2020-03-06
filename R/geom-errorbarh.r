@@ -48,8 +48,13 @@ geom_errorbarh <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomErrorbarh <- ggproto("GeomErrorbarh", Geom,
-  default_aes = aes(colour = "black", size = 0.5, linetype = 1, height = 0.5,
-    alpha = NA),
+  default_aes = aes(
+    colour = from_theme("colour"),
+    size = 0.5,
+    linetype = 1,
+    height = 0.5,
+    alpha = NA
+  ),
 
   draw_key = draw_key_path,
 
@@ -67,7 +72,7 @@ GeomErrorbarh <- ggproto("GeomErrorbarh", Geom,
   draw_panel = function(data, panel_params, coord, height = NULL) {
     GeomPath$draw_panel(new_data_frame(list(
       x = as.vector(rbind(data$xmax, data$xmax, NA, data$xmax, data$xmin, NA, data$xmin, data$xmin)),
-      y = as.vector(rbind(data$ymin, data$ymax, NA, data$y,    data$y,    NA, data$ymin, data$ymax)),
+      y = as.vector(rbind(data$ymin, data$ymax, NA, data$y, data$y, NA, data$ymin, data$ymax)),
       colour = rep(data$colour, each = 8),
       alpha = rep(data$alpha, each = 8),
       size = rep(data$size, each = 8),

@@ -8,6 +8,7 @@
 #'   - `element_rect`: borders and backgrounds.
 #'   - `element_line`: lines.
 #'   - `element_text`: text.
+#'   - `element_geom`: geom defaults.
 #'
 #' `rel()` is used to specify sizes relative to the parent,
 #' `margin()` is used to specify the margins of elements.
@@ -130,6 +131,38 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
   )
 }
 
+#' @param colour_1 geom accent colour 1,
+#'   typically a lighter version of colour
+#' @param colour_2 geom accent colour 2,
+#'   typically a bright colour used for geom_smooth et al.
+#' @param fill_1 geom accent fill colour, typically a darker version of fill
+#' @param ... other accepted spellings of themable aesthetics, e.g. "color"
+#' @export
+#' @rdname element
+element_geom <- function(fill = NULL,
+                         fill_1 = NULL,
+                         colour = NULL,
+                         colour_1 = NULL,
+                         colour_2 = NULL,
+                         ...,
+                         inherit.blank = FALSE) {
+  extra_aes <- rename_aes(list(...))
+
+  aes_list <- utils::modifyList(
+    list(
+      fill = fill, fill_1 = fill_1, colour = colour,
+      colour_1 = colour_1, colour_2 = colour_2,
+      inherit.blank = inherit.blank
+    ),
+    extra_aes,
+    keep.null = TRUE
+  )
+
+  structure(
+    aes_list,
+    class = c("element_geom", "element")
+  )
+}
 
 #' @export
 print.element <- function(x, ...) utils::str(x)
@@ -401,7 +434,6 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   panel.grid.major    = el_def("element_line", "panel.grid"),
   panel.grid.minor    = el_def("element_line", "panel.grid"),
   strip.text          = el_def("element_text", "text"),
-
   axis.line.x         = el_def("element_line", "axis.line"),
   axis.line.x.top     = el_def("element_line", "axis.line.x"),
   axis.line.x.bottom  = el_def("element_line", "axis.line.x"),
@@ -437,8 +469,8 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   legend.background   = el_def("element_rect", "rect"),
   legend.margin       = el_def("margin"),
   legend.spacing      = el_def("unit"),
-  legend.spacing.x     = el_def("unit", "legend.spacing"),
-  legend.spacing.y     = el_def("unit", "legend.spacing"),
+  legend.spacing.x    = el_def("unit", "legend.spacing"),
+  legend.spacing.y    = el_def("unit", "legend.spacing"),
   legend.key          = el_def("element_rect", "rect"),
   legend.key.height   = el_def("unit", "legend.key.size"),
   legend.key.width    = el_def("unit", "legend.key.size"),
@@ -491,7 +523,8 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   plot.tag.position   = el_def("character"),  # Need to also accept numbers
   plot.margin         = el_def("margin"),
 
-  aspect.ratio        = el_def("character")
+  aspect.ratio        = el_def("character"),
+  geom                = el_def("element_geom")
 )
 
 # Check that an element object has the proper class

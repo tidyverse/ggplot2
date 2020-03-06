@@ -136,7 +136,7 @@ guide_merge.axis <- function(guide, new_guide) {
 
 # axis guides don't care which geometry uses these aesthetics
 #' @export
-guide_geom.axis <- function(guide, layers, default_mapping) {
+guide_geom.axis <- function(guide, layers, default_mapping, theme) {
   guide
 }
 

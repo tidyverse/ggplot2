@@ -6,6 +6,7 @@
 \alias{element_rect}
 \alias{element_line}
 \alias{element_text}
+\alias{element_geom}
 \alias{rel}
 \title{Theme elements}
 \usage{
@@ -44,6 +45,16 @@ element_text(
   color = NULL,
   margin = NULL,
   debug = NULL,
+  inherit.blank = FALSE
+)
+
+element_geom(
+  fill = NULL,
+  fill_1 = NULL,
+  colour = NULL,
+  colour_1 = NULL,
+  colour_2 = NULL,
+  ...,
   inherit.blank = FALSE
 )
 
@@ -96,6 +107,16 @@ side of the text facing towards the center of the plot.}
 rectangle behind the complete text area, and a point where each label
 is anchored.}
 
+\item{fill_1}{geom accent fill colour, typically a darker version of fill}
+
+\item{colour_1}{geom accent colour 1,
+typically a lighter version of colour}
+
+\item{colour_2}{geom accent colour 2,
+typically a bright colour used for geom_smooth et al.}
+
+\item{...}{other accepted spellings of themable aesthetics, e.g. "color"}
+
 \item{x}{A single number specifying size relative to parent element.}
 }
 \value{
@@ -109,6 +130,7 @@ specify the display of how non-data components of the plot are drawn.
 \item \code{element_rect}: borders and backgrounds.
 \item \code{element_line}: lines.
 \item \code{element_text}: text.
+\item \code{element_geom}: geom defaults.
 }
 
 \code{rel()} is used to specify sizes relative to the parent,

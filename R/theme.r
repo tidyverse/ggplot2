@@ -25,6 +25,7 @@
 #' @param text all text elements ([element_text()])
 #' @param title all title elements: plot, axes, legends ([element_text()];
 #'   inherits from `text`)
+#' @param geom default geom aesthetics
 #' @param aspect.ratio aspect ratio of the panel
 #'
 #' @param axis.title,axis.title.x,axis.title.y,axis.title.x.top,axis.title.x.bottom,axis.title.y.left,axis.title.y.right
@@ -268,6 +269,7 @@ theme <- function(line,
                   rect,
                   text,
                   title,
+                  geom,
                   aspect.ratio,
                   axis.title,
                   axis.title.x,
@@ -697,3 +699,16 @@ is.theme <- function(x) inherits(x, "theme")
 
 #' @export
 print.theme <- function(x, ...) utils::str(x)
+
+
+#' Pulls default aesthetic from theme element
+#'
+#' defined and evaluated in environments with current plot theme,
+#' e.g Geom$eval_defaults and sf_grob
+#'
+#' @param aes character string indicating the aesthetic e.g. color, fill
+#' @param element The theme element where aes is specified, defaults to "geom"
+#' @noRd
+from_theme <- function(aes, element = "geom"){
+  theme[[element]][[aes]]
+}

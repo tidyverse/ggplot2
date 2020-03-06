@@ -117,7 +117,7 @@ geom_contour_filled <- function(mapping = NULL, data = NULL,
 GeomContour <- ggproto("GeomContour", GeomPath,
   default_aes = aes(
     weight = 1,
-    colour = "#3366FF",
+    colour = from_theme("colour_2"),
     size = 0.5,
     linetype = 1,
     alpha = NA

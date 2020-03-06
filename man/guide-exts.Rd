@@ -13,7 +13,7 @@ guide_train(guide, scale, aesthetic = NULL)
 
 guide_merge(guide, new_guide)
 
-guide_geom(guide, layers, default_mapping)
+guide_geom(guide, layers, default_mapping, theme)
 
 guide_transform(guide, coord, panel_params)
 

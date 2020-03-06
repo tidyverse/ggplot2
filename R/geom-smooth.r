@@ -92,7 +92,6 @@ geom_smooth <- function(mapping = NULL, data = NULL,
                         orientation = NA,
                         show.legend = NA,
                         inherit.aes = TRUE) {
-
   params <- list(
     na.rm = na.rm,
     orientation = orientation,
@@ -158,6 +157,12 @@ GeomSmooth <- ggproto("GeomSmooth", Geom,
   required_aes = c("x", "y"),
   optional_aes = c("ymin", "ymax"),
 
-  default_aes = aes(colour = "#3366FF", fill = "grey60", size = 1,
-    linetype = 1, weight = 1, alpha = 0.4)
+  default_aes = aes(
+    colour = from_theme("colour_2"),
+    fill = from_theme("fill"),
+    size = 1,
+    linetype = 1,
+    weight = 1,
+    alpha = 0.4
+  )
 )

@@ -345,21 +345,22 @@ Layer <- ggproto("Layer", NULL,
     self$position$compute_layer(data, params, layout)
   },
 
-  compute_geom_2 = function(self, data) {
-    # Combine aesthetics, defaults, & params
+  compute_geom_2 = function(self, data, plot) {
     if (empty(data)) return(data)
 
+    # evaluate defaults for theme
+    defaults <- self$geom$eval_defaults(theme = plot_theme(plot))
     aesthetics <- self$mapping
     modifiers <- aesthetics[is_scaled_aes(aesthetics) | is_staged_aes(aesthetics)]
 
-    self$geom$use_defaults(data, self$aes_params, modifiers)
+    self$geom$use_defaults(data, defaults = defaults, self$aes_params, modifiers)
   },
 
   finish_statistics = function(self, data) {
     self$stat$finish_layer(data, self$stat_params)
   },
 
-  draw_geom = function(self, data, layout) {
+  draw_geom = function(self, data, layout, theme) {
     if (empty(data)) {
       n <- nrow(layout$layout)
       return(rep(list(zeroGrob()), n))

@@ -215,7 +215,12 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
     gTree(children = do.call("gList", ticks))
   },
 
-  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = 1)
+  default_aes = aes(
+    colour = from_theme("colour"),
+    size = 0.5,
+    linetype = 1,
+    alpha = NA
+  )
 )
 
 

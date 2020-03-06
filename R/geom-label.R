@@ -51,10 +51,17 @@ GeomLabel <- ggproto("GeomLabel", Geom,
   required_aes = c("x", "y", "label"),
 
   default_aes = aes(
-    colour = "black", fill = "white", size = 3.88, angle = 0,
-    hjust = 0.5, vjust = 0.5, alpha = NA, family = "", fontface = 1,
-    lineheight = 1.2
-  ),
+    colour = from_theme("colour", element = "text"),
+    fill = from_theme("fill_1"),
+    size =  3.88,
+    angle = 0,
+    hjust = 0.5,
+    vjust = 0.5,
+    alpha = NA,
+    family = from_theme("family", element = "text"),
+    fontface = from_theme("face", element = "text"),
+    lineheight = from_theme("lineheight", element = "text")
+   ),
 
   draw_panel = function(self, data, panel_params, coord, parse = FALSE,
                         na.rm = FALSE,

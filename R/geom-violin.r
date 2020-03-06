@@ -172,8 +172,8 @@ GeomViolin <- ggproto("GeomViolin", Geom,
 
       ggname("geom_violin", grobTree(
         GeomPolygon$draw_panel(newdata, ...),
-        quantile_grob)
-      )
+        quantile_grob
+      ))
     } else {
       ggname("geom_violin", GeomPolygon$draw_panel(newdata, ...))
     }
@@ -181,8 +181,14 @@ GeomViolin <- ggproto("GeomViolin", Geom,
 
   draw_key = draw_key_polygon,
 
-  default_aes = aes(weight = 1, colour = "grey20", fill = "white", size = 0.5,
-    alpha = NA, linetype = "solid"),
+  default_aes = aes(
+    weight = 1,
+    colour = from_theme("colour_1"),
+    fill = from_theme("fill_1"),
+    size = 0.5,
+    alpha = NA,
+    linetype = "solid"
+  ),
 
   required_aes = c("x", "y")
 )
@@ -204,4 +210,3 @@ create_quantile_segment_frame <- function(data, draw_quantiles) {
     group = rep(ys, each = 2)
   ))
 }
-

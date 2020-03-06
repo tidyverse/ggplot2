@@ -75,7 +75,7 @@ GeomHex <- ggproto("GeomHex", Geom,
 
   default_aes = aes(
     colour = NA,
-    fill = "grey50",
+    fill = from_theme("fill"),
     size = 0.5,
     linetype = 1,
     alpha = NA
