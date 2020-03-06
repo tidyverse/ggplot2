@@ -8,21 +8,31 @@
 
 <title>Position scales for continuous data (x &amp; y) — scale_continuous • ggplot2</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
 <link href="../tidyverse.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -32,34 +42,35 @@
 
 
 <meta property="og:title" content="Position scales for continuous data (x &amp; y) — scale_continuous" />
-
 <meta property="og:description" content="scale_x_continuous() and scale_y_continuous() are the default
 scales for continuous x and y aesthetics. There are three variants
 that set the trans argument for commonly used transformations:
 scale_*_log10(), scale_*_sqrt() and scale_*_reverse()." />
-
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
 
+
 <!-- mathjax -->
-<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
-<!-- google analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
 <script>
- window.dataLayer = window.dataLayer || [];
- function gtag(){dataLayer.push(arguments);}
- gtag('js', new Date());
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
- gtag('config', 'UA-115082821-1');
+  gtag('config', 'UA-115082821-1');
 </script>
+
   </head>
 
   <body>
@@ -79,7 +90,7 @@ scale_*_log10(), scale_*_sqrt() and scale_*_reverse()." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.2.1</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.0</span>
         </div>
       </div>
     </div>
@@ -96,10 +107,16 @@ scale_*_log10(), scale_*_sqrt() and scale_*_reverse()." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/extending-ggplot2.html">Extending ggplot2</a>
+    </li>
+    <li>
+      <a href="../articles/ggplot2-in-packages.html">Using ggplot2 in packages</a>
+    </li>
+    <li>
       <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
     </li>
     <li>
-      <a href="../articles/extending-ggplot2.html">Extending ggplot2</a>
+      <a href="../articles/profiling.html">Profiling Performance</a>
     </li>
   </ul>
 </li>
@@ -111,6 +128,12 @@ scale_*_log10(), scale_*_sqrt() and scale_*_reverse()." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
+    <li>
+      <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
+    </li>
+    <li>
+      <a href="https://www.tidyverse.org/articles/2019/06/ggplot2-3-2-0/">Version 3.2.0</a>
+    </li>
     <li>
       <a href="https://www.tidyverse.org/articles/2018/10/ggplot2-3-1-0/">Version 3.1.0</a>
     </li>
@@ -135,12 +158,12 @@ scale_*_log10(), scale_*_sqrt() and scale_*_reverse()." />
     </li>
   </ul>
 </li>
-<li>
-  <a href="http://www.ggplot2-exts.org/gallery/">Extensions</a>
-</li>
         <li>
+  <a href="https://www.ggplot2-exts.org/gallery/">Extensions</a>
+</li>
+<li>
   <a href="https://github.com/tidyverse/ggplot2">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -151,6 +174,7 @@ scale_*_log10(), scale_*_sqrt() and scale_*_reverse()." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -162,23 +186,43 @@ scale_*_log10(), scale_*_sqrt() and scale_*_reverse()." />
     </div>
 
     <div class="ref-description">
-    
     <p><code>scale_x_continuous()</code> and <code>scale_y_continuous()</code> are the default
 scales for continuous x and y aesthetics. There are three variants
 that set the <code>trans</code> argument for commonly used transformations:
 <code>scale_*_log10()</code>, <code>scale_*_sqrt()</code> and <code>scale_*_reverse()</code>.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>scale_x_continuous</span>(<span class='kw'>name</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(), <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
-  <span class='kw'>minor_breaks</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(), <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(), <span class='kw'>limits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>expand</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(), <span class='kw'>oob</span> <span class='kw'>=</span> <span class='no'>censor</span>, <span class='kw'>na.value</span> <span class='kw'>=</span> <span class='fl'>NA_real_</span>,
-  <span class='kw'>trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"bottom"</span>, <span class='kw'>sec.axis</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>())
+    <pre class="usage"><span class='fu'>scale_x_continuous</span>(
+  <span class='kw'>name</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
+  <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
+  <span class='kw'>minor_breaks</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
+  <span class='kw'>n.breaks</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
+  <span class='kw'>limits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>expand</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
+  <span class='kw'>oob</span> <span class='kw'>=</span> <span class='no'>censor</span>,
+  <span class='kw'>na.value</span> <span class='kw'>=</span> <span class='fl'>NA_real_</span>,
+  <span class='kw'>trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
+  <span class='kw'>guide</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"bottom"</span>,
+  <span class='kw'>sec.axis</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>()
+)
 
-<span class='fu'>scale_y_continuous</span>(<span class='kw'>name</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(), <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
-  <span class='kw'>minor_breaks</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(), <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(), <span class='kw'>limits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>expand</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(), <span class='kw'>oob</span> <span class='kw'>=</span> <span class='no'>censor</span>, <span class='kw'>na.value</span> <span class='kw'>=</span> <span class='fl'>NA_real_</span>,
-  <span class='kw'>trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"left"</span>, <span class='kw'>sec.axis</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>())
+<span class='fu'>scale_y_continuous</span>(
+  <span class='kw'>name</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
+  <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
+  <span class='kw'>minor_breaks</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
+  <span class='kw'>n.breaks</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
+  <span class='kw'>limits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>expand</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
+  <span class='kw'>oob</span> <span class='kw'>=</span> <span class='no'>censor</span>,
+  <span class='kw'>na.value</span> <span class='kw'>=</span> <span class='fl'>NA_real_</span>,
+  <span class='kw'>trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
+  <span class='kw'>guide</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"left"</span>,
+  <span class='kw'>sec.axis</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>()
+)
 
 <span class='fu'>scale_x_log10</span>(<span class='no'>...</span>)
 
@@ -191,7 +235,7 @@ that set the <code>trans</code> argument for commonly used transformations:
 <span class='fu'>scale_x_sqrt</span>(<span class='no'>...</span>)
 
 <span class='fu'>scale_y_sqrt</span>(<span class='no'>...</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -207,10 +251,10 @@ omitted.</p></td>
       <td><p>One of:</p><ul>
 <li><p><code>NULL</code> for no breaks</p></li>
 <li><p><code><a href='waiver.html'>waiver()</a></code> for the default breaks computed by the
-transformation object</p></li>
+<a href='https://scales.r-lib.org//reference/trans_new.html'>transformation object</a></p></li>
 <li><p>A numeric vector of positions</p></li>
 <li><p>A function that takes the limits as input and returns breaks
-as output</p></li>
+as output (e.g., a function returned by <code><a href='https://scales.r-lib.org//reference/breaks_extended.html'>scales::extended_breaks()</a></code>)</p></li>
 </ul></td>
     </tr>
     <tr>
@@ -222,6 +266,13 @@ each major break)</p></li>
 <li><p>A numeric vector of positions</p></li>
 <li><p>A function that given the limits returns a vector of minor breaks.</p></li>
 </ul></td>
+    </tr>
+    <tr>
+      <th>n.breaks</th>
+      <td><p>An integer guiding the number of major breaks. The algorithm
+may choose a slightly different number to ensure nice break labels. Will
+only have an effect if <code>breaks = waiver()</code>. Use <code>NULL</code> to use the default
+number of breaks given by the transformation.</p></td>
     </tr>
     <tr>
       <th>labels</th>
@@ -241,22 +292,31 @@ as output</p></li>
 <li><p>A numeric vector of length two providing limits of the scale.
 Use <code>NA</code> to refer to the existing minimum or maximum</p></li>
 <li><p>A function that accepts the existing (automatic) limits and returns
-new limits</p></li>
+new limits
+Note that setting limits on positional scales will <strong>remove</strong> data outside of the limits.
+If the purpose is to zoom, use the limit argument in the coordinate system
+(see <code><a href='coord_cartesian.html'>coord_cartesian()</a></code>).</p></li>
 </ul></td>
     </tr>
     <tr>
       <th>expand</th>
-      <td><p>Vector of range expansion constants used to add some
-padding around the data, to ensure that they are placed some distance
-away from the axes. Use the convenience function <code><a href='expand_scale.html'>expand_scale()</a></code>
+      <td><p>For position scales, a vector of range expansion constants used to add some
+padding around the data to ensure that they are placed some distance
+away from the axes. Use the convenience function <code><a href='expansion.html'>expansion()</a></code>
 to generate the values for the <code>expand</code> argument. The defaults are to
 expand the scale by 5% on each side for continuous variables, and by
 0.6 units on each side for discrete variables.</p></td>
     </tr>
     <tr>
       <th>oob</th>
-      <td><p>Function that handles limits outside of the scale limits
-(out of bounds). The default replaces out of bounds values with <code>NA</code>.</p></td>
+      <td><p>One of:</p><ul>
+<li><p>Function that handles limits outside of the scale limits
+(out of bounds).</p></li>
+<li><p>The default (<code><a href='https://scales.r-lib.org//reference/censor.html'>scales::censor()</a></code>) replaces out of
+bounds values with <code>NA</code>.</p></li>
+<li><p><code><a href='https://scales.r-lib.org//reference/squish.html'>scales::squish()</a></code> for squishing out of bounds values into range.</p></li>
+<li><p><code><a href='https://scales.r-lib.org//reference/squish_infinite.html'>scales::squish_infinite()</a></code> for squishing infitite values into range.</p></li>
+</ul></td>
     </tr>
     <tr>
       <th>na.value</th>
@@ -264,43 +324,47 @@ expand the scale by 5% on each side for continuous variables, and by
     </tr>
     <tr>
       <th>trans</th>
-      <td><p>Either the name of a transformation object, or the
-object itself. Built-in transformations include "asn", "atanh",
+      <td><p>For continuous scales, the name of a transformation object
+or the object itself. Built-in transformations include "asn", "atanh",
 "boxcox", "date", "exp", "hms", "identity", "log", "log10", "log1p", "log2",
 "logit", "modulus", "probability", "probit", "pseudo_log", "reciprocal",
 "reverse", "sqrt" and "time".</p>
 <p>A transformation object bundles together a transform, its inverse,
 and methods for generating breaks and labels. Transformation objects
-are defined in the scales package, and are called <code>name_trans</code>, e.g.
-<code><a href='https://www.rdocumentation.org/packages/scales/topics/boxcox_trans'>scales::boxcox_trans()</a></code>. You can create your own
-transformation with <code><a href='https://www.rdocumentation.org/packages/scales/topics/trans_new'>scales::trans_new()</a></code>.</p></td>
+are defined in the scales package, and are called <code>&lt;name&gt;_trans</code> (e.g.,
+<code><a href='https://scales.r-lib.org//reference/boxcox_trans.html'>scales::boxcox_trans()</a></code>). You can create your own
+transformation with <code><a href='https://scales.r-lib.org//reference/trans_new.html'>scales::trans_new()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>guide</th>
+      <td><p>A function used to create a guide or its name. See
+<code><a href='guides.html'>guides()</a></code> for more information.</p></td>
     </tr>
     <tr>
       <th>position</th>
-      <td><p>The position of the axis. "left" or "right" for vertical
-scales, "top" or "bottom" for horizontal scales</p></td>
+      <td><p>For position scales, The position of the axis.
+<code>left</code> or <code>right</code> for y axes, <code>top</code> or <code>bottom</code> for x axes.</p></td>
     </tr>
     <tr>
       <th>sec.axis</th>
-      <td><p>specify a secondary axis</p></td>
+      <td><p><code><a href='sec_axis.html'>sec_axis()</a></code> is used to specify a secondary axis.</p></td>
     </tr>
     <tr>
       <th>...</th>
       <td><p>Other arguments passed on to <code>scale_(x|y)_continuous()</code></p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>For simple manipulation of labels and limits, you may wish to use
 <code><a href='labs.html'>labs()</a></code> and <code><a href='lims.html'>lims()</a></code> instead.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='sec_axis.html'>sec_axis()</a></code> for how to specify secondary axes</p>
-<p>Other position scales: <code><a href='scale_date.html'>scale_x_date</a></code>,
-  <code><a href='scale_discrete.html'>scale_x_discrete</a></code></p></div>
-    
+    <div class='dont-index'><p>Other position scales: 
+<code><a href='scale_binned.html'>scale_x_binned</a>()</code>,
+<code><a href='scale_date.html'>scale_x_date</a>()</code>,
+<code><a href='scale_discrete.html'>scale_x_discrete</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>displ</span>, <span class='no'>hwy</span>)) +
@@ -315,29 +379,29 @@ scales, "top" or "bottom" for horizontal scales</p></td>
 <span class='co'># Use NULL to suppress axis labels</span>
 <span class='no'>p1</span> + <span class='fu'><a href='labs.html'>labs</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='img'><img src='scale_continuous-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>#  * modify the axis limits</span>
-<span class='no'>p1</span> + <span class='fu'>scale_x_continuous</span>(<span class='kw'>limits</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>6</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 27 rows containing missing values (geom_point).</span></div><div class='img'><img src='scale_continuous-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p1</span> + <span class='fu'>scale_x_continuous</span>(<span class='kw'>limits</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>10</span>))</div><div class='img'><img src='scale_continuous-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>p1</span> + <span class='fu'>scale_x_continuous</span>(<span class='kw'>limits</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>6</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 27 rows containing missing values (geom_point).</span></div><div class='img'><img src='scale_continuous-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p1</span> + <span class='fu'>scale_x_continuous</span>(<span class='kw'>limits</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>10</span>))</div><div class='img'><img src='scale_continuous-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># you can also use the short hand functions `xlim()` and `ylim()`</span>
 <span class='no'>p1</span> + <span class='fu'><a href='lims.html'>xlim</a></span>(<span class='fl'>2</span>, <span class='fl'>6</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 27 rows containing missing values (geom_point).</span></div><div class='img'><img src='scale_continuous-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>#  * choose where the ticks appear</span>
-<span class='no'>p1</span> + <span class='fu'>scale_x_continuous</span>(<span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>4</span>, <span class='fl'>6</span>))</div><div class='img'><img src='scale_continuous-7.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>p1</span> + <span class='fu'>scale_x_continuous</span>(<span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>4</span>, <span class='fl'>6</span>))</div><div class='img'><img src='scale_continuous-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>#  * choose your own labels</span>
 <span class='no'>p1</span> + <span class='fu'>scale_x_continuous</span>(
-  <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>4</span>, <span class='fl'>6</span>),
-  <span class='kw'>label</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"two"</span>, <span class='st'>"four"</span>, <span class='st'>"six"</span>)
+  <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>4</span>, <span class='fl'>6</span>),
+  <span class='kw'>label</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"two"</span>, <span class='st'>"four"</span>, <span class='st'>"six"</span>)
 )</div><div class='img'><img src='scale_continuous-8.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Typically you'll pass a function to the `labels` argument.</span>
 <span class='co'># Some common formats are built into the scales package:</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(
-  <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>10</span>) * <span class='fl'>100000</span>,
-  <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>, <span class='kw'>length.out</span> <span class='kw'>=</span> <span class='fl'>10</span>)
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
+  <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>10</span>) * <span class='fl'>100000</span>,
+  <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>, <span class='kw'>length.out</span> <span class='kw'>=</span> <span class='fl'>10</span>)
 )
 <span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>x</span>, <span class='no'>y</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
-<span class='no'>p2</span> + <span class='fu'>scale_y_continuous</span>(<span class='kw'>labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/scales/topics/number_format'>percent</a></span>)</div><div class='img'><img src='scale_continuous-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p2</span> + <span class='fu'>scale_y_continuous</span>(<span class='kw'>labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/scales/topics/dollar_format'>dollar</a></span>)</div><div class='img'><img src='scale_continuous-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p2</span> + <span class='fu'>scale_x_continuous</span>(<span class='kw'>labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/scales/topics/number_format'>comma</a></span>)</div><div class='img'><img src='scale_continuous-11.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>p2</span> + <span class='fu'>scale_y_continuous</span>(<span class='kw'>labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='no'><a href='https://scales.r-lib.org//reference/label_percent.html'>percent</a></span>)</div><div class='img'><img src='scale_continuous-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p2</span> + <span class='fu'>scale_y_continuous</span>(<span class='kw'>labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='no'><a href='https://scales.r-lib.org//reference/label_dollar.html'>dollar</a></span>)</div><div class='img'><img src='scale_continuous-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p2</span> + <span class='fu'>scale_x_continuous</span>(<span class='kw'>labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='no'><a href='https://scales.r-lib.org//reference/label_number.html'>comma</a></span>)</div><div class='img'><img src='scale_continuous-11.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can also override the default linear mapping by using a</span>
 <span class='co'># transformation. There are three shortcuts:</span>
 <span class='no'>p1</span> + <span class='fu'>scale_y_log10</span>()</div><div class='img'><img src='scale_continuous-12.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p1</span> + <span class='fu'>scale_y_sqrt</span>()</div><div class='img'><img src='scale_continuous-13.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p1</span> + <span class='fu'>scale_y_reverse</span>()</div><div class='img'><img src='scale_continuous-14.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Or you can supply a transformation in the `trans` argument:</span>
-<span class='no'>p1</span> + <span class='fu'>scale_y_continuous</span>(<span class='kw'>trans</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/scales/topics/reciprocal_trans'>reciprocal_trans</a></span>())</div><div class='img'><img src='scale_continuous-15.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>p1</span> + <span class='fu'>scale_y_continuous</span>(<span class='kw'>trans</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='fu'><a href='https://scales.r-lib.org//reference/reciprocal_trans.html'>reciprocal_trans</a></span>())</div><div class='img'><img src='scale_continuous-15.png' alt='' width='700' height='433' /></div><div class='input'>
 # You can also create your own. See ?scales::trans_new
 
 </div></pre>
@@ -346,16 +410,14 @@ scales, "top" or "bottom" for horizontal scales</p></td>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#details">Details</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
 </div>
+
 
       <footer>
       <div class="tidyverse">
@@ -364,15 +426,18 @@ scales, "top" or "bottom" for horizontal scales</p></td>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, Dewey Dunnington.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

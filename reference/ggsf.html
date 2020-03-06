@@ -8,21 +8,31 @@
 
 <title>Visualise sf objects — CoordSf • ggplot2</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
 <link href="../tidyverse.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -32,7 +42,6 @@
 
 
 <meta property="og:title" content="Visualise sf objects — CoordSf" />
-
 <meta property="og:description" content="This set of geom, stat, and coord are used to visualise simple feature (sf)
 objects. For simple plots, you will only need geom_sf() as it
 uses stat_sf() and adds coord_sf() for you. geom_sf() is
@@ -40,29 +49,31 @@ an unusual geom because it will draw different geometric objects depending
 on what simple features are present in the data: you can get points, lines,
 or polygons.
 For text and labels, you can use geom_sf_text() and geom_sf_label()." />
-
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
 
+
 <!-- mathjax -->
-<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
-<!-- google analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
 <script>
- window.dataLayer = window.dataLayer || [];
- function gtag(){dataLayer.push(arguments);}
- gtag('js', new Date());
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
- gtag('config', 'UA-115082821-1');
+  gtag('config', 'UA-115082821-1');
 </script>
+
   </head>
 
   <body>
@@ -82,7 +93,7 @@ For text and labels, you can use geom_sf_text() and geom_sf_label()." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.2.1</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.0</span>
         </div>
       </div>
     </div>
@@ -99,10 +110,16 @@ For text and labels, you can use geom_sf_text() and geom_sf_label()." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/extending-ggplot2.html">Extending ggplot2</a>
+    </li>
+    <li>
+      <a href="../articles/ggplot2-in-packages.html">Using ggplot2 in packages</a>
+    </li>
+    <li>
       <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
     </li>
     <li>
-      <a href="../articles/extending-ggplot2.html">Extending ggplot2</a>
+      <a href="../articles/profiling.html">Profiling Performance</a>
     </li>
   </ul>
 </li>
@@ -114,6 +131,12 @@ For text and labels, you can use geom_sf_text() and geom_sf_label()." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
+    <li>
+      <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
+    </li>
+    <li>
+      <a href="https://www.tidyverse.org/articles/2019/06/ggplot2-3-2-0/">Version 3.2.0</a>
+    </li>
     <li>
       <a href="https://www.tidyverse.org/articles/2018/10/ggplot2-3-1-0/">Version 3.1.0</a>
     </li>
@@ -138,12 +161,12 @@ For text and labels, you can use geom_sf_text() and geom_sf_label()." />
     </li>
   </ul>
 </li>
-<li>
-  <a href="http://www.ggplot2-exts.org/gallery/">Extensions</a>
-</li>
         <li>
+  <a href="https://www.ggplot2-exts.org/gallery/">Extensions</a>
+</li>
+<li>
   <a href="https://github.com/tidyverse/ggplot2">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -154,6 +177,7 @@ For text and labels, you can use geom_sf_text() and geom_sf_label()." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -165,7 +189,6 @@ For text and labels, you can use geom_sf_text() and geom_sf_label()." />
     </div>
 
     <div class="ref-description">
-    
     <p>This set of geom, stat, and coord are used to visualise simple feature (sf)
 objects. For simple plots, you will only need <code>geom_sf()</code> as it
 uses <code>stat_sf()</code> and adds <code>coord_sf()</code> for you. <code>geom_sf()</code> is
@@ -173,33 +196,77 @@ an unusual geom because it will draw different geometric objects depending
 on what simple features are present in the data: you can get points, lines,
 or polygons.
 For text and labels, you can use <code>geom_sf_text()</code> and <code>geom_sf_label()</code>.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>coord_sf</span>(<span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>expand</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>crs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>datum</span> <span class='kw'>=</span> <span class='kw pkg'>sf</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/sf/topics/st_crs'>st_crs</a></span>(<span class='fl'>4326</span>), <span class='kw'>label_graticule</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
-  <span class='kw'>label_axes</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(), <span class='kw'>ndiscr</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>default</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>clip</span> <span class='kw'>=</span> <span class='st'>"on"</span>)
+    <pre class="usage"><span class='fu'>coord_sf</span>(
+  <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>expand</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>crs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>datum</span> <span class='kw'>=</span> <span class='kw pkg'>sf</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_crs.html'>st_crs</a></span>(<span class='fl'>4326</span>),
+  <span class='kw'>label_graticule</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
+  <span class='kw'>label_axes</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
+  <span class='kw'>ndiscr</span> <span class='kw'>=</span> <span class='fl'>100</span>,
+  <span class='kw'>default</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>clip</span> <span class='kw'>=</span> <span class='st'>"on"</span>
+)
 
-<span class='fu'>geom_sf</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='fu'><a href='aes.html'>aes</a></span>(), <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"sf"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
+<span class='fu'>geom_sf</span>(
+  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='fu'><a href='aes.html'>aes</a></span>(),
+  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"sf"</span>,
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
+  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='no'>...</span>
+)
 
-<span class='fu'>geom_sf_label</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='fu'><a href='aes.html'>aes</a></span>(), <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"sf_coordinates"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>parse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>nudge_x</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>nudge_y</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>label.padding</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/grid/topics/unit'>unit</a></span>(<span class='fl'>0.25</span>, <span class='st'>"lines"</span>),
-  <span class='kw'>label.r</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/grid/topics/unit'>unit</a></span>(<span class='fl'>0.15</span>, <span class='st'>"lines"</span>), <span class='kw'>label.size</span> <span class='kw'>=</span> <span class='fl'>0.25</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>fun.geometry</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'>geom_sf_label</span>(
+  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='fu'><a href='aes.html'>aes</a></span>(),
+  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"sf_coordinates"</span>,
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>parse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>nudge_x</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>nudge_y</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>label.padding</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>0.25</span>, <span class='st'>"lines"</span>),
+  <span class='kw'>label.r</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>0.15</span>, <span class='st'>"lines"</span>),
+  <span class='kw'>label.size</span> <span class='kw'>=</span> <span class='fl'>0.25</span>,
+  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>fun.geometry</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)
 
-<span class='fu'>geom_sf_text</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='fu'><a href='aes.html'>aes</a></span>(), <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"sf_coordinates"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>parse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>nudge_x</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>nudge_y</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>check_overlap</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>fun.geometry</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'>geom_sf_text</span>(
+  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='fu'><a href='aes.html'>aes</a></span>(),
+  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"sf_coordinates"</span>,
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>parse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>nudge_x</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>nudge_y</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>check_overlap</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>fun.geometry</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)
 
-<span class='fu'>stat_sf</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"rect"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
-    
+<span class='fu'>stat_sf</span>(
+  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"rect"</span>,
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
+  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='no'>...</span>
+)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -248,7 +315,7 @@ which side of the plot. Meridians are indicated by <code>"E"</code> (for East) a
 parallels by <code>"N"</code> (for North). Default is <code>"--EN"</code>, which specifies
 (clockwise from the top) no labels on the top, none on the right, meridians
 on the bottom, and parallels on the left. Alternatively, this setting could have been
-specified with <code><a href='https://www.rdocumentation.org/packages/base/topics/list'>list(bottom = "E", left = "N")</a></code>.</p>
+specified with <code><a href='https://rdrr.io/r/base/list.html'>list(bottom = "E", left = "N")</a></code>.</p>
 <p>This parameter can be used alone or in combination with <code>label_graticule</code>.</p></td>
     </tr>
     <tr>
@@ -335,17 +402,19 @@ to the paired geom/stat.</p></td>
     <tr>
       <th>parse</th>
       <td><p>If <code>TRUE</code>, the labels will be parsed into expressions and
-displayed as described in <code><a href='https://www.rdocumentation.org/packages/grDevices/topics/plotmath'>?plotmath</a></code>.</p></td>
+displayed as described in <code><a href='https://rdrr.io/r/grDevices/plotmath.html'>?plotmath</a></code>.</p></td>
     </tr>
     <tr>
       <th>nudge_x</th>
       <td><p>Horizontal and vertical adjustment to nudge labels by.
-Useful for offsetting text from points, particularly on discrete scales.</p></td>
+Useful for offsetting text from points, particularly on discrete scales.
+Cannot be jointy specified with <code>position</code>.</p></td>
     </tr>
     <tr>
       <th>nudge_y</th>
       <td><p>Horizontal and vertical adjustment to nudge labels by.
-Useful for offsetting text from points, particularly on discrete scales.</p></td>
+Useful for offsetting text from points, particularly on discrete scales.
+Cannot be jointy specified with <code>position</code>.</p></td>
     </tr>
     <tr>
       <th>label.padding</th>
@@ -370,18 +439,21 @@ when you really care about the exact locations.</p></td>
     <tr>
       <th>check_overlap</th>
       <td><p>If <code>TRUE</code>, text that overlaps previous text in the
-same layer will not be plotted.</p></td>
+same layer will not be plotted. <code>check_overlap</code> happens at draw time and in
+the order of the data. Therefore data should be arranged by the label
+column before calling <code><a href='geom_text.html'>geom_label()</a></code> or <code><a href='geom_text.html'>geom_text()</a></code>.</p></td>
     </tr>
     <tr>
       <th>geom</th>
       <td><p>The geometric object to use display the data</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="geometry-aesthetic"><a class="anchor" href="#geometry-aesthetic"></a>Geometry aesthetic</h2>
 
     
-    <p><code>geom_sf()</code> uses a unique aesthetic: <code>geometry</code>, giving an
+
+<p><code>geom_sf()</code> uses a unique aesthetic: <code>geometry</code>, giving an
 column of class <code>sfc</code> containing simple features data. There
 are three ways to supply the <code>geometry</code> aesthetic:</p><ul>
 <li><p>Do nothing: by default <code>geom_sf()</code> assumes it is stored in
@@ -390,38 +462,37 @@ the <code>geometry</code> column.</p></li>
 This will use the primary geometry column, no matter what it's called.</p></li>
 <li><p>Supply your own using <code><a href='aes.html'>aes(geometry = my_column)</a></code></p></li>
 </ul>
-    <p>Unlike other aesthetics, <code>geometry</code> will never be inherited from
+
+<p>Unlike other aesthetics, <code>geometry</code> will never be inherited from
 the plot.</p>
-    
     <h2 class="hasAnchor" id="crs"><a class="anchor" href="#crs"></a>CRS</h2>
 
     
-    <p><code>coord_sf()</code> ensures that all layers use a common CRS. You can
+
+<p><code>coord_sf()</code> ensures that all layers use a common CRS. You can
 either specify it using the <code>CRS</code> param, or <code>coord_sf()</code> will
 take it from the first layer that defines a CRS.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='stat_sf_coordinates.html'>stat_sf_coordinates()</a></code></p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/ns-load'>requireNamespace</a></span>(<span class='st'>"sf"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
-<span class='no'>nc</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>sf</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/sf/topics/st_read'>st_read</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"shape/nc.shp"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"sf"</span>), <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"sf"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
+<span class='no'>nc</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>sf</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_read.html'>st_read</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"shape/nc.shp"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"sf"</span>), <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>nc</span>) +
   <span class='fu'>geom_sf</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>AREA</span>))
 
 <span class='co'># If not supplied, coord_sf() will take the CRS from the first layer</span>
 <span class='co'># and automatically transform all other layers to use that CRS. This</span>
 <span class='co'># ensures that all data will correctly line up</span>
-<span class='no'>nc_3857</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>sf</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/sf/topics/st_transform'>st_transform</a></span>(<span class='no'>nc</span>, <span class='st'>"+init=epsg:3857"</span>)
+<span class='no'>nc_3857</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>sf</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_transform.html'>st_transform</a></span>(<span class='no'>nc</span>, <span class='fl'>3857</span>)
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>() +
   <span class='fu'>geom_sf</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>nc</span>) +
   <span class='fu'>geom_sf</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>nc_3857</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>)
 
 <span class='co'># Unfortunately if you plot other types of feature you'll need to use</span>
 <span class='co'># show.legend to tell ggplot2 what type of legend to use</span>
-<span class='no'>nc_3857</span>$<span class='no'>mid</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>sf</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/sf/topics/geos_unary'>st_centroid</a></span>(<span class='no'>nc_3857</span>$<span class='no'>geometry</span>)
+<span class='no'>nc_3857</span>$<span class='no'>mid</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>sf</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sf/man/geos_unary.html'>st_centroid</a></span>(<span class='no'>nc_3857</span>$<span class='no'>geometry</span>)
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>nc_3857</span>) +
   <span class='fu'>geom_sf</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"white"</span>) +
   <span class='fu'>geom_sf</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>geometry</span> <span class='kw'>=</span> <span class='no'>mid</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='no'>AREA</span>), <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='st'>"point"</span>)
@@ -434,11 +505,11 @@ take it from the first layer that defines a CRS.</p>
 
 <span class='co'># Thanks to the power of sf, a geom_sf nicely handles varying projections</span>
 <span class='co'># setting the aspect ratio correctly.</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>maps</span>)
-<span class='no'>world1</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>sf</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/sf/topics/st_as_sf'>st_as_sf</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/maps/topics/map'>map</a></span>(<span class='st'>'world'</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>maps</span>)
+<span class='no'>world1</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>sf</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_as_sf.html'>st_as_sf</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/maps/man/map.html'>map</a></span>(<span class='st'>'world'</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>() + <span class='fu'>geom_sf</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>world1</span>)
 
-<span class='no'>world2</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>sf</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/sf/topics/st_transform'>st_transform</a></span>(
+<span class='no'>world2</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>sf</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_transform.html'>st_transform</a></span>(
   <span class='no'>world1</span>,
   <span class='st'>"+proj=laea +y_0=0 +lon_0=155 +lat_0=-90 +ellps=WGS84 +no_defs"</span>
 )
@@ -454,18 +525,15 @@ take it from the first layer that defines a CRS.</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#geometry-aesthetic">Geometry aesthetic</a></li>
-
       <li><a href="#crs">CRS</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
 </div>
+
 
       <footer>
       <div class="tidyverse">
@@ -474,15 +542,18 @@ take it from the first layer that defines a CRS.</p>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, Dewey Dunnington.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

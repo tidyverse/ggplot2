@@ -8,21 +8,31 @@
 
 <title>Modify components of a theme — theme • ggplot2</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
 <link href="../tidyverse.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -32,37 +42,38 @@
 
 
 <meta property="og:title" content="Modify components of a theme — theme" />
-
-<meta property="og:description" content="Themes are a powerful way to customize the non-data components of your
-plots: i.e. titles, labels, fonts, background, gridlines, and legends.
-Themes can be used to give plots a consistent customized look.
-Modify a single plot's theme using theme(); see theme_update() if
-you want modify the active theme, to affect all subsequent plots. Theme
-elements are documented together according to inheritance, read more
-about theme inheritance below." />
-
+<meta property="og:description" content="Themes are a powerful way to customize the non-data components of your plots:
+i.e. titles, labels, fonts, background, gridlines, and legends. Themes can be
+used to give plots a consistent customized look. Modify a single plot's theme
+using theme(); see theme_update() if you want modify the active theme, to
+affect all subsequent plots. Use the themes available in complete themes if you would like to use a complete theme such as
+theme_bw(), theme_minimal(), and more. Theme elements are documented
+together according to inheritance, read more about theme inheritance below." />
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
 
+
 <!-- mathjax -->
-<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
-<!-- google analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
 <script>
- window.dataLayer = window.dataLayer || [];
- function gtag(){dataLayer.push(arguments);}
- gtag('js', new Date());
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
- gtag('config', 'UA-115082821-1');
+  gtag('config', 'UA-115082821-1');
 </script>
+
   </head>
 
   <body>
@@ -82,7 +93,7 @@ about theme inheritance below." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.2.1</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.0</span>
         </div>
       </div>
     </div>
@@ -99,10 +110,16 @@ about theme inheritance below." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/extending-ggplot2.html">Extending ggplot2</a>
+    </li>
+    <li>
+      <a href="../articles/ggplot2-in-packages.html">Using ggplot2 in packages</a>
+    </li>
+    <li>
       <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
     </li>
     <li>
-      <a href="../articles/extending-ggplot2.html">Extending ggplot2</a>
+      <a href="../articles/profiling.html">Profiling Performance</a>
     </li>
   </ul>
 </li>
@@ -114,6 +131,12 @@ about theme inheritance below." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
+    <li>
+      <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
+    </li>
+    <li>
+      <a href="https://www.tidyverse.org/articles/2019/06/ggplot2-3-2-0/">Version 3.2.0</a>
+    </li>
     <li>
       <a href="https://www.tidyverse.org/articles/2018/10/ggplot2-3-1-0/">Version 3.1.0</a>
     </li>
@@ -138,12 +161,12 @@ about theme inheritance below." />
     </li>
   </ul>
 </li>
-<li>
-  <a href="http://www.ggplot2-exts.org/gallery/">Extensions</a>
-</li>
         <li>
+  <a href="https://www.ggplot2-exts.org/gallery/">Extensions</a>
+</li>
+<li>
   <a href="https://github.com/tidyverse/ggplot2">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -154,6 +177,7 @@ about theme inheritance below." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -165,42 +189,113 @@ about theme inheritance below." />
     </div>
 
     <div class="ref-description">
-    
-    <p>Themes are a powerful way to customize the non-data components of your
-plots: i.e. titles, labels, fonts, background, gridlines, and legends.
-Themes can be used to give plots a consistent customized look.
-Modify a single plot's theme using <code>theme()</code>; see <code><a href='theme_get.html'>theme_update()</a></code> if
-you want modify the active theme, to affect all subsequent plots. Theme
-elements are documented together according to inheritance, read more
-about theme inheritance below.</p>
-    
+    <p>Themes are a powerful way to customize the non-data components of your plots:
+i.e. titles, labels, fonts, background, gridlines, and legends. Themes can be
+used to give plots a consistent customized look. Modify a single plot's theme
+using <code>theme()</code>; see <code><a href='theme_get.html'>theme_update()</a></code> if you want modify the active theme, to
+affect all subsequent plots. Use the themes available in <a href='ggtheme.html'>complete themes</a> if you would like to use a complete theme such as
+<code><a href='ggtheme.html'>theme_bw()</a></code>, <code><a href='ggtheme.html'>theme_minimal()</a></code>, and more. Theme elements are documented
+together according to inheritance, read more about theme inheritance below.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>theme</span>(<span class='no'>line</span>, <span class='no'>rect</span>, <span class='no'>text</span>, <span class='no'>title</span>, <span class='no'>aspect.ratio</span>, <span class='no'>axis.title</span>, <span class='no'>axis.title.x</span>,
-  <span class='no'>axis.title.x.top</span>, <span class='no'>axis.title.x.bottom</span>, <span class='no'>axis.title.y</span>, <span class='no'>axis.title.y.left</span>,
-  <span class='no'>axis.title.y.right</span>, <span class='no'>axis.text</span>, <span class='no'>axis.text.x</span>, <span class='no'>axis.text.x.top</span>,
-  <span class='no'>axis.text.x.bottom</span>, <span class='no'>axis.text.y</span>, <span class='no'>axis.text.y.left</span>, <span class='no'>axis.text.y.right</span>,
-  <span class='no'>axis.ticks</span>, <span class='no'>axis.ticks.x</span>, <span class='no'>axis.ticks.x.top</span>, <span class='no'>axis.ticks.x.bottom</span>,
-  <span class='no'>axis.ticks.y</span>, <span class='no'>axis.ticks.y.left</span>, <span class='no'>axis.ticks.y.right</span>, <span class='no'>axis.ticks.length</span>,
-  <span class='no'>axis.ticks.length.x</span>, <span class='no'>axis.ticks.length.x.top</span>, <span class='no'>axis.ticks.length.x.bottom</span>,
-  <span class='no'>axis.ticks.length.y</span>, <span class='no'>axis.ticks.length.y.left</span>, <span class='no'>axis.ticks.length.y.right</span>,
-  <span class='no'>axis.line</span>, <span class='no'>axis.line.x</span>, <span class='no'>axis.line.x.top</span>, <span class='no'>axis.line.x.bottom</span>, <span class='no'>axis.line.y</span>,
-  <span class='no'>axis.line.y.left</span>, <span class='no'>axis.line.y.right</span>, <span class='no'>legend.background</span>, <span class='no'>legend.margin</span>,
-  <span class='no'>legend.spacing</span>, <span class='no'>legend.spacing.x</span>, <span class='no'>legend.spacing.y</span>, <span class='no'>legend.key</span>,
-  <span class='no'>legend.key.size</span>, <span class='no'>legend.key.height</span>, <span class='no'>legend.key.width</span>, <span class='no'>legend.text</span>,
-  <span class='no'>legend.text.align</span>, <span class='no'>legend.title</span>, <span class='no'>legend.title.align</span>, <span class='no'>legend.position</span>,
-  <span class='no'>legend.direction</span>, <span class='no'>legend.justification</span>, <span class='no'>legend.box</span>, <span class='no'>legend.box.just</span>,
-  <span class='no'>legend.box.margin</span>, <span class='no'>legend.box.background</span>, <span class='no'>legend.box.spacing</span>,
-  <span class='no'>panel.background</span>, <span class='no'>panel.border</span>, <span class='no'>panel.spacing</span>, <span class='no'>panel.spacing.x</span>,
-  <span class='no'>panel.spacing.y</span>, <span class='no'>panel.grid</span>, <span class='no'>panel.grid.major</span>, <span class='no'>panel.grid.minor</span>,
-  <span class='no'>panel.grid.major.x</span>, <span class='no'>panel.grid.major.y</span>, <span class='no'>panel.grid.minor.x</span>,
-  <span class='no'>panel.grid.minor.y</span>, <span class='no'>panel.ontop</span>, <span class='no'>plot.background</span>, <span class='no'>plot.title</span>,
-  <span class='no'>plot.subtitle</span>, <span class='no'>plot.caption</span>, <span class='no'>plot.tag</span>, <span class='no'>plot.tag.position</span>, <span class='no'>plot.margin</span>,
-  <span class='no'>strip.background</span>, <span class='no'>strip.background.x</span>, <span class='no'>strip.background.y</span>,
-  <span class='no'>strip.placement</span>, <span class='no'>strip.text</span>, <span class='no'>strip.text.x</span>, <span class='no'>strip.text.y</span>,
-  <span class='no'>strip.switch.pad.grid</span>, <span class='no'>strip.switch.pad.wrap</span>, <span class='no'>...</span>, <span class='kw'>complete</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>theme</span>(
+  <span class='no'>line</span>,
+  <span class='no'>rect</span>,
+  <span class='no'>text</span>,
+  <span class='no'>title</span>,
+  <span class='no'>aspect.ratio</span>,
+  <span class='no'>axis.title</span>,
+  <span class='no'>axis.title.x</span>,
+  <span class='no'>axis.title.x.top</span>,
+  <span class='no'>axis.title.x.bottom</span>,
+  <span class='no'>axis.title.y</span>,
+  <span class='no'>axis.title.y.left</span>,
+  <span class='no'>axis.title.y.right</span>,
+  <span class='no'>axis.text</span>,
+  <span class='no'>axis.text.x</span>,
+  <span class='no'>axis.text.x.top</span>,
+  <span class='no'>axis.text.x.bottom</span>,
+  <span class='no'>axis.text.y</span>,
+  <span class='no'>axis.text.y.left</span>,
+  <span class='no'>axis.text.y.right</span>,
+  <span class='no'>axis.ticks</span>,
+  <span class='no'>axis.ticks.x</span>,
+  <span class='no'>axis.ticks.x.top</span>,
+  <span class='no'>axis.ticks.x.bottom</span>,
+  <span class='no'>axis.ticks.y</span>,
+  <span class='no'>axis.ticks.y.left</span>,
+  <span class='no'>axis.ticks.y.right</span>,
+  <span class='no'>axis.ticks.length</span>,
+  <span class='no'>axis.ticks.length.x</span>,
+  <span class='no'>axis.ticks.length.x.top</span>,
+  <span class='no'>axis.ticks.length.x.bottom</span>,
+  <span class='no'>axis.ticks.length.y</span>,
+  <span class='no'>axis.ticks.length.y.left</span>,
+  <span class='no'>axis.ticks.length.y.right</span>,
+  <span class='no'>axis.line</span>,
+  <span class='no'>axis.line.x</span>,
+  <span class='no'>axis.line.x.top</span>,
+  <span class='no'>axis.line.x.bottom</span>,
+  <span class='no'>axis.line.y</span>,
+  <span class='no'>axis.line.y.left</span>,
+  <span class='no'>axis.line.y.right</span>,
+  <span class='no'>legend.background</span>,
+  <span class='no'>legend.margin</span>,
+  <span class='no'>legend.spacing</span>,
+  <span class='no'>legend.spacing.x</span>,
+  <span class='no'>legend.spacing.y</span>,
+  <span class='no'>legend.key</span>,
+  <span class='no'>legend.key.size</span>,
+  <span class='no'>legend.key.height</span>,
+  <span class='no'>legend.key.width</span>,
+  <span class='no'>legend.text</span>,
+  <span class='no'>legend.text.align</span>,
+  <span class='no'>legend.title</span>,
+  <span class='no'>legend.title.align</span>,
+  <span class='no'>legend.position</span>,
+  <span class='no'>legend.direction</span>,
+  <span class='no'>legend.justification</span>,
+  <span class='no'>legend.box</span>,
+  <span class='no'>legend.box.just</span>,
+  <span class='no'>legend.box.margin</span>,
+  <span class='no'>legend.box.background</span>,
+  <span class='no'>legend.box.spacing</span>,
+  <span class='no'>panel.background</span>,
+  <span class='no'>panel.border</span>,
+  <span class='no'>panel.spacing</span>,
+  <span class='no'>panel.spacing.x</span>,
+  <span class='no'>panel.spacing.y</span>,
+  <span class='no'>panel.grid</span>,
+  <span class='no'>panel.grid.major</span>,
+  <span class='no'>panel.grid.minor</span>,
+  <span class='no'>panel.grid.major.x</span>,
+  <span class='no'>panel.grid.major.y</span>,
+  <span class='no'>panel.grid.minor.x</span>,
+  <span class='no'>panel.grid.minor.y</span>,
+  <span class='no'>panel.ontop</span>,
+  <span class='no'>plot.background</span>,
+  <span class='no'>plot.title</span>,
+  <span class='no'>plot.title.position</span>,
+  <span class='no'>plot.subtitle</span>,
+  <span class='no'>plot.caption</span>,
+  <span class='no'>plot.caption.position</span>,
+  <span class='no'>plot.tag</span>,
+  <span class='no'>plot.tag.position</span>,
+  <span class='no'>plot.margin</span>,
+  <span class='no'>strip.background</span>,
+  <span class='no'>strip.background.x</span>,
+  <span class='no'>strip.background.y</span>,
+  <span class='no'>strip.placement</span>,
+  <span class='no'>strip.text</span>,
+  <span class='no'>strip.text.x</span>,
+  <span class='no'>strip.text.y</span>,
+  <span class='no'>strip.switch.pad.grid</span>,
+  <span class='no'>strip.switch.pad.wrap</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>complete</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -396,6 +491,15 @@ inherits from <code>rect</code>)</p></td>
 from <code>title</code>) left-aligned by default</p></td>
     </tr>
     <tr>
+      <th>plot.title.position, plot.caption.position</th>
+      <td><p>Alignment of the plot title/subtitle
+and caption.  The setting for <code>plot.title.position</code> applies to both
+the title and the subtitle. A value of "panel" (the default) means that
+titles and/or caption are aligned to the plot panels. A value of "plot" means
+that titles and/or caption are aligned to the entire plot (minus any space
+for margins and plot tag).</p></td>
+    </tr>
+    <tr>
       <th>plot.subtitle</th>
       <td><p>plot subtitle (text appearance) (<code><a href='element.html'>element_text()</a></code>;
 inherits from <code>title</code>) left-aligned by default</p></td>
@@ -454,8 +558,8 @@ switched (<code>unit</code>)</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>additional element specifications not part of base ggplot2. If
-supplied <code>validate</code> needs to be set to <code>FALSE</code>.</p></td>
+      <td><p>additional element specifications not part of base ggplot2. In general,
+these should also be defined in the <code>element tree</code> argument.</p></td>
     </tr>
     <tr>
       <th>complete</th>
@@ -470,11 +574,12 @@ elements.</p></td>
       <td><p><code>TRUE</code> to run <code>validate_element()</code>, <code>FALSE</code> to bypass checks.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="theme-inheritance"><a class="anchor" href="#theme-inheritance"></a>Theme inheritance</h2>
 
     
-    <p>Theme elements inherit properties from other theme elements heirarchically.
+
+<p>Theme elements inherit properties from other theme elements hierarchically.
 For example, <code>axis.title.x.bottom</code> inherits from <code>axis.title.x</code> which inherits
 from <code>axis.title</code>, which in turn inherits from <code>text</code>. All text elements inherit
 directly or indirectly from <code>text</code>; all lines inherit from
@@ -482,14 +587,12 @@ directly or indirectly from <code>text</code>; all lines inherit from
 This means that you can modify the appearance of multiple elements by
 setting a single high-level component.</p>
 <p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='gg-add.html'>+.gg()</a></code> and <code><a href='theme_get.html'>%+replace%</a></code>,
+    <div class='dont-index'><p><code><a href='gg-add.html'>+.gg()</a></code> and <a href='theme_get.html'>%+replace%</a>,
 <code><a href='element.html'>element_blank()</a></code>, <code><a href='element.html'>element_line()</a></code>,
 <code><a href='element.html'>element_rect()</a></code>, and <code><a href='element.html'>element_text()</a></code> for
 details of the specific theme elements.</p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>wt</span>, <span class='no'>mpg</span>)) +
@@ -517,13 +620,14 @@ details of the specific theme elements.</p></div>
 <span class='no'>p1</span> + <span class='fu'>theme</span>(<span class='kw'>axis.title.y</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_text</a></span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>rel</a></span>(<span class='fl'>1.5</span>), <span class='kw'>angle</span> <span class='kw'>=</span> <span class='fl'>90</span>))</div><div class='img'><img src='theme-12.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Make ticks point outwards on y-axis and inwards on x-axis</span>
 <span class='no'>p1</span> + <span class='fu'>theme</span>(
-  <span class='kw'>axis.ticks.length.y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/grid/topics/unit'>unit</a></span>(<span class='fl'>.25</span>, <span class='st'>"cm"</span>),
-  <span class='kw'>axis.ticks.length.x</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/grid/topics/unit'>unit</a></span>(-<span class='fl'>.25</span>, <span class='st'>"cm"</span>),
+  <span class='kw'>axis.ticks.length.y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>.25</span>, <span class='st'>"cm"</span>),
+  <span class='kw'>axis.ticks.length.x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(-<span class='fl'>.25</span>, <span class='st'>"cm"</span>),
   <span class='kw'>axis.text.x</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_text</a></span>(<span class='kw'>margin</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>margin</a></span>(<span class='kw'>t</span> <span class='kw'>=</span> <span class='fl'>.3</span>, <span class='kw'>unit</span> <span class='kw'>=</span> <span class='st'>"cm"</span>))
 )</div><div class='img'><img src='theme-13.png' alt='' width='700' height='433' /></div><div class='input'>
-</div><div class='input'><span class='co'># Legend --------------------------------------------------------------------</span>
+<span class='co'># \donttest{</span>
+<span class='co'># Legend --------------------------------------------------------------------</span>
 <span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>wt</span>, <span class='no'>mpg</span>)) +
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/factor'>factor</a></span>(<span class='no'>cyl</span>), <span class='kw'>shape</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/factor'>factor</a></span>(<span class='no'>vs</span>))) +
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>cyl</span>), <span class='kw'>shape</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>vs</span>))) +
   <span class='fu'><a href='labs.html'>labs</a></span>(
     <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"Weight (1000 lbs)"</span>,
     <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"Fuel economy (mpg)"</span>,
@@ -536,8 +640,8 @@ details of the specific theme elements.</p></div>
 <span class='co'># Or place legends inside the plot using relative coordinates between 0 and 1</span>
 <span class='co'># legend.justification sets the corner that the position refers to</span>
 <span class='no'>p2</span> + <span class='fu'>theme</span>(
-  <span class='kw'>legend.position</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>.95</span>, <span class='fl'>.95</span>),
-  <span class='kw'>legend.justification</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"right"</span>, <span class='st'>"top"</span>),
+  <span class='kw'>legend.position</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.95</span>, <span class='fl'>.95</span>),
+  <span class='kw'>legend.justification</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"right"</span>, <span class='st'>"top"</span>),
   <span class='kw'>legend.box.just</span> <span class='kw'>=</span> <span class='st'>"right"</span>,
   <span class='kw'>legend.margin</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>margin</a></span>(<span class='fl'>6</span>, <span class='fl'>6</span>, <span class='fl'>6</span>, <span class='fl'>6</span>)
 )</div><div class='img'><img src='theme-18.png' alt='' width='700' height='433' /></div><div class='input'>
@@ -556,22 +660,21 @@ details of the specific theme elements.</p></div>
   <span class='fu'><a href='geom_point.html'>geom_point</a></span>() +
   <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span>(~ <span class='no'>cyl</span>)
 <span class='no'>p3</span></div><div class='img'><img src='theme-23.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='no'>p3</span> + <span class='fu'>theme</span>(<span class='kw'>strip.background</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_rect</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>"white"</span>))</div><div class='img'><img src='theme-24.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p3</span> + <span class='fu'>theme</span>(<span class='kw'>strip.text.x</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_text</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"white"</span>, <span class='kw'>face</span> <span class='kw'>=</span> <span class='st'>"bold"</span>))</div><div class='img'><img src='theme-25.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p3</span> + <span class='fu'>theme</span>(<span class='kw'>panel.spacing</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/grid/topics/unit'>unit</a></span>(<span class='fl'>1</span>, <span class='st'>"lines"</span>))</div><div class='img'><img src='theme-26.png' alt='' width='700' height='433' /></div></pre>
+<span class='no'>p3</span> + <span class='fu'>theme</span>(<span class='kw'>strip.background</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_rect</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>"white"</span>))</div><div class='img'><img src='theme-24.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p3</span> + <span class='fu'>theme</span>(<span class='kw'>strip.text.x</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_text</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"white"</span>, <span class='kw'>face</span> <span class='kw'>=</span> <span class='st'>"bold"</span>))</div><div class='img'><img src='theme-25.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p3</span> + <span class='fu'>theme</span>(<span class='kw'>panel.spacing</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>1</span>, <span class='st'>"lines"</span>))</div><div class='img'><img src='theme-26.png' alt='' width='700' height='433' /></div><div class='input'># }
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#theme-inheritance">Theme inheritance</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
 </div>
+
 
       <footer>
       <div class="tidyverse">
@@ -580,15 +683,18 @@ details of the specific theme elements.</p></div>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, Dewey Dunnington.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 
