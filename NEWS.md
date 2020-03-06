@@ -1,3 +1,5 @@
+# ggplot2 (development version)
+
 * `annotation_raster()` adds support for native rasters. For large rasters,
   native rasters render significantly faster than arrays (@kent37, #3388)
   
