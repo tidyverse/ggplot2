@@ -22,7 +22,7 @@
 #' @inheritParams layer
 #' @inheritParams geom_bar
 #' @param outline.type Type of the outline of the area; `"both"` draws both the
-#'   upper and lower lines, `"upper"`/`"lower"` draws the either lines only.
+#'   upper and lower lines, `"upper"`/`"lower"` draws the respective lines only.
 #'   `"full"` draws a closed polygon around the area.
 #' @export
 #' @examples
