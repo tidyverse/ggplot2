@@ -216,7 +216,9 @@ bottom, and left.</p></td>
     </tr>
     <tr>
       <th>outside</th>
-      <td><p>logical that controls whether to move the log ticks outside of the plot area. Default is off (FALSE). You will also need to use <code><a href='coord_cartesian.html'>coord_cartesian(clip = "off")</a></code>. See examples.</p></td>
+      <td><p>logical that controls whether to move the log ticks outside
+of the plot area. Default is off (<code>FALSE</code>). You will also need to use
+<code><a href='coord_cartesian.html'>coord_cartesian(clip = "off")</a></code>. See examples.</p></td>
     </tr>
     <tr>
       <th>scaled</th>
@@ -287,10 +289,10 @@ transformations.</p>
  <span class='fu'><a href='ggtheme.html'>theme_bw</a></span>()
 
 <span class='no'>a</span> + <span class='fu'>annotation_logticks</span>()                <span class='co'># Default: log ticks on bottom and left</span></div><div class='img'><img src='annotation_logticks-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>a</span> + <span class='fu'>annotation_logticks</span>(<span class='kw'>sides</span> <span class='kw'>=</span> <span class='st'>"lr"</span>)    <span class='co'># Log ticks for y, on left and right</span></div><div class='img'><img src='annotation_logticks-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>a</span> + <span class='fu'>annotation_logticks</span>(<span class='kw'>sides</span> <span class='kw'>=</span> <span class='st'>"trbl"</span>)  <span class='co'># All four sides</span></div><div class='img'><img src='annotation_logticks-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>#' a + annotation_logticks(sides = "lr", outside = TRUE)  # Ticks outside plot</span>
-
+<span class='no'>a</span> + <span class='fu'>annotation_logticks</span>(<span class='kw'>sides</span> <span class='kw'>=</span> <span class='st'>"lr"</span>, <span class='kw'>outside</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) +
+ <span class='fu'><a href='coord_cartesian.html'>coord_cartesian</a></span>(<span class='kw'>clip</span> <span class='kw'>=</span> <span class='st'>"off"</span>)  <span class='co'># Ticks outside plot</span></div><div class='img'><img src='annotation_logticks-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Hide the minor grid lines because they don't align with the ticks</span>
-<span class='no'>a</span> + <span class='fu'>annotation_logticks</span>(<span class='kw'>sides</span> <span class='kw'>=</span> <span class='st'>"trbl"</span>) + <span class='fu'><a href='theme.html'>theme</a></span>(<span class='kw'>panel.grid.minor</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_blank</a></span>())</div><div class='img'><img src='annotation_logticks-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>a</span> + <span class='fu'>annotation_logticks</span>(<span class='kw'>sides</span> <span class='kw'>=</span> <span class='st'>"trbl"</span>) + <span class='fu'><a href='theme.html'>theme</a></span>(<span class='kw'>panel.grid.minor</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_blank</a></span>())</div><div class='img'><img src='annotation_logticks-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Another way to get the same results as 'a' above: log-transform the data before</span>
 <span class='co'># plotting it. Also hide the minor grid lines.</span>
 <span class='no'>b</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>msleep</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log10</a></span>(<span class='no'>bodywt</span>), <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log10</a></span>(<span class='no'>brainwt</span>))) +
@@ -299,19 +301,19 @@ transformations.</p>
  <span class='fu'><a href='scale_continuous.html'>scale_y_continuous</a></span>(<span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"brain"</span>, <span class='kw'>labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='fu'><a href='https://scales.r-lib.org//reference/label_parse.html'>math_format</a></span>(<span class='fl'>10</span>^<span class='no'>.x</span>)) +
  <span class='fu'><a href='ggtheme.html'>theme_bw</a></span>() + <span class='fu'><a href='theme.html'>theme</a></span>(<span class='kw'>panel.grid.minor</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_blank</a></span>())
 
-<span class='no'>b</span> + <span class='fu'>annotation_logticks</span>()</div><div class='img'><img src='annotation_logticks-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>b</span> + <span class='fu'>annotation_logticks</span>()</div><div class='img'><img src='annotation_logticks-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Using a coordinate transform requires scaled = FALSE</span>
 <span class='no'>t</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>msleep</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>bodywt</span>, <span class='no'>brainwt</span>)) +
   <span class='fu'><a href='geom_point.html'>geom_point</a></span>() +
   <span class='fu'><a href='coord_trans.html'>coord_trans</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"log10"</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"log10"</span>) +
   <span class='fu'><a href='ggtheme.html'>theme_bw</a></span>()
-<span class='no'>t</span> + <span class='fu'>annotation_logticks</span>(<span class='kw'>scaled</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 27 rows containing missing values (geom_point).</span></div><div class='img'><img src='annotation_logticks-6.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>t</span> + <span class='fu'>annotation_logticks</span>(<span class='kw'>scaled</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 27 rows containing missing values (geom_point).</span></div><div class='img'><img src='annotation_logticks-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Change the length of the ticks</span>
 <span class='no'>a</span> + <span class='fu'>annotation_logticks</span>(
   <span class='kw'>short</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>.5</span>,<span class='st'>"mm"</span>),
   <span class='kw'>mid</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>3</span>,<span class='st'>"mm"</span>),
   <span class='kw'>long</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>4</span>,<span class='st'>"mm"</span>)
-)</div><div class='img'><img src='annotation_logticks-7.png' alt='' width='700' height='433' /></div></pre>
+)</div><div class='img'><img src='annotation_logticks-8.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
