@@ -18,23 +18,23 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: windows-latest, r: '3.6', vdiffr: false}
-          - {os: macOS-latest, r: '3.6', vdiffr: true, vdiffr_log: "../vdiffr.Rout.fail"}
+          - {os: windows-latest, r: '3.6', vdiffr: true}
+          - {os: macOS-latest, r: '3.6', vdiffr: true}
           - {os: macOS-latest, r: 'devel', vdiffr: false}
           - {os: ubuntu-16.04, r: '3.2', vdiffr: false, cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
           - {os: ubuntu-16.04, r: '3.3', vdiffr: false, cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
           - {os: ubuntu-16.04, r: '3.4', vdiffr: false, cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
           - {os: ubuntu-16.04, r: '3.5', vdiffr: false, cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
-          - {os: ubuntu-16.04, r: '3.6', vdiffr: false, cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
+          - {os: ubuntu-16.04, r: '3.6', vdiffr: true, cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
 
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
       CRAN: ${{ matrix.config.cran }}
       # don't treat missing suggested packages as error
       _R_CHECK_FORCE_SUGGESTS_: false
-      # Runs vdiffr test only on macOS with the latest version of R
+      # Runs vdiffr test only on the latest version of R
       VDIFFR_RUN_TESTS: ${{ matrix.config.vdiffr }}
-      VDIFFR_LOG_PATH: ${{ matrix.config.vdiffr_log }}
+      VDIFFR_LOG_PATH: "../vdiffr.Rout.fail"
 
     steps:
       - uses: actions/checkout@v2
