@@ -49,10 +49,13 @@ jobs:
         if: runner.os == 'macOS'
         run: brew cask install xquartz
 
-      # if pkg-config is not available, systemfonts cannot be built
-      - name: Install pkg-config on devel macOS
+      # To install vdiffr, these three libraries/tools are needed:
+      # - freetype (already installed, needed by systemfonts)
+      # - cairo (not installed, needed by gdtools)
+      # - pkg-config (not installed, needed to set proper build settings)
+      - name: Install pkg-config and cairo on devel macOS
         if: runner.os == 'macOS' && matrix.config.r == 'devel'
-        run: brew install pkg-config
+        run: brew install pkg-config cairo
 
       - name: Query dependencies
         run: |
