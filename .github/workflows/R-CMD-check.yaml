@@ -45,9 +45,14 @@ jobs:
 
       - uses: r-lib/actions/setup-pandoc@master
 
-      - name: Install XQuartz on MacOS
+      - name: Install XQuartz on macOS
         if: runner.os == 'macOS'
         run: brew cask install xquartz
+
+      # To build systemfonts, which is required by gdtools, which is required by vdiffr
+      - name: Install freetype on devel macOS
+        if: runner.os == 'macOS' && matrix.config.r == 'devel'
+        run: brew cask install freetype
 
       - name: Query dependencies
         run: |
