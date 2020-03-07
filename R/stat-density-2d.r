@@ -2,6 +2,10 @@
 #' @rdname geom_density_2d
 #' @param contour If `TRUE`, contour the results of the 2d density
 #'   estimation
+#' @param contour_type When `contour = TRUE`, specifies whether the output
+#'   is contour lines (`contour_type = "lines"`) or contour bands
+#'   (`contour_type = "bands"`). For filled contours, you need to specify
+#'   bands.
 #' @param n number of grid points in each direction
 #' @param h Bandwidth (vector of length two). If `NULL`, estimated
 #'   using [MASS::bandwidth.nrd()].
@@ -21,6 +25,7 @@ stat_density_2d <- function(mapping = NULL, data = NULL,
                             geom = "density_2d", position = "identity",
                             ...,
                             contour = TRUE,
+                            contour_type = c("lines", "bands"),
                             n = 100,
                             h = NULL,
                             adjust = c(1, 1),
@@ -38,6 +43,7 @@ stat_density_2d <- function(mapping = NULL, data = NULL,
     params = list(
       na.rm = na.rm,
       contour = contour,
+      contour_type = match.arg(contour_type),
       n = n,
       h = h,
       adjust = adjust,
@@ -61,7 +67,7 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
   required_aes = c("x", "y"),
 
   compute_group = function(data, scales, na.rm = FALSE, h = NULL, adjust = c(1, 1),
-                           contour = TRUE, n = 100, bins = NULL,
+                           contour = TRUE, contour_type = "lines", n = 100, bins = NULL,
                            binwidth = NULL) {
     if (is.null(h)) {
       h <- c(MASS::bandwidth.nrd(data$x), MASS::bandwidth.nrd(data$y))
@@ -76,8 +82,12 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
     df$z <- as.vector(dens$z)
     df$group <- data$group[1]
 
-    if (contour) {
+    if (isTRUE(contour)) {
+      if (isTRUE(contour_type == "lines")) {
         StatContour$compute_panel(df, scales, bins, binwidth)
+      } else {
+        StatContourFilled$compute_panel(df, scales, bins, binwidth)
+      }
     } else {
       names(df) <- c("x", "y", "density", "group")
       df$ndensity <- df$density / max(df$density, na.rm = TRUE)

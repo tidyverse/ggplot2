@@ -28,6 +28,7 @@ stat_density_2d(
   position = "identity",
   ...,
   contour = TRUE,
+  contour_type = c("lines", "bands"),
   n = 100,
   h = NULL,
   adjust = c(1, 1),
@@ -90,6 +91,11 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
 \item{contour}{If \code{TRUE}, contour the results of the 2d density
 estimation}
+
+\item{contour_type}{When \code{contour = TRUE}, specifies whether the output
+is contour lines (\code{contour_type = "lines"}) or contour bands
+(\code{contour_type = "bands"}). For filled contours, you need to specify
+bands.}
 
 \item{n}{number of grid points in each direction}
 
