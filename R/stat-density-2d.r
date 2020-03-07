@@ -32,10 +32,17 @@ stat_density_2d <- function(mapping = NULL, data = NULL,
                             na.rm = FALSE,
                             show.legend = NA,
                             inherit.aes = TRUE) {
+  contour_type <- match.arg(contour_type)
+  if (isTRUE(contour_type == "bands")) {
+    stat <- StatDensity2dFilled
+  } else {
+    stat <- StatDensity2d
+  }
+
   layer(
     data = data,
     mapping = mapping,
-    stat = StatDensity2d,
+    stat = stat,
     geom = geom,
     position = position,
     show.legend = show.legend,
@@ -43,7 +50,7 @@ stat_density_2d <- function(mapping = NULL, data = NULL,
     params = list(
       na.rm = na.rm,
       contour = contour,
-      contour_type = match.arg(contour_type),
+      contour_type = contour_type,
       n = n,
       h = h,
       adjust = adjust,
@@ -97,3 +104,12 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
     }
   }
 )
+
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+StatDensity2dFilled <- ggproto("StatDensity2dFilled", StatDensity2d,
+  default_aes = aes(colour = NA, fill = after_stat(level))
+)
+

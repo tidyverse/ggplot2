@@ -26,7 +26,7 @@ geom_density_2d(
 geom_density_2d_filled(
   mapping = NULL,
   data = NULL,
-  stat = "density2d",
+  stat = "density2d_filled",
   position = "identity",
   ...,
   na.rm = FALSE,
