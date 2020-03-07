@@ -11,7 +11,7 @@ get_n_warning <- function(f) {
 }
 
 # Pattern is needed filter out files such as ggplot2.rdb, which is created when running covr::package_coverage()
-R_files <- list.files("../../R", pattern = ".*\\.(R|r)", full.names = TRUE)
+R_files <- list.files("../../R", pattern = ".*\\.(R|r)$", full.names = TRUE)
 
 test_that("do not use stop()", {
   stops <- vapply(R_files, get_n_stop, integer(1))
