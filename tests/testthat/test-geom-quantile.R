@@ -32,8 +32,7 @@ test_that("geom_quantile matches quantile regression", {
 
   expect_equal(
     ggplot_data[ggplot_data$quantile == 0.25, c("x", "y")],
-    pred_rq_test_25,
-    tolerance = 1e8
+    pred_rq_test_25
   )
 
   pred_rq_test_50 <- pred_rq[, c("x", "Q_50")]
