@@ -65,6 +65,7 @@
 \alias{GeomArea}
 \alias{GeomDensity}
 \alias{GeomDensity2d}
+\alias{GeomDensity2dFilled}
 \alias{GeomDotplot}
 \alias{GeomErrorbar}
 \alias{GeomErrorbarh}

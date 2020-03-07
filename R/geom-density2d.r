@@ -84,3 +84,43 @@ geom_density2d <- geom_density_2d
 GeomDensity2d <- ggproto("GeomDensity2d", GeomPath,
   default_aes = aes(colour = "#3366FF", size = 0.5, linetype = 1, alpha = NA)
 )
+
+#' @export
+#' @rdname geom_density_2d
+geom_density_2d_filled <- function(mapping = NULL, data = NULL,
+                                   stat = "density2d", position = "identity",
+                                   ...,
+                                   na.rm = FALSE,
+                                   show.legend = NA,
+                                   inherit.aes = TRUE) {
+  layer(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomDensity2dFilled,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    params = list(
+      na.rm = na.rm,
+      contour_type = "bands",
+      ...
+    )
+  )
+}
+
+#' @export
+#' @rdname geom_density_2d
+#' @usage NULL
+geom_density2d_filled <- geom_density_2d_filled
+
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+GeomDensity2dFilled <- ggproto("GeomDensity2dFilled", GeomPolygon,
+  default_aes = aes(
+    colour = "NA", fill = after_stat(level), size = 0.5, linetype = 1,
+    alpha = NA, subgroup = NULL
+  )
+)

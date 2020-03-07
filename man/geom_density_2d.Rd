@@ -3,6 +3,8 @@
 \name{geom_density_2d}
 \alias{geom_density_2d}
 \alias{geom_density2d}
+\alias{geom_density_2d_filled}
+\alias{geom_density2d_filled}
 \alias{stat_density_2d}
 \alias{stat_density2d}
 \title{Contours of a 2d density estimate}
@@ -16,6 +18,17 @@ geom_density_2d(
   lineend = "butt",
   linejoin = "round",
   linemitre = 10,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
+
+geom_density_2d_filled(
+  mapping = NULL,
+  data = NULL,
+  stat = "density2d",
+  position = "identity",
+  ...,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
