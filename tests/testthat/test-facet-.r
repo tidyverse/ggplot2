@@ -74,12 +74,13 @@ test_that("wrap_as_facets_list() and grid_as_facets_list() accept empty specs", 
   expect_identical(grid_as_facets_list(list(NULL), NULL), list(rows = quos(), cols = quos()))
 })
 
-df <- data_frame(x = 1:3, y = 3:1, z = letters[1:3])
-
 test_that("facets split up the data", {
-  l1 <- ggplot(df, aes(x, y)) + geom_point() + facet_wrap(~z)
-  l2 <- ggplot(df, aes(x, y)) + geom_point() + facet_grid(. ~ z)
-  l3 <- ggplot(df, aes(x, y)) + geom_point() + facet_grid(z ~ .)
+  df <- data_frame(x = 1:3, y = 3:1, z = letters[1:3])
+  p <- ggplot(df, aes(x, y)) + geom_point()
+
+  l1 <- p + facet_wrap(~z)
+  l2 <- p + facet_grid(. ~ z)
+  l3 <- p + facet_grid(z ~ .)
 
   d1 <- layer_data(l1)
   d2 <- layer_data(l2)
@@ -88,23 +89,23 @@ test_that("facets split up the data", {
   expect_equal(d1, d2)
   expect_equal(d1, d3)
   expect_equal(d1$PANEL, factor(1:3))
-})
 
-test_that("facets handle empty layers", {
-  p <- ggplot() + geom_point(aes(x, y), df) + geom_line()
-  l1 <- p + facet_wrap(~z)
-  l2 <- p + facet_grid(. ~ z)
+  # Handle empty layers
+  p_empty <- ggplot() + geom_point(aes(x, y), df) + geom_line()
+  l4 <- p_empty + facet_wrap(~z)
+  l5 <- p_empty + facet_grid(. ~ z)
 
-  d1 <- layer_data(l1)
-  d2 <- layer_data(l2)
+  d4 <- layer_data(l4)
+  d5 <- layer_data(l5)
 
-  expect_equal(d1, d2)
+  expect_equal(d1, d4)
+  expect_equal(d1, d5)
 })
 
 
 test_that("facet_wrap() accepts vars()", {
+  df <- data_frame(x = 1:3, y = 3:1, z = letters[1:3])
   p <- ggplot(df, aes(x, y)) + geom_point()
-  p2 <- p + facet_wrap(vars(z))
 
   p1 <- p + facet_wrap(~z)
   p2 <- p + facet_wrap(vars(Z = z), labeller = label_both)
@@ -148,44 +149,52 @@ test_that("vars() accepts optional names", {
   expect_named(wrap$params$facets, c("A", "b"))
 })
 
-test_that("facets_wrap() compacts the facet spec and accept empty spec", {
-  p <- ggplot(df, aes(x, y)) + geom_point() + facet_wrap(vars(NULL))
-  d <- layer_data(p)
+test_that("facet_wrap()/facet_grid() compact the facet spec, and accept empty spec", {
+  df <- data_frame(x = 1:3, y = 3:1, z = letters[1:3])
+  p <- ggplot(df, aes(x, y)) + geom_point()
 
-  expect_equal(d$PANEL, c(1L, 1L, 1L))
-  expect_equal(d$group, c(-1L, -1L, -1L))
-})
+  # facet_wrap()
+  p_wrap <- p + facet_wrap(vars(NULL))
+  d_wrap <- layer_data(p_wrap)
 
-test_that("facets_grid() compacts the facet spec and accept empty spec", {
-  p <- ggplot(df, aes(x, y)) + geom_point() + facet_grid(vars(NULL))
-  d <- layer_data(p)
+  expect_equal(d_wrap$PANEL, c(1L, 1L, 1L))
+  expect_equal(d_wrap$group, c(-1L, -1L, -1L))
 
-  expect_equal(d$PANEL, c(1L, 1L, 1L))
-  expect_equal(d$group, c(-1L, -1L, -1L))
+  # facet_grid()
+  p_grid <- p + facet_grid(vars(NULL))
+  d_grid <- layer_data(p_grid)
+
+  expect_equal(d_grid$PANEL, c(1L, 1L, 1L))
+  expect_equal(d_grid$group, c(-1L, -1L, -1L))
 })
 
 
 test_that("facets with free scales scale independently", {
-  l1 <- ggplot(df, aes(x, y)) + geom_point() +
-    facet_wrap(~z, scales = "free")
+  df <- data_frame(x = 1:3, y = 3:1, z = letters[1:3])
+  p <- ggplot(df, aes(x, y)) + geom_point()
+
+  # facet_wrap()
+  l1 <- p + facet_wrap(~z, scales = "free")
   d1 <- cdata(l1)[[1]]
   expect_true(sd(d1$x) < 1e-10)
   expect_true(sd(d1$y) < 1e-10)
 
-  l2 <- ggplot(df, aes(x, y)) + geom_point() +
-    facet_grid(. ~ z, scales = "free")
+  # RHS of facet_grid()
+  l2 <- p + facet_grid(. ~ z, scales = "free")
   d2 <- cdata(l2)[[1]]
   expect_true(sd(d2$x) < 1e-10)
   expect_equal(length(unique(d2$y)), 3)
 
-  l3 <- ggplot(df, aes(x, y)) + geom_point() +
-    facet_grid(z ~ ., scales = "free")
+  # LHS of facet_grid()
+  l3 <- p + facet_grid(z ~ ., scales = "free")
   d3 <- cdata(l3)[[1]]
   expect_equal(length(unique(d3$x)), 3)
   expect_true(sd(d3$y) < 1e-10)
 })
 
 test_that("shrink parameter affects scaling", {
+  df <- data_frame(x = 1:3, y = 3:1, z = letters[1:3])
+
   l1 <- ggplot(df, aes(1, y)) + geom_point()
   r1 <- pranges(l1)
 
