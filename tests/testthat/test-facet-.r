@@ -91,7 +91,7 @@ test_that("facets split up the data", {
 })
 
 test_that("facets handle empty layers", {
-  p <- ggplot(mapping = aes(x, y)) + geom_point(data = df) + geom_line()
+  p <- ggplot() + geom_point(aes(x, y), df) + geom_line()
   l1 <- p + facet_wrap(~z)
   l2 <- p + facet_grid(. ~ z)
 
