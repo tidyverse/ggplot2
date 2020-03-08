@@ -8,6 +8,9 @@
 
 * Added an `outside` option to `annotation_logticks()` that places tick marks
   outside of the plot bounds. (#3783, @kbodwin)
+  
+* Data columns can now contain `Vector` S4 objects, which are widely used in the 
+  Bioconductor project. (@teunbrand, #3837)
 
 # ggplot2 3.3.0
 
