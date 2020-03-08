@@ -2,11 +2,13 @@
 #'
 #' Perform a 2D kernel density estimation using [MASS::kde2d()] and
 #' display the results with contours. This can be useful for dealing with
-#' overplotting. This is a 2d version of [geom_density()].
+#' overplotting. This is a 2d version of [geom_density()]. `geom_density_2d()`
+#' draws contour lines, and `geom_density_2d_filled()` draws filled contour
+#' bands.
 #'
 #' @eval rd_aesthetics("geom", "density_2d")
-#' @seealso [geom_contour()] for information about how contours
-#'  are drawn; [geom_bin2d()] for another way of dealing with
+#' @seealso [geom_contour()], [geom_contour_filled()] for information about
+#'  how contours are drawn; [geom_bin2d()] for another way of dealing with
 #'  overplotting.
 #' @param geom,stat Use to override the default connection between
 #'   `geom_density_2d` and `stat_density_2d`.
@@ -19,9 +21,17 @@
 #'  geom_point() +
 #'  xlim(0.5, 6) +
 #'  ylim(40, 110)
+#'
+#' # contour lines
 #' m + geom_density_2d()
+#'
 #' \donttest{
-#' m + stat_density_2d(aes(fill = after_stat(level)), geom = "polygon")
+#' # contour bands
+#' m + geom_density_2d_filled(alpha = 0.5)
+#'
+#' # contour bands and contour lines
+#' m + geom_density_2d_filled(alpha = 0.5) +
+#'   geom_density_2d(size = 0.25, colour = "black")
 #'
 #' set.seed(4393)
 #' dsmall <- diamonds[sample(nrow(diamonds), 1000), ]
@@ -32,20 +42,20 @@
 #'
 #' # Similarly, if you apply faceting to the plot, contours will be
 #' # drawn for each facet, but the levels will calculated across all facets
-#' d + stat_density_2d(aes(fill = after_stat(level)), geom = "polygon") +
-#'   facet_grid(. ~ cut) + scale_fill_viridis_c()
+#' d + geom_density_2d_filled(alpha = 0.5) +
+#'   facet_grid(. ~ cut)# + scale_fill_viridis_c()
 #' # To override this behavior (for instance, to better visualize the density
-#' # within each facet), use after_stat(nlevel)
-#' d + stat_density_2d(aes(fill = after_stat(nlevel)), geom = "polygon") +
-#'   facet_grid(. ~ cut) + scale_fill_viridis_c()
+#' # within each facet), use `after_stat(nlevel)`
+#' d + geom_density_2d_filled(aes(fill = after_stat(nlevel)), alpha = 0.5) +
+#'   facet_grid(. ~ cut)# + scale_fill_viridis_c()
 #'
-#' # If we turn contouring off, we can use use geoms like tiles:
+#' # If we turn contouring off, we can use other geoms, such as tiles:
 #' d + stat_density_2d(geom = "raster", aes(fill = after_stat(density)), contour = FALSE)
 #' # Or points:
 #' d + stat_density_2d(geom = "point", aes(size = after_stat(density)), n = 20, contour = FALSE)
 #' }
 geom_density_2d <- function(mapping = NULL, data = NULL,
-                            stat = "density2d", position = "identity",
+                            stat = "density_2d", position = "identity",
                             ...,
                             lineend = "butt",
                             linejoin = "round",
@@ -88,7 +98,7 @@ GeomDensity2d <- ggproto("GeomDensity2d", GeomPath,
 #' @export
 #' @rdname geom_density_2d
 geom_density_2d_filled <- function(mapping = NULL, data = NULL,
-                                   stat = "density2d_filled", position = "identity",
+                                   stat = "density_2d_filled", position = "identity",
                                    ...,
                                    na.rm = FALSE,
                                    show.legend = NA,
