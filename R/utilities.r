@@ -278,7 +278,7 @@ snake_class <- function(x) {
 }
 
 empty <- function(df) {
-  is.null(df) || nrow(df) == 0 || ncol(df) == 0
+  is.null(df) || nrow(df) == 0 || ncol(df) == 0 || is.waive(df)
 }
 
 is.discrete <- function(x) {
