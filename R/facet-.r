@@ -155,6 +155,7 @@ Facet <- ggproto("Facet", NULL,
     panels
   },
   setup_params = function(data, params) {
+    params$.possible_columns <- unique(unlist(lapply(data, names)))
     params
   },
   setup_data = function(data, params) {
@@ -417,11 +418,13 @@ is_facets <- function(x) {
 # when evaluating an expression, you want to see any errors. That does
 # mean you can't have background data when faceting by an expression,
 # but that seems like a reasonable tradeoff.
-eval_facets <- function(facets, data, env = globalenv()) {
-  vars <- compact(lapply(facets, eval_facet, data, env = env))
+eval_facets <- function(facets, data, possible_columns = NULL) {
+  vars <- compact(lapply(facets, eval_facet, data, possible_columns = possible_columns))
   new_data_frame(tibble::as_tibble(vars))
 }
-eval_facet <- function(facet, data, env = emptyenv()) {
+eval_facet <- function(facet, data, possible_columns = NULL) {
+  # Treat the case when `facet` is a quosure of a symbol specifically
+  # to issue a friendlier warning
   if (quo_is_symbol(facet)) {
     facet <- as.character(quo_get_expr(facet))
 
@@ -433,7 +436,22 @@ eval_facet <- function(facet, data, env = emptyenv()) {
     return(out)
   }
 
-  eval_tidy(facet, data, env)
+  # Key idea: use active bindings so that column names missing in this layer
+  # but present in others raise a custom error
+  env <- new_environment(data)
+  missing_columns <- setdiff(possible_columns, names(data))
+  undefined_error <- function(e) abort("", class = "ggplot2_missing_facet_var")
+  bindings <- rep_named(missing_columns, list(undefined_error))
+  env_bind_active(env, !!!bindings)
+
+  # Create a data mask and install a data pronoun manually (see ?new_data_mask)
+  mask <- new_data_mask(env)
+  mask$.data <- as_data_pronoun(mask)
+
+  tryCatch(
+    eval_tidy(facet, mask),
+    ggplot2_missing_facet_var = function(e) NULL
+  )
 }
 
 layout_null <- function() {
@@ -524,10 +542,11 @@ panel_rows <- function(table) {
 #' @keywords internal
 #' @export
 combine_vars <- function(data, env = emptyenv(), vars = NULL, drop = TRUE) {
+  possible_columns <- unique(unlist(lapply(data, names)))
   if (length(vars) == 0) return(new_data_frame())
 
   # For each layer, compute the facet values
-  values <- compact(lapply(data, eval_facets, facets = vars, env = env))
+  values <- compact(lapply(data, eval_facets, facets = vars, possible_columns = possible_columns))
 
   # Form the base data.frame which contains all combinations of faceting
   # variables that appear in the data

@@ -273,15 +273,22 @@ rbind_dfs <- function(dfs) {
   allocated <- rep(FALSE, length(columns))
   names(allocated) <- columns
   col_levels <- list()
+  ord_levels <- list()
   for (df in dfs) {
     new_columns <- intersect(names(df), columns[!allocated])
     for (col in new_columns) {
       if (is.factor(df[[col]])) {
+        all_ordered <- all(vapply(dfs, function(df) {
+          val <- .subset2(df, col)
+          is.null(val) || is.ordered(val)
+        }, logical(1)))
         all_factors <- all(vapply(dfs, function(df) {
           val <- .subset2(df, col)
           is.null(val) || is.factor(val)
         }, logical(1)))
-        if (all_factors) {
+        if (all_ordered) {
+          ord_levels[[col]] <- unique(unlist(lapply(dfs, function(df) levels(.subset2(df, col)))))
+        } else if (all_factors) {
           col_levels[[col]] <- unique(unlist(lapply(dfs, function(df) levels(.subset2(df, col)))))
         }
         out[[col]] <- rep(NA_character_, total)
@@ -317,6 +324,9 @@ rbind_dfs <- function(dfs) {
         out[[col]][rng] <- df[[col]]
       }
     }
+  }
+  for (col in names(ord_levels)) {
+    out[[col]] <- ordered(out[[col]], levels = ord_levels[[col]])
   }
   for (col in names(col_levels)) {
     out[[col]] <- factor(out[[col]], levels = col_levels[[col]])

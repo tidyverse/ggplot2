@@ -25,5 +25,6 @@ visual_test
 ^appveyor\.yml$
 ^\.github$
 ^vignettes/profilings
+^vignettes/profiling.Rmd$
 ^cran-comments\.md$
 ^LICENSE\.md$

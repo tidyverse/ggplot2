@@ -687,6 +687,18 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     if (length(labels) != length(breaks)) {
       abort("Breaks and labels are different lengths")
     }
+    if (is.list(labels)) {
+      # Guard against list with empty elements
+      labels[vapply(labels, length, integer(1)) == 0] <- ""
+      # Make sure each element is scalar
+      labels <- lapply(labels, `[`, 1)
+
+      if (any(vapply(labels, is.language, logical(1)))) {
+        labels <- do.call(expression, labels)
+      } else {
+        labels <- unlist(labels)
+      }
+    }
 
     labels
   },
@@ -852,7 +864,6 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
     }
 
     if (is.waive(self$labels)) {
-      breaks <- self$get_breaks()
       if (is.numeric(breaks)) {
         # Only format numbers, because on Windows, format messes up encoding
         format(breaks, justify = "none")
@@ -975,7 +986,8 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
         self$palette.cache <- pal
       }
 
-      pal[x_binned]
+      scaled <- pal[x_binned]
+      ifelse(!is.na(scaled), scaled, self$na.value)
     }
   },
 
