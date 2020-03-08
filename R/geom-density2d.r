@@ -40,17 +40,22 @@
 #' # set of contours for each value of that variable
 #' d + geom_density_2d(aes(colour = cut))
 #'
-#' # Similarly, if you apply faceting to the plot, contours will be
-#' # drawn for each facet, but the levels will calculated across all facets
-#' d + geom_density_2d_filled(alpha = 0.5) +
-#'   facet_grid(. ~ cut)# + scale_fill_viridis_c()
-#' # To override this behavior (for instance, to better visualize the density
-#' # within each facet), use `after_stat(nlevel)`
-#' d + geom_density_2d_filled(aes(fill = after_stat(nlevel)), alpha = 0.5) +
-#'   facet_grid(. ~ cut)# + scale_fill_viridis_c()
+#' # When coloring by level across multiple facets, it is best to set breaks
+#' # manually to ensure they are consistent across facets
+#' breaks <- seq(0, 0.45, by = 0.05)
+#' d + geom_density_2d_filled(breaks = breaks) +
+#'   facet_grid(. ~ cut)
+#' # If you want to make sure the peak intensity is the same in each facet,
+#' # use `after_stat(nlevel)`. Note: this is a numerical value, not a factor
+#' d + geom_density_2d_filled(aes(fill = after_stat(nlevel)), breaks = breaks) +
+#'   facet_grid(. ~ cut) + scale_fill_viridis_c()
 #'
 #' # If we turn contouring off, we can use other geoms, such as tiles:
-#' d + stat_density_2d(geom = "raster", aes(fill = after_stat(density)), contour = FALSE)
+#' d + stat_density_2d(
+#'   geom = "raster",
+#'   aes(fill = after_stat(density)),
+#'   contour = FALSE
+#' ) + scale_fill_viridis_c()
 #' # Or points:
 #' d + stat_density_2d(geom = "point", aes(size = after_stat(density)), n = 20, contour = FALSE)
 #' }

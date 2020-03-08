@@ -74,7 +74,7 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
 
   compute_group = function(data, scales, na.rm = FALSE, h = NULL, adjust = c(1, 1),
                            contour = TRUE, contour_type = "lines", n = 100, bins = NULL,
-                           binwidth = NULL) {
+                           binwidth = NULL, breaks = NULL) {
     if (is.null(h)) {
       h <- c(MASS::bandwidth.nrd(data$x), MASS::bandwidth.nrd(data$y))
       h <- h * adjust
@@ -90,9 +90,9 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
 
     if (isTRUE(contour)) {
       if (isTRUE(contour_type == "bands")) {
-        StatContourFilled$compute_panel(df, scales, bins, binwidth)
+        StatContourFilled$compute_panel(df, scales, bins, binwidth, breaks)
       } else {
-        StatContour$compute_panel(df, scales, bins, binwidth)
+        StatContour$compute_panel(df, scales, bins, binwidth, breaks)
       }
     } else {
       names(df) <- c("x", "y", "density", "group")
