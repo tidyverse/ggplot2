@@ -90,6 +90,18 @@ test_that("facets split up the data", {
   expect_equal(d1$PANEL, factor(1:3))
 })
 
+test_that("facets handle empty layers", {
+  p <- ggplot(mapping = aes(x, y)) + geom_point(data = df) + geom_line()
+  l1 <- p + facet_wrap(~z)
+  l2 <- p + facet_grid(. ~ z)
+
+  d1 <- layer_data(l1)
+  d2 <- layer_data(l2)
+
+  expect_equal(d1, d2)
+})
+
+
 test_that("facet_wrap() accepts vars()", {
   p <- ggplot(df, aes(x, y)) + geom_point()
   p2 <- p + facet_wrap(vars(z))
