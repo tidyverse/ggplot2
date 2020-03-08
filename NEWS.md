@@ -8,6 +8,9 @@
 
 * Added an `outside` option to `annotation_logticks()` that places tick marks
   outside of the plot bounds. (#3783, @kbodwin)
+  
+* No longer consider `Vector` objects as non-data columns and have data column
+  validation no longer rely on `as_tibble()`. (@teunbrand, #3837)
 
 # ggplot2 3.3.0
 
