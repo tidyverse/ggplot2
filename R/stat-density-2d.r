@@ -25,14 +25,13 @@ stat_density_2d <- function(mapping = NULL, data = NULL,
                             geom = "density_2d", position = "identity",
                             ...,
                             contour = TRUE,
-                            contour_type = c("lines", "bands"),
+                            contour_type = "lines",
                             n = 100,
                             h = NULL,
                             adjust = c(1, 1),
                             na.rm = FALSE,
                             show.legend = NA,
                             inherit.aes = TRUE) {
-  contour_type <- match.arg(contour_type)
   if (isTRUE(contour_type == "bands")) {
     stat <- StatDensity2dFilled
   } else {
@@ -90,10 +89,10 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
     df$group <- data$group[1]
 
     if (isTRUE(contour)) {
-      if (isTRUE(contour_type == "lines")) {
-        StatContour$compute_panel(df, scales, bins, binwidth)
-      } else {
+      if (isTRUE(contour_type == "bands")) {
         StatContourFilled$compute_panel(df, scales, bins, binwidth)
+      } else {
+        StatContour$compute_panel(df, scales, bins, binwidth)
       }
     } else {
       names(df) <- c("x", "y", "density", "group")

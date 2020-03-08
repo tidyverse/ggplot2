@@ -41,7 +41,7 @@ stat_density_2d(
   position = "identity",
   ...,
   contour = TRUE,
-  contour_type = c("lines", "bands"),
+  contour_type = "lines",
   n = 100,
   h = NULL,
   adjust = c(1, 1),
@@ -171,7 +171,7 @@ d + geom_density_2d(aes(colour = cut))
 # drawn for each facet, but the levels will calculated across all facets
 d + stat_density_2d(aes(fill = after_stat(level)), geom = "polygon") +
   facet_grid(. ~ cut) + scale_fill_viridis_c()
-# To override this behavior (for instace, to better visualize the density
+# To override this behavior (for instance, to better visualize the density
 # within each facet), use after_stat(nlevel)
 d + stat_density_2d(aes(fill = after_stat(nlevel)), geom = "polygon") +
   facet_grid(. ~ cut) + scale_fill_viridis_c()
