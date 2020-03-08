@@ -80,6 +80,7 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
       h <- h * adjust
     }
 
+    nx <- nrow(data) # number of observations in this group
     dens <- MASS::kde2d(
       data$x, data$y, h = h, n = n,
       lims = c(scales$x$dimension(), scales$y$dimension())
@@ -90,13 +91,26 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
 
     if (isTRUE(contour)) {
       if (isTRUE(contour_type == "bands")) {
-        StatContourFilled$compute_panel(df, scales, bins, binwidth, breaks)
+        df <- StatContourFilled$compute_panel(df, scales, bins, binwidth, breaks)
+        df$count_low <- nx * df$level_low
+        df$count_high <- nx * df$level_high
+        # For bands, we use for `count` the mean between the count value at the
+        # lower and the upper boundary. Returning categorical intervals doesn't
+        # make sense, because they'll usually be jumbled across facets.
+        df$count <- 0.5*(df$count_low + df$count_high)
+        df$n <- nx
+        df
       } else {
-        StatContour$compute_panel(df, scales, bins, binwidth, breaks)
+        df <- StatContour$compute_panel(df, scales, bins, binwidth, breaks)
+        df$count <- nx * df$level
+        df$n <- nx
+        df
       }
     } else {
       names(df) <- c("x", "y", "density", "group")
       df$ndensity <- df$density / max(df$density, na.rm = TRUE)
+      df$count <- nx * df$density
+      df$n <- nx
       df$level <- 1
       df$piece <- 1
       df

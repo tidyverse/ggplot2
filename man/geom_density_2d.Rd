@@ -183,12 +183,22 @@ breaks <- seq(0, 0.45, by = 0.05)
 d + geom_density_2d_filled(breaks = breaks) +
   facet_grid(. ~ cut)
 # If you want to make sure the peak intensity is the same in each facet,
-# use `after_stat(nlevel)`. Note: this is a numerical value, not a factor
+# use `after_stat(nlevel)`. Note: this is a numerical value, not a factor,
+# and it represents the upper limit of each contour band.
 d + geom_density_2d_filled(aes(fill = after_stat(nlevel)), breaks = breaks) +
+  facet_grid(. ~ cut) + scale_fill_viridis_c()
+# You can also use `after_stat(count)` to show the density scaled by the
+# number of observations in the group. This is useful to highlight differences
+# in sample size across facets.
+d + geom_density_2d_filled(aes(fill = after_stat(count))) +
   facet_grid(. ~ cut) + scale_fill_viridis_c()
 
 # If we turn contouring off, we can use other geoms, such as tiles:
-d + stat_density_2d(geom = "raster", aes(fill = after_stat(density)), contour = FALSE)
+d + stat_density_2d(
+  geom = "raster",
+  aes(fill = after_stat(density)),
+  contour = FALSE
+) + scale_fill_viridis_c()
 # Or points:
 d + stat_density_2d(geom = "point", aes(size = after_stat(density)), n = 20, contour = FALSE)
 }
