@@ -1,8 +1,8 @@
-#' Contours of a 2d density estimate
+#' Contours of a 2D density estimate
 #'
 #' Perform a 2D kernel density estimation using [MASS::kde2d()] and
 #' display the results with contours. This can be useful for dealing with
-#' overplotting. This is a 2d version of [geom_density()]. `geom_density_2d()`
+#' overplotting. This is a 2D version of [geom_density()]. `geom_density_2d()`
 #' draws contour lines, and `geom_density_2d_filled()` draws filled contour
 #' bands.
 #'

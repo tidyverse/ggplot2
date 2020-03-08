@@ -7,7 +7,7 @@
 \alias{geom_density2d_filled}
 \alias{stat_density_2d}
 \alias{stat_density2d}
-\title{Contours of a 2d density estimate}
+\title{Contours of a 2D density estimate}
 \usage{
 geom_density_2d(
   mapping = NULL,
@@ -26,7 +26,7 @@ geom_density_2d(
 geom_density_2d_filled(
   mapping = NULL,
   data = NULL,
-  stat = "density2d_filled",
+  stat = "density_2d_filled",
   position = "identity",
   ...,
   na.rm = FALSE,
@@ -123,7 +123,7 @@ use half of the default bandwidth.}
 \description{
 Perform a 2D kernel density estimation using \code{\link[MASS:kde2d]{MASS::kde2d()}} and
 display the results with contours. This can be useful for dealing with
-overplotting. This is a 2d version of \code{\link[=geom_density]{geom_density()}}. \code{geom_density_2d()}
+overplotting. This is a 2D version of \code{\link[=geom_density]{geom_density()}}. \code{geom_density_2d()}
 draws contour lines, and \code{geom_density_2d_filled()} draws filled contour
 bands.
 }

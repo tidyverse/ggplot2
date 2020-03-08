@@ -1,12 +1,12 @@
-#' 2d contours of a 3d surface
+#' 2D contours of a 3D surface
 #'
-#' ggplot2 can not draw true 3d surfaces, but you can use `geom_contour`
-#' and [geom_tile()] to visualise 3d surfaces in 2d. To be a valid
-#' surface, the data must contain only a single row for each unique combination
-#' of the variables mapped to the `x` and `y` aesthetics. Contouring
+#' ggplot2 can not draw true 3D surfaces, but you can use `geom_contour()`,
+#' `geom_contour_filled()`, and [geom_tile()] to visualise 3D surfaces in 2D.
+#' To specify a valid surface, the data must contain `x`, `y`, and `z` coordinates,
+#' and each unique combination of `x` and `y` can appear exactly once. Contouring
 #' tends to work best when `x` and `y` form a (roughly) evenly
 #' spaced grid. If your data is not evenly spaced, you may want to interpolate
-#' to a grid before visualising.
+#' to a grid before visualising, see [geom_density_2d()].
 #'
 #' @eval rd_aesthetics("geom", "contour")
 #' @inheritParams layer

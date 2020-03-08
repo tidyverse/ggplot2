@@ -5,7 +5,7 @@
 \alias{geom_contour_filled}
 \alias{stat_contour}
 \alias{stat_contour_filled}
-\title{2d contours of a 3d surface}
+\title{2D contours of a 3D surface}
 \usage{
 geom_contour(
   mapping = NULL,
@@ -129,13 +129,13 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 \item{geom}{The geometric object to use display the data}
 }
 \description{
-ggplot2 can not draw true 3d surfaces, but you can use \code{geom_contour}
-and \code{\link[=geom_tile]{geom_tile()}} to visualise 3d surfaces in 2d. To be a valid
-surface, the data must contain only a single row for each unique combination
-of the variables mapped to the \code{x} and \code{y} aesthetics. Contouring
+ggplot2 can not draw true 3D surfaces, but you can use \code{geom_contour()},
+\code{geom_contour_filled()}, and \code{\link[=geom_tile]{geom_tile()}} to visualise 3D surfaces in 2D.
+To specify a valid surface, the data must contain \code{x}, \code{y}, and \code{z} coordinates,
+and each unique combination of \code{x} and \code{y} can appear exactly once. Contouring
 tends to work best when \code{x} and \code{y} form a (roughly) evenly
 spaced grid. If your data is not evenly spaced, you may want to interpolate
-to a grid before visualising.
+to a grid before visualising, see \code{\link[=geom_density_2d]{geom_density_2d()}}.
 }
 \section{Aesthetics}{
 
