@@ -986,7 +986,8 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
         self$palette.cache <- pal
       }
 
-      pal[x_binned]
+      scaled <- pal[x_binned]
+      ifelse(!is.na(scaled), scaled, self$na.value)
     }
   },
 
