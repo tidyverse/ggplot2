@@ -15,9 +15,6 @@
 #'   of points to interpolate with.
 #' @param pad If `TRUE`, pad the ecdf with additional points (-Inf, 0)
 #'   and (Inf, 1)
-#' @param axis_reversed If `TRUE`, the input and output aesthetics are reversed, 
-#'        meaning that the input data is read from y and written to x, instead of 
-#'        the other way around, as is the default. The default value is `FALSE`.
 #' @section Computed variables:
 #' \describe{
 #'   \item{x}{x in data}
@@ -46,9 +43,6 @@ stat_ecdf <- function(mapping = NULL, data = NULL,
                       inherit.aes = TRUE,
                       axis_reversed = FALSE) {
   stat_fun = StatEcdf
-  if (axis_reversed) {
-    stat_fun = StatEcdfReversed
-  }
   layer(
     data = data,
     mapping = mapping,
@@ -72,7 +66,24 @@ stat_ecdf <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 StatEcdf <- ggproto("StatEcdf", Stat,
-  compute_group = function(data, scales, n = NULL, pad = TRUE) {
+  required_aes = c("x|y"),
+
+  default_aes = aes(x = after_stat(ecdf), y = after_stat(ecdf)),
+
+  setup_params = function(data, params) {
+    params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = FALSE, main_is_continuous = TRUE)
+
+    has_x <- !(is.null(data$x) && is.null(params$x))
+    has_y <- !(is.null(data$y) && is.null(params$y))
+    if (!has_x && !has_y) {
+      abort("stat_ecdf() requires an x or y aesthetic.")
+    }
+
+    params
+  },
+
+  compute_group = function(data, scales, n = NULL, pad = TRUE, flipped_aes = FALSE) {
+    data <- flip_data(data, flipped_aes)
     # If n is NULL, use raw values; otherwise interpolate
     if (is.null(n)) {
       x <- unique(data$x)
@@ -83,38 +94,10 @@ StatEcdf <- ggproto("StatEcdf", Stat,
     if (pad) {
       x <- c(-Inf, x, Inf)
     }
-    y <- ecdf(data$x)(x)
+    data_ecdf <- ecdf(data$x)(x)
 
-    new_data_frame(list(x = x, y = y), n = length(x))
-  },
-
-  default_aes = aes(y = after_stat(y)),
-
-  required_aes = c("x")
-)
-
-#' @rdname ggplot2-ggproto
-#' @format NULL
-#' @usage NULL
-#' @export
-StatEcdfReversed <- ggproto("StatEcdfReversed", Stat,
-  compute_group = function(data, scales, n = NULL, pad = TRUE) {
-    # If n is NULL, use raw values; otherwise interpolate
-    if (is.null(n)) {
-      y <- unique(data$y)
-    } else {
-      y <- seq(min(data$y), max(data$y), length.out = n)
-    }
-
-    if (pad) {
-      y <- c(-Inf, y, Inf)
-    }
-    x <- ecdf(data$y)(y)
-
-    new_data_frame(list(y = y, x = x), n = length(y))
-  },
-
-  default_aes = aes(x = after_stat(x)),
-
-  required_aes = c("y")
+    df_ecdf <- new_data_frame(list(x = x, ecdf = data_ecdf), n = length(x))
+    df_ecdf$flipped_aes <- flipped_aes
+    flip_data(df_ecdf, flipped_aes)
+  }
 )
