@@ -102,13 +102,13 @@ StatContourFilled <- ggproto("StatContourFilled", Stat,
   compute_group = function(data, scales, bins = NULL, binwidth = NULL, breaks = NULL, na.rm = FALSE) {
 
     z_range <- range(data$z, na.rm = TRUE, finite = TRUE)
-    breaks <- contour_breaks(z_range, bins, binwidth)
+    breaks <- contour_breaks(z_range, bins, binwidth, breaks)
 
     isobands <- xyz_to_isobands(data, breaks)
     names(isobands) <- pretty_isoband_levels(names(isobands))
-    path_df <- iso_to_path(isobands, data$group[1])
+    path_df <- iso_to_polygon(isobands, data$group[1])
 
-    path_df$level <- factor(path_df$level, levels = names(isobands))
+    path_df$level <- ordered(path_df$level, levels = names(isobands))
 
     path_df
   }
@@ -134,7 +134,7 @@ contour_breaks <- function(z_range, bins = NULL, binwidth = NULL, breaks = NULL)
 
   # If provided, use bins to calculate binwidth
   if (!is.null(bins)) {
-    binwidth <- diff(z_range) / bins
+    binwidth <- diff(z_range) / (bins - 1)
   }
 
   # If necessary, compute breaks from binwidth
@@ -197,12 +197,12 @@ isoband_z_matrix <- function(data) {
   raster
 }
 
-#' Convert the output of isoband functions
+#' Convert the output of isolines functions
 #'
-#' @param iso the output of [isoband::isolines()] or [isoband::isobands()]
+#' @param iso the output of [isoband::isolines()]
 #' @param group the name of the group
 #'
-#' @return A data frame that can be passed to [geom_path()] or [geom_polygon()].
+#' @return A data frame that can be passed to [geom_path()].
 #' @noRd
 #'
 iso_to_path <- function(iso, group = 1) {
@@ -230,6 +230,45 @@ iso_to_path <- function(iso, group = 1) {
       y = ys,
       piece = as.integer(groups),
       group = groups
+    ),
+    n = length(xs)
+  )
+}
+
+#' Convert the output of isoband functions
+#'
+#' @param iso the output of [isoband::isobands()]
+#' @param group the name of the group
+#'
+#' @return A data frame that can be passed to [geom_polygon()].
+#' @noRd
+#'
+iso_to_polygon <- function(iso, group = 1) {
+  lengths <- vapply(iso, function(x) length(x$x), integer(1))
+
+  if (all(lengths == 0)) {
+    warn("stat_contour(): Zero contours were generated")
+    return(new_data_frame())
+  }
+
+  levels <- names(iso)
+  xs <- unlist(lapply(iso, "[[", "x"), use.names = FALSE)
+  ys <- unlist(lapply(iso, "[[", "y"), use.names = FALSE)
+  ids <- unlist(lapply(iso, "[[", "id"), use.names = FALSE)
+  item_id <- rep(seq_along(iso), lengths)
+
+  # Add leading zeros so that groups can be properly sorted
+  groups <- paste(group, sprintf("%03d", item_id), sep = "-")
+  groups <- factor(groups)
+
+  new_data_frame(
+    list(
+      level = rep(levels, lengths),
+      x = xs,
+      y = ys,
+      piece = as.integer(groups),
+      group = groups,
+      subgroup = ids
     ),
     n = length(xs)
   )

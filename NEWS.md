@@ -12,11 +12,50 @@
   packages implementing `stat_sf()`-like functionality are encouraged to look at the
   source code of `stat_sf()`'s `compute_group()` function to see how to provide
   scale-limit hints to `coord_sf()` (@clauswilke, #3659).
+  
+* Support graphics devices that use the `file` argument instead of `fileneame` 
+  in `ggsave()` (@bwiernik, #3810)
+
+* Added an `outside` option to `annotation_logticks()` that places tick marks
+  outside of the plot bounds. (#3783, @kbodwin)
+  
+* Data columns can now contain `Vector` S4 objects, which are widely used in the 
+  Bioconductor project. (@teunbrand, #3837)
 
 # ggplot2 3.3.0
 
-* Fix a bug in `geom_raster()` that squeezed the image when it went outside 
-  scale limits (#3539, @thomasp85)
+This is a minor release but does contain a range of substantial new features, 
+along with the standard bug fixes. The release contains a few visual breaking
+changes, along with breaking changes for extension developers due to a shift in
+internal representation of the position scales and their axes. No user breaking
+changes are included.
+
+This release also adds Dewey Dunnington (@paleolimbot) to the core team.
+
+## Breaking changes
+There are no user-facing breaking changes, but a change in some internal 
+representations that extension developers may have relied on, along with a few 
+breaking visual changes which may cause visual tests in downstream packages to 
+fail.
+
+* The `panel_params` field in the `Layout` now contains a list of list of 
+  `ViewScale` objects, describing the trained coordinate system scales, instead
+  of the list object used before. Any extensions that use this field will likely
+  break, as will unit tests that checks aspects of this.
+
+* `element_text()` now issues a warning when vectorized arguments are provided, 
+  as in `colour = c("red", "green", "blue")`. Such use is discouraged and not 
+  officially supported (@clauswilke, #3492).
+
+* Changed `theme_grey()` setting for legend key so that it creates no border 
+  (`NA`) rather than drawing a white one. (@annennenne, #3180)
+
+* `geom_ribbon()` now draws separate lines for the upper and lower intervals if
+  `colour` is mapped. Similarly, `geom_area()` and `geom_density()` now draw
+  the upper lines only in the same case by default. If you want old-style full
+  stroking, use `outline.type = "full"` (@yutannihilation, #3503 / @thomasp85, #3708).
+
+## New features
 
 * The evaluation time of aesthetics can now be controlled to a finer degree. 
   `after_stat()` supersedes the use of `stat()` and `..var..`-notation, and is
@@ -25,28 +64,49 @@
   map a data variable to a stat aesthetic, and remap the same aesthetic to 
   something else after statistical transformation (@thomasp85, #3534)
 
-* ggplot2 no longer depends on reshape2, which means that it no longer 
-  (recursively) needs plyr, stringr, or stringi packages.
+* All `coord_*()` functions with `xlim` and `ylim` arguments now accept
+  vectors with `NA` as a placeholder for the minimum or maximum value
+  (e.g., `ylim = c(0, NA)` would zoom the y-axis from 0 to the 
+  maximum value observed in the data). This mimics the behaviour
+  of the `limits` argument in continuous scale functions
+  (@paleolimbot, #2907).
 
-* `geom_sf()` now determines the legend type automatically (@microly, #3646).
+* Allowed reversing of discrete scales by re-writing `get_limits()` 
+  (@AnneLyng, #3115)
+  
+* All geoms and stats that had a direction (i.e. where the x and y axes had 
+  different interpretation), can now freely choose their direction, instead of
+  relying on `coord_flip()`. The direction is deduced from the aesthetic 
+  mapping, but can also be specified directly with the new `orientation` 
+  argument (@thomasp85, #3506).
+  
+* Position guides can now be customized using the new `guide_axis()`, which can 
+  be passed to position `scale_*()` functions or via `guides()`. The new axis 
+  guide (`guide_axis()`) comes with arguments `check.overlap` (automatic removal 
+  of overlapping labels), `angle` (easy rotation of axis labels), and
+  `n.dodge` (dodge labels into multiple rows/columns) (@paleolimbot, #3322).
+  
+* A new scale type has been added, that allows binning of aesthetics at the 
+  scale level. It has versions for both position and non-position aesthetics and
+  comes with two new guides (`guide_bins` and `guide_coloursteps`) 
+  (@thomasp85, #3096)
   
 * `scale_x_continuous()` and `scale_y_continuous()` gains an `n.breaks` argument
   guiding the number of automatic generated breaks (@thomasp85, #3102)
-  
-* `geom_sf()` now removes rows that can't be plotted due to `NA` aesthetics 
-  (#3546, @thomasp85)
 
-* A new scale type has been added, that allows binning of aesthetics at the 
-  scale level. It has versions for both position and non-position aesthetics and
-  comes with two new guides (`guide_bins` and `guide_coloursteps`) (@thomasp85, #3096)
+* Added `stat_contour_filled()` and `geom_contour_filled()`, which compute 
+  and draw filled contours of gridded data (@paleolimbot, #3044). 
+  `geom_contour()` and `stat_contour()` now use the isoband package
+  to compute contour lines. The `complete` parameter (which was undocumented
+  and has been unused for at least four years) was removed (@paleolimbot, #3044).
   
-* Position guides can now be customized using the new `guide_axis()`,
-  which can be passed to position `scale_*()` functions or via
-  `guides()`. The new axis guide (`guide_axis()`) comes with
-  arguments `check.overlap` (automatic removal of overlapping
-  labels), `angle` (easy rotation of axis labels), and
-  `n.dodge` (dodge labels into multiple rows/columns) (@paleolimbot, #3322).
+* Themes have gained two new parameters, `plot.title.position` and 
+  `plot.caption.position`, that can be used to customize how plot
+  title/subtitle and plot caption are positioned relative to the overall plot
+  (@clauswilke, #3252).
 
+## Extensions
+  
 * `Geom` now gains a `setup_params()` method in line with the other ggproto
   classes (@thomasp85, #3509)
 
@@ -54,46 +114,7 @@
   of extension packages to define their own new theme elements and place them
   into the ggplot2 element tree (@clauswilke, #2540).
 
-* `element_text()` now issues a warning when vectorized arguments are provided, as in
-  `colour = c("red", "green", "blue")`. Such use is discouraged and not officially supported
-   (@clauswilke, #3492).
-
-* Addition of partial themes to plots has been made more predictable;
-  stepwise addition of individual partial themes is now equivalent to
-  addition of multple theme elements at once (@clauswilke, #3039).
-
-* stacking text when calculating the labels and the y axis with
-  `stat_summary()` now works (@ikosmidis, #2709)
-
-* Allowed reversing of discrete scales by re-writing `get_limits()` (@AnneLyng, #3115)
-
-* Added `stat_contour_filled()` and `geom_contour_filled()`, which compute 
-  and draw filled contours of gridded data (@paleolimbot, #3044).
-
-* `geom_contour()` and `stat_contour()` now use the isoband package
-  to compute contour lines. The `complete` parameter (which was undocumented
-  and has been unused for at least four years) was removed (@paleolimbot, #3044).
-
-* `stat_smooth()` uses `REML` by default, if `method = "gam"` and
-  `gam`'s method is not specified (@ikosmidis, #2630).
-
-* Changed `theme_grey()` setting for legend key so that it creates no 
-  border (`NA`) rather than drawing a white one. (@annennenne, #3180)
-  
-* Themes have gained two new parameters, `plot.title.position` and 
-  `plot.caption.position`, that can be used to customize how plot
-  title/subtitle and plot caption are positioned relative to the overall plot
-  (@clauswilke, #3252).
-
-* Added function `ggplot_add.by()` for lists created with `by()` (#2734, @Maschette)
-
-* `gg_dep()` was deprecated (@perezp44, #3382).
-
-* Added weight aesthetic option to `stat_density()` and made scaling of 
-  weights the default (@annennenne, #2902)
-
-* `expand_scale()` was deprecated in favour of `expansion()` for setting
-  the `expand` argument of `x` and `y` scales (@paleolimbot).
+## Minor improvements and bug fixes
 
 * `coord_trans()` now draws second axes and accepts `xlim`, `ylim`,
   and `expand` arguments to bring it up to feature parity with 
@@ -108,43 +129,71 @@
   in `coord_trans()` was also updated such that it behaves identically
   to that in `coord_cartesian()` (@paleolimbot, #3338).
 
-* All `coord_*()` functions with `xlim` and `ylim` arguments now accept
-  vectors with `NA` as a placeholder for the minimum or maximum value
-  (e.g., `ylim = c(0, NA)` would zoom the y-axis from 0 to the 
-  maximum value observed in the data). This mimics the behaviour
-  of the `limits` argument in continuous scale functions
-  (@paleolimbot, #2907).
+* `expand_scale()` was deprecated in favour of `expansion()` for setting
+  the `expand` argument of `x` and `y` scales (@paleolimbot).
 
 * `geom_abline()`, `geom_hline()`, and `geom_vline()` now issue 
   more informative warnings when supplied with set aesthetics
   (i.e., `slope`, `intercept`, `yintercept`, and/or `xintercept`)
   and mapped aesthetics (i.e., `data` and/or `mapping`).
+
+* Fix a bug in `geom_raster()` that squeezed the image when it went outside 
+  scale limits (#3539, @thomasp85)
+
+* `geom_sf()` now determines the legend type automatically (@microly, #3646).
   
-* `stat_density2d()` can now take an `adjust` parameter to scale the default bandwidth. (#2860, @haleyjeppson)
+* `geom_sf()` now removes rows that can't be plotted due to `NA` aesthetics 
+  (#3546, @thomasp85)
 
-* Fix a bug when `show.legend` is a named logical vector (#3461, @yutannihilation).
+* `geom_sf()` now applies alpha to linestring geometries 
+  (#3589, @yutannihilation).
 
-* Increase the default `nbin` of `guide_colourbar()` to place the ticks more precisely (#3508, @yutannihilation).
+* `gg_dep()` was deprecated (@perezp44, #3382).
 
-* `geom_sf()` now applies alpha to linestring geometries (#3589, @yutannihilation).
+* Added function `ggplot_add.by()` for lists created with `by()`, allowing such
+  lists to be added to ggplot objects (#2734, @Maschette)
+
+* ggplot2 no longer depends on reshape2, which means that it no longer 
+  (recursively) needs plyr, stringr, or stringi packages.
+
+* Increase the default `nbin` of `guide_colourbar()` to place the ticks more 
+  precisely (#3508, @yutannihilation).
 
 * `manual_scale()` now matches `values` with the order of `breaks` whenever
   `values` is an unnamed vector. Previously, unnamed `values` would match with
   the limits of the scale and ignore the order of any `breaks` provided. Note
   that this may change the appearance of plots that previously relied on the
   unordered behaviour (#2429, @idno0001).
-  
-* `stat_summary()` and related functions now support rlang-style lambda functions
-  (#3568, @dkahle).
-
-* `geom_ribbon()` now draws separate lines for the upper and lower intervals if
-  `colour` is mapped by default. Similarly, `geom_area()` now draws lines for
-  the upper in the same case by default. If you want old-style full stroking, use
-  `outline.type = "legacy"` (#3503, @yutannihilation).
 
 * `scale_manual_*(limits = ...)` now actually limits the scale (#3262,
   @yutannihilation).
 
+* Fix a bug when `show.legend` is a named logical vector 
+  (#3461, @yutannihilation).
+
+* Added weight aesthetic option to `stat_density()` and made scaling of 
+  weights the default (@annennenne, #2902)
+  
+* `stat_density2d()` can now take an `adjust` parameter to scale the default 
+  bandwidth. (#2860, @haleyjeppson)
+
+* `stat_smooth()` uses `REML` by default, if `method = "gam"` and
+  `gam`'s method is not specified (@ikosmidis, #2630).
+
+* stacking text when calculating the labels and the y axis with
+  `stat_summary()` now works (@ikosmidis, #2709)
+  
+* `stat_summary()` and related functions now support rlang-style lambda functions
+  (#3568, @dkahle).
+
+* The data mask pronoun, `.data`, is now stripped from default labels.
+
+* Addition of partial themes to plots has been made more predictable;
+  stepwise addition of individual partial themes is now equivalent to
+  addition of multple theme elements at once (@clauswilke, #3039).
+
+* Facets now don't fail even when some variable in the spec are not available
+  in all layers (@yutannihilation, #2963).
 
 # ggplot2 3.2.1
 
