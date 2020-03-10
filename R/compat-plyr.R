@@ -395,6 +395,7 @@ single_value.default <- function(x, ...) {
 }
 #' @export
 single_value.factor <- function(x, ...) {
-  # Panels are encoded as factors
-  length(levels(x)) == 1
+  # Panels are encoded as factor numbers
+  lev <- levels(x)
+  length(lev) == 1 && lev[1] == "1"
 }
