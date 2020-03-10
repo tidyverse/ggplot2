@@ -158,7 +158,7 @@ the full story behind your data.
 
 In addition to \code{geom_histogram}, you can create a histogram plot by using
 \code{scale_x_binned()} with \code{\link[=geom_bar]{geom_bar()}}. This method by default plots tick marks
-in between each bar.  .
+in between each bar.
 }
 \section{Orientation}{
 
