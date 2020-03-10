@@ -70,15 +70,17 @@ stat_contour_filled <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 StatContour <- ggproto("StatContour", Stat,
-
+  setup_params = function(data, params) {
+    params$z.range <- range(data$z, na.rm = TRUE, finite = TRUE)
+    params
+  },
   required_aes = c("x", "y", "z"),
   default_aes = aes(order = after_stat(level)),
 
-  compute_group = function(data, scales, bins = NULL, binwidth = NULL,
+  compute_group = function(data, scales, z.range, bins = NULL, binwidth = NULL,
                            breaks = NULL, na.rm = FALSE) {
 
-    z_range <- range(data$z, na.rm = TRUE, finite = TRUE)
-    breaks <- contour_breaks(z_range, bins, binwidth, breaks)
+    breaks <- contour_breaks(z.range, bins, binwidth, breaks)
 
     isolines <- xyz_to_isolines(data, breaks)
     path_df <- iso_to_path(isolines, data$group[1])
@@ -95,14 +97,17 @@ StatContour <- ggproto("StatContour", Stat,
 #' @usage NULL
 #' @export
 StatContourFilled <- ggproto("StatContourFilled", Stat,
-
+  setup_params = function(data, params) {
+    params$z.range <- range(data$z, na.rm = TRUE, finite = TRUE)
+    params
+  },
   required_aes = c("x", "y", "z"),
   default_aes = aes(order = after_stat(level), fill = after_stat(level)),
 
-  compute_group = function(data, scales, bins = NULL, binwidth = NULL, breaks = NULL, na.rm = FALSE) {
+  compute_group = function(data, scales, z.range, bins = NULL, binwidth = NULL,
+                           breaks = NULL, na.rm = FALSE) {
 
-    z_range <- range(data$z, na.rm = TRUE, finite = TRUE)
-    breaks <- contour_breaks(z_range, bins, binwidth, breaks)
+    breaks <- contour_breaks(z.range, bins, binwidth, breaks)
 
     isobands <- xyz_to_isobands(data, breaks)
     names(isobands) <- pretty_isoband_levels(names(isobands))
