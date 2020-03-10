@@ -84,6 +84,16 @@ test_that("a warning is generated when more than one position guide is drawn at 
   expect_warning(ggplot_gtable(built), "Discarding guide")
 })
 
+test_that("a warning is not generated when properly changing the position of a guide_axis()", {
+  plot <- ggplot(mpg, aes(class, hwy)) +
+    geom_point() +
+    guides(
+      y = guide_axis(position = "right")
+    )
+  built <- expect_silent(ggplot_build(plot))
+  expect_silent(ggplot_gtable(built))
+})
+
 test_that("guide_none() can be used in non-position scales", {
   p <- ggplot(mpg, aes(cty, hwy, colour = class)) +
     geom_point() +
