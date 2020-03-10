@@ -183,7 +183,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     vars <- params$facets
 
     if (length(vars) == 0) {
-      data$PANEL <- 1L
+      data$PANEL <- layout$PANEL
       return(data)
     }
 

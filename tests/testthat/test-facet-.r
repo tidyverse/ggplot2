@@ -140,16 +140,16 @@ test_that("facets_wrap() compacts the facet spec and accept empty spec", {
   p <- ggplot(df, aes(x, y)) + geom_point() + facet_wrap(vars(NULL))
   d <- layer_data(p)
 
-  expect_equal(d$PANEL, c(1L, 1L, 1L))
-  expect_equal(d$group, c(-1L, -1L, -1L))
+  expect_equal(d$PANEL, factor(c(1L, 1L, 1L)))
+  expect_equal(d$group, structure(c(-1L, -1L, -1L), n = 1L))
 })
 
 test_that("facets_grid() compacts the facet spec and accept empty spec", {
   p <- ggplot(df, aes(x, y)) + geom_point() + facet_grid(vars(NULL))
   d <- layer_data(p)
 
-  expect_equal(d$PANEL, c(1L, 1L, 1L))
-  expect_equal(d$group, c(-1L, -1L, -1L))
+  expect_equal(d$PANEL, factor(c(1L, 1L, 1L)))
+  expect_equal(d$group, structure(c(-1L, -1L, -1L), n = 1L))
 })
 
 
