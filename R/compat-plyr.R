@@ -384,18 +384,17 @@ dapply <- function(df, by, fun, ..., drop = TRUE) {
     apply_fun(cur_data)
   }))
 }
-#' @export
+
 single_value <- function(x, ...) {
   UseMethod("single_value")
 }
 #' @export
 single_value.default <- function(x, ...) {
   # This is set by id() used in creating the grouping var
-  isTRUE(attr(x, "n") == 1)
+  identical(attr(x, "n"), 1L)
 }
 #' @export
 single_value.factor <- function(x, ...) {
-  # Panels are encoded as factor numbers
-  lev <- levels(x)
-  length(lev) == 1 && lev[1] == "1"
+  # Panels are encoded as factor numbers and can never be missing (NA)
+  identical(levels(x), "1")
 }
