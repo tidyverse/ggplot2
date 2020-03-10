@@ -15,6 +15,7 @@ geom_density_2d(
   stat = "density_2d",
   position = "identity",
   ...,
+  contour_var = "density",
   lineend = "butt",
   linejoin = "round",
   linemitre = 10,
@@ -29,6 +30,7 @@ geom_density_2d_filled(
   stat = "density_2d_filled",
   position = "identity",
   ...,
+  contour_var = "density",
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -42,6 +44,7 @@ stat_density_2d(
   ...,
   contour = TRUE,
   contour_type = "lines",
+  contour_var = "density",
   n = 100,
   h = NULL,
   adjust = c(1, 1),
@@ -78,6 +81,10 @@ a call to a position adjustment function.}
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
+
+\item{contour_var}{Character string identifying the variable to contour
+by. Can be one of \code{"density"}, \code{"ndensity"}, or \code{"count"}. See the section
+on computed variables for details.}
 
 \item{lineend}{Line end style (round, butt, square).}
 

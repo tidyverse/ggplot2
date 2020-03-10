@@ -6,6 +6,9 @@
 #'   is contour lines (`contour_type = "lines"`) or contour bands
 #'   (`contour_type = "bands"`). For filled contours, you need to specify
 #'   bands.
+#' @param contour_var Character string identifying the variable to contour
+#'   by. Can be one of `"density"`, `"ndensity"`, or `"count"`. See the section
+#'   on computed variables for details.
 #' @param n number of grid points in each direction
 #' @param h Bandwidth (vector of length two). If `NULL`, estimated
 #'   using [MASS::bandwidth.nrd()].
@@ -40,6 +43,7 @@ stat_density_2d <- function(mapping = NULL, data = NULL,
                             ...,
                             contour = TRUE,
                             contour_type = "lines",
+                            contour_var = "density",
                             n = 100,
                             h = NULL,
                             adjust = c(1, 1),
@@ -64,6 +68,7 @@ stat_density_2d <- function(mapping = NULL, data = NULL,
       na.rm = na.rm,
       contour = contour,
       contour_type = contour_type,
+      contour_var = contour_var,
       n = n,
       h = h,
       adjust = adjust,
@@ -86,9 +91,43 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
 
   required_aes = c("x", "y"),
 
+  compute_layer = function(self, data, params, layout) {
+    # first run the regular layer calculation to infer densities
+    data <- ggproto_parent(Stat, self)$compute_layer(data, params, layout)
+
+    # if we're not contouring we're done
+    if (!isTRUE(params$contour)) return(data)
+
+    # otherwise, simulate last part compute_layer() in StatContour or StatContourFilled
+    if (isTRUE(params$contour_type == "bands")) {
+      cont_stat <- StatContourFilled
+    } else {
+      cont_stat <- StatContour
+    }
+
+    # set up data and parameters for contouring
+    contour_var <- params$contour_var %||% "density"
+    data$z <- data[[contour_var]]
+    z.range <- range(data$z, na.rm = TRUE, finite = TRUE)
+    params <- params[intersect(names(params), c("bins", "binwidth", "breaks"))]
+    params$z.range <- z.range
+
+    args <- c(list(data = quote(data), scales = quote(scales)), params)
+    dapply(data, "PANEL", function(data) {
+      scales <- layout$get_scales(data$PANEL[1])
+      tryCatch(do.call(cont_stat$compute_panel, args), error = function(e) {
+        warn(glue("Computation failed in `{snake_class(self)}()`:\n{e$message}"))
+        new_data_frame()
+      })
+    })
+  },
+
   compute_group = function(data, scales, na.rm = FALSE, h = NULL, adjust = c(1, 1),
-                           contour = TRUE, contour_type = "lines", n = 100, bins = NULL,
-                           binwidth = NULL, breaks = NULL) {
+                           n = 100,
+                           # the following parameters are not used here but listed so
+                           # forwarding to StatContour works as expected in compute_layer()
+                           contour = TRUE, contour_type = "lines", contour_var = "density",
+                           bins = NULL, binwidth = NULL, breaks = NULL) {
     if (is.null(h)) {
       h <- c(MASS::bandwidth.nrd(data$x), MASS::bandwidth.nrd(data$y))
       h <- h * adjust
@@ -103,7 +142,7 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
     df$z <- as.vector(dens$z)
     df$group <- data$group[1]
 
-    if (isTRUE(contour)) {
+    if (FALSE) {
       if (isTRUE(contour_type == "bands")) {
         df <- StatContourFilled$compute_panel(df, scales, bins, binwidth, breaks)
         df$count_low <- nx * df$level_low

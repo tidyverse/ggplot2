@@ -78,11 +78,15 @@ StatContour <- ggproto("StatContour", Stat,
   required_aes = c("x", "y", "z"),
   default_aes = aes(order = after_stat(level)),
 
-  compute_group = function(data, scales, bins = NULL, binwidth = NULL,
+  setup_params = function(data, params) {
+    params$z.range <- range(data$z, na.rm = TRUE, finite = TRUE)
+    params
+  },
+
+  compute_group = function(data, scales, z.range, bins = NULL, binwidth = NULL,
                            breaks = NULL, na.rm = FALSE) {
 
-    z_range <- range(data$z, na.rm = TRUE, finite = TRUE)
-    breaks <- contour_breaks(z_range, bins, binwidth, breaks)
+    breaks <- contour_breaks(z.range, bins, binwidth, breaks)
 
     isolines <- xyz_to_isolines(data, breaks)
     path_df <- iso_to_path(isolines, data$group[1])
@@ -103,20 +107,23 @@ StatContourFilled <- ggproto("StatContourFilled", Stat,
   required_aes = c("x", "y", "z"),
   default_aes = aes(order = after_stat(level), fill = after_stat(level)),
 
-  compute_group = function(data, scales, bins = NULL, binwidth = NULL, breaks = NULL, na.rm = FALSE) {
+  setup_params = function(data, params) {
+    params$z.range <- range(data$z, na.rm = TRUE, finite = TRUE)
+    params
+  },
 
-    z_range <- range(data$z, na.rm = TRUE, finite = TRUE)
-    breaks <- contour_breaks(z_range, bins, binwidth, breaks)
+  compute_group = function(data, scales, z.range, bins = NULL, binwidth = NULL, breaks = NULL, na.rm = FALSE) {
+    breaks <- contour_breaks(z.range, bins, binwidth, breaks)
 
     isobands <- xyz_to_isobands(data, breaks)
     names(isobands) <- pretty_isoband_levels(names(isobands))
     path_df <- iso_to_polygon(isobands, data$group[1])
 
-    path_df$bin <- ordered(path_df$level, levels = names(isobands))
-    path_df$level_low <- breaks[as.numeric(path_df$bin)]
-    path_df$level_high <- breaks[as.numeric(path_df$bin) + 1]
-    path_df$level <- 0.5*(path_df$level_low + path_df$level_high)
-    path_df$nlevel <- rescale_max(path_df$level)
+    path_df$level <- ordered(path_df$level, levels = names(isobands))
+    path_df$level_low <- breaks[as.numeric(path_df$level)]
+    path_df$level_high <- breaks[as.numeric(path_df$level) + 1]
+    path_df$level_mid <- 0.5*(path_df$level_low + path_df$level_high)
+    path_df$nlevel <- rescale_max(path_df$level_high)
 
     path_df
   }
