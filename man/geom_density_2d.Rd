@@ -144,12 +144,26 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 
 \section{Computed variables}{
 
-Same as \code{\link[=stat_contour]{stat_contour()}}
-
-With the addition of:
+When \code{contour = TRUE}:
 \describe{
-\item{density}{the density estimate}
-\item{ndensity}{density estimate, scaled to maximum of 1}
+\item{\code{level}}{Height of contour (corresponds to bin boundaries for contour lines
+and bin midpoints for contour bands).}
+\item{\code{level_low}, \code{level_high}}{(contour bands only) Lower and upper
+bin boundaries for each band.}
+\item{\code{bin}}{(contour bands only) Ordered factor representing the bin limits.}
+\item{\code{nlevel}}{Height of contour, scaled to maximum of 1.}
+\item{\code{piece}}{Contour piece (an integer).}
+\item{\code{count}, \code{count_low}, \code{count_high}}{Equivalent to \code{level}, \code{level_low}, \code{level_high}
+but scaled to number of observations in group, as in \code{\link[=stat_density]{stat_density()}}.}
+\item{\code{n}}{Number of observations in each group.}
+}
+
+When \code{contour = FALSE}:
+\describe{
+\item{\code{density}}{The density estimate.}
+\item{\code{ndensity}}{Density estimate, scaled to a maximum of 1.}
+\item{\code{count}}{Density estimate * number of observations in group.}
+\item{\code{n}}{Number of observations in each group.}
 }
 }
 

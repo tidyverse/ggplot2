@@ -4,9 +4,13 @@
 #' @eval rd_aesthetics("stat", "contour")
 #' @section Computed variables:
 #' \describe{
-#'  \item{level}{height of contour}
-#'  \item{nlevel}{height of contour, scaled to maximum of 1}
-#'  \item{piece}{contour piece (an integer)}
+#'  \item{`level`}{Height of contour (corresponds to bin boundaries for contour lines
+#'    and bin midpoints for contour bands).}
+#'  \item{`level_low`, `level_high`}{(contour bands only) Lower and upper
+#'    bin boundaries for each band.}
+#'  \item{`bin`}{(contour bands only) Ordered factor representing the bin limits.}
+#'  \item{`nlevel`}{Height of contour, scaled to maximum of 1.}
+#'  \item{`piece`}{Contour piece (an integer).}
 #' }
 #' @rdname geom_contour
 stat_contour <- function(mapping = NULL, data = NULL,

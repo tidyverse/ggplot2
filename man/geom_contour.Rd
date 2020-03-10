@@ -167,9 +167,13 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 \section{Computed variables}{
 
 \describe{
-\item{level}{height of contour}
-\item{nlevel}{height of contour, scaled to maximum of 1}
-\item{piece}{contour piece (an integer)}
+\item{\code{level}}{Height of contour (corresponds to bin boundaries for contour lines
+and bin midpoints for contour bands).}
+\item{\code{level_low}, \code{level_high}}{(contour bands only) Lower and upper
+bin boundaries for each band.}
+\item{\code{bin}}{(contour bands only) Ordered factor representing the bin limits.}
+\item{\code{nlevel}}{Height of contour, scaled to maximum of 1.}
+\item{\code{piece}}{Contour piece (an integer).}
 }
 }
 

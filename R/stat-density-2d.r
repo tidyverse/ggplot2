@@ -14,12 +14,26 @@
 #'    using the a bandwidth estimator. For example, `adjust = 1/2` means
 #'    use half of the default bandwidth.
 #' @section Computed variables:
-#' Same as [stat_contour()]
-#'
-#' With the addition of:
+#' When `contour = TRUE`:
 #' \describe{
-#'   \item{density}{the density estimate}
-#'   \item{ndensity}{density estimate, scaled to maximum of 1}
+#'  \item{`level`}{Height of contour (corresponds to bin boundaries for contour lines
+#'    and bin midpoints for contour bands).}
+#'  \item{`level_low`, `level_high`}{(contour bands only) Lower and upper
+#'    bin boundaries for each band.}
+#'  \item{`bin`}{(contour bands only) Ordered factor representing the bin limits.}
+#'  \item{`nlevel`}{Height of contour, scaled to maximum of 1.}
+#'  \item{`piece`}{Contour piece (an integer).}
+#'  \item{`count`, `count_low`, `count_high`}{Equivalent to `level`, `level_low`, `level_high`
+#'    but scaled to number of observations in group, as in [stat_density()].}
+#'  \item{`n`}{Number of observations in each group.}
+#' }
+#'
+#' When `contour = FALSE`:
+#' \describe{
+#'   \item{`density`}{The density estimate.}
+#'   \item{`ndensity`}{Density estimate, scaled to a maximum of 1.}
+#'   \item{`count`}{Density estimate * number of observations in group.}
+#'   \item{`n`}{Number of observations in each group.}
 #' }
 stat_density_2d <- function(mapping = NULL, data = NULL,
                             geom = "density_2d", position = "identity",
