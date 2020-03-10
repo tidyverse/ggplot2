@@ -108,10 +108,11 @@ StatContourFilled <- ggproto("StatContourFilled", Stat,
     names(isobands) <- pretty_isoband_levels(names(isobands))
     path_df <- iso_to_polygon(isobands, data$group[1])
 
-    path_df$level <- ordered(path_df$level, levels = names(isobands))
-    path_df$level_low <- breaks[as.numeric(path_df$level)]
-    path_df$level_high <- breaks[as.numeric(path_df$level) + 1]
-    path_df$nlevel <- rescale_max(path_df$level_high)
+    path_df$bin <- ordered(path_df$level, levels = names(isobands))
+    path_df$level_low <- breaks[as.numeric(path_df$bin)]
+    path_df$level_high <- breaks[as.numeric(path_df$bin) + 1]
+    path_df$level <- 0.5*(path_df$level_low + path_df$level_high)
+    path_df$nlevel <- rescale_max(path_df$level)
 
     path_df
   }

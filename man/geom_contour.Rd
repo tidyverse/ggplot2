@@ -174,7 +174,7 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
 
 \examples{
-#' # Basic plot
+# Basic plot
 v <- ggplot(faithfuld, aes(waiting, eruptions, z = density))
 v + geom_contour()
 

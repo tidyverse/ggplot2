@@ -20,7 +20,7 @@
 #' @seealso [geom_density_2d()]: 2d density contours
 #' @export
 #' @examples
-#' #' # Basic plot
+#' # Basic plot
 #' v <- ggplot(faithfuld, aes(waiting, eruptions, z = density))
 #' v + geom_contour()
 #'
