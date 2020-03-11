@@ -6,6 +6,10 @@ template:
 development:
   mode: auto
 
+authors:
+  Thomas Lin Pedersen:
+    href: https://data-imaginist.com
+
 home:
   strip_header: true
   links:
