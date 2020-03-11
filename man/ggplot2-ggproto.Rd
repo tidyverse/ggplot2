@@ -58,6 +58,7 @@
 \alias{GeomLine}
 \alias{GeomStep}
 \alias{GeomContour}
+\alias{GeomContourFilled}
 \alias{GeomCrossbar}
 \alias{GeomSegment}
 \alias{GeomCurve}
@@ -65,6 +66,7 @@
 \alias{GeomArea}
 \alias{GeomDensity}
 \alias{GeomDensity2d}
+\alias{GeomDensity2dFilled}
 \alias{GeomDotplot}
 \alias{GeomErrorbar}
 \alias{GeomErrorbarh}

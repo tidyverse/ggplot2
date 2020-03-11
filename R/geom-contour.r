@@ -9,6 +9,7 @@
 #' to a grid before visualising, see [geom_density_2d()].
 #'
 #' @eval rd_aesthetics("geom", "contour")
+#' @eval rd_aesthetics("geom", "contour_filled")
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @inheritParams geom_path
@@ -33,7 +34,7 @@
 #' v + geom_contour_filled()
 #'
 #' # Setting bins creates evenly spaced contours in the range of the data
-#' v + geom_contour(bins = 2)
+#' v + geom_contour(bins = 5)
 #' v + geom_contour(bins = 10)
 #'
 #' # Setting binwidth does the same thing, parameterised by the distance
@@ -95,7 +96,7 @@ geom_contour_filled <- function(mapping = NULL, data = NULL,
     data = data,
     mapping = mapping,
     stat = stat,
-    geom = GeomPolygon,
+    geom = GeomContourFilled,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
@@ -123,3 +124,11 @@ GeomContour <- ggproto("GeomContour", GeomPath,
     alpha = NA
   )
 )
+
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+#' @include geom-polygon.r
+GeomContourFilled <- ggproto("GeomContourFilled", GeomPolygon)
+

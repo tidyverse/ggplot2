@@ -153,6 +153,21 @@ to a grid before visualising, see \code{\link[=geom_density_2d]{geom_density_2d(
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 
 
+\code{geom_contour_filled()} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+\item \strong{\code{x}}
+\item \strong{\code{y}}
+\item \code{alpha}
+\item \code{colour}
+\item \code{fill}
+\item \code{group}
+\item \code{linetype}
+\item \code{size}
+\item \code{subgroup}
+}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
+
+
 \code{stat_contour()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{x}}
@@ -162,10 +177,27 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 \item \code{order}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
+
+
+\code{stat_contour_filled()} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+\item \strong{\code{x}}
+\item \strong{\code{y}}
+\item \strong{\code{z}}
+\item \code{fill}
+\item \code{group}
+\item \code{order}
+}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
 
 \section{Computed variables}{
 
+The computed variables differ somewhat for contour lines (computed by
+\code{stat_contour()}) and contour bands (filled contours, computed by \code{stat_contour_filled()}).
+The variables \code{nlevel} and \code{piece} are available for both, whereas \code{level_low}, \code{level_high},
+and \code{level_mid} are only available for bands. The variable \code{level} is a numeric or a factor
+depending on whether lines or bands are calculated.
 \describe{
 \item{\code{level}}{Height of contour. For contour lines, this is numeric vector that
 represents bin boundaries. For contour bands, this is an ordered factor that
@@ -191,7 +223,7 @@ ggplot(faithful, aes(waiting, eruptions)) +
 v + geom_contour_filled()
 
 # Setting bins creates evenly spaced contours in the range of the data
-v + geom_contour(bins = 2)
+v + geom_contour(bins = 5)
 v + geom_contour(bins = 10)
 
 # Setting binwidth does the same thing, parameterised by the distance

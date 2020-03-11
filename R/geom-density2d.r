@@ -7,6 +7,7 @@
 #' bands.
 #'
 #' @eval rd_aesthetics("geom", "density_2d")
+#' @eval rd_aesthetics("geom", "density_2d_filled")
 #' @seealso [geom_contour()], [geom_contour_filled()] for information about
 #'  how contours are drawn; [geom_bin2d()] for another way of dealing with
 #'  overplotting.
@@ -120,7 +121,7 @@ geom_density_2d_filled <- function(mapping = NULL, data = NULL,
     data = data,
     mapping = mapping,
     stat = stat,
-    geom = GeomPolygon,
+    geom = GeomDensity2dFilled,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
@@ -138,3 +139,11 @@ geom_density_2d_filled <- function(mapping = NULL, data = NULL,
 #' @rdname geom_density_2d
 #' @usage NULL
 geom_density2d_filled <- geom_density_2d_filled
+
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+#' @include geom-polygon.r
+GeomDensity2dFilled <- ggproto("GeomDensity2dFilled", GeomPolygon)
+

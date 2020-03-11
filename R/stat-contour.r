@@ -2,7 +2,13 @@
 #' @inheritParams geom_contour
 #' @export
 #' @eval rd_aesthetics("stat", "contour")
+#' @eval rd_aesthetics("stat", "contour_filled")
 #' @section Computed variables:
+#' The computed variables differ somewhat for contour lines (computed by
+#' `stat_contour()`) and contour bands (filled contours, computed by `stat_contour_filled()`).
+#' The variables `nlevel` and `piece` are available for both, whereas `level_low`, `level_high`,
+#' and `level_mid` are only available for bands. The variable `level` is a numeric or a factor
+#' depending on whether lines or bands are calculated.
 #' \describe{
 #'  \item{`level`}{Height of contour. For contour lines, this is numeric vector that
 #'    represents bin boundaries. For contour bands, this is an ordered factor that

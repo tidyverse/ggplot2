@@ -17,7 +17,9 @@
 #'    using the a bandwidth estimator. For example, `adjust = 1/2` means
 #'    use half of the default bandwidth.
 #' @section Computed variables:
-#' When `contour = FALSE`, the following variables are returned:
+#' `stat_density_2d()` computes different variables depending on whether
+#' contouring is turned on or off. With contouring off (`contour = FALSE`),
+#' the following variables are provided:
 #' \describe{
 #'   \item{`density`}{The density estimate.}
 #'   \item{`ndensity`}{Density estimate, scaled to a maximum of 1.}
@@ -25,10 +27,10 @@
 #'   \item{`n`}{Number of observations in each group.}
 #' }
 #'
-#' When `contour = TRUE`, either [stat_contour()] or [stat_contour_filled()]
-#' (for contour lines or contour bands, respectively) is run after the density
-#' estimate is calculated, and the computed variables are determined by these
-#' stats.
+#' With contouring on (`contour = TRUE`), either [stat_contour()] or
+#' [stat_contour_filled()] (for contour lines or contour bands,
+#' respectively) is run after the density estimate is calculated,
+#' and the computed variables are determined by these stats.
 stat_density_2d <- function(mapping = NULL, data = NULL,
                             geom = "density_2d", position = "identity",
                             ...,
@@ -103,6 +105,12 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
 
     # set up data and parameters for contouring
     contour_var <- params$contour_var %||% "density"
+    if (!isTRUE(contour_var %in% c("density", "ndensity", "count"))) {
+      abort(glue(
+        'Unsupported value for `contour_var`: {contour_var}\n',
+        'Supported values are "density", "ndensity", and "count".'
+      ))
+    }
     data$z <- data[[contour_var]]
     z.range <- range(data$z, na.rm = TRUE, finite = TRUE)
     params <- params[intersect(names(params), c("bins", "binwidth", "breaks"))]

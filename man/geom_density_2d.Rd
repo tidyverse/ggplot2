@@ -147,11 +147,28 @@ bands.
 \item \code{size}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
+
+
+\code{geom_density_2d_filled()} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+\item \strong{\code{x}}
+\item \strong{\code{y}}
+\item \code{alpha}
+\item \code{colour}
+\item \code{fill}
+\item \code{group}
+\item \code{linetype}
+\item \code{size}
+\item \code{subgroup}
+}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
 
 \section{Computed variables}{
 
-When \code{contour = FALSE}, the following variables are returned:
+\code{stat_density_2d()} computes different variables depending on whether
+contouring is turned on or off. With contouring off (\code{contour = FALSE}),
+the following variables are provided:
 \describe{
 \item{\code{density}}{The density estimate.}
 \item{\code{ndensity}}{Density estimate, scaled to a maximum of 1.}
@@ -159,10 +176,10 @@ When \code{contour = FALSE}, the following variables are returned:
 \item{\code{n}}{Number of observations in each group.}
 }
 
-When \code{contour = TRUE}, either \code{\link[=stat_contour]{stat_contour()}} or \code{\link[=stat_contour_filled]{stat_contour_filled()}}
-(for contour lines or contour bands, respectively) is run after the density
-estimate is calculated, and the computed variables are determined by these
-stats.
+With contouring on (\code{contour = TRUE}), either \code{\link[=stat_contour]{stat_contour()}} or
+\code{\link[=stat_contour_filled]{stat_contour_filled()}} (for contour lines or contour bands,
+respectively) is run after the density estimate is calculated,
+and the computed variables are determined by these stats.
 }
 
 \examples{
