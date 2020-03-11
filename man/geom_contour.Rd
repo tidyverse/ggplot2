@@ -55,7 +55,7 @@ stat_contour(
 stat_contour_filled(
   mapping = NULL,
   data = NULL,
-  geom = "polygon",
+  geom = "contour_filled",
   position = "identity",
   ...,
   bins = NULL,

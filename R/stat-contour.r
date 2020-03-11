@@ -49,7 +49,7 @@ stat_contour <- function(mapping = NULL, data = NULL,
 #' @rdname geom_contour
 #' @export
 stat_contour_filled <- function(mapping = NULL, data = NULL,
-                                geom = "polygon", position = "identity",
+                                geom = "contour_filled", position = "identity",
                                 ...,
                                 bins = NULL,
                                 binwidth = NULL,
