@@ -151,27 +151,18 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 
 \section{Computed variables}{
 
-When \code{contour = TRUE}:
-\describe{
-\item{\code{level}}{Height of contour (corresponds to bin boundaries for contour lines
-and bin midpoints for contour bands).}
-\item{\code{level_low}, \code{level_high}}{(contour bands only) Lower and upper
-bin boundaries for each band.}
-\item{\code{bin}}{(contour bands only) Ordered factor representing the bin limits.}
-\item{\code{nlevel}}{Height of contour, scaled to maximum of 1.}
-\item{\code{piece}}{Contour piece (an integer).}
-\item{\code{count}, \code{count_low}, \code{count_high}}{Equivalent to \code{level}, \code{level_low}, \code{level_high}
-but scaled to number of observations in group, as in \code{\link[=stat_density]{stat_density()}}.}
-\item{\code{n}}{Number of observations in each group.}
-}
-
-When \code{contour = FALSE}:
+When \code{contour = FALSE}, the following variables are returned:
 \describe{
 \item{\code{density}}{The density estimate.}
 \item{\code{ndensity}}{Density estimate, scaled to a maximum of 1.}
 \item{\code{count}}{Density estimate * number of observations in group.}
 \item{\code{n}}{Number of observations in each group.}
 }
+
+When \code{contour = TRUE}, either \code{\link[=stat_contour]{stat_contour()}} or \code{\link[=stat_contour_filled]{stat_contour_filled()}}
+(for contour lines or contour bands, respectively) is run after the density
+estimate is calculated, and the computed variables are determined by these
+stats.
 }
 
 \examples{
@@ -198,19 +189,15 @@ d <- ggplot(dsmall, aes(x, y))
 # set of contours for each value of that variable
 d + geom_density_2d(aes(colour = cut))
 
-# Coloring by level across multiple facets
-d + geom_density_2d_filled() +
-  facet_grid(. ~ cut) + scale_fill_viridis_c()
+# If you draw filled contours across multiple facets, the same bins are
+# used across all facets
+d + geom_density_2d_filled() + facet_wrap(vars(cut))
 # If you want to make sure the peak intensity is the same in each facet,
-# use `after_stat(nlevel)`. Note: this is a numerical value, not a factor,
-# and it represents the upper limit of each contour band.
-d + geom_density_2d_filled(aes(fill = after_stat(nlevel))) +
-  facet_grid(. ~ cut) + scale_fill_viridis_c()
-# You can also use `after_stat(count)` to show the density scaled by the
-# number of observations in the group. This is useful to highlight differences
-# in sample size across facets.
-d + geom_density_2d_filled(aes(fill = after_stat(count))) +
-  facet_grid(. ~ cut) + scale_fill_viridis_c()
+# use `contour_var = "ndensity"`.
+d + geom_density_2d_filled(contour_var = "ndensity") + facet_wrap(vars(cut))
+# If you want to scale intensity by the number of observations in each group,
+# use `contour_var = "count"`.
+d + geom_density_2d_filled(contour_var = "count") + facet_wrap(vars(cut))
 
 # If we turn contouring off, we can use other geoms, such as tiles:
 d + stat_density_2d(

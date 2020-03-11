@@ -4,11 +4,11 @@
 #' @eval rd_aesthetics("stat", "contour")
 #' @section Computed variables:
 #' \describe{
-#'  \item{`level`}{Height of contour (corresponds to bin boundaries for contour lines
-#'    and bin midpoints for contour bands).}
-#'  \item{`level_low`, `level_high`}{(contour bands only) Lower and upper
-#'    bin boundaries for each band.}
-#'  \item{`bin`}{(contour bands only) Ordered factor representing the bin limits.}
+#'  \item{`level`}{Height of contour. For contour lines, this is numeric vector that
+#'    represents bin boundaries. For contour bands, this is an ordered factor that
+#'    represents bin ranges.}
+#'  \item{`level_low`, `level_high`, `level_mid`}{(contour bands only) Lower and upper
+#'    bin boundaries for each band, as well the mid point between the boundaries.}
 #'  \item{`nlevel`}{Height of contour, scaled to maximum of 1.}
 #'  \item{`piece`}{Contour piece (an integer).}
 #' }

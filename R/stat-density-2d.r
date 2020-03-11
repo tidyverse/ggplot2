@@ -17,27 +17,18 @@
 #'    using the a bandwidth estimator. For example, `adjust = 1/2` means
 #'    use half of the default bandwidth.
 #' @section Computed variables:
-#' When `contour = TRUE`:
-#' \describe{
-#'  \item{`level`}{Height of contour (corresponds to bin boundaries for contour lines
-#'    and bin midpoints for contour bands).}
-#'  \item{`level_low`, `level_high`}{(contour bands only) Lower and upper
-#'    bin boundaries for each band.}
-#'  \item{`bin`}{(contour bands only) Ordered factor representing the bin limits.}
-#'  \item{`nlevel`}{Height of contour, scaled to maximum of 1.}
-#'  \item{`piece`}{Contour piece (an integer).}
-#'  \item{`count`, `count_low`, `count_high`}{Equivalent to `level`, `level_low`, `level_high`
-#'    but scaled to number of observations in group, as in [stat_density()].}
-#'  \item{`n`}{Number of observations in each group.}
-#' }
-#'
-#' When `contour = FALSE`:
+#' When `contour = FALSE`, the following variables are returned:
 #' \describe{
 #'   \item{`density`}{The density estimate.}
 #'   \item{`ndensity`}{Density estimate, scaled to a maximum of 1.}
 #'   \item{`count`}{Density estimate * number of observations in group.}
 #'   \item{`n`}{Number of observations in each group.}
 #' }
+#'
+#' When `contour = TRUE`, either [stat_contour()] or [stat_contour_filled()]
+#' (for contour lines or contour bands, respectively) is run after the density
+#' estimate is calculated, and the computed variables are determined by these
+#' stats.
 stat_density_2d <- function(mapping = NULL, data = NULL,
                             geom = "density_2d", position = "identity",
                             ...,
@@ -91,6 +82,11 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
 
   required_aes = c("x", "y"),
 
+  extra_params = c(
+    "na.rm", "contour", "contour_type", "contour_var",
+    "bins", "binwidth", "breaks"
+  ),
+
   compute_layer = function(self, data, params, layout) {
     # first run the regular layer calculation to infer densities
     data <- ggproto_parent(Stat, self)$compute_layer(data, params, layout)
@@ -123,51 +119,29 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
   },
 
   compute_group = function(data, scales, na.rm = FALSE, h = NULL, adjust = c(1, 1),
-                           n = 100,
-                           # the following parameters are not used here but listed so
-                           # forwarding to StatContour works as expected in compute_layer()
-                           contour = TRUE, contour_type = "lines", contour_var = "density",
-                           bins = NULL, binwidth = NULL, breaks = NULL) {
+                           n = 100, ...) {
     if (is.null(h)) {
       h <- c(MASS::bandwidth.nrd(data$x), MASS::bandwidth.nrd(data$y))
       h <- h * adjust
     }
 
-    nx <- nrow(data) # number of observations in this group
+    # calculate density
     dens <- MASS::kde2d(
       data$x, data$y, h = h, n = n,
       lims = c(scales$x$dimension(), scales$y$dimension())
     )
-    df <- expand.grid(x = dens$x, y = dens$y)
-    df$z <- as.vector(dens$z)
-    df$group <- data$group[1]
 
-    if (FALSE) {
-      if (isTRUE(contour_type == "bands")) {
-        df <- StatContourFilled$compute_panel(df, scales, bins, binwidth, breaks)
-        df$count_low <- nx * df$level_low
-        df$count_high <- nx * df$level_high
-        # For bands, we use for `count` the mean between the count value at the
-        # lower and the upper boundary. Returning categorical intervals doesn't
-        # make sense, because they'll usually be jumbled across facets.
-        df$count <- 0.5*(df$count_low + df$count_high)
-        df$n <- nx
-        df
-      } else {
-        df <- StatContour$compute_panel(df, scales, bins, binwidth, breaks)
-        df$count <- nx * df$level
-        df$n <- nx
-        df
-      }
-    } else {
-      names(df) <- c("x", "y", "density", "group")
-      df$ndensity <- df$density / max(df$density, na.rm = TRUE)
-      df$count <- nx * df$density
-      df$n <- nx
-      df$level <- 1
-      df$piece <- 1
-      df
-    }
+    # prepare final output data frame
+    nx <- nrow(data) # number of observations in this group
+    df <- expand.grid(x = dens$x, y = dens$y)
+    df$density <- as.vector(dens$z)
+    df$group <- data$group[1]
+    df$ndensity <- df$density / max(df$density, na.rm = TRUE)
+    df$count <- nx * df$density
+    df$n <- nx
+    df$level <- 1
+    df$piece <- 1
+    df
   }
 )
 

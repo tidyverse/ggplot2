@@ -43,19 +43,15 @@
 #' # set of contours for each value of that variable
 #' d + geom_density_2d(aes(colour = cut))
 #'
-#' # Coloring by level across multiple facets
-#' d + geom_density_2d_filled() +
-#'   facet_grid(. ~ cut) + scale_fill_viridis_c()
+#' # If you draw filled contours across multiple facets, the same bins are
+#' # used across all facets
+#' d + geom_density_2d_filled() + facet_wrap(vars(cut))
 #' # If you want to make sure the peak intensity is the same in each facet,
-#' # use `after_stat(nlevel)`. Note: this is a numerical value, not a factor,
-#' # and it represents the upper limit of each contour band.
-#' d + geom_density_2d_filled(aes(fill = after_stat(nlevel))) +
-#'   facet_grid(. ~ cut) + scale_fill_viridis_c()
-#' # You can also use `after_stat(count)` to show the density scaled by the
-#' # number of observations in the group. This is useful to highlight differences
-#' # in sample size across facets.
-#' d + geom_density_2d_filled(aes(fill = after_stat(count))) +
-#'   facet_grid(. ~ cut) + scale_fill_viridis_c()
+#' # use `contour_var = "ndensity"`.
+#' d + geom_density_2d_filled(contour_var = "ndensity") + facet_wrap(vars(cut))
+#' # If you want to scale intensity by the number of observations in each group,
+#' # use `contour_var = "count"`.
+#' d + geom_density_2d_filled(contour_var = "count") + facet_wrap(vars(cut))
 #'
 #' # If we turn contouring off, we can use other geoms, such as tiles:
 #' d + stat_density_2d(
