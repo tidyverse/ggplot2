@@ -81,7 +81,7 @@ test_that("stat_density2d can produce contour and raster data", {
   expect_identical(d_lines$level, d_lines2$level)
 
   # and for contour_var = "count"
-  p_contour_bands <- p + stat_density_2d(contour_var = "count", contour_type = "bands")
+  p_contour_bands <- p + stat_density_2d_filled(contour_var = "count")
   d_bands <- layer_data(p_contour_bands)
   p_bands2 <- ggplot(d_raster, aes(x, y, z = count)) + stat_contour_filled()
   d_bands2 <- layer_data(p_bands2)
