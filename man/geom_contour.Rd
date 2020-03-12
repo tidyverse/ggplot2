@@ -5,7 +5,7 @@
 \alias{geom_contour_filled}
 \alias{stat_contour}
 \alias{stat_contour_filled}
-\title{2d contours of a 3d surface}
+\title{2D contours of a 3D surface}
 \usage{
 geom_contour(
   mapping = NULL,
@@ -55,7 +55,7 @@ stat_contour(
 stat_contour_filled(
   mapping = NULL,
   data = NULL,
-  geom = "polygon",
+  geom = "contour_filled",
   position = "identity",
   ...,
   bins = NULL,
@@ -129,13 +129,13 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 \item{geom}{The geometric object to use display the data}
 }
 \description{
-ggplot2 can not draw true 3d surfaces, but you can use \code{geom_contour}
-and \code{\link[=geom_tile]{geom_tile()}} to visualise 3d surfaces in 2d. To be a valid
-surface, the data must contain only a single row for each unique combination
-of the variables mapped to the \code{x} and \code{y} aesthetics. Contouring
+ggplot2 can not draw true 3D surfaces, but you can use \code{geom_contour()},
+\code{geom_contour_filled()}, and \code{\link[=geom_tile]{geom_tile()}} to visualise 3D surfaces in 2D.
+To specify a valid surface, the data must contain \code{x}, \code{y}, and \code{z} coordinates,
+and each unique combination of \code{x} and \code{y} can appear exactly once. Contouring
 tends to work best when \code{x} and \code{y} form a (roughly) evenly
 spaced grid. If your data is not evenly spaced, you may want to interpolate
-to a grid before visualising.
+to a grid before visualising, see \code{\link[=geom_density_2d]{geom_density_2d()}}.
 }
 \section{Aesthetics}{
 
@@ -153,6 +153,21 @@ to a grid before visualising.
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 
 
+\code{geom_contour_filled()} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+\item \strong{\code{x}}
+\item \strong{\code{y}}
+\item \code{alpha}
+\item \code{colour}
+\item \code{fill}
+\item \code{group}
+\item \code{linetype}
+\item \code{size}
+\item \code{subgroup}
+}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
+
+
 \code{stat_contour()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{x}}
@@ -162,19 +177,40 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 \item \code{order}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
+
+
+\code{stat_contour_filled()} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+\item \strong{\code{x}}
+\item \strong{\code{y}}
+\item \strong{\code{z}}
+\item \code{fill}
+\item \code{group}
+\item \code{order}
+}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
 
 \section{Computed variables}{
 
+The computed variables differ somewhat for contour lines (computed by
+\code{stat_contour()}) and contour bands (filled contours, computed by \code{stat_contour_filled()}).
+The variables \code{nlevel} and \code{piece} are available for both, whereas \code{level_low}, \code{level_high},
+and \code{level_mid} are only available for bands. The variable \code{level} is a numeric or a factor
+depending on whether lines or bands are calculated.
 \describe{
-\item{level}{height of contour}
-\item{nlevel}{height of contour, scaled to maximum of 1}
-\item{piece}{contour piece (an integer)}
+\item{\code{level}}{Height of contour. For contour lines, this is numeric vector that
+represents bin boundaries. For contour bands, this is an ordered factor that
+represents bin ranges.}
+\item{\code{level_low}, \code{level_high}, \code{level_mid}}{(contour bands only) Lower and upper
+bin boundaries for each band, as well the mid point between the boundaries.}
+\item{\code{nlevel}}{Height of contour, scaled to maximum of 1.}
+\item{\code{piece}}{Contour piece (an integer).}
 }
 }
 
 \examples{
-#' # Basic plot
+# Basic plot
 v <- ggplot(faithfuld, aes(waiting, eruptions, z = density))
 v + geom_contour()
 
@@ -187,7 +223,7 @@ ggplot(faithful, aes(waiting, eruptions)) +
 v + geom_contour_filled()
 
 # Setting bins creates evenly spaced contours in the range of the data
-v + geom_contour(bins = 2)
+v + geom_contour(bins = 5)
 v + geom_contour(bins = 10)
 
 # Setting binwidth does the same thing, parameterised by the distance

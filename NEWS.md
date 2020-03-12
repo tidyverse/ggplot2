@@ -3,6 +3,10 @@
 * `annotation_raster()` adds support for native rasters. For large rasters,
   native rasters render significantly faster than arrays (@kent37, #3388)
   
+* A newly added geom `geom_density_2d_filled()` and associated stat 
+  `stat_density_2d_filled()` can draw filled density contours
+  (@clauswilke, #3846).
+  
 * Support graphics devices that use the `file` argument instead of `fileneame` 
   in `ggsave()` (@bwiernik, #3810)
 
