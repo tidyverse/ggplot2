@@ -20,7 +20,7 @@ test_that("stat_density2d can produce contour and raster data", {
   p <- ggplot(faithful, aes(x = eruptions, y = waiting))
 
   p_contour_lines <- p + stat_density_2d()
-  p_contour_bands <- p + stat_density_2d(contour_type = "bands")
+  p_contour_bands <- p + stat_density_2d_filled()
   p_raster <- p + stat_density_2d(contour = FALSE)
 
   d_lines <- layer_data(p_contour_lines)
@@ -39,6 +39,16 @@ test_that("stat_density2d can produce contour and raster data", {
   expect_true("count" %in% names(d_raster))
   expect_true(unique(d_raster$level) == 1)
   expect_true(unique(d_raster$piece) == 1)
+
+  # stat_density_2d() and stat_density_2d_filled() produce identical
+  # density output with `contour = FALSE`
+  # (`fill` and `colour` will differ due to different default aesthetic mappings)
+  d_raster2 <- layer_data(p + stat_density_2d_filled(contour = FALSE))
+  expect_identical(d_raster$x, d_raster2$x)
+  expect_identical(d_raster$y, d_raster2$y)
+  expect_identical(d_raster$density, d_raster2$density)
+  expect_identical(d_raster$ndensity, d_raster2$ndensity)
+  expect_identical(d_raster$count, d_raster2$count)
 
   # stat_density_2d() with contouring is the same as stat_contour() on calculated density
   p_lines2 <- ggplot(d_raster, aes(x, y, z = density)) + stat_contour()

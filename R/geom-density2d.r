@@ -17,8 +17,8 @@
 #' @inheritParams geom_point
 #' @inheritParams geom_path
 #' @param contour_var Character string identifying the variable to contour
-#'   by. Can be one of `"density"`, `"ndensity"`, or `"count"`. See [stat_density_2d()]
-#'   for details.
+#'   by. Can be one of `"density"`, `"ndensity"`, or `"count"`. See the section
+#'   on computed variables for details.
 #' @export
 #' @examples
 #' m <- ggplot(faithful, aes(x = eruptions, y = waiting)) +
@@ -86,7 +86,6 @@ geom_density_2d <- function(mapping = NULL, data = NULL,
       linejoin = linejoin,
       linemitre = linemitre,
       contour = TRUE,
-      contour_type = "lines",
       contour_var = contour_var,
       na.rm = na.rm,
       ...
@@ -128,7 +127,6 @@ geom_density_2d_filled <- function(mapping = NULL, data = NULL,
     params = list(
       na.rm = na.rm,
       contour = TRUE,
-      contour_type = "bands",
       contour_var = contour_var,
       ...
     )

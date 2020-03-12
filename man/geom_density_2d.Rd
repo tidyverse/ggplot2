@@ -7,6 +7,8 @@
 \alias{geom_density2d_filled}
 \alias{stat_density_2d}
 \alias{stat_density2d}
+\alias{stat_density_2d_filled}
+\alias{stat_density2d_filled}
 \title{Contours of a 2D density estimate}
 \usage{
 geom_density_2d(
@@ -43,7 +45,22 @@ stat_density_2d(
   position = "identity",
   ...,
   contour = TRUE,
-  contour_type = "lines",
+  contour_var = "density",
+  n = 100,
+  h = NULL,
+  adjust = c(1, 1),
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
+
+stat_density_2d_filled(
+  mapping = NULL,
+  data = NULL,
+  geom = "density_2d_filled",
+  position = "identity",
+  ...,
+  contour = TRUE,
   contour_var = "density",
   n = 100,
   h = NULL,
@@ -110,14 +127,9 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 \code{geom_density_2d} and \code{stat_density_2d}.}
 
 \item{contour}{If \code{TRUE}, contour the results of the 2d density
-estimation}
+estimation.}
 
-\item{contour_type}{When \code{contour = TRUE}, specifies whether the output
-is contour lines (\code{contour_type = "lines"}) or contour bands
-(\code{contour_type = "bands"}). For filled contours, you need to specify
-bands.}
-
-\item{n}{number of grid points in each direction}
+\item{n}{Number of grid points in each direction.}
 
 \item{h}{Bandwidth (vector of length two). If \code{NULL}, estimated
 using \code{\link[MASS:bandwidth.nrd]{MASS::bandwidth.nrd()}}.}
@@ -166,9 +178,10 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 
 \section{Computed variables}{
 
-\code{stat_density_2d()} computes different variables depending on whether
-contouring is turned on or off. With contouring off (\code{contour = FALSE}),
-the following variables are provided:
+\code{stat_density_2d()} and \code{stat_density_2d_filled()} compute different
+variables depending on whether contouring is turned on or off. With
+contouring off (\code{contour = FALSE}), both stats behave the same, and the
+following variables are provided:
 \describe{
 \item{\code{density}}{The density estimate.}
 \item{\code{ndensity}}{Density estimate, scaled to a maximum of 1.}
@@ -178,8 +191,11 @@ the following variables are provided:
 
 With contouring on (\code{contour = TRUE}), either \code{\link[=stat_contour]{stat_contour()}} or
 \code{\link[=stat_contour_filled]{stat_contour_filled()}} (for contour lines or contour bands,
-respectively) is run after the density estimate is calculated,
+respectively) is run after the density estimate has been obtained,
 and the computed variables are determined by these stats.
+Contours are calculated for one of the three types of density estimates
+obtained before contouring, \code{density}, \code{ndensity}, and \code{count}. Which
+of those should be used is determined by the \code{contour_var} parameter.
 }
 
 \examples{

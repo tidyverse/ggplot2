@@ -1,15 +1,11 @@
 #' @export
 #' @rdname geom_density_2d
 #' @param contour If `TRUE`, contour the results of the 2d density
-#'   estimation
-#' @param contour_type When `contour = TRUE`, specifies whether the output
-#'   is contour lines (`contour_type = "lines"`) or contour bands
-#'   (`contour_type = "bands"`). For filled contours, you need to specify
-#'   bands.
+#'   estimation.
 #' @param contour_var Character string identifying the variable to contour
 #'   by. Can be one of `"density"`, `"ndensity"`, or `"count"`. See the section
 #'   on computed variables for details.
-#' @param n number of grid points in each direction
+#' @param n Number of grid points in each direction.
 #' @param h Bandwidth (vector of length two). If `NULL`, estimated
 #'   using [MASS::bandwidth.nrd()].
 #' @param adjust A multiplicative bandwidth adjustment to be used if 'h' is
@@ -17,9 +13,10 @@
 #'    using the a bandwidth estimator. For example, `adjust = 1/2` means
 #'    use half of the default bandwidth.
 #' @section Computed variables:
-#' `stat_density_2d()` computes different variables depending on whether
-#' contouring is turned on or off. With contouring off (`contour = FALSE`),
-#' the following variables are provided:
+#' `stat_density_2d()` and `stat_density_2d_filled()` compute different
+#' variables depending on whether contouring is turned on or off. With
+#' contouring off (`contour = FALSE`), both stats behave the same, and the
+#' following variables are provided:
 #' \describe{
 #'   \item{`density`}{The density estimate.}
 #'   \item{`ndensity`}{Density estimate, scaled to a maximum of 1.}
@@ -29,13 +26,15 @@
 #'
 #' With contouring on (`contour = TRUE`), either [stat_contour()] or
 #' [stat_contour_filled()] (for contour lines or contour bands,
-#' respectively) is run after the density estimate is calculated,
+#' respectively) is run after the density estimate has been obtained,
 #' and the computed variables are determined by these stats.
+#' Contours are calculated for one of the three types of density estimates
+#' obtained before contouring, `density`, `ndensity`, and `count`. Which
+#' of those should be used is determined by the `contour_var` parameter.
 stat_density_2d <- function(mapping = NULL, data = NULL,
                             geom = "density_2d", position = "identity",
                             ...,
                             contour = TRUE,
-                            contour_type = "lines",
                             contour_var = "density",
                             n = 100,
                             h = NULL,
@@ -43,16 +42,10 @@ stat_density_2d <- function(mapping = NULL, data = NULL,
                             na.rm = FALSE,
                             show.legend = NA,
                             inherit.aes = TRUE) {
-  if (isTRUE(contour_type == "bands")) {
-    stat <- StatDensity2dFilled
-  } else {
-    stat <- StatDensity2d
-  }
-
   layer(
     data = data,
     mapping = mapping,
-    stat = stat,
+    stat = StatDensity2d,
     geom = geom,
     position = position,
     show.legend = show.legend,
@@ -60,7 +53,6 @@ stat_density_2d <- function(mapping = NULL, data = NULL,
     params = list(
       na.rm = na.rm,
       contour = contour,
-      contour_type = contour_type,
       contour_var = contour_var,
       n = n,
       h = h,
@@ -70,10 +62,49 @@ stat_density_2d <- function(mapping = NULL, data = NULL,
   )
 }
 
-#' @export
 #' @rdname geom_density_2d
 #' @usage NULL
+#' @export
 stat_density2d <- stat_density_2d
+
+#' @rdname geom_density_2d
+#' @export
+stat_density_2d_filled <- function(mapping = NULL, data = NULL,
+                                   geom = "density_2d_filled", position = "identity",
+                                   ...,
+                                   contour = TRUE,
+                                   contour_var = "density",
+                                   n = 100,
+                                   h = NULL,
+                                   adjust = c(1, 1),
+                                   na.rm = FALSE,
+                                   show.legend = NA,
+                                   inherit.aes = TRUE) {
+  layer(
+    data = data,
+    mapping = mapping,
+    stat = StatDensity2dFilled,
+    geom = geom,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    params = list(
+      na.rm = na.rm,
+      contour = contour,
+      contour_var = contour_var,
+      n = n,
+      h = h,
+      adjust = adjust,
+      ...
+    )
+  )
+}
+
+#' @rdname geom_density_2d
+#' @usage NULL
+#' @export
+stat_density2d_filled <- stat_density_2d_filled
+
 
 #' @rdname ggplot2-ggproto
 #' @format NULL
@@ -85,9 +116,12 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
   required_aes = c("x", "y"),
 
   extra_params = c(
-    "na.rm", "contour", "contour_type", "contour_var",
+    "na.rm", "contour", "contour_var",
     "bins", "binwidth", "breaks"
   ),
+
+  # stat used for contouring
+  contour_stat = StatContour,
 
   compute_layer = function(self, data, params, layout) {
     # first run the regular layer calculation to infer densities
@@ -95,13 +129,6 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
 
     # if we're not contouring we're done
     if (!isTRUE(params$contour)) return(data)
-
-    # otherwise, simulate last part compute_layer() in StatContour or StatContourFilled
-    if (isTRUE(params$contour_type == "bands")) {
-      cont_stat <- StatContourFilled
-    } else {
-      cont_stat <- StatContour
-    }
 
     # set up data and parameters for contouring
     contour_var <- params$contour_var %||% "density"
@@ -119,7 +146,7 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
     args <- c(list(data = quote(data), scales = quote(scales)), params)
     dapply(data, "PANEL", function(data) {
       scales <- layout$get_scales(data$PANEL[1])
-      tryCatch(do.call(cont_stat$compute_panel, args), error = function(e) {
+      tryCatch(do.call(self$contour_stat$compute_panel, args), error = function(e) {
         warn(glue("Computation failed in `{snake_class(self)}()`:\n{e$message}"))
         new_data_frame()
       })
@@ -153,11 +180,15 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
   }
 )
 
+
+
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
 #' @export
 StatDensity2dFilled <- ggproto("StatDensity2dFilled", StatDensity2d,
-  default_aes = aes(colour = NA, fill = after_stat(level))
+  default_aes = aes(colour = NA, fill = after_stat(level)),
+
+  contour_stat = StatContourFilled
 )
 
