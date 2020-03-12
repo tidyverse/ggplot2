@@ -120,8 +120,8 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
     "bins", "binwidth", "breaks"
   ),
 
-  # stat used for contouring
-  contour_stat = StatContour,
+  # when contouring is on, are we returning lines or bands?
+  contour_type = "lines",
 
   compute_layer = function(self, data, params, layout) {
     # first run the regular layer calculation to infer densities
@@ -143,10 +143,16 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
     params <- params[intersect(names(params), c("bins", "binwidth", "breaks"))]
     params$z.range <- z.range
 
+    if (isTRUE(self$contour_type == "bands")) {
+      contour_stat <- StatContourFilled
+    } else { # lines is the default
+      contour_stat <- StatContour
+    }
+
     args <- c(list(data = quote(data), scales = quote(scales)), params)
     dapply(data, "PANEL", function(data) {
       scales <- layout$get_scales(data$PANEL[1])
-      tryCatch(do.call(self$contour_stat$compute_panel, args), error = function(e) {
+      tryCatch(do.call(contour_stat$compute_panel, args), error = function(e) {
         warn(glue("Computation failed in `{snake_class(self)}()`:\n{e$message}"))
         new_data_frame()
       })
@@ -188,7 +194,6 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
 #' @export
 StatDensity2dFilled <- ggproto("StatDensity2dFilled", StatDensity2d,
   default_aes = aes(colour = NA, fill = after_stat(level)),
-
-  contour_stat = StatContourFilled
+  contour_type = "bands"
 )
 
