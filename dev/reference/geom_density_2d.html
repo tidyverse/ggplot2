@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Contours of a 2d density estimate — geom_density_2d • ggplot2</title>
+<title>Contours of a 2D density estimate — geom_density_2d • ggplot2</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -41,10 +41,12 @@
 
 
 
-<meta property="og:title" content="Contours of a 2d density estimate — geom_density_2d" />
+<meta property="og:title" content="Contours of a 2D density estimate — geom_density_2d" />
 <meta property="og:description" content="Perform a 2D kernel density estimation using MASS::kde2d() and
 display the results with contours. This can be useful for dealing with
-overplotting. This is a 2d version of geom_density()." />
+overplotting. This is a 2D version of geom_density(). geom_density_2d()
+draws contour lines, and geom_density_2d_filled() draws filled contour
+bands." />
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -179,7 +181,7 @@ overplotting. This is a 2d version of geom_density()." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Contours of a 2d density estimate</h1>
+    <h1>Contours of a 2D density estimate</h1>
     <small class="dont-index">Source: <a href='https://github.com/tidyverse/ggplot2/blob/master/R/geom-density2d.r'><code>R/geom-density2d.r</code></a>, <a href='https://github.com/tidyverse/ggplot2/blob/master/R/stat-density-2d.r'><code>R/stat-density-2d.r</code></a></small>
     <div class="hidden name"><code>geom_density_2d.Rd</code></div>
     </div>
@@ -187,18 +189,33 @@ overplotting. This is a 2d version of geom_density()." />
     <div class="ref-description">
     <p>Perform a 2D kernel density estimation using <code><a href='https://rdrr.io/pkg/MASS/man/kde2d.html'>MASS::kde2d()</a></code> and
 display the results with contours. This can be useful for dealing with
-overplotting. This is a 2d version of <code><a href='geom_density.html'>geom_density()</a></code>.</p>
+overplotting. This is a 2D version of <code><a href='geom_density.html'>geom_density()</a></code>. <code>geom_density_2d()</code>
+draws contour lines, and <code>geom_density_2d_filled()</code> draws filled contour
+bands.</p>
     </div>
 
     <pre class="usage"><span class='fu'>geom_density_2d</span>(
   <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"density2d"</span>,
+  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"density_2d"</span>,
   <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
   <span class='no'>...</span>,
+  <span class='kw'>contour_var</span> <span class='kw'>=</span> <span class='st'>"density"</span>,
   <span class='kw'>lineend</span> <span class='kw'>=</span> <span class='st'>"butt"</span>,
   <span class='kw'>linejoin</span> <span class='kw'>=</span> <span class='st'>"round"</span>,
   <span class='kw'>linemitre</span> <span class='kw'>=</span> <span class='fl'>10</span>,
+  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)
+
+<span class='fu'>geom_density_2d_filled</span>(
+  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"density_2d_filled"</span>,
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>contour_var</span> <span class='kw'>=</span> <span class='st'>"density"</span>,
   <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
   <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
@@ -211,6 +228,23 @@ overplotting. This is a 2d version of <code><a href='geom_density.html'>geom_den
   <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
   <span class='no'>...</span>,
   <span class='kw'>contour</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>contour_var</span> <span class='kw'>=</span> <span class='st'>"density"</span>,
+  <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>,
+  <span class='kw'>h</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>adjust</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>),
+  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)
+
+<span class='fu'>stat_density_2d_filled</span>(
+  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"density_2d_filled"</span>,
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>contour</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>contour_var</span> <span class='kw'>=</span> <span class='st'>"density"</span>,
   <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>,
   <span class='kw'>h</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>adjust</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>),
@@ -256,6 +290,12 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 to the paired geom/stat.</p></td>
     </tr>
     <tr>
+      <th>contour_var</th>
+      <td><p>Character string identifying the variable to contour
+by. Can be one of <code>"density"</code>, <code>"ndensity"</code>, or <code>"count"</code>. See the section
+on computed variables for details.</p></td>
+    </tr>
+    <tr>
       <th>lineend</th>
       <td><p>Line end style (round, butt, square).</p></td>
     </tr>
@@ -295,11 +335,11 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
     <tr>
       <th>contour</th>
       <td><p>If <code>TRUE</code>, contour the results of the 2d density
-estimation</p></td>
+estimation.</p></td>
     </tr>
     <tr>
       <th>n</th>
-      <td><p>number of grid points in each direction</p></td>
+      <td><p>Number of grid points in each direction.</p></td>
     </tr>
     <tr>
       <th>h</th>
@@ -328,21 +368,44 @@ use half of the default bandwidth.</p></td>
 <li><p><code>linetype</code></p></li>
 <li><p><code>size</code></p></li>
 </ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
+
+<p><code>geom_density_2d_filled()</code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
+<li><p><strong><code>x</code></strong></p></li>
+<li><p><strong><code>y</code></strong></p></li>
+<li><p><code>alpha</code></p></li>
+<li><p><code>colour</code></p></li>
+<li><p><code>fill</code></p></li>
+<li><p><code>group</code></p></li>
+<li><p><code>linetype</code></p></li>
+<li><p><code>size</code></p></li>
+<li><p><code>subgroup</code></p></li>
+</ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
     <h2 class="hasAnchor" id="computed-variables"><a class="anchor" href="#computed-variables"></a>Computed variables</h2>
 
     
 
-<p>Same as <code><a href='geom_contour.html'>stat_contour()</a></code></p>
-<p>With the addition of:</p><dl class='dl-horizontal'>
-<dt>density</dt><dd><p>the density estimate</p></dd>
-<dt>ndensity</dt><dd><p>density estimate, scaled to maximum of 1</p></dd>
+<p><code>stat_density_2d()</code> and <code>stat_density_2d_filled()</code> compute different
+variables depending on whether contouring is turned on or off. With
+contouring off (<code>contour = FALSE</code>), both stats behave the same, and the
+following variables are provided:</p><dl class='dl-horizontal'>
+<dt><code>density</code></dt><dd><p>The density estimate.</p></dd>
+<dt><code>ndensity</code></dt><dd><p>Density estimate, scaled to a maximum of 1.</p></dd>
+<dt><code>count</code></dt><dd><p>Density estimate * number of observations in group.</p></dd>
+<dt><code>n</code></dt><dd><p>Number of observations in each group.</p></dd>
 
 </dl>
 
+<p>With contouring on (<code>contour = TRUE</code>), either <code><a href='geom_contour.html'>stat_contour()</a></code> or
+<code><a href='geom_contour.html'>stat_contour_filled()</a></code> (for contour lines or contour bands,
+respectively) is run after the density estimate has been obtained,
+and the computed variables are determined by these stats.
+Contours are calculated for one of the three types of density estimates
+obtained before contouring, <code>density</code>, <code>ndensity</code>, and <code>count</code>. Which
+of those should be used is determined by the <code>contour_var</code> parameter.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='geom_contour.html'>geom_contour()</a></code> for information about how contours
-are drawn; <code><a href='geom_bin2d.html'>geom_bin2d()</a></code> for another way of dealing with
+    <div class='dont-index'><p><code><a href='geom_contour.html'>geom_contour()</a></code>, <code><a href='geom_contour.html'>geom_contour_filled()</a></code> for information about
+how contours are drawn; <code><a href='geom_bin2d.html'>geom_bin2d()</a></code> for another way of dealing with
 overplotting.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -350,24 +413,35 @@ overplotting.</p></div>
  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() +
  <span class='fu'><a href='lims.html'>xlim</a></span>(<span class='fl'>0.5</span>, <span class='fl'>6</span>) +
  <span class='fu'><a href='lims.html'>ylim</a></span>(<span class='fl'>40</span>, <span class='fl'>110</span>)
-<span class='no'>m</span> + <span class='fu'>geom_density_2d</span>()</div><div class='img'><img src='geom_density_2d-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># \donttest{</span>
-<span class='no'>m</span> + <span class='fu'>stat_density_2d</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='aes_eval.html'>after_stat</a></span>(<span class='no'>level</span>)), <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"polygon"</span>)</div><div class='img'><img src='geom_density_2d-2.png' alt='' width='700' height='433' /></div><div class='input'>
+
+<span class='co'># contour lines</span>
+<span class='no'>m</span> + <span class='fu'>geom_density_2d</span>()</div><div class='img'><img src='geom_density_2d-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># \donttest{</span>
+<span class='co'># contour bands</span>
+<span class='no'>m</span> + <span class='fu'>geom_density_2d_filled</span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)</div><div class='img'><img src='geom_density_2d-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># contour bands and contour lines</span>
+<span class='no'>m</span> + <span class='fu'>geom_density_2d_filled</span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.5</span>) +
+  <span class='fu'>geom_density_2d</span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>0.25</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"black"</span>)</div><div class='img'><img src='geom_density_2d-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>4393</span>)
 <span class='no'>dsmall</span> <span class='kw'>&lt;-</span> <span class='no'>diamonds</span>[<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>diamonds</span>), <span class='fl'>1000</span>), ]
 <span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>dsmall</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>x</span>, <span class='no'>y</span>))
 <span class='co'># If you map an aesthetic to a categorical variable, you will get a</span>
 <span class='co'># set of contours for each value of that variable</span>
-<span class='no'>d</span> + <span class='fu'>geom_density_2d</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>cut</span>))</div><div class='img'><img src='geom_density_2d-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Similarly, if you apply faceting to the plot, contours will be</span>
-<span class='co'># drawn for each facet, but the levels will calculated across all facets</span>
-<span class='no'>d</span> + <span class='fu'>stat_density_2d</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='aes_eval.html'>after_stat</a></span>(<span class='no'>level</span>)), <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"polygon"</span>) +
-  <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='no'>.</span> ~ <span class='no'>cut</span>) + <span class='fu'><a href='scale_viridis.html'>scale_fill_viridis_c</a></span>()</div><div class='img'><img src='geom_density_2d-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># To override this behavior (for instace, to better visualize the density</span>
-<span class='co'># within each facet), use after_stat(nlevel)</span>
-<span class='no'>d</span> + <span class='fu'>stat_density_2d</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='aes_eval.html'>after_stat</a></span>(<span class='no'>nlevel</span>)), <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"polygon"</span>) +
-  <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='no'>.</span> ~ <span class='no'>cut</span>) + <span class='fu'><a href='scale_viridis.html'>scale_fill_viridis_c</a></span>()</div><div class='img'><img src='geom_density_2d-5.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># If we turn contouring off, we can use use geoms like tiles:</span>
-<span class='no'>d</span> + <span class='fu'>stat_density_2d</span>(<span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"raster"</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='aes_eval.html'>after_stat</a></span>(<span class='no'>density</span>)), <span class='kw'>contour</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='geom_density_2d-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Or points:</span>
-<span class='no'>d</span> + <span class='fu'>stat_density_2d</span>(<span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"point"</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='fu'><a href='aes_eval.html'>after_stat</a></span>(<span class='no'>density</span>)), <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>contour</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='geom_density_2d-7.png' alt='' width='700' height='433' /></div><div class='input'># }
+<span class='no'>d</span> + <span class='fu'>geom_density_2d</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>cut</span>))</div><div class='img'><img src='geom_density_2d-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># If you draw filled contours across multiple facets, the same bins are</span>
+<span class='co'># used across all facets</span>
+<span class='no'>d</span> + <span class='fu'>geom_density_2d_filled</span>() + <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span>(<span class='fu'><a href='vars.html'>vars</a></span>(<span class='no'>cut</span>))</div><div class='img'><img src='geom_density_2d-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># If you want to make sure the peak intensity is the same in each facet,</span>
+<span class='co'># use `contour_var = "ndensity"`.</span>
+<span class='no'>d</span> + <span class='fu'>geom_density_2d_filled</span>(<span class='kw'>contour_var</span> <span class='kw'>=</span> <span class='st'>"ndensity"</span>) + <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span>(<span class='fu'><a href='vars.html'>vars</a></span>(<span class='no'>cut</span>))</div><div class='img'><img src='geom_density_2d-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># If you want to scale intensity by the number of observations in each group,</span>
+<span class='co'># use `contour_var = "count"`.</span>
+<span class='no'>d</span> + <span class='fu'>geom_density_2d_filled</span>(<span class='kw'>contour_var</span> <span class='kw'>=</span> <span class='st'>"count"</span>) + <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span>(<span class='fu'><a href='vars.html'>vars</a></span>(<span class='no'>cut</span>))</div><div class='img'><img src='geom_density_2d-7.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># If we turn contouring off, we can use other geoms, such as tiles:</span>
+<span class='no'>d</span> + <span class='fu'>stat_density_2d</span>(
+  <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"raster"</span>,
+  <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='aes_eval.html'>after_stat</a></span>(<span class='no'>density</span>)),
+  <span class='kw'>contour</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+) + <span class='fu'><a href='scale_viridis.html'>scale_fill_viridis_c</a></span>()</div><div class='img'><img src='geom_density_2d-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Or points:</span>
+<span class='no'>d</span> + <span class='fu'>stat_density_2d</span>(<span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"point"</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='fu'><a href='aes_eval.html'>after_stat</a></span>(<span class='no'>density</span>)), <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>contour</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='geom_density_2d-9.png' alt='' width='700' height='433' /></div><div class='input'># }
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

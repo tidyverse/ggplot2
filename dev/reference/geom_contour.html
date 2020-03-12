@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>2d contours of a 3d surface — geom_contour • ggplot2</title>
+<title>2D contours of a 3D surface — geom_contour • ggplot2</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -41,14 +41,14 @@
 
 
 
-<meta property="og:title" content="2d contours of a 3d surface — geom_contour" />
-<meta property="og:description" content="ggplot2 can not draw true 3d surfaces, but you can use geom_contour
-and geom_tile() to visualise 3d surfaces in 2d. To be a valid
-surface, the data must contain only a single row for each unique combination
-of the variables mapped to the x and y aesthetics. Contouring
+<meta property="og:title" content="2D contours of a 3D surface — geom_contour" />
+<meta property="og:description" content="ggplot2 can not draw true 3D surfaces, but you can use geom_contour(),
+geom_contour_filled(), and geom_tile() to visualise 3D surfaces in 2D.
+To specify a valid surface, the data must contain x, y, and z coordinates,
+and each unique combination of x and y can appear exactly once. Contouring
 tends to work best when x and y form a (roughly) evenly
 spaced grid. If your data is not evenly spaced, you may want to interpolate
-to a grid before visualising." />
+to a grid before visualising, see geom_density_2d()." />
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -183,19 +183,19 @@ to a grid before visualising." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>2d contours of a 3d surface</h1>
+    <h1>2D contours of a 3D surface</h1>
     <small class="dont-index">Source: <a href='https://github.com/tidyverse/ggplot2/blob/master/R/geom-contour.r'><code>R/geom-contour.r</code></a>, <a href='https://github.com/tidyverse/ggplot2/blob/master/R/stat-contour.r'><code>R/stat-contour.r</code></a></small>
     <div class="hidden name"><code>geom_contour.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>ggplot2 can not draw true 3d surfaces, but you can use <code>geom_contour</code>
-and <code><a href='geom_tile.html'>geom_tile()</a></code> to visualise 3d surfaces in 2d. To be a valid
-surface, the data must contain only a single row for each unique combination
-of the variables mapped to the <code>x</code> and <code>y</code> aesthetics. Contouring
+    <p>ggplot2 can not draw true 3D surfaces, but you can use <code>geom_contour()</code>,
+<code>geom_contour_filled()</code>, and <code><a href='geom_tile.html'>geom_tile()</a></code> to visualise 3D surfaces in 2D.
+To specify a valid surface, the data must contain <code>x</code>, <code>y</code>, and <code>z</code> coordinates,
+and each unique combination of <code>x</code> and <code>y</code> can appear exactly once. Contouring
 tends to work best when <code>x</code> and <code>y</code> form a (roughly) evenly
 spaced grid. If your data is not evenly spaced, you may want to interpolate
-to a grid before visualising.</p>
+to a grid before visualising, see <code><a href='geom_density_2d.html'>geom_density_2d()</a></code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>geom_contour</span>(
@@ -246,7 +246,7 @@ to a grid before visualising.</p>
 <span class='fu'>stat_contour_filled</span>(
   <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"polygon"</span>,
+  <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"contour_filled"</span>,
   <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
   <span class='no'>...</span>,
   <span class='kw'>bins</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -365,6 +365,18 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
 <li><p><code>weight</code></p></li>
 </ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
 
+<p><code>geom_contour_filled()</code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
+<li><p><strong><code>x</code></strong></p></li>
+<li><p><strong><code>y</code></strong></p></li>
+<li><p><code>alpha</code></p></li>
+<li><p><code>colour</code></p></li>
+<li><p><code>fill</code></p></li>
+<li><p><code>group</code></p></li>
+<li><p><code>linetype</code></p></li>
+<li><p><code>size</code></p></li>
+<li><p><code>subgroup</code></p></li>
+</ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
+
 <p><code>stat_contour()</code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
 <li><p><strong><code>x</code></strong></p></li>
 <li><p><strong><code>y</code></strong></p></li>
@@ -372,14 +384,31 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
 <li><p><code>group</code></p></li>
 <li><p><code>order</code></p></li>
 </ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
+
+<p><code>stat_contour_filled()</code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
+<li><p><strong><code>x</code></strong></p></li>
+<li><p><strong><code>y</code></strong></p></li>
+<li><p><strong><code>z</code></strong></p></li>
+<li><p><code>fill</code></p></li>
+<li><p><code>group</code></p></li>
+<li><p><code>order</code></p></li>
+</ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
     <h2 class="hasAnchor" id="computed-variables"><a class="anchor" href="#computed-variables"></a>Computed variables</h2>
 
     
 
-<dl class='dl-horizontal'>
-<dt>level</dt><dd><p>height of contour</p></dd>
-<dt>nlevel</dt><dd><p>height of contour, scaled to maximum of 1</p></dd>
-<dt>piece</dt><dd><p>contour piece (an integer)</p></dd>
+<p>The computed variables differ somewhat for contour lines (computed by
+<code>stat_contour()</code>) and contour bands (filled contours, computed by <code>stat_contour_filled()</code>).
+The variables <code>nlevel</code> and <code>piece</code> are available for both, whereas <code>level_low</code>, <code>level_high</code>,
+and <code>level_mid</code> are only available for bands. The variable <code>level</code> is a numeric or a factor
+depending on whether lines or bands are calculated.</p><dl class='dl-horizontal'>
+<dt><code>level</code></dt><dd><p>Height of contour. For contour lines, this is numeric vector that
+represents bin boundaries. For contour bands, this is an ordered factor that
+represents bin ranges.</p></dd>
+<dt><code>level_low</code>, <code>level_high</code>, <code>level_mid</code></dt><dd><p>(contour bands only) Lower and upper
+bin boundaries for each band, as well the mid point between the boundaries.</p></dd>
+<dt><code>nlevel</code></dt><dd><p>Height of contour, scaled to maximum of 1.</p></dd>
+<dt><code>piece</code></dt><dd><p>Contour piece (an integer).</p></dd>
 
 </dl>
 
@@ -388,7 +417,7 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
     <div class='dont-index'><p><code><a href='geom_density_2d.html'>geom_density_2d()</a></code>: 2d density contours</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>#' # Basic plot</span>
+    <pre class="examples"><div class='input'><span class='co'># Basic plot</span>
 <span class='no'>v</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>faithfuld</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>waiting</span>, <span class='no'>eruptions</span>, <span class='kw'>z</span> <span class='kw'>=</span> <span class='no'>density</span>))
 <span class='no'>v</span> + <span class='fu'>geom_contour</span>()</div><div class='img'><img src='geom_contour-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Or compute from raw data</span>
@@ -398,7 +427,7 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
 <span class='co'># use geom_contour_filled() for filled contours</span>
 <span class='no'>v</span> + <span class='fu'>geom_contour_filled</span>()</div><div class='img'><img src='geom_contour-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Setting bins creates evenly spaced contours in the range of the data</span>
-<span class='no'>v</span> + <span class='fu'>geom_contour</span>(<span class='kw'>bins</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='img'><img src='geom_contour-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>v</span> + <span class='fu'>geom_contour</span>(<span class='kw'>bins</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='img'><img src='geom_contour-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>v</span> + <span class='fu'>geom_contour</span>(<span class='kw'>bins</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='img'><img src='geom_contour-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>v</span> + <span class='fu'>geom_contour</span>(<span class='kw'>bins</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='img'><img src='geom_contour-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Setting binwidth does the same thing, parameterised by the distance</span>
 <span class='co'># between contours</span>
 <span class='no'>v</span> + <span class='fu'>geom_contour</span>(<span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='fl'>0.01</span>)</div><div class='img'><img src='geom_contour-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>v</span> + <span class='fu'>geom_contour</span>(<span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='fl'>0.001</span>)</div><div class='img'><img src='geom_contour-7.png' alt='' width='700' height='433' /></div><div class='input'>
