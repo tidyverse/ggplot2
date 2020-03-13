@@ -56,7 +56,7 @@
 #'   - The default ([scales::censor()]) replaces out of
 #'   bounds values with `NA`.
 #'   - [scales::squish()] for squishing out of bounds values into range.
-#'   - [scales::squish_infinite()] for squishing infitite values into range.
+#'   - [scales::squish_infinite()] for squishing infinite values into range.
 #' @param na.value Missing values will be replaced with this value.
 #' @param trans For continuous scales, the name of a transformation object
 #'   or the object itself. Built-in transformations include "asn", "atanh",
