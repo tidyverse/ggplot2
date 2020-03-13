@@ -285,11 +285,16 @@ is.discrete <- function(x) {
   is.factor(x) || is.character(x) || is.logical(x)
 }
 
-# This function checks that all columns of a dataframe `x` are data and
-# returns the names of any columns that are not.
-# We define "data" as atomic types or lists, not functions or otherwise
+# This function checks that all columns of a dataframe `x` are data and returns
+# the names of any columns that are not.
+# We define "data" as atomic types or lists, not functions or otherwise.
+# The `inherits(x, "Vector")` check is for checking S4 classes from Bioconductor
+# and wether they can be expected to follow behavior typical of vectors. See
+# also #3835
 check_nondata_cols <- function(x) {
-  idx <- (vapply(x, function(x) is.null(x) || rlang::is_vector(x), logical(1)))
+  idx <- (vapply(x, function(x) {
+    is.null(x) || rlang::is_vector(x) || inherits(x, "Vector")
+  }, logical(1)))
   names(x)[which(!idx)]
 }
 
@@ -379,7 +384,7 @@ NULL
 # Check inputs with tibble but allow column vectors (see #2609 and #2374)
 as_gg_data_frame <- function(x) {
   x <- lapply(x, validate_column_vec)
-  new_data_frame(tibble::as_tibble(x))
+  new_data_frame(x)
 }
 validate_column_vec <- function(x) {
   if (is_column_vec(x)) {

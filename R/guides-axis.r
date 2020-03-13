@@ -119,7 +119,7 @@ guide_transform.axis <- function(guide, coord, panel_params) {
 # discards the new guide with a warning
 #' @export
 guide_merge.axis <- function(guide, new_guide) {
-  if (!inherits(guide, "guide_none")) {
+  if (!inherits(new_guide, "guide_none")) {
     warn("guide_axis(): Discarding guide on merge. Do you have more than one guide with the same position?")
   }
 

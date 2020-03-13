@@ -157,15 +157,15 @@ test_that("facet_wrap()/facet_grid() compact the facet spec, and accept empty sp
   p_wrap <- p + facet_wrap(vars(NULL))
   d_wrap <- layer_data(p_wrap)
 
-  expect_equal(d_wrap$PANEL, c(1L, 1L, 1L))
-  expect_equal(d_wrap$group, c(-1L, -1L, -1L))
+  expect_equal(d_wrap$PANEL, factor(c(1L, 1L, 1L)))
+  expect_equal(d_wrap$group, structure(c(-1L, -1L, -1L), n = 1L))
 
   # facet_grid()
   p_grid <- p + facet_grid(vars(NULL))
   d_grid <- layer_data(p_grid)
 
-  expect_equal(d_grid$PANEL, c(1L, 1L, 1L))
-  expect_equal(d_grid$group, c(-1L, -1L, -1L))
+  expect_equal(d_grid$PANEL, factor(c(1L, 1L, 1L)))
+  expect_equal(d_grid$group, structure(c(-1L, -1L, -1L), n = 1L))
 })
 
 
