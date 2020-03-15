@@ -100,29 +100,77 @@ a.anchor {
   margin-top: -40px;
 }
 
+/* Navbar submenu --------------------------*/
+
+.dropdown-submenu {
+  position: relative;
+}
+
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+
+.dropdown-submenu.pull-left {
+  float: none;
+}
+
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+
 /* Sidebar --------------------------*/
 
-#sidebar {
+#pkgdown-sidebar {
   margin-top: 30px;
   position: -webkit-sticky;
   position: sticky;
   top: 70px;
 }
-#sidebar h2 {
+
+#pkgdown-sidebar h2 {
   font-size: 1.5em;
   margin-top: 1em;
 }
 
-#sidebar h2:first-child {
+#pkgdown-sidebar h2:first-child {
   margin-top: 0;
 }
 
-#sidebar .list-unstyled li {
+#pkgdown-sidebar .list-unstyled li {
   margin-bottom: 0.5em;
 }
 
 .orcid {
-  height: 16px;
+  font-size: 16px;
+  color: #A6CE39;
   /* margins are required by official ORCID trademark and display guidelines */
   margin-left:4px;
   margin-right:4px;
