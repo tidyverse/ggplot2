@@ -13,6 +13,12 @@
 * Added an `outside` option to `annotation_logticks()` that places tick marks
   outside of the plot bounds. (#3783, @kbodwin)
   
+* Facet strips now have dedicated position-dependent theme elements (`strip.text.x.top`,
+  `strip.text.x.bottom`, `strip.text.y.left`, `strip.text.y.right`) that inherit from
+  `strip.text.x` and `strip.text.y`, respectively. As a consequence, some theme stylings now
+  need to be applied to the position-dependent elements rather than to the parent elements. This
+  change was already introduced in ggplot2 3.3.0 but not listed in the changelog. (@thomasp85, #3683)
+  
 * Data columns can now contain `Vector` S4 objects, which are widely used in the 
   Bioconductor project. (@teunbrand, #3837)
 
