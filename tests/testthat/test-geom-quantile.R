@@ -17,7 +17,7 @@ test_that("geom_quantile matches quantile regression", {
       tau = quants,
       data = df
     ),
-    tibble::tibble(
+    data_frame(
       x = seq(min(x), max(x), length.out = 100)
     )
   )
@@ -25,12 +25,16 @@ test_that("geom_quantile matches quantile regression", {
   pred_rq <- cbind(seq(min(x), max(x), length.out = 100), pred_rq)
   colnames(pred_rq) <- c("x", paste("Q", quants * 100, sep = "_"))
 
-  ggplot_data <- tibble::as_tibble(layer_data(ps))
+  # pred_rq is a matrix; convert it to data.frame so that it can be compared
+  pred_rq <- as.data.frame(pred_rq)
+
+  ggplot_data <- layer_data(ps)
 
   pred_rq_test_25 <- pred_rq[, c("x", "Q_25")]
   colnames(pred_rq_test_25) <- c("x", "y")
 
-  expect_equal(
+  # Use expect_equivalent() to ignore rownames
+  expect_equivalent(
     ggplot_data[ggplot_data$quantile == 0.25, c("x", "y")],
     pred_rq_test_25
   )
@@ -38,7 +42,7 @@ test_that("geom_quantile matches quantile regression", {
   pred_rq_test_50 <- pred_rq[, c("x", "Q_50")]
   colnames(pred_rq_test_50) <- c("x", "y")
 
-  expect_equal(
+  expect_equivalent(
     ggplot_data[ggplot_data$quantile == 0.5, c("x", "y")],
     pred_rq_test_50
   )
@@ -46,7 +50,7 @@ test_that("geom_quantile matches quantile regression", {
   pred_rq_test_75 <- pred_rq[, c("x", "Q_75")]
   colnames(pred_rq_test_75) <- c("x", "y")
 
-  expect_equal(
+  expect_equivalent(
     ggplot_data[ggplot_data$quantile == 0.75, c("x", "y")],
     pred_rq_test_75
   )
