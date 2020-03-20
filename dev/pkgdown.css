@@ -17,6 +17,10 @@ html, body {
   height: 100%;
 }
 
+body {
+  position: relative;
+}
+
 body > .container {
   display: flex;
   height: 100%;
@@ -167,6 +171,61 @@ a.anchor {
 #pkgdown-sidebar .list-unstyled li {
   margin-bottom: 0.5em;
 }
+
+/* bootstrap-toc tweaks ------------------------------------------------------*/
+
+/* All levels of nav */
+
+nav[data-toggle='toc'] .nav > li > a {
+  padding: 4px 20px 4px 6px;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: inherit;
+}
+
+nav[data-toggle='toc'] .nav > li > a:hover,
+nav[data-toggle='toc'] .nav > li > a:focus {
+  padding-left: 5px;
+  color: inherit;
+  border-left: 1px solid #878787;
+}
+
+nav[data-toggle='toc'] .nav > .active > a,
+nav[data-toggle='toc'] .nav > .active:hover > a,
+nav[data-toggle='toc'] .nav > .active:focus > a {
+  padding-left: 5px;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: inherit;
+  border-left: 2px solid #878787;
+}
+
+/* Nav: second level (shown on .active) */
+
+nav[data-toggle='toc'] .nav .nav {
+  display: none; /* Hide by default, but at >768px, show it */
+  padding-bottom: 10px;
+}
+
+nav[data-toggle='toc'] .nav .nav > li > a {
+  padding-left: 16px;
+  font-size: 1.35rem;
+}
+
+nav[data-toggle='toc'] .nav .nav > li > a:hover,
+nav[data-toggle='toc'] .nav .nav > li > a:focus {
+  padding-left: 15px;
+}
+
+nav[data-toggle='toc'] .nav .nav > .active > a,
+nav[data-toggle='toc'] .nav .nav > .active:hover > a,
+nav[data-toggle='toc'] .nav .nav > .active:focus > a {
+  padding-left: 15px;
+  font-weight: 500;
+  font-size: 1.35rem;
+}
+
+/* orcid ------------------------------------------------------------------- */
 
 .orcid {
   font-size: 16px;

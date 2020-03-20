@@ -69,7 +69,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -94,27 +94,6 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/extending-ggplot2.html">Extending ggplot2</a>
-    </li>
-    <li>
-      <a href="../articles/ggplot2-in-packages.html">Using ggplot2 in packages</a>
-    </li>
-    <li>
-      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
-    </li>
-    <li>
-      <a href="../articles/profiling.html">Profiling Performance</a>
-    </li>
-  </ul>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -154,11 +133,32 @@
     </li>
   </ul>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/extending-ggplot2.html">Extending ggplot2</a>
+    </li>
+    <li>
+      <a href="../articles/ggplot2-in-packages.html">Using ggplot2 in packages</a>
+    </li>
+    <li>
+      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+    </li>
+    <li>
+      <a href="../articles/profiling.html">Profiling Performance</a>
+    </li>
+  </ul>
+</li>
         <li>
   <a href="https://www.ggplot2-exts.org/gallery/">Extensions</a>
 </li>
 <li>
-  <a href="https://github.com/tidyverse/ggplot2">
+  <a href="https://github.com/tidyverse/ggplot2/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -176,12 +176,12 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Changelog <small></small></h1>
+      <h1 data-toc-skip>Changelog <small></small></h1>
       <small>Source: <a href='https://github.com/tidyverse/ggplot2/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
     <div id="ggplot2-development-version" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="development version">
 <a href="#ggplot2-development-version" class="anchor"></a>ggplot2 (development version)<small> Unreleased </small>
 </h1>
 <ul>
@@ -193,7 +193,7 @@
 </ul>
 </div>
     <div id="ggplot2-330" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="3.3.0">
 <a href="#ggplot2-330" class="anchor"></a>ggplot2 3.3.0<small> 2020-03-05 </small>
 </h1>
 <p>This is a minor release but does contain a range of substantial new features, along with the standard bug fixes. The release contains a few visual breaking changes, along with breaking changes for extension developers due to a shift in internal representation of the position scales and their axes. No user breaking changes are included.</p>
@@ -263,7 +263,7 @@
 </div>
 </div>
     <div id="ggplot2-321" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="3.2.1">
 <a href="#ggplot2-321" class="anchor"></a>ggplot2 3.2.1<small> 2019-08-10 </small>
 </h1>
 <p>This is a patch release fixing a few regressions introduced in 3.2.0 as well as fixing some unit tests that broke due to upstream changes.</p>
@@ -275,7 +275,7 @@
 </ul>
 </div>
     <div id="ggplot2-320" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="3.2.0">
 <a href="#ggplot2-320" class="anchor"></a>ggplot2 3.2.0<small> 2019-06-16 </small>
 </h1>
 <p>This is a minor release with an emphasis on internal changes to make ggplot2 faster and more consistent. The few interface changes will only affect the aesthetics of the plot in minor ways, and will only potentially break code of extension developers if they have relied on internals that have been changed. This release also sees the addition of Hiroaki Yutani (<a href='https://github.com/yutannihilation'>@yutannihilation</a>) to the core developer team.</p>
@@ -371,7 +371,7 @@
 </div>
 </div>
     <div id="ggplot2-310" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="3.1.0">
 <a href="#ggplot2-310" class="anchor"></a>ggplot2 3.1.0<small> 2018-10-25 </small>
 </h1>
 <div id="breaking-changes-2" class="section level2">
@@ -421,7 +421,7 @@
 </div>
 </div>
     <div id="ggplot2-300" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="3.0.0">
 <a href="#ggplot2-300" class="anchor"></a>ggplot2 3.0.0<small> 2018-07-03 </small>
 </h1>
 <div id="breaking-changes-3" class="section level2">
@@ -679,7 +679,7 @@ to determine which elements overlap, and spreads overlapping elements evenly wit
 </div>
 </div>
     <div id="ggplot2-221" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="2.2.1">
 <a href="#ggplot2-221" class="anchor"></a>ggplot2 2.2.1<small> 2016-12-30 </small>
 </h1>
 <ul>
@@ -687,7 +687,7 @@ to determine which elements overlap, and spreads overlapping elements evenly wit
 </ul>
 </div>
     <div id="ggplot2-220" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="2.2.0">
 <a href="#ggplot2-220" class="anchor"></a>ggplot2 2.2.0<small> 2016-11-11 </small>
 </h1>
 <div id="major-new-features" class="section level2">
@@ -831,7 +831,7 @@ to determine which elements overlap, and spreads overlapping elements evenly wit
 </div>
 </div>
     <div id="ggplot2-210" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="2.1.0">
 <a href="#ggplot2-210" class="anchor"></a>ggplot2 2.1.0<small> 2016-03-01 </small>
 </h1>
 <div id="new-features-4" class="section level2">
@@ -891,7 +891,7 @@ to determine which elements overlap, and spreads overlapping elements evenly wit
 </div>
 </div>
     <div id="ggplot2-200" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="2.0.0">
 <a href="#ggplot2-200" class="anchor"></a>ggplot2 2.0.0<small> 2015-12-18 </small>
 </h1>
 <div id="major-changes" class="section level2">
@@ -1126,21 +1126,9 @@ to determine which elements overlap, and spreads overlapping elements evenly wit
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <div id="tocnav">
-      <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-        <li><a href="#ggplot2-development-version">development version</a></li>
-        <li><a href="#ggplot2-330">3.3.0</a></li>
-        <li><a href="#ggplot2-321">3.2.1</a></li>
-        <li><a href="#ggplot2-320">3.2.0</a></li>
-        <li><a href="#ggplot2-310">3.1.0</a></li>
-        <li><a href="#ggplot2-300">3.0.0</a></li>
-        <li><a href="#ggplot2-221">2.2.1</a></li>
-        <li><a href="#ggplot2-220">2.2.0</a></li>
-        <li><a href="#ggplot2-210">2.1.0</a></li>
-        <li><a href="#ggplot2-200">2.0.0</a></li>
-      </ul>
-    </div>
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 
 </div>
