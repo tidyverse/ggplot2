@@ -32,8 +32,7 @@ Imports:
     scales (>= 0.5.0),
     stats,
     tibble,
-    withr (>= 2.0.0), 
-    lifecycle
+    withr (>= 2.0.0)
 Suggests:
     covr,
     dplyr,
@@ -255,6 +254,6 @@ Collate:
     'zxx.r'
     'zzz.r'
 VignetteBuilder: knitr
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
