@@ -32,7 +32,8 @@ Imports:
     scales (>= 0.5.0),
     stats,
     tibble,
-    withr (>= 2.0.0)
+    withr (>= 2.0.0), 
+    lifecycle
 Suggests:
     covr,
     dplyr,
