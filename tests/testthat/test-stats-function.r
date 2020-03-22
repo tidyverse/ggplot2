@@ -35,6 +35,23 @@ test_that("works with discrete x", {
   expect_equal(ret$y, 1:2)
 })
 
+test_that("works with transformed scales", {
+  dat <- data_frame(x = 1:10)
+
+  base <- ggplot(dat, aes(x, group = 1)) +
+    stat_function(fun = ~ .x^2, geom = "point", n = 5)
+
+  ret <- layer_data(base)
+  expect_equal(ret$y, ret$x^2)
+
+  ret <- layer_data(base + scale_x_log10())
+  expect_equal(ret$y, (10^ret$x)^2)
+
+  ret <- layer_data(base + scale_y_log10(limits = c(.1, 100)))
+  expect_equal(log10(ret$y), ret$x^2)
+})
+
+
 test_that("works with formula syntax", {
   dat <- data_frame(x = 1:10)
 

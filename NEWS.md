@@ -3,6 +3,9 @@
 * `annotation_raster()` adds support for native rasters. For large rasters,
   native rasters render significantly faster than arrays (@kent37, #3388)
   
+* `stat_function()` now works with transformed y axes, e.g. `scale_y_log10()`
+  (@clauswilke, #3905).
+  
 * A newly added geom `geom_density_2d_filled()` and associated stat 
   `stat_density_2d_filled()` can draw filled density contours
   (@clauswilke, #3846).
