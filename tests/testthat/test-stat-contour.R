@@ -13,6 +13,25 @@ test_that("contouring sparse data results in a warning", {
   expect_warning(ggplot_build(p), "Zero contours were generated")
 })
 
+test_that("contouring irregularly spaced data works", {
+  tbl <- expand.grid(x = c(1, 10, 100, 1000), y = 1:3)
+  tbl$z <- 1
+  tbl[c(6, 7), ]$z <- 10
+  p <- ggplot(tbl, aes(x, y, z = z)) + geom_contour(breaks = c(4, 8))
+
+  # we're testing for set equality here because contour lines are not
+  # guaranteed to start and end at the same point on all architectures
+  d <- layer_data(p)
+  d4 <- d[d$level == 4,]
+  expect_equal(nrow(d4), 7)
+  expect_setequal(d4$x, c(4, 10, 100, 700))
+  expect_setequal(d4$y, c(2, 8/3, 4/3))
+  d8 <- d[d$level == 8,]
+  expect_equal(nrow(d8), 7)
+  expect_setequal(d8$x, c(8, 10, 100, 300))
+  expect_setequal(d8$y, c(2, 20/9, 16/9))
+})
+
 test_that("contour breaks can be set manually and by bins and binwidth", {
   range <- c(0, 1)
   expect_equal(contour_breaks(range), pretty(range, 10))
