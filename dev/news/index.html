@@ -461,17 +461,17 @@
 <li>
 <p>Error: unused argument (output)</p>
 <p>The function <code><a href="../reference/guide-exts.html">guide_train()</a></code> now has an optional parameter <code>aesthetic</code> that allows you to override the <code>aesthetic</code> setting in the scale. To make your code work with the both released and development versions of ggplot2 appropriate, add <code>aesthetic = NULL</code> to the <code><a href="../reference/guide-exts.html">guide_train()</a></code> method signature.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># old</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a>guide_train.legend &lt;-<span class="st"> </span><span class="cf">function</span>(guide, scale) {...}</span>
-<span id="cb1-3"><a href="#cb1-3"></a></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># new </span></span>
-<span id="cb1-5"><a href="#cb1-5"></a>guide_train.legend &lt;-<span class="st"> </span><span class="cf">function</span>(guide, scale, <span class="dt">aesthetic =</span> <span class="ot">NULL</span>) {...}</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="r"><span class="co"># old</span>
+<span class="no">guide_train.legend</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">guide</span>, <span class="no">scale</span>) {<span class="no">...</span>}
+
+<span class="co"># new </span>
+<span class="no">guide_train.legend</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">guide</span>, <span class="no">scale</span>, <span class="no">aesthetic</span> <span class="kw">=</span> <span class="kw">NULL</span>) {<span class="no">...</span>}</pre></div>
 <p>Then, inside the function, replace <code>scale$aesthetics[1]</code>, <code>aesthetic %||% scale$aesthetics[1]</code>. (The %||% operator is defined in the rlang package).</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># old</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="kw"><a href="https://rdrr.io/r/stats/setNames.html">setNames</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(scale<span class="op">$</span><span class="kw">map</span>(breaks)), scale<span class="op">$</span>aesthetics[<span class="dv">1</span>])</span>
-<span id="cb2-3"><a href="#cb2-3"></a></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="co"># new</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="kw"><a href="https://rdrr.io/r/stats/setNames.html">setNames</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(scale<span class="op">$</span><span class="kw">map</span>(breaks)), aesthetic <span class="op">%||%</span><span class="st"> </span>scale<span class="op">$</span>aesthetics[<span class="dv">1</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="r"><span class="co"># old</span>
+<span class="fu"><a href="https://rdrr.io/r/stats/setNames.html">setNames</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="no">scale</span>$<span class="fu">map</span>(<span class="no">breaks</span>)), <span class="no">scale</span>$<span class="no">aesthetics</span>[<span class="fl">1</span>])
+
+<span class="co"># new</span>
+<span class="fu"><a href="https://rdrr.io/r/stats/setNames.html">setNames</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="no">scale</span>$<span class="fu">map</span>(<span class="no">breaks</span>)), <span class="no">aesthetic</span> <span class="kw">%||%</span> <span class="no">scale</span>$<span class="no">aesthetics</span>[<span class="fl">1</span>])</pre></div>
 </li>
 <li><p>The long-deprecated <code>subset</code> argument to <code><a href="../reference/layer.html">layer()</a></code> has been removed.</p></li>
 </ul>
@@ -493,9 +493,9 @@
 <ul>
 <li>
 <p>ggplot2 now has full support for sf with <code><a href="../reference/ggsf.html">geom_sf()</a></code> and <code><a href="../reference/ggsf.html">coord_sf()</a></code>:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>nc &lt;-<span class="st"> </span>sf<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/sf/man/st_read.html">st_read</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"shape/nc.shp"</span>, <span class="dt">package =</span> <span class="st">"sf"</span>), <span class="dt">quiet =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="kw"><a href="../reference/ggplot.html">ggplot</a></span>(nc) <span class="op">+</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="st">  </span><span class="kw"><a href="../reference/ggsf.html">geom_sf</a></span>(<span class="kw"><a href="../reference/aes.html">aes</a></span>(<span class="dt">fill =</span> AREA))</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="r"><span class="no">nc</span> <span class="kw">&lt;-</span> <span class="kw pkg">sf</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/sf/man/st_read.html">st_read</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"shape/nc.shp"</span>, <span class="kw">package</span> <span class="kw">=</span> <span class="st">"sf"</span>), <span class="kw">quiet</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
+<span class="fu"><a href="../reference/ggplot.html">ggplot</a></span>(<span class="no">nc</span>) +
+  <span class="fu"><a href="../reference/ggsf.html">geom_sf</a></span>(<span class="fu"><a href="../reference/aes.html">aes</a></span>(<span class="kw">fill</span> <span class="kw">=</span> <span class="no">AREA</span>))</pre></div>
 <p>It supports all simple features, automatically aligns CRS across layers, sets up the correct aspect ratio, and draws a graticule.</p>
 </li>
 </ul>
@@ -537,9 +537,9 @@ to determine which elements overlap, and spreads overlapping elements evenly wit
 <li>
 <p>The <code>expand</code> argument of <code>scale_*_continuous()</code> and <code>scale_*_discrete()</code> now accepts separate expansion values for the lower and upper range limits. The expansion limits can be specified using the convenience function <code><a href="../reference/expansion.html">expand_scale()</a></code>.</p>
 <p>Separate expansion limits may be useful for bar charts, e.g. if one wants the bottom of the bars to be flush with the x axis but still leave some (automatically calculated amount of) space above them:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw"><a href="../reference/ggplot.html">ggplot</a></span>(mtcars) <span class="op">+</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="st">    </span><span class="kw"><a href="../reference/geom_bar.html">geom_bar</a></span>(<span class="kw"><a href="../reference/aes.html">aes</a></span>(<span class="dt">x =</span> <span class="kw"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(cyl))) <span class="op">+</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="st">    </span><span class="kw"><a href="../reference/scale_continuous.html">scale_y_continuous</a></span>(<span class="dt">expand =</span> <span class="kw"><a href="../reference/expansion.html">expand_scale</a></span>(<span class="dt">mult =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>, <span class="fl">.1</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="r"><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span>(<span class="no">mtcars</span>) +
+    <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span>(<span class="fu"><a href="../reference/aes.html">aes</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="no">cyl</span>))) +
+    <span class="fu"><a href="../reference/scale_continuous.html">scale_y_continuous</a></span>(<span class="kw">expand</span> <span class="kw">=</span> <span class="fu"><a href="../reference/expansion.html">expand_scale</a></span>(<span class="kw">mult</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">.1</span>)))</pre></div>
 <p>It can also be useful for line charts, e.g. for counts over time, where one wants to have a ’hard’ lower limit of y = 0 but leave the upper limit unspecified (and perhaps differing between panels), with some extra space above the highest point on the line (with symmetrical limits, the extra space above the highest point could in some cases cause the lower limit to be negative).</p>
 <p>The old syntax for the <code>expand</code> argument will, of course, continue to work (<a href='https://github.com/huftis'>@huftis</a>, <a href='https://github.com/tidyverse/ggplot2/issues/1669'>#1669</a>).</p>
 </li>
@@ -985,11 +985,11 @@ to determine which elements overlap, and spreads overlapping elements evenly wit
 <li><p>Sizes in ggplot2 are measured in mm. Previously they were converted to pts (for use in grid) by multiplying by 72 / 25.4. However, grid uses printer’s points, not Adobe (big pts), so sizes are now correctly multiplied by 72.27 / 25.4. This is unlikely to noticeably affect display, but it’s technically correct (<a href="https://youtu.be/hou0lU8WMgo" class="uri">https://youtu.be/hou0lU8WMgo</a>).</p></li>
 <li>
 <p>The default legend will now allocate multiple rows (if vertical) or columns (if horizontal) in order to make a legend that is more likely to fit on the screen. You can override with the <code>nrow</code>/<code>ncol</code> arguments to <code><a href="../reference/guide_legend.html">guide_legend()</a></code></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>p &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ggplot.html">ggplot</a></span>(mpg, <span class="kw"><a href="../reference/aes.html">aes</a></span>(displ,hwy, <span class="dt">colour =</span> model)) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="../reference/geom_point.html">geom_point</a></span>()</span>
-<span id="cb5-2"><a href="#cb5-2"></a>p</span>
-<span id="cb5-3"><a href="#cb5-3"></a>p <span class="op">+</span><span class="st"> </span><span class="kw"><a href="../reference/theme.html">theme</a></span>(<span class="dt">legend.position =</span> <span class="st">"bottom"</span>)</span>
-<span id="cb5-4"><a href="#cb5-4"></a><span class="co"># Previous behaviour</span></span>
-<span id="cb5-5"><a href="#cb5-5"></a>p <span class="op">+</span><span class="st"> </span><span class="kw"><a href="../reference/guides.html">guides</a></span>(<span class="dt">colour =</span> <span class="kw"><a href="../reference/guide_legend.html">guide_legend</a></span>(<span class="dt">ncol =</span> <span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="r"><span class="no">p</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span>(<span class="no">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span>(<span class="no">displ</span>,<span class="no">hwy</span>, <span class="kw">colour</span> <span class="kw">=</span> <span class="no">model</span>)) + <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span>()
+<span class="no">p</span>
+<span class="no">p</span> + <span class="fu"><a href="../reference/theme.html">theme</a></span>(<span class="kw">legend.position</span> <span class="kw">=</span> <span class="st">"bottom"</span>)
+<span class="co"># Previous behaviour</span>
+<span class="no">p</span> + <span class="fu"><a href="../reference/guides.html">guides</a></span>(<span class="kw">colour</span> <span class="kw">=</span> <span class="fu"><a href="../reference/guide_legend.html">guide_legend</a></span>(<span class="kw">ncol</span> <span class="kw">=</span> <span class="fl">1</span>))</pre></div>
 </li>
 </ul>
 </div>
