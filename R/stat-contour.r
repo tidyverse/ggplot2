@@ -206,14 +206,14 @@ xyz_to_isobands <- function(data, breaks) {
 #'
 isoband_z_matrix <- function(data) {
   # Convert vector of data to raster
-  x_pos <- as.integer((data$x - min(data$x)) / resolution(data$x, FALSE))
-  y_pos <- as.integer((max(data$y) - data$y) / resolution(data$y, FALSE))
+  x_pos <- as.integer(factor(data$x, levels = sort(unique(data$x))))
+  y_pos <- as.integer(factor(data$y, levels = sort(unique(data$y))))
 
-  nrow <- max(y_pos) + 1
-  ncol <- max(x_pos) + 1
+  nrow <- max(y_pos)
+  ncol <- max(x_pos)
 
   raster <- matrix(NA_real_, nrow = nrow, ncol = ncol)
-  raster[cbind(nrow - y_pos, x_pos + 1)] <- data$z
+  raster[cbind(y_pos, x_pos)] <- data$z
 
   raster
 }
