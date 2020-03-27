@@ -195,6 +195,7 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 
 #' Binning scale constructor
 #'
+#' @export
 #' @inheritParams continuous_scale
 #' @param n.breaks The number of break points to create if breaks are not given
 #'   directly.
