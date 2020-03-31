@@ -103,3 +103,14 @@ test_that("expand_limits_continuous_trans() works with inverted transformations"
   expect_identical(limit_info$continuous_range, c(0, 3))
   expect_identical(limit_info$continuous_range_coord, c(0, -3))
 })
+
+test_that("expand_limits_scale_discrete() correctly handles numeric limits", {
+  expect_identical(
+    expand_limits_discrete(
+      -1:-16,
+      coord_limits = c(NA, NA),
+      range_continuous = c(-15, -2)
+    ),
+    c(-15, -2)
+  )
+})
