@@ -10,6 +10,8 @@ matrix:
   - r: release
     env: VDIFFR_RUN_TESTS=true
     env: VDIFFR_LOG_PATH="../vdiffr.Rout.fail"
+    before_install:
+      - echo $VDIFFR_RUN_TESTS
   - r: 3.5
   - r: 3.4
   - r: 3.3
