@@ -138,6 +138,10 @@ test_that("discrete scales with no data have no breaks or labels", {
   expect_equal(sc$get_limits(), c(0, 1))
 })
 
+test_that("passing continuous limits to a discrete scale generates a warning", {
+  expect_warning(scale_x_discrete(limits = 1:3), "Continuous limits supplied to discrete scale")
+})
+
 test_that("suppressing breaks, minor_breask, and labels works", {
   expect_equal(scale_x_continuous(breaks = NULL, limits = c(1, 3))$get_breaks(), NULL)
   expect_equal(scale_x_discrete(breaks = NULL, limits = c("one", "three"))$get_breaks(), NULL)
