@@ -140,11 +140,11 @@ test_that("discrete scales with no data have no breaks or labels", {
 
 test_that("suppressing breaks, minor_breask, and labels works", {
   expect_equal(scale_x_continuous(breaks = NULL, limits = c(1, 3))$get_breaks(), NULL)
-  expect_equal(scale_x_discrete(breaks = NULL, limits = c(1, 3))$get_breaks(), NULL)
+  expect_equal(scale_x_discrete(breaks = NULL, limits = c("one", "three"))$get_breaks(), NULL)
   expect_equal(scale_x_continuous(minor_breaks = NULL, limits = c(1, 3))$get_breaks_minor(), NULL)
 
   expect_equal(scale_x_continuous(labels = NULL, limits = c(1, 3))$get_labels(), NULL)
-  expect_equal(scale_x_discrete(labels = NULL, limits = c(1, 3))$get_labels(), NULL)
+  expect_equal(scale_x_discrete(labels = NULL, limits = c("one", "three"))$get_labels(), NULL)
 
   # date, datetime
   lims <- as.Date(c("2000/1/1", "2000/2/1"))

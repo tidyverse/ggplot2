@@ -200,12 +200,9 @@ expand_limits_continuous_trans <- function(limits, expand = expansion(0, 0),
 expand_limits_discrete_trans <- function(limits, expand = expansion(0, 0),
                                          coord_limits = c(NA, NA), trans = identity_trans(),
                                          range_continuous = NULL) {
-  if (is.discrete(limits) || length(limits) == 0) {
+  if (is.discrete(limits)) {
     n_discrete_limits <- length(limits)
   } else {
-    warn(
-      "Continuous limits supplied to discrete scale.\nDid you mean `limits = factor(...)` or `scale_*_continuous()`?"
-    )
     n_discrete_limits <- 0
   }
 

@@ -164,6 +164,16 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 
   check_breaks_labels(breaks, labels)
 
+  if (!is.function(limits) && (length(limits) > 0) && !is.discrete(limits)) {
+    warn(
+      glue(
+        "
+        Continuous limits supplied to discrete scale.
+        Did you mean `limits = factor(...)` or `scale_*_continuous()`?"
+      )
+    )
+  }
+
   position <- match.arg(position, c("left", "right", "top", "bottom"))
 
   # If the scale is non-positional, break = NULL means removing the guide
