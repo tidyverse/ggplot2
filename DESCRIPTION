@@ -142,6 +142,7 @@ Collate:
     'geom-quantile.r'
     'geom-rug.r'
     'geom-sf.R'
+    'geom-shadowpath.r'
     'geom-smooth.r'
     'geom-spoke.r'
     'geom-text.r'
@@ -254,6 +255,6 @@ Collate:
     'zxx.r'
     'zzz.r'
 VignetteBuilder: knitr
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
