@@ -16,6 +16,8 @@
 * Data columns can now contain `Vector` S4 objects, which are widely used in the 
   Bioconductor project. (@teunbrand, #3837)
 
+* Facets now handle layers containing no data (@yutannihilation, #3853).
+
 # ggplot2 3.3.0
 
 This is a minor release but does contain a range of substantial new features, 
