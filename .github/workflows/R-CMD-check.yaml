@@ -98,8 +98,9 @@ jobs:
           name: ${{ runner.os }}-r${{ matrix.config.r }}-results
           path: check
 
-      # TODO: uncomment this when we fix the failure of covr::codecov()
-      # - name: Test coverage
-      #   if: matrix.config.os == 'macOS-latest' && matrix.config.r == '3.6'
-      #   run: covr::codecov()
-      #   shell: Rscript {0}
+      - name: Test coverage
+        if: matrix.config.os == 'macOS-latest' && matrix.config.r == '3.6'
+        run: |
+          remotes::install_github("r-lib/covr")
+          covr::codecov()
+        shell: Rscript {0}
