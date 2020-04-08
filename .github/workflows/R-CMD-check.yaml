@@ -20,7 +20,8 @@ jobs:
         config:
           - {os: windows-latest, r: '3.6', vdiffr: true}
           - {os: macOS-latest, r: '3.6', vdiffr: true}
-          - {os: macOS-latest, r: 'devel', vdiffr: false}
+          # TODO
+          # - {os: macOS-latest, r: 'devel', vdiffr: false}
           - {os: ubuntu-16.04, r: '3.2', vdiffr: false, cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
           - {os: ubuntu-16.04, r: '3.3', vdiffr: false, cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
           - {os: ubuntu-16.04, r: '3.4', vdiffr: false, cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
