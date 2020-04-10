@@ -14,7 +14,8 @@ has_flipped_aes(
   range_is_orthogonal = NA,
   group_has_equal = FALSE,
   ambiguous = FALSE,
-  main_is_continuous = FALSE
+  main_is_continuous = FALSE,
+  main_is_optional = FALSE
 )
 
 flip_data(data, flip = NULL)
@@ -43,6 +44,9 @@ will only be flipped if \code{params$orientation == "y"}}
 
 \item{main_is_continuous}{If there is a discrete and continuous axis, does
 the continuous one correspond to the main orientation?}
+
+\item{main_is_optional}{Is the main axis aesthetic optional and, if not
+given, set to \code{0}}
 
 \item{flip}{Logical. Is the layer flipped.}
 }
@@ -101,6 +105,10 @@ the one which is not discrete-like. Conversely, if \code{FALSE} the main axis
 will be the discrete-like one. Examples of \code{TRUE} is \code{\link[=stat_density]{stat_density()}} and
 \code{\link[=stat_bin]{stat_bin()}}, while examples of \code{FALSE} is \code{\link[=stat_ydensity]{stat_ydensity()}} and
 \code{\link[=stat_boxplot]{stat_boxplot()}}
+\item \code{main_is_optional}: This argument controls the rare case of layers were the
+main direction is an optional aesthetic. This is only seen in
+\code{\link[=stat_boxplot]{stat_boxplot()}} where \code{x} is set to \code{0} if not given. If \code{TRUE} there will
+be a check for whether all \code{x} or all \code{y} are equal to \code{0}
 }
 }
 

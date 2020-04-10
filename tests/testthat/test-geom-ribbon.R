@@ -34,11 +34,8 @@ test_that("outline.type option works", {
 
   g_ribbon_default <- layer_grob(p + geom_ribbon())[[1]]
   g_ribbon_upper   <- layer_grob(p + geom_ribbon(outline.type = "upper"))[[1]]
-  g_ribbon_legacy  <- expect_warning(
-    layer_grob(p + geom_ribbon(outline.type = "legacy"))[[1]],
-    'outline.type = "legacy" is only for backward-compatibility and might be removed eventually',
-    fixed = TRUE
-  )
+  g_ribbon_lower   <- layer_grob(p + geom_ribbon(outline.type = "lower"))[[1]]
+  g_ribbon_full    <- layer_grob(p + geom_ribbon(outline.type = "full"))[[1]]
   g_area_default   <- layer_grob(ggplot(df, aes(x, y)) + geom_area())[[1]]
 
   # default
@@ -51,8 +48,13 @@ test_that("outline.type option works", {
   expect_s3_class(g_ribbon_upper$children[[1]]$children[[2]], "polyline")
   expect_equal(g_ribbon_upper$children[[1]]$children[[2]]$id, rep(c(1L, NA), each = 4))
 
-  # legacy
-  expect_s3_class(g_ribbon_legacy$children[[1]], "polygon")
+  # lower
+  expect_s3_class(g_ribbon_lower$children[[1]]$children[[1]], "polygon")
+  expect_s3_class(g_ribbon_lower$children[[1]]$children[[2]], "polyline")
+  expect_equal(g_ribbon_lower$children[[1]]$children[[2]]$id, rep(c(NA, 1L), each = 4))
+
+  # full
+  expect_s3_class(g_ribbon_full$children[[1]], "polygon")
 
   # geom_area()'s default is upper
   expect_s3_class(g_area_default$children[[1]]$children[[1]], "polygon")

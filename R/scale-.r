@@ -56,7 +56,7 @@
 #'   - The default ([scales::censor()]) replaces out of
 #'   bounds values with `NA`.
 #'   - [scales::squish()] for squishing out of bounds values into range.
-#'   - [scales::squish_infinite()] for squishing infitite values into range.
+#'   - [scales::squish_infinite()] for squishing infinite values into range.
 #' @param na.value Missing values will be replaced with this value.
 #' @param trans For continuous scales, the name of a transformation object
 #'   or the object itself. Built-in transformations include "asn", "atanh",
@@ -687,6 +687,18 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     if (length(labels) != length(breaks)) {
       abort("Breaks and labels are different lengths")
     }
+    if (is.list(labels)) {
+      # Guard against list with empty elements
+      labels[vapply(labels, length, integer(1)) == 0] <- ""
+      # Make sure each element is scalar
+      labels <- lapply(labels, `[`, 1)
+
+      if (any(vapply(labels, is.language, logical(1)))) {
+        labels <- do.call(expression, labels)
+      } else {
+        labels <- unlist(labels)
+      }
+    }
 
     labels
   },
@@ -734,7 +746,11 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
 
     cat("<", class(self)[[1]], ">\n", sep = "")
     cat(" Range:  ", show_range(self$range$range), "\n", sep = "")
-    cat(" Limits: ", show_range(self$dimension()), "\n", sep = "")
+    if (is.function(self$limits)) {
+      cat(" Limits: function()\n")
+    } else {
+      cat(" Limits: ", show_range(self$dimension()), "\n", sep = "")
+    }
   }
 )
 
@@ -848,7 +864,6 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
     }
 
     if (is.waive(self$labels)) {
-      breaks <- self$get_breaks()
       if (is.numeric(breaks)) {
         # Only format numbers, because on Windows, format messes up encoding
         format(breaks, justify = "none")
@@ -971,7 +986,8 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
         self$palette.cache <- pal
       }
 
-      pal[x_binned]
+      scaled <- pal[x_binned]
+      ifelse(!is.na(scaled), scaled, self$na.value)
     }
   },
 

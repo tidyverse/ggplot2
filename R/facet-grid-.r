@@ -210,7 +210,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     base <- df.grid(base_rows, base_cols)
 
     if (nrow(base) == 0) {
-      return(new_data_frame(list(PANEL = 1L, ROW = 1L, COL = 1L, SCALE_X = 1L, SCALE_Y = 1L)))
+      return(new_data_frame(list(PANEL = factor(1L), ROW = 1L, COL = 1L, SCALE_X = 1L, SCALE_Y = 1L)))
     }
 
     # Add margins
@@ -252,7 +252,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       intersect(names(cols), names(data)))
     data <- reshape_add_margins(data, margin_vars, params$margins)
 
-    facet_vals <- eval_facets(c(rows, cols), data, params$plot_env)
+    facet_vals <- eval_facets(c(rows, cols), data, params$.possible_columns)
 
     # If any faceting variables are missing, add them in by
     # duplicating the data

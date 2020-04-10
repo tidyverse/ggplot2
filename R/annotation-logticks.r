@@ -7,6 +7,9 @@
 #' @param sides a string that controls which sides of the plot the log ticks appear on.
 #'   It can be set to a string containing any of `"trbl"`, for top, right,
 #'   bottom, and left.
+#' @param outside logical that controls whether to move the log ticks outside
+#' of the plot area. Default is off (`FALSE`). You will also need to use
+#' `coord_cartesian(clip = "off")`. See examples.
 #' @param short a [grid::unit()] object specifying the length of the
 #'   short tick marks
 #' @param mid a [grid::unit()] object specifying the length of the
@@ -47,6 +50,9 @@
 #' a + annotation_logticks(sides = "lr")    # Log ticks for y, on left and right
 #' a + annotation_logticks(sides = "trbl")  # All four sides
 #'
+#' a + annotation_logticks(sides = "lr", outside = TRUE) +
+#'  coord_cartesian(clip = "off")  # Ticks outside plot
+#'
 #' # Hide the minor grid lines because they don't align with the ticks
 #' a + annotation_logticks(sides = "trbl") + theme(panel.grid.minor = element_blank())
 #'
@@ -73,9 +79,9 @@
 #'   mid = unit(3,"mm"),
 #'   long = unit(4,"mm")
 #' )
-annotation_logticks <- function(base = 10, sides = "bl", scaled = TRUE,
-      short = unit(0.1, "cm"), mid = unit(0.2, "cm"), long = unit(0.3, "cm"),
-      colour = "black", size = 0.5, linetype = 1, alpha = 1, color = NULL, ...)
+annotation_logticks <- function(base = 10, sides = "bl", outside = FALSE, scaled = TRUE,
+    short = unit(0.1, "cm"), mid = unit(0.2, "cm"), long = unit(0.3, "cm"),
+    colour = "black", size = 0.5, linetype = 1, alpha = 1, color = NULL, ...)
 {
   if (!is.null(color))
     colour <- color
@@ -91,6 +97,7 @@ annotation_logticks <- function(base = 10, sides = "bl", scaled = TRUE,
     params = list(
       base = base,
       sides = sides,
+      outside = outside,
       scaled = scaled,
       short = short,
       mid = mid,
@@ -115,8 +122,8 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
   },
 
   draw_panel = function(data, panel_params, coord, base = 10, sides = "bl",
-    scaled = TRUE, short = unit(0.1, "cm"), mid = unit(0.2, "cm"),
-    long = unit(0.3, "cm"))
+                        outside = FALSE, scaled = TRUE, short = unit(0.1, "cm"),
+                        mid = unit(0.2, "cm"), long = unit(0.3, "cm"))
   {
     ticks <- list()
 
@@ -144,6 +151,10 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
 
       names(xticks)[names(xticks) == "value"] <- "x"   # Rename to 'x' for coordinates$transform
       xticks <- coord$transform(xticks, panel_params)
+      xticks = xticks[xticks$x <= 1 & xticks$x >= 0,]
+
+      if (outside)
+        xticks$end = -xticks$end
 
       # Make the grobs
       if (grepl("b", sides)) {
@@ -179,6 +190,10 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
 
       names(yticks)[names(yticks) == "value"] <- "y"   # Rename to 'y' for coordinates$transform
       yticks <- coord$transform(yticks, panel_params)
+      yticks = yticks[yticks$y <= 1 & yticks$y >= 0,]
+
+      if (outside)
+        yticks$end = -yticks$end
 
       # Make the grobs
       if (grepl("l", sides)) {

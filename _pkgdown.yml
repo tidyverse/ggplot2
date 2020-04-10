@@ -10,9 +10,9 @@ home:
   strip_header: true
   links:
   - text: Learn more
-    href: http://r4ds.had.co.nz/data-visualisation.html
+    href: https://r4ds.had.co.nz/data-visualisation.html
   - text: Extensions
-    href: http://www.ggplot2-exts.org/gallery/
+    href: https://www.ggplot2-exts.org/gallery/
 
 reference:
 - title: Plot basics
@@ -40,7 +40,7 @@ reference:
   desc: >
     A handful of layers are more easily specified with a `stat_` function,
     drawing attention to the statistical transformation rather than the visual
-    appearance. The computed variables can be mapped using `stat()`.
+    appearance. The computed variables can be mapped using `after_stat()`.
   contents:
   - stat_ecdf
   - stat_ellipse
@@ -50,7 +50,7 @@ reference:
   - stat_summary_bin
   - stat_unique
   - stat_sf_coordinates
-  - stat
+  - after_stat
 
 - title: "Layer: position adjustment"
   desc: >
@@ -103,10 +103,15 @@ reference:
     Guides are mostly controlled via the scale (e.g. with the `limits`,
     `breaks`, and `labels` arguments), but sometimes you will need additional
     control over guide appearance. Use `guides()` or the `guide` argument to
-    individual scales along with `guide_colourbar()` or `guide_legend()`.
+    individual scales along with `guide_*()` functions.
   contents:
+  - draw_key
   - guide_colourbar
   - guide_legend
+  - guide_axis
+  - guide_bins
+  - guide_coloursteps
+  - guide_none
   - guides
   - sec_axis
 
@@ -225,6 +230,8 @@ navbar:
       text: News
       menu:
       - text: "Release notes"
+      - text: "Version 3.3.0"
+        href: https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/
       - text: "Version 3.2.0"
         href: https://www.tidyverse.org/articles/2019/06/ggplot2-3-2-0/
       - text: "Version 3.1.0"
@@ -244,4 +251,4 @@ navbar:
         href: news/index.html
     extensions:
       text: Extensions
-      href: http://www.ggplot2-exts.org/gallery/
+      href: https://www.ggplot2-exts.org/gallery/

@@ -262,7 +262,13 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
       aesthetics <- layer$mapping
       modifiers <- aesthetics[is_scaled_aes(aesthetics) | is_staged_aes(aesthetics)]
 
-      data <- layer$geom$use_defaults(guide$key[matched], params, modifiers)
+      data <- tryCatch(
+        layer$geom$use_defaults(guide$key[matched], params, modifiers),
+        error = function(...) {
+          warn("Failed to apply `after_scale()` modifications to legend")
+          layer$geom$use_defaults(guide$key[matched], params, list())
+        }
+      )
     } else {
       data <- layer$geom$use_defaults(NULL, layer$aes_params)[rep(1, nrow(guide$key)), ]
     }
