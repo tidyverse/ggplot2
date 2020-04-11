@@ -20,7 +20,7 @@ layer_sf <- function(geom = NULL, stat = NULL,
     legend_key_type <- NULL
   }
 
-  # inherit from LayerSf class to add `legend_type` slot
+  # inherit from LayerSf class to add `legend_key_type` slot
   layer_class <- ggproto(NULL, LayerSf, legend_key_type = legend_key_type)
 
   layer(
