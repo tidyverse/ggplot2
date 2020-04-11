@@ -2,6 +2,10 @@ url: https://ggplot2.tidyverse.org
 
 template:
   package: tidytemplate
+  params:
+      docsearch:
+        api_key: e1261f3df95d2d4704c626ff11a4b536
+        index_name: tidyverse_ggplot2
 
 development:
   mode: auto
