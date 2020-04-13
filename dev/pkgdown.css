@@ -71,6 +71,10 @@ summary {
   margin-top: calc(-60px + 1em);
 }
 
+dd {
+  margin-left: 3em;
+}
+
 /* Section anchors ---------------------------------*/
 
 a.anchor {
