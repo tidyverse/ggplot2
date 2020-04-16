@@ -461,9 +461,7 @@ switch_orientation <- function(aesthetics) {
 #' - `range_is_orthogonal`: This argument controls whether the existance of
 #'   range-like aesthetics (e.g. `xmin` and `xmax`) represents the main or
 #'   secondary axis. If `TRUE` then the range is given for the secondary axis as
-#'   seen in e.g. [geom_ribbon()] and [geom_linerange()]. `FALSE` is less
-#'   prevalent but can be seen in [geom_bar()] where it may encode the span of
-#'   each bar.
+#'   seen in e.g. [geom_ribbon()] and [geom_linerange()].
 #' - `group_has_equal`: This argument controls whether to test for equality of
 #'   all `x` and `y` values inside each group and set the main axis to the one
 #'   where all is equal. This test is only performed if `TRUE`, and only after
