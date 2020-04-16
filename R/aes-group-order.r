@@ -72,5 +72,6 @@
 #' # we again need to override the default grouping for that layer with aes(group = Subject)
 #' boysbox <- boysbox + geom_boxplot()
 #' boysbox + geom_line(aes(group = Subject), colour = "blue")
-#' }
+#' 
+#' # Particular behaviors of group are detailed here https://github.com/tidyverse/ggplot2/issues/3839
 NULL
