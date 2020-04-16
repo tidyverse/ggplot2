@@ -17,12 +17,6 @@ jobs:
 
       - uses: r-lib/actions/setup-pandoc@master
 
-      - name: Install sf-dependencies
-        run: |
-          brew install pkg-config
-          brew install udunits
-          brew install gdal
-
       - name: Query dependencies
         run: |
           install.packages('remotes')
@@ -35,13 +29,6 @@ jobs:
           path: ${{ env.R_LIBS_USER }}
           key: macOS-r-3.6-${{ hashFiles('depends.Rds') }}
           restore-keys: macOS-r-3.6-
-
-      - name: Workaround for installing sf
-        if: runner.os == 'macOS'
-        run: |
-          remotes::install_github('RcppCore/Rcpp')
-          remotes::install_cran('sf', configure.args = '--with-proj-include=/usr/local/include/ --with-proj-lib=/usr/local/lib/')
-        shell: Rscript {0}
 
       - name: Install dependencies
         run: |
