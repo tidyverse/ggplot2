@@ -7,6 +7,8 @@ on:
       - master
 
 name: R-CMD-check
+env:
+  cache-version: v1
 
 jobs:
   R-CMD-check:
@@ -56,8 +58,8 @@ jobs:
         uses: actions/cache@v1
         with:
           path: ${{ env.R_LIBS_USER }}
-          key: ${{ runner.os }}-r-${{ matrix.config.r }}-${{ hashFiles('depends.Rds') }}
-          restore-keys: ${{ runner.os }}-r-${{ matrix.config.r }}-
+          key: ${{ env.cache-version }}-${{ runner.os }}-r-${{ matrix.config.r }}-${{ hashFiles('depends.Rds') }}
+          restore-keys: ${{ env.cache-version }}-${{ runner.os }}-r-${{ matrix.config.r }}-
 
       - name: Install system dependencies on Linux
         if: runner.os == 'Linux'
