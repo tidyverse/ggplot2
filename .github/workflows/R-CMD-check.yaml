@@ -83,8 +83,8 @@ jobs:
           brew install pkg-config cairo
 
           # Since sf dependencies are a bit heavy, install them only when they are needed
-          SF_IS_OLD=$(Rscript -e 'if ("sf" %in% old.packages()[,"Package"]) cat("yes")')
-          if [ "${SF_IS_OLD}" == "yes" ]; then
+          SF_NEEDS_UPDATED=$(Rscript -e 'if (!"sf" %in% installed.packages()[,"Package"] || "sf" %in% old.packages()[,"Package"]) cat("yes")')
+          if [ "${SF_NEEDS_UPDATED}" == "yes" ]; then
             brew install udunits gdal
           fi
 
