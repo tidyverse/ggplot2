@@ -7,33 +7,13 @@ on:
 
 name: pkgdown
 
-# Increment this version when we want to clear cache
-env:
-  cache-version: v1
-
 jobs:
   pkgdown:
     runs-on: macOS-latest
     steps:
       - uses: actions/checkout@v2
-
       - uses: r-lib/actions/setup-r@master
-
       - uses: r-lib/actions/setup-pandoc@master
-
-      - name: Query dependencies
-        run: |
-          install.packages('remotes')
-          saveRDS(remotes::dev_package_deps(dependencies = TRUE), "depends.Rds", version = 2)
-        shell: Rscript {0}
-
-      - name: Cache R packages
-        uses: actions/cache@v1
-        with:
-          path: ${{ env.R_LIBS_USER }}
-          key: ${{ env.cache-version }}-macOS-r-3.6-${{ hashFiles('depends.Rds') }}
-          restore-keys: ${{ env.cache-version }}-macOS-r-3.6-
-
       - name: Install dependencies
         run: |
           install.packages("remotes")
@@ -41,10 +21,8 @@ jobs:
           remotes::install_github("tidyverse/tidytemplate")
           remotes::install_dev("pkgdown")
         shell: Rscript {0}
-
       - name: Install package
         run: R CMD INSTALL .
-
       - name: Deploy package
         run: pkgdown::deploy_to_branch(new_process = FALSE)
         shell: Rscript {0}
