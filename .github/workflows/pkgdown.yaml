@@ -7,6 +7,10 @@ on:
 
 name: pkgdown
 
+# Increment this version when we want to clear cache
+env:
+  cache-version: v1
+
 jobs:
   pkgdown:
     runs-on: macOS-latest
@@ -27,8 +31,8 @@ jobs:
         uses: actions/cache@v1
         with:
           path: ${{ env.R_LIBS_USER }}
-          key: macOS-r-3.6-${{ hashFiles('depends.Rds') }}
-          restore-keys: macOS-r-3.6-
+          key: ${{ env.cache-version }}-macOS-r-3.6-${{ hashFiles('depends.Rds') }}
+          restore-keys: ${{ env.cache-version }}-macOS-r-3.6-
 
       - name: Install dependencies
         run: |
