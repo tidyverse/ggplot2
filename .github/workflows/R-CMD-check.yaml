@@ -20,8 +20,7 @@ jobs:
         config:
           - {os: windows-latest, r: '3.6', vdiffr: true}
           - {os: macOS-latest, r: '3.6', vdiffr: true}
-          # TODO
-          # - {os: macOS-latest, r: 'devel', vdiffr: false}
+          - {os: macOS-latest, r: 'devel', vdiffr: false}
           - {os: ubuntu-16.04, r: '3.2', vdiffr: false, cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
           - {os: ubuntu-16.04, r: '3.3', vdiffr: false, cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
           - {os: ubuntu-16.04, r: '3.4', vdiffr: false, cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
@@ -46,18 +45,6 @@ jobs:
 
       - uses: r-lib/actions/setup-pandoc@master
 
-      - name: Install XQuartz on macOS
-        if: runner.os == 'macOS'
-        run: brew cask install xquartz
-
-      # To install vdiffr, these three libraries/tools are needed:
-      # - freetype (already installed, needed by systemfonts)
-      # - cairo (not installed, needed by gdtools)
-      # - pkg-config (not installed, needed to set proper build settings)
-      - name: Install pkg-config and cairo on devel macOS
-        if: runner.os == 'macOS' && matrix.config.r == 'devel'
-        run: brew install pkg-config cairo
-
       - name: Query dependencies
         run: |
           install.packages('remotes')
@@ -72,7 +59,7 @@ jobs:
           key: ${{ runner.os }}-r-${{ matrix.config.r }}-${{ hashFiles('depends.Rds') }}
           restore-keys: ${{ runner.os }}-r-${{ matrix.config.r }}-
 
-      - name: Install system dependencies
+      - name: Install system dependencies on Linux
         if: runner.os == 'Linux'
         env:
           RHUB_PLATFORM: linux-x86_64-ubuntu-gcc
@@ -80,6 +67,24 @@ jobs:
           Rscript -e "remotes::install_github('r-hub/sysreqs')"
           sysreqs=$(Rscript -e "cat(sysreqs::sysreq_commands('DESCRIPTION'))")
           sudo -s eval "$sysreqs"
+
+      - name: Install system dependencies on macOS
+        if: runner.os == 'macOS'
+        run: |
+          # XQuartz is needed by vdiffr
+          brew cask install xquartz
+
+          # To install vdiffr, these three libraries/tools are needed in addition to XQuartz
+          # - freetype (already installed, needed by systemfonts)
+          # - cairo (not installed, needed by gdtools)
+          # - pkg-config (not installed, needed to set proper build settings)
+          brew install pkg-config cairo
+
+          # Since sf dependencies are a bit heavy, install them only when they are needed
+          SF_IS_OLD=$(Rscript -e 'if ("sf" %in% old.packages()[,"Package"]) cat("yes")')
+          if [ "${SF_IS_OLD}" == "yes" ]; then
+            brew install udunits gdal
+          fi
 
       - name: Install dependencies
         run: |
