@@ -1,5 +1,5 @@
 {
-  "index_name": "tidyverse",
+  "index_name": "tidyverse_ggplot2",
   "start_urls": [
     {
       "url": "https://ggplot2.tidyverse.org/index.html",
@@ -74,7 +74,7 @@
         "selector": ".contents h2, .contents h3",
         "default_value": "Context"
       },
-      "text": ".contents p, .contents li, .tempate-article .contents .pre"
+      "text": ".contents p, .contents li"
     }
   },
   "selectors_exclude": [
@@ -92,3 +92,4 @@
     ]
   }
 }
+
