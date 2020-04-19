@@ -8,6 +8,10 @@ on:
 
 name: R-CMD-check
 
+# Increment this version when we want to clear cache
+env:
+  cache-version: v1
+
 jobs:
   R-CMD-check:
     runs-on: ${{ matrix.config.os }}
@@ -45,18 +49,6 @@ jobs:
 
       - uses: r-lib/actions/setup-pandoc@master
 
-      - name: Install XQuartz on macOS
-        if: runner.os == 'macOS'
-        run: brew cask install xquartz
-
-      # To install vdiffr, these three libraries/tools are needed:
-      # - freetype (already installed, needed by systemfonts)
-      # - cairo (not installed, needed by gdtools)
-      # - pkg-config (not installed, needed to set proper build settings)
-      - name: Install pkg-config and cairo on devel macOS
-        if: runner.os == 'macOS' && matrix.config.r == 'devel'
-        run: brew install pkg-config cairo
-
       - name: Query dependencies
         run: |
           install.packages('remotes')
@@ -68,10 +60,10 @@ jobs:
         uses: actions/cache@v1
         with:
           path: ${{ env.R_LIBS_USER }}
-          key: ${{ runner.os }}-r-${{ matrix.config.r }}-${{ hashFiles('depends.Rds') }}
-          restore-keys: ${{ runner.os }}-r-${{ matrix.config.r }}-
+          key: ${{ env.cache-version }}-${{ runner.os }}-r-${{ matrix.config.r }}-${{ hashFiles('depends.Rds') }}
+          restore-keys: ${{ env.cache-version }}-${{ runner.os }}-r-${{ matrix.config.r }}-
 
-      - name: Install system dependencies
+      - name: Install system dependencies on Linux
         if: runner.os == 'Linux'
         env:
           RHUB_PLATFORM: linux-x86_64-ubuntu-gcc
@@ -79,6 +71,31 @@ jobs:
           Rscript -e "remotes::install_github('r-hub/sysreqs')"
           sysreqs=$(Rscript -e "cat(sysreqs::sysreq_commands('DESCRIPTION'))")
           sudo -s eval "$sysreqs"
+
+      - name: Install system dependencies on macOS
+        if: runner.os == 'macOS'
+        run: |
+          # XQuartz is needed by vdiffr
+          brew cask install xquartz
+
+          # To install vdiffr, these three libraries/tools are needed in addition to XQuartz
+          # - freetype (already installed, needed by systemfonts)
+          # - cairo (not installed, needed by gdtools)
+          # - pkg-config (not installed, needed to set proper build settings)
+          brew install pkg-config cairo
+
+          # Since sf dependencies are a bit heavy, install them only when they are needed
+          SF_NEEDS_UPDATED=$(Rscript -e 'if (!"sf" %in% installed.packages()[,"Package"] || "sf" %in% old.packages()[,"Package"]) cat("yes")')
+          if [ "${SF_NEEDS_UPDATED}" == "yes" ]; then
+            brew install udunits gdal
+          fi
+
+      # TODO: Remove this when https://github.com/r-lib/xml2/issues/296 is fixed on CRAN
+      - name: Install the dev version of xml2 as a workaround
+        if: runner.os == 'macOS' && matrix.config.r == 'devel'
+        run: |
+          remotes::install_github('r-lib/xml2')
+        shell: Rscript {0}
 
       - name: Install dependencies
         run: |
@@ -96,9 +113,3 @@ jobs:
         with:
           name: ${{ runner.os }}-r${{ matrix.config.r }}-results
           path: check
-
-      # TODO: uncomment this when we fix the failure of covr::codecov()
-      # - name: Test coverage
-      #   if: matrix.config.os == 'macOS-latest' && matrix.config.r == '3.6'
-      #   run: covr::codecov()
-      #   shell: Rscript {0}
