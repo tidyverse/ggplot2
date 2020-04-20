@@ -112,7 +112,7 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Release notes</li>
+    <li class="dropdown-header">Releases</li>
     <li>
       <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
     </li>
@@ -139,7 +139,7 @@
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../news/index.html">Change log</a>
+      <a href="../news/index.html">Changelog</a>
     </li>
   </ul>
 </li>
@@ -249,11 +249,20 @@
     </tbody><tbody>
       <tr>
         <th colspan="3">
-          <h2 id="section-layer-geoms" class="hasAnchor"><a href="#section-layer-geoms" class="anchor"></a>Layer: geoms</h2>
-          <p class="section-desc"><p>A layer combines data, aesthetic mapping, a geom (geometric object), a stat (statistical transformation), and a position adjustment. Typically, you will create layers using a <code>geom_</code> function, overriding the default position and stat if needed.</p></p>
+          <h2 id="section-layers" class="hasAnchor"><a href="#section-layers" class="anchor"></a>Layers</h2>
+          <p class="section-desc"></p>
         </th>
       </tr>
       
+      
+    </tbody><tbody>
+      
+      <tr>
+        <th colspan="3">
+          <h3 id="section-geoms" class="hasAnchor"><a href="#section-geoms" class="anchor"></a>Geoms</h3>
+          <p class="section-desc"><p>A layer combines data, aesthetic mapping, a geom (geometric object), a stat (statistical transformation), and a position adjustment. Typically, you will create layers using a <code>geom_</code> function, overriding the default position and stat if needed.</p></p>
+        </th>
+      </tr>
       
     </tbody><tbody>
       
@@ -440,13 +449,13 @@
         <td><p>Visualise sf objects</p></td>
       </tr>
     </tbody><tbody>
+      
       <tr>
         <th colspan="3">
-          <h2 id="section-layer-stats" class="hasAnchor"><a href="#section-layer-stats" class="anchor"></a>Layer: stats</h2>
+          <h3 id="section-stats" class="hasAnchor"><a href="#section-stats" class="anchor"></a>Stats</h3>
           <p class="section-desc"><p>A handful of layers are more easily specified with a <code>stat_</code> function, drawing attention to the statistical transformation rather than the visual appearance. The computed variables can be mapped using <code><a href="../reference/aes_eval.html">after_stat()</a></code>.</p></p>
         </th>
       </tr>
-      
       
     </tbody><tbody>
       
@@ -507,13 +516,13 @@
         <td><p>Control aesthetic evaluation</p></td>
       </tr>
     </tbody><tbody>
+      
       <tr>
         <th colspan="3">
-          <h2 id="section-layer-position-adjustment" class="hasAnchor"><a href="#section-layer-position-adjustment" class="anchor"></a>Layer: position adjustment</h2>
+          <h3 id="section-position-adjustment" class="hasAnchor"><a href="#section-position-adjustment" class="anchor"></a>Position adjustment</h3>
           <p class="section-desc"><p>All layers have a position adjustment that resolves overlapping geoms. Override the default by using the <code>position</code> argument to the <code>geom_</code> or <code>stat_</code> function.</p></p>
         </th>
       </tr>
-      
       
     </tbody><tbody>
       
@@ -556,13 +565,13 @@
         <td><p>Stack overlapping objects on top of each another</p></td>
       </tr>
     </tbody><tbody>
+      
       <tr>
         <th colspan="3">
-          <h2 id="section-layer-annotations" class="hasAnchor"><a href="#section-layer-annotations" class="anchor"></a>Layer: annotations</h2>
+          <h3 id="section-annotations" class="hasAnchor"><a href="#section-annotations" class="anchor"></a>Annotations</h3>
           <p class="section-desc"><p>Annotations are a special type of layer that don’t inherit global settings from the plot. They are used to add fixed reference data to plots.</p></p>
         </th>
       </tr>
-      
       
     </tbody><tbody>
       
@@ -885,13 +894,13 @@
         <td><p>Quote faceting variables</p></td>
       </tr>
     </tbody><tbody>
+      
       <tr>
         <th colspan="3">
-          <h2 id="section-facetting-labels" class="hasAnchor"><a href="#section-facetting-labels" class="anchor"></a>Facetting: labels</h2>
+          <h3 id="section-labels" class="hasAnchor"><a href="#section-labels" class="anchor"></a>Labels</h3>
           <p class="section-desc"><p>These functions provide a flexible toolkit for controlling the display of the “strip” labels on facets.</p></p>
         </th>
       </tr>
-      
       
     </tbody><tbody>
       
@@ -1217,7 +1226,7 @@
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, Dewey Dunnington.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, Dewey Dunnington, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>

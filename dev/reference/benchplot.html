@@ -116,7 +116,7 @@ Broken down into construct, build, render and draw times." />
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Release notes</li>
+    <li class="dropdown-header">Releases</li>
     <li>
       <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
     </li>
@@ -143,7 +143,7 @@ Broken down into construct, build, render and draw times." />
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../news/index.html">Change log</a>
+      <a href="../news/index.html">Changelog</a>
     </li>
   </ul>
 </li>
@@ -223,22 +223,22 @@ Broken down into construct, build, render and draw times.</p>
     <pre class="examples"><div class='input'><span class='fu'>benchplot</span>(<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>())</div><div class='output co'>#&gt;        step user.self sys.self elapsed
 #&gt; 1 construct     0.002        0   0.002
 #&gt; 2     build     0.013        0   0.013
-#&gt; 3    render     0.031        0   0.031
-#&gt; 4      draw     0.035        0   0.036
-#&gt; 5     TOTAL     0.081        0   0.082</div><div class='input'><span class='fu'>benchplot</span>(<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>() + <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='no'>.</span> ~ <span class='no'>cyl</span>))</div><div class='output co'>#&gt;        step user.self sys.self elapsed
-#&gt; 1 construct     0.002    0.000   0.002
-#&gt; 2     build     0.028    0.000   0.028
-#&gt; 3    render     0.091    0.000   0.092
-#&gt; 4      draw     0.059    0.001   0.063
-#&gt; 5     TOTAL     0.180    0.001   0.185</div><div class='input'>
+#&gt; 3    render     0.029        0   0.029
+#&gt; 4      draw     0.035        0   0.035
+#&gt; 5     TOTAL     0.079        0   0.079</div><div class='input'><span class='fu'>benchplot</span>(<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>() + <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='no'>.</span> ~ <span class='no'>cyl</span>))</div><div class='output co'>#&gt;        step user.self sys.self elapsed
+#&gt; 1 construct     0.002        0   0.003
+#&gt; 2     build     0.027        0   0.028
+#&gt; 3    render     0.085        0   0.085
+#&gt; 4      draw     0.057        0   0.057
+#&gt; 5     TOTAL     0.171        0   0.173</div><div class='input'>
 <span class='co'># With tidy eval:</span>
 <span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tidyeval.html'>expr</a></span>(<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>())
 <span class='fu'>benchplot</span>(!!<span class='no'>p</span>)</div><div class='img'><img src='benchplot-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt;        step user.self sys.self elapsed
-#&gt; 1 construct     0.002        0   0.002
-#&gt; 2     build     0.013        0   0.013
-#&gt; 3    render     0.032        0   0.032
-#&gt; 4      draw     0.035        0   0.035
-#&gt; 5     TOTAL     0.082        0   0.082</div></pre>
+#&gt; 1 construct     0.002    0.000   0.002
+#&gt; 2     build     0.013    0.000   0.014
+#&gt; 3    render     0.030    0.000   0.030
+#&gt; 4      draw     0.035    0.001   0.035
+#&gt; 5     TOTAL     0.080    0.001   0.081</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -255,7 +255,7 @@ Broken down into construct, build, render and draw times.</p>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, Dewey Dunnington.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, Dewey Dunnington, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
