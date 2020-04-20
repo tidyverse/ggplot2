@@ -15,7 +15,7 @@ Authors@R: c(
     person("Kara", "Woo", role = "aut"),
     person("Hiroaki", "Yutani", role = "aut"),
     person("Dewey", "Dunnington", role = "aut"),
-    person("RStudio", role = c("cph"))
+    person("RStudio", role = c("cph", "fnd"))
     )
 Depends:
     R (>= 3.2)
