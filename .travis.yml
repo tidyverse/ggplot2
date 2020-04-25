@@ -11,11 +11,10 @@ matrix:
     env:
       - VDIFFR_RUN_TESTS=true
       - VDIFFR_LOG_PATH="../vdiffr.Rout.fail"
+  - r: 3.6
   - r: 3.5
   - r: 3.4
   - r: 3.3
-  - r: 3.2
-    env: R_REMOTES_NO_ERRORS_FROM_WARNINGS=true
 
 # environment variables set for all builds
 env:
