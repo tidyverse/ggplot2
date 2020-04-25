@@ -90,13 +90,6 @@ jobs:
             brew install udunits gdal
           fi
 
-      # TODO: Remove this when https://github.com/r-lib/xml2/issues/296 is fixed on CRAN
-      - name: Install the dev version of xml2 as a workaround
-        if: runner.os == 'macOS' && matrix.config.r == 'devel'
-        run: |
-          remotes::install_github('r-lib/xml2')
-        shell: Rscript {0}
-
       - name: Install dependencies
         run: |
           remotes::install_deps(dependencies = TRUE)
