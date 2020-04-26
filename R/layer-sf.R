@@ -42,7 +42,7 @@ LayerSf <- ggproto("LayerSf", Layer,
         (!isTRUE(self$inherit.aes) && is.null(self$mapping$geometry))) {
       if (is_sf(data)) {
         geometry_col <- attr(data, "sf_column")
-        self$mapping$geometry <- as.name(geometry_col)
+        self$mapping$geometry <- sym(geometry_col)
       }
     }
 
@@ -51,13 +51,16 @@ LayerSf <- ggproto("LayerSf", Layer,
       # first, set default value in case downstream tests fail
       self$geom_params$legend <- "polygon"
 
-      # now check if the type is not polygon
-      if (is_sf(data)) {
-        sf_type <- detect_sf_type(data)
-        if (sf_type == "point") {
-          self$geom_params$legend <- "point"
-        } else if (sf_type == "line") {
-          self$geom_params$legend <- "line"
+      # now check if the type should not be polygon
+      if (!is.null(self$mapping$geometry)) {
+        geometry_column <- as_name(self$mapping$geometry)
+        if (inherits(data[[geometry_column]], "sfc")) {
+          sf_type <- detect_sf_type(data[[geometry_column]])
+          if (sf_type == "point") {
+            self$geom_params$legend <- "point"
+          } else if (sf_type == "line") {
+            self$geom_params$legend <- "line"
+          }
         }
       }
     } else {
