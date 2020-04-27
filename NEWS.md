@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Fixed a bug in `geom_sf()` that caused problems with legend-type
+  autodetection (@clauswilke, #3963).
+
 * `annotation_raster()` adds support for native rasters. For large rasters,
   native rasters render significantly faster than arrays (@kent37, #3388)
   
