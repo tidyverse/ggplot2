@@ -627,8 +627,8 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 #' @param na.translate Unlike continuous scales, discrete scales can easily show
 #'   missing values, and do so by default. If you want to remove missing values
 #'   from a discrete scale, specify `na.translate = FALSE`.
-#' @param na.value If `na.translate = TRUE`, what value aesthetic
-#'   value should missing be displayed as? Does not apply to position scales
+#' @param na.value If `na.translate = TRUE`, what aesthetic value should the
+#'   missing values be displayed as? Does not apply to position scales
 #'   where `NA` is always placed at the far right.
 #' @keywords internal
 discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
