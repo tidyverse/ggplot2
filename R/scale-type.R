@@ -24,9 +24,12 @@ find_scale <- function(aes, x, env = parent.frame(), theme) {
 # Look for object first in parent environment and if not found, then in
 # ggplot2 namespace environment.  This makes it possible to override default
 # scales by setting them in the parent environment.
-find_global <- function(name, env, mode = "any", theme_ = theme()) {
-  if (!is.null(theme_[["default.scales"]][[name]]) && mode(theme_[["default.scales"]][[name]]) == mode) {
-    return(theme_[["default.scales"]][[name]])
+find_global <- function(name, env, mode = "any", theme = ggplot2::theme()) {
+  ## there is presumably a more elegant way to test presence and mode in a list.
+  default_scales <- calc_element("default.scales", theme)
+  scale <- default_scales[[name]]
+  if (!is.null(scale) & mode(scale) == mode) {
+    return(scale)
   }
   if (exists(name, envir = env, mode = mode)) {
     return(get(name, envir = env, mode = mode))

@@ -644,6 +644,14 @@ merge_element.element <- function(new, old) {
   new
 }
 
+#' @rdname merge_element
+#' @export
+merge_element.list <- function(new, old) {
+  overlap <- intersect(names(new), names(old))
+  old <- old[setdiff(names(old), overlap)]
+  append(old, new)
+}
+
 #' Combine the properties of two elements
 #'
 #' @param e1 An element object
