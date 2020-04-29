@@ -1,4 +1,4 @@
-find_scale <- function(aes, x, env = parent.frame()) {
+find_scale <- function(aes, x, env = parent.frame(), theme) {
   # Inf is ambiguous; it can be used either with continuous scales or with
   # discrete scales, so just skip in the hope that we will have a better guess
   # with the other layers
@@ -8,9 +8,8 @@ find_scale <- function(aes, x, env = parent.frame()) {
 
   type <- scale_type(x)
   candidates <- paste("scale", aes, type, sep = "_")
-
   for (scale in candidates) {
-    scale_f <- find_global(scale, env, mode = "function")
+    scale_f <- find_global(scale, env, mode = "function", theme = theme)
     if (!is.null(scale_f))
       return(scale_f())
   }
@@ -25,7 +24,10 @@ find_scale <- function(aes, x, env = parent.frame()) {
 # Look for object first in parent environment and if not found, then in
 # ggplot2 namespace environment.  This makes it possible to override default
 # scales by setting them in the parent environment.
-find_global <- function(name, env, mode = "any") {
+find_global <- function(name, env, mode = "any", theme_ = theme()) {
+  if (!is.null(theme_[["default.scales"]][[name]]) && mode(theme_[["default.scales"]][[name]]) == mode) {
+    return(theme_[["default.scales"]][[name]])
+  }
   if (exists(name, envir = env, mode = mode)) {
     return(get(name, envir = env, mode = mode))
   }

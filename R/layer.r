@@ -223,8 +223,7 @@ Layer <- ggproto("Layer", NULL,
     if (!is.null(self$geom_params$group)) {
       aesthetics[["group"]] <- self$aes_params$group
     }
-
-    scales_add_defaults(plot$scales, data, aesthetics, plot$plot_env)
+    scales_add_defaults(plot$scales, data, aesthetics, plot$plot_env, plot$theme)
 
     # Evaluate aesthetics
     env <- child_env(baseenv(), stage = stage)
@@ -320,7 +319,7 @@ Layer <- ggproto("Layer", NULL,
     stat_data <- new_data_frame(compact(stat_data))
 
     # Add any new scales, if needed
-    scales_add_defaults(plot$scales, data, new, plot$plot_env)
+    scales_add_defaults(plot$scales, data, new, plot$plot_env, plot$theme)
     # Transform the values, if the scale say it's ok
     # (see stat_spoke for one exception)
     if (self$stat$retransform) {

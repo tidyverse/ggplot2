@@ -209,6 +209,13 @@ theme_grey <- function(base_size = 11, base_family = "",
     strip.switch.pad.grid = unit(half_line / 2, "pt"),
     strip.switch.pad.wrap = unit(half_line / 2, "pt"),
 
+    default.scales = c(
+      "scale_colour_discrete" = function(...) {
+        scale_color_brewer(..., palette = "Set1")
+      },
+      "scale_colour_continuous" = scale_color_gradient
+    ),
+
     plot.background =    element_rect(colour = "white"),
     plot.title =         element_text( # font size "large"
                            size = rel(1.2),

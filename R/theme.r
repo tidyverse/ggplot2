@@ -356,6 +356,7 @@ theme <- function(line,
                   strip.text.y,
                   strip.switch.pad.grid,
                   strip.switch.pad.wrap,
+                  default.scales,
                   ...,
                   complete = FALSE,
                   validate = TRUE

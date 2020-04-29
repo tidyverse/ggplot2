@@ -44,6 +44,8 @@ ggplot_build.ggplot <- function(plot) {
     out
   }
 
+  plot$theme <- plot_theme(plot)
+
   # Allow all layers to make any final adjustments based
   # on raw input data and plot info
   data <- layer_data
@@ -163,7 +165,7 @@ ggplot_gtable.ggplot_built <- function(data) {
   plot <- data$plot
   layout <- data$layout
   data <- data$data
-  theme <- plot_theme(plot)
+  theme <- plot$theme
 
   geom_grobs <- Map(function(l, d) l$draw_geom(d, layout), plot$layers, data)
   layout$setup_panel_guides(plot$guides, plot$layers, plot$mapping)
