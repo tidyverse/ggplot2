@@ -30,6 +30,7 @@ jobs:
           - {os: ubuntu-16.04,   r: '3.5',   vdiffr: false, cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
           - {os: ubuntu-16.04,   r: '3.4',   vdiffr: false, cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
           - {os: ubuntu-16.04,   r: '3.3',   vdiffr: false, cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
+          - {os: ubuntu-16.04,   r: '3.2',   vdiffr: false, cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
 
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
