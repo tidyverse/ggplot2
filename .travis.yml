@@ -11,6 +11,7 @@ matrix:
     env:
       - VDIFFR_RUN_TESTS=true
       - VDIFFR_LOG_PATH="../vdiffr.Rout.fail"
+  - r: 3.6
   - r: 3.5
   - r: 3.4
   - r: 3.3
