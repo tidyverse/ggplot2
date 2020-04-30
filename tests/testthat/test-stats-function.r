@@ -35,6 +35,51 @@ test_that("works with discrete x", {
   expect_equal(ret$y, 1:2)
 })
 
+test_that("works with transformed scales", {
+  dat <- data_frame(x = 1:10, y = (1:10)^2)
+
+  # first without explicit mapping of y
+  base <- ggplot(dat, aes(x, group = 1)) +
+    stat_function(fun = ~ .x^2, n = 5)
+
+  ret <- layer_data(base)
+  expect_equal(nrow(ret), 5)
+  expect_equal(ret$y, ret$x^2)
+
+  ret <- layer_data(base + scale_x_log10())
+  expect_equal(nrow(ret), 5)
+  expect_equal(ret$y, (10^ret$x)^2)
+
+  ret <- layer_data(base + scale_y_log10())
+  expect_equal(nrow(ret), 5)
+  expect_equal(10^ret$y, ret$x^2)
+
+  ret <- layer_data(base + scale_x_log10() + scale_y_log10())
+  expect_equal(nrow(ret), 5)
+  expect_equal(10^ret$y, (10^ret$x)^2)
+
+  # now with explicit mapping of y
+  base <- ggplot(dat, aes(x, y)) + geom_point() +
+    stat_function(fun = ~ .x^2, n = 5)
+
+  ret <- layer_data(base, 2)
+  expect_equal(nrow(ret), 5)
+  expect_equal(ret$y, ret$x^2)
+
+  ret <- layer_data(base + scale_x_log10(), 2)
+  expect_equal(nrow(ret), 5)
+  expect_equal(ret$y, (10^ret$x)^2)
+
+  ret <- layer_data(base + scale_y_log10(), 2)
+  expect_equal(nrow(ret), 5)
+  expect_equal(10^ret$y, ret$x^2)
+
+  ret <- layer_data(base + scale_x_log10() + scale_y_log10(), 2)
+  expect_equal(nrow(ret), 5)
+  expect_equal(10^ret$y, (10^ret$x)^2)
+})
+
+
 test_that("works with formula syntax", {
   dat <- data_frame(x = 1:10)
 

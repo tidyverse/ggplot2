@@ -97,7 +97,7 @@ stat_function <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 StatFunction <- ggproto("StatFunction", Stat,
-  default_aes = aes(y = after_stat(y)),
+  default_aes = aes(y = after_scale(y)),
 
   compute_group = function(data, scales, fun, xlim = NULL, n = 101, args = list()) {
     range <- xlim %||% scales$x$dimension()
@@ -113,9 +113,15 @@ StatFunction <- ggproto("StatFunction", Stat,
 
     if (is.formula(fun)) fun <- as_function(fun)
 
+    y_out <- do.call(fun, c(list(quote(x_trans)), args))
+    if (!is.null(scales$y) && !scales$y$is_discrete()) {
+      # For continuous scales, need to apply transform
+      y_out <- scales$y$trans$transform(y_out)
+    }
+
     new_data_frame(list(
       x = xseq,
-      y = do.call(fun, c(list(quote(x_trans)), args))
+      y = y_out
     ))
   }
 )
