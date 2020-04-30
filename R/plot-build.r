@@ -43,7 +43,7 @@ ggplot_build.ggplot <- function(plot) {
     }
     out
   }
-
+  ## Build full theme combining supplied elements and current defaults
   plot$theme <- plot_theme(plot)
 
   # Allow all layers to make any final adjustments based

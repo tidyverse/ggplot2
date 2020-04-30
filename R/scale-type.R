@@ -1,4 +1,4 @@
-find_scale <- function(aes, x, env = parent.frame(), theme) {
+find_scale <- function(aes, x, env = parent.frame(), theme = NULL) {
   # Inf is ambiguous; it can be used either with continuous scales or with
   # discrete scales, so just skip in the hope that we will have a better guess
   # with the other layers
@@ -9,9 +9,16 @@ find_scale <- function(aes, x, env = parent.frame(), theme) {
   type <- scale_type(x)
   candidates <- paste("scale", aes, type, sep = "_")
   for (scale in candidates) {
-    scale_f <- find_global(scale, env, mode = "function", theme = theme)
-    if (!is.null(scale_f))
+    ## First try lookup in theme (if supplied)
+    default_scales <- calc_element("default.scales", theme)
+    scale <- default_scales[[name]]
+    if (!is.null(scale) && isTRUE(mode(scale) == mode)) {
+      return(scale)
+    }
+    scale_f <- find_global(scale, env, mode = "function")
+    if (!is.null(scale_f)) {
       return(scale_f())
+    }
   }
 
   # Failure to find a scale is not an error because some "aesthetics" don't
@@ -24,13 +31,7 @@ find_scale <- function(aes, x, env = parent.frame(), theme) {
 # Look for object first in parent environment and if not found, then in
 # ggplot2 namespace environment.  This makes it possible to override default
 # scales by setting them in the parent environment.
-find_global <- function(name, env, mode = "any", theme = ggplot2::theme()) {
-  ## there is presumably a more elegant way to test presence and mode in a list.
-  default_scales <- calc_element("default.scales", theme)
-  scale <- default_scales[[name]]
-  if (!is.null(scale) & mode(scale) == mode) {
-    return(scale)
-  }
+find_global <- function(name, env, mode = "any") {
   if (exists(name, envir = env, mode = mode)) {
     return(get(name, envir = env, mode = mode))
   }
