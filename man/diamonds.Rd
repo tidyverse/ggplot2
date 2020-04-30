@@ -4,7 +4,8 @@
 \name{diamonds}
 \alias{diamonds}
 \title{Prices of over 50,000 round cut diamonds}
-\format{A data frame with 53940 rows and 10 variables:
+\format{
+A data frame with 53940 rows and 10 variables:
 \describe{
 \item{price}{price in US dollars (\$326--\$18,823)}
 \item{carat}{weight of the diamond (0.2--5.01)}
@@ -17,7 +18,8 @@ SI1, VS2, VS1, VVS2, VVS1, IF (best))}
 \item{z}{depth in mm (0--31.8)}
 \item{depth}{total depth percentage = z / mean(x, y) = 2 * z / (x + y) (43--79)}
 \item{table}{width of top of diamond relative to widest point (43--95)}
-}}
+}
+}
 \usage{
 diamonds
 }
