@@ -232,7 +232,7 @@
 <div id="using-ggplot2-to-visualize-an-object" class="section level3">
 <h3 class="hasAnchor">
 <a href="#using-ggplot2-to-visualize-an-object" class="anchor"></a>Using ggplot2 to visualize an object</h3>
-<p>ggplot2 is commonly used in packages to visualize objects (e.g., in a <code><a href="https://rdrr.io/r/graphics/plot.html">plot()</a></code>-style function). For example, a package might define an S3 class that represents the probability of various discrete values:</p>
+<p>ggplot2 is commonly used in packages to visualize objects (e.g., in a <code><a href="https://rdrr.io/r/base/plot.html">plot()</a></code>-style function). For example, a package might define an S3 class that represents the probability of various discrete values:</p>
 <div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">mpg_drv_dist</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/structure.html">structure</a></span>(
   <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(
     <span class="st">"4"</span> <span class="kw">=</span> <span class="fl">103</span> / <span class="fl">234</span>,
@@ -241,7 +241,7 @@
   ),
   <span class="kw">class</span> <span class="kw">=</span> <span class="st">"discrete_distr"</span>
 )</pre></body></html></div>
-<p>Many S3 classes in R have a <code><a href="https://rdrr.io/r/graphics/plot.html">plot()</a></code> method, but it is unrealistic to expect that a single <code><a href="https://rdrr.io/r/graphics/plot.html">plot()</a></code> method can provide the visualization every one of your users is looking for. It is useful, however, to provide a <code><a href="https://rdrr.io/r/graphics/plot.html">plot()</a></code> method as a visual summary that users can call to understand the essence of an object. To satisfy all your users, we suggest writing a function that transforms the object into a data frame (or a <code><a href="https://rdrr.io/r/base/list.html">list()</a></code> of data frames if your object is more complicated). A good example of this approach is <a href="https://cran.r-project.org/package=ggdendro">ggdendro</a>, which creates dendrograms using ggplot2 but also computes the data necessary for users to make their own. For the above example, the function might look like this:</p>
+<p>Many S3 classes in R have a <code><a href="https://rdrr.io/r/base/plot.html">plot()</a></code> method, but it is unrealistic to expect that a single <code><a href="https://rdrr.io/r/base/plot.html">plot()</a></code> method can provide the visualization every one of your users is looking for. It is useful, however, to provide a <code><a href="https://rdrr.io/r/base/plot.html">plot()</a></code> method as a visual summary that users can call to understand the essence of an object. To satisfy all your users, we suggest writing a function that transforms the object into a data frame (or a <code><a href="https://rdrr.io/r/base/list.html">list()</a></code> of data frames if your object is more complicated). A good example of this approach is <a href="https://cran.r-project.org/package=ggdendro">ggdendro</a>, which creates dendrograms using ggplot2 but also computes the data necessary for users to make their own. For the above example, the function might look like this:</p>
 <div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">discrete_distr_data</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">x</span>) {
   <span class="kw pkg">tibble</span><span class="kw ns">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(
     <span class="kw">value</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">x</span>),
@@ -256,7 +256,7 @@
 <span class="co">#&gt; 1 4           0.440</span>
 <span class="co">#&gt; 2 f           0.453</span>
 <span class="co">#&gt; 3 r           0.107</span></pre></body></html></div>
-<p>In general, users of <code><a href="https://rdrr.io/r/graphics/plot.html">plot()</a></code> call it for its side-effects: it results in a graphic being displayed. This is different than the behaviour of a <code><a href="../reference/ggplot.html">ggplot()</a></code>, which is not displayed unless it is explicitly <code><a href="https://rdrr.io/r/base/print.html">print()</a></code>ed. Because of this, ggplot2 defines its own generic <code><a href="../reference/autoplot.html">autoplot()</a></code>, a call to which is expected to return a <code><a href="../reference/ggplot.html">ggplot()</a></code> (with no side effects).</p>
+<p>In general, users of <code><a href="https://rdrr.io/r/base/plot.html">plot()</a></code> call it for its side-effects: it results in a graphic being displayed. This is different than the behaviour of a <code><a href="../reference/ggplot.html">ggplot()</a></code>, which is not displayed unless it is explicitly <code><a href="https://rdrr.io/r/base/print.html">print()</a></code>ed. Because of this, ggplot2 defines its own generic <code><a href="../reference/autoplot.html">autoplot()</a></code>, a call to which is expected to return a <code><a href="../reference/ggplot.html">ggplot()</a></code> (with no side effects).</p>
 <div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="co">#' @importFrom ggplot2 autoplot</span>
 <span class="no">autoplot.discrete_distr</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">object</span>, <span class="no">...</span>) {
   <span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="fu">discrete_distr_data</span>(<span class="no">object</span>)
@@ -265,12 +265,12 @@
     <span class="fu"><a href="../reference/coord_flip.html">coord_flip</a></span>() +
     <span class="fu"><a href="../reference/labs.html">labs</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="st">"Value"</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="st">"Probability"</span>)
 }</pre></body></html></div>
-<p>Once an <code><a href="../reference/autoplot.html">autoplot()</a></code> method has been defined, a <code><a href="https://rdrr.io/r/graphics/plot.html">plot()</a></code> method can then consist of <code><a href="https://rdrr.io/r/base/print.html">print()</a></code>ing the result of <code><a href="../reference/autoplot.html">autoplot()</a></code>:</p>
+<p>Once an <code><a href="../reference/autoplot.html">autoplot()</a></code> method has been defined, a <code><a href="https://rdrr.io/r/base/plot.html">plot()</a></code> method can then consist of <code><a href="https://rdrr.io/r/base/print.html">print()</a></code>ing the result of <code><a href="../reference/autoplot.html">autoplot()</a></code>:</p>
 <div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="co">#' @importFrom graphics plot</span>
 <span class="no">plot.discrete_distr</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">x</span>, <span class="no">...</span>) {
   <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="../reference/autoplot.html">autoplot</a></span>(<span class="no">x</span>, <span class="no">...</span>))
 }</pre></body></html></div>
-<p>It is considered bad practice to implement an S3 generic like <code><a href="https://rdrr.io/r/graphics/plot.html">plot()</a></code>, or <code><a href="../reference/autoplot.html">autoplot()</a></code> if you don’t own the S3 class, as it makes it hard for the package developer who does have control over the S3 to implement the method themselves. This shouldn’t stop you from creating your own functions to visualize these objects!</p>
+<p>It is considered bad practice to implement an S3 generic like <code><a href="https://rdrr.io/r/base/plot.html">plot()</a></code>, or <code><a href="../reference/autoplot.html">autoplot()</a></code> if you don’t own the S3 class, as it makes it hard for the package developer who does have control over the S3 to implement the method themselves. This shouldn’t stop you from creating your own functions to visualize these objects!</p>
 </div>
 <div id="creating-a-new-theme" class="section level3">
 <h3 class="hasAnchor">

@@ -53,9 +53,9 @@
 
 <meta property="og:title" content="Continuous and binned colour scales — scale_colour_continuous" />
 <meta property="og:description" content="Colour scales for continuous data default to the values of the
-ggplot2.continuous.colour and ggplot2.continuous.fill options. If these
-options are not present, &quot;gradient&quot; will be used. See options() for more
-information." />
+ggplot2.continuous.colour and ggplot2.continuous.fill options. These
+options() default to &quot;gradient&quot; (i.e., scale_colour_gradient() and
+scale_fill_gradient())" />
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -203,9 +203,9 @@ information." />
 
     <div class="ref-description">
     <p>Colour scales for continuous data default to the values of the
-<code>ggplot2.continuous.colour</code> and <code>ggplot2.continuous.fill</code> options. If these
-options are not present, <code>"gradient"</code> will be used. See <code><a href='https://rdrr.io/r/base/options.html'>options()</a></code> for more
-information.</p>
+<code>ggplot2.continuous.colour</code> and <code>ggplot2.continuous.fill</code> options. These
+<code><a href='https://rdrr.io/r/base/options.html'>options()</a></code> default to <code>"gradient"</code> (i.e., <code><a href='scale_gradient.html'>scale_colour_gradient()</a></code> and
+<code><a href='scale_gradient.html'>scale_fill_gradient()</a></code>)</p>
     </div>
 
     <pre class="usage"><span class='fu'>scale_colour_continuous</span>(
@@ -227,8 +227,11 @@ information.</p>
     </tr>
     <tr>
       <th>type</th>
-      <td><p>One of "gradient" (the default) or "viridis" indicating the
-colour scale to use</p></td>
+      <td><p>One of the following:</p><ul>
+<li><p>"gradient" (the default)</p></li>
+<li><p>"viridis"</p></li>
+<li><p>A function that returns a continuous colour scale.</p></li>
+</ul></td>
     </tr>
     </table>
 
