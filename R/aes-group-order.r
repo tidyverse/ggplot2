@@ -72,5 +72,59 @@
 #' # we again need to override the default grouping for that layer with aes(group = Subject)
 #' boysbox <- boysbox + geom_boxplot()
 #' boysbox + geom_line(aes(group = Subject), colour = "blue")
-#' }
+#' # geom_dotplot() shows a particular behavior of group
+#' # Example with the mtcars dataset after conversion of the vs and am columns into factors:
+#' mtcars$vs <- factor(mtcars$vs, labels = c("A", "B"))
+#' mtcars$vs <- factor(mtcars$vs, labels = c("A", "B"))
+#' mtcars <- mtcars[, c("mpg", "vs", "am")]
+#' head(mtcars)
+#' # Using fill, the result is as expected: data are split according to "A" and "B" from vs
+#' # and then subsplit according to "G" and "H" from am in each category of vs
+#' ggplot2::ggplot()+ggplot2::geom_dotplot(
+#'     data = mtcars, 
+#'     mapping = ggplot2::aes(x = vs, y = mpg, fill = am), 
+#'     position = ggplot2::position_dodge(0.5), 
+#'     binaxis = "y", 
+#'     stackdir = "center"
+#' )
+#' # However, after replacing fill by group, the splitting occurs differently
+#' ggplot2::ggplot()+ggplot2::geom_dotplot(
+#'     data = mtcars, 
+#'     mapping = ggplot2::aes(x = vs, y = mpg, group = am), 
+#'     position = ggplot2::position_dodge(0.5), 
+#'     binaxis = "y", 
+#'     stackdir = "center"
+#' )
+#' # To solve this, an new categorical data must be created for group
+#' ggplot2::ggplot()+ggplot2::geom_dotplot(
+#'     data = mtcars, 
+#'     mapping = ggplot2::aes(x = vs, y = mpg, group = paste(vs, am, sep = ".")), 
+#'     position = ggplot2::position_dodge(0.5), 
+#'     binaxis = "y", 
+#'     stackdir = "center"
+#' )
+#' # This behavior of group does not happen with functions like geom_point()
+#' # as shown in the four following examples
+#'ggplot2::ggplot()+ggplot2::geom_point(
+#'     data = mtcars, 
+#'     mapping = ggplot2::aes(x = vs, y = mpg, color = am), 
+#' )
+#' 
+#' ggplot2::ggplot()+ggplot2::geom_point(
+#'     data = mtcars, 
+#'     mapping = ggplot2::aes(x = vs, y = mpg, group = am), 
+#' )
+#' 
+#' ggplot2::ggplot()+ggplot2::geom_dotplot(
+#'     data = mtcars, 
+#'     mapping = ggplot2::aes(x = vs, y = mpg, group = am), 
+#'     binaxis = "y"
+#' )
+#' 
+#' ggplot2::ggplot()+ggplot2::geom_dotplot(
+#'     data = mtcars, 
+#'     mapping = ggplot2::aes(x = vs, y = mpg, fill = am), 
+#'     binaxis = "y"
+#' )
+}
 NULL
