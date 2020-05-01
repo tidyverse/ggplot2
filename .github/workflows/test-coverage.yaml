@@ -11,12 +11,15 @@ name: test-coverage
 # Increment this version when we want to clear cache
 env:
   cache-version: v1
+  r-version: 4.0
 
 jobs:
   test-coverage:
     runs-on: macOS-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          r-version: ${{ env.r-version }}
 
       - uses: r-lib/actions/setup-r@master
 
@@ -32,8 +35,8 @@ jobs:
         uses: actions/cache@v1
         with:
           path: ${{ env.R_LIBS_USER }}
-          key: ${{ env.cache-version }}-macOS-r-3.6-${{ hashFiles('.github/depends.Rds') }}
-          restore-keys: ${{ env.cache-version }}-macOS-r-3.6-
+          key: ${{ env.cache-version }}-macOS-r-${{ env.r-version }}-${{ hashFiles('.github/depends.Rds') }}
+          restore-keys: ${{ env.cache-version }}-macOS-r-${{ env.r-version }}-
 
       - name: Install system dependencies on macOS
         if: runner.os == 'macOS'
@@ -52,13 +55,6 @@ jobs:
           if [ "${SF_NEEDS_UPDATED}" == "yes" ]; then
             brew install udunits gdal
           fi
-
-      # TODO: Remove this when https://github.com/r-lib/xml2/issues/296 is fixed on CRAN
-      - name: Install the dev version of xml2 as a workaround
-        if: runner.os == 'macOS' && matrix.config.r == 'devel'
-        run: |
-          remotes::install_github('r-lib/xml2')
-        shell: Rscript {0}
 
       - name: Install dependencies
         run: |
