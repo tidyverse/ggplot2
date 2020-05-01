@@ -34,8 +34,8 @@
 #' v + geom_contour_filled()
 #'
 #' # Setting bins creates evenly spaced contours in the range of the data
+#' v + geom_contour(bins = 3)
 #' v + geom_contour(bins = 5)
-#' v + geom_contour(bins = 10)
 #'
 #' # Setting binwidth does the same thing, parameterised by the distance
 #' # between contours
