@@ -55,7 +55,7 @@
 #' base + stat_function(fun = f)
 #'
 stat_function <- function(mapping = NULL, data = NULL,
-                          geom = "path", position = "identity",
+                          geom = "function", position = "identity",
                           ...,
                           fun,
                           xlim = NULL,
@@ -65,10 +65,7 @@ stat_function <- function(mapping = NULL, data = NULL,
                           show.legend = NA,
                           inherit.aes = TRUE) {
 
-  # Warn if supplied mapping and/or data is going to be overwritten
-  if (!is.null(mapping)) {
-    warn("`mapping` is not used by stat_function()")
-  }
+  # Warn if supplied data is going to be overwritten
   if (!is.null(data)) {
     warn("`data` is not used by stat_function()")
   }
