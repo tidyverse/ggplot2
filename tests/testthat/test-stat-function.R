@@ -44,6 +44,15 @@ test_that("works in plots without any data", {
   ret <- layer_data(base)
   expect_identical(ret$x, seq(0, 2, length.out = 6))
   expect_identical(ret$y, 2*ret$x)
+
+  # mapping of color via aes() works
+  base <- ggplot() +
+    geom_function(aes(color = "fun"), fun = f, n = 6) +
+    scale_color_manual(values = c(fun = "#D55E00"))
+  ret <- layer_data(base)
+  expect_identical(ret$x, seq(0, 1, length.out = 6))
+  expect_identical(ret$y, 2*ret$x)
+  expect_identical(ret$colour, rep("#D55E00", 6))
 })
 
 test_that("works with discrete x", {
