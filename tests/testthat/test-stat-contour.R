@@ -36,7 +36,9 @@ test_that("contour breaks can be set manually and by bins and binwidth", {
   range <- c(0, 1)
   expect_equal(contour_breaks(range), pretty(range, 10))
   expect_identical(contour_breaks(range, breaks = 1:3), 1:3)
-  expect_length(contour_breaks(range, bins = 5), 5)
+  expect_length(contour_breaks(range, bins = 5), 6)
+  # shifting the range by 0.2 hits another execution branch in contour_breaks()
+  expect_length(contour_breaks(range + 0.2, bins = 5), 6)
   expect_equal(resolution(contour_breaks(range, binwidth = 0.3)), 0.3)
 })
 
