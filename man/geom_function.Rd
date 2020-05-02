@@ -3,17 +3,17 @@
 \name{geom_function}
 \alias{geom_function}
 \alias{stat_function}
-\title{Compute function for each x value}
+\title{Draw a function as a continuous curve}
 \usage{
 geom_function(
   mapping = NULL,
   data = NULL,
   stat = "function",
   position = "identity",
+  ...,
   na.rm = FALSE,
   show.legend = NA,
-  inherit.aes = TRUE,
-  ...
+  inherit.aes = TRUE
 )
 
 stat_function(
@@ -37,26 +37,18 @@ stat_function(
 default), it is combined with the default mapping at the top level of the
 plot. You must supply \code{mapping} if there is no plot mapping.}
 
-\item{data}{The data to be displayed in this layer. There are three
-options:
-
-If \code{NULL}, the default, the data is inherited from the plot
-data as specified in the call to \code{\link[=ggplot]{ggplot()}}.
-
-A \code{data.frame}, or other object, will override the plot
-data. All objects will be fortified to produce a data frame. See
-\code{\link[=fortify]{fortify()}} for which variables will be created.
-
-A \code{function} will be called with a single argument,
-the plot data. The return value must be a \code{data.frame}, and
-will be used as the layer data. A \code{function} can be created
-from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
+\item{data}{Ignored by \code{stat_function()}, do not use.}
 
 \item{stat}{The statistical transformation to use on the data for this
 layer, as a string.}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
+
+\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
+often aesthetics, used to set an aesthetic to a fixed value, like
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
+to the paired geom/stat.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
@@ -72,11 +64,6 @@ rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
-\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
-often aesthetics, used to set an aesthetic to a fixed value, like
-\code{colour = "red"} or \code{size = 3}. They may also be parameters
-to the paired geom/stat.}
-
 \item{geom}{The geometric object to use display the data}
 
 \item{fun}{Function to use. Either 1) an anonymous function in the base or
@@ -86,56 +73,71 @@ be vectorised.}
 
 \item{xlim}{Optionally, restrict the range of the function to this range.}
 
-\item{n}{Number of points to interpolate along}
+\item{n}{Number of points to interpolate along the x axis.}
 
 \item{args}{List of additional arguments passed on to the function defined by \code{fun}.}
 }
 \description{
-This stat makes it easy to superimpose a function on top of an existing plot.
-The function is called with a grid of evenly spaced values along the x axis,
-and the results are drawn (by default) with a line.
+Computes and draws a function as a continuous curve. This makes it easy to
+superimpose a function on top of an existing plot. The function is called
+with a grid of evenly spaced values along the x axis, and the results are
+drawn (by default) with a line.
 }
+\section{Aesthetics}{
+
+\code{geom_function()} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+\item \strong{\code{x}}
+\item \strong{\code{y}}
+\item \code{alpha}
+\item \code{colour}
+\item \code{group}
+\item \code{linetype}
+\item \code{size}
+}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
+}
+
 \section{Computed variables}{
 
+\code{stat_function()} computes the following variables:
 \describe{
-\item{x}{x's along a grid}
-\item{y}{value of function evaluated at corresponding x}
+\item{x}{x values along a grid}
+\item{y}{value of the function evaluated at corresponding x}
 }
 }
 
 \examples{
 
-# stat_function is useful for overlaying functions
+# geom_function() is useful for overlaying functions
 set.seed(1492)
 ggplot(data.frame(x = rnorm(100)), aes(x)) +
   geom_density() +
-  stat_function(fun = dnorm, colour = "red")
+  geom_function(fun = dnorm, colour = "red")
 
 # To plot functions without data, specify range of x-axis
 base <- ggplot(data.frame(x = c(-5, 5)), aes(x))
-base + stat_function(fun = dnorm)
-base + stat_function(fun = dnorm, args = list(mean = 2, sd = .5))
+base + geom_function(fun = dnorm)
+base + geom_function(fun = dnorm, args = list(mean = 2, sd = .5))
 
 # The underlying mechanics evaluate the function at discrete points
 # and connect the points with lines
-base <- ggplot(data.frame(x = c(-5, 5)), aes(x))
 base + stat_function(fun = dnorm, geom = "point")
 base + stat_function(fun = dnorm, geom = "point", n = 20)
-base + stat_function(fun = dnorm, n = 20)
+base + geom_function(fun = dnorm, n = 20)
 
 # Two functions on the same plot
 base +
-  stat_function(fun = dnorm, colour = "red") +
-  stat_function(fun = dt, colour = "blue", args = list(df = 1))
+  geom_function(aes(colour = "normal"), fun = dnorm) +
+  geom_function(aes(colour = "t, df = 1"), fun = dt, args = list(df = 1))
 
 # Using a custom anonymous function
-base + stat_function(fun = function(.x) .5*exp(-abs(.x)))
-base + stat_function(fun = ~ .5*exp(-abs(.x)))
+base + geom_function(fun = function(x) 0.5*exp(-abs(x)))
+base + geom_function(fun = ~ 0.5*exp(-abs(.x)))
 
 # Using a custom named function
-f <- function(.x) .5*exp(-abs(.x))
-base + stat_function(fun = f)
-
+f <- function(x) 0.5*exp(-abs(x))
+base + geom_function(fun = f)
 }
 \seealso{
 \code{\link[rlang:as_function]{rlang::as_function()}}
