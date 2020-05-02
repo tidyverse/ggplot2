@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Colour related aesthetics: colour, fill and alpha — aes_colour_fill_alpha • ggplot2</title>
+<title>Colour related aesthetics: colour, fill, and alpha — aes_colour_fill_alpha • ggplot2</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -51,9 +51,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Colour related aesthetics: colour, fill and alpha — aes_colour_fill_alpha" />
-<meta property="og:description" content="This page demonstrates the usage of a sub-group
-of aesthetics: colour, fill and alpha." />
+<meta property="og:title" content="Colour related aesthetics: colour, fill, and alpha — aes_colour_fill_alpha" />
+<meta property="og:description" content="These aesthetics parameters change the colour (colour and fill) and the
+opacity (alpha) of geom elements on a plot. Almost every geom has either
+colour or fill (or both), as well as can have their alpha modified.
+Modifying colour on a plot is a useful way to enhance the presentation of data,
+often especially when a plot graphs more than two variables." />
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -194,18 +197,65 @@ of aesthetics: colour, fill and alpha." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Colour related aesthetics: colour, fill and alpha</h1>
+    <h1>Colour related aesthetics: colour, fill, and alpha</h1>
     <small class="dont-index">Source: <a href='https://github.com/tidyverse/ggplot2/blob/master/R/aes-colour-fill-alpha.r'><code>R/aes-colour-fill-alpha.r</code></a></small>
     <div class="hidden name"><code>aes_colour_fill_alpha.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This page demonstrates the usage of a sub-group
-of aesthetics: colour, fill and alpha.</p>
+    <p>These aesthetics parameters change the colour (<code>colour</code> and <code>fill</code>) and the
+opacity (<code>alpha</code>) of geom elements on a plot. Almost every geom has either
+colour or fill (or both), as well as can have their alpha modified.
+Modifying colour on a plot is a useful way to enhance the presentation of data,
+often especially when a plot graphs more than two variables.</p>
     </div>
 
 
 
+    <h2 class="hasAnchor" id="colour-and-fill"><a class="anchor" href="#colour-and-fill"></a>Colour and fill</h2>
+
+    
+
+
+<p>Colours and fills can be specified in the following ways:</p><ul>
+<li><p>A name, e.g., <code>"red"</code>. R has 657 built-in named colours, which can be
+listed with <code><a href='https://rdrr.io/r/grDevices/colors.html'>grDevices::colors()</a></code>.</p></li>
+<li><p>An rgb specification, with a string of the form <code>"#RRGGBB"</code> where each of the
+pairs <code>RR</code>, <code>GG</code>, <code>BB</code> consists of two hexadecimal digits giving a value in the
+range <code>00</code> to <code>FF</code>. You can optionally make the colour transparent by using the
+form <code>"#RRGGBBAA"</code>.</p></li>
+<li><p>An <code>NA</code>, for a completely transparent colour.</p></li>
+</ul>
+
+    <h2 class="hasAnchor" id="alpha"><a class="anchor" href="#alpha"></a>Alpha</h2>
+
+    
+
+
+<p>Alpha refers to the opacity of a geom. Values of <code>alpha</code> range from 0 to 1,
+with lower values corresponding to more transparent colors.</p>
+<p>Alpha can additionally be modified through the <code>colour</code> or <code>fill</code> aesthetic
+if either aesthetic provides color values using an rgb specification
+(<code>"#RRGGBBAA"</code>), where <code>AA</code> refers to transparency values.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'>
+<ul>
+<li><p>Other options for modifying colour:
+<code><a href='scale_brewer.html'>scale_colour_brewer()</a></code>,
+<code><a href='scale_gradient.html'>scale_colour_gradient()</a></code>, <code><a href='scale_grey.html'>scale_colour_grey()</a></code>,
+<code><a href='scale_hue.html'>scale_colour_hue()</a></code>, <code><a href='scale_identity.html'>scale_colour_identity()</a></code>,
+<code><a href='scale_manual.html'>scale_colour_manual()</a></code>, <code><a href='scale_viridis.html'>scale_colour_viridis_d()</a></code></p></li>
+<li><p>Other options for modifying fill:
+<code><a href='scale_brewer.html'>scale_fill_brewer()</a></code>,
+<code><a href='scale_gradient.html'>scale_fill_gradient()</a></code>, <code><a href='scale_grey.html'>scale_fill_grey()</a></code>,
+<code><a href='scale_hue.html'>scale_fill_hue()</a></code>, <code><a href='scale_identity.html'>scale_fill_identity()</a></code>,
+<code><a href='scale_manual.html'>scale_fill_manual()</a></code>, <code><a href='scale_viridis.html'>scale_fill_viridis_d()</a></code></p></li>
+<li><p>Other options for modifying alpha: <code><a href='scale_alpha.html'>scale_alpha()</a></code></p></li>
+<li><p><code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code> provides an overview of other aesthestics that
+can be modified</p></li>
+</ul>
+</div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>

@@ -199,6 +199,9 @@
     <loc>https://ggplot2.tidyverse.org/reference/geom_errorbarh.html</loc>
   </url>
   <url>
+    <loc>https://ggplot2.tidyverse.org/reference/geom_function.html</loc>
+  </url>
+  <url>
     <loc>https://ggplot2.tidyverse.org/reference/geom_hex.html</loc>
   </url>
   <url>
@@ -509,9 +512,6 @@
   </url>
   <url>
     <loc>https://ggplot2.tidyverse.org/reference/stat_ellipse.html</loc>
-  </url>
-  <url>
-    <loc>https://ggplot2.tidyverse.org/reference/stat_function.html</loc>
   </url>
   <url>
     <loc>https://ggplot2.tidyverse.org/reference/stat_identity.html</loc>
