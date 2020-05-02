@@ -36,9 +36,11 @@ for more details:
 }
 }
 \examples{
+if (requireNamespace("Hmisc", quietly = TRUE)) {
 x <- rnorm(100)
 mean_cl_boot(x)
 mean_cl_normal(x)
 mean_sdl(x)
 median_hilow(x)
+}
 }

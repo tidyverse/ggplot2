@@ -7,7 +7,7 @@
 annotation_raster(raster, xmin, xmax, ymin, ymax, interpolate = FALSE)
 }
 \arguments{
-\item{raster}{raster object to display}
+\item{raster}{raster object to display, may be an \code{array} or a \code{nativeRaster}}
 
 \item{xmin, xmax}{x location (in data coordinates) giving horizontal
 location of raster}

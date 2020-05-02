@@ -61,6 +61,17 @@ Thus, \code{filename = "figure\%03d.png"} will produce successive filenames
 containing the \verb{\%} sign, use \code{\%\%}. For example, \code{filename = "figure-100\%\%.png"}
 will produce the filename \verb{figure-100\%.png}.
 }
+\section{Saving images without ggsave()}{
+
+
+In most cases \code{ggsave()} is the simplest way to save your plot, but
+sometimes you may wish to save the plot by writing directly to a
+graphics device. To do this, you can open a regular R graphics
+device such as \code{png()} or \code{pdf()}, print the plot, and then close
+the device using \code{dev.off()}. This technique is illustrated in the
+examples section.
+}
+
 \examples{
 \dontrun{
 ggplot(mtcars, aes(mpg, wt)) + geom_point()
@@ -80,5 +91,12 @@ unlink("mtcars.png")
 file <- tempfile()
 ggsave(file, device = "pdf")
 unlink(file)
+
+# save plot to file without using ggsave
+p <- ggplot(mtcars, aes(mpg, wt)) + geom_point()
+png("mtcars.png")
+print(p)
+dev.off()
+
 }
 }

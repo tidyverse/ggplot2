@@ -13,6 +13,15 @@
 #' containing the `%` sign, use `%%`. For example, `filename = "figure-100%%.png"`
 #' will produce the filename `figure-100%.png`.
 #'
+#' @section Saving images without ggsave():
+#'
+#' In most cases `ggsave()` is the simplest way to save your plot, but
+#' sometimes you may wish to save the plot by writing directly to a
+#' graphics device. To do this, you can open a regular R graphics
+#' device such as `png()` or `pdf()`, print the plot, and then close
+#' the device using `dev.off()`. This technique is illustrated in the
+#' examples section.
+#'
 #' @param filename File name to create on disk.
 #' @param plot Plot to save, defaults to last plot displayed.
 #' @param device Device to use. Can either be a device function
@@ -51,6 +60,13 @@
 #' file <- tempfile()
 #' ggsave(file, device = "pdf")
 #' unlink(file)
+#'
+#' # save plot to file without using ggsave
+#' p <- ggplot(mtcars, aes(mpg, wt)) + geom_point()
+#' png("mtcars.png")
+#' print(p)
+#' dev.off()
+#'
 #' }
 ggsave <- function(filename, plot = last_plot(),
                    device = NULL, path = NULL, scale = 1,
@@ -133,8 +149,14 @@ plot_dev <- function(device, filename = NULL, dpi = 300) {
   force(filename)
   force(dpi)
 
-  if (is.function(device))
-    return(device)
+  if (is.function(device)) {
+    if ("file" %in% names(formals(device))) {
+      dev <- function(filename, ...) device(file = filename, ...)
+      return(dev)
+    } else {
+      return(device)
+    }
+  }
 
   eps <- function(filename, ...) {
     grDevices::postscript(file = filename, ..., onefile = FALSE, horizontal = FALSE,

@@ -1,0 +1,76 @@
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+name: test-coverage
+
+# Increment this version when we want to clear cache
+env:
+  cache-version: v1
+
+jobs:
+  test-coverage:
+    runs-on: macOS-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: r-lib/actions/setup-r@master
+
+      - uses: r-lib/actions/setup-pandoc@master
+
+      - name: Query dependencies
+        run: |
+          install.packages('remotes')
+          saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
+        shell: Rscript {0}
+
+      - name: Cache R packages
+        uses: actions/cache@v1
+        with:
+          path: ${{ env.R_LIBS_USER }}
+          key: ${{ env.cache-version }}-macOS-r-3.6-${{ hashFiles('.github/depends.Rds') }}
+          restore-keys: ${{ env.cache-version }}-macOS-r-3.6-
+
+      - name: Install system dependencies on macOS
+        if: runner.os == 'macOS'
+        run: |
+          # XQuartz is needed by vdiffr
+          brew cask install xquartz
+
+          # To install vdiffr, these three libraries/tools are needed in addition to XQuartz
+          # - freetype (already installed, needed by systemfonts)
+          # - cairo (not installed, needed by gdtools)
+          # - pkg-config (not installed, needed to set proper build settings)
+          brew install pkg-config cairo
+
+          # Since sf dependencies are a bit heavy, install them only when they are needed
+          SF_NEEDS_UPDATED=$(Rscript -e 'if (!"sf" %in% installed.packages()[,"Package"] || "sf" %in% old.packages()[,"Package"]) cat("yes")')
+          if [ "${SF_NEEDS_UPDATED}" == "yes" ]; then
+            brew install udunits gdal
+          fi
+
+      # TODO: Remove this when https://github.com/r-lib/xml2/issues/296 is fixed on CRAN
+      - name: Install the dev version of xml2 as a workaround
+        if: runner.os == 'macOS' && matrix.config.r == 'devel'
+        run: |
+          remotes::install_github('r-lib/xml2')
+        shell: Rscript {0}
+
+      - name: Install dependencies
+        run: |
+          install.packages(c("remotes"))
+          remotes::install_deps(dependencies = TRUE)
+          remotes::install_cran("covr")
+        shell: Rscript {0}
+
+      # TODO: Remove remotes::install_github() after covr > 3.5.0 is released
+      #       c.f. https://github.com/r-lib/covr/commit/cc710804aeff6f337777465bf902914197c0b713
+      - name: Test coverage
+        run: |
+          remotes::install_github("r-lib/covr")
+          covr::codecov()
+        shell: Rscript {0}

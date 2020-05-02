@@ -2,18 +2,23 @@
   withr::with_preserve_seed({
     if (!interactive() || stats::runif(1) > 0.1) return()
 
-    tips <- c(
-      "RStudio Community is a great place to get help: https://community.rstudio.com/c/tidyverse.",
-      "Find out what's changed in ggplot2 at https://github.com/tidyverse/ggplot2/releases.",
-      "Use suppressPackageStartupMessages() to eliminate package startup messages.",
-      "Need help? Try Stackoverflow: https://stackoverflow.com/tags/ggplot2.",
-      "Need help getting started? Try the cookbook for R: http://www.cookbook-r.com/Graphs/",
-      "Want to understand how all the pieces fit together? See the R for Data Science book: http://r4ds.had.co.nz/"
-    )
-
-    tip <- sample(tips, 1)
+    tip <- random_tip()
     packageStartupMessage(paste(strwrap(tip), collapse = "\n"))
   })
+}
+
+random_tip <- function() {
+  tips <- c(
+    "RStudio Community is a great place to get help: https://community.rstudio.com/c/tidyverse",
+    "Learn more about the underlying theory at https://ggplot2-book.org/",
+    "Keep up to date with changes at https://www.tidyverse.org/blog/",
+    "Use suppressPackageStartupMessages() to eliminate package startup messages",
+    "Need help? Try Stackoverflow: https://stackoverflow.com/tags/ggplot2",
+    "Need help getting started? Try the R Graphics Cookbok: https://r-graphics.org",
+    "Want to understand how all the pieces fit together? Read R for Data Science: https://r4ds.had.co.nz/"
+  )
+
+  sample(tips, 1)
 }
 
 # Assigning pathGrob in .onLoad ensures that packages that subclass GeomPolygon
