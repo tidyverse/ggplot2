@@ -5,12 +5,12 @@
 \alias{colour}
 \alias{color}
 \alias{fill}
-\title{Colour related aesthetics: colour, fill and alpha}
+\title{Colour related aesthetics: colour, fill, and alpha}
 \description{
 These aesthetics parameters change the colour (\code{colour} and \code{fill}) and the
 opacity (\code{alpha}) of geom elements on a plot. Almost every geom has either
 colour or fill (or both), as well as can have their alpha modified.
-Modifying colour on a plot is useful way to enhance the presentation of data,
+Modifying colour on a plot is a useful way to enhance the presentation of data,
 often especially when a plot graphs more than two variables.
 }
 \section{Colour and fill}{
@@ -18,25 +18,25 @@ often especially when a plot graphs more than two variables.
 
 Colours and fills can be specified in the following ways:
 \itemize{
-\item A name, e.g., "red". R has 657 built-in named colours, which can be
-listed with colours().
-\item An rgb specification, with a string of the form "#RRGGBB" where each of the
-pairs RR, GG, BB consists of two hexadecimal digits giving a value in the
-range 00 to FF. You can optionally make the colour transparent by using the
-form "#RRGGBBAA".
-\item An NA, for a completely transparent colour.
+\item A name, e.g., \code{"red"}. R has 657 built-in named colours, which can be
+listed with \code{\link[=colours]{colours()}}.
+\item An rgb specification, with a string of the form \code{"#RRGGBB"} where each of the
+pairs \code{RR}, \code{GG}, \code{BB} consists of two hexadecimal digits giving a value in the
+range \code{00} to \code{FF}. You can optionally make the colour transparent by using the
+form \code{"#RRGGBBAA"}.
+\item An \code{NA}, for a completely transparent colour.
 }
 }
 
 \section{Alpha}{
 
 
-Alpha refers to the opacity of a geom. Values of alpha range from 0 to 1,
-with lower values reflecting more transparent objects.
+Alpha refers to the opacity of a geom. Values of \code{alpha} range from 0 to 1,
+with lower values corresponding to more transparent colors.
 
-Alpha can additionally be modified through the \code{colour} or \code{fill} if either
-aesthetic is modified using an rgb specification ("#RRGGBBAA"), where "A"
-refers to transparency values.
+Alpha can additionally be modified through the \code{colour} or \code{fill} aesthetic
+if either aesthetic provides color values using an rgb specification
+(\code{"#RRGGBBAA"}), where \code{AA} refers to transparency values.
 }
 
 \examples{
