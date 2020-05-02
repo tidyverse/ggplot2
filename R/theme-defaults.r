@@ -4,7 +4,7 @@
 #' [theme()] if you just need to tweak the display of an existing
 #' theme.
 #'
-#' @param base_size base font size; text size in pts.
+#' @param base_size base font size, given in pts.
 #' @param base_family base font family
 #' @param base_line_size base size for line elements
 #' @param base_rect_size base size for rect elements
