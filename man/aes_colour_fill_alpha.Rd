@@ -19,7 +19,7 @@ often especially when a plot graphs more than two variables.
 Colours and fills can be specified in the following ways:
 \itemize{
 \item A name, e.g., \code{"red"}. R has 657 built-in named colours, which can be
-listed with \code{\link[grDevices:colours]{grDevices::colours()}}.
+listed with \code{\link[grDevices:colors]{grDevices::colors()}}.
 \item An rgb specification, with a string of the form \code{"#RRGGBB"} where each of the
 pairs \code{RR}, \code{GG}, \code{BB} consists of two hexadecimal digits giving a value in the
 range \code{00} to \code{FF}. You can optionally make the colour transparent by using the
@@ -103,7 +103,7 @@ j + scale_fill_manual(values = alpha(c("blue", "red"), .3))
 \code{\link[=scale_fill_grey]{scale_fill_grey()}}, \code{\link[=scale_fill_hue]{scale_fill_hue()}}, \code{\link[=scale_fill_identity]{scale_fill_identity()}},
 \code{\link[=scale_fill_manual]{scale_fill_manual()}}
 \item Other options for modifying alpha: \code{\link[=scale_alpha]{scale_alpha()}}
-\item \link{vignette("ggplot-specs")} provides an overview of other aesthestics that
+\item \code{vignette("ggplot-specs")} provides an overview of other aesthestics that
 can be modified
 }
 }

@@ -10,7 +10,7 @@
 #'
 #' Colours and fills can be specified in the following ways:
 #' * A name, e.g., `"red"`. R has 657 built-in named colours, which can be
-#' listed with [grDevices::colours()].
+#' listed with [grDevices::colors()].
 #' * An rgb specification, with a string of the form `"#RRGGBB"` where each of the
 #' pairs `RR`, `GG`, `BB` consists of two hexadecimal digits giving a value in the
 #' range `00` to `FF`. You can optionally make the colour transparent by using the
@@ -41,7 +41,7 @@
 #' [scale_fill_grey()], [scale_fill_hue()], [scale_fill_identity()],
 #' [scale_fill_manual()]
 #' * Other options for modifying alpha: [scale_alpha()]
-#' * [vignette("ggplot-specs")] provides an overview of other aesthestics that
+#' * `vignette("ggplot-specs")` provides an overview of other aesthestics that
 #' can be modified
 #'
 #' @name aes_colour_fill_alpha
