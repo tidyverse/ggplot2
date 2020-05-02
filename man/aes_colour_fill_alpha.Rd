@@ -91,19 +91,17 @@ j + scale_fill_manual(values = alpha(c("blue", "red"), .3))
 \seealso{
 \itemize{
 \item Other options for modifying colour:
-\code{\link[=scale_colour_brewer]{scale_colour_brewer()}}, \code{\link[=scale_colour_distiller]{scale_colour_distiller()}},
-\code{\link[=scale_colour_continuous]{scale_colour_continuous()}}, \code{\link[=scale_colour_gradient]{scale_colour_gradient()}},
-\code{\link[=scale_colour_gradient2]{scale_colour_gradient2()}}, \code{\link[=scale_colour_gradientn]{scale_colour_gradientn()}},
-\code{\link[=scale_colour_grey]{scale_colour_grey()}}, \code{\link[=scale_colour_hue]{scale_colour_hue()}}, \code{\link[=scale_colour_identity]{scale_colour_identity()}},
+\code{\link[=scale_colour_brewer]{scale_colour_brewer()}},
+\code{\link[=scale_colour_gradient]{scale_colour_gradient()}}, \code{\link[=scale_colour_grey]{scale_colour_grey()}},
+\code{\link[=scale_colour_hue]{scale_colour_hue()}}, \code{\link[=scale_colour_identity]{scale_colour_identity()}},
 \code{\link[=scale_colour_manual]{scale_colour_manual()}}, \code{\link[=scale_colour_viridis_d]{scale_colour_viridis_d()}}
 \item Other options for modifying fill:
-\code{\link[=scale_fill_brewer]{scale_fill_brewer()}}, \code{\link[=scale_fill_distiller]{scale_fill_distiller()}},
-\code{\link[=scale_fill_continuous]{scale_fill_continuous()}}, \code{\link[=scale_fill_gradient]{scale_fill_gradient()}},
-\code{\link[=scale_fill_gradient2]{scale_fill_gradient2()}}, \code{\link[=scale_fill_gradientn]{scale_fill_gradientn()}},
-\code{\link[=scale_fill_grey]{scale_fill_grey()}}, \code{\link[=scale_fill_hue]{scale_fill_hue()}}, \code{\link[=scale_fill_identity]{scale_fill_identity()}},
-\code{\link[=scale_fill_manual]{scale_fill_manual()}}
+\code{\link[=scale_fill_brewer]{scale_fill_brewer()}},
+\code{\link[=scale_fill_gradient]{scale_fill_gradient()}}, \code{\link[=scale_fill_grey]{scale_fill_grey()}},
+\code{\link[=scale_fill_hue]{scale_fill_hue()}}, \code{\link[=scale_fill_identity]{scale_fill_identity()}},
+\code{\link[=scale_fill_manual]{scale_fill_manual()}}, \code{\link[=scale_fill_viridis_d]{scale_fill_viridis_d()}}
 \item Other options for modifying alpha: \code{\link[=scale_alpha]{scale_alpha()}}
-\item \code{vignette("ggplot-specs")} provides an overview of other aesthestics that
+\item \code{vignette("ggplot2-specs")} provides an overview of other aesthestics that
 can be modified
 }
 }

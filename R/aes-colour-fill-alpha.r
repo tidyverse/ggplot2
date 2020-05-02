@@ -29,19 +29,17 @@
 #'
 #' @seealso
 #' * Other options for modifying colour:
-#' [scale_colour_brewer()], [scale_colour_distiller()],
-#' [scale_colour_continuous()], [scale_colour_gradient()],
-#' [scale_colour_gradient2()], [scale_colour_gradientn()],
-#' [scale_colour_grey()], [scale_colour_hue()], [scale_colour_identity()],
+#' [scale_colour_brewer()],
+#' [scale_colour_gradient()], [scale_colour_grey()],
+#' [scale_colour_hue()], [scale_colour_identity()],
 #' [scale_colour_manual()], [scale_colour_viridis_d()]
 #' * Other options for modifying fill:
-#' [scale_fill_brewer()], [scale_fill_distiller()],
-#' [scale_fill_continuous()], [scale_fill_gradient()],
-#' [scale_fill_gradient2()], [scale_fill_gradientn()],
-#' [scale_fill_grey()], [scale_fill_hue()], [scale_fill_identity()],
-#' [scale_fill_manual()]
+#' [scale_fill_brewer()],
+#' [scale_fill_gradient()], [scale_fill_grey()],
+#' [scale_fill_hue()], [scale_fill_identity()],
+#' [scale_fill_manual()], [scale_fill_viridis_d()]
 #' * Other options for modifying alpha: [scale_alpha()]
-#' * `vignette("ggplot-specs")` provides an overview of other aesthestics that
+#' * `vignette("ggplot2-specs")` provides an overview of other aesthestics that
 #' can be modified
 #'
 #' @name aes_colour_fill_alpha
