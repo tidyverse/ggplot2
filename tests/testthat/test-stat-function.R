@@ -101,5 +101,6 @@ test_that("Warn when drawing multiple copies of the same function", {
 })
 
 test_that("`data` is not used by stat_function()", {
+  expect_warning(geom_function(data = mtcars, fun = identity), "`data` is not used")
   expect_warning(stat_function(data = mtcars, fun = identity), "`data` is not used")
 })
