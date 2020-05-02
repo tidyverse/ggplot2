@@ -24,6 +24,28 @@ test_that("uses scale limits, not data limits", {
   expect_false(any(is.na(ret_log$y)))
 })
 
+test_that("works in plots without any data", {
+  f <- function(x) 2*x
+
+  # default limits, 0 to 1
+  base <- ggplot() + geom_function(fun = f, n = 6)
+  ret <- layer_data(base)
+  expect_identical(ret$x, seq(0, 1, length.out = 6))
+  expect_identical(ret$y, 2*ret$x)
+
+  # manually set limits with xlim()
+  base <- ggplot() + xlim(0, 2) + geom_function(fun = f, n = 6)
+  ret <- layer_data(base)
+  expect_identical(ret$x, seq(0, 2, length.out = 6))
+  expect_identical(ret$y, 2*ret$x)
+
+  # manually set limits with xlim argument
+  base <- ggplot() + geom_function(fun = f, n = 6, xlim = c(0, 2))
+  ret <- layer_data(base)
+  expect_identical(ret$x, seq(0, 2, length.out = 6))
+  expect_identical(ret$y, 2*ret$x)
+})
+
 test_that("works with discrete x", {
   dat <- data_frame(x = c("a", "b"))
 
