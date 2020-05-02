@@ -15,10 +15,10 @@
 #'   `boundary`, may be specified for a single plot. `center` specifies the
 #'   center of one of the bins. `boundary` specifies the boundary between two
 #'   bins. Note that if either is above or below the range of the data, things
-#'   will be shifted by the appropriate integer multiple of `width`.
-#'   For example, to center on integers use `width = 1` and `center = 0`, even
+#'   will be shifted by the appropriate integer multiple of `binwidth`.
+#'   For example, to center on integers use `binwidth = 1` and `center = 0`, even
 #'   if `0` is outside the range of the data. Alternatively, this same alignment
-#'   can be specified with `width = 1` and `boundary = 0.5`, even if `0.5` is
+#'   can be specified with `binwidth = 1` and `boundary = 0.5`, even if `0.5` is
 #'   outside the range of the data.
 #' @param breaks Alternatively, you can supply a numeric vector giving
 #'    the bin boundaries. Overrides `binwidth`, `bins`, `center`,

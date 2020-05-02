@@ -19,7 +19,7 @@
 #'
 #' In addition to `geom_histogram`, you can create a histogram plot by using
 #' `scale_x_binned()` with [geom_bar()]. This method by default plots tick marks
-#' in between each bar.  .
+#' in between each bar.
 #'
 #' @eval rd_orientation()
 #'

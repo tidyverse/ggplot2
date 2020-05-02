@@ -10,7 +10,7 @@ NULL
 #' of the raster, and the raster must already have its own colours). This
 #' is useful for adding bitmap images.
 #'
-#' @param raster raster object to display
+#' @param raster raster object to display, may be an `array` or a `nativeRaster`
 #' @param xmin,xmax x location (in data coordinates) giving horizontal
 #'   location of raster
 #' @param ymin,ymax y location (in data coordinates) giving vertical
@@ -39,7 +39,8 @@ NULL
 #'   geom_point()
 annotation_raster <- function(raster, xmin, xmax, ymin, ymax,
                               interpolate = FALSE) {
-  raster <- grDevices::as.raster(raster)
+  if (!inherits(raster, 'nativeRaster'))
+    raster <- grDevices::as.raster(raster)
 
   layer(
     data = dummy_data(),

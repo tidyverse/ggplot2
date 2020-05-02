@@ -32,8 +32,8 @@ The default, \code{TRUE}, uses the levels that appear in the data;
     \item{\code{na.translate}}{Unlike continuous scales, discrete scales can easily show
 missing values, and do so by default. If you want to remove missing values
 from a discrete scale, specify \code{na.translate = FALSE}.}
-    \item{\code{na.value}}{If \code{na.translate = TRUE}, what value aesthetic
-value should missing be displayed as? Does not apply to position scales
+    \item{\code{na.value}}{If \code{na.translate = TRUE}, what aesthetic value should the
+missing values be displayed as? Does not apply to position scales
 where \code{NA} is always placed at the far right.}
     \item{\code{aesthetics}}{The names of the aesthetics that this scale works with.}
     \item{\code{scale_name}}{The name of the scale that should be used for error messages

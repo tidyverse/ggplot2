@@ -19,6 +19,7 @@ add_group <- function(data) {
       data$group <- id(data[disc], drop = TRUE)
     } else {
       data$group <- NO_GROUP
+      attr(data$group, "n") <- 1L
     }
   } else {
     data$group <- id(data["group"], drop = TRUE)
