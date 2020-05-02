@@ -8,12 +8,10 @@
 
 * Default continuous color scales (i.e., the `options()` `ggplot2.continuous.colour` and `ggplot2.continuous.fill`, which inform the `type` argument of `scale_fill_continuous()` and `scale_colour_continuous()`) now accept a function, which allows more control over these default `continuous_scale()`s (@cpsievert, #3827)
   
-* A newly added `geom_function()` now complements `stat_function()` and
-  can be used to draw functions as continuous curves (@clauswilke, #3611).
-  
-* `stat_function()` now works with transformed y axes, e.g. `scale_y_log10()`
-  (@clauswilke, #3905).
-  
+* A newly added `geom_function()` is now the recommended geom to use in
+  conjunction with `stat_function()`. In addition, `stat_function()` now
+  works with transformed y axes, e.g. `scale_y_log10()` (@clauswilke, #3611, #3905).
+
 * A newly added geom `geom_density_2d_filled()` and associated stat 
   `stat_density_2d_filled()` can draw filled density contours
   (@clauswilke, #3846).
