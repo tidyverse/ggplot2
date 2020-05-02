@@ -19,7 +19,7 @@ often especially when a plot graphs more than two variables.
 Colours and fills can be specified in the following ways:
 \itemize{
 \item A name, e.g., \code{"red"}. R has 657 built-in named colours, which can be
-listed with \code{\link[=colours]{colours()}}.
+listed with \code{\link[grDevices:colours]{grDevices::colours()}}.
 \item An rgb specification, with a string of the form \code{"#RRGGBB"} where each of the
 pairs \code{RR}, \code{GG}, \code{BB} consists of two hexadecimal digits giving a value in the
 range \code{00} to \code{FF}. You can optionally make the colour transparent by using the

@@ -10,7 +10,7 @@
 #'
 #' Colours and fills can be specified in the following ways:
 #' * A name, e.g., `"red"`. R has 657 built-in named colours, which can be
-#' listed with [colours()].
+#' listed with [grDevices::colours()].
 #' * An rgb specification, with a string of the form `"#RRGGBB"` where each of the
 #' pairs `RR`, `GG`, `BB` consists of two hexadecimal digits giving a value in the
 #' range `00` to `FF`. You can optionally make the colour transparent by using the
