@@ -264,7 +264,12 @@ test_that("equal length breaks and labels can be passed to ViewScales with limit
 
   test_view_scale <- view_scale_primary(test_scale)
   expect_identical(test_view_scale$get_breaks(), c(NA, 20, NA))
-  expect_identical(test_scale$get_labels(), c(c("0", "20", "40")))
+  expect_identical(test_view_scale$get_labels(), c(c("0", "20", "40")))
+
+  # ViewScale accepts the limits in the opposite order (#3952)
+  test_view_scale_rev <- view_scale_primary(test_scale, limits = rev(test_scale$get_limits()))
+  expect_identical(test_view_scale_rev$get_breaks(), c(NA, 20, NA))
+  expect_identical(test_view_scale_rev$get_labels(), c(c("0", "20", "40")))
 })
 
 # Visual tests ------------------------------------------------------------
