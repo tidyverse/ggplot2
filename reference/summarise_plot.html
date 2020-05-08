@@ -17,22 +17,26 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
 <link href="../tidyverse.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -70,7 +74,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -95,27 +99,6 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/extending-ggplot2.html">Extending ggplot2</a>
-    </li>
-    <li>
-      <a href="../articles/ggplot2-in-packages.html">Using ggplot2 in packages</a>
-    </li>
-    <li>
-      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
-    </li>
-    <li>
-      <a href="../articles/profiling.html">Profiling Performance</a>
-    </li>
-  </ul>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -155,11 +138,32 @@
     </li>
   </ul>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/extending-ggplot2.html">Extending ggplot2</a>
+    </li>
+    <li>
+      <a href="../articles/ggplot2-in-packages.html">Using ggplot2 in packages</a>
+    </li>
+    <li>
+      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+    </li>
+    <li>
+      <a href="../articles/profiling.html">Profiling Performance</a>
+    </li>
+  </ul>
+</li>
         <li>
   <a href="https://www.ggplot2-exts.org/gallery/">Extensions</a>
 </li>
 <li>
-  <a href="https://github.com/tidyverse/ggplot2">
+  <a href="https://github.com/tidyverse/ggplot2/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -212,7 +216,7 @@ a summary of the plot coord, and a summary of plot layers.</p>
 
 <p>The function <code>summarise_layout()</code> returns a table that provides information about
 the plot panel(s) in the built plot. The table has the following columns:</p>
-<dl class='dl-horizontal'>
+<dl'>
 <dt><code>panel</code></dt><dd><p>A factor indicating the individual plot panels.</p></dd>
 <dt><code>row</code></dt><dd><p>Row number in the grid of panels.</p></dd>
 <dt><code>col</code></dt><dd><p>Column number in the grid of panels.</p></dd>
@@ -252,16 +256,16 @@ contains information about aesthetic mapping for each layer.</p>
     <pre class="examples"><div class='input'><span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>displ</span>, <span class='no'>hwy</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>() + <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span>(~<span class='no'>class</span>)
 <span class='no'>b</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot_build.html'>ggplot_build</a></span>(<span class='no'>p</span>)
 
-<span class='fu'>summarise_layout</span>(<span class='no'>b</span>)</div><div class='output co'>#&gt; # A tibble: 7 x 10
+<span class='fu'>summarise_layout</span>(<span class='no'>b</span>)</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 7 x 10</span><span>
 #&gt;   panel   row   col vars             xmin  xmax  ymin  ymax xscale     yscale   
-#&gt;   &lt;fct&gt; &lt;int&gt; &lt;int&gt; &lt;list&gt;          &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;list&gt;     &lt;list&gt;   
-#&gt; 1 1         1     1 &lt;named list [1…  1.33  7.27  10.4  45.6 &lt;SclCntnP&gt; &lt;SclCntn…
-#&gt; 2 2         1     2 &lt;named list [1…  1.33  7.27  10.4  45.6 &lt;SclCntnP&gt; &lt;SclCntn…
-#&gt; 3 3         1     3 &lt;named list [1…  1.33  7.27  10.4  45.6 &lt;SclCntnP&gt; &lt;SclCntn…
-#&gt; 4 4         2     1 &lt;named list [1…  1.33  7.27  10.4  45.6 &lt;SclCntnP&gt; &lt;SclCntn…
-#&gt; 5 5         2     2 &lt;named list [1…  1.33  7.27  10.4  45.6 &lt;SclCntnP&gt; &lt;SclCntn…
-#&gt; 6 6         2     3 &lt;named list [1…  1.33  7.27  10.4  45.6 &lt;SclCntnP&gt; &lt;SclCntn…
-#&gt; 7 7         3     1 &lt;named list [1…  1.33  7.27  10.4  45.6 &lt;SclCntnP&gt; &lt;SclCntn…</div><div class='input'><span class='fu'>summarise_coord</span>(<span class='no'>b</span>)</div><div class='output co'>#&gt; $xlog
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>          </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>   
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> 1         1     1 </span><span style='color: #949494;'>&lt;named list [1</span><span>…  1.33  7.27  10.4  45.6 </span><span style='color: #949494;'>&lt;SclCntnP&gt;</span><span> </span><span style='color: #949494;'>&lt;SclCntn</span><span>…
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> 2         1     2 </span><span style='color: #949494;'>&lt;named list [1</span><span>…  1.33  7.27  10.4  45.6 </span><span style='color: #949494;'>&lt;SclCntnP&gt;</span><span> </span><span style='color: #949494;'>&lt;SclCntn</span><span>…
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span> 3         1     3 </span><span style='color: #949494;'>&lt;named list [1</span><span>…  1.33  7.27  10.4  45.6 </span><span style='color: #949494;'>&lt;SclCntnP&gt;</span><span> </span><span style='color: #949494;'>&lt;SclCntn</span><span>…
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span> 4         2     1 </span><span style='color: #949494;'>&lt;named list [1</span><span>…  1.33  7.27  10.4  45.6 </span><span style='color: #949494;'>&lt;SclCntnP&gt;</span><span> </span><span style='color: #949494;'>&lt;SclCntn</span><span>…
+#&gt; </span><span style='color: #BCBCBC;'>5</span><span> 5         2     2 </span><span style='color: #949494;'>&lt;named list [1</span><span>…  1.33  7.27  10.4  45.6 </span><span style='color: #949494;'>&lt;SclCntnP&gt;</span><span> </span><span style='color: #949494;'>&lt;SclCntn</span><span>…
+#&gt; </span><span style='color: #BCBCBC;'>6</span><span> 6         2     3 </span><span style='color: #949494;'>&lt;named list [1</span><span>…  1.33  7.27  10.4  45.6 </span><span style='color: #949494;'>&lt;SclCntnP&gt;</span><span> </span><span style='color: #949494;'>&lt;SclCntn</span><span>…
+#&gt; </span><span style='color: #BCBCBC;'>7</span><span> 7         3     1 </span><span style='color: #949494;'>&lt;named list [1</span><span>…  1.33  7.27  10.4  45.6 </span><span style='color: #949494;'>&lt;SclCntnP&gt;</span><span> </span><span style='color: #949494;'>&lt;SclCntn</span><span>…</div><div class='input'><span class='fu'>summarise_coord</span>(<span class='no'>b</span>)</div><div class='output co'>#&gt; $xlog
 #&gt; [1] NA
 #&gt; 
 #&gt; $ylog
@@ -269,23 +273,16 @@ contains information about aesthetic mapping for each layer.</p>
 #&gt; 
 #&gt; $flip
 #&gt; [1] FALSE
-#&gt; </div><div class='input'><span class='fu'>summarise_layers</span>(<span class='no'>b</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 1
+#&gt; </div><div class='input'><span class='fu'>summarise_layers</span>(<span class='no'>b</span>)</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 1 x 1</span><span>
 #&gt;   mapping         
-#&gt;   &lt;list&gt;          
-#&gt; 1 &lt;named list [2]&gt;</div><div class='input'>
-</div></pre>
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>          
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> </span><span style='color: #949494;'>&lt;named list [2]&gt;</span><span></div><div class='input'>
+</div></span></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#layout-summary">Layout summary</a></li>
-      <li><a href="#coord-summary">Coord summary</a></li>
-      <li><a href="#layer-summary">Layer summary</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 

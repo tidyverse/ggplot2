@@ -17,6 +17,10 @@ html, body {
   height: 100%;
 }
 
+body {
+  position: relative;
+}
+
 body > .container {
   display: flex;
   height: 100%;
@@ -67,6 +71,10 @@ summary {
   margin-top: calc(-60px + 1em);
 }
 
+dd {
+  margin-left: 3em;
+}
+
 /* Section anchors ---------------------------------*/
 
 a.anchor {
@@ -100,29 +108,132 @@ a.anchor {
   margin-top: -40px;
 }
 
+/* Navbar submenu --------------------------*/
+
+.dropdown-submenu {
+  position: relative;
+}
+
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+
+.dropdown-submenu.pull-left {
+  float: none;
+}
+
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+
 /* Sidebar --------------------------*/
 
-#sidebar {
+#pkgdown-sidebar {
   margin-top: 30px;
   position: -webkit-sticky;
   position: sticky;
   top: 70px;
 }
-#sidebar h2 {
+
+#pkgdown-sidebar h2 {
   font-size: 1.5em;
   margin-top: 1em;
 }
 
-#sidebar h2:first-child {
+#pkgdown-sidebar h2:first-child {
   margin-top: 0;
 }
 
-#sidebar .list-unstyled li {
+#pkgdown-sidebar .list-unstyled li {
   margin-bottom: 0.5em;
 }
 
+/* bootstrap-toc tweaks ------------------------------------------------------*/
+
+/* All levels of nav */
+
+nav[data-toggle='toc'] .nav > li > a {
+  padding: 4px 20px 4px 6px;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: inherit;
+}
+
+nav[data-toggle='toc'] .nav > li > a:hover,
+nav[data-toggle='toc'] .nav > li > a:focus {
+  padding-left: 5px;
+  color: inherit;
+  border-left: 1px solid #878787;
+}
+
+nav[data-toggle='toc'] .nav > .active > a,
+nav[data-toggle='toc'] .nav > .active:hover > a,
+nav[data-toggle='toc'] .nav > .active:focus > a {
+  padding-left: 5px;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: inherit;
+  border-left: 2px solid #878787;
+}
+
+/* Nav: second level (shown on .active) */
+
+nav[data-toggle='toc'] .nav .nav {
+  display: none; /* Hide by default, but at >768px, show it */
+  padding-bottom: 10px;
+}
+
+nav[data-toggle='toc'] .nav .nav > li > a {
+  padding-left: 16px;
+  font-size: 1.35rem;
+}
+
+nav[data-toggle='toc'] .nav .nav > li > a:hover,
+nav[data-toggle='toc'] .nav .nav > li > a:focus {
+  padding-left: 15px;
+}
+
+nav[data-toggle='toc'] .nav .nav > .active > a,
+nav[data-toggle='toc'] .nav .nav > .active:hover > a,
+nav[data-toggle='toc'] .nav .nav > .active:focus > a {
+  padding-left: 15px;
+  font-weight: 500;
+  font-size: 1.35rem;
+}
+
+/* orcid ------------------------------------------------------------------- */
+
 .orcid {
-  height: 16px;
+  font-size: 16px;
+  color: #A6CE39;
   /* margins are required by official ORCID trademark and display guidelines */
   margin-left:4px;
   margin-right:4px;

@@ -17,22 +17,26 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
 <link href="../tidyverse.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -71,7 +75,7 @@ These tick marks probably make sense only for base 10." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -96,27 +100,6 @@ These tick marks probably make sense only for base 10." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/extending-ggplot2.html">Extending ggplot2</a>
-    </li>
-    <li>
-      <a href="../articles/ggplot2-in-packages.html">Using ggplot2 in packages</a>
-    </li>
-    <li>
-      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
-    </li>
-    <li>
-      <a href="../articles/profiling.html">Profiling Performance</a>
-    </li>
-  </ul>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -156,11 +139,32 @@ These tick marks probably make sense only for base 10." />
     </li>
   </ul>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/extending-ggplot2.html">Extending ggplot2</a>
+    </li>
+    <li>
+      <a href="../articles/ggplot2-in-packages.html">Using ggplot2 in packages</a>
+    </li>
+    <li>
+      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+    </li>
+    <li>
+      <a href="../articles/profiling.html">Profiling Performance</a>
+    </li>
+  </ul>
+</li>
         <li>
   <a href="https://www.ggplot2-exts.org/gallery/">Extensions</a>
 </li>
 <li>
-  <a href="https://github.com/tidyverse/ggplot2">
+  <a href="https://github.com/tidyverse/ggplot2/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -191,7 +195,6 @@ These tick marks probably make sense only for base 10.</p>
     <pre class="usage"><span class='fu'>annotation_logticks</span>(
   <span class='kw'>base</span> <span class='kw'>=</span> <span class='fl'>10</span>,
   <span class='kw'>sides</span> <span class='kw'>=</span> <span class='st'>"bl"</span>,
-  <span class='kw'>outside</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>scaled</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>short</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>0.1</span>, <span class='st'>"cm"</span>),
   <span class='kw'>mid</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>0.2</span>, <span class='st'>"cm"</span>),
@@ -216,12 +219,6 @@ These tick marks probably make sense only for base 10.</p>
       <td><p>a string that controls which sides of the plot the log ticks appear on.
 It can be set to a string containing any of <code>"trbl"</code>, for top, right,
 bottom, and left.</p></td>
-    </tr>
-    <tr>
-      <th>outside</th>
-      <td><p>logical that controls whether to move the log ticks outside
-of the plot area. Default is off (<code>FALSE</code>). You will also need to use
-<code><a href='coord_cartesian.html'>coord_cartesian(clip = "off")</a></code>. See examples.</p></td>
     </tr>
     <tr>
       <th>scaled</th>
@@ -292,10 +289,8 @@ transformations.</p>
  <span class='fu'><a href='ggtheme.html'>theme_bw</a></span>()
 
 <span class='no'>a</span> + <span class='fu'>annotation_logticks</span>()                <span class='co'># Default: log ticks on bottom and left</span></div><div class='img'><img src='annotation_logticks-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>a</span> + <span class='fu'>annotation_logticks</span>(<span class='kw'>sides</span> <span class='kw'>=</span> <span class='st'>"lr"</span>)    <span class='co'># Log ticks for y, on left and right</span></div><div class='img'><img src='annotation_logticks-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>a</span> + <span class='fu'>annotation_logticks</span>(<span class='kw'>sides</span> <span class='kw'>=</span> <span class='st'>"trbl"</span>)  <span class='co'># All four sides</span></div><div class='img'><img src='annotation_logticks-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='no'>a</span> + <span class='fu'>annotation_logticks</span>(<span class='kw'>sides</span> <span class='kw'>=</span> <span class='st'>"lr"</span>, <span class='kw'>outside</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) +
- <span class='fu'><a href='coord_cartesian.html'>coord_cartesian</a></span>(<span class='kw'>clip</span> <span class='kw'>=</span> <span class='st'>"off"</span>)  <span class='co'># Ticks outside plot</span></div><div class='img'><img src='annotation_logticks-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Hide the minor grid lines because they don't align with the ticks</span>
-<span class='no'>a</span> + <span class='fu'>annotation_logticks</span>(<span class='kw'>sides</span> <span class='kw'>=</span> <span class='st'>"trbl"</span>) + <span class='fu'><a href='theme.html'>theme</a></span>(<span class='kw'>panel.grid.minor</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_blank</a></span>())</div><div class='img'><img src='annotation_logticks-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>a</span> + <span class='fu'>annotation_logticks</span>(<span class='kw'>sides</span> <span class='kw'>=</span> <span class='st'>"trbl"</span>) + <span class='fu'><a href='theme.html'>theme</a></span>(<span class='kw'>panel.grid.minor</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_blank</a></span>())</div><div class='img'><img src='annotation_logticks-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Another way to get the same results as 'a' above: log-transform the data before</span>
 <span class='co'># plotting it. Also hide the minor grid lines.</span>
 <span class='no'>b</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>msleep</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log10</a></span>(<span class='no'>bodywt</span>), <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log10</a></span>(<span class='no'>brainwt</span>))) +
@@ -304,28 +299,24 @@ transformations.</p>
  <span class='fu'><a href='scale_continuous.html'>scale_y_continuous</a></span>(<span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"brain"</span>, <span class='kw'>labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='fu'><a href='https://scales.r-lib.org//reference/label_parse.html'>math_format</a></span>(<span class='fl'>10</span>^<span class='no'>.x</span>)) +
  <span class='fu'><a href='ggtheme.html'>theme_bw</a></span>() + <span class='fu'><a href='theme.html'>theme</a></span>(<span class='kw'>panel.grid.minor</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_blank</a></span>())
 
-<span class='no'>b</span> + <span class='fu'>annotation_logticks</span>()</div><div class='img'><img src='annotation_logticks-6.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>b</span> + <span class='fu'>annotation_logticks</span>()</div><div class='img'><img src='annotation_logticks-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Using a coordinate transform requires scaled = FALSE</span>
 <span class='no'>t</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>msleep</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>bodywt</span>, <span class='no'>brainwt</span>)) +
   <span class='fu'><a href='geom_point.html'>geom_point</a></span>() +
   <span class='fu'><a href='coord_trans.html'>coord_trans</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"log10"</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"log10"</span>) +
   <span class='fu'><a href='ggtheme.html'>theme_bw</a></span>()
-<span class='no'>t</span> + <span class='fu'>annotation_logticks</span>(<span class='kw'>scaled</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 27 rows containing missing values (geom_point).</span></div><div class='img'><img src='annotation_logticks-7.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>t</span> + <span class='fu'>annotation_logticks</span>(<span class='kw'>scaled</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 27 rows containing missing values (geom_point).</span></div><div class='img'><img src='annotation_logticks-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Change the length of the ticks</span>
 <span class='no'>a</span> + <span class='fu'>annotation_logticks</span>(
   <span class='kw'>short</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>.5</span>,<span class='st'>"mm"</span>),
   <span class='kw'>mid</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>3</span>,<span class='st'>"mm"</span>),
   <span class='kw'>long</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>4</span>,<span class='st'>"mm"</span>)
-)</div><div class='img'><img src='annotation_logticks-8.png' alt='' width='700' height='433' /></div></pre>
+)</div><div class='img'><img src='annotation_logticks-7.png' alt='' width='700' height='433' /></div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 

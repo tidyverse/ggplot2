@@ -17,22 +17,26 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
 <link href="../tidyverse.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -42,11 +46,9 @@
 
 
 <meta property="og:title" content="Set scale limits — lims" />
-<meta property="og:description" content="This is a shortcut for supplying the limits argument to the individual
-scales. By default, any values outside the limits specified are replaced with
-NA. Be warned that this will remove data outside the limits and this can
-produce unintended results. For changing x or y axis limits without
-dropping data observations, see coord_cartesian()." />
+<meta property="og:description" content="This is a shortcut for supplying the limits argument to the
+individual scales. Note that, by default, any values outside the limits
+will be replaced with NA." />
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -74,7 +76,7 @@ dropping data observations, see coord_cartesian()." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -99,27 +101,6 @@ dropping data observations, see coord_cartesian()." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/extending-ggplot2.html">Extending ggplot2</a>
-    </li>
-    <li>
-      <a href="../articles/ggplot2-in-packages.html">Using ggplot2 in packages</a>
-    </li>
-    <li>
-      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
-    </li>
-    <li>
-      <a href="../articles/profiling.html">Profiling Performance</a>
-    </li>
-  </ul>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -159,11 +140,32 @@ dropping data observations, see coord_cartesian()." />
     </li>
   </ul>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/extending-ggplot2.html">Extending ggplot2</a>
+    </li>
+    <li>
+      <a href="../articles/ggplot2-in-packages.html">Using ggplot2 in packages</a>
+    </li>
+    <li>
+      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+    </li>
+    <li>
+      <a href="../articles/profiling.html">Profiling Performance</a>
+    </li>
+  </ul>
+</li>
         <li>
   <a href="https://www.ggplot2-exts.org/gallery/">Extensions</a>
 </li>
 <li>
-  <a href="https://github.com/tidyverse/ggplot2">
+  <a href="https://github.com/tidyverse/ggplot2/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -187,11 +189,9 @@ dropping data observations, see coord_cartesian()." />
     </div>
 
     <div class="ref-description">
-    <p>This is a shortcut for supplying the <code>limits</code> argument to the individual
-scales. By default, any values outside the limits specified are replaced with
-<code>NA</code>. Be warned that this will remove data outside the limits and this can
-produce unintended results. For changing x or y axis limits <strong>without</strong>
-dropping data observations, see <code><a href='coord_cartesian.html'>coord_cartesian()</a></code>.</p>
+    <p>This is a shortcut for supplying the <code>limits</code> argument to the
+individual scales. Note that, by default, any values outside the limits
+will be replaced with <code>NA</code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>lims</span>(<span class='no'>...</span>)
@@ -205,25 +205,22 @@ dropping data observations, see <code><a href='coord_cartesian.html'>coord_carte
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>...</th>
-      <td><p>For <code>xlim()</code> and <code>ylim()</code>: Two numeric values, specifying the left/lower
-limit and the right/upper limit of the scale. If the larger value is given first,
-the scale will be reversed. You can leave one value as <code>NA</code> if you want to compute
-the corresponding limit from the range of the data.</p>
-<p>For <code>lims()</code>: A name--value pair. The name must be an aesthetic, and the value
-must be either a length-2 numeric, a character, a factor, or a date/time.
-A numeric value will create a continuous scale. If the larger value comes first,
-the scale will be reversed. You can leave one value as <code>NA</code> if you want
-to compute the corresponding limit from the range of the data.
-A character or factor value will create a discrete scale.
-A date-time value will create a continuous date/time scale.</p></td>
+      <td><p>A name-value pair. The name must be an aesthetic, and the value
+must be either a length-2 numeric, a character, a factor, or a date/time.</p>
+<p>A numeric value will create a continuous scale. If the larger value
+comes first, the scale will be reversed. You can leave one value as
+<code>NA</code> to compute from the range of the data.</p>
+<p>A character or factor value will create a discrete scale.</p>
+<p>A date-time value will create a continuous date/time scale.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>To expand the range of a plot to always include
-certain values, see <code><a href='expand_limits.html'>expand_limits()</a></code>. For other types of data, see
-<code><a href='scale_discrete.html'>scale_x_discrete()</a></code>, <code><a href='scale_continuous.html'>scale_x_continuous()</a></code>, <code><a href='scale_date.html'>scale_x_date()</a></code>.</p></div>
+    <div class='dont-index'><p>For changing x or y axis limits <strong>without</strong> dropping data
+observations, see <code><a href='coord_cartesian.html'>coord_cartesian()</a></code>. To expand the range of
+a plot to always include certain values, see <code><a href='expand_limits.html'>expand_limits()</a></code>. For other
+types of data, see <code><a href='scale_discrete.html'>scale_x_discrete()</a></code>, <code><a href='scale_continuous.html'>scale_x_continuous()</a></code>, <code><a href='scale_date.html'>scale_x_date()</a></code>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Zoom into a specified area</span>
@@ -271,14 +268,10 @@ certain values, see <code><a href='expand_limits.html'>expand_limits()</a></code
 <span class='no'>p</span> + <span class='fu'><a href='coord_cartesian.html'>coord_cartesian</a></span>(<span class='kw'>xlim</span> <span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span>() - <span class='fl'>30</span>, <span class='fl'>NA</span>), <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>10</span>, <span class='fl'>20</span>))</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='lims-8.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 

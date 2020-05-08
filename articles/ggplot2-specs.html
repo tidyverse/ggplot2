@@ -12,13 +12,14 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="../tidyverse.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="../tidyverse.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><link href="../tidyverse-2.css" rel="stylesheet">
 <meta property="og:title" content="Aesthetic specifications">
-<meta property="og:description" content="">
+<meta property="og:description" content="ggplot2">
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -32,7 +33,7 @@
   gtag('config', 'UA-115082821-1');
 </script>
 </head>
-<body>
+<body data-spy="scroll" data-target="#toc">
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -56,27 +57,6 @@
       <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="../articles/extending-ggplot2.html">Extending ggplot2</a>
-    </li>
-    <li>
-      <a href="../articles/ggplot2-in-packages.html">Using ggplot2 in packages</a>
-    </li>
-    <li>
-      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
-    </li>
-    <li>
-      <a href="../articles/profiling.html">Profiling Performance</a>
-    </li>
-  </ul>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -116,11 +96,32 @@
     </li>
   </ul>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="../articles/extending-ggplot2.html">Extending ggplot2</a>
+    </li>
+    <li>
+      <a href="../articles/ggplot2-in-packages.html">Using ggplot2 in packages</a>
+    </li>
+    <li>
+      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+    </li>
+    <li>
+      <a href="../articles/profiling.html">Profiling Performance</a>
+    </li>
+  </ul>
+</li>
         <li>
   <a href="https://www.ggplot2-exts.org/gallery/">Extensions</a>
 </li>
 <li>
-  <a href="https://github.com/tidyverse/ggplot2">
+  <a href="https://github.com/tidyverse/ggplot2/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -135,10 +136,10 @@
 
       
 
-      </header><div class="row">
+      </header><script src="ggplot2-specs_files/header-attrs-2.1/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Aesthetic specifications</h1>
+      <h1 data-toc-skip>Aesthetic specifications</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/master/vignettes/ggplot2-specs.Rmd"><code>vignettes/ggplot2-specs.Rmd</code></a></small>
@@ -162,8 +163,8 @@
 <li><p>An <strong>NA</strong>, for a completely transparent colour.</p></li>
 <li>
 <p>The <a href="https://github.com/cwickham/munsell">munsell</a> package, by Charlotte Wickham, makes it easy to choose specific colours using a system designed by Alfred Munsell. If you invest a little in learning the system, it provides a convenient way of specifying aesthetically pleasing colours.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">munsell<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/munsell/man/mnsl.html">mnsl</a></span>(<span class="st">"5PB 5/10"</span>)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="co">#&gt; [1] "#447DBF"</span></a></code></pre></div>
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="kw pkg">munsell</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/munsell/man/mnsl.html">mnsl</a></span>(<span class="st">"5PB 5/10"</span>)
+<span class="co">#&gt; [1] "#447DBF"</span></pre></body></html></div>
 </li>
 </ul>
 </div>
@@ -178,32 +179,32 @@
 <ul>
 <li>
 <p>An <strong>integer</strong> or <strong>name</strong>: 0 = blank, 1 = solid, 2 = dashed, 3 = dotted, 4 = dotdash, 5 = longdash, 6 = twodash, as shown below:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">lty &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"solid"</span>, <span class="st">"dashed"</span>, <span class="st">"dotted"</span>, <span class="st">"dotdash"</span>, <span class="st">"longdash"</span>, <span class="st">"twodash"</span>)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">linetypes &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">  <span class="dt">y =</span> <span class="kw"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span>(lty),</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">  <span class="dt">lty =</span> lty</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">) </a>
-<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="kw"><a href="../reference/ggplot.html">ggplot</a></span>(linetypes, <span class="kw"><a href="../reference/aes.html">aes</a></span>(<span class="dv">0</span>, y)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="st">  </span><span class="kw"><a href="../reference/geom_segment.html">geom_segment</a></span>(<span class="kw"><a href="../reference/aes.html">aes</a></span>(<span class="dt">xend =</span> <span class="dv">5</span>, <span class="dt">yend =</span> y, <span class="dt">linetype =</span> lty)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="st">  </span><span class="kw"><a href="../reference/scale_identity.html">scale_linetype_identity</a></span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="st">  </span><span class="kw"><a href="../reference/geom_text.html">geom_text</a></span>(<span class="kw"><a href="../reference/aes.html">aes</a></span>(<span class="dt">label =</span> lty), <span class="dt">hjust =</span> <span class="dv">0</span>, <span class="dt">nudge_y =</span> <span class="fl">0.2</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="st">  </span><span class="kw"><a href="../reference/scale_continuous.html">scale_x_continuous</a></span>(<span class="ot">NULL</span>, <span class="dt">breaks =</span> <span class="ot">NULL</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="st">  </span><span class="kw"><a href="../reference/scale_continuous.html">scale_y_reverse</a></span>(<span class="ot">NULL</span>, <span class="dt">breaks =</span> <span class="ot">NULL</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">lty</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"solid"</span>, <span class="st">"dashed"</span>, <span class="st">"dotted"</span>, <span class="st">"dotdash"</span>, <span class="st">"longdash"</span>, <span class="st">"twodash"</span>)
+<span class="no">linetypes</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(
+  <span class="kw">y</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span>(<span class="no">lty</span>),
+  <span class="kw">lty</span> <span class="kw">=</span> <span class="no">lty</span>
+)
+<span class="fu"><a href="../reference/ggplot.html">ggplot</a></span>(<span class="no">linetypes</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span>(<span class="fl">0</span>, <span class="no">y</span>)) +
+  <span class="fu"><a href="../reference/geom_segment.html">geom_segment</a></span>(<span class="fu"><a href="../reference/aes.html">aes</a></span>(<span class="kw">xend</span> <span class="kw">=</span> <span class="fl">5</span>, <span class="kw">yend</span> <span class="kw">=</span> <span class="no">y</span>, <span class="kw">linetype</span> <span class="kw">=</span> <span class="no">lty</span>)) +
+  <span class="fu"><a href="../reference/scale_identity.html">scale_linetype_identity</a></span>() +
+  <span class="fu"><a href="../reference/geom_text.html">geom_text</a></span>(<span class="fu"><a href="../reference/aes.html">aes</a></span>(<span class="kw">label</span> <span class="kw">=</span> <span class="no">lty</span>), <span class="kw">hjust</span> <span class="kw">=</span> <span class="fl">0</span>, <span class="kw">nudge_y</span> <span class="kw">=</span> <span class="fl">0.2</span>) +
+  <span class="fu"><a href="../reference/scale_continuous.html">scale_x_continuous</a></span>(<span class="kw">NULL</span>, <span class="kw">breaks</span> <span class="kw">=</span> <span class="kw">NULL</span>) +
+  <span class="fu"><a href="../reference/scale_continuous.html">scale_y_reverse</a></span>(<span class="kw">NULL</span>, <span class="kw">breaks</span> <span class="kw">=</span> <span class="kw">NULL</span>)</pre></body></html></div>
 <p><img src="ggplot2-specs_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
 </li>
 <li>
 <p>The lengths of on/off stretches of line. This is done with a string containing 2, 4, 6, or 8 hexadecimal digits which give the lengths of consecutive lengths. For example, the string <code>"33"</code> specifies three units on followed by three off and <code>"3313"</code> specifies three units on followed by three off followed by one on and finally three off.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">lty &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"11"</span>, <span class="st">"18"</span>, <span class="st">"1f"</span>, <span class="st">"81"</span>, <span class="st">"88"</span>, <span class="st">"8f"</span>, <span class="st">"f1"</span>, <span class="st">"f8"</span>, <span class="st">"ff"</span>)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">linetypes &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">  <span class="dt">y =</span> <span class="kw"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span>(lty),</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">  <span class="dt">lty =</span> lty</a>
-<a class="sourceLine" id="cb3-5" data-line-number="5">) </a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="kw"><a href="../reference/ggplot.html">ggplot</a></span>(linetypes, <span class="kw"><a href="../reference/aes.html">aes</a></span>(<span class="dv">0</span>, y)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="st">  </span><span class="kw"><a href="../reference/geom_segment.html">geom_segment</a></span>(<span class="kw"><a href="../reference/aes.html">aes</a></span>(<span class="dt">xend =</span> <span class="dv">5</span>, <span class="dt">yend =</span> y, <span class="dt">linetype =</span> lty)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="st">  </span><span class="kw"><a href="../reference/scale_identity.html">scale_linetype_identity</a></span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="st">  </span><span class="kw"><a href="../reference/geom_text.html">geom_text</a></span>(<span class="kw"><a href="../reference/aes.html">aes</a></span>(<span class="dt">label =</span> lty), <span class="dt">hjust =</span> <span class="dv">0</span>, <span class="dt">nudge_y =</span> <span class="fl">0.2</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="st">  </span><span class="kw"><a href="../reference/scale_continuous.html">scale_x_continuous</a></span>(<span class="ot">NULL</span>, <span class="dt">breaks =</span> <span class="ot">NULL</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="st">  </span><span class="kw"><a href="../reference/scale_continuous.html">scale_y_reverse</a></span>(<span class="ot">NULL</span>, <span class="dt">breaks =</span> <span class="ot">NULL</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">lty</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"11"</span>, <span class="st">"18"</span>, <span class="st">"1f"</span>, <span class="st">"81"</span>, <span class="st">"88"</span>, <span class="st">"8f"</span>, <span class="st">"f1"</span>, <span class="st">"f8"</span>, <span class="st">"ff"</span>)
+<span class="no">linetypes</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(
+  <span class="kw">y</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span>(<span class="no">lty</span>),
+  <span class="kw">lty</span> <span class="kw">=</span> <span class="no">lty</span>
+)
+<span class="fu"><a href="../reference/ggplot.html">ggplot</a></span>(<span class="no">linetypes</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span>(<span class="fl">0</span>, <span class="no">y</span>)) +
+  <span class="fu"><a href="../reference/geom_segment.html">geom_segment</a></span>(<span class="fu"><a href="../reference/aes.html">aes</a></span>(<span class="kw">xend</span> <span class="kw">=</span> <span class="fl">5</span>, <span class="kw">yend</span> <span class="kw">=</span> <span class="no">y</span>, <span class="kw">linetype</span> <span class="kw">=</span> <span class="no">lty</span>)) +
+  <span class="fu"><a href="../reference/scale_identity.html">scale_linetype_identity</a></span>() +
+  <span class="fu"><a href="../reference/geom_text.html">geom_text</a></span>(<span class="fu"><a href="../reference/aes.html">aes</a></span>(<span class="kw">label</span> <span class="kw">=</span> <span class="no">lty</span>), <span class="kw">hjust</span> <span class="kw">=</span> <span class="fl">0</span>, <span class="kw">nudge_y</span> <span class="kw">=</span> <span class="fl">0.2</span>) +
+  <span class="fu"><a href="../reference/scale_continuous.html">scale_x_continuous</a></span>(<span class="kw">NULL</span>, <span class="kw">breaks</span> <span class="kw">=</span> <span class="kw">NULL</span>) +
+  <span class="fu"><a href="../reference/scale_continuous.html">scale_y_reverse</a></span>(<span class="kw">NULL</span>, <span class="kw">breaks</span> <span class="kw">=</span> <span class="kw">NULL</span>)</pre></body></html></div>
 <p><img src="ggplot2-specs_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
 <p>The five standard dash-dot line types described above correspond to 44, 13, 1343, 73, and 2262.</p>
 </li>
@@ -220,36 +221,36 @@
 <ul>
 <li>
 <p>The appearance of the line end is controlled by the <code>lineend</code> paramter, and can be one of “round”, “butt” (the default), or “square”.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">df &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">y =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">9</span>))</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">base &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ggplot.html">ggplot</a></span>(df, <span class="kw"><a href="../reference/aes.html">aes</a></span>(x, y)) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="../reference/lims.html">xlim</a></span>(<span class="fl">0.5</span>, <span class="fl">3.5</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="../reference/lims.html">ylim</a></span>(<span class="dv">0</span>, <span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3">base <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="../reference/geom_path.html">geom_path</a></span>(<span class="dt">size =</span> <span class="dv">10</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="../reference/geom_path.html">geom_path</a></span>(<span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">colour =</span> <span class="st">"red"</span>)</a>
-<a class="sourceLine" id="cb4-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7">base <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="st">  </span><span class="kw"><a href="../reference/geom_path.html">geom_path</a></span>(<span class="dt">size =</span> <span class="dv">10</span>, <span class="dt">lineend =</span> <span class="st">"round"</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="st">  </span><span class="kw"><a href="../reference/geom_path.html">geom_path</a></span>(<span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">colour =</span> <span class="st">"red"</span>)</a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb4-11" data-line-number="11">base <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="st">  </span><span class="kw"><a href="../reference/geom_path.html">geom_path</a></span>(<span class="dt">size =</span> <span class="dv">10</span>, <span class="dt">lineend =</span> <span class="st">"square"</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="st">  </span><span class="kw"><a href="../reference/geom_path.html">geom_path</a></span>(<span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">colour =</span> <span class="st">"red"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">df</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">3</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">4</span>, <span class="fl">1</span>, <span class="fl">9</span>))
+<span class="no">base</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span>(<span class="no">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span>(<span class="no">x</span>, <span class="no">y</span>)) + <span class="fu"><a href="../reference/lims.html">xlim</a></span>(<span class="fl">0.5</span>, <span class="fl">3.5</span>) + <span class="fu"><a href="../reference/lims.html">ylim</a></span>(<span class="fl">0</span>, <span class="fl">10</span>)
+<span class="no">base</span> +
+  <span class="fu"><a href="../reference/geom_path.html">geom_path</a></span>(<span class="kw">size</span> <span class="kw">=</span> <span class="fl">10</span>) +
+  <span class="fu"><a href="../reference/geom_path.html">geom_path</a></span>(<span class="kw">size</span> <span class="kw">=</span> <span class="fl">1</span>, <span class="kw">colour</span> <span class="kw">=</span> <span class="st">"red"</span>)
+
+<span class="no">base</span> +
+  <span class="fu"><a href="../reference/geom_path.html">geom_path</a></span>(<span class="kw">size</span> <span class="kw">=</span> <span class="fl">10</span>, <span class="kw">lineend</span> <span class="kw">=</span> <span class="st">"round"</span>) +
+  <span class="fu"><a href="../reference/geom_path.html">geom_path</a></span>(<span class="kw">size</span> <span class="kw">=</span> <span class="fl">1</span>, <span class="kw">colour</span> <span class="kw">=</span> <span class="st">"red"</span>)
+
+<span class="no">base</span> +
+  <span class="fu"><a href="../reference/geom_path.html">geom_path</a></span>(<span class="kw">size</span> <span class="kw">=</span> <span class="fl">10</span>, <span class="kw">lineend</span> <span class="kw">=</span> <span class="st">"square"</span>) +
+  <span class="fu"><a href="../reference/geom_path.html">geom_path</a></span>(<span class="kw">size</span> <span class="kw">=</span> <span class="fl">1</span>, <span class="kw">colour</span> <span class="kw">=</span> <span class="st">"red"</span>)</pre></body></html></div>
 <p><img src="ggplot2-specs_files/figure-html/unnamed-chunk-5-1.png" width="30%"><img src="ggplot2-specs_files/figure-html/unnamed-chunk-5-2.png" width="30%"><img src="ggplot2-specs_files/figure-html/unnamed-chunk-5-3.png" width="30%"></p>
 </li>
 <li>
 <p>The appearance of line joins is controlled by <code>linejoin</code> and can be one of “round” (the default), “mitre”, or “bevel”.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">df &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">y =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">9</span>, <span class="dv">1</span>, <span class="dv">9</span>))</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">base &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ggplot.html">ggplot</a></span>(df, <span class="kw"><a href="../reference/aes.html">aes</a></span>(x, y)) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="../reference/lims.html">ylim</a></span>(<span class="dv">0</span>, <span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3">base <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="../reference/geom_path.html">geom_path</a></span>(<span class="dt">size =</span> <span class="dv">10</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="../reference/geom_path.html">geom_path</a></span>(<span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">colour =</span> <span class="st">"red"</span>)</a>
-<a class="sourceLine" id="cb5-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb5-7" data-line-number="7">base <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="st">  </span><span class="kw"><a href="../reference/geom_path.html">geom_path</a></span>(<span class="dt">size =</span> <span class="dv">10</span>, <span class="dt">linejoin =</span> <span class="st">"mitre"</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="st">  </span><span class="kw"><a href="../reference/geom_path.html">geom_path</a></span>(<span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">colour =</span> <span class="st">"red"</span>)</a>
-<a class="sourceLine" id="cb5-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb5-11" data-line-number="11">base <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="st">  </span><span class="kw"><a href="../reference/geom_path.html">geom_path</a></span>(<span class="dt">size =</span> <span class="dv">10</span>, <span class="dt">linejoin =</span> <span class="st">"bevel"</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="st">  </span><span class="kw"><a href="../reference/geom_path.html">geom_path</a></span>(<span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">colour =</span> <span class="st">"red"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">df</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">3</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">9</span>, <span class="fl">1</span>, <span class="fl">9</span>))
+<span class="no">base</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span>(<span class="no">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span>(<span class="no">x</span>, <span class="no">y</span>)) + <span class="fu"><a href="../reference/lims.html">ylim</a></span>(<span class="fl">0</span>, <span class="fl">10</span>)
+<span class="no">base</span> +
+  <span class="fu"><a href="../reference/geom_path.html">geom_path</a></span>(<span class="kw">size</span> <span class="kw">=</span> <span class="fl">10</span>) +
+  <span class="fu"><a href="../reference/geom_path.html">geom_path</a></span>(<span class="kw">size</span> <span class="kw">=</span> <span class="fl">1</span>, <span class="kw">colour</span> <span class="kw">=</span> <span class="st">"red"</span>)
+
+<span class="no">base</span> +
+  <span class="fu"><a href="../reference/geom_path.html">geom_path</a></span>(<span class="kw">size</span> <span class="kw">=</span> <span class="fl">10</span>, <span class="kw">linejoin</span> <span class="kw">=</span> <span class="st">"mitre"</span>) +
+  <span class="fu"><a href="../reference/geom_path.html">geom_path</a></span>(<span class="kw">size</span> <span class="kw">=</span> <span class="fl">1</span>, <span class="kw">colour</span> <span class="kw">=</span> <span class="st">"red"</span>)
+
+<span class="no">base</span> +
+  <span class="fu"><a href="../reference/geom_path.html">geom_path</a></span>(<span class="kw">size</span> <span class="kw">=</span> <span class="fl">10</span>, <span class="kw">linejoin</span> <span class="kw">=</span> <span class="st">"bevel"</span>) +
+  <span class="fu"><a href="../reference/geom_path.html">geom_path</a></span>(<span class="kw">size</span> <span class="kw">=</span> <span class="fl">1</span>, <span class="kw">colour</span> <span class="kw">=</span> <span class="st">"red"</span>)</pre></body></html></div>
 <p><img src="ggplot2-specs_files/figure-html/unnamed-chunk-6-1.png" width="30%"><img src="ggplot2-specs_files/figure-html/unnamed-chunk-6-2.png" width="30%"><img src="ggplot2-specs_files/figure-html/unnamed-chunk-6-3.png" width="30%"></p>
 </li>
 </ul>
@@ -271,41 +272,41 @@
 <ul>
 <li>
 <p>An <strong>integer</strong> in <span class="math inline">\([0, 25]\)</span>:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">shapes &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2">  <span class="dt">shape =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span><span class="op">:</span><span class="dv">19</span>, <span class="dv">22</span>, <span class="dv">21</span>, <span class="dv">24</span>, <span class="dv">23</span>, <span class="dv">20</span>),</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3">  <span class="dt">x =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">24</span> <span class="op">%/%</span><span class="st"> </span><span class="dv">5</span>,</a>
-<a class="sourceLine" id="cb6-4" data-line-number="4">  <span class="dt">y =</span> <span class="op">-</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">24</span> <span class="op">%%</span><span class="st"> </span><span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb6-5" data-line-number="5">)</a>
-<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="kw"><a href="../reference/ggplot.html">ggplot</a></span>(shapes, <span class="kw"><a href="../reference/aes.html">aes</a></span>(x, y)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="st">  </span><span class="kw"><a href="../reference/geom_point.html">geom_point</a></span>(<span class="kw"><a href="../reference/aes.html">aes</a></span>(<span class="dt">shape =</span> shape), <span class="dt">size =</span> <span class="dv">5</span>, <span class="dt">fill =</span> <span class="st">"red"</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="st">  </span><span class="kw"><a href="../reference/geom_text.html">geom_text</a></span>(<span class="kw"><a href="../reference/aes.html">aes</a></span>(<span class="dt">label =</span> shape), <span class="dt">hjust =</span> <span class="dv">0</span>, <span class="dt">nudge_x =</span> <span class="fl">0.15</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="st">  </span><span class="kw"><a href="../reference/scale_identity.html">scale_shape_identity</a></span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="st">  </span><span class="kw"><a href="../reference/expand_limits.html">expand_limits</a></span>(<span class="dt">x =</span> <span class="fl">4.1</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb6-11" data-line-number="11"><span class="st">  </span><span class="kw"><a href="../reference/ggtheme.html">theme_void</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">shapes</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(
+  <span class="kw">shape</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>:<span class="fl">19</span>, <span class="fl">22</span>, <span class="fl">21</span>, <span class="fl">24</span>, <span class="fl">23</span>, <span class="fl">20</span>),
+  <span class="kw">x</span> <span class="kw">=</span> <span class="fl">0</span>:<span class="fl">24</span> <span class="kw">%/%</span> <span class="fl">5</span>,
+  <span class="kw">y</span> <span class="kw">=</span> -(<span class="fl">0</span>:<span class="fl">24</span> <span class="kw">%%</span> <span class="fl">5</span>)
+)
+<span class="fu"><a href="../reference/ggplot.html">ggplot</a></span>(<span class="no">shapes</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span>(<span class="no">x</span>, <span class="no">y</span>)) +
+  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span>(<span class="fu"><a href="../reference/aes.html">aes</a></span>(<span class="kw">shape</span> <span class="kw">=</span> <span class="no">shape</span>), <span class="kw">size</span> <span class="kw">=</span> <span class="fl">5</span>, <span class="kw">fill</span> <span class="kw">=</span> <span class="st">"red"</span>) +
+  <span class="fu"><a href="../reference/geom_text.html">geom_text</a></span>(<span class="fu"><a href="../reference/aes.html">aes</a></span>(<span class="kw">label</span> <span class="kw">=</span> <span class="no">shape</span>), <span class="kw">hjust</span> <span class="kw">=</span> <span class="fl">0</span>, <span class="kw">nudge_x</span> <span class="kw">=</span> <span class="fl">0.15</span>) +
+  <span class="fu"><a href="../reference/scale_identity.html">scale_shape_identity</a></span>() +
+  <span class="fu"><a href="../reference/expand_limits.html">expand_limits</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="fl">4.1</span>) +
+  <span class="fu"><a href="../reference/ggtheme.html">theme_void</a></span>()</pre></body></html></div>
 <p><img src="ggplot2-specs_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
 </li>
 <li>
 <p>The <strong>name</strong> of the shape:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">shape_names &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">  <span class="st">"circle"</span>, <span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">"circle"</span>, <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"open"</span>, <span class="st">"filled"</span>, <span class="st">"cross"</span>, <span class="st">"plus"</span>, <span class="st">"small"</span>)), <span class="st">"bullet"</span>,</a>
-<a class="sourceLine" id="cb7-3" data-line-number="3">  <span class="st">"square"</span>, <span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">"square"</span>, <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"open"</span>, <span class="st">"filled"</span>, <span class="st">"cross"</span>, <span class="st">"plus"</span>, <span class="st">"triangle"</span>)),</a>
-<a class="sourceLine" id="cb7-4" data-line-number="4">  <span class="st">"diamond"</span>, <span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">"diamond"</span>, <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"open"</span>, <span class="st">"filled"</span>, <span class="st">"plus"</span>)),</a>
-<a class="sourceLine" id="cb7-5" data-line-number="5">  <span class="st">"triangle"</span>, <span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">"triangle"</span>, <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"open"</span>, <span class="st">"filled"</span>, <span class="st">"square"</span>)),</a>
-<a class="sourceLine" id="cb7-6" data-line-number="6">  <span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">"triangle down"</span>, <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"open"</span>, <span class="st">"filled"</span>)),</a>
-<a class="sourceLine" id="cb7-7" data-line-number="7">  <span class="st">"plus"</span>, <span class="st">"cross"</span>, <span class="st">"asterisk"</span></a>
-<a class="sourceLine" id="cb7-8" data-line-number="8">)</a>
-<a class="sourceLine" id="cb7-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb7-10" data-line-number="10">shapes &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(</a>
-<a class="sourceLine" id="cb7-11" data-line-number="11">  <span class="dt">shape_names =</span> shape_names,</a>
-<a class="sourceLine" id="cb7-12" data-line-number="12">  <span class="dt">x =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">2</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>),</a>
-<a class="sourceLine" id="cb7-13" data-line-number="13">  <span class="dt">y =</span> <span class="op">-</span><span class="kw"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">3</span>))</a>
-<a class="sourceLine" id="cb7-14" data-line-number="14">)</a>
-<a class="sourceLine" id="cb7-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb7-16" data-line-number="16"><span class="kw"><a href="../reference/ggplot.html">ggplot</a></span>(shapes, <span class="kw"><a href="../reference/aes.html">aes</a></span>(x, y)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb7-17" data-line-number="17"><span class="st">  </span><span class="kw"><a href="../reference/geom_point.html">geom_point</a></span>(<span class="kw"><a href="../reference/aes.html">aes</a></span>(<span class="dt">shape =</span> shape_names), <span class="dt">fill =</span> <span class="st">"red"</span>, <span class="dt">size =</span> <span class="dv">5</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb7-18" data-line-number="18"><span class="st">  </span><span class="kw"><a href="../reference/geom_text.html">geom_text</a></span>(<span class="kw"><a href="../reference/aes.html">aes</a></span>(<span class="dt">label =</span> shape_names), <span class="dt">nudge_y =</span> <span class="fl">-0.3</span>, <span class="dt">size =</span> <span class="fl">3.5</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb7-19" data-line-number="19"><span class="st">  </span><span class="kw"><a href="../reference/scale_identity.html">scale_shape_identity</a></span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb7-20" data-line-number="20"><span class="st">  </span><span class="kw"><a href="../reference/ggtheme.html">theme_void</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">shape_names</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(
+  <span class="st">"circle"</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">"circle"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"open"</span>, <span class="st">"filled"</span>, <span class="st">"cross"</span>, <span class="st">"plus"</span>, <span class="st">"small"</span>)), <span class="st">"bullet"</span>,
+  <span class="st">"square"</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">"square"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"open"</span>, <span class="st">"filled"</span>, <span class="st">"cross"</span>, <span class="st">"plus"</span>, <span class="st">"triangle"</span>)),
+  <span class="st">"diamond"</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">"diamond"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"open"</span>, <span class="st">"filled"</span>, <span class="st">"plus"</span>)),
+  <span class="st">"triangle"</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">"triangle"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"open"</span>, <span class="st">"filled"</span>, <span class="st">"square"</span>)),
+  <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">"triangle down"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"open"</span>, <span class="st">"filled"</span>)),
+  <span class="st">"plus"</span>, <span class="st">"cross"</span>, <span class="st">"asterisk"</span>
+)
+
+<span class="no">shapes</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(
+  <span class="kw">shape_names</span> <span class="kw">=</span> <span class="no">shape_names</span>,
+  <span class="kw">x</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>:<span class="fl">7</span>, <span class="fl">1</span>:<span class="fl">6</span>, <span class="fl">1</span>:<span class="fl">3</span>, <span class="fl">5</span>, <span class="fl">1</span>:<span class="fl">3</span>, <span class="fl">6</span>, <span class="fl">2</span>:<span class="fl">3</span>, <span class="fl">1</span>:<span class="fl">3</span>),
+  <span class="kw">y</span> <span class="kw">=</span> -<span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">1</span>:<span class="fl">6</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">7</span>, <span class="fl">6</span>, <span class="fl">4</span>, <span class="fl">4</span>, <span class="fl">2</span>, <span class="fl">3</span>))
+)
+
+<span class="fu"><a href="../reference/ggplot.html">ggplot</a></span>(<span class="no">shapes</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span>(<span class="no">x</span>, <span class="no">y</span>)) +
+  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span>(<span class="fu"><a href="../reference/aes.html">aes</a></span>(<span class="kw">shape</span> <span class="kw">=</span> <span class="no">shape_names</span>), <span class="kw">fill</span> <span class="kw">=</span> <span class="st">"red"</span>, <span class="kw">size</span> <span class="kw">=</span> <span class="fl">5</span>) +
+  <span class="fu"><a href="../reference/geom_text.html">geom_text</a></span>(<span class="fu"><a href="../reference/aes.html">aes</a></span>(<span class="kw">label</span> <span class="kw">=</span> <span class="no">shape_names</span>), <span class="kw">nudge_y</span> <span class="kw">=</span> -<span class="fl">0.3</span>, <span class="kw">size</span> <span class="kw">=</span> <span class="fl">3.5</span>) +
+  <span class="fu"><a href="../reference/scale_identity.html">scale_shape_identity</a></span>() +
+  <span class="fu"><a href="../reference/ggtheme.html">theme_void</a></span>()</pre></body></html></div>
 <p><img src="ggplot2-specs_files/figure-html/unnamed-chunk-8-1.png" width="90%"></p>
 </li>
 <li><p>A <strong>single character</strong>, to use that character as a plotting symbol.</p></li>
@@ -317,11 +318,11 @@
 <h3 class="hasAnchor">
 <a href="#colour-and-fill-1" class="anchor"></a>Colour and fill</h3>
 <p>Note that shapes 21-24 have both stroke <code>colour</code> and a <code>fill</code>. The size of the filled part is controlled by <code>size</code>, the size of the stroke is controlled by <code>stroke</code>. Each is measured in mm, and the total size of the point is the sum of the two. Note that the size is constant along the diagonal in the following figure.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">sizes &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid</a></span>(<span class="dt">size =</span> (<span class="dv">0</span><span class="op">:</span><span class="dv">3</span>) <span class="op">*</span><span class="st"> </span><span class="dv">2</span>, <span class="dt">stroke =</span> (<span class="dv">0</span><span class="op">:</span><span class="dv">3</span>) <span class="op">*</span><span class="st"> </span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="kw"><a href="../reference/ggplot.html">ggplot</a></span>(sizes, <span class="kw"><a href="../reference/aes.html">aes</a></span>(size, stroke, <span class="dt">size =</span> size, <span class="dt">stroke =</span> stroke)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/geom_abline.html">geom_abline</a></span>(<span class="dt">slope =</span> <span class="dv">-1</span>, <span class="dt">intercept =</span> <span class="dv">6</span>, <span class="dt">colour =</span> <span class="st">"white"</span>, <span class="dt">size =</span> <span class="dv">6</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="../reference/geom_point.html">geom_point</a></span>(<span class="dt">shape =</span> <span class="dv">21</span>, <span class="dt">fill =</span> <span class="st">"red"</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="../reference/scale_identity.html">scale_size_identity</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">sizes</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid</a></span>(<span class="kw">size</span> <span class="kw">=</span> (<span class="fl">0</span>:<span class="fl">3</span>) * <span class="fl">2</span>, <span class="kw">stroke</span> <span class="kw">=</span> (<span class="fl">0</span>:<span class="fl">3</span>) * <span class="fl">2</span>)
+<span class="fu"><a href="../reference/ggplot.html">ggplot</a></span>(<span class="no">sizes</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span>(<span class="no">size</span>, <span class="no">stroke</span>, <span class="kw">size</span> <span class="kw">=</span> <span class="no">size</span>, <span class="kw">stroke</span> <span class="kw">=</span> <span class="no">stroke</span>)) +
+  <span class="fu"><a href="../reference/geom_abline.html">geom_abline</a></span>(<span class="kw">slope</span> <span class="kw">=</span> -<span class="fl">1</span>, <span class="kw">intercept</span> <span class="kw">=</span> <span class="fl">6</span>, <span class="kw">colour</span> <span class="kw">=</span> <span class="st">"white"</span>, <span class="kw">size</span> <span class="kw">=</span> <span class="fl">6</span>) +
+  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span>(<span class="kw">shape</span> <span class="kw">=</span> <span class="fl">21</span>, <span class="kw">fill</span> <span class="kw">=</span> <span class="st">"red"</span>) +
+  <span class="fu"><a href="../reference/scale_identity.html">scale_size_identity</a></span>()</pre></body></html></div>
 <p><img src="ggplot2-specs_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
 </div>
 </div>
@@ -332,9 +333,9 @@
 <h3 class="hasAnchor">
 <a href="#font-face" class="anchor"></a>Font face</h3>
 <p>There are only three fonts that are guaranteed to work everywhere: “sans” (the default), “serif”, or “mono”:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">df &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">x =</span> <span class="dv">1</span>, <span class="dt">y =</span> <span class="dv">3</span><span class="op">:</span><span class="dv">1</span>, <span class="dt">family =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"sans"</span>, <span class="st">"serif"</span>, <span class="st">"mono"</span>))</a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw"><a href="../reference/ggplot.html">ggplot</a></span>(df, <span class="kw"><a href="../reference/aes.html">aes</a></span>(x, y)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/geom_text.html">geom_text</a></span>(<span class="kw"><a href="../reference/aes.html">aes</a></span>(<span class="dt">label =</span> family, <span class="dt">family =</span> family))</a></code></pre></div>
+<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">df</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="fl">1</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="fl">3</span>:<span class="fl">1</span>, <span class="kw">family</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"sans"</span>, <span class="st">"serif"</span>, <span class="st">"mono"</span>))
+<span class="fu"><a href="../reference/ggplot.html">ggplot</a></span>(<span class="no">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span>(<span class="no">x</span>, <span class="no">y</span>)) +
+  <span class="fu"><a href="../reference/geom_text.html">geom_text</a></span>(<span class="fu"><a href="../reference/aes.html">aes</a></span>(<span class="kw">label</span> <span class="kw">=</span> <span class="no">family</span>, <span class="kw">family</span> <span class="kw">=</span> <span class="no">family</span>))</pre></body></html></div>
 <p><img src="ggplot2-specs_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
 <p>It’s trickier to include a system font on a plot because text drawing is done differently by each graphics device (GD). There are five GDs in common use (<code><a href="https://rdrr.io/r/grDevices/png.html">png()</a></code>, <code><a href="https://rdrr.io/r/grDevices/pdf.html">pdf()</a></code>, on screen devices for Windows, Mac and Linux), so to have a font work everywhere you need to configure five devices in five different ways. Two packages simplify the quandary a bit:</p>
 <ul>
@@ -346,9 +347,9 @@
 <div id="font-face-1" class="section level3">
 <h3 class="hasAnchor">
 <a href="#font-face-1" class="anchor"></a>Font face</h3>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">df &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dt">fontface =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"plain"</span>, <span class="st">"bold"</span>, <span class="st">"italic"</span>, <span class="st">"bold.italic"</span>))</a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="kw"><a href="../reference/ggplot.html">ggplot</a></span>(df, <span class="kw"><a href="../reference/aes.html">aes</a></span>(<span class="dv">1</span>, x)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/geom_text.html">geom_text</a></span>(<span class="kw"><a href="../reference/aes.html">aes</a></span>(<span class="dt">label =</span> fontface, <span class="dt">fontface =</span> fontface))</a></code></pre></div>
+<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">df</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">4</span>, <span class="kw">fontface</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"plain"</span>, <span class="st">"bold"</span>, <span class="st">"italic"</span>, <span class="st">"bold.italic"</span>))
+<span class="fu"><a href="../reference/ggplot.html">ggplot</a></span>(<span class="no">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span>(<span class="fl">1</span>, <span class="no">x</span>)) +
+  <span class="fu"><a href="../reference/geom_text.html">geom_text</a></span>(<span class="fu"><a href="../reference/aes.html">aes</a></span>(<span class="kw">label</span> <span class="kw">=</span> <span class="no">fontface</span>, <span class="kw">fontface</span> <span class="kw">=</span> <span class="no">fontface</span>))</pre></body></html></div>
 <p><img src="ggplot2-specs_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
 </div>
 <div id="font-size" class="section level3">
@@ -364,32 +365,23 @@
 <li>top = 1, middle = 0.5, bottom = 0</li>
 <li>left = 0, center = 0.5, right = 1</li>
 </ul>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">just &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid</a></span>(<span class="dt">hjust =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="dv">1</span>), <span class="dt">vjust =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb11-2" data-line-number="2">just<span class="op">$</span>label &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(just<span class="op">$</span>hjust, <span class="st">", "</span>, just<span class="op">$</span>vjust)</a>
-<a class="sourceLine" id="cb11-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="kw"><a href="../reference/ggplot.html">ggplot</a></span>(just, <span class="kw"><a href="../reference/aes.html">aes</a></span>(hjust, vjust)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb11-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="../reference/geom_point.html">geom_point</a></span>(<span class="dt">colour =</span> <span class="st">"grey70"</span>, <span class="dt">size =</span> <span class="dv">5</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb11-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="../reference/geom_text.html">geom_text</a></span>(<span class="kw"><a href="../reference/aes.html">aes</a></span>(<span class="dt">label =</span> label, <span class="dt">hjust =</span> hjust, <span class="dt">vjust =</span> vjust))</a></code></pre></div>
+<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="no">just</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid</a></span>(<span class="kw">hjust</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">1</span>), <span class="kw">vjust</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">1</span>))
+<span class="no">just</span>$<span class="no">label</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="no">just</span>$<span class="no">hjust</span>, <span class="st">", "</span>, <span class="no">just</span>$<span class="no">vjust</span>)
+
+<span class="fu"><a href="../reference/ggplot.html">ggplot</a></span>(<span class="no">just</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span>(<span class="no">hjust</span>, <span class="no">vjust</span>)) +
+  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span>(<span class="kw">colour</span> <span class="kw">=</span> <span class="st">"grey70"</span>, <span class="kw">size</span> <span class="kw">=</span> <span class="fl">5</span>) +
+  <span class="fu"><a href="../reference/geom_text.html">geom_text</a></span>(<span class="fu"><a href="../reference/aes.html">aes</a></span>(<span class="kw">label</span> <span class="kw">=</span> <span class="no">label</span>, <span class="kw">hjust</span> <span class="kw">=</span> <span class="no">hjust</span>, <span class="kw">vjust</span> <span class="kw">=</span> <span class="no">vjust</span>))</pre></body></html></div>
 <p><img src="ggplot2-specs_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
 <p>Note that you can use numbers outside the range (0, 1), but it’s not recommended.</p>
 </div>
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <div id="tocnav">
-      <h2 class="hasAnchor">
-<a href="#tocnav" class="anchor"></a>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-<li><a href="#colour-and-fill">Colour and fill</a></li>
-      <li><a href="#lines">Lines</a></li>
-      <li><a href="#polygons">Polygons</a></li>
-      <li><a href="#point">Point</a></li>
-      <li><a href="#text">Text</a></li>
-      </ul>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
 </div>
-      </div>
 
 </div>
 

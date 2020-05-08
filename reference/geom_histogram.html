@@ -17,22 +17,26 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
 <link href="../tidyverse.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -75,7 +79,7 @@ across the levels of a categorical variable." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -100,27 +104,6 @@ across the levels of a categorical variable." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/extending-ggplot2.html">Extending ggplot2</a>
-    </li>
-    <li>
-      <a href="../articles/ggplot2-in-packages.html">Using ggplot2 in packages</a>
-    </li>
-    <li>
-      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
-    </li>
-    <li>
-      <a href="../articles/profiling.html">Profiling Performance</a>
-    </li>
-  </ul>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -160,11 +143,32 @@ across the levels of a categorical variable." />
     </li>
   </ul>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/extending-ggplot2.html">Extending ggplot2</a>
+    </li>
+    <li>
+      <a href="../articles/ggplot2-in-packages.html">Using ggplot2 in packages</a>
+    </li>
+    <li>
+      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+    </li>
+    <li>
+      <a href="../articles/profiling.html">Profiling Performance</a>
+    </li>
+  </ul>
+</li>
         <li>
   <a href="https://www.ggplot2-exts.org/gallery/">Extensions</a>
 </li>
 <li>
-  <a href="https://github.com/tidyverse/ggplot2">
+  <a href="https://github.com/tidyverse/ggplot2/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -332,10 +336,10 @@ to either <code>"x"</code> or <code>"y"</code>. See the <em>Orientation</em> sec
 <code>boundary</code>, may be specified for a single plot. <code>center</code> specifies the
 center of one of the bins. <code>boundary</code> specifies the boundary between two
 bins. Note that if either is above or below the range of the data, things
-will be shifted by the appropriate integer multiple of <code>binwidth</code>.
-For example, to center on integers use <code>binwidth = 1</code> and <code>center = 0</code>, even
+will be shifted by the appropriate integer multiple of <code>width</code>.
+For example, to center on integers use <code>width = 1</code> and <code>center = 0</code>, even
 if <code>0</code> is outside the range of the data. Alternatively, this same alignment
-can be specified with <code>binwidth = 1</code> and <code>boundary = 0.5</code>, even if <code>0.5</code> is
+can be specified with <code>width = 1</code> and <code>boundary = 0.5</code>, even if <code>0.5</code> is
 outside the range of the data.</p></td>
     </tr>
     <tr>
@@ -366,9 +370,6 @@ different number of bins. You can also experiment modifying the <code>binwidth</
 <code>center</code> or <code>boundary</code> arguments. <code>binwidth</code> overrides <code>bins</code> so you should do
 one change at a time. You may need to look at a few options to uncover
 the full story behind your data.</p>
-<p>In addition to <code>geom_histogram</code>, you can create a histogram plot by using
-<code><a href='scale_binned.html'>scale_x_binned()</a></code> with <code><a href='geom_bar.html'>geom_bar()</a></code>. This method by default plots tick marks
-in between each bar.  .</p>
     <h2 class="hasAnchor" id="orientation"><a class="anchor" href="#orientation"></a>Orientation</h2>
 
     
@@ -384,7 +385,7 @@ in between each bar.  .</p>
 
     
 
-<dl class='dl-horizontal'>
+<dl'>
 <dt>count</dt><dd><p>number of points in bin</p></dd>
 <dt>density</dt><dd><p>density of points in bin, scaled to integrate to 1</p></dd>
 <dt>ncount</dt><dd><p>count, scaled to maximum of 1</p></dd>
@@ -405,20 +406,15 @@ x data, whereas <code>stat_bin()</code> is suitable only for continuous x data.<
   <span class='fu'>geom_histogram</span>(<span class='kw'>bins</span> <span class='kw'>=</span> <span class='fl'>200</span>)</div><div class='img'><img src='geom_histogram-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Map values to y to flip the orientation</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>carat</span>)) +
   <span class='fu'>geom_histogram</span>()</div><div class='output co'>#&gt; <span class='message'>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></div><div class='img'><img src='geom_histogram-4.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># For histograms with tick marks between each bin, use `geom_bar` with</span>
-<span class='co'># `scale_x_binned`.</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>carat</span>)) +
-  <span class='fu'><a href='geom_bar.html'>geom_bar</a></span>() +
-  <span class='fu'><a href='scale_binned.html'>scale_x_binned</a></span>()</div><div class='img'><img src='geom_histogram-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Rather than stacking histograms, it's easier to compare frequency</span>
 <span class='co'># polygons</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>price</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>cut</span>)) +
-  <span class='fu'>geom_histogram</span>(<span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='fl'>500</span>)</div><div class='img'><img src='geom_histogram-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>price</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>cut</span>)) +
-  <span class='fu'>geom_freqpoly</span>(<span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='fl'>500</span>)</div><div class='img'><img src='geom_histogram-7.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_histogram</span>(<span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='fl'>500</span>)</div><div class='img'><img src='geom_histogram-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>price</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>cut</span>)) +
+  <span class='fu'>geom_freqpoly</span>(<span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='fl'>500</span>)</div><div class='img'><img src='geom_histogram-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># To make it easier to compare distributions with very different counts,</span>
 <span class='co'># put density on the y axis instead of the default count</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>price</span>, <span class='fu'><a href='aes_eval.html'>after_stat</a></span>(<span class='no'>density</span>), <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>cut</span>)) +
-  <span class='fu'>geom_freqpoly</span>(<span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='fl'>500</span>)</div><div class='img'><img src='geom_histogram-8.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_freqpoly</span>(<span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='fl'>500</span>)</div><div class='img'><img src='geom_histogram-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"ggplot2movies"</span>)) {
 <span class='co'># Often we don't want the height of the bar to represent the</span>
 <span class='co'># count of observations, but the sum of some other variable.</span>
@@ -451,26 +447,18 @@ x data, whereas <code>stat_bin()</code> is suitable only for continuous x data.<
 <span class='co'># has value 0, so log transformations are not appropriate</span>
 <span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>movies</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>rating</span>))
 <span class='no'>m</span> + <span class='fu'>geom_histogram</span>(<span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='fl'>0.5</span>) + <span class='fu'><a href='scale_continuous.html'>scale_y_sqrt</a></span>()
-}</div><div class='img'><img src='geom_histogram-9.png' alt='' width='700' height='433' /></div><div class='input'>
+}</div><div class='img'><img src='geom_histogram-8.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can specify a function for calculating binwidth, which is</span>
 <span class='co'># particularly useful when faceting along variables with</span>
 <span class='co'># different ranges because the function will be called once per facet</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>economics_long</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>value</span>)) +
   <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span>(~<span class='no'>variable</span>, <span class='kw'>scales</span> <span class='kw'>=</span> <span class='st'>'free_x'</span>) +
-  <span class='fu'>geom_histogram</span>(<span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fl'>2</span> * <span class='fu'><a href='https://rdrr.io/r/stats/IQR.html'>IQR</a></span>(<span class='no'>x</span>) / (<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>x</span>)^(<span class='fl'>1</span>/<span class='fl'>3</span>)))</div><div class='img'><img src='geom_histogram-10.png' alt='' width='700' height='433' /></div></pre>
+  <span class='fu'>geom_histogram</span>(<span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fl'>2</span> * <span class='fu'><a href='https://rdrr.io/r/stats/IQR.html'>IQR</a></span>(<span class='no'>x</span>) / (<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>x</span>)^(<span class='fl'>1</span>/<span class='fl'>3</span>)))</div><div class='img'><img src='geom_histogram-9.png' alt='' width='700' height='433' /></div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#orientation">Orientation</a></li>
-      <li><a href="#aesthetics">Aesthetics</a></li>
-      <li><a href="#computed-variables">Computed variables</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 

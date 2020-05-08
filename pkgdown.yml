@@ -1,11 +1,12 @@
-pandoc: '2.2'
-pkgdown: 1.4.1
+pandoc: 2.9.2.1
+pkgdown: 1.4.1.9000
 pkgdown_sha: ~
 articles:
   extending-ggplot2: extending-ggplot2.html
   ggplot2-in-packages: ggplot2-in-packages.html
   ggplot2-specs: ggplot2-specs.html
   profiling: profiling.html
+last_built: 2020-05-08T18:14Z
 urls:
   reference: https://ggplot2.tidyverse.org/reference
   article: https://ggplot2.tidyverse.org/articles
