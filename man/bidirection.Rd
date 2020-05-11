@@ -5,7 +5,7 @@
 \alias{has_flipped_aes}
 \alias{flip_data}
 \alias{flipped_names}
-\title{Utilities for working with bidirecitonal layers}
+\title{Utilities for working with bidirectional layers}
 \usage{
 has_flipped_aes(
   data,
@@ -61,8 +61,8 @@ the flipped name, e.g. \code{flipped_names(FALSE)$x == "y"}
 }
 \description{
 These functions are what underpins the ability of certain geoms to work
-automatically in both directions. See the \emph{Extending ggplot2} for how they
-are used when implementing \code{Geom}, \code{Stat}, and \code{Position} classes.
+automatically in both directions. See the \emph{Extending ggplot2} vignette for
+how they are used when implementing \code{Geom}, \code{Stat}, and \code{Position} classes.
 }
 \details{
 \code{has_flipped_aes()} is used to sniff out the orientation of the layer from
