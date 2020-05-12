@@ -435,11 +435,11 @@ switch_orientation <- function(aesthetics) {
   aesthetics
 }
 
-#' Utilities for working with bidirecitonal layers
+#' Utilities for working with bidirectional layers
 #'
 #' These functions are what underpins the ability of certain geoms to work
-#' automatically in both directions. See the *Extending ggplot2* for how they
-#' are used when implementing `Geom`, `Stat`, and `Position` classes.
+#' automatically in both directions. See the *Extending ggplot2* vignette for
+#' how they are used when implementing `Geom`, `Stat`, and `Position` classes.
 #'
 #' `has_flipped_aes()` is used to sniff out the orientation of the layer from
 #' the data. It has a range of arguments that can be used to finetune the
