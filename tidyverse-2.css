@@ -55,6 +55,12 @@ h3 {font-size: 23px;}
   border-radius: 3px;
 }
 
+/* syntax highlighting ----------------------------------- */
+
+.co {
+  color: #333;
+}
+
 /* footer ------------------------------------------------ */
 
 footer {

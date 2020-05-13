@@ -44,6 +44,12 @@
 <link href="../tidyverse-2.css" rel="stylesheet">
 
 
+<!-- docsearch -->
+<script src="../docsearch.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
+<link href="../docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+
 
 <meta property="og:title" content="Changelog" />
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
@@ -88,7 +94,7 @@
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">ggplot2</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
           <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.0</span>
         </div>
@@ -106,7 +112,7 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Release notes</li>
+    <li class="dropdown-header">Releases</li>
     <li>
       <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
     </li>
@@ -133,7 +139,7 @@
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../news/index.html">Change log</a>
+      <a href="../news/index.html">Changelog</a>
     </li>
   </ul>
 </li>
@@ -159,7 +165,7 @@
   </ul>
 </li>
         <li>
-  <a href="https://exts.ggplot2.tidyverse.org/">Extensions</a>
+  <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2/">
@@ -168,6 +174,12 @@
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
       
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -891,7 +903,7 @@ to determine which elements overlap, and spreads overlapping elements evenly wit
 <a href="#major-changes" class="anchor"></a>Major changes</h2>
 <ul>
 <li><p>ggplot no longer throws an error if your plot has no layers. Instead it automatically adds <code><a href="../reference/geom_blank.html">geom_blank()</a></code> (<a href='https://github.com/tidyverse/ggplot2/issues/1246'>#1246</a>).</p></li>
-<li><p>New <code><a href="../reference/cut_interval.html">cut_width()</a></code> is a convenient replacement for the verbose <code><a href="https://rdrr.io/pkg/plyr/man/round_any.html">plyr::round_any()</a></code>, with the additional benefit of offering finer control.</p></li>
+<li><p>New <code><a href="../reference/cut_interval.html">cut_width()</a></code> is a convenient replacement for the verbose <code>plyr::round_any()</code>, with the additional benefit of offering finer control.</p></li>
 <li><p>New <code><a href="../reference/geom_count.html">geom_count()</a></code> is a convenient alias to <code><a href="../reference/geom_count.html">stat_sum()</a></code>. Use it when you have overlapping points on a scatterplot. <code><a href="../reference/geom_count.html">stat_sum()</a></code> now defaults to using counts instead of proportions.</p></li>
 <li><p>New <code><a href="../reference/geom_segment.html">geom_curve()</a></code> adds curved lines, with a similar specification to <code><a href="../reference/geom_segment.html">geom_segment()</a></code> (<a href='https://github.com/veraanadi'>@veraanadi</a>, <a href='https://github.com/tidyverse/ggplot2/issues/1088'>#1088</a>).</p></li>
 <li><p>Date and datetime scales now have <code>date_breaks</code>, <code>date_minor_breaks</code> and <code>date_labels</code> arguments so that you never need to use the long <code><a href="https://scales.r-lib.org//reference/date_breaks.html">scales::date_breaks()</a></code> or <code><a href="https://scales.r-lib.org//reference/label_date.html">scales::date_format()</a></code>.</p></li>
@@ -1142,6 +1154,23 @@ to determine which elements overlap, and spreads overlapping elements evenly wit
    </div>
 
   
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: 'e1261f3df95d2d4704c626ff11a4b536',
+    indexName: 'tidyverse_ggplot2',
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
+  });
+</script>
+
 
 
   </body>
