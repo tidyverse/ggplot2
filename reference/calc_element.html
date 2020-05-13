@@ -44,12 +44,6 @@
 <link href="../tidyverse-2.css" rel="stylesheet">
 
 
-<!-- docsearch -->
-<script src="../docsearch.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
-<link href="../docsearch.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
-
 
 <meta property="og:title" content="Calculate the element properties, by inheriting properties from its parents — calc_element" />
 <meta property="og:description" content="Calculate the element properties, by inheriting properties from its parents" />
@@ -95,7 +89,7 @@
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">ggplot2</a>
-        <div class="info hidden-xs hidden-sm">
+        <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
           <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.0</span>
         </div>
@@ -113,7 +107,7 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Releases</li>
+    <li class="dropdown-header">Release notes</li>
     <li>
       <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
     </li>
@@ -140,7 +134,7 @@
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../news/index.html">Changelog</a>
+      <a href="../news/index.html">Change log</a>
     </li>
   </ul>
 </li>
@@ -166,7 +160,7 @@
   </ul>
 </li>
         <li>
-  <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
+  <a href="https://exts.ggplot2.tidyverse.org/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2/">
@@ -175,12 +169,6 @@
   </a>
 </li>
       </ul>
-      
-      <form class="navbar-form navbar-right" role="search">
-        <div class="form-group">
-          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
-        </div>
-      </form>
       
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -238,8 +226,9 @@ inheritance hierarchy will be ignored.</p></td>
 #&gt;  $ vjust        : num 0.5
 #&gt;  $ angle        : num 0
 #&gt;  $ lineheight   : num 0.9
-#&gt;  $ margin       : 'margin' num [1:4] 0points 0points 0points 0points
-#&gt;   ..- attr(*, "unit")= int 8
+#&gt;  $ margin       : 'margin' num [1:4] 0pt 0pt 0pt 0pt
+#&gt;   ..- attr(*, "valid.unit")= int 8
+#&gt;   ..- attr(*, "unit")= chr "pt"
 #&gt;  $ debug        : logi FALSE
 #&gt;  $ inherit.blank: logi TRUE
 #&gt;  - attr(*, "class")= chr [1:2] "element_text" "element"</div><div class='input'>
@@ -253,8 +242,9 @@ inheritance hierarchy will be ignored.</p></td>
 #&gt;  $ vjust        : num 1
 #&gt;  $ angle        : NULL
 #&gt;  $ lineheight   : NULL
-#&gt;  $ margin       : 'margin' num [1:4] 2.2points 0points 0points 0points
-#&gt;   ..- attr(*, "unit")= int 8
+#&gt;  $ margin       : 'margin' num [1:4] 2.2pt 0pt 0pt 0pt
+#&gt;   ..- attr(*, "valid.unit")= int 8
+#&gt;   ..- attr(*, "unit")= chr "pt"
 #&gt;  $ debug        : NULL
 #&gt;  $ inherit.blank: logi TRUE
 #&gt;  - attr(*, "class")= chr [1:2] "element_text" "element"</div><div class='input'><span class='fu'>calc_element</span>(<span class='st'>'axis.text.x'</span>, <span class='no'>t</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>axis.text.x --&gt; </span></div><div class='output co'>#&gt; <span class='message'>axis.text</span></div><div class='output co'>#&gt; <span class='message'>axis.text --&gt; </span></div><div class='output co'>#&gt; <span class='message'>text</span></div><div class='output co'>#&gt; <span class='message'>text --&gt; </span></div><div class='output co'>#&gt; <span class='message'>nothing (top level)</span></div><div class='output co'>#&gt; List of 11
@@ -266,8 +256,9 @@ inheritance hierarchy will be ignored.</p></td>
 #&gt;  $ vjust        : num 1
 #&gt;  $ angle        : num 0
 #&gt;  $ lineheight   : num 0.9
-#&gt;  $ margin       : 'margin' num [1:4] 2.2points 0points 0points 0points
-#&gt;   ..- attr(*, "unit")= int 8
+#&gt;  $ margin       : 'margin' num [1:4] 2.2pt 0pt 0pt 0pt
+#&gt;   ..- attr(*, "valid.unit")= int 8
+#&gt;   ..- attr(*, "unit")= chr "pt"
 #&gt;  $ debug        : logi FALSE
 #&gt;  $ inherit.blank: logi TRUE
 #&gt;  - attr(*, "class")= chr [1:2] "element_text" "element"</div><div class='input'>
@@ -282,8 +273,9 @@ inheritance hierarchy will be ignored.</p></td>
 #&gt;  $ vjust        : num 1
 #&gt;  $ angle        : NULL
 #&gt;  $ lineheight   : NULL
-#&gt;  $ margin       : 'margin' num [1:4] 2.2points 0points 0points 0points
-#&gt;   ..- attr(*, "unit")= int 8
+#&gt;  $ margin       : 'margin' num [1:4] 2.2pt 0pt 0pt 0pt
+#&gt;   ..- attr(*, "valid.unit")= int 8
+#&gt;   ..- attr(*, "unit")= chr "pt"
 #&gt;  $ debug        : NULL
 #&gt;  $ inherit.blank: logi TRUE
 #&gt;  - attr(*, "class")= chr [1:2] "element_text" "element"</div><div class='input'><span class='no'>t</span>$<span class='no'>axis.text</span></div><div class='output co'>#&gt; List of 11
@@ -307,8 +299,9 @@ inheritance hierarchy will be ignored.</p></td>
 #&gt;  $ vjust        : num 0.5
 #&gt;  $ angle        : num 0
 #&gt;  $ lineheight   : num 0.9
-#&gt;  $ margin       : 'margin' num [1:4] 0points 0points 0points 0points
-#&gt;   ..- attr(*, "unit")= int 8
+#&gt;  $ margin       : 'margin' num [1:4] 0pt 0pt 0pt 0pt
+#&gt;   ..- attr(*, "valid.unit")= int 8
+#&gt;   ..- attr(*, "unit")= chr "pt"
 #&gt;  $ debug        : logi FALSE
 #&gt;  $ inherit.blank: logi TRUE
 #&gt;  - attr(*, "class")= chr [1:2] "element_text" "element"</div></pre>
@@ -337,23 +330,6 @@ inheritance hierarchy will be ignored.</p></td>
    </div>
 
   
-<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script>
-<script>
-  docsearch({
-    
-    
-    apiKey: 'e1261f3df95d2d4704c626ff11a4b536',
-    indexName: 'tidyverse_ggplot2',
-    inputSelector: 'input#search-input.form-control',
-    transformData: function(hits) {
-      return hits.map(function (hit) {
-        hit.url = updateHitURL(hit);
-        return hit;
-      });
-    }
-  });
-</script>
-
 
 
   </body>

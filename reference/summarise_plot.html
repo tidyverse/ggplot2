@@ -44,12 +44,6 @@
 <link href="../tidyverse-2.css" rel="stylesheet">
 
 
-<!-- docsearch -->
-<script src="../docsearch.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
-<link href="../docsearch.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
-
 
 <meta property="og:title" content="Summarise built plot objects — summarise_plot" />
 <meta property="og:description" content="These functions provide summarised information about built ggplot objects." />
@@ -95,7 +89,7 @@
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">ggplot2</a>
-        <div class="info hidden-xs hidden-sm">
+        <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
           <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.0</span>
         </div>
@@ -113,7 +107,7 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Releases</li>
+    <li class="dropdown-header">Release notes</li>
     <li>
       <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
     </li>
@@ -140,7 +134,7 @@
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../news/index.html">Changelog</a>
+      <a href="../news/index.html">Change log</a>
     </li>
   </ul>
 </li>
@@ -166,7 +160,7 @@
   </ul>
 </li>
         <li>
-  <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
+  <a href="https://exts.ggplot2.tidyverse.org/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2/">
@@ -175,12 +169,6 @@
   </a>
 </li>
       </ul>
-      
-      <form class="navbar-form navbar-right" role="search">
-        <div class="form-group">
-          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
-        </div>
-      </form>
       
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -228,7 +216,7 @@ a summary of the plot coord, and a summary of plot layers.</p>
 
 <p>The function <code>summarise_layout()</code> returns a table that provides information about
 the plot panel(s) in the built plot. The table has the following columns:</p>
-<dl>
+<dl'>
 <dt><code>panel</code></dt><dd><p>A factor indicating the individual plot panels.</p></dd>
 <dt><code>row</code></dt><dd><p>Row number in the grid of panels.</p></dd>
 <dt><code>col</code></dt><dd><p>Column number in the grid of panels.</p></dd>
@@ -268,16 +256,16 @@ contains information about aesthetic mapping for each layer.</p>
     <pre class="examples"><div class='input'><span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>displ</span>, <span class='no'>hwy</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>() + <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span>(~<span class='no'>class</span>)
 <span class='no'>b</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot_build.html'>ggplot_build</a></span>(<span class='no'>p</span>)
 
-<span class='fu'>summarise_layout</span>(<span class='no'>b</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 7 x 10</span><span>
+<span class='fu'>summarise_layout</span>(<span class='no'>b</span>)</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 7 x 10</span><span>
 #&gt;   panel   row   col vars             xmin  xmax  ymin  ymax xscale     yscale   
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>   
-#&gt; </span><span style='color: #555555;'>1</span><span> 1         1     1 </span><span style='color: #555555;'>&lt;named list [1</span><span>…  1.33  7.27  10.4  45.6 </span><span style='color: #555555;'>&lt;SclCntnP&gt;</span><span> </span><span style='color: #555555;'>&lt;SclCntn</span><span>…
-#&gt; </span><span style='color: #555555;'>2</span><span> 2         1     2 </span><span style='color: #555555;'>&lt;named list [1</span><span>…  1.33  7.27  10.4  45.6 </span><span style='color: #555555;'>&lt;SclCntnP&gt;</span><span> </span><span style='color: #555555;'>&lt;SclCntn</span><span>…
-#&gt; </span><span style='color: #555555;'>3</span><span> 3         1     3 </span><span style='color: #555555;'>&lt;named list [1</span><span>…  1.33  7.27  10.4  45.6 </span><span style='color: #555555;'>&lt;SclCntnP&gt;</span><span> </span><span style='color: #555555;'>&lt;SclCntn</span><span>…
-#&gt; </span><span style='color: #555555;'>4</span><span> 4         2     1 </span><span style='color: #555555;'>&lt;named list [1</span><span>…  1.33  7.27  10.4  45.6 </span><span style='color: #555555;'>&lt;SclCntnP&gt;</span><span> </span><span style='color: #555555;'>&lt;SclCntn</span><span>…
-#&gt; </span><span style='color: #555555;'>5</span><span> 5         2     2 </span><span style='color: #555555;'>&lt;named list [1</span><span>…  1.33  7.27  10.4  45.6 </span><span style='color: #555555;'>&lt;SclCntnP&gt;</span><span> </span><span style='color: #555555;'>&lt;SclCntn</span><span>…
-#&gt; </span><span style='color: #555555;'>6</span><span> 6         2     3 </span><span style='color: #555555;'>&lt;named list [1</span><span>…  1.33  7.27  10.4  45.6 </span><span style='color: #555555;'>&lt;SclCntnP&gt;</span><span> </span><span style='color: #555555;'>&lt;SclCntn</span><span>…
-#&gt; </span><span style='color: #555555;'>7</span><span> 7         3     1 </span><span style='color: #555555;'>&lt;named list [1</span><span>…  1.33  7.27  10.4  45.6 </span><span style='color: #555555;'>&lt;SclCntnP&gt;</span><span> </span><span style='color: #555555;'>&lt;SclCntn</span><span>…</div><div class='input'><span class='fu'>summarise_coord</span>(<span class='no'>b</span>)</div><div class='output co'>#&gt; $xlog
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>          </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>   
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> 1         1     1 </span><span style='color: #949494;'>&lt;named list [1</span><span>…  1.33  7.27  10.4  45.6 </span><span style='color: #949494;'>&lt;SclCntnP&gt;</span><span> </span><span style='color: #949494;'>&lt;SclCntn</span><span>…
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> 2         1     2 </span><span style='color: #949494;'>&lt;named list [1</span><span>…  1.33  7.27  10.4  45.6 </span><span style='color: #949494;'>&lt;SclCntnP&gt;</span><span> </span><span style='color: #949494;'>&lt;SclCntn</span><span>…
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span> 3         1     3 </span><span style='color: #949494;'>&lt;named list [1</span><span>…  1.33  7.27  10.4  45.6 </span><span style='color: #949494;'>&lt;SclCntnP&gt;</span><span> </span><span style='color: #949494;'>&lt;SclCntn</span><span>…
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span> 4         2     1 </span><span style='color: #949494;'>&lt;named list [1</span><span>…  1.33  7.27  10.4  45.6 </span><span style='color: #949494;'>&lt;SclCntnP&gt;</span><span> </span><span style='color: #949494;'>&lt;SclCntn</span><span>…
+#&gt; </span><span style='color: #BCBCBC;'>5</span><span> 5         2     2 </span><span style='color: #949494;'>&lt;named list [1</span><span>…  1.33  7.27  10.4  45.6 </span><span style='color: #949494;'>&lt;SclCntnP&gt;</span><span> </span><span style='color: #949494;'>&lt;SclCntn</span><span>…
+#&gt; </span><span style='color: #BCBCBC;'>6</span><span> 6         2     3 </span><span style='color: #949494;'>&lt;named list [1</span><span>…  1.33  7.27  10.4  45.6 </span><span style='color: #949494;'>&lt;SclCntnP&gt;</span><span> </span><span style='color: #949494;'>&lt;SclCntn</span><span>…
+#&gt; </span><span style='color: #BCBCBC;'>7</span><span> 7         3     1 </span><span style='color: #949494;'>&lt;named list [1</span><span>…  1.33  7.27  10.4  45.6 </span><span style='color: #949494;'>&lt;SclCntnP&gt;</span><span> </span><span style='color: #949494;'>&lt;SclCntn</span><span>…</div><div class='input'><span class='fu'>summarise_coord</span>(<span class='no'>b</span>)</div><div class='output co'>#&gt; $xlog
 #&gt; [1] NA
 #&gt; 
 #&gt; $ylog
@@ -285,10 +273,10 @@ contains information about aesthetic mapping for each layer.</p>
 #&gt; 
 #&gt; $flip
 #&gt; [1] FALSE
-#&gt; </div><div class='input'><span class='fu'>summarise_layers</span>(<span class='no'>b</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 1</span><span>
+#&gt; </div><div class='input'><span class='fu'>summarise_layers</span>(<span class='no'>b</span>)</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 1 x 1</span><span>
 #&gt;   mapping         
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>          
-#&gt; </span><span style='color: #555555;'>1</span><span> </span><span style='color: #555555;'>&lt;named list [2]&gt;</span><span></div><div class='input'>
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>          
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> </span><span style='color: #949494;'>&lt;named list [2]&gt;</span><span></div><div class='input'>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -315,23 +303,6 @@ contains information about aesthetic mapping for each layer.</p>
    </div>
 
   
-<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script>
-<script>
-  docsearch({
-    
-    
-    apiKey: 'e1261f3df95d2d4704c626ff11a4b536',
-    indexName: 'tidyverse_ggplot2',
-    inputSelector: 'input#search-input.form-control',
-    transformData: function(hits) {
-      return hits.map(function (hit) {
-        hit.url = updateHitURL(hit);
-        return hit;
-      });
-    }
-  });
-</script>
-
 
 
   </body>
