@@ -12,43 +12,63 @@
 \alias{yend}
 \title{Position related aesthetics: x, y, xmin, xmax, ymin, ymax, xend, yend}
 \description{
-This page demonstrates the usage of a sub-group of aesthetics
-related to position: \code{x}, \code{y}, \code{xmin}, \code{xmax}, \code{ymin}, \code{ymax},
-\code{xend}, and \code{yend}.
+The following aesthetics can be used to specify the position of elements:
+\code{x}, \code{y}, \code{xmin}, \code{xmax}, \code{ymin}, \code{ymax}, \code{xend}, \code{yend}.
 }
 \details{
-These aesthetics can be used to specify the position of elements.
+\code{x} and \code{y} define the locations of points or of positions along a line
+graph.
 
 \code{x}, \code{y} and \code{xend}, \code{yend} define the starting and ending points of
 segments and curves geometries.
+
 \code{xmin}, \code{xmax}, \code{ymin}  and \code{ymax} can be used to specify the position of
-annotations and to represent vertical intervals.
+annotations and to represent rectangular areas.
 }
 \examples{
 
 # Generate data: means and standard errors of means for prices
 # for each type of cut
 dmod <- lm(price ~ cut, data = diamonds)
-cuts <- data.frame(cut = unique(diamonds$cut), predict(dmod, data.frame(cut =
-unique(diamonds$cut)), se = TRUE)[c("fit", "se.fit")])
-se <- ggplot(cuts, aes(x = cut, y = fit, ymin = fit - se.fit,
-ymax = fit + se.fit, colour = cut))
-se + geom_pointrange()
+cut <- unique(diamonds$cut)
+cuts_df <- data.frame(
+  cut,
+  predict(dmod, data.frame(cut), se = TRUE)[c("fit", "se.fit")]
+)
+ggplot(cuts_df) +
+  aes(
+   x = cut,
+   y = fit,
+   ymin = fit - se.fit,
+   ymax = fit + se.fit,
+   colour = cut
+  ) +
+  geom_pointrange()
 
 # Using annotate
 p <- ggplot(mtcars, aes(wt, mpg)) + geom_point()
-p + annotate("rect", xmin = 2, xmax = 3.5, ymin = 2, ymax = 25,
-  fill = "dark grey", alpha = .5)
+p
+p + annotate(
+  "rect", xmin = 2, xmax = 3.5, ymin = 2, ymax = 25,
+  fill = "dark grey", alpha = .5
+)
 
 # Geom_segment examples
-p + geom_segment(aes(x = 2, y = 15, xend = 2, yend = 25),
-  arrow = arrow(length = unit(0.5, "cm")))
-p + geom_segment(aes(x = 2, y = 15, xend = 3, yend = 15),
-  arrow = arrow(length = unit(0.5, "cm")))
-p + geom_segment(aes(x = 5, y = 30, xend = 3.5, yend = 25),
-  arrow = arrow(length = unit(0.5, "cm")))
+p + geom_segment(
+  aes(x = 2, y = 15, xend = 2, yend = 25),
+  arrow = arrow(length = unit(0.5, "cm"))
+)
+p + geom_segment(
+  aes(x = 2, y = 15, xend = 3, yend = 15),
+  arrow = arrow(length = unit(0.5, "cm"))
+)
+p + geom_segment(
+  aes(x = 5, y = 30, xend = 3.5, yend = 25),
+  arrow = arrow(length = unit(0.5, "cm"))
+)
 
-# You can also use geom_segment to recreate plot(type = "h") :
+# You can also use geom_segment() to recreate plot(type = "h")
+# from base R:
 counts <- as.data.frame(table(x = rpois(100, 5)))
 counts$x <- as.numeric(as.character(counts$x))
 with(counts, plot(x, Freq, type = "h", lwd = 10))
@@ -57,9 +77,10 @@ ggplot(counts, aes(x, Freq)) +
   geom_segment(aes(yend = 0, xend = x), size = 10)
 }
 \seealso{
+\itemize{
+\item Geoms that commonly use these aesthetics: \code{\link[=geom_point]{geom_point()}},
 \code{\link[=geom_segment]{geom_segment()}}, \code{\link[=geom_curve]{geom_curve()}}, \code{\link[=geom_linerange]{geom_linerange()}},
 \code{\link[=geom_errorbar]{geom_errorbar()}}, \code{\link[=geom_crossbar]{geom_crossbar()}}, \code{\link[=geom_pointrange]{geom_pointrange()}}
-for geometries that commonly use these aesthetics.
-
-\code{\link[=annotate]{annotate()}} for how to use them whithin an annotation layer.
+\item See also \code{\link[=annotate]{annotate()}} for placing annotations.
+}
 }
