@@ -10,6 +10,22 @@ template:
 development:
   mode: auto
 
+authors:
+  Winston Chang:
+    href: https://github.com/wch
+  Lionel Henry:
+    href: https://github.com/lionel-
+  Thomas Lin Pedersen:
+    href: https://data-imaginist.com
+  Claus Wilke:
+    href: https://clauswilke.com
+  Kara Woo:
+    href: https://karawoo.com
+  Hiroaki Yutani:
+    href: https://yutani.rbind.io
+  Dewey Dunnington:
+    href: https://fishandwhistle.net
+
 home:
   strip_header: true
   links:
