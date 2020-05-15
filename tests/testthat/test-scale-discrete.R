@@ -15,18 +15,18 @@ test_that("NAs are translated/preserved for position scales", {
   p2a <- ggplot(df, aes(x2, y)) + geom_point()
   p3a <- ggplot(df, aes(x3, y)) + geom_point()
 
-  expect_equal(layer_data(p1a)$x, c(1, 2, 3))
-  expect_equal(layer_data(p2a)$x, c(1, 2, 3))
-  expect_equal(layer_data(p3a)$x, c(1, 2, 3))
+  expect_equal(layer_data(p1a)$x, new_mapped_discrete(c(1, 2, 3)))
+  expect_equal(layer_data(p2a)$x, new_mapped_discrete(c(1, 2, 3)))
+  expect_equal(layer_data(p3a)$x, new_mapped_discrete(c(1, 2, 3)))
 
   rm_na_x <- scale_x_discrete(na.translate = FALSE)
   p1b <- p1a + rm_na_x
   p2b <- p2a + rm_na_x
   p3b <- p3a + rm_na_x
 
-  expect_equal(layer_data(p1b)$x, c(1, 2, NA))
-  expect_equal(layer_data(p2b)$x, c(1, 2, NA))
-  expect_equal(layer_data(p3b)$x, c(1, 2, NA))
+  expect_equal(layer_data(p1b)$x, new_mapped_discrete(c(1, 2, NA)))
+  expect_equal(layer_data(p2b)$x, new_mapped_discrete(c(1, 2, NA)))
+  expect_equal(layer_data(p3b)$x, new_mapped_discrete(c(1, 2, NA)))
 })
 
 test_that("NAs are translated/preserved for non-position scales", {

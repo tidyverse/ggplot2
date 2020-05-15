@@ -210,7 +210,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     base <- df.grid(base_rows, base_cols)
 
     if (nrow(base) == 0) {
-      return(new_data_frame(list(PANEL = 1L, ROW = 1L, COL = 1L, SCALE_X = 1L, SCALE_Y = 1L)))
+      return(new_data_frame(list(PANEL = factor(1L), ROW = 1L, COL = 1L, SCALE_X = 1L, SCALE_Y = 1L)))
     }
 
     # Add margins
@@ -252,7 +252,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       intersect(names(cols), names(data)))
     data <- reshape_add_margins(data, margin_vars, params$margins)
 
-    facet_vals <- eval_facets(c(rows, cols), data, params$plot_env)
+    facet_vals <- eval_facets(c(rows, cols), data, params$.possible_columns)
 
     # If any faceting variables are missing, add them in by
     # duplicating the data
@@ -338,7 +338,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
 
     panel_table <- gtable_matrix("layout", panel_table,
       panel_widths, panel_heights, respect = respect, clip = coord$clip, z = matrix(1, ncol = ncol, nrow = nrow))
-    panel_table$layout$name <- paste0('panel-', rep(seq_len(ncol), nrow), '-', rep(seq_len(nrow), each = ncol))
+    panel_table$layout$name <- paste0('panel-', rep(seq_len(nrow), ncol), '-', rep(seq_len(ncol), each = nrow))
 
     panel_table <- gtable_add_col_space(panel_table,
       theme$panel.spacing.x %||% theme$panel.spacing)

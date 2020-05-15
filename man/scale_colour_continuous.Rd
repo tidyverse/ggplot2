@@ -22,14 +22,18 @@ scale_fill_continuous(
 \arguments{
 \item{...}{Additional parameters passed on to the scale type}
 
-\item{type}{One of "gradient" (the default) or "viridis" indicating the
-colour scale to use}
+\item{type}{One of the following:
+\itemize{
+\item "gradient" (the default)
+\item "viridis"
+\item A function that returns a continuous colour scale.
+}}
 }
 \description{
 Colour scales for continuous data default to the values of the
-\code{ggplot2.continuous.colour} and \code{ggplot2.continuous.fill} options. If these
-options are not present, \code{"gradient"} will be used. See \code{\link[=options]{options()}} for more
-information.
+\code{ggplot2.continuous.colour} and \code{ggplot2.continuous.fill} options. These
+\code{\link[=options]{options()}} default to \code{"gradient"} (i.e., \code{\link[=scale_colour_gradient]{scale_colour_gradient()}} and
+\code{\link[=scale_fill_gradient]{scale_fill_gradient()}})
 }
 \section{Color Blindness}{
 

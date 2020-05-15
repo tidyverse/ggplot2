@@ -16,6 +16,18 @@
 #' @param show.limits Logical. Should the limits of the scale be shown with
 #'   labels and ticks.
 #'
+#' @section Use with discrete scale:
+#' This guide is intended to show binned data and work together with ggplot2's
+#' binning scales. However, it is sometimes desirable to perform the binning in
+#' a separate step, either as part of a stat (e.g. [stat_contour_filled()]) or
+#' prior to the visualisation. If you want to use this guide for discrete data
+#' the levels must follow the naming scheme implemented by [base::cut()]. This
+#' means that a bin must be encoded as `"(<lower>, <upper>]"` with `<lower>`
+#' giving the lower bound of the bin and `<upper>` giving the upper bound
+#' (`"[<lower>, <upper>)"` is also accepted). If you use [base::cut()] to
+#' perform the binning everything should work as expected, if not, some recoding
+#' may be needed.
+#'
 #' @return A guide object
 #' @family guides
 #' @export
@@ -123,13 +135,28 @@ guide_train.bins <- function(guide, scale, aesthetic = NULL) {
   if (length(breaks) == 0 || all(is.na(breaks))) {
     return()
   }
-  limits <- scale$get_limits()
-  all_breaks <- c(limits[1], breaks, limits[2])
-  bin_at <- all_breaks[-1] - diff(all_breaks) / 2
   # in the key data frame, use either the aesthetic provided as
   # argument to this function or, as a fall back, the first in the vector
   # of possible aesthetics handled by the scale
   aes_column_name <- aesthetic %||% scale$aesthetics[1]
+
+  if (is.numeric(breaks)) {
+    limits <- scale$get_limits()
+    all_breaks <- c(limits[1], breaks, limits[2])
+    bin_at <- all_breaks[-1] - diff(all_breaks) / 2
+  } else {
+    # If the breaks are not numeric it is used with a discrete scale. We check
+    # if the breaks follow the allowed format "(<lower>, <upper>]", and if it
+    # does we convert it into bin specs
+    bin_at <- breaks
+    breaks <- as.character(breaks)
+    breaks <- strsplit(gsub("\\(|\\)|\\[|\\]", "", breaks), ",\\s?")
+    breaks <- as.numeric(unlist(breaks))
+    if (anyNA(breaks)) {
+      abort('Breaks not formatted correctly for a bin legend. Use `(<lower>, <upper>]` format to indicate bins')
+    }
+    all_breaks <- breaks[c(1, seq_along(bin_at) * 2)]
+  }
   key <- new_data_frame(setNames(list(c(scale$map(bin_at), NA)), aes_column_name))
   key$.label <- scale$get_labels(all_breaks)
   guide$show.limits <- guide$show.limits %||% scale$show_limits %||% FALSE
@@ -173,7 +200,16 @@ guide_geom.bins <- function(guide, layers, default_mapping) {
       n <- vapply(layer$aes_params, length, integer(1))
       params <- layer$aes_params[n == 1]
 
-      data <- layer$geom$use_defaults(guide$key[matched], params)
+      aesthetics <- layer$mapping
+      modifiers <- aesthetics[is_scaled_aes(aesthetics) | is_staged_aes(aesthetics)]
+
+      data <- tryCatch(
+        layer$geom$use_defaults(guide$key[matched], params, modifiers),
+        error = function(...) {
+          warn("Failed to apply `after_scale()` modifications to legend")
+          layer$geom$use_defaults(guide$key[matched], params, list())
+        }
+      )
     } else {
       data <- layer$geom$use_defaults(NULL, layer$aes_params)[rep(1, nrow(guide$key)), ]
     }

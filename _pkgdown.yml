@@ -2,17 +2,37 @@ url: https://ggplot2.tidyverse.org
 
 template:
   package: tidytemplate
+  params:
+      docsearch:
+        api_key: e1261f3df95d2d4704c626ff11a4b536
+        index_name: tidyverse_ggplot2
 
 development:
   mode: auto
+
+authors:
+  Winston Chang:
+    href: https://github.com/wch
+  Lionel Henry:
+    href: https://github.com/lionel-
+  Thomas Lin Pedersen:
+    href: https://data-imaginist.com
+  Claus Wilke:
+    href: https://clauswilke.com
+  Kara Woo:
+    href: https://karawoo.com
+  Hiroaki Yutani:
+    href: https://yutani.rbind.io
+  Dewey Dunnington:
+    href: https://fishandwhistle.net
 
 home:
   strip_header: true
   links:
   - text: Learn more
-    href: http://r4ds.had.co.nz/data-visualisation.html
+    href: https://r4ds.had.co.nz/data-visualisation.html
   - text: Extensions
-    href: http://www.ggplot2-exts.org/gallery/
+    href: https://exts.ggplot2.tidyverse.org/gallery/
 
 reference:
 - title: Plot basics
@@ -27,7 +47,9 @@ reference:
   - ggsave
   - qplot
 
-- title: "Layer: geoms"
+- title: Layers
+
+- subtitle: Geoms
   desc: >
     A layer combines data, aesthetic mapping, a geom (geometric object),
     a stat (statistical transformation), and a position adjustment. Typically,
@@ -36,11 +58,11 @@ reference:
   contents:
   - starts_with("geom_")
 
-- title: "Layer: stats"
+- subtitle: Stats
   desc: >
     A handful of layers are more easily specified with a `stat_` function,
     drawing attention to the statistical transformation rather than the visual
-    appearance. The computed variables can be mapped using `stat()`.
+    appearance. The computed variables can be mapped using `after_stat()`.
   contents:
   - stat_ecdf
   - stat_ellipse
@@ -50,9 +72,9 @@ reference:
   - stat_summary_bin
   - stat_unique
   - stat_sf_coordinates
-  - stat
+  - after_stat
 
-- title: "Layer: position adjustment"
+- subtitle: Position adjustment
   desc: >
     All layers have a position adjustment that resolves overlapping geoms.
     Override the default by using the `position` argument to the `geom_` or
@@ -60,7 +82,7 @@ reference:
   contents:
   - starts_with("position_")
 
-- title: "Layer: annotations"
+- subtitle: Annotations
   desc: >
     Annotations are a special type of layer that don't inherit global settings
     from the plot. They are used to add fixed reference data to plots.
@@ -103,10 +125,15 @@ reference:
     Guides are mostly controlled via the scale (e.g. with the `limits`,
     `breaks`, and `labels` arguments), but sometimes you will need additional
     control over guide appearance. Use `guides()` or the `guide` argument to
-    individual scales along with `guide_colourbar()` or `guide_legend()`.
+    individual scales along with `guide_*()` functions.
   contents:
+  - draw_key
   - guide_colourbar
   - guide_legend
+  - guide_axis
+  - guide_bins
+  - guide_coloursteps
+  - guide_none
   - guides
   - sec_axis
 
@@ -120,7 +147,7 @@ reference:
   - facet_wrap
   - vars
 
-- title: "Facetting: labels"
+- subtitle: Labels
   desc: >
     These functions provide a flexible toolkit for controlling the display
     of the "strip" labels on facets.
@@ -216,32 +243,30 @@ reference:
   - fortify
   - map_data
 
+news:
+  releases:
+  - text: "Version 3.3.0"
+    href: https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/
+  - text: "Version 3.2.0"
+    href: https://www.tidyverse.org/articles/2019/06/ggplot2-3-2-0/
+  - text: "Version 3.1.0"
+    href: https://www.tidyverse.org/articles/2018/10/ggplot2-3-1-0/
+  - text: "Version 3.0.0"
+    href: https://www.tidyverse.org/articles/2018/07/ggplot2-3-0-0/
+  - text: "Version 2.2.0"
+    href: https://blog.rstudio.com/2016/11/14/ggplot2-2-2-0/
+  - text: "Version 2.1.0"
+    href: https://blog.rstudio.com/2016/03/03/ggplot2-2-1-0/
+  - text: "Version 2.0.0"
+    href: https://blog.rstudio.com/2015/12/21/ggplot2-2-0-0/
+  - text: "Version 1.0.0"
+    href: https://blog.rstudio.com/2015/01/09/ggplot2-updates/
+
 navbar:
   structure:
     right: [extensions, github]
   components:
     home: ~
-    news:
-      text: News
-      menu:
-      - text: "Release notes"
-      - text: "Version 3.2.0"
-        href: https://www.tidyverse.org/articles/2019/06/ggplot2-3-2-0/
-      - text: "Version 3.1.0"
-        href: https://www.tidyverse.org/articles/2018/10/ggplot2-3-1-0/
-      - text: "Version 3.0.0"
-        href: https://www.tidyverse.org/articles/2018/07/ggplot2-3-0-0/
-      - text: "Version 2.2.0"
-        href: https://blog.rstudio.com/2016/11/14/ggplot2-2-2-0/
-      - text: "Version 2.1.0"
-        href: https://blog.rstudio.com/2016/03/03/ggplot2-2-1-0/
-      - text: "Version 2.0.0"
-        href: https://blog.rstudio.com/2015/12/21/ggplot2-2-0-0/
-      - text: "Version 1.0.0"
-        href: https://blog.rstudio.com/2015/01/09/ggplot2-updates/
-      - text: "------------------"
-      - text: "Change log"
-        href: news/index.html
     extensions:
       text: Extensions
-      href: http://www.ggplot2-exts.org/gallery/
+      href: https://exts.ggplot2.tidyverse.org/gallery/

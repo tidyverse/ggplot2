@@ -8,21 +8,21 @@
 %   R/geom-rect.r, R/geom-bar.r, R/geom-blank.r, R/geom-boxplot.r, R/geom-col.r,
 %   R/geom-path.r, R/geom-contour.r, R/geom-crossbar.r, R/geom-segment.r,
 %   R/geom-curve.r, R/geom-ribbon.r, R/geom-density.r, R/geom-density2d.r,
-%   R/geom-dotplot.r, R/geom-errorbar.r, R/geom-errorbarh.r, R/geom-hex.r,
-%   R/geom-hline.r, R/geom-label.R, R/geom-linerange.r, R/geom-point.r,
-%   R/geom-pointrange.r, R/geom-quantile.r, R/geom-rug.r, R/geom-smooth.r,
-%   R/geom-spoke.r, R/geom-text.r, R/geom-tile.r, R/geom-violin.r,
-%   R/geom-vline.r, R/layout.R, R/position-.r, R/position-dodge.r,
-%   R/position-dodge2.r, R/position-identity.r, R/position-jitter.r,
-%   R/position-jitterdodge.R, R/position-nudge.R, R/position-stack.r,
-%   R/scale-.r, R/scale-binned.R, R/scale-continuous.r, R/scale-date.r,
-%   R/scale-discrete-.r, R/scale-identity.r, R/stat-bin.r, R/stat-bin2d.r,
-%   R/stat-bindot.r, R/stat-binhex.r, R/stat-boxplot.r, R/stat-contour.r,
-%   R/stat-count.r, R/stat-density-2d.r, R/stat-density.r, R/stat-ecdf.r,
-%   R/stat-ellipse.R, R/stat-function.r, R/stat-identity.r, R/stat-qq-line.R,
-%   R/stat-qq.r, R/stat-quantile.r, R/stat-smooth.r, R/stat-sum.r,
-%   R/stat-summary-2d.r, R/stat-summary-bin.R, R/stat-summary-hex.r,
-%   R/stat-summary.r, R/stat-unique.r, R/stat-ydensity.r
+%   R/geom-dotplot.r, R/geom-errorbar.r, R/geom-errorbarh.r, R/geom-function.R,
+%   R/geom-hex.r, R/geom-hline.r, R/geom-label.R, R/geom-linerange.r,
+%   R/geom-point.r, R/geom-pointrange.r, R/geom-quantile.r, R/geom-rug.r,
+%   R/geom-smooth.r, R/geom-spoke.r, R/geom-text.r, R/geom-tile.r,
+%   R/geom-violin.r, R/geom-vline.r, R/layout.R, R/position-.r,
+%   R/position-dodge.r, R/position-dodge2.r, R/position-identity.r,
+%   R/position-jitter.r, R/position-jitterdodge.R, R/position-nudge.R,
+%   R/position-stack.r, R/scale-.r, R/scale-binned.R, R/scale-continuous.r,
+%   R/scale-date.r, R/scale-discrete-.r, R/scale-identity.r, R/stat-bin.r,
+%   R/stat-bin2d.r, R/stat-bindot.r, R/stat-binhex.r, R/stat-boxplot.r,
+%   R/stat-contour.r, R/stat-count.r, R/stat-density-2d.r, R/stat-density.r,
+%   R/stat-ecdf.r, R/stat-ellipse.R, R/stat-function.r, R/stat-identity.r,
+%   R/stat-qq-line.R, R/stat-qq.r, R/stat-quantile.r, R/stat-smooth.r,
+%   R/stat-sum.r, R/stat-summary-2d.r, R/stat-summary-bin.R,
+%   R/stat-summary-hex.r, R/stat-summary.r, R/stat-unique.r, R/stat-ydensity.r
 \docType{data}
 \name{ggplot2-ggproto}
 \alias{ggplot2-ggproto}
@@ -58,6 +58,7 @@
 \alias{GeomLine}
 \alias{GeomStep}
 \alias{GeomContour}
+\alias{GeomContourFilled}
 \alias{GeomCrossbar}
 \alias{GeomSegment}
 \alias{GeomCurve}
@@ -65,9 +66,11 @@
 \alias{GeomArea}
 \alias{GeomDensity}
 \alias{GeomDensity2d}
+\alias{GeomDensity2dFilled}
 \alias{GeomDotplot}
 \alias{GeomErrorbar}
 \alias{GeomErrorbarh}
+\alias{GeomFunction}
 \alias{GeomHex}
 \alias{GeomHline}
 \alias{GeomLabel}
@@ -112,6 +115,7 @@
 \alias{StatContourFilled}
 \alias{StatCount}
 \alias{StatDensity2d}
+\alias{StatDensity2dFilled}
 \alias{StatDensity}
 \alias{StatEcdf}
 \alias{StatEllipse}

@@ -405,7 +405,10 @@ sf_rescale01_x <- function(x, range) {
 #'   their west end, whereas `label_graticule = "EW"` would label parallels at both
 #'   ends and meridians not at all. Because meridians and parallels can in general
 #'   intersect with any side of the plot panel, for any choice of `label_graticule` labels
-#'   are not guaranteed to reside on only one particular side of the plot panel.
+#'   are not guaranteed to reside on only one particular side of the plot panel. Also,
+#'   `label_graticule` can cause labeling artifacts, in particular if a graticule line
+#'   coincides with the edge of the plot panel. In such circumstances, `label_axes` will
+#'   generally yield better results and should be used instead.
 #'
 #'   This parameter can be used alone or in combination with `label_axes`.
 #' @param ndiscr number of segments to use for discretising graticule lines;

@@ -22,8 +22,8 @@
 #' @inheritParams layer
 #' @inheritParams geom_bar
 #' @param outline.type Type of the outline of the area; `"both"` draws both the
-#'   upper and lower lines, `"upper"` draws the upper lines only. `"legacy"`
-#'   draws a closed polygon around the area.
+#'   upper and lower lines, `"upper"`/`"lower"` draws the respective lines only.
+#'   `"full"` draws a closed polygon around the area.
 #' @export
 #' @examples
 #' # Generate data
@@ -49,7 +49,7 @@ geom_ribbon <- function(mapping = NULL, data = NULL,
                         show.legend = NA,
                         inherit.aes = TRUE,
                         outline.type = "both") {
-  outline.type <- match.arg(outline.type, c("both", "upper", "legacy"))
+  outline.type <- match.arg(outline.type, c("both", "upper", "lower", "full"))
 
   layer(
     data = data,
@@ -138,18 +138,19 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
 
     munched <- coord_munch(coord, positions, panel_params)
 
+    is_full_outline <- identical(outline.type, "full")
     g_poly <- polygonGrob(
       munched$x, munched$y, id = munched$id,
       default.units = "native",
       gp = gpar(
         fill = alpha(aes$fill, aes$alpha),
-        col = if (identical(outline.type, "legacy")) aes$colour else NA
+        col = if (is_full_outline) aes$colour else NA,
+        lwd = if (is_full_outline) aes$size * .pt else 0,
+        lty = if (is_full_outline) aes$linetype else 1
       )
     )
 
-    if (identical(outline.type, "legacy")) {
-      warn(glue('outline.type = "legacy" is only for backward-compatibility ',
-                'and might be removed eventually'))
+    if (is_full_outline) {
       return(ggname("geom_ribbon", g_poly))
     }
 
@@ -158,6 +159,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     munched_lines$id <- switch(outline.type,
       both = munched_lines$id + rep(c(0, max(ids, na.rm = TRUE)), each = length(ids)),
       upper = munched_lines$id + rep(c(0, NA), each = length(ids)),
+      lower = munched_lines$id + rep(c(NA, 0), each = length(ids)),
       abort(glue("invalid outline.type: {outline.type}"))
     )
     g_lines <- polylineGrob(
@@ -180,7 +182,7 @@ geom_area <- function(mapping = NULL, data = NULL, stat = "identity",
                       position = "stack", na.rm = FALSE, orientation = NA,
                       show.legend = NA, inherit.aes = TRUE, ...,
                       outline.type = "upper") {
-  outline.type <- match.arg(outline.type, c("both", "upper", "legacy"))
+  outline.type <- match.arg(outline.type, c("both", "upper", "lower", "full"))
 
   layer(
     data = data,
