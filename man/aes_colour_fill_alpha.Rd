@@ -5,11 +5,40 @@
 \alias{colour}
 \alias{color}
 \alias{fill}
-\title{Colour related aesthetics: colour, fill and alpha}
+\title{Colour related aesthetics: colour, fill, and alpha}
 \description{
-This page demonstrates the usage of a sub-group
-of aesthetics: colour, fill and alpha.
+These aesthetics parameters change the colour (\code{colour} and \code{fill}) and the
+opacity (\code{alpha}) of geom elements on a plot. Almost every geom has either
+colour or fill (or both), as well as can have their alpha modified.
+Modifying colour on a plot is a useful way to enhance the presentation of data,
+often especially when a plot graphs more than two variables.
 }
+\section{Colour and fill}{
+
+
+Colours and fills can be specified in the following ways:
+\itemize{
+\item A name, e.g., \code{"red"}. R has 657 built-in named colours, which can be
+listed with \code{\link[grDevices:colors]{grDevices::colors()}}.
+\item An rgb specification, with a string of the form \code{"#RRGGBB"} where each of the
+pairs \code{RR}, \code{GG}, \code{BB} consists of two hexadecimal digits giving a value in the
+range \code{00} to \code{FF}. You can optionally make the colour transparent by using the
+form \code{"#RRGGBBAA"}.
+\item An \code{NA}, for a completely transparent colour.
+}
+}
+
+\section{Alpha}{
+
+
+Alpha refers to the opacity of a geom. Values of \code{alpha} range from 0 to 1,
+with lower values corresponding to more transparent colors.
+
+Alpha can additionally be modified through the \code{colour} or \code{fill} aesthetic
+if either aesthetic provides color values using an rgb specification
+(\code{"#RRGGBBAA"}), where \code{AA} refers to transparency values.
+}
+
 \examples{
 \donttest{
 
@@ -57,5 +86,22 @@ j <- j + geom_rect(aes(NULL, NULL, xmin = start, xmax = end, fill = party),
 ymin = yrng[1], ymax = yrng[2], data = presidential)
 j
 j + scale_fill_manual(values = alpha(c("blue", "red"), .3))
+}
+}
+\seealso{
+\itemize{
+\item Other options for modifying colour:
+\code{\link[=scale_colour_brewer]{scale_colour_brewer()}},
+\code{\link[=scale_colour_gradient]{scale_colour_gradient()}}, \code{\link[=scale_colour_grey]{scale_colour_grey()}},
+\code{\link[=scale_colour_hue]{scale_colour_hue()}}, \code{\link[=scale_colour_identity]{scale_colour_identity()}},
+\code{\link[=scale_colour_manual]{scale_colour_manual()}}, \code{\link[=scale_colour_viridis_d]{scale_colour_viridis_d()}}
+\item Other options for modifying fill:
+\code{\link[=scale_fill_brewer]{scale_fill_brewer()}},
+\code{\link[=scale_fill_gradient]{scale_fill_gradient()}}, \code{\link[=scale_fill_grey]{scale_fill_grey()}},
+\code{\link[=scale_fill_hue]{scale_fill_hue()}}, \code{\link[=scale_fill_identity]{scale_fill_identity()}},
+\code{\link[=scale_fill_manual]{scale_fill_manual()}}, \code{\link[=scale_fill_viridis_d]{scale_fill_viridis_d()}}
+\item Other options for modifying alpha: \code{\link[=scale_alpha]{scale_alpha()}}
+\item \code{vignette("ggplot2-specs")} provides an overview of other aesthestics that
+can be modified
 }
 }

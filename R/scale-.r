@@ -56,7 +56,7 @@
 #'   - The default ([scales::censor()]) replaces out of
 #'   bounds values with `NA`.
 #'   - [scales::squish()] for squishing out of bounds values into range.
-#'   - [scales::squish_infinite()] for squishing infitite values into range.
+#'   - [scales::squish_infinite()] for squishing infinite values into range.
 #' @param na.value Missing values will be replaced with this value.
 #' @param trans For continuous scales, the name of a transformation object
 #'   or the object itself. Built-in transformations include "asn", "atanh",
@@ -151,8 +151,8 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 #' @param na.translate Unlike continuous scales, discrete scales can easily show
 #'   missing values, and do so by default. If you want to remove missing values
 #'   from a discrete scale, specify `na.translate = FALSE`.
-#' @param na.value If `na.translate = TRUE`, what value aesthetic
-#'   value should missing be displayed as? Does not apply to position scales
+#' @param na.value If `na.translate = TRUE`, what aesthetic value should the
+#'   missing values be displayed as? Does not apply to position scales
 #'   where `NA` is always placed at the far right.
 #' @keywords internal
 discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
@@ -163,6 +163,16 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
   aesthetics <- standardise_aes_names(aesthetics)
 
   check_breaks_labels(breaks, labels)
+
+  if (!is.function(limits) && (length(limits) > 0) && !is.discrete(limits)) {
+    warn(
+      glue(
+        "
+        Continuous limits supplied to discrete scale.
+        Did you mean `limits = factor(...)` or `scale_*_continuous()`?"
+      )
+    )
+  }
 
   position <- match.arg(position, c("left", "right", "top", "bottom"))
 

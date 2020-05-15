@@ -22,7 +22,7 @@ Authors@R: c(
            comment = c(ORCID = "0000-0002-3385-7233")),
     person("Dewey", "Dunnington", role = "aut",
            comment = c(ORCID = "0000-0002-9415-4582")),
-    person("RStudio", role = c("cph"))
+    person("RStudio", role = c("cph", "fnd"))
     )
 Depends:
     R (>= 3.2)
@@ -138,6 +138,7 @@ Collate:
     'geom-errorbar.r'
     'geom-errorbarh.r'
     'geom-freqpoly.r'
+    'geom-function.R'
     'geom-hex.r'
     'geom-histogram.r'
     'geom-hline.r'
