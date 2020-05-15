@@ -46,7 +46,7 @@ ggplot(cuts_df) +
   geom_pointrange()
 
 # Using annotate
-p <- ggplot(mtcars, aes(wt, mpg)) + geom_point()
+p <- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()
 p
 p + annotate(
   "rect", xmin = 2, xmax = 3.5, ymin = 2, ymax = 25,
@@ -73,7 +73,7 @@ counts <- as.data.frame(table(x = rpois(100, 5)))
 counts$x <- as.numeric(as.character(counts$x))
 with(counts, plot(x, Freq, type = "h", lwd = 10))
 
-ggplot(counts, aes(x, Freq)) +
+ggplot(counts, aes(x = x, y = Freq)) +
   geom_segment(aes(yend = 0, xend = x), size = 10)
 }
 \seealso{
