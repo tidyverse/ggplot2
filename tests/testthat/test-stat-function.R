@@ -31,7 +31,7 @@ test_that("works with discrete x", {
     stat_function(fun = as.numeric, geom = "point", n = 2)
   ret <- layer_data(base)
 
-  expect_equal(ret$x, 1:2)
+  expect_equal(ret$x, new_mapped_discrete(1:2))
   expect_equal(ret$y, 1:2)
 })
 
