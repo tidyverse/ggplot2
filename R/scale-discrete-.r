@@ -131,6 +131,9 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
 
 # TODO: This is a clear candidate for vctrs once we adopt it
 new_mapped_discrete <- function(x) {
+  if (!is.numeric(x)) {
+    abort("`mapped_discrete` objects can only be created from numeric vectors")
+  }
   class(x) <- c("mapped_discrete", "numeric")
   x
 }
@@ -148,6 +151,6 @@ c.mapped_discrete <- function(..., recursive = FALSE) {
   if (length(value) == 0) {
     return(x)
   }
-  value <- unclass(value)
+  value <- as.numeric(unclass(value))
   new_mapped_discrete(NextMethod())
 }
