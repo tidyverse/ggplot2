@@ -45,12 +45,8 @@
 #' p + geom_bar(aes(fill = factor(vs)))
 #'
 #' # Using linetypes
-#' rescale01 <- function(x) (x - min(x)) / diff(range(x))
-#' ec_scaled <- data.frame(
-#'   date = economics$date,
-#'   lapply(economics[, -(1:2)], rescale01))
-#' ecm <- reshape2::melt(ec_scaled, id.vars = "date")
-#' ggplot(ecm, aes(date, value)) + geom_line(aes(linetype = variable))
+#' ggplot(economics_long, aes(date, value01)) +
+#'   geom_line(aes(linetype = variable))
 #'
 #' # Multiple groups with one aesthetic
 #' p <- ggplot(nlme::Oxboys, aes(age, height))
