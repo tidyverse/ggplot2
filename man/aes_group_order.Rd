@@ -5,21 +5,21 @@
 \alias{group}
 \title{Aesthetics: grouping}
 \description{
-The \code{group}, by default, is set to the interaction of all discrete variables in the
-plot. This often partitions the data correctly, but when it does not, or when
-no discrete variable is used in the plot, you will need to explicitly define the
+The \code{group} aesthetic is by default set to the interaction of all discrete variables
+in the plot. This choice often partitions the data correctly, but when it does not,
+or when no discrete variable is used in the plot, you will need to explicitly define the
 grouping structure, by mapping \code{group} to a variable that has a different value
 for each group.
 }
 \details{
-For most applications you can specify the grouping with
-various aesthetics (\code{colour}, \code{shape}, \code{fill}, \code{linetype}) or with facets. These are
-demonstrated in the examples below with the \code{mtcars}, \code{economics} and \code{diamonds} datasets.
+For most applications you can specify the grouping with implicitly via the default option,
+by specifying various other aesthetics, such as \code{colour}, \code{shape}, \code{fill}, or \code{linetype}.
+This is demonstrated in the examples below with the \code{mtcars}, \code{economics} and \code{diamonds}
+datasets.
 
 There are three common cases where the default does not display the data correctly.
 The examples below use a longitudinal dataset, \code{Oxboys}, from the nlme package to demonstrate
-these cases. \code{Oxboys} records the heights (height) and centered
-ages (age) of 26 boys (Subject),
+these cases. \code{Oxboys} records the heights (height) and centered ages (age) of 26 boys (Subject),
 measured on nine occasions (Occasion).
 }
 \examples{
@@ -34,10 +34,10 @@ p + geom_point(aes(colour = factor(cyl)), size = 4)
 p + geom_point(aes(shape = factor(cyl)), size = 4)
 
 # Using fill
-a <- ggplot(mtcars, aes(factor(cyl)))
-a + geom_bar()
-a + geom_bar(aes(fill = factor(cyl)))
-a + geom_bar(aes(fill = factor(vs)))
+p <- ggplot(mtcars, aes(factor(cyl)))
+p + geom_bar()
+p + geom_bar(aes(fill = factor(cyl)))
+p + geom_bar(aes(fill = factor(vs)))
 
 # Using linetypes
 rescale01 <- function(x) (x - min(x)) / diff(range(x))
@@ -45,46 +45,45 @@ ec_scaled <- data.frame(
   date = economics$date,
   lapply(economics[, -(1:2)], rescale01))
 ecm <- reshape2::melt(ec_scaled, id.vars = "date")
-f <- ggplot(ecm, aes(date, value))
-f + geom_line(aes(linetype = variable))
-
-# Using facets
-k <- ggplot(diamonds, aes(carat, stat(density))) + geom_histogram(binwidth = 0.2)
-k + facet_grid(. ~ cut)
+ggplot(ecm, aes(date, value)) + geom_line(aes(linetype = variable))
 
 # Multiple groups with one aesthetic
-h <- ggplot(nlme::Oxboys, aes(age, height))
-h + geom_line()
-# Default is not sufficient. A single line tries to connect all the observations.
-# To fix this, use the group aesthetic to map a different line for each subject.
-h + geom_line(aes(group = Subject))
+p <- ggplot(nlme::Oxboys, aes(age, height))
+# The default is not sufficient here. A single line tries to connect all
+# the observations.
+p + geom_line()
+# To fix this, use the group aesthetic to map a different line for each
+# subject.
+p + geom_line(aes(group = Subject))
 
 # Different groups on different layers
-h <- h + geom_line(aes(group = Subject))
+p <- p + geom_line(aes(group = Subject))
 # Using the group aesthetic with both geom_line() and geom_smooth()
 # groups the data the same way for both layers
-h + geom_smooth(aes(group = Subject), method = "lm", se = FALSE)
+p + geom_smooth(aes(group = Subject), method = "lm", se = FALSE)
 # Changing the group aesthetic for the smoother layer
 # fits a single line of best fit across all boys
-h + geom_smooth(aes(group = 1), size = 2, method = "lm", se = FALSE)
+p + geom_smooth(aes(group = 1), size = 2, method = "lm", se = FALSE)
 
 # Overriding the default grouping
-# The plot has a discrete scale but you want to draw lines that connect across
-# groups. This is the strategy used in interaction plots, profile plots, and parallel
-# coordinate plots, among others. For example, we draw boxplots of height at
-# each measurement occasion
-boysbox <- ggplot(nlme::Oxboys, aes(Occasion, height))
-boysbox + geom_boxplot()
+# Sometimes the plot has a discrete scale but you want to draw lines
+# that connect across groups. This is the strategy used in interaction
+# plots, profile plots, and parallel coordinate plots, among others.
+# For example, we draw boxplots of height at each measurement occasion.
+p <- ggplot(nlme::Oxboys, aes(Occasion, height)) + geom_boxplot()
+p
 # There is no need to specify the group aesthetic here; the default grouping
-# works because occasion is a discrete variable. To overlay individual trajectories
-# we again need to override the default grouping for that layer with aes(group = Subject)
-boysbox <- boysbox + geom_boxplot()
-boysbox + geom_line(aes(group = Subject), colour = "blue")
+# works because occasion is a discrete variable. To overlay individual
+# trajectories, we again need to override the default grouping for that layer
+# with aes(group = Subject)
+p + geom_line(aes(group = Subject), colour = "blue")
 }
 }
 \seealso{
-\link{geom_point}, \link{geom_bar}, \link{geom_line}, \link{geom_histogram} for geometries
-commonly used with groups.
-
-Learn more about aesthetics in \code{vignette("ggplot2-specs")}.
+\itemize{
+\item Geoms commonly used with groups: \code{\link[=geom_point]{geom_point()}}, \code{\link[=geom_bar]{geom_bar()}}, \code{\link[=geom_line]{geom_line()}},
+\code{\link[=geom_histogram]{geom_histogram()}}
+\item Run \code{vignette("ggplot2-specs")} to see an overview of other aesthestics that
+can be modified.
+}
 }
