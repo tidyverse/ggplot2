@@ -8,9 +8,10 @@
 
 * Default continuous color scales (i.e., the `options()` `ggplot2.continuous.colour` and `ggplot2.continuous.fill`, which inform the `type` argument of `scale_fill_continuous()` and `scale_colour_continuous()`) now accept a function, which allows more control over these default `continuous_scale()`s (@cpsievert, #3827)
 
-* A newly added `geom_function()` is now the recommended geom to use in
-  conjunction with `stat_function()`. In addition, `stat_function()` now
-  works with transformed y axes, e.g. `scale_y_log10()` (@clauswilke, #3611, #3905).
+* A newly added `geom_function()` is now recommended to use in conjunction
+  with/instead of `stat_function()`. In addition, `stat_function()` now
+  works with transformed y axes, e.g. `scale_y_log10()`, and in plots
+  containing no other data or layers (@clauswilke, #3611, #3905, #3983).
 
 * A bug was fixed in `stat_contour()` when calculating breaks based on 
   the `bins` argument (@clauswilke, #3879).

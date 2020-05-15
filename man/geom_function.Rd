@@ -116,7 +116,7 @@ ggplot(data.frame(x = rnorm(100)), aes(x)) +
   geom_function(fun = dnorm, colour = "red")
 
 # To plot functions without data, specify range of x-axis
-base <- ggplot(data.frame(x = c(-5, 5)), aes(x))
+base <- ggplot() + xlim(-5, 5)
 base + geom_function(fun = dnorm)
 base + geom_function(fun = dnorm, args = list(mean = 2, sd = .5))
 
