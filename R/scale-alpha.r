@@ -27,6 +27,7 @@ scale_alpha <- function(..., range = c(0.1, 1)) {
 scale_alpha_continuous <- scale_alpha
 
 #' @rdname scale_alpha
+#' @export
 scale_alpha_binned <- function(..., range = c(0.1, 1)) {
   binned_scale("alpha", "alpha_b", rescale_pal(range), ...)
 }

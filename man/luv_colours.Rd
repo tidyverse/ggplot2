@@ -4,11 +4,13 @@
 \name{luv_colours}
 \alias{luv_colours}
 \title{\code{colors()} in Luv space}
-\format{A data frame with 657 observations and 4 variables:
+\format{
+A data frame with 657 observations and 4 variables:
 \describe{
 \item{L,u,v}{Position in Luv colour space}
 \item{col}{Colour name}
-}}
+}
+}
 \usage{
 luv_colours
 }
