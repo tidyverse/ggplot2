@@ -17,10 +17,10 @@ The following aesthetics can be used to specify the position of elements:
 }
 \details{
 \code{x} and \code{y} define the locations of points or of positions along a line
-graph.
+or path.
 
 \code{x}, \code{y} and \code{xend}, \code{yend} define the starting and ending points of
-segments and curves geometries.
+segment and curve geometries.
 
 \code{xmin}, \code{xmax}, \code{ymin}  and \code{ymax} can be used to specify the position of
 annotations and to represent rectangular areas.

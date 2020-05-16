@@ -4,10 +4,10 @@
 #' `x`, `y`, `xmin`, `xmax`, `ymin`, `ymax`, `xend`, `yend`.
 #'
 #' `x` and `y` define the locations of points or of positions along a line
-#' graph.
+#' or path.
 #'
 #' `x`, `y` and `xend`, `yend` define the starting and ending points of
-#' segments and curves geometries.
+#' segment and curve geometries.
 #'
 #' `xmin`, `xmax`, `ymin`  and `ymax` can be used to specify the position of
 #' annotations and to represent rectangular areas.
