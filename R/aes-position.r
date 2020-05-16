@@ -16,10 +16,10 @@
 #' @aliases x y xmin xmax ymin ymax xend yend
 #'
 #' @seealso
-#' * Geoms that commonly use these aesthetics: [geom_point()],
-#' [geom_segment()], [geom_curve()], [geom_linerange()],
-#' [geom_errorbar()], [geom_crossbar()], [geom_pointrange()]
-#'
+#' * Geoms that commonly use these aesthetics: [geom_crossbar()],
+#' [geom_curve()], [geom_errorbar()], [geom_line()], [geom_linerange()],
+#' [geom_path()], [geom_point()], [geom_pointrange()], [geom_rect()],
+#' [geom_segment()]
 #' * See also [annotate()] for placing annotations.
 #' @examples
 #'

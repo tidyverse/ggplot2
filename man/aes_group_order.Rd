@@ -8,14 +8,13 @@
 The \code{group} aesthetic is by default set to the interaction of all discrete variables
 in the plot. This choice often partitions the data correctly, but when it does not,
 or when no discrete variable is used in the plot, you will need to explicitly define the
-grouping structure, by mapping \code{group} to a variable that has a different value
+grouping structure by mapping \code{group} to a variable that has a different value
 for each group.
 }
 \details{
-For most applications you can specify the grouping with implicitly via the default option,
-by specifying various other aesthetics, such as \code{colour}, \code{shape}, \code{fill}, or \code{linetype}.
-This is demonstrated in the examples below with the \code{mtcars}, \code{economics} and \code{diamonds}
-datasets.
+For most applications the grouping is set implicitly by mapping one or more
+discrete variables to \code{x}, \code{y}, \code{colour}, \code{fill}, \code{alpha}, \code{shape}, \code{size},
+and/or \code{linetype}. This is demonstrated in the examples below.
 
 There are three common cases where the default does not display the data correctly.
 The examples below use a longitudinal dataset, \code{Oxboys}, from the nlme package to demonstrate
@@ -77,8 +76,7 @@ p + geom_line(aes(group = Subject), colour = "blue")
 }
 \seealso{
 \itemize{
-\item Geoms commonly used with groups: \code{\link[=geom_point]{geom_point()}}, \code{\link[=geom_bar]{geom_bar()}}, \code{\link[=geom_line]{geom_line()}},
-\code{\link[=geom_histogram]{geom_histogram()}}
+\item Geoms commonly used with groups: \code{\link[=geom_bar]{geom_bar()}}, \code{\link[=geom_histogram]{geom_histogram()}}, \code{\link[=geom_line]{geom_line()}}
 \item Run \code{vignette("ggplot2-specs")} to see an overview of other aesthestics that
 can be modified.
 }

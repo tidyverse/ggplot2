@@ -7,14 +7,13 @@
 #' The `group` aesthetic is by default set to the interaction of all discrete variables
 #' in the plot. This choice often partitions the data correctly, but when it does not,
 #' or when no discrete variable is used in the plot, you will need to explicitly define the
-#' grouping structure, by mapping `group` to a variable that has a different value
+#' grouping structure by mapping `group` to a variable that has a different value
 #' for each group.
 #'
 #' @details
-#' For most applications you can specify the grouping with implicitly via the default option,
-#' by specifying various other aesthetics, such as `colour`, `shape`, `fill`, or `linetype`.
-#' This is demonstrated in the examples below with the `mtcars`, `economics` and `diamonds`
-#' datasets.
+#' For most applications the grouping is set implicitly by mapping one or more
+#' discrete variables to `x`, `y`, `colour`, `fill`, `alpha`, `shape`, `size`,
+#' and/or `linetype`. This is demonstrated in the examples below.
 #'
 #' There are three common cases where the default does not display the data correctly.
 #' The examples below use a longitudinal dataset, `Oxboys`, from the nlme package to demonstrate
@@ -22,8 +21,7 @@
 #' measured on nine occasions (Occasion).
 #'
 #' @seealso
-#' * Geoms commonly used with groups: [geom_point()], [geom_bar()], [geom_line()],
-#'   [geom_histogram()]
+#' * Geoms commonly used with groups: [geom_bar()], [geom_histogram()], [geom_line()]
 #' * Run `vignette("ggplot2-specs")` to see an overview of other aesthestics that
 #' can be modified.
 #'

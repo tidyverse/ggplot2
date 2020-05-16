@@ -78,9 +78,10 @@ ggplot(counts, aes(x = x, y = Freq)) +
 }
 \seealso{
 \itemize{
-\item Geoms that commonly use these aesthetics: \code{\link[=geom_point]{geom_point()}},
-\code{\link[=geom_segment]{geom_segment()}}, \code{\link[=geom_curve]{geom_curve()}}, \code{\link[=geom_linerange]{geom_linerange()}},
-\code{\link[=geom_errorbar]{geom_errorbar()}}, \code{\link[=geom_crossbar]{geom_crossbar()}}, \code{\link[=geom_pointrange]{geom_pointrange()}}
+\item Geoms that commonly use these aesthetics: \code{\link[=geom_crossbar]{geom_crossbar()}},
+\code{\link[=geom_curve]{geom_curve()}}, \code{\link[=geom_errorbar]{geom_errorbar()}}, \code{\link[=geom_line]{geom_line()}}, \code{\link[=geom_linerange]{geom_linerange()}},
+\code{\link[=geom_path]{geom_path()}}, \code{\link[=geom_point]{geom_point()}}, \code{\link[=geom_pointrange]{geom_pointrange()}}, \code{\link[=geom_rect]{geom_rect()}},
+\code{\link[=geom_segment]{geom_segment()}}
 \item See also \code{\link[=annotate]{annotate()}} for placing annotations.
 }
 }

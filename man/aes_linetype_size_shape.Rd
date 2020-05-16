@@ -13,17 +13,17 @@ and \code{size}) or to text (\code{size}).
 
 The \code{linetype} aesthetic can be specified with either an integer (0-6), a
 name (0 = blank, 1 = solid, 2 = dashed, 3 = dotted, 4 = dotdash, 5 = longdash,
-6 = twodash), a variable source (for grouping), or a string of an even number
+6 = twodash), a mapping to a discrete variable, or a string of an even number
 (up to eight) of hexadecimal digits which give the lengths in consecutive
 positions in the string. See examples for a hex string demonstration.
 
-The \code{size} aesthetic can be specified with a numerical value (in millimetres),
-or from a variable source (for grouping).
+The \code{size} aesthetic can be specified with a numerical value (in millimetres)
+or via a mapping to a continuous variable.
 
 The \code{shape} aesthetic can be specified with an integer (between 0 and 25),
 a single character (which uses that character as the plotting symbol),
 a \code{.} to draw the smallest rectangle that is visible (i.e., about one pixel),
-an \code{NA} to draw nothing, or a variable source (for grouping). Symbols and
+an \code{NA} to draw nothing, or a mapping to a discrete variable. Symbols and
 filled shapes are described in the examples below.
 }
 \examples{
