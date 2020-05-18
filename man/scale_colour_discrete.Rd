@@ -32,10 +32,9 @@ want to change the color palette based on the number of levels.
 }}
 }
 \description{
-Colour scales for discrete data default to the values of the \code{ggplot2.discrete.fill}
-and \code{ggplot2.discrete.colour} options. By default these scales attempt to use
-a colour-blind safe (or a custom) palette, but if the number of levels is
-large, they fallback to \code{\link[=scale_fill_hue]{scale_fill_hue()}}/\code{\link[=scale_colour_hue]{scale_colour_hue()}}.
+The default discrete colour scale. Defaults to \code{\link[=scale_fill_hue]{scale_fill_hue()}}/\code{\link[=scale_fill_brewer]{scale_fill_brewer()}}
+unless \code{type} (which defaults to the \code{ggplot2.discrete.fill}/\code{ggplot2.discrete.colour} options)
+is specified.
 }
 \examples{
 # Template function for creating densities grouped by a variable
@@ -43,21 +42,31 @@ cty_by_var <- function(var) {
   ggplot(mpg, aes(cty, colour = factor({{var}}), fill = factor({{var}}))) +
     geom_density(alpha = 0.2)
 }
-# The default color scale for three levels
+
+# The default, scale_fill_hue(), is not colour-blind safe
 cty_by_var(class)
 
-# Define custom palettes for when there are 1-2, 3, or 4-6 levels
-opts <- options(
-  ggplot2.discrete.fill = list(
-    c("skyblue", "orange"),
-    RColorBrewer::brewer.pal(3, "Set2"),
-    RColorBrewer::brewer.pal(6, "Accent")
-  )
+# (Temporarily) set the default to Okabe-Ito (which is colour-blind safe)
+okabe <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+withr::with_options(
+  list(ggplot2.discrete.fill = okabe),
+  print(cty_by_var(class))
 )
-cty_by_var(year)
-cty_by_var(drv)
-cty_by_var(fl)
-cty_by_var(class)
-options(opts)
+
+# Define a collection of palettes to alter the default based on number of levels to encode
+discrete_palettes <- list(
+  c("skyblue", "orange"),
+  RColorBrewer::brewer.pal(3, "Set2"),
+  RColorBrewer::brewer.pal(6, "Accent")
+)
+withr::with_options(
+  list(ggplot2.discrete.fill = discrete_palettes), {
+  # 1st palette is used when there 1-2 levels (e.g., year)
+  print(cty_by_var(year))
+  # 2nd palette is used when there are 3 levels
+  print(cty_by_var(drv))
+  # 3rd palette is used when there are 4-6 levels
+  print(cty_by_var(fl))
+})
 
 }
