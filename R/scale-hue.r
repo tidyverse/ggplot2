@@ -108,59 +108,63 @@ scale_fill_hue <- function(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0
 #' options(opts)
 #'
 scale_colour_discrete <- function(..., type = getOption("ggplot2.discrete.colour", getOption("ggplot2.discrete.fill"))) {
+  # TODO: eventually `type` should default to a set of colour-blind safe color codes (e.g. Okabe-Ito)
+  type <- type %||% scale_colour_hue
   if (is.function(type)) {
     type(...)
   } else {
-    scale_colour_qualitative(..., codes = type)
+    scale_colour_qualitative(..., type = type)
   }
 }
 
 #' @rdname scale_colour_discrete
 #' @export
 scale_fill_discrete <- function(..., type = getOption("ggplot2.discrete.fill", getOption("ggplot2.discrete.colour"))) {
+  # TODO: eventually `type` should default to a set of colour-blind safe color codes (e.g. Okabe-Ito)
+  type <- type %||% scale_fill_hue
   if (is.function(type)) {
     type(...)
   } else {
-    scale_fill_qualitative(..., codes = type)
+    scale_fill_qualitative(..., type = type)
   }
 }
 
-scale_colour_qualitative <- function(..., codes = NULL, h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
+scale_colour_qualitative <- function(..., type = NULL, h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
                                      direction = 1, na.value = "grey50", aesthetics = "colour") {
   discrete_scale(
-    aesthetics, "qualitative", qualitative_pal(codes, h, c, l, h.start, direction),
+    aesthetics, "qualitative", qualitative_pal(type, h, c, l, h.start, direction),
     na.value = na.value, ...
   )
 }
 
-scale_fill_qualitative <- function(..., codes = NULL, h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
+scale_fill_qualitative <- function(..., type = NULL, h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
                                    direction = 1, na.value = "grey50", aesthetics = "fill") {
   discrete_scale(
-    aesthetics, "qualitative", qualitative_pal(codes, h, c, l, h.start, direction),
+    aesthetics, "qualitative", qualitative_pal(type, h, c, l, h.start, direction),
     na.value = na.value, ...
   )
 }
 
-qualitative_pal <- function(codes, h, c, l, h.start, direction) {
+#' Given set(s) of colour codes (i.e., type), find the smallest set that can support n levels
+#' @param type a character vector or a list of character vectors
+#' @noRd
+qualitative_pal <- function(type, h, c, l, h.start, direction) {
   function(n) {
-    if (!length(codes))  {
-      return(scales::hue_pal(h, c, l, h.start, direction)(n))
+    type_list <- if (!is.list(type)) list(type) else type
+    if (!all(vapply(type_list, is.character, logical(1)))) {
+      abort("`type` must be a character vector or a list of character vectors", call. = FALSE)
     }
-    codes_list <- if (!is.list(codes)) list(codes) else codes
-    if (!all(vapply(codes_list, is.character, logical(1)))) {
-      stop("codes must be a character vector or a list of character vectors", call. = FALSE)
-    }
-    codes_lengths <- vapply(codes_list, length, integer(1))
+    type_lengths <- vapply(type_list, length, integer(1))
     # If there are more levels than color codes default to hue_pal()
-    if (max(codes_lengths) < n) {
+    if (max(type_lengths) < n) {
       return(scales::hue_pal(h, c, l, h.start, direction)(n))
     }
     # Use the minimum length vector that exceeds the number of levels (n)
-    codes_list <- codes_list[order(codes_lengths)]
+    type_list <- type_list[order(type_lengths)]
     i <- 1
-    while (length(codes_list[[i]]) < n) {
+    while (length(type_list[[i]]) < n) {
       i <- i + 1
     }
-    codes_list[[i]][seq_len(n)]
+    type_list[[i]][seq_len(n)]
   }
 }
