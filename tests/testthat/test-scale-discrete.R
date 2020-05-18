@@ -87,3 +87,45 @@ test_that("discrete non-position scales can accept functional limits", {
   scale$train(c("a", "b", "c"))
   expect_identical(scale$get_limits(), c("c", "b", "a"))
 })
+
+
+test_that("discrete scale defaults can be set globally", {
+  df <- data_frame(
+    x = 1:4, y = 1:4,
+    two = c("a", "b", "a", "b"),
+    four = c("a", "b", "c", "d")
+  )
+
+  withr::with_options(
+    list(ggplot2.discrete.fill = c("#FFFFFF", "#000000")), {
+      # nlevels == ncodes
+      two <- ggplot(df, aes(x, y, colour = two, fill = two)) + geom_point()
+      expect_equal(layer_data(two)$colour, rep(c("#FFFFFF", "#000000"), 2))
+      expect_equal(layer_data(two)$fill, rep(c("#FFFFFF", "#000000"), 2))
+
+      # nlevels > ncodes (so should fallback to scale_fill_hue())
+      four_default <- ggplot(df, aes(x, y, colour = four, fill = four)) +
+        geom_point()
+      four_hue <- four_default + scale_fill_hue()
+      expect_equal(layer_data(four_default)$colour, layer_data(four_hue)$colour)
+  })
+
+  withr::with_options(
+    list(
+      ggplot2.discrete.fill = list(
+        c("#FFFFFF", "#000000"),
+        c("#FF0000", "#00FF00", "#0000FF", "#FF00FF")
+      )
+    ), {
+      # nlevels == 2
+      two <- ggplot(df, aes(x, y, colour = two, fill = two)) + geom_point()
+      expect_equal(layer_data(two)$colour, rep(c("#FFFFFF", "#000000"), 2))
+      expect_equal(layer_data(two)$fill, rep(c("#FFFFFF", "#000000"), 2))
+
+      # nlevels == 4
+      four <- ggplot(df, aes(x, y, colour = four, fill = four)) + geom_point()
+      expect_equal(layer_data(four)$colour, c("#FF0000", "#00FF00", "#0000FF", "#FF00FF"))
+      expect_equal(layer_data(four)$fill, c("#FF0000", "#00FF00", "#0000FF", "#FF00FF"))
+    })
+
+})
