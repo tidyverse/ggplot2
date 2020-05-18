@@ -14,7 +14,7 @@
   containing no other data or layers (@clauswilke, #3611, #3905, #3983).
 
 * A bug was fixed in `stat_contour()` when calculating breaks based on 
-  the `bins` argument (@clauswilke, #3879).
+  the `bins` argument (@clauswilke, #3879, #4004).
   
 * A newly added geom `geom_density_2d_filled()` and associated stat 
   `stat_density_2d_filled()` can draw filled density contours
