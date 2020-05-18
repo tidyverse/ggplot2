@@ -61,6 +61,8 @@ Stat <- ggproto("Stat",
 
   non_missing_aes = character(),
 
+  optional_aes = character(),
+
   setup_params = function(data, params) {
     params
   },
@@ -155,7 +157,7 @@ Stat <- ggproto("Stat",
     } else {
       required_aes <- unlist(strsplit(self$required_aes, '|', fixed = TRUE))
     }
-    c(union(required_aes, names(self$default_aes)), "group")
+    c(union(required_aes, names(self$default_aes)), self$optional_aes, "group")
   }
 
 )

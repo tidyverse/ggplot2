@@ -138,16 +138,19 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
 
     munched <- coord_munch(coord, positions, panel_params)
 
+    is_full_outline <- identical(outline.type, "full")
     g_poly <- polygonGrob(
       munched$x, munched$y, id = munched$id,
       default.units = "native",
       gp = gpar(
         fill = alpha(aes$fill, aes$alpha),
-        col = if (identical(outline.type, "full")) aes$colour else NA
+        col = if (is_full_outline) aes$colour else NA,
+        lwd = if (is_full_outline) aes$size * .pt else 0,
+        lty = if (is_full_outline) aes$linetype else 1
       )
     )
 
-    if (identical(outline.type, "full")) {
+    if (is_full_outline) {
       return(ggname("geom_ribbon", g_poly))
     }
 

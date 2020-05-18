@@ -16,6 +16,5 @@ test_that("message when replacing non-default coordinate system", {
     gg + coord_cartesian() + coord_cartesian(),
     "Adding new coordinate system"
   )
-
-  expect_equal(2 * 2, 4)
+  
 })

@@ -1,7 +1,20 @@
 # ggplot2 (development version)
 
+* Fixed a bug in `geom_sf()` that caused problems with legend-type
+  autodetection (@clauswilke, #3963).
+
 * `annotation_raster()` adds support for native rasters. For large rasters,
   native rasters render significantly faster than arrays (@kent37, #3388)
+
+* Default continuous color scales (i.e., the `options()` `ggplot2.continuous.colour` and `ggplot2.continuous.fill`, which inform the `type` argument of `scale_fill_continuous()` and `scale_colour_continuous()`) now accept a function, which allows more control over these default `continuous_scale()`s (@cpsievert, #3827)
+
+* A newly added `geom_function()` is now recommended to use in conjunction
+  with/instead of `stat_function()`. In addition, `stat_function()` now
+  works with transformed y axes, e.g. `scale_y_log10()`, and in plots
+  containing no other data or layers (@clauswilke, #3611, #3905, #3983).
+
+* A bug was fixed in `stat_contour()` when calculating breaks based on 
+  the `bins` argument (@clauswilke, #3879).
   
 * A newly added geom `geom_density_2d_filled()` and associated stat 
   `stat_density_2d_filled()` can draw filled density contours
@@ -13,8 +26,16 @@
 * Added an `outside` option to `annotation_logticks()` that places tick marks
   outside of the plot bounds. (#3783, @kbodwin)
   
+* Facet strips now have dedicated position-dependent theme elements (`strip.text.x.top`,
+  `strip.text.x.bottom`, `strip.text.y.left`, `strip.text.y.right`) that inherit from
+  `strip.text.x` and `strip.text.y`, respectively. As a consequence, some theme stylings now
+  need to be applied to the position-dependent elements rather than to the parent elements. This
+  change was already introduced in ggplot2 3.3.0 but not listed in the changelog. (@thomasp85, #3683)
+  
 * Data columns can now contain `Vector` S4 objects, which are widely used in the 
   Bioconductor project. (@teunbrand, #3837)
+
+* Facets now handle layers containing no data (@yutannihilation, #3853).
 
 # ggplot2 3.3.0
 
