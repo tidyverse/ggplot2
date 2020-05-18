@@ -108,7 +108,6 @@ scale_fill_hue <- function(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0
 #' options(opts)
 #'
 scale_colour_discrete <- function(..., type = getOption("ggplot2.discrete.colour", getOption("ggplot2.discrete.fill"))) {
-  type <- type %||% okabeIto
   if (is.function(type)) {
     type(...)
   } else {
@@ -119,7 +118,6 @@ scale_colour_discrete <- function(..., type = getOption("ggplot2.discrete.colour
 #' @rdname scale_colour_discrete
 #' @export
 scale_fill_discrete <- function(..., type = getOption("ggplot2.discrete.fill", getOption("ggplot2.discrete.colour"))) {
-  type <- type %||% okabeIto
   if (is.function(type)) {
     type(...)
   } else {
@@ -166,15 +164,3 @@ qualitative_pal <- function(codes, h, c, l, h.start, direction) {
     codes_list[[i]][seq_len(n)]
   }
 }
-
-# prismatic::check_color_blindness(okabeIto)
-okabeIto <- c(
-  "#E69F00",
-  "#56B4E9",
-  "#009E73",
-  "#F0E442",
-  "#0072B2",
-  "#D55E00",
-  "#CC79A7",
-  "black"
-)
