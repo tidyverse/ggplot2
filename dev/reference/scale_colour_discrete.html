@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Extract coordinates from 'sf' objects — stat_sf_coordinates • ggplot2</title>
+<title>Discrete colour scales — scale_colour_discrete • ggplot2</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -51,11 +51,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Extract coordinates from 'sf' objects — stat_sf_coordinates" />
-<meta property="og:description" content="stat_sf_coordinates() extracts the coordinates from 'sf' objects and
-summarises them to one pair of coordinates (x and y) per geometry. This is
-convenient when you draw an sf object as geoms like text and labels (so
-geom_sf_text() and geom_sf_label() relies on this)." />
+<meta property="og:title" content="Discrete colour scales — scale_colour_discrete" />
+<meta property="og:description" content="The default discrete colour scale. Defaults to scale_fill_hue()/scale_fill_brewer()
+unless type (which defaults to the ggplot2.discrete.fill/ggplot2.discrete.colour options)
+is specified." />
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -196,151 +195,81 @@ geom_sf_text() and geom_sf_label() relies on this)." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Extract coordinates from 'sf' objects</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidyverse/ggplot2/blob/master/R/stat-sf-coordinates.R'><code>R/stat-sf-coordinates.R</code></a></small>
-    <div class="hidden name"><code>stat_sf_coordinates.Rd</code></div>
+    <h1>Discrete colour scales</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidyverse/ggplot2/blob/master/R/scale-hue.r'><code>R/scale-hue.r</code></a></small>
+    <div class="hidden name"><code>scale_colour_discrete.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>stat_sf_coordinates()</code> extracts the coordinates from 'sf' objects and
-summarises them to one pair of coordinates (x and y) per geometry. This is
-convenient when you draw an sf object as geoms like text and labels (so
-<code><a href='ggsf.html'>geom_sf_text()</a></code> and <code><a href='ggsf.html'>geom_sf_label()</a></code> relies on this).</p>
+    <p>The default discrete colour scale. Defaults to <code><a href='scale_hue.html'>scale_fill_hue()</a></code>/<code><a href='scale_brewer.html'>scale_fill_brewer()</a></code>
+unless <code>type</code> (which defaults to the <code>ggplot2.discrete.fill</code>/<code>ggplot2.discrete.colour</code> options)
+is specified.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>stat_sf_coordinates</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='fu'><a href='aes.html'>aes</a></span>(),
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"point"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>fun.geometry</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='no'>...</span>
+    <pre class="usage"><span class='fu'>scale_colour_discrete</span>(
+  <span class='no'>...</span>,
+  <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"ggplot2.discrete.colour"</span>, <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"ggplot2.discrete.fill"</span>))
+)
+
+<span class='fu'>scale_fill_discrete</span>(
+  <span class='no'>...</span>,
+  <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"ggplot2.discrete.fill"</span>, <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"ggplot2.discrete.colour"</span>))
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>mapping</th>
-      <td><p>Set of aesthetic mappings created by <code><a href='aes.html'>aes()</a></code> or
-<code><a href='aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
-default), it is combined with the default mapping at the top level of the
-plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
-    </tr>
-    <tr>
-      <th>data</th>
-      <td><p>The data to be displayed in this layer. There are three
-options:</p>
-<p>If <code>NULL</code>, the default, the data is inherited from the plot
-data as specified in the call to <code><a href='ggplot.html'>ggplot()</a></code>.</p>
-<p>A <code>data.frame</code>, or other object, will override the plot
-data. All objects will be fortified to produce a data frame. See
-<code><a href='fortify.html'>fortify()</a></code> for which variables will be created.</p>
-<p>A <code>function</code> will be called with a single argument,
-the plot data. The return value must be a <code>data.frame</code>, and
-will be used as the layer data. A <code>function</code> can be created
-from a <code>formula</code> (e.g. <code>~ head(.x, 10)</code>).</p></td>
-    </tr>
-    <tr>
-      <th>geom</th>
-      <td><p>The geometric object to use display the data</p></td>
-    </tr>
-    <tr>
-      <th>position</th>
-      <td><p>Position adjustment, either as a string, or the result of
-a call to a position adjustment function.</p></td>
-    </tr>
-    <tr>
-      <th>na.rm</th>
-      <td><p>If <code>FALSE</code>, the default, missing values are removed with
-a warning. If <code>TRUE</code>, missing values are silently removed.</p></td>
-    </tr>
-    <tr>
-      <th>show.legend</th>
-      <td><p>logical. Should this layer be included in the legends?
-<code>NA</code>, the default, includes if any aesthetics are mapped.
-<code>FALSE</code> never includes, and <code>TRUE</code> always includes.
-It can also be a named logical vector to finely select the aesthetics to
-display.</p></td>
-    </tr>
-    <tr>
-      <th>inherit.aes</th>
-      <td><p>If <code>FALSE</code>, overrides the default aesthetics,
-rather than combining with them. This is most useful for helper functions
-that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. <code><a href='borders.html'>borders()</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>fun.geometry</th>
-      <td><p>A function that takes a <code>sfc</code> object and returns a <code>sfc_POINT</code> with the
-same length as the input. If <code>NULL</code>, <code>function(x) sf::st_point_on_surface(sf::st_zm(x))</code>
-will be used. Note that the function may warn about the incorrectness of
-the result if the data is not projected, but you can ignore this except
-when you really care about the exact locations.</p></td>
-    </tr>
-    <tr>
       <th>...</th>
-      <td><p>Other arguments passed on to <code><a href='layer.html'>layer()</a></code>. These are
-often aesthetics, used to set an aesthetic to a fixed value, like
-<code>colour = "red"</code> or <code>size = 3</code>. They may also be parameters
-to the paired geom/stat.</p></td>
+      <td><p>Additional parameters passed on to the scale type,</p></td>
+    </tr>
+    <tr>
+      <th>type</th>
+      <td><p>One of the following:</p><ul>
+<li><p>A character vector of color codes. The codes are used for a 'manual' color
+scale as long as the number of codes exceeds the number of data levels
+(if there are more levels than codes, <code><a href='scale_hue.html'>scale_colour_hue()</a></code>/<code><a href='scale_hue.html'>scale_fill_hue()</a></code>
+are used to construct the default scale).</p></li>
+<li><p>A list of character vectors of color codes. The minimum length vector that exceeds the
+number of data levels is chosen for the color scaling. This is useful if you
+want to change the color palette based on the number of levels.</p></li>
+<li><p>A function that returns a discrete colour/fill scale (e.g., <code><a href='scale_hue.html'>scale_fill_hue()</a></code>,
+<code><a href='scale_brewer.html'>scale_fill_brewer()</a></code>, etc).</p></li>
+</ul></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>coordinates of an <code>sf</code> object can be retrieved by <code><a href='https://rdrr.io/pkg/sf/man/st_coordinates.html'>sf::st_coordinates()</a></code>.
-But, we cannot simply use <code><a href='https://rdrr.io/pkg/sf/man/st_coordinates.html'>sf::st_coordinates()</a></code> because, whereas text and
-labels require exactly one coordinate per geometry, it returns multiple ones
-for a polygon or a line. Thus, these two steps are needed:</p><ol>
-<li><p>Choose one point per geometry by some function like <code><a href='https://rdrr.io/pkg/sf/man/geos_unary.html'>sf::st_centroid()</a></code>
-or <code><a href='https://rdrr.io/pkg/sf/man/geos_unary.html'>sf::st_point_on_surface()</a></code>.</p></li>
-<li><p>Retrieve coordinates from the points by <code><a href='https://rdrr.io/pkg/sf/man/st_coordinates.html'>sf::st_coordinates()</a></code>.</p></li>
-</ol>
-
-<p>For the first step, you can use an arbitrary function via <code>fun.geometry</code>.
-By default, <code>function(x) sf::st_point_on_surface(sf::st_zm(x))</code> is used;
-<code><a href='https://rdrr.io/pkg/sf/man/geos_unary.html'>sf::st_point_on_surface()</a></code> seems more appropriate than <code><a href='https://rdrr.io/pkg/sf/man/geos_unary.html'>sf::st_centroid()</a></code>
-since lables and text usually are intended to be put within the polygon or
-the line. <code><a href='https://rdrr.io/pkg/sf/man/st_zm.html'>sf::st_zm()</a></code> is needed to drop Z and M dimension beforehand,
-otherwise <code><a href='https://rdrr.io/pkg/sf/man/geos_unary.html'>sf::st_point_on_surface()</a></code> may fail when the geometries have M
-dimension.</p>
-    <h2 class="hasAnchor" id="computed-variables"><a class="anchor" href="#computed-variables"></a>Computed variables</h2>
-
-    
-
-<dl>
-<dt>x</dt><dd><p>X dimension of the simple feature</p></dd>
-<dt>y</dt><dd><p>Y dimension of the simple feature</p></dd>
-
-</dl>
-
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"sf"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
-<span class='no'>nc</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>sf</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_read.html'>st_read</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"shape/nc.shp"</span>, <span class='kw'>package</span><span class='kw'>=</span><span class='st'>"sf"</span>))
+    <pre class="examples"><div class='input'><span class='co'># Template function for creating densities grouped by a variable</span>
+<span class='no'>cty_by_var</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>var</span>) {
+  <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>cty</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>({{<span class='no'>var</span>}}), <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>({{<span class='no'>var</span>}}))) +
+    <span class='fu'><a href='geom_density.html'>geom_density</a></span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.2</span>)
+}
 
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>nc</span>) +
-  <span class='fu'>stat_sf_coordinates</span>()
-
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>nc</span>) +
-  <span class='fu'><a href='geom_errorbarh.html'>geom_errorbarh</a></span>(
-    <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>geometry</span> <span class='kw'>=</span> <span class='no'>geometry</span>,
-        <span class='kw'>xmin</span> <span class='kw'>=</span> <span class='fu'><a href='aes_eval.html'>after_stat</a></span>(<span class='no'>x</span>) - <span class='fl'>0.1</span>,
-        <span class='kw'>xmax</span> <span class='kw'>=</span> <span class='fu'><a href='aes_eval.html'>after_stat</a></span>(<span class='no'>x</span>) + <span class='fl'>0.1</span>,
-        <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='aes_eval.html'>after_stat</a></span>(<span class='no'>y</span>),
-        <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>0.04</span>),
-    <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"sf_coordinates"</span>
-  )
-}</div><div class='output co'>#&gt; Reading layer `nc' from data source `/Users/runner/runners/2.262.1/work/_temp/Library/sf/shape/nc.shp' using driver `ESRI Shapefile'
-#&gt; Simple feature collection with 100 features and 14 fields
-#&gt; geometry type:  MULTIPOLYGON
-#&gt; dimension:      XY
-#&gt; bbox:           xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965
-#&gt; CRS:            4267</div><div class='output co'>#&gt; <span class='warning'>Warning: st_point_on_surface may not give correct results for longitude/latitude data</span></div><div class='img'><img src='stat_sf_coordinates-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># The default, scale_fill_hue(), is not colour-blind safe</span>
+<span class='fu'>cty_by_var</span>(<span class='no'>class</span>)</div><div class='img'><img src='scale_colour_discrete-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># (Temporarily) set the default to Okabe-Ito (which is colour-blind safe)</span>
+<span class='no'>okabe</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"#E69F00"</span>, <span class='st'>"#56B4E9"</span>, <span class='st'>"#009E73"</span>, <span class='st'>"#F0E442"</span>, <span class='st'>"#0072B2"</span>, <span class='st'>"#D55E00"</span>, <span class='st'>"#CC79A7"</span>)
+<span class='kw pkg'>withr</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/withr/man/with_options.html'>with_options</a></span>(
+  <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>ggplot2.discrete.fill</span> <span class='kw'>=</span> <span class='no'>okabe</span>),
+  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>cty_by_var</span>(<span class='no'>class</span>))
+)</div><div class='img'><img src='scale_colour_discrete-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Define a collection of palettes to alter the default based on number of levels to encode</span>
+<span class='no'>discrete_palettes</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
+  <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"skyblue"</span>, <span class='st'>"orange"</span>),
+  <span class='kw pkg'>RColorBrewer</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html'>brewer.pal</a></span>(<span class='fl'>3</span>, <span class='st'>"Set2"</span>),
+  <span class='kw pkg'>RColorBrewer</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html'>brewer.pal</a></span>(<span class='fl'>6</span>, <span class='st'>"Accent"</span>)
+)
+<span class='kw pkg'>withr</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/withr/man/with_options.html'>with_options</a></span>(
+  <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>ggplot2.discrete.fill</span> <span class='kw'>=</span> <span class='no'>discrete_palettes</span>), {
+  <span class='co'># 1st palette is used when there 1-2 levels (e.g., year)</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>cty_by_var</span>(<span class='no'>year</span>))
+  <span class='co'># 2nd palette is used when there are 3 levels</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>cty_by_var</span>(<span class='no'>drv</span>))
+  <span class='co'># 3rd palette is used when there are 4-6 levels</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>cty_by_var</span>(<span class='no'>fl</span>))
+})</div><div class='img'><img src='scale_colour_discrete-3.png' alt='' width='700' height='433' /></div><div class='img'><img src='scale_colour_discrete-4.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; <span class='warning'>Warning: Groups with fewer than two data points have been dropped.</span></div><div class='img'><img src='scale_colour_discrete-5.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
