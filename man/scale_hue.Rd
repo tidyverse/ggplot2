@@ -3,8 +3,6 @@
 \name{scale_colour_hue}
 \alias{scale_colour_hue}
 \alias{scale_fill_hue}
-\alias{scale_colour_discrete}
-\alias{scale_fill_discrete}
 \alias{scale_color_discrete}
 \alias{scale_color_hue}
 \title{Evenly spaced colours for discrete data}
@@ -102,9 +100,8 @@ example, to apply colour settings to the \code{colour} and \code{fill} aesthetic
 same time, via \code{aesthetics = c("colour", "fill")}.}
 }
 \description{
-This is the default colour scale for categorical variables. It maps each
-level to an evenly spaced hue on the colour wheel. It does not generate
-colour-blind safe palettes.
+Maps each level to an evenly spaced hue on the colour wheel.
+It does not generate colour-blind safe palettes.
 }
 \examples{
 \donttest{
