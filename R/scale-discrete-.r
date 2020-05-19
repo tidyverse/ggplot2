@@ -131,6 +131,9 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
 
 # TODO: This is a clear candidate for vctrs once we adopt it
 new_mapped_discrete <- function(x) {
+  if (is.null(x)) {
+    return(x)
+  }
   if (!is.numeric(x)) {
     abort("`mapped_discrete` objects can only be created from numeric vectors")
   }
