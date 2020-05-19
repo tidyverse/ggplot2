@@ -88,7 +88,6 @@ test_that("discrete non-position scales can accept functional limits", {
   expect_identical(scale$get_limits(), c("c", "b", "a"))
 })
 
-
 test_that("discrete scale defaults can be set globally", {
   df <- data_frame(
     x = 1:4, y = 1:4,
@@ -127,5 +126,19 @@ test_that("discrete scale defaults can be set globally", {
       expect_equal(layer_data(four)$colour, c("#FF0000", "#00FF00", "#0000FF", "#FF00FF"))
       expect_equal(layer_data(four)$fill, c("#FF0000", "#00FF00", "#0000FF", "#FF00FF"))
     })
+})
 
+# mapped_discrete ---------------------------------------------------------
+
+test_that("mapped_discrete vectors behaves as predicted", {
+  expect_null(new_mapped_discrete(NULL))
+  expect_s3_class(new_mapped_discrete(c(0, 3.5)), "mapped_discrete")
+  expect_s3_class(new_mapped_discrete(seq_len(4)), "mapped_discrete")
+  expect_error(new_mapped_discrete(letters))
+
+  x <- new_mapped_discrete(1:10)
+  expect_s3_class(x[2:4], "mapped_discrete")
+  expect_s3_class(c(x, x), "mapped_discrete")
+  x[5:7] <- new_mapped_discrete(seq_len(3))
+  expect_s3_class(x, "mapped_discrete")
 })
