@@ -30,6 +30,7 @@ stat_density(
   n = 512,
   trim = FALSE,
   na.rm = FALSE,
+  bounds = c(-Inf, Inf),
   orientation = NA,
   show.legend = NA,
   inherit.aes = TRUE
@@ -111,6 +112,9 @@ range of that group: this typically means the estimated x values will
 not line-up, and hence you won't be able to stack density values.
 This parameter only matters if you are displaying multiple densities in
 one plot or if you are manually adjusting the scale limits.}
+
+\item{bounds}{Known lower and upper bounds for estimated data. Default
+\code{c(-Inf, Inf)} means that there are no (finite) bounds.}
 }
 \description{
 Computes and draws kernel density estimate, which is a smoothed version of
