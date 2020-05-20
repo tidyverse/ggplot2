@@ -44,11 +44,7 @@
 geom_function <- function(mapping = NULL, data = NULL, stat = "function",
                           position = "identity", ..., na.rm = FALSE,
                           show.legend = NA, inherit.aes = TRUE) {
-  # Warn if supplied data is going to be overwritten
-  if (identical(stat, "function")) {
-    if (!is.null(data)) {
-      warn("`data` is not used by stat_function()")
-    }
+  if (is.null(data)) {
     data <- ensure_nonempty_data
   }
 
