@@ -131,7 +131,34 @@ test_that("Warn when drawing multiple copies of the same function", {
   expect_warning(f(), "Multiple drawing groups")
 })
 
-test_that("`data` is not used by stat_function()", {
-  expect_warning(geom_function(data = mtcars, fun = identity), "`data` is not used")
-  expect_warning(stat_function(data = mtcars, fun = identity), "`data` is not used")
+test_that("Line style can be changed via provided data", {
+  df <- data_frame(fun = "#D55E00")
+
+  base <- ggplot(df) +
+    geom_function(aes(color = fun), fun = identity, n = 6) +
+    scale_color_identity()
+  ret <- layer_data(base)
+  expect_identical(ret$x, seq(0, 1, length.out = 6))
+  expect_identical(ret$y, ret$x)
+  expect_identical(ret$colour, rep("#D55E00", 6))
+
+  base <- ggplot() +
+    geom_function(
+      data = df, aes(color = fun), fun = identity, n = 6
+    ) +
+    scale_color_identity()
+  ret <- layer_data(base)
+  expect_identical(ret$x, seq(0, 1, length.out = 6))
+  expect_identical(ret$y, ret$x)
+  expect_identical(ret$colour, rep("#D55E00", 6))
+
+  base <- ggplot() +
+    stat_function(
+      data = df, aes(color = fun), fun = identity, n = 6
+    ) +
+    scale_color_identity()
+  ret <- layer_data(base)
+  expect_identical(ret$x, seq(0, 1, length.out = 6))
+  expect_identical(ret$y, ret$x)
+  expect_identical(ret$colour, rep("#D55E00", 6))
 })
