@@ -132,7 +132,7 @@ test_that("Warn when drawing multiple copies of the same function", {
 })
 
 test_that("Line style can be changed via provided data", {
-  df <- data.frame(fun = "#D55E00")
+  df <- data_frame(fun = "#D55E00")
 
   base <- ggplot(df) +
     geom_function(aes(color = fun), fun = identity, n = 6) +
