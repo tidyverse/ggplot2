@@ -461,10 +461,9 @@ scale and then back-transformed to the response scale.</p>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw pkg'>rpart</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/rpart/man/kyphosis.html'>kyphosis</a></span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>Age</span>, <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='no'>Kyphosis</span>) - <span class='fl'>1</span>)) +
   <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span>(<span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>0.05</span>) +
   <span class='fu'>binomial_smooth</span>(<span class='kw'>formula</span> <span class='kw'>=</span> <span class='no'>y</span> ~ <span class='kw pkg'>splines</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/splines/ns.html'>ns</a></span>(<span class='no'>x</span>, <span class='fl'>2</span>))</div><div class='img'><img src='geom_smooth-10.png' alt='' width='700' height='433' /></div><div class='input'>
-# But in this case, it's probably better to fit the model yourself
-# so you can exercise more control and see whether or not it's a good model.
-# }
-</div></pre>
+<span class='co'># But in this case, it's probably better to fit the model yourself</span>
+<span class='co'># so you can exercise more control and see whether or not it's a good model.</span>
+<span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
