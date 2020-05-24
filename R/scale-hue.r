@@ -82,7 +82,6 @@ scale_fill_hue <- function(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0
 #'   * A function that returns a discrete colour/fill scale (e.g., [scale_fill_hue()],
 #'   [scale_fill_brewer()], etc).
 #' @export
-#' @rdname
 #' @examples
 #' # Template function for creating densities grouped by a variable
 #' cty_by_var <- function(var) {
