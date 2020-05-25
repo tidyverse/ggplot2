@@ -43,7 +43,7 @@
 #'   displayed as described in `?plotmath`.
 #' @param nudge_x,nudge_y Horizontal and vertical adjustment to nudge labels by.
 #'   Useful for offsetting text from points, particularly on discrete scales.
-#'   Cannot be jointy specified with `position`.
+#'   Cannot be jointly specified with `position`.
 #' @param position Position adjustment, either as a string, or the result of
 #'  a call to a position adjustment function. Cannot be jointy specified with
 #'  `nudge_x` or `nudge_y`.
