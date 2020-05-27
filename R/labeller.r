@@ -437,7 +437,7 @@ labeller <- function(..., .rows = NULL, .cols = NULL,
     }
 
     if (is.null(margin_labeller)) {
-      labellers <- lapply(dots, as_labeller)
+      labellers <- lapply(dots, as_labeller, default=.default)
     } else {
       margin_labeller <- as_labeller(margin_labeller, default = .default,
                                      multi_line = .multi_line)
