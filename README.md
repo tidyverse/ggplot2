@@ -67,7 +67,7 @@ behaviour we will do them for compelling reasons.
 
 If you are looking for innovation, look to ggplot2’s rich ecosystem of
 extensions. See a community maintained list at
-<https://www.ggplot2-exts.org/gallery/>.
+<https://exts.ggplot2.tidyverse.org/gallery/>.
 
 ## Learning ggplot2
 

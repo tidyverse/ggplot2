@@ -12,7 +12,7 @@ home:
   - text: Learn more
     href: https://r4ds.had.co.nz/data-visualisation.html
   - text: Extensions
-    href: https://www.ggplot2-exts.org/gallery/
+    href: https://exts.ggplot2.tidyverse.org/gallery/
 
 reference:
 - title: Plot basics
@@ -251,4 +251,4 @@ navbar:
         href: news/index.html
     extensions:
       text: Extensions
-      href: https://www.ggplot2-exts.org/gallery/
+      href: https://exts.ggplot2.tidyverse.org/gallery/
