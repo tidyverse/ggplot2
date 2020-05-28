@@ -157,3 +157,7 @@ c.mapped_discrete <- function(..., recursive = FALSE) {
   value <- as.numeric(unclass(value))
   new_mapped_discrete(NextMethod())
 }
+#' @export
+as.data.frame.mapped_discrete <- function (x, ..., stringsAsFactors = default.stringsAsFactors()) {
+  as.data.frame.vector(x = unclass(x), ..., stringsAsFactors = stringsAsFactors)
+}
