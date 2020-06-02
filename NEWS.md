@@ -37,6 +37,9 @@
 
 * Facets now handle layers containing no data (@yutannihilation, #3853).
 
+* Fixed a bug in `labeller()` so that `.default` is passed to `as_labeller()`
+  when labellers are specified by naming faceting variables. (@waltersom, #4031)
+
 # ggplot2 3.3.0
 
 This is a minor release but does contain a range of substantial new features, 
