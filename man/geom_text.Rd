@@ -62,7 +62,8 @@ from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 layer, as a string.}
 
 \item{position}{Position adjustment, either as a string, or the result of
-a call to a position adjustment function.}
+a call to a position adjustment function. Cannot be jointy specified with
+\code{nudge_x} or \code{nudge_y}.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
@@ -73,7 +74,8 @@ to the paired geom/stat.}
 displayed as described in \code{?plotmath}.}
 
 \item{nudge_x, nudge_y}{Horizontal and vertical adjustment to nudge labels by.
-Useful for offsetting text from points, particularly on discrete scales.}
+Useful for offsetting text from points, particularly on discrete scales.
+Cannot be jointly specified with \code{position}.}
 
 \item{label.padding}{Amount of padding around label. Defaults to 0.25 lines.}
 
@@ -96,25 +98,34 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
 \item{check_overlap}{If \code{TRUE}, text that overlaps previous text in the
-same layer will not be plotted.}
+same layer will not be plotted. \code{check_overlap} happens at draw time and in
+the order of the data. Therefore data should be arranged by the label
+column before calling \code{geom_label()} or \code{geom_text()}.}
 }
 \description{
-\code{geom_text()} adds text directly to the plot. \code{geom_label()} draws
-a rectangle behind the text, making it easier to read.
+Text geoms are useful for labeling plots. They can be used by themselves as
+scatterplots or in cobination with other geoms, for example, for labeling
+points or for annotating the height of bars. \code{geom_text()} adds only text
+to the plot. \code{geom_label()} draws a rectangle behind the text, making it
+easier to read.
 }
 \details{
-Note that the "width" and "height" of a text element are 0, so stacking
-and dodging text will not work by default, and axis limits are not
-automatically expanded to include all text. Obviously, labels do have
-height and width, but they are physical units, not data units. The amount of
-space they occupy on the plot is not constant in data units: when you
-resize a plot, labels stay the same size, but the size of the axes changes.
+Note that when you resize a plot, text labels stay the same size, even
+though the size of the plot area changes. This happens because the "width"
+and "height" of a text element are 0. Obviously, text labels do have height
+and width, but they are physical units, not data units. For the same reason,
+stacking and dodging text will not work by default, and axis limits are not
+automatically expanded to include all text.
 
 \code{geom_text()} and \code{geom_label()} add labels for each row in the
 data, even if coordinates x, y are set to single values in the call
 to \code{geom_label()} or \code{geom_text()}.
 To add labels at specified points use \code{\link[=annotate]{annotate()}} with
 \code{annotate(geom = "text", ...)} or \code{annotate(geom = "label", ...)}.
+
+To automatically position non-overlapping text labels see the
+\href{https://cran.r-project.org/package=ggrepel}{ggrepel}
+package.
 }
 \section{Aesthetics}{
 

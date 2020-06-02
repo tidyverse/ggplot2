@@ -10,12 +10,15 @@ get_n_warning <- function(f) {
   sum(d$token == "SYMBOL_FUNCTION_CALL" & d$text == "warning")
 }
 
+# Pattern is needed filter out files such as ggplot2.rdb, which is created when running covr::package_coverage()
+R_files <- list.files("../../R", pattern = ".*\\.(R|r)$", full.names = TRUE)
+
 test_that("do not use stop()", {
-  stops <- vapply(list.files("../../R", full.names = TRUE), get_n_stop, integer(1))
+  stops <- vapply(R_files, get_n_stop, integer(1))
   expect_equal(sum(stops), 0)
 })
 
 test_that("do not use warning()", {
-  warnings <- vapply(list.files("../../R", full.names = TRUE), get_n_warning, integer(1))
+  warnings <- vapply(R_files, get_n_warning, integer(1))
   expect_equal(sum(warnings), 0)
 })

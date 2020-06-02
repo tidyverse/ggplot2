@@ -105,7 +105,10 @@ should be labeled on their east or west end points, respectively. Thus,
 their west end, whereas \code{label_graticule = "EW"} would label parallels at both
 ends and meridians not at all. Because meridians and parallels can in general
 intersect with any side of the plot panel, for any choice of \code{label_graticule} labels
-are not guaranteed to reside on only one particular side of the plot panel.
+are not guaranteed to reside on only one particular side of the plot panel. Also,
+\code{label_graticule} can cause labeling artifacts, in particular if a graticule line
+coincides with the edge of the plot panel. In such circumstances, \code{label_axes} will
+generally yield better results and should be used instead.
 
 This parameter can be used alone or in combination with \code{label_axes}.}
 
@@ -186,10 +189,12 @@ to the paired geom/stat.}
 displayed as described in \code{?plotmath}.}
 
 \item{nudge_x}{Horizontal and vertical adjustment to nudge labels by.
-Useful for offsetting text from points, particularly on discrete scales.}
+Useful for offsetting text from points, particularly on discrete scales.
+Cannot be jointly specified with \code{position}.}
 
 \item{nudge_y}{Horizontal and vertical adjustment to nudge labels by.
-Useful for offsetting text from points, particularly on discrete scales.}
+Useful for offsetting text from points, particularly on discrete scales.
+Cannot be jointly specified with \code{position}.}
 
 \item{label.padding}{Amount of padding around label. Defaults to 0.25 lines.}
 
@@ -204,7 +209,9 @@ the result if the data is not projected, but you can ignore this except
 when you really care about the exact locations.}
 
 \item{check_overlap}{If \code{TRUE}, text that overlaps previous text in the
-same layer will not be plotted.}
+same layer will not be plotted. \code{check_overlap} happens at draw time and in
+the order of the data. Therefore data should be arranged by the label
+column before calling \code{geom_label()} or \code{geom_text()}.}
 
 \item{geom}{The geometric object to use display the data}
 }

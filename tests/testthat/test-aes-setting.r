@@ -18,7 +18,7 @@ test_that("aesthetic parameters match length of data", {
 test_that("legend filters out aesthetics not of length 1", {
   df <- data_frame(x = 1:5, y = 1:5)
   p <- ggplot(df, aes(x, y, colour = factor(x))) +
-    geom_point(alpha = seq(0, 1, length = 5))
+    geom_point(alpha = seq(0, 1, length.out = 5))
 
   # Ideally would test something in the legend data structure, but
   # that's not easily accessible currently.
