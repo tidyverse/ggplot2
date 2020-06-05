@@ -4,7 +4,7 @@
 #' are a stacked bar chart in polar coordinates.
 #'
 #' @param theta variable to map angle to (`x` or `y`)
-#' @param start offset of starting point from 12 o'clock in radians. Offset
+#' @param start Offset of starting point from 12 o'clock in radians. Offset
 #'   is applied clockwise or anticlockwise depending on value of `direction`.
 #' @param direction 1, clockwise; -1, anticlockwise
 #' @param clip Should drawing be clipped to the extent of the plot panel? A
