@@ -75,18 +75,22 @@ test_that("works with transformed scales", {
 
   ret <- layer_data(base)
   expect_equal(nrow(ret), 5)
+  expect_equal(ret$x, seq(1, 10, length.out = 5))
   expect_equal(ret$y, ret$x^2)
 
   ret <- layer_data(base + scale_x_log10())
   expect_equal(nrow(ret), 5)
+  expect_equal(ret$x, seq(0, 1, length.out = 5))
   expect_equal(ret$y, (10^ret$x)^2)
 
   ret <- layer_data(base + scale_y_log10())
   expect_equal(nrow(ret), 5)
+  expect_equal(ret$x, seq(1, 10, length.out = 5))
   expect_equal(10^ret$y, ret$x^2)
 
   ret <- layer_data(base + scale_x_log10() + scale_y_log10())
   expect_equal(nrow(ret), 5)
+  expect_equal(ret$x, seq(0, 1, length.out = 5))
   expect_equal(10^ret$y, (10^ret$x)^2)
 
   # now with explicit mapping of y
@@ -95,18 +99,22 @@ test_that("works with transformed scales", {
 
   ret <- layer_data(base, 2)
   expect_equal(nrow(ret), 5)
+  expect_equal(ret$x, seq(1, 10, length.out = 5))
   expect_equal(ret$y, ret$x^2)
 
   ret <- layer_data(base + scale_x_log10(), 2)
   expect_equal(nrow(ret), 5)
+  expect_equal(ret$x, seq(0, 1, length.out = 5))
   expect_equal(ret$y, (10^ret$x)^2)
 
   ret <- layer_data(base + scale_y_log10(), 2)
   expect_equal(nrow(ret), 5)
+  expect_equal(ret$x, seq(1, 10, length.out = 5))
   expect_equal(10^ret$y, ret$x^2)
 
   ret <- layer_data(base + scale_x_log10() + scale_y_log10(), 2)
   expect_equal(nrow(ret), 5)
+  expect_equal(ret$x, seq(0, 1, length.out = 5))
   expect_equal(10^ret$y, (10^ret$x)^2)
 })
 
