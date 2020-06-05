@@ -5,8 +5,17 @@
 
 * `annotation_raster()` adds support for native rasters. For large rasters,
   native rasters render significantly faster than arrays (@kent37, #3388)
+  
+* Default discrete color scales are now configurable through the `options()` of 
+  `ggplot2.discrete.colour` and `ggplot2.discrete.fill`. When set to a character 
+  vector of colour codes (or list of character vectors)  with sufficient length, 
+  these colours are used for the default scale. See `help(scale_colour_discrete)` 
+  for more details and examples (@cpsievert, #3833).
 
-* Default continuous color scales (i.e., the `options()` `ggplot2.continuous.colour` and `ggplot2.continuous.fill`, which inform the `type` argument of `scale_fill_continuous()` and `scale_colour_continuous()`) now accept a function, which allows more control over these default `continuous_scale()`s (@cpsievert, #3827)
+* Default continuous colour scales (i.e., the `options()` `ggplot2.continuous.colour` 
+  and `ggplot2.continuous.fill`, which inform the `type` argument of 
+  `scale_fill_continuous()` and `scale_colour_continuous()`) now accept a function, 
+  which allows more control over these default `continuous_scale()`s (@cpsievert, #3827).
 
 * A newly added `geom_function()` is now recommended to use in conjunction
   with/instead of `stat_function()`. In addition, `stat_function()` now
