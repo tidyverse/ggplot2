@@ -26,6 +26,9 @@ env:
   # switch off vdiffr by default
   - VDIFFR_RUN_TESTS=false
 
+# Workaround for rstudio/rmarkdown#1831
+r_github_packages: rstudio/rmarkdown
+
 after_success:
   - Rscript -e 'covr::codecov()'
 
