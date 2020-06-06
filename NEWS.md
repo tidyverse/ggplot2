@@ -46,6 +46,11 @@
 
 * Facets now handle layers containing no data (@yutannihilation, #3853).
 
+# ggplot2 3.3.1
+
+This is a small release with no code change. It removes all malicious links to a 
+site that got hijacked from the readme and pkgdown site.
+
 # ggplot2 3.3.0
 
 This is a minor release but does contain a range of substantial new features, 
