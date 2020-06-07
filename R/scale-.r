@@ -143,8 +143,12 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 #'   - A character vector of breaks
 #'   - A function that takes the limits as input and returns breaks
 #'     as output
-#' @param limits A character vector that defines possible values of the scale
-#'   and their order.
+#' @param limits One of:
+#'   - `NULL` to use the default scale values
+#'   - A character vector that defines possible values of the scale and their
+#'     order
+#'   - A function that accepts the existing (automatic) values and returns
+#'     new once
 #' @param drop Should unused factor levels be omitted from the scale?
 #'    The default, `TRUE`, uses the levels that appear in the data;
 #'    `FALSE` uses all the levels in the factor.
