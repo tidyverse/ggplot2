@@ -55,8 +55,14 @@ transformation object
 as output
 }}
 
-\item{limits}{A character vector that defines possible values of the scale
-and their order.}
+\item{limits}{One of:
+\itemize{
+\item \code{NULL} to use the default scale values
+\item A character vector that defines possible values of the scale and their
+order
+\item A function that accepts the existing (automatic) values and returns
+new ones
+}}
 
 \item{expand}{For position scales, a vector of range expansion constants used to add some
 padding around the data to ensure that they are placed some distance
