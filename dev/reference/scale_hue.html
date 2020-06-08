@@ -247,8 +247,14 @@ they should take (e.g., <code><a href='https://scales.r-lib.org//reference/hue_p
 <li><p>A function that takes the limits as input and returns breaks
 as output</p></li>
 </ul></p></dd>
-    <dt><code>limits</code></dt><dd><p>A character vector that defines possible values of the scale
-and their order.</p></dd>
+    <dt><code>limits</code></dt><dd><p>One of:
+<ul>
+<li><p><code>NULL</code> to use the default scale values</p></li>
+<li><p>A character vector that defines possible values of the scale and their
+order</p></li>
+<li><p>A function that accepts the existing (automatic) values and returns
+new ones</p></li>
+</ul></p></dd>
     <dt><code>drop</code></dt><dd><p>Should unused factor levels be omitted from the scale?
 The default, <code>TRUE</code>, uses the levels that appear in the data;
 <code>FALSE</code> uses all the levels in the factor.</p></dd>

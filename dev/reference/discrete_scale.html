@@ -271,8 +271,13 @@ as output</p></li>
     </tr>
     <tr>
       <th>limits</th>
-      <td><p>A character vector that defines possible values of the scale
-and their order.</p></td>
+      <td><p>One of:</p><ul>
+<li><p><code>NULL</code> to use the default scale values</p></li>
+<li><p>A character vector that defines possible values of the scale and their
+order</p></li>
+<li><p>A function that accepts the existing (automatic) values and returns
+new ones</p></li>
+</ul></td>
     </tr>
     <tr>
       <th>expand</th>
