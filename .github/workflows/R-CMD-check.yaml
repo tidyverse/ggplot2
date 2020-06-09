@@ -10,7 +10,7 @@ name: R-CMD-check
 
 # Increment this version when we want to clear cache
 env:
-  cache-version: v1
+  cache-version: v2
 
 jobs:
   R-CMD-check:
@@ -76,6 +76,11 @@ jobs:
           Rscript -e "remotes::install_github('r-hub/sysreqs')"
           sysreqs=$(Rscript -e "cat(sysreqs::sysreq_commands('DESCRIPTION'))")
           sudo -s eval "$sysreqs"
+
+      # Remove this when the new rmarkdown is released on CRAN
+      - name: "Workaround for rstudio/rmarkdown#1831"
+        if: runner.os == 'Linux' && matrix.config.r < '3.6'
+        run: Rscript -e "remotes::install_github('rstudio/rmarkdown')"
 
       - name: Install system dependencies on macOS
         if: runner.os == 'macOS'
