@@ -2,7 +2,7 @@
 #'
 #' Alpha-transparency scales are not tremendously useful, but can be a
 #' convenient way to visually down-weight less important observations.
-#' `scale_alpha` is an alias for `scale_alpha_continuous` since
+#' `scale_alpha()` is an alias for `scale_alpha_continuous()` since
 #' that is the most common use of alpha, and it saves a bit of typing.
 #'
 #' @param ... Other arguments passed on to [continuous_scale()], [binned_scale],

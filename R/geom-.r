@@ -14,7 +14,7 @@ NULL
 #' Compared to `Stat` and `Position`, `Geom` is a little
 #' different because the execution of the setup and compute functions is
 #' split up. `setup_data` runs before position adjustments, and
-#' `draw_layer` is not run until render time, much later. This
+#' `draw_layer()` is not run until render time, much later. This
 #' means there is no `setup_params` because it's hard to communicate
 #' the changes.
 #'

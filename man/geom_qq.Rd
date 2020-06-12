@@ -120,8 +120,8 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 }
 \description{
-\code{geom_qq} and \code{stat_qq} produce quantile-quantile plots. \code{geom_qq_line} and
-\code{stat_qq_line} compute the slope and intercept of the line connecting the
+\code{geom_qq()} and \code{stat_qq()} produce quantile-quantile plots. \code{geom_qq_line()} and
+\code{stat_qq_line()} compute the slope and intercept of the line connecting the
 points at specified quartiles of the theoretical and sample distributions.
 }
 \section{Aesthetics}{

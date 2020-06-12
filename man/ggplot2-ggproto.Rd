@@ -152,7 +152,7 @@ fields.
 Compared to \code{Stat} and \code{Position}, \code{Geom} is a little
 different because the execution of the setup and compute functions is
 split up. \code{setup_data} runs before position adjustments, and
-\code{draw_layer} is not run until render time, much later. This
+\code{draw_layer()} is not run until render time, much later. This
 means there is no \code{setup_params} because it's hard to communicate
 the changes.
 

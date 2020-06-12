@@ -1,6 +1,6 @@
 #' Line segments and curves
 #'
-#' `geom_segment` draws a straight line between points (x, y) and
+#' `geom_segment()` draws a straight line between points (x, y) and
 #' (xend, yend). `geom_curve` draws a curved line. See the underlying
 #' drawing function [grid::curveGrob()] for the parameters that
 #' control the curve.

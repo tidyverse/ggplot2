@@ -1,7 +1,7 @@
 #' A quantile-quantile plot
 #'
-#' `geom_qq` and `stat_qq` produce quantile-quantile plots. `geom_qq_line` and
-#' `stat_qq_line` compute the slope and intercept of the line connecting the
+#' `geom_qq()` and `stat_qq()` produce quantile-quantile plots. `geom_qq_line()` and
+#' `stat_qq_line()` compute the slope and intercept of the line connecting the
 #' points at specified quartiles of the theoretical and sample distributions.
 #'
 #' @eval rd_aesthetics("stat", "qq")

@@ -70,7 +70,7 @@ x axis label, and y axis label respectively.}
 \item{stat, position}{DEPRECATED.}
 }
 \description{
-\code{qplot} is a shortcut designed to be familiar if you're used to base
+\code{qplot()} is a shortcut designed to be familiar if you're used to base
 \code{\link[=plot]{plot()}}. It's a convenient wrapper for creating a number of
 different types of plots using a consistent calling scheme. It's great
 for allowing you to produce plots quickly, but I highly recommend
