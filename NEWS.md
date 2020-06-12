@@ -1,4 +1,5 @@
-# ggplot2 (development version)
+# ggplot2 3.3.2
+This is a small release focusing on fixing regressions introduced in 3.3.1.
 
 * Added an `outside` option to `annotation_logticks()` that places tick marks
   outside of the plot bounds. (#3783, @kbodwin)
