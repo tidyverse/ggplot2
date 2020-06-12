@@ -61,8 +61,8 @@ properties (aesthetics) of geoms. aes() uses non-standard
 evaluation to capture the variable names. aes_ and aes_string
 require you to explicitly quote the inputs either with &quot;&quot; for
 aes_string(), or with quote or ~ for aes_().
-(aes_q is an alias to aes_). This makes aes_ and
-aes_string easy to program with." />
+(aes_q() is an alias to aes_()). This makes aes_() and
+aes_string() easy to program with." />
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -214,8 +214,8 @@ properties (aesthetics) of geoms. <code><a href='aes.html'>aes()</a></code> uses
 evaluation to capture the variable names. <code>aes_</code> and <code>aes_string</code>
 require you to explicitly quote the inputs either with <code>""</code> for
 <code>aes_string()</code>, or with <code>quote</code> or <code>~</code> for <code>aes_()</code>.
-(<code>aes_q</code> is an alias to <code>aes_</code>). This makes <code>aes_</code> and
-<code>aes_string</code> easy to program with.</p>
+(<code>aes_q()</code> is an alias to <code>aes_()</code>). This makes <code>aes_()</code> and
+<code>aes_string()</code> easy to program with.</p>
     </div>
 
     <pre class="usage"><span class='fu'>aes_</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)
@@ -236,7 +236,7 @@ quoted calls, strings, one-sided formulas or constants.</p></td>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>aes_string</code> and <code>aes_</code> are particularly useful when writing
+    <p><code>aes_string()</code> and <code>aes_()</code> are particularly useful when writing
 functions that create plots because you can use strings or quoted
 names/calls to define the aesthetic mappings, rather than having to use
 <code><a href='https://rdrr.io/r/base/substitute.html'>substitute()</a></code> to generate a call to <code><a href='aes.html'>aes()</a></code>.</p>

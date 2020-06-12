@@ -56,7 +56,7 @@
 
 
 <meta property="og:title" content="Map projections — coord_map" />
-<meta property="og:description" content="coord_map projects a portion of the earth, which is approximately
+<meta property="og:description" content="coord_map() projects a portion of the earth, which is approximately
 spherical, onto a flat 2D plane using any projection defined by the
 mapproj package. Map projections do not, in general, preserve straight
 lines, so this requires considerable computation. coord_quickmap is a
@@ -208,7 +208,7 @@ smaller areas closer to the equator." />
     </div>
 
     <div class="ref-description">
-    <p><code>coord_map</code> projects a portion of the earth, which is approximately
+    <p><code>coord_map()</code> projects a portion of the earth, which is approximately
 spherical, onto a flat 2D plane using any projection defined by the
 <code>mapproj</code> package. Map projections do not, in general, preserve straight
 lines, so this requires considerable computation. <code>coord_quickmap</code> is a
@@ -279,7 +279,7 @@ towards infinity because the length of one degree of longitude tends towards
 0. For regions that span only a few degrees and are not too close to the
 poles, setting the aspect ratio of the plot to the appropriate lat/lon ratio
 approximates the usual mercator projection. This is what
-<code>coord_quickmap</code> does, and is much faster (particularly for complex
+<code>coord_quickmap()</code> does, and is much faster (particularly for complex
 plots like <code><a href='geom_tile.html'>geom_tile()</a></code>) at the expense of correctness.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
