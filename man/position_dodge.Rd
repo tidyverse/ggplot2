@@ -30,10 +30,10 @@ This is useful if you're rotating both the plot and legend.}
 }
 \description{
 Dodging preserves the vertical position of an geom while adjusting the
-horizontal position. \code{position_dodge} requires the grouping variable to be
-be specified in the global or \verb{geom_*} layer. Unlike \code{position_dodge},
-\code{position_dodge2} works without a grouping variable in a layer.
-\code{position_dodge2} works with bars and rectangles, but is
+horizontal position. \code{position_dodge()} requires the grouping variable to be
+be specified in the global or \verb{geom_*} layer. Unlike \code{position_dodge()},
+\code{position_dodge2()} works without a grouping variable in a layer.
+\code{position_dodge2()} works with bars and rectangles, but is
 particulary useful for arranging box plots, which
 can have variable widths.
 }

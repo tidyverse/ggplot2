@@ -58,9 +58,9 @@ To center on integers, \code{width = 1} and \code{center = 0}.
 or left edges of bins are included in the bin.}
 }
 \description{
-\code{cut_interval} makes \code{n} groups with equal range, \code{cut_number}
+\code{cut_interval()} makes \code{n} groups with equal range, \code{cut_number()}
 makes \code{n} groups with (approximately) equal numbers of observations;
-\code{cut_width} makes groups of width \code{width}.
+\code{cut_width()} makes groups of width \code{width}.
 }
 \examples{
 table(cut_interval(1:100, 10))

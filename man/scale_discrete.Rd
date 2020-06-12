@@ -74,7 +74,7 @@ expand the scale by 5\% on each side for continuous variables, and by
 \code{left} or \code{right} for y axes, \code{top} or \code{bottom} for x axes.}
 }
 \description{
-\code{scale_x_discrete} and \code{scale_y_discrete} are used to set the values for
+\code{scale_x_discrete()} and \code{scale_y_discrete()} are used to set the values for
 discrete x and y scale aesthetics. For simple manipulation of scale labels
 and limits, you may wish to use \code{\link[=labs]{labs()}} and \code{\link[=lims]{lims()}} instead.
 }

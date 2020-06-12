@@ -1,6 +1,6 @@
 #' Map projections
 #'
-#' `coord_map` projects a portion of the earth, which is approximately
+#' `coord_map()` projects a portion of the earth, which is approximately
 #' spherical, onto a flat 2D plane using any projection defined by the
 #' `mapproj` package. Map projections do not, in general, preserve straight
 #' lines, so this requires considerable computation. `coord_quickmap` is a
@@ -15,7 +15,7 @@
 #' 0. For regions that span only a few degrees and are not too close to the
 #' poles, setting the aspect ratio of the plot to the appropriate lat/lon ratio
 #' approximates the usual mercator projection. This is what
-#' `coord_quickmap` does, and is much faster (particularly for complex
+#' `coord_quickmap()` does, and is much faster (particularly for complex
 #' plots like [geom_tile()]) at the expense of correctness.
 #'
 #' @param projection projection to use, see

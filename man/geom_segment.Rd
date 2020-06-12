@@ -106,7 +106,7 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
     More control points creates a smoother curve.}
 }
 \description{
-\code{geom_segment} draws a straight line between points (x, y) and
+\code{geom_segment()} draws a straight line between points (x, y) and
 (xend, yend). \code{geom_curve} draws a curved line. See the underlying
 drawing function \code{\link[grid:curveGrob]{grid::curveGrob()}} for the parameters that
 control the curve.

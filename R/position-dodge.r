@@ -1,10 +1,10 @@
 #' Dodge overlapping objects side-to-side
 #'
 #' Dodging preserves the vertical position of an geom while adjusting the
-#' horizontal position. `position_dodge` requires the grouping variable to be
-#' be specified in the global or `geom_*` layer. Unlike `position_dodge`,
-#' `position_dodge2` works without a grouping variable in a layer.
-#' `position_dodge2` works with bars and rectangles, but is
+#' horizontal position. `position_dodge()` requires the grouping variable to be
+#' be specified in the global or `geom_*` layer. Unlike `position_dodge()`,
+#' `position_dodge2()` works without a grouping variable in a layer.
+#' `position_dodge2()` works with bars and rectangles, but is
 #' particulary useful for arranging box plots, which
 #' can have variable widths.
 #'

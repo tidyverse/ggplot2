@@ -3,7 +3,7 @@ NULL
 
 #' Wrap a 1d ribbon of panels into 2d
 #'
-#' `facet_wrap` wraps a 1d sequence of panels into 2d. This is generally
+#' `facet_wrap()` wraps a 1d sequence of panels into 2d. This is generally
 #' a better use of screen space than [facet_grid()] because most
 #' displays are roughly rectangular.
 #'

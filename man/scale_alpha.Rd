@@ -30,7 +30,7 @@ breaks, labels and so forth.}
 \description{
 Alpha-transparency scales are not tremendously useful, but can be a
 convenient way to visually down-weight less important observations.
-\code{scale_alpha} is an alias for \code{scale_alpha_continuous} since
+\code{scale_alpha()} is an alias for \code{scale_alpha_continuous()} since
 that is the most common use of alpha, and it saves a bit of typing.
 }
 \examples{

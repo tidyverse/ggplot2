@@ -1,6 +1,6 @@
 #' Position scales for discrete data
 #'
-#' `scale_x_discrete` and `scale_y_discrete` are used to set the values for
+#' `scale_x_discrete()` and `scale_y_discrete()` are used to set the values for
 #' discrete x and y scale aesthetics. For simple manipulation of scale labels
 #' and limits, you may wish to use [labs()] and [lims()] instead.
 #'

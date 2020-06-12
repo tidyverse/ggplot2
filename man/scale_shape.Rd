@@ -69,12 +69,12 @@ as output
 \code{FALSE}?}
 }
 \description{
-\code{scale_shape} maps discrete variables to six easily discernible shapes.
+\code{scale_shape()} maps discrete variables to six easily discernible shapes.
 If you have more than six levels, you will get a warning message, and the
 seventh and subsequence levels will not appear on the plot. Use
 \code{\link[=scale_shape_manual]{scale_shape_manual()}} to supply your own values. You can not map
 a continuous variable to shape unless \code{scale_shape_binned()} is used. Still,
-as shape has no inherent order, this use is not advised..
+as shape has no inherent order, this use is not advised.
 }
 \examples{
 dsmall <- diamonds[sample(nrow(diamonds), 100), ]
