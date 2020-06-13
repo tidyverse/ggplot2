@@ -4,10 +4,10 @@
 #' In conjunction with the \link{theme} system, the `element_` functions
 #' specify the display of how non-data components of the plot are drawn.
 #'
-#'   - `element_blank`: draws nothing, and assigns no space.
-#'   - `element_rect`: borders and backgrounds.
-#'   - `element_line`: lines.
-#'   - `element_text`: text.
+#'   - `element_blank()`: draws nothing, and assigns no space.
+#'   - `element_rect()`: borders and backgrounds.
+#'   - `element_line()`: lines.
+#'   - `element_text()`: text.
 #'
 #' `rel()` is used to specify sizes relative to the parent,
 #' `margin()` is used to specify the margins of elements.
@@ -16,7 +16,7 @@
 #' @param colour,color Line/border colour. Color is an alias for colour.
 #' @param size Line/border size in mm; text size in pts.
 #' @param inherit.blank Should this element inherit the existence of an
-#'   `element_blank` among its parents? If `TRUE` the existence of
+#'   `element_blank()` among its parents? If `TRUE` the existence of
 #'   a blank element among its parents will cause this element to be blank as
 #'   well. If `FALSE` any blank parent element will be ignored when
 #'   calculating final element state.
@@ -183,7 +183,7 @@ len0_null <- function(x) {
 
 #' Generate grid grob from theme element
 #'
-#' @param element Theme element, i.e. `element_rect` or similar.
+#' @param element Theme element, i.e. `element_rect()` or similar.
 #' @param ... Other arguments to control specific of rendering. This is
 #'   usually at least position. See the source code for individual methods.
 #' @keywords internal

@@ -214,7 +214,7 @@ is_position_aes <- function(vars) {
 #'
 #' Aesthetic mappings describe how variables in the data are mapped to visual
 #' properties (aesthetics) of geoms. [aes()] uses non-standard
-#' evaluation to capture the variable names. `aes_` and `aes_string`
+#' evaluation to capture the variable names. `aes_()` and `aes_string()`
 #' require you to explicitly quote the inputs either with `""` for
 #' `aes_string()`, or with `quote` or `~` for `aes_()`.
 #' (`aes_q()` is an alias to `aes_()`). This makes `aes_()` and

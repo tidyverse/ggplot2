@@ -18,7 +18,7 @@
 #'   long tick marks. In base 10, these are the "1" (or "10") ticks.
 #' @param scaled is the data already log-scaled? This should be `TRUE`
 #'   (default) when the data is already transformed with `log10()` or when
-#'   using `scale_y_log10`. It should be `FALSE` when using
+#'   using `scale_y_log10()`. It should be `FALSE` when using
 #'   `coord_trans(y = "log10")`.
 #' @param colour Colour of the tick marks.
 #' @param size Thickness of tick marks, in mm.
