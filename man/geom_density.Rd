@@ -88,7 +88,7 @@ upper and lower lines, \code{"upper"}/\code{"lower"} draws the respective lines 
 \code{"full"} draws a closed polygon around the area.}
 
 \item{geom, stat}{Use to override the default connection between
-\code{geom_density} and \code{stat_density}.}
+\code{geom_density()} and \code{stat_density()}.}
 
 \item{bw}{The smoothing bandwidth to be used.
 If numeric, the standard deviation of the smoothing kernel.

@@ -107,12 +107,12 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 }
 \description{
 \code{geom_segment()} draws a straight line between points (x, y) and
-(xend, yend). \code{geom_curve} draws a curved line. See the underlying
+(xend, yend). \code{geom_curve()} draws a curved line. See the underlying
 drawing function \code{\link[grid:curveGrob]{grid::curveGrob()}} for the parameters that
 control the curve.
 }
 \details{
-Both geoms draw a single segment/curve per case. See \code{geom_path} if you
+Both geoms draw a single segment/curve per case. See \code{geom_path()} if you
 need to connect points across multiple cases.
 }
 \section{Aesthetics}{

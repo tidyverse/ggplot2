@@ -84,7 +84,7 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
 \item{geom, stat}{Use to override the default connection between
-\code{geom_quantile} and \code{stat_quantile}.}
+\code{geom_quantile()} and \code{stat_quantile()}.}
 
 \item{quantiles}{conditional quantiles of y to calculate and display}
 

@@ -67,7 +67,7 @@ an even number (up to eight) of hexadecimal digits which give the
 lengths in consecutive positions in the string.}
 
 \item{inherit.blank}{Should this element inherit the existence of an
-\code{element_blank} among its parents? If \code{TRUE} the existence of
+\code{element_blank()} among its parents? If \code{TRUE} the existence of
 a blank element among its parents will cause this element to be blank as
 well. If \code{FALSE} any blank parent element will be ignored when
 calculating final element state.}
@@ -105,10 +105,10 @@ An S3 object of class \code{element}, \code{rel}, or \code{margin}.
 In conjunction with the \link{theme} system, the \code{element_} functions
 specify the display of how non-data components of the plot are drawn.
 \itemize{
-\item \code{element_blank}: draws nothing, and assigns no space.
-\item \code{element_rect}: borders and backgrounds.
-\item \code{element_line}: lines.
-\item \code{element_text}: text.
+\item \code{element_blank()}: draws nothing, and assigns no space.
+\item \code{element_rect()}: borders and backgrounds.
+\item \code{element_line()}: lines.
+\item \code{element_text()}: text.
 }
 
 \code{rel()} is used to specify sizes relative to the parent,

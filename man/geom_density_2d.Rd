@@ -129,7 +129,7 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
 \item{geom, stat}{Use to override the default connection between
-\code{geom_density_2d} and \code{stat_density_2d}.}
+\code{geom_density_2d()} and \code{stat_density_2d()}.}
 
 \item{contour}{If \code{TRUE}, contour the results of the 2d density
 estimation.}

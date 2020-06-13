@@ -75,5 +75,5 @@ table(cut_width(runif(1000), 0.1, labels = FALSE))
 }
 \author{
 Randall Prium contributed most of the implementation of
-\code{cut_width}.
+\code{cut_width()}.
 }

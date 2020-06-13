@@ -148,12 +148,12 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 
 \section{Computed variables}{
 
-Variables computed by \code{stat_qq}:
+Variables computed by \code{stat_qq()}:
 \describe{
 \item{sample}{sample quantiles}
 \item{theoretical}{theoretical quantiles}
 }
-Variables computed by \code{stat_qq_line}:
+Variables computed by \code{stat_qq_line()}:
 \describe{
 \item{x}{x-coordinates of the endpoints of the line segment connecting the
 points at the chosen quantiles of the theoretical and the sample

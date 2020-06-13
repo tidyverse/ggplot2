@@ -7,7 +7,7 @@
 element_grob(element, ...)
 }
 \arguments{
-\item{element}{Theme element, i.e. \code{element_rect} or similar.}
+\item{element}{Theme element, i.e. \code{element_rect()} or similar.}
 
 \item{...}{Other arguments to control specific of rendering. This is
 usually at least position. See the source code for individual methods.}
