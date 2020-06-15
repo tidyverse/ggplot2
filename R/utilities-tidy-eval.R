@@ -3,23 +3,24 @@
 #' @description
 #'
 #' * \code{\link[rlang]{sym}()} creates a symbol from a string and
-#'   \code{\link[rlang]{syms}()} creates a list of symbols from a
+#'   \code{\link[rlang:sym]{syms}()} creates a list of symbols from a
 #'   character vector.
 #'
-#' * \code{\link[rlang]{expr}()} and \code{\link[rlang]{quo}()} quote
-#'   one expression. `quo()` wraps the quoted expression in a quosure.
+#' * \code{\link[rlang:nse-defuse]{enquo}()} and
+#'   \code{\link[rlang:nse-defuse]{enquos}()} delay the execution of one or
+#'   several function arguments. \code{enquo()} returns a single quoted
+#'   expression, which is like a blueprint for the delayed computation.
+#'   \code{enquos()} returns a list of such quoted expressions.
 #'
-#'   The plural variants \code{\link[rlang]{exprs}()} and
-#'   \code{\link[rlang]{quos}()} return a list of quoted expressions or
-#'   quosures.
+#' * \code{\link[rlang:nse-defuse]{expr}()} quotes a new expression _locally_. It
+#'   is mostly useful to build new expressions around arguments
+#'   captured with [enquo()] or [enquos()]:
+#'   \code{expr(mean(!!enquo(arg), na.rm = TRUE))}.
 #'
-#' * \code{\link[rlang]{enexpr}()} and \code{\link[rlang]{enquo}()}
-#'   capture the expression supplied as argument by the user of the
-#'   current function (`enquo()` wraps this expression in a quosure).
-#'
-#'   \code{\link[rlang]{enexprs}()} and \code{\link[rlang]{enquos}()}
-#'   capture multiple expressions supplied as arguments, including
-#'   `...`.
+#' To learn more about tidy eval and how to use these tools, visit
+#' \url{https://tidyeval.tidyverse.org} and the
+#' \href{https://adv-r.hadley.nz/metaprogramming.html}{Metaprogramming
+#' section} of \href{https://adv-r.hadley.nz}{Advanced R}.
 #'
 #' @md
 #' @name tidyeval
