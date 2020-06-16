@@ -11,8 +11,14 @@ find_scale <- function(aes, x, env = parent.frame()) {
 
   for (scale in candidates) {
     scale_f <- find_global(scale, env, mode = "function")
-    if (!is.null(scale_f))
-      return(scale_f())
+    if (!is.null(scale_f)) {
+      if ("ptype" %in% names(formals(scale_f))) {
+        scale <- scale_f(ptype = x)
+      } else {
+        scale <- scale_f()
+      }
+      return(scale)
+    }
   }
 
   # Failure to find a scale is not an error because some "aesthetics" don't
