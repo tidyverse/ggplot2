@@ -43,16 +43,26 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+<!--optional theme-->
+<link href="../.css" rel="stylesheet">
+
+
+
+<!-- docsearch -->
+<script src="../docsearch.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
+<link href="../docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
 <meta property="og:title" content="Scales for area or radius — scale_size" />
-<meta property="og:description" content="scale_size scales area, scale_radius scales radius. The size
+<meta property="og:description" content="scale_size() scales area, scale_radius() scales radius. The size
 aesthetic is most commonly used for points and text, and humans perceive
 the area of points (not their radius), so this provides for optimal
-perception. scale_size_area ensures that a value of 0 is mapped
-to a size of 0. scale_size_binned is a binned version of scale_size that
+perception. scale_size_area() ensures that a value of 0 is mapped
+to a size of 0. scale_size_binned() is a binned version of scale_size() that
 scales by area (but does not ensure 0 equals an area of zero). For a binned
-equivalent of scale_size_area use scale_size_binned_area." />
+equivalent of scale_size_area() use scale_size_binned_area()." />
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -95,9 +105,9 @@ equivalent of scale_size_area use scale_size_binned_area." />
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">ggplot2</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.2</span>
         </div>
       </div>
     </div>
@@ -113,7 +123,7 @@ equivalent of scale_size_area use scale_size_binned_area." />
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Release notes</li>
+    <li class="dropdown-header">Releases</li>
     <li>
       <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
     </li>
@@ -140,7 +150,7 @@ equivalent of scale_size_area use scale_size_binned_area." />
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../news/index.html">Change log</a>
+      <a href="../news/index.html">Changelog</a>
     </li>
   </ul>
 </li>
@@ -166,7 +176,7 @@ equivalent of scale_size_area use scale_size_binned_area." />
   </ul>
 </li>
         <li>
-  <a href="https://exts.ggplot2.tidyverse.org/">Extensions</a>
+  <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2/">
@@ -175,6 +185,12 @@ equivalent of scale_size_area use scale_size_binned_area." />
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
       
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -193,50 +209,50 @@ equivalent of scale_size_area use scale_size_binned_area." />
     </div>
 
     <div class="ref-description">
-    <p><code>scale_size</code> scales area, <code>scale_radius</code> scales radius. The size
+    <p><code><a href='https://ggplot2.tidyverse.org/reference/scale_size.html'>scale_size()</a></code> scales area, <code><a href='https://ggplot2.tidyverse.org/reference/scale_size.html'>scale_radius()</a></code> scales radius. The size
 aesthetic is most commonly used for points and text, and humans perceive
 the area of points (not their radius), so this provides for optimal
-perception. <code>scale_size_area</code> ensures that a value of 0 is mapped
-to a size of 0. <code>scale_size_binned</code> is a binned version of <code>scale_size</code> that
+perception. <code><a href='https://ggplot2.tidyverse.org/reference/scale_size.html'>scale_size_area()</a></code> ensures that a value of 0 is mapped
+to a size of 0. <code><a href='https://ggplot2.tidyverse.org/reference/scale_size.html'>scale_size_binned()</a></code> is a binned version of <code><a href='https://ggplot2.tidyverse.org/reference/scale_size.html'>scale_size()</a></code> that
 scales by area (but does not ensure 0 equals an area of zero). For a binned
-equivalent of <code>scale_size_area</code> use <code>scale_size_binned_area</code>.</p>
+equivalent of <code><a href='https://ggplot2.tidyverse.org/reference/scale_size.html'>scale_size_area()</a></code> use <code><a href='https://ggplot2.tidyverse.org/reference/scale_size.html'>scale_size_binned_area()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>scale_size</span>(
-  <span class='kw'>name</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
-  <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
-  <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
-  <span class='kw'>limits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>range</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>6</span>),
-  <span class='kw'>trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>"legend"</span>
+    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_size.html'>scale_size</a></span>(
+  name = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(),
+  breaks = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(),
+  labels = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(),
+  limits = <span class='kw'>NULL</span>,
+  range = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>6</span>),
+  trans = <span class='st'>"identity"</span>,
+  guide = <span class='st'>"legend"</span>
 )
 
-<span class='fu'>scale_radius</span>(
-  <span class='kw'>name</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
-  <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
-  <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
-  <span class='kw'>limits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>range</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>6</span>),
-  <span class='kw'>trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>"legend"</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_size.html'>scale_radius</a></span>(
+  name = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(),
+  breaks = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(),
+  labels = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(),
+  limits = <span class='kw'>NULL</span>,
+  range = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>6</span>),
+  trans = <span class='st'>"identity"</span>,
+  guide = <span class='st'>"legend"</span>
 )
 
-<span class='fu'>scale_size_binned</span>(
-  <span class='kw'>name</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
-  <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
-  <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
-  <span class='kw'>limits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>range</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>6</span>),
-  <span class='kw'>n.breaks</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>nice.breaks</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>"bins"</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_size.html'>scale_size_binned</a></span>(
+  name = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(),
+  breaks = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(),
+  labels = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(),
+  limits = <span class='kw'>NULL</span>,
+  range = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>6</span>),
+  n.breaks = <span class='kw'>NULL</span>,
+  nice.breaks = <span class='fl'>TRUE</span>,
+  trans = <span class='st'>"identity"</span>,
+  guide = <span class='st'>"bins"</span>
 )
 
-<span class='fu'>scale_size_area</span>(<span class='no'>...</span>, <span class='kw'>max_size</span> <span class='kw'>=</span> <span class='fl'>6</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_size.html'>scale_size_area</a></span>(<span class='kw'>...</span>, max_size = <span class='fl'>6</span>)
 
-<span class='fu'>scale_size_binned_area</span>(<span class='no'>...</span>, <span class='kw'>max_size</span> <span class='kw'>=</span> <span class='fl'>6</span>)</pre>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_size.html'>scale_size_binned_area</a></span>(<span class='kw'>...</span>, max_size = <span class='fl'>6</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -244,7 +260,7 @@ equivalent of <code>scale_size_area</code> use <code>scale_size_binned_area</cod
     <tr>
       <th>name</th>
       <td><p>The name of the scale. Used as the axis or legend title. If
-<code><a href='waiver.html'>waiver()</a></code>, the default, the name of the scale is taken from the first
+<code><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver()</a></code>, the default, the name of the scale is taken from the first
 mapping used for that aesthetic. If <code>NULL</code>, the legend title will be
 omitted.</p></td>
     </tr>
@@ -252,7 +268,7 @@ omitted.</p></td>
       <th>breaks</th>
       <td><p>One of:</p><ul>
 <li><p><code>NULL</code> for no breaks</p></li>
-<li><p><code><a href='waiver.html'>waiver()</a></code> for the default breaks computed by the
+<li><p><code><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver()</a></code> for the default breaks computed by the
 <a href='https://scales.r-lib.org//reference/trans_new.html'>transformation object</a></p></li>
 <li><p>A numeric vector of positions</p></li>
 <li><p>A function that takes the limits as input and returns breaks
@@ -263,7 +279,7 @@ as output (e.g., a function returned by <code><a href='https://scales.r-lib.org/
       <th>labels</th>
       <td><p>One of:</p><ul>
 <li><p><code>NULL</code> for no labels</p></li>
-<li><p><code><a href='waiver.html'>waiver()</a></code> for the default labels computed by the
+<li><p><code><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver()</a></code> for the default labels computed by the
 transformation object</p></li>
 <li><p>A character vector giving labels (must be same length as <code>breaks</code>)</p></li>
 <li><p>A function that takes the breaks as input and returns labels
@@ -280,7 +296,7 @@ Use <code>NA</code> to refer to the existing minimum or maximum</p></li>
 new limits
 Note that setting limits on positional scales will <strong>remove</strong> data outside of the limits.
 If the purpose is to zoom, use the limit argument in the coordinate system
-(see <code><a href='coord_cartesian.html'>coord_cartesian()</a></code>).</p></li>
+(see <code><a href='https://ggplot2.tidyverse.org/reference/coord_cartesian.html'>coord_cartesian()</a></code>).</p></li>
 </ul></td>
     </tr>
     <tr>
@@ -304,7 +320,7 @@ transformation with <code><a href='https://scales.r-lib.org//reference/trans_new
     <tr>
       <th>guide</th>
       <td><p>A function used to create a guide or its name. See
-<code><a href='guides.html'>guides()</a></code> for more information.</p></td>
+<code><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides()</a></code> for more information.</p></td>
     </tr>
     <tr>
       <th>n.breaks</th>
@@ -323,11 +339,11 @@ breaks are given explicetly.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Arguments passed on to <code><a href='continuous_scale.html'>continuous_scale</a></code></p><dl'>
+      <td><p>Arguments passed on to <code><a href='https://ggplot2.tidyverse.org/reference/continuous_scale.html'>continuous_scale</a></code></p><dl>
     <dt><code>minor_breaks</code></dt><dd><p>One of:
 <ul>
 <li><p><code>NULL</code> for no minor breaks</p></li>
-<li><p><code><a href='waiver.html'>waiver()</a></code> for the default breaks (one minor break between
+<li><p><code><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver()</a></code> for the default breaks (one minor break between
 each major break)</p></li>
 <li><p>A numeric vector of positions</p></li>
 <li><p>A function that given the limits returns a vector of minor breaks.</p></li>
@@ -336,15 +352,15 @@ each major break)</p></li>
 <ul>
 <li><p>Function that handles limits outside of the scale limits
 (out of bounds).</p></li>
-<li><p>The default (<code><a href='https://scales.r-lib.org//reference/censor.html'>scales::censor()</a></code>) replaces out of
+<li><p>The default (<code><a href='https://scales.r-lib.org//reference/oob.html'>scales::censor()</a></code>) replaces out of
 bounds values with <code>NA</code>.</p></li>
-<li><p><code><a href='https://scales.r-lib.org//reference/squish.html'>scales::squish()</a></code> for squishing out of bounds values into range.</p></li>
-<li><p><code><a href='https://scales.r-lib.org//reference/squish_infinite.html'>scales::squish_infinite()</a></code> for squishing infitite values into range.</p></li>
+<li><p><code><a href='https://scales.r-lib.org//reference/oob.html'>scales::squish()</a></code> for squishing out of bounds values into range.</p></li>
+<li><p><code><a href='https://scales.r-lib.org//reference/oob.html'>scales::squish_infinite()</a></code> for squishing infinite values into range.</p></li>
 </ul></p></dd>
     <dt><code>na.value</code></dt><dd><p>Missing values will be replaced with this value.</p></dd>
     <dt><code>expand</code></dt><dd><p>For position scales, a vector of range expansion constants used to add some
 padding around the data to ensure that they are placed some distance
-away from the axes. Use the convenience function <code><a href='expansion.html'>expansion()</a></code>
+away from the axes. Use the convenience function <code><a href='https://ggplot2.tidyverse.org/reference/expansion.html'>expansion()</a></code>
 to generate the values for the <code>expand</code> argument. The defaults are to
 expand the scale by 5% on each side for continuous variables, and by
 0.6 units on each side for discrete variables.</p></dd>
@@ -362,23 +378,23 @@ expand the scale by 5% on each side for continuous variables, and by
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code>scale_size_area()</code> if you want 0 values to be mapped
+    <div class='dont-index'><p><code><a href='https://ggplot2.tidyverse.org/reference/scale_size.html'>scale_size_area()</a></code> if you want 0 values to be mapped
 to points with size 0.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>displ</span>, <span class='no'>hwy</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='no'>hwy</span>)) +
-   <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
-<span class='no'>p</span></div><div class='img'><img src='scale_size-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>scale_size</span>(<span class='st'>"Highway mpg"</span>)</div><div class='img'><img src='scale_size-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>scale_size</span>(<span class='kw'>range</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>10</span>))</div><div class='img'><img src='scale_size-3.png' alt='' width='700' height='433' /></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>, size = <span class='kw'>hwy</span>)) <span class='op'>+</span>
+   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>()
+<span class='kw'>p</span></div><div class='img'><img src='scale_size-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_size.html'>scale_size</a></span>(<span class='st'>"Highway mpg"</span>)</div><div class='img'><img src='scale_size-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_size.html'>scale_size</a></span>(range = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>10</span>))</div><div class='img'><img src='scale_size-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># If you want zero value to have zero size, use scale_size_area:</span>
-<span class='no'>p</span> + <span class='fu'>scale_size_area</span>()</div><div class='img'><img src='scale_size-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_size.html'>scale_size_area</a></span>()</div><div class='img'><img src='scale_size-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Binning can sometimes make it easier to match the scaled data to the legend</span>
-<span class='no'>p</span> + <span class='fu'>scale_size_binned</span>()</div><div class='img'><img src='scale_size-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_size.html'>scale_size_binned</a></span>()</div><div class='img'><img src='scale_size-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># This is most useful when size is a count</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>class</span>, <span class='no'>cyl</span>)) +
-  <span class='fu'><a href='geom_count.html'>geom_count</a></span>() +
-  <span class='fu'>scale_size_area</span>()</div><div class='img'><img src='scale_size-6.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>class</span>, <span class='kw'>cyl</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_count.html'>geom_count</a></span>() <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_size.html'>scale_size_area</a></span>()</div><div class='img'><img src='scale_size-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># If you want to map size to radius (usually bad idea), use scale_radius</span>
-<span class='no'>p</span> + <span class='fu'>scale_radius</span>()</div><div class='img'><img src='scale_size-7.png' alt='' width='700' height='433' /></div></pre>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_size.html'>scale_radius</a></span>()</div><div class='img'><img src='scale_size-7.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -395,7 +411,7 @@ to points with size 0.</p></div>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, Dewey Dunnington.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -404,6 +420,23 @@ to points with size 0.</p></div>
    </div>
 
   
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: 'e1261f3df95d2d4704c626ff11a4b536',
+    indexName: 'tidyverse_ggplot2',
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
+  });
+</script>
+
 
 
   </body>

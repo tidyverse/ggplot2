@@ -43,6 +43,16 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+<!--optional theme-->
+<link href="../.css" rel="stylesheet">
+
+
+
+<!-- docsearch -->
+<script src="../docsearch.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
+<link href="../docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
 <meta property="og:title" content="Translating between qplot and ggplot — translate_qplot_ggplot" />
@@ -94,9 +104,9 @@ syntax." />
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">ggplot2</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.2</span>
         </div>
       </div>
     </div>
@@ -112,7 +122,7 @@ syntax." />
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Release notes</li>
+    <li class="dropdown-header">Releases</li>
     <li>
       <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
     </li>
@@ -139,7 +149,7 @@ syntax." />
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../news/index.html">Change log</a>
+      <a href="../news/index.html">Changelog</a>
     </li>
   </ul>
 </li>
@@ -165,7 +175,7 @@ syntax." />
   </ul>
 </li>
         <li>
-  <a href="https://exts.ggplot2.tidyverse.org/">Extensions</a>
+  <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2/">
@@ -174,6 +184,12 @@ syntax." />
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
       
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -205,76 +221,75 @@ syntax.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-# By default, qplot() assumes that you want a scatterplot,
-# i.e., you want to use geom_point()
-# qplot(x, y, data = data)
-# ggplot(data, aes(x, y)) + geom_point()
+<span class='co'># By default, qplot() assumes that you want a scatterplot,</span>
+<span class='co'># i.e., you want to use geom_point()</span>
+<span class='co'># qplot(x, y, data = data)</span>
+<span class='co'># ggplot(data, aes(x, y)) + geom_point()</span>
 
-# Using Aesthetics
+<span class='co'># Using Aesthetics</span>
 
-# If you map additional aesthetics, these will be added to the defaults. With
-# qplot() there is no way to use different aesthetic mappings (or data) in
-# different layers
-# qplot(x, y, data = data, shape = shape, colour = colour)
-# ggplot(data, aes(x, y, shape = shape, colour = colour)) + geom_point()
-#
-# Aesthetic parameters in qplot() always try to map the aesthetic to a
-# variable. If the argument is not a variable but a value, effectively a new column
-# is added to the original dataset with that value. To set an aesthetic to a
-# value and override the default appearance, you surround the value with I() in
-# qplot(), or pass it as a parameter to the layer.
-# qplot(x, y, data = data, colour = I("red"))
-# ggplot(data, aes(x, y)) + geom_point(colour = "red")
+<span class='co'># If you map additional aesthetics, these will be added to the defaults. With</span>
+<span class='co'># qplot() there is no way to use different aesthetic mappings (or data) in</span>
+<span class='co'># different layers</span>
+<span class='co'># qplot(x, y, data = data, shape = shape, colour = colour)</span>
+<span class='co'># ggplot(data, aes(x, y, shape = shape, colour = colour)) + geom_point()</span>
+<span class='co'>#</span>
+<span class='co'># Aesthetic parameters in qplot() always try to map the aesthetic to a</span>
+<span class='co'># variable. If the argument is not a variable but a value, effectively a new column</span>
+<span class='co'># is added to the original dataset with that value. To set an aesthetic to a</span>
+<span class='co'># value and override the default appearance, you surround the value with I() in</span>
+<span class='co'># qplot(), or pass it as a parameter to the layer.</span>
+<span class='co'># qplot(x, y, data = data, colour = I("red"))</span>
+<span class='co'># ggplot(data, aes(x, y)) + geom_point(colour = "red")</span>
 
-# Changing the geom parameter changes the geom added to the plot
-# qplot(x, y, data = data, geom = "line")
-# ggplot(data, aes(x, y)) + geom_line()
+<span class='co'># Changing the geom parameter changes the geom added to the plot</span>
+<span class='co'># qplot(x, y, data = data, geom = "line")</span>
+<span class='co'># ggplot(data, aes(x, y)) + geom_line()</span>
 
-# Not all geoms require both x and y, e.g., geom_bar() and geom_histogram().
-# For these two geoms, if the y aesthetic is not supplied, both qplot and
-# ggplot commands default to "count" on the y-axis
-# ggplot(data, aes(x)) + geom_bar()
-# qplot(x, data = data, geom = "bar")
+<span class='co'># Not all geoms require both x and y, e.g., geom_bar() and geom_histogram().</span>
+<span class='co'># For these two geoms, if the y aesthetic is not supplied, both qplot and</span>
+<span class='co'># ggplot commands default to "count" on the y-axis</span>
+<span class='co'># ggplot(data, aes(x)) + geom_bar()</span>
+<span class='co'># qplot(x, data = data, geom = "bar")</span>
 
-# If a vector of multiple geom names is supplied to the geom argument, each
-# geom will be added in turn
-# qplot(x, y, data = data, geom = c("point", "smooth"))
-# ggplot(data, aes(x, y)) + geom_point() + geom_smooth()
+<span class='co'># If a vector of multiple geom names is supplied to the geom argument, each</span>
+<span class='co'># geom will be added in turn</span>
+<span class='co'># qplot(x, y, data = data, geom = c("point", "smooth"))</span>
+<span class='co'># ggplot(data, aes(x, y)) + geom_point() + geom_smooth()</span>
 
-# Unlike the rest of ggplot2, stats and geoms are independent
-# qplot(x, y, data = data, stat = "bin")
-# ggplot(data, aes(x, y)) + geom_point(stat = "bin")
-#
-# Any layer parameters will be passed on to all layers. Most layers will ignore
-# parameters that they don't need
-# qplot(x, y, data = data, geom = c("point", "smooth"), method = "lm")
-# ggplot(data, aes(x, y)) + geom_point(method = "lm") + geom_smooth(method = "lm")
+<span class='co'># Unlike the rest of ggplot2, stats and geoms are independent</span>
+<span class='co'># qplot(x, y, data = data, stat = "bin")</span>
+<span class='co'># ggplot(data, aes(x, y)) + geom_point(stat = "bin")</span>
+<span class='co'>#</span>
+<span class='co'># Any layer parameters will be passed on to all layers. Most layers will ignore</span>
+<span class='co'># parameters that they don't need</span>
+<span class='co'># qplot(x, y, data = data, geom = c("point", "smooth"), method = "lm")</span>
+<span class='co'># ggplot(data, aes(x, y)) + geom_point(method = "lm") + geom_smooth(method = "lm")</span>
 
-# Scales and axes
+<span class='co'># Scales and axes</span>
 
-# You can control basic properties of the x and y scales with the xlim, ylim,
-# xlab and ylab arguments
-# qplot(x, y, data = data, xlim = c(1, 5), xlab = "my label")
-# ggplot(data, aes(x, y)) + geom_point() +
-# scale_x_continuous("my label", limits = c(1, 5))
+<span class='co'># You can control basic properties of the x and y scales with the xlim, ylim,</span>
+<span class='co'># xlab and ylab arguments</span>
+<span class='co'># qplot(x, y, data = data, xlim = c(1, 5), xlab = "my label")</span>
+<span class='co'># ggplot(data, aes(x, y)) + geom_point() +</span>
+<span class='co'># scale_x_continuous("my label", limits = c(1, 5))</span>
 
-# qplot(x, y, data = data, xlim = c(1, 5), ylim = c(10, 20))
-# ggplot(data, aes(x, y)) + geom_point() +
-# scale_x_continuous(limits = c(1, 5)) + scale_y_continuous(limits = c(10, 20))
+<span class='co'># qplot(x, y, data = data, xlim = c(1, 5), ylim = c(10, 20))</span>
+<span class='co'># ggplot(data, aes(x, y)) + geom_point() +</span>
+<span class='co'># scale_x_continuous(limits = c(1, 5)) + scale_y_continuous(limits = c(10, 20))</span>
 
-# Like plot(), qplot() has a convenient way of log transforming the axes.
-# qplot(x, y, data = data, log = "xy")
-# ggplot(data, aes(x, y)) + geom_point() + scale_x_log10() + scale_y_log10()
-# There are many other possible transformations, but not all are
-# accessible from within qplot(), see ?scale_continuous for more
+<span class='co'># Like plot(), qplot() has a convenient way of log transforming the axes.</span>
+<span class='co'># qplot(x, y, data = data, log = "xy")</span>
+<span class='co'># ggplot(data, aes(x, y)) + geom_point() + scale_x_log10() + scale_y_log10()</span>
+<span class='co'># There are many other possible transformations, but not all are</span>
+<span class='co'># accessible from within qplot(), see ?scale_continuous for more</span>
 
-# Plot options
+<span class='co'># Plot options</span>
 
-# qplot() recognises the same options as plot does, and converts them to their
-# ggplot2 equivalents. See ?theme for more on ggplot options
-# qplot(x, y, data = data, main="title", asp = 1)
-# ggplot(data, aes(x, y)) + geom_point() + labs(title = "title") + theme(aspect.ratio = 1)
-</div></pre>
+<span class='co'># qplot() recognises the same options as plot does, and converts them to their</span>
+<span class='co'># ggplot2 equivalents. See ?theme for more on ggplot options</span>
+<span class='co'># qplot(x, y, data = data, main="title", asp = 1)</span>
+<span class='co'># ggplot(data, aes(x, y)) + geom_point() + labs(title = "title") + theme(aspect.ratio = 1)</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -291,7 +306,7 @@ syntax.</p>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, Dewey Dunnington.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -300,6 +315,23 @@ syntax.</p>
    </div>
 
   
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: 'e1261f3df95d2d4704c626ff11a4b536',
+    indexName: 'tidyverse_ggplot2',
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
+  });
+</script>
+
 
 
   </body>

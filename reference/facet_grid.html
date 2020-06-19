@@ -43,6 +43,16 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+<!--optional theme-->
+<link href="../.css" rel="stylesheet">
+
+
+
+<!-- docsearch -->
+<script src="../docsearch.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
+<link href="../docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
 <meta property="og:title" content="Lay out panels in a grid — facet_grid" />
@@ -92,9 +102,9 @@ If you have only one variable with many levels, try facet_wrap()." />
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">ggplot2</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.2</span>
         </div>
       </div>
     </div>
@@ -110,7 +120,7 @@ If you have only one variable with many levels, try facet_wrap()." />
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Release notes</li>
+    <li class="dropdown-header">Releases</li>
     <li>
       <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
     </li>
@@ -137,7 +147,7 @@ If you have only one variable with many levels, try facet_wrap()." />
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../news/index.html">Change log</a>
+      <a href="../news/index.html">Changelog</a>
     </li>
   </ul>
 </li>
@@ -163,7 +173,7 @@ If you have only one variable with many levels, try facet_wrap()." />
   </ul>
 </li>
         <li>
-  <a href="https://exts.ggplot2.tidyverse.org/">Extensions</a>
+  <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2/">
@@ -172,6 +182,12 @@ If you have only one variable with many levels, try facet_wrap()." />
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
       
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -190,24 +206,24 @@ If you have only one variable with many levels, try facet_wrap()." />
     </div>
 
     <div class="ref-description">
-    <p><code>facet_grid()</code> forms a matrix of panels defined by row and column
+    <p><code><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid()</a></code> forms a matrix of panels defined by row and column
 faceting variables. It is most useful when you have two discrete
 variables, and all combinations of the variables exist in the data.
-If you have only one variable with many levels, try <code><a href='facet_wrap.html'>facet_wrap()</a></code>.</p>
+If you have only one variable with many levels, try <code><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>facet_grid</span>(
-  <span class='kw'>rows</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>cols</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>scales</span> <span class='kw'>=</span> <span class='st'>"fixed"</span>,
-  <span class='kw'>space</span> <span class='kw'>=</span> <span class='st'>"fixed"</span>,
-  <span class='kw'>shrink</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>labeller</span> <span class='kw'>=</span> <span class='st'>"label_value"</span>,
-  <span class='kw'>as.table</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>switch</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>margins</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>facets</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span>(
+  rows = <span class='kw'>NULL</span>,
+  cols = <span class='kw'>NULL</span>,
+  scales = <span class='st'>"fixed"</span>,
+  space = <span class='st'>"fixed"</span>,
+  shrink = <span class='fl'>TRUE</span>,
+  labeller = <span class='st'>"label_value"</span>,
+  as.table = <span class='fl'>TRUE</span>,
+  switch = <span class='kw'>NULL</span>,
+  drop = <span class='fl'>TRUE</span>,
+  margins = <span class='fl'>FALSE</span>,
+  facets = <span class='kw'>NULL</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -216,7 +232,7 @@ If you have only one variable with many levels, try <code><a href='facet_wrap.ht
     <tr>
       <th>rows, cols</th>
       <td><p>A set of variables or expressions quoted by
-<code><a href='vars.html'>vars()</a></code> and defining faceting groups on the rows or columns
+<code><a href='https://ggplot2.tidyverse.org/reference/vars.html'>vars()</a></code> and defining faceting groups on the rows or columns
 dimension. The variables can be named (the names are passed to
 <code>labeller</code>).</p>
 <p>For compatibility with the classic interface, <code>rows</code> can also be
@@ -250,12 +266,12 @@ before statistical summary.</p></td>
       <td><p>A function that takes one data frame of labels and
 returns a list or data frame of character vectors. Each input
 column corresponds to one factor. Thus there will be more than
-one with <code><a href='vars.html'>vars(cyl, am)</a></code>. Each output
+one with <code><a href='https://ggplot2.tidyverse.org/reference/vars.html'>vars(cyl, am)</a></code>. Each output
 column gets displayed as one separate line in the strip
 label. This function should inherit from the "labeller" S3 class
-for compatibility with <code><a href='labeller.html'>labeller()</a></code>. You can use different labeling
-functions for different kind of labels, for example use <code><a href='labellers.html'>label_parsed()</a></code> for
-formatting facet labels. <code><a href='labellers.html'>label_value()</a></code> is used by default,
+for compatibility with <code><a href='https://ggplot2.tidyverse.org/reference/labeller.html'>labeller()</a></code>. You can use different labeling
+functions for different kind of labels, for example use <code><a href='https://ggplot2.tidyverse.org/reference/labellers.html'>label_parsed()</a></code> for
+formatting facet labels. <code><a href='https://ggplot2.tidyverse.org/reference/labellers.html'>label_value()</a></code> is used by default,
 check it for more details and pointers to other options.</p></td>
     </tr>
     <tr>
@@ -297,45 +313,44 @@ and <code>cols</code> instead.</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>displ</span>, <span class='no'>cty</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
+    <pre class="examples"><div class='input'><span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>cty</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>()
 
 <span class='co'># Use vars() to supply variables from the dataset:</span>
-<span class='no'>p</span> + <span class='fu'>facet_grid</span>(<span class='kw'>rows</span> <span class='kw'>=</span> <span class='fu'><a href='vars.html'>vars</a></span>(<span class='no'>drv</span>))</div><div class='img'><img src='facet_grid-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>facet_grid</span>(<span class='kw'>cols</span> <span class='kw'>=</span> <span class='fu'><a href='vars.html'>vars</a></span>(<span class='no'>cyl</span>))</div><div class='img'><img src='facet_grid-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>facet_grid</span>(<span class='fu'><a href='vars.html'>vars</a></span>(<span class='no'>drv</span>), <span class='fu'><a href='vars.html'>vars</a></span>(<span class='no'>cyl</span>))</div><div class='img'><img src='facet_grid-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span>(rows = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/vars.html'>vars</a></span>(<span class='kw'>drv</span>))</div><div class='img'><img src='facet_grid-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span>(cols = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/vars.html'>vars</a></span>(<span class='kw'>cyl</span>))</div><div class='img'><img src='facet_grid-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/vars.html'>vars</a></span>(<span class='kw'>drv</span>), <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/vars.html'>vars</a></span>(<span class='kw'>cyl</span>))</div><div class='img'><img src='facet_grid-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># To change plot order of facet grid,</span>
 <span class='co'># change the order of variable levels with factor()</span>
 
 <span class='co'># If you combine a facetted dataset with a dataset that lacks those</span>
 <span class='co'># faceting variables, the data will be repeated across the missing</span>
 <span class='co'># combinations:</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>displ</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>mpg</span>$<span class='no'>displ</span>), <span class='kw'>cty</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>mpg</span>$<span class='no'>cty</span>))
-<span class='no'>p</span> +
-  <span class='fu'>facet_grid</span>(<span class='kw'>cols</span> <span class='kw'>=</span> <span class='fu'><a href='vars.html'>vars</a></span>(<span class='no'>cyl</span>)) +
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>df</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='img'><img src='facet_grid-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(displ = <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='kw'>mpg</span><span class='op'>$</span><span class='kw'>displ</span>), cty = <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='kw'>mpg</span><span class='op'>$</span><span class='kw'>cty</span>))
+<span class='kw'>p</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span>(cols = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/vars.html'>vars</a></span>(<span class='kw'>cyl</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(data = <span class='kw'>df</span>, colour = <span class='st'>"red"</span>, size = <span class='fl'>2</span>)</div><div class='img'><img src='facet_grid-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Free scales -------------------------------------------------------</span>
 <span class='co'># You can also choose whether the scales should be constant</span>
 <span class='co'># across all panels (the default), or whether they should be allowed</span>
 <span class='co'># to vary</span>
-<span class='no'>mt</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>cyl</span>))) +
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
+<span class='kw'>mt</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>, colour = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>))) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>()
 
-<span class='no'>mt</span> + <span class='fu'>facet_grid</span>(<span class='fu'><a href='vars.html'>vars</a></span>(<span class='no'>cyl</span>), <span class='kw'>scales</span> <span class='kw'>=</span> <span class='st'>"free"</span>)</div><div class='img'><img src='facet_grid-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>mt</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/vars.html'>vars</a></span>(<span class='kw'>cyl</span>), scales = <span class='st'>"free"</span>)</div><div class='img'><img src='facet_grid-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># If scales and space are free, then the mapping between position</span>
 <span class='co'># and values in the data will be the same across all panels. This</span>
 <span class='co'># is particularly useful for categorical axes</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>drv</span>, <span class='no'>model</span>)) +
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() +
-  <span class='fu'>facet_grid</span>(<span class='no'>manufacturer</span> ~ <span class='no'>.</span>, <span class='kw'>scales</span> <span class='kw'>=</span> <span class='st'>"free"</span>, <span class='kw'>space</span> <span class='kw'>=</span> <span class='st'>"free"</span>) +
-  <span class='fu'><a href='theme.html'>theme</a></span>(<span class='kw'>strip.text.y</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_text</a></span>(<span class='kw'>angle</span> <span class='kw'>=</span> <span class='fl'>0</span>))</div><div class='img'><img src='facet_grid-6.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>drv</span>, <span class='kw'>model</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span>(<span class='kw'>manufacturer</span> <span class='op'>~</span> <span class='kw'>.</span>, scales = <span class='st'>"free"</span>, space = <span class='st'>"free"</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span>(strip.text.y = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span>(angle = <span class='fl'>0</span>))</div><div class='img'><img src='facet_grid-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Margins ----------------------------------------------------------</span>
 <span class='co'># \donttest{</span>
 <span class='co'># Margins can be specified logically (all yes or all no) or for specific</span>
 <span class='co'># variables as (character) variable names</span>
-<span class='no'>mg</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>mpg</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>wt</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
-<span class='no'>mg</span> + <span class='fu'>facet_grid</span>(<span class='no'>vs</span> + <span class='no'>am</span> ~ <span class='no'>gear</span>, <span class='kw'>margins</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='facet_grid-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>mg</span> + <span class='fu'>facet_grid</span>(<span class='no'>vs</span> + <span class='no'>am</span> ~ <span class='no'>gear</span>, <span class='kw'>margins</span> <span class='kw'>=</span> <span class='st'>"am"</span>)</div><div class='img'><img src='facet_grid-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># when margins are made over "vs", since the facets for "am" vary</span>
+<span class='kw'>mg</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(x = <span class='kw'>mpg</span>, y = <span class='kw'>wt</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>()
+<span class='kw'>mg</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span>(<span class='kw'>vs</span> <span class='op'>+</span> <span class='kw'>am</span> <span class='op'>~</span> <span class='kw'>gear</span>, margins = <span class='fl'>TRUE</span>)</div><div class='img'><img src='facet_grid-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>mg</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span>(<span class='kw'>vs</span> <span class='op'>+</span> <span class='kw'>am</span> <span class='op'>~</span> <span class='kw'>gear</span>, margins = <span class='st'>"am"</span>)</div><div class='img'><img src='facet_grid-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># when margins are made over "vs", since the facets for "am" vary</span>
 <span class='co'># within the values of "vs", the marginal facet for "vs" is also</span>
 <span class='co'># a margin over "am".</span>
-<span class='no'>mg</span> + <span class='fu'>facet_grid</span>(<span class='no'>vs</span> + <span class='no'>am</span> ~ <span class='no'>gear</span>, <span class='kw'>margins</span> <span class='kw'>=</span> <span class='st'>"vs"</span>)</div><div class='img'><img src='facet_grid-9.png' alt='' width='700' height='433' /></div><div class='input'># }
-</div></pre>
+<span class='kw'>mg</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span>(<span class='kw'>vs</span> <span class='op'>+</span> <span class='kw'>am</span> <span class='op'>~</span> <span class='kw'>gear</span>, margins = <span class='st'>"vs"</span>)</div><div class='img'><img src='facet_grid-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -352,7 +367,7 @@ and <code>cols</code> instead.</p></td>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, Dewey Dunnington.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -361,6 +376,23 @@ and <code>cols</code> instead.</p></td>
    </div>
 
   
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: 'e1261f3df95d2d4704c626ff11a4b536',
+    indexName: 'tidyverse_ggplot2',
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
+  });
+</script>
+
 
 
   </body>

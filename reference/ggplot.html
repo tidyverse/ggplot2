@@ -43,6 +43,16 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+<!--optional theme-->
+<link href="../.css" rel="stylesheet">
+
+
+
+<!-- docsearch -->
+<script src="../docsearch.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
+<link href="../docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
 <meta property="og:title" content="Create a new ggplot — ggplot" />
@@ -92,9 +102,9 @@ subsequent layers unless specifically overridden." />
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">ggplot2</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.2</span>
         </div>
       </div>
     </div>
@@ -110,7 +120,7 @@ subsequent layers unless specifically overridden." />
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Release notes</li>
+    <li class="dropdown-header">Releases</li>
     <li>
       <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
     </li>
@@ -137,7 +147,7 @@ subsequent layers unless specifically overridden." />
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../news/index.html">Change log</a>
+      <a href="../news/index.html">Changelog</a>
     </li>
   </ul>
 </li>
@@ -163,7 +173,7 @@ subsequent layers unless specifically overridden." />
   </ul>
 </li>
         <li>
-  <a href="https://exts.ggplot2.tidyverse.org/">Extensions</a>
+  <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2/">
@@ -172,6 +182,12 @@ subsequent layers unless specifically overridden." />
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
       
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -190,13 +206,13 @@ subsequent layers unless specifically overridden." />
     </div>
 
     <div class="ref-description">
-    <p><code>ggplot()</code> initializes a ggplot object. It can be used to
+    <p><code><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot()</a></code> initializes a ggplot object. It can be used to
 declare the input data frame for a graphic and to specify the
 set of plot aesthetics intended to be common throughout all
 subsequent layers unless specifically overridden.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ggplot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='fu'><a href='aes.html'>aes</a></span>(), <span class='no'>...</span>, <span class='kw'>environment</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>())</pre>
+    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(data = <span class='kw'>NULL</span>, mapping = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(), <span class='kw'>...</span>, environment = <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>())</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -204,7 +220,7 @@ subsequent layers unless specifically overridden.</p>
     <tr>
       <th>data</th>
       <td><p>Default dataset to use for plot. If not already a data.frame,
-will be converted to one by <code><a href='fortify.html'>fortify()</a></code>. If not specified,
+will be converted to one by <code><a href='https://ggplot2.tidyverse.org/reference/fortify.html'>fortify()</a></code>. If not specified,
 must be supplied in each layer added to the plot.</p></td>
     </tr>
     <tr>
@@ -224,12 +240,12 @@ If not specified, must be supplied in each layer added to the plot.</p></td>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>ggplot()</code> is used to construct the initial plot object,
-and is almost always followed by <code>+</code> to add component to the
+    <p><code><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot()</a></code> is used to construct the initial plot object,
+and is almost always followed by <code><a href='https://rdrr.io/r/base/Arithmetic.html'>+</a></code> to add component to the
 plot. There are three common ways to invoke <code>ggplot</code>:</p><ul>
 <li><p><code>ggplot(df, aes(x, y, other aesthetics))</code></p></li>
-<li><p><code>ggplot(df)</code></p></li>
-<li><p><code>ggplot()</code></p></li>
+<li><p><code><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot(df)</a></code></p></li>
+<li><p><code><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot()</a></code></p></li>
 </ul>
 
 <p>The first method is recommended if all layers use the same
@@ -248,37 +264,37 @@ is often the case in complex graphics.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Generate some sample data, then compute mean and standard deviation</span>
 <span class='co'># in each group</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  <span class='kw'>gp</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>], <span class='kw'>each</span> <span class='kw'>=</span> <span class='fl'>10</span>)),
-  <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>30</span>)
+<span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
+  gp = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='kw'>letters</span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>], each = <span class='fl'>10</span>)),
+  y = <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>30</span>)
 )
-<span class='no'>ds</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span>(<span class='no'>rbind</span>, <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/split.html'>split</a></span>(<span class='no'>df</span>, <span class='no'>df</span>$<span class='no'>gp</span>), <span class='kw'>function</span>(<span class='no'>d</span>) {
-  <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>mean</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>d</span>$<span class='no'>y</span>), <span class='kw'>sd</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/sd.html'>sd</a></span>(<span class='no'>d</span>$<span class='no'>y</span>), <span class='kw'>gp</span> <span class='kw'>=</span> <span class='no'>d</span>$<span class='no'>gp</span>)
+<span class='kw'>ds</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span>(<span class='kw'>rbind</span>, <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/split.html'>split</a></span>(<span class='kw'>df</span>, <span class='kw'>df</span><span class='op'>$</span><span class='kw'>gp</span>), <span class='fu'>function</span>(<span class='kw'>d</span>) {
+  <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(mean = <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='kw'>d</span><span class='op'>$</span><span class='kw'>y</span>), sd = <span class='fu'><a href='https://rdrr.io/r/stats/sd.html'>sd</a></span>(<span class='kw'>d</span><span class='op'>$</span><span class='kw'>y</span>), gp = <span class='kw'>d</span><span class='op'>$</span><span class='kw'>gp</span>)
 }))
 
 <span class='co'># The summary data frame ds is used to plot larger red points on top</span>
 <span class='co'># of the raw data. Note that we don't need to supply `data` or `mapping`</span>
 <span class='co'># in each layer because the defaults from ggplot() are used.</span>
-<span class='fu'>ggplot</span>(<span class='no'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>gp</span>, <span class='no'>y</span>)) +
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() +
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>mean</span>), <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>'red'</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='img'><img src='ggplot-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>gp</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(data = <span class='kw'>ds</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(y = <span class='kw'>mean</span>), colour = <span class='st'>'red'</span>, size = <span class='fl'>3</span>)</div><div class='img'><img src='ggplot-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Same plot as above, declaring only the data frame in ggplot().</span>
 <span class='co'># Note how the x and y aesthetics must now be declared in</span>
 <span class='co'># each geom_point() layer.</span>
-<span class='fu'>ggplot</span>(<span class='no'>df</span>) +
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>gp</span>, <span class='no'>y</span>)) +
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>gp</span>, <span class='no'>mean</span>), <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>'red'</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='img'><img src='ggplot-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>gp</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(data = <span class='kw'>ds</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>gp</span>, <span class='kw'>mean</span>), colour = <span class='st'>'red'</span>, size = <span class='fl'>3</span>)</div><div class='img'><img src='ggplot-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Alternatively we can fully specify the plot in each layer. This</span>
 <span class='co'># is not useful here, but can be more clear when working with complex</span>
 <span class='co'># mult-dataset graphics</span>
-<span class='fu'>ggplot</span>() +
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>gp</span>, <span class='no'>y</span>)) +
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>gp</span>, <span class='no'>mean</span>), <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>'red'</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>3</span>) +
-  <span class='fu'><a href='geom_linerange.html'>geom_errorbar</a></span>(
-    <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ds</span>,
-    <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>gp</span>, <span class='no'>mean</span>, <span class='kw'>ymin</span> <span class='kw'>=</span> <span class='no'>mean</span> - <span class='no'>sd</span>, <span class='kw'>ymax</span> <span class='kw'>=</span> <span class='no'>mean</span> + <span class='no'>sd</span>),
-    <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>'red'</span>,
-    <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.4</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>() <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(data = <span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>gp</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(data = <span class='kw'>ds</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>gp</span>, <span class='kw'>mean</span>), colour = <span class='st'>'red'</span>, size = <span class='fl'>3</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_linerange.html'>geom_errorbar</a></span>(
+    data = <span class='kw'>ds</span>,
+    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>gp</span>, <span class='kw'>mean</span>, ymin = <span class='kw'>mean</span> <span class='op'>-</span> <span class='kw'>sd</span>, ymax = <span class='kw'>mean</span> <span class='op'>+</span> <span class='kw'>sd</span>),
+    colour = <span class='st'>'red'</span>,
+    width = <span class='fl'>0.4</span>
   )</div><div class='img'><img src='ggplot-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -296,7 +312,7 @@ is often the case in complex graphics.</p>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, Dewey Dunnington.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -305,6 +321,23 @@ is often the case in complex graphics.</p>
    </div>
 
   
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: 'e1261f3df95d2d4704c626ff11a4b536',
+    indexName: 'tidyverse_ggplot2',
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
+  });
+</script>
+
 
 
   </body>

@@ -43,11 +43,24 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+<!--optional theme-->
+<link href="../.css" rel="stylesheet">
+
+
+
+<!-- docsearch -->
+<script src="../docsearch.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
+<link href="../docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
 <meta property="og:title" content="Text — geom_label" />
-<meta property="og:description" content="geom_text() adds text directly to the plot. geom_label() draws
-a rectangle behind the text, making it easier to read." />
+<meta property="og:description" content="Text geoms are useful for labeling plots. They can be used by themselves as
+scatterplots or in cobination with other geoms, for example, for labeling
+points or for annotating the height of bars. geom_text() adds only text
+to the plot. geom_label() draws a rectangle behind the text, making it
+easier to read." />
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -90,9 +103,9 @@ a rectangle behind the text, making it easier to read." />
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">ggplot2</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.2</span>
         </div>
       </div>
     </div>
@@ -108,7 +121,7 @@ a rectangle behind the text, making it easier to read." />
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Release notes</li>
+    <li class="dropdown-header">Releases</li>
     <li>
       <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
     </li>
@@ -135,7 +148,7 @@ a rectangle behind the text, making it easier to read." />
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../news/index.html">Change log</a>
+      <a href="../news/index.html">Changelog</a>
     </li>
   </ul>
 </li>
@@ -161,7 +174,7 @@ a rectangle behind the text, making it easier to read." />
   </ul>
 </li>
         <li>
-  <a href="https://exts.ggplot2.tidyverse.org/">Extensions</a>
+  <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2/">
@@ -170,6 +183,12 @@ a rectangle behind the text, making it easier to read." />
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
       
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -188,40 +207,43 @@ a rectangle behind the text, making it easier to read." />
     </div>
 
     <div class="ref-description">
-    <p><code>geom_text()</code> adds text directly to the plot. <code>geom_label()</code> draws
-a rectangle behind the text, making it easier to read.</p>
+    <p>Text geoms are useful for labeling plots. They can be used by themselves as
+scatterplots or in cobination with other geoms, for example, for labeling
+points or for annotating the height of bars. <code><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_text()</a></code> adds only text
+to the plot. <code><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_label()</a></code> draws a rectangle behind the text, making it
+easier to read.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>geom_label</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>parse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>nudge_x</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>nudge_y</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>label.padding</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>0.25</span>, <span class='st'>"lines"</span>),
-  <span class='kw'>label.r</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>0.15</span>, <span class='st'>"lines"</span>),
-  <span class='kw'>label.size</span> <span class='kw'>=</span> <span class='fl'>0.25</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_label</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  stat = <span class='st'>"identity"</span>,
+  position = <span class='st'>"identity"</span>,
+  <span class='kw'>...</span>,
+  parse = <span class='fl'>FALSE</span>,
+  nudge_x = <span class='fl'>0</span>,
+  nudge_y = <span class='fl'>0</span>,
+  label.padding = <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>0.25</span>, <span class='st'>"lines"</span>),
+  label.r = <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>0.15</span>, <span class='st'>"lines"</span>),
+  label.size = <span class='fl'>0.25</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>
 )
 
-<span class='fu'>geom_text</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>parse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>nudge_x</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>nudge_y</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>check_overlap</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_text</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  stat = <span class='st'>"identity"</span>,
+  position = <span class='st'>"identity"</span>,
+  <span class='kw'>...</span>,
+  parse = <span class='fl'>FALSE</span>,
+  nudge_x = <span class='fl'>0</span>,
+  nudge_y = <span class='fl'>0</span>,
+  check_overlap = <span class='fl'>FALSE</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -229,8 +251,8 @@ a rectangle behind the text, making it easier to read.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>mapping</th>
-      <td><p>Set of aesthetic mappings created by <code><a href='aes.html'>aes()</a></code> or
-<code><a href='aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
+      <td><p>Set of aesthetic mappings created by <code><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes()</a></code> or
+<code><a href='https://ggplot2.tidyverse.org/reference/aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
     </tr>
@@ -239,10 +261,10 @@ plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
       <td><p>The data to be displayed in this layer. There are three
 options:</p>
 <p>If <code>NULL</code>, the default, the data is inherited from the plot
-data as specified in the call to <code><a href='ggplot.html'>ggplot()</a></code>.</p>
+data as specified in the call to <code><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot()</a></code>.</p>
 <p>A <code>data.frame</code>, or other object, will override the plot
 data. All objects will be fortified to produce a data frame. See
-<code><a href='fortify.html'>fortify()</a></code> for which variables will be created.</p>
+<code><a href='https://ggplot2.tidyverse.org/reference/fortify.html'>fortify()</a></code> for which variables will be created.</p>
 <p>A <code>function</code> will be called with a single argument,
 the plot data. The return value must be a <code>data.frame</code>, and
 will be used as the layer data. A <code>function</code> can be created
@@ -256,11 +278,12 @@ layer, as a string.</p></td>
     <tr>
       <th>position</th>
       <td><p>Position adjustment, either as a string, or the result of
-a call to a position adjustment function.</p></td>
+a call to a position adjustment function. Cannot be jointy specified with
+<code>nudge_x</code> or <code>nudge_y</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Other arguments passed on to <code><a href='layer.html'>layer()</a></code>. These are
+      <td><p>Other arguments passed on to <code><a href='https://ggplot2.tidyverse.org/reference/layer.html'>layer()</a></code>. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 <code>colour = "red"</code> or <code>size = 3</code>. They may also be parameters
 to the paired geom/stat.</p></td>
@@ -273,7 +296,8 @@ displayed as described in <code><a href='https://rdrr.io/r/grDevices/plotmath.ht
     <tr>
       <th>nudge_x, nudge_y</th>
       <td><p>Horizontal and vertical adjustment to nudge labels by.
-Useful for offsetting text from points, particularly on discrete scales.</p></td>
+Useful for offsetting text from points, particularly on discrete scales.
+Cannot be jointly specified with <code>position</code>.</p></td>
     </tr>
     <tr>
       <th>label.padding</th>
@@ -305,33 +329,38 @@ display.</p></td>
       <td><p>If <code>FALSE</code>, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. <code><a href='borders.html'>borders()</a></code>.</p></td>
+the default plot specification, e.g. <code><a href='https://ggplot2.tidyverse.org/reference/borders.html'>borders()</a></code>.</p></td>
     </tr>
     <tr>
       <th>check_overlap</th>
       <td><p>If <code>TRUE</code>, text that overlaps previous text in the
-same layer will not be plotted.</p></td>
+same layer will not be plotted. <code>check_overlap</code> happens at draw time and in
+the order of the data. Therefore data should be arranged by the label
+column before calling <code><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_label()</a></code> or <code><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_text()</a></code>.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Note that the "width" and "height" of a text element are 0, so stacking
-and dodging text will not work by default, and axis limits are not
-automatically expanded to include all text. Obviously, labels do have
-height and width, but they are physical units, not data units. The amount of
-space they occupy on the plot is not constant in data units: when you
-resize a plot, labels stay the same size, but the size of the axes changes.</p>
-<p><code>geom_text()</code> and <code>geom_label()</code> add labels for each row in the
+    <p>Note that when you resize a plot, text labels stay the same size, even
+though the size of the plot area changes. This happens because the "width"
+and "height" of a text element are 0. Obviously, text labels do have height
+and width, but they are physical units, not data units. For the same reason,
+stacking and dodging text will not work by default, and axis limits are not
+automatically expanded to include all text.</p>
+<p><code><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_text()</a></code> and <code><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_label()</a></code> add labels for each row in the
 data, even if coordinates x, y are set to single values in the call
-to <code>geom_label()</code> or <code>geom_text()</code>.
-To add labels at specified points use <code><a href='annotate.html'>annotate()</a></code> with
-<code><a href='annotate.html'>annotate(geom = "text", ...)</a></code> or <code><a href='annotate.html'>annotate(geom = "label", ...)</a></code>.</p>
+to <code><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_label()</a></code> or <code><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_text()</a></code>.
+To add labels at specified points use <code><a href='https://ggplot2.tidyverse.org/reference/annotate.html'>annotate()</a></code> with
+<code><a href='https://ggplot2.tidyverse.org/reference/annotate.html'>annotate(geom = "text", ...)</a></code> or <code><a href='https://ggplot2.tidyverse.org/reference/annotate.html'>annotate(geom = "label", ...)</a></code>.</p>
+<p>To automatically position non-overlapping text labels see the
+<a href='https://cran.r-project.org/package=ggrepel'>ggrepel</a>
+package.</p>
     <h2 class="hasAnchor" id="aesthetics"><a class="anchor" href="#aesthetics"></a>Aesthetics</h2>
 
     
 
-<p><code>geom_text()</code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
+<p><code><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_text()</a></code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
 <li><p><strong><code>x</code></strong></p></li>
 <li><p><strong><code>y</code></strong></p></li>
 <li><p><strong><code>label</code></strong></p></li>
@@ -345,13 +374,13 @@ To add labels at specified points use <code><a href='annotate.html'>annotate()</
 <li><p><code>lineheight</code></p></li>
 <li><p><code>size</code></p></li>
 <li><p><code>vjust</code></p></li>
-</ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
-    <h2 class="hasAnchor" id="geom-label-"><a class="anchor" href="#geom-label-"></a><code>geom_label()</code></h2>
+</ul><p>Learn more about setting these aesthetics in <code>vignette("ggplot2-specs")</code>.</p>
+    <h2 class="hasAnchor" id="geom-label-"><a class="anchor" href="#geom-label-"></a><code><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_label()</a></code></h2>
 
     
 
-<p>Currently <code>geom_label()</code> does not support the <code>angle</code> aesthetic and
-is considerably slower than <code>geom_text()</code>. The <code>fill</code> aesthetic
+<p>Currently <code><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_label()</a></code> does not support the <code>angle</code> aesthetic and
+is considerably slower than <code><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_text()</a></code>. The <code>fill</code> aesthetic
 controls the background colour of the label.</p>
     <h2 class="hasAnchor" id="alignment"><a class="anchor" href="#alignment"></a>Alignment</h2>
 
@@ -365,70 +394,69 @@ aesthetics. These can either be a number between 0 (right/bottom) and
 aligns it away from the center.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>wt</span>, <span class='no'>mpg</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='no'>mtcars</span>)))
+    <pre class="examples"><div class='input'><span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>wt</span>, <span class='kw'>mpg</span>, label = <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='kw'>mtcars</span>)))
 
-<span class='no'>p</span> + <span class='fu'>geom_text</span>()</div><div class='img'><img src='geom_text-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Avoid overlaps</span>
-<span class='no'>p</span> + <span class='fu'>geom_text</span>(<span class='kw'>check_overlap</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='geom_text-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Labels with background</span>
-<span class='no'>p</span> + <span class='fu'>geom_label</span>()</div><div class='img'><img src='geom_text-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Change size of the label</span>
-<span class='no'>p</span> + <span class='fu'>geom_text</span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='img'><img src='geom_text-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_text</a></span>()</div><div class='img'><img src='geom_text-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Avoid overlaps</span>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_text</a></span>(check_overlap = <span class='fl'>TRUE</span>)</div><div class='img'><img src='geom_text-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Labels with background</span>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_label</a></span>()</div><div class='img'><img src='geom_text-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Change size of the label</span>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_text</a></span>(size = <span class='fl'>10</span>)</div><div class='img'><img src='geom_text-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Set aesthetics to fixed value</span>
-<span class='no'>p</span> + <span class='fu'><a href='geom_point.html'>geom_point</a></span>() + <span class='fu'>geom_text</span>(<span class='kw'>hjust</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>nudge_x</span> <span class='kw'>=</span> <span class='fl'>0.05</span>)</div><div class='img'><img src='geom_text-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'><a href='geom_point.html'>geom_point</a></span>() + <span class='fu'>geom_text</span>(<span class='kw'>vjust</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>nudge_y</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)</div><div class='img'><img src='geom_text-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'><a href='geom_point.html'>geom_point</a></span>() + <span class='fu'>geom_text</span>(<span class='kw'>angle</span> <span class='kw'>=</span> <span class='fl'>45</span>)</div><div class='img'><img src='geom_text-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_text</a></span>(hjust = <span class='fl'>0</span>, nudge_x = <span class='fl'>0.05</span>)</div><div class='img'><img src='geom_text-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_text</a></span>(vjust = <span class='fl'>0</span>, nudge_y = <span class='fl'>0.5</span>)</div><div class='img'><img src='geom_text-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_text</a></span>(angle = <span class='fl'>45</span>)</div><div class='img'><img src='geom_text-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='co'># Doesn't work on all systems</span>
-<span class='no'>p</span> + <span class='fu'>geom_text</span>(<span class='kw'>family</span> <span class='kw'>=</span> <span class='st'>"Times New Roman"</span>)
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_text</a></span>(family = <span class='st'>"Times New Roman"</span>)
 }
 
 <span class='co'># Add aesthetic mappings</span>
-<span class='no'>p</span> + <span class='fu'>geom_text</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>cyl</span>)))</div><div class='img'><img src='geom_text-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>geom_text</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>cyl</span>))) +
-  <span class='fu'><a href='scale_hue.html'>scale_colour_discrete</a></span>(<span class='kw'>l</span> <span class='kw'>=</span> <span class='fl'>40</span>)</div><div class='img'><img src='geom_text-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>geom_label</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>cyl</span>)), <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"white"</span>, <span class='kw'>fontface</span> <span class='kw'>=</span> <span class='st'>"bold"</span>)</div><div class='img'><img src='geom_text-10.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='no'>p</span> + <span class='fu'>geom_text</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='no'>wt</span>))</div><div class='img'><img src='geom_text-11.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Scale height of text, rather than sqrt(height)</span>
-<span class='no'>p</span> + <span class='fu'>geom_text</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='no'>wt</span>)) + <span class='fu'><a href='scale_size.html'>scale_radius</a></span>(<span class='kw'>range</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>6</span>))</div><div class='img'><img src='geom_text-12.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_text</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(colour = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>)))</div><div class='img'><img src='geom_text-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_text</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(colour = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>))) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_colour_discrete.html'>scale_colour_discrete</a></span>(l = <span class='fl'>40</span>)</div><div class='img'><img src='geom_text-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_label</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(fill = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>)), colour = <span class='st'>"white"</span>, fontface = <span class='st'>"bold"</span>)</div><div class='img'><img src='geom_text-10.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_text</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(size = <span class='kw'>wt</span>))</div><div class='img'><img src='geom_text-11.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Scale height of text, rather than sqrt(height)</span>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_text</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(size = <span class='kw'>wt</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_size.html'>scale_radius</a></span>(range = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>6</span>))</div><div class='img'><img src='geom_text-12.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can display expressions by setting parse = TRUE.  The</span>
 <span class='co'># details of the display are described in ?plotmath, but note that</span>
 <span class='co'># geom_text uses strings, not expressions.</span>
-<span class='no'>p</span> + <span class='fu'>geom_text</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>label</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='no'>wt</span>, <span class='st'>"^("</span>, <span class='no'>cyl</span>, <span class='st'>")"</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>""</span>)),
-  <span class='kw'>parse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='geom_text-13.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_text</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(label = <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='kw'>wt</span>, <span class='st'>"^("</span>, <span class='kw'>cyl</span>, <span class='st'>")"</span>, sep = <span class='st'>""</span>)),
+  parse = <span class='fl'>TRUE</span>)</div><div class='img'><img src='geom_text-13.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Add a text annotation</span>
-<span class='no'>p</span> +
-  <span class='fu'>geom_text</span>() +
-  <span class='fu'><a href='annotate.html'>annotate</a></span>(<span class='st'>"text"</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='st'>"plot mpg vs. wt"</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>15</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>8</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"red"</span>)</div><div class='img'><img src='geom_text-14.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_text</a></span>() <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotate.html'>annotate</a></span>(<span class='st'>"text"</span>, label = <span class='st'>"plot mpg vs. wt"</span>, x = <span class='fl'>2</span>, y = <span class='fl'>15</span>, size = <span class='fl'>8</span>, colour = <span class='st'>"red"</span>)</div><div class='img'><img src='geom_text-14.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># \donttest{</span>
 <span class='co'># Aligning labels and bars --------------------------------------------------</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>)),
-  <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>3</span>, <span class='fl'>2</span>, <span class='fl'>1</span>),
-  <span class='kw'>grp</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"a"</span>, <span class='st'>"b"</span>)
+<span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
+  x = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>)),
+  y = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>3</span>, <span class='fl'>2</span>, <span class='fl'>1</span>),
+  grp = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"a"</span>, <span class='st'>"b"</span>)
 )
 
 <span class='co'># ggplot2 doesn't know you want to give the labels the same virtual width</span>
 <span class='co'># as the bars:</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>grp</span>)) +
-  <span class='fu'><a href='geom_bar.html'>geom_col</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>grp</span>), <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"dodge"</span>) +
-  <span class='fu'>geom_text</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>label</span> <span class='kw'>=</span> <span class='no'>y</span>), <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"dodge"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Width not defined. Set with `position_dodge(width = ?)`</span></div><div class='img'><img src='geom_text-15.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># So tell it:</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>grp</span>)) +
-  <span class='fu'><a href='geom_bar.html'>geom_col</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>grp</span>), <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"dodge"</span>) +
-  <span class='fu'>geom_text</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>label</span> <span class='kw'>=</span> <span class='no'>y</span>), <span class='kw'>position</span> <span class='kw'>=</span> <span class='fu'><a href='position_dodge.html'>position_dodge</a></span>(<span class='fl'>0.9</span>))</div><div class='img'><img src='geom_text-16.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Use you can't nudge and dodge text, so instead adjust the y position</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>grp</span>)) +
-  <span class='fu'><a href='geom_bar.html'>geom_col</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>grp</span>), <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"dodge"</span>) +
-  <span class='fu'>geom_text</span>(
-    <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>label</span> <span class='kw'>=</span> <span class='no'>y</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span> + <span class='fl'>0.05</span>),
-    <span class='kw'>position</span> <span class='kw'>=</span> <span class='fu'><a href='position_dodge.html'>position_dodge</a></span>(<span class='fl'>0.9</span>),
-    <span class='kw'>vjust</span> <span class='kw'>=</span> <span class='fl'>0</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(data = <span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>, group = <span class='kw'>grp</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_col</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(fill = <span class='kw'>grp</span>), position = <span class='st'>"dodge"</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_text</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(label = <span class='kw'>y</span>), position = <span class='st'>"dodge"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Width not defined. Set with `position_dodge(width = ?)`</span></div><div class='img'><img src='geom_text-15.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># So tell it:</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(data = <span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>, group = <span class='kw'>grp</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_col</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(fill = <span class='kw'>grp</span>), position = <span class='st'>"dodge"</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_text</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(label = <span class='kw'>y</span>), position = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/position_dodge.html'>position_dodge</a></span>(<span class='fl'>0.9</span>))</div><div class='img'><img src='geom_text-16.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Use you can't nudge and dodge text, so instead adjust the y position</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(data = <span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>, group = <span class='kw'>grp</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_col</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(fill = <span class='kw'>grp</span>), position = <span class='st'>"dodge"</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_text</a></span>(
+    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(label = <span class='kw'>y</span>, y = <span class='kw'>y</span> <span class='op'>+</span> <span class='fl'>0.05</span>),
+    position = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/position_dodge.html'>position_dodge</a></span>(<span class='fl'>0.9</span>),
+    vjust = <span class='fl'>0</span>
   )</div><div class='img'><img src='geom_text-17.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># To place text in the middle of each bar in a stacked barplot, you</span>
 <span class='co'># need to set the vjust parameter of position_stack()</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>grp</span>)) +
- <span class='fu'><a href='geom_bar.html'>geom_col</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>grp</span>)) +
- <span class='fu'>geom_text</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>label</span> <span class='kw'>=</span> <span class='no'>y</span>), <span class='kw'>position</span> <span class='kw'>=</span> <span class='fu'><a href='position_stack.html'>position_stack</a></span>(<span class='kw'>vjust</span> <span class='kw'>=</span> <span class='fl'>0.5</span>))</div><div class='img'><img src='geom_text-18.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(data = <span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>, group = <span class='kw'>grp</span>)) <span class='op'>+</span>
+ <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_col</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(fill = <span class='kw'>grp</span>)) <span class='op'>+</span>
+ <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_text</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(label = <span class='kw'>y</span>), position = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/position_stack.html'>position_stack</a></span>(vjust = <span class='fl'>0.5</span>))</div><div class='img'><img src='geom_text-18.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Justification -------------------------------------------------------------</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>1.5</span>),
-  <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>1.5</span>),
-  <span class='kw'>text</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"bottom-left"</span>, <span class='st'>"bottom-right"</span>, <span class='st'>"top-left"</span>, <span class='st'>"top-right"</span>, <span class='st'>"center"</span>)
+<span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
+  x = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>1.5</span>),
+  y = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>1.5</span>),
+  text = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"bottom-left"</span>, <span class='st'>"bottom-right"</span>, <span class='st'>"top-left"</span>, <span class='st'>"top-right"</span>, <span class='st'>"center"</span>)
 )
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>x</span>, <span class='no'>y</span>)) +
-  <span class='fu'>geom_text</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>label</span> <span class='kw'>=</span> <span class='no'>text</span>))</div><div class='img'><img src='geom_text-19.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>x</span>, <span class='no'>y</span>)) +
-  <span class='fu'>geom_text</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>label</span> <span class='kw'>=</span> <span class='no'>text</span>), <span class='kw'>vjust</span> <span class='kw'>=</span> <span class='st'>"inward"</span>, <span class='kw'>hjust</span> <span class='kw'>=</span> <span class='st'>"inward"</span>)</div><div class='img'><img src='geom_text-20.png' alt='' width='700' height='433' /></div><div class='input'># }
-</div></pre>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_text</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(label = <span class='kw'>text</span>))</div><div class='img'><img src='geom_text-19.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_text</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(label = <span class='kw'>text</span>), vjust = <span class='st'>"inward"</span>, hjust = <span class='st'>"inward"</span>)</div><div class='img'><img src='geom_text-20.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -445,7 +473,7 @@ aligns it away from the center.</p>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, Dewey Dunnington.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -454,6 +482,23 @@ aligns it away from the center.</p>
    </div>
 
   
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: 'e1261f3df95d2d4704c626ff11a4b536',
+    indexName: 'tidyverse_ggplot2',
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
+  });
+</script>
+
 
 
   </body>

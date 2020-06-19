@@ -18,7 +18,10 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><link href="tidyverse-2.css" rel="stylesheet">
-<meta property="og:title" content="Create Elegant Data Visualisations Using the Grammar of Graphics">
+<!--optional theme--><link href=".css" rel="stylesheet">
+<!-- docsearch --><script src="docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
+<link href="docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="Create Elegant Data Visualisations Using the Grammar of Graphics">
 <meta property="og:description" content='A system for declaratively creating graphics,
     based on "The Grammar of Graphics". You provide the data, tell ggplot2
     how to map variables to aesthetics, what graphical primitives to use,
@@ -50,9 +53,9 @@
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="index.html">ggplot2</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.2</span>
         </div>
       </div>
     </div>
@@ -68,7 +71,7 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-<li class="dropdown-header">Release notes</li>
+<li class="dropdown-header">Releases</li>
     <li>
       <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
     </li>
@@ -95,7 +98,7 @@
     </li>
     <li class="divider">
     <li>
-      <a href="news/index.html">Change log</a>
+      <a href="news/index.html">Changelog</a>
     </li>
   </ul>
 </li>
@@ -121,7 +124,7 @@
   </ul>
 </li>
         <li>
-  <a href="https://exts.ggplot2.tidyverse.org/">Extensions</a>
+  <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2/">
@@ -130,7 +133,13 @@
   </a>
 </li>
       </ul>
+<form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
 </div>
+      </form>
+      
+    </div>
 <!--/.nav-collapse -->
   </div>
 <!--/.container -->
@@ -152,7 +161,8 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="co"># The easiest way to get ggplot2 is to install the whole tidyverse:</span>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="co"># The easiest way to get ggplot2 is to install the whole tidyverse:</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"tidyverse"</span>)
 
 <span class="co"># Alternatively, install just ggplot2:</span>
@@ -160,7 +170,8 @@
 
 <span class="co"># Or the development version from GitHub:</span>
 <span class="co"># install.packages("devtools")</span>
-<span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"tidyverse/ggplot2"</span>)</pre></div>
+<span class="kw">devtools</span>::<span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"tidyverse/ggplot2"</span>)
+</pre></div>
 </div>
 <div id="cheatsheet" class="section level2">
 <h2 class="hasAnchor">
@@ -170,11 +181,13 @@
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
-<p>It’s hard to succinctly describe how ggplot2 works because it embodies a deep philosophy of visualisation. However, in most cases you start with <code><a href="reference/ggplot.html">ggplot()</a></code>, supply a dataset and aesthetic mapping (with <code><a href="reference/aes.html">aes()</a></code>). You then add on layers (like <code><a href="reference/geom_point.html">geom_point()</a></code> or <code><a href="reference/geom_histogram.html">geom_histogram()</a></code>), scales (like <code><a href="reference/scale_brewer.html">scale_colour_brewer()</a></code>), faceting specifications (like <code><a href="reference/facet_wrap.html">facet_wrap()</a></code>) and coordinate systems (like <code><a href="reference/coord_flip.html">coord_flip()</a></code>).</p>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">ggplot2</span>)
+<p>It’s hard to succinctly describe how ggplot2 works because it embodies a deep philosophy of visualisation. However, in most cases you start with <code><a href="reference/ggplot.html">ggplot()</a></code>, supply a dataset and aesthetic mapping (with <code><a href="reference/aes.html">aes()</a></code>). You then add on layers (like <code><a href="reference/geom_point.html">geom_point()</a></code> or <code><a href="reference/geom_freqpoly.html">geom_histogram()</a></code>), scales (like <code><a href="reference/scale_colour_brewer.html">scale_colour_brewer()</a></code>), faceting specifications (like <code><a href="reference/facet_wrap.html">facet_wrap()</a></code>) and coordinate systems (like <code><a href="reference/coord_flip.html">coord_flip()</a></code>).</p>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span>)
 
-<span class="fu"><a href="reference/ggplot.html">ggplot</a></span>(<span class="no">mpg</span>, <span class="fu"><a href="reference/aes.html">aes</a></span>(<span class="no">displ</span>, <span class="no">hwy</span>, <span class="kw">colour</span> <span class="kw">=</span> <span class="no">class</span>)) +
-  <span class="fu"><a href="reference/geom_point.html">geom_point</a></span>()</pre></div>
+<span class="fu"><a href="reference/ggplot.html">ggplot</a></span>(<span class="kw">mpg</span>, <span class="fu"><a href="reference/aes.html">aes</a></span>(<span class="kw">displ</span>, <span class="kw">hwy</span>, colour = <span class="kw">class</span>)) <span class="op">+</span> 
+  <span class="fu"><a href="reference/geom_point.html">geom_point</a></span>()
+</pre></div>
 <p><img src="reference/figures/README-example-1.png"><!-- --></p>
 </div>
 <div id="lifecycle" class="section level2">
@@ -219,7 +232,7 @@
 </li>
 <li>Learn more at <br><a href="https://r4ds.had.co.nz/data-visualisation.html">https://​r4ds.had.co.nz/​data-visualisation.html</a>
 </li>
-<li>Extensions at <br><a href="https://exts.ggplot2.tidyverse.org/">https://​exts.ggplot2.tidyverse.org/​</a>
+<li>Extensions at <br><a href="https://exts.ggplot2.tidyverse.org/gallery/">https://​exts.ggplot2.tidyverse.org/​gallery/​</a>
 </li>
 </ul>
 </div>
@@ -247,24 +260,31 @@
 <h2>Developers</h2>
 <ul class="list-unstyled">
 <li>
-<a href="http://hadley.nz">Hadley Wickham</a> <br><small class="roles"> Author, maintainer </small>  </li>
-<li>Winston Chang <br><small class="roles"> Author </small>  </li>
-<li>Lionel Henry <br><small class="roles"> Author </small>  </li>
-<li>Thomas Lin Pedersen <br><small class="roles"> Author </small>  </li>
+<a href="http://hadley.nz">Hadley Wickham</a> <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-4757-117X" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>
+<a href="https://github.com/wch">Winston Chang</a> <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-1576-2126" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>
+<a href="https://github.com/lionel-">Lionel Henry</a> <br><small class="roles"> Author </small>  </li>
+<li>
+<a href="https://data-imaginist.com">Thomas Lin Pedersen</a> <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-5147-4711" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li>Kohske Takahashi <br><small class="roles"> Author </small>  </li>
-<li>Claus Wilke <br><small class="roles"> Author </small>  </li>
-<li>Kara Woo <br><small class="roles"> Author </small>  </li>
-<li>Hiroaki Yutani <br><small class="roles"> Author </small>  </li>
-<li>Dewey Dunnington <br><small class="roles"> Author </small>  </li>
-<li><a href="authors.html">All authors...</a></li>
+<li>
+<a href="https://clauswilke.com">Claus Wilke</a> <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-7470-9261" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>
+<a href="https://karawoo.com">Kara Woo</a> <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-5125-4188" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>
+<a href="https://yutani.rbind.io">Hiroaki Yutani</a> <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-3385-7233" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>
+<a href="https://fishandwhistle.net">Dewey Dunnington</a> <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-9415-4582" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>
+<a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a> <br><small class="roles"> Copyright holder, funder </small>  </li>
 </ul>
 </div>
 
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://travis-ci.org/tidyverse/ggplot2"><img src="https://travis-ci.org/tidyverse/ggplot2.svg?branch=master" alt="Travis Build Status"></a></li>
-<li><a href="https://ci.appveyor.com/project/tidyverse/ggplot2"><img src="https://ci.appveyor.com/api/projects/status/github/tidyverse/ggplot2?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a></li>
+<li><a href="https://github.com/tidyverse/ggplot2/actions"><img src="https://github.com/tidyverse/ggplot2/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
 <li><a href="https://codecov.io/github/tidyverse/ggplot2?branch=master"><img src="https://img.shields.io/codecov/c/github/tidyverse/ggplot2/master.svg" alt="Coverage Status"></a></li>
 <li><a href="https://cran.r-project.org/package=ggplot2"><img src="https://www.r-pkg.org/badges/version/ggplot2" alt="CRAN_Status_Badge"></a></li>
 </ul>
@@ -279,7 +299,7 @@
 
 <div class="author">
   <p>
-    Developed by <a href="http://hadley.nz">Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, Dewey Dunnington.
+    Developed by <a href="http://hadley.nz">Hadley Wickham</a>, <a href="https://github.com/wch">Winston Chang</a>, <a href="https://github.com/lionel-">Lionel Henry</a>, <a href="https://data-imaginist.com">Thomas Lin Pedersen</a>, Kohske Takahashi, <a href="https://clauswilke.com">Claus Wilke</a>, <a href="https://karawoo.com">Kara Woo</a>, <a href="https://yutani.rbind.io">Hiroaki Yutani</a>, <a href="https://fishandwhistle.net">Dewey Dunnington</a>, <a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -288,7 +308,20 @@
 </div>
 
   
-
-
-  </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script><script>
+  docsearch({
+    
+    
+    apiKey: 'e1261f3df95d2d4704c626ff11a4b536',
+    indexName: 'tidyverse_ggplot2',
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
+  });
+</script>
+</body>
 </html>

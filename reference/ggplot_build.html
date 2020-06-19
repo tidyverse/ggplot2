@@ -43,6 +43,16 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+<!--optional theme-->
+<link href="../.css" rel="stylesheet">
+
+
+
+<!-- docsearch -->
+<script src="../docsearch.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
+<link href="../docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
 <meta property="og:title" content="Build ggplot for rendering. — ggplot_build" />
@@ -92,9 +102,9 @@ contain all information about axis limits, breaks etc." />
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">ggplot2</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.2</span>
         </div>
       </div>
     </div>
@@ -110,7 +120,7 @@ contain all information about axis limits, breaks etc." />
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Release notes</li>
+    <li class="dropdown-header">Releases</li>
     <li>
       <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
     </li>
@@ -137,7 +147,7 @@ contain all information about axis limits, breaks etc." />
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../news/index.html">Change log</a>
+      <a href="../news/index.html">Changelog</a>
     </li>
   </ul>
 </li>
@@ -163,7 +173,7 @@ contain all information about axis limits, breaks etc." />
   </ul>
 </li>
         <li>
-  <a href="https://exts.ggplot2.tidyverse.org/">Extensions</a>
+  <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2/">
@@ -172,6 +182,12 @@ contain all information about axis limits, breaks etc." />
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
       
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -190,19 +206,19 @@ contain all information about axis limits, breaks etc." />
     </div>
 
     <div class="ref-description">
-    <p><code>ggplot_build()</code> takes the plot object, and performs all steps necessary
+    <p><code><a href='https://ggplot2.tidyverse.org/reference/ggplot_build.html'>ggplot_build()</a></code> takes the plot object, and performs all steps necessary
 to produce an object that can be rendered.  This function outputs two pieces:
 a list of data frames (one for each layer), and a panel object, which
 contain all information about axis limits, breaks etc.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ggplot_build</span>(<span class='no'>plot</span>)
+    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot_build.html'>ggplot_build</a></span>(<span class='kw'>plot</span>)
 
-<span class='fu'>layer_data</span>(<span class='no'>plot</span>, <span class='kw'>i</span> <span class='kw'>=</span> <span class='fl'>1L</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot_build.html'>layer_data</a></span>(<span class='kw'>plot</span>, i = <span class='fl'>1L</span>)
 
-<span class='fu'>layer_scales</span>(<span class='no'>plot</span>, <span class='kw'>i</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='fl'>1L</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot_build.html'>layer_scales</a></span>(<span class='kw'>plot</span>, i = <span class='fl'>1L</span>, j = <span class='fl'>1L</span>)
 
-<span class='fu'>layer_grob</span>(<span class='no'>plot</span>, <span class='kw'>i</span> <span class='kw'>=</span> <span class='fl'>1L</span>)</pre>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot_build.html'>layer_grob</a></span>(<span class='kw'>plot</span>, i = <span class='fl'>1L</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -213,25 +229,25 @@ contain all information about axis limits, breaks etc.</p>
     </tr>
     <tr>
       <th>i</th>
-      <td><p>An integer. In <code>layer_data()</code>, the data to return (in the order added to the
-plot). In <code>layer_grob()</code>, the grob to return (in the order added to the
-plot). In <code>layer_scales()</code>, the row of a facet to return scales for.</p></td>
+      <td><p>An integer. In <code><a href='https://ggplot2.tidyverse.org/reference/ggplot_build.html'>layer_data()</a></code>, the data to return (in the order added to the
+plot). In <code><a href='https://ggplot2.tidyverse.org/reference/ggplot_build.html'>layer_grob()</a></code>, the grob to return (in the order added to the
+plot). In <code><a href='https://ggplot2.tidyverse.org/reference/ggplot_build.html'>layer_scales()</a></code>, the row of a facet to return scales for.</p></td>
     </tr>
     <tr>
       <th>j</th>
-      <td><p>An integer. In <code>layer_scales()</code>, the column of a facet to return
+      <td><p>An integer. In <code><a href='https://ggplot2.tidyverse.org/reference/ggplot_build.html'>layer_scales()</a></code>, the column of a facet to return
 scales for.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>layer_data()</code>, <code>layer_grob()</code>, and <code>layer_scales()</code> are helper
+    <p><code><a href='https://ggplot2.tidyverse.org/reference/ggplot_build.html'>layer_data()</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/ggplot_build.html'>layer_grob()</a></code>, and <code><a href='https://ggplot2.tidyverse.org/reference/ggplot_build.html'>layer_scales()</a></code> are helper
 functions that return the data, grob, or scales associated with a given
 layer. These are useful for tests.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='print.ggplot.html'>print.ggplot()</a></code> and <code><a href='benchplot.html'>benchplot()</a></code> for
+    <div class='dont-index'><p><code><a href='https://ggplot2.tidyverse.org/reference/print.ggplot.html'>print.ggplot()</a></code> and <code><a href='https://ggplot2.tidyverse.org/reference/benchplot.html'>benchplot()</a></code> for
 functions that contain the complete set of steps for generating
 a ggplot2 plot.</p></div>
 
@@ -251,7 +267,7 @@ a ggplot2 plot.</p></div>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, Dewey Dunnington.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -260,6 +276,23 @@ a ggplot2 plot.</p></div>
    </div>
 
   
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: 'e1261f3df95d2d4704c626ff11a4b536',
+    indexName: 'tidyverse_ggplot2',
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
+  });
+</script>
+
 
 
   </body>

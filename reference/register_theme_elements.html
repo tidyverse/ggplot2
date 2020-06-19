@@ -43,6 +43,16 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+<!--optional theme-->
+<link href="../.css" rel="stylesheet">
+
+
+
+<!-- docsearch -->
+<script src="../docsearch.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
+<link href="../docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
 <meta property="og:title" content="Define and register new theme elements — register_theme_elements" />
@@ -92,9 +102,9 @@ element tree and provide default settings for newly defined theme elements." />
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">ggplot2</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.2</span>
         </div>
       </div>
     </div>
@@ -110,7 +120,7 @@ element tree and provide default settings for newly defined theme elements." />
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Release notes</li>
+    <li class="dropdown-header">Releases</li>
     <li>
       <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
     </li>
@@ -137,7 +147,7 @@ element tree and provide default settings for newly defined theme elements." />
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../news/index.html">Change log</a>
+      <a href="../news/index.html">Changelog</a>
     </li>
   </ul>
 </li>
@@ -163,7 +173,7 @@ element tree and provide default settings for newly defined theme elements." />
   </ul>
 </li>
         <li>
-  <a href="https://exts.ggplot2.tidyverse.org/">Extensions</a>
+  <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2/">
@@ -172,6 +182,12 @@ element tree and provide default settings for newly defined theme elements." />
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
       
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -196,13 +212,13 @@ a parent element. In some use cases, it may be necessary to modify or extend thi
 element tree and provide default settings for newly defined theme elements.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>register_theme_elements</span>(<span class='no'>...</span>, <span class='kw'>element_tree</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>complete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/register_theme_elements.html'>register_theme_elements</a></span>(<span class='kw'>...</span>, element_tree = <span class='kw'>NULL</span>, complete = <span class='fl'>TRUE</span>)
 
-<span class='fu'>reset_theme_settings</span>(<span class='kw'>reset_current</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/register_theme_elements.html'>reset_theme_settings</a></span>(reset_current = <span class='fl'>TRUE</span>)
 
-<span class='fu'>get_element_tree</span>()
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/register_theme_elements.html'>get_element_tree</a></span>()
 
-<span class='fu'>el_def</span>(<span class='kw'>class</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>inherit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>description</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/register_theme_elements.html'>el_def</a></span>(class = <span class='kw'>NULL</span>, inherit = <span class='kw'>NULL</span>, description = <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -232,7 +248,7 @@ reset to the default theme.</p></td>
 "element_text" or "unit", or one of the two reserved keywords "character" or
 "margin". The reserved keyword "character" implies a character
 or numeric vector, not a class called "character". The keyword
-"margin" implies a unit vector of length 4, as created by <code><a href='element.html'>margin()</a></code>.</p></td>
+"margin" implies a unit vector of length 4, as created by <code><a href='https://ggplot2.tidyverse.org/reference/element.html'>margin()</a></code>.</p></td>
     </tr>
     <tr>
       <th>inherit</th>
@@ -248,12 +264,12 @@ for the element.</p></td>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The function <code>register_theme_elements()</code> provides the option to globally register new
+    <p>The function <code><a href='https://ggplot2.tidyverse.org/reference/register_theme_elements.html'>register_theme_elements()</a></code> provides the option to globally register new
 theme elements with ggplot2. In general, for each new theme element both an element
 definition and a corresponding entry in the element tree should be provided. See
 examples for details. This function is meant primarily for developers of extension
 packages, who are strongly urged to adhere to the following best practices:</p><ol>
-<li><p>Call <code>register_theme_elements()</code> from the <code><a href='https://rdrr.io/r/base/ns-hooks.html'>.onLoad()</a></code> function of your package, so
+<li><p>Call <code><a href='https://ggplot2.tidyverse.org/reference/register_theme_elements.html'>register_theme_elements()</a></code> from the <code><a href='https://rdrr.io/r/base/ns-hooks.html'>.onLoad()</a></code> function of your package, so
 that the new theme elements are available to anybody using functions from your package,
 irrespective of whether the package has been attached (with <code>library()</code> or <code>require()</code>)
 or not.</p></li>
@@ -263,41 +279,41 @@ name clashes with other extension packages. For example, if you are working on a
 in the Examples below), name the new element <code>ggxyz.panel.annotation</code>.</p></li>
 </ol>
 
-<p>The function <code>reset_theme_settings()</code> restores the default element tree, discards
+<p>The function <code><a href='https://ggplot2.tidyverse.org/reference/register_theme_elements.html'>reset_theme_settings()</a></code> restores the default element tree, discards
 all new element definitions, and (unless turned off) resets the currently active
 theme to the default.</p>
-<p>The function <code>get_element_tree()</code> returns the currently active element tree.</p>
-<p>The function <code>el_def()</code> is used to define new or modified element types and
+<p>The function <code><a href='https://ggplot2.tidyverse.org/reference/register_theme_elements.html'>get_element_tree()</a></code> returns the currently active element tree.</p>
+<p>The function <code><a href='https://ggplot2.tidyverse.org/reference/register_theme_elements.html'>el_def()</a></code> is used to define new or modified element types and
 element inheritance relationships for the element tree.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Let's assume a package `ggxyz` wants to provide an easy way to add annotations to</span>
 <span class='co'># plot panels. To do so, it registers a new theme element `ggxyz.panel.annotation`</span>
-<span class='fu'>register_theme_elements</span>(
-  <span class='kw'>ggxyz.panel.annotation</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_text</a></span>(<span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"blue"</span>, <span class='kw'>hjust</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>vjust</span> <span class='kw'>=</span> <span class='fl'>0.05</span>),
-  <span class='kw'>element_tree</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>ggxyz.panel.annotation</span> <span class='kw'>=</span> <span class='fu'>el_def</span>(<span class='st'>"element_text"</span>, <span class='st'>"text"</span>))
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/register_theme_elements.html'>register_theme_elements</a></span>(
+  ggxyz.panel.annotation = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span>(color = <span class='st'>"blue"</span>, hjust = <span class='fl'>0.95</span>, vjust = <span class='fl'>0.05</span>),
+  element_tree = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(ggxyz.panel.annotation = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/register_theme_elements.html'>el_def</a></span>(<span class='st'>"element_text"</span>, <span class='st'>"text"</span>))
 )
 
 <span class='co'># Now the package can define a new coord that includes a panel annotation</span>
-<span class='no'>coord_annotate</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>label</span> <span class='kw'>=</span> <span class='st'>"panel annotation"</span>) {
-  <span class='fu'><a href='ggproto.html'>ggproto</a></span>(<span class='kw'>NULL</span>, <span class='no'>CoordCartesian</span>,
-    <span class='kw'>limits</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>),
-    <span class='kw'>expand</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-    <span class='kw'>default</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-    <span class='kw'>clip</span> <span class='kw'>=</span> <span class='st'>"on"</span>,
-    <span class='kw'>render_fg</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>panel_params</span>, <span class='no'>theme</span>) {
-      <span class='fu'><a href='element_render.html'>element_render</a></span>(<span class='no'>theme</span>, <span class='st'>"ggxyz.panel.annotation"</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='no'>label</span>)
+<span class='kw'>coord_annotate</span> <span class='op'>&lt;-</span> <span class='fu'>function</span>(<span class='kw'>label</span> = <span class='st'>"panel annotation"</span>) {
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggproto.html'>ggproto</a></span>(<span class='kw'>NULL</span>, <span class='kw'>CoordCartesian</span>,
+    limits = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(x = <span class='kw'>NULL</span>, y = <span class='kw'>NULL</span>),
+    expand = <span class='fl'>TRUE</span>,
+    default = <span class='fl'>FALSE</span>,
+    clip = <span class='st'>"on"</span>,
+    render_fg = <span class='fu'>function</span>(<span class='kw'>panel_params</span>, <span class='kw'>theme</span>) {
+      <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element_render.html'>element_render</a></span>(<span class='kw'>theme</span>, <span class='st'>"ggxyz.panel.annotation"</span>, label = <span class='kw'>label</span>)
     }
   )
 }
 
 <span class='co'># Example plot with this new coord</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>)
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>x</span>, <span class='no'>y</span>)) +
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() +
+<span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(x = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, y = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
   <span class='fu'>coord_annotate</span>(<span class='st'>"annotation in blue"</span>)</div><div class='img'><img src='register_theme_elements-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Revert to the original ggplot2 settings</span>
-<span class='fu'>reset_theme_settings</span>()</div></pre>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/register_theme_elements.html'>reset_theme_settings</a></span>()</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -314,7 +330,7 @@ element inheritance relationships for the element tree.</p>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, Dewey Dunnington.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -323,6 +339,23 @@ element inheritance relationships for the element tree.</p>
    </div>
 
   
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: 'e1261f3df95d2d4704c626ff11a4b536',
+    indexName: 'tidyverse_ggplot2',
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
+  });
+</script>
+
 
 
   </body>

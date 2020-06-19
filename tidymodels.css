@@ -1,0 +1,238 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap');
+
+
+body {
+  font-size: 16px;
+  font-family: Lato;
+}
+
+h1 {font-size: 40px;}
+h2 {font-size: 30px;}
+h3 {font-size: 23px;}
+
+h1, h2, h3 {
+  font-family: 'Lato', sans-serif;
+  font-weight: normal;
+  font-size: 1.3em;
+  text-transform: uppercase;
+  letter-spacing: 1.5pt;
+}
+
+.page-header h1 {
+  color: #CA225E;
+  font-weight: normal;
+  text-transform: none;
+  letter-spacing: normal;
+  font-size: 2.4em;
+}
+
+h2 {
+  color: #1a162d;
+}
+
+h3 {
+  color: #1a162dcc;
+}
+
+.contents .page-header {
+  margin-top: 10px;
+}
+
+a,
+a:hover {
+  color: #ca225e;
+}
+
+
+/* navbar ----------------------------------------------- */
+
+.navbar {
+  box-shadow: none !important;
+  border-bottom: 1pt solid #d9d9d9;
+  padding-bottom: 1em;
+  padding-top: 1em;
+}
+
+.navbar .info .version-danger {
+  font-weight: bold;
+  color: #ca225e;
+}
+
+.navbar-nav li a {
+  text-transform: uppercase;
+  letter-spacing: 2pt;
+  font-size: 0.85em;
+}
+
+.navbar-nav li a:hover {
+  color: #CA225E !important;
+}
+
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+  background-color: #fcfcfc;
+  color: #CA225E;
+}
+
+
+
+/* White Space */
+
+.row {
+  margin-top: 1.5em;
+}
+
+@media (min-width: 768px) {
+  .contents {
+    padding-right: 4em;
+  }
+}
+
+.contents h1, .contents h2, .conents h3, .contents h4{
+  margin-bottom: 1.3em;
+  margin-top: -30px; /* originally -40px */
+}
+
+
+/* sidebar ------------------------------------------------ */
+
+#pkgdown-sidebar {
+  border-left: 1px solid #d9d9d9;
+  padding-left: 0;
+  top: 7em; /* so that navbar doesn't cover it for sticky pos */
+}
+
+#pkgdown-sidebar h2 {
+  font-size: 0.9em;
+  margin-bottom: 0.85em;
+  text-transform: uppercase;
+  color: #CA225E;
+  font-weight: bold;
+  letter-spacing: 2pt;
+  padding-left: 58px;
+}
+
+#pkgdown-sidebar ul.list-unstyled {
+  padding-left: 0;
+  list-style: none;
+  margin-bottom: 1.2em;
+}
+
+
+#pkgdown-sidebar .list-unstyled li {
+  padding-bottom: 1em;
+  padding-left: 58px;
+  margin-bottom: 0;
+  line-height: 1.4em;
+  letter-spacing: 0.4pt;
+}
+
+#pkgdown-sidebar small.roles {
+  font-size: 0.7em;
+  text-transform: uppercase;
+  color: #00000094;
+}
+
+#pkgdown-sidebar a {
+  color: #1a162d99;
+}
+
+#pkgdown-sidebar a:hover {
+  text-decoration: underline;
+  color: #1a162d;
+}
+
+
+/*----TOC sidebar on non-homepages----*/
+
+nav[data-toggle='toc'] .nav > li > a {
+    padding: 4px 20px 4px 58px; /* Left-padding changed from 6px to 5px, so shift left does not happen on hover */
+}
+
+/* Active, hover, and focus links */
+
+nav[data-toggle='toc'] .nav > .active > a,
+nav[data-toggle='toc'] .nav > .active:hover > a,
+nav[data-toggle='toc'] .nav > .active:focus > a,
+nav[data-toggle='toc'] ul > li > a:hover {
+  border-left: 3px solid #ca225e;
+  padding-left: 58px;
+  text-indent: -2px;
+  letter-spacing: 1pt;
+  font-size: 15px;
+  text-decoration: none !important;
+}
+
+
+nav[data-toggle='toc'] .nav > li > a:hover,
+nav[data-toggle='toc'] .nav > li > a:focus {
+  padding-left: 58px;
+  border-left: 3px solid #e795ad50;
+}
+
+
+/* Links NOT hovered or active */
+
+nav[data-toggle='toc'] ul > li > a {
+  border-left: 3px solid #FFFFFF;
+  padding-left: 60px;
+  text-indent: -2px;
+  letter-spacing: 1pt;
+  font-size: 15px;
+  text-decoration: none !important;
+}
+
+/* Nested List items: never get border*/
+
+nav[data-toggle='toc'] .nav .nav > li > a:hover,
+nav[data-toggle='toc'] .nav .nav > li > a:active,
+nav[data-toggle='toc'] .nav .nav > li > a:focus,
+nav[data-toggle='toc'] .nav .nav > li > a,
+
+nav[data-toggle='toc'] .nav .nav > .active > a,
+nav[data-toggle='toc'] .nav .nav > .active:hover > a,
+nav[data-toggle='toc'] .nav .nav > .active:focus > a {
+  padding-left: calc(58px + 15px);
+  font-size: 1.35rem;
+  border-left: none !important;
+}
+
+
+
+/*----Copy Buttons ----*/
+
+.btn-primary {
+  background-color: #ca235ee0;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active:hover {
+  background-color: #CA225E;
+}
+
+/*----- COLORED LIST BULLET----*/
+
+.contents ul {
+  list-style: none; /* Remove default bullets */
+}
+
+.contents ul li::before {
+  content: "\2022";  /* Add content: \2022 is the CSS Code/unicode for a bullet */
+  color: #CA225E; /* Change the color */
+  font-weight: normal; /* If you want it to be bold */
+  display: inline-block; /* Needed to add space between the bullet and the text */
+  width: 1.5em; /* Also needed for space (tweak if needed) */
+  margin-left: -1.5em; /* Also needed for space (tweak if needed) */
+}
+
+.contents ul > li > p {
+  display: inline; /* to have content show up next to bullet */
+}
+
+.contents ul > li { /*to add back in space between bullet items that I took away by making p display inline */
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+

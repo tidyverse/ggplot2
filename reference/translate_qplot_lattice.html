@@ -43,6 +43,16 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+<!--optional theme-->
+<link href="../.css" rel="stylesheet">
+
+
+
+<!-- docsearch -->
+<script src="../docsearch.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
+<link href="../docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
 <meta property="og:title" content="Translating between qplot and lattice — translate_qplot_lattice" />
@@ -91,9 +101,9 @@ generalise well to more complicated situations." />
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">ggplot2</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.2</span>
         </div>
       </div>
     </div>
@@ -109,7 +119,7 @@ generalise well to more complicated situations." />
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Release notes</li>
+    <li class="dropdown-header">Releases</li>
     <li>
       <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
     </li>
@@ -136,7 +146,7 @@ generalise well to more complicated situations." />
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../news/index.html">Change log</a>
+      <a href="../news/index.html">Changelog</a>
     </li>
   </ul>
 </li>
@@ -162,7 +172,7 @@ generalise well to more complicated situations." />
   </ul>
 </li>
         <li>
-  <a href="https://exts.ggplot2.tidyverse.org/">Extensions</a>
+  <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2/">
@@ -171,6 +181,12 @@ generalise well to more complicated situations." />
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
       
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -199,58 +215,57 @@ generalise well to more complicated situations.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>lattice</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='http://lattice.r-forge.r-project.org'>lattice</a></span>)
 
-<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"ggplot2movies"</span>)) {
-<span class='fu'><a href='https://rdrr.io/pkg/lattice/man/xyplot.html'>xyplot</a></span>(<span class='no'>rating</span> ~ <span class='no'>year</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>movies</span>)
-<span class='fu'><a href='qplot.html'>qplot</a></span>(<span class='no'>year</span>, <span class='no'>rating</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>movies</span>)
+<span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"ggplot2movies"</span>)) {
+<span class='fu'><a href='https://rdrr.io/pkg/lattice/man/xyplot.html'>xyplot</a></span>(<span class='kw'>rating</span> <span class='op'>~</span> <span class='kw'>year</span>, data=<span class='kw'>movies</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/qplot.html'>qplot</a></span>(<span class='kw'>year</span>, <span class='kw'>rating</span>, data=<span class='kw'>movies</span>)
 
-<span class='fu'><a href='https://rdrr.io/pkg/lattice/man/xyplot.html'>xyplot</a></span>(<span class='no'>rating</span> ~ <span class='no'>year</span> <span class='kw'>|</span> <span class='no'>Comedy</span> + <span class='no'>Action</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>movies</span>)
-<span class='fu'><a href='qplot.html'>qplot</a></span>(<span class='no'>year</span>, <span class='no'>rating</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>movies</span>, <span class='kw'>facets</span> <span class='kw'>=</span> ~ <span class='no'>Comedy</span> + <span class='no'>Action</span>)
+<span class='fu'><a href='https://rdrr.io/pkg/lattice/man/xyplot.html'>xyplot</a></span>(<span class='kw'>rating</span> <span class='op'>~</span> <span class='kw'>year</span> <span class='op'>|</span> <span class='kw'>Comedy</span> <span class='op'>+</span> <span class='kw'>Action</span>, data = <span class='kw'>movies</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/qplot.html'>qplot</a></span>(<span class='kw'>year</span>, <span class='kw'>rating</span>, data = <span class='kw'>movies</span>, facets = <span class='op'>~</span> <span class='kw'>Comedy</span> <span class='op'>+</span> <span class='kw'>Action</span>)
 <span class='co'># Or maybe</span>
-<span class='fu'><a href='qplot.html'>qplot</a></span>(<span class='no'>year</span>, <span class='no'>rating</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>movies</span>, <span class='kw'>facets</span> <span class='kw'>=</span> <span class='no'>Comedy</span> ~ <span class='no'>Action</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/qplot.html'>qplot</a></span>(<span class='kw'>year</span>, <span class='kw'>rating</span>, data = <span class='kw'>movies</span>, facets = <span class='kw'>Comedy</span> <span class='op'>~</span> <span class='kw'>Action</span>)
 
 <span class='co'># While lattice has many different functions to produce different types of</span>
 <span class='co'># graphics (which are all basically equivalent to setting the panel argument),</span>
 <span class='co'># ggplot2 has qplot().</span>
 
-<span class='fu'><a href='https://rdrr.io/pkg/lattice/man/xyplot.html'>stripplot</a></span>(~ <span class='no'>rating</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>movies</span>, <span class='kw'>jitter.data</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='fu'><a href='qplot.html'>qplot</a></span>(<span class='no'>rating</span>, <span class='fl'>1</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>movies</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"jitter"</span>)
+<span class='fu'><a href='https://rdrr.io/pkg/lattice/man/xyplot.html'>stripplot</a></span>(<span class='op'>~</span> <span class='kw'>rating</span>, data = <span class='kw'>movies</span>, jitter.data = <span class='fl'>TRUE</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/qplot.html'>qplot</a></span>(<span class='kw'>rating</span>, <span class='fl'>1</span>, data = <span class='kw'>movies</span>, geom = <span class='st'>"jitter"</span>)
 
-<span class='fu'><a href='https://rdrr.io/pkg/lattice/man/histogram.html'>histogram</a></span>(~ <span class='no'>rating</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>movies</span>)
-<span class='fu'><a href='qplot.html'>qplot</a></span>(<span class='no'>rating</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>movies</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"histogram"</span>)
+<span class='fu'><a href='https://rdrr.io/pkg/lattice/man/histogram.html'>histogram</a></span>(<span class='op'>~</span> <span class='kw'>rating</span>, data = <span class='kw'>movies</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/qplot.html'>qplot</a></span>(<span class='kw'>rating</span>, data = <span class='kw'>movies</span>, geom = <span class='st'>"histogram"</span>)
 
-<span class='fu'><a href='https://rdrr.io/pkg/lattice/man/xyplot.html'>bwplot</a></span>(<span class='no'>Comedy</span> ~ <span class='no'>rating</span> ,<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>movies</span>)
-<span class='fu'><a href='qplot.html'>qplot</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>Comedy</span>), <span class='no'>rating</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>movies</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"boxplot"</span>)
+<span class='fu'><a href='https://rdrr.io/pkg/lattice/man/xyplot.html'>bwplot</a></span>(<span class='kw'>Comedy</span> <span class='op'>~</span> <span class='kw'>rating</span> ,data = <span class='kw'>movies</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/qplot.html'>qplot</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>Comedy</span>), <span class='kw'>rating</span>, data = <span class='kw'>movies</span>, geom = <span class='st'>"boxplot"</span>)
 
-<span class='fu'><a href='https://rdrr.io/pkg/lattice/man/xyplot.html'>xyplot</a></span>(<span class='no'>wt</span> ~ <span class='no'>mpg</span>, <span class='no'>mtcars</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"p"</span>,<span class='st'>"smooth"</span>))
-<span class='fu'><a href='qplot.html'>qplot</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"point"</span>,<span class='st'>"smooth"</span>))
+<span class='fu'><a href='https://rdrr.io/pkg/lattice/man/xyplot.html'>xyplot</a></span>(<span class='kw'>wt</span> <span class='op'>~</span> <span class='kw'>mpg</span>, <span class='kw'>mtcars</span>, type = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"p"</span>,<span class='st'>"smooth"</span>))
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/qplot.html'>qplot</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>, data = <span class='kw'>mtcars</span>, geom = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"point"</span>,<span class='st'>"smooth"</span>))
 }</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='translate_qplot_lattice-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># The capabilities for scale manipulations are similar in both ggplot2 and</span>
 <span class='co'># lattice, although the syntax is a little different.</span>
 
-<span class='fu'><a href='https://rdrr.io/pkg/lattice/man/xyplot.html'>xyplot</a></span>(<span class='no'>wt</span> ~ <span class='no'>mpg</span> <span class='kw'>|</span> <span class='no'>cyl</span>, <span class='no'>mtcars</span>, <span class='kw'>scales</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>relation</span> <span class='kw'>=</span> <span class='st'>"free"</span>)))</div><div class='img'><img src='translate_qplot_lattice-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='qplot.html'>qplot</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>) + <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span>(~ <span class='no'>cyl</span>, <span class='kw'>scales</span> <span class='kw'>=</span> <span class='st'>"free"</span>)</div><div class='img'><img src='translate_qplot_lattice-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/pkg/lattice/man/xyplot.html'>xyplot</a></span>(<span class='no'>wt</span> ~ <span class='no'>mpg</span> <span class='kw'>|</span> <span class='no'>cyl</span>, <span class='no'>mtcars</span>, <span class='kw'>scales</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>10</span>))</div><div class='img'><img src='translate_qplot_lattice-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='qplot.html'>qplot</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='st'>"xy"</span>)</div><div class='img'><img src='translate_qplot_lattice-5.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/pkg/lattice/man/xyplot.html'>xyplot</a></span>(<span class='no'>wt</span> ~ <span class='no'>mpg</span> <span class='kw'>|</span> <span class='no'>cyl</span>, <span class='no'>mtcars</span>, <span class='kw'>scales</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>2</span>))</div><div class='img'><img src='translate_qplot_lattice-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='qplot.html'>qplot</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>) +
-  <span class='fu'><a href='scale_continuous.html'>scale_x_continuous</a></span>(<span class='kw'>trans</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='fu'><a href='https://scales.r-lib.org//reference/log_trans.html'>log2_trans</a></span>()) +
-  <span class='fu'><a href='scale_continuous.html'>scale_y_continuous</a></span>(<span class='kw'>trans</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='fu'><a href='https://scales.r-lib.org//reference/log_trans.html'>log2_trans</a></span>())</div><div class='img'><img src='translate_qplot_lattice-7.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/pkg/lattice/man/xyplot.html'>xyplot</a></span>(<span class='no'>wt</span> ~ <span class='no'>mpg</span>, <span class='no'>mtcars</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>cyl</span>, <span class='kw'>auto.key</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='translate_qplot_lattice-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Map directly to an aesthetic like colour, size, or shape.</span>
-<span class='fu'><a href='qplot.html'>qplot</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>cyl</span>)</div><div class='img'><img src='translate_qplot_lattice-9.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/pkg/lattice/man/xyplot.html'>xyplot</a></span>(<span class='no'>wt</span> ~ <span class='no'>mpg</span>, <span class='no'>mtcars</span>, <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>20</span>,<span class='fl'>30</span>))</div><div class='img'><img src='translate_qplot_lattice-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Works like lattice, except you can't specify a different limit</span>
+<span class='fu'><a href='https://rdrr.io/pkg/lattice/man/xyplot.html'>xyplot</a></span>(<span class='kw'>wt</span> <span class='op'>~</span> <span class='kw'>mpg</span> <span class='op'>|</span> <span class='kw'>cyl</span>, <span class='kw'>mtcars</span>, scales = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(y = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(relation = <span class='st'>"free"</span>)))</div><div class='img'><img src='translate_qplot_lattice-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/qplot.html'>qplot</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>, data = <span class='kw'>mtcars</span>) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span>(<span class='op'>~</span> <span class='kw'>cyl</span>, scales = <span class='st'>"free"</span>)</div><div class='img'><img src='translate_qplot_lattice-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/pkg/lattice/man/xyplot.html'>xyplot</a></span>(<span class='kw'>wt</span> <span class='op'>~</span> <span class='kw'>mpg</span> <span class='op'>|</span> <span class='kw'>cyl</span>, <span class='kw'>mtcars</span>, scales = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(log = <span class='fl'>10</span>))</div><div class='img'><img src='translate_qplot_lattice-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/qplot.html'>qplot</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>, data = <span class='kw'>mtcars</span>, log = <span class='st'>"xy"</span>)</div><div class='img'><img src='translate_qplot_lattice-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/pkg/lattice/man/xyplot.html'>xyplot</a></span>(<span class='kw'>wt</span> <span class='op'>~</span> <span class='kw'>mpg</span> <span class='op'>|</span> <span class='kw'>cyl</span>, <span class='kw'>mtcars</span>, scales = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(log = <span class='fl'>2</span>))</div><div class='img'><img src='translate_qplot_lattice-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/qplot.html'>qplot</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>, data = <span class='kw'>mtcars</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_x_continuous</a></span>(trans = <span class='kw'>scales</span>::<span class='fu'><a href='https://scales.r-lib.org//reference/log_trans.html'>log2_trans</a></span>()) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_continuous</a></span>(trans = <span class='kw'>scales</span>::<span class='fu'><a href='https://scales.r-lib.org//reference/log_trans.html'>log2_trans</a></span>())</div><div class='img'><img src='translate_qplot_lattice-7.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/pkg/lattice/man/xyplot.html'>xyplot</a></span>(<span class='kw'>wt</span> <span class='op'>~</span> <span class='kw'>mpg</span>, <span class='kw'>mtcars</span>, group = <span class='kw'>cyl</span>, auto.key = <span class='fl'>TRUE</span>)</div><div class='img'><img src='translate_qplot_lattice-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Map directly to an aesthetic like colour, size, or shape.</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/qplot.html'>qplot</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>, data = <span class='kw'>mtcars</span>, colour = <span class='kw'>cyl</span>)</div><div class='img'><img src='translate_qplot_lattice-9.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/pkg/lattice/man/xyplot.html'>xyplot</a></span>(<span class='kw'>wt</span> <span class='op'>~</span> <span class='kw'>mpg</span>, <span class='kw'>mtcars</span>, xlim = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>20</span>,<span class='fl'>30</span>))</div><div class='img'><img src='translate_qplot_lattice-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Works like lattice, except you can't specify a different limit</span>
 <span class='co'># for each panel/facet</span>
-<span class='fu'><a href='qplot.html'>qplot</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>, <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>20</span>,<span class='fl'>30</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 22 rows containing missing values (geom_point).</span></div><div class='img'><img src='translate_qplot_lattice-11.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/qplot.html'>qplot</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>, data = <span class='kw'>mtcars</span>, xlim = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>20</span>,<span class='fl'>30</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 22 rows containing missing values (geom_point).</span></div><div class='img'><img src='translate_qplot_lattice-11.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Both lattice and ggplot2 have similar options for controlling labels on the plot.</span>
 
-<span class='fu'><a href='https://rdrr.io/pkg/lattice/man/xyplot.html'>xyplot</a></span>(<span class='no'>wt</span> ~ <span class='no'>mpg</span>, <span class='no'>mtcars</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Miles per gallon"</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"Weight"</span>,
-  <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"Weight-efficiency tradeoff"</span>)</div><div class='img'><img src='translate_qplot_lattice-12.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='qplot.html'>qplot</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Miles per gallon"</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"Weight"</span>,
-  <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"Weight-efficiency tradeoff"</span>)</div><div class='img'><img src='translate_qplot_lattice-13.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/pkg/lattice/man/xyplot.html'>xyplot</a></span>(<span class='no'>wt</span> ~ <span class='no'>mpg</span>, <span class='no'>mtcars</span>, <span class='kw'>aspect</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='img'><img src='translate_qplot_lattice-14.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='qplot.html'>qplot</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>, <span class='kw'>asp</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='img'><img src='translate_qplot_lattice-15.png' alt='' width='700' height='433' /></div><div class='input'>
-# par.settings() is equivalent to + theme() and trellis.options.set()
-# and trellis.par.get() to theme_set() and theme_get().
-# More complicated lattice formulas are equivalent to rearranging the data
-# before using ggplot2.
-# }
-</div></pre>
+<span class='fu'><a href='https://rdrr.io/pkg/lattice/man/xyplot.html'>xyplot</a></span>(<span class='kw'>wt</span> <span class='op'>~</span> <span class='kw'>mpg</span>, <span class='kw'>mtcars</span>, xlab = <span class='st'>"Miles per gallon"</span>, ylab = <span class='st'>"Weight"</span>,
+  main = <span class='st'>"Weight-efficiency tradeoff"</span>)</div><div class='img'><img src='translate_qplot_lattice-12.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/qplot.html'>qplot</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>, data = <span class='kw'>mtcars</span>, xlab = <span class='st'>"Miles per gallon"</span>, ylab = <span class='st'>"Weight"</span>,
+  main = <span class='st'>"Weight-efficiency tradeoff"</span>)</div><div class='img'><img src='translate_qplot_lattice-13.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/pkg/lattice/man/xyplot.html'>xyplot</a></span>(<span class='kw'>wt</span> <span class='op'>~</span> <span class='kw'>mpg</span>, <span class='kw'>mtcars</span>, aspect = <span class='fl'>1</span>)</div><div class='img'><img src='translate_qplot_lattice-14.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/qplot.html'>qplot</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>, data = <span class='kw'>mtcars</span>, asp = <span class='fl'>1</span>)</div><div class='img'><img src='translate_qplot_lattice-15.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># par.settings() is equivalent to + theme() and trellis.options.set()</span>
+<span class='co'># and trellis.par.get() to theme_set() and theme_get().</span>
+<span class='co'># More complicated lattice formulas are equivalent to rearranging the data</span>
+<span class='co'># before using ggplot2.</span>
+<span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -267,7 +282,7 @@ generalise well to more complicated situations.</p>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, Dewey Dunnington.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -276,6 +291,23 @@ generalise well to more complicated situations.</p>
    </div>
 
   
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: 'e1261f3df95d2d4704c626ff11a4b536',
+    indexName: 'tidyverse_ggplot2',
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
+  });
+</script>
+
 
 
   </body>

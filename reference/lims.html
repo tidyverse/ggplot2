@@ -43,12 +43,24 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+<!--optional theme-->
+<link href="../.css" rel="stylesheet">
+
+
+
+<!-- docsearch -->
+<script src="../docsearch.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
+<link href="../docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
 <meta property="og:title" content="Set scale limits — lims" />
-<meta property="og:description" content="This is a shortcut for supplying the limits argument to the
-individual scales. Note that, by default, any values outside the limits
-will be replaced with NA." />
+<meta property="og:description" content="This is a shortcut for supplying the limits argument to the individual
+scales. By default, any values outside the limits specified are replaced with
+NA. Be warned that this will remove data outside the limits and this can
+produce unintended results. For changing x or y axis limits without
+dropping data observations, see coord_cartesian()." />
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -91,9 +103,9 @@ will be replaced with NA." />
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">ggplot2</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.2</span>
         </div>
       </div>
     </div>
@@ -109,7 +121,7 @@ will be replaced with NA." />
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Release notes</li>
+    <li class="dropdown-header">Releases</li>
     <li>
       <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
     </li>
@@ -136,7 +148,7 @@ will be replaced with NA." />
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../news/index.html">Change log</a>
+      <a href="../news/index.html">Changelog</a>
     </li>
   </ul>
 </li>
@@ -162,7 +174,7 @@ will be replaced with NA." />
   </ul>
 </li>
         <li>
-  <a href="https://exts.ggplot2.tidyverse.org/">Extensions</a>
+  <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2/">
@@ -171,6 +183,12 @@ will be replaced with NA." />
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
       
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -189,84 +207,88 @@ will be replaced with NA." />
     </div>
 
     <div class="ref-description">
-    <p>This is a shortcut for supplying the <code>limits</code> argument to the
-individual scales. Note that, by default, any values outside the limits
-will be replaced with <code>NA</code>.</p>
+    <p>This is a shortcut for supplying the <code>limits</code> argument to the individual
+scales. By default, any values outside the limits specified are replaced with
+<code>NA</code>. Be warned that this will remove data outside the limits and this can
+produce unintended results. For changing x or y axis limits <strong>without</strong>
+dropping data observations, see <code><a href='https://ggplot2.tidyverse.org/reference/coord_cartesian.html'>coord_cartesian()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>lims</span>(<span class='no'>...</span>)
+    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>lims</a></span>(<span class='kw'>...</span>)
 
-<span class='fu'>xlim</span>(<span class='no'>...</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>xlim</a></span>(<span class='kw'>...</span>)
 
-<span class='fu'>ylim</span>(<span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>ylim</a></span>(<span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>...</th>
-      <td><p>A name-value pair. The name must be an aesthetic, and the value
-must be either a length-2 numeric, a character, a factor, or a date/time.</p>
-<p>A numeric value will create a continuous scale. If the larger value
-comes first, the scale will be reversed. You can leave one value as
-<code>NA</code> to compute from the range of the data.</p>
-<p>A character or factor value will create a discrete scale.</p>
-<p>A date-time value will create a continuous date/time scale.</p></td>
+      <td><p>For <code><a href='https://ggplot2.tidyverse.org/reference/lims.html'>xlim()</a></code> and <code><a href='https://ggplot2.tidyverse.org/reference/lims.html'>ylim()</a></code>: Two numeric values, specifying the left/lower
+limit and the right/upper limit of the scale. If the larger value is given first,
+the scale will be reversed. You can leave one value as <code>NA</code> if you want to compute
+the corresponding limit from the range of the data.</p>
+<p>For <code><a href='https://ggplot2.tidyverse.org/reference/lims.html'>lims()</a></code>: A name--value pair. The name must be an aesthetic, and the value
+must be either a length-2 numeric, a character, a factor, or a date/time.
+A numeric value will create a continuous scale. If the larger value comes first,
+the scale will be reversed. You can leave one value as <code>NA</code> if you want
+to compute the corresponding limit from the range of the data.
+A character or factor value will create a discrete scale.
+A date-time value will create a continuous date/time scale.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>For changing x or y axis limits <strong>without</strong> dropping data
-observations, see <code><a href='coord_cartesian.html'>coord_cartesian()</a></code>. To expand the range of
-a plot to always include certain values, see <code><a href='expand_limits.html'>expand_limits()</a></code>. For other
-types of data, see <code><a href='scale_discrete.html'>scale_x_discrete()</a></code>, <code><a href='scale_continuous.html'>scale_x_continuous()</a></code>, <code><a href='scale_date.html'>scale_x_date()</a></code>.</p></div>
+    <div class='dont-index'><p>To expand the range of a plot to always include
+certain values, see <code><a href='https://ggplot2.tidyverse.org/reference/expand_limits.html'>expand_limits()</a></code>. For other types of data, see
+<code><a href='https://ggplot2.tidyverse.org/reference/scale_discrete.html'>scale_x_discrete()</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_x_continuous()</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/scale_date.html'>scale_x_date()</a></code>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Zoom into a specified area</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>)) +
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() +
-  <span class='fu'>xlim</span>(<span class='fl'>15</span>, <span class='fl'>20</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 19 rows containing missing values (geom_point).</span></div><div class='img'><img src='lims-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>xlim</a></span>(<span class='fl'>15</span>, <span class='fl'>20</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 19 rows containing missing values (geom_point).</span></div><div class='img'><img src='lims-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># reverse scale</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>)) +
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() +
-  <span class='fu'>xlim</span>(<span class='fl'>20</span>, <span class='fl'>15</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 19 rows containing missing values (geom_point).</span></div><div class='img'><img src='lims-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>xlim</a></span>(<span class='fl'>20</span>, <span class='fl'>15</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 19 rows containing missing values (geom_point).</span></div><div class='img'><img src='lims-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># with automatic lower limit</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>)) +
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() +
-  <span class='fu'>xlim</span>(<span class='fl'>NA</span>, <span class='fl'>20</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 14 rows containing missing values (geom_point).</span></div><div class='img'><img src='lims-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>xlim</a></span>(<span class='fl'>NA</span>, <span class='fl'>20</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 14 rows containing missing values (geom_point).</span></div><div class='img'><img src='lims-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can also supply limits that are larger than the data.</span>
 <span class='co'># This is useful if you want to match scales across different plots</span>
-<span class='no'>small</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='no'>mtcars</span>, <span class='no'>cyl</span> <span class='kw'>==</span> <span class='fl'>4</span>)
-<span class='no'>big</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='no'>mtcars</span>, <span class='no'>cyl</span> <span class='kw'>&gt;</span> <span class='fl'>4</span>)
+<span class='kw'>small</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='kw'>mtcars</span>, <span class='kw'>cyl</span> <span class='op'>==</span> <span class='fl'>4</span>)
+<span class='kw'>big</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='kw'>mtcars</span>, <span class='kw'>cyl</span> <span class='op'>&gt;</span> <span class='fl'>4</span>)
 
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>small</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>cyl</span>))) +
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() +
-  <span class='fu'>lims</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"4"</span>, <span class='st'>"6"</span>, <span class='st'>"8"</span>))</div><div class='img'><img src='lims-4.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>big</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>cyl</span>))) +
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() +
-  <span class='fu'>lims</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"4"</span>, <span class='st'>"6"</span>, <span class='st'>"8"</span>))</div><div class='img'><img src='lims-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>small</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>, colour = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>))) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>lims</a></span>(colour = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"4"</span>, <span class='st'>"6"</span>, <span class='st'>"8"</span>))</div><div class='img'><img src='lims-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>big</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>, colour = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>))) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>lims</a></span>(colour = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"4"</span>, <span class='st'>"6"</span>, <span class='st'>"8"</span>))</div><div class='img'><img src='lims-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># There are two ways of setting the axis limits: with limits or</span>
 <span class='co'># with coordinate systems. They work in two rather different ways.</span>
 
-<span class='no'>last_month</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span>() - <span class='fl'>0</span>:<span class='fl'>59</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  <span class='kw'>date</span> <span class='kw'>=</span> <span class='no'>last_month</span>,
-  <span class='kw'>price</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>30</span>, <span class='kw'>mean</span> <span class='kw'>=</span> <span class='fl'>15</span>), <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>30</span>) + <span class='fl'>0.2</span> * (<span class='fl'>1</span>:<span class='fl'>30</span>))
+<span class='kw'>last_month</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span>() <span class='op'>-</span> <span class='fl'>0</span><span class='op'>:</span><span class='fl'>59</span>
+<span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
+  date = <span class='kw'>last_month</span>,
+  price = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>30</span>, mean = <span class='fl'>15</span>), <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>30</span>) <span class='op'>+</span> <span class='fl'>0.2</span> <span class='op'>*</span> (<span class='fl'>1</span><span class='op'>:</span><span class='fl'>30</span>))
 )
 
-<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>date</span>, <span class='no'>price</span>)) +
-  <span class='fu'><a href='geom_path.html'>geom_line</a></span>() +
-  <span class='fu'><a href='geom_smooth.html'>stat_smooth</a></span>()
+<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>date</span>, <span class='kw'>price</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span>() <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>stat_smooth</a></span>()
 
-<span class='no'>p</span></div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='lims-6.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span></div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='lims-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Setting the limits with the scale discards all data outside the range.</span>
-<span class='no'>p</span> + <span class='fu'>lims</span>(<span class='kw'>x</span><span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span>() - <span class='fl'>30</span>, <span class='fl'>NA</span>), <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>10</span>, <span class='fl'>20</span>))</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 30 rows containing non-finite values (stat_smooth).</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 30 row(s) containing missing values (geom_path).</span></div><div class='img'><img src='lims-7.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>lims</a></span>(x= <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span>() <span class='op'>-</span> <span class='fl'>30</span>, <span class='fl'>NA</span>), y = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>10</span>, <span class='fl'>20</span>))</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 30 rows containing non-finite values (stat_smooth).</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 30 row(s) containing missing values (geom_path).</span></div><div class='img'><img src='lims-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># For changing x or y axis limits **without** dropping data</span>
 <span class='co'># observations use [coord_cartesian()]. Setting the limits on the</span>
 <span class='co'># coordinate system performs a visual zoom.</span>
-<span class='no'>p</span> + <span class='fu'><a href='coord_cartesian.html'>coord_cartesian</a></span>(<span class='kw'>xlim</span> <span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span>() - <span class='fl'>30</span>, <span class='fl'>NA</span>), <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>10</span>, <span class='fl'>20</span>))</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='lims-8.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_cartesian.html'>coord_cartesian</a></span>(xlim =<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span>() <span class='op'>-</span> <span class='fl'>30</span>, <span class='fl'>NA</span>), ylim = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>10</span>, <span class='fl'>20</span>))</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='lims-8.png' alt='' width='700' height='433' /></div><div class='input'></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -283,7 +305,7 @@ types of data, see <code><a href='scale_discrete.html'>scale_x_discrete()</a></c
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, Dewey Dunnington.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -292,6 +314,23 @@ types of data, see <code><a href='scale_discrete.html'>scale_x_discrete()</a></c
    </div>
 
   
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: 'e1261f3df95d2d4704c626ff11a4b536',
+    indexName: 'tidyverse_ggplot2',
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
+  });
+</script>
+
 
 
   </body>

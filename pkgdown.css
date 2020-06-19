@@ -244,14 +244,14 @@ nav[data-toggle='toc'] .nav .nav > .active:focus > a {
 
 .ref-index th {font-weight: normal;}
 
-.ref-index td {vertical-align: top;}
+.ref-index td {vertical-align: top; min-width: 100px}
 .ref-index .icon {width: 40px;}
 .ref-index .alias {width: 40%;}
 .ref-index-icons .alias {width: calc(40% - 40px);}
 .ref-index .title {width: 60%;}
 
 .ref-arguments th {text-align: right; padding-right: 10px;}
-.ref-arguments th, .ref-arguments td {vertical-align: top;}
+.ref-arguments th, .ref-arguments td {vertical-align: top; min-width: 100px}
 .ref-arguments .name {width: 20%;}
 .ref-arguments .desc {width: 80%;}
 

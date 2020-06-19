@@ -43,11 +43,34 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+<!--optional theme-->
+<link href="../.css" rel="stylesheet">
+
+
+
+<!-- docsearch -->
+<script src="../docsearch.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
+<link href="../docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
 <meta property="og:title" content="Differentiation related aesthetics: linetype, size, shape — aes_linetype_size_shape" />
-<meta property="og:description" content="This page demonstrates the usage of a sub-group
-of aesthetics; linetype, size and shape." />
+<meta property="og:description" content="The linetype, size, and shape aesthetics modify the appearance of
+lines and/or points. They also apply to the outlines of polygons (linetype
+and size) or to text (size).
+The linetype aesthetic can be specified with either an integer (0-6), a
+name (0 = blank, 1 = solid, 2 = dashed, 3 = dotted, 4 = dotdash, 5 = longdash,
+6 = twodash), a mapping to a discrete variable, or a string of an even number
+(up to eight) of hexadecimal digits which give the lengths in consecutive
+positions in the string. See examples for a hex string demonstration.
+The size aesthetic can be specified with a numerical value (in millimetres)
+or via a mapping to a continuous variable.
+The shape aesthetic can be specified with an integer (between 0 and 25),
+a single character (which uses that character as the plotting symbol),
+a . to draw the smallest rectangle that is visible (i.e., about one pixel),
+an NA to draw nothing, or a mapping to a discrete variable. Symbols and
+filled shapes are described in the examples below." />
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -90,9 +113,9 @@ of aesthetics; linetype, size and shape." />
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">ggplot2</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.2</span>
         </div>
       </div>
     </div>
@@ -108,7 +131,7 @@ of aesthetics; linetype, size and shape." />
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Release notes</li>
+    <li class="dropdown-header">Releases</li>
     <li>
       <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
     </li>
@@ -135,7 +158,7 @@ of aesthetics; linetype, size and shape." />
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../news/index.html">Change log</a>
+      <a href="../news/index.html">Changelog</a>
     </li>
   </ul>
 </li>
@@ -161,7 +184,7 @@ of aesthetics; linetype, size and shape." />
   </ul>
 </li>
         <li>
-  <a href="https://exts.ggplot2.tidyverse.org/">Extensions</a>
+  <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2/">
@@ -170,6 +193,12 @@ of aesthetics; linetype, size and shape." />
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
       
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -188,54 +217,65 @@ of aesthetics; linetype, size and shape." />
     </div>
 
     <div class="ref-description">
-    <p>This page demonstrates the usage of a sub-group
-of aesthetics; linetype, size and shape.</p>
+    <p>The <code>linetype</code>, <code>size</code>, and <code>shape</code> aesthetics modify the appearance of
+lines and/or points. They also apply to the outlines of polygons (<code>linetype</code>
+and <code>size</code>) or to text (<code>size</code>).</p>
+<p>The <code>linetype</code> aesthetic can be specified with either an integer (0-6), a
+name (0 = blank, 1 = solid, 2 = dashed, 3 = dotted, 4 = dotdash, 5 = longdash,
+6 = twodash), a mapping to a discrete variable, or a string of an even number
+(up to eight) of hexadecimal digits which give the lengths in consecutive
+positions in the string. See examples for a hex string demonstration.</p>
+<p>The <code>size</code> aesthetic can be specified with a numerical value (in millimetres)
+or via a mapping to a continuous variable.</p>
+<p>The <code>shape</code> aesthetic can be specified with an integer (between 0 and 25),
+a single character (which uses that character as the plotting symbol),
+a <code>.</code> to draw the smallest rectangle that is visible (i.e., about one pixel),
+an <code>NA</code> to draw nothing, or a mapping to a discrete variable. Symbols and
+filled shapes are described in the examples below.</p>
     </div>
 
 
 
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'>
+<ul>
+<li><p><code><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line()</a></code> and <code><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point()</a></code> for geoms commonly used
+with these aesthetics.</p></li>
+<li><p><code><a href='https://ggplot2.tidyverse.org/reference/aes_group_order.html'>aes_group_order()</a></code> for using <code>linetype</code>, <code>size</code>, or
+<code>shape</code> for grouping.</p></li>
+<li><p>Run <code>vignette("ggplot2-specs")</code> to see an overview of other aesthestics that
+can be modified.</p></li>
+</ul>
+</div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='co'># Line types should be specified with either an integer, a name, or with a string of</span>
-<span class='co'># an even number (up to eight) of hexadecimal digits which give the lengths in</span>
-<span class='co'># consecutive positions in the string.</span>
-<span class='co'># 0 = blank, 1 = solid, 2 = dashed, 3 = dotted, 4 = dotdash, 5 = longdash, 6 = twodash</span>
-
-<span class='co'># Data</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>10</span> , <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>10</span>)
-<span class='no'>f</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>x</span>, <span class='no'>y</span>))
-<span class='no'>f</span> + <span class='fu'><a href='geom_path.html'>geom_line</a></span>(<span class='kw'>linetype</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='img'><img src='aes_linetype_size_shape-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>f</span> + <span class='fu'><a href='geom_path.html'>geom_line</a></span>(<span class='kw'>linetype</span> <span class='kw'>=</span> <span class='st'>"dotdash"</span>)</div><div class='img'><img src='aes_linetype_size_shape-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># An example with hex strings, the string "33" specifies three units on followed</span>
+<span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(x = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span> , y = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>)
+<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>))
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span>(linetype = <span class='fl'>2</span>)</div><div class='img'><img src='aes_linetype_size_shape-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span>(linetype = <span class='st'>"dotdash"</span>)</div><div class='img'><img src='aes_linetype_size_shape-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># An example with hex strings; the string "33" specifies three units on followed</span>
 <span class='co'># by three off and "3313" specifies three units on followed by three off followed</span>
 <span class='co'># by one on and finally three off.</span>
-<span class='no'>f</span> + <span class='fu'><a href='geom_path.html'>geom_line</a></span>(<span class='kw'>linetype</span> <span class='kw'>=</span> <span class='st'>"3313"</span>)</div><div class='img'><img src='aes_linetype_size_shape-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Mapping line type from a variable</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>economics_long</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>date</span>, <span class='no'>value01</span>)) +
-  <span class='fu'><a href='geom_path.html'>geom_line</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>linetype</span> <span class='kw'>=</span> <span class='no'>variable</span>))</div><div class='img'><img src='aes_linetype_size_shape-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span>(linetype = <span class='st'>"3313"</span>)</div><div class='img'><img src='aes_linetype_size_shape-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Mapping line type from a grouping variable</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>economics_long</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>date</span>, <span class='kw'>value01</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(linetype = <span class='kw'>variable</span>))</div><div class='img'><img src='aes_linetype_size_shape-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Size examples</span>
-<span class='co'># Should be specified with a numerical value (in millimetres),</span>
-<span class='co'># or from a variable source</span>
-<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>wt</span>, <span class='no'>mpg</span>))
-<span class='no'>p</span> + <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>4</span>)</div><div class='img'><img src='aes_linetype_size_shape-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='no'>qsec</span>))</div><div class='img'><img src='aes_linetype_size_shape-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>2.5</span>) +
-  <span class='fu'><a href='geom_abline.html'>geom_hline</a></span>(<span class='kw'>yintercept</span> <span class='kw'>=</span> <span class='fl'>25</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>3.5</span>)</div><div class='img'><img src='aes_linetype_size_shape-7.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>wt</span>, <span class='kw'>mpg</span>))
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(size = <span class='fl'>4</span>)</div><div class='img'><img src='aes_linetype_size_shape-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(size = <span class='kw'>qsec</span>))</div><div class='img'><img src='aes_linetype_size_shape-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(size = <span class='fl'>2.5</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_abline.html'>geom_hline</a></span>(yintercept = <span class='fl'>25</span>, size = <span class='fl'>3.5</span>)</div><div class='img'><img src='aes_linetype_size_shape-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Shape examples</span>
-<span class='co'># Shape takes four types of values: an integer in [0, 25],</span>
-<span class='co'># a single character-- which uses that character as the plotting symbol,</span>
-<span class='co'># a . to draw the smallest rectangle that is visible (i.e., about one pixel)</span>
-<span class='co'># an NA to draw nothing</span>
-<span class='no'>p</span> + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()</div><div class='img'><img src='aes_linetype_size_shape-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='kw'>shape</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='img'><img src='aes_linetype_size_shape-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='kw'>shape</span> <span class='kw'>=</span> <span class='st'>"k"</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='img'><img src='aes_linetype_size_shape-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='kw'>shape</span> <span class='kw'>=</span> <span class='st'>"."</span>)</div><div class='img'><img src='aes_linetype_size_shape-11.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='kw'>shape</span> <span class='kw'>=</span> <span class='fl'>NA</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 32 rows containing missing values (geom_point).</span></div><div class='img'><img src='aes_linetype_size_shape-12.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Shape can also be mapped from a variable</span>
-<span class='no'>p</span> + <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>shape</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>cyl</span>)))</div><div class='img'><img src='aes_linetype_size_shape-13.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>()</div><div class='img'><img src='aes_linetype_size_shape-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(shape = <span class='fl'>5</span>)</div><div class='img'><img src='aes_linetype_size_shape-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(shape = <span class='st'>"k"</span>, size = <span class='fl'>3</span>)</div><div class='img'><img src='aes_linetype_size_shape-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(shape = <span class='st'>"."</span>)</div><div class='img'><img src='aes_linetype_size_shape-11.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(shape = <span class='fl'>NA</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 32 rows containing missing values (geom_point).</span></div><div class='img'><img src='aes_linetype_size_shape-12.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(shape = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>)))</div><div class='img'><img src='aes_linetype_size_shape-13.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># A look at all 25 symbols</span>
-<span class='no'>df2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>5</span> , <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>25</span>, <span class='kw'>z</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>25</span>)
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>df2</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>x</span>, <span class='no'>y</span>))
-<span class='no'>s</span> + <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>shape</span> <span class='kw'>=</span> <span class='no'>z</span>), <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>4</span>) +
-  <span class='fu'><a href='scale_identity.html'>scale_shape_identity</a></span>()</div><div class='img'><img src='aes_linetype_size_shape-14.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># While all symbols have a foreground colour, symbols 19-25 also take a</span>
+<span class='kw'>df2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(x = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span> , y = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>25</span>, z = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>25</span>)
+<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df2</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>))
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(shape = <span class='kw'>z</span>), size = <span class='fl'>4</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_identity.html'>scale_shape_identity</a></span>()</div><div class='img'><img src='aes_linetype_size_shape-14.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># While all symbols have a foreground colour, symbols 19-25 also take a</span>
 <span class='co'># background colour (fill)</span>
-<span class='no'>s</span> + <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>shape</span> <span class='kw'>=</span> <span class='no'>z</span>), <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"Red"</span>) +
-  <span class='fu'><a href='scale_identity.html'>scale_shape_identity</a></span>()</div><div class='img'><img src='aes_linetype_size_shape-15.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>s</span> + <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>shape</span> <span class='kw'>=</span> <span class='no'>z</span>), <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"Red"</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>"Black"</span>) +
-  <span class='fu'><a href='scale_identity.html'>scale_shape_identity</a></span>()</div><div class='img'><img src='aes_linetype_size_shape-16.png' alt='' width='700' height='433' /></div></pre>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(shape = <span class='kw'>z</span>), size = <span class='fl'>4</span>, colour = <span class='st'>"Red"</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_identity.html'>scale_shape_identity</a></span>()</div><div class='img'><img src='aes_linetype_size_shape-15.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(shape = <span class='kw'>z</span>), size = <span class='fl'>4</span>, colour = <span class='st'>"Red"</span>, fill = <span class='st'>"Black"</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_identity.html'>scale_shape_identity</a></span>()</div><div class='img'><img src='aes_linetype_size_shape-16.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -252,7 +292,7 @@ of aesthetics; linetype, size and shape.</p>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, Dewey Dunnington.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -261,6 +301,23 @@ of aesthetics; linetype, size and shape.</p>
    </div>
 
   
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: 'e1261f3df95d2d4704c626ff11a4b536',
+    indexName: 'tidyverse_ggplot2',
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
+  });
+</script>
+
 
 
   </body>

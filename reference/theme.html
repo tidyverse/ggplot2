@@ -43,16 +43,26 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+<!--optional theme-->
+<link href="../.css" rel="stylesheet">
+
+
+
+<!-- docsearch -->
+<script src="../docsearch.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
+<link href="../docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
 <meta property="og:title" content="Modify components of a theme — theme" />
-<meta property="og:description" content="Themes are a powerful way to customize the non-data components of your
-plots: i.e. titles, labels, fonts, background, gridlines, and legends.
-Themes can be used to give plots a consistent customized look.
-Modify a single plot's theme using theme(); see theme_update() if
-you want modify the active theme, to affect all subsequent plots. Theme
-elements are documented together according to inheritance, read more
-about theme inheritance below." />
+<meta property="og:description" content="Themes are a powerful way to customize the non-data components of your plots:
+i.e. titles, labels, fonts, background, gridlines, and legends. Themes can be
+used to give plots a consistent customized look. Modify a single plot's theme
+using theme(); see theme_update() if you want modify the active theme, to
+affect all subsequent plots. Use the themes available in complete themes if you would like to use a complete theme such as
+theme_bw(), theme_minimal(), and more. Theme elements are documented
+together according to inheritance, read more about theme inheritance below." />
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -95,9 +105,9 @@ about theme inheritance below." />
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">ggplot2</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.2</span>
         </div>
       </div>
     </div>
@@ -113,7 +123,7 @@ about theme inheritance below." />
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Release notes</li>
+    <li class="dropdown-header">Releases</li>
     <li>
       <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
     </li>
@@ -140,7 +150,7 @@ about theme inheritance below." />
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../news/index.html">Change log</a>
+      <a href="../news/index.html">Changelog</a>
     </li>
   </ul>
 </li>
@@ -166,7 +176,7 @@ about theme inheritance below." />
   </ul>
 </li>
         <li>
-  <a href="https://exts.ggplot2.tidyverse.org/">Extensions</a>
+  <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2/">
@@ -175,6 +185,12 @@ about theme inheritance below." />
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
       
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -193,111 +209,111 @@ about theme inheritance below." />
     </div>
 
     <div class="ref-description">
-    <p>Themes are a powerful way to customize the non-data components of your
-plots: i.e. titles, labels, fonts, background, gridlines, and legends.
-Themes can be used to give plots a consistent customized look.
-Modify a single plot's theme using <code>theme()</code>; see <code><a href='theme_get.html'>theme_update()</a></code> if
-you want modify the active theme, to affect all subsequent plots. Theme
-elements are documented together according to inheritance, read more
-about theme inheritance below.</p>
+    <p>Themes are a powerful way to customize the non-data components of your plots:
+i.e. titles, labels, fonts, background, gridlines, and legends. Themes can be
+used to give plots a consistent customized look. Modify a single plot's theme
+using <code><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme()</a></code>; see <code><a href='https://ggplot2.tidyverse.org/reference/theme_get.html'>theme_update()</a></code> if you want modify the active theme, to
+affect all subsequent plots. Use the themes available in <a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>complete themes</a> if you would like to use a complete theme such as
+<code><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_bw()</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal()</a></code>, and more. Theme elements are documented
+together according to inheritance, read more about theme inheritance below.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>theme</span>(
-  <span class='no'>line</span>,
-  <span class='no'>rect</span>,
-  <span class='no'>text</span>,
-  <span class='no'>title</span>,
-  <span class='no'>aspect.ratio</span>,
-  <span class='no'>axis.title</span>,
-  <span class='no'>axis.title.x</span>,
-  <span class='no'>axis.title.x.top</span>,
-  <span class='no'>axis.title.x.bottom</span>,
-  <span class='no'>axis.title.y</span>,
-  <span class='no'>axis.title.y.left</span>,
-  <span class='no'>axis.title.y.right</span>,
-  <span class='no'>axis.text</span>,
-  <span class='no'>axis.text.x</span>,
-  <span class='no'>axis.text.x.top</span>,
-  <span class='no'>axis.text.x.bottom</span>,
-  <span class='no'>axis.text.y</span>,
-  <span class='no'>axis.text.y.left</span>,
-  <span class='no'>axis.text.y.right</span>,
-  <span class='no'>axis.ticks</span>,
-  <span class='no'>axis.ticks.x</span>,
-  <span class='no'>axis.ticks.x.top</span>,
-  <span class='no'>axis.ticks.x.bottom</span>,
-  <span class='no'>axis.ticks.y</span>,
-  <span class='no'>axis.ticks.y.left</span>,
-  <span class='no'>axis.ticks.y.right</span>,
-  <span class='no'>axis.ticks.length</span>,
-  <span class='no'>axis.ticks.length.x</span>,
-  <span class='no'>axis.ticks.length.x.top</span>,
-  <span class='no'>axis.ticks.length.x.bottom</span>,
-  <span class='no'>axis.ticks.length.y</span>,
-  <span class='no'>axis.ticks.length.y.left</span>,
-  <span class='no'>axis.ticks.length.y.right</span>,
-  <span class='no'>axis.line</span>,
-  <span class='no'>axis.line.x</span>,
-  <span class='no'>axis.line.x.top</span>,
-  <span class='no'>axis.line.x.bottom</span>,
-  <span class='no'>axis.line.y</span>,
-  <span class='no'>axis.line.y.left</span>,
-  <span class='no'>axis.line.y.right</span>,
-  <span class='no'>legend.background</span>,
-  <span class='no'>legend.margin</span>,
-  <span class='no'>legend.spacing</span>,
-  <span class='no'>legend.spacing.x</span>,
-  <span class='no'>legend.spacing.y</span>,
-  <span class='no'>legend.key</span>,
-  <span class='no'>legend.key.size</span>,
-  <span class='no'>legend.key.height</span>,
-  <span class='no'>legend.key.width</span>,
-  <span class='no'>legend.text</span>,
-  <span class='no'>legend.text.align</span>,
-  <span class='no'>legend.title</span>,
-  <span class='no'>legend.title.align</span>,
-  <span class='no'>legend.position</span>,
-  <span class='no'>legend.direction</span>,
-  <span class='no'>legend.justification</span>,
-  <span class='no'>legend.box</span>,
-  <span class='no'>legend.box.just</span>,
-  <span class='no'>legend.box.margin</span>,
-  <span class='no'>legend.box.background</span>,
-  <span class='no'>legend.box.spacing</span>,
-  <span class='no'>panel.background</span>,
-  <span class='no'>panel.border</span>,
-  <span class='no'>panel.spacing</span>,
-  <span class='no'>panel.spacing.x</span>,
-  <span class='no'>panel.spacing.y</span>,
-  <span class='no'>panel.grid</span>,
-  <span class='no'>panel.grid.major</span>,
-  <span class='no'>panel.grid.minor</span>,
-  <span class='no'>panel.grid.major.x</span>,
-  <span class='no'>panel.grid.major.y</span>,
-  <span class='no'>panel.grid.minor.x</span>,
-  <span class='no'>panel.grid.minor.y</span>,
-  <span class='no'>panel.ontop</span>,
-  <span class='no'>plot.background</span>,
-  <span class='no'>plot.title</span>,
-  <span class='no'>plot.title.position</span>,
-  <span class='no'>plot.subtitle</span>,
-  <span class='no'>plot.caption</span>,
-  <span class='no'>plot.caption.position</span>,
-  <span class='no'>plot.tag</span>,
-  <span class='no'>plot.tag.position</span>,
-  <span class='no'>plot.margin</span>,
-  <span class='no'>strip.background</span>,
-  <span class='no'>strip.background.x</span>,
-  <span class='no'>strip.background.y</span>,
-  <span class='no'>strip.placement</span>,
-  <span class='no'>strip.text</span>,
-  <span class='no'>strip.text.x</span>,
-  <span class='no'>strip.text.y</span>,
-  <span class='no'>strip.switch.pad.grid</span>,
-  <span class='no'>strip.switch.pad.wrap</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>complete</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span>(
+  <span class='kw'>line</span>,
+  <span class='kw'>rect</span>,
+  <span class='kw'>text</span>,
+  <span class='kw'>title</span>,
+  <span class='kw'>aspect.ratio</span>,
+  <span class='kw'>axis.title</span>,
+  <span class='kw'>axis.title.x</span>,
+  <span class='kw'>axis.title.x.top</span>,
+  <span class='kw'>axis.title.x.bottom</span>,
+  <span class='kw'>axis.title.y</span>,
+  <span class='kw'>axis.title.y.left</span>,
+  <span class='kw'>axis.title.y.right</span>,
+  <span class='kw'>axis.text</span>,
+  <span class='kw'>axis.text.x</span>,
+  <span class='kw'>axis.text.x.top</span>,
+  <span class='kw'>axis.text.x.bottom</span>,
+  <span class='kw'>axis.text.y</span>,
+  <span class='kw'>axis.text.y.left</span>,
+  <span class='kw'>axis.text.y.right</span>,
+  <span class='kw'>axis.ticks</span>,
+  <span class='kw'>axis.ticks.x</span>,
+  <span class='kw'>axis.ticks.x.top</span>,
+  <span class='kw'>axis.ticks.x.bottom</span>,
+  <span class='kw'>axis.ticks.y</span>,
+  <span class='kw'>axis.ticks.y.left</span>,
+  <span class='kw'>axis.ticks.y.right</span>,
+  <span class='kw'>axis.ticks.length</span>,
+  <span class='kw'>axis.ticks.length.x</span>,
+  <span class='kw'>axis.ticks.length.x.top</span>,
+  <span class='kw'>axis.ticks.length.x.bottom</span>,
+  <span class='kw'>axis.ticks.length.y</span>,
+  <span class='kw'>axis.ticks.length.y.left</span>,
+  <span class='kw'>axis.ticks.length.y.right</span>,
+  <span class='kw'>axis.line</span>,
+  <span class='kw'>axis.line.x</span>,
+  <span class='kw'>axis.line.x.top</span>,
+  <span class='kw'>axis.line.x.bottom</span>,
+  <span class='kw'>axis.line.y</span>,
+  <span class='kw'>axis.line.y.left</span>,
+  <span class='kw'>axis.line.y.right</span>,
+  <span class='kw'>legend.background</span>,
+  <span class='kw'>legend.margin</span>,
+  <span class='kw'>legend.spacing</span>,
+  <span class='kw'>legend.spacing.x</span>,
+  <span class='kw'>legend.spacing.y</span>,
+  <span class='kw'>legend.key</span>,
+  <span class='kw'>legend.key.size</span>,
+  <span class='kw'>legend.key.height</span>,
+  <span class='kw'>legend.key.width</span>,
+  <span class='kw'>legend.text</span>,
+  <span class='kw'>legend.text.align</span>,
+  <span class='kw'>legend.title</span>,
+  <span class='kw'>legend.title.align</span>,
+  <span class='kw'>legend.position</span>,
+  <span class='kw'>legend.direction</span>,
+  <span class='kw'>legend.justification</span>,
+  <span class='kw'>legend.box</span>,
+  <span class='kw'>legend.box.just</span>,
+  <span class='kw'>legend.box.margin</span>,
+  <span class='kw'>legend.box.background</span>,
+  <span class='kw'>legend.box.spacing</span>,
+  <span class='kw'>panel.background</span>,
+  <span class='kw'>panel.border</span>,
+  <span class='kw'>panel.spacing</span>,
+  <span class='kw'>panel.spacing.x</span>,
+  <span class='kw'>panel.spacing.y</span>,
+  <span class='kw'>panel.grid</span>,
+  <span class='kw'>panel.grid.major</span>,
+  <span class='kw'>panel.grid.minor</span>,
+  <span class='kw'>panel.grid.major.x</span>,
+  <span class='kw'>panel.grid.major.y</span>,
+  <span class='kw'>panel.grid.minor.x</span>,
+  <span class='kw'>panel.grid.minor.y</span>,
+  <span class='kw'>panel.ontop</span>,
+  <span class='kw'>plot.background</span>,
+  <span class='kw'>plot.title</span>,
+  <span class='kw'>plot.title.position</span>,
+  <span class='kw'>plot.subtitle</span>,
+  <span class='kw'>plot.caption</span>,
+  <span class='kw'>plot.caption.position</span>,
+  <span class='kw'>plot.tag</span>,
+  <span class='kw'>plot.tag.position</span>,
+  <span class='kw'>plot.margin</span>,
+  <span class='kw'>strip.background</span>,
+  <span class='kw'>strip.background.x</span>,
+  <span class='kw'>strip.background.y</span>,
+  <span class='kw'>strip.placement</span>,
+  <span class='kw'>strip.text</span>,
+  <span class='kw'>strip.text.x</span>,
+  <span class='kw'>strip.text.y</span>,
+  <span class='kw'>strip.switch.pad.grid</span>,
+  <span class='kw'>strip.switch.pad.wrap</span>,
+  <span class='kw'>...</span>,
+  complete = <span class='fl'>FALSE</span>,
+  validate = <span class='fl'>TRUE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -305,19 +321,19 @@ about theme inheritance below.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>line</th>
-      <td><p>all line elements (<code><a href='element.html'>element_line()</a></code>)</p></td>
+      <td><p>all line elements (<code><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_line()</a></code>)</p></td>
     </tr>
     <tr>
       <th>rect</th>
-      <td><p>all rectangular elements (<code><a href='element.html'>element_rect()</a></code>)</p></td>
+      <td><p>all rectangular elements (<code><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_rect()</a></code>)</p></td>
     </tr>
     <tr>
       <th>text</th>
-      <td><p>all text elements (<code><a href='element.html'>element_text()</a></code>)</p></td>
+      <td><p>all text elements (<code><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text()</a></code>)</p></td>
     </tr>
     <tr>
       <th>title</th>
-      <td><p>all title elements: plot, axes, legends (<code><a href='element.html'>element_text()</a></code>;
+      <td><p>all title elements: plot, axes, legends (<code><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text()</a></code>;
 inherits from <code>text</code>)</p></td>
     </tr>
     <tr>
@@ -326,7 +342,7 @@ inherits from <code>text</code>)</p></td>
     </tr>
     <tr>
       <th>axis.title, axis.title.x, axis.title.y, axis.title.x.top, axis.title.x.bottom, axis.title.y.left, axis.title.y.right</th>
-      <td><p>labels of axes (<code><a href='element.html'>element_text()</a></code>). Specify all axes' labels (<code>axis.title</code>),
+      <td><p>labels of axes (<code><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text()</a></code>). Specify all axes' labels (<code>axis.title</code>),
 labels by plane (using <code>axis.title.x</code> or <code>axis.title.y</code>), or individually
 for each axis (using <code>axis.title.x.bottom</code>, <code>axis.title.x.top</code>,
 <code>axis.title.y.left</code>, <code>axis.title.y.right</code>). <code>axis.title.*.*</code> inherits from
@@ -335,7 +351,7 @@ from <code>text</code></p></td>
     </tr>
     <tr>
       <th>axis.text, axis.text.x, axis.text.y, axis.text.x.top, axis.text.x.bottom, axis.text.y.left, axis.text.y.right</th>
-      <td><p>tick labels along axes (<code><a href='element.html'>element_text()</a></code>). Specify all axis tick labels (<code>axis.text</code>),
+      <td><p>tick labels along axes (<code><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text()</a></code>). Specify all axis tick labels (<code>axis.text</code>),
 tick labels by plane (using <code>axis.text.x</code> or <code>axis.text.y</code>), or individually
 for each axis (using <code>axis.text.x.bottom</code>, <code>axis.text.x.top</code>,
 <code>axis.text.y.left</code>, <code>axis.text.y.right</code>). <code>axis.text.*.*</code> inherits from
@@ -344,7 +360,7 @@ from <code>text</code></p></td>
     </tr>
     <tr>
       <th>axis.ticks, axis.ticks.x, axis.ticks.x.top, axis.ticks.x.bottom, axis.ticks.y, axis.ticks.y.left, axis.ticks.y.right</th>
-      <td><p>tick marks along axes (<code><a href='element.html'>element_line()</a></code>). Specify all tick marks (<code>axis.ticks</code>),
+      <td><p>tick marks along axes (<code><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_line()</a></code>). Specify all tick marks (<code>axis.ticks</code>),
 ticks by plane (using <code>axis.ticks.x</code> or <code>axis.ticks.y</code>), or individually
 for each axis (using <code>axis.ticks.x.bottom</code>, <code>axis.ticks.x.top</code>,
 <code>axis.ticks.y.left</code>, <code>axis.ticks.y.right</code>). <code>axis.ticks.*.*</code> inherits from
@@ -357,7 +373,7 @@ from <code>line</code></p></td>
     </tr>
     <tr>
       <th>axis.line, axis.line.x, axis.line.x.top, axis.line.x.bottom, axis.line.y, axis.line.y.left, axis.line.y.right</th>
-      <td><p>lines along axes (<code><a href='element.html'>element_line()</a></code>). Specify lines along all axes (<code>axis.line</code>),
+      <td><p>lines along axes (<code><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_line()</a></code>). Specify lines along all axes (<code>axis.line</code>),
 lines for each plane (using <code>axis.line.x</code> or <code>axis.line.y</code>), or individually
 for each axis (using <code>axis.line.x.bottom</code>, <code>axis.line.x.top</code>,
 <code>axis.line.y.left</code>, <code>axis.line.y.right</code>). <code>axis.line.*.*</code> inherits from
@@ -366,12 +382,12 @@ from <code>line</code></p></td>
     </tr>
     <tr>
       <th>legend.background</th>
-      <td><p>background of legend (<code><a href='element.html'>element_rect()</a></code>; inherits
+      <td><p>background of legend (<code><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_rect()</a></code>; inherits
 from <code>rect</code>)</p></td>
     </tr>
     <tr>
       <th>legend.margin</th>
-      <td><p>the margin around each legend (<code><a href='element.html'>margin()</a></code>)</p></td>
+      <td><p>the margin around each legend (<code><a href='https://ggplot2.tidyverse.org/reference/element.html'>margin()</a></code>)</p></td>
     </tr>
     <tr>
       <th>legend.spacing, legend.spacing.x, legend.spacing.y</th>
@@ -380,7 +396,7 @@ inherit from <code>legend.spacing</code> or can be specified separately</p></td>
     </tr>
     <tr>
       <th>legend.key</th>
-      <td><p>background underneath legend keys (<code><a href='element.html'>element_rect()</a></code>;
+      <td><p>background underneath legend keys (<code><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_rect()</a></code>;
 inherits from <code>rect</code>)</p></td>
     </tr>
     <tr>
@@ -390,7 +406,7 @@ inherits from <code>rect</code>)</p></td>
     </tr>
     <tr>
       <th>legend.text</th>
-      <td><p>legend item labels (<code><a href='element.html'>element_text()</a></code>; inherits from
+      <td><p>legend item labels (<code><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text()</a></code>; inherits from
 <code>text</code>)</p></td>
     </tr>
     <tr>
@@ -400,7 +416,7 @@ inherits from <code>rect</code>)</p></td>
     </tr>
     <tr>
       <th>legend.title</th>
-      <td><p>title of legend (<code><a href='element.html'>element_text()</a></code>; inherits from
+      <td><p>title of legend (<code><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text()</a></code>; inherits from
 <code>title</code>)</p></td>
     </tr>
     <tr>
@@ -438,11 +454,11 @@ bounding box, when there are multiple legends ("top", "bottom", "left", or
     <tr>
       <th>legend.box.margin</th>
       <td><p>margins around the full legend area, as specified
-using <code><a href='element.html'>margin()</a></code></p></td>
+using <code><a href='https://ggplot2.tidyverse.org/reference/element.html'>margin()</a></code></p></td>
     </tr>
     <tr>
       <th>legend.box.background</th>
-      <td><p>background of legend area (<code><a href='element.html'>element_rect()</a></code>;
+      <td><p>background of legend area (<code><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_rect()</a></code>;
 inherits from <code>rect</code>)</p></td>
     </tr>
     <tr>
@@ -453,14 +469,14 @@ legend box (<code>unit</code>)</p></td>
     <tr>
       <th>panel.background</th>
       <td><p>background of plotting area, drawn underneath plot
-(<code><a href='element.html'>element_rect()</a></code>; inherits from <code>rect</code>)</p></td>
+(<code><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_rect()</a></code>; inherits from <code>rect</code>)</p></td>
     </tr>
     <tr>
       <th>panel.border</th>
       <td><p>border around plotting area, drawn on top of plot so that
 it covers tick marks and grid lines. This should be used with
 <code>fill = NA</code>
-(<code><a href='element.html'>element_rect()</a></code>; inherits from <code>rect</code>)</p></td>
+(<code><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_rect()</a></code>; inherits from <code>rect</code>)</p></td>
     </tr>
     <tr>
       <th>panel.spacing, panel.spacing.x, panel.spacing.y</th>
@@ -470,7 +486,7 @@ or can be specified separately.</p></td>
     </tr>
     <tr>
       <th>panel.grid, panel.grid.major, panel.grid.minor, panel.grid.major.x, panel.grid.major.y, panel.grid.minor.x, panel.grid.minor.y</th>
-      <td><p>grid lines (<code><a href='element.html'>element_line()</a></code>). Specify major grid lines,
+      <td><p>grid lines (<code><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_line()</a></code>). Specify major grid lines,
 or minor grid lines separately (using <code>panel.grid.major</code> or <code>panel.grid.minor</code>)
 or individually for each axis (using <code>panel.grid.major.x</code>, <code>panel.grid.minor.x</code>,
 <code>panel.grid.major.y</code>, <code>panel.grid.minor.y</code>).  Y axis grid lines are horizontal
@@ -486,12 +502,12 @@ the data layers (<code>logical</code>). Usually used with a transparent or blank
     </tr>
     <tr>
       <th>plot.background</th>
-      <td><p>background of the entire plot (<code><a href='element.html'>element_rect()</a></code>;
+      <td><p>background of the entire plot (<code><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_rect()</a></code>;
 inherits from <code>rect</code>)</p></td>
     </tr>
     <tr>
       <th>plot.title</th>
-      <td><p>plot title (text appearance) (<code><a href='element.html'>element_text()</a></code>; inherits
+      <td><p>plot title (text appearance) (<code><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text()</a></code>; inherits
 from <code>title</code>) left-aligned by default</p></td>
     </tr>
     <tr>
@@ -505,18 +521,18 @@ for margins and plot tag).</p></td>
     </tr>
     <tr>
       <th>plot.subtitle</th>
-      <td><p>plot subtitle (text appearance) (<code><a href='element.html'>element_text()</a></code>;
+      <td><p>plot subtitle (text appearance) (<code><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text()</a></code>;
 inherits from <code>title</code>) left-aligned by default</p></td>
     </tr>
     <tr>
       <th>plot.caption</th>
       <td><p>caption below the plot (text appearance)
-(<code><a href='element.html'>element_text()</a></code>; inherits from <code>title</code>) right-aligned by default</p></td>
+(<code><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text()</a></code>; inherits from <code>title</code>) right-aligned by default</p></td>
     </tr>
     <tr>
       <th>plot.tag</th>
       <td><p>upper-left label to identify a plot (text appearance)
-(<code><a href='element.html'>element_text()</a></code>; inherits from <code>title</code>) left-aligned by default</p></td>
+(<code><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text()</a></code>; inherits from <code>title</code>) left-aligned by default</p></td>
     </tr>
     <tr>
       <th>plot.tag.position</th>
@@ -532,7 +548,7 @@ the top, right, bottom, and left margins)</p></td>
     </tr>
     <tr>
       <th>strip.background, strip.background.x, strip.background.y</th>
-      <td><p>background of facet labels (<code><a href='element.html'>element_rect()</a></code>;
+      <td><p>background of facet labels (<code><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_rect()</a></code>;
 inherits from <code>rect</code>). Horizontal facet background (<code>strip.background.x</code>)
 &amp; vertical facet background (<code>strip.background.y</code>) inherit from
 <code>strip.background</code> or can be specified separately</p></td>
@@ -545,7 +561,7 @@ on the same side of the plot.</p></td>
     </tr>
     <tr>
       <th>strip.text, strip.text.x, strip.text.y</th>
-      <td><p>facet labels (<code><a href='element.html'>element_text()</a></code>;
+      <td><p>facet labels (<code><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text()</a></code>;
 inherits from  <code>text</code>). Horizontal facet labels (<code>strip.text.x</code>) &amp; vertical
 facet labels (<code>strip.text.y</code>) inherit from <code>strip.text</code> or can be specified
 separately</p></td>
@@ -568,7 +584,7 @@ these should also be defined in the <code>element tree</code> argument.</p></td>
     <tr>
       <th>complete</th>
       <td><p>set this to <code>TRUE</code> if this is a complete theme, such as
-the one returned by <code><a href='ggtheme.html'>theme_grey()</a></code>. Complete themes behave
+the one returned by <code><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_grey()</a></code>. Complete themes behave
 differently when added to a ggplot object. Also, when setting
 <code>complete = TRUE</code> all elements will be set to inherit from blank
 elements.</p></td>
@@ -590,82 +606,81 @@ directly or indirectly from <code>text</code>; all lines inherit from
 <code>line</code>, and all rectangular objects inherit from <code>rect</code>.
 This means that you can modify the appearance of multiple elements by
 setting a single high-level component.</p>
-<p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
+<p>Learn more about setting these aesthetics in <code>vignette("ggplot2-specs")</code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='gg-add.html'>+.gg()</a></code> and <a href='theme_get.html'>%+replace%</a>,
-<code><a href='element.html'>element_blank()</a></code>, <code><a href='element.html'>element_line()</a></code>,
-<code><a href='element.html'>element_rect()</a></code>, and <code><a href='element.html'>element_text()</a></code> for
+    <div class='dont-index'><p><code><a href='https://ggplot2.tidyverse.org/reference/gg-add.html'>+.gg()</a></code> and <a href='https://ggplot2.tidyverse.org/reference/theme_get.html'>%+replace%</a>,
+<code><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_blank()</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_line()</a></code>,
+<code><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_rect()</a></code>, and <code><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text()</a></code> for
 details of the specific theme elements.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>wt</span>, <span class='no'>mpg</span>)) +
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() +
-  <span class='fu'><a href='labs.html'>labs</a></span>(<span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Fuel economy declines as weight increases"</span>)
-<span class='no'>p1</span></div><div class='img'><img src='theme-1.png' alt='' width='700' height='433' /></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='kw'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>wt</span>, <span class='kw'>mpg</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span>(title = <span class='st'>"Fuel economy declines as weight increases"</span>)
+<span class='kw'>p1</span></div><div class='img'><img src='theme-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Plot ---------------------------------------------------------------------</span>
-<span class='no'>p1</span> + <span class='fu'>theme</span>(<span class='kw'>plot.title</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_text</a></span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>rel</a></span>(<span class='fl'>2</span>)))</div><div class='img'><img src='theme-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p1</span> + <span class='fu'>theme</span>(<span class='kw'>plot.background</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_rect</a></span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>"green"</span>))</div><div class='img'><img src='theme-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span>(plot.title = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span>(size = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>rel</a></span>(<span class='fl'>2</span>)))</div><div class='img'><img src='theme-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span>(plot.background = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_rect</a></span>(fill = <span class='st'>"green"</span>))</div><div class='img'><img src='theme-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Panels --------------------------------------------------------------------</span>
 
-<span class='no'>p1</span> + <span class='fu'>theme</span>(<span class='kw'>panel.background</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_rect</a></span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>"white"</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"grey50"</span>))</div><div class='img'><img src='theme-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p1</span> + <span class='fu'>theme</span>(<span class='kw'>panel.border</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_rect</a></span>(<span class='kw'>linetype</span> <span class='kw'>=</span> <span class='st'>"dashed"</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>))</div><div class='img'><img src='theme-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p1</span> + <span class='fu'>theme</span>(<span class='kw'>panel.grid.major</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_line</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"black"</span>))</div><div class='img'><img src='theme-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p1</span> + <span class='fu'>theme</span>(
-  <span class='kw'>panel.grid.major.y</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_blank</a></span>(),
-  <span class='kw'>panel.grid.minor.y</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_blank</a></span>()
+<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span>(panel.background = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_rect</a></span>(fill = <span class='st'>"white"</span>, colour = <span class='st'>"grey50"</span>))</div><div class='img'><img src='theme-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span>(panel.border = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_rect</a></span>(linetype = <span class='st'>"dashed"</span>, fill = <span class='fl'>NA</span>))</div><div class='img'><img src='theme-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span>(panel.grid.major = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_line</a></span>(colour = <span class='st'>"black"</span>))</div><div class='img'><img src='theme-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span>(
+  panel.grid.major.y = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_blank</a></span>(),
+  panel.grid.minor.y = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_blank</a></span>()
 )</div><div class='img'><img src='theme-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Put gridlines on top of data</span>
-<span class='no'>p1</span> + <span class='fu'>theme</span>(
-  <span class='kw'>panel.background</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_rect</a></span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>),
-  <span class='kw'>panel.grid.major</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_line</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"grey50"</span>),
-  <span class='kw'>panel.ontop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span>(
+  panel.background = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_rect</a></span>(fill = <span class='fl'>NA</span>),
+  panel.grid.major = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_line</a></span>(colour = <span class='st'>"grey50"</span>),
+  panel.ontop = <span class='fl'>TRUE</span>
 )</div><div class='img'><img src='theme-8.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Axes ----------------------------------------------------------------------</span>
 <span class='co'># Change styles of axes texts and lines</span>
-<span class='no'>p1</span> + <span class='fu'>theme</span>(<span class='kw'>axis.line</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_line</a></span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"grey80"</span>))</div><div class='img'><img src='theme-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p1</span> + <span class='fu'>theme</span>(<span class='kw'>axis.text</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_text</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"blue"</span>))</div><div class='img'><img src='theme-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p1</span> + <span class='fu'>theme</span>(<span class='kw'>axis.ticks</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_line</a></span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>2</span>))</div><div class='img'><img src='theme-11.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span>(axis.line = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_line</a></span>(size = <span class='fl'>3</span>, colour = <span class='st'>"grey80"</span>))</div><div class='img'><img src='theme-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span>(axis.text = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span>(colour = <span class='st'>"blue"</span>))</div><div class='img'><img src='theme-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span>(axis.ticks = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_line</a></span>(size = <span class='fl'>2</span>))</div><div class='img'><img src='theme-11.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Change the appearance of the y-axis title</span>
-<span class='no'>p1</span> + <span class='fu'>theme</span>(<span class='kw'>axis.title.y</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_text</a></span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>rel</a></span>(<span class='fl'>1.5</span>), <span class='kw'>angle</span> <span class='kw'>=</span> <span class='fl'>90</span>))</div><div class='img'><img src='theme-12.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span>(axis.title.y = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span>(size = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>rel</a></span>(<span class='fl'>1.5</span>), angle = <span class='fl'>90</span>))</div><div class='img'><img src='theme-12.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Make ticks point outwards on y-axis and inwards on x-axis</span>
-<span class='no'>p1</span> + <span class='fu'>theme</span>(
-  <span class='kw'>axis.ticks.length.y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>.25</span>, <span class='st'>"cm"</span>),
-  <span class='kw'>axis.ticks.length.x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(-<span class='fl'>.25</span>, <span class='st'>"cm"</span>),
-  <span class='kw'>axis.text.x</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_text</a></span>(<span class='kw'>margin</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>margin</a></span>(<span class='kw'>t</span> <span class='kw'>=</span> <span class='fl'>.3</span>, <span class='kw'>unit</span> <span class='kw'>=</span> <span class='st'>"cm"</span>))
+<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span>(
+  axis.ticks.length.y = <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>.25</span>, <span class='st'>"cm"</span>),
+  axis.ticks.length.x = <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='op'>-</span><span class='fl'>.25</span>, <span class='st'>"cm"</span>),
+  axis.text.x = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span>(margin = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>margin</a></span>(t = <span class='fl'>.3</span>, unit = <span class='st'>"cm"</span>))
 )</div><div class='img'><img src='theme-13.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># \donttest{</span>
 <span class='co'># Legend --------------------------------------------------------------------</span>
-<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>wt</span>, <span class='no'>mpg</span>)) +
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>cyl</span>), <span class='kw'>shape</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>vs</span>))) +
-  <span class='fu'><a href='labs.html'>labs</a></span>(
-    <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"Weight (1000 lbs)"</span>,
-    <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"Fuel economy (mpg)"</span>,
-    <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"Cylinders"</span>,
-    <span class='kw'>shape</span> <span class='kw'>=</span> <span class='st'>"Transmission"</span>
+<span class='kw'>p2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>wt</span>, <span class='kw'>mpg</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(colour = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>), shape = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>vs</span>))) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span>(
+    x = <span class='st'>"Weight (1000 lbs)"</span>,
+    y = <span class='st'>"Fuel economy (mpg)"</span>,
+    colour = <span class='st'>"Cylinders"</span>,
+    shape = <span class='st'>"Transmission"</span>
    )
-<span class='no'>p2</span></div><div class='img'><img src='theme-14.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p2</span></div><div class='img'><img src='theme-14.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Position</span>
-<span class='no'>p2</span> + <span class='fu'>theme</span>(<span class='kw'>legend.position</span> <span class='kw'>=</span> <span class='st'>"none"</span>)</div><div class='img'><img src='theme-15.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p2</span> + <span class='fu'>theme</span>(<span class='kw'>legend.justification</span> <span class='kw'>=</span> <span class='st'>"top"</span>)</div><div class='img'><img src='theme-16.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p2</span> + <span class='fu'>theme</span>(<span class='kw'>legend.position</span> <span class='kw'>=</span> <span class='st'>"bottom"</span>)</div><div class='img'><img src='theme-17.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p2</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span>(legend.position = <span class='st'>"none"</span>)</div><div class='img'><img src='theme-15.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p2</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span>(legend.justification = <span class='st'>"top"</span>)</div><div class='img'><img src='theme-16.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p2</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span>(legend.position = <span class='st'>"bottom"</span>)</div><div class='img'><img src='theme-17.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Or place legends inside the plot using relative coordinates between 0 and 1</span>
 <span class='co'># legend.justification sets the corner that the position refers to</span>
-<span class='no'>p2</span> + <span class='fu'>theme</span>(
-  <span class='kw'>legend.position</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.95</span>, <span class='fl'>.95</span>),
-  <span class='kw'>legend.justification</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"right"</span>, <span class='st'>"top"</span>),
-  <span class='kw'>legend.box.just</span> <span class='kw'>=</span> <span class='st'>"right"</span>,
-  <span class='kw'>legend.margin</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>margin</a></span>(<span class='fl'>6</span>, <span class='fl'>6</span>, <span class='fl'>6</span>, <span class='fl'>6</span>)
+<span class='kw'>p2</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span>(
+  legend.position = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.95</span>, <span class='fl'>.95</span>),
+  legend.justification = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"right"</span>, <span class='st'>"top"</span>),
+  legend.box.just = <span class='st'>"right"</span>,
+  legend.margin = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>margin</a></span>(<span class='fl'>6</span>, <span class='fl'>6</span>, <span class='fl'>6</span>, <span class='fl'>6</span>)
 )</div><div class='img'><img src='theme-18.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># The legend.box properties work similarly for the space around</span>
 <span class='co'># all the legends</span>
-<span class='no'>p2</span> + <span class='fu'>theme</span>(
-  <span class='kw'>legend.box.background</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_rect</a></span>(),
-  <span class='kw'>legend.box.margin</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>margin</a></span>(<span class='fl'>6</span>, <span class='fl'>6</span>, <span class='fl'>6</span>, <span class='fl'>6</span>)
+<span class='kw'>p2</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span>(
+  legend.box.background = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_rect</a></span>(),
+  legend.box.margin = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>margin</a></span>(<span class='fl'>6</span>, <span class='fl'>6</span>, <span class='fl'>6</span>, <span class='fl'>6</span>)
 )</div><div class='img'><img src='theme-19.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can also control the display of the keys</span>
 <span class='co'># and the justification related to the plot area can be set</span>
-<span class='no'>p2</span> + <span class='fu'>theme</span>(<span class='kw'>legend.key</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_rect</a></span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>"white"</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"black"</span>))</div><div class='img'><img src='theme-20.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p2</span> + <span class='fu'>theme</span>(<span class='kw'>legend.text</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_text</a></span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>8</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"red"</span>))</div><div class='img'><img src='theme-21.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p2</span> + <span class='fu'>theme</span>(<span class='kw'>legend.title</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_text</a></span>(<span class='kw'>face</span> <span class='kw'>=</span> <span class='st'>"bold"</span>))</div><div class='img'><img src='theme-22.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p2</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span>(legend.key = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_rect</a></span>(fill = <span class='st'>"white"</span>, colour = <span class='st'>"black"</span>))</div><div class='img'><img src='theme-20.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p2</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span>(legend.text = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span>(size = <span class='fl'>8</span>, colour = <span class='st'>"red"</span>))</div><div class='img'><img src='theme-21.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p2</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span>(legend.title = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span>(face = <span class='st'>"bold"</span>))</div><div class='img'><img src='theme-22.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Strips --------------------------------------------------------------------</span>
 
-<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>wt</span>, <span class='no'>mpg</span>)) +
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() +
-  <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span>(~ <span class='no'>cyl</span>)
-<span class='no'>p3</span></div><div class='img'><img src='theme-23.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='no'>p3</span> + <span class='fu'>theme</span>(<span class='kw'>strip.background</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_rect</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>"white"</span>))</div><div class='img'><img src='theme-24.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p3</span> + <span class='fu'>theme</span>(<span class='kw'>strip.text.x</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_text</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"white"</span>, <span class='kw'>face</span> <span class='kw'>=</span> <span class='st'>"bold"</span>))</div><div class='img'><img src='theme-25.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p3</span> + <span class='fu'>theme</span>(<span class='kw'>panel.spacing</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>1</span>, <span class='st'>"lines"</span>))</div><div class='img'><img src='theme-26.png' alt='' width='700' height='433' /></div><div class='input'># }
-</div></pre>
+<span class='kw'>p3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>wt</span>, <span class='kw'>mpg</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span>(<span class='op'>~</span> <span class='kw'>cyl</span>)
+<span class='kw'>p3</span></div><div class='img'><img src='theme-23.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p3</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span>(strip.background = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_rect</a></span>(colour = <span class='st'>"black"</span>, fill = <span class='st'>"white"</span>))</div><div class='img'><img src='theme-24.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p3</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span>(strip.text.x = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span>(colour = <span class='st'>"white"</span>, face = <span class='st'>"bold"</span>))</div><div class='img'><img src='theme-25.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p3</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span>(panel.spacing = <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>1</span>, <span class='st'>"lines"</span>))</div><div class='img'><img src='theme-26.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -682,7 +697,7 @@ details of the specific theme elements.</p></div>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, Dewey Dunnington.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -691,6 +706,23 @@ details of the specific theme elements.</p></div>
    </div>
 
   
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: 'e1261f3df95d2d4704c626ff11a4b536',
+    indexName: 'tidyverse_ggplot2',
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
+  });
+</script>
+
 
 
   </body>

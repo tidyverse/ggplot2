@@ -43,6 +43,16 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+<!--optional theme-->
+<link href="../.css" rel="stylesheet">
+
+
+
+<!-- docsearch -->
+<script src="../docsearch.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
+<link href="../docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
 <meta property="og:title" content="Polar coordinates — coord_polar" />
@@ -90,9 +100,9 @@ are a stacked bar chart in polar coordinates." />
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">ggplot2</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.2</span>
         </div>
       </div>
     </div>
@@ -108,7 +118,7 @@ are a stacked bar chart in polar coordinates." />
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Release notes</li>
+    <li class="dropdown-header">Releases</li>
     <li>
       <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
     </li>
@@ -135,7 +145,7 @@ are a stacked bar chart in polar coordinates." />
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../news/index.html">Change log</a>
+      <a href="../news/index.html">Changelog</a>
     </li>
   </ul>
 </li>
@@ -161,7 +171,7 @@ are a stacked bar chart in polar coordinates." />
   </ul>
 </li>
         <li>
-  <a href="https://exts.ggplot2.tidyverse.org/">Extensions</a>
+  <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2/">
@@ -170,6 +180,12 @@ are a stacked bar chart in polar coordinates." />
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
       
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -192,7 +208,7 @@ are a stacked bar chart in polar coordinates." />
 are a stacked bar chart in polar coordinates.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>coord_polar</span>(<span class='kw'>theta</span> <span class='kw'>=</span> <span class='st'>"x"</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>clip</span> <span class='kw'>=</span> <span class='st'>"on"</span>)</pre>
+    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_polar.html'>coord_polar</a></span>(theta = <span class='st'>"x"</span>, start = <span class='fl'>0</span>, direction = <span class='fl'>1</span>, clip = <span class='st'>"on"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -203,7 +219,8 @@ are a stacked bar chart in polar coordinates.</p>
     </tr>
     <tr>
       <th>start</th>
-      <td><p>offset of starting point from 12 o'clock in radians</p></td>
+      <td><p>Offset of starting point from 12 o'clock in radians. Offset
+is applied clockwise or anticlockwise depending on value of <code>direction</code>.</p></td>
     </tr>
     <tr>
       <th>direction</th>
@@ -213,7 +230,7 @@ are a stacked bar chart in polar coordinates.</p>
       <th>clip</th>
       <td><p>Should drawing be clipped to the extent of the plot panel? A
 setting of <code>"on"</code> (the default) means yes, and a setting of <code>"off"</code>
-means no. For details, please see <code><a href='coord_cartesian.html'>coord_cartesian()</a></code>.</p></td>
+means no. For details, please see <code><a href='https://ggplot2.tidyverse.org/reference/coord_cartesian.html'>coord_cartesian()</a></code>.</p></td>
     </tr>
     </table>
 
@@ -225,41 +242,40 @@ means no. For details, please see <code><a href='coord_cartesian.html'>coord_car
 <span class='co'># grammar.  Use with EXTREME caution.</span>
 
 <span class='co'>#' # A pie chart = stacked bar chart + polar coordinates</span>
-<span class='no'>pie</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fl'>1</span>), <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>cyl</span>))) +
- <span class='fu'><a href='geom_bar.html'>geom_bar</a></span>(<span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>1</span>)
-<span class='no'>pie</span> + <span class='fu'>coord_polar</span>(<span class='kw'>theta</span> <span class='kw'>=</span> <span class='st'>"y"</span>)</div><div class='img'><img src='coord_polar-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>pie</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(x = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fl'>1</span>), fill = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>))) <span class='op'>+</span>
+ <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span>(width = <span class='fl'>1</span>)
+<span class='kw'>pie</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_polar.html'>coord_polar</a></span>(theta = <span class='st'>"y"</span>)</div><div class='img'><img src='coord_polar-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># \donttest{</span>
 
 <span class='co'># A coxcomb plot = bar chart + polar coordinates</span>
-<span class='no'>cxc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>cyl</span>))) +
-  <span class='fu'><a href='geom_bar.html'>geom_bar</a></span>(<span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"black"</span>)
-<span class='no'>cxc</span> + <span class='fu'>coord_polar</span>()</div><div class='img'><img src='coord_polar-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># A new type of plot?</span>
-<span class='no'>cxc</span> + <span class='fu'>coord_polar</span>(<span class='kw'>theta</span> <span class='kw'>=</span> <span class='st'>"y"</span>)</div><div class='img'><img src='coord_polar-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>cxc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(x = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>))) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span>(width = <span class='fl'>1</span>, colour = <span class='st'>"black"</span>)
+<span class='kw'>cxc</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_polar.html'>coord_polar</a></span>()</div><div class='img'><img src='coord_polar-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># A new type of plot?</span>
+<span class='kw'>cxc</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_polar.html'>coord_polar</a></span>(theta = <span class='st'>"y"</span>)</div><div class='img'><img src='coord_polar-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># The bullseye chart</span>
-<span class='no'>pie</span> + <span class='fu'>coord_polar</span>()</div><div class='img'><img src='coord_polar-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>pie</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_polar.html'>coord_polar</a></span>()</div><div class='img'><img src='coord_polar-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Hadley's favourite pie chart</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  <span class='kw'>variable</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"does not resemble"</span>, <span class='st'>"resembles"</span>),
-  <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>20</span>, <span class='fl'>80</span>)
+<span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
+  variable = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"does not resemble"</span>, <span class='st'>"resembles"</span>),
+  value = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>20</span>, <span class='fl'>80</span>)
 )
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>value</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>variable</span>)) +
-  <span class='fu'><a href='geom_bar.html'>geom_col</a></span>(<span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>1</span>) +
-  <span class='fu'><a href='scale_manual.html'>scale_fill_manual</a></span>(<span class='kw'>values</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"red"</span>, <span class='st'>"yellow"</span>)) +
-  <span class='fu'>coord_polar</span>(<span class='st'>"y"</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='no'>pi</span> / <span class='fl'>3</span>) +
-  <span class='fu'><a href='labs.html'>labs</a></span>(<span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Pac man"</span>)</div><div class='img'><img src='coord_polar-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(x = <span class='st'>""</span>, y = <span class='kw'>value</span>, fill = <span class='kw'>variable</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_col</a></span>(width = <span class='fl'>1</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_fill_manual</a></span>(values = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"red"</span>, <span class='st'>"yellow"</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_polar.html'>coord_polar</a></span>(<span class='st'>"y"</span>, start = <span class='kw'>pi</span> <span class='op'>/</span> <span class='fl'>3</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span>(title = <span class='st'>"Pac man"</span>)</div><div class='img'><img src='coord_polar-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Windrose + doughnut plot</span>
-<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"ggplot2movies"</span>)) {
-<span class='no'>movies</span>$<span class='no'>rrating</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='cut_interval.html'>cut_interval</a></span>(<span class='no'>movies</span>$<span class='no'>rating</span>, <span class='kw'>length</span> <span class='kw'>=</span> <span class='fl'>1</span>)
-<span class='no'>movies</span>$<span class='no'>budgetq</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='cut_interval.html'>cut_number</a></span>(<span class='no'>movies</span>$<span class='no'>budget</span>, <span class='fl'>4</span>)
+<span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"ggplot2movies"</span>)) {
+<span class='kw'>movies</span><span class='op'>$</span><span class='kw'>rrating</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/cut_interval.html'>cut_interval</a></span>(<span class='kw'>movies</span><span class='op'>$</span><span class='kw'>rating</span>, length = <span class='fl'>1</span>)
+<span class='kw'>movies</span><span class='op'>$</span><span class='kw'>budgetq</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/cut_interval.html'>cut_number</a></span>(<span class='kw'>movies</span><span class='op'>$</span><span class='kw'>budget</span>, <span class='fl'>4</span>)
 
-<span class='no'>doh</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>movies</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>rrating</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>budgetq</span>))
+<span class='kw'>doh</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>movies</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(x = <span class='kw'>rrating</span>, fill = <span class='kw'>budgetq</span>))
 
 <span class='co'># Wind rose</span>
-<span class='no'>doh</span> + <span class='fu'><a href='geom_bar.html'>geom_bar</a></span>(<span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>1</span>) + <span class='fu'>coord_polar</span>()
+<span class='kw'>doh</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span>(width = <span class='fl'>1</span>) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_polar.html'>coord_polar</a></span>()
 <span class='co'># Race track plot</span>
-<span class='no'>doh</span> + <span class='fu'><a href='geom_bar.html'>geom_bar</a></span>(<span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"fill"</span>) + <span class='fu'>coord_polar</span>(<span class='kw'>theta</span> <span class='kw'>=</span> <span class='st'>"y"</span>)
-}</div><div class='output co'>#&gt; <span class='message'>Loading required package: ggplot2movies</span></div><div class='img'><img src='coord_polar-6.png' alt='' width='700' height='433' /></div><div class='input'># }
-</div></pre>
+<span class='kw'>doh</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span>(width = <span class='fl'>0.9</span>, position = <span class='st'>"fill"</span>) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_polar.html'>coord_polar</a></span>(theta = <span class='st'>"y"</span>)
+}</div><div class='output co'>#&gt; <span class='message'>Loading required package: ggplot2movies</span></div><div class='img'><img src='coord_polar-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -276,7 +292,7 @@ means no. For details, please see <code><a href='coord_cartesian.html'>coord_car
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, Dewey Dunnington.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -285,6 +301,23 @@ means no. For details, please see <code><a href='coord_cartesian.html'>coord_car
    </div>
 
   
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: 'e1261f3df95d2d4704c626ff11a4b536',
+    indexName: 'tidyverse_ggplot2',
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
+  });
+</script>
+
 
 
   </body>

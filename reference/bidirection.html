@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Utilities for working with bidirecitonal layers — bidirection • ggplot2</title>
+<title>Utilities for working with bidirectional layers — bidirection • ggplot2</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -43,12 +43,22 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+<!--optional theme-->
+<link href="../.css" rel="stylesheet">
 
 
-<meta property="og:title" content="Utilities for working with bidirecitonal layers — bidirection" />
+
+<!-- docsearch -->
+<script src="../docsearch.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
+<link href="../docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+
+
+<meta property="og:title" content="Utilities for working with bidirectional layers — bidirection" />
 <meta property="og:description" content="These functions are what underpins the ability of certain geoms to work
-automatically in both directions. See the Extending ggplot2 for how they
-are used when implementing Geom, Stat, and Position classes." />
+automatically in both directions. See the Extending ggplot2 vignette for
+how they are used when implementing Geom, Stat, and Position classes." />
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -91,9 +101,9 @@ are used when implementing Geom, Stat, and Position classes." />
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">ggplot2</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.2</span>
         </div>
       </div>
     </div>
@@ -109,7 +119,7 @@ are used when implementing Geom, Stat, and Position classes." />
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Release notes</li>
+    <li class="dropdown-header">Releases</li>
     <li>
       <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
     </li>
@@ -136,7 +146,7 @@ are used when implementing Geom, Stat, and Position classes." />
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../news/index.html">Change log</a>
+      <a href="../news/index.html">Changelog</a>
     </li>
   </ul>
 </li>
@@ -162,7 +172,7 @@ are used when implementing Geom, Stat, and Position classes." />
   </ul>
 </li>
         <li>
-  <a href="https://exts.ggplot2.tidyverse.org/">Extensions</a>
+  <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2/">
@@ -171,6 +181,12 @@ are used when implementing Geom, Stat, and Position classes." />
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
       
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -183,31 +199,31 @@ are used when implementing Geom, Stat, and Position classes." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Utilities for working with bidirecitonal layers</h1>
+    <h1>Utilities for working with bidirectional layers</h1>
     <small class="dont-index">Source: <a href='https://github.com/tidyverse/ggplot2/blob/master/R/utilities.r'><code>R/utilities.r</code></a></small>
     <div class="hidden name"><code>bidirection.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p>These functions are what underpins the ability of certain geoms to work
-automatically in both directions. See the <em>Extending ggplot2</em> for how they
-are used when implementing <code>Geom</code>, <code>Stat</code>, and <code>Position</code> classes.</p>
+automatically in both directions. See the <em>Extending ggplot2</em> vignette for
+how they are used when implementing <code>Geom</code>, <code>Stat</code>, and <code>Position</code> classes.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>has_flipped_aes</span>(
-  <span class='no'>data</span>,
-  <span class='kw'>params</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
-  <span class='kw'>main_is_orthogonal</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>range_is_orthogonal</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>group_has_equal</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>ambiguous</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>main_is_continuous</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>main_is_optional</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/bidirection.html'>has_flipped_aes</a></span>(
+  <span class='kw'>data</span>,
+  params = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
+  main_is_orthogonal = <span class='fl'>NA</span>,
+  range_is_orthogonal = <span class='fl'>NA</span>,
+  group_has_equal = <span class='fl'>FALSE</span>,
+  ambiguous = <span class='fl'>FALSE</span>,
+  main_is_continuous = <span class='fl'>FALSE</span>,
+  main_is_optional = <span class='fl'>FALSE</span>
 )
 
-<span class='fu'>flip_data</span>(<span class='no'>data</span>, <span class='kw'>flip</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/bidirection.html'>flip_data</a></span>(<span class='kw'>data</span>, flip = <span class='kw'>NULL</span>)
 
-<span class='fu'>flipped_names</span>(<span class='kw'>flip</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/bidirection.html'>flipped_names</a></span>(flip = <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -261,58 +277,56 @@ given, set to <code>0</code></p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>has_flipped_aes()</code> returns <code>TRUE</code> if it detects a layer in the other
-orientation and <code>FALSE</code> otherwise. <code>flip_data()</code> will return the input
+    <p><code><a href='https://ggplot2.tidyverse.org/reference/bidirection.html'>has_flipped_aes()</a></code> returns <code>TRUE</code> if it detects a layer in the other
+orientation and <code>FALSE</code> otherwise. <code><a href='https://ggplot2.tidyverse.org/reference/bidirection.html'>flip_data()</a></code> will return the input
 unchanged if <code>flip = FALSE</code> and the data with flipped aesthetic names if
-<code>flip = TRUE</code>. <code>flipped_names()</code> returns a named list of strings. If
+<code>flip = TRUE</code>. <code><a href='https://ggplot2.tidyverse.org/reference/bidirection.html'>flipped_names()</a></code> returns a named list of strings. If
 <code>flip = FALSE</code> the name of the element will correspond to the element, e.g.
 <code>flipped_names(FALSE)$x == "x"</code> and if <code>flip = TRUE</code> it will correspond to
 the flipped name, e.g. <code>flipped_names(FALSE)$x == "y"</code></p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>has_flipped_aes()</code> is used to sniff out the orientation of the layer from
+    <p><code><a href='https://ggplot2.tidyverse.org/reference/bidirection.html'>has_flipped_aes()</a></code> is used to sniff out the orientation of the layer from
 the data. It has a range of arguments that can be used to finetune the
-sniffing based on what the data should look like. <code>flip_data()</code> will switch
+sniffing based on what the data should look like. <code><a href='https://ggplot2.tidyverse.org/reference/bidirection.html'>flip_data()</a></code> will switch
 the column names of the data so that it looks like x-oriented data.
-<code>flipped_names()</code> provides a named list of aesthetic names that corresponds
+<code><a href='https://ggplot2.tidyverse.org/reference/bidirection.html'>flipped_names()</a></code> provides a named list of aesthetic names that corresponds
 to the orientation of the layer.</p>
     <h2 class="hasAnchor" id="controlling-the-sniffing"><a class="anchor" href="#controlling-the-sniffing"></a>Controlling the sniffing</h2>
 
     
 
 <p>How the layer data should be interpreted depends on its specific features.
-<code>has_flipped_aes()</code> contains a range of flags for defining what certain
+<code><a href='https://ggplot2.tidyverse.org/reference/bidirection.html'>has_flipped_aes()</a></code> contains a range of flags for defining what certain
 features in the data correspond to:</p><ul>
 <li><p><code>main_is_orthogonal</code>: This argument controls how the existence of only a <code>x</code>
 or <code>y</code> aesthetic is understood. If <code>TRUE</code> then the exisiting aesthetic
-would be then secondary axis. This behaviour is present in <code><a href='geom_violin.html'>stat_ydensity()</a></code>
-and <code><a href='geom_boxplot.html'>stat_boxplot()</a></code>. If <code>FALSE</code> then the exisiting aesthetic is the main
-axis as seen in e.g. <code><a href='geom_histogram.html'>stat_bin()</a></code>, <code><a href='geom_count.html'>geom_count()</a></code>, and <code><a href='geom_density.html'>stat_density()</a></code>.</p></li>
+would be then secondary axis. This behaviour is present in <code><a href='https://ggplot2.tidyverse.org/reference/geom_violin.html'>stat_ydensity()</a></code>
+and <code><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>stat_boxplot()</a></code>. If <code>FALSE</code> then the exisiting aesthetic is the main
+axis as seen in e.g. <code><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>stat_bin()</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/geom_count.html'>geom_count()</a></code>, and <code><a href='https://ggplot2.tidyverse.org/reference/geom_density.html'>stat_density()</a></code>.</p></li>
 <li><p><code>range_is_orthogonal</code>: This argument controls whether the existance of
 range-like aesthetics (e.g. <code>xmin</code> and <code>xmax</code>) represents the main or
 secondary axis. If <code>TRUE</code> then the range is given for the secondary axis as
-seen in e.g. <code><a href='geom_ribbon.html'>geom_ribbon()</a></code> and <code><a href='geom_linerange.html'>geom_linerange()</a></code>. <code>FALSE</code> is less
-prevalent but can be seen in <code><a href='geom_bar.html'>geom_bar()</a></code> where it may encode the span of
-each bar.</p></li>
+seen in e.g. <code><a href='https://ggplot2.tidyverse.org/reference/geom_ribbon.html'>geom_ribbon()</a></code> and <code><a href='https://ggplot2.tidyverse.org/reference/geom_linerange.html'>geom_linerange()</a></code>.</p></li>
 <li><p><code>group_has_equal</code>: This argument controls whether to test for equality of
 all <code>x</code> and <code>y</code> values inside each group and set the main axis to the one
 where all is equal. This test is only performed if <code>TRUE</code>, and only after
 less computationally heavy tests has come up empty handed. Examples are
-<code><a href='geom_boxplot.html'>stat_boxplot()</a></code> and <a href='geom_violin.html'>stat_ydensity</a></p></li>
+<code><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>stat_boxplot()</a></code> and <a href='https://ggplot2.tidyverse.org/reference/geom_violin.html'>stat_ydensity</a></p></li>
 <li><p><code>ambiguous</code>: This argument tells the function that the layer, while
 bidirectional, doesn't treat each axis differently. It will circumvent any
 data based guessing and only take hint from the <code>orientation</code> element in
 <code>params</code>. If this is not present it will fall back to <code>FALSE</code>. Examples are
-<code><a href='geom_path.html'>geom_line()</a></code> and <code><a href='geom_ribbon.html'>geom_area()</a></code></p></li>
+<code><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line()</a></code> and <code><a href='https://ggplot2.tidyverse.org/reference/geom_ribbon.html'>geom_area()</a></code></p></li>
 <li><p><code>main_is_continuous</code>: This argument controls how the test for discreteness
 in the scales should be interpreted. If <code>TRUE</code> then the main axis will be
 the one which is not discrete-like. Conversely, if <code>FALSE</code> the main axis
-will be the discrete-like one. Examples of <code>TRUE</code> is <code><a href='geom_density.html'>stat_density()</a></code> and
-<code><a href='geom_histogram.html'>stat_bin()</a></code>, while examples of <code>FALSE</code> is <code><a href='geom_violin.html'>stat_ydensity()</a></code> and
-<code><a href='geom_boxplot.html'>stat_boxplot()</a></code></p></li>
+will be the discrete-like one. Examples of <code>TRUE</code> is <code><a href='https://ggplot2.tidyverse.org/reference/geom_density.html'>stat_density()</a></code> and
+<code><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>stat_bin()</a></code>, while examples of <code>FALSE</code> is <code><a href='https://ggplot2.tidyverse.org/reference/geom_violin.html'>stat_ydensity()</a></code> and
+<code><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>stat_boxplot()</a></code></p></li>
 <li><p><code>main_is_optional</code>: This argument controls the rare case of layers were the
 main direction is an optional aesthetic. This is only seen in
-<code><a href='geom_boxplot.html'>stat_boxplot()</a></code> where <code>x</code> is set to <code>0</code> if not given. If <code>TRUE</code> there will
+<code><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>stat_boxplot()</a></code> where <code>x</code> is set to <code>0</code> if not given. If <code>TRUE</code> there will
 be a check for whether all <code>x</code> or all <code>y</code> are equal to <code>0</code></p></li>
 </ul>
 
@@ -333,7 +347,7 @@ be a check for whether all <code>x</code> or all <code>y</code> are equal to <co
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, Dewey Dunnington.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -342,6 +356,23 @@ be a check for whether all <code>x</code> or all <code>y</code> are equal to <co
    </div>
 
   
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: 'e1261f3df95d2d4704c626ff11a4b536',
+    indexName: 'tidyverse_ggplot2',
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
+  });
+</script>
+
 
 
   </body>

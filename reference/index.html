@@ -43,6 +43,16 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+<!--optional theme-->
+<link href="../.css" rel="stylesheet">
+
+
+
+<!-- docsearch -->
+<script src="../docsearch.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
+<link href="../docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
 <meta property="og:title" content="Function reference" />
@@ -88,9 +98,9 @@
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">ggplot2</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.2</span>
         </div>
       </div>
     </div>
@@ -106,7 +116,7 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Release notes</li>
+    <li class="dropdown-header">Releases</li>
     <li>
       <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
     </li>
@@ -133,7 +143,7 @@
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../news/index.html">Change log</a>
+      <a href="../news/index.html">Changelog</a>
     </li>
   </ul>
 </li>
@@ -159,7 +169,7 @@
   </ul>
 </li>
         <li>
-  <a href="https://exts.ggplot2.tidyverse.org/">Extensions</a>
+  <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2/">
@@ -168,6 +178,12 @@
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
       
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -195,7 +211,7 @@
       <tr>
         <th colspan="3">
           <h2 id="section-plot-basics" class="hasAnchor"><a href="#section-plot-basics" class="anchor"></a>Plot basics</h2>
-          <p class="section-desc"><p>All ggplot2 plots begin with a call to <code><a href="../reference/ggplot.html">ggplot()</a></code>, supplying default data and aesthethic mappings, specified by <code><a href="../reference/aes.html">aes()</a></code>. You then add layers, scales, coords and facets with <code><a href="https://rdrr.io/r/base/Arithmetic.html">+</a></code>. To save a plot to disk, use <code><a href="../reference/ggsave.html">ggsave()</a></code>.</p></p>
+          <p class="section-desc"><p>All ggplot2 plots begin with a call to <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code>, supplying default data and aesthethic mappings, specified by <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code>. You then add layers, scales, coords and facets with <code><a href="https://rdrr.io/r/base/Arithmetic.html">+</a></code>. To save a plot to disk, use <code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave()</a></code>.</p></p>
         </th>
       </tr>
       
@@ -237,11 +253,20 @@
     </tbody><tbody>
       <tr>
         <th colspan="3">
-          <h2 id="section-layer-geoms" class="hasAnchor"><a href="#section-layer-geoms" class="anchor"></a>Layer: geoms</h2>
-          <p class="section-desc"><p>A layer combines data, aesthetic mapping, a geom (geometric object), a stat (statistical transformation), and a position adjustment. Typically, you will create layers using a <code>geom_</code> function, overriding the default position and stat if needed.</p></p>
+          <h2 id="section-layers" class="hasAnchor"><a href="#section-layers" class="anchor"></a>Layers</h2>
+          <p class="section-desc"></p>
         </th>
       </tr>
       
+      
+    </tbody><tbody>
+      
+      <tr>
+        <th colspan="3">
+          <h3 id="section-geoms" class="hasAnchor"><a href="#section-geoms" class="anchor"></a>Geoms</h3>
+          <p class="section-desc"><p>A layer combines data, aesthetic mapping, a geom (geometric object), a stat (statistical transformation), and a position adjustment. Typically, you will create layers using a <code>geom_</code> function, overriding the default position and stat if needed.</p></p>
+        </th>
+      </tr>
       
     </tbody><tbody>
       
@@ -281,7 +306,7 @@
         <td>
           <p><code><a href="geom_contour.html">geom_contour()</a></code> <code><a href="geom_contour.html">geom_contour_filled()</a></code> <code><a href="geom_contour.html">stat_contour()</a></code> <code><a href="geom_contour.html">stat_contour_filled()</a></code> </p>
         </td>
-        <td><p>2d contours of a 3d surface</p></td>
+        <td><p>2D contours of a 3D surface</p></td>
       </tr><tr>
         <td><a href="geom_count.html"><img src="icons/geom_count.png" width="30" height="30" alt="" /></a></td>
         <td>
@@ -297,9 +322,9 @@
       </tr><tr>
         <td></td>
         <td>
-          <p><code><a href="geom_density_2d.html">geom_density_2d()</a></code> <code><a href="geom_density_2d.html">stat_density_2d()</a></code> </p>
+          <p><code><a href="geom_density_2d.html">geom_density_2d()</a></code> <code><a href="geom_density_2d.html">geom_density_2d_filled()</a></code> <code><a href="geom_density_2d.html">stat_density_2d()</a></code> <code><a href="geom_density_2d.html">stat_density_2d_filled()</a></code> </p>
         </td>
-        <td><p>Contours of a 2d density estimate</p></td>
+        <td><p>Contours of a 2D density estimate</p></td>
       </tr><tr>
         <td><a href="geom_dotplot.html"><img src="icons/geom_dotplot.png" width="30" height="30" alt="" /></a></td>
         <td>
@@ -312,6 +337,12 @@
           <p><code><a href="geom_errorbarh.html">geom_errorbarh()</a></code> </p>
         </td>
         <td><p>Horizontal error bars</p></td>
+      </tr><tr>
+        <td></td>
+        <td>
+          <p><code><a href="geom_function.html">geom_function()</a></code> <code><a href="geom_function.html">stat_function()</a></code> </p>
+        </td>
+        <td><p>Draw a function as a continuous curve</p></td>
       </tr><tr>
         <td><a href="geom_hex.html"><img src="icons/geom_hex.png" width="30" height="30" alt="" /></a></td>
         <td>
@@ -428,13 +459,13 @@
         <td><p>Visualise sf objects</p></td>
       </tr>
     </tbody><tbody>
+      
       <tr>
         <th colspan="3">
-          <h2 id="section-layer-stats" class="hasAnchor"><a href="#section-layer-stats" class="anchor"></a>Layer: stats</h2>
-          <p class="section-desc"><p>A handful of layers are more easily specified with a <code>stat_</code> function, drawing attention to the statistical transformation rather than the visual appearance. The computed variables can be mapped using <code><a href="../reference/aes_eval.html">after_stat()</a></code>.</p></p>
+          <h3 id="section-stats" class="hasAnchor"><a href="#section-stats" class="anchor"></a>Stats</h3>
+          <p class="section-desc"><p>A handful of layers are more easily specified with a <code>stat_</code> function, drawing attention to the statistical transformation rather than the visual appearance. The computed variables can be mapped using <code><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html">after_stat()</a></code>.</p></p>
         </th>
       </tr>
-      
       
     </tbody><tbody>
       
@@ -454,9 +485,9 @@
       </tr><tr>
         <td></td>
         <td>
-          <p><code><a href="stat_function.html">stat_function()</a></code> </p>
+          <p><code><a href="geom_function.html">geom_function()</a></code> <code><a href="geom_function.html">stat_function()</a></code> </p>
         </td>
-        <td><p>Compute function for each x value</p></td>
+        <td><p>Draw a function as a continuous curve</p></td>
       </tr><tr>
         <td></td>
         <td>
@@ -495,13 +526,13 @@
         <td><p>Control aesthetic evaluation</p></td>
       </tr>
     </tbody><tbody>
+      
       <tr>
         <th colspan="3">
-          <h2 id="section-layer-position-adjustment" class="hasAnchor"><a href="#section-layer-position-adjustment" class="anchor"></a>Layer: position adjustment</h2>
+          <h3 id="section-position-adjustment" class="hasAnchor"><a href="#section-position-adjustment" class="anchor"></a>Position adjustment</h3>
           <p class="section-desc"><p>All layers have a position adjustment that resolves overlapping geoms. Override the default by using the <code>position</code> argument to the <code>geom_</code> or <code>stat_</code> function.</p></p>
         </th>
       </tr>
-      
       
     </tbody><tbody>
       
@@ -544,13 +575,13 @@
         <td><p>Stack overlapping objects on top of each another</p></td>
       </tr>
     </tbody><tbody>
+      
       <tr>
         <th colspan="3">
-          <h2 id="section-layer-annotations" class="hasAnchor"><a href="#section-layer-annotations" class="anchor"></a>Layer: annotations</h2>
+          <h3 id="section-annotations" class="hasAnchor"><a href="#section-annotations" class="anchor"></a>Annotations</h3>
           <p class="section-desc"><p>Annotations are a special type of layer that don’t inherit global settings from the plot. They are used to add fixed reference data to plots.</p></p>
         </th>
       </tr>
-      
       
     </tbody><tbody>
       
@@ -615,7 +646,7 @@
         <td>
           <p><code><a href="aes_colour_fill_alpha.html">aes_colour_fill_alpha</a></code> </p>
         </td>
-        <td><p>Colour related aesthetics: colour, fill and alpha</p></td>
+        <td><p>Colour related aesthetics: colour, fill, and alpha</p></td>
       </tr><tr>
         <td></td>
         <td>
@@ -639,7 +670,7 @@
       <tr>
         <th colspan="3">
           <h2 id="section-scales" class="hasAnchor"><a href="#section-scales" class="anchor"></a>Scales</h2>
-          <p class="section-desc"><p>Scales control the details of how data values are translated to visual properties. Override the default scales to tweak details like the axis labels or legend keys, or to use a completely different translation from data to aesthetic. <code><a href="../reference/labs.html">labs()</a></code> and <code><a href="../reference/lims.html">lims()</a></code> are convenient helpers for the most common adjustments to the labels and limits.</p></p>
+          <p class="section-desc"><p>Scales control the details of how data values are translated to visual properties. Override the default scales to tweak details like the axis labels or legend keys, or to use a completely different translation from data to aesthetic. <code><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs()</a></code> and <code><a href="https://ggplot2.tidyverse.org/reference/lims.html">lims()</a></code> are convenient helpers for the most common adjustments to the labels and limits.</p></p>
         </th>
       </tr>
       
@@ -695,6 +726,12 @@
           <p><code><a href="scale_colour_continuous.html">scale_colour_continuous()</a></code> <code><a href="scale_colour_continuous.html">scale_fill_continuous()</a></code> </p>
         </td>
         <td><p>Continuous and binned colour scales</p></td>
+      </tr><tr>
+        <td></td>
+        <td>
+          <p><code><a href="scale_colour_discrete.html">scale_colour_discrete()</a></code> <code><a href="scale_colour_discrete.html">scale_fill_discrete()</a></code> </p>
+        </td>
+        <td><p>Discrete colour scales</p></td>
       </tr><tr>
         <td></td>
         <td>
@@ -778,7 +815,7 @@
       <tr>
         <th colspan="3">
           <h2 id="section-guides-axes-and-legends" class="hasAnchor"><a href="#section-guides-axes-and-legends" class="anchor"></a>Guides: axes and legends</h2>
-          <p class="section-desc"><p>The guides (the axes and legends) help readers interpret your plots. Guides are mostly controlled via the scale (e.g. with the <code>limits</code>, <code>breaks</code>, and <code>labels</code> arguments), but sometimes you will need additional control over guide appearance. Use <code><a href="../reference/guides.html">guides()</a></code> or the <code>guide</code> argument to individual scales along with <code>guide_*()</code> functions.</p></p>
+          <p class="section-desc"><p>The guides (the axes and legends) help readers interpret your plots. Guides are mostly controlled via the scale (e.g. with the <code>limits</code>, <code>breaks</code>, and <code>labels</code> arguments), but sometimes you will need additional control over guide appearance. Use <code><a href="https://ggplot2.tidyverse.org/reference/guides.html">guides()</a></code> or the <code>guide</code> argument to individual scales along with <code>guide_*()</code> functions.</p></p>
         </th>
       </tr>
       
@@ -873,13 +910,13 @@
         <td><p>Quote faceting variables</p></td>
       </tr>
     </tbody><tbody>
+      
       <tr>
         <th colspan="3">
-          <h2 id="section-facetting-labels" class="hasAnchor"><a href="#section-facetting-labels" class="anchor"></a>Facetting: labels</h2>
+          <h3 id="section-labels" class="hasAnchor"><a href="#section-labels" class="anchor"></a>Labels</h3>
           <p class="section-desc"><p>These functions provide a flexible toolkit for controlling the display of the “strip” labels on facets.</p></p>
         </th>
       </tr>
-      
       
     </tbody><tbody>
       
@@ -907,7 +944,7 @@
       <tr>
         <th colspan="3">
           <h2 id="section-coordinate-systems" class="hasAnchor"><a href="#section-coordinate-systems" class="anchor"></a>Coordinate systems</h2>
-          <p class="section-desc"><p>The coordinate system determines how the <code>x</code> and <code>y</code> aesthetics combine to position elements in the plot. The default coordinate system is Cartesian (<code><a href="../reference/coord_cartesian.html">coord_cartesian()</a></code>), which can be tweaked with <code><a href="../reference/coord_map.html">coord_map()</a></code>, <code><a href="../reference/coord_fixed.html">coord_fixed()</a></code>, <code><a href="../reference/coord_flip.html">coord_flip()</a></code>, and <code><a href="../reference/coord_trans.html">coord_trans()</a></code>, or completely replaced with <code><a href="../reference/coord_polar.html">coord_polar()</a></code>.</p></p>
+          <p class="section-desc"><p>The coordinate system determines how the <code>x</code> and <code>y</code> aesthetics combine to position elements in the plot. The default coordinate system is Cartesian (<code><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian()</a></code>), which can be tweaked with <code><a href="https://ggplot2.tidyverse.org/reference/coord_map.html">coord_map()</a></code>, <code><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html">coord_fixed()</a></code>, <code><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html">coord_flip()</a></code>, and <code><a href="https://ggplot2.tidyverse.org/reference/coord_trans.html">coord_trans()</a></code>, or completely replaced with <code><a href="https://ggplot2.tidyverse.org/reference/coord_polar.html">coord_polar()</a></code>.</p></p>
         </th>
       </tr>
       
@@ -956,7 +993,7 @@
       <tr>
         <th colspan="3">
           <h2 id="section-themes" class="hasAnchor"><a href="#section-themes" class="anchor"></a>Themes</h2>
-          <p class="section-desc"><p>Themes control the display of all non-data elements of the plot. You can override all settings with a complete theme like <code><a href="../reference/ggtheme.html">theme_bw()</a></code>, or choose to tweak individual settings by using <code><a href="../reference/theme.html">theme()</a></code> and the <code>element_</code> functions. Use <code><a href="../reference/theme_get.html">theme_set()</a></code> to modify the active theme, affecting all future plots.</p></p>
+          <p class="section-desc"><p>Themes control the display of all non-data elements of the plot. You can override all settings with a complete theme like <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw()</a></code>, or choose to tweak individual settings by using <code><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme()</a></code> and the <code>element_</code> functions. Use <code><a href="https://ggplot2.tidyverse.org/reference/theme_get.html">theme_set()</a></code> to modify the active theme, affecting all future plots.</p></p>
         </th>
       </tr>
       
@@ -1018,7 +1055,7 @@
       <tr>
         <th colspan="3">
           <h2 id="section-extending-ggplot-" class="hasAnchor"><a href="#section-extending-ggplot-" class="anchor"></a>Extending ggplot2</h2>
-          <p class="section-desc"><p>To create your own geoms, stats, scales, and facets, you’ll need to learn a bit about the object oriented system that ggplot2 uses. Start by reading <code><a href="../articles/extending-ggplot2.html">vignette("extending-ggplot2")</a></code> then consult these functions for more details.</p></p>
+          <p class="section-desc"><p>To create your own geoms, stats, scales, and facets, you’ll need to learn a bit about the object oriented system that ggplot2 uses. Start by reading <code>vignette("extending-ggplot2")</code> then consult these functions for more details.</p></p>
         </th>
       </tr>
       
@@ -1153,7 +1190,7 @@
       <tr>
         <th colspan="3">
           <h2 id="section-autoplot-and-fortify" class="hasAnchor"><a href="#section-autoplot-and-fortify" class="anchor"></a>Autoplot and fortify</h2>
-          <p class="section-desc"><p><code><a href="../reference/autoplot.html">autoplot()</a></code> is an extension mechanism for ggplot2: it provides a way for package authors to add methods that work like the base <code><a href="https://rdrr.io/r/graphics/plot.html">plot()</a></code> function, generating useful default plots with little user interaction. <code><a href="../reference/fortify.html">fortify()</a></code> turns objects into tidy data frames: it has largely been superceded by the <a href="https://github.com/tidyverse/broom">broom package</a>.</p></p>
+          <p class="section-desc"><p><code><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot()</a></code> is an extension mechanism for ggplot2: it provides a way for package authors to add methods that work like the base <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> function, generating useful default plots with little user interaction. <code><a href="https://ggplot2.tidyverse.org/reference/fortify.html">fortify()</a></code> turns objects into tidy data frames: it has largely been superceded by the <a href="https://github.com/tidyverse/broom">broom package</a>.</p></p>
         </th>
       </tr>
       
@@ -1205,7 +1242,7 @@
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, Dewey Dunnington.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -1214,6 +1251,23 @@
    </div>
 
   
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: 'e1261f3df95d2d4704c626ff11a4b536',
+    indexName: 'tidyverse_ggplot2',
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
+  });
+</script>
+
 
 
   </body>

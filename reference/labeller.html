@@ -43,6 +43,16 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+<!--optional theme-->
+<link href="../.css" rel="stylesheet">
+
+
+
+<!-- docsearch -->
+<script src="../docsearch.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
+<link href="../docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
 <meta property="og:title" content="Construct labelling specification — labeller" />
@@ -91,9 +101,9 @@ named character vectors that will serve as a lookup table." />
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">ggplot2</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.2</span>
         </div>
       </div>
     </div>
@@ -109,7 +119,7 @@ named character vectors that will serve as a lookup table." />
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Release notes</li>
+    <li class="dropdown-header">Releases</li>
     <li>
       <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
     </li>
@@ -136,7 +146,7 @@ named character vectors that will serve as a lookup table." />
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../news/index.html">Change log</a>
+      <a href="../news/index.html">Changelog</a>
     </li>
   </ul>
 </li>
@@ -162,7 +172,7 @@ named character vectors that will serve as a lookup table." />
   </ul>
 </li>
         <li>
-  <a href="https://exts.ggplot2.tidyverse.org/">Extensions</a>
+  <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2/">
@@ -171,6 +181,12 @@ named character vectors that will serve as a lookup table." />
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
       
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -194,13 +210,13 @@ different factors. The labeller can be a function or it can be a
 named character vectors that will serve as a lookup table.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>labeller</span>(
-  <span class='no'>...</span>,
-  <span class='kw'>.rows</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>.cols</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>keep.as.numeric</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>.multi_line</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>.default</span> <span class='kw'>=</span> <span class='no'>label_value</span>
+    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labeller.html'>labeller</a></span>(
+  <span class='kw'>...</span>,
+  .rows = <span class='kw'>NULL</span>,
+  .cols = <span class='kw'>NULL</span>,
+  keep.as.numeric = <span class='kw'>NULL</span>,
+  .multi_line = <span class='fl'>TRUE</span>,
+  .default = <span class='kw'>label_value</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -209,14 +225,14 @@ named character vectors that will serve as a lookup table.</p>
     <tr>
       <th>...</th>
       <td><p>Named arguments of the form <code>variable =
-  labeller</code>. Each labeller is passed to <code><a href='as_labeller.html'>as_labeller()</a></code>
+  labeller</code>. Each labeller is passed to <code><a href='https://ggplot2.tidyverse.org/reference/as_labeller.html'>as_labeller()</a></code>
 and can be a lookup table, a function taking and returning
 character vectors, or simply a labeller function.</p></td>
     </tr>
     <tr>
       <th>.rows, .cols</th>
       <td><p>Labeller for a whole margin (either the rows or
-the columns). It is passed to <code><a href='as_labeller.html'>as_labeller()</a></code>. When a
+the columns). It is passed to <code><a href='https://ggplot2.tidyverse.org/reference/as_labeller.html'>as_labeller()</a></code>. When a
 margin-wide labeller is set, make sure you don't mention in
 <code>...</code> any variable belonging to the margin.</p></td>
     </tr>
@@ -241,7 +257,7 @@ used with lookup tables or non-labeller functions.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A labeller function to supply to <code><a href='facet_grid.html'>facet_grid()</a></code> or <code><a href='facet_wrap.html'>facet_wrap()</a></code>
+    <p>A labeller function to supply to <code><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid()</a></code> or <code><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap()</a></code>
 for the argument <code>labeller</code>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -254,67 +270,66 @@ functions taking a character vector such as
 <code><a href='https://rdrr.io/pkg/Hmisc/man/capitalize.html'>Hmisc::capitalize()</a></code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='as_labeller.html'>as_labeller()</a></code>, <a href='labellers.html'>labellers</a></p></div>
+    <div class='dont-index'><p><code><a href='https://ggplot2.tidyverse.org/reference/as_labeller.html'>as_labeller()</a></code>, <a href='https://ggplot2.tidyverse.org/reference/labellers.html'>labellers</a></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
-<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>mpg</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>wt</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
+<span class='kw'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(x = <span class='kw'>mpg</span>, y = <span class='kw'>wt</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>()
 
 <span class='co'># You can assign different labellers to variables:</span>
-<span class='no'>p1</span> + <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(
-  <span class='no'>vs</span> + <span class='no'>am</span> ~ <span class='no'>gear</span>,
-  <span class='kw'>labeller</span> <span class='kw'>=</span> <span class='fu'>labeller</span>(<span class='kw'>vs</span> <span class='kw'>=</span> <span class='no'>label_both</span>, <span class='kw'>am</span> <span class='kw'>=</span> <span class='no'>label_value</span>)
+<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span>(
+  <span class='kw'>vs</span> <span class='op'>+</span> <span class='kw'>am</span> <span class='op'>~</span> <span class='kw'>gear</span>,
+  labeller = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labeller.html'>labeller</a></span>(vs = <span class='kw'>label_both</span>, am = <span class='kw'>label_value</span>)
 )</div><div class='img'><img src='labeller-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Or whole margins:</span>
-<span class='no'>p1</span> + <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(
-  <span class='no'>vs</span> + <span class='no'>am</span> ~ <span class='no'>gear</span>,
-  <span class='kw'>labeller</span> <span class='kw'>=</span> <span class='fu'>labeller</span>(<span class='kw'>.rows</span> <span class='kw'>=</span> <span class='no'>label_both</span>, <span class='kw'>.cols</span> <span class='kw'>=</span> <span class='no'>label_value</span>)
+<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span>(
+  <span class='kw'>vs</span> <span class='op'>+</span> <span class='kw'>am</span> <span class='op'>~</span> <span class='kw'>gear</span>,
+  labeller = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labeller.html'>labeller</a></span>(.rows = <span class='kw'>label_both</span>, .cols = <span class='kw'>label_value</span>)
 )</div><div class='img'><img src='labeller-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can supply functions operating on strings:</span>
-<span class='no'>capitalize</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>string</span>) {
-  <span class='fu'><a href='https://rdrr.io/r/base/substr.html'>substr</a></span>(<span class='no'>string</span>, <span class='fl'>1</span>, <span class='fl'>1</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/chartr.html'>toupper</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/substr.html'>substr</a></span>(<span class='no'>string</span>, <span class='fl'>1</span>, <span class='fl'>1</span>))
-  <span class='no'>string</span>
+<span class='kw'>capitalize</span> <span class='op'>&lt;-</span> <span class='fu'>function</span>(<span class='kw'>string</span>) {
+  <span class='fu'><a href='https://rdrr.io/r/base/substr.html'>substr</a></span>(<span class='kw'>string</span>, <span class='fl'>1</span>, <span class='fl'>1</span>) <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/chartr.html'>toupper</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/substr.html'>substr</a></span>(<span class='kw'>string</span>, <span class='fl'>1</span>, <span class='fl'>1</span>))
+  <span class='kw'>string</span>
 }
-<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>msleep</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>sleep_total</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>awake</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
-<span class='no'>p2</span> + <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='no'>vore</span> ~ <span class='no'>conservation</span>, <span class='kw'>labeller</span> <span class='kw'>=</span> <span class='fu'>labeller</span>(<span class='kw'>vore</span> <span class='kw'>=</span> <span class='no'>capitalize</span>))</div><div class='img'><img src='labeller-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>msleep</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(x = <span class='kw'>sleep_total</span>, y = <span class='kw'>awake</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>()
+<span class='kw'>p2</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span>(<span class='kw'>vore</span> <span class='op'>~</span> <span class='kw'>conservation</span>, labeller = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labeller.html'>labeller</a></span>(vore = <span class='kw'>capitalize</span>))</div><div class='img'><img src='labeller-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Or use character vectors as lookup tables:</span>
-<span class='no'>conservation_status</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(
-  <span class='kw'>cd</span> <span class='kw'>=</span> <span class='st'>"Conservation Dependent"</span>,
-  <span class='kw'>en</span> <span class='kw'>=</span> <span class='st'>"Endangered"</span>,
-  <span class='kw'>lc</span> <span class='kw'>=</span> <span class='st'>"Least concern"</span>,
-  <span class='kw'>nt</span> <span class='kw'>=</span> <span class='st'>"Near Threatened"</span>,
-  <span class='kw'>vu</span> <span class='kw'>=</span> <span class='st'>"Vulnerable"</span>,
-  <span class='kw'>domesticated</span> <span class='kw'>=</span> <span class='st'>"Domesticated"</span>
+<span class='kw'>conservation_status</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(
+  cd = <span class='st'>"Conservation Dependent"</span>,
+  en = <span class='st'>"Endangered"</span>,
+  lc = <span class='st'>"Least concern"</span>,
+  nt = <span class='st'>"Near Threatened"</span>,
+  vu = <span class='st'>"Vulnerable"</span>,
+  domesticated = <span class='st'>"Domesticated"</span>
 )
 <span class='co'>## Source: http://en.wikipedia.org/wiki/Wikipedia:Conservation_status</span>
 
-<span class='no'>p2</span> + <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='no'>vore</span> ~ <span class='no'>conservation</span>, <span class='kw'>labeller</span> <span class='kw'>=</span> <span class='fu'>labeller</span>(
-  <span class='kw'>.default</span> <span class='kw'>=</span> <span class='no'>capitalize</span>,
-  <span class='kw'>conservation</span> <span class='kw'>=</span> <span class='no'>conservation_status</span>
+<span class='kw'>p2</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span>(<span class='kw'>vore</span> <span class='op'>~</span> <span class='kw'>conservation</span>, labeller = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labeller.html'>labeller</a></span>(
+  .default = <span class='kw'>capitalize</span>,
+  conservation = <span class='kw'>conservation_status</span>
 ))</div><div class='img'><img src='labeller-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># In the following example, we rename the levels to the long form,</span>
 <span class='co'># then apply a wrap labeller to the columns to prevent cropped text</span>
-<span class='no'>idx</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/match.html'>match</a></span>(<span class='no'>msleep</span>$<span class='no'>conservation</span>, <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>conservation_status</span>))
-<span class='no'>msleep</span>$<span class='no'>conservation2</span> <span class='kw'>&lt;-</span> <span class='no'>conservation_status</span>[<span class='no'>idx</span>]
+<span class='kw'>idx</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/match.html'>match</a></span>(<span class='kw'>msleep</span><span class='op'>$</span><span class='kw'>conservation</span>, <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='kw'>conservation_status</span>))
+<span class='kw'>msleep</span><span class='op'>$</span><span class='kw'>conservation2</span> <span class='op'>&lt;-</span> <span class='kw'>conservation_status</span>[<span class='kw'>idx</span>]
 
-<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>msleep</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>sleep_total</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>awake</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
-<span class='no'>p3</span> +
-  <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='no'>vore</span> ~ <span class='no'>conservation2</span>,
-    <span class='kw'>labeller</span> <span class='kw'>=</span> <span class='fu'>labeller</span>(<span class='kw'>conservation2</span> <span class='kw'>=</span> <span class='fu'><a href='labellers.html'>label_wrap_gen</a></span>(<span class='fl'>10</span>))
+<span class='kw'>p3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>msleep</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(x = <span class='kw'>sleep_total</span>, y = <span class='kw'>awake</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>()
+<span class='kw'>p3</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span>(<span class='kw'>vore</span> <span class='op'>~</span> <span class='kw'>conservation2</span>,
+    labeller = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labeller.html'>labeller</a></span>(conservation2 = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labellers.html'>label_wrap_gen</a></span>(<span class='fl'>10</span>))
   )</div><div class='img'><img src='labeller-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># labeller() is especially useful to act as a global labeller. You</span>
 <span class='co'># can set it up once and use it on a range of different plots with</span>
 <span class='co'># different facet specifications.</span>
 
-<span class='no'>global_labeller</span> <span class='kw'>&lt;-</span> <span class='fu'>labeller</span>(
-  <span class='kw'>vore</span> <span class='kw'>=</span> <span class='no'>capitalize</span>,
-  <span class='kw'>conservation</span> <span class='kw'>=</span> <span class='no'>conservation_status</span>,
-  <span class='kw'>conservation2</span> <span class='kw'>=</span> <span class='fu'><a href='labellers.html'>label_wrap_gen</a></span>(<span class='fl'>10</span>),
-  <span class='kw'>.default</span> <span class='kw'>=</span> <span class='no'>label_both</span>
+<span class='kw'>global_labeller</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labeller.html'>labeller</a></span>(
+  vore = <span class='kw'>capitalize</span>,
+  conservation = <span class='kw'>conservation_status</span>,
+  conservation2 = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labellers.html'>label_wrap_gen</a></span>(<span class='fl'>10</span>),
+  .default = <span class='kw'>label_both</span>
 )
 
-<span class='no'>p2</span> + <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='no'>vore</span> ~ <span class='no'>conservation</span>, <span class='kw'>labeller</span> <span class='kw'>=</span> <span class='no'>global_labeller</span>)</div><div class='img'><img src='labeller-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p3</span> + <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span>(~<span class='no'>conservation2</span>, <span class='kw'>labeller</span> <span class='kw'>=</span> <span class='no'>global_labeller</span>)</div><div class='img'><img src='labeller-7.png' alt='' width='700' height='433' /></div><div class='input'># }
-</div></pre>
+<span class='kw'>p2</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span>(<span class='kw'>vore</span> <span class='op'>~</span> <span class='kw'>conservation</span>, labeller = <span class='kw'>global_labeller</span>)</div><div class='img'><img src='labeller-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p3</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span>(<span class='op'>~</span><span class='kw'>conservation2</span>, labeller = <span class='kw'>global_labeller</span>)</div><div class='img'><img src='labeller-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -331,7 +346,7 @@ functions taking a character vector such as
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, Dewey Dunnington.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -340,6 +355,23 @@ functions taking a character vector such as
    </div>
 
   
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: 'e1261f3df95d2d4704c626ff11a4b536',
+    indexName: 'tidyverse_ggplot2',
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
+  });
+</script>
+
 
 
   </body>

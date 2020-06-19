@@ -43,6 +43,16 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+<!--optional theme-->
+<link href="../.css" rel="stylesheet">
+
+
+
+<!-- docsearch -->
+<script src="../docsearch.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
+<link href="../docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
 <meta property="og:title" content="Save a ggplot (or other grid object) with sensible defaults — ggsave" />
@@ -92,9 +102,9 @@ extension." />
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">ggplot2</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.2</span>
         </div>
       </div>
     </div>
@@ -110,7 +120,7 @@ extension." />
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Release notes</li>
+    <li class="dropdown-header">Releases</li>
     <li>
       <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
     </li>
@@ -137,7 +147,7 @@ extension." />
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../news/index.html">Change log</a>
+      <a href="../news/index.html">Changelog</a>
     </li>
   </ul>
 </li>
@@ -163,7 +173,7 @@ extension." />
   </ul>
 </li>
         <li>
-  <a href="https://exts.ggplot2.tidyverse.org/">Extensions</a>
+  <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2/">
@@ -172,6 +182,12 @@ extension." />
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
       
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -190,24 +206,24 @@ extension." />
     </div>
 
     <div class="ref-description">
-    <p><code>ggsave()</code> is a convenient function for saving a plot. It defaults to
+    <p><code><a href='https://ggplot2.tidyverse.org/reference/ggsave.html'>ggsave()</a></code> is a convenient function for saving a plot. It defaults to
 saving the last plot that you displayed, using the size of the current
 graphics device. It also guesses the type of graphics device from the
 extension.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ggsave</span>(
-  <span class='no'>filename</span>,
-  <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fu'><a href='last_plot.html'>last_plot</a></span>(),
-  <span class='kw'>device</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>units</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"in"</span>, <span class='st'>"cm"</span>, <span class='st'>"mm"</span>),
-  <span class='kw'>dpi</span> <span class='kw'>=</span> <span class='fl'>300</span>,
-  <span class='kw'>limitsize</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
+    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggsave.html'>ggsave</a></span>(
+  <span class='kw'>filename</span>,
+  plot = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/last_plot.html'>last_plot</a></span>(),
+  device = <span class='kw'>NULL</span>,
+  path = <span class='kw'>NULL</span>,
+  scale = <span class='fl'>1</span>,
+  width = <span class='fl'>NA</span>,
+  height = <span class='fl'>NA</span>,
+  units = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"in"</span>, <span class='st'>"cm"</span>, <span class='st'>"mm"</span>),
+  dpi = <span class='fl'>300</span>,
+  limitsize = <span class='fl'>TRUE</span>,
+  <span class='kw'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -267,18 +283,29 @@ integer format expression, such as <code>%03d</code> (as in the default file nam
 for most R graphics devices, see e.g. <code><a href='https://rdrr.io/r/grDevices/png.html'>png()</a></code>).
 Thus, <code>filename = "figure%03d.png"</code> will produce successive filenames
 <code>figure001.png</code>, <code>figure002.png</code>, <code>figure003.png</code>, etc. To write a filename
-containing the <code>%</code> sign, use <code>%%</code>. For example, <code>filename = "figure-100%%.png"</code>
+containing the <code>%</code> sign, use <code><a href='https://rdrr.io/r/base/Arithmetic.html'>%%</a></code>. For example, <code>filename = "figure-100%%.png"</code>
 will produce the filename <code>figure-100%.png</code>.</p>
+    <h2 class="hasAnchor" id="saving-images-without-ggsave-"><a class="anchor" href="#saving-images-without-ggsave-"></a>Saving images without ggsave()</h2>
+
+    
+
+
+<p>In most cases <code><a href='https://ggplot2.tidyverse.org/reference/ggsave.html'>ggsave()</a></code> is the simplest way to save your plot, but
+sometimes you may wish to save the plot by writing directly to a
+graphics device. To do this, you can open a regular R graphics
+device such as <code><a href='https://rdrr.io/r/grDevices/png.html'>png()</a></code> or <code><a href='https://rdrr.io/r/grDevices/pdf.html'>pdf()</a></code>, print the plot, and then close
+the device using <code><a href='https://rdrr.io/r/grDevices/dev.html'>dev.off()</a></code>. This technique is illustrated in the
+examples section.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
+    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>()
 
-<span class='fu'>ggsave</span>(<span class='st'>"mtcars.pdf"</span>)
-<span class='fu'>ggsave</span>(<span class='st'>"mtcars.png"</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggsave.html'>ggsave</a></span>(<span class='st'>"mtcars.pdf"</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggsave.html'>ggsave</a></span>(<span class='st'>"mtcars.png"</span>)
 
-<span class='fu'>ggsave</span>(<span class='st'>"mtcars.pdf"</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>4</span>)
-<span class='fu'>ggsave</span>(<span class='st'>"mtcars.pdf"</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>units</span> <span class='kw'>=</span> <span class='st'>"cm"</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggsave.html'>ggsave</a></span>(<span class='st'>"mtcars.pdf"</span>, width = <span class='fl'>4</span>, height = <span class='fl'>4</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggsave.html'>ggsave</a></span>(<span class='st'>"mtcars.pdf"</span>, width = <span class='fl'>20</span>, height = <span class='fl'>20</span>, units = <span class='st'>"cm"</span>)
 
 <span class='co'># delete files with base::unlink()</span>
 <span class='fu'><a href='https://rdrr.io/r/base/unlink.html'>unlink</a></span>(<span class='st'>"mtcars.pdf"</span>)
@@ -286,9 +313,16 @@ will produce the filename <code>figure-100%.png</code>.</p>
 
 <span class='co'># specify device when saving to a file with unknown extension</span>
 <span class='co'># (for example a server supplied temporary file)</span>
-<span class='no'>file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>()
-<span class='fu'>ggsave</span>(<span class='no'>file</span>, <span class='kw'>device</span> <span class='kw'>=</span> <span class='st'>"pdf"</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/unlink.html'>unlink</a></span>(<span class='no'>file</span>)
+<span class='kw'>file</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>()
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggsave.html'>ggsave</a></span>(<span class='kw'>file</span>, device = <span class='st'>"pdf"</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/unlink.html'>unlink</a></span>(<span class='kw'>file</span>)
+
+<span class='co'># save plot to file without using ggsave</span>
+<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>()
+<span class='fu'><a href='https://rdrr.io/r/grDevices/png.html'>png</a></span>(<span class='st'>"mtcars.png"</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>p</span>)
+<span class='fu'><a href='https://rdrr.io/r/grDevices/dev.html'>dev.off</a></span>()
+
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -306,7 +340,7 @@ will produce the filename <code>figure-100%.png</code>.</p>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, Dewey Dunnington.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -315,6 +349,23 @@ will produce the filename <code>figure-100%.png</code>.</p>
    </div>
 
   
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: 'e1261f3df95d2d4704c626ff11a4b536',
+    indexName: 'tidyverse_ggplot2',
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
+  });
+</script>
+
 
 
   </body>

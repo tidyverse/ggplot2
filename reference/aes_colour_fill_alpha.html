@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Colour related aesthetics: colour, fill and alpha — aes_colour_fill_alpha • ggplot2</title>
+<title>Colour related aesthetics: colour, fill, and alpha — aes_colour_fill_alpha • ggplot2</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -43,11 +43,24 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+<!--optional theme-->
+<link href="../.css" rel="stylesheet">
 
 
-<meta property="og:title" content="Colour related aesthetics: colour, fill and alpha — aes_colour_fill_alpha" />
-<meta property="og:description" content="This page demonstrates the usage of a sub-group
-of aesthetics: colour, fill and alpha." />
+
+<!-- docsearch -->
+<script src="../docsearch.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
+<link href="../docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+
+
+<meta property="og:title" content="Colour related aesthetics: colour, fill, and alpha — aes_colour_fill_alpha" />
+<meta property="og:description" content="These aesthetics parameters change the colour (colour and fill) and the
+opacity (alpha) of geom elements on a plot. Almost every geom has either
+colour or fill (or both), as well as can have their alpha modified.
+Modifying colour on a plot is a useful way to enhance the presentation of data,
+often especially when a plot graphs more than two variables." />
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -90,9 +103,9 @@ of aesthetics: colour, fill and alpha." />
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">ggplot2</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.2</span>
         </div>
       </div>
     </div>
@@ -108,7 +121,7 @@ of aesthetics: colour, fill and alpha." />
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Release notes</li>
+    <li class="dropdown-header">Releases</li>
     <li>
       <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
     </li>
@@ -135,7 +148,7 @@ of aesthetics: colour, fill and alpha." />
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../news/index.html">Change log</a>
+      <a href="../news/index.html">Changelog</a>
     </li>
   </ul>
 </li>
@@ -161,7 +174,7 @@ of aesthetics: colour, fill and alpha." />
   </ul>
 </li>
         <li>
-  <a href="https://exts.ggplot2.tidyverse.org/">Extensions</a>
+  <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2/">
@@ -170,6 +183,12 @@ of aesthetics: colour, fill and alpha." />
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
       
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -182,51 +201,101 @@ of aesthetics: colour, fill and alpha." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Colour related aesthetics: colour, fill and alpha</h1>
+    <h1>Colour related aesthetics: colour, fill, and alpha</h1>
     <small class="dont-index">Source: <a href='https://github.com/tidyverse/ggplot2/blob/master/R/aes-colour-fill-alpha.r'><code>R/aes-colour-fill-alpha.r</code></a></small>
     <div class="hidden name"><code>aes_colour_fill_alpha.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This page demonstrates the usage of a sub-group
-of aesthetics: colour, fill and alpha.</p>
+    <p>These aesthetics parameters change the colour (<code>colour</code> and <code>fill</code>) and the
+opacity (<code>alpha</code>) of geom elements on a plot. Almost every geom has either
+colour or fill (or both), as well as can have their alpha modified.
+Modifying colour on a plot is a useful way to enhance the presentation of data,
+often especially when a plot graphs more than two variables.</p>
     </div>
 
 
 
+    <h2 class="hasAnchor" id="colour-and-fill"><a class="anchor" href="#colour-and-fill"></a>Colour and fill</h2>
+
+    
+
+
+<p>Colours and fills can be specified in the following ways:</p><ul>
+<li><p>A name, e.g., <code>"red"</code>. R has 657 built-in named colours, which can be
+listed with <code><a href='https://rdrr.io/r/grDevices/colors.html'>grDevices::colors()</a></code>.</p></li>
+<li><p>An rgb specification, with a string of the form <code>"#RRGGBB"</code> where each of the
+pairs <code>RR</code>, <code>GG</code>, <code>BB</code> consists of two hexadecimal digits giving a value in the
+range <code>00</code> to <code>FF</code>. You can optionally make the colour transparent by using the
+form <code>"#RRGGBBAA"</code>.</p></li>
+<li><p>An <code>NA</code>, for a completely transparent colour.</p></li>
+</ul>
+
+    <h2 class="hasAnchor" id="alpha"><a class="anchor" href="#alpha"></a>Alpha</h2>
+
+    
+
+
+<p>Alpha refers to the opacity of a geom. Values of <code>alpha</code> range from 0 to 1,
+with lower values corresponding to more transparent colors.</p>
+<p>Alpha can additionally be modified through the <code>colour</code> or <code>fill</code> aesthetic
+if either aesthetic provides color values using an rgb specification
+(<code>"#RRGGBBAA"</code>), where <code>AA</code> refers to transparency values.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'>
+<ul>
+<li><p>Other options for modifying colour:
+<code><a href='https://ggplot2.tidyverse.org/reference/scale_brewer.html'>scale_colour_brewer()</a></code>,
+<code><a href='https://ggplot2.tidyverse.org/reference/scale_gradient.html'>scale_colour_gradient()</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/scale_grey.html'>scale_colour_grey()</a></code>,
+<code><a href='https://ggplot2.tidyverse.org/reference/scale_hue.html'>scale_colour_hue()</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/scale_identity.html'>scale_colour_identity()</a></code>,
+<code><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_colour_manual()</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/scale_viridis.html'>scale_colour_viridis_d()</a></code></p></li>
+<li><p>Other options for modifying fill:
+<code><a href='https://ggplot2.tidyverse.org/reference/scale_brewer.html'>scale_fill_brewer()</a></code>,
+<code><a href='https://ggplot2.tidyverse.org/reference/scale_gradient.html'>scale_fill_gradient()</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/scale_grey.html'>scale_fill_grey()</a></code>,
+<code><a href='https://ggplot2.tidyverse.org/reference/scale_hue.html'>scale_fill_hue()</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/scale_identity.html'>scale_fill_identity()</a></code>,
+<code><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_fill_manual()</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/scale_viridis.html'>scale_fill_viridis_d()</a></code></p></li>
+<li><p>Other options for modifying alpha: <code><a href='https://ggplot2.tidyverse.org/reference/scale_alpha.html'>scale_alpha()</a></code></p></li>
+<li><p>Run <code>vignette("ggplot2-specs")</code> to see an overview of other aesthestics that
+can be modified.</p></li>
+</ul>
+</div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
 
 <span class='co'># Bar chart example</span>
-<span class='no'>c</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>cyl</span>)))
+<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>)))
 <span class='co'># Default plotting</span>
-<span class='no'>c</span> + <span class='fu'><a href='geom_bar.html'>geom_bar</a></span>()</div><div class='img'><img src='aes_colour_fill_alpha-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># To change the interior colouring use fill aesthetic</span>
-<span class='no'>c</span> + <span class='fu'><a href='geom_bar.html'>geom_bar</a></span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>"red"</span>)</div><div class='img'><img src='aes_colour_fill_alpha-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Compare with the colour aesthetic which changes just the bar outline</span>
-<span class='no'>c</span> + <span class='fu'><a href='geom_bar.html'>geom_bar</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"red"</span>)</div><div class='img'><img src='aes_colour_fill_alpha-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Combining both, you can see the changes more clearly</span>
-<span class='no'>c</span> + <span class='fu'><a href='geom_bar.html'>geom_bar</a></span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>"white"</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"red"</span>)</div><div class='img'><img src='aes_colour_fill_alpha-4.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># The aesthetic fill also takes different colouring scales</span>
-<span class='co'># setting fill equal to a factor variable uses a discrete colour scale</span>
-<span class='no'>k</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>cyl</span>), <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>vs</span>)))
-<span class='no'>k</span> + <span class='fu'><a href='geom_bar.html'>geom_bar</a></span>()</div><div class='img'><img src='aes_colour_fill_alpha-5.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Fill aesthetic can also be used with a continuous variable</span>
-<span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>faithfuld</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>waiting</span>, <span class='no'>eruptions</span>))
-<span class='no'>m</span> + <span class='fu'><a href='geom_tile.html'>geom_raster</a></span>()</div><div class='img'><img src='aes_colour_fill_alpha-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>m</span> + <span class='fu'><a href='geom_tile.html'>geom_raster</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>density</span>))</div><div class='img'><img src='aes_colour_fill_alpha-7.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Some geoms don't use both aesthetics (i.e. geom_point or geom_line)</span>
-<span class='no'>b</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>economics</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>date</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>unemploy</span>))
-<span class='no'>b</span> + <span class='fu'><a href='geom_path.html'>geom_line</a></span>()</div><div class='img'><img src='aes_colour_fill_alpha-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>b</span> + <span class='fu'><a href='geom_path.html'>geom_line</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"green"</span>)</div><div class='img'><img src='aes_colour_fill_alpha-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>b</span> + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()</div><div class='img'><img src='aes_colour_fill_alpha-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>b</span> + <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"red"</span>)</div><div class='img'><img src='aes_colour_fill_alpha-11.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span>()</div><div class='img'><img src='aes_colour_fill_alpha-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># To change the interior colouring use fill aesthetic</span>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span>(fill = <span class='st'>"red"</span>)</div><div class='img'><img src='aes_colour_fill_alpha-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Compare with the colour aesthetic which changes just the bar outline</span>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span>(colour = <span class='st'>"red"</span>)</div><div class='img'><img src='aes_colour_fill_alpha-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Combining both, you can see the changes more clearly</span>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span>(fill = <span class='st'>"white"</span>, colour = <span class='st'>"red"</span>)</div><div class='img'><img src='aes_colour_fill_alpha-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Both colour and fill can take an rgb specification.</span>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span>(fill = <span class='st'>"#00abff"</span>)</div><div class='img'><img src='aes_colour_fill_alpha-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Use NA for a completely transparent colour.</span>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span>(fill = <span class='fl'>NA</span>, colour = <span class='st'>"#00abff"</span>)</div><div class='img'><img src='aes_colour_fill_alpha-6.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Colouring scales differ depending on whether a discrete or</span>
+<span class='co'># continuous variable is being mapped. For example, when mapping</span>
+<span class='co'># fill to a factor variable, a discrete colour scale is used.</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>), fill = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>vs</span>))) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span>()</div><div class='img'><img src='aes_colour_fill_alpha-7.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># When mapping fill to continuous variable a continuous colour</span>
+<span class='co'># scale is used.</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>faithfuld</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>waiting</span>, <span class='kw'>eruptions</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_tile.html'>geom_raster</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(fill = <span class='kw'>density</span>))</div><div class='img'><img src='aes_colour_fill_alpha-8.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Some geoms only use the colour aesthetic but not the fill</span>
+<span class='co'># aesthetic (e.g. geom_point() or geom_line()).</span>
+<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>economics</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(x = <span class='kw'>date</span>, y = <span class='kw'>unemploy</span>))
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span>()</div><div class='img'><img src='aes_colour_fill_alpha-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span>(colour = <span class='st'>"green"</span>)</div><div class='img'><img src='aes_colour_fill_alpha-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>()</div><div class='img'><img src='aes_colour_fill_alpha-11.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(colour = <span class='st'>"red"</span>)</div><div class='img'><img src='aes_colour_fill_alpha-12.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># For large datasets with overplotting the alpha</span>
-<span class='co'># aesthetic will make the points more transparent</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>5000</span>), <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>5000</span>))
-<span class='no'>h</span>  <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>x</span>,<span class='no'>y</span>))
-<span class='no'>h</span> + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()</div><div class='img'><img src='aes_colour_fill_alpha-12.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>h</span> + <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)</div><div class='img'><img src='aes_colour_fill_alpha-13.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>h</span> + <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>10</span>)</div><div class='img'><img src='aes_colour_fill_alpha-14.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Alpha can also be used to add shading</span>
-<span class='no'>j</span> <span class='kw'>&lt;-</span> <span class='no'>b</span> + <span class='fu'><a href='geom_path.html'>geom_line</a></span>()
-<span class='no'>j</span></div><div class='img'><img src='aes_colour_fill_alpha-15.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>yrng</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/range.html'>range</a></span>(<span class='no'>economics</span>$<span class='no'>unemploy</span>)
-<span class='no'>j</span> <span class='kw'>&lt;-</span> <span class='no'>j</span> + <span class='fu'><a href='geom_tile.html'>geom_rect</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>NULL</span>, <span class='kw'>NULL</span>, <span class='kw'>xmin</span> <span class='kw'>=</span> <span class='no'>start</span>, <span class='kw'>xmax</span> <span class='kw'>=</span> <span class='no'>end</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>party</span>),
-<span class='kw'>ymin</span> <span class='kw'>=</span> <span class='no'>yrng</span>[<span class='fl'>1</span>], <span class='kw'>ymax</span> <span class='kw'>=</span> <span class='no'>yrng</span>[<span class='fl'>2</span>], <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>presidential</span>)
-<span class='no'>j</span></div><div class='img'><img src='aes_colour_fill_alpha-16.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>j</span> + <span class='fu'><a href='scale_manual.html'>scale_fill_manual</a></span>(<span class='kw'>values</span> <span class='kw'>=</span> <span class='fu'><a href='https://scales.r-lib.org//reference/alpha.html'>alpha</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"blue"</span>, <span class='st'>"red"</span>), <span class='fl'>.3</span>))</div><div class='img'><img src='aes_colour_fill_alpha-17.png' alt='' width='700' height='433' /></div><div class='input'># }
-</div></pre>
+<span class='co'># aesthetic will make the points more transparent.</span>
+<span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(x = <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>5000</span>), y = <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>5000</span>))
+<span class='kw'>p</span>  <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span>,<span class='kw'>y</span>))
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>()</div><div class='img'><img src='aes_colour_fill_alpha-13.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(alpha = <span class='fl'>0.5</span>)</div><div class='img'><img src='aes_colour_fill_alpha-14.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(alpha = <span class='fl'>1</span><span class='op'>/</span><span class='fl'>10</span>)</div><div class='img'><img src='aes_colour_fill_alpha-15.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Alpha can also be used to add shading.</span>
+<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>economics</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(x = <span class='kw'>date</span>, y = <span class='kw'>unemploy</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span>()
+<span class='kw'>p</span></div><div class='img'><img src='aes_colour_fill_alpha-16.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>yrng</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/range.html'>range</a></span>(<span class='kw'>economics</span><span class='op'>$</span><span class='kw'>unemploy</span>)
+<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_tile.html'>geom_rect</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>NULL</span>, <span class='kw'>NULL</span>, xmin = <span class='kw'>start</span>, xmax = <span class='kw'>end</span>, fill = <span class='kw'>party</span>),
+ymin = <span class='kw'>yrng</span>[<span class='fl'>1</span>], ymax = <span class='kw'>yrng</span>[<span class='fl'>2</span>], data = <span class='kw'>presidential</span>)
+<span class='kw'>p</span></div><div class='img'><img src='aes_colour_fill_alpha-17.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_fill_manual</a></span>(values = <span class='fu'><a href='https://scales.r-lib.org//reference/alpha.html'>alpha</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"blue"</span>, <span class='st'>"red"</span>), <span class='fl'>.3</span>))</div><div class='img'><img src='aes_colour_fill_alpha-18.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -243,7 +312,7 @@ of aesthetics: colour, fill and alpha.</p>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, Dewey Dunnington.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -252,6 +321,23 @@ of aesthetics: colour, fill and alpha.</p>
    </div>
 
   
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: 'e1261f3df95d2d4704c626ff11a4b536',
+    indexName: 'tidyverse_ggplot2',
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
+  });
+</script>
+
 
 
   </body>

@@ -43,6 +43,16 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+<!--optional theme-->
+<link href="../.css" rel="stylesheet">
+
+
+
+<!-- docsearch -->
+<script src="../docsearch.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
+<link href="../docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
 <meta property="og:title" content="Viridis colour scales from viridisLite — scale_colour_viridis_d" />
@@ -92,9 +102,9 @@ https://bids.github.io/colormap/." />
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">ggplot2</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.2</span>
         </div>
       </div>
     </div>
@@ -110,7 +120,7 @@ https://bids.github.io/colormap/." />
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Release notes</li>
+    <li class="dropdown-header">Releases</li>
     <li>
       <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
     </li>
@@ -137,7 +147,7 @@ https://bids.github.io/colormap/." />
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../news/index.html">Change log</a>
+      <a href="../news/index.html">Changelog</a>
     </li>
   </ul>
 </li>
@@ -163,7 +173,7 @@ https://bids.github.io/colormap/." />
   </ul>
 </li>
         <li>
-  <a href="https://exts.ggplot2.tidyverse.org/">Extensions</a>
+  <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2/">
@@ -172,6 +182,12 @@ https://bids.github.io/colormap/." />
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
       
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -196,80 +212,80 @@ with common forms of colour blindness. See also
 <a href='https://bids.github.io/colormap/'>https://bids.github.io/colormap/</a>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>scale_colour_viridis_d</span>(
-  <span class='no'>...</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>begin</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>end</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>option</span> <span class='kw'>=</span> <span class='st'>"D"</span>,
-  <span class='kw'>aesthetics</span> <span class='kw'>=</span> <span class='st'>"colour"</span>
+    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_viridis.html'>scale_colour_viridis_d</a></span>(
+  <span class='kw'>...</span>,
+  alpha = <span class='fl'>1</span>,
+  begin = <span class='fl'>0</span>,
+  end = <span class='fl'>1</span>,
+  direction = <span class='fl'>1</span>,
+  option = <span class='st'>"D"</span>,
+  aesthetics = <span class='st'>"colour"</span>
 )
 
-<span class='fu'>scale_fill_viridis_d</span>(
-  <span class='no'>...</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>begin</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>end</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>option</span> <span class='kw'>=</span> <span class='st'>"D"</span>,
-  <span class='kw'>aesthetics</span> <span class='kw'>=</span> <span class='st'>"fill"</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_viridis.html'>scale_fill_viridis_d</a></span>(
+  <span class='kw'>...</span>,
+  alpha = <span class='fl'>1</span>,
+  begin = <span class='fl'>0</span>,
+  end = <span class='fl'>1</span>,
+  direction = <span class='fl'>1</span>,
+  option = <span class='st'>"D"</span>,
+  aesthetics = <span class='st'>"fill"</span>
 )
 
-<span class='fu'>scale_colour_viridis_c</span>(
-  <span class='no'>...</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>begin</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>end</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>option</span> <span class='kw'>=</span> <span class='st'>"D"</span>,
-  <span class='kw'>values</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>space</span> <span class='kw'>=</span> <span class='st'>"Lab"</span>,
-  <span class='kw'>na.value</span> <span class='kw'>=</span> <span class='st'>"grey50"</span>,
-  <span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>"colourbar"</span>,
-  <span class='kw'>aesthetics</span> <span class='kw'>=</span> <span class='st'>"colour"</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_viridis.html'>scale_colour_viridis_c</a></span>(
+  <span class='kw'>...</span>,
+  alpha = <span class='fl'>1</span>,
+  begin = <span class='fl'>0</span>,
+  end = <span class='fl'>1</span>,
+  direction = <span class='fl'>1</span>,
+  option = <span class='st'>"D"</span>,
+  values = <span class='kw'>NULL</span>,
+  space = <span class='st'>"Lab"</span>,
+  na.value = <span class='st'>"grey50"</span>,
+  guide = <span class='st'>"colourbar"</span>,
+  aesthetics = <span class='st'>"colour"</span>
 )
 
-<span class='fu'>scale_fill_viridis_c</span>(
-  <span class='no'>...</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>begin</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>end</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>option</span> <span class='kw'>=</span> <span class='st'>"D"</span>,
-  <span class='kw'>values</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>space</span> <span class='kw'>=</span> <span class='st'>"Lab"</span>,
-  <span class='kw'>na.value</span> <span class='kw'>=</span> <span class='st'>"grey50"</span>,
-  <span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>"colourbar"</span>,
-  <span class='kw'>aesthetics</span> <span class='kw'>=</span> <span class='st'>"fill"</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_viridis.html'>scale_fill_viridis_c</a></span>(
+  <span class='kw'>...</span>,
+  alpha = <span class='fl'>1</span>,
+  begin = <span class='fl'>0</span>,
+  end = <span class='fl'>1</span>,
+  direction = <span class='fl'>1</span>,
+  option = <span class='st'>"D"</span>,
+  values = <span class='kw'>NULL</span>,
+  space = <span class='st'>"Lab"</span>,
+  na.value = <span class='st'>"grey50"</span>,
+  guide = <span class='st'>"colourbar"</span>,
+  aesthetics = <span class='st'>"fill"</span>
 )
 
-<span class='fu'>scale_colour_viridis_b</span>(
-  <span class='no'>...</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>begin</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>end</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>option</span> <span class='kw'>=</span> <span class='st'>"D"</span>,
-  <span class='kw'>values</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>space</span> <span class='kw'>=</span> <span class='st'>"Lab"</span>,
-  <span class='kw'>na.value</span> <span class='kw'>=</span> <span class='st'>"grey50"</span>,
-  <span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>"coloursteps"</span>,
-  <span class='kw'>aesthetics</span> <span class='kw'>=</span> <span class='st'>"colour"</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_viridis.html'>scale_colour_viridis_b</a></span>(
+  <span class='kw'>...</span>,
+  alpha = <span class='fl'>1</span>,
+  begin = <span class='fl'>0</span>,
+  end = <span class='fl'>1</span>,
+  direction = <span class='fl'>1</span>,
+  option = <span class='st'>"D"</span>,
+  values = <span class='kw'>NULL</span>,
+  space = <span class='st'>"Lab"</span>,
+  na.value = <span class='st'>"grey50"</span>,
+  guide = <span class='st'>"coloursteps"</span>,
+  aesthetics = <span class='st'>"colour"</span>
 )
 
-<span class='fu'>scale_fill_viridis_b</span>(
-  <span class='no'>...</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>begin</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>end</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>option</span> <span class='kw'>=</span> <span class='st'>"D"</span>,
-  <span class='kw'>values</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>space</span> <span class='kw'>=</span> <span class='st'>"Lab"</span>,
-  <span class='kw'>na.value</span> <span class='kw'>=</span> <span class='st'>"grey50"</span>,
-  <span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>"coloursteps"</span>,
-  <span class='kw'>aesthetics</span> <span class='kw'>=</span> <span class='st'>"fill"</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_viridis.html'>scale_fill_viridis_b</a></span>(
+  <span class='kw'>...</span>,
+  alpha = <span class='fl'>1</span>,
+  begin = <span class='fl'>0</span>,
+  end = <span class='fl'>1</span>,
+  direction = <span class='fl'>1</span>,
+  option = <span class='st'>"D"</span>,
+  values = <span class='kw'>NULL</span>,
+  space = <span class='st'>"Lab"</span>,
+  na.value = <span class='st'>"grey50"</span>,
+  guide = <span class='st'>"coloursteps"</span>,
+  aesthetics = <span class='st'>"fill"</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -277,8 +293,8 @@ with common forms of colour blindness. See also
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>...</th>
-      <td><p>Other arguments passed on to <code><a href='discrete_scale.html'>discrete_scale()</a></code>,
-<code><a href='continuous_scale.html'>continuous_scale()</a></code>, or <a href='binned_scale.html'>binned_scale</a> to control name, limits, breaks,
+      <td><p>Other arguments passed on to <code><a href='https://ggplot2.tidyverse.org/reference/discrete_scale.html'>discrete_scale()</a></code>,
+<code><a href='https://ggplot2.tidyverse.org/reference/continuous_scale.html'>continuous_scale()</a></code>, or <a href='https://ggplot2.tidyverse.org/reference/binned_scale.html'>binned_scale</a> to control name, limits, breaks,
 labels and so forth.</p></td>
     </tr>
     <tr>
@@ -331,46 +347,45 @@ other values are deprecated.</p></td>
     <tr>
       <th>guide</th>
       <td><p>A function used to create a guide or its name. See
-<code><a href='guides.html'>guides()</a></code> for more information.</p></td>
+<code><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides()</a></code> for more information.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other colour scales: 
-<code><a href='scale_alpha.html'>scale_alpha</a>()</code>,
-<code><a href='scale_brewer.html'>scale_colour_brewer</a>()</code>,
-<code><a href='scale_gradient.html'>scale_colour_gradient</a>()</code>,
-<code><a href='scale_grey.html'>scale_colour_grey</a>()</code>,
-<code><a href='scale_hue.html'>scale_colour_hue</a>()</code>,
-<code><a href='scale_steps.html'>scale_colour_steps</a>()</code></p></div>
+<code><a href='https://ggplot2.tidyverse.org/reference/scale_alpha.html'>scale_alpha</a>()</code>,
+<code><a href='https://ggplot2.tidyverse.org/reference/scale_brewer.html'>scale_colour_brewer</a>()</code>,
+<code><a href='https://ggplot2.tidyverse.org/reference/scale_gradient.html'>scale_colour_gradient</a>()</code>,
+<code><a href='https://ggplot2.tidyverse.org/reference/scale_grey.html'>scale_colour_grey</a>()</code>,
+<code><a href='https://ggplot2.tidyverse.org/reference/scale_hue.html'>scale_colour_hue</a>()</code>,
+<code><a href='https://ggplot2.tidyverse.org/reference/scale_steps.html'>scale_colour_steps</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># viridis is the default colour/fill scale for ordered factors</span>
-<span class='no'>dsamp</span> <span class='kw'>&lt;-</span> <span class='no'>diamonds</span>[<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>diamonds</span>), <span class='fl'>1000</span>), ]
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>dsamp</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>carat</span>, <span class='no'>price</span>)) +
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>clarity</span>))</div><div class='img'><img src='scale_viridis-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>dsamp</span> <span class='op'>&lt;-</span> <span class='kw'>diamonds</span>[<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='kw'>diamonds</span>), <span class='fl'>1000</span>), ]
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>dsamp</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>carat</span>, <span class='kw'>price</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(colour = <span class='kw'>clarity</span>))</div><div class='img'><img src='scale_viridis-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Use viridis_d with discrete data</span>
-<span class='no'>txsamp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='no'>txhousing</span>, <span class='no'>city</span> <span class='kw'>%in%</span>
+<span class='kw'>txsamp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='kw'>txhousing</span>, <span class='kw'>city</span> <span class='op'>%in%</span>
   <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Houston"</span>, <span class='st'>"Fort Worth"</span>, <span class='st'>"San Antonio"</span>, <span class='st'>"Dallas"</span>, <span class='st'>"Austin"</span>))
-(<span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>txsamp</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>sales</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>median</span>)) +
-   <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>city</span>)))</div><div class='img'><img src='scale_viridis-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>d</span> + <span class='fu'>scale_colour_viridis_d</span>()</div><div class='img'><img src='scale_viridis-3.png' alt='' width='700' height='433' /></div><div class='input'>
+(<span class='kw'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(data = <span class='kw'>txsamp</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(x = <span class='kw'>sales</span>, y = <span class='kw'>median</span>)) <span class='op'>+</span>
+   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(colour = <span class='kw'>city</span>)))</div><div class='img'><img src='scale_viridis-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_viridis.html'>scale_colour_viridis_d</a></span>()</div><div class='img'><img src='scale_viridis-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Change scale label</span>
-<span class='no'>d</span> + <span class='fu'>scale_colour_viridis_d</span>(<span class='st'>"City\nCenter"</span>)</div><div class='img'><img src='scale_viridis-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_viridis.html'>scale_colour_viridis_d</a></span>(<span class='st'>"City\nCenter"</span>)</div><div class='img'><img src='scale_viridis-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Select palette to use, see ?scales::viridis_pal for more details</span>
-<span class='no'>d</span> + <span class='fu'>scale_colour_viridis_d</span>(<span class='kw'>option</span> <span class='kw'>=</span> <span class='st'>"plasma"</span>)</div><div class='img'><img src='scale_viridis-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>d</span> + <span class='fu'>scale_colour_viridis_d</span>(<span class='kw'>option</span> <span class='kw'>=</span> <span class='st'>"inferno"</span>)</div><div class='img'><img src='scale_viridis-6.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_viridis.html'>scale_colour_viridis_d</a></span>(option = <span class='st'>"plasma"</span>)</div><div class='img'><img src='scale_viridis-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_viridis.html'>scale_colour_viridis_d</a></span>(option = <span class='st'>"inferno"</span>)</div><div class='img'><img src='scale_viridis-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># scale_fill_viridis_d works just the same as</span>
 <span class='co'># scale_colour_viridis_d but for fill colours</span>
-<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>txsamp</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>median</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>city</span>)) +
-  <span class='fu'><a href='geom_histogram.html'>geom_histogram</a></span>(<span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"dodge"</span>, <span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='fl'>15000</span>)
-<span class='no'>p</span> + <span class='fu'>scale_fill_viridis_d</span>()</div><div class='img'><img src='scale_viridis-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># the order of colour can be reversed</span>
-<span class='no'>p</span> + <span class='fu'>scale_fill_viridis_d</span>(<span class='kw'>direction</span> <span class='kw'>=</span> -<span class='fl'>1</span>)</div><div class='img'><img src='scale_viridis-8.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>txsamp</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(x = <span class='kw'>median</span>, fill = <span class='kw'>city</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span>(position = <span class='st'>"dodge"</span>, binwidth = <span class='fl'>15000</span>)
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_viridis.html'>scale_fill_viridis_d</a></span>()</div><div class='img'><img src='scale_viridis-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># the order of colour can be reversed</span>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_viridis.html'>scale_fill_viridis_d</a></span>(direction = <span class='op'>-</span><span class='fl'>1</span>)</div><div class='img'><img src='scale_viridis-8.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Use viridis_c with continous data</span>
-(<span class='no'>v</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>faithfuld</span>) +
-  <span class='fu'><a href='geom_tile.html'>geom_tile</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>waiting</span>, <span class='no'>eruptions</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>density</span>)))</div><div class='img'><img src='scale_viridis-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>v</span> + <span class='fu'>scale_fill_viridis_c</span>()</div><div class='img'><img src='scale_viridis-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>v</span> + <span class='fu'>scale_fill_viridis_c</span>(<span class='kw'>option</span> <span class='kw'>=</span> <span class='st'>"plasma"</span>)</div><div class='img'><img src='scale_viridis-11.png' alt='' width='700' height='433' /></div><div class='input'>
+(<span class='kw'>v</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>faithfuld</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_tile.html'>geom_tile</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>waiting</span>, <span class='kw'>eruptions</span>, fill = <span class='kw'>density</span>)))</div><div class='img'><img src='scale_viridis-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>v</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_viridis.html'>scale_fill_viridis_c</a></span>()</div><div class='img'><img src='scale_viridis-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>v</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_viridis.html'>scale_fill_viridis_c</a></span>(option = <span class='st'>"plasma"</span>)</div><div class='img'><img src='scale_viridis-11.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Use viridis_b to bin continuous data before mapping</span>
-<span class='no'>v</span> + <span class='fu'>scale_fill_viridis_b</span>()</div><div class='img'><img src='scale_viridis-12.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+<span class='kw'>v</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_viridis.html'>scale_fill_viridis_b</a></span>()</div><div class='img'><img src='scale_viridis-12.png' alt='' width='700' height='433' /></div><div class='input'></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -387,7 +402,7 @@ other values are deprecated.</p></td>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, Dewey Dunnington.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -396,6 +411,23 @@ other values are deprecated.</p></td>
    </div>
 
   
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: 'e1261f3df95d2d4704c626ff11a4b536',
+    indexName: 'tidyverse_ggplot2',
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
+  });
+</script>
+
 
 
   </body>

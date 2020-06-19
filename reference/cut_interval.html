@@ -43,12 +43,22 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+<!--optional theme-->
+<link href="../.css" rel="stylesheet">
+
+
+
+<!-- docsearch -->
+<script src="../docsearch.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
+<link href="../docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
 <meta property="og:title" content="Discretise numeric data into categorical — cut_interval" />
-<meta property="og:description" content="cut_interval makes n groups with equal range, cut_number
+<meta property="og:description" content="cut_interval() makes n groups with equal range, cut_number()
 makes n groups with (approximately) equal numbers of observations;
-cut_width makes groups of width width." />
+cut_width() makes groups of width width." />
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -91,9 +101,9 @@ cut_width makes groups of width width." />
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">ggplot2</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.2</span>
         </div>
       </div>
     </div>
@@ -109,7 +119,7 @@ cut_width makes groups of width width." />
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Release notes</li>
+    <li class="dropdown-header">Releases</li>
     <li>
       <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
     </li>
@@ -136,7 +146,7 @@ cut_width makes groups of width width." />
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../news/index.html">Change log</a>
+      <a href="../news/index.html">Changelog</a>
     </li>
   </ul>
 </li>
@@ -162,7 +172,7 @@ cut_width makes groups of width width." />
   </ul>
 </li>
         <li>
-  <a href="https://exts.ggplot2.tidyverse.org/">Extensions</a>
+  <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2/">
@@ -171,6 +181,12 @@ cut_width makes groups of width width." />
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
       
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -189,22 +205,22 @@ cut_width makes groups of width width." />
     </div>
 
     <div class="ref-description">
-    <p><code>cut_interval</code> makes <code>n</code> groups with equal range, <code>cut_number</code>
+    <p><code><a href='https://ggplot2.tidyverse.org/reference/cut_interval.html'>cut_interval()</a></code> makes <code>n</code> groups with equal range, <code><a href='https://ggplot2.tidyverse.org/reference/cut_interval.html'>cut_number()</a></code>
 makes <code>n</code> groups with (approximately) equal numbers of observations;
-<code>cut_width</code> makes groups of width <code>width</code>.</p>
+<code><a href='https://ggplot2.tidyverse.org/reference/cut_interval.html'>cut_width()</a></code> makes groups of width <code>width</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>cut_interval</span>(<span class='no'>x</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>length</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/cut_interval.html'>cut_interval</a></span>(<span class='kw'>x</span>, n = <span class='kw'>NULL</span>, length = <span class='kw'>NULL</span>, <span class='kw'>...</span>)
 
-<span class='fu'>cut_number</span>(<span class='no'>x</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/cut_interval.html'>cut_number</a></span>(<span class='kw'>x</span>, n = <span class='kw'>NULL</span>, <span class='kw'>...</span>)
 
-<span class='fu'>cut_width</span>(
-  <span class='no'>x</span>,
-  <span class='no'>width</span>,
-  <span class='kw'>center</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>boundary</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>closed</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"right"</span>, <span class='st'>"left"</span>),
-  <span class='no'>...</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/cut_interval.html'>cut_width</a></span>(
+  <span class='kw'>x</span>,
+  <span class='kw'>width</span>,
+  center = <span class='kw'>NULL</span>,
+  boundary = <span class='kw'>NULL</span>,
+  closed = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"right"</span>, <span class='st'>"left"</span>),
+  <span class='kw'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -224,7 +240,7 @@ makes <code>n</code> groups with (approximately) equal numbers of observations;
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Arguments passed on to <code><a href='https://rdrr.io/r/base/cut.html'>base::cut.default</a></code></p><dl'>
+      <td><p>Arguments passed on to <code><a href='https://rdrr.io/r/base/cut.html'>base::cut.default</a></code></p><dl>
     <dt><code>breaks</code></dt><dd><p>either a numeric vector of two or more unique cut points or a
     single number (greater than or equal to 2) giving the number of
     intervals into which <code>x</code> is to be cut.</p></dd>
@@ -261,37 +277,41 @@ or left edges of bins are included in the bin.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Randall Prium contributed most of the implementation of
+<code>cut_width</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='fu'>cut_interval</span>(<span class='fl'>1</span>:<span class='fl'>100</span>, <span class='fl'>10</span>))</div><div class='output co'>#&gt; 
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/cut_interval.html'>cut_interval</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>100</span>, <span class='fl'>10</span>))</div><div class='output co'>#&gt; 
 #&gt;    [1,10.9] (10.9,20.8] (20.8,30.7] (30.7,40.6] (40.6,50.5] (50.5,60.4] 
 #&gt;          10          10          10          10          10          10 
 #&gt; (60.4,70.3] (70.3,80.2] (80.2,90.1]  (90.1,100] 
-#&gt;          10          10          10          10 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='fu'>cut_interval</span>(<span class='fl'>1</span>:<span class='fl'>100</span>, <span class='fl'>11</span>))</div><div class='output co'>#&gt; 
+#&gt;          10          10          10          10 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/cut_interval.html'>cut_interval</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>100</span>, <span class='fl'>11</span>))</div><div class='output co'>#&gt; 
 #&gt;   [1,10]  (10,19]  (19,28]  (28,37]  (37,46]  (46,55]  (55,64]  (64,73] 
 #&gt;       10        9        9        9        9        9        9        9 
 #&gt;  (73,82]  (82,91] (91,100] 
 #&gt;        9        9        9 </div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='fu'>cut_number</span>(<span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>1000</span>), <span class='fl'>10</span>))</div><div class='output co'>#&gt; 
+<span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/cut_interval.html'>cut_number</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>1000</span>), <span class='fl'>10</span>))</div><div class='output co'>#&gt; 
 #&gt; [0.000382,0.0947]    (0.0947,0.181]     (0.181,0.302]     (0.302,0.407] 
 #&gt;               100               100               100               100 
 #&gt;     (0.407,0.498]     (0.498,0.604]     (0.604,0.728]     (0.728,0.814] 
 #&gt;               100               100               100               100 
 #&gt;       (0.814,0.9]           (0.9,1] 
 #&gt;               100               100 </div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='fu'>cut_width</span>(<span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>1000</span>), <span class='fl'>0.1</span>))</div><div class='output co'>#&gt; 
+<span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/cut_interval.html'>cut_width</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>1000</span>), <span class='fl'>0.1</span>))</div><div class='output co'>#&gt; 
 #&gt; [-0.05,0.05]  (0.05,0.15]  (0.15,0.25]  (0.25,0.35]  (0.35,0.45]  (0.45,0.55] 
 #&gt;           48          110           98           96          110           99 
 #&gt;  (0.55,0.65]  (0.65,0.75]  (0.75,0.85]  (0.85,0.95]  (0.95,1.05] 
-#&gt;          100           90          111           93           45 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='fu'>cut_width</span>(<span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>1000</span>), <span class='fl'>0.1</span>, <span class='kw'>boundary</span> <span class='kw'>=</span> <span class='fl'>0</span>))</div><div class='output co'>#&gt; 
+#&gt;          100           90          111           93           45 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/cut_interval.html'>cut_width</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>1000</span>), <span class='fl'>0.1</span>, boundary = <span class='fl'>0</span>))</div><div class='output co'>#&gt; 
 #&gt;   [0,0.1] (0.1,0.2] (0.2,0.3] (0.3,0.4] (0.4,0.5] (0.5,0.6] (0.6,0.7] (0.7,0.8] 
 #&gt;        89       110       102        92       103        97       101       112 
 #&gt; (0.8,0.9]   (0.9,1] 
-#&gt;        88       106 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='fu'>cut_width</span>(<span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>1000</span>), <span class='fl'>0.1</span>, <span class='kw'>center</span> <span class='kw'>=</span> <span class='fl'>0</span>))</div><div class='output co'>#&gt; 
+#&gt;        88       106 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/cut_interval.html'>cut_width</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>1000</span>), <span class='fl'>0.1</span>, center = <span class='fl'>0</span>))</div><div class='output co'>#&gt; 
 #&gt; [-0.05,0.05]  (0.05,0.15]  (0.15,0.25]  (0.25,0.35]  (0.35,0.45]  (0.45,0.55] 
 #&gt;           48           95          113          117           92           90 
 #&gt;  (0.55,0.65]  (0.65,0.75]  (0.75,0.85]  (0.85,0.95]  (0.95,1.05] 
-#&gt;           97          108          107           83           50 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='fu'>cut_width</span>(<span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>1000</span>), <span class='fl'>0.1</span>, <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>))</div><div class='output co'>#&gt; 
+#&gt;           97          108          107           83           50 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/cut_interval.html'>cut_width</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>1000</span>), <span class='fl'>0.1</span>, labels = <span class='fl'>FALSE</span>))</div><div class='output co'>#&gt; 
 #&gt;   1   2   3   4   5   6   7   8   9  10  11 
 #&gt;  54 107  90 104 114 107  91  99  86  95  53 </div></pre>
   </div>
@@ -310,7 +330,7 @@ or left edges of bins are included in the bin.</p></td>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, Dewey Dunnington.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -319,6 +339,23 @@ or left edges of bins are included in the bin.</p></td>
    </div>
 
   
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: 'e1261f3df95d2d4704c626ff11a4b536',
+    indexName: 'tidyverse_ggplot2',
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
+  });
+</script>
+
 
 
   </body>

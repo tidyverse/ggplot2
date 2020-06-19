@@ -43,6 +43,16 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+<!--optional theme-->
+<link href="../.css" rel="stylesheet">
+
+
+
+<!-- docsearch -->
+<script src="../docsearch.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
+<link href="../docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
 <meta property="og:title" content="Simultaneously dodge and jitter — position_jitterdodge" />
@@ -91,9 +101,9 @@ a fill aesthetic supplied)." />
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">ggplot2</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.2</span>
         </div>
       </div>
     </div>
@@ -109,7 +119,7 @@ a fill aesthetic supplied)." />
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Release notes</li>
+    <li class="dropdown-header">Releases</li>
     <li>
       <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
     </li>
@@ -136,7 +146,7 @@ a fill aesthetic supplied)." />
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../news/index.html">Change log</a>
+      <a href="../news/index.html">Changelog</a>
     </li>
   </ul>
 </li>
@@ -162,7 +172,7 @@ a fill aesthetic supplied)." />
   </ul>
 </li>
         <li>
-  <a href="https://exts.ggplot2.tidyverse.org/">Extensions</a>
+  <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2/">
@@ -171,6 +181,12 @@ a fill aesthetic supplied)." />
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
       
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -190,15 +206,15 @@ a fill aesthetic supplied)." />
 
     <div class="ref-description">
     <p>This is primarily used for aligning points generated through
-<code><a href='geom_point.html'>geom_point()</a></code> with dodged boxplots (e.g., a <code><a href='geom_boxplot.html'>geom_boxplot()</a></code> with
+<code><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point()</a></code> with dodged boxplots (e.g., a <code><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>geom_boxplot()</a></code> with
 a fill aesthetic supplied).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>position_jitterdodge</span>(
-  <span class='kw'>jitter.width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>jitter.height</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>dodge.width</span> <span class='kw'>=</span> <span class='fl'>0.75</span>,
-  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>NA</span>
+    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/position_jitterdodge.html'>position_jitterdodge</a></span>(
+  jitter.width = <span class='kw'>NULL</span>,
+  jitter.height = <span class='fl'>0</span>,
+  dodge.width = <span class='fl'>0.75</span>,
+  seed = <span class='fl'>NA</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -216,7 +232,7 @@ resolution of the data.</p></td>
     <tr>
       <th>dodge.width</th>
       <td><p>the amount to dodge in the x direction. Defaults to 0.75,
-the default <code><a href='position_dodge.html'>position_dodge()</a></code> width.</p></td>
+the default <code><a href='https://ggplot2.tidyverse.org/reference/position_dodge.html'>position_dodge()</a></code> width.</p></td>
     </tr>
     <tr>
       <th>seed</th>
@@ -234,17 +250,17 @@ Use <code>NULL</code> to use the current random seed and also avoid resetting
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other position adjustments: 
-<code><a href='position_dodge.html'>position_dodge</a>()</code>,
-<code><a href='position_identity.html'>position_identity</a>()</code>,
-<code><a href='position_jitter.html'>position_jitter</a>()</code>,
-<code><a href='position_nudge.html'>position_nudge</a>()</code>,
-<code><a href='position_stack.html'>position_stack</a>()</code></p></div>
+<code><a href='https://ggplot2.tidyverse.org/reference/position_dodge.html'>position_dodge</a>()</code>,
+<code><a href='https://ggplot2.tidyverse.org/reference/position_identity.html'>position_identity</a>()</code>,
+<code><a href='https://ggplot2.tidyverse.org/reference/position_jitter.html'>position_jitter</a>()</code>,
+<code><a href='https://ggplot2.tidyverse.org/reference/position_nudge.html'>position_nudge</a>()</code>,
+<code><a href='https://ggplot2.tidyverse.org/reference/position_stack.html'>position_stack</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>dsub</span> <span class='kw'>&lt;-</span> <span class='no'>diamonds</span>[ <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>diamonds</span>), <span class='fl'>1000</span>), ]
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>dsub</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>cut</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>carat</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>clarity</span>)) +
-  <span class='fu'><a href='geom_boxplot.html'>geom_boxplot</a></span>(<span class='kw'>outlier.size</span> <span class='kw'>=</span> <span class='fl'>0</span>) +
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>21</span>, <span class='kw'>position</span> <span class='kw'>=</span> <span class='fu'>position_jitterdodge</span>())</div><div class='img'><img src='position_jitterdodge-1.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>dsub</span> <span class='op'>&lt;-</span> <span class='kw'>diamonds</span>[ <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='kw'>diamonds</span>), <span class='fl'>1000</span>), ]
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>dsub</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(x = <span class='kw'>cut</span>, y = <span class='kw'>carat</span>, fill = <span class='kw'>clarity</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>geom_boxplot</a></span>(outlier.size = <span class='fl'>0</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(pch = <span class='fl'>21</span>, position = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/position_jitterdodge.html'>position_jitterdodge</a></span>())</div><div class='img'><img src='position_jitterdodge-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -261,7 +277,7 @@ Use <code>NULL</code> to use the current random seed and also avoid resetting
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, Dewey Dunnington.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -270,6 +286,23 @@ Use <code>NULL</code> to use the current random seed and also avoid resetting
    </div>
 
   
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: 'e1261f3df95d2d4704c626ff11a4b536',
+    indexName: 'tidyverse_ggplot2',
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
+  });
+</script>
+
 
 
   </body>

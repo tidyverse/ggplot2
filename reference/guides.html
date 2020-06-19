@@ -43,6 +43,16 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+<!--optional theme-->
+<link href="../.css" rel="stylesheet">
+
+
+
+<!-- docsearch -->
+<script src="../docsearch.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
+<link href="../docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
 <meta property="og:title" content="Set guides for each scale — guides" />
@@ -90,9 +100,9 @@ argument, or en masse with guides()." />
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">ggplot2</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.2</span>
         </div>
       </div>
     </div>
@@ -108,7 +118,7 @@ argument, or en masse with guides()." />
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Release notes</li>
+    <li class="dropdown-header">Releases</li>
     <li>
       <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
     </li>
@@ -135,7 +145,7 @@ argument, or en masse with guides()." />
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../news/index.html">Change log</a>
+      <a href="../news/index.html">Changelog</a>
     </li>
   </ul>
 </li>
@@ -161,7 +171,7 @@ argument, or en masse with guides()." />
   </ul>
 </li>
         <li>
-  <a href="https://exts.ggplot2.tidyverse.org/">Extensions</a>
+  <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2/">
@@ -170,6 +180,12 @@ argument, or en masse with guides()." />
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
       
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -189,10 +205,10 @@ argument, or en masse with guides()." />
 
     <div class="ref-description">
     <p>Guides for each scale can be set scale-by-scale with the <code>guide</code>
-argument, or en masse with <code>guides()</code>.</p>
+argument, or en masse with <code><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>guides</span>(<span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides</a></span>(<span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -201,7 +217,7 @@ argument, or en masse with <code>guides()</code>.</p>
       <th>...</th>
       <td><p>List of scale name-guide pairs.  The guide can either
 be a string (i.e. "colorbar" or "legend"), or a call to a guide function
-(i.e. <code><a href='guide_colourbar.html'>guide_colourbar()</a></code> or <code><a href='guide_legend.html'>guide_legend()</a></code>)
+(i.e. <code><a href='https://ggplot2.tidyverse.org/reference/guide_colourbar.html'>guide_colourbar()</a></code> or <code><a href='https://ggplot2.tidyverse.org/reference/guide_legend.html'>guide_legend()</a></code>)
 specifying additional arguments.</p></td>
     </tr>
     </table>
@@ -212,49 +228,48 @@ specifying additional arguments.</p></td>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other guides: 
-<code><a href='guide_bins.html'>guide_bins</a>()</code>,
-<code><a href='guide_colourbar.html'>guide_colourbar</a>()</code>,
-<code><a href='guide_coloursteps.html'>guide_coloursteps</a>()</code>,
-<code><a href='guide_legend.html'>guide_legend</a>()</code></p></div>
+<code><a href='https://ggplot2.tidyverse.org/reference/guide_bins.html'>guide_bins</a>()</code>,
+<code><a href='https://ggplot2.tidyverse.org/reference/guide_colourbar.html'>guide_colourbar</a>()</code>,
+<code><a href='https://ggplot2.tidyverse.org/reference/guide_coloursteps.html'>guide_coloursteps</a>()</code>,
+<code><a href='https://ggplot2.tidyverse.org/reference/guide_legend.html'>guide_legend</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
 <span class='co'># ggplot object</span>
 
-<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>5</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>5</span>, <span class='kw'>p</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>5</span>, <span class='kw'>q</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fl'>1</span>:<span class='fl'>5</span>),
- <span class='kw'>r</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fl'>1</span>:<span class='fl'>5</span>))
-<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>dat</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>p</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='no'>q</span>, <span class='kw'>shape</span> <span class='kw'>=</span> <span class='no'>r</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
+<span class='kw'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(x = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, y = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, p = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, q = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>),
+ r = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>))
+<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>dat</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>, colour = <span class='kw'>p</span>, size = <span class='kw'>q</span>, shape = <span class='kw'>r</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>()
 
 <span class='co'># without guide specification</span>
-<span class='no'>p</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Using size for a discrete variable is not advised.</span></div><div class='img'><img src='guides-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Using size for a discrete variable is not advised.</span></div><div class='img'><img src='guides-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Show colorbar guide for colour.</span>
 <span class='co'># All these examples below have a same effect.</span>
 
-<span class='no'>p</span> + <span class='fu'>guides</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"colorbar"</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='st'>"legend"</span>, <span class='kw'>shape</span> <span class='kw'>=</span> <span class='st'>"legend"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Using size for a discrete variable is not advised.</span></div><div class='img'><img src='guides-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>guides</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='fu'><a href='guide_colourbar.html'>guide_colorbar</a></span>(), <span class='kw'>size</span> <span class='kw'>=</span> <span class='fu'><a href='guide_legend.html'>guide_legend</a></span>(),
-  <span class='kw'>shape</span> <span class='kw'>=</span> <span class='fu'><a href='guide_legend.html'>guide_legend</a></span>())</div><div class='output co'>#&gt; <span class='warning'>Warning: Using size for a discrete variable is not advised.</span></div><div class='img'><img src='guides-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> +
- <span class='fu'><a href='scale_colour_continuous.html'>scale_colour_continuous</a></span>(<span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>"colorbar"</span>) +
- <span class='fu'><a href='scale_size.html'>scale_size_discrete</a></span>(<span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>"legend"</span>) +
- <span class='fu'><a href='scale_shape.html'>scale_shape</a></span>(<span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>"legend"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Using size for a discrete variable is not advised.</span></div><div class='img'><img src='guides-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides</a></span>(colour = <span class='st'>"colorbar"</span>, size = <span class='st'>"legend"</span>, shape = <span class='st'>"legend"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Using size for a discrete variable is not advised.</span></div><div class='img'><img src='guides-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides</a></span>(colour = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_colourbar.html'>guide_colorbar</a></span>(), size = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_legend.html'>guide_legend</a></span>(),
+  shape = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_legend.html'>guide_legend</a></span>())</div><div class='output co'>#&gt; <span class='warning'>Warning: Using size for a discrete variable is not advised.</span></div><div class='img'><img src='guides-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span>
+ <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_colour_continuous.html'>scale_colour_continuous</a></span>(guide = <span class='st'>"colorbar"</span>) <span class='op'>+</span>
+ <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_size.html'>scale_size_discrete</a></span>(guide = <span class='st'>"legend"</span>) <span class='op'>+</span>
+ <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_shape.html'>scale_shape</a></span>(guide = <span class='st'>"legend"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Using size for a discrete variable is not advised.</span></div><div class='img'><img src='guides-4.png' alt='' width='700' height='433' /></div><div class='input'>
  <span class='co'># Remove some guides</span>
- <span class='no'>p</span> + <span class='fu'>guides</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"none"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Using size for a discrete variable is not advised.</span></div><div class='img'><img src='guides-5.png' alt='' width='700' height='433' /></div><div class='input'> <span class='no'>p</span> + <span class='fu'>guides</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"colorbar"</span>,<span class='kw'>size</span> <span class='kw'>=</span> <span class='st'>"none"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Using size for a discrete variable is not advised.</span></div><div class='img'><img src='guides-6.png' alt='' width='700' height='433' /></div><div class='input'>
+ <span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides</a></span>(colour = <span class='st'>"none"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Using size for a discrete variable is not advised.</span></div><div class='img'><img src='guides-5.png' alt='' width='700' height='433' /></div><div class='input'> <span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides</a></span>(colour = <span class='st'>"colorbar"</span>,size = <span class='st'>"none"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Using size for a discrete variable is not advised.</span></div><div class='img'><img src='guides-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Guides are integrated where possible</span>
 
-<span class='no'>p</span> + <span class='fu'>guides</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='fu'><a href='guide_legend.html'>guide_legend</a></span>(<span class='st'>"title"</span>), <span class='kw'>size</span> <span class='kw'>=</span> <span class='fu'><a href='guide_legend.html'>guide_legend</a></span>(<span class='st'>"title"</span>),
-  <span class='kw'>shape</span> <span class='kw'>=</span> <span class='fu'><a href='guide_legend.html'>guide_legend</a></span>(<span class='st'>"title"</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Using size for a discrete variable is not advised.</span></div><div class='img'><img src='guides-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># same as</span>
-<span class='no'>g</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='guide_legend.html'>guide_legend</a></span>(<span class='st'>"title"</span>)
-<span class='no'>p</span> + <span class='fu'>guides</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>g</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='no'>g</span>, <span class='kw'>shape</span> <span class='kw'>=</span> <span class='no'>g</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Using size for a discrete variable is not advised.</span></div><div class='img'><img src='guides-8.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='no'>p</span> + <span class='fu'><a href='theme.html'>theme</a></span>(<span class='kw'>legend.position</span> <span class='kw'>=</span> <span class='st'>"bottom"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Using size for a discrete variable is not advised.</span></div><div class='img'><img src='guides-9.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides</a></span>(colour = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_legend.html'>guide_legend</a></span>(<span class='st'>"title"</span>), size = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_legend.html'>guide_legend</a></span>(<span class='st'>"title"</span>),
+  shape = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_legend.html'>guide_legend</a></span>(<span class='st'>"title"</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Using size for a discrete variable is not advised.</span></div><div class='img'><img src='guides-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># same as</span>
+<span class='kw'>g</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_legend.html'>guide_legend</a></span>(<span class='st'>"title"</span>)
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides</a></span>(colour = <span class='kw'>g</span>, size = <span class='kw'>g</span>, shape = <span class='kw'>g</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Using size for a discrete variable is not advised.</span></div><div class='img'><img src='guides-8.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span>(legend.position = <span class='st'>"bottom"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Using size for a discrete variable is not advised.</span></div><div class='img'><img src='guides-9.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># position of guides</span>
 
 <span class='co'># Set order for multiple guides</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>displ</span>, <span class='no'>cty</span>)) +
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='no'>hwy</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>cyl</span>, <span class='kw'>shape</span> <span class='kw'>=</span> <span class='no'>drv</span>)) +
-  <span class='fu'>guides</span>(
-   <span class='kw'>colour</span> <span class='kw'>=</span> <span class='fu'><a href='guide_colourbar.html'>guide_colourbar</a></span>(<span class='kw'>order</span> <span class='kw'>=</span> <span class='fl'>1</span>),
-   <span class='kw'>shape</span> <span class='kw'>=</span> <span class='fu'><a href='guide_legend.html'>guide_legend</a></span>(<span class='kw'>order</span> <span class='kw'>=</span> <span class='fl'>2</span>),
-   <span class='kw'>size</span> <span class='kw'>=</span> <span class='fu'><a href='guide_legend.html'>guide_legend</a></span>(<span class='kw'>order</span> <span class='kw'>=</span> <span class='fl'>3</span>)
- )</div><div class='img'><img src='guides-10.png' alt='' width='700' height='433' /></div><div class='input'># }
-</div></pre>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>cty</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(size = <span class='kw'>hwy</span>, colour = <span class='kw'>cyl</span>, shape = <span class='kw'>drv</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides</a></span>(
+   colour = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_colourbar.html'>guide_colourbar</a></span>(order = <span class='fl'>1</span>),
+   shape = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_legend.html'>guide_legend</a></span>(order = <span class='fl'>2</span>),
+   size = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_legend.html'>guide_legend</a></span>(order = <span class='fl'>3</span>)
+ )</div><div class='img'><img src='guides-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -271,7 +286,7 @@ specifying additional arguments.</p></td>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, Dewey Dunnington.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -280,6 +295,23 @@ specifying additional arguments.</p></td>
    </div>
 
   
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: 'e1261f3df95d2d4704c626ff11a4b536',
+    indexName: 'tidyverse_ggplot2',
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
+  });
+</script>
+
 
 
   </body>
