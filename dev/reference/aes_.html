@@ -107,7 +107,7 @@ aes_string() easy to program with." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.1.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.2.9000</span>
         </div>
       </div>
     </div>
@@ -210,19 +210,19 @@ aes_string() easy to program with." />
 
     <div class="ref-description">
     <p>Aesthetic mappings describe how variables in the data are mapped to visual
-properties (aesthetics) of geoms. <code><a href='aes.html'>aes()</a></code> uses non-standard
+properties (aesthetics) of geoms. <code><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes()</a></code> uses non-standard
 evaluation to capture the variable names. <code>aes_</code> and <code>aes_string</code>
 require you to explicitly quote the inputs either with <code>""</code> for
-<code>aes_string()</code>, or with <code>quote</code> or <code>~</code> for <code>aes_()</code>.
-(<code>aes_q()</code> is an alias to <code>aes_()</code>). This makes <code>aes_()</code> and
-<code>aes_string()</code> easy to program with.</p>
+<code><a href='https://ggplot2.tidyverse.org/reference/aes_.html'>aes_string()</a></code>, or with <code>quote</code> or <code><a href='https://rdrr.io/r/base/tilde.html'>~</a></code> for <code><a href='https://ggplot2.tidyverse.org/reference/aes_.html'>aes_()</a></code>.
+(<code><a href='https://ggplot2.tidyverse.org/reference/aes_.html'>aes_q()</a></code> is an alias to <code><a href='https://ggplot2.tidyverse.org/reference/aes_.html'>aes_()</a></code>). This makes <code><a href='https://ggplot2.tidyverse.org/reference/aes_.html'>aes_()</a></code> and
+<code><a href='https://ggplot2.tidyverse.org/reference/aes_.html'>aes_string()</a></code> easy to program with.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>aes_</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes_.html'>aes_</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>, <span class='kw'>...</span>)
 
-<span class='fu'>aes_string</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes_.html'>aes_string</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>, <span class='kw'>...</span>)
 
-<span class='fu'>aes_q</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes_.html'>aes_q</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -236,13 +236,13 @@ quoted calls, strings, one-sided formulas or constants.</p></td>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>aes_string()</code> and <code>aes_()</code> are particularly useful when writing
+    <p><code><a href='https://ggplot2.tidyverse.org/reference/aes_.html'>aes_string()</a></code> and <code><a href='https://ggplot2.tidyverse.org/reference/aes_.html'>aes_()</a></code> are particularly useful when writing
 functions that create plots because you can use strings or quoted
 names/calls to define the aesthetic mappings, rather than having to use
-<code><a href='https://rdrr.io/r/base/substitute.html'>substitute()</a></code> to generate a call to <code><a href='aes.html'>aes()</a></code>.</p>
-<p>I recommend using <code>aes_()</code>, because creating the equivalents of
-<code><a href='aes.html'>aes(colour = "my colour")</a></code> or <code><a href='aes.html'>aes(x = `X$1`)</a></code>
-with <code>aes_string()</code> is quite clunky.</p>
+<code><a href='https://rdrr.io/r/base/substitute.html'>substitute()</a></code> to generate a call to <code><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes()</a></code>.</p>
+<p>I recommend using <code><a href='https://ggplot2.tidyverse.org/reference/aes_.html'>aes_()</a></code>, because creating the equivalents of
+<code><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes(colour = "my colour")</a></code> or <code><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes(x = `X$1`)</a></code>
+with <code><a href='https://ggplot2.tidyverse.org/reference/aes_.html'>aes_string()</a></code> is quite clunky.</p>
     <h2 class="hasAnchor" id="life-cycle"><a class="anchor" href="#life-cycle"></a>Life cycle</h2>
 
     
@@ -250,39 +250,39 @@ with <code>aes_string()</code> is quite clunky.</p>
 
 <p>All these functions are soft-deprecated. Please use tidy evaluation
 idioms instead (see the quasiquotation section in
-<code><a href='aes.html'>aes()</a></code> documentation).</p>
+<code><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes()</a></code> documentation).</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='aes.html'>aes()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Three ways of generating the same aesthetics</span>
-<span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='no'>cyl</span>)</div><div class='output co'>#&gt; Aesthetic mapping: 
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>, col = <span class='kw'>cyl</span>)</div><div class='output co'>#&gt; Aesthetic mapping: 
 #&gt; * `x`      -&gt; `mpg`
 #&gt; * `y`      -&gt; `wt`
-#&gt; * `colour` -&gt; `cyl`</div><div class='input'><span class='fu'>aes_</span>(<span class='fu'><a href='https://rdrr.io/r/base/substitute.html'>quote</a></span>(<span class='no'>mpg</span>), <span class='fu'><a href='https://rdrr.io/r/base/substitute.html'>quote</a></span>(<span class='no'>wt</span>), <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/substitute.html'>quote</a></span>(<span class='no'>cyl</span>))</div><div class='output co'>#&gt; Aesthetic mapping: 
+#&gt; * `colour` -&gt; `cyl`</div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes_.html'>aes_</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/substitute.html'>quote</a></span>(<span class='kw'>mpg</span>), <span class='fu'><a href='https://rdrr.io/r/base/substitute.html'>quote</a></span>(<span class='kw'>wt</span>), col = <span class='fu'><a href='https://rdrr.io/r/base/substitute.html'>quote</a></span>(<span class='kw'>cyl</span>))</div><div class='output co'>#&gt; Aesthetic mapping: 
 #&gt; * `colour` -&gt; `cyl`
 #&gt; * `x`      -&gt; `mpg`
-#&gt; * `y`      -&gt; `wt`</div><div class='input'><span class='fu'>aes_</span>(~<span class='no'>mpg</span>, ~<span class='no'>wt</span>, <span class='kw'>col</span> <span class='kw'>=</span> ~<span class='no'>cyl</span>)</div><div class='output co'>#&gt; Aesthetic mapping: 
+#&gt; * `y`      -&gt; `wt`</div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes_.html'>aes_</a></span>(<span class='op'>~</span><span class='kw'>mpg</span>, <span class='op'>~</span><span class='kw'>wt</span>, col = <span class='op'>~</span><span class='kw'>cyl</span>)</div><div class='output co'>#&gt; Aesthetic mapping: 
 #&gt; * `colour` -&gt; `cyl`
 #&gt; * `x`      -&gt; `mpg`
-#&gt; * `y`      -&gt; `wt`</div><div class='input'><span class='fu'>aes_string</span>(<span class='st'>"mpg"</span>, <span class='st'>"wt"</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"cyl"</span>)</div><div class='output co'>#&gt; Aesthetic mapping: 
+#&gt; * `y`      -&gt; `wt`</div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes_.html'>aes_string</a></span>(<span class='st'>"mpg"</span>, <span class='st'>"wt"</span>, col = <span class='st'>"cyl"</span>)</div><div class='output co'>#&gt; Aesthetic mapping: 
 #&gt; * `colour` -&gt; `cyl`
 #&gt; * `x`      -&gt; `mpg`
 #&gt; * `y`      -&gt; `wt`</div><div class='input'>
 <span class='co'># You can't easily mimic these calls with aes_string</span>
-<span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>`$100`</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"smooth"</span>)</div><div class='output co'>#&gt; Aesthetic mapping: 
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>`$100`</span>, colour = <span class='st'>"smooth"</span>)</div><div class='output co'>#&gt; Aesthetic mapping: 
 #&gt; * `x`      -&gt; `$100`
-#&gt; * `colour` -&gt; "smooth"</div><div class='input'><span class='fu'>aes_</span>(~ <span class='no'>`$100`</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"smooth"</span>)</div><div class='output co'>#&gt; Aesthetic mapping: 
+#&gt; * `colour` -&gt; "smooth"</div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes_.html'>aes_</a></span>(<span class='op'>~</span> <span class='kw'>`$100`</span>, colour = <span class='st'>"smooth"</span>)</div><div class='output co'>#&gt; Aesthetic mapping: 
 #&gt; * `colour` -&gt; "smooth"
 #&gt; * `x`      -&gt; `$100`</div><div class='input'><span class='co'># Ok, you can, but it requires a _lot_ of quotes</span>
-<span class='fu'>aes_string</span>(<span class='st'>"`$100`"</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>'"smooth"'</span>)</div><div class='output co'>#&gt; Aesthetic mapping: 
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes_.html'>aes_string</a></span>(<span class='st'>"`$100`"</span>, colour = <span class='st'>'"smooth"'</span>)</div><div class='output co'>#&gt; Aesthetic mapping: 
 #&gt; * `colour` -&gt; "smooth"
 #&gt; * `x`      -&gt; `$100`</div><div class='input'>
 <span class='co'># Convert strings to names with as.name</span>
-<span class='no'>var</span> <span class='kw'>&lt;-</span> <span class='st'>"cyl"</span>
-<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>col</span> <span class='kw'>=</span> <span class='no'>x</span>)</div><div class='output co'>#&gt; Aesthetic mapping: 
-#&gt; * `colour` -&gt; `x`</div><div class='input'><span class='fu'>aes_</span>(<span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/name.html'>as.name</a></span>(<span class='no'>var</span>))</div><div class='output co'>#&gt; Aesthetic mapping: 
+<span class='kw'>var</span> <span class='op'>&lt;-</span> <span class='st'>"cyl"</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(col = <span class='kw'>x</span>)</div><div class='output co'>#&gt; Aesthetic mapping: 
+#&gt; * `colour` -&gt; `x`</div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes_.html'>aes_</a></span>(col = <span class='fu'><a href='https://rdrr.io/r/base/name.html'>as.name</a></span>(<span class='kw'>var</span>))</div><div class='output co'>#&gt; Aesthetic mapping: 
 #&gt; * `colour` -&gt; `cyl`</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

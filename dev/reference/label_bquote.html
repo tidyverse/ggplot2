@@ -103,7 +103,7 @@ variables will be replaced with their value in the facet." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.1.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.2.9000</span>
         </div>
       </div>
     </div>
@@ -205,12 +205,12 @@ variables will be replaced with their value in the facet." />
     </div>
 
     <div class="ref-description">
-    <p><code>label_bquote()</code> offers a flexible way of labelling
+    <p><code><a href='https://ggplot2.tidyverse.org/reference/label_bquote.html'>label_bquote()</a></code> offers a flexible way of labelling
 facet rows or columns with plotmath expressions. Backquoted
 variables will be replaced with their value in the facet.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>label_bquote</span>(<span class='kw'>rows</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>default</span>)</pre>
+    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/label_bquote.html'>label_bquote</a></span>(rows = <span class='kw'>NULL</span>, cols = <span class='kw'>NULL</span>, <span class='kw'>default</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -231,13 +231,13 @@ variables will be replaced with their value in the facet.</p>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='labellers.html'>labellers</a>, <code><a href='labeller.html'>labeller()</a></code>,</p></div>
+    <div class='dont-index'><p><a href='https://ggplot2.tidyverse.org/reference/labellers.html'>labellers</a>, <code><a href='https://ggplot2.tidyverse.org/reference/labeller.html'>labeller()</a></code>,</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># The variables mentioned in the plotmath expression must be</span>
 <span class='co'># backquoted and referred to by their names.</span>
-<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>wt</span>, <span class='no'>mpg</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
-<span class='no'>p</span> + <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='no'>vs</span> ~ <span class='no'>.</span>, <span class='kw'>labeller</span> <span class='kw'>=</span> <span class='fu'>label_bquote</span>(<span class='no'>alpha</span> ^ <span class='fu'>.</span>(<span class='no'>vs</span>)))</div><div class='img'><img src='label_bquote-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='no'>.</span> ~ <span class='no'>vs</span>, <span class='kw'>labeller</span> <span class='kw'>=</span> <span class='fu'>label_bquote</span>(<span class='kw'>cols</span> <span class='kw'>=</span> <span class='fu'>.</span>(<span class='no'>vs</span>) ^ <span class='fu'>.</span>(<span class='no'>vs</span>)))</div><div class='img'><img src='label_bquote-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='no'>.</span> ~ <span class='no'>vs</span> + <span class='no'>am</span>, <span class='kw'>labeller</span> <span class='kw'>=</span> <span class='fu'>label_bquote</span>(<span class='kw'>cols</span> <span class='kw'>=</span> <span class='fu'>.</span>(<span class='no'>am</span>) ^ <span class='fu'>.</span>(<span class='no'>vs</span>)))</div><div class='img'><img src='label_bquote-3.png' alt='' width='700' height='433' /></div></pre>
+<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>wt</span>, <span class='kw'>mpg</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>()
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span>(<span class='kw'>vs</span> <span class='op'>~</span> <span class='kw'>.</span>, labeller = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/label_bquote.html'>label_bquote</a></span>(<span class='kw'>alpha</span> <span class='op'>^</span> <span class='fu'>.</span>(<span class='kw'>vs</span>)))</div><div class='img'><img src='label_bquote-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span>(<span class='kw'>.</span> <span class='op'>~</span> <span class='kw'>vs</span>, labeller = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/label_bquote.html'>label_bquote</a></span>(cols = <span class='fu'>.</span>(<span class='kw'>vs</span>) <span class='op'>^</span> <span class='fu'>.</span>(<span class='kw'>vs</span>)))</div><div class='img'><img src='label_bquote-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span>(<span class='kw'>.</span> <span class='op'>~</span> <span class='kw'>vs</span> <span class='op'>+</span> <span class='kw'>am</span>, labeller = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/label_bquote.html'>label_bquote</a></span>(cols = <span class='fu'>.</span>(<span class='kw'>am</span>) <span class='op'>^</span> <span class='fu'>.</span>(<span class='kw'>vs</span>)))</div><div class='img'><img src='label_bquote-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

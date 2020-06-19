@@ -102,7 +102,7 @@ Legend guides for various scales are integrated if possible." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.1.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.2.9000</span>
         </div>
       </div>
     </div>
@@ -208,28 +208,28 @@ Legend guides for various scales are integrated if possible." />
 Legend guides for various scales are integrated if possible.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>guide_legend</span>(
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
-  <span class='kw'>title.position</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>title.theme</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>title.hjust</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>title.vjust</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>label.position</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>label.theme</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>label.hjust</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>label.vjust</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>keywidth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>keyheight</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>direction</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>default.unit</span> <span class='kw'>=</span> <span class='st'>"line"</span>,
-  <span class='kw'>override.aes</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
-  <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>byrow</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>reverse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>order</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='no'>...</span>
+    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_legend.html'>guide_legend</a></span>(
+  title = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(),
+  title.position = <span class='kw'>NULL</span>,
+  title.theme = <span class='kw'>NULL</span>,
+  title.hjust = <span class='kw'>NULL</span>,
+  title.vjust = <span class='kw'>NULL</span>,
+  label = <span class='fl'>TRUE</span>,
+  label.position = <span class='kw'>NULL</span>,
+  label.theme = <span class='kw'>NULL</span>,
+  label.hjust = <span class='kw'>NULL</span>,
+  label.vjust = <span class='kw'>NULL</span>,
+  keywidth = <span class='kw'>NULL</span>,
+  keyheight = <span class='kw'>NULL</span>,
+  direction = <span class='kw'>NULL</span>,
+  default.unit = <span class='st'>"line"</span>,
+  override.aes = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
+  nrow = <span class='kw'>NULL</span>,
+  ncol = <span class='kw'>NULL</span>,
+  byrow = <span class='fl'>FALSE</span>,
+  reverse = <span class='fl'>FALSE</span>,
+  order = <span class='fl'>0</span>,
+  <span class='kw'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -239,8 +239,8 @@ Legend guides for various scales are integrated if possible.</p>
       <th>title</th>
       <td><p>A character string or expression indicating a title of guide.
 If <code>NULL</code>, the title is not shown. By default
-(<code><a href='waiver.html'>waiver()</a></code>), the name of the scale object or the name
-specified in <code><a href='labs.html'>labs()</a></code> is used for the title.</p></td>
+(<code><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver()</a></code>), the name of the scale object or the name
+specified in <code><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs()</a></code> is used for the title.</p></td>
     </tr>
     <tr>
       <th>title.position</th>
@@ -251,8 +251,8 @@ title. One of "top" (default for a vertical guide), "bottom", "left"
     <tr>
       <th>title.theme</th>
       <td><p>A theme object for rendering the title text. Usually the
-object of <code><a href='element.html'>element_text()</a></code> is expected. By default, the theme is
-specified by <code>legend.title</code> in <code><a href='theme.html'>theme()</a></code> or theme.</p></td>
+object of <code><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text()</a></code> is expected. By default, the theme is
+specified by <code>legend.title</code> in <code><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme()</a></code> or theme.</p></td>
     </tr>
     <tr>
       <th>title.hjust</th>
@@ -278,8 +278,8 @@ label. One of "top", "bottom" (default for horizontal guide), "left", or
     <tr>
       <th>label.theme</th>
       <td><p>A theme object for rendering the label text. Usually the
-object of <code><a href='element.html'>element_text()</a></code> is expected. By default, the theme is
-specified by <code>legend.text</code> in <code><a href='theme.html'>theme()</a></code>.</p></td>
+object of <code><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text()</a></code> is expected. By default, the theme is
+specified by <code>legend.text</code> in <code><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme()</a></code>.</p></td>
     </tr>
     <tr>
       <th>label.hjust</th>
@@ -295,13 +295,13 @@ text.</p></td>
       <th>keywidth</th>
       <td><p>A numeric or a <code><a href='https://rdrr.io/r/grid/unit.html'>grid::unit()</a></code> object specifying
 the width of the legend key. Default value is <code>legend.key.width</code> or
-<code>legend.key.size</code> in <code><a href='theme.html'>theme()</a></code>.</p></td>
+<code>legend.key.size</code> in <code><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme()</a></code>.</p></td>
     </tr>
     <tr>
       <th>keyheight</th>
       <td><p>A numeric or a <code><a href='https://rdrr.io/r/grid/unit.html'>grid::unit()</a></code> object specifying
 the height of the legend key. Default value is <code>legend.key.height</code> or
-<code>legend.key.size</code> in <code><a href='theme.html'>theme()</a></code>.</p></td>
+<code>legend.key.size</code> in <code><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme()</a></code>.</p></td>
     </tr>
     <tr>
       <th>direction</th>
@@ -350,71 +350,71 @@ If 0 (default), the order is determined by a secret algorithm.</p></td>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Guides can be specified in each <code>scale_*</code> or in <code><a href='guides.html'>guides()</a></code>.
+    <p>Guides can be specified in each <code>scale_*</code> or in <code><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides()</a></code>.
 <code>guide = "legend"</code> in <code>scale_*</code> is syntactic sugar for
-<code>guide = guide_legend()</code> (e.g. <code><a href='scale_manual.html'>scale_color_manual(guide = "legend")</a></code>).
+<code>guide = guide_legend()</code> (e.g. <code><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_color_manual(guide = "legend")</a></code>).
 As for how to specify the guide for each scale in more detail,
-see <code><a href='guides.html'>guides()</a></code>.</p>
+see <code><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides()</a></code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other guides: 
-<code><a href='guide_bins.html'>guide_bins</a>()</code>,
-<code><a href='guide_colourbar.html'>guide_colourbar</a>()</code>,
-<code><a href='guide_coloursteps.html'>guide_coloursteps</a>()</code>,
-<code><a href='guides.html'>guides</a>()</code></p></div>
+<code><a href='https://ggplot2.tidyverse.org/reference/guide_bins.html'>guide_bins</a>()</code>,
+<code><a href='https://ggplot2.tidyverse.org/reference/guide_colourbar.html'>guide_colourbar</a>()</code>,
+<code><a href='https://ggplot2.tidyverse.org/reference/guide_coloursteps.html'>guide_coloursteps</a>()</code>,
+<code><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid</a></span>(<span class='kw'>X1</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>10</span>, <span class='kw'>X2</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>10</span>)
-<span class='no'>df</span>$<span class='no'>value</span> <span class='kw'>&lt;-</span> <span class='no'>df</span>$<span class='no'>X1</span> * <span class='no'>df</span>$<span class='no'>X2</span>
+<span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid</a></span>(X1 = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, X2 = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>)
+<span class='kw'>df</span><span class='op'>$</span><span class='kw'>value</span> <span class='op'>&lt;-</span> <span class='kw'>df</span><span class='op'>$</span><span class='kw'>X1</span> <span class='op'>*</span> <span class='kw'>df</span><span class='op'>$</span><span class='kw'>X2</span>
 
-<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>X1</span>, <span class='no'>X2</span>)) + <span class='fu'><a href='geom_tile.html'>geom_tile</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>value</span>))
-<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> + <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='no'>value</span>))
+<span class='kw'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>X1</span>, <span class='kw'>X2</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_tile.html'>geom_tile</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(fill = <span class='kw'>value</span>))
+<span class='kw'>p2</span> <span class='op'>&lt;-</span> <span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(size = <span class='kw'>value</span>))
 
 <span class='co'># Basic form</span>
-<span class='no'>p1</span> + <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_continuous</a></span>(<span class='kw'>guide</span> <span class='kw'>=</span> <span class='fu'>guide_legend</span>())</div><div class='img'><img src='guide_legend-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_colour_continuous.html'>scale_fill_continuous</a></span>(guide = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_legend.html'>guide_legend</a></span>())</div><div class='img'><img src='guide_legend-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Control styles</span>
 
 <span class='co'># title position</span>
-<span class='no'>p1</span> + <span class='fu'><a href='guides.html'>guides</a></span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'>guide_legend</span>(<span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"LEFT"</span>, <span class='kw'>title.position</span> <span class='kw'>=</span> <span class='st'>"left"</span>))</div><div class='img'><img src='guide_legend-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides</a></span>(fill = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_legend.html'>guide_legend</a></span>(title = <span class='st'>"LEFT"</span>, title.position = <span class='st'>"left"</span>))</div><div class='img'><img src='guide_legend-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># title text styles via element_text</span>
-<span class='no'>p1</span> + <span class='fu'><a href='guides.html'>guides</a></span>(<span class='kw'>fill</span> <span class='kw'>=</span>
-  <span class='fu'>guide_legend</span>(
-    <span class='kw'>title.theme</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_text</a></span>(
-      <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>15</span>,
-      <span class='kw'>face</span> <span class='kw'>=</span> <span class='st'>"italic"</span>,
-      <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"red"</span>,
-      <span class='kw'>angle</span> <span class='kw'>=</span> <span class='fl'>0</span>
+<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides</a></span>(fill =
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_legend.html'>guide_legend</a></span>(
+    title.theme = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span>(
+      size = <span class='fl'>15</span>,
+      face = <span class='st'>"italic"</span>,
+      colour = <span class='st'>"red"</span>,
+      angle = <span class='fl'>0</span>
     )
   )
 )</div><div class='img'><img src='guide_legend-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># label position</span>
-<span class='no'>p1</span> + <span class='fu'><a href='guides.html'>guides</a></span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'>guide_legend</span>(<span class='kw'>label.position</span> <span class='kw'>=</span> <span class='st'>"left"</span>, <span class='kw'>label.hjust</span> <span class='kw'>=</span> <span class='fl'>1</span>))</div><div class='img'><img src='guide_legend-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides</a></span>(fill = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_legend.html'>guide_legend</a></span>(label.position = <span class='st'>"left"</span>, label.hjust = <span class='fl'>1</span>))</div><div class='img'><img src='guide_legend-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># label styles</span>
-<span class='no'>p1</span> + <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_continuous</a></span>(<span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>, <span class='fl'>10</span>, <span class='fl'>15</span>),
-  <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='st'>"long"</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>, <span class='fl'>10</span>, <span class='fl'>15</span>)),
-  <span class='kw'>guide</span> <span class='kw'>=</span> <span class='fu'>guide_legend</span>(
-    <span class='kw'>direction</span> <span class='kw'>=</span> <span class='st'>"horizontal"</span>,
-    <span class='kw'>title.position</span> <span class='kw'>=</span> <span class='st'>"top"</span>,
-    <span class='kw'>label.position</span> <span class='kw'>=</span> <span class='st'>"bottom"</span>,
-    <span class='kw'>label.hjust</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
-    <span class='kw'>label.vjust</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-    <span class='kw'>label.theme</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_text</a></span>(<span class='kw'>angle</span> <span class='kw'>=</span> <span class='fl'>90</span>)
+<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_colour_continuous.html'>scale_fill_continuous</a></span>(breaks = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>, <span class='fl'>10</span>, <span class='fl'>15</span>),
+  labels = <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='st'>"long"</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>, <span class='fl'>10</span>, <span class='fl'>15</span>)),
+  guide = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_legend.html'>guide_legend</a></span>(
+    direction = <span class='st'>"horizontal"</span>,
+    title.position = <span class='st'>"top"</span>,
+    label.position = <span class='st'>"bottom"</span>,
+    label.hjust = <span class='fl'>0.5</span>,
+    label.vjust = <span class='fl'>1</span>,
+    label.theme = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span>(angle = <span class='fl'>90</span>)
   )
 )</div><div class='img'><img src='guide_legend-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Set aesthetic of legend key</span>
 <span class='co'># very low alpha value make it difficult to see legend key</span>
-<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>vs</span>, <span class='no'>am</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>cyl</span>))) +
-  <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>5</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.01</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>0.01</span>)
-<span class='no'>p3</span></div><div class='img'><img src='guide_legend-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># override.aes overwrites the alpha</span>
-<span class='no'>p3</span> + <span class='fu'><a href='guides.html'>guides</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='fu'>guide_legend</span>(<span class='kw'>override.aes</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>)))</div><div class='img'><img src='guide_legend-7.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>vs</span>, <span class='kw'>am</span>, colour = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>))) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_jitter.html'>geom_jitter</a></span>(alpha = <span class='fl'>1</span><span class='op'>/</span><span class='fl'>5</span>, width = <span class='fl'>0.01</span>, height = <span class='fl'>0.01</span>)
+<span class='kw'>p3</span></div><div class='img'><img src='guide_legend-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># override.aes overwrites the alpha</span>
+<span class='kw'>p3</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides</a></span>(colour = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_legend.html'>guide_legend</a></span>(override.aes = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(alpha = <span class='fl'>1</span>)))</div><div class='img'><img src='guide_legend-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># multiple row/col legends</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>20</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>20</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>20</span>])
-<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>x</span>, <span class='no'>y</span>)) +
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>color</span>))
-<span class='no'>p</span> + <span class='fu'><a href='guides.html'>guides</a></span>(<span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'>guide_legend</span>(<span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>8</span>))</div><div class='img'><img src='guide_legend-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'><a href='guides.html'>guides</a></span>(<span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'>guide_legend</span>(<span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>8</span>))</div><div class='img'><img src='guide_legend-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'><a href='guides.html'>guides</a></span>(<span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'>guide_legend</span>(<span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>8</span>, <span class='kw'>byrow</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='img'><img src='guide_legend-10.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(x = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>20</span>, y = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>20</span>, color = <span class='kw'>letters</span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>20</span>])
+<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(colour = <span class='kw'>color</span>))
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides</a></span>(col = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_legend.html'>guide_legend</a></span>(nrow = <span class='fl'>8</span>))</div><div class='img'><img src='guide_legend-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides</a></span>(col = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_legend.html'>guide_legend</a></span>(ncol = <span class='fl'>8</span>))</div><div class='img'><img src='guide_legend-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides</a></span>(col = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_legend.html'>guide_legend</a></span>(nrow = <span class='fl'>8</span>, byrow = <span class='fl'>TRUE</span>))</div><div class='img'><img src='guide_legend-10.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># reversed order legend</span>
-<span class='no'>p</span> + <span class='fu'><a href='guides.html'>guides</a></span>(<span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'>guide_legend</span>(<span class='kw'>reverse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='img'><img src='guide_legend-11.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span></div></pre>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides</a></span>(col = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_legend.html'>guide_legend</a></span>(reverse = <span class='fl'>TRUE</span>))</div><div class='img'><img src='guide_legend-11.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -102,7 +102,7 @@ It does not generate colour-blind safe palettes." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.1.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.2.9000</span>
         </div>
       </div>
     </div>
@@ -208,26 +208,26 @@ It does not generate colour-blind safe palettes." />
 It does not generate colour-blind safe palettes.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>scale_colour_hue</span>(
-  <span class='no'>...</span>,
-  <span class='kw'>h</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>360</span>) + <span class='fl'>15</span>,
-  <span class='kw'>c</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>l</span> <span class='kw'>=</span> <span class='fl'>65</span>,
-  <span class='kw'>h.start</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>na.value</span> <span class='kw'>=</span> <span class='st'>"grey50"</span>,
-  <span class='kw'>aesthetics</span> <span class='kw'>=</span> <span class='st'>"colour"</span>
+    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_hue.html'>scale_colour_hue</a></span>(
+  <span class='kw'>...</span>,
+  h = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>360</span>) <span class='op'>+</span> <span class='fl'>15</span>,
+  c = <span class='fl'>100</span>,
+  l = <span class='fl'>65</span>,
+  h.start = <span class='fl'>0</span>,
+  direction = <span class='fl'>1</span>,
+  na.value = <span class='st'>"grey50"</span>,
+  aesthetics = <span class='st'>"colour"</span>
 )
 
-<span class='fu'>scale_fill_hue</span>(
-  <span class='no'>...</span>,
-  <span class='kw'>h</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>360</span>) + <span class='fl'>15</span>,
-  <span class='kw'>c</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>l</span> <span class='kw'>=</span> <span class='fl'>65</span>,
-  <span class='kw'>h.start</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>na.value</span> <span class='kw'>=</span> <span class='st'>"grey50"</span>,
-  <span class='kw'>aesthetics</span> <span class='kw'>=</span> <span class='st'>"fill"</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_hue.html'>scale_fill_hue</a></span>(
+  <span class='kw'>...</span>,
+  h = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>360</span>) <span class='op'>+</span> <span class='fl'>15</span>,
+  c = <span class='fl'>100</span>,
+  l = <span class='fl'>65</span>,
+  h.start = <span class='fl'>0</span>,
+  direction = <span class='fl'>1</span>,
+  na.value = <span class='st'>"grey50"</span>,
+  aesthetics = <span class='st'>"fill"</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -235,14 +235,14 @@ It does not generate colour-blind safe palettes.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>...</th>
-      <td><p>Arguments passed on to <code><a href='discrete_scale.html'>discrete_scale</a></code></p><dl>
+      <td><p>Arguments passed on to <code><a href='https://ggplot2.tidyverse.org/reference/discrete_scale.html'>discrete_scale</a></code></p><dl>
     <dt><code>palette</code></dt><dd><p>A palette function that when called with a single integer
 argument (the number of levels in the scale) returns the values that
 they should take (e.g., <code><a href='https://scales.r-lib.org//reference/hue_pal.html'>scales::hue_pal()</a></code>).</p></dd>
     <dt><code>breaks</code></dt><dd><p>One of:
 <ul>
 <li><p><code>NULL</code> for no breaks</p></li>
-<li><p><code><a href='waiver.html'>waiver()</a></code> for the default breaks (the scale limits)</p></li>
+<li><p><code><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver()</a></code> for the default breaks (the scale limits)</p></li>
 <li><p>A character vector of breaks</p></li>
 <li><p>A function that takes the limits as input and returns breaks
 as output</p></li>
@@ -264,13 +264,13 @@ from a discrete scale, specify <code>na.translate = FALSE</code>.</p></dd>
     <dt><code>scale_name</code></dt><dd><p>The name of the scale that should be used for error messages
 associated with this scale.</p></dd>
     <dt><code>name</code></dt><dd><p>The name of the scale. Used as the axis or legend title. If
-<code><a href='waiver.html'>waiver()</a></code>, the default, the name of the scale is taken from the first
+<code><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver()</a></code>, the default, the name of the scale is taken from the first
 mapping used for that aesthetic. If <code>NULL</code>, the legend title will be
 omitted.</p></dd>
     <dt><code>labels</code></dt><dd><p>One of:
 <ul>
 <li><p><code>NULL</code> for no labels</p></li>
-<li><p><code><a href='waiver.html'>waiver()</a></code> for the default labels computed by the
+<li><p><code><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver()</a></code> for the default labels computed by the
 transformation object</p></li>
 <li><p>A character vector giving labels (must be same length as <code>breaks</code>)</p></li>
 <li><p>A function that takes the breaks as input and returns labels
@@ -278,12 +278,12 @@ as output</p></li>
 </ul></p></dd>
     <dt><code>expand</code></dt><dd><p>For position scales, a vector of range expansion constants used to add some
 padding around the data to ensure that they are placed some distance
-away from the axes. Use the convenience function <code><a href='expansion.html'>expansion()</a></code>
+away from the axes. Use the convenience function <code><a href='https://ggplot2.tidyverse.org/reference/expansion.html'>expansion()</a></code>
 to generate the values for the <code>expand</code> argument. The defaults are to
 expand the scale by 5% on each side for continuous variables, and by
 0.6 units on each side for discrete variables.</p></dd>
     <dt><code>guide</code></dt><dd><p>A function used to create a guide or its name. See
-<code><a href='guides.html'>guides()</a></code> for more information.</p></dd>
+<code><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides()</a></code> for more information.</p></dd>
     <dt><code>position</code></dt><dd><p>For position scales, The position of the axis.
 <code>left</code> or <code>right</code> for y axes, <code>top</code> or <code>bottom</code> for x axes.</p></dd>
     <dt><code>super</code></dt><dd><p>The super class to use for the constructed scale</p></dd>
@@ -328,32 +328,32 @@ same time, via <code>aesthetics = c("colour", "fill")</code>.</p></td>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other colour scales: 
-<code><a href='scale_alpha.html'>scale_alpha</a>()</code>,
-<code><a href='scale_brewer.html'>scale_colour_brewer</a>()</code>,
-<code><a href='scale_gradient.html'>scale_colour_gradient</a>()</code>,
-<code><a href='scale_grey.html'>scale_colour_grey</a>()</code>,
-<code><a href='scale_steps.html'>scale_colour_steps</a>()</code>,
-<code><a href='scale_viridis.html'>scale_colour_viridis_d</a>()</code></p></div>
+<code><a href='https://ggplot2.tidyverse.org/reference/scale_alpha.html'>scale_alpha</a>()</code>,
+<code><a href='https://ggplot2.tidyverse.org/reference/scale_brewer.html'>scale_colour_brewer</a>()</code>,
+<code><a href='https://ggplot2.tidyverse.org/reference/scale_gradient.html'>scale_colour_gradient</a>()</code>,
+<code><a href='https://ggplot2.tidyverse.org/reference/scale_grey.html'>scale_colour_grey</a>()</code>,
+<code><a href='https://ggplot2.tidyverse.org/reference/scale_steps.html'>scale_colour_steps</a>()</code>,
+<code><a href='https://ggplot2.tidyverse.org/reference/scale_viridis.html'>scale_colour_viridis_d</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
-<span class='no'>dsamp</span> <span class='kw'>&lt;-</span> <span class='no'>diamonds</span>[<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>diamonds</span>), <span class='fl'>1000</span>), ]
-(<span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>dsamp</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>carat</span>, <span class='no'>price</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>clarity</span>)))</div><div class='img'><img src='scale_hue-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>dsamp</span> <span class='op'>&lt;-</span> <span class='kw'>diamonds</span>[<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='kw'>diamonds</span>), <span class='fl'>1000</span>), ]
+(<span class='kw'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>dsamp</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>carat</span>, <span class='kw'>price</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(colour = <span class='kw'>clarity</span>)))</div><div class='img'><img src='scale_hue-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Change scale label</span>
-<span class='no'>d</span> + <span class='fu'>scale_colour_hue</span>()</div><div class='img'><img src='scale_hue-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>d</span> + <span class='fu'>scale_colour_hue</span>(<span class='st'>"clarity"</span>)</div><div class='img'><img src='scale_hue-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>d</span> + <span class='fu'>scale_colour_hue</span>(<span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span>(<span class='no'>clarity</span>[<span class='no'>beta</span>]))</div><div class='img'><img src='scale_hue-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_hue.html'>scale_colour_hue</a></span>()</div><div class='img'><img src='scale_hue-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_hue.html'>scale_colour_hue</a></span>(<span class='st'>"clarity"</span>)</div><div class='img'><img src='scale_hue-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_hue.html'>scale_colour_hue</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span>(<span class='kw'>clarity</span>[<span class='kw'>beta</span>]))</div><div class='img'><img src='scale_hue-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Adjust luminosity and chroma</span>
-<span class='no'>d</span> + <span class='fu'>scale_colour_hue</span>(<span class='kw'>l</span> <span class='kw'>=</span> <span class='fl'>40</span>, <span class='kw'>c</span> <span class='kw'>=</span> <span class='fl'>30</span>)</div><div class='img'><img src='scale_hue-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>d</span> + <span class='fu'>scale_colour_hue</span>(<span class='kw'>l</span> <span class='kw'>=</span> <span class='fl'>70</span>, <span class='kw'>c</span> <span class='kw'>=</span> <span class='fl'>30</span>)</div><div class='img'><img src='scale_hue-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>d</span> + <span class='fu'>scale_colour_hue</span>(<span class='kw'>l</span> <span class='kw'>=</span> <span class='fl'>70</span>, <span class='kw'>c</span> <span class='kw'>=</span> <span class='fl'>150</span>)</div><div class='img'><img src='scale_hue-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>d</span> + <span class='fu'>scale_colour_hue</span>(<span class='kw'>l</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>c</span> <span class='kw'>=</span> <span class='fl'>150</span>)</div><div class='img'><img src='scale_hue-8.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_hue.html'>scale_colour_hue</a></span>(l = <span class='fl'>40</span>, c = <span class='fl'>30</span>)</div><div class='img'><img src='scale_hue-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_hue.html'>scale_colour_hue</a></span>(l = <span class='fl'>70</span>, c = <span class='fl'>30</span>)</div><div class='img'><img src='scale_hue-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_hue.html'>scale_colour_hue</a></span>(l = <span class='fl'>70</span>, c = <span class='fl'>150</span>)</div><div class='img'><img src='scale_hue-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_hue.html'>scale_colour_hue</a></span>(l = <span class='fl'>80</span>, c = <span class='fl'>150</span>)</div><div class='img'><img src='scale_hue-8.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Change range of hues used</span>
-<span class='no'>d</span> + <span class='fu'>scale_colour_hue</span>(<span class='kw'>h</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>90</span>))</div><div class='img'><img src='scale_hue-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>d</span> + <span class='fu'>scale_colour_hue</span>(<span class='kw'>h</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>90</span>, <span class='fl'>180</span>))</div><div class='img'><img src='scale_hue-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>d</span> + <span class='fu'>scale_colour_hue</span>(<span class='kw'>h</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>180</span>, <span class='fl'>270</span>))</div><div class='img'><img src='scale_hue-11.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>d</span> + <span class='fu'>scale_colour_hue</span>(<span class='kw'>h</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>270</span>, <span class='fl'>360</span>))</div><div class='img'><img src='scale_hue-12.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_hue.html'>scale_colour_hue</a></span>(h = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>90</span>))</div><div class='img'><img src='scale_hue-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_hue.html'>scale_colour_hue</a></span>(h = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>90</span>, <span class='fl'>180</span>))</div><div class='img'><img src='scale_hue-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_hue.html'>scale_colour_hue</a></span>(h = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>180</span>, <span class='fl'>270</span>))</div><div class='img'><img src='scale_hue-11.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_hue.html'>scale_colour_hue</a></span>(h = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>270</span>, <span class='fl'>360</span>))</div><div class='img'><img src='scale_hue-12.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Vary opacity</span>
 <span class='co'># (only works with pdf, quartz and cairo devices)</span>
-<span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>dsamp</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>carat</span>, <span class='no'>price</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>clarity</span>))
-<span class='no'>d</span> + <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.9</span>)</div><div class='img'><img src='scale_hue-13.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>d</span> + <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)</div><div class='img'><img src='scale_hue-14.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>d</span> + <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.2</span>)</div><div class='img'><img src='scale_hue-15.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>dsamp</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>carat</span>, <span class='kw'>price</span>, colour = <span class='kw'>clarity</span>))
+<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(alpha = <span class='fl'>0.9</span>)</div><div class='img'><img src='scale_hue-13.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(alpha = <span class='fl'>0.5</span>)</div><div class='img'><img src='scale_hue-14.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(alpha = <span class='fl'>0.2</span>)</div><div class='img'><img src='scale_hue-15.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Colour of missing values is controlled with na.value:</span>
-<span class='no'>miss</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>NA</span>, <span class='fl'>1</span>:<span class='fl'>5</span>), <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>mtcars</span>), <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>miss</span>))</div><div class='img'><img src='scale_hue-16.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>)) +
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>miss</span>)) +
-  <span class='fu'>scale_colour_hue</span>(<span class='kw'>na.value</span> <span class='kw'>=</span> <span class='st'>"black"</span>)</div><div class='img'><img src='scale_hue-17.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span></div></pre>
+<span class='kw'>miss</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>NA</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>), <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='kw'>mtcars</span>), replace = <span class='fl'>TRUE</span>))
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(colour = <span class='kw'>miss</span>))</div><div class='img'><img src='scale_hue-16.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(colour = <span class='kw'>miss</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_hue.html'>scale_colour_hue</a></span>(na.value = <span class='st'>"black"</span>)</div><div class='img'><img src='scale_hue-17.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

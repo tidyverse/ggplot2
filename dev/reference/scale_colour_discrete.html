@@ -103,7 +103,7 @@ is specified." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.1.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.2.9000</span>
         </div>
       </div>
     </div>
@@ -205,19 +205,19 @@ is specified." />
     </div>
 
     <div class="ref-description">
-    <p>The default discrete colour scale. Defaults to <code><a href='scale_hue.html'>scale_fill_hue()</a></code>/<code><a href='scale_brewer.html'>scale_fill_brewer()</a></code>
+    <p>The default discrete colour scale. Defaults to <code><a href='https://ggplot2.tidyverse.org/reference/scale_hue.html'>scale_fill_hue()</a></code>/<code><a href='https://ggplot2.tidyverse.org/reference/scale_brewer.html'>scale_fill_brewer()</a></code>
 unless <code>type</code> (which defaults to the <code>ggplot2.discrete.fill</code>/<code>ggplot2.discrete.colour</code> options)
 is specified.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>scale_colour_discrete</span>(
-  <span class='no'>...</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"ggplot2.discrete.colour"</span>, <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"ggplot2.discrete.fill"</span>))
+    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_colour_discrete.html'>scale_colour_discrete</a></span>(
+  <span class='kw'>...</span>,
+  type = <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"ggplot2.discrete.colour"</span>, <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"ggplot2.discrete.fill"</span>))
 )
 
-<span class='fu'>scale_fill_discrete</span>(
-  <span class='no'>...</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"ggplot2.discrete.fill"</span>, <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"ggplot2.discrete.colour"</span>))
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_colour_discrete.html'>scale_fill_discrete</a></span>(
+  <span class='kw'>...</span>,
+  type = <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"ggplot2.discrete.fill"</span>, <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"ggplot2.discrete.colour"</span>))
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -232,13 +232,13 @@ is specified.</p>
       <td><p>One of the following:</p><ul>
 <li><p>A character vector of color codes. The codes are used for a 'manual' color
 scale as long as the number of codes exceeds the number of data levels
-(if there are more levels than codes, <code><a href='scale_hue.html'>scale_colour_hue()</a></code>/<code><a href='scale_hue.html'>scale_fill_hue()</a></code>
+(if there are more levels than codes, <code><a href='https://ggplot2.tidyverse.org/reference/scale_hue.html'>scale_colour_hue()</a></code>/<code><a href='https://ggplot2.tidyverse.org/reference/scale_hue.html'>scale_fill_hue()</a></code>
 are used to construct the default scale).</p></li>
 <li><p>A list of character vectors of color codes. The minimum length vector that exceeds the
 number of data levels is chosen for the color scaling. This is useful if you
 want to change the color palette based on the number of levels.</p></li>
-<li><p>A function that returns a discrete colour/fill scale (e.g., <code><a href='scale_hue.html'>scale_fill_hue()</a></code>,
-<code><a href='scale_brewer.html'>scale_fill_brewer()</a></code>, etc).</p></li>
+<li><p>A function that returns a discrete colour/fill scale (e.g., <code><a href='https://ggplot2.tidyverse.org/reference/scale_hue.html'>scale_fill_hue()</a></code>,
+<code><a href='https://ggplot2.tidyverse.org/reference/scale_brewer.html'>scale_fill_brewer()</a></code>, etc).</p></li>
 </ul></td>
     </tr>
     </table>
@@ -246,35 +246,34 @@ want to change the color palette based on the number of levels.</p></li>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Template function for creating densities grouped by a variable</span>
-<span class='no'>cty_by_var</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>var</span>) {
-  <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>cty</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>({{<span class='no'>var</span>}}), <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>({{<span class='no'>var</span>}}))) +
-    <span class='fu'><a href='geom_density.html'>geom_density</a></span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.2</span>)
+<span class='kw'>cty_by_var</span> <span class='op'>&lt;-</span> <span class='fu'>function</span>(<span class='kw'>var</span>) {
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>cty</span>, colour = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>({{<span class='kw'>var</span>}}), fill = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>({{<span class='kw'>var</span>}}))) <span class='op'>+</span>
+    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_density.html'>geom_density</a></span>(alpha = <span class='fl'>0.2</span>)
 }
 
 <span class='co'># The default, scale_fill_hue(), is not colour-blind safe</span>
-<span class='fu'>cty_by_var</span>(<span class='no'>class</span>)</div><div class='img'><img src='scale_colour_discrete-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>cty_by_var</span>(<span class='kw'>class</span>)</div><div class='img'><img src='scale_colour_discrete-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># (Temporarily) set the default to Okabe-Ito (which is colour-blind safe)</span>
-<span class='no'>okabe</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"#E69F00"</span>, <span class='st'>"#56B4E9"</span>, <span class='st'>"#009E73"</span>, <span class='st'>"#F0E442"</span>, <span class='st'>"#0072B2"</span>, <span class='st'>"#D55E00"</span>, <span class='st'>"#CC79A7"</span>)
-<span class='kw pkg'>withr</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/withr/man/with_options.html'>with_options</a></span>(
-  <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>ggplot2.discrete.fill</span> <span class='kw'>=</span> <span class='no'>okabe</span>),
-  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>cty_by_var</span>(<span class='no'>class</span>))
+<span class='kw'>okabe</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"#E69F00"</span>, <span class='st'>"#56B4E9"</span>, <span class='st'>"#009E73"</span>, <span class='st'>"#F0E442"</span>, <span class='st'>"#0072B2"</span>, <span class='st'>"#D55E00"</span>, <span class='st'>"#CC79A7"</span>)
+<span class='kw'>withr</span>::<span class='fu'><a href='https://rdrr.io/pkg/withr/man/with_options.html'>with_options</a></span>(
+  <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(ggplot2.discrete.fill = <span class='kw'>okabe</span>),
+  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>cty_by_var</span>(<span class='kw'>class</span>))
 )</div><div class='img'><img src='scale_colour_discrete-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Define a collection of palettes to alter the default based on number of levels to encode</span>
-<span class='no'>discrete_palettes</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
+<span class='kw'>discrete_palettes</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
   <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"skyblue"</span>, <span class='st'>"orange"</span>),
-  <span class='kw pkg'>RColorBrewer</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html'>brewer.pal</a></span>(<span class='fl'>3</span>, <span class='st'>"Set2"</span>),
-  <span class='kw pkg'>RColorBrewer</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html'>brewer.pal</a></span>(<span class='fl'>6</span>, <span class='st'>"Accent"</span>)
+  <span class='kw'>RColorBrewer</span>::<span class='fu'><a href='https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html'>brewer.pal</a></span>(<span class='fl'>3</span>, <span class='st'>"Set2"</span>),
+  <span class='kw'>RColorBrewer</span>::<span class='fu'><a href='https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html'>brewer.pal</a></span>(<span class='fl'>6</span>, <span class='st'>"Accent"</span>)
 )
-<span class='kw pkg'>withr</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/withr/man/with_options.html'>with_options</a></span>(
-  <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>ggplot2.discrete.fill</span> <span class='kw'>=</span> <span class='no'>discrete_palettes</span>), {
+<span class='kw'>withr</span>::<span class='fu'><a href='https://rdrr.io/pkg/withr/man/with_options.html'>with_options</a></span>(
+  <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(ggplot2.discrete.fill = <span class='kw'>discrete_palettes</span>), {
   <span class='co'># 1st palette is used when there 1-2 levels (e.g., year)</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>cty_by_var</span>(<span class='no'>year</span>))
+  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>cty_by_var</span>(<span class='kw'>year</span>))
   <span class='co'># 2nd palette is used when there are 3 levels</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>cty_by_var</span>(<span class='no'>drv</span>))
+  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>cty_by_var</span>(<span class='kw'>drv</span>))
   <span class='co'># 3rd palette is used when there are 4-6 levels</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>cty_by_var</span>(<span class='no'>fl</span>))
-})</div><div class='img'><img src='scale_colour_discrete-3.png' alt='' width='700' height='433' /></div><div class='img'><img src='scale_colour_discrete-4.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; <span class='warning'>Warning: Groups with fewer than two data points have been dropped.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: no non-missing arguments to max; returning -Inf</span></div><div class='img'><img src='scale_colour_discrete-5.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>cty_by_var</span>(<span class='kw'>fl</span>))
+})</div><div class='img'><img src='scale_colour_discrete-3.png' alt='' width='700' height='433' /></div><div class='img'><img src='scale_colour_discrete-4.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; <span class='warning'>Warning: Groups with fewer than two data points have been dropped.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: no non-missing arguments to max; returning -Inf</span></div><div class='img'><img src='scale_colour_discrete-5.png' alt='' width='700' height='433' /></div><div class='input'></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

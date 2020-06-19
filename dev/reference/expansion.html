@@ -104,7 +104,7 @@ add some space between the data and the axes." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.1.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.2.9000</span>
         </div>
       </div>
     </div>
@@ -207,14 +207,14 @@ add some space between the data and the axes." />
 
     <div class="ref-description">
     <p>This is a convenience function for generating scale expansion vectors
-for the <code>expand</code> argument of <a href='scale_continuous.html'>scale_(x|y)_continuous</a>
-and <a href='scale_discrete.html'>scale_(x|y)_discrete</a>. The expansion vectors are used to
+for the <code>expand</code> argument of <a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_(x|y)_continuous</a>
+and <a href='https://ggplot2.tidyverse.org/reference/scale_discrete.html'>scale_(x|y)_discrete</a>. The expansion vectors are used to
 add some space between the data and the axes.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>expansion</span>(<span class='kw'>mult</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>0</span>)
+    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/expansion.html'>expansion</a></span>(mult = <span class='fl'>0</span>, add = <span class='fl'>0</span>)
 
-<span class='fu'>expand_scale</span>(<span class='kw'>mult</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>0</span>)</pre>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/expansion.html'>expand_scale</a></span>(mult = <span class='fl'>0</span>, add = <span class='fl'>0</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -239,20 +239,19 @@ limit by <code>add[2]</code>.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># No space below the bars but 10% above them</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>) +
-  <span class='fu'><a href='geom_bar.html'>geom_bar</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>cyl</span>))) +
-  <span class='fu'><a href='scale_continuous.html'>scale_y_continuous</a></span>(<span class='kw'>expand</span> <span class='kw'>=</span> <span class='fu'>expansion</span>(<span class='kw'>mult</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>.1</span>)))</div><div class='img'><img src='expansion-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(x = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>))) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_continuous</a></span>(expand = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/expansion.html'>expansion</a></span>(mult = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>.1</span>)))</div><div class='img'><img src='expansion-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Add 2 units of space on the left and right of the data</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='no'>diamonds</span>, <span class='no'>carat</span> <span class='kw'>&gt;</span> <span class='fl'>2</span>), <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>cut</span>, <span class='no'>clarity</span>)) +
-  <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span>() +
-  <span class='fu'><a href='scale_discrete.html'>scale_x_discrete</a></span>(<span class='kw'>expand</span> <span class='kw'>=</span> <span class='fu'>expansion</span>(<span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>2</span>))</div><div class='img'><img src='expansion-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='kw'>diamonds</span>, <span class='kw'>carat</span> <span class='op'>&gt;</span> <span class='fl'>2</span>), <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>cut</span>, <span class='kw'>clarity</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_jitter.html'>geom_jitter</a></span>() <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_discrete.html'>scale_x_discrete</a></span>(expand = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/expansion.html'>expansion</a></span>(add = <span class='fl'>2</span>))</div><div class='img'><img src='expansion-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Reproduce the default range expansion used</span>
 <span class='co'># when the 'expand' argument is not specified</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='no'>diamonds</span>, <span class='no'>carat</span> <span class='kw'>&gt;</span> <span class='fl'>2</span>), <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>cut</span>, <span class='no'>price</span>)) +
-  <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span>() +
-  <span class='fu'><a href='scale_discrete.html'>scale_x_discrete</a></span>(<span class='kw'>expand</span> <span class='kw'>=</span> <span class='fu'>expansion</span>(<span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>.6</span>)) +
-  <span class='fu'><a href='scale_continuous.html'>scale_y_continuous</a></span>(<span class='kw'>expand</span> <span class='kw'>=</span> <span class='fu'>expansion</span>(<span class='kw'>mult</span> <span class='kw'>=</span> <span class='fl'>.05</span>))</div><div class='img'><img src='expansion-3.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='kw'>diamonds</span>, <span class='kw'>carat</span> <span class='op'>&gt;</span> <span class='fl'>2</span>), <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>cut</span>, <span class='kw'>price</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_jitter.html'>geom_jitter</a></span>() <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_discrete.html'>scale_x_discrete</a></span>(expand = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/expansion.html'>expansion</a></span>(add = <span class='fl'>.6</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_continuous</a></span>(expand = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/expansion.html'>expansion</a></span>(mult = <span class='fl'>.05</span>))</div><div class='img'><img src='expansion-3.png' alt='' width='700' height='433' /></div><div class='input'></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

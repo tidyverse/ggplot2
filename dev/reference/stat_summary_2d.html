@@ -105,7 +105,7 @@ are summarised with fun." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.1.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.2.9000</span>
         </div>
       </div>
     </div>
@@ -207,43 +207,43 @@ are summarised with fun." />
     </div>
 
     <div class="ref-description">
-    <p><code>stat_summary_2d()</code> is a 2d variation of <code><a href='stat_summary.html'>stat_summary()</a></code>.
-<code>stat_summary_hex()</code> is a hexagonal variation of
-<code>stat_summary_2d()</code>. The data are divided into bins defined
+    <p><code><a href='https://ggplot2.tidyverse.org/reference/stat_summary_2d.html'>stat_summary_2d()</a></code> is a 2d variation of <code><a href='https://ggplot2.tidyverse.org/reference/stat_summary.html'>stat_summary()</a></code>.
+<code><a href='https://ggplot2.tidyverse.org/reference/stat_summary_2d.html'>stat_summary_hex()</a></code> is a hexagonal variation of
+<code><a href='https://ggplot2.tidyverse.org/reference/stat_summary_2d.html'>stat_summary_2d()</a></code>. The data are divided into bins defined
 by <code>x</code> and <code>y</code>, and then the values of <code>z</code> in each cell is
 are summarised with <code>fun</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>stat_summary_2d</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"tile"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>bins</span> <span class='kw'>=</span> <span class='fl'>30</span>,
-  <span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>fun</span> <span class='kw'>=</span> <span class='st'>"mean"</span>,
-  <span class='kw'>fun.args</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/stat_summary_2d.html'>stat_summary_2d</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  geom = <span class='st'>"tile"</span>,
+  position = <span class='st'>"identity"</span>,
+  <span class='kw'>...</span>,
+  bins = <span class='fl'>30</span>,
+  binwidth = <span class='kw'>NULL</span>,
+  drop = <span class='fl'>TRUE</span>,
+  fun = <span class='st'>"mean"</span>,
+  fun.args = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
+  na.rm = <span class='fl'>FALSE</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>
 )
 
-<span class='fu'>stat_summary_hex</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"hex"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>bins</span> <span class='kw'>=</span> <span class='fl'>30</span>,
-  <span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>fun</span> <span class='kw'>=</span> <span class='st'>"mean"</span>,
-  <span class='kw'>fun.args</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/stat_summary_2d.html'>stat_summary_hex</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  geom = <span class='st'>"hex"</span>,
+  position = <span class='st'>"identity"</span>,
+  <span class='kw'>...</span>,
+  bins = <span class='fl'>30</span>,
+  binwidth = <span class='kw'>NULL</span>,
+  drop = <span class='fl'>TRUE</span>,
+  fun = <span class='st'>"mean"</span>,
+  fun.args = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
+  na.rm = <span class='fl'>FALSE</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -251,8 +251,8 @@ are summarised with <code>fun</code>.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>mapping</th>
-      <td><p>Set of aesthetic mappings created by <code><a href='aes.html'>aes()</a></code> or
-<code><a href='aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
+      <td><p>Set of aesthetic mappings created by <code><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes()</a></code> or
+<code><a href='https://ggplot2.tidyverse.org/reference/aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
     </tr>
@@ -261,10 +261,10 @@ plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
       <td><p>The data to be displayed in this layer. There are three
 options:</p>
 <p>If <code>NULL</code>, the default, the data is inherited from the plot
-data as specified in the call to <code><a href='ggplot.html'>ggplot()</a></code>.</p>
+data as specified in the call to <code><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot()</a></code>.</p>
 <p>A <code>data.frame</code>, or other object, will override the plot
 data. All objects will be fortified to produce a data frame. See
-<code><a href='fortify.html'>fortify()</a></code> for which variables will be created.</p>
+<code><a href='https://ggplot2.tidyverse.org/reference/fortify.html'>fortify()</a></code> for which variables will be created.</p>
 <p>A <code>function</code> will be called with a single argument,
 the plot data. The return value must be a <code>data.frame</code>, and
 will be used as the layer data. A <code>function</code> can be created
@@ -281,7 +281,7 @@ a call to a position adjustment function.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Other arguments passed on to <code><a href='layer.html'>layer()</a></code>. These are
+      <td><p>Other arguments passed on to <code><a href='https://ggplot2.tidyverse.org/reference/layer.html'>layer()</a></code>. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 <code>colour = "red"</code> or <code>size = 3</code>. They may also be parameters
 to the paired geom/stat.</p></td>
@@ -326,7 +326,7 @@ display.</p></td>
       <td><p>If <code>FALSE</code>, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. <code><a href='borders.html'>borders()</a></code>.</p></td>
+the default plot specification, e.g. <code><a href='https://ggplot2.tidyverse.org/reference/borders.html'>borders()</a></code>.</p></td>
     </tr>
     </table>
 
@@ -352,17 +352,17 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code>stat_summary_hex()</code> for hexagonal summarization.
-<code><a href='geom_bin2d.html'>stat_bin2d()</a></code> for the binning options.</p></div>
+    <div class='dont-index'><p><code><a href='https://ggplot2.tidyverse.org/reference/stat_summary_2d.html'>stat_summary_hex()</a></code> for hexagonal summarization.
+<code><a href='https://ggplot2.tidyverse.org/reference/geom_bin2d.html'>stat_bin2d()</a></code> for the binning options.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>carat</span>, <span class='no'>depth</span>, <span class='kw'>z</span> <span class='kw'>=</span> <span class='no'>price</span>))
-<span class='no'>d</span> + <span class='fu'>stat_summary_2d</span>()</div><div class='img'><img src='stat_summary_2d-1.png' alt='' width='700' height='433' /></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='kw'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>carat</span>, <span class='kw'>depth</span>, z = <span class='kw'>price</span>))
+<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/stat_summary_2d.html'>stat_summary_2d</a></span>()</div><div class='img'><img src='stat_summary_2d-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Specifying function</span>
-<span class='no'>d</span> + <span class='fu'>stat_summary_2d</span>(<span class='kw'>fun</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>x</span>^<span class='fl'>2</span>))</div><div class='img'><img src='stat_summary_2d-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>d</span> + <span class='fu'>stat_summary_2d</span>(<span class='kw'>fun</span> <span class='kw'>=</span> ~ <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>.x</span>^<span class='fl'>2</span>))</div><div class='img'><img src='stat_summary_2d-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>d</span> + <span class='fu'>stat_summary_2d</span>(<span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>var</span>)</div><div class='img'><img src='stat_summary_2d-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>d</span> + <span class='fu'>stat_summary_2d</span>(<span class='kw'>fun</span> <span class='kw'>=</span> <span class='st'>"quantile"</span>, <span class='kw'>fun.args</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>probs</span> <span class='kw'>=</span> <span class='fl'>0.1</span>))</div><div class='img'><img src='stat_summary_2d-5.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"hexbin"</span>)) {
-<span class='no'>d</span> + <span class='fu'>stat_summary_hex</span>()
-<span class='no'>d</span> + <span class='fu'>stat_summary_hex</span>(<span class='kw'>fun</span> <span class='kw'>=</span> ~ <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>.x</span>^<span class='fl'>2</span>))
+<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/stat_summary_2d.html'>stat_summary_2d</a></span>(fun = <span class='fu'>function</span>(<span class='kw'>x</span>) <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='kw'>x</span><span class='op'>^</span><span class='fl'>2</span>))</div><div class='img'><img src='stat_summary_2d-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/stat_summary_2d.html'>stat_summary_2d</a></span>(fun = <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='kw'>.x</span><span class='op'>^</span><span class='fl'>2</span>))</div><div class='img'><img src='stat_summary_2d-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/stat_summary_2d.html'>stat_summary_2d</a></span>(fun = <span class='kw'>var</span>)</div><div class='img'><img src='stat_summary_2d-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/stat_summary_2d.html'>stat_summary_2d</a></span>(fun = <span class='st'>"quantile"</span>, fun.args = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(probs = <span class='fl'>0.1</span>))</div><div class='img'><img src='stat_summary_2d-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"hexbin"</span>)) {
+<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/stat_summary_2d.html'>stat_summary_hex</a></span>()
+<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/stat_summary_2d.html'>stat_summary_hex</a></span>(fun = <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='kw'>.x</span><span class='op'>^</span><span class='fl'>2</span>))
 }</div><div class='img'><img src='stat_summary_2d-6.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

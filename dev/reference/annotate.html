@@ -105,7 +105,7 @@ reason don't want to put them in a data frame." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.1.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.2.9000</span>
         </div>
       </div>
     </div>
@@ -214,18 +214,18 @@ but are instead passed in as vectors. This is useful for adding small annotation
 reason don't want to put them in a data frame.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>annotate</span>(
-  <span class='no'>geom</span>,
-  <span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>xmin</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>xmax</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>ymin</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>ymax</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>xend</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>yend</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotate.html'>annotate</a></span>(
+  <span class='kw'>geom</span>,
+  x = <span class='kw'>NULL</span>,
+  y = <span class='kw'>NULL</span>,
+  xmin = <span class='kw'>NULL</span>,
+  xmax = <span class='kw'>NULL</span>,
+  ymin = <span class='kw'>NULL</span>,
+  ymax = <span class='kw'>NULL</span>,
+  xend = <span class='kw'>NULL</span>,
+  yend = <span class='kw'>NULL</span>,
+  <span class='kw'>...</span>,
+  na.rm = <span class='fl'>FALSE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -242,7 +242,7 @@ you must specify at least one of these.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Other arguments passed on to <code><a href='layer.html'>layer()</a></code>. These are
+      <td><p>Other arguments passed on to <code><a href='https://ggplot2.tidyverse.org/reference/layer.html'>layer()</a></code>. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 <code>colour = "red"</code> or <code>size = 3</code>. They may also be parameters
 to the paired geom/stat.</p></td>
@@ -262,15 +262,15 @@ set. This means that layers created with this function will never
 affect the legend.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>wt</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>mpg</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
-<span class='no'>p</span> + <span class='fu'>annotate</span>(<span class='st'>"text"</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>25</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='st'>"Some text"</span>)</div><div class='img'><img src='annotate-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>annotate</span>(<span class='st'>"text"</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>2</span>:<span class='fl'>5</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>25</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='st'>"Some text"</span>)</div><div class='img'><img src='annotate-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>annotate</span>(<span class='st'>"rect"</span>, <span class='kw'>xmin</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>xmax</span> <span class='kw'>=</span> <span class='fl'>4.2</span>, <span class='kw'>ymin</span> <span class='kw'>=</span> <span class='fl'>12</span>, <span class='kw'>ymax</span> <span class='kw'>=</span> <span class='fl'>21</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>.2</span>)</div><div class='img'><img src='annotate-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>annotate</span>(<span class='st'>"segment"</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>2.5</span>, <span class='kw'>xend</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>15</span>, <span class='kw'>yend</span> <span class='kw'>=</span> <span class='fl'>25</span>,
-  <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"blue"</span>)</div><div class='img'><img src='annotate-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>annotate</span>(<span class='st'>"pointrange"</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>3.5</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>ymin</span> <span class='kw'>=</span> <span class='fl'>12</span>, <span class='kw'>ymax</span> <span class='kw'>=</span> <span class='fl'>28</span>,
-  <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1.5</span>)</div><div class='img'><img src='annotate-5.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='no'>p</span> + <span class='fu'>annotate</span>(<span class='st'>"text"</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>2</span>:<span class='fl'>3</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>20</span>:<span class='fl'>21</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"my label"</span>, <span class='st'>"label 2"</span>))</div><div class='img'><img src='annotate-6.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='no'>p</span> + <span class='fu'>annotate</span>(<span class='st'>"text"</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>25</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='st'>"italic(R) ^ 2 == 0.75"</span>,
-  <span class='kw'>parse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='annotate-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>annotate</span>(<span class='st'>"text"</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>25</span>,
-  <span class='kw'>label</span> <span class='kw'>=</span> <span class='st'>"paste(italic(R) ^ 2, \" = .75\")"</span>, <span class='kw'>parse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='annotate-8.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(x = <span class='kw'>wt</span>, y = <span class='kw'>mpg</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>()
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotate.html'>annotate</a></span>(<span class='st'>"text"</span>, x = <span class='fl'>4</span>, y = <span class='fl'>25</span>, label = <span class='st'>"Some text"</span>)</div><div class='img'><img src='annotate-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotate.html'>annotate</a></span>(<span class='st'>"text"</span>, x = <span class='fl'>2</span><span class='op'>:</span><span class='fl'>5</span>, y = <span class='fl'>25</span>, label = <span class='st'>"Some text"</span>)</div><div class='img'><img src='annotate-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotate.html'>annotate</a></span>(<span class='st'>"rect"</span>, xmin = <span class='fl'>3</span>, xmax = <span class='fl'>4.2</span>, ymin = <span class='fl'>12</span>, ymax = <span class='fl'>21</span>,
+  alpha = <span class='fl'>.2</span>)</div><div class='img'><img src='annotate-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotate.html'>annotate</a></span>(<span class='st'>"segment"</span>, x = <span class='fl'>2.5</span>, xend = <span class='fl'>4</span>, y = <span class='fl'>15</span>, yend = <span class='fl'>25</span>,
+  colour = <span class='st'>"blue"</span>)</div><div class='img'><img src='annotate-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotate.html'>annotate</a></span>(<span class='st'>"pointrange"</span>, x = <span class='fl'>3.5</span>, y = <span class='fl'>20</span>, ymin = <span class='fl'>12</span>, ymax = <span class='fl'>28</span>,
+  colour = <span class='st'>"red"</span>, size = <span class='fl'>1.5</span>)</div><div class='img'><img src='annotate-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotate.html'>annotate</a></span>(<span class='st'>"text"</span>, x = <span class='fl'>2</span><span class='op'>:</span><span class='fl'>3</span>, y = <span class='fl'>20</span><span class='op'>:</span><span class='fl'>21</span>, label = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"my label"</span>, <span class='st'>"label 2"</span>))</div><div class='img'><img src='annotate-6.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotate.html'>annotate</a></span>(<span class='st'>"text"</span>, x = <span class='fl'>4</span>, y = <span class='fl'>25</span>, label = <span class='st'>"italic(R) ^ 2 == 0.75"</span>,
+  parse = <span class='fl'>TRUE</span>)</div><div class='img'><img src='annotate-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotate.html'>annotate</a></span>(<span class='st'>"text"</span>, x = <span class='fl'>4</span>, y = <span class='fl'>25</span>,
+  label = <span class='st'>"paste(italic(R) ^ 2, \" = .75\")"</span>, parse = <span class='fl'>TRUE</span>)</div><div class='img'><img src='annotate-8.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

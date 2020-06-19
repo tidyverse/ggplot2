@@ -104,7 +104,7 @@ changing individual elements." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.1.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.2.9000</span>
         </div>
       </div>
     </div>
@@ -206,21 +206,21 @@ changing individual elements." />
     </div>
 
     <div class="ref-description">
-    <p>The current/active theme (see <code><a href='theme.html'>theme()</a></code>) is automatically applied to every
+    <p>The current/active theme (see <code><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme()</a></code>) is automatically applied to every
 plot you draw. Use <code>theme_get</code> to get the current theme, and <code>theme_set</code> to
 completely override it. <code>theme_update</code> and <code>theme_replace</code> are shorthands for
 changing individual elements.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>theme_get</span>()
+    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme_get.html'>theme_get</a></span>()
 
-<span class='fu'>theme_set</span>(<span class='no'>new</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme_get.html'>theme_set</a></span>(<span class='kw'>new</span>)
 
-<span class='fu'>theme_update</span>(<span class='no'>...</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme_get.html'>theme_update</a></span>(<span class='kw'>...</span>)
 
-<span class='fu'>theme_replace</span>(<span class='no'>...</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme_get.html'>theme_replace</a></span>(<span class='kw'>...</span>)
 
-<span class='no'>e1</span> <span class='kw'>%+replace%</span> <span class='no'>e2</span></pre>
+<span class='kw'>e1</span> <span class='op'>%+replace%</span> <span class='kw'>e2</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -249,35 +249,35 @@ later restore it.</p>
     
 
 
-<p><code>+</code> and <code>%+replace%</code> can be used to modify elements in themes.</p>
-<p><code>+</code> updates the elements of e1 that differ from elements specified (not
+<p><code><a href='https://rdrr.io/r/base/Arithmetic.html'>+</a></code> and <code>%+replace%</code> can be used to modify elements in themes.</p>
+<p><code><a href='https://rdrr.io/r/base/Arithmetic.html'>+</a></code> updates the elements of e1 that differ from elements specified (not
 NULL) in e2. Thus this operator can be used to incrementally add or modify
 attributes of a ggplot theme.</p>
 <p>In contrast, <code>%+replace%</code> replaces the entire element; any element of a
 theme not specified in e2 will not be present in the resulting theme (i.e.
 NULL). Thus this operator can be used to overwrite an entire theme.</p>
-<p><code>theme_update</code> uses the <code>+</code> operator, so that any unspecified values in the
+<p><code>theme_update</code> uses the <code><a href='https://rdrr.io/r/base/Arithmetic.html'>+</a></code> operator, so that any unspecified values in the
 theme element will default to the values they are set in the theme.
 <code>theme_replace</code> uses <code>%+replace%</code> to completely replace the element, so any
 unspecified values will overwrite the current value in the theme with
 <code>NULL</code>.</p>
-<p>In summary, the main differences between <code>theme_set()</code>, <code>theme_update()</code>,
-and <code>theme_replace()</code> are:</p><ul>
-<li><p><code>theme_set()</code> completely overrides the current theme.</p></li>
-<li><p><code>theme_update()</code> modifies a particular element of the current theme
-using the <code>+</code> operator.</p></li>
-<li><p><code>theme_replace()</code> modifies a particular element of the current theme
+<p>In summary, the main differences between <code><a href='https://ggplot2.tidyverse.org/reference/theme_get.html'>theme_set()</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/theme_get.html'>theme_update()</a></code>,
+and <code><a href='https://ggplot2.tidyverse.org/reference/theme_get.html'>theme_replace()</a></code> are:</p><ul>
+<li><p><code><a href='https://ggplot2.tidyverse.org/reference/theme_get.html'>theme_set()</a></code> completely overrides the current theme.</p></li>
+<li><p><code><a href='https://ggplot2.tidyverse.org/reference/theme_get.html'>theme_update()</a></code> modifies a particular element of the current theme
+using the <code><a href='https://rdrr.io/r/base/Arithmetic.html'>+</a></code> operator.</p></li>
+<li><p><code><a href='https://ggplot2.tidyverse.org/reference/theme_get.html'>theme_replace()</a></code> modifies a particular element of the current theme
 using the <code>%+replace%</code> operator.</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='gg-add.html'>+.gg()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='https://ggplot2.tidyverse.org/reference/gg-add.html'>+.gg()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>)) +
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
-<span class='no'>p</span></div><div class='img'><img src='theme_get-1.png' alt='' width='700' height='433' /></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>()
+<span class='kw'>p</span></div><div class='img'><img src='theme_get-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Use theme_set() to completely override the current theme.</span>
 <span class='co'># theme_update() and theme_replace() are similar except they</span>
 <span class='co'># apply directly to the current/active theme.</span>
@@ -285,25 +285,25 @@ using the <code>%+replace%</code> operator.</p></li>
 <span class='co'># Here we have the old theme so we can later restore it.</span>
 <span class='co'># Note that the theme is applied when the plot is drawn, not</span>
 <span class='co'># when it is created.</span>
-<span class='no'>old</span> <span class='kw'>&lt;-</span> <span class='fu'>theme_set</span>(<span class='fu'><a href='ggtheme.html'>theme_bw</a></span>())
-<span class='no'>p</span></div><div class='img'><img src='theme_get-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'>theme_set</span>(<span class='no'>old</span>)
-<span class='fu'>theme_update</span>(<span class='kw'>panel.grid.minor</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_line</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"red"</span>))
-<span class='no'>p</span></div><div class='img'><img src='theme_get-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'>theme_set</span>(<span class='no'>old</span>)
-<span class='fu'>theme_replace</span>(<span class='kw'>panel.grid.minor</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_line</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"red"</span>))
-<span class='no'>p</span></div><div class='img'><img src='theme_get-4.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'>theme_set</span>(<span class='no'>old</span>)
-<span class='no'>p</span></div><div class='img'><img src='theme_get-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>old</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme_get.html'>theme_set</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_bw</a></span>())
+<span class='kw'>p</span></div><div class='img'><img src='theme_get-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme_get.html'>theme_set</a></span>(<span class='kw'>old</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme_get.html'>theme_update</a></span>(panel.grid.minor = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_line</a></span>(colour = <span class='st'>"red"</span>))
+<span class='kw'>p</span></div><div class='img'><img src='theme_get-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme_get.html'>theme_set</a></span>(<span class='kw'>old</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme_get.html'>theme_replace</a></span>(panel.grid.minor = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_line</a></span>(colour = <span class='st'>"red"</span>))
+<span class='kw'>p</span></div><div class='img'><img src='theme_get-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme_get.html'>theme_set</a></span>(<span class='kw'>old</span>)
+<span class='kw'>p</span></div><div class='img'><img src='theme_get-5.png' alt='' width='700' height='433' /></div><div class='input'>
 
 <span class='co'># Modifying theme objects -----------------------------------------</span>
 <span class='co'># You can use + and %+replace% to modify a theme object.</span>
 <span class='co'># They differ in how they deal with missing arguments in</span>
 <span class='co'># the theme elements.</span>
 
-<span class='no'>add_el</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggtheme.html'>theme_grey</a></span>() +
-  <span class='fu'><a href='theme.html'>theme</a></span>(<span class='kw'>text</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_text</a></span>(<span class='kw'>family</span> <span class='kw'>=</span> <span class='st'>"Times"</span>))
-<span class='no'>add_el</span>$<span class='no'>text</span></div><div class='output co'>#&gt; List of 11
+<span class='kw'>add_el</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_grey</a></span>() <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span>(text = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span>(family = <span class='st'>"Times"</span>))
+<span class='kw'>add_el</span><span class='op'>$</span><span class='kw'>text</span></div><div class='output co'>#&gt; List of 11
 #&gt;  $ family       : chr "Times"
 #&gt;  $ face         : chr "plain"
 #&gt;  $ colour       : chr "black"
@@ -317,9 +317,9 @@ using the <code>%+replace%</code> operator.</p></li>
 #&gt;  $ debug        : logi FALSE
 #&gt;  $ inherit.blank: logi FALSE
 #&gt;  - attr(*, "class")= chr [1:2] "element_text" "element"</div><div class='input'>
-<span class='no'>rep_el</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggtheme.html'>theme_grey</a></span>() <span class='kw'>%+replace%</span>
-  <span class='fu'><a href='theme.html'>theme</a></span>(<span class='kw'>text</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_text</a></span>(<span class='kw'>family</span> <span class='kw'>=</span> <span class='st'>"Times"</span>))
-<span class='no'>rep_el</span>$<span class='no'>text</span></div><div class='output co'>#&gt; List of 11
+<span class='kw'>rep_el</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_grey</a></span>() <span class='op'>%+replace%</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span>(text = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span>(family = <span class='st'>"Times"</span>))
+<span class='kw'>rep_el</span><span class='op'>$</span><span class='kw'>text</span></div><div class='output co'>#&gt; List of 11
 #&gt;  $ family       : chr "Times"
 #&gt;  $ face         : NULL
 #&gt;  $ colour       : NULL
@@ -331,8 +331,7 @@ using the <code>%+replace%</code> operator.</p></li>
 #&gt;  $ margin       : NULL
 #&gt;  $ debug        : NULL
 #&gt;  $ inherit.blank: logi FALSE
-#&gt;  - attr(*, "class")= chr [1:2] "element_text" "element"</div><div class='input'>
-</div></pre>
+#&gt;  - attr(*, "class")= chr [1:2] "element_text" "element"</div><div class='input'></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

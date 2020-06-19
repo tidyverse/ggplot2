@@ -103,7 +103,7 @@ work at each step." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.1.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.2.9000</span>
         </div>
       </div>
     </div>
@@ -205,7 +205,7 @@ work at each step." />
     </div>
 
     <div class="ref-description">
-    <p><code>+</code> is the key to constructing sophisticated ggplot2 graphics. It
+    <p><code><a href='https://rdrr.io/r/base/Arithmetic.html'>+</a></code> is the key to constructing sophisticated ggplot2 graphics. It
 allows you to start simple, then get more and more complex, checking your
 work at each step.</p>
     </div>
@@ -220,7 +220,7 @@ e1 %+% e2</pre>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>e1</th>
-      <td><p>An object of class <code><a href='ggplot.html'>ggplot()</a></code> or a <code><a href='theme.html'>theme()</a></code>.</p></td>
+      <td><p>An object of class <code><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot()</a></code> or a <code><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme()</a></code>.</p></td>
     </tr>
     <tr>
       <th>e2</th>
@@ -233,11 +233,11 @@ e1 %+% e2</pre>
     
 
 <p>You can add any of the following types of objects:</p><ul>
-<li><p>An <code><a href='aes.html'>aes()</a></code> object replaces the default aesthetics.</p></li>
+<li><p>An <code><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes()</a></code> object replaces the default aesthetics.</p></li>
 <li><p>A layer created by a <code>geom_</code> or <code>stat_</code> function adds a
 new layer.</p></li>
 <li><p>A <code>scale</code> overrides the existing scale.</p></li>
-<li><p>A <code><a href='theme.html'>theme()</a></code> modifies the current theme.</p></li>
+<li><p>A <code><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme()</a></code> modifies the current theme.</p></li>
 <li><p>A <code>coord</code> overrides the current coordinate system.</p></li>
 <li><p>A <code>facet</code> specification overrides the current faceting.</p></li>
 </ul>
@@ -248,16 +248,16 @@ due to S3 method precedence issues.</p>
 be added in turn.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='theme.html'>theme()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>base</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>displ</span>, <span class='no'>hwy</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
-<span class='no'>base</span> + <span class='fu'><a href='geom_smooth.html'>geom_smooth</a></span>()</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='gg-add-1.png' alt='' width='700' height='433' /></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='kw'>base</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>()
+<span class='kw'>base</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span>()</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='gg-add-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># To override the data, you must use %+%</span>
-<span class='no'>base</span> <span class='kw'>%+%</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='no'>mpg</span>, <span class='no'>fl</span> <span class='kw'>==</span> <span class='st'>"p"</span>)</div><div class='img'><img src='gg-add-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>base</span> <span class='op'>%+%</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='kw'>mpg</span>, <span class='kw'>fl</span> <span class='op'>==</span> <span class='st'>"p"</span>)</div><div class='img'><img src='gg-add-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Alternatively, you can add multiple components with a list.</span>
 <span class='co'># This can be useful to return from a function.</span>
-<span class='no'>base</span> + <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='no'>mpg</span>, <span class='no'>fl</span> <span class='kw'>==</span> <span class='st'>"p"</span>), <span class='fu'><a href='geom_smooth.html'>geom_smooth</a></span>())</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='gg-add-3.png' alt='' width='700' height='433' /></div></pre>
+<span class='kw'>base</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='kw'>mpg</span>, <span class='kw'>fl</span> <span class='op'>==</span> <span class='st'>"p"</span>), <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span>())</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='gg-add-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

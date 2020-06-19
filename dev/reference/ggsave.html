@@ -104,7 +104,7 @@ extension." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.1.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.2.9000</span>
         </div>
       </div>
     </div>
@@ -206,24 +206,24 @@ extension." />
     </div>
 
     <div class="ref-description">
-    <p><code>ggsave()</code> is a convenient function for saving a plot. It defaults to
+    <p><code><a href='https://ggplot2.tidyverse.org/reference/ggsave.html'>ggsave()</a></code> is a convenient function for saving a plot. It defaults to
 saving the last plot that you displayed, using the size of the current
 graphics device. It also guesses the type of graphics device from the
 extension.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ggsave</span>(
-  <span class='no'>filename</span>,
-  <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fu'><a href='last_plot.html'>last_plot</a></span>(),
-  <span class='kw'>device</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>units</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"in"</span>, <span class='st'>"cm"</span>, <span class='st'>"mm"</span>),
-  <span class='kw'>dpi</span> <span class='kw'>=</span> <span class='fl'>300</span>,
-  <span class='kw'>limitsize</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
+    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggsave.html'>ggsave</a></span>(
+  <span class='kw'>filename</span>,
+  plot = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/last_plot.html'>last_plot</a></span>(),
+  device = <span class='kw'>NULL</span>,
+  path = <span class='kw'>NULL</span>,
+  scale = <span class='fl'>1</span>,
+  width = <span class='fl'>NA</span>,
+  height = <span class='fl'>NA</span>,
+  units = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"in"</span>, <span class='st'>"cm"</span>, <span class='st'>"mm"</span>),
+  dpi = <span class='fl'>300</span>,
+  limitsize = <span class='fl'>TRUE</span>,
+  <span class='kw'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -283,14 +283,14 @@ integer format expression, such as <code>%03d</code> (as in the default file nam
 for most R graphics devices, see e.g. <code><a href='https://rdrr.io/r/grDevices/png.html'>png()</a></code>).
 Thus, <code>filename = "figure%03d.png"</code> will produce successive filenames
 <code>figure001.png</code>, <code>figure002.png</code>, <code>figure003.png</code>, etc. To write a filename
-containing the <code>%</code> sign, use <code>%%</code>. For example, <code>filename = "figure-100%%.png"</code>
+containing the <code>%</code> sign, use <code><a href='https://rdrr.io/r/base/Arithmetic.html'>%%</a></code>. For example, <code>filename = "figure-100%%.png"</code>
 will produce the filename <code>figure-100%.png</code>.</p>
     <h2 class="hasAnchor" id="saving-images-without-ggsave-"><a class="anchor" href="#saving-images-without-ggsave-"></a>Saving images without ggsave()</h2>
 
     
 
 
-<p>In most cases <code>ggsave()</code> is the simplest way to save your plot, but
+<p>In most cases <code><a href='https://ggplot2.tidyverse.org/reference/ggsave.html'>ggsave()</a></code> is the simplest way to save your plot, but
 sometimes you may wish to save the plot by writing directly to a
 graphics device. To do this, you can open a regular R graphics
 device such as <code><a href='https://rdrr.io/r/grDevices/png.html'>png()</a></code> or <code><a href='https://rdrr.io/r/grDevices/pdf.html'>pdf()</a></code>, print the plot, and then close
@@ -298,14 +298,14 @@ the device using <code><a href='https://rdrr.io/r/grDevices/dev.html'>dev.off()<
 examples section.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
+    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>()
 
-<span class='fu'>ggsave</span>(<span class='st'>"mtcars.pdf"</span>)
-<span class='fu'>ggsave</span>(<span class='st'>"mtcars.png"</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggsave.html'>ggsave</a></span>(<span class='st'>"mtcars.pdf"</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggsave.html'>ggsave</a></span>(<span class='st'>"mtcars.png"</span>)
 
-<span class='fu'>ggsave</span>(<span class='st'>"mtcars.pdf"</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>4</span>)
-<span class='fu'>ggsave</span>(<span class='st'>"mtcars.pdf"</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>units</span> <span class='kw'>=</span> <span class='st'>"cm"</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggsave.html'>ggsave</a></span>(<span class='st'>"mtcars.pdf"</span>, width = <span class='fl'>4</span>, height = <span class='fl'>4</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggsave.html'>ggsave</a></span>(<span class='st'>"mtcars.pdf"</span>, width = <span class='fl'>20</span>, height = <span class='fl'>20</span>, units = <span class='st'>"cm"</span>)
 
 <span class='co'># delete files with base::unlink()</span>
 <span class='fu'><a href='https://rdrr.io/r/base/unlink.html'>unlink</a></span>(<span class='st'>"mtcars.pdf"</span>)
@@ -313,14 +313,14 @@ examples section.</p>
 
 <span class='co'># specify device when saving to a file with unknown extension</span>
 <span class='co'># (for example a server supplied temporary file)</span>
-<span class='no'>file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>()
-<span class='fu'>ggsave</span>(<span class='no'>file</span>, <span class='kw'>device</span> <span class='kw'>=</span> <span class='st'>"pdf"</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/unlink.html'>unlink</a></span>(<span class='no'>file</span>)
+<span class='kw'>file</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>()
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggsave.html'>ggsave</a></span>(<span class='kw'>file</span>, device = <span class='st'>"pdf"</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/unlink.html'>unlink</a></span>(<span class='kw'>file</span>)
 
 <span class='co'># save plot to file without using ggsave</span>
-<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
+<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>()
 <span class='fu'><a href='https://rdrr.io/r/grDevices/png.html'>png</a></span>(<span class='st'>"mtcars.png"</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>p</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>p</span>)
 <span class='fu'><a href='https://rdrr.io/r/grDevices/dev.html'>dev.off</a></span>()
 
 }</div></pre>

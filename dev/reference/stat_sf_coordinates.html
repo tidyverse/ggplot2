@@ -104,7 +104,7 @@ geom_sf_text() and geom_sf_label() relies on this)." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.1.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.2.9000</span>
         </div>
       </div>
     </div>
@@ -206,22 +206,22 @@ geom_sf_text() and geom_sf_label() relies on this)." />
     </div>
 
     <div class="ref-description">
-    <p><code>stat_sf_coordinates()</code> extracts the coordinates from 'sf' objects and
+    <p><code><a href='https://ggplot2.tidyverse.org/reference/stat_sf_coordinates.html'>stat_sf_coordinates()</a></code> extracts the coordinates from 'sf' objects and
 summarises them to one pair of coordinates (x and y) per geometry. This is
 convenient when you draw an sf object as geoms like text and labels (so
-<code><a href='ggsf.html'>geom_sf_text()</a></code> and <code><a href='ggsf.html'>geom_sf_label()</a></code> relies on this).</p>
+<code><a href='https://ggplot2.tidyverse.org/reference/ggsf.html'>geom_sf_text()</a></code> and <code><a href='https://ggplot2.tidyverse.org/reference/ggsf.html'>geom_sf_label()</a></code> relies on this).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>stat_sf_coordinates</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='fu'><a href='aes.html'>aes</a></span>(),
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"point"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>fun.geometry</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='no'>...</span>
+    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/stat_sf_coordinates.html'>stat_sf_coordinates</a></span>(
+  mapping = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(),
+  data = <span class='kw'>NULL</span>,
+  geom = <span class='st'>"point"</span>,
+  position = <span class='st'>"identity"</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>,
+  fun.geometry = <span class='kw'>NULL</span>,
+  <span class='kw'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -229,8 +229,8 @@ convenient when you draw an sf object as geoms like text and labels (so
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>mapping</th>
-      <td><p>Set of aesthetic mappings created by <code><a href='aes.html'>aes()</a></code> or
-<code><a href='aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
+      <td><p>Set of aesthetic mappings created by <code><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes()</a></code> or
+<code><a href='https://ggplot2.tidyverse.org/reference/aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
     </tr>
@@ -239,10 +239,10 @@ plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
       <td><p>The data to be displayed in this layer. There are three
 options:</p>
 <p>If <code>NULL</code>, the default, the data is inherited from the plot
-data as specified in the call to <code><a href='ggplot.html'>ggplot()</a></code>.</p>
+data as specified in the call to <code><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot()</a></code>.</p>
 <p>A <code>data.frame</code>, or other object, will override the plot
 data. All objects will be fortified to produce a data frame. See
-<code><a href='fortify.html'>fortify()</a></code> for which variables will be created.</p>
+<code><a href='https://ggplot2.tidyverse.org/reference/fortify.html'>fortify()</a></code> for which variables will be created.</p>
 <p>A <code>function</code> will be called with a single argument,
 the plot data. The return value must be a <code>data.frame</code>, and
 will be used as the layer data. A <code>function</code> can be created
@@ -275,7 +275,7 @@ display.</p></td>
       <td><p>If <code>FALSE</code>, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. <code><a href='borders.html'>borders()</a></code>.</p></td>
+the default plot specification, e.g. <code><a href='https://ggplot2.tidyverse.org/reference/borders.html'>borders()</a></code>.</p></td>
     </tr>
     <tr>
       <th>fun.geometry</th>
@@ -287,7 +287,7 @@ when you really care about the exact locations.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Other arguments passed on to <code><a href='layer.html'>layer()</a></code>. These are
+      <td><p>Other arguments passed on to <code><a href='https://ggplot2.tidyverse.org/reference/layer.html'>layer()</a></code>. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 <code>colour = "red"</code> or <code>size = 3</code>. They may also be parameters
 to the paired geom/stat.</p></td>
@@ -324,28 +324,27 @@ dimension.</p>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"sf"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
-<span class='no'>nc</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>sf</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_read.html'>st_read</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"shape/nc.shp"</span>, <span class='kw'>package</span><span class='kw'>=</span><span class='st'>"sf"</span>))
+    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"sf"</span>, quietly = <span class='fl'>TRUE</span>)) {
+<span class='kw'>nc</span> <span class='op'>&lt;-</span> <span class='kw'>sf</span>::<span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_read.html'>st_read</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"shape/nc.shp"</span>, package=<span class='st'>"sf"</span>))
 
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>nc</span>) +
-  <span class='fu'>stat_sf_coordinates</span>()
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>nc</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/stat_sf_coordinates.html'>stat_sf_coordinates</a></span>()
 
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>nc</span>) +
-  <span class='fu'><a href='geom_errorbarh.html'>geom_errorbarh</a></span>(
-    <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>geometry</span> <span class='kw'>=</span> <span class='no'>geometry</span>,
-        <span class='kw'>xmin</span> <span class='kw'>=</span> <span class='fu'><a href='aes_eval.html'>after_stat</a></span>(<span class='no'>x</span>) - <span class='fl'>0.1</span>,
-        <span class='kw'>xmax</span> <span class='kw'>=</span> <span class='fu'><a href='aes_eval.html'>after_stat</a></span>(<span class='no'>x</span>) + <span class='fl'>0.1</span>,
-        <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='aes_eval.html'>after_stat</a></span>(<span class='no'>y</span>),
-        <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>0.04</span>),
-    <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"sf_coordinates"</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>nc</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_errorbarh.html'>geom_errorbarh</a></span>(
+    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(geometry = <span class='kw'>geometry</span>,
+        xmin = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes_eval.html'>after_stat</a></span>(<span class='kw'>x</span>) <span class='op'>-</span> <span class='fl'>0.1</span>,
+        xmax = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes_eval.html'>after_stat</a></span>(<span class='kw'>x</span>) <span class='op'>+</span> <span class='fl'>0.1</span>,
+        y = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes_eval.html'>after_stat</a></span>(<span class='kw'>y</span>),
+        height = <span class='fl'>0.04</span>),
+    stat = <span class='st'>"sf_coordinates"</span>
   )
 }</div><div class='output co'>#&gt; Reading layer `nc' from data source `/Users/runner/runners/2.263.0/work/_temp/Library/sf/shape/nc.shp' using driver `ESRI Shapefile'
 #&gt; Simple feature collection with 100 features and 14 fields
 #&gt; geometry type:  MULTIPOLYGON
 #&gt; dimension:      XY
 #&gt; bbox:           xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965
-#&gt; CRS:            4267</div><div class='output co'>#&gt; <span class='warning'>Warning: st_point_on_surface may not give correct results for longitude/latitude data</span></div><div class='img'><img src='stat_sf_coordinates-1.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+#&gt; CRS:            4267</div><div class='output co'>#&gt; <span class='warning'>Warning: st_point_on_surface may not give correct results for longitude/latitude data</span></div><div class='img'><img src='stat_sf_coordinates-1.png' alt='' width='700' height='433' /></div><div class='input'></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

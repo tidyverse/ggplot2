@@ -103,7 +103,7 @@ points at specified quartiles of the theoretical and sample distributions." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.1.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.2.9000</span>
         </div>
       </div>
     </div>
@@ -205,65 +205,65 @@ points at specified quartiles of the theoretical and sample distributions." />
     </div>
 
     <div class="ref-description">
-    <p><code>geom_qq()</code> and <code>stat_qq()</code> produce quantile-quantile plots. <code>geom_qq_line()</code> and
-<code>stat_qq_line()</code> compute the slope and intercept of the line connecting the
+    <p><code><a href='https://ggplot2.tidyverse.org/reference/geom_qq.html'>geom_qq()</a></code> and <code><a href='https://ggplot2.tidyverse.org/reference/geom_qq.html'>stat_qq()</a></code> produce quantile-quantile plots. <code><a href='https://ggplot2.tidyverse.org/reference/geom_qq.html'>geom_qq_line()</a></code> and
+<code><a href='https://ggplot2.tidyverse.org/reference/geom_qq.html'>stat_qq_line()</a></code> compute the slope and intercept of the line connecting the
 points at specified quartiles of the theoretical and sample distributions.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>geom_qq_line</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"path"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>distribution</span> <span class='kw'>=</span> <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/r/stats/Normal.html'>qnorm</a></span>,
-  <span class='kw'>dparams</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
-  <span class='kw'>line.p</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.25</span>, <span class='fl'>0.75</span>),
-  <span class='kw'>fullrange</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_qq.html'>geom_qq_line</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  geom = <span class='st'>"path"</span>,
+  position = <span class='st'>"identity"</span>,
+  <span class='kw'>...</span>,
+  distribution = <span class='kw'>stats</span>::<span class='kw'><a href='https://rdrr.io/r/stats/Normal.html'>qnorm</a></span>,
+  dparams = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
+  line.p = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.25</span>, <span class='fl'>0.75</span>),
+  fullrange = <span class='fl'>FALSE</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>
 )
 
-<span class='fu'>stat_qq_line</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"path"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>distribution</span> <span class='kw'>=</span> <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/r/stats/Normal.html'>qnorm</a></span>,
-  <span class='kw'>dparams</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
-  <span class='kw'>line.p</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.25</span>, <span class='fl'>0.75</span>),
-  <span class='kw'>fullrange</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_qq.html'>stat_qq_line</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  geom = <span class='st'>"path"</span>,
+  position = <span class='st'>"identity"</span>,
+  <span class='kw'>...</span>,
+  distribution = <span class='kw'>stats</span>::<span class='kw'><a href='https://rdrr.io/r/stats/Normal.html'>qnorm</a></span>,
+  dparams = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
+  line.p = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.25</span>, <span class='fl'>0.75</span>),
+  fullrange = <span class='fl'>FALSE</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>
 )
 
-<span class='fu'>geom_qq</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"point"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>distribution</span> <span class='kw'>=</span> <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/r/stats/Normal.html'>qnorm</a></span>,
-  <span class='kw'>dparams</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_qq.html'>geom_qq</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  geom = <span class='st'>"point"</span>,
+  position = <span class='st'>"identity"</span>,
+  <span class='kw'>...</span>,
+  distribution = <span class='kw'>stats</span>::<span class='kw'><a href='https://rdrr.io/r/stats/Normal.html'>qnorm</a></span>,
+  dparams = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
+  na.rm = <span class='fl'>FALSE</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>
 )
 
-<span class='fu'>stat_qq</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"point"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>distribution</span> <span class='kw'>=</span> <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/r/stats/Normal.html'>qnorm</a></span>,
-  <span class='kw'>dparams</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_qq.html'>stat_qq</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  geom = <span class='st'>"point"</span>,
+  position = <span class='st'>"identity"</span>,
+  <span class='kw'>...</span>,
+  distribution = <span class='kw'>stats</span>::<span class='kw'><a href='https://rdrr.io/r/stats/Normal.html'>qnorm</a></span>,
+  dparams = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
+  na.rm = <span class='fl'>FALSE</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -271,8 +271,8 @@ points at specified quartiles of the theoretical and sample distributions.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>mapping</th>
-      <td><p>Set of aesthetic mappings created by <code><a href='aes.html'>aes()</a></code> or
-<code><a href='aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
+      <td><p>Set of aesthetic mappings created by <code><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes()</a></code> or
+<code><a href='https://ggplot2.tidyverse.org/reference/aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
     </tr>
@@ -281,10 +281,10 @@ plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
       <td><p>The data to be displayed in this layer. There are three
 options:</p>
 <p>If <code>NULL</code>, the default, the data is inherited from the plot
-data as specified in the call to <code><a href='ggplot.html'>ggplot()</a></code>.</p>
+data as specified in the call to <code><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot()</a></code>.</p>
 <p>A <code>data.frame</code>, or other object, will override the plot
 data. All objects will be fortified to produce a data frame. See
-<code><a href='fortify.html'>fortify()</a></code> for which variables will be created.</p>
+<code><a href='https://ggplot2.tidyverse.org/reference/fortify.html'>fortify()</a></code> for which variables will be created.</p>
 <p>A <code>function</code> will be called with a single argument,
 the plot data. The return value must be a <code>data.frame</code>, and
 will be used as the layer data. A <code>function</code> can be created
@@ -301,7 +301,7 @@ a call to a position adjustment function.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Other arguments passed on to <code><a href='layer.html'>layer()</a></code>. These are
+      <td><p>Other arguments passed on to <code><a href='https://ggplot2.tidyverse.org/reference/layer.html'>layer()</a></code>. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 <code>colour = "red"</code> or <code>size = 3</code>. They may also be parameters
 to the paired geom/stat.</p></td>
@@ -343,7 +343,7 @@ display.</p></td>
       <td><p>If <code>FALSE</code>, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. <code><a href='borders.html'>borders()</a></code>.</p></td>
+the default plot specification, e.g. <code><a href='https://ggplot2.tidyverse.org/reference/borders.html'>borders()</a></code>.</p></td>
     </tr>
     </table>
 
@@ -351,19 +351,19 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
 
     
 
-<p><code>stat_qq()</code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
+<p><code><a href='https://ggplot2.tidyverse.org/reference/geom_qq.html'>stat_qq()</a></code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
 <li><p><strong><code>sample</code></strong></p></li>
 <li><p><code>group</code></p></li>
 <li><p><code>x</code></p></li>
 <li><p><code>y</code></p></li>
-</ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
+</ul><p>Learn more about setting these aesthetics in <code>vignette("ggplot2-specs")</code>.</p>
 
-<p><code>stat_qq_line()</code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
+<p><code><a href='https://ggplot2.tidyverse.org/reference/geom_qq.html'>stat_qq_line()</a></code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
 <li><p><strong><code>sample</code></strong></p></li>
 <li><p><code>group</code></p></li>
 <li><p><code>x</code></p></li>
 <li><p><code>y</code></p></li>
-</ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
+</ul><p>Learn more about setting these aesthetics in <code>vignette("ggplot2-specs")</code>.</p>
     <h2 class="hasAnchor" id="computed-variables"><a class="anchor" href="#computed-variables"></a>Computed variables</h2>
 
     
@@ -383,19 +383,19 @@ distributions</p></dd>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/TDist.html'>rt</a></span>(<span class='fl'>200</span>, <span class='kw'>df</span> <span class='kw'>=</span> <span class='fl'>5</span>))
-<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>sample</span> <span class='kw'>=</span> <span class='no'>y</span>))
-<span class='no'>p</span> + <span class='fu'>stat_qq</span>() + <span class='fu'>stat_qq_line</span>()</div><div class='img'><img src='geom_qq-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(y = <span class='fu'><a href='https://rdrr.io/r/stats/TDist.html'>rt</a></span>(<span class='fl'>200</span>, df = <span class='fl'>5</span>))
+<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(sample = <span class='kw'>y</span>))
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_qq.html'>stat_qq</a></span>() <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_qq.html'>stat_qq_line</a></span>()</div><div class='img'><img src='geom_qq-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Use fitdistr from MASS to estimate distribution params</span>
-<span class='no'>params</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>as.list</a></span>(<span class='kw pkg'>MASS</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/MASS/man/fitdistr.html'>fitdistr</a></span>(<span class='no'>df</span>$<span class='no'>y</span>, <span class='st'>"t"</span>)$<span class='no'>estimate</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>sample</span> <span class='kw'>=</span> <span class='no'>y</span>)) +
-  <span class='fu'>stat_qq</span>(<span class='kw'>distribution</span> <span class='kw'>=</span> <span class='no'>qt</span>, <span class='kw'>dparams</span> <span class='kw'>=</span> <span class='no'>params</span>[<span class='st'>"df"</span>]) +
-  <span class='fu'>stat_qq_line</span>(<span class='kw'>distribution</span> <span class='kw'>=</span> <span class='no'>qt</span>, <span class='kw'>dparams</span> <span class='kw'>=</span> <span class='no'>params</span>[<span class='st'>"df"</span>])</div><div class='img'><img src='geom_qq-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>params</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>as.list</a></span>(<span class='kw'>MASS</span>::<span class='fu'><a href='https://rdrr.io/pkg/MASS/man/fitdistr.html'>fitdistr</a></span>(<span class='kw'>df</span><span class='op'>$</span><span class='kw'>y</span>, <span class='st'>"t"</span>)<span class='op'>$</span><span class='kw'>estimate</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(sample = <span class='kw'>y</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_qq.html'>stat_qq</a></span>(distribution = <span class='kw'>qt</span>, dparams = <span class='kw'>params</span>[<span class='st'>"df"</span>]) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_qq.html'>stat_qq_line</a></span>(distribution = <span class='kw'>qt</span>, dparams = <span class='kw'>params</span>[<span class='st'>"df"</span>])</div><div class='img'><img src='geom_qq-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Using to explore the distribution of a variable</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>sample</span> <span class='kw'>=</span> <span class='no'>mpg</span>)) +
-  <span class='fu'>stat_qq</span>() +
-  <span class='fu'>stat_qq_line</span>()</div><div class='img'><img src='geom_qq-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>sample</span> <span class='kw'>=</span> <span class='no'>mpg</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>cyl</span>))) +
-  <span class='fu'>stat_qq</span>() +
-  <span class='fu'>stat_qq_line</span>()</div><div class='img'><img src='geom_qq-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span></div></pre>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(sample = <span class='kw'>mpg</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_qq.html'>stat_qq</a></span>() <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_qq.html'>stat_qq_line</a></span>()</div><div class='img'><img src='geom_qq-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(sample = <span class='kw'>mpg</span>, colour = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>))) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_qq.html'>stat_qq</a></span>() <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_qq.html'>stat_qq_line</a></span>()</div><div class='img'><img src='geom_qq-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

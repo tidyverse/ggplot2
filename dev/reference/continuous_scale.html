@@ -101,7 +101,7 @@
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.1.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.2.9000</span>
         </div>
       </div>
     </div>
@@ -206,24 +206,24 @@
     <p>Continuous scale constructor</p>
     </div>
 
-    <pre class="usage"><span class='fu'>continuous_scale</span>(
-  <span class='no'>aesthetics</span>,
-  <span class='no'>scale_name</span>,
-  <span class='no'>palette</span>,
-  <span class='kw'>name</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
-  <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
-  <span class='kw'>minor_breaks</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
-  <span class='kw'>n.breaks</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
-  <span class='kw'>limits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>rescaler</span> <span class='kw'>=</span> <span class='no'>rescale</span>,
-  <span class='kw'>oob</span> <span class='kw'>=</span> <span class='no'>censor</span>,
-  <span class='kw'>expand</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
-  <span class='kw'>na.value</span> <span class='kw'>=</span> <span class='fl'>NA_real_</span>,
-  <span class='kw'>trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>"legend"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"left"</span>,
-  <span class='kw'>super</span> <span class='kw'>=</span> <span class='no'>ScaleContinuous</span>
+    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/continuous_scale.html'>continuous_scale</a></span>(
+  <span class='kw'>aesthetics</span>,
+  <span class='kw'>scale_name</span>,
+  <span class='kw'>palette</span>,
+  name = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(),
+  breaks = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(),
+  minor_breaks = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(),
+  n.breaks = <span class='kw'>NULL</span>,
+  labels = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(),
+  limits = <span class='kw'>NULL</span>,
+  rescaler = <span class='kw'>rescale</span>,
+  oob = <span class='kw'>censor</span>,
+  expand = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(),
+  na.value = <span class='fl'>NA_real_</span>,
+  trans = <span class='st'>"identity"</span>,
+  guide = <span class='st'>"legend"</span>,
+  position = <span class='st'>"left"</span>,
+  super = <span class='kw'>ScaleContinuous</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -247,7 +247,7 @@ values between 0 and 1 returns the corresponding output values
     <tr>
       <th>name</th>
       <td><p>The name of the scale. Used as the axis or legend title. If
-<code><a href='waiver.html'>waiver()</a></code>, the default, the name of the scale is taken from the first
+<code><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver()</a></code>, the default, the name of the scale is taken from the first
 mapping used for that aesthetic. If <code>NULL</code>, the legend title will be
 omitted.</p></td>
     </tr>
@@ -255,7 +255,7 @@ omitted.</p></td>
       <th>breaks</th>
       <td><p>One of:</p><ul>
 <li><p><code>NULL</code> for no breaks</p></li>
-<li><p><code><a href='waiver.html'>waiver()</a></code> for the default breaks computed by the
+<li><p><code><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver()</a></code> for the default breaks computed by the
 <a href='https://scales.r-lib.org//reference/trans_new.html'>transformation object</a></p></li>
 <li><p>A numeric vector of positions</p></li>
 <li><p>A function that takes the limits as input and returns breaks
@@ -266,7 +266,7 @@ as output (e.g., a function returned by <code><a href='https://scales.r-lib.org/
       <th>minor_breaks</th>
       <td><p>One of:</p><ul>
 <li><p><code>NULL</code> for no minor breaks</p></li>
-<li><p><code><a href='waiver.html'>waiver()</a></code> for the default breaks (one minor break between
+<li><p><code><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver()</a></code> for the default breaks (one minor break between
 each major break)</p></li>
 <li><p>A numeric vector of positions</p></li>
 <li><p>A function that given the limits returns a vector of minor breaks.</p></li>
@@ -283,7 +283,7 @@ number of breaks given by the transformation.</p></td>
       <th>labels</th>
       <td><p>One of:</p><ul>
 <li><p><code>NULL</code> for no labels</p></li>
-<li><p><code><a href='waiver.html'>waiver()</a></code> for the default labels computed by the
+<li><p><code><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver()</a></code> for the default labels computed by the
 transformation object</p></li>
 <li><p>A character vector giving labels (must be same length as <code>breaks</code>)</p></li>
 <li><p>A function that takes the breaks as input and returns labels
@@ -300,15 +300,15 @@ Use <code>NA</code> to refer to the existing minimum or maximum</p></li>
 new limits
 Note that setting limits on positional scales will <strong>remove</strong> data outside of the limits.
 If the purpose is to zoom, use the limit argument in the coordinate system
-(see <code><a href='coord_cartesian.html'>coord_cartesian()</a></code>).</p></li>
+(see <code><a href='https://ggplot2.tidyverse.org/reference/coord_cartesian.html'>coord_cartesian()</a></code>).</p></li>
 </ul></td>
     </tr>
     <tr>
       <th>rescaler</th>
       <td><p>A function used to scale the input values to the
 range [0, 1]. This is always <code><a href='https://scales.r-lib.org//reference/rescale.html'>scales::rescale()</a></code>, except for
-diverging and n colour gradients (i.e., <code><a href='scale_gradient.html'>scale_colour_gradient2()</a></code>,
-<code><a href='scale_gradient.html'>scale_colour_gradientn()</a></code>). The <code>rescaler</code> is ignored by position
+diverging and n colour gradients (i.e., <code><a href='https://ggplot2.tidyverse.org/reference/scale_gradient.html'>scale_colour_gradient2()</a></code>,
+<code><a href='https://ggplot2.tidyverse.org/reference/scale_gradient.html'>scale_colour_gradientn()</a></code>). The <code>rescaler</code> is ignored by position
 scales, which always use <code><a href='https://scales.r-lib.org//reference/rescale.html'>scales::rescale()</a></code>.</p></td>
     </tr>
     <tr>
@@ -326,7 +326,7 @@ bounds values with <code>NA</code>.</p></li>
       <th>expand</th>
       <td><p>For position scales, a vector of range expansion constants used to add some
 padding around the data to ensure that they are placed some distance
-away from the axes. Use the convenience function <code><a href='expansion.html'>expansion()</a></code>
+away from the axes. Use the convenience function <code><a href='https://ggplot2.tidyverse.org/reference/expansion.html'>expansion()</a></code>
 to generate the values for the <code>expand</code> argument. The defaults are to
 expand the scale by 5% on each side for continuous variables, and by
 0.6 units on each side for discrete variables.</p></td>
@@ -351,7 +351,7 @@ transformation with <code><a href='https://scales.r-lib.org//reference/trans_new
     <tr>
       <th>guide</th>
       <td><p>A function used to create a guide or its name. See
-<code><a href='guides.html'>guides()</a></code> for more information.</p></td>
+<code><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides()</a></code> for more information.</p></td>
     </tr>
     <tr>
       <th>position</th>

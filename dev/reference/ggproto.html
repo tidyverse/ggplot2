@@ -102,7 +102,7 @@ and access parent methods/fields with ggproto_parent." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.1.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.2.9000</span>
         </div>
       </div>
     </div>
@@ -208,11 +208,11 @@ and access parent methods/fields with ggproto_parent." />
 and access parent methods/fields with <code>ggproto_parent</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ggproto</span>(<span class='kw'>`_class`</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>`_inherit`</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggproto.html'>ggproto</a></span>(`_class` = <span class='kw'>NULL</span>, `_inherit` = <span class='kw'>NULL</span>, <span class='kw'>...</span>)
 
-<span class='fu'>ggproto_parent</span>(<span class='no'>parent</span>, <span class='no'>self</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggproto.html'>ggproto_parent</a></span>(<span class='kw'>parent</span>, <span class='kw'>self</span>)
 
-<span class='fu'>is.ggproto</span>(<span class='no'>x</span>)</pre>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggproto.html'>is.ggproto</a></span>(<span class='kw'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -268,24 +268,24 @@ in the function signature, although customarily it comes first.</p>
     
 
 <p>To explicitly call a methods in a parent, use
-<code>ggproto_parent(Parent, self)</code>.</p>
+<code><a href='https://ggplot2.tidyverse.org/reference/ggproto.html'>ggproto_parent(Parent, self)</a></code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>Adder</span> <span class='kw'>&lt;-</span> <span class='fu'>ggproto</span>(<span class='st'>"Adder"</span>,
-  <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>add</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>self</span>, <span class='no'>n</span>) {
-    <span class='no'>self</span>$<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>self</span>$<span class='no'>x</span> + <span class='no'>n</span>
-    <span class='no'>self</span>$<span class='no'>x</span>
+    <pre class="examples"><div class='input'><span class='kw'>Adder</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggproto.html'>ggproto</a></span>(<span class='st'>"Adder"</span>,
+  x = <span class='fl'>0</span>,
+  add = <span class='fu'>function</span>(<span class='kw'>self</span>, <span class='kw'>n</span>) {
+    <span class='kw'>self</span><span class='op'>$</span><span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='kw'>self</span><span class='op'>$</span><span class='kw'>x</span> <span class='op'>+</span> <span class='kw'>n</span>
+    <span class='kw'>self</span><span class='op'>$</span><span class='kw'>x</span>
   }
  )
-<span class='fu'>is.ggproto</span>(<span class='no'>Adder</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
-<span class='no'>Adder</span>$<span class='fu'>add</span>(<span class='fl'>10</span>)</div><div class='output co'>#&gt; [1] 10</div><div class='input'><span class='no'>Adder</span>$<span class='fu'>add</span>(<span class='fl'>10</span>)</div><div class='output co'>#&gt; [1] 20</div><div class='input'>
-<span class='no'>Doubler</span> <span class='kw'>&lt;-</span> <span class='fu'>ggproto</span>(<span class='st'>"Doubler"</span>, <span class='no'>Adder</span>,
-  <span class='kw'>add</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>self</span>, <span class='no'>n</span>) {
-    <span class='fu'>ggproto_parent</span>(<span class='no'>Adder</span>, <span class='no'>self</span>)$<span class='fu'>add</span>(<span class='no'>n</span> * <span class='fl'>2</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggproto.html'>is.ggproto</a></span>(<span class='kw'>Adder</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+<span class='kw'>Adder</span><span class='op'>$</span><span class='fu'>add</span>(<span class='fl'>10</span>)</div><div class='output co'>#&gt; [1] 10</div><div class='input'><span class='kw'>Adder</span><span class='op'>$</span><span class='fu'>add</span>(<span class='fl'>10</span>)</div><div class='output co'>#&gt; [1] 20</div><div class='input'>
+<span class='kw'>Doubler</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggproto.html'>ggproto</a></span>(<span class='st'>"Doubler"</span>, <span class='kw'>Adder</span>,
+  add = <span class='fu'>function</span>(<span class='kw'>self</span>, <span class='kw'>n</span>) {
+    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggproto.html'>ggproto_parent</a></span>(<span class='kw'>Adder</span>, <span class='kw'>self</span>)<span class='op'>$</span><span class='fu'>add</span>(<span class='kw'>n</span> <span class='op'>*</span> <span class='fl'>2</span>)
   }
 )
-<span class='no'>Doubler</span>$<span class='no'>x</span></div><div class='output co'>#&gt; [1] 20</div><div class='input'><span class='no'>Doubler</span>$<span class='fu'>add</span>(<span class='fl'>10</span>)</div><div class='output co'>#&gt; [1] 40</div></pre>
+<span class='kw'>Doubler</span><span class='op'>$</span><span class='kw'>x</span></div><div class='output co'>#&gt; [1] 20</div><div class='input'><span class='kw'>Doubler</span><span class='op'>$</span><span class='fu'>add</span>(<span class='fl'>10</span>)</div><div class='output co'>#&gt; [1] 40</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

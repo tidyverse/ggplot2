@@ -104,7 +104,7 @@ scale_*_log10(), scale_*_sqrt() and scale_*_reverse()." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.1.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.2.9000</span>
         </div>
       </div>
     </div>
@@ -206,55 +206,55 @@ scale_*_log10(), scale_*_sqrt() and scale_*_reverse()." />
     </div>
 
     <div class="ref-description">
-    <p><code>scale_x_continuous()</code> and <code>scale_y_continuous()</code> are the default
+    <p><code><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_x_continuous()</a></code> and <code><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_continuous()</a></code> are the default
 scales for continuous x and y aesthetics. There are three variants
 that set the <code>trans</code> argument for commonly used transformations:
 <code>scale_*_log10()</code>, <code>scale_*_sqrt()</code> and <code>scale_*_reverse()</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>scale_x_continuous</span>(
-  <span class='kw'>name</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
-  <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
-  <span class='kw'>minor_breaks</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
-  <span class='kw'>n.breaks</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
-  <span class='kw'>limits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>expand</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
-  <span class='kw'>oob</span> <span class='kw'>=</span> <span class='no'>censor</span>,
-  <span class='kw'>na.value</span> <span class='kw'>=</span> <span class='fl'>NA_real_</span>,
-  <span class='kw'>trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>guide</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"bottom"</span>,
-  <span class='kw'>sec.axis</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>()
+    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_x_continuous</a></span>(
+  name = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(),
+  breaks = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(),
+  minor_breaks = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(),
+  n.breaks = <span class='kw'>NULL</span>,
+  labels = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(),
+  limits = <span class='kw'>NULL</span>,
+  expand = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(),
+  oob = <span class='kw'>censor</span>,
+  na.value = <span class='fl'>NA_real_</span>,
+  trans = <span class='st'>"identity"</span>,
+  guide = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(),
+  position = <span class='st'>"bottom"</span>,
+  sec.axis = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>()
 )
 
-<span class='fu'>scale_y_continuous</span>(
-  <span class='kw'>name</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
-  <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
-  <span class='kw'>minor_breaks</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
-  <span class='kw'>n.breaks</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
-  <span class='kw'>limits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>expand</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
-  <span class='kw'>oob</span> <span class='kw'>=</span> <span class='no'>censor</span>,
-  <span class='kw'>na.value</span> <span class='kw'>=</span> <span class='fl'>NA_real_</span>,
-  <span class='kw'>trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>guide</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"left"</span>,
-  <span class='kw'>sec.axis</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>()
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_continuous</a></span>(
+  name = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(),
+  breaks = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(),
+  minor_breaks = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(),
+  n.breaks = <span class='kw'>NULL</span>,
+  labels = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(),
+  limits = <span class='kw'>NULL</span>,
+  expand = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(),
+  oob = <span class='kw'>censor</span>,
+  na.value = <span class='fl'>NA_real_</span>,
+  trans = <span class='st'>"identity"</span>,
+  guide = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(),
+  position = <span class='st'>"left"</span>,
+  sec.axis = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>()
 )
 
-<span class='fu'>scale_x_log10</span>(<span class='no'>...</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_x_log10</a></span>(<span class='kw'>...</span>)
 
-<span class='fu'>scale_y_log10</span>(<span class='no'>...</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_log10</a></span>(<span class='kw'>...</span>)
 
-<span class='fu'>scale_x_reverse</span>(<span class='no'>...</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_x_reverse</a></span>(<span class='kw'>...</span>)
 
-<span class='fu'>scale_y_reverse</span>(<span class='no'>...</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_reverse</a></span>(<span class='kw'>...</span>)
 
-<span class='fu'>scale_x_sqrt</span>(<span class='no'>...</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_x_sqrt</a></span>(<span class='kw'>...</span>)
 
-<span class='fu'>scale_y_sqrt</span>(<span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_sqrt</a></span>(<span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -262,7 +262,7 @@ that set the <code>trans</code> argument for commonly used transformations:
     <tr>
       <th>name</th>
       <td><p>The name of the scale. Used as the axis or legend title. If
-<code><a href='waiver.html'>waiver()</a></code>, the default, the name of the scale is taken from the first
+<code><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver()</a></code>, the default, the name of the scale is taken from the first
 mapping used for that aesthetic. If <code>NULL</code>, the legend title will be
 omitted.</p></td>
     </tr>
@@ -270,7 +270,7 @@ omitted.</p></td>
       <th>breaks</th>
       <td><p>One of:</p><ul>
 <li><p><code>NULL</code> for no breaks</p></li>
-<li><p><code><a href='waiver.html'>waiver()</a></code> for the default breaks computed by the
+<li><p><code><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver()</a></code> for the default breaks computed by the
 <a href='https://scales.r-lib.org//reference/trans_new.html'>transformation object</a></p></li>
 <li><p>A numeric vector of positions</p></li>
 <li><p>A function that takes the limits as input and returns breaks
@@ -281,7 +281,7 @@ as output (e.g., a function returned by <code><a href='https://scales.r-lib.org/
       <th>minor_breaks</th>
       <td><p>One of:</p><ul>
 <li><p><code>NULL</code> for no minor breaks</p></li>
-<li><p><code><a href='waiver.html'>waiver()</a></code> for the default breaks (one minor break between
+<li><p><code><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver()</a></code> for the default breaks (one minor break between
 each major break)</p></li>
 <li><p>A numeric vector of positions</p></li>
 <li><p>A function that given the limits returns a vector of minor breaks.</p></li>
@@ -298,7 +298,7 @@ number of breaks given by the transformation.</p></td>
       <th>labels</th>
       <td><p>One of:</p><ul>
 <li><p><code>NULL</code> for no labels</p></li>
-<li><p><code><a href='waiver.html'>waiver()</a></code> for the default labels computed by the
+<li><p><code><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver()</a></code> for the default labels computed by the
 transformation object</p></li>
 <li><p>A character vector giving labels (must be same length as <code>breaks</code>)</p></li>
 <li><p>A function that takes the breaks as input and returns labels
@@ -315,14 +315,14 @@ Use <code>NA</code> to refer to the existing minimum or maximum</p></li>
 new limits
 Note that setting limits on positional scales will <strong>remove</strong> data outside of the limits.
 If the purpose is to zoom, use the limit argument in the coordinate system
-(see <code><a href='coord_cartesian.html'>coord_cartesian()</a></code>).</p></li>
+(see <code><a href='https://ggplot2.tidyverse.org/reference/coord_cartesian.html'>coord_cartesian()</a></code>).</p></li>
 </ul></td>
     </tr>
     <tr>
       <th>expand</th>
       <td><p>For position scales, a vector of range expansion constants used to add some
 padding around the data to ensure that they are placed some distance
-away from the axes. Use the convenience function <code><a href='expansion.html'>expansion()</a></code>
+away from the axes. Use the convenience function <code><a href='https://ggplot2.tidyverse.org/reference/expansion.html'>expansion()</a></code>
 to generate the values for the <code>expand</code> argument. The defaults are to
 expand the scale by 5% on each side for continuous variables, and by
 0.6 units on each side for discrete variables.</p></td>
@@ -358,7 +358,7 @@ transformation with <code><a href='https://scales.r-lib.org//reference/trans_new
     <tr>
       <th>guide</th>
       <td><p>A function used to create a guide or its name. See
-<code><a href='guides.html'>guides()</a></code> for more information.</p></td>
+<code><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides()</a></code> for more information.</p></td>
     </tr>
     <tr>
       <th>position</th>
@@ -367,7 +367,7 @@ transformation with <code><a href='https://scales.r-lib.org//reference/trans_new
     </tr>
     <tr>
       <th>sec.axis</th>
-      <td><p><code><a href='sec_axis.html'>sec_axis()</a></code> is used to specify a secondary axis.</p></td>
+      <td><p><code><a href='https://ggplot2.tidyverse.org/reference/sec_axis.html'>sec_axis()</a></code> is used to specify a secondary axis.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -378,51 +378,52 @@ transformation with <code><a href='https://scales.r-lib.org//reference/trans_new
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>For simple manipulation of labels and limits, you may wish to use
-<code><a href='labs.html'>labs()</a></code> and <code><a href='lims.html'>lims()</a></code> instead.</p>
+<code><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs()</a></code> and <code><a href='https://ggplot2.tidyverse.org/reference/lims.html'>lims()</a></code> instead.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other position scales: 
-<code><a href='scale_binned.html'>scale_x_binned</a>()</code>,
-<code><a href='scale_date.html'>scale_x_date</a>()</code>,
-<code><a href='scale_discrete.html'>scale_x_discrete</a>()</code></p></div>
+<code><a href='https://ggplot2.tidyverse.org/reference/scale_binned.html'>scale_x_binned</a>()</code>,
+<code><a href='https://ggplot2.tidyverse.org/reference/scale_date.html'>scale_x_date</a>()</code>,
+<code><a href='https://ggplot2.tidyverse.org/reference/scale_discrete.html'>scale_x_discrete</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>displ</span>, <span class='no'>hwy</span>)) +
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
-<span class='no'>p1</span></div><div class='img'><img src='scale_continuous-1.png' alt='' width='700' height='433' /></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='kw'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>()
+<span class='kw'>p1</span></div><div class='img'><img src='scale_continuous-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Manipulating the default position scales lets you:</span>
 <span class='co'>#  * change the axis labels</span>
-<span class='no'>p1</span> +
-  <span class='fu'>scale_x_continuous</span>(<span class='st'>"Engine displacement (L)"</span>) +
-  <span class='fu'>scale_y_continuous</span>(<span class='st'>"Highway MPG"</span>)</div><div class='img'><img src='scale_continuous-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p1</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_x_continuous</a></span>(<span class='st'>"Engine displacement (L)"</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_continuous</a></span>(<span class='st'>"Highway MPG"</span>)</div><div class='img'><img src='scale_continuous-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can also use the short-cut labs().</span>
 <span class='co'># Use NULL to suppress axis labels</span>
-<span class='no'>p1</span> + <span class='fu'><a href='labs.html'>labs</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='img'><img src='scale_continuous-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span>(x = <span class='kw'>NULL</span>, y = <span class='kw'>NULL</span>)</div><div class='img'><img src='scale_continuous-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>#  * modify the axis limits</span>
-<span class='no'>p1</span> + <span class='fu'>scale_x_continuous</span>(<span class='kw'>limits</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>6</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 27 rows containing missing values (geom_point).</span></div><div class='img'><img src='scale_continuous-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p1</span> + <span class='fu'>scale_x_continuous</span>(<span class='kw'>limits</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>10</span>))</div><div class='img'><img src='scale_continuous-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_x_continuous</a></span>(limits = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>6</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 27 rows containing missing values (geom_point).</span></div><div class='img'><img src='scale_continuous-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_x_continuous</a></span>(limits = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>10</span>))</div><div class='img'><img src='scale_continuous-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># you can also use the short hand functions `xlim()` and `ylim()`</span>
-<span class='no'>p1</span> + <span class='fu'><a href='lims.html'>xlim</a></span>(<span class='fl'>2</span>, <span class='fl'>6</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 27 rows containing missing values (geom_point).</span></div><div class='img'><img src='scale_continuous-6.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>xlim</a></span>(<span class='fl'>2</span>, <span class='fl'>6</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 27 rows containing missing values (geom_point).</span></div><div class='img'><img src='scale_continuous-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>#  * choose where the ticks appear</span>
-<span class='no'>p1</span> + <span class='fu'>scale_x_continuous</span>(<span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>4</span>, <span class='fl'>6</span>))</div><div class='img'><img src='scale_continuous-7.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_x_continuous</a></span>(breaks = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>4</span>, <span class='fl'>6</span>))</div><div class='img'><img src='scale_continuous-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>#  * choose your own labels</span>
-<span class='no'>p1</span> + <span class='fu'>scale_x_continuous</span>(
-  <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>4</span>, <span class='fl'>6</span>),
-  <span class='kw'>label</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"two"</span>, <span class='st'>"four"</span>, <span class='st'>"six"</span>)
+<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_x_continuous</a></span>(
+  breaks = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>4</span>, <span class='fl'>6</span>),
+  label = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"two"</span>, <span class='st'>"four"</span>, <span class='st'>"six"</span>)
 )</div><div class='img'><img src='scale_continuous-8.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Typically you'll pass a function to the `labels` argument.</span>
 <span class='co'># Some common formats are built into the scales package:</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>10</span>) * <span class='fl'>100000</span>,
-  <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>, <span class='kw'>length.out</span> <span class='kw'>=</span> <span class='fl'>10</span>)
+<span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
+  x = <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>10</span>) <span class='op'>*</span> <span class='fl'>100000</span>,
+  y = <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>, length.out = <span class='fl'>10</span>)
 )
-<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>x</span>, <span class='no'>y</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
-<span class='no'>p2</span> + <span class='fu'>scale_y_continuous</span>(<span class='kw'>labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='no'><a href='https://scales.r-lib.org//reference/label_percent.html'>percent</a></span>)</div><div class='img'><img src='scale_continuous-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p2</span> + <span class='fu'>scale_y_continuous</span>(<span class='kw'>labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='no'><a href='https://scales.r-lib.org//reference/label_dollar.html'>dollar</a></span>)</div><div class='img'><img src='scale_continuous-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p2</span> + <span class='fu'>scale_x_continuous</span>(<span class='kw'>labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='no'><a href='https://scales.r-lib.org//reference/label_number.html'>comma</a></span>)</div><div class='img'><img src='scale_continuous-11.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>()
+<span class='kw'>p2</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_continuous</a></span>(labels = <span class='kw'>scales</span>::<span class='kw'><a href='https://scales.r-lib.org//reference/label_percent.html'>percent</a></span>)</div><div class='img'><img src='scale_continuous-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p2</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_continuous</a></span>(labels = <span class='kw'>scales</span>::<span class='kw'><a href='https://scales.r-lib.org//reference/label_dollar.html'>dollar</a></span>)</div><div class='img'><img src='scale_continuous-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p2</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_x_continuous</a></span>(labels = <span class='kw'>scales</span>::<span class='kw'><a href='https://scales.r-lib.org//reference/label_number.html'>comma</a></span>)</div><div class='img'><img src='scale_continuous-11.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can also override the default linear mapping by using a</span>
 <span class='co'># transformation. There are three shortcuts:</span>
-<span class='no'>p1</span> + <span class='fu'>scale_y_log10</span>()</div><div class='img'><img src='scale_continuous-12.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p1</span> + <span class='fu'>scale_y_sqrt</span>()</div><div class='img'><img src='scale_continuous-13.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p1</span> + <span class='fu'>scale_y_reverse</span>()</div><div class='img'><img src='scale_continuous-14.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_log10</a></span>()</div><div class='img'><img src='scale_continuous-12.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_sqrt</a></span>()</div><div class='img'><img src='scale_continuous-13.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_reverse</a></span>()</div><div class='img'><img src='scale_continuous-14.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Or you can supply a transformation in the `trans` argument:</span>
-<span class='no'>p1</span> + <span class='fu'>scale_y_continuous</span>(<span class='kw'>trans</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='fu'><a href='https://scales.r-lib.org//reference/reciprocal_trans.html'>reciprocal_trans</a></span>())</div><div class='img'><img src='scale_continuous-15.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># You can also create your own. See ?scales::trans_new</span></div></pre>
+<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_continuous</a></span>(trans = <span class='kw'>scales</span>::<span class='fu'><a href='https://scales.r-lib.org//reference/reciprocal_trans.html'>reciprocal_trans</a></span>())</div><div class='img'><img src='scale_continuous-15.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># You can also create your own. See ?scales::trans_new</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

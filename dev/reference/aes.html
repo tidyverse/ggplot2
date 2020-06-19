@@ -103,7 +103,7 @@ ggplot() and in individual layers." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.1.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.2.9000</span>
         </div>
       </div>
     </div>
@@ -207,10 +207,10 @@ ggplot() and in individual layers." />
     <div class="ref-description">
     <p>Aesthetic mappings describe how variables in the data are mapped to visual
 properties (aesthetics) of geoms. Aesthetic mappings can be set in
-<code><a href='ggplot.html'>ggplot()</a></code> and in individual layers.</p>
+<code><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot()</a></code> and in individual layers.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>aes</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -221,8 +221,8 @@ properties (aesthetics) of geoms. Aesthetic mappings can be set in
 describing which variables in the layer data should be mapped to which
 aesthetics used by the paired geom/stat. The expression <code>variable</code> is
 evaluated within the layer data, so there is no need to refer to
-the original dataset (i.e., use <code><a href='ggplot.html'>ggplot(df, aes(variable))</a></code>
-instead of <code><a href='ggplot.html'>ggplot(df, aes(df$variable))</a></code>). The names for x and y aesthetics
+the original dataset (i.e., use <code><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot(df, aes(variable))</a></code>
+instead of <code><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot(df, aes(df$variable))</a></code>). The names for x and y aesthetics
 are typically omitted because they are so common; all other aesthetics must be named.</p></td>
     </tr>
     </table>
@@ -241,62 +241,62 @@ R names to ggplot names (e.g., <code>pch</code> to <code>shape</code> and <code>
     
 
 
-<p><code>aes()</code> is a <a href='https://rlang.r-lib.org/reference/nse-defuse.html'>quoting function</a>. This means that
+<p><code><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes()</a></code> is a <a href='https://rlang.r-lib.org/reference/nse-defuse.html'>quoting function</a>. This means that
 its inputs are quoted to be evaluated in the context of the
 data. This makes it easy to work with variables from the data frame
 because you can name those directly. The flip side is that you have
 to use <a href='https://rlang.r-lib.org/reference/nse-force.html'>quasiquotation</a> to program with
-<code>aes()</code>. See a tidy evaluation tutorial such as the <a href='http://dplyr.tidyverse.org/articles/programming.html'>dplyr programming vignette</a>
+<code><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes()</a></code>. See a tidy evaluation tutorial such as the <a href='http://dplyr.tidyverse.org/articles/programming.html'>dplyr programming vignette</a>
 to learn more about these techniques.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='vars.html'>vars()</a></code> for another quoting function designed for
+    <div class='dont-index'><p><code><a href='https://ggplot2.tidyverse.org/reference/vars.html'>vars()</a></code> for another quoting function designed for
 faceting specifications.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>mpg</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>wt</span>)</div><div class='output co'>#&gt; Aesthetic mapping: 
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(x = <span class='kw'>mpg</span>, y = <span class='kw'>wt</span>)</div><div class='output co'>#&gt; Aesthetic mapping: 
 #&gt; * `x` -&gt; `mpg`
-#&gt; * `y` -&gt; `wt`</div><div class='input'><span class='fu'>aes</span>(<span class='no'>mpg</span>, <span class='no'>wt</span>)</div><div class='output co'>#&gt; Aesthetic mapping: 
+#&gt; * `y` -&gt; `wt`</div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>)</div><div class='output co'>#&gt; Aesthetic mapping: 
 #&gt; * `x` -&gt; `mpg`
 #&gt; * `y` -&gt; `wt`</div><div class='input'>
 <span class='co'># You can also map aesthetics to functions of variables</span>
-<span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>mpg</span> ^ <span class='fl'>2</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>wt</span> / <span class='no'>cyl</span>)</div><div class='output co'>#&gt; Aesthetic mapping: 
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(x = <span class='kw'>mpg</span> <span class='op'>^</span> <span class='fl'>2</span>, y = <span class='kw'>wt</span> <span class='op'>/</span> <span class='kw'>cyl</span>)</div><div class='output co'>#&gt; Aesthetic mapping: 
 #&gt; * `x` -&gt; `mpg^2`
 #&gt; * `y` -&gt; `wt/cyl`</div><div class='input'>
 <span class='co'># Or to constants</span>
-<span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"smooth"</span>)</div><div class='output co'>#&gt; Aesthetic mapping: 
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(x = <span class='fl'>1</span>, colour = <span class='st'>"smooth"</span>)</div><div class='output co'>#&gt; Aesthetic mapping: 
 #&gt; * `x`      -&gt; 1
 #&gt; * `colour` -&gt; "smooth"</div><div class='input'>
 <span class='co'># Aesthetic names are automatically standardised</span>
-<span class='fu'>aes</span>(<span class='kw'>col</span> <span class='kw'>=</span> <span class='no'>x</span>)</div><div class='output co'>#&gt; Aesthetic mapping: 
-#&gt; * `colour` -&gt; `x`</div><div class='input'><span class='fu'>aes</span>(<span class='kw'>fg</span> <span class='kw'>=</span> <span class='no'>x</span>)</div><div class='output co'>#&gt; Aesthetic mapping: 
-#&gt; * `colour` -&gt; `x`</div><div class='input'><span class='fu'>aes</span>(<span class='kw'>color</span> <span class='kw'>=</span> <span class='no'>x</span>)</div><div class='output co'>#&gt; Aesthetic mapping: 
-#&gt; * `colour` -&gt; `x`</div><div class='input'><span class='fu'>aes</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>x</span>)</div><div class='output co'>#&gt; Aesthetic mapping: 
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(col = <span class='kw'>x</span>)</div><div class='output co'>#&gt; Aesthetic mapping: 
+#&gt; * `colour` -&gt; `x`</div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(fg = <span class='kw'>x</span>)</div><div class='output co'>#&gt; Aesthetic mapping: 
+#&gt; * `colour` -&gt; `x`</div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(color = <span class='kw'>x</span>)</div><div class='output co'>#&gt; Aesthetic mapping: 
+#&gt; * `colour` -&gt; `x`</div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(colour = <span class='kw'>x</span>)</div><div class='output co'>#&gt; Aesthetic mapping: 
 #&gt; * `colour` -&gt; `x`</div><div class='input'>
 <span class='co'># aes() is passed to either ggplot() or specific layer. Aesthetics supplied</span>
 <span class='co'># to ggplot() are used as defaults for every layer.</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'>aes</span>(<span class='no'>displ</span>, <span class='no'>hwy</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()</div><div class='img'><img src='aes-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'>aes</span>(<span class='no'>displ</span>, <span class='no'>hwy</span>))</div><div class='img'><img src='aes-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>()</div><div class='img'><img src='aes-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>))</div><div class='img'><img src='aes-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Tidy evaluation ----------------------------------------------------</span>
 <span class='co'># aes() automatically quotes all its arguments, so you need to use tidy</span>
 <span class='co'># evaluation to create wrappers around ggplot2 pipelines. The</span>
 <span class='co'># simplest case occurs when your wrapper takes dots:</span>
-<span class='no'>scatter_by</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>data</span>, <span class='no'>...</span>) {
-  <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>data</span>) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'>aes</span>(<span class='no'>...</span>))
+<span class='kw'>scatter_by</span> <span class='op'>&lt;-</span> <span class='fu'>function</span>(<span class='kw'>data</span>, <span class='kw'>...</span>) {
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>data</span>) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>...</span>))
 }
-<span class='fu'>scatter_by</span>(<span class='no'>mtcars</span>, <span class='no'>disp</span>, <span class='no'>drat</span>)</div><div class='img'><img src='aes-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>scatter_by</span>(<span class='kw'>mtcars</span>, <span class='kw'>disp</span>, <span class='kw'>drat</span>)</div><div class='img'><img src='aes-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># If your wrapper has a more specific interface with named arguments,</span>
 <span class='co'># you need "enquote and unquote":</span>
-<span class='no'>scatter_by</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>data</span>, <span class='no'>x</span>, <span class='no'>y</span>) {
-  <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tidyeval.html'>enquo</a></span>(<span class='no'>x</span>)
-  <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tidyeval.html'>enquo</a></span>(<span class='no'>y</span>)
+<span class='kw'>scatter_by</span> <span class='op'>&lt;-</span> <span class='fu'>function</span>(<span class='kw'>data</span>, <span class='kw'>x</span>, <span class='kw'>y</span>) {
+  <span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/tidyeval.html'>enquo</a></span>(<span class='kw'>x</span>)
+  <span class='kw'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/tidyeval.html'>enquo</a></span>(<span class='kw'>y</span>)
 
-  <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>data</span>) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'>aes</span>(!!<span class='no'>x</span>, !!<span class='no'>y</span>))
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>data</span>) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='op'>!</span><span class='op'>!</span><span class='kw'>x</span>, <span class='op'>!</span><span class='op'>!</span><span class='kw'>y</span>))
 }
-<span class='fu'>scatter_by</span>(<span class='no'>mtcars</span>, <span class='no'>disp</span>, <span class='no'>drat</span>)</div><div class='img'><img src='aes-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>scatter_by</span>(<span class='kw'>mtcars</span>, <span class='kw'>disp</span>, <span class='kw'>drat</span>)</div><div class='img'><img src='aes-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Note that users of your wrapper can use their own functions in the</span>
 <span class='co'># quoted expressions and all will resolve as it should!</span>
-<span class='no'>cut3</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'><a href='cut_interval.html'>cut_number</a></span>(<span class='no'>x</span>, <span class='fl'>3</span>)
-<span class='fu'>scatter_by</span>(<span class='no'>mtcars</span>, <span class='fu'>cut3</span>(<span class='no'>disp</span>), <span class='no'>drat</span>)</div><div class='img'><img src='aes-5.png' alt='' width='700' height='433' /></div></pre>
+<span class='kw'>cut3</span> <span class='op'>&lt;-</span> <span class='fu'>function</span>(<span class='kw'>x</span>) <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/cut_interval.html'>cut_number</a></span>(<span class='kw'>x</span>, <span class='fl'>3</span>)
+<span class='fu'>scatter_by</span>(<span class='kw'>mtcars</span>, <span class='fu'>cut3</span>(<span class='kw'>disp</span>), <span class='kw'>drat</span>)</div><div class='img'><img src='aes-5.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

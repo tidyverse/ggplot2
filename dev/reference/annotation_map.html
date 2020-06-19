@@ -101,7 +101,7 @@
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.1.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.2.9000</span>
         </div>
       </div>
     </div>
@@ -206,7 +206,7 @@
     <p>Display a fixed map on a plot.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>annotation_map</span>(<span class='no'>map</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotation_map.html'>annotation_map</a></span>(<span class='kw'>map</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -214,7 +214,7 @@
     <tr>
       <th>map</th>
       <td><p>data frame representing a map.  Most map objects can be
-converted into the right format by using <code><a href='fortify.html'>fortify()</a></code></p></td>
+converted into the right format by using <code><a href='https://ggplot2.tidyverse.org/reference/fortify.html'>fortify()</a></code></p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -224,23 +224,23 @@ converted into the right format by using <code><a href='fortify.html'>fortify()<
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"maps"</span>)) {
-<span class='no'>usamap</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='map_data.html'>map_data</a></span>(<span class='st'>"state"</span>)
+    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"maps"</span>)) {
+<span class='kw'>usamap</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/map_data.html'>map_data</a></span>(<span class='st'>"state"</span>)
 
-<span class='no'>seal.sub</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='no'>seals</span>, <span class='no'>long</span> <span class='kw'>&gt;</span> -<span class='fl'>130</span> <span class='kw'>&amp;</span> <span class='no'>lat</span> <span class='kw'>&lt;</span> <span class='fl'>45</span> <span class='kw'>&amp;</span> <span class='no'>lat</span> <span class='kw'>&gt;</span> <span class='fl'>40</span>)
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>seal.sub</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>long</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>lat</span>)) +
-  <span class='fu'>annotation_map</span>(<span class='no'>usamap</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"grey50"</span>) +
-  <span class='fu'><a href='geom_segment.html'>geom_segment</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>xend</span> <span class='kw'>=</span> <span class='no'>long</span> + <span class='no'>delta_long</span>, <span class='kw'>yend</span> <span class='kw'>=</span> <span class='no'>lat</span> + <span class='no'>delta_lat</span>))
+<span class='kw'>seal.sub</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='kw'>seals</span>, <span class='kw'>long</span> <span class='op'>&gt;</span> <span class='op'>-</span><span class='fl'>130</span> <span class='op'>&amp;</span> <span class='kw'>lat</span> <span class='op'>&lt;</span> <span class='fl'>45</span> <span class='op'>&amp;</span> <span class='kw'>lat</span> <span class='op'>&gt;</span> <span class='fl'>40</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>seal.sub</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(x = <span class='kw'>long</span>, y = <span class='kw'>lat</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotation_map.html'>annotation_map</a></span>(<span class='kw'>usamap</span>, fill = <span class='fl'>NA</span>, colour = <span class='st'>"grey50"</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_segment.html'>geom_segment</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(xend = <span class='kw'>long</span> <span class='op'>+</span> <span class='kw'>delta_long</span>, yend = <span class='kw'>lat</span> <span class='op'>+</span> <span class='kw'>delta_lat</span>))
 }</div><div class='output co'>#&gt; <span class='message'>Loading required package: maps</span></div><div class='img'><img src='annotation_map-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"maps"</span>)) {
-<span class='no'>seal2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/transform.html'>transform</a></span>(<span class='no'>seal.sub</span>,
-  <span class='kw'>latr</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/cut.html'>cut</a></span>(<span class='no'>lat</span>, <span class='fl'>2</span>),
-  <span class='kw'>longr</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/cut.html'>cut</a></span>(<span class='no'>long</span>, <span class='fl'>2</span>))
+<span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"maps"</span>)) {
+<span class='kw'>seal2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/transform.html'>transform</a></span>(<span class='kw'>seal.sub</span>,
+  latr = <span class='fu'><a href='https://rdrr.io/r/base/cut.html'>cut</a></span>(<span class='kw'>lat</span>, <span class='fl'>2</span>),
+  longr = <span class='fu'><a href='https://rdrr.io/r/base/cut.html'>cut</a></span>(<span class='kw'>long</span>, <span class='fl'>2</span>))
 
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>seal2</span>,  <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>long</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>lat</span>)) +
-  <span class='fu'>annotation_map</span>(<span class='no'>usamap</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"grey50"</span>) +
-  <span class='fu'><a href='geom_segment.html'>geom_segment</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>xend</span> <span class='kw'>=</span> <span class='no'>long</span> + <span class='no'>delta_long</span>, <span class='kw'>yend</span> <span class='kw'>=</span> <span class='no'>lat</span> + <span class='no'>delta_lat</span>)) +
-  <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='no'>latr</span> ~ <span class='no'>longr</span>, <span class='kw'>scales</span> <span class='kw'>=</span> <span class='st'>"free"</span>, <span class='kw'>space</span> <span class='kw'>=</span> <span class='st'>"free"</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>seal2</span>,  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(x = <span class='kw'>long</span>, y = <span class='kw'>lat</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotation_map.html'>annotation_map</a></span>(<span class='kw'>usamap</span>, fill = <span class='fl'>NA</span>, colour = <span class='st'>"grey50"</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_segment.html'>geom_segment</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(xend = <span class='kw'>long</span> <span class='op'>+</span> <span class='kw'>delta_long</span>, yend = <span class='kw'>lat</span> <span class='op'>+</span> <span class='kw'>delta_lat</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span>(<span class='kw'>latr</span> <span class='op'>~</span> <span class='kw'>longr</span>, scales = <span class='st'>"free"</span>, space = <span class='st'>"free"</span>)
 }</div><div class='img'><img src='annotation_map-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

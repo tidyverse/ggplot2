@@ -103,7 +103,7 @@ and two whiskers), and all &quot;outlying&quot; points individually." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.1.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.2.9000</span>
         </div>
       </div>
     </div>
@@ -210,39 +210,39 @@ It visualises five summary statistics (the median, two hinges
 and two whiskers), and all "outlying" points individually.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>geom_boxplot</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"boxplot"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"dodge2"</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>outlier.colour</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>outlier.color</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>outlier.fill</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>outlier.shape</span> <span class='kw'>=</span> <span class='fl'>19</span>,
-  <span class='kw'>outlier.size</span> <span class='kw'>=</span> <span class='fl'>1.5</span>,
-  <span class='kw'>outlier.stroke</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
-  <span class='kw'>outlier.alpha</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>notch</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>notchwidth</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
-  <span class='kw'>varwidth</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>geom_boxplot</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  stat = <span class='st'>"boxplot"</span>,
+  position = <span class='st'>"dodge2"</span>,
+  <span class='kw'>...</span>,
+  outlier.colour = <span class='kw'>NULL</span>,
+  outlier.color = <span class='kw'>NULL</span>,
+  outlier.fill = <span class='kw'>NULL</span>,
+  outlier.shape = <span class='fl'>19</span>,
+  outlier.size = <span class='fl'>1.5</span>,
+  outlier.stroke = <span class='fl'>0.5</span>,
+  outlier.alpha = <span class='kw'>NULL</span>,
+  notch = <span class='fl'>FALSE</span>,
+  notchwidth = <span class='fl'>0.5</span>,
+  varwidth = <span class='fl'>FALSE</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  orientation = <span class='fl'>NA</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>
 )
 
-<span class='fu'>stat_boxplot</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"boxplot"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"dodge2"</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>coef</span> <span class='kw'>=</span> <span class='fl'>1.5</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>stat_boxplot</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  geom = <span class='st'>"boxplot"</span>,
+  position = <span class='st'>"dodge2"</span>,
+  <span class='kw'>...</span>,
+  coef = <span class='fl'>1.5</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  orientation = <span class='fl'>NA</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -250,8 +250,8 @@ and two whiskers), and all "outlying" points individually.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>mapping</th>
-      <td><p>Set of aesthetic mappings created by <code><a href='aes.html'>aes()</a></code> or
-<code><a href='aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
+      <td><p>Set of aesthetic mappings created by <code><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes()</a></code> or
+<code><a href='https://ggplot2.tidyverse.org/reference/aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
     </tr>
@@ -260,10 +260,10 @@ plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
       <td><p>The data to be displayed in this layer. There are three
 options:</p>
 <p>If <code>NULL</code>, the default, the data is inherited from the plot
-data as specified in the call to <code><a href='ggplot.html'>ggplot()</a></code>.</p>
+data as specified in the call to <code><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot()</a></code>.</p>
 <p>A <code>data.frame</code>, or other object, will override the plot
 data. All objects will be fortified to produce a data frame. See
-<code><a href='fortify.html'>fortify()</a></code> for which variables will be created.</p>
+<code><a href='https://ggplot2.tidyverse.org/reference/fortify.html'>fortify()</a></code> for which variables will be created.</p>
 <p>A <code>function</code> will be called with a single argument,
 the plot data. The return value must be a <code>data.frame</code>, and
 will be used as the layer data. A <code>function</code> can be created
@@ -276,7 +276,7 @@ a call to a position adjustment function.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Other arguments passed on to <code><a href='layer.html'>layer()</a></code>. These are
+      <td><p>Other arguments passed on to <code><a href='https://ggplot2.tidyverse.org/reference/layer.html'>layer()</a></code>. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 <code>colour = "red"</code> or <code>size = 3</code>. They may also be parameters
 to the paired geom/stat.</p></td>
@@ -337,7 +337,7 @@ display.</p></td>
       <td><p>If <code>FALSE</code>, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. <code><a href='borders.html'>borders()</a></code>.</p></td>
+the default plot specification, e.g. <code><a href='https://ggplot2.tidyverse.org/reference/borders.html'>borders()</a></code>.</p></td>
     </tr>
     <tr>
       <th>geom, stat</th>
@@ -377,7 +377,7 @@ See McGill et al. (1978) for more details.</p>
 
     
 
-<p><code>geom_boxplot()</code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
+<p><code><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>geom_boxplot()</a></code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
 <li><p><strong><code>x</code> <em>or</em> <code>y</code></strong></p></li>
 <li><p><strong><code>lower</code> <em>or</em> <code>xlower</code></strong></p></li>
 <li><p><strong><code>upper</code> <em>or</em> <code>xupper</code></strong></p></li>
@@ -392,7 +392,7 @@ See McGill et al. (1978) for more details.</p>
 <li><p><code>shape</code></p></li>
 <li><p><code>size</code></p></li>
 <li><p><code>weight</code></p></li>
-</ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
+</ul><p>Learn more about setting these aesthetics in <code>vignette("ggplot2-specs")</code>.</p>
     <h2 class="hasAnchor" id="computed-variables"><a class="anchor" href="#computed-variables"></a>Computed variables</h2>
 
     
@@ -415,43 +415,43 @@ See McGill et al. (1978) for more details.</p>
 box plots. The American Statistician 32, 12-16.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='geom_quantile.html'>geom_quantile()</a></code> for continuous <code>x</code>,
-<code><a href='geom_violin.html'>geom_violin()</a></code> for a richer display of the distribution, and
-<code><a href='geom_jitter.html'>geom_jitter()</a></code> for a useful technique for small data.</p></div>
+    <div class='dont-index'><p><code><a href='https://ggplot2.tidyverse.org/reference/geom_quantile.html'>geom_quantile()</a></code> for continuous <code>x</code>,
+<code><a href='https://ggplot2.tidyverse.org/reference/geom_violin.html'>geom_violin()</a></code> for a richer display of the distribution, and
+<code><a href='https://ggplot2.tidyverse.org/reference/geom_jitter.html'>geom_jitter()</a></code> for a useful technique for small data.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>class</span>, <span class='no'>hwy</span>))
-<span class='no'>p</span> + <span class='fu'>geom_boxplot</span>()</div><div class='img'><img src='geom_boxplot-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Orientation follows the discrete axis</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>hwy</span>, <span class='no'>class</span>)) + <span class='fu'>geom_boxplot</span>()</div><div class='img'><img src='geom_boxplot-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='no'>p</span> + <span class='fu'>geom_boxplot</span>(<span class='kw'>notch</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>notch went outside hinges. Try setting notch=FALSE.</span></div><div class='output co'>#&gt; <span class='message'>notch went outside hinges. Try setting notch=FALSE.</span></div><div class='img'><img src='geom_boxplot-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>geom_boxplot</span>(<span class='kw'>varwidth</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='geom_boxplot-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>geom_boxplot</span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>"white"</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"#3366FF"</span>)</div><div class='img'><img src='geom_boxplot-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># By default, outlier points match the colour of the box. Use</span>
+    <pre class="examples"><div class='input'><span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>class</span>, <span class='kw'>hwy</span>))
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>geom_boxplot</a></span>()</div><div class='img'><img src='geom_boxplot-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Orientation follows the discrete axis</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>hwy</span>, <span class='kw'>class</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>geom_boxplot</a></span>()</div><div class='img'><img src='geom_boxplot-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>geom_boxplot</a></span>(notch = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>notch went outside hinges. Try setting notch=FALSE.</span></div><div class='output co'>#&gt; <span class='message'>notch went outside hinges. Try setting notch=FALSE.</span></div><div class='img'><img src='geom_boxplot-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>geom_boxplot</a></span>(varwidth = <span class='fl'>TRUE</span>)</div><div class='img'><img src='geom_boxplot-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>geom_boxplot</a></span>(fill = <span class='st'>"white"</span>, colour = <span class='st'>"#3366FF"</span>)</div><div class='img'><img src='geom_boxplot-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># By default, outlier points match the colour of the box. Use</span>
 <span class='co'># outlier.colour to override</span>
-<span class='no'>p</span> + <span class='fu'>geom_boxplot</span>(<span class='kw'>outlier.colour</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>outlier.shape</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='img'><img src='geom_boxplot-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Remove outliers when overlaying boxplot with original data points</span>
-<span class='no'>p</span> + <span class='fu'>geom_boxplot</span>(<span class='kw'>outlier.shape</span> <span class='kw'>=</span> <span class='fl'>NA</span>) + <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span>(<span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.2</span>)</div><div class='img'><img src='geom_boxplot-7.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>geom_boxplot</a></span>(outlier.colour = <span class='st'>"red"</span>, outlier.shape = <span class='fl'>1</span>)</div><div class='img'><img src='geom_boxplot-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Remove outliers when overlaying boxplot with original data points</span>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>geom_boxplot</a></span>(outlier.shape = <span class='fl'>NA</span>) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_jitter.html'>geom_jitter</a></span>(width = <span class='fl'>0.2</span>)</div><div class='img'><img src='geom_boxplot-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Boxplots are automatically dodged when any aesthetic is a factor</span>
-<span class='no'>p</span> + <span class='fu'>geom_boxplot</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>drv</span>))</div><div class='img'><img src='geom_boxplot-8.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>geom_boxplot</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(colour = <span class='kw'>drv</span>))</div><div class='img'><img src='geom_boxplot-8.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can also use boxplots with continuous x, as long as you supply</span>
 <span class='co'># a grouping variable. cut_width is particularly useful</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>carat</span>, <span class='no'>price</span>)) +
-  <span class='fu'>geom_boxplot</span>()</div><div class='output co'>#&gt; <span class='warning'>Warning: Continuous x aesthetic -- did you forget aes(group=...)?</span></div><div class='img'><img src='geom_boxplot-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>carat</span>, <span class='no'>price</span>)) +
-  <span class='fu'>geom_boxplot</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='cut_interval.html'>cut_width</a></span>(<span class='no'>carat</span>, <span class='fl'>0.25</span>)))</div><div class='img'><img src='geom_boxplot-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Adjust the transparency of outliers using outlier.alpha</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>carat</span>, <span class='no'>price</span>)) +
-  <span class='fu'>geom_boxplot</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='cut_interval.html'>cut_width</a></span>(<span class='no'>carat</span>, <span class='fl'>0.25</span>)), <span class='kw'>outlier.alpha</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)</div><div class='img'><img src='geom_boxplot-11.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>carat</span>, <span class='kw'>price</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>geom_boxplot</a></span>()</div><div class='output co'>#&gt; <span class='warning'>Warning: Continuous x aesthetic -- did you forget aes(group=...)?</span></div><div class='img'><img src='geom_boxplot-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>carat</span>, <span class='kw'>price</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>geom_boxplot</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(group = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/cut_interval.html'>cut_width</a></span>(<span class='kw'>carat</span>, <span class='fl'>0.25</span>)))</div><div class='img'><img src='geom_boxplot-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Adjust the transparency of outliers using outlier.alpha</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>carat</span>, <span class='kw'>price</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>geom_boxplot</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(group = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/cut_interval.html'>cut_width</a></span>(<span class='kw'>carat</span>, <span class='fl'>0.25</span>)), outlier.alpha = <span class='fl'>0.1</span>)</div><div class='img'><img src='geom_boxplot-11.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># \donttest{</span>
 <span class='co'># It's possible to draw a boxplot with your own computations if you</span>
 <span class='co'># use stat = "identity":</span>
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>100</span>)
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>y0</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span>(<span class='no'>y</span>),
-  <span class='kw'>y25</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/quantile.html'>quantile</a></span>(<span class='no'>y</span>, <span class='fl'>0.25</span>),
-  <span class='kw'>y50</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/median.html'>median</a></span>(<span class='no'>y</span>),
-  <span class='kw'>y75</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/quantile.html'>quantile</a></span>(<span class='no'>y</span>, <span class='fl'>0.75</span>),
-  <span class='kw'>y100</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='no'>y</span>)
+<span class='kw'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>100</span>)
+<span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
+  x = <span class='fl'>1</span>,
+  y0 = <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span>(<span class='kw'>y</span>),
+  y25 = <span class='fu'><a href='https://rdrr.io/r/stats/quantile.html'>quantile</a></span>(<span class='kw'>y</span>, <span class='fl'>0.25</span>),
+  y50 = <span class='fu'><a href='https://rdrr.io/r/stats/median.html'>median</a></span>(<span class='kw'>y</span>),
+  y75 = <span class='fu'><a href='https://rdrr.io/r/stats/quantile.html'>quantile</a></span>(<span class='kw'>y</span>, <span class='fl'>0.75</span>),
+  y100 = <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='kw'>y</span>)
 )
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>x</span>)) +
-  <span class='fu'>geom_boxplot</span>(
-   <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>ymin</span> <span class='kw'>=</span> <span class='no'>y0</span>, <span class='kw'>lower</span> <span class='kw'>=</span> <span class='no'>y25</span>, <span class='kw'>middle</span> <span class='kw'>=</span> <span class='no'>y50</span>, <span class='kw'>upper</span> <span class='kw'>=</span> <span class='no'>y75</span>, <span class='kw'>ymax</span> <span class='kw'>=</span> <span class='no'>y100</span>),
-   <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>geom_boxplot</a></span>(
+   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(ymin = <span class='kw'>y0</span>, lower = <span class='kw'>y25</span>, middle = <span class='kw'>y50</span>, upper = <span class='kw'>y75</span>, ymax = <span class='kw'>y100</span>),
+   stat = <span class='st'>"identity"</span>
  )</div><div class='img'><img src='geom_boxplot-12.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

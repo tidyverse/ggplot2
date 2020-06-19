@@ -104,7 +104,7 @@ drawn (by default) with a line." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.1.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.2.9000</span>
         </div>
       </div>
     </div>
@@ -212,30 +212,30 @@ with a grid of evenly spaced values along the x axis, and the results are
 drawn (by default) with a line.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>geom_function</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"function"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_function.html'>geom_function</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  stat = <span class='st'>"function"</span>,
+  position = <span class='st'>"identity"</span>,
+  <span class='kw'>...</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>
 )
 
-<span class='fu'>stat_function</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"function"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='no'>...</span>,
-  <span class='no'>fun</span>,
-  <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>101</span>,
-  <span class='kw'>args</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_function.html'>stat_function</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  geom = <span class='st'>"function"</span>,
+  position = <span class='st'>"identity"</span>,
+  <span class='kw'>...</span>,
+  <span class='kw'>fun</span>,
+  xlim = <span class='kw'>NULL</span>,
+  n = <span class='fl'>101</span>,
+  args = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
+  na.rm = <span class='fl'>FALSE</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -243,14 +243,14 @@ drawn (by default) with a line.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>mapping</th>
-      <td><p>Set of aesthetic mappings created by <code><a href='aes.html'>aes()</a></code> or
-<code><a href='aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
+      <td><p>Set of aesthetic mappings created by <code><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes()</a></code> or
+<code><a href='https://ggplot2.tidyverse.org/reference/aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
     </tr>
     <tr>
       <th>data</th>
-      <td><p>Ignored by <code>stat_function()</code>, do not use.</p></td>
+      <td><p>Ignored by <code><a href='https://ggplot2.tidyverse.org/reference/geom_function.html'>stat_function()</a></code>, do not use.</p></td>
     </tr>
     <tr>
       <th>stat</th>
@@ -264,7 +264,7 @@ a call to a position adjustment function.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Other arguments passed on to <code><a href='layer.html'>layer()</a></code>. These are
+      <td><p>Other arguments passed on to <code><a href='https://ggplot2.tidyverse.org/reference/layer.html'>layer()</a></code>. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 <code>colour = "red"</code> or <code>size = 3</code>. They may also be parameters
 to the paired geom/stat.</p></td>
@@ -287,7 +287,7 @@ display.</p></td>
       <td><p>If <code>FALSE</code>, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. <code><a href='borders.html'>borders()</a></code>.</p></td>
+the default plot specification, e.g. <code><a href='https://ggplot2.tidyverse.org/reference/borders.html'>borders()</a></code>.</p></td>
     </tr>
     <tr>
       <th>geom</th>
@@ -318,7 +318,7 @@ be vectorised.</p></td>
 
     
 
-<p><code>geom_function()</code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
+<p><code><a href='https://ggplot2.tidyverse.org/reference/geom_function.html'>geom_function()</a></code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
 <li><p><strong><code>x</code></strong></p></li>
 <li><p><strong><code>y</code></strong></p></li>
 <li><p><code>alpha</code></p></li>
@@ -326,12 +326,12 @@ be vectorised.</p></td>
 <li><p><code>group</code></p></li>
 <li><p><code>linetype</code></p></li>
 <li><p><code>size</code></p></li>
-</ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
+</ul><p>Learn more about setting these aesthetics in <code>vignette("ggplot2-specs")</code>.</p>
     <h2 class="hasAnchor" id="computed-variables"><a class="anchor" href="#computed-variables"></a>Computed variables</h2>
 
     
 
-<p><code>stat_function()</code> computes the following variables:</p><dl>
+<p><code><a href='https://ggplot2.tidyverse.org/reference/geom_function.html'>stat_function()</a></code> computes the following variables:</p><dl>
 <dt>x</dt><dd><p>x values along a grid</p></dd>
 <dt>y</dt><dd><p>value of the function evaluated at corresponding x</p></dd>
 
@@ -345,24 +345,24 @@ be vectorised.</p></td>
     <pre class="examples"><div class='input'>
 <span class='co'># geom_function() is useful for overlaying functions</span>
 <span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>1492</span>)
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>100</span>)), <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>x</span>)) +
-  <span class='fu'><a href='geom_density.html'>geom_density</a></span>() +
-  <span class='fu'>geom_function</span>(<span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>dnorm</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"red"</span>)</div><div class='img'><img src='geom_function-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(x = <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>100</span>)), <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_density.html'>geom_density</a></span>() <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_function.html'>geom_function</a></span>(fun = <span class='kw'>dnorm</span>, colour = <span class='st'>"red"</span>)</div><div class='img'><img src='geom_function-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># To plot functions without data, specify range of x-axis</span>
-<span class='no'>base</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>() + <span class='fu'><a href='lims.html'>xlim</a></span>(-<span class='fl'>5</span>, <span class='fl'>5</span>)
-<span class='no'>base</span> + <span class='fu'>geom_function</span>(<span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>dnorm</span>)</div><div class='img'><img src='geom_function-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>base</span> + <span class='fu'>geom_function</span>(<span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>dnorm</span>, <span class='kw'>args</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>mean</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>sd</span> <span class='kw'>=</span> <span class='fl'>.5</span>))</div><div class='img'><img src='geom_function-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>base</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>() <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>xlim</a></span>(<span class='op'>-</span><span class='fl'>5</span>, <span class='fl'>5</span>)
+<span class='kw'>base</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_function.html'>geom_function</a></span>(fun = <span class='kw'>dnorm</span>)</div><div class='img'><img src='geom_function-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>base</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_function.html'>geom_function</a></span>(fun = <span class='kw'>dnorm</span>, args = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(mean = <span class='fl'>2</span>, sd = <span class='fl'>.5</span>))</div><div class='img'><img src='geom_function-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># The underlying mechanics evaluate the function at discrete points</span>
 <span class='co'># and connect the points with lines</span>
-<span class='no'>base</span> + <span class='fu'>stat_function</span>(<span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>dnorm</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"point"</span>)</div><div class='img'><img src='geom_function-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>base</span> + <span class='fu'>stat_function</span>(<span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>dnorm</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"point"</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>20</span>)</div><div class='img'><img src='geom_function-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>base</span> + <span class='fu'>geom_function</span>(<span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>dnorm</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>20</span>)</div><div class='img'><img src='geom_function-6.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>base</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_function.html'>stat_function</a></span>(fun = <span class='kw'>dnorm</span>, geom = <span class='st'>"point"</span>)</div><div class='img'><img src='geom_function-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>base</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_function.html'>stat_function</a></span>(fun = <span class='kw'>dnorm</span>, geom = <span class='st'>"point"</span>, n = <span class='fl'>20</span>)</div><div class='img'><img src='geom_function-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>base</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_function.html'>geom_function</a></span>(fun = <span class='kw'>dnorm</span>, n = <span class='fl'>20</span>)</div><div class='img'><img src='geom_function-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Two functions on the same plot</span>
-<span class='no'>base</span> +
-  <span class='fu'>geom_function</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"normal"</span>), <span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>dnorm</span>) +
-  <span class='fu'>geom_function</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"t, df = 1"</span>), <span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>dt</span>, <span class='kw'>args</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>df</span> <span class='kw'>=</span> <span class='fl'>1</span>))</div><div class='img'><img src='geom_function-7.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>base</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_function.html'>geom_function</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(colour = <span class='st'>"normal"</span>), fun = <span class='kw'>dnorm</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_function.html'>geom_function</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(colour = <span class='st'>"t, df = 1"</span>), fun = <span class='kw'>dt</span>, args = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(df = <span class='fl'>1</span>))</div><div class='img'><img src='geom_function-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Using a custom anonymous function</span>
-<span class='no'>base</span> + <span class='fu'>geom_function</span>(<span class='kw'>fun</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fl'>0.5</span>*<span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span>(-<span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span>(<span class='no'>x</span>)))</div><div class='img'><img src='geom_function-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>base</span> + <span class='fu'>geom_function</span>(<span class='kw'>fun</span> <span class='kw'>=</span> ~ <span class='fl'>0.5</span>*<span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span>(-<span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span>(<span class='no'>.x</span>)))</div><div class='img'><img src='geom_function-9.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>base</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_function.html'>geom_function</a></span>(fun = <span class='fu'>function</span>(<span class='kw'>x</span>) <span class='fl'>0.5</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span>(<span class='op'>-</span><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span>(<span class='kw'>x</span>)))</div><div class='img'><img src='geom_function-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>base</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_function.html'>geom_function</a></span>(fun = <span class='op'>~</span> <span class='fl'>0.5</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span>(<span class='op'>-</span><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span>(<span class='kw'>.x</span>)))</div><div class='img'><img src='geom_function-9.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Using a custom named function</span>
-<span class='no'>f</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fl'>0.5</span>*<span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span>(-<span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span>(<span class='no'>x</span>))
-<span class='no'>base</span> + <span class='fu'>geom_function</span>(<span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>f</span>)</div><div class='img'><img src='geom_function-10.png' alt='' width='700' height='433' /></div></pre>
+<span class='kw'>f</span> <span class='op'>&lt;-</span> <span class='fu'>function</span>(<span class='kw'>x</span>) <span class='fl'>0.5</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span>(<span class='op'>-</span><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span>(<span class='kw'>x</span>))
+<span class='kw'>base</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_function.html'>geom_function</a></span>(fun = <span class='kw'>f</span>)</div><div class='img'><img src='geom_function-10.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

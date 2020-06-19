@@ -104,7 +104,7 @@ aggregate." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.1.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.2.9000</span>
         </div>
       </div>
     </div>
@@ -206,53 +206,53 @@ aggregate." />
     </div>
 
     <div class="ref-description">
-    <p><code>stat_summary()</code> operates on unique <code>x</code> or <code>y</code>; <code>stat_summary_bin()</code>
+    <p><code><a href='https://ggplot2.tidyverse.org/reference/stat_summary.html'>stat_summary()</a></code> operates on unique <code>x</code> or <code>y</code>; <code><a href='https://ggplot2.tidyverse.org/reference/stat_summary.html'>stat_summary_bin()</a></code>
 operates on binned <code>x</code> or <code>y</code>. They are more flexible versions of
-<code><a href='geom_histogram.html'>stat_bin()</a></code>: instead of just counting, they can compute any
+<code><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>stat_bin()</a></code>: instead of just counting, they can compute any
 aggregate.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>stat_summary_bin</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"pointrange"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>fun.data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>fun</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>fun.max</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>fun.min</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>fun.args</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
-  <span class='kw'>bins</span> <span class='kw'>=</span> <span class='fl'>30</span>,
-  <span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>fun.y</span>,
-  <span class='no'>fun.ymin</span>,
-  <span class='no'>fun.ymax</span>
+    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/stat_summary.html'>stat_summary_bin</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  geom = <span class='st'>"pointrange"</span>,
+  position = <span class='st'>"identity"</span>,
+  <span class='kw'>...</span>,
+  fun.data = <span class='kw'>NULL</span>,
+  fun = <span class='kw'>NULL</span>,
+  fun.max = <span class='kw'>NULL</span>,
+  fun.min = <span class='kw'>NULL</span>,
+  fun.args = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
+  bins = <span class='fl'>30</span>,
+  binwidth = <span class='kw'>NULL</span>,
+  breaks = <span class='kw'>NULL</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  orientation = <span class='fl'>NA</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>,
+  <span class='kw'>fun.y</span>,
+  <span class='kw'>fun.ymin</span>,
+  <span class='kw'>fun.ymax</span>
 )
 
-<span class='fu'>stat_summary</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"pointrange"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>fun.data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>fun</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>fun.max</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>fun.min</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>fun.args</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>fun.y</span>,
-  <span class='no'>fun.ymin</span>,
-  <span class='no'>fun.ymax</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/stat_summary.html'>stat_summary</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  geom = <span class='st'>"pointrange"</span>,
+  position = <span class='st'>"identity"</span>,
+  <span class='kw'>...</span>,
+  fun.data = <span class='kw'>NULL</span>,
+  fun = <span class='kw'>NULL</span>,
+  fun.max = <span class='kw'>NULL</span>,
+  fun.min = <span class='kw'>NULL</span>,
+  fun.args = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
+  na.rm = <span class='fl'>FALSE</span>,
+  orientation = <span class='fl'>NA</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>,
+  <span class='kw'>fun.y</span>,
+  <span class='kw'>fun.ymin</span>,
+  <span class='kw'>fun.ymax</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -260,8 +260,8 @@ aggregate.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>mapping</th>
-      <td><p>Set of aesthetic mappings created by <code><a href='aes.html'>aes()</a></code> or
-<code><a href='aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
+      <td><p>Set of aesthetic mappings created by <code><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes()</a></code> or
+<code><a href='https://ggplot2.tidyverse.org/reference/aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
     </tr>
@@ -270,10 +270,10 @@ plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
       <td><p>The data to be displayed in this layer. There are three
 options:</p>
 <p>If <code>NULL</code>, the default, the data is inherited from the plot
-data as specified in the call to <code><a href='ggplot.html'>ggplot()</a></code>.</p>
+data as specified in the call to <code><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot()</a></code>.</p>
 <p>A <code>data.frame</code>, or other object, will override the plot
 data. All objects will be fortified to produce a data frame. See
-<code><a href='fortify.html'>fortify()</a></code> for which variables will be created.</p>
+<code><a href='https://ggplot2.tidyverse.org/reference/fortify.html'>fortify()</a></code> for which variables will be created.</p>
 <p>A <code>function</code> will be called with a single argument,
 the plot data. The return value must be a <code>data.frame</code>, and
 will be used as the layer data. A <code>function</code> can be created
@@ -282,7 +282,7 @@ from a <code>formula</code> (e.g. <code>~ head(.x, 10)</code>).</p></td>
     <tr>
       <th>geom</th>
       <td><p>Use to override the default connection between
-<code><a href='geom_histogram.html'>geom_histogram()</a></code>/<code><a href='geom_histogram.html'>geom_freqpoly()</a></code> and <code><a href='geom_histogram.html'>stat_bin()</a></code>.</p></td>
+<code><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram()</a></code>/<code><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_freqpoly()</a></code> and <code><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>stat_bin()</a></code>.</p></td>
     </tr>
     <tr>
       <th>position</th>
@@ -291,7 +291,7 @@ a call to a position adjustment function.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Other arguments passed on to <code><a href='layer.html'>layer()</a></code>. These are
+      <td><p>Other arguments passed on to <code><a href='https://ggplot2.tidyverse.org/reference/layer.html'>layer()</a></code>. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 <code>colour = "red"</code> or <code>size = 3</code>. They may also be parameters
 to the paired geom/stat.</p></td>
@@ -360,7 +360,7 @@ display.</p></td>
       <td><p>If <code>FALSE</code>, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. <code><a href='borders.html'>borders()</a></code>.</p></td>
+the default plot specification, e.g. <code><a href='https://ggplot2.tidyverse.org/reference/borders.html'>borders()</a></code>.</p></td>
     </tr>
     <tr>
       <th>fun.ymin, fun.y, fun.ymax</th>
@@ -378,11 +378,11 @@ instead.</p></td>
 
     
 
-<p><code>stat_summary()</code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
+<p><code><a href='https://ggplot2.tidyverse.org/reference/stat_summary.html'>stat_summary()</a></code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
 <li><p><strong><code>x</code></strong></p></li>
 <li><p><strong><code>y</code></strong></p></li>
 <li><p><code>group</code></p></li>
-</ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
+</ul><p>Learn more about setting these aesthetics in <code>vignette("ggplot2-specs")</code>.</p>
     <h2 class="hasAnchor" id="summary-functions"><a class="anchor" href="#summary-functions"></a>Summary functions</h2>
 
     
@@ -409,53 +409,53 @@ should return a data.frame that corresponds to that orientation. The layer
 will take care of flipping the input and output if it is oriented along the
 y-axis.</p>
 <p>If no aggregation functions are supplied, will default to
-<code><a href='mean_se.html'>mean_se()</a></code>.</p>
+<code><a href='https://ggplot2.tidyverse.org/reference/mean_se.html'>mean_se()</a></code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='geom_linerange.html'>geom_errorbar()</a></code>, <code><a href='geom_linerange.html'>geom_pointrange()</a></code>,
-<code><a href='geom_linerange.html'>geom_linerange()</a></code>, <code><a href='geom_linerange.html'>geom_crossbar()</a></code> for geoms to
+    <div class='dont-index'><p><code><a href='https://ggplot2.tidyverse.org/reference/geom_linerange.html'>geom_errorbar()</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/geom_linerange.html'>geom_pointrange()</a></code>,
+<code><a href='https://ggplot2.tidyverse.org/reference/geom_linerange.html'>geom_linerange()</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/geom_linerange.html'>geom_crossbar()</a></code> for geoms to
 display summarised data</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>cyl</span>, <span class='no'>mpg</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
-<span class='no'>d</span> + <span class='fu'>stat_summary</span>(<span class='kw'>fun.data</span> <span class='kw'>=</span> <span class='st'>"mean_cl_boot"</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='img'><img src='stat_summary-1.png' alt='' width='700' height='433' /></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='kw'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>cyl</span>, <span class='kw'>mpg</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>()
+<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/stat_summary.html'>stat_summary</a></span>(fun.data = <span class='st'>"mean_cl_boot"</span>, colour = <span class='st'>"red"</span>, size = <span class='fl'>2</span>)</div><div class='img'><img src='stat_summary-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Orientation follows the discrete axis</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>cyl</span>)) +
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() +
-  <span class='fu'>stat_summary</span>(<span class='kw'>fun.data</span> <span class='kw'>=</span> <span class='st'>"mean_cl_boot"</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 18 rows containing missing values (geom_segment).</span></div><div class='img'><img src='stat_summary-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>mpg</span>, <span class='kw'>cyl</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/stat_summary.html'>stat_summary</a></span>(fun.data = <span class='st'>"mean_cl_boot"</span>, colour = <span class='st'>"red"</span>, size = <span class='fl'>2</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 18 rows containing missing values (geom_segment).</span></div><div class='img'><img src='stat_summary-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can supply individual functions to summarise the value at</span>
 <span class='co'># each x:</span>
-<span class='no'>d</span> + <span class='fu'>stat_summary</span>(<span class='kw'>fun</span> <span class='kw'>=</span> <span class='st'>"median"</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"point"</span>)</div><div class='img'><img src='stat_summary-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>d</span> + <span class='fu'>stat_summary</span>(<span class='kw'>fun</span> <span class='kw'>=</span> <span class='st'>"mean"</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"point"</span>)</div><div class='img'><img src='stat_summary-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>d</span> + <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>vs</span>)) + <span class='fu'>stat_summary</span>(<span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>mean</span>, <span class='kw'>geom</span><span class='kw'>=</span><span class='st'>"line"</span>)</div><div class='img'><img src='stat_summary-5.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='no'>d</span> + <span class='fu'>stat_summary</span>(<span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>mean</span>, <span class='kw'>fun.min</span> <span class='kw'>=</span> <span class='no'>min</span>, <span class='kw'>fun.max</span> <span class='kw'>=</span> <span class='no'>max</span>,
-  <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"red"</span>)</div><div class='img'><img src='stat_summary-6.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>cut</span>))
-<span class='no'>d</span> + <span class='fu'><a href='geom_bar.html'>geom_bar</a></span>()</div><div class='img'><img src='stat_summary-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>d</span> + <span class='fu'>stat_summary</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>price</span>), <span class='kw'>fun</span> <span class='kw'>=</span> <span class='st'>"mean"</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"bar"</span>)</div><div class='img'><img src='stat_summary-8.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/stat_summary.html'>stat_summary</a></span>(fun = <span class='st'>"median"</span>, colour = <span class='st'>"red"</span>, size = <span class='fl'>2</span>, geom = <span class='st'>"point"</span>)</div><div class='img'><img src='stat_summary-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/stat_summary.html'>stat_summary</a></span>(fun = <span class='st'>"mean"</span>, colour = <span class='st'>"red"</span>, size = <span class='fl'>2</span>, geom = <span class='st'>"point"</span>)</div><div class='img'><img src='stat_summary-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(colour = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>vs</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/stat_summary.html'>stat_summary</a></span>(fun = <span class='kw'>mean</span>, geom=<span class='st'>"line"</span>)</div><div class='img'><img src='stat_summary-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/stat_summary.html'>stat_summary</a></span>(fun = <span class='kw'>mean</span>, fun.min = <span class='kw'>min</span>, fun.max = <span class='kw'>max</span>,
+  colour = <span class='st'>"red"</span>)</div><div class='img'><img src='stat_summary-6.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>cut</span>))
+<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span>()</div><div class='img'><img src='stat_summary-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/stat_summary.html'>stat_summary</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(y = <span class='kw'>price</span>), fun = <span class='st'>"mean"</span>, geom = <span class='st'>"bar"</span>)</div><div class='img'><img src='stat_summary-8.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Orientation of stat_summary_bin is ambiguous and must be specified directly</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>carat</span>, <span class='no'>price</span>)) +
-  <span class='fu'>stat_summary_bin</span>(<span class='kw'>fun</span> <span class='kw'>=</span> <span class='st'>"mean"</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"bar"</span>, <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='st'>'y'</span>)</div><div class='img'><img src='stat_summary-9.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>carat</span>, <span class='kw'>price</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/stat_summary.html'>stat_summary_bin</a></span>(fun = <span class='st'>"mean"</span>, geom = <span class='st'>"bar"</span>, orientation = <span class='st'>'y'</span>)</div><div class='img'><img src='stat_summary-9.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># \donttest{</span>
 <span class='co'># Don't use ylim to zoom into a summary plot - this throws the</span>
 <span class='co'># data away</span>
-<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>cyl</span>, <span class='no'>mpg</span>)) +
-  <span class='fu'>stat_summary</span>(<span class='kw'>fun</span> <span class='kw'>=</span> <span class='st'>"mean"</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"point"</span>)
-<span class='no'>p</span></div><div class='img'><img src='stat_summary-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'><a href='lims.html'>ylim</a></span>(<span class='fl'>15</span>, <span class='fl'>30</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 9 rows containing non-finite values (stat_summary).</span></div><div class='img'><img src='stat_summary-11.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Instead use coord_cartesian</span>
-<span class='no'>p</span> + <span class='fu'><a href='coord_cartesian.html'>coord_cartesian</a></span>(<span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>15</span>, <span class='fl'>30</span>))</div><div class='img'><img src='stat_summary-12.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>cyl</span>, <span class='kw'>mpg</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/stat_summary.html'>stat_summary</a></span>(fun = <span class='st'>"mean"</span>, geom = <span class='st'>"point"</span>)
+<span class='kw'>p</span></div><div class='img'><img src='stat_summary-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>ylim</a></span>(<span class='fl'>15</span>, <span class='fl'>30</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 9 rows containing non-finite values (stat_summary).</span></div><div class='img'><img src='stat_summary-11.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Instead use coord_cartesian</span>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_cartesian.html'>coord_cartesian</a></span>(ylim = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>15</span>, <span class='fl'>30</span>))</div><div class='img'><img src='stat_summary-12.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># A set of useful summary functions is provided from the Hmisc package:</span>
-<span class='no'>stat_sum_df</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>fun</span>, <span class='no'>geom</span><span class='kw'>=</span><span class='st'>"crossbar"</span>, <span class='no'>...</span>) {
-  <span class='fu'>stat_summary</span>(<span class='kw'>fun.data</span> <span class='kw'>=</span> <span class='no'>fun</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='no'>geom</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.2</span>, <span class='no'>...</span>)
+<span class='kw'>stat_sum_df</span> <span class='op'>&lt;-</span> <span class='fu'>function</span>(<span class='kw'>fun</span>, <span class='kw'>geom</span>=<span class='st'>"crossbar"</span>, <span class='kw'>...</span>) {
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/stat_summary.html'>stat_summary</a></span>(fun.data = <span class='kw'>fun</span>, colour = <span class='st'>"red"</span>, geom = <span class='kw'>geom</span>, width = <span class='fl'>0.2</span>, <span class='kw'>...</span>)
 }
-<span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>cyl</span>, <span class='no'>mpg</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
+<span class='kw'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>cyl</span>, <span class='kw'>mpg</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>()
 <span class='co'># The crossbar geom needs grouping to be specified when used with</span>
 <span class='co'># a continuous x axis.</span>
-<span class='no'>d</span> + <span class='fu'>stat_sum_df</span>(<span class='st'>"mean_cl_boot"</span>, <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>cyl</span>))</div><div class='img'><img src='stat_summary-13.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>d</span> + <span class='fu'>stat_sum_df</span>(<span class='st'>"mean_sdl"</span>, <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>cyl</span>))</div><div class='img'><img src='stat_summary-14.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>d</span> + <span class='fu'>stat_sum_df</span>(<span class='st'>"mean_sdl"</span>, <span class='kw'>fun.args</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>mult</span> <span class='kw'>=</span> <span class='fl'>1</span>), <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>cyl</span>))</div><div class='img'><img src='stat_summary-15.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>d</span> + <span class='fu'>stat_sum_df</span>(<span class='st'>"median_hilow"</span>, <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>cyl</span>))</div><div class='img'><img src='stat_summary-16.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>stat_sum_df</span>(<span class='st'>"mean_cl_boot"</span>, mapping = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(group = <span class='kw'>cyl</span>))</div><div class='img'><img src='stat_summary-13.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>stat_sum_df</span>(<span class='st'>"mean_sdl"</span>, mapping = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(group = <span class='kw'>cyl</span>))</div><div class='img'><img src='stat_summary-14.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>stat_sum_df</span>(<span class='st'>"mean_sdl"</span>, fun.args = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(mult = <span class='fl'>1</span>), mapping = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(group = <span class='kw'>cyl</span>))</div><div class='img'><img src='stat_summary-15.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>stat_sum_df</span>(<span class='st'>"median_hilow"</span>, mapping = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(group = <span class='kw'>cyl</span>))</div><div class='img'><img src='stat_summary-16.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># An example with highly skewed distributions:</span>
-<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"ggplot2movies"</span>)) {
+<span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"ggplot2movies"</span>)) {
 <span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>596</span>)
-<span class='no'>mov</span> <span class='kw'>&lt;-</span> <span class='no'>movies</span>[<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>movies</span>), <span class='fl'>1000</span>), ]
- <span class='no'>m2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mov</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='no'>rating</span>)), <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>votes</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
- <span class='no'>m2</span> <span class='kw'>&lt;-</span> <span class='no'>m2</span> + <span class='fu'>stat_summary</span>(<span class='kw'>fun.data</span> <span class='kw'>=</span> <span class='st'>"mean_cl_boot"</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"crossbar"</span>,
-                         <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.3</span>) + <span class='fu'><a href='labs.html'>xlab</a></span>(<span class='st'>"rating"</span>)
-<span class='no'>m2</span>
+<span class='kw'>mov</span> <span class='op'>&lt;-</span> <span class='kw'>movies</span>[<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='kw'>movies</span>), <span class='fl'>1000</span>), ]
+ <span class='kw'>m2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mov</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(x = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='kw'>rating</span>)), y = <span class='kw'>votes</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>()
+ <span class='kw'>m2</span> <span class='op'>&lt;-</span> <span class='kw'>m2</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/stat_summary.html'>stat_summary</a></span>(fun.data = <span class='st'>"mean_cl_boot"</span>, geom = <span class='st'>"crossbar"</span>,
+                         colour = <span class='st'>"red"</span>, width = <span class='fl'>0.3</span>) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>xlab</a></span>(<span class='st'>"rating"</span>)
+<span class='kw'>m2</span>
 <span class='co'># Notice how the overplotting skews off visual perception of the mean</span>
 <span class='co'># supplementing the raw data with summary statistics is _very_ important</span>
 
@@ -463,12 +463,12 @@ display summarised data</p></div>
 
 <span class='co'># Transforming the scale means the data are transformed</span>
 <span class='co'># first, after which statistics are computed:</span>
-<span class='no'>m2</span> + <span class='fu'><a href='scale_continuous.html'>scale_y_log10</a></span>()
+<span class='kw'>m2</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_log10</a></span>()
 <span class='co'># Transforming the coordinate system occurs after the</span>
 <span class='co'># statistic has been computed. This means we're calculating the summary on the raw data</span>
 <span class='co'># and stretching the geoms onto the log scale.  Compare the widths of the</span>
 <span class='co'># standard errors.</span>
-<span class='no'>m2</span> + <span class='fu'><a href='coord_trans.html'>coord_trans</a></span>(<span class='kw'>y</span><span class='kw'>=</span><span class='st'>"log10"</span>)
+<span class='kw'>m2</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_trans.html'>coord_trans</a></span>(y=<span class='st'>"log10"</span>)
 }</div><div class='img'><img src='stat_summary-17.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

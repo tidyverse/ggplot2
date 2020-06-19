@@ -105,7 +105,7 @@ line separated with commas, or each on their own line." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.1.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.2.9000</span>
         </div>
       </div>
     </div>
@@ -214,15 +214,15 @@ such as <code>~first + second</code>) should be displayed on a single
 line separated with commas, or each on their own line.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>label_value</span>(<span class='no'>labels</span>, <span class='kw'>multi_line</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labellers.html'>label_value</a></span>(<span class='kw'>labels</span>, multi_line = <span class='fl'>TRUE</span>)
 
-<span class='fu'>label_both</span>(<span class='no'>labels</span>, <span class='kw'>multi_line</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>": "</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labellers.html'>label_both</a></span>(<span class='kw'>labels</span>, multi_line = <span class='fl'>TRUE</span>, sep = <span class='st'>": "</span>)
 
-<span class='fu'>label_context</span>(<span class='no'>labels</span>, <span class='kw'>multi_line</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>": "</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labellers.html'>label_context</a></span>(<span class='kw'>labels</span>, multi_line = <span class='fl'>TRUE</span>, sep = <span class='st'>": "</span>)
 
-<span class='fu'>label_parsed</span>(<span class='no'>labels</span>, <span class='kw'>multi_line</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labellers.html'>label_parsed</a></span>(<span class='kw'>labels</span>, multi_line = <span class='fl'>TRUE</span>)
 
-<span class='fu'>label_wrap_gen</span>(<span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>25</span>, <span class='kw'>multi_line</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labellers.html'>label_wrap_gen</a></span>(width = <span class='fl'>25</span>, multi_line = <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -250,15 +250,15 @@ on separate lines.</p></td>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>label_value()</code> only displays the value of a factor while
-<code>label_both()</code> displays both the variable name and the factor
-value. <code>label_context()</code> is context-dependent and uses
-<code>label_value()</code> for single factor faceting and
-<code>label_both()</code> when multiple factors are
-involved. <code>label_wrap_gen()</code> uses <code><a href='https://rdrr.io/r/base/strwrap.html'>base::strwrap()</a></code>
+    <p><code><a href='https://ggplot2.tidyverse.org/reference/labellers.html'>label_value()</a></code> only displays the value of a factor while
+<code><a href='https://ggplot2.tidyverse.org/reference/labellers.html'>label_both()</a></code> displays both the variable name and the factor
+value. <code><a href='https://ggplot2.tidyverse.org/reference/labellers.html'>label_context()</a></code> is context-dependent and uses
+<code><a href='https://ggplot2.tidyverse.org/reference/labellers.html'>label_value()</a></code> for single factor faceting and
+<code><a href='https://ggplot2.tidyverse.org/reference/labellers.html'>label_both()</a></code> when multiple factors are
+involved. <code><a href='https://ggplot2.tidyverse.org/reference/labellers.html'>label_wrap_gen()</a></code> uses <code><a href='https://rdrr.io/r/base/strwrap.html'>base::strwrap()</a></code>
 for line wrapping.</p>
-<p><code>label_parsed()</code> interprets the labels as plotmath
-expressions. <code><a href='label_bquote.html'>label_bquote()</a></code> offers a more flexible
+<p><code><a href='https://ggplot2.tidyverse.org/reference/labellers.html'>label_parsed()</a></code> interprets the labels as plotmath
+expressions. <code><a href='https://ggplot2.tidyverse.org/reference/label_bquote.html'>label_bquote()</a></code> offers a more flexible
 way of constructing plotmath expressions. See examples and
 <code><a href='https://rdrr.io/r/base/bquote.html'>bquote()</a></code> for details on the syntax of the
 argument.</p>
@@ -269,7 +269,7 @@ argument.</p>
 
 <p>Note that an easy way to write a labeller function is to
 transform a function operating on character vectors with
-<code><a href='as_labeller.html'>as_labeller()</a></code>.</p>
+<code><a href='https://ggplot2.tidyverse.org/reference/as_labeller.html'>as_labeller()</a></code>.</p>
 <p>A labeller function accepts a data frame of labels (character
 vectors) containing one column for each factor. Multiple factors
 occur with formula of the type <code>~first + second</code>.</p>
@@ -288,31 +288,31 @@ vector, and so on.</p>
 attribute of the incoming data frame of labels. The value of this
 attribute reflects the kind of strips your labeller is dealing
 with: <code>"cols"</code> for columns and <code>"rows"</code> for rows. Note
-that <code><a href='facet_wrap.html'>facet_wrap()</a></code> has columns by default and rows
+that <code><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap()</a></code> has columns by default and rows
 when the strips are switched with the <code>switch</code> option. The
 <code>facet</code> attribute also provides metadata on the labels. It
 takes the values <code>"grid"</code> or <code>"wrap"</code>.</p>
-<p>For compatibility with <code><a href='labeller.html'>labeller()</a></code>, each labeller
+<p>For compatibility with <code><a href='https://ggplot2.tidyverse.org/reference/labeller.html'>labeller()</a></code>, each labeller
 function must have the <code>labeller</code> S3 class.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='labeller.html'>labeller()</a></code>, <code><a href='as_labeller.html'>as_labeller()</a></code>,
-<code><a href='label_bquote.html'>label_bquote()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='https://ggplot2.tidyverse.org/reference/labeller.html'>labeller()</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/as_labeller.html'>as_labeller()</a></code>,
+<code><a href='https://ggplot2.tidyverse.org/reference/label_bquote.html'>label_bquote()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>mtcars</span>$<span class='no'>cyl2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>mtcars</span>$<span class='no'>cyl</span>, <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"alpha"</span>, <span class='st'>"beta"</span>, <span class='st'>"gamma"</span>))
-<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>wt</span>, <span class='no'>mpg</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
+    <pre class="examples"><div class='input'><span class='kw'>mtcars</span><span class='op'>$</span><span class='kw'>cyl2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>mtcars</span><span class='op'>$</span><span class='kw'>cyl</span>, labels = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"alpha"</span>, <span class='st'>"beta"</span>, <span class='st'>"gamma"</span>))
+<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>wt</span>, <span class='kw'>mpg</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>()
 
 <span class='co'># The default is label_value</span>
-<span class='no'>p</span> + <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='no'>.</span> ~ <span class='no'>cyl</span>, <span class='kw'>labeller</span> <span class='kw'>=</span> <span class='no'>label_value</span>)</div><div class='img'><img src='labellers-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span>(<span class='kw'>.</span> <span class='op'>~</span> <span class='kw'>cyl</span>, labeller = <span class='kw'>label_value</span>)</div><div class='img'><img src='labellers-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># \donttest{</span>
 <span class='co'># Displaying both the values and the variables</span>
-<span class='no'>p</span> + <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='no'>.</span> ~ <span class='no'>cyl</span>, <span class='kw'>labeller</span> <span class='kw'>=</span> <span class='no'>label_both</span>)</div><div class='img'><img src='labellers-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span>(<span class='kw'>.</span> <span class='op'>~</span> <span class='kw'>cyl</span>, labeller = <span class='kw'>label_both</span>)</div><div class='img'><img src='labellers-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Displaying only the values or both the values and variables</span>
 <span class='co'># depending on whether multiple factors are facetted over</span>
-<span class='no'>p</span> + <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='no'>am</span> ~ <span class='no'>vs</span>+<span class='no'>cyl</span>, <span class='kw'>labeller</span> <span class='kw'>=</span> <span class='no'>label_context</span>)</div><div class='img'><img src='labellers-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span>(<span class='kw'>am</span> <span class='op'>~</span> <span class='kw'>vs</span><span class='op'>+</span><span class='kw'>cyl</span>, labeller = <span class='kw'>label_context</span>)</div><div class='img'><img src='labellers-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Interpreting the labels as plotmath expressions</span>
-<span class='no'>p</span> + <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='no'>.</span> ~ <span class='no'>cyl2</span>)</div><div class='img'><img src='labellers-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='no'>.</span> ~ <span class='no'>cyl2</span>, <span class='kw'>labeller</span> <span class='kw'>=</span> <span class='no'>label_parsed</span>)</div><div class='img'><img src='labellers-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span></div></pre>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span>(<span class='kw'>.</span> <span class='op'>~</span> <span class='kw'>cyl2</span>)</div><div class='img'><img src='labellers-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span>(<span class='kw'>.</span> <span class='op'>~</span> <span class='kw'>cyl2</span>, labeller = <span class='kw'>label_parsed</span>)</div><div class='img'><img src='labellers-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

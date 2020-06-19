@@ -102,7 +102,7 @@ for plotting with ggplot2." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.1.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.2.9000</span>
         </div>
       </div>
     </div>
@@ -208,7 +208,7 @@ for plotting with ggplot2." />
 for plotting with ggplot2.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>map_data</span>(<span class='no'>map</span>, <span class='kw'>region</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>exact</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/map_data.html'>map_data</a></span>(<span class='kw'>map</span>, region = <span class='st'>"."</span>, exact = <span class='fl'>FALSE</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -240,22 +240,22 @@ for more details.</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"maps"</span>)) {
-<span class='no'>states</span> <span class='kw'>&lt;-</span> <span class='fu'>map_data</span>(<span class='st'>"state"</span>)
-<span class='no'>arrests</span> <span class='kw'>&lt;-</span> <span class='no'>USArrests</span>
-<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>arrests</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/chartr.html'>tolower</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>arrests</span>))
-<span class='no'>arrests</span>$<span class='no'>region</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/chartr.html'>tolower</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='no'>USArrests</span>))
+    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"maps"</span>)) {
+<span class='kw'>states</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/map_data.html'>map_data</a></span>(<span class='st'>"state"</span>)
+<span class='kw'>arrests</span> <span class='op'>&lt;-</span> <span class='kw'>USArrests</span>
+<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='kw'>arrests</span>) <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/chartr.html'>tolower</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='kw'>arrests</span>))
+<span class='kw'>arrests</span><span class='op'>$</span><span class='kw'>region</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/chartr.html'>tolower</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='kw'>USArrests</span>))
 
-<span class='no'>choro</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/merge.html'>merge</a></span>(<span class='no'>states</span>, <span class='no'>arrests</span>, <span class='kw'>sort</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"region"</span>)
-<span class='no'>choro</span> <span class='kw'>&lt;-</span> <span class='no'>choro</span>[<span class='fu'><a href='https://rdrr.io/r/base/order.html'>order</a></span>(<span class='no'>choro</span>$<span class='no'>order</span>), ]
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>choro</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>long</span>, <span class='no'>lat</span>)) +
-  <span class='fu'><a href='geom_polygon.html'>geom_polygon</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>group</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>assault</span>)) +
-  <span class='fu'><a href='coord_map.html'>coord_map</a></span>(<span class='st'>"albers"</span>,  <span class='kw'>at0</span> <span class='kw'>=</span> <span class='fl'>45.5</span>, <span class='kw'>lat1</span> <span class='kw'>=</span> <span class='fl'>29.5</span>)
+<span class='kw'>choro</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/merge.html'>merge</a></span>(<span class='kw'>states</span>, <span class='kw'>arrests</span>, sort = <span class='fl'>FALSE</span>, by = <span class='st'>"region"</span>)
+<span class='kw'>choro</span> <span class='op'>&lt;-</span> <span class='kw'>choro</span>[<span class='fu'><a href='https://rdrr.io/r/base/order.html'>order</a></span>(<span class='kw'>choro</span><span class='op'>$</span><span class='kw'>order</span>), ]
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>choro</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>long</span>, <span class='kw'>lat</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_polygon.html'>geom_polygon</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(group = <span class='kw'>group</span>, fill = <span class='kw'>assault</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_map.html'>coord_map</a></span>(<span class='st'>"albers"</span>,  at0 = <span class='fl'>45.5</span>, lat1 = <span class='fl'>29.5</span>)
 }</div><div class='img'><img src='map_data-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"maps"</span>)) {
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>choro</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>long</span>, <span class='no'>lat</span>)) +
-  <span class='fu'><a href='geom_polygon.html'>geom_polygon</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>group</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>assault</span> / <span class='no'>murder</span>)) +
-  <span class='fu'><a href='coord_map.html'>coord_map</a></span>(<span class='st'>"albers"</span>,  <span class='kw'>at0</span> <span class='kw'>=</span> <span class='fl'>45.5</span>, <span class='kw'>lat1</span> <span class='kw'>=</span> <span class='fl'>29.5</span>)
+<span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"maps"</span>)) {
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>choro</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>long</span>, <span class='kw'>lat</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_polygon.html'>geom_polygon</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(group = <span class='kw'>group</span>, fill = <span class='kw'>assault</span> <span class='op'>/</span> <span class='kw'>murder</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_map.html'>coord_map</a></span>(<span class='st'>"albers"</span>,  at0 = <span class='fl'>45.5</span>, lat1 = <span class='fl'>29.5</span>)
 }</div><div class='img'><img src='map_data-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

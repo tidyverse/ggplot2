@@ -1,12 +1,8 @@
 pandoc: 2.7.3
 pkgdown: 1.5.1.9000
-pkgdown_sha: e3235d58b2c539f6aa34a0be88363c6998c9d5ca
-articles:
-  extending-ggplot2: extending-ggplot2.html
-  ggplot2-in-packages: ggplot2-in-packages.html
-  ggplot2-specs: ggplot2-specs.html
-  profiling: profiling.html
-last_built: 2020-06-12T08:21Z
+pkgdown_sha: caf7cc74e008e8d0d6e53eeda93cd3cad3545bf2
+articles: []
+last_built: 2020-06-19T13:36Z
 urls:
   reference: https://ggplot2.tidyverse.org/reference
   article: https://ggplot2.tidyverse.org/articles

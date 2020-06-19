@@ -107,7 +107,7 @@ For text and labels, you can use geom_sf_text() and geom_sf_label()." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.1.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.2.9000</span>
         </div>
       </div>
     </div>
@@ -210,81 +210,81 @@ For text and labels, you can use geom_sf_text() and geom_sf_label()." />
 
     <div class="ref-description">
     <p>This set of geom, stat, and coord are used to visualise simple feature (sf)
-objects. For simple plots, you will only need <code>geom_sf()</code> as it
-uses <code>stat_sf()</code> and adds <code>coord_sf()</code> for you. <code>geom_sf()</code> is
+objects. For simple plots, you will only need <code><a href='https://ggplot2.tidyverse.org/reference/ggsf.html'>geom_sf()</a></code> as it
+uses <code><a href='https://ggplot2.tidyverse.org/reference/ggsf.html'>stat_sf()</a></code> and adds <code><a href='https://ggplot2.tidyverse.org/reference/ggsf.html'>coord_sf()</a></code> for you. <code><a href='https://ggplot2.tidyverse.org/reference/ggsf.html'>geom_sf()</a></code> is
 an unusual geom because it will draw different geometric objects depending
 on what simple features are present in the data: you can get points, lines,
 or polygons.
-For text and labels, you can use <code>geom_sf_text()</code> and <code>geom_sf_label()</code>.</p>
+For text and labels, you can use <code><a href='https://ggplot2.tidyverse.org/reference/ggsf.html'>geom_sf_text()</a></code> and <code><a href='https://ggplot2.tidyverse.org/reference/ggsf.html'>geom_sf_label()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>coord_sf</span>(
-  <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>expand</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>crs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>datum</span> <span class='kw'>=</span> <span class='kw pkg'>sf</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_crs.html'>st_crs</a></span>(<span class='fl'>4326</span>),
-  <span class='kw'>label_graticule</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
-  <span class='kw'>label_axes</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
-  <span class='kw'>ndiscr</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>default</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>clip</span> <span class='kw'>=</span> <span class='st'>"on"</span>
+    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggsf.html'>coord_sf</a></span>(
+  xlim = <span class='kw'>NULL</span>,
+  ylim = <span class='kw'>NULL</span>,
+  expand = <span class='fl'>TRUE</span>,
+  crs = <span class='kw'>NULL</span>,
+  datum = <span class='kw'>sf</span>::<span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_crs.html'>st_crs</a></span>(<span class='fl'>4326</span>),
+  label_graticule = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(),
+  label_axes = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(),
+  ndiscr = <span class='fl'>100</span>,
+  default = <span class='fl'>FALSE</span>,
+  clip = <span class='st'>"on"</span>
 )
 
-<span class='fu'>geom_sf</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='fu'><a href='aes.html'>aes</a></span>(),
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"sf"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggsf.html'>geom_sf</a></span>(
+  mapping = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(),
+  data = <span class='kw'>NULL</span>,
+  stat = <span class='st'>"sf"</span>,
+  position = <span class='st'>"identity"</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>,
+  <span class='kw'>...</span>
 )
 
-<span class='fu'>geom_sf_label</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='fu'><a href='aes.html'>aes</a></span>(),
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"sf_coordinates"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>parse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>nudge_x</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>nudge_y</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>label.padding</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>0.25</span>, <span class='st'>"lines"</span>),
-  <span class='kw'>label.r</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>0.15</span>, <span class='st'>"lines"</span>),
-  <span class='kw'>label.size</span> <span class='kw'>=</span> <span class='fl'>0.25</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>fun.geometry</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggsf.html'>geom_sf_label</a></span>(
+  mapping = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(),
+  data = <span class='kw'>NULL</span>,
+  stat = <span class='st'>"sf_coordinates"</span>,
+  position = <span class='st'>"identity"</span>,
+  <span class='kw'>...</span>,
+  parse = <span class='fl'>FALSE</span>,
+  nudge_x = <span class='fl'>0</span>,
+  nudge_y = <span class='fl'>0</span>,
+  label.padding = <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>0.25</span>, <span class='st'>"lines"</span>),
+  label.r = <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>0.15</span>, <span class='st'>"lines"</span>),
+  label.size = <span class='fl'>0.25</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>,
+  fun.geometry = <span class='kw'>NULL</span>
 )
 
-<span class='fu'>geom_sf_text</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='fu'><a href='aes.html'>aes</a></span>(),
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"sf_coordinates"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>parse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>nudge_x</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>nudge_y</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>check_overlap</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>fun.geometry</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggsf.html'>geom_sf_text</a></span>(
+  mapping = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(),
+  data = <span class='kw'>NULL</span>,
+  stat = <span class='st'>"sf_coordinates"</span>,
+  position = <span class='st'>"identity"</span>,
+  <span class='kw'>...</span>,
+  parse = <span class='fl'>FALSE</span>,
+  nudge_x = <span class='fl'>0</span>,
+  nudge_y = <span class='fl'>0</span>,
+  check_overlap = <span class='fl'>FALSE</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>,
+  fun.geometry = <span class='kw'>NULL</span>
 )
 
-<span class='fu'>stat_sf</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"rect"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggsf.html'>stat_sf</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  geom = <span class='st'>"rect"</span>,
+  position = <span class='st'>"identity"</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>,
+  <span class='kw'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -366,8 +366,8 @@ legend, the plot title, or the plot margins.</p></td>
     </tr>
     <tr>
       <th>mapping</th>
-      <td><p>Set of aesthetic mappings created by <code><a href='aes.html'>aes()</a></code> or
-<code><a href='aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
+      <td><p>Set of aesthetic mappings created by <code><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes()</a></code> or
+<code><a href='https://ggplot2.tidyverse.org/reference/aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
     </tr>
@@ -376,10 +376,10 @@ plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
       <td><p>The data to be displayed in this layer. There are three
 options:</p>
 <p>If <code>NULL</code>, the default, the data is inherited from the plot
-data as specified in the call to <code><a href='ggplot.html'>ggplot()</a></code>.</p>
+data as specified in the call to <code><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot()</a></code>.</p>
 <p>A <code>data.frame</code>, or other object, will override the plot
 data. All objects will be fortified to produce a data frame. See
-<code><a href='fortify.html'>fortify()</a></code> for which variables will be created.</p>
+<code><a href='https://ggplot2.tidyverse.org/reference/fortify.html'>fortify()</a></code> for which variables will be created.</p>
 <p>A <code>function</code> will be called with a single argument,
 the plot data. The return value must be a <code>data.frame</code>, and
 will be used as the layer data. A <code>function</code> can be created
@@ -413,11 +413,11 @@ override the default legend.</p></td>
       <td><p>If <code>FALSE</code>, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. <code><a href='borders.html'>borders()</a></code>.</p></td>
+the default plot specification, e.g. <code><a href='https://ggplot2.tidyverse.org/reference/borders.html'>borders()</a></code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Other arguments passed on to <code><a href='layer.html'>layer()</a></code>. These are
+      <td><p>Other arguments passed on to <code><a href='https://ggplot2.tidyverse.org/reference/layer.html'>layer()</a></code>. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 <code>colour = "red"</code> or <code>size = 3</code>. They may also be parameters
 to the paired geom/stat.</p></td>
@@ -464,7 +464,7 @@ when you really care about the exact locations.</p></td>
       <td><p>If <code>TRUE</code>, text that overlaps previous text in the
 same layer will not be plotted. <code>check_overlap</code> happens at draw time and in
 the order of the data. Therefore data should be arranged by the label
-column before calling <code><a href='geom_text.html'>geom_label()</a></code> or <code><a href='geom_text.html'>geom_text()</a></code>.</p></td>
+column before calling <code><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_label()</a></code> or <code><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_text()</a></code>.</p></td>
     </tr>
     <tr>
       <th>geom</th>
@@ -476,14 +476,14 @@ column before calling <code><a href='geom_text.html'>geom_label()</a></code> or 
 
     
 
-<p><code>geom_sf()</code> uses a unique aesthetic: <code>geometry</code>, giving an
+<p><code><a href='https://ggplot2.tidyverse.org/reference/ggsf.html'>geom_sf()</a></code> uses a unique aesthetic: <code>geometry</code>, giving an
 column of class <code>sfc</code> containing simple features data. There
 are three ways to supply the <code>geometry</code> aesthetic:</p><ul>
-<li><p>Do nothing: by default <code>geom_sf()</code> assumes it is stored in
+<li><p>Do nothing: by default <code><a href='https://ggplot2.tidyverse.org/reference/ggsf.html'>geom_sf()</a></code> assumes it is stored in
 the <code>geometry</code> column.</p></li>
 <li><p>Explicitly pass an <code>sf</code> object to the <code>data</code> argument.
 This will use the primary geometry column, no matter what it's called.</p></li>
-<li><p>Supply your own using <code><a href='aes.html'>aes(geometry = my_column)</a></code></p></li>
+<li><p>Supply your own using <code><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes(geometry = my_column)</a></code></p></li>
 </ul>
 
 <p>Unlike other aesthetics, <code>geometry</code> will never be inherited from
@@ -492,56 +492,56 @@ the plot.</p>
 
     
 
-<p><code>coord_sf()</code> ensures that all layers use a common CRS. You can
-either specify it using the <code>CRS</code> param, or <code>coord_sf()</code> will
+<p><code><a href='https://ggplot2.tidyverse.org/reference/ggsf.html'>coord_sf()</a></code> ensures that all layers use a common CRS. You can
+either specify it using the <code>CRS</code> param, or <code><a href='https://ggplot2.tidyverse.org/reference/ggsf.html'>coord_sf()</a></code> will
 take it from the first layer that defines a CRS.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='stat_sf_coordinates.html'>stat_sf_coordinates()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='https://ggplot2.tidyverse.org/reference/stat_sf_coordinates.html'>stat_sf_coordinates()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"sf"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
-<span class='no'>nc</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>sf</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_read.html'>st_read</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"shape/nc.shp"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"sf"</span>), <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>nc</span>) +
-  <span class='fu'>geom_sf</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>AREA</span>))
+    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"sf"</span>, quietly = <span class='fl'>TRUE</span>)) {
+<span class='kw'>nc</span> <span class='op'>&lt;-</span> <span class='kw'>sf</span>::<span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_read.html'>st_read</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"shape/nc.shp"</span>, package = <span class='st'>"sf"</span>), quiet = <span class='fl'>TRUE</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>nc</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggsf.html'>geom_sf</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(fill = <span class='kw'>AREA</span>))
 
 <span class='co'># If not supplied, coord_sf() will take the CRS from the first layer</span>
 <span class='co'># and automatically transform all other layers to use that CRS. This</span>
 <span class='co'># ensures that all data will correctly line up</span>
-<span class='no'>nc_3857</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>sf</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_transform.html'>st_transform</a></span>(<span class='no'>nc</span>, <span class='fl'>3857</span>)
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>() +
-  <span class='fu'>geom_sf</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>nc</span>) +
-  <span class='fu'>geom_sf</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>nc_3857</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>)
+<span class='kw'>nc_3857</span> <span class='op'>&lt;-</span> <span class='kw'>sf</span>::<span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_transform.html'>st_transform</a></span>(<span class='kw'>nc</span>, <span class='fl'>3857</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>() <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggsf.html'>geom_sf</a></span>(data = <span class='kw'>nc</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggsf.html'>geom_sf</a></span>(data = <span class='kw'>nc_3857</span>, colour = <span class='st'>"red"</span>, fill = <span class='fl'>NA</span>)
 
 <span class='co'># Unfortunately if you plot other types of feature you'll need to use</span>
 <span class='co'># show.legend to tell ggplot2 what type of legend to use</span>
-<span class='no'>nc_3857</span>$<span class='no'>mid</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>sf</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sf/man/geos_unary.html'>st_centroid</a></span>(<span class='no'>nc_3857</span>$<span class='no'>geometry</span>)
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>nc_3857</span>) +
-  <span class='fu'>geom_sf</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"white"</span>) +
-  <span class='fu'>geom_sf</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>geometry</span> <span class='kw'>=</span> <span class='no'>mid</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='no'>AREA</span>), <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='st'>"point"</span>)
+<span class='kw'>nc_3857</span><span class='op'>$</span><span class='kw'>mid</span> <span class='op'>&lt;-</span> <span class='kw'>sf</span>::<span class='fu'><a href='https://rdrr.io/pkg/sf/man/geos_unary.html'>st_centroid</a></span>(<span class='kw'>nc_3857</span><span class='op'>$</span><span class='kw'>geometry</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>nc_3857</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggsf.html'>geom_sf</a></span>(colour = <span class='st'>"white"</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggsf.html'>geom_sf</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(geometry = <span class='kw'>mid</span>, size = <span class='kw'>AREA</span>), show.legend = <span class='st'>"point"</span>)
 
 <span class='co'># You can also use layers with x and y aesthetics: these are</span>
 <span class='co'># assumed to already be in the common CRS.</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>nc</span>) +
-  <span class='fu'>geom_sf</span>() +
-  <span class='fu'><a href='annotate.html'>annotate</a></span>(<span class='st'>"point"</span>, <span class='kw'>x</span> <span class='kw'>=</span> -<span class='fl'>80</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>35</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>4</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>nc</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggsf.html'>geom_sf</a></span>() <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotate.html'>annotate</a></span>(<span class='st'>"point"</span>, x = <span class='op'>-</span><span class='fl'>80</span>, y = <span class='fl'>35</span>, colour = <span class='st'>"red"</span>, size = <span class='fl'>4</span>)
 
 <span class='co'># Thanks to the power of sf, a geom_sf nicely handles varying projections</span>
 <span class='co'># setting the aspect ratio correctly.</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>maps</span>)
-<span class='no'>world1</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>sf</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_as_sf.html'>st_as_sf</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/maps/man/map.html'>map</a></span>(<span class='st'>'world'</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>() + <span class='fu'>geom_sf</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>world1</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'>maps</span>)
+<span class='kw'>world1</span> <span class='op'>&lt;-</span> <span class='kw'>sf</span>::<span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_as_sf.html'>st_as_sf</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/maps/man/map.html'>map</a></span>(<span class='st'>'world'</span>, plot = <span class='fl'>FALSE</span>, fill = <span class='fl'>TRUE</span>))
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>() <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggsf.html'>geom_sf</a></span>(data = <span class='kw'>world1</span>)
 
-<span class='no'>world2</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>sf</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_transform.html'>st_transform</a></span>(
-  <span class='no'>world1</span>,
+<span class='kw'>world2</span> <span class='op'>&lt;-</span> <span class='kw'>sf</span>::<span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_transform.html'>st_transform</a></span>(
+  <span class='kw'>world1</span>,
   <span class='st'>"+proj=laea +y_0=0 +lon_0=155 +lat_0=-90 +ellps=WGS84 +no_defs"</span>
 )
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>() + <span class='fu'>geom_sf</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>world2</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>() <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggsf.html'>geom_sf</a></span>(data = <span class='kw'>world2</span>)
 
 <span class='co'># To add labels, use geom_sf_label().</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>nc_3857</span>[<span class='fl'>1</span>:<span class='fl'>3</span>, ]) +
-   <span class='fu'>geom_sf</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>AREA</span>)) +
-   <span class='fu'>geom_sf_label</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>label</span> <span class='kw'>=</span> <span class='no'>NAME</span>))
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>nc_3857</span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, ]) <span class='op'>+</span>
+   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggsf.html'>geom_sf</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(fill = <span class='kw'>AREA</span>)) <span class='op'>+</span>
+   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggsf.html'>geom_sf_label</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(label = <span class='kw'>NAME</span>))
 }</div><div class='img'><img src='ggsf-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

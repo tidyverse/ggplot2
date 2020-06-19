@@ -110,7 +110,7 @@ faceting groups." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.1.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.2.9000</span>
         </div>
       </div>
     </div>
@@ -212,7 +212,7 @@ faceting groups." />
     </div>
 
     <div class="ref-description">
-    <p>Just like <code><a href='aes.html'>aes()</a></code>, <code>vars()</code> is a <a href='https://rlang.r-lib.org/reference/nse-defuse.html'>quoting function</a>
+    <p>Just like <code><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes()</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/vars.html'>vars()</a></code> is a <a href='https://rlang.r-lib.org/reference/nse-defuse.html'>quoting function</a>
 that takes inputs to be evaluated in the context of a dataset.
 These inputs can be:</p><ul>
 <li><p>variable names</p></li>
@@ -224,7 +224,7 @@ represents or the results of the expressions) are used to form
 faceting groups.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>vars</span>(<span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/vars.html'>vars</a></span>(<span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -233,44 +233,44 @@ faceting groups.</p>
       <th>...</th>
       <td><p>Variables or expressions automatically quoted. These are
 evaluated in the context of the data to form faceting groups. Can
-be named (the names are passed to a <a href='labellers.html'>labeller</a>).</p></td>
+be named (the names are passed to a <a href='https://ggplot2.tidyverse.org/reference/labellers.html'>labeller</a>).</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='aes.html'>aes()</a></code>, <code><a href='facet_wrap.html'>facet_wrap()</a></code>, <code><a href='facet_grid.html'>facet_grid()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes()</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap()</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>wt</span>, <span class='no'>disp</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
-<span class='no'>p</span> + <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span>(<span class='fu'>vars</span>(<span class='no'>vs</span>, <span class='no'>am</span>))</div><div class='img'><img src='vars-1.png' alt='' width='700' height='433' /></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>wt</span>, <span class='kw'>disp</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>()
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/vars.html'>vars</a></span>(<span class='kw'>vs</span>, <span class='kw'>am</span>))</div><div class='img'><img src='vars-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># vars() makes it easy to pass variables from wrapper functions:</span>
-<span class='no'>wrap_by</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>...</span>) {
-  <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span>(<span class='fu'>vars</span>(<span class='no'>...</span>), <span class='kw'>labeller</span> <span class='kw'>=</span> <span class='no'>label_both</span>)
+<span class='kw'>wrap_by</span> <span class='op'>&lt;-</span> <span class='fu'>function</span>(<span class='kw'>...</span>) {
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/vars.html'>vars</a></span>(<span class='kw'>...</span>), labeller = <span class='kw'>label_both</span>)
 }
-<span class='no'>p</span> + <span class='fu'>wrap_by</span>(<span class='no'>vs</span>)</div><div class='img'><img src='vars-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>wrap_by</span>(<span class='no'>vs</span>, <span class='no'>am</span>)</div><div class='img'><img src='vars-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>wrap_by</span>(<span class='kw'>vs</span>)</div><div class='img'><img src='vars-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>wrap_by</span>(<span class='kw'>vs</span>, <span class='kw'>am</span>)</div><div class='img'><img src='vars-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can also supply expressions to vars(). In this case it's often a</span>
 <span class='co'># good idea to supply a name as well:</span>
-<span class='no'>p</span> + <span class='fu'>wrap_by</span>(<span class='kw'>drat</span> <span class='kw'>=</span> <span class='fu'><a href='cut_interval.html'>cut_number</a></span>(<span class='no'>drat</span>, <span class='fl'>3</span>))</div><div class='img'><img src='vars-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>wrap_by</span>(drat = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/cut_interval.html'>cut_number</a></span>(<span class='kw'>drat</span>, <span class='fl'>3</span>))</div><div class='img'><img src='vars-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Let's create another function for cutting and wrapping a</span>
 <span class='co'># variable. This time it will take a named argument instead of dots,</span>
 <span class='co'># so we'll have to use the "enquote and unquote" pattern:</span>
-<span class='no'>wrap_cut</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>var</span>, <span class='no'>n</span> <span class='kw'>=</span> <span class='fl'>3</span>) {
+<span class='kw'>wrap_cut</span> <span class='op'>&lt;-</span> <span class='fu'>function</span>(<span class='kw'>var</span>, <span class='kw'>n</span> = <span class='fl'>3</span>) {
   <span class='co'># Let's enquote the named argument `var` to make it auto-quoting:</span>
-  <span class='no'>var</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tidyeval.html'>enquo</a></span>(<span class='no'>var</span>)
+  <span class='kw'>var</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/tidyeval.html'>enquo</a></span>(<span class='kw'>var</span>)
 
   <span class='co'># `quo_name()` will create a nice default name:</span>
-  <span class='no'>nm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tidyeval.html'>quo_name</a></span>(<span class='no'>var</span>)
+  <span class='kw'>nm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/tidyeval.html'>quo_name</a></span>(<span class='kw'>var</span>)
 
   <span class='co'># Now let's unquote everything at the right place. Note that we also</span>
   <span class='co'># unquote `n` just in case the data frame has a column named</span>
   <span class='co'># `n`. The latter would have precedence over our local variable</span>
   <span class='co'># because the data is always masking the environment.</span>
-  <span class='fu'>wrap_by</span>(!!<span class='no'>nm</span> <span class='kw'>:=</span> <span class='fu'><a href='cut_interval.html'>cut_number</a></span>(!!<span class='no'>var</span>, !!<span class='no'>n</span>))
+  <span class='fu'>wrap_by</span>(<span class='op'>!</span><span class='op'>!</span><span class='kw'>nm</span> <span class='op'>:=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/cut_interval.html'>cut_number</a></span>(<span class='op'>!</span><span class='op'>!</span><span class='kw'>var</span>, <span class='op'>!</span><span class='op'>!</span><span class='kw'>n</span>))
 }
 
 <span class='co'># Thanks to tidy eval idioms we now have another useful wrapper:</span>
-<span class='no'>p</span> + <span class='fu'>wrap_cut</span>(<span class='no'>drat</span>)</div><div class='img'><img src='vars-5.png' alt='' width='700' height='433' /></div></pre>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>wrap_cut</span>(<span class='kw'>drat</span>)</div><div class='img'><img src='vars-5.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
