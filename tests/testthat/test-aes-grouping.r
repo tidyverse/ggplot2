@@ -23,6 +23,12 @@ test_that("one group per combination of discrete vars", {
   expect_equal(groups(plot), 4)
 })
 
+test_that("no error for aes(groupS)", {
+  plot <- ggplot(df, aes(a, b, groupS=1)) + geom_point()
+  g <- ggplotGrob(plot)
+  expect_is(g, "grob")
+})
+
 test_that("label is not used as a grouping var", {
   plot <- ggplot(df, aes(x, x, label = a)) + geom_point()
   expect_equal(group(plot), rep(NO_GROUP, 4))
