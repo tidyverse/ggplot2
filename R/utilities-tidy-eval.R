@@ -49,5 +49,7 @@ NULL
 # superseded by `as_label()` and `as_name()`.
 
 #' @name tidyeval
+#' @keywords internal
+#' @aliases quo_name
 #' @export quo_name
 NULL
