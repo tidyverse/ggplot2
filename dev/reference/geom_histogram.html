@@ -386,7 +386,7 @@ different number of bins. You can also experiment modifying the <code>binwidth</
 <code>center</code> or <code>boundary</code> arguments. <code>binwidth</code> overrides <code>bins</code> so you should do
 one change at a time. You may need to look at a few options to uncover
 the full story behind your data.</p>
-<p>In addition to <code>geom_histogram</code>, you can create a histogram plot by using
+<p>In addition to <code><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram()</a></code>, you can create a histogram plot by using
 <code><a href='https://ggplot2.tidyverse.org/reference/scale_binned.html'>scale_x_binned()</a></code> with <code><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar()</a></code>. This method by default plots tick marks
 in between each bar.</p>
     <h2 class="hasAnchor" id="orientation"><a class="anchor" href="#orientation"></a>Orientation</h2>
@@ -425,8 +425,8 @@ x data, whereas <code><a href='https://ggplot2.tidyverse.org/reference/geom_hist
   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span>(bins = <span class='fl'>200</span>)</div><div class='img'><img src='geom_histogram-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Map values to y to flip the orientation</span>
 <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(y = <span class='kw'>carat</span>)) <span class='op'>+</span>
   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span>()</div><div class='output co'>#&gt; <span class='message'>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></div><div class='img'><img src='geom_histogram-4.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># For histograms with tick marks between each bin, use `geom_bar` with</span>
-<span class='co'># `scale_x_binned`.</span>
+<span class='co'># For histograms with tick marks between each bin, use `geom_bar()` with</span>
+<span class='co'># `scale_x_binned()`.</span>
 <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>carat</span>)) <span class='op'>+</span>
   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span>() <span class='op'>+</span>
   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_binned.html'>scale_x_binned</a></span>()</div><div class='img'><img src='geom_histogram-5.png' alt='' width='700' height='433' /></div><div class='input'>
