@@ -55,8 +55,8 @@ test_that("can use US spelling of colour", {
 })
 
 test_that("boxes with variable widths do not overlap", {
-  p <- ggplot(data = iris, aes(Species, Sepal.Length)) +
-    geom_boxplot(aes(colour = Sepal.Width < 3.2), varwidth = TRUE)
+  p <- ggplot(mpg, aes(factor(year), displ)) +
+    geom_boxplot(aes(colour = hwy < 30), varwidth = TRUE)
   d <- layer_data(p)[c("xmin", "xmax")]
   xid <- find_x_overlaps(d)
 
