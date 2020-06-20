@@ -26,14 +26,14 @@ e1 \%+replace\% e2
 \item{e1, e2}{Theme and element to combine}
 }
 \value{
-\code{theme_set}, \code{theme_update}, and \code{theme_replace}
+\code{theme_set()}, \code{theme_update()}, and \code{theme_replace()}
 invisibly return the previous theme so you can easily save it, then
 later restore it.
 }
 \description{
 The current/active theme (see \code{\link[=theme]{theme()}}) is automatically applied to every
-plot you draw. Use \code{theme_get} to get the current theme, and \code{theme_set} to
-completely override it. \code{theme_update} and \code{theme_replace} are shorthands for
+plot you draw. Use \code{theme_get()} to get the current theme, and \code{theme_set()} to
+completely override it. \code{theme_update()} and \code{theme_replace()} are shorthands for
 changing individual elements.
 }
 \section{Adding on to a theme}{
@@ -49,9 +49,9 @@ In contrast, \verb{\%+replace\%} replaces the entire element; any element of a
 theme not specified in e2 will not be present in the resulting theme (i.e.
 NULL). Thus this operator can be used to overwrite an entire theme.
 
-\code{theme_update} uses the \code{+} operator, so that any unspecified values in the
+\code{theme_update()} uses the \code{+} operator, so that any unspecified values in the
 theme element will default to the values they are set in the theme.
-\code{theme_replace} uses \verb{\%+replace\%} to completely replace the element, so any
+\code{theme_replace()} uses \verb{\%+replace\%} to completely replace the element, so any
 unspecified values will overwrite the current value in the theme with
 \code{NULL}.
 

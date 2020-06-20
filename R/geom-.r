@@ -3,7 +3,7 @@ NULL
 
 #' @section Geoms:
 #'
-#' All `geom_*` functions (like `geom_point`) return a layer that
+#' All `geom_*()` functions (like `geom_point()`) return a layer that
 #' contains a `Geom*` object (like `GeomPoint`). The `Geom*`
 #' object is responsible for rendering the data in the plot.
 #'

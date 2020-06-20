@@ -114,7 +114,7 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
 \item{geom, stat}{Use to override the default connection between
-\code{geom_boxplot} and \code{stat_boxplot}.}
+\code{geom_boxplot()} and \code{stat_boxplot()}.}
 
 \item{coef}{Length of the whiskers as multiple of IQR. Defaults to 1.5.}
 }

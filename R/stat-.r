@@ -1,6 +1,6 @@
 #' @section Stats:
 #'
-#' All `stat_*` functions (like `stat_bin`) return a layer that
+#' All `stat_*()` functions (like `stat_bin()`) return a layer that
 #' contains a `Stat*` object (like `StatBin`). The `Stat*`
 #' object is responsible for rendering the data in the plot.
 #'

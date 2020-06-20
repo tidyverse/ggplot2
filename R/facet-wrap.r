@@ -393,7 +393,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
 #'
 #' Cleans up the input to be an integer greater than or equal to one, or
 #' `NULL`. Intended to be used on the `nrow` and `ncol`
-#' arguments of `facet_wrap`.
+#' arguments of `facet_wrap()`.
 #' @param n Hopefully an integer greater than or equal to one, or `NULL`,
 #' though other inputs are handled.
 #' @return An integer greater than or equal to one, or `NULL`.
