@@ -41,7 +41,6 @@
 #' @md
 #' @name tidyeval
 #' @keywords internal
-#' @importFrom rlang expr enquo enquos sym syms .data := as_name as_label
 #' @aliases expr enquo enquos sym syms .data := as_name as_label
 #' @export expr enquo enquos sym syms .data := as_name as_label
 NULL
@@ -50,6 +49,5 @@ NULL
 # superseded by `as_label()` and `as_name()`.
 
 #' @name tidyeval
-#' @importFrom rlang quo_name
 #' @export quo_name
 NULL
