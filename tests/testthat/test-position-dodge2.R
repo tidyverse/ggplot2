@@ -74,9 +74,14 @@ test_that("padding argument controls space between elements", {
 })
 
 test_that("boxes in facetted plots keep the correct width", {
+  df <- data_frame(
+    value = 1:12,
+    group = rep(c("a", "b", "c"), each = 4L),
+    subgroup = rep(c("A", "B"), times = 6L)
+  )
 
-  p <- ggplot(mtcars, aes(x = factor(vs), y = mpg)) +
-    facet_wrap( ~ factor(cyl)) +
+  p <- ggplot(df, aes(subgroup, value)) +
+    facet_wrap( ~ group) +
     geom_boxplot()
 
   d <- layer_data(p)
