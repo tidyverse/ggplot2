@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* `qplot()` is now formally deprecated (@yutannihilation, #3956).
+
 # ggplot2 3.3.2
 This is a small release focusing on fixing regressions introduced in 3.3.1.
 
