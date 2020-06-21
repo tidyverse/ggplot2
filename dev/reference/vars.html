@@ -259,8 +259,8 @@ be named (the names are passed to a <a href='https://ggplot2.tidyverse.org/refer
   <span class='co'># Let's enquote the named argument `var` to make it auto-quoting:</span>
   <span class='kw'>var</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/tidyeval.html'>enquo</a></span>(<span class='kw'>var</span>)
 
-  <span class='co'># `quo_name()` will create a nice default name:</span>
-  <span class='kw'>nm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/tidyeval.html'>quo_name</a></span>(<span class='kw'>var</span>)
+  <span class='co'># `as_label()` will create a nice default name:</span>
+  <span class='kw'>nm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/tidyeval.html'>as_label</a></span>(<span class='kw'>var</span>)
 
   <span class='co'># Now let's unquote everything at the right place. Note that we also</span>
   <span class='co'># unquote `n` just in case the data frame has a column named</span>

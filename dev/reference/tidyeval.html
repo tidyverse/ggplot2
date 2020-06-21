@@ -70,6 +70,19 @@ expr() quotes a new expression locally. It
 is mostly useful to build new expressions around arguments
 captured with enquo() or enquos():
 expr(mean(!!enquo(arg), na.rm = TRUE)).
+as_name() transforms a quoted variable name
+into a string. Supplying something else than a quoted variable
+name is an error.
+That's unlike as_label() which also returns
+a single string but supports any kind of R object as input,
+including quoted function calls and vectors. Its purpose is to
+summarise that object into a single label. That label is often
+suitable as a default name.
+If you don't know what a quoted expression contains (for instance
+expressions captured with enquo() could be a variable
+name, a call to a function, or an unquoted constant), then use
+as_label(). If you know you have quoted a simple variable
+name, or would like to enforce this, use as_name().
 
 
 To learn more about tidy eval and how to use these tools, visit
@@ -236,6 +249,19 @@ expression, which is like a blueprint for the delayed computation.
 is mostly useful to build new expressions around arguments
 captured with <code><a href='https://ggplot2.tidyverse.org/reference/tidyeval.html'>enquo()</a></code> or <code><a href='https://ggplot2.tidyverse.org/reference/tidyeval.html'>enquos()</a></code>:
 <code><a href='https://ggplot2.tidyverse.org/reference/tidyeval.html'>expr(mean(!!enquo(arg), na.rm = TRUE))</a></code>.</p></li>
+<li><p><code><a href='https://rlang.r-lib.org/reference/as_name.html'>as_name</a>()</code> transforms a quoted variable name
+into a string. Supplying something else than a quoted variable
+name is an error.</p>
+<p>That's unlike <code><a href='https://rlang.r-lib.org/reference/as_label.html'>as_label</a>()</code> which also returns
+a single string but supports any kind of R object as input,
+including quoted function calls and vectors. Its purpose is to
+summarise that object into a single label. That label is often
+suitable as a default name.</p>
+<p>If you don't know what a quoted expression contains (for instance
+expressions captured with <code><a href='https://ggplot2.tidyverse.org/reference/tidyeval.html'>enquo()</a></code> could be a variable
+name, a call to a function, or an unquoted constant), then use
+<code><a href='https://ggplot2.tidyverse.org/reference/tidyeval.html'>as_label()</a></code>. If you know you have quoted a simple variable
+name, or would like to enforce this, use <code><a href='https://ggplot2.tidyverse.org/reference/tidyeval.html'>as_name()</a></code>.</p></li>
 </ul>
 
 <p>To learn more about tidy eval and how to use these tools, visit
