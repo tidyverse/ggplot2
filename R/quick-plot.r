@@ -89,10 +89,10 @@ qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
 
 
   if (is.null(xlab)) {
-    xlab <- quo_name(exprs$x)
+    xlab <- as_label(exprs$x)
   }
   if (is.null(ylab)) {
-    ylab <- quo_name(exprs$y)
+    ylab <- as_label(exprs$y)
   }
 
   if (missing(data)) {

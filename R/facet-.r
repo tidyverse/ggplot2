@@ -213,8 +213,8 @@ Facet <- ggproto("Facet", NULL,
 #'   # Let's enquote the named argument `var` to make it auto-quoting:
 #'   var <- enquo(var)
 #'
-#'   # `quo_name()` will create a nice default name:
-#'   nm <- quo_name(var)
+#'   # `as_label()` will create a nice default name:
+#'   nm <- as_label(var)
 #'
 #'   # Now let's unquote everything at the right place. Note that we also
 #'   # unquote `n` just in case the data frame has a column named
