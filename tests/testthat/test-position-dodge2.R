@@ -51,9 +51,11 @@ test_that("cols at the same x position are dodged", {
 })
 
 test_that("padding argument controls space between elements", {
-  p1 <- ggplot(mpg, aes(1, displ, fill = hwy < 30)) +
+  df <- data_frame(value = 1:3, group = c("a", "a", "b"))
+
+  p1 <- ggplot(df, aes(1, value, fill = group)) +
     geom_boxplot(position = position_dodge2(padding = 0))
-  p2 <- ggplot(mpg, aes(1, displ, fill = hwy < 30)) +
+  p2 <- ggplot(df, aes(1, value, fill = group)) +
     geom_boxplot(position = position_dodge2(padding = 0.1))
 
   d1 <- layer_data(p1)
