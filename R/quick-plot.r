@@ -1,11 +1,7 @@
 #' Quick plot
 #'
-#' `qplot()` is a shortcut designed to be familiar if you're used to base
-#' [plot()]. It's a convenient wrapper for creating a number of
-#' different types of plots using a consistent calling scheme. It's great
-#' for allowing you to produce plots quickly, but I highly recommend
-#' learning [ggplot()] as it makes it easier to create
-#' complex graphics.
+#' `qplot()` is now deprecated in order to encourage the users to
+#' learn [ggplot()] as it makes it easier to create complex graphics.
 #'
 #' @param x,y,... Aesthetics passed into each layer
 #' @param data Data frame to use (optional).  If not specified, will create
@@ -16,64 +12,30 @@
 #' @param margins See `facet_grid()`: display marginal facets?
 #' @param geom Character vector specifying geom(s) to draw. Defaults to
 #'  "point" if x and y are specified, and "histogram" if only x is specified.
-#' @param stat,position DEPRECATED.
 #' @param xlim,ylim X and y axis limits
 #' @param log Which variables to log transform ("x", "y", or "xy")
 #' @param main,xlab,ylab Character vector (or expression) giving plot title,
 #'   x axis label, and y axis label respectively.
 #' @param asp The y/x aspect ratio
 #' @export
-#' @examples
-#' # Use data from data.frame
-#' qplot(mpg, wt, data = mtcars)
-#' qplot(mpg, wt, data = mtcars, colour = cyl)
-#' qplot(mpg, wt, data = mtcars, size = cyl)
-#' qplot(mpg, wt, data = mtcars, facets = vs ~ am)
-#'
-#' \donttest{
-#' qplot(1:10, rnorm(10), colour = runif(10))
-#' qplot(1:10, letters[1:10])
-#' mod <- lm(mpg ~ wt, data = mtcars)
-#' qplot(resid(mod), fitted(mod))
-#'
-#' f <- function() {
-#'    a <- 1:10
-#'    b <- a ^ 2
-#'    qplot(a, b)
-#' }
-#' f()
-#'
-#' # To set aesthetics, wrap in I()
-#' qplot(mpg, wt, data = mtcars, colour = I("red"))
-#'
-#' # qplot will attempt to guess what geom you want depending on the input
-#' # both x and y supplied = scatterplot
-#' qplot(mpg, wt, data = mtcars)
-#' # just x supplied = histogram
-#' qplot(mpg, data = mtcars)
-#' # just y supplied = scatterplot, with x = seq_along(y)
-#' qplot(y = mpg, data = mtcars)
-#'
-#' # Use different geoms
-#' qplot(mpg, wt, data = mtcars, geom = "path")
-#' qplot(factor(cyl), wt, data = mtcars, geom = c("boxplot", "jitter"))
-#' qplot(mpg, data = mtcars, geom = "dotplot")
-#' }
 qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
                   geom = "auto", xlim = c(NA, NA),
                   ylim = c(NA, NA), log = "", main = NULL,
                   xlab = NULL, ylab = NULL,
-                  asp = NA, stat = NULL, position = NULL) {
+                  asp = NA) {
+  .Deprecated()
 
   caller_env <- parent.frame()
 
-  if (!missing(stat)) warn("`stat` is deprecated")
-  if (!missing(position)) warn("`position` is deprecated")
   if (!is.character(geom)) {
     abort("`geom` must be a character vector")
   }
 
   exprs <- enquos(x = x, y = y, ...)
+
+  if ("stat" %in% names(exprs)) abort("`stat` is now defunct")
+  if ("position" %in% names(exprs)) abort("`position` is now defunct")
+
   is_missing <- vapply(exprs, quo_is_missing, logical(1))
   # treat arguments as regular parameters if they are wrapped into I() or
   # if they don't have a name that is in the list of all aesthetics
