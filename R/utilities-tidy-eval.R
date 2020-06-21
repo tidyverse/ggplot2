@@ -45,11 +45,10 @@
 #' @export expr enquo enquos sym syms .data := as_name as_label
 NULL
 
-# For backward-compatibility, keep exporting `quo_name()` though it is
-# superseded by `as_label()` and `as_name()`.
+# For backward-compatibility, keep exporting the old ones
 
 #' @name tidyeval
 #' @keywords internal
-#' @aliases quo_name
-#' @export quo_name
+#' @aliases quo_name quo quos enexpr enexprs ensym ensyms
+#' @export quo_name quo quos enexpr enexprs ensym ensyms
 NULL

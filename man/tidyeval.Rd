@@ -12,6 +12,12 @@
 \alias{as_name}
 \alias{as_label}
 \alias{quo_name}
+\alias{quo}
+\alias{quos}
+\alias{enexpr}
+\alias{enexprs}
+\alias{ensym}
+\alias{ensyms}
 \title{Tidy eval helpers}
 \description{
 \itemize{
