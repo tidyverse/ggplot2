@@ -86,11 +86,11 @@ p + geom_errorbar(
 )
 
 # Box plots use position_dodge2 by default, and bars can use it too
-ggplot(data = iris, aes(Species, Sepal.Length)) +
-  geom_boxplot(aes(colour = Sepal.Width < 3.2))
+ggplot(mpg, aes(factor(year), displ)) +
+  geom_boxplot(aes(colour = hwy < 30))
 
-ggplot(data = iris, aes(Species, Sepal.Length)) +
-  geom_boxplot(aes(colour = Sepal.Width < 3.2), varwidth = TRUE)
+ggplot(mpg, aes(factor(year), displ)) +
+  geom_boxplot(aes(colour = hwy < 30), varwidth = TRUE)
 
 ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
   geom_bar(position = position_dodge2(preserve = "single"))
