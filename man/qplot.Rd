@@ -19,9 +19,7 @@ qplot(
   main = NULL,
   xlab = NULL,
   ylab = NULL,
-  asp = NA,
-  stat = NULL,
-  position = NULL
+  asp = NA
 )
 
 quickplot(
@@ -38,9 +36,7 @@ quickplot(
   main = NULL,
   xlab = NULL,
   ylab = NULL,
-  asp = NA,
-  stat = NULL,
-  position = NULL
+  asp = NA
 )
 }
 \arguments{
@@ -66,51 +62,8 @@ or two-sided}
 x axis label, and y axis label respectively.}
 
 \item{asp}{The y/x aspect ratio}
-
-\item{stat, position}{DEPRECATED.}
 }
 \description{
-\code{qplot()} is a shortcut designed to be familiar if you're used to base
-\code{\link[=plot]{plot()}}. It's a convenient wrapper for creating a number of
-different types of plots using a consistent calling scheme. It's great
-for allowing you to produce plots quickly, but I highly recommend
-learning \code{\link[=ggplot]{ggplot()}} as it makes it easier to create
-complex graphics.
-}
-\examples{
-# Use data from data.frame
-qplot(mpg, wt, data = mtcars)
-qplot(mpg, wt, data = mtcars, colour = cyl)
-qplot(mpg, wt, data = mtcars, size = cyl)
-qplot(mpg, wt, data = mtcars, facets = vs ~ am)
-
-\donttest{
-qplot(1:10, rnorm(10), colour = runif(10))
-qplot(1:10, letters[1:10])
-mod <- lm(mpg ~ wt, data = mtcars)
-qplot(resid(mod), fitted(mod))
-
-f <- function() {
-   a <- 1:10
-   b <- a ^ 2
-   qplot(a, b)
-}
-f()
-
-# To set aesthetics, wrap in I()
-qplot(mpg, wt, data = mtcars, colour = I("red"))
-
-# qplot will attempt to guess what geom you want depending on the input
-# both x and y supplied = scatterplot
-qplot(mpg, wt, data = mtcars)
-# just x supplied = histogram
-qplot(mpg, data = mtcars)
-# just y supplied = scatterplot, with x = seq_along(y)
-qplot(y = mpg, data = mtcars)
-
-# Use different geoms
-qplot(mpg, wt, data = mtcars, geom = "path")
-qplot(factor(cyl), wt, data = mtcars, geom = c("boxplot", "jitter"))
-qplot(mpg, data = mtcars, geom = "dotplot")
-}
+\code{qplot()} is now deprecated in order to encourage the users to
+learn \code{\link[=ggplot]{ggplot()}} as it makes it easier to create complex graphics.
 }
