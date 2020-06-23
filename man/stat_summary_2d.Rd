@@ -96,8 +96,8 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 }
 \description{
-\code{stat_summary_2d} is a 2d variation of \code{\link[=stat_summary]{stat_summary()}}.
-\code{stat_summary_hex} is a hexagonal variation of
+\code{stat_summary_2d()} is a 2d variation of \code{\link[=stat_summary]{stat_summary()}}.
+\code{stat_summary_hex()} is a hexagonal variation of
 \code{\link[=stat_summary_2d]{stat_summary_2d()}}. The data are divided into bins defined
 by \code{x} and \code{y}, and then the values of \code{z} in each cell is
 are summarised with \code{fun}.

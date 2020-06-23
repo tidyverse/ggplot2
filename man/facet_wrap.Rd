@@ -71,7 +71,7 @@ either of the four sides by setting \code{strip.position = c("top",
   "bottom", "left", "right")}}
 }
 \description{
-\code{facet_wrap} wraps a 1d sequence of panels into 2d. This is generally
+\code{facet_wrap()} wraps a 1d sequence of panels into 2d. This is generally
 a better use of screen space than \code{\link[=facet_grid]{facet_grid()}} because most
 displays are roughly rectangular.
 }

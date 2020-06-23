@@ -1,6 +1,6 @@
 #' @section Coordinate systems:
 #'
-#' All `coord_*` functions (like `coord_trans`) return a `Coord*`
+#' All `coord_*()` functions (like `coord_trans()`) return a `Coord*`
 #' object (like `CoordTrans`).
 #'
 #' Each of the `Coord*` objects is a [ggproto()] object,

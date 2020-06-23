@@ -23,23 +23,23 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Hadley Wickham \email{hadley@rstudio.com}
+\strong{Maintainer}: Thomas Lin Pedersen \email{thomas.pedersen@rstudio.com} (\href{https://orcid.org/0000-0002-5147-4711}{ORCID})
 
 Authors:
 \itemize{
-  \item Winston Chang
+  \item Hadley Wickham \email{hadley@rstudio.com} (\href{https://orcid.org/0000-0003-4757-117X}{ORCID})
+  \item Winston Chang (\href{https://orcid.org/0000-0002-1576-2126}{ORCID})
   \item Lionel Henry
-  \item Thomas Lin Pedersen
   \item Kohske Takahashi
-  \item Claus Wilke
-  \item Kara Woo
-  \item Hiroaki Yutani
-  \item Dewey Dunnington
+  \item Claus Wilke (\href{https://orcid.org/0000-0002-7470-9261}{ORCID})
+  \item Kara Woo (\href{https://orcid.org/0000-0002-5125-4188}{ORCID})
+  \item Hiroaki Yutani (\href{https://orcid.org/0000-0002-3385-7233}{ORCID})
+  \item Dewey Dunnington (\href{https://orcid.org/0000-0002-9415-4582}{ORCID})
 }
 
 Other contributors:
 \itemize{
-  \item RStudio [copyright holder]
+  \item RStudio [copyright holder, funder]
 }
 
 }

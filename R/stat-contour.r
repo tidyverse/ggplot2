@@ -2,11 +2,21 @@
 #' @inheritParams geom_contour
 #' @export
 #' @eval rd_aesthetics("stat", "contour")
+#' @eval rd_aesthetics("stat", "contour_filled")
 #' @section Computed variables:
+#' The computed variables differ somewhat for contour lines (computed by
+#' `stat_contour()`) and contour bands (filled contours, computed by `stat_contour_filled()`).
+#' The variables `nlevel` and `piece` are available for both, whereas `level_low`, `level_high`,
+#' and `level_mid` are only available for bands. The variable `level` is a numeric or a factor
+#' depending on whether lines or bands are calculated.
 #' \describe{
-#'  \item{level}{height of contour}
-#'  \item{nlevel}{height of contour, scaled to maximum of 1}
-#'  \item{piece}{contour piece (an integer)}
+#'  \item{`level`}{Height of contour. For contour lines, this is numeric vector that
+#'    represents bin boundaries. For contour bands, this is an ordered factor that
+#'    represents bin ranges.}
+#'  \item{`level_low`, `level_high`, `level_mid`}{(contour bands only) Lower and upper
+#'    bin boundaries for each band, as well the mid point between the boundaries.}
+#'  \item{`nlevel`}{Height of contour, scaled to maximum of 1.}
+#'  \item{`piece`}{Contour piece (an integer).}
 #' }
 #' @rdname geom_contour
 stat_contour <- function(mapping = NULL, data = NULL,
@@ -39,7 +49,7 @@ stat_contour <- function(mapping = NULL, data = NULL,
 #' @rdname geom_contour
 #' @export
 stat_contour_filled <- function(mapping = NULL, data = NULL,
-                                geom = "polygon", position = "identity",
+                                geom = "contour_filled", position = "identity",
                                 ...,
                                 bins = NULL,
                                 binwidth = NULL,
@@ -74,11 +84,15 @@ StatContour <- ggproto("StatContour", Stat,
   required_aes = c("x", "y", "z"),
   default_aes = aes(order = after_stat(level)),
 
-  compute_group = function(data, scales, bins = NULL, binwidth = NULL,
+  setup_params = function(data, params) {
+    params$z.range <- range(data$z, na.rm = TRUE, finite = TRUE)
+    params
+  },
+
+  compute_group = function(data, scales, z.range, bins = NULL, binwidth = NULL,
                            breaks = NULL, na.rm = FALSE) {
 
-    z_range <- range(data$z, na.rm = TRUE, finite = TRUE)
-    breaks <- contour_breaks(z_range, bins, binwidth, breaks)
+    breaks <- contour_breaks(z.range, bins, binwidth, breaks)
 
     isolines <- xyz_to_isolines(data, breaks)
     path_df <- iso_to_path(isolines, data$group[1])
@@ -99,16 +113,23 @@ StatContourFilled <- ggproto("StatContourFilled", Stat,
   required_aes = c("x", "y", "z"),
   default_aes = aes(order = after_stat(level), fill = after_stat(level)),
 
-  compute_group = function(data, scales, bins = NULL, binwidth = NULL, breaks = NULL, na.rm = FALSE) {
+  setup_params = function(data, params) {
+    params$z.range <- range(data$z, na.rm = TRUE, finite = TRUE)
+    params
+  },
 
-    z_range <- range(data$z, na.rm = TRUE, finite = TRUE)
-    breaks <- contour_breaks(z_range, bins, binwidth, breaks)
+  compute_group = function(data, scales, z.range, bins = NULL, binwidth = NULL, breaks = NULL, na.rm = FALSE) {
+    breaks <- contour_breaks(z.range, bins, binwidth, breaks)
 
     isobands <- xyz_to_isobands(data, breaks)
     names(isobands) <- pretty_isoband_levels(names(isobands))
     path_df <- iso_to_polygon(isobands, data$group[1])
 
     path_df$level <- ordered(path_df$level, levels = names(isobands))
+    path_df$level_low <- breaks[as.numeric(path_df$level)]
+    path_df$level_high <- breaks[as.numeric(path_df$level) + 1]
+    path_df$level_mid <- 0.5*(path_df$level_low + path_df$level_high)
+    path_df$nlevel <- rescale_max(path_df$level_high)
 
     path_df
   }
@@ -130,19 +151,36 @@ contour_breaks <- function(z_range, bins = NULL, binwidth = NULL, breaks = NULL)
   # If no parameters set, use pretty bins
   if (is.null(bins) && is.null(binwidth)) {
     breaks <- pretty(z_range, 10)
+    return(breaks)
   }
 
   # If provided, use bins to calculate binwidth
   if (!is.null(bins)) {
+    # round lower limit down and upper limit up to make sure
+    # we generate bins that span the data range nicely
+    accuracy <- signif(diff(z_range), 1)/10
+    z_range[1] <- floor(z_range[1]/accuracy)*accuracy
+    z_range[2] <- ceiling(z_range[2]/accuracy)*accuracy
+
+    if (bins == 1) {
+      return(z_range)
+    }
+
     binwidth <- diff(z_range) / (bins - 1)
-  }
-
-  # If necessary, compute breaks from binwidth
-  if (is.null(breaks)) {
     breaks <- fullseq(z_range, binwidth)
+
+    # Sometimes the above sequence yields one bin too few.
+    # If this happens, try again.
+    if (length(breaks) < bins + 1) {
+      binwidth <- diff(z_range) / bins
+      breaks <- fullseq(z_range, binwidth)
+    }
+
+    return(breaks)
   }
 
-  breaks
+  # if we haven't returned yet, compute breaks from binwidth
+  fullseq(z_range, binwidth)
 }
 
 #' Compute isoband objects
@@ -185,14 +223,14 @@ xyz_to_isobands <- function(data, breaks) {
 #'
 isoband_z_matrix <- function(data) {
   # Convert vector of data to raster
-  x_pos <- as.integer((data$x - min(data$x)) / resolution(data$x, FALSE))
-  y_pos <- as.integer((max(data$y) - data$y) / resolution(data$y, FALSE))
+  x_pos <- as.integer(factor(data$x, levels = sort(unique(data$x))))
+  y_pos <- as.integer(factor(data$y, levels = sort(unique(data$y))))
 
-  nrow <- max(y_pos) + 1
-  ncol <- max(x_pos) + 1
+  nrow <- max(y_pos)
+  ncol <- max(x_pos)
 
   raster <- matrix(NA_real_, nrow = nrow, ncol = ncol)
-  raster[cbind(nrow - y_pos, x_pos + 1)] <- data$z
+  raster[cbind(y_pos, x_pos)] <- data$z
 
   raster
 }

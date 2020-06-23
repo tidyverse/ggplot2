@@ -5,7 +5,7 @@
 \alias{has_flipped_aes}
 \alias{flip_data}
 \alias{flipped_names}
-\title{Utilities for working with bidirecitonal layers}
+\title{Utilities for working with bidirectional layers}
 \usage{
 has_flipped_aes(
   data,
@@ -61,8 +61,8 @@ the flipped name, e.g. \code{flipped_names(FALSE)$x == "y"}
 }
 \description{
 These functions are what underpins the ability of certain geoms to work
-automatically in both directions. See the \emph{Extending ggplot2} for how they
-are used when implementing \code{Geom}, \code{Stat}, and \code{Position} classes.
+automatically in both directions. See the \emph{Extending ggplot2} vignette for
+how they are used when implementing \code{Geom}, \code{Stat}, and \code{Position} classes.
 }
 \details{
 \code{has_flipped_aes()} is used to sniff out the orientation of the layer from
@@ -86,9 +86,7 @@ axis as seen in e.g. \code{\link[=stat_bin]{stat_bin()}}, \code{\link[=geom_coun
 \item \code{range_is_orthogonal}: This argument controls whether the existance of
 range-like aesthetics (e.g. \code{xmin} and \code{xmax}) represents the main or
 secondary axis. If \code{TRUE} then the range is given for the secondary axis as
-seen in e.g. \code{\link[=geom_ribbon]{geom_ribbon()}} and \code{\link[=geom_linerange]{geom_linerange()}}. \code{FALSE} is less
-prevalent but can be seen in \code{\link[=geom_bar]{geom_bar()}} where it may encode the span of
-each bar.
+seen in e.g. \code{\link[=geom_ribbon]{geom_ribbon()}} and \code{\link[=geom_linerange]{geom_linerange()}}.
 \item \code{group_has_equal}: This argument controls whether to test for equality of
 all \code{x} and \code{y} values inside each group and set the main axis to the one
 where all is equal. This test is only performed if \code{TRUE}, and only after

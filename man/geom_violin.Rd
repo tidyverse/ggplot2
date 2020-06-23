@@ -96,12 +96,12 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
 \item{geom, stat}{Use to override the default connection between
-\code{geom_violin} and \code{stat_ydensity}.}
+\code{geom_violin()} and \code{stat_ydensity()}.}
 
 \item{bw}{The smoothing bandwidth to be used.
 If numeric, the standard deviation of the smoothing kernel.
 If character, a rule to choose the bandwidth, as listed in
-\code{\link[stats:bw.nrd]{stats::bw.nrd()}}.}
+\code{\link[stats:bandwidth]{stats::bw.nrd()}}.}
 
 \item{adjust}{A multiplicate bandwidth adjustment. This makes it possible
 to adjust the bandwidth while still using the a bandwidth estimator.

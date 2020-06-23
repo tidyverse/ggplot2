@@ -1,6 +1,6 @@
 #' Create a ggplot layer appropriate to a particular data type
 #'
-#' `autolayer` uses ggplot2 to draw a particular layer for an object of a
+#' `autolayer()` uses ggplot2 to draw a particular layer for an object of a
 #' particular class in a single command. This defines the S3 generic that
 #' other classes and packages can extend.
 #'

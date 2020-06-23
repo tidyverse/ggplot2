@@ -1,6 +1,6 @@
 #' Position scales for discrete data
 #'
-#' `scale_x_discrete` and `scale_y_discrete` are used to set the values for
+#' `scale_x_discrete()` and `scale_y_discrete()` are used to set the values for
 #' discrete x and y scale aesthetics. For simple manipulation of scale labels
 #' and limits, you may wish to use [labs()] and [lims()] instead.
 #'
@@ -108,10 +108,9 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
 
   map = function(self, x, limits = self$get_limits()) {
     if (is.discrete(x)) {
-      seq_along(limits)[match(as.character(x), limits)]
-    } else {
-      x
+      x <- seq_along(limits)[match(as.character(x), limits)]
     }
+    new_mapped_discrete(x)
   },
 
   rescale = function(self, x, limits = self$get_limits(), range = self$dimension(limits = limits)) {
@@ -129,3 +128,36 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
     new
   }
 )
+
+# TODO: This is a clear candidate for vctrs once we adopt it
+new_mapped_discrete <- function(x) {
+  if (is.null(x)) {
+    return(x)
+  }
+  if (!is.numeric(x)) {
+    abort("`mapped_discrete` objects can only be created from numeric vectors")
+  }
+  class(x) <- c("mapped_discrete", "numeric")
+  x
+}
+is_mapped_discrete <- function(x) inherits(x, "mapped_discrete")
+#' @export
+c.mapped_discrete <- function(..., recursive = FALSE) {
+  new_mapped_discrete(c(unlist(lapply(list(...), unclass))))
+}
+#' @export
+`[.mapped_discrete` <- function(x, ..., drop = TRUE) {
+  new_mapped_discrete(NextMethod())
+}
+#' @export
+`[<-.mapped_discrete` <- function(x, ..., value) {
+  if (length(value) == 0) {
+    return(x)
+  }
+  value <- as.numeric(unclass(value))
+  new_mapped_discrete(NextMethod())
+}
+#' @export
+as.data.frame.mapped_discrete <- function (x, ..., stringsAsFactors = default.stringsAsFactors()) {
+  as.data.frame.vector(x = unclass(x), ..., stringsAsFactors = stringsAsFactors)
+}

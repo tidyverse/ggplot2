@@ -24,16 +24,22 @@ they should take (e.g., \code{\link[scales:hue_pal]{scales::hue_pal()}}).}
 \item A function that takes the limits as input and returns breaks
 as output
 }}
-    \item{\code{limits}}{A character vector that defines possible values of the scale
-and their order.}
+    \item{\code{limits}}{One of:
+\itemize{
+\item \code{NULL} to use the default scale values
+\item A character vector that defines possible values of the scale and their
+order
+\item A function that accepts the existing (automatic) values and returns
+new ones
+}}
     \item{\code{drop}}{Should unused factor levels be omitted from the scale?
 The default, \code{TRUE}, uses the levels that appear in the data;
 \code{FALSE} uses all the levels in the factor.}
     \item{\code{na.translate}}{Unlike continuous scales, discrete scales can easily show
 missing values, and do so by default. If you want to remove missing values
 from a discrete scale, specify \code{na.translate = FALSE}.}
-    \item{\code{na.value}}{If \code{na.translate = TRUE}, what value aesthetic
-value should missing be displayed as? Does not apply to position scales
+    \item{\code{na.value}}{If \code{na.translate = TRUE}, what aesthetic value should the
+missing values be displayed as? Does not apply to position scales
 where \code{NA} is always placed at the far right.}
     \item{\code{aesthetics}}{The names of the aesthetics that this scale works with.}
     \item{\code{scale_name}}{The name of the scale that should be used for error messages
@@ -68,7 +74,7 @@ expand the scale by 5\% on each side for continuous variables, and by
 \code{left} or \code{right} for y axes, \code{top} or \code{bottom} for x axes.}
 }
 \description{
-\code{scale_x_discrete} and \code{scale_y_discrete} are used to set the values for
+\code{scale_x_discrete()} and \code{scale_y_discrete()} are used to set the values for
 discrete x and y scale aesthetics. For simple manipulation of scale labels
 and limits, you may wish to use \code{\link[=labs]{labs()}} and \code{\link[=lims]{lims()}} instead.
 }

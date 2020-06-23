@@ -128,7 +128,10 @@ should be labeled on their east or west end points, respectively. Thus,
 their west end, whereas \code{label_graticule = "EW"} would label parallels at both
 ends and meridians not at all. Because meridians and parallels can in general
 intersect with any side of the plot panel, for any choice of \code{label_graticule} labels
-are not guaranteed to reside on only one particular side of the plot panel.
+are not guaranteed to reside on only one particular side of the plot panel. Also,
+\code{label_graticule} can cause labeling artifacts, in particular if a graticule line
+coincides with the edge of the plot panel. In such circumstances, \code{label_axes} will
+generally yield better results and should be used instead.
 
 This parameter can be used alone or in combination with \code{label_axes}.}
 
@@ -226,11 +229,11 @@ displayed as described in \code{?plotmath}.}
 
 \item{nudge_x}{Horizontal and vertical adjustment to nudge labels by.
 Useful for offsetting text from points, particularly on discrete scales.
-Cannot be jointy specified with \code{position}.}
+Cannot be jointly specified with \code{position}.}
 
 \item{nudge_y}{Horizontal and vertical adjustment to nudge labels by.
 Useful for offsetting text from points, particularly on discrete scales.
-Cannot be jointy specified with \code{position}.}
+Cannot be jointly specified with \code{position}.}
 
 \item{label.padding}{Amount of padding around label. Defaults to 0.25 lines.}
 

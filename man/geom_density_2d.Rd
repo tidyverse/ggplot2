@@ -3,19 +3,36 @@
 \name{geom_density_2d}
 \alias{geom_density_2d}
 \alias{geom_density2d}
+\alias{geom_density_2d_filled}
+\alias{geom_density2d_filled}
 \alias{stat_density_2d}
 \alias{stat_density2d}
-\title{Contours of a 2d density estimate}
+\alias{stat_density_2d_filled}
+\alias{stat_density2d_filled}
+\title{Contours of a 2D density estimate}
 \usage{
 geom_density_2d(
   mapping = NULL,
   data = NULL,
-  stat = "density2d",
+  stat = "density_2d",
   position = "identity",
   ...,
+  contour_var = "density",
   lineend = "butt",
   linejoin = "round",
   linemitre = 10,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
+
+geom_density_2d_filled(
+  mapping = NULL,
+  data = NULL,
+  stat = "density_2d_filled",
+  position = "identity",
+  ...,
+  contour_var = "density",
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -28,6 +45,23 @@ stat_density_2d(
   position = "identity",
   ...,
   contour = TRUE,
+  contour_var = "density",
+  n = 100,
+  h = NULL,
+  adjust = c(1, 1),
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
+
+stat_density_2d_filled(
+  mapping = NULL,
+  data = NULL,
+  geom = "density_2d_filled",
+  position = "identity",
+  ...,
+  contour = TRUE,
+  contour_var = "density",
   n = 100,
   h = NULL,
   adjust = c(1, 1),
@@ -60,10 +94,19 @@ from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
-often aesthetics, used to set an aesthetic to a fixed value, like
-\code{colour = "red"} or \code{size = 3}. They may also be parameters
-to the paired geom/stat.}
+\item{...}{
+  Arguments passed on to \code{\link[=geom_contour]{geom_contour}}
+  \describe{
+    \item{\code{bins}}{Number of contour bins. Overridden by \code{binwidth}.}
+    \item{\code{binwidth}}{The width of the contour bins. Overridden by \code{breaks}.}
+    \item{\code{breaks}}{Numeric vector to set the contour breaks.
+Overrides \code{binwidth} and \code{bins}. By default, this is a vector of
+length ten with \code{\link[=pretty]{pretty()}} breaks.}
+  }}
+
+\item{contour_var}{Character string identifying the variable to contour
+by. Can be one of \code{"density"}, \code{"ndensity"}, or \code{"count"}. See the section
+on computed variables for details.}
 
 \item{lineend}{Line end style (round, butt, square).}
 
@@ -86,12 +129,12 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
 \item{geom, stat}{Use to override the default connection between
-\code{geom_density_2d} and \code{stat_density_2d}.}
+\code{geom_density_2d()} and \code{stat_density_2d()}.}
 
 \item{contour}{If \code{TRUE}, contour the results of the 2d density
-estimation}
+estimation.}
 
-\item{n}{number of grid points in each direction}
+\item{n}{Number of grid points in each direction.}
 
 \item{h}{Bandwidth (vector of length two). If \code{NULL}, estimated
 using \code{\link[MASS:bandwidth.nrd]{MASS::bandwidth.nrd()}}.}
@@ -104,7 +147,9 @@ use half of the default bandwidth.}
 \description{
 Perform a 2D kernel density estimation using \code{\link[MASS:kde2d]{MASS::kde2d()}} and
 display the results with contours. This can be useful for dealing with
-overplotting. This is a 2d version of \code{\link[=geom_density]{geom_density()}}.
+overplotting. This is a 2D version of \code{\link[=geom_density]{geom_density()}}. \code{geom_density_2d()}
+draws contour lines, and \code{geom_density_2d_filled()} draws filled contour
+bands.
 }
 \section{Aesthetics}{
 
@@ -119,17 +164,43 @@ overplotting. This is a 2d version of \code{\link[=geom_density]{geom_density()}
 \item \code{size}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
+
+
+\code{geom_density_2d_filled()} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+\item \strong{\code{x}}
+\item \strong{\code{y}}
+\item \code{alpha}
+\item \code{colour}
+\item \code{fill}
+\item \code{group}
+\item \code{linetype}
+\item \code{size}
+\item \code{subgroup}
+}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
 
 \section{Computed variables}{
 
-Same as \code{\link[=stat_contour]{stat_contour()}}
-
-With the addition of:
+\code{stat_density_2d()} and \code{stat_density_2d_filled()} compute different
+variables depending on whether contouring is turned on or off. With
+contouring off (\code{contour = FALSE}), both stats behave the same, and the
+following variables are provided:
 \describe{
-\item{density}{the density estimate}
-\item{ndensity}{density estimate, scaled to maximum of 1}
+\item{\code{density}}{The density estimate.}
+\item{\code{ndensity}}{Density estimate, scaled to a maximum of 1.}
+\item{\code{count}}{Density estimate * number of observations in group.}
+\item{\code{n}}{Number of observations in each group.}
 }
+
+With contouring on (\code{contour = TRUE}), either \code{\link[=stat_contour]{stat_contour()}} or
+\code{\link[=stat_contour_filled]{stat_contour_filled()}} (for contour lines or contour bands,
+respectively) is run after the density estimate has been obtained,
+and the computed variables are determined by these stats.
+Contours are calculated for one of the three types of density estimates
+obtained before contouring, \code{density}, \code{ndensity}, and \code{count}. Which
+of those should be used is determined by the \code{contour_var} parameter.
 }
 
 \examples{
@@ -137,9 +208,17 @@ m <- ggplot(faithful, aes(x = eruptions, y = waiting)) +
  geom_point() +
  xlim(0.5, 6) +
  ylim(40, 110)
+
+# contour lines
 m + geom_density_2d()
+
 \donttest{
-m + stat_density_2d(aes(fill = after_stat(level)), geom = "polygon")
+# contour bands
+m + geom_density_2d_filled(alpha = 0.5)
+
+# contour bands and contour lines
+m + geom_density_2d_filled(alpha = 0.5) +
+  geom_density_2d(size = 0.25, colour = "black")
 
 set.seed(4393)
 dsmall <- diamonds[sample(nrow(diamonds), 1000), ]
@@ -148,23 +227,28 @@ d <- ggplot(dsmall, aes(x, y))
 # set of contours for each value of that variable
 d + geom_density_2d(aes(colour = cut))
 
-# Similarly, if you apply faceting to the plot, contours will be
-# drawn for each facet, but the levels will calculated across all facets
-d + stat_density_2d(aes(fill = after_stat(level)), geom = "polygon") +
-  facet_grid(. ~ cut) + scale_fill_viridis_c()
-# To override this behavior (for instace, to better visualize the density
-# within each facet), use after_stat(nlevel)
-d + stat_density_2d(aes(fill = after_stat(nlevel)), geom = "polygon") +
-  facet_grid(. ~ cut) + scale_fill_viridis_c()
+# If you draw filled contours across multiple facets, the same bins are
+# used across all facets
+d + geom_density_2d_filled() + facet_wrap(vars(cut))
+# If you want to make sure the peak intensity is the same in each facet,
+# use `contour_var = "ndensity"`.
+d + geom_density_2d_filled(contour_var = "ndensity") + facet_wrap(vars(cut))
+# If you want to scale intensity by the number of observations in each group,
+# use `contour_var = "count"`.
+d + geom_density_2d_filled(contour_var = "count") + facet_wrap(vars(cut))
 
-# If we turn contouring off, we can use use geoms like tiles:
-d + stat_density_2d(geom = "raster", aes(fill = after_stat(density)), contour = FALSE)
+# If we turn contouring off, we can use other geoms, such as tiles:
+d + stat_density_2d(
+  geom = "raster",
+  aes(fill = after_stat(density)),
+  contour = FALSE
+) + scale_fill_viridis_c()
 # Or points:
 d + stat_density_2d(geom = "point", aes(size = after_stat(density)), n = 20, contour = FALSE)
 }
 }
 \seealso{
-\code{\link[=geom_contour]{geom_contour()}} for information about how contours
-are drawn; \code{\link[=geom_bin2d]{geom_bin2d()}} for another way of dealing with
+\code{\link[=geom_contour]{geom_contour()}}, \code{\link[=geom_contour_filled]{geom_contour_filled()}} for information about
+how contours are drawn; \code{\link[=geom_bin2d]{geom_bin2d()}} for another way of dealing with
 overplotting.
 }

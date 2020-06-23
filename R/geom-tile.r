@@ -1,10 +1,10 @@
 #' Rectangles
 #'
-#' `geom_rect` and `geom_tile` do the same thing, but are
-#' parameterised differently: `geom_rect` uses the locations of the four
+#' `geom_rect()` and `geom_tile()` do the same thing, but are
+#' parameterised differently: `geom_rect()` uses the locations of the four
 #' corners (`xmin`, `xmax`, `ymin` and `ymax`), while
-#' `geom_tile` uses the center of the tile and its size (`x`,
-#' `y`, `width`, `height`). `geom_raster` is a high
+#' `geom_tile()` uses the center of the tile and its size (`x`,
+#' `y`, `width`, `height`). `geom_raster()` is a high
 #' performance special case for when all the tiles are the same size.
 #'
 #' @eval rd_aesthetics("geom", "tile")

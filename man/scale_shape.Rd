@@ -27,16 +27,22 @@ they should take (e.g., \code{\link[scales:hue_pal]{scales::hue_pal()}}).}
 \item A function that takes the limits as input and returns breaks
 as output
 }}
-    \item{\code{limits}}{A character vector that defines possible values of the scale
-and their order.}
+    \item{\code{limits}}{One of:
+\itemize{
+\item \code{NULL} to use the default scale values
+\item A character vector that defines possible values of the scale and their
+order
+\item A function that accepts the existing (automatic) values and returns
+new ones
+}}
     \item{\code{drop}}{Should unused factor levels be omitted from the scale?
 The default, \code{TRUE}, uses the levels that appear in the data;
 \code{FALSE} uses all the levels in the factor.}
     \item{\code{na.translate}}{Unlike continuous scales, discrete scales can easily show
 missing values, and do so by default. If you want to remove missing values
 from a discrete scale, specify \code{na.translate = FALSE}.}
-    \item{\code{na.value}}{If \code{na.translate = TRUE}, what value aesthetic
-value should missing be displayed as? Does not apply to position scales
+    \item{\code{na.value}}{If \code{na.translate = TRUE}, what aesthetic value should the
+missing values be displayed as? Does not apply to position scales
 where \code{NA} is always placed at the far right.}
     \item{\code{aesthetics}}{The names of the aesthetics that this scale works with.}
     \item{\code{scale_name}}{The name of the scale that should be used for error messages
@@ -63,12 +69,12 @@ as output
 \code{FALSE}?}
 }
 \description{
-\code{scale_shape} maps discrete variables to six easily discernible shapes.
+\code{scale_shape()} maps discrete variables to six easily discernible shapes.
 If you have more than six levels, you will get a warning message, and the
-seventh and subsequence levels will not appear on the plot. Use
+seventh and subsequent levels will not appear on the plot. Use
 \code{\link[=scale_shape_manual]{scale_shape_manual()}} to supply your own values. You can not map
 a continuous variable to shape unless \code{scale_shape_binned()} is used. Still,
-as shape has no inherent order, this use is not advised..
+as shape has no inherent order, this use is not advised.
 }
 \examples{
 dsmall <- diamonds[sample(nrow(diamonds), 100), ]

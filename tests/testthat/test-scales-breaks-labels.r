@@ -138,13 +138,17 @@ test_that("discrete scales with no data have no breaks or labels", {
   expect_equal(sc$get_limits(), c(0, 1))
 })
 
+test_that("passing continuous limits to a discrete scale generates a warning", {
+  expect_warning(scale_x_discrete(limits = 1:3), "Continuous limits supplied to discrete scale")
+})
+
 test_that("suppressing breaks, minor_breask, and labels works", {
   expect_equal(scale_x_continuous(breaks = NULL, limits = c(1, 3))$get_breaks(), NULL)
-  expect_equal(scale_x_discrete(breaks = NULL, limits = c(1, 3))$get_breaks(), NULL)
+  expect_equal(scale_x_discrete(breaks = NULL, limits = c("one", "three"))$get_breaks(), NULL)
   expect_equal(scale_x_continuous(minor_breaks = NULL, limits = c(1, 3))$get_breaks_minor(), NULL)
 
   expect_equal(scale_x_continuous(labels = NULL, limits = c(1, 3))$get_labels(), NULL)
-  expect_equal(scale_x_discrete(labels = NULL, limits = c(1, 3))$get_labels(), NULL)
+  expect_equal(scale_x_discrete(labels = NULL, limits = c("one", "three"))$get_labels(), NULL)
 
   # date, datetime
   lims <- as.Date(c("2000/1/1", "2000/2/1"))
@@ -260,7 +264,12 @@ test_that("equal length breaks and labels can be passed to ViewScales with limit
 
   test_view_scale <- view_scale_primary(test_scale)
   expect_identical(test_view_scale$get_breaks(), c(NA, 20, NA))
-  expect_identical(test_scale$get_labels(), c(c("0", "20", "40")))
+  expect_identical(test_view_scale$get_labels(), c(c("0", "20", "40")))
+
+  # ViewScale accepts the limits in the opposite order (#3952)
+  test_view_scale_rev <- view_scale_primary(test_scale, limits = rev(test_scale$get_limits()))
+  expect_identical(test_view_scale_rev$get_breaks(), c(NA, 20, NA))
+  expect_identical(test_view_scale_rev$get_labels(), c(c("0", "20", "40")))
 })
 
 # Visual tests ------------------------------------------------------------

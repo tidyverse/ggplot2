@@ -1,11 +1,6 @@
 # Default scales -------------------------------------------------------------
 
 #' @export
-#' @rdname scale_hue
-#' @usage NULL
-scale_colour_discrete <- scale_colour_hue
-
-#' @export
 #' @rdname scale_viridis
 #' @usage NULL
 scale_colour_ordinal <- scale_colour_viridis_d
@@ -63,11 +58,6 @@ scale_colour_date <- function(...,
 #' @rdname scale_gradient
 #' @usage NULL
 scale_color_date <- scale_colour_date
-
-#' @export
-#' @rdname scale_hue
-#' @usage NULL
-scale_fill_discrete <- scale_fill_hue
 
 #' @export
 #' @rdname scale_viridis
@@ -143,7 +133,7 @@ scale_color_binned <- scale_colour_binned
 #' @export
 #' @rdname scale_hue
 #' @usage NULL
-scale_color_discrete <- scale_colour_hue
+scale_color_discrete <- scale_colour_discrete
 
 #' @export
 #' @rdname scale_gradient

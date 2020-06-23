@@ -57,6 +57,7 @@ guide_colorsteps <- guide_coloursteps
 #' @export
 guide_train.colorsteps <- function(guide, scale, aesthetic = NULL) {
   breaks <- scale$get_breaks()
+  breaks <- breaks[!is.na(breaks)]
   if (guide$even.steps || !is.numeric(breaks)) {
     if (length(breaks) == 0 || all(is.na(breaks))) {
       return()
@@ -69,6 +70,9 @@ guide_train.colorsteps <- function(guide, scale, aesthetic = NULL) {
       # If the breaks are not numeric it is used with a discrete scale. We check
       # if the breaks follow the allowed format "(<lower>, <upper>]", and if it
       # does we convert it into bin specs
+      if (!guide$even.steps) {
+        warn("`even.steps = FALSE` is not supported when used together with a discrete scale")
+      }
       bin_at <- breaks
       breaks_num <- as.character(breaks)
       breaks_num <- strsplit(gsub("\\(|\\)|\\[|\\]", "", breaks_num), ",\\s?")

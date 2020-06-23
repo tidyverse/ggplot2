@@ -26,7 +26,7 @@ or mappings).
 Most useful for adding tables, inset plots, and other grid-based decorations.
 }
 \note{
-\code{annotation_custom} expects the grob to fill the entire viewport
+\code{annotation_custom()} expects the grob to fill the entire viewport
 defined by xmin, xmax, ymin, ymax. Grobs with a different (absolute) size
 will be center-justified in that region.
 Inf values can be used to fill the full plot panel (see examples).

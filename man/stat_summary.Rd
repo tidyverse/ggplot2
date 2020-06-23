@@ -131,7 +131,7 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 instead.}
 }
 \description{
-\code{stat_summary} operates on unique \code{x} or \code{y}; \code{stat_summary_bin}
+\code{stat_summary()} operates on unique \code{x} or \code{y}; \code{stat_summary_bin()}
 operates on binned \code{x} or \code{y}. They are more flexible versions of
 \code{\link[=stat_bin]{stat_bin()}}: instead of just counting, they can compute any
 aggregate.

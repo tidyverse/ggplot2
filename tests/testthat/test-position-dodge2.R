@@ -51,9 +51,11 @@ test_that("cols at the same x position are dodged", {
 })
 
 test_that("padding argument controls space between elements", {
-  p1 <- ggplot(iris, aes(1, Sepal.Length, fill = Sepal.Width < 3.2)) +
+  df <- data_frame(value = 1:3, group = c("a", "a", "b"))
+
+  p1 <- ggplot(df, aes(1, value, fill = group)) +
     geom_boxplot(position = position_dodge2(padding = 0))
-  p2 <- ggplot(iris, aes(1, Sepal.Length, fill = Sepal.Width < 3.2)) +
+  p2 <- ggplot(df, aes(1, value, fill = group)) +
     geom_boxplot(position = position_dodge2(padding = 0.1))
 
   d1 <- layer_data(p1)
@@ -72,9 +74,14 @@ test_that("padding argument controls space between elements", {
 })
 
 test_that("boxes in facetted plots keep the correct width", {
+  df <- data_frame(
+    value = 1:12,
+    group = rep(c("a", "b", "c"), each = 4L),
+    subgroup = rep(c("A", "B"), times = 6L)
+  )
 
-  p <- ggplot(mtcars, aes(x = factor(vs), y = mpg)) +
-    facet_wrap( ~ factor(cyl)) +
+  p <- ggplot(df, aes(subgroup, value)) +
+    facet_wrap( ~ group) +
     geom_boxplot()
 
   d <- layer_data(p)

@@ -156,9 +156,9 @@ different number of bins. You can also experiment modifying the \code{binwidth} 
 one change at a time. You may need to look at a few options to uncover
 the full story behind your data.
 
-In addition to \code{geom_histogram}, you can create a histogram plot by using
+In addition to \code{geom_histogram()}, you can create a histogram plot by using
 \code{scale_x_binned()} with \code{\link[=geom_bar]{geom_bar()}}. This method by default plots tick marks
-in between each bar.  .
+in between each bar.
 }
 \section{Orientation}{
 
@@ -192,8 +192,8 @@ ggplot(diamonds, aes(carat)) +
 ggplot(diamonds, aes(y = carat)) +
   geom_histogram()
 
-# For histograms with tick marks between each bin, use `geom_bar` with
-# `scale_x_binned`.
+# For histograms with tick marks between each bin, use `geom_bar()` with
+# `scale_x_binned()`.
 ggplot(diamonds, aes(carat)) +
   geom_bar() +
   scale_x_binned()

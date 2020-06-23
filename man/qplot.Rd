@@ -53,7 +53,7 @@ one, extracting vectors from the current environment.}
 \code{\link[=facet_grid]{facet_grid()}} depending on whether the formula is one-
 or two-sided}
 
-\item{margins}{See \code{facet_grid}: display marginal facets?}
+\item{margins}{See \code{facet_grid()}: display marginal facets?}
 
 \item{geom}{Character vector specifying geom(s) to draw. Defaults to
 "point" if x and y are specified, and "histogram" if only x is specified.}
@@ -70,7 +70,7 @@ x axis label, and y axis label respectively.}
 \item{stat, position}{DEPRECATED.}
 }
 \description{
-\code{qplot} is a shortcut designed to be familiar if you're used to base
+\code{qplot()} is a shortcut designed to be familiar if you're used to base
 \code{\link[=plot]{plot()}}. It's a convenient wrapper for creating a number of
 different types of plots using a consistent calling scheme. It's great
 for allowing you to produce plots quickly, but I highly recommend

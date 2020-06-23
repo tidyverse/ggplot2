@@ -38,7 +38,7 @@ the limits to ensure that data and axes don't overlap. If \code{FALSE},
 limits are taken exactly from the data or \code{xlim}/\code{ylim}.}
 }
 \description{
-\code{coord_trans} is different to scale transformations in that it occurs after
+\code{coord_trans()} is different to scale transformations in that it occurs after
 statistical transformation and will affect the visual appearance of geoms - there is
 no guarantee that straight lines will continue to be straight.
 }

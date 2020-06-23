@@ -1,11 +1,12 @@
-This is a major release that contains a few breaking changes in the internal
-structure of the ggplot objects. This has resulted in breakage in some of the 
-reverse dependenciees. All have been given a 1 month heads up to update their 
-code.
+This is a patch release that fixes regressions introduced in 3.3.0. It has no 
+user facing changes, but includes some internal changes that affects a few 
+reverse dependencies (mostly in expectations in their unit tests). All 
+problematic reverse dependencies were notified well in advance, and most have 
+sent fixes to CRAN.
 
 ## Test environments
-* local R installation, R 3.6.0
-* ubuntu 16.04 (on travis-ci), R 3.6.0
+* local R installation, R 4.0.1
+* ubuntu 16.04 (on travis-ci), R 4.0.1
 * win-builder (devel)
 
 ## R CMD check results
@@ -14,193 +15,156 @@ code.
 
 ## revdepcheck results
 
-We checked 3157 reverse dependencies (2685 from CRAN + 472 from BioConductor), comparing R CMD check results across CRAN and dev versions of this package.
+We checked 2752 reverse dependencies (2744 from CRAN + 8 from BioConductor), comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 30 new problems
- * We failed to check 79 packages
+ * We saw 13 new problems
+ * We failed to check 95 packages
 
 Issues with CRAN packages are summarised below.
 
 ### New problems
 (This reports the first line of each new failure)
 
-* apyramid
-  checking tests ...
+* drugCombo
+  checking whether package ‘drugCombo’ can be installed ... WARNING
 
-* autocogs
-  checking examples ... ERROR
-  checking tests ...
+* frontiles
+  checking whether package ‘frontiles’ can be installed ... WARNING
 
-* bayesdfa
-  checking installed package size ... NOTE
-  checking for GNU extensions in Makefiles ... NOTE
+* GENEAsphere
+  checking whether package ‘GENEAsphere’ can be installed ... WARNING
 
-* benchr
-  checking tests ...
-
-* biclustermd
-  checking tests ...
-
-* dabestr
-  checking examples ... ERROR
-  checking tests ...
-
-* DeLorean
-  checking installed package size ... NOTE
-  checking dependencies in R code ... NOTE
-  checking for GNU extensions in Makefiles ... NOTE
-
-* describedata
+* ggdistribute
   checking examples ... ERROR
 
-* ezplot
-  checking examples ... ERROR
-  checking tests ...
-
-* GGally
-  checking examples ... ERROR
-  checking tests ...
-
-* ggdag
-  checking examples ... ERROR
-
-* ggeasy
-  checking tests ...
-
-* ggfortify
-  checking tests ...
-
-* ggpol
-  checking examples ... ERROR
-
-* ggspectra
-  checking examples ... ERROR
-
-* ggstance
-  checking tests ...
-
-* gWQS
-  checking running R code from vignettes ...
+* gMOIP
+  checking whether package ‘gMOIP’ can be installed ... WARNING
 
 * helda
-  checking tests ...
-
-* interactions
-  checking tests ...
+  checking tests ... ERROR
 
 * lemon
-  checking tests ...
-
-* mcStats
-  checking tests ...
-
-* plot3logit
   checking examples ... ERROR
 
-* PSCBS
-  checking tests ...
+* metagen
+  checking examples ... ERROR
 
-* RGraphics
-  checking whether package ‘RGraphics’ can be installed ... WARNING
+* NeatMap
+  checking whether package ‘NeatMap’ can be installed ... WARNING
+
+* PPQplan
+  checking whether package ‘PPQplan’ can be installed ... WARNING
+
+* predict3d
+  checking whether package ‘predict3d’ can be installed ... WARNING
+
+* ratPASTA
+  checking tests ... ERROR
+
+* vmsbase
+  checking S3 generic/method consistency ... WARNING
+  checking replacement functions ... WARNING
+  checking for missing documentation entries ... WARNING
+  checking for code/documentation mismatches ... WARNING
+  checking dependencies in R code ... NOTE
+  checking foreign function calls ... NOTE
   checking R code for possible problems ... NOTE
-
-* riskRegression
-  checking tests ...
-
-* Seurat
-  checking examples ... ERROR
-
-* spartan
-  checking tests ...
-
-* survsup
-  checking examples ... ERROR
-
-* tricolore
-  checking examples ... ERROR
-  checking tests ...
-
-* xpose
-  checking tests ...
+  checking Rd \usage sections ... NOTE
 
 ### Failed to check
 
-* aslib                    (NA)
-* av                       (NA)
-* BACA                     (NA)
-* BACCT                    (NA)
-* bamdit                   (NA)
-* BayesPostEst             (NA)
-* BayesRS                  (NA)
-* BNSP                     (NA)
-* BPEC                     (NA)
-* bsam                     (NA)
-* BTSPAS                   (NA)
-* CollapsABEL              (NA)
-* crmPack                  (NA)
-* Crossover                (NA)
-* ctsem                    (NA)
-* Deducer                  (NA)
-* DistributionOptimization (NA)
-* DiversityOccupancy       (NA)
-* dynr                     (NA)
-* evoper                   (NA)
-* ewoc                     (NA)
-* fingerPro                (NA)
-* fsdaR                    (NA)
-* G2Sd                     (NA)
-* ggdmc                    (NA)
-* ggtern                   (NA)
-* GUIgems                  (NA)
-* hbbr                     (NA)
-* imageData                (NA)
-* InSilicoVA               (NA)
-* jarbes                   (NA)
-* JointAI                  (NA)
-* L0Learn                  (NA)
-* lilikoi                  (NA)
-* llama                    (NA)
-* LLSR                     (NA)
-* matchingMarkets          (NA)
-* mbgraphic                (NA)
-* mcmcabn                  (NA)
-* MergeGUI                 (NA)
-* metaMix                  (NA)
-* mfbvar                   (NA)
-* MissingDataGUI           (NA)
-* mleap                    (NA)
-* morse                    (NA)
-* mwaved                   (NA)
-* nlmixr                   (NA)
-* OpenStreetMap            (NA)
-* openVA                   (NA)
-* petro.One                (NA)
-* phase1PRMD               (NA)
-* phase1RMD                (NA)
-* PortfolioEffectHFT       (NA)
-* qdap                     (NA)
-* RclusTool                (NA)
-* RcmdrPlugin.FuzzyClust   (NA)
-* Rdrools                  (NA)
-* rmcfs                    (NA)
-* rpanel                   (NA)
-* rrd                      (NA)
-* rrepast                  (NA)
-* RSCAT                    (NA)
-* rstanarm                 (NA)
-* rsvg                     (NA)
-* RtutoR                   (NA)
-* RxODE                    (NA)
-* SeqFeatR                 (NA)
-* sf                       (NA)
-* simmr                    (NA)
-* smartR                   (NA)
-* spcosa                   (NA)
-* stpp                     (NA)
-* TeachingDemos            (NA)
-* trialr                   (NA)
-* vortexR                  (NA)
-* WaveSampling             (NA)
-* XLConnect                (NA)
-* zenplots                 (NA)
-* zooaRchGUI               (NA)
+* AID                  (NA)
+* ALA4R                (NA)
+* av                   (NA)
+* backShift            (NA)
+* BGGM                 (NA)
+* bootnet              (NA)
+* BPEC                 (NA)
+* breathteststan       (NA)
+* cate                 (NA)
+* CausalImpact         (NA)
+* CB2                  (NA)
+* cbar                 (NA)
+* csp                  (NA)
+* decisionSupport      (NA)
+* dendroTools          (NA)
+* dfpk                 (NA)
+* diceR                (NA)
+* dimRed               (NA)
+* EffectLiteR          (NA)
+* EGAnet               (NA)
+* EstimateGroupNetwork (NA)
+* EvaluateCore         (NA)
+* ezCutoffs            (NA)
+* fingertipscharts     (NA)
+* ForecastComb         (NA)
+* fSRM                 (NA)
+* gastempt             (NA)
+* GeomComb             (NA)
+* GGEBiplots           (NA)
+* ggmsa                (NA)
+* gscaLCA              (NA)
+* HierDpart            (NA)
+* hilldiv              (NA)
+* iarm                 (NA)
+* idiogramFISH         (NA)
+* JWileymisc           (NA)
+* likert               (NA)
+* lsl                  (NA)
+* MAINT.Data           (NA)
+* MarketMatching       (NA)
+* mcvis                (NA)
+* mrbayes              (NA)
+* multilevelPSA        (NA)
+* multilevelTools      (NA)
+* MultisiteMediation   (NA)
+* mvdalab              (NA)
+* NetworkChange        (NA)
+* networktools         (NA)
+* neuropsychology      (NA)
+* nLTT                 (NA)
+* NMF                  (NA)
+* OncoBayes2           (NA)
+* osmplotr             (NA)
+* OutlierDetection     (NA)
+* pcalg                (NA)
+* PCMBase              (NA)
+* penaltyLearning      (NA)
+* PhyInformR           (NA)
+* phylopath            (NA)
+* pmc                  (NA)
+* pompom               (NA)
+* processR             (NA)
+* profileR             (NA)
+* prophet              (NA)
+* pscore               (NA)
+* psychonetrics        (NA)
+* qgraph               (NA)
+* quokar               (NA)
+* r4lineups            (NA)
+* radiant.basics       (NA)
+* radiant.data         (NA)
+* radiant.model        (NA)
+* radiant.multivariate (NA)
+* RAM                  (NA)
+* RBesT                (NA)
+* rhierbaps            (NA)
+* rrd                  (NA)
+* rstanarm             (NA)
+* sdmvspecies          (NA)
+* sensiPhy             (NA)
+* ShinyItemAnalysis    (NA)
+* ShortForm            (NA)
+* SimCorrMix           (NA)
+* SimDesign            (NA)
+* SimMultiCorrData     (NA)
+* spectralAnalysis     (NA)
+* StroupGLMM           (NA)
+* trackdf              (NA)
+* trackr               (NA)
+* treespace            (NA)
+* TriMatch             (NA)
+* userfriendlyscience  (NA)
+* vcfR                 (NA)
+* webr                 (NA)
+* wrswoR               (NA)

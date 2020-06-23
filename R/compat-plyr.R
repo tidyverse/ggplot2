@@ -359,19 +359,42 @@ rbind_dfs <- function(dfs) {
 #' @noRd
 dapply <- function(df, by, fun, ..., drop = TRUE) {
   grouping_cols <- .subset(df, by)
-  ids <- id(grouping_cols, drop = drop)
-  group_rows <- split(seq_len(nrow(df)), ids)
   fallback_order <- unique(c(by, names(df)))
-  rbind_dfs(lapply(seq_along(group_rows), function(i) {
-    cur_data <- df_rows(df, group_rows[[i]])
-    res <- fun(cur_data, ...)
+  apply_fun <- function(x) {
+    res <- fun(x, ...)
     if (is.null(res)) return(res)
     if (length(res) == 0) return(new_data_frame())
-    vars <- lapply(setNames(by, by), function(col) .subset2(cur_data, col)[1])
+    vars <- lapply(setNames(by, by), function(col) .subset2(x, col)[1])
     if (is.matrix(res)) res <- split_matrix(res)
     if (is.null(names(res))) names(res) <- paste0("V", seq_along(res))
     if (all(by %in% names(res))) return(new_data_frame(unclass(res)))
     res <- modify_list(unclass(vars), unclass(res))
     new_data_frame(res[intersect(c(fallback_order, names(res)), names(res))])
+  }
+
+  # Shortcut when only one group
+  if (all(vapply(grouping_cols, single_value, logical(1)))) {
+    return(apply_fun(df))
+  }
+
+  ids <- id(grouping_cols, drop = drop)
+  group_rows <- split_with_index(seq_len(nrow(df)), ids)
+  rbind_dfs(lapply(seq_along(group_rows), function(i) {
+    cur_data <- df_rows(df, group_rows[[i]])
+    apply_fun(cur_data)
   }))
+}
+
+single_value <- function(x, ...) {
+  UseMethod("single_value")
+}
+#' @export
+single_value.default <- function(x, ...) {
+  # This is set by id() used in creating the grouping var
+  identical(attr(x, "n"), 1L)
+}
+#' @export
+single_value.factor <- function(x, ...) {
+  # Panels are encoded as factor numbers and can never be missing (NA)
+  identical(levels(x), "1")
 }

@@ -14,8 +14,7 @@ knitr::opts_chunk$set(
 
 # ggplot2 <img src="man/figures/logo.png" align="right" width="120" />
 
-[![Travis Build Status](https://travis-ci.org/tidyverse/ggplot2.svg?branch=master)](https://travis-ci.org/tidyverse/ggplot2)
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/tidyverse/ggplot2?branch=master&svg=true)](https://ci.appveyor.com/project/tidyverse/ggplot2)
+[![R build status](https://github.com/tidyverse/ggplot2/workflows/R-CMD-check/badge.svg)](https://github.com/tidyverse/ggplot2/actions)
 [![Coverage Status](https://img.shields.io/codecov/c/github/tidyverse/ggplot2/master.svg)](https://codecov.io/github/tidyverse/ggplot2?branch=master)
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/ggplot2)](https://cran.r-project.org/package=ggplot2)
 
@@ -59,7 +58,7 @@ ggplot(mpg, aes(displ, hwy, colour = class)) +
 
 ggplot2 is now over 10 years old and is used by hundreds of thousands of people to make millions of plots. That means, by-and-large, ggplot2 itself changes relatively little. When we do make changes, they will be generally to add new functions or arguments rather than changing the behaviour of existing functions, and if we do make changes to existing behaviour we will do them for compelling reasons. 
 
-If you are looking for innovation, look to ggplot2's rich ecosystem of extensions. See a community maintained list at <https://www.ggplot2-exts.org/gallery/>.
+If you are looking for innovation, look to ggplot2's rich ecosystem of extensions. See a community maintained list at <https://exts.ggplot2.tidyverse.org/gallery/>.
 
 ## Learning ggplot2
 

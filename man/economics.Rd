@@ -5,7 +5,8 @@
 \alias{economics}
 \alias{economics_long}
 \title{US economic time series}
-\format{A data frame with 574 rows and 6 variables:
+\format{
+A data frame with 574 rows and 6 variables:
 \describe{
 \item{date}{Month of data collection}
 \item{pce}{personal consumption expenditures, in billions of dollars,
@@ -18,7 +19,10 @@
 \url{http://research.stlouisfed.org/fred2/series/UEMPMED}}
 \item{unemploy}{number of unemployed in thousands,
 \url{http://research.stlouisfed.org/fred2/series/UNEMPLOY}}
-}}
+}
+
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 2870 rows and 4 columns.
+}
 \usage{
 economics
 

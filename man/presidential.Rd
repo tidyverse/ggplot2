@@ -4,13 +4,15 @@
 \name{presidential}
 \alias{presidential}
 \title{Terms of 11 presidents from Eisenhower to Obama}
-\format{A data frame with 11 rows and 4 variables:
+\format{
+A data frame with 11 rows and 4 variables:
 \describe{
 \item{name}{Last name of president}
 \item{start}{Presidency start date}
 \item{end}{Presidency end date}
 \item{party}{Party of president}
-}}
+}
+}
 \usage{
 presidential
 }

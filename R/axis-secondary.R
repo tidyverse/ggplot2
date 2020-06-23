@@ -24,12 +24,12 @@
 #'   the axis on the plot. Usually this is [guide_axis()].
 #'
 #' @details
-#' `sec_axis` is used to create the specifications for a secondary axis.
+#' `sec_axis()` is used to create the specifications for a secondary axis.
 #' Except for the `trans` argument any of the arguments can be set to
 #' `derive()` which would result in the secondary axis inheriting the
 #' settings from the primary axis.
 #'
-#' `dup_axis` is provide as a shorthand for creating a secondary axis that
+#' `dup_axis()` is provide as a shorthand for creating a secondary axis that
 #' is a duplication of the primary axis, effectively mirroring the primary axis.
 #'
 #' As of v3.1, date and datetime scales have limited secondary axis capabilities.
