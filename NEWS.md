@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Fixed a bug in `labeller()` so that `.default` is passed to `as_labeller()`
+  when labellers are specified by naming faceting variables. (@waltersom, #4031)
+
 # ggplot2 3.3.2
 This is a small release focusing on fixing regressions introduced in 3.3.1.
 
@@ -56,9 +59,6 @@ This is a small release focusing on fixing regressions introduced in 3.3.1.
 
 This is a small release with no code change. It removes all malicious links to a 
 site that got hijacked from the readme and pkgdown site.
-
-* Fixed a bug in `labeller()` so that `.default` is passed to `as_labeller()`
-  when labellers are specified by naming faceting variables. (@waltersom, #4031)
 
 # ggplot2 3.3.0
 
