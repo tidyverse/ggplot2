@@ -5,6 +5,7 @@
 #' @param contour_var Character string identifying the variable to contour
 #'   by. Can be one of `"density"`, `"ndensity"`, or `"count"`. See the section
 #'   on computed variables for details.
+#' @inheritDotParams geom_contour bins binwidth breaks
 #' @param n Number of grid points in each direction.
 #' @param h Bandwidth (vector of length two). If `NULL`, estimated
 #'   using [MASS::bandwidth.nrd()].

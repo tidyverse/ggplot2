@@ -1,6 +1,6 @@
 #' Nudge points a fixed distance
 #'
-#' `position_nudge` is generally useful for adjusting the position of
+#' `position_nudge()` is generally useful for adjusting the position of
 #' items on discrete scales by a small amount. Nudging is built in to
 #' [geom_text()] because it's so useful for moving labels a small
 #' distance from what they're labelling.

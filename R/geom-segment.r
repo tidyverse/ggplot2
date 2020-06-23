@@ -1,11 +1,11 @@
 #' Line segments and curves
 #'
-#' `geom_segment` draws a straight line between points (x, y) and
-#' (xend, yend). `geom_curve` draws a curved line. See the underlying
+#' `geom_segment()` draws a straight line between points (x, y) and
+#' (xend, yend). `geom_curve()` draws a curved line. See the underlying
 #' drawing function [grid::curveGrob()] for the parameters that
 #' control the curve.
 #'
-#' Both geoms draw a single segment/curve per case. See `geom_path` if you
+#' Both geoms draw a single segment/curve per case. See `geom_path()` if you
 #' need to connect points across multiple cases.
 #'
 #' @eval rd_aesthetics("geom", "segment")

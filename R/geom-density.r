@@ -14,7 +14,7 @@
 #' @inheritParams geom_bar
 #' @inheritParams geom_ribbon
 #' @param geom,stat Use to override the default connection between
-#'   `geom_density` and `stat_density`.
+#'   `geom_density()` and `stat_density()`.
 #' @export
 #' @examples
 #' ggplot(diamonds, aes(carat)) +

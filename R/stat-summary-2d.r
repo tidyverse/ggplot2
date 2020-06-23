@@ -1,7 +1,7 @@
 #' Bin and summarise in 2d (rectangle & hexagons)
 #'
-#' `stat_summary_2d` is a 2d variation of [stat_summary()].
-#' `stat_summary_hex` is a hexagonal variation of
+#' `stat_summary_2d()` is a 2d variation of [stat_summary()].
+#' `stat_summary_hex()` is a hexagonal variation of
 #' [stat_summary_2d()]. The data are divided into bins defined
 #' by `x` and `y`, and then the values of `z` in each cell is
 #' are summarised with `fun`.

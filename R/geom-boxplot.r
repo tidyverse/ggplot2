@@ -32,7 +32,7 @@
 #' @inheritParams layer
 #' @inheritParams geom_bar
 #' @param geom,stat Use to override the default connection between
-#'   `geom_boxplot` and `stat_boxplot`.
+#'   `geom_boxplot()` and `stat_boxplot()`.
 #' @param outlier.colour,outlier.color,outlier.fill,outlier.shape,outlier.size,outlier.stroke,outlier.alpha
 #'   Default aesthetics for outliers. Set to `NULL` to inherit from the
 #'   aesthetics used for the box.

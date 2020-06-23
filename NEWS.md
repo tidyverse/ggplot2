@@ -1,41 +1,61 @@
 # ggplot2 (development version)
 
-* Fixed a bug in `geom_sf()` that caused problems with legend-type
-  autodetection (@clauswilke, #3963).
+# ggplot2 3.3.2
+This is a small release focusing on fixing regressions introduced in 3.3.1.
+
+* Added an `outside` option to `annotation_logticks()` that places tick marks
+  outside of the plot bounds. (#3783, @kbodwin)
 
 * `annotation_raster()` adds support for native rasters. For large rasters,
   native rasters render significantly faster than arrays (@kent37, #3388)
+  
+* Facet strips now have dedicated position-dependent theme elements 
+  (`strip.text.x.top`, `strip.text.x.bottom`, `strip.text.y.left`, 
+  `strip.text.y.right`) that inherit from `strip.text.x` and `strip.text.y`, 
+  respectively. As a consequence, some theme stylings now need to be applied to 
+  the position-dependent elements rather than to the parent elements. This 
+  change was already introduced in ggplot2 3.3.0 but not listed in the 
+  changelog. (@thomasp85, #3683)
 
-* Default continuous color scales (i.e., the `options()` `ggplot2.continuous.colour` and `ggplot2.continuous.fill`, which inform the `type` argument of `scale_fill_continuous()` and `scale_colour_continuous()`) now accept a function, which allows more control over these default `continuous_scale()`s (@cpsievert, #3827)
+* Facets now handle layers containing no data (@yutannihilation, #3853).
+  
+* A newly added geom `geom_density_2d_filled()` and associated stat 
+  `stat_density_2d_filled()` can draw filled density contours
+  (@clauswilke, #3846).
 
 * A newly added `geom_function()` is now recommended to use in conjunction
   with/instead of `stat_function()`. In addition, `stat_function()` now
   works with transformed y axes, e.g. `scale_y_log10()`, and in plots
   containing no other data or layers (@clauswilke, #3611, #3905, #3983).
 
-* A bug was fixed in `stat_contour()` when calculating breaks based on 
-  the `bins` argument (@clauswilke, #3879, #4004).
-  
-* A newly added geom `geom_density_2d_filled()` and associated stat 
-  `stat_density_2d_filled()` can draw filled density contours
-  (@clauswilke, #3846).
+* Fixed a bug in `geom_sf()` that caused problems with legend-type
+  autodetection (@clauswilke, #3963).
   
 * Support graphics devices that use the `file` argument instead of `fileneame` 
   in `ggsave()` (@bwiernik, #3810)
-
-* Added an `outside` option to `annotation_logticks()` that places tick marks
-  outside of the plot bounds. (#3783, @kbodwin)
   
-* Facet strips now have dedicated position-dependent theme elements (`strip.text.x.top`,
-  `strip.text.x.bottom`, `strip.text.y.left`, `strip.text.y.right`) that inherit from
-  `strip.text.x` and `strip.text.y`, respectively. As a consequence, some theme stylings now
-  need to be applied to the position-dependent elements rather than to the parent elements. This
-  change was already introduced in ggplot2 3.3.0 but not listed in the changelog. (@thomasp85, #3683)
+* Default discrete color scales are now configurable through the `options()` of 
+  `ggplot2.discrete.colour` and `ggplot2.discrete.fill`. When set to a character 
+  vector of colour codes (or list of character vectors)  with sufficient length, 
+  these colours are used for the default scale. See `help(scale_colour_discrete)` 
+  for more details and examples (@cpsievert, #3833).
+
+* Default continuous colour scales (i.e., the `options()` 
+  `ggplot2.continuous.colour` and `ggplot2.continuous.fill`, which inform the 
+  `type` argument of `scale_fill_continuous()` and `scale_colour_continuous()`) 
+  now accept a function, which allows more control over these default 
+  `continuous_scale()`s (@cpsievert, #3827).
+
+* A bug was fixed in `stat_contour()` when calculating breaks based on 
+  the `bins` argument (@clauswilke, #3879, #4004).
   
 * Data columns can now contain `Vector` S4 objects, which are widely used in the 
   Bioconductor project. (@teunbrand, #3837)
 
-* Facets now handle layers containing no data (@yutannihilation, #3853).
+# ggplot2 3.3.1
+
+This is a small release with no code change. It removes all malicious links to a 
+site that got hijacked from the readme and pkgdown site.
 
 * Fixed a bug in `labeller()` so that `.default` is passed to `as_labeller()`
   when labellers are specified by naming faceting variables. (@waltersom, #4031)

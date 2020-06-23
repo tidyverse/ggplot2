@@ -31,7 +31,7 @@ NULL
 #'   turn and is expected to supply a `PANEL` column mapping each row to a
 #'   panel defined in the layout. Additionally this method can also add or
 #'   subtract data points as needed e.g. in the case of adding margins to
-#'   `facet_grid`.
+#'   `facet_grid()`.
 #'
 #'   - `draw_panels`: This is where the panels are assembled into a
 #'   `gtable` object. The method receives, among others, a list of grobs
@@ -213,8 +213,8 @@ Facet <- ggproto("Facet", NULL,
 #'   # Let's enquote the named argument `var` to make it auto-quoting:
 #'   var <- enquo(var)
 #'
-#'   # `quo_name()` will create a nice default name:
-#'   nm <- quo_name(var)
+#'   # `as_label()` will create a nice default name:
+#'   nm <- as_label(var)
 #'
 #'   # Now let's unquote everything at the right place. Note that we also
 #'   # unquote `n` just in case the data frame has a column named
@@ -494,8 +494,8 @@ max_width <- function(grobs, value_only = FALSE) {
 #' Find panels in a gtable
 #'
 #' These functions help detect the placement of panels in a gtable, if they are
-#' named with "panel" in the beginning. `find_panel` returns the extend of
-#' the panel area, while `panel_cols` and `panel_rows` returns the
+#' named with "panel" in the beginning. `find_panel()` returns the extend of
+#' the panel area, while `panel_cols()` and `panel_rows()` returns the
 #' columns and rows that contains panels respectively.
 #'
 #' @param table A gtable
