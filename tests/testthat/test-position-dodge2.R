@@ -40,8 +40,7 @@ test_that("rectangles are dodged", {
 test_that("cols at the same x position are dodged", {
   df <- data_frame(
     x = c("a", "a", "b"),
-    n = c(1, 5, 10),
-    stringsAsFactors = FALSE
+    n = c(1, 5, 10)
   )
 
   p <- ggplot(df, aes(1, n, fill = x)) +
