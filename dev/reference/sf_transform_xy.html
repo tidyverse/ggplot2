@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Annotation: a map — annotation_map • ggplot2</title>
+<title>Transform spatial position data — sf_transform_xy • ggplot2</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -55,11 +55,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Annotation: a map — annotation_map" />
-<meta property="og:description" content="Display a fixed map on a plot. This function predates the geom_sf()
-framework and does not work with sf geometry columns as input. However,
-it can be used in conjunction with geom_sf() layers and/or
-coord_sf() (see examples)." />
+<meta property="og:title" content="Transform spatial position data — sf_transform_xy" />
+<meta property="og:description" content="Helper function that can transform spatial position data (pairs of x, y
+values) among coordinate systems." />
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -200,78 +198,55 @@ coord_sf() (see examples)." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Annotation: a map</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidyverse/ggplot2/blob/master/R/annotation-map.r'><code>R/annotation-map.r</code></a></small>
-    <div class="hidden name"><code>annotation_map.Rd</code></div>
+    <h1>Transform spatial position data</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidyverse/ggplot2/blob/master/R/coord-sf.R'><code>R/coord-sf.R</code></a></small>
+    <div class="hidden name"><code>sf_transform_xy.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Display a fixed map on a plot. This function predates the <code><a href='https://ggplot2.tidyverse.org/reference/ggsf.html'>geom_sf()</a></code>
-framework and does not work with sf geometry columns as input. However,
-it can be used in conjunction with <code><a href='https://ggplot2.tidyverse.org/reference/ggsf.html'>geom_sf()</a></code> layers and/or
-<code><a href='https://ggplot2.tidyverse.org/reference/ggsf.html'>coord_sf()</a></code> (see examples).</p>
+    <p>Helper function that can transform spatial position data (pairs of x, y
+values) among coordinate systems.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotation_map.html'>annotation_map</a></span>(<span class='kw'>map</span>, <span class='kw'>...</span>)</pre>
+    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/sf_transform_xy.html'>sf_transform_xy</a></span>(<span class='kw'>data</span>, <span class='kw'>target_crs</span>, <span class='kw'>source_crs</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>map</th>
-      <td><p>Data frame representing a map. See <code><a href='https://ggplot2.tidyverse.org/reference/geom_map.html'>geom_map()</a></code> for
-details.</p></td>
+      <th>data</th>
+      <td><p>Data frame or list containing numerical columns <code>x</code> and <code>y</code>.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Other arguments used to modify visual parameters, such as
-<code>colour</code> or <code>fill</code>.</p></td>
+      <th>target_crs, source_crs</th>
+      <td><p>Target and source coordinate reference systems.
+If <code>NULL</code> or <code>NA</code>, the data is not transformed.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A copy of the input data with <code>x</code> and <code>y</code> replaced by transformed values.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"maps"</span>, quietly = <span class='fl'>TRUE</span>)) {
-<span class='co'># location of cities in North Carolina</span>
-<span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  name = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Charlotte"</span>, <span class='st'>"Raleigh"</span>, <span class='st'>"Greensboro"</span>),
-  lat = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>35.227</span>, <span class='fl'>35.772</span>, <span class='fl'>36.073</span>),
-  long = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='op'>-</span><span class='fl'>80.843</span>, <span class='op'>-</span><span class='fl'>78.639</span>, <span class='op'>-</span><span class='fl'>79.792</span>)
+    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"sf"</span>, quietly = <span class='fl'>TRUE</span>)) {
+<span class='co'># location of cities in NC by long (x) and lat (y)</span>
+<span class='kw'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
+  city = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Charlotte"</span>, <span class='st'>"Raleigh"</span>, <span class='st'>"Greensboro"</span>),
+  x =  <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='op'>-</span><span class='fl'>80.843</span>, <span class='op'>-</span><span class='fl'>78.639</span>, <span class='op'>-</span><span class='fl'>79.792</span>),
+  y = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>35.227</span>, <span class='fl'>35.772</span>, <span class='fl'>36.073</span>)
 )
 
-<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(x = <span class='kw'>long</span>, y = <span class='kw'>lat</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotation_map.html'>annotation_map</a></span>(
-    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/map_data.html'>map_data</a></span>(<span class='st'>"state"</span>),
-    fill = <span class='st'>"antiquewhite"</span>, colour = <span class='st'>"darkgrey"</span>
-  ) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(color = <span class='st'>"blue"</span>) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_text</a></span>(
-    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(label = <span class='kw'>name</span>),
-    hjust = <span class='fl'>1.105</span>, vjust = <span class='fl'>1.05</span>, color = <span class='st'>"blue"</span>
-  )
+<span class='co'># transform to projected coordinates</span>
+<span class='kw'>data_proj</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/sf_transform_xy.html'>sf_transform_xy</a></span>(<span class='kw'>data</span>, <span class='fl'>3347</span>, <span class='fl'>4326</span>)
+<span class='kw'>data_proj</span>
 
-<span class='co'># use without coord_sf() is possible but not recommended</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>xlim</a></span>(<span class='op'>-</span><span class='fl'>84</span>, <span class='op'>-</span><span class='fl'>76</span>) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>ylim</a></span>(<span class='fl'>34</span>, <span class='fl'>37.2</span>)
-
-<span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"sf"</span>, quietly = <span class='fl'>TRUE</span>)) {
-<span class='co'># use with coord_sf() for appropriate projection</span>
-<span class='kw'>p</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggsf.html'>coord_sf</a></span>(
-    crs = <span class='fu'>st_crs</span>(<span class='fl'>3347</span>),
-    xlim = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='op'>-</span><span class='fl'>84</span>, <span class='op'>-</span><span class='fl'>76</span>),
-    ylim = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>34</span>, <span class='fl'>37.2</span>)
-  )
-
-<span class='co'># you can mix annotation_map() and geom_sf()</span>
-<span class='kw'>nc</span> <span class='op'>&lt;-</span> <span class='kw'>sf</span>::<span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_read.html'>st_read</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"shape/nc.shp"</span>, package = <span class='st'>"sf"</span>), quiet = <span class='fl'>TRUE</span>)
-<span class='kw'>p</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggsf.html'>geom_sf</a></span>(
-    data = <span class='kw'>nc</span>, inherit.aes = <span class='fl'>FALSE</span>,
-    fill = <span class='fl'>NA</span>, color = <span class='st'>"black"</span>, size = <span class='fl'>0.1</span>
-  ) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggsf.html'>coord_sf</a></span>(crs = <span class='fu'>st_crs</span>(<span class='fl'>3347</span>))
-}}}</div></pre>
+<span class='co'># transform back</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/sf_transform_xy.html'>sf_transform_xy</a></span>(<span class='kw'>data_proj</span>, <span class='fl'>4326</span>, <span class='fl'>3347</span>)
+}</div><div class='output co'>#&gt;         city       x      y
+#&gt; 1  Charlotte -80.843 35.227
+#&gt; 2    Raleigh -78.639 35.772
+#&gt; 3 Greensboro -79.792 36.073</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
