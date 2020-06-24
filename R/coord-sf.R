@@ -534,8 +534,8 @@ sf_rescale01_x <- function(x, range) {
 
 # different limits methods
 calc_limits_bbox <- function(method, xlim, ylim, crs, default_crs) {
-  if (any(!is.finite(c(xlim, ylim)))) {
-    abort("Scale limits cannot be mapped onto spatial coordinates.")
+  if (any(!is.finite(c(xlim, ylim))) && method != "geometry_bbox") {
+    abort("Scale limits cannot be mapped onto spatial coordinates.\nConsider setting `lims_method = \"geometry_bbox\"` or `default_crs = NULL`.")
   }
 
   bbox <- switch(
