@@ -199,7 +199,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       scales_yrange <- range(scales_bbox$y, coord_bbox$ymin, coord_bbox$ymax, na.rm = TRUE)
     } else if (any(!is.finite(scales_bbox$x) | !is.finite(scales_bbox$y))) {
       if (self$lims_method != "geometry_bbox") {
-        warn("Projection of x or y limits failed.\nConsider working in projected coordinates by setting `default_crs = NULL` in `coord_sf()`.")
+        warn("Projection of x or y limits failed in `coord_sf()`.\nConsider setting `lims_method = \"geometry_bbox\"` or `default_crs = NULL`.")
       }
       coord_bbox <- self$params$bbox
       scales_xrange <- c(coord_bbox$xmin, coord_bbox$xmax) %||% c(0, 0)
@@ -535,7 +535,7 @@ sf_rescale01_x <- function(x, range) {
 # different limits methods
 calc_limits_bbox <- function(method, xlim, ylim, crs, default_crs) {
   if (any(!is.finite(c(xlim, ylim))) && method != "geometry_bbox") {
-    abort("Scale limits cannot be mapped onto spatial coordinates.\nConsider setting `lims_method = \"geometry_bbox\"` or `default_crs = NULL`.")
+    abort("Scale limits cannot be mapped onto spatial coordinates in `coord_sf()`.\nConsider setting `lims_method = \"geometry_bbox\"` or `default_crs = NULL`.")
   }
 
   bbox <- switch(
