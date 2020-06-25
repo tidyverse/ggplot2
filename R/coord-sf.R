@@ -470,11 +470,15 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
 #' Transform spatial position data
 #'
 #' Helper function that can transform spatial position data (pairs of x, y
-#' values) among coordinate systems.
+#' values) among coordinate systems. This is implemented as a thin wrapper
+#' around [sf::sf_project()].
 #'
 #' @param data Data frame or list containing numerical columns `x` and `y`.
 #' @param target_crs,source_crs Target and source coordinate reference systems.
 #'   If `NULL` or `NA`, the data is not transformed.
+#' @param authority_compliant logical; `TRUE` means handle axis order authority
+#'   compliant (e.g. EPSG:4326 implying `x = lat`, `y = lon`), `FALSE` means use
+#'   visualisation order (i.e. always `x = lon`, `y = lat`). Default is `FALSE`.
 #' @return A copy of the input data with `x` and `y` replaced by transformed values.
 #' @examples
 #' if (requireNamespace("sf", quietly = TRUE)) {
@@ -494,7 +498,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
 #' }
 #' @keywords internal
 #' @export
-sf_transform_xy <- function(data, target_crs, source_crs) {
+sf_transform_xy <- function(data, target_crs, source_crs, authority_compliant = FALSE) {
   if (identical(target_crs, source_crs) ||
       is.null(target_crs) || is.null(source_crs) || is.null(data) ||
       is.na(target_crs) || is.na(source_crs) ||
@@ -502,16 +506,17 @@ sf_transform_xy <- function(data, target_crs, source_crs) {
     return(data)
   }
 
-  # by turning the data into a geometry list column of individual points,
-  # we can make sure that the output length equals the input length, even
-  # if the transformation fails in some cases
-  sf_data <- sf::st_sfc(
-    mapply(function(x, y) sf::st_point(as.numeric(c(x, y))), data$x, data$y, SIMPLIFY = FALSE),
-    crs = source_crs
+  sf_data <- cbind(data$x, data$y)
+  out <- sf::sf_project(
+    sf::st_crs(source_crs), sf::st_crs(target_crs),
+    sf_data,
+    keep = TRUE, warn = FALSE,
+    authority_compliant = authority_compliant
   )
-  sf_data_trans <- sf::st_transform(sf_data, target_crs)
-  data$x <- vapply(sf_data_trans, function(x) x[1], numeric(1))
-  data$y <- vapply(sf_data_trans, function(x) x[2], numeric(1))
+  out <- ifelse(is.finite(out), out, NA) # replace any infinites with NA
+
+  data$x <- out[, 1]
+  data$y <- out[, 2]
 
   data
 }
