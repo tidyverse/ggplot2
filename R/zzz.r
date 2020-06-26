@@ -14,7 +14,7 @@ random_tip <- function() {
     "Keep up to date with changes at https://www.tidyverse.org/blog/",
     "Use suppressPackageStartupMessages() to eliminate package startup messages",
     "Need help? Try Stackoverflow: https://stackoverflow.com/tags/ggplot2",
-    "Need help getting started? Try the R Graphics Cookbok: https://r-graphics.org",
+    "Need help getting started? Try the R Graphics Cookbook: https://r-graphics.org",
     "Want to understand how all the pieces fit together? Read R for Data Science: https://r4ds.had.co.nz/"
   )
 
