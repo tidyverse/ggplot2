@@ -22,21 +22,23 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: windows-latest, r: '4.0',   vdiffr: true}
-          - {os: macOS-latest,   r: '4.0',   vdiffr: true}
-          - {os: macOS-latest,   r: 'devel', vdiffr: false}
-          - {os: ubuntu-16.04,   r: '4.0',   vdiffr: true,  cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
-          - {os: ubuntu-16.04,   r: '3.6',   vdiffr: false, cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
-          - {os: ubuntu-16.04,   r: '3.5',   vdiffr: false, cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
-          - {os: ubuntu-16.04,   r: '3.4',   vdiffr: false, cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
-          - {os: ubuntu-16.04,   r: '3.3',   vdiffr: false, cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
-          - {os: ubuntu-16.04,   r: '3.2',   vdiffr: false, cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
+          - {os: windows-latest, r: '4.0',   vdiffr: true,  xref: true}
+          - {os: macOS-latest,   r: '4.0',   vdiffr: true,  xref: true}
+          - {os: macOS-latest,   r: 'devel', vdiffr: false, xref: true}
+          - {os: ubuntu-16.04,   r: '4.0',   vdiffr: true,  xref: true,  cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
+          - {os: ubuntu-16.04,   r: '3.6',   vdiffr: false, xref: true,  cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
+          - {os: ubuntu-16.04,   r: '3.5',   vdiffr: false, xref: true,  cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
+          - {os: ubuntu-16.04,   r: '3.4',   vdiffr: false, xref: true,  cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
+          - {os: ubuntu-16.04,   r: '3.3',   vdiffr: false, xref: true,  cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
+          - {os: ubuntu-16.04,   r: '3.2',   vdiffr: false, xref: false, cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
 
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
       CRAN: ${{ matrix.config.cran }}
       # don't treat missing suggested packages as error
       _R_CHECK_FORCE_SUGGESTS_: false
+      # Some packages might unavailable on the older versions, so let's ignore xref warnings
+      _R_CHECK_RD_XREFS_: ${{ matrix.config.xref }}
       # Runs vdiffr test only on the latest version of R
       VDIFFR_RUN_TESTS: ${{ matrix.config.vdiffr }}
       VDIFFR_LOG_PATH: "../vdiffr.Rout.fail"
