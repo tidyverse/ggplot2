@@ -22,15 +22,15 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: windows-latest, r: '4.0',   vdiffr: true}
-          - {os: macOS-latest,   r: '4.0',   vdiffr: true}
-          - {os: macOS-latest,   r: 'devel', vdiffr: false}
-          - {os: ubuntu-16.04,   r: '4.0',   vdiffr: true,  cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
-          - {os: ubuntu-16.04,   r: '3.6',   vdiffr: false, cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
-          - {os: ubuntu-16.04,   r: '3.5',   vdiffr: false, cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
-          - {os: ubuntu-16.04,   r: '3.4',   vdiffr: false, cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
-          - {os: ubuntu-16.04,   r: '3.3',   vdiffr: false, cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
-          - {os: ubuntu-16.04,   r: '3.2',   vdiffr: false, cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest", xref: false}
+          - {os: windows-latest, r: '4.0',   vdiffr: true,  xref: true}
+          - {os: macOS-latest,   r: '4.0',   vdiffr: true,  xref: true}
+          - {os: macOS-latest,   r: 'devel', vdiffr: false, xref: true}
+          - {os: ubuntu-16.04,   r: '4.0',   vdiffr: true,  xref: true,  cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
+          - {os: ubuntu-16.04,   r: '3.6',   vdiffr: false, xref: true,  cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
+          - {os: ubuntu-16.04,   r: '3.5',   vdiffr: false, xref: true,  cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
+          - {os: ubuntu-16.04,   r: '3.4',   vdiffr: false, xref: true,  cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
+          - {os: ubuntu-16.04,   r: '3.3',   vdiffr: false, xref: true,  cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
+          - {os: ubuntu-16.04,   r: '3.2',   vdiffr: false, xref: false, cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
 
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
