@@ -37,18 +37,21 @@
 #'
 #' # move the rug tassels to outside the plot
 #' # remember to set clip = "off".
-#' p + geom_rug(outside = TRUE) +
+#' p +
+#'   geom_rug(outside = TRUE) +
 #'   coord_cartesian(clip = "off")
 #'
 #' # set sides to top right, and then move the margins
-#' p + geom_rug(outside = TRUE, sides = "tr") +
-#'    coord_cartesian(clip = "off") +
-#'    theme(plot.margin = margin(1, 1, 1, 1, "cm"))
+#' p +
+#'   geom_rug(outside = TRUE, sides = "tr") +
+#'   coord_cartesian(clip = "off") +
+#'   theme(plot.margin = margin(1, 1, 1, 1, "cm"))
 #'
 #' # increase the line length and
 #' # expand axis to avoid overplotting
-#' p + geom_rug(length = unit(0.05, "npc")) +
-#'    scale_y_continuous(expand = c(0.1, 0.1))
+#' p +
+#'   geom_rug(length = unit(0.05, "npc")) +
+#'   scale_y_continuous(expand = c(0.1, 0.1))
 #'
 geom_rug <- function(mapping = NULL, data = NULL,
                      stat = "identity", position = "identity",
