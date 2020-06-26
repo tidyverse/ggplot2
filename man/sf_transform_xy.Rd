@@ -4,20 +4,25 @@
 \alias{sf_transform_xy}
 \title{Transform spatial position data}
 \usage{
-sf_transform_xy(data, target_crs, source_crs)
+sf_transform_xy(data, target_crs, source_crs, authority_compliant = FALSE)
 }
 \arguments{
 \item{data}{Data frame or list containing numerical columns \code{x} and \code{y}.}
 
 \item{target_crs, source_crs}{Target and source coordinate reference systems.
 If \code{NULL} or \code{NA}, the data is not transformed.}
+
+\item{authority_compliant}{logical; \code{TRUE} means handle axis order authority
+compliant (e.g. EPSG:4326 implying \code{x = lat}, \code{y = lon}), \code{FALSE} means use
+visualisation order (i.e. always \code{x = lon}, \code{y = lat}). Default is \code{FALSE}.}
 }
 \value{
 A copy of the input data with \code{x} and \code{y} replaced by transformed values.
 }
 \description{
 Helper function that can transform spatial position data (pairs of x, y
-values) among coordinate systems.
+values) among coordinate systems. This is implemented as a thin wrapper
+around \code{\link[sf:sf_project]{sf::sf_project()}}.
 }
 \examples{
 if (requireNamespace("sf", quietly = TRUE)) {
