@@ -178,10 +178,10 @@ expand the scale by 5\% on each side for continuous variables, and by
 \itemize{
 \item Function that handles limits outside of the scale limits
 (out of bounds).
-\item The default (\code{\link[scales:oob]{scales::censor()}}) replaces out of
+\item The default (\code{\link[scales:censor]{scales::censor()}}) replaces out of
 bounds values with \code{NA}.
-\item \code{\link[scales:oob]{scales::squish()}} for squishing out of bounds values into range.
-\item \code{\link[scales:oob]{scales::squish_infinite()}} for squishing infinite values into range.
+\item \code{\link[scales:squish]{scales::squish()}} for squishing out of bounds values into range.
+\item \code{\link[scales:squish_infinite]{scales::squish_infinite()}} for squishing infinite values into range.
 }}
 
 \item{na.value}{Missing values will be replaced with this value.}
