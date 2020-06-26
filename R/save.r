@@ -43,7 +43,8 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' ggplot(mtcars, aes(mpg, wt)) + geom_point()
+#' ggplot(mtcars, aes(mpg, wt)) +
+#'   geom_point()
 #'
 #' ggsave("mtcars.pdf")
 #' ggsave("mtcars.png")
@@ -62,7 +63,9 @@
 #' unlink(file)
 #'
 #' # save plot to file without using ggsave
-#' p <- ggplot(mtcars, aes(mpg, wt)) + geom_point()
+#' p <-
+#'   ggplot(mtcars, aes(mpg, wt)) +
+#'   geom_point()
 #' png("mtcars.png")
 #' print(p)
 #' dev.off()
