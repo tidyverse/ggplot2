@@ -25,7 +25,9 @@ argument, or en masse with \code{guides()}.
 
 dat <- data.frame(x = 1:5, y = 1:5, p = 1:5, q = factor(1:5),
  r = factor(1:5))
-p <- ggplot(dat, aes(x, y, colour = p, size = q, shape = r)) + geom_point()
+p <-
+  ggplot(dat, aes(x, y, colour = p, size = q, shape = r)) +
+  geom_point()
 
 # without guide specification
 p
@@ -47,8 +49,12 @@ p +
 
 # Guides are integrated where possible
 
-p + guides(colour = guide_legend("title"), size = guide_legend("title"),
-  shape = guide_legend("title"))
+p +
+  guides(
+    colour = guide_legend("title"),
+    size = guide_legend("title"),
+    shape = guide_legend("title")
+ )
 # same as
 g <- guide_legend("title")
 p + guides(colour = g, size = g, shape = g)
