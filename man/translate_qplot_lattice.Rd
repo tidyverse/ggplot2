@@ -63,10 +63,21 @@ qplot(mpg, wt, data = mtcars, xlim = c(20,30))
 
 # Both lattice and ggplot2 have similar options for controlling labels on the plot.
 
-xyplot(wt ~ mpg, mtcars, xlab = "Miles per gallon", ylab = "Weight",
-  main = "Weight-efficiency tradeoff")
-qplot(mpg, wt, data = mtcars, xlab = "Miles per gallon", ylab = "Weight",
-  main = "Weight-efficiency tradeoff")
+xyplot(
+  wt ~ mpg,
+  mtcars,
+  xlab = "Miles per gallon",
+  ylab = "Weight",
+  main = "Weight-efficiency tradeoff"
+)
+qplot(
+  mpg,
+  wt,
+  data = mtcars,
+  xlab = "Miles per gallon",
+  ylab = "Weight",
+  main = "Weight-efficiency tradeoff"
+)
 
 xyplot(wt ~ mpg, mtcars, aspect = 1)
 qplot(mpg, wt, data = mtcars, asp = 1)

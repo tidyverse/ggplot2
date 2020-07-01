@@ -116,14 +116,20 @@ ggplot(data.frame(x = rnorm(100)), aes(x)) +
   geom_function(fun = dnorm, colour = "red")
 
 # To plot functions without data, specify range of x-axis
-base <- ggplot() + xlim(-5, 5)
+base <-
+  ggplot() +
+  xlim(-5, 5)
+
 base + geom_function(fun = dnorm)
+
 base + geom_function(fun = dnorm, args = list(mean = 2, sd = .5))
 
 # The underlying mechanics evaluate the function at discrete points
 # and connect the points with lines
 base + stat_function(fun = dnorm, geom = "point")
+
 base + stat_function(fun = dnorm, geom = "point", n = 20)
+
 base + geom_function(fun = dnorm, n = 20)
 
 # Two functions on the same plot
@@ -133,11 +139,14 @@ base +
 
 # Using a custom anonymous function
 base + geom_function(fun = function(x) 0.5*exp(-abs(x)))
+
 base + geom_function(fun = ~ 0.5*exp(-abs(.x)))
 
 # Using a custom named function
 f <- function(x) 0.5*exp(-abs(x))
+
 base + geom_function(fun = f)
+
 }
 \seealso{
 \code{\link[rlang:as_function]{rlang::as_function()}}

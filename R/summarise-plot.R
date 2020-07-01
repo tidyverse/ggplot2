@@ -44,7 +44,10 @@
 #' @param p A ggplot_built object.
 #'
 #' @examples
-#' p <- ggplot(mpg, aes(displ, hwy)) + geom_point() + facet_wrap(~class)
+#' p <-
+#'   ggplot(mpg, aes(displ, hwy)) +
+#'   geom_point() +
+#'   facet_wrap(~class)
 #' b <- ggplot_build(p)
 #'
 #' summarise_layout(b)

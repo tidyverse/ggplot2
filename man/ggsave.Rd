@@ -74,7 +74,8 @@ examples section.
 
 \examples{
 \dontrun{
-ggplot(mtcars, aes(mpg, wt)) + geom_point()
+ggplot(mtcars, aes(mpg, wt)) +
+  geom_point()
 
 ggsave("mtcars.pdf")
 ggsave("mtcars.png")
@@ -93,7 +94,9 @@ ggsave(file, device = "pdf")
 unlink(file)
 
 # save plot to file without using ggsave
-p <- ggplot(mtcars, aes(mpg, wt)) + geom_point()
+p <-
+  ggplot(mtcars, aes(mpg, wt)) +
+  geom_point()
 png("mtcars.png")
 print(p)
 dev.off()

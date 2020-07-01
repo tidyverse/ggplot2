@@ -67,17 +67,21 @@
 #' # You can create interesting shapes by layering multiple points of
 #' # different sizes
 #' p <- ggplot(mtcars, aes(mpg, wt, shape = factor(cyl)))
-#' p + geom_point(aes(colour = factor(cyl)), size = 4) +
+#' p +
+#'   geom_point(aes(colour = factor(cyl)), size = 4) +
 #'   geom_point(colour = "grey90", size = 1.5)
-#' p + geom_point(colour = "black", size = 4.5) +
+#' p +
+#'   geom_point(colour = "black", size = 4.5) +
 #'   geom_point(colour = "pink", size = 4) +
 #'   geom_point(aes(shape = factor(cyl)))
 #'
 #' # geom_point warns when missing values have been dropped from the data set
 #' # and not plotted, you can turn this off by setting na.rm = TRUE
 #' mtcars2 <- transform(mtcars, mpg = ifelse(runif(32) < 0.2, NA, mpg))
-#' ggplot(mtcars2, aes(wt, mpg)) + geom_point()
-#' ggplot(mtcars2, aes(wt, mpg)) + geom_point(na.rm = TRUE)
+#' ggplot(mtcars2, aes(wt, mpg)) +
+#'   geom_point()
+#' ggplot(mtcars2, aes(wt, mpg)) +
+#'   geom_point(na.rm = TRUE)
 #' }
 geom_point <- function(mapping = NULL, data = NULL,
                        stat = "identity", position = "identity",
