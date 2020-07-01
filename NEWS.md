@@ -5,6 +5,9 @@
   
 * Updated style for example code (@rjake, #4092)
 
+* Using `guides(<aes> = FALSE)` to suppress legends is now deprecated. Please
+  use `guides(<aes> = "none")` instead (@yutannihilation, #4094).
+
 # ggplot2 3.3.2
 This is a small release focusing on fixing regressions introduced in 3.3.1.
 
