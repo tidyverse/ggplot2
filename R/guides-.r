@@ -184,10 +184,15 @@ guides_train <- function(scales, theme, guides, labels) {
       #   + guides(XXX) > + scale_ZZZ(guide=XXX) > default(i.e., legend)
       guide <- resolve_guide(output, scale, guides)
 
-      # this should be changed to testing guide == "none"
-      # scale$legend is backward compatibility
-      # if guides(XXX=FALSE), then scale_ZZZ(guides=XXX) is discarded.
-      if (identical(guide, "none") || isFALSE(guide) || inherits(guide, "guide_none")) next
+      if (identical(guide, "none") || inherits(guide, "guide_none")) next
+
+      if (isFALSE(guide)) {
+        warn(glue(
+          "`guides({scale$aesthetics} = FALSE)` is deprecated. ",
+          'Please use `guides({scale$aesthetics} = "none")` instead.'
+        ))
+        next
+      }
 
       # check the validity of guide.
       # if guide is character, then find the guide object

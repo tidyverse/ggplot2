@@ -524,3 +524,14 @@ test_that("coloursteps guide can be styled correctly", {
     p + guides(colour = guide_coloursteps(ticks = TRUE))
   )
 })
+
+test_that("a warning is generated when guides(... = FALSE) is specified", {
+  df <- data_frame(x = c(1, 2, 4),
+                   y = c(6, 5, 7))
+
+  p <- ggplot(df, aes(x, y, colour = x)) +
+    geom_point() +
+    guides(colour = FALSE)
+  built <- expect_silent(ggplot_build(p))
+  expect_warning(ggplot_gtable(built), "`guides(colour = FALSE)` is deprecated.", fixed = TRUE)
+})
