@@ -257,9 +257,20 @@ generalise well to more complicated situations.</p>
 <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/qplot.html'>qplot</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>, data = <span class='kw'>mtcars</span>, xlim = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>20</span>,<span class='fl'>30</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 22 rows containing missing values (geom_point).</span></div><div class='img'><img src='translate_qplot_lattice-11.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Both lattice and ggplot2 have similar options for controlling labels on the plot.</span>
 
-<span class='fu'><a href='https://rdrr.io/pkg/lattice/man/xyplot.html'>xyplot</a></span>(<span class='kw'>wt</span> <span class='op'>~</span> <span class='kw'>mpg</span>, <span class='kw'>mtcars</span>, xlab = <span class='st'>"Miles per gallon"</span>, ylab = <span class='st'>"Weight"</span>,
-  main = <span class='st'>"Weight-efficiency tradeoff"</span>)</div><div class='img'><img src='translate_qplot_lattice-12.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/qplot.html'>qplot</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>, data = <span class='kw'>mtcars</span>, xlab = <span class='st'>"Miles per gallon"</span>, ylab = <span class='st'>"Weight"</span>,
-  main = <span class='st'>"Weight-efficiency tradeoff"</span>)</div><div class='img'><img src='translate_qplot_lattice-13.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/pkg/lattice/man/xyplot.html'>xyplot</a></span>(
+  <span class='kw'>wt</span> <span class='op'>~</span> <span class='kw'>mpg</span>,
+  <span class='kw'>mtcars</span>,
+  xlab = <span class='st'>"Miles per gallon"</span>,
+  ylab = <span class='st'>"Weight"</span>,
+  main = <span class='st'>"Weight-efficiency tradeoff"</span>
+)</div><div class='img'><img src='translate_qplot_lattice-12.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/qplot.html'>qplot</a></span>(
+  <span class='kw'>mpg</span>,
+  <span class='kw'>wt</span>,
+  data = <span class='kw'>mtcars</span>,
+  xlab = <span class='st'>"Miles per gallon"</span>,
+  ylab = <span class='st'>"Weight"</span>,
+  main = <span class='st'>"Weight-efficiency tradeoff"</span>
+)</div><div class='img'><img src='translate_qplot_lattice-13.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'><a href='https://rdrr.io/pkg/lattice/man/xyplot.html'>xyplot</a></span>(<span class='kw'>wt</span> <span class='op'>~</span> <span class='kw'>mpg</span>, <span class='kw'>mtcars</span>, aspect = <span class='fl'>1</span>)</div><div class='img'><img src='translate_qplot_lattice-14.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/qplot.html'>qplot</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>, data = <span class='kw'>mtcars</span>, asp = <span class='fl'>1</span>)</div><div class='img'><img src='translate_qplot_lattice-15.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># par.settings() is equivalent to + theme() and trellis.options.set()</span>
 <span class='co'># and trellis.par.get() to theme_set() and theme_get().</span>

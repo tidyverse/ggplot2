@@ -472,8 +472,11 @@ see <code><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides()
 <span class='co'># large number of bins</span>
 <span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides</a></span>(fill = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_colourbar.html'>guide_colourbar</a></span>(nbin = <span class='fl'>100</span>))</div><div class='img'><img src='guide_colourbar-10.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># make top- and bottom-most ticks invisible</span>
-<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_colour_continuous.html'>scale_fill_continuous</a></span>(limits = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>20</span>), breaks = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>5</span>, <span class='fl'>10</span>, <span class='fl'>15</span>, <span class='fl'>20</span>),
- guide = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_colourbar.html'>guide_colourbar</a></span>(nbin=<span class='fl'>100</span>, draw.ulim = <span class='fl'>FALSE</span>, draw.llim = <span class='fl'>FALSE</span>))</div><div class='img'><img src='guide_colourbar-11.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p1</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_colour_continuous.html'>scale_fill_continuous</a></span>(
+    limits = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>20</span>), breaks = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>5</span>, <span class='fl'>10</span>, <span class='fl'>15</span>, <span class='fl'>20</span>),
+    guide = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_colourbar.html'>guide_colourbar</a></span>(nbin = <span class='fl'>100</span>, draw.ulim = <span class='fl'>FALSE</span>, draw.llim = <span class='fl'>FALSE</span>)
+   )</div><div class='img'><img src='guide_colourbar-11.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># guides can be controlled independently</span>
 <span class='kw'>p2</span> <span class='op'>+</span>
   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_colour_continuous.html'>scale_fill_continuous</a></span>(guide = <span class='st'>"colourbar"</span>) <span class='op'>+</span>

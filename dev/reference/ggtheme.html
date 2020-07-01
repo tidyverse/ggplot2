@@ -345,13 +345,15 @@ for new features.</p></dd>
 
 <span class='kw'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars2</span>) <span class='op'>+</span>
   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(x = <span class='kw'>wt</span>, y = <span class='kw'>mpg</span>, colour = <span class='kw'>gear</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span>(title = <span class='st'>"Fuel economy declines as weight increases"</span>,
-       subtitle = <span class='st'>"(1973-74)"</span>,
-       caption = <span class='st'>"Data from the 1974 Motor Trend US magazine."</span>,
-       tag = <span class='st'>"Figure 1"</span>,
-       x = <span class='st'>"Weight (1000 lbs)"</span>,
-       y = <span class='st'>"Fuel economy (mpg)"</span>,
-       colour = <span class='st'>"Gears"</span>)
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span>(
+    title = <span class='st'>"Fuel economy declines as weight increases"</span>,
+    subtitle = <span class='st'>"(1973-74)"</span>,
+    caption = <span class='st'>"Data from the 1974 Motor Trend US magazine."</span>,
+    tag = <span class='st'>"Figure 1"</span>,
+    x = <span class='st'>"Weight (1000 lbs)"</span>,
+    y = <span class='st'>"Fuel economy (mpg)"</span>,
+    colour = <span class='st'>"Gears"</span>
+  )
 
 <span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_gray</a></span>() <span class='co'># the default</span></div><div class='img'><img src='ggtheme-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_bw</a></span>()</div><div class='img'><img src='ggtheme-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_linedraw</a></span>()</div><div class='img'><img src='ggtheme-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_light</a></span>()</div><div class='img'><img src='ggtheme-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_dark</a></span>()</div><div class='img'><img src='ggtheme-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span>()</div><div class='img'><img src='ggtheme-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_classic</a></span>()</div><div class='img'><img src='ggtheme-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_void</a></span>()</div><div class='img'><img src='ggtheme-8.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Theme examples with panels</span>

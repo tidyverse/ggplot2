@@ -391,17 +391,19 @@ see <code><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides()
 <span class='co'># label position</span>
 <span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides</a></span>(fill = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_legend.html'>guide_legend</a></span>(label.position = <span class='st'>"left"</span>, label.hjust = <span class='fl'>1</span>))</div><div class='img'><img src='guide_legend-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># label styles</span>
-<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_colour_continuous.html'>scale_fill_continuous</a></span>(breaks = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>, <span class='fl'>10</span>, <span class='fl'>15</span>),
-  labels = <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='st'>"long"</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>, <span class='fl'>10</span>, <span class='fl'>15</span>)),
-  guide = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_legend.html'>guide_legend</a></span>(
-    direction = <span class='st'>"horizontal"</span>,
-    title.position = <span class='st'>"top"</span>,
-    label.position = <span class='st'>"bottom"</span>,
-    label.hjust = <span class='fl'>0.5</span>,
-    label.vjust = <span class='fl'>1</span>,
-    label.theme = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span>(angle = <span class='fl'>90</span>)
-  )
-)</div><div class='img'><img src='guide_legend-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p1</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_colour_continuous.html'>scale_fill_continuous</a></span>(
+    breaks = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>, <span class='fl'>10</span>, <span class='fl'>15</span>),
+    labels = <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='st'>"long"</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>, <span class='fl'>10</span>, <span class='fl'>15</span>)),
+    guide = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_legend.html'>guide_legend</a></span>(
+      direction = <span class='st'>"horizontal"</span>,
+      title.position = <span class='st'>"top"</span>,
+      label.position = <span class='st'>"bottom"</span>,
+      label.hjust = <span class='fl'>0.5</span>,
+      label.vjust = <span class='fl'>1</span>,
+      label.theme = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span>(angle = <span class='fl'>90</span>)
+    )
+  )</div><div class='img'><img src='guide_legend-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Set aesthetic of legend key</span>
 <span class='co'># very low alpha value make it difficult to see legend key</span>
 <span class='kw'>p3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>vs</span>, <span class='kw'>am</span>, colour = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>))) <span class='op'>+</span>

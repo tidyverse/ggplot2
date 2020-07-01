@@ -334,16 +334,19 @@ any data points under the default settings.</p>
   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_rug.html'>geom_rug</a></span>(alpha = <span class='fl'>1</span><span class='op'>/</span><span class='fl'>2</span>, position = <span class='st'>"jitter"</span>)</div><div class='img'><img src='geom_rug-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># move the rug tassels to outside the plot</span>
 <span class='co'># remember to set clip = "off".</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_rug.html'>geom_rug</a></span>(outside = <span class='fl'>TRUE</span>) <span class='op'>+</span>
+<span class='kw'>p</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_rug.html'>geom_rug</a></span>(outside = <span class='fl'>TRUE</span>) <span class='op'>+</span>
   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_cartesian.html'>coord_cartesian</a></span>(clip = <span class='st'>"off"</span>)</div><div class='img'><img src='geom_rug-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># set sides to top right, and then move the margins</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_rug.html'>geom_rug</a></span>(outside = <span class='fl'>TRUE</span>, sides = <span class='st'>"tr"</span>) <span class='op'>+</span>
-   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_cartesian.html'>coord_cartesian</a></span>(clip = <span class='st'>"off"</span>) <span class='op'>+</span>
-   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span>(plot.margin = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>margin</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='st'>"cm"</span>))</div><div class='img'><img src='geom_rug-8.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_rug.html'>geom_rug</a></span>(outside = <span class='fl'>TRUE</span>, sides = <span class='st'>"tr"</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_cartesian.html'>coord_cartesian</a></span>(clip = <span class='st'>"off"</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span>(plot.margin = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>margin</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='st'>"cm"</span>))</div><div class='img'><img src='geom_rug-8.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># increase the line length and</span>
 <span class='co'># expand axis to avoid overplotting</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_rug.html'>geom_rug</a></span>(length = <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>0.05</span>, <span class='st'>"npc"</span>)) <span class='op'>+</span>
-   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_continuous</a></span>(expand = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.1</span>, <span class='fl'>0.1</span>))</div><div class='img'><img src='geom_rug-9.png' alt='' width='700' height='433' /></div><div class='input'></div></pre>
+<span class='kw'>p</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_rug.html'>geom_rug</a></span>(length = <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>0.05</span>, <span class='st'>"npc"</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_continuous</a></span>(expand = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.1</span>, <span class='fl'>0.1</span>))</div><div class='img'><img src='geom_rug-9.png' alt='' width='700' height='433' /></div><div class='input'></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
