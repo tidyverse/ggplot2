@@ -124,7 +124,9 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
 
 \examples{
-m <- ggplot(mpg, aes(displ, 1 / hwy)) + geom_point()
+m <-
+  ggplot(mpg, aes(displ, 1 / hwy)) +
+  geom_point()
 m + geom_quantile()
 m + geom_quantile(quantiles = 0.5)
 q10 <- seq(0.05, 0.95, by = 0.05)
