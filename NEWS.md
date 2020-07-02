@@ -5,6 +5,8 @@
   
 * Updated style for example code (@rjake, #4092)
 
+* Only drop groups in `stat_ydensity` when there are fewer than two data points and throw a warning (@andrewwbutler, #4111).
+
 # ggplot2 3.3.2
 This is a small release focusing on fixing regressions introduced in 3.3.1.
 
