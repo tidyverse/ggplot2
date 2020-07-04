@@ -226,23 +226,23 @@ Broken down into construct, build, render and draw times.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/benchplot.html'>benchplot</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>())</div><div class='output co'>#&gt;        step user.self sys.self elapsed
 #&gt; 1 construct     0.002        0   0.002
-#&gt; 2     build     0.015        0   0.015
+#&gt; 2     build     0.015        0   0.016
 #&gt; 3    render     0.023        0   0.023
-#&gt; 4      draw     0.029        0   0.029
-#&gt; 5     TOTAL     0.069        0   0.069</div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/benchplot.html'>benchplot</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span>(<span class='kw'>.</span> <span class='op'>~</span> <span class='kw'>cyl</span>))</div><div class='output co'>#&gt;        step user.self sys.self elapsed
-#&gt; 1 construct     0.003        0   0.003
-#&gt; 2     build     0.034        0   0.034
-#&gt; 3    render     0.063        0   0.063
-#&gt; 4      draw     0.050        0   0.049
-#&gt; 5     TOTAL     0.150        0   0.149</div><div class='input'>
+#&gt; 4      draw     0.030        0   0.030
+#&gt; 5     TOTAL     0.070        0   0.071</div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/benchplot.html'>benchplot</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span>(<span class='kw'>.</span> <span class='op'>~</span> <span class='kw'>cyl</span>))</div><div class='output co'>#&gt;        step user.self sys.self elapsed
+#&gt; 1 construct     0.002        0   0.003
+#&gt; 2     build     0.033        0   0.032
+#&gt; 3    render     0.062        0   0.063
+#&gt; 4      draw     0.049        0   0.049
+#&gt; 5     TOTAL     0.146        0   0.147</div><div class='input'>
 <span class='co'># With tidy eval:</span>
 <span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/tidyeval.html'>expr</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>())
 <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/benchplot.html'>benchplot</a></span>(<span class='op'>!</span><span class='op'>!</span><span class='kw'>p</span>)</div><div class='img'><img src='benchplot-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt;        step user.self sys.self elapsed
-#&gt; 1 construct     0.003    0.000   0.002
-#&gt; 2     build     0.015    0.000   0.015
-#&gt; 3    render     0.024    0.001   0.024
-#&gt; 4      draw     0.030    0.000   0.030
-#&gt; 5     TOTAL     0.072    0.001   0.071</div></pre>
+#&gt; 1 construct     0.002        0   0.002
+#&gt; 2     build     0.015        0   0.016
+#&gt; 3    render     0.023        0   0.023
+#&gt; 4      draw     0.029        0   0.029
+#&gt; 5     TOTAL     0.069        0   0.070</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
