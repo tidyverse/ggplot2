@@ -69,6 +69,13 @@ guides <- function(...) {
     if (is.list(args[[1]]) && !inherits(args[[1]], "guide")) args <- args[[1]]
     args <- rename_aes(args)
   }
+
+  idx_false <- vapply(args, isFALSE, FUN.VALUE = logical(1L))
+  if (any(idx_false)) {
+    warn('`guides(<scale> = FALSE)` is deprecated. Please use `guides(<scale> = "none")` instead.')
+    args[idx_false] <- "none"
+  }
+
   structure(args, class = "guides")
 }
 
@@ -193,10 +200,7 @@ guides_train <- function(scales, theme, guides, labels) {
       if (identical(guide, "none") || inherits(guide, "guide_none")) next
 
       if (isFALSE(guide)) {
-        warn(glue(
-          "`guides({scale$aesthetics} = FALSE)` is deprecated. ",
-          'Please use `guides({scale$aesthetics} = "none")` instead.'
-        ))
+        warn('It is deprecated to specify `FALSE` to remove a guide. Please use `"none"` instead.')
         next
       }
 

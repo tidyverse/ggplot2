@@ -525,13 +525,17 @@ test_that("coloursteps guide can be styled correctly", {
   )
 })
 
-test_that("a warning is generated when guides(... = FALSE) is specified", {
+test_that("a warning is generated when guides(<scale> = FALSE) is specified", {
   df <- data_frame(x = c(1, 2, 4),
                    y = c(6, 5, 7))
 
-  p <- ggplot(df, aes(x, y, colour = x)) +
-    geom_point() +
-    guides(colour = FALSE)
+  expect_warning(g <- guides(colour = FALSE), "`guides(<scale> = FALSE)` is deprecated.", fixed = TRUE)
+  expect_equal(g[["colour"]], "none")
+
+  # manually create a invalid guide
+  g[["colour"]] <- FALSE
+
+  p <- ggplot(df, aes(x, y, colour = x)) + g
   built <- expect_silent(ggplot_build(p))
-  expect_warning(ggplot_gtable(built), "`guides(colour = FALSE)` is deprecated.", fixed = TRUE)
+  expect_warning(ggplot_gtable(built), "It is deprecated to specify `FALSE`")
 })
