@@ -200,7 +200,7 @@ guides_train <- function(scales, theme, guides, labels) {
       if (identical(guide, "none") || inherits(guide, "guide_none")) next
 
       if (isFALSE(guide)) {
-        warn('It is deprecated to specify `FALSE` to remove a guide. Please use `"none"` instead.')
+        warn('It is deprecated to specify `guide = FALSE` to remove a guide. Please use `guide = "none"` instead.')
         next
       }
 
