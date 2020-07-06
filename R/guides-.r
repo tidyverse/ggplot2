@@ -71,7 +71,7 @@ guides <- function(...) {
   }
 
   idx_false <- vapply(args, isFALSE, FUN.VALUE = logical(1L))
-  if (any(idx_false)) {
+  if (isTRUE(any(idx_false))) {
     warn('`guides(<scale> = FALSE)` is deprecated. Please use `guides(<scale> = "none")` instead.')
     args[idx_false] <- "none"
   }
