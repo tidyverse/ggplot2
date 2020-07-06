@@ -7,8 +7,10 @@
 
 * Only drop groups in `stat_ydensity()` when there are fewer than two data points and throw a warning (@andrewwbutler, #4111).
 
-* Using `guides(<scale> = FALSE)` to remove a guide is now deprecated. Please
-  use `guides(<scale> = "none")` instead (@yutannihilation, #4094).
+* It is not deprecated to specify `guides(<scale> = FALSE)` or
+  `scale_*(guide = FALSE)` to remove a guide. Please use 
+  `guides(<scale> = "none")` or `scale_*(guide = "none")` instead 
+  (@yutannihilation, #4094).
 
 # ggplot2 3.3.2
 This is a small release focusing on fixing regressions introduced in 3.3.1.
