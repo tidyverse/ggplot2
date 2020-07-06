@@ -5,6 +5,8 @@
   
 * Updated style for example code (@rjake, #4092)
 
+* Only drop groups in `stat_ydensity()` when there are fewer than two data points and throw a warning (@andrewwbutler, #4111).
+
 * Using `guides(<scale> = FALSE)` to remove a guide is now deprecated. Please
   use `guides(<scale> = "none")` instead (@yutannihilation, #4094).
 
