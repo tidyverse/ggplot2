@@ -197,6 +197,7 @@ theme_grey <- function(base_size = 11, base_family = "",
     panel.ontop    =     FALSE,
 
     strip.background =   element_rect(fill = "grey85", colour = NA),
+    strip.clip =         TRUE,
     strip.text =         element_text(
                            colour = "grey10",
                            size = rel(0.8),
@@ -609,6 +610,7 @@ theme_test <- function(base_size = 11, base_family = "",
     panel.ontop    =     FALSE,
 
     strip.background =   element_rect(fill = "grey85", colour = "grey20"),
+    strip.clip =         TRUE,
     strip.text =         element_text(
                            colour = "grey10",
                            size = rel(0.8),
