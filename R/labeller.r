@@ -486,6 +486,7 @@ labeller <- function(..., .rows = NULL, .cols = NULL,
 #' @noRd
 build_strip <- function(label_df, labeller, theme, horizontal) {
   labeller <- match.fun(labeller)
+  clip <- if (calc_element("strip.clip", theme)) "on" else "off"
 
   # No labelling data, so return empty row/col
   if (empty(label_df)) {
@@ -507,13 +508,13 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
                         element = "strip.text.x.top", margin_x = TRUE,
                         margin_y = TRUE)
     grobs_top <- assemble_strips(matrix(grobs_top, ncol = ncol, nrow = nrow),
-                                 theme, horizontal, clip = "on")
+                                 theme, horizontal, clip = clip)
 
     grobs_bottom <- lapply(labels, element_render, theme = theme,
                            element = "strip.text.x.bottom", margin_x = TRUE,
                            margin_y = TRUE)
     grobs_bottom <- assemble_strips(matrix(grobs_bottom, ncol = ncol, nrow = nrow),
-                                    theme, horizontal, clip = "on")
+                                    theme, horizontal, clip = clip)
 
     list(
       top = grobs_top,
@@ -524,14 +525,14 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
                          element = "strip.text.y.left", margin_x = TRUE,
                          margin_y = TRUE)
     grobs_left <- assemble_strips(matrix(grobs_left, ncol = ncol, nrow = nrow),
-                                  theme, horizontal, clip = "on")
+                                  theme, horizontal, clip = clip)
 
     grobs_right <- lapply(labels[, rev(seq_len(ncol(labels))), drop = FALSE],
                           element_render, theme = theme,
                           element = "strip.text.y.right", margin_x = TRUE,
                           margin_y = TRUE)
     grobs_right <- assemble_strips(matrix(grobs_right, ncol = ncol, nrow = nrow),
-                                   theme, horizontal, clip = "on")
+                                   theme, horizontal, clip = clip)
 
     list(
       left = grobs_left,
