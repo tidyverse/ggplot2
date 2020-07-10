@@ -76,6 +76,13 @@ test_that("geom_sf() determines the legend type from mapped geometry column", {
     ggplot(d_sf) + geom_sf(aes(geometry = g_line, colour = "a"))
   )
   expect_identical(p$plot$layers[[1]]$geom_params$legend, "line")
+
+  # If `geometry` is not a symbol, `LayerSf$setup_layer()` gives up guessing
+  # the legend type, and falls back to "polygon"
+  p <- ggplot_build(
+    ggplot(d_sf) + geom_sf(aes(geometry = identity(g_point), colour = "a"))
+  )
+  expect_identical(p$plot$layers[[1]]$geom_params$legend, "polygon")
 })
 
 test_that("geom_sf() removes rows containing missing aes", {
