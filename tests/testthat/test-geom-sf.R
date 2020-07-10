@@ -77,8 +77,8 @@ test_that("geom_sf() determines the legend type from mapped geometry column", {
   )
   expect_identical(p$plot$layers[[1]]$geom_params$legend, "line")
 
-  # If `geometry` is not a symbol, layer_sf() gives up guessing the legend type,
-  # and falls back to "polygon"
+  # If `geometry` is not a symbol, `LayerSf$setup_layer()` gives up guessing
+  # the legend type, and falls back to "polygon"
   p <- ggplot_build(
     ggplot(d_sf) + geom_sf(aes(geometry = identity(g_point), colour = "a"))
   )
