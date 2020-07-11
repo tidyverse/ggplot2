@@ -486,7 +486,6 @@ labeller <- function(..., .rows = NULL, .cols = NULL,
 #' @noRd
 build_strip <- function(label_df, labeller, theme, horizontal) {
   labeller <- match.fun(labeller)
-  clip <- if (calc_element("strip.clip", theme)) "on" else "off"
 
   # No labelling data, so return empty row/col
   if (empty(label_df)) {
@@ -502,6 +501,11 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
   labels <- do.call("cbind", labels)
   ncol <- ncol(labels)
   nrow <- nrow(labels)
+
+  # Decide strip clipping
+  clip <- calc_element("strip.clip", theme)[[1]]
+  clip <- pmatch(clip, c("on", "off", "inherit"), nomatch = 3)
+  clip <- c("on", "off", "inherit")[clip]
 
   if (horizontal) {
     grobs_top <- lapply(labels, element_render, theme = theme,

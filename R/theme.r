@@ -149,7 +149,8 @@
 #'    either "inside" or "outside". Only important when axes and strips are
 #'    on the same side of the plot.
 #' @param strip.clip should strip background edges and strip labels be clipped
-#'   to the extend of the strip background? default: `TRUE` (`logical`)
+#'   to the extend of the strip background? Options are `"on"`, `"off"` and
+#'   `"inherit"`.
 #' @param strip.text,strip.text.x,strip.text.y facet labels ([element_text()];
 #'   inherits from  `text`). Horizontal facet labels (`strip.text.x`) & vertical
 #'   facet labels (`strip.text.y`) inherit from `strip.text` or can be specified
