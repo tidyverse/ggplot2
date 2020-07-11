@@ -92,6 +92,28 @@ test_that("geom_histogram() can be drawn over a 0-width range (#3043)", {
   expect_equal(out$xmax, 1.05)
 })
 
+test_that("stat_bin() provides width (#3522)", {
+  binwidth <- 1.03
+  df <- data_frame(x = 1:10)
+  p <- ggplot(df) +
+    stat_bin(
+      aes(
+        x,
+        xmin = after_stat(x - width / 2),
+        xmax = after_stat(x + width / 2),
+        ymin = after_stat(0),
+        ymax = after_stat(count)
+      ),
+      geom = "rect",
+      binwidth = binwidth
+    )
+  out <- layer_data(p)
+
+  expect_equal(nrow(out), 10)
+  # (x + width / 2) - (x - width / 2) = width
+  expect_equal(out$xmax - out$xmin, rep(binwidth, 10))
+})
+
 # Underlying binning algorithm --------------------------------------------
 
 comp_bin <- function(df, ...) {
