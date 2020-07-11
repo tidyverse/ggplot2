@@ -170,6 +170,7 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 
 \section{Computed variables}{
 
+\code{stat_smooth()} provides the following variables, some of which depend on the orientation:
 \describe{
 \item{y or x}{predicted value}
 \item{ymin or xmin}{lower pointwise confidence interval around the mean}
