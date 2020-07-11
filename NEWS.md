@@ -12,6 +12,8 @@
   `guides(<scale> = "none")` or `scale_*(guide = "none")` instead 
   (@yutannihilation, #4094).
 
+* `stat_bin()`'s computed variable `width` is now documented (#3522).
+
 # ggplot2 3.3.2
 This is a small release focusing on fixing regressions introduced in 3.3.1.
 
