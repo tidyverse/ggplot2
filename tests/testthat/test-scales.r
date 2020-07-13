@@ -375,8 +375,8 @@ test_that("All scale_colour_*() have their American versions", {
   # In testthat, the package env contains non-exported functions as well so we
   # need to parse NAMESPACE file by ourselves
   exports <- readLines(system.file("NAMESPACE", package = "ggplot2"))
-  colour_scale_exports <- grep("scale_.*colour", exports, value = TRUE)
-  color_scale_exports <- grep("scale_.*color", exports, value = TRUE)
+  colour_scale_exports <- grep("export\\(scale_colour_.*\\)", exports, value = TRUE)
+  color_scale_exports <- grep("export\\(scale_color_.*\\)", exports, value = TRUE)
   expect_equal(
     colour_scale_exports,
     sub("color", "colour", color_scale_exports)
