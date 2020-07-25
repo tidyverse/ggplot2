@@ -71,10 +71,6 @@ jobs:
         env:
           RHUB_PLATFORM: linux-x86_64-ubuntu-gcc
         run: |
-          # Use cran:libgit2 PPA to avoid conflicts of libcurl4-gnutls-dev
-          # Remove this after https://github.com/r-lib/actions/pull/97 gets merged
-          sudo add-apt-repository ppa:cran/libgit2
-
           Rscript -e "remotes::install_github('r-hub/sysreqs')"
           sysreqs=$(Rscript -e "cat(sysreqs::sysreq_commands('DESCRIPTION'))")
           sudo -s eval "$sysreqs"
