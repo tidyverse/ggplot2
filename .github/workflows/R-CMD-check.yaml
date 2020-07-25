@@ -90,7 +90,7 @@ jobs:
           # Since sf dependencies are a bit heavy, install them only when they are needed
           SF_NEEDS_UPDATED=$(Rscript -e 'if (!"sf" %in% installed.packages()[,"Package"] || "sf" %in% old.packages()[,"Package"]) cat("yes")')
           if [ "${SF_NEEDS_UPDATED}" == "yes" ]; then
-            brew install udunits gdal
+            # brew install udunits gdal
           fi
 
       - name: Install dependencies
