@@ -36,7 +36,8 @@ jobs:
       - name: Install dependencies
         run: |
           remotes::install_deps(dependencies = TRUE, type = "binary")
-          install.packages("pkgdown")
+          remotes::install_github("tidyverse/tidytemplate")
+          remotes::install_dev("pkgdown")
         shell: Rscript {0}
 
       - name: Install package
