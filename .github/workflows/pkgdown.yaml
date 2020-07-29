@@ -1,6 +1,9 @@
 on:
   push:
     branches: master
+      - master
+  release:
+    types: [published]
 
 name: pkgdown
 
