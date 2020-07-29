@@ -53,7 +53,7 @@
 #' d + stat_summary(fun.data = "mean_cl_boot", colour = "red", size = 2)
 #'
 #' # Orientation follows the discrete axis
-#' ggplot(mtcars, aes(mpg, cyl)) +
+#' ggplot(mtcars, aes(mpg, factor(cyl))) +
 #'   geom_point() +
 #'   stat_summary(fun.data = "mean_cl_boot", colour = "red", size = 2)
 #'
