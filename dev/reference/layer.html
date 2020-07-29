@@ -210,7 +210,7 @@ adjustment. Usually layers are created using <code>geom_*</code> or <code>stat_*
 calls but it can also be created directly using this function.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/layer.html'>layer</a></span>(
+    <pre class="usage"><span class='fu'>layer</span>(
   geom = <span class='kw'>NULL</span>,
   stat = <span class='kw'>NULL</span>,
   data = <span class='kw'>NULL</span>,
@@ -242,10 +242,10 @@ layer, as a string.</p></td>
       <td><p>The data to be displayed in this layer. There are three
 options:</p>
 <p>If <code>NULL</code>, the default, the data is inherited from the plot
-data as specified in the call to <code><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot()</a></code>.</p>
+data as specified in the call to <code><a href='ggplot.html'>ggplot()</a></code>.</p>
 <p>A <code>data.frame</code>, or other object, will override the plot
 data. All objects will be fortified to produce a data frame. See
-<code><a href='https://ggplot2.tidyverse.org/reference/fortify.html'>fortify()</a></code> for which variables will be created.</p>
+<code><a href='fortify.html'>fortify()</a></code> for which variables will be created.</p>
 <p>A <code>function</code> will be called with a single argument,
 the plot data. The return value must be a <code>data.frame</code>, and
 will be used as the layer data. A <code>function</code> can be created
@@ -253,8 +253,8 @@ from a <code>formula</code> (e.g. <code>~ head(.x, 10)</code>).</p></td>
     </tr>
     <tr>
       <th>mapping</th>
-      <td><p>Set of aesthetic mappings created by <code><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes()</a></code> or
-<code><a href='https://ggplot2.tidyverse.org/reference/aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
+      <td><p>Set of aesthetic mappings created by <code><a href='aes.html'>aes()</a></code> or
+<code><a href='aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
     </tr>
@@ -272,7 +272,7 @@ a call to a position adjustment function.</p></td>
       <td><p>If <code>FALSE</code>, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. <code><a href='https://ggplot2.tidyverse.org/reference/borders.html'>borders()</a></code>.</p></td>
+the default plot specification, e.g. <code><a href='borders.html'>borders()</a></code>.</p></td>
     </tr>
     <tr>
       <th>check.aes, check.param</th>
@@ -291,7 +291,7 @@ display.</p></td>
     <tr>
       <th>key_glyph</th>
       <td><p>A legend key drawing function or a string providing the
-function name minus the <code>draw_key_</code> prefix. See <a href='https://ggplot2.tidyverse.org/reference/draw_key.html'>draw_key</a> for details.</p></td>
+function name minus the <code>draw_key_</code> prefix. See <a href='draw_key.html'>draw_key</a> for details.</p></td>
     </tr>
     <tr>
       <th>layer_class</th>
@@ -303,15 +303,15 @@ intended for ggplot2 internal use only.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># geom calls are just a short cut for layer</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>()</div><div class='img'><img src='layer-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># shortcut for</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/layer.html'>layer</a></span>(
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span>()</div><div class='img'><img src='layer-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># shortcut for</span>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
+  <span class='fu'>layer</span>(
     geom = <span class='st'>"point"</span>, stat = <span class='st'>"identity"</span>, position = <span class='st'>"identity"</span>,
     params = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(na.rm = <span class='fl'>FALSE</span>)
   )</div><div class='img'><img src='layer-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># use a function as data to plot a subset of global data</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/layer.html'>layer</a></span>(
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
+  <span class='fu'>layer</span>(
     geom = <span class='st'>"point"</span>, stat = <span class='st'>"identity"</span>, position = <span class='st'>"identity"</span>,
     data = <span class='kw'>head</span>, params = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(na.rm = <span class='fl'>FALSE</span>)
   )</div><div class='img'><img src='layer-3.png' alt='' width='700' height='433' /></div><div class='input'></div></pre>

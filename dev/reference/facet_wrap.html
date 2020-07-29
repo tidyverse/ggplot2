@@ -205,12 +205,12 @@ displays are roughly rectangular." />
     </div>
 
     <div class="ref-description">
-    <p><code><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap()</a></code> wraps a 1d sequence of panels into 2d. This is generally
-a better use of screen space than <code><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid()</a></code> because most
+    <p><code>facet_wrap()</code> wraps a 1d sequence of panels into 2d. This is generally
+a better use of screen space than <code><a href='facet_grid.html'>facet_grid()</a></code> because most
 displays are roughly rectangular.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span>(
+    <pre class="usage"><span class='fu'>facet_wrap</span>(
   <span class='kw'>facets</span>,
   nrow = <span class='kw'>NULL</span>,
   ncol = <span class='kw'>NULL</span>,
@@ -229,7 +229,7 @@ displays are roughly rectangular.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>facets</th>
-      <td><p>A set of variables or expressions quoted by <code><a href='https://ggplot2.tidyverse.org/reference/vars.html'>vars()</a></code>
+      <td><p>A set of variables or expressions quoted by <code><a href='vars.html'>vars()</a></code>
 and defining faceting groups on the rows or columns dimension.
 The variables can be named (the names are passed to <code>labeller</code>).</p>
 <p>For compatibility with the classic interface, can also be a
@@ -257,12 +257,12 @@ before statistical summary.</p></td>
       <td><p>A function that takes one data frame of labels and
 returns a list or data frame of character vectors. Each input
 column corresponds to one factor. Thus there will be more than
-one with <code><a href='https://ggplot2.tidyverse.org/reference/vars.html'>vars(cyl, am)</a></code>. Each output
+one with <code><a href='vars.html'>vars(cyl, am)</a></code>. Each output
 column gets displayed as one separate line in the strip
 label. This function should inherit from the "labeller" S3 class
-for compatibility with <code><a href='https://ggplot2.tidyverse.org/reference/labeller.html'>labeller()</a></code>. You can use different labeling
-functions for different kind of labels, for example use <code><a href='https://ggplot2.tidyverse.org/reference/labellers.html'>label_parsed()</a></code> for
-formatting facet labels. <code><a href='https://ggplot2.tidyverse.org/reference/labellers.html'>label_value()</a></code> is used by default,
+for compatibility with <code><a href='labeller.html'>labeller()</a></code>. You can use different labeling
+functions for different kind of labels, for example use <code><a href='labellers.html'>label_parsed()</a></code> for
+formatting facet labels. <code><a href='labellers.html'>label_value()</a></code> is used by default,
 check it for more details and pointers to other options.</p></td>
     </tr>
     <tr>
@@ -301,48 +301,48 @@ either of the four sides by setting <code>strip.position = c("top",
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>()
+    <pre class="examples"><div class='input'><span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
 
 <span class='co'># Use vars() to supply faceting variables:</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/vars.html'>vars</a></span>(<span class='kw'>class</span>))</div><div class='img'><img src='facet_wrap-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>facet_wrap</span>(<span class='fu'><a href='vars.html'>vars</a></span>(<span class='kw'>class</span>))</div><div class='img'><img src='facet_wrap-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Control the number of rows and columns with nrow and ncol</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/vars.html'>vars</a></span>(<span class='kw'>class</span>), nrow = <span class='fl'>4</span>)</div><div class='img'><img src='facet_wrap-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>facet_wrap</span>(<span class='fu'><a href='vars.html'>vars</a></span>(<span class='kw'>class</span>), nrow = <span class='fl'>4</span>)</div><div class='img'><img src='facet_wrap-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># \donttest{</span>
 <span class='co'># You can facet by multiple variables</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/vars.html'>vars</a></span>(<span class='kw'>cyl</span>, <span class='kw'>drv</span>))</div><div class='img'><img src='facet_wrap-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
+  <span class='fu'>facet_wrap</span>(<span class='fu'><a href='vars.html'>vars</a></span>(<span class='kw'>cyl</span>, <span class='kw'>drv</span>))</div><div class='img'><img src='facet_wrap-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Use the `labeller` option to control how labels are printed:</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/vars.html'>vars</a></span>(<span class='kw'>cyl</span>, <span class='kw'>drv</span>), labeller = <span class='st'>"label_both"</span>)</div><div class='img'><img src='facet_wrap-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
+  <span class='fu'>facet_wrap</span>(<span class='fu'><a href='vars.html'>vars</a></span>(<span class='kw'>cyl</span>, <span class='kw'>drv</span>), labeller = <span class='st'>"label_both"</span>)</div><div class='img'><img src='facet_wrap-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># To change the order in which the panels appear, change the levels</span>
 <span class='co'># of the underlying factor.</span>
 <span class='kw'>mpg</span><span class='op'>$</span><span class='kw'>class2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/reorder.factor.html'>reorder</a></span>(<span class='kw'>mpg</span><span class='op'>$</span><span class='kw'>class</span>, <span class='kw'>mpg</span><span class='op'>$</span><span class='kw'>displ</span>)
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/vars.html'>vars</a></span>(<span class='kw'>class2</span>))</div><div class='img'><img src='facet_wrap-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
+  <span class='fu'>facet_wrap</span>(<span class='fu'><a href='vars.html'>vars</a></span>(<span class='kw'>class2</span>))</div><div class='img'><img src='facet_wrap-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># By default, the same scales are used for all panels. You can allow</span>
 <span class='co'># scales to vary across the panels with the `scales` argument.</span>
 <span class='co'># Free scales make it easier to see patterns within each panel, but</span>
 <span class='co'># harder to compare across panels.</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/vars.html'>vars</a></span>(<span class='kw'>class</span>), scales = <span class='st'>"free"</span>)</div><div class='img'><img src='facet_wrap-6.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
+  <span class='fu'>facet_wrap</span>(<span class='fu'><a href='vars.html'>vars</a></span>(<span class='kw'>class</span>), scales = <span class='st'>"free"</span>)</div><div class='img'><img src='facet_wrap-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># To repeat the same data in every panel, simply construct a data frame</span>
 <span class='co'># that does not contain the faceting variable.</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(data = <span class='fu'><a href='https://rdrr.io/r/base/transform.html'>transform</a></span>(<span class='kw'>mpg</span>, class = <span class='kw'>NULL</span>), colour = <span class='st'>"grey85"</span>) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/vars.html'>vars</a></span>(<span class='kw'>class</span>))</div><div class='img'><img src='facet_wrap-7.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(data = <span class='fu'><a href='https://rdrr.io/r/base/transform.html'>transform</a></span>(<span class='kw'>mpg</span>, class = <span class='kw'>NULL</span>), colour = <span class='st'>"grey85"</span>) <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
+  <span class='fu'>facet_wrap</span>(<span class='fu'><a href='vars.html'>vars</a></span>(<span class='kw'>class</span>))</div><div class='img'><img src='facet_wrap-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Use `strip.position` to display the facet labels at the side of your</span>
 <span class='co'># choice. Setting it to `bottom` makes it act as a subtitle for the axis.</span>
 <span class='co'># This is typically used with free scales and a theme without boxes around</span>
 <span class='co'># strip labels.</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>economics_long</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>date</span>, <span class='kw'>value</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/vars.html'>vars</a></span>(<span class='kw'>variable</span>), scales = <span class='st'>"free_y"</span>, nrow = <span class='fl'>2</span>, strip.position = <span class='st'>"top"</span>) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span>(strip.background = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_blank</a></span>(), strip.placement = <span class='st'>"outside"</span>)</div><div class='img'><img src='facet_wrap-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span></div></pre>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>economics_long</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>date</span>, <span class='kw'>value</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='geom_path.html'>geom_line</a></span>() <span class='op'>+</span>
+  <span class='fu'>facet_wrap</span>(<span class='fu'><a href='vars.html'>vars</a></span>(<span class='kw'>variable</span>), scales = <span class='st'>"free_y"</span>, nrow = <span class='fl'>2</span>, strip.position = <span class='st'>"top"</span>) <span class='op'>+</span>
+  <span class='fu'><a href='theme.html'>theme</a></span>(strip.background = <span class='fu'><a href='margin.html'>element_blank</a></span>(), strip.placement = <span class='st'>"outside"</span>)</div><div class='img'><img src='facet_wrap-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

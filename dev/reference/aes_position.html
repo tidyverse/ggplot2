@@ -222,11 +222,11 @@ annotations and to represent rectangular areas.</p>
 
     <div class='dont-index'>
 <ul>
-<li><p>Geoms that commonly use these aesthetics: <code><a href='https://ggplot2.tidyverse.org/reference/geom_linerange.html'>geom_crossbar()</a></code>,
-<code><a href='https://ggplot2.tidyverse.org/reference/geom_segment.html'>geom_curve()</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/geom_linerange.html'>geom_errorbar()</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line()</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/geom_linerange.html'>geom_linerange()</a></code>,
-<code><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_path()</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point()</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/geom_linerange.html'>geom_pointrange()</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/geom_tile.html'>geom_rect()</a></code>,
-<code><a href='https://ggplot2.tidyverse.org/reference/geom_segment.html'>geom_segment()</a></code></p></li>
-<li><p>See also <code><a href='https://ggplot2.tidyverse.org/reference/annotate.html'>annotate()</a></code> for placing annotations.</p></li>
+<li><p>Geoms that commonly use these aesthetics: <code><a href='geom_crossbar.html'>geom_crossbar()</a></code>,
+<code><a href='geom_segment.html'>geom_curve()</a></code>, <code><a href='geom_crossbar.html'>geom_errorbar()</a></code>, <code><a href='geom_path.html'>geom_line()</a></code>, <code><a href='geom_crossbar.html'>geom_linerange()</a></code>,
+<code><a href='geom_path.html'>geom_path()</a></code>, <code><a href='geom_point.html'>geom_point()</a></code>, <code><a href='geom_crossbar.html'>geom_pointrange()</a></code>, <code><a href='geom_raster.html'>geom_rect()</a></code>,
+<code><a href='geom_segment.html'>geom_segment()</a></code></p></li>
+<li><p>See also <code><a href='annotate.html'>annotate()</a></code> for placing annotations.</p></li>
 </ul>
 </div>
 
@@ -240,30 +240,30 @@ annotations and to represent rectangular areas.</p>
   <span class='kw'>cut</span>,
   <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span>(<span class='kw'>dmod</span>, <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>cut</span>), se = <span class='fl'>TRUE</span>)[<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"fit"</span>, <span class='st'>"se.fit"</span>)]
 )
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>cuts_df</span>) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>cuts_df</span>) <span class='op'>+</span>
+  <span class='fu'><a href='aes.html'>aes</a></span>(
    x = <span class='kw'>cut</span>,
    y = <span class='kw'>fit</span>,
    ymin = <span class='kw'>fit</span> <span class='op'>-</span> <span class='kw'>se.fit</span>,
    ymax = <span class='kw'>fit</span> <span class='op'>+</span> <span class='kw'>se.fit</span>,
    colour = <span class='kw'>cut</span>
   ) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_linerange.html'>geom_pointrange</a></span>()</div><div class='img'><img src='aes_position-1.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'><a href='geom_crossbar.html'>geom_pointrange</a></span>()</div><div class='img'><img src='aes_position-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Using annotate</span>
-<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(x = <span class='kw'>wt</span>, y = <span class='kw'>mpg</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>()
-<span class='kw'>p</span></div><div class='img'><img src='aes_position-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotate.html'>annotate</a></span>(
+<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='kw'>wt</span>, y = <span class='kw'>mpg</span>)) <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
+<span class='kw'>p</span></div><div class='img'><img src='aes_position-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='annotate.html'>annotate</a></span>(
   <span class='st'>"rect"</span>, xmin = <span class='fl'>2</span>, xmax = <span class='fl'>3.5</span>, ymin = <span class='fl'>2</span>, ymax = <span class='fl'>25</span>,
   fill = <span class='st'>"dark grey"</span>, alpha = <span class='fl'>.5</span>
 )</div><div class='img'><img src='aes_position-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Geom_segment examples</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_segment.html'>geom_segment</a></span>(
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(x = <span class='fl'>2</span>, y = <span class='fl'>15</span>, xend = <span class='fl'>2</span>, yend = <span class='fl'>25</span>),
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_segment.html'>geom_segment</a></span>(
+  <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='fl'>2</span>, y = <span class='fl'>15</span>, xend = <span class='fl'>2</span>, yend = <span class='fl'>25</span>),
   arrow = <span class='fu'><a href='https://rdrr.io/r/grid/arrow.html'>arrow</a></span>(length = <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>0.5</span>, <span class='st'>"cm"</span>))
-)</div><div class='img'><img src='aes_position-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_segment.html'>geom_segment</a></span>(
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(x = <span class='fl'>2</span>, y = <span class='fl'>15</span>, xend = <span class='fl'>3</span>, yend = <span class='fl'>15</span>),
+)</div><div class='img'><img src='aes_position-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_segment.html'>geom_segment</a></span>(
+  <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='fl'>2</span>, y = <span class='fl'>15</span>, xend = <span class='fl'>3</span>, yend = <span class='fl'>15</span>),
   arrow = <span class='fu'><a href='https://rdrr.io/r/grid/arrow.html'>arrow</a></span>(length = <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>0.5</span>, <span class='st'>"cm"</span>))
-)</div><div class='img'><img src='aes_position-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_segment.html'>geom_segment</a></span>(
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(x = <span class='fl'>5</span>, y = <span class='fl'>30</span>, xend = <span class='fl'>3.5</span>, yend = <span class='fl'>25</span>),
+)</div><div class='img'><img src='aes_position-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_segment.html'>geom_segment</a></span>(
+  <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='fl'>5</span>, y = <span class='fl'>30</span>, xend = <span class='fl'>3.5</span>, yend = <span class='fl'>25</span>),
   arrow = <span class='fu'><a href='https://rdrr.io/r/grid/arrow.html'>arrow</a></span>(length = <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>0.5</span>, <span class='st'>"cm"</span>))
 )</div><div class='img'><img src='aes_position-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can also use geom_segment() to recreate plot(type = "h")</span>
@@ -271,8 +271,8 @@ annotations and to represent rectangular areas.</p>
 <span class='kw'>counts</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(x = <span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>rpois</a></span>(<span class='fl'>100</span>, <span class='fl'>5</span>)))
 <span class='kw'>counts</span><span class='op'>$</span><span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span>(<span class='kw'>counts</span><span class='op'>$</span><span class='kw'>x</span>))
 <span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span>(<span class='kw'>counts</span>, <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='kw'>x</span>, <span class='kw'>Freq</span>, type = <span class='st'>"h"</span>, lwd = <span class='fl'>10</span>))</div><div class='img'><img src='aes_position-7.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>counts</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(x = <span class='kw'>x</span>, y = <span class='kw'>Freq</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_segment.html'>geom_segment</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(yend = <span class='fl'>0</span>, xend = <span class='kw'>x</span>), size = <span class='fl'>10</span>)</div><div class='img'><img src='aes_position-8.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>counts</span>, <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='kw'>x</span>, y = <span class='kw'>Freq</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='geom_segment.html'>geom_segment</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(yend = <span class='fl'>0</span>, xend = <span class='kw'>x</span>), size = <span class='fl'>10</span>)</div><div class='img'><img src='aes_position-8.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

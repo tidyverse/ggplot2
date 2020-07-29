@@ -216,19 +216,19 @@ about the data source. <code>tag</code> can be used for adding identification ta
 to differentiate between multiple plots.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span>(
+    <pre class="usage"><span class='fu'>labs</span>(
   <span class='kw'>...</span>,
-  title = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(),
-  subtitle = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(),
-  caption = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(),
-  tag = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>()
+  title = <span class='fu'><a href='waiver.html'>waiver</a></span>(),
+  subtitle = <span class='fu'><a href='waiver.html'>waiver</a></span>(),
+  caption = <span class='fu'><a href='waiver.html'>waiver</a></span>(),
+  tag = <span class='fu'><a href='waiver.html'>waiver</a></span>()
 )
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>xlab</a></span>(<span class='kw'>label</span>)
+<span class='fu'>xlab</span>(<span class='kw'>label</span>)
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>ylab</a></span>(<span class='kw'>label</span>)
+<span class='fu'>ylab</span>(<span class='kw'>label</span>)
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>ggtitle</a></span>(<span class='kw'>label</span>, subtitle = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>())</pre>
+<span class='fu'>ggtitle</span>(<span class='kw'>label</span>, subtitle = <span class='fu'><a href='waiver.html'>waiver</a></span>())</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -258,8 +258,8 @@ top-left of the plot by default.</p></td>
     </tr>
     <tr>
       <th>label</th>
-      <td><p>The title of the respective axis (for <code><a href='https://ggplot2.tidyverse.org/reference/labs.html'>xlab()</a></code> or <code><a href='https://ggplot2.tidyverse.org/reference/labs.html'>ylab()</a></code>) or
-of the plot (for <code><a href='https://ggplot2.tidyverse.org/reference/labs.html'>ggtitle()</a></code>).</p></td>
+      <td><p>The title of the respective axis (for <code>xlab()</code> or <code>ylab()</code>) or
+of the plot (for <code>ggtitle()</code>).</p></td>
     </tr>
     </table>
 
@@ -274,21 +274,21 @@ example, if plot <code>p</code> has a subtitle, then <code>p + labs(subtitle = N
 remove the subtitle from the plot.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>, colour = <span class='kw'>cyl</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>()
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span>(colour = <span class='st'>"Cylinders"</span>)</div><div class='img'><img src='labs-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span>(x = <span class='st'>"New x label"</span>)</div><div class='img'><img src='labs-2.png' alt='' width='700' height='433' /></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>, colour = <span class='kw'>cyl</span>)) <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>labs</span>(colour = <span class='st'>"Cylinders"</span>)</div><div class='img'><img src='labs-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>labs</span>(x = <span class='st'>"New x label"</span>)</div><div class='img'><img src='labs-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># The plot title appears at the top-left, with the subtitle</span>
 <span class='co'># display in smaller text underneath it</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span>(title = <span class='st'>"New plot title"</span>)</div><div class='img'><img src='labs-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span>(title = <span class='st'>"New plot title"</span>, subtitle = <span class='st'>"A subtitle"</span>)</div><div class='img'><img src='labs-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>labs</span>(title = <span class='st'>"New plot title"</span>)</div><div class='img'><img src='labs-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>labs</span>(title = <span class='st'>"New plot title"</span>, subtitle = <span class='st'>"A subtitle"</span>)</div><div class='img'><img src='labs-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># The caption appears in the bottom-right, and is often used for</span>
 <span class='co'># sources, notes or copyright</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span>(caption = <span class='st'>"(based on data from ...)"</span>)</div><div class='img'><img src='labs-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>labs</span>(caption = <span class='st'>"(based on data from ...)"</span>)</div><div class='img'><img src='labs-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># The plot tag appears at the top-left, and is typically used</span>
 <span class='co'># for labelling a subplot with a letter.</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span>(title = <span class='st'>"title"</span>, tag = <span class='st'>"A"</span>)</div><div class='img'><img src='labs-6.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>labs</span>(title = <span class='st'>"title"</span>, tag = <span class='st'>"A"</span>)</div><div class='img'><img src='labs-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># If you want to remove a label, set it to NULL.</span>
 <span class='kw'>p</span> <span class='op'>+</span>
- <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span>(title = <span class='st'>"title"</span>) <span class='op'>+</span>
- <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span>(title = <span class='kw'>NULL</span>)</div><div class='img'><img src='labs-7.png' alt='' width='700' height='433' /></div></pre>
+ <span class='fu'>labs</span>(title = <span class='st'>"title"</span>) <span class='op'>+</span>
+ <span class='fu'>labs</span>(title = <span class='kw'>NULL</span>)</div><div class='img'><img src='labs-7.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -205,12 +205,12 @@ no guarantee that straight lines will continue to be straight." />
     </div>
 
     <div class="ref-description">
-    <p><code><a href='https://ggplot2.tidyverse.org/reference/coord_trans.html'>coord_trans()</a></code> is different to scale transformations in that it occurs after
+    <p><code>coord_trans()</code> is different to scale transformations in that it occurs after
 statistical transformation and will affect the visual appearance of geoms - there is
 no guarantee that straight lines will continue to be straight.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_trans.html'>coord_trans</a></span>(
+    <pre class="usage"><span class='fu'>coord_trans</span>(
   x = <span class='st'>"identity"</span>,
   y = <span class='st'>"identity"</span>,
   xlim = <span class='kw'>NULL</span>,
@@ -271,15 +271,15 @@ on how to create your own.</p>
 
 <span class='co'># Three ways of doing transformation in ggplot:</span>
 <span class='co'>#  * by transforming the data</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log10</a></span>(<span class='kw'>carat</span>), <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log10</a></span>(<span class='kw'>price</span>))) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>()</div><div class='img'><img src='coord_trans-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'>#  * by transforming the scales</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>carat</span>, <span class='kw'>price</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_x_log10</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_log10</a></span>()</div><div class='img'><img src='coord_trans-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'>#  * by transforming the coordinate system:</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>carat</span>, <span class='kw'>price</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_trans.html'>coord_trans</a></span>(x = <span class='st'>"log10"</span>, y = <span class='st'>"log10"</span>)</div><div class='img'><img src='coord_trans-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log10</a></span>(<span class='kw'>carat</span>), <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log10</a></span>(<span class='kw'>price</span>))) <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>()</div><div class='img'><img src='coord_trans-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'>#  * by transforming the scales</span>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>carat</span>, <span class='kw'>price</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
+  <span class='fu'><a href='scale_continuous.html'>scale_x_log10</a></span>() <span class='op'>+</span>
+  <span class='fu'><a href='scale_continuous.html'>scale_y_log10</a></span>()</div><div class='img'><img src='coord_trans-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'>#  * by transforming the coordinate system:</span>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>carat</span>, <span class='kw'>price</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
+  <span class='fu'>coord_trans</span>(x = <span class='st'>"log10"</span>, y = <span class='st'>"log10"</span>)</div><div class='img'><img src='coord_trans-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># The difference between transforming the scales and</span>
 <span class='co'># transforming the coordinate system is that scale</span>
 <span class='co'># transformation occurs BEFORE statistics, and coordinate</span>
@@ -288,36 +288,36 @@ on how to create your own.</p>
 
 <span class='kw'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='kw'>diamonds</span>, <span class='kw'>carat</span> <span class='op'>&gt;</span> <span class='fl'>0.5</span>)
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>d</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>carat</span>, <span class='kw'>price</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span>(method = <span class='st'>"lm"</span>) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_x_log10</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_log10</a></span>()</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using formula 'y ~ x'</span></div><div class='img'><img src='coord_trans-4.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>d</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>carat</span>, <span class='kw'>price</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span>(method = <span class='st'>"lm"</span>) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_trans.html'>coord_trans</a></span>(x = <span class='st'>"log10"</span>, y = <span class='st'>"log10"</span>)</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using formula 'y ~ x'</span></div><div class='img'><img src='coord_trans-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>d</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>carat</span>, <span class='kw'>price</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
+  <span class='fu'><a href='geom_smooth.html'>geom_smooth</a></span>(method = <span class='st'>"lm"</span>) <span class='op'>+</span>
+  <span class='fu'><a href='scale_continuous.html'>scale_x_log10</a></span>() <span class='op'>+</span>
+  <span class='fu'><a href='scale_continuous.html'>scale_y_log10</a></span>()</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using formula 'y ~ x'</span></div><div class='img'><img src='coord_trans-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>d</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>carat</span>, <span class='kw'>price</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
+  <span class='fu'><a href='geom_smooth.html'>geom_smooth</a></span>(method = <span class='st'>"lm"</span>) <span class='op'>+</span>
+  <span class='fu'>coord_trans</span>(x = <span class='st'>"log10"</span>, y = <span class='st'>"log10"</span>)</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using formula 'y ~ x'</span></div><div class='img'><img src='coord_trans-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Here I used a subset of diamonds so that the smoothed line didn't</span>
 <span class='co'># drop below zero, which obviously causes problems on the log-transformed</span>
 <span class='co'># scale</span>
 
 <span class='co'># With a combination of scale and coordinate transformation, it's</span>
 <span class='co'># possible to do back-transformations:</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>carat</span>, <span class='kw'>price</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span>(method = <span class='st'>"lm"</span>) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_x_log10</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_log10</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_trans.html'>coord_trans</a></span>(x = <span class='kw'>scales</span>::<span class='fu'><a href='https://scales.r-lib.org//reference/exp_trans.html'>exp_trans</a></span>(<span class='fl'>10</span>), y = <span class='kw'>scales</span>::<span class='fu'><a href='https://scales.r-lib.org//reference/exp_trans.html'>exp_trans</a></span>(<span class='fl'>10</span>))</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using formula 'y ~ x'</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='img'><img src='coord_trans-6.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>carat</span>, <span class='kw'>price</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
+  <span class='fu'><a href='geom_smooth.html'>geom_smooth</a></span>(method = <span class='st'>"lm"</span>) <span class='op'>+</span>
+  <span class='fu'><a href='scale_continuous.html'>scale_x_log10</a></span>() <span class='op'>+</span>
+  <span class='fu'><a href='scale_continuous.html'>scale_y_log10</a></span>() <span class='op'>+</span>
+  <span class='fu'>coord_trans</span>(x = <span class='kw'>scales</span>::<span class='fu'><a href='https://scales.r-lib.org//reference/exp_trans.html'>exp_trans</a></span>(<span class='fl'>10</span>), y = <span class='kw'>scales</span>::<span class='fu'><a href='https://scales.r-lib.org//reference/exp_trans.html'>exp_trans</a></span>(<span class='fl'>10</span>))</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using formula 'y ~ x'</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='img'><img src='coord_trans-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># cf.</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>carat</span>, <span class='kw'>price</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span>(method = <span class='st'>"lm"</span>)</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using formula 'y ~ x'</span></div><div class='img'><img src='coord_trans-7.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>carat</span>, <span class='kw'>price</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
+  <span class='fu'><a href='geom_smooth.html'>geom_smooth</a></span>(method = <span class='st'>"lm"</span>)</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using formula 'y ~ x'</span></div><div class='img'><img src='coord_trans-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Also works with discrete scales</span>
 <span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(a = <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>26</span>)),<span class='kw'>letters</span>)
-<span class='kw'>plot</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>,<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>a</span>,<span class='kw'>letters</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>()
+<span class='kw'>plot</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>,<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>a</span>,<span class='kw'>letters</span>)) <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
 
-<span class='kw'>plot</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_trans.html'>coord_trans</a></span>(x = <span class='st'>"log10"</span>)</div><div class='img'><img src='coord_trans-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>plot</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_trans.html'>coord_trans</a></span>(x = <span class='st'>"sqrt"</span>)</div><div class='img'><img src='coord_trans-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span></div></pre>
+<span class='kw'>plot</span> <span class='op'>+</span> <span class='fu'>coord_trans</span>(x = <span class='st'>"log10"</span>)</div><div class='img'><img src='coord_trans-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>plot</span> <span class='op'>+</span> <span class='fu'>coord_trans</span>(x = <span class='st'>"sqrt"</span>)</div><div class='img'><img src='coord_trans-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

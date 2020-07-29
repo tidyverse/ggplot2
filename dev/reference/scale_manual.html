@@ -208,26 +208,26 @@ data to aesthetic values." />
 data to aesthetic values.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_colour_manual</a></span>(<span class='kw'>...</span>, <span class='kw'>values</span>, aesthetics = <span class='st'>"colour"</span>, breaks = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>())
+    <pre class="usage"><span class='fu'>scale_colour_manual</span>(<span class='kw'>...</span>, <span class='kw'>values</span>, aesthetics = <span class='st'>"colour"</span>, breaks = <span class='fu'><a href='waiver.html'>waiver</a></span>())
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_fill_manual</a></span>(<span class='kw'>...</span>, <span class='kw'>values</span>, aesthetics = <span class='st'>"fill"</span>, breaks = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>())
+<span class='fu'>scale_fill_manual</span>(<span class='kw'>...</span>, <span class='kw'>values</span>, aesthetics = <span class='st'>"fill"</span>, breaks = <span class='fu'><a href='waiver.html'>waiver</a></span>())
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_size_manual</a></span>(<span class='kw'>...</span>, <span class='kw'>values</span>, breaks = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>())
+<span class='fu'>scale_size_manual</span>(<span class='kw'>...</span>, <span class='kw'>values</span>, breaks = <span class='fu'><a href='waiver.html'>waiver</a></span>())
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_shape_manual</a></span>(<span class='kw'>...</span>, <span class='kw'>values</span>, breaks = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>())
+<span class='fu'>scale_shape_manual</span>(<span class='kw'>...</span>, <span class='kw'>values</span>, breaks = <span class='fu'><a href='waiver.html'>waiver</a></span>())
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_linetype_manual</a></span>(<span class='kw'>...</span>, <span class='kw'>values</span>, breaks = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>())
+<span class='fu'>scale_linetype_manual</span>(<span class='kw'>...</span>, <span class='kw'>values</span>, breaks = <span class='fu'><a href='waiver.html'>waiver</a></span>())
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_alpha_manual</a></span>(<span class='kw'>...</span>, <span class='kw'>values</span>, breaks = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>())
+<span class='fu'>scale_alpha_manual</span>(<span class='kw'>...</span>, <span class='kw'>values</span>, breaks = <span class='fu'><a href='waiver.html'>waiver</a></span>())
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_discrete_manual</a></span>(<span class='kw'>aesthetics</span>, <span class='kw'>...</span>, <span class='kw'>values</span>, breaks = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>())</pre>
+<span class='fu'>scale_discrete_manual</span>(<span class='kw'>aesthetics</span>, <span class='kw'>...</span>, <span class='kw'>values</span>, breaks = <span class='fu'><a href='waiver.html'>waiver</a></span>())</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>...</th>
-      <td><p>Arguments passed on to <code><a href='https://ggplot2.tidyverse.org/reference/discrete_scale.html'>discrete_scale</a></code></p><dl>
+      <td><p>Arguments passed on to <code><a href='discrete_scale.html'>discrete_scale</a></code></p><dl>
     <dt><code>palette</code></dt><dd><p>A palette function that when called with a single integer
 argument (the number of levels in the scale) returns the values that
 they should take (e.g., <code><a href='https://scales.r-lib.org//reference/hue_pal.html'>scales::hue_pal()</a></code>).</p></dd>
@@ -251,20 +251,20 @@ where <code>NA</code> is always placed at the far right.</p></dd>
     <dt><code>scale_name</code></dt><dd><p>The name of the scale that should be used for error messages
 associated with this scale.</p></dd>
     <dt><code>name</code></dt><dd><p>The name of the scale. Used as the axis or legend title. If
-<code><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver()</a></code>, the default, the name of the scale is taken from the first
+<code><a href='waiver.html'>waiver()</a></code>, the default, the name of the scale is taken from the first
 mapping used for that aesthetic. If <code>NULL</code>, the legend title will be
 omitted.</p></dd>
     <dt><code>labels</code></dt><dd><p>One of:
 <ul>
 <li><p><code>NULL</code> for no labels</p></li>
-<li><p><code><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver()</a></code> for the default labels computed by the
+<li><p><code><a href='waiver.html'>waiver()</a></code> for the default labels computed by the
 transformation object</p></li>
 <li><p>A character vector giving labels (must be same length as <code>breaks</code>)</p></li>
 <li><p>A function that takes the breaks as input and returns labels
 as output</p></li>
 </ul></p></dd>
     <dt><code>guide</code></dt><dd><p>A function used to create a guide or its name. See
-<code><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides()</a></code> for more information.</p></dd>
+<code><a href='guides.html'>guides()</a></code> for more information.</p></dd>
     <dt><code>super</code></dt><dd><p>The super class to use for the constructed scale</p></dd>
   
 </dl></td>
@@ -288,7 +288,7 @@ same time, via <code>aesthetics = c("colour", "fill")</code>.</p></td>
       <th>breaks</th>
       <td><p>One of:</p><ul>
 <li><p><code>NULL</code> for no breaks</p></li>
-<li><p><code><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver()</a></code> for the default breaks (the scale limits)</p></li>
+<li><p><code><a href='waiver.html'>waiver()</a></code> for the default breaks (the scale limits)</p></li>
 <li><p>A character vector of breaks</p></li>
 <li><p>A function that takes the limits as input and returns breaks
 as output</p></li>
@@ -298,12 +298,12 @@ as output</p></li>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The functions <code><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_colour_manual()</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_fill_manual()</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_size_manual()</a></code>,
+    <p>The functions <code>scale_colour_manual()</code>, <code>scale_fill_manual()</code>, <code>scale_size_manual()</code>,
 etc. work on the aesthetics specified in the scale name: <code>colour</code>, <code>fill</code>, <code>size</code>,
-etc. However, the functions <code><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_colour_manual()</a></code> and <code><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_fill_manual()</a></code> also
+etc. However, the functions <code>scale_colour_manual()</code> and <code>scale_fill_manual()</code> also
 have an optional <code>aesthetics</code> argument that can be used to define both <code>colour</code> and
 <code>fill</code> aesthetic mappings via a single function call (see examples). The function
-<code><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_discrete_manual()</a></code> is a generic scale that can work with any aesthetic or set
+<code>scale_discrete_manual()</code> is a generic scale that can work with any aesthetic or set
 of aesthetics provided via the <code>aesthetics</code> argument.</p>
     <h2 class="hasAnchor" id="color-blindness"><a class="anchor" href="#color-blindness"></a>Color Blindness</h2>
 
@@ -325,31 +325,31 @@ see the <a href='https://arxiv.org/abs/1903.06490'>paper on the colorspace packa
 and references therein.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(colour = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>)))
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_colour_manual</a></span>(values = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"red"</span>, <span class='st'>"blue"</span>, <span class='st'>"green"</span>))</div><div class='img'><img src='scale_manual-1.png' alt='' width='700' height='433' /></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(colour = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>)))
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>scale_colour_manual</span>(values = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"red"</span>, <span class='st'>"blue"</span>, <span class='st'>"green"</span>))</div><div class='img'><img src='scale_manual-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># It's recommended to use a named vector</span>
 <span class='kw'>cols</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"8"</span> = <span class='st'>"red"</span>, <span class='st'>"4"</span> = <span class='st'>"blue"</span>, <span class='st'>"6"</span> = <span class='st'>"darkgreen"</span>, <span class='st'>"10"</span> = <span class='st'>"orange"</span>)
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_colour_manual</a></span>(values = <span class='kw'>cols</span>)</div><div class='img'><img src='scale_manual-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>scale_colour_manual</span>(values = <span class='kw'>cols</span>)</div><div class='img'><img src='scale_manual-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can set color and fill aesthetics at the same time</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(
   <span class='kw'>mtcars</span>,
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>, colour = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>), fill = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>))
+  <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>, colour = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>), fill = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>))
 ) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(shape = <span class='fl'>21</span>, alpha = <span class='fl'>0.5</span>, size = <span class='fl'>2</span>) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_colour_manual</a></span>(
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(shape = <span class='fl'>21</span>, alpha = <span class='fl'>0.5</span>, size = <span class='fl'>2</span>) <span class='op'>+</span>
+  <span class='fu'>scale_colour_manual</span>(
     values = <span class='kw'>cols</span>,
     aesthetics = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"colour"</span>, <span class='st'>"fill"</span>)
   )</div><div class='img'><img src='scale_manual-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># As with other scales you can use breaks to control the appearance</span>
 <span class='co'># of the legend.</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_colour_manual</a></span>(values = <span class='kw'>cols</span>)</div><div class='img'><img src='scale_manual-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_colour_manual</a></span>(
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>scale_colour_manual</span>(values = <span class='kw'>cols</span>)</div><div class='img'><img src='scale_manual-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>scale_colour_manual</span>(
   values = <span class='kw'>cols</span>,
   breaks = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"4"</span>, <span class='st'>"6"</span>, <span class='st'>"8"</span>),
   labels = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"four"</span>, <span class='st'>"six"</span>, <span class='st'>"eight"</span>)
 )</div><div class='img'><img src='scale_manual-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># And limits to control the possible values of the scale</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_colour_manual</a></span>(values = <span class='kw'>cols</span>, limits = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"4"</span>, <span class='st'>"8"</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 7 rows containing missing values (geom_point).</span></div><div class='img'><img src='scale_manual-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_colour_manual</a></span>(values = <span class='kw'>cols</span>, limits = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"4"</span>, <span class='st'>"6"</span>, <span class='st'>"8"</span>, <span class='st'>"10"</span>))</div><div class='img'><img src='scale_manual-7.png' alt='' width='700' height='433' /></div></pre>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>scale_colour_manual</span>(values = <span class='kw'>cols</span>, limits = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"4"</span>, <span class='st'>"8"</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 7 rows containing missing values (geom_point).</span></div><div class='img'><img src='scale_manual-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>scale_colour_manual</span>(values = <span class='kw'>cols</span>, limits = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"4"</span>, <span class='st'>"6"</span>, <span class='st'>"8"</span>, <span class='st'>"10"</span>))</div><div class='img'><img src='scale_manual-7.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

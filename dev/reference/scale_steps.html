@@ -210,11 +210,11 @@ works in the same way." />
     <p><code>scale_*_steps</code> creates a two colour binned gradient (low-high),
 <code>scale_*_steps2</code> creates a diverging binned colour gradient (low-mid-high),
 and <code>scale_*_stepsn</code> creates a n-colour binned gradient. These scales are
-binned variants of the <a href='https://ggplot2.tidyverse.org/reference/scale_gradient.html'>gradient scale</a> family and
+binned variants of the <a href='scale_colour_gradient.html'>gradient scale</a> family and
 works in the same way.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_steps.html'>scale_colour_steps</a></span>(
+    <pre class="usage"><span class='fu'>scale_colour_steps</span>(
   <span class='kw'>...</span>,
   low = <span class='st'>"#132B43"</span>,
   high = <span class='st'>"#56B1F7"</span>,
@@ -224,7 +224,7 @@ works in the same way.</p>
   aesthetics = <span class='st'>"colour"</span>
 )
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_steps.html'>scale_colour_steps2</a></span>(
+<span class='fu'>scale_colour_steps2</span>(
   <span class='kw'>...</span>,
   low = <span class='fu'>muted</span>(<span class='st'>"red"</span>),
   mid = <span class='st'>"white"</span>,
@@ -236,7 +236,7 @@ works in the same way.</p>
   aesthetics = <span class='st'>"colour"</span>
 )
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_steps.html'>scale_colour_stepsn</a></span>(
+<span class='fu'>scale_colour_stepsn</span>(
   <span class='kw'>...</span>,
   <span class='kw'>colours</span>,
   values = <span class='kw'>NULL</span>,
@@ -247,7 +247,7 @@ works in the same way.</p>
   <span class='kw'>colors</span>
 )
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_steps.html'>scale_fill_steps</a></span>(
+<span class='fu'>scale_fill_steps</span>(
   <span class='kw'>...</span>,
   low = <span class='st'>"#132B43"</span>,
   high = <span class='st'>"#56B1F7"</span>,
@@ -257,7 +257,7 @@ works in the same way.</p>
   aesthetics = <span class='st'>"fill"</span>
 )
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_steps.html'>scale_fill_steps2</a></span>(
+<span class='fu'>scale_fill_steps2</span>(
   <span class='kw'>...</span>,
   low = <span class='fu'>muted</span>(<span class='st'>"red"</span>),
   mid = <span class='st'>"white"</span>,
@@ -269,7 +269,7 @@ works in the same way.</p>
   aesthetics = <span class='st'>"fill"</span>
 )
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_steps.html'>scale_fill_stepsn</a></span>(
+<span class='fu'>scale_fill_stepsn</span>(
   <span class='kw'>...</span>,
   <span class='kw'>colours</span>,
   values = <span class='kw'>NULL</span>,
@@ -285,7 +285,7 @@ works in the same way.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>...</th>
-      <td><p>Arguments passed on to <code><a href='https://ggplot2.tidyverse.org/reference/binned_scale.html'>binned_scale</a></code></p><dl>
+      <td><p>Arguments passed on to <code><a href='binned_scale.html'>binned_scale</a></code></p><dl>
     <dt><code>n.breaks</code></dt><dd><p>The number of break points to create if breaks are not given
 directly.</p></dd>
     <dt><code>nice.breaks</code></dt><dd><p>Logical. Should breaks be attempted placed at nice values
@@ -297,13 +297,13 @@ breaks are given explicetly.</p></dd>
 (upper) bin?</p></dd>
     <dt><code>show.limits</code></dt><dd><p>should the limits of the scale appear as ticks</p></dd>
     <dt><code>name</code></dt><dd><p>The name of the scale. Used as the axis or legend title. If
-<code><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver()</a></code>, the default, the name of the scale is taken from the first
+<code><a href='waiver.html'>waiver()</a></code>, the default, the name of the scale is taken from the first
 mapping used for that aesthetic. If <code>NULL</code>, the legend title will be
 omitted.</p></dd>
     <dt><code>breaks</code></dt><dd><p>One of:
 <ul>
 <li><p><code>NULL</code> for no breaks</p></li>
-<li><p><code><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver()</a></code> for the default breaks computed by the
+<li><p><code><a href='waiver.html'>waiver()</a></code> for the default breaks computed by the
 <a href='https://scales.r-lib.org//reference/trans_new.html'>transformation object</a></p></li>
 <li><p>A numeric vector of positions</p></li>
 <li><p>A function that takes the limits as input and returns breaks
@@ -312,7 +312,7 @@ as output (e.g., a function returned by <code><a href='https://scales.r-lib.org/
     <dt><code>labels</code></dt><dd><p>One of:
 <ul>
 <li><p><code>NULL</code> for no labels</p></li>
-<li><p><code><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver()</a></code> for the default labels computed by the
+<li><p><code><a href='waiver.html'>waiver()</a></code> for the default labels computed by the
 transformation object</p></li>
 <li><p>A character vector giving labels (must be same length as <code>breaks</code>)</p></li>
 <li><p>A function that takes the breaks as input and returns labels
@@ -327,7 +327,7 @@ Use <code>NA</code> to refer to the existing minimum or maximum</p></li>
 new limits
 Note that setting limits on positional scales will <strong>remove</strong> data outside of the limits.
 If the purpose is to zoom, use the limit argument in the coordinate system
-(see <code><a href='https://ggplot2.tidyverse.org/reference/coord_cartesian.html'>coord_cartesian()</a></code>).</p></li>
+(see <code><a href='coord_cartesian.html'>coord_cartesian()</a></code>).</p></li>
 </ul></p></dd>
     <dt><code>oob</code></dt><dd><p>One of:
 <ul>
@@ -340,7 +340,7 @@ bounds values with <code>NA</code>.</p></li>
 </ul></p></dd>
     <dt><code>expand</code></dt><dd><p>For position scales, a vector of range expansion constants used to add some
 padding around the data to ensure that they are placed some distance
-away from the axes. Use the convenience function <code><a href='https://ggplot2.tidyverse.org/reference/expansion.html'>expansion()</a></code>
+away from the axes. Use the convenience function <code><a href='expansion.html'>expansion()</a></code>
 to generate the values for the <code>expand</code> argument. The defaults are to
 expand the scale by 5% on each side for continuous variables, and by
 0.6 units on each side for discrete variables.</p></dd>
@@ -426,12 +426,12 @@ Munsell colour system.</p>
     <div class='dont-index'><p><code><a href='https://scales.r-lib.org//reference/seq_gradient_pal.html'>scales::seq_gradient_pal()</a></code> for details on underlying
 palette</p>
 <p>Other colour scales: 
-<code><a href='https://ggplot2.tidyverse.org/reference/scale_alpha.html'>scale_alpha</a>()</code>,
-<code><a href='https://ggplot2.tidyverse.org/reference/scale_brewer.html'>scale_colour_brewer</a>()</code>,
-<code><a href='https://ggplot2.tidyverse.org/reference/scale_gradient.html'>scale_colour_gradient</a>()</code>,
-<code><a href='https://ggplot2.tidyverse.org/reference/scale_grey.html'>scale_colour_grey</a>()</code>,
-<code><a href='https://ggplot2.tidyverse.org/reference/scale_hue.html'>scale_colour_hue</a>()</code>,
-<code><a href='https://ggplot2.tidyverse.org/reference/scale_viridis.html'>scale_colour_viridis_d</a>()</code></p></div>
+<code><a href='scale_alpha.html'>scale_alpha</a>()</code>,
+<code><a href='scale_colour_brewer.html'>scale_colour_brewer</a>()</code>,
+<code><a href='scale_colour_gradient.html'>scale_colour_gradient</a>()</code>,
+<code><a href='scale_colour_grey.html'>scale_colour_grey</a>()</code>,
+<code><a href='scale_colour_hue.html'>scale_colour_hue</a>()</code>,
+<code><a href='scale_colour_viridis_d.html'>scale_colour_viridis_d</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
@@ -441,17 +441,17 @@ palette</p>
 )
 
 <span class='co'># Use scale_colour_steps for a standard binned gradient</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(colour = <span class='kw'>z1</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_steps.html'>scale_colour_steps</a></span>()</div><div class='img'><img src='scale_steps-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(colour = <span class='kw'>z1</span>)) <span class='op'>+</span>
+  <span class='fu'>scale_colour_steps</span>()</div><div class='img'><img src='scale_steps-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Get a divergent binned scale with the *2 variant</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(colour = <span class='kw'>z1</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_steps.html'>scale_colour_steps2</a></span>()</div><div class='img'><img src='scale_steps-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(colour = <span class='kw'>z1</span>)) <span class='op'>+</span>
+  <span class='fu'>scale_colour_steps2</span>()</div><div class='img'><img src='scale_steps-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Define your own colour ramp to extract binned colours from</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(colour = <span class='kw'>z1</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_steps.html'>scale_colour_stepsn</a></span>(colours = <span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>terrain.colors</a></span>(<span class='fl'>10</span>))</div><div class='img'><img src='scale_steps-3.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(colour = <span class='kw'>z1</span>)) <span class='op'>+</span>
+  <span class='fu'>scale_colour_stepsn</span>(colours = <span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>terrain.colors</a></span>(<span class='fl'>10</span>))</div><div class='img'><img src='scale_steps-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

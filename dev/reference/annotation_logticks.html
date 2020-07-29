@@ -208,7 +208,7 @@ These tick marks probably make sense only for base 10." />
 These tick marks probably make sense only for base 10.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotation_logticks.html'>annotation_logticks</a></span>(
+    <pre class="usage"><span class='fu'>annotation_logticks</span>(
   base = <span class='fl'>10</span>,
   sides = <span class='st'>"bl"</span>,
   outside = <span class='fl'>FALSE</span>,
@@ -241,14 +241,14 @@ bottom, and left.</p></td>
       <th>outside</th>
       <td><p>logical that controls whether to move the log ticks outside
 of the plot area. Default is off (<code>FALSE</code>). You will also need to use
-<code><a href='https://ggplot2.tidyverse.org/reference/coord_cartesian.html'>coord_cartesian(clip = "off")</a></code>. See examples.</p></td>
+<code><a href='coord_cartesian.html'>coord_cartesian(clip = "off")</a></code>. See examples.</p></td>
     </tr>
     <tr>
       <th>scaled</th>
       <td><p>is the data already log-scaled? This should be <code>TRUE</code>
 (default) when the data is already transformed with <code><a href='https://rdrr.io/r/base/Log.html'>log10()</a></code> or when
-using <code><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_log10()</a></code>. It should be <code>FALSE</code> when using
-<code><a href='https://ggplot2.tidyverse.org/reference/coord_trans.html'>coord_trans(y = "log10")</a></code>.</p></td>
+using <code><a href='scale_continuous.html'>scale_y_log10()</a></code>. It should be <code>FALSE</code> when using
+<code><a href='coord_trans.html'>coord_trans(y = "log10")</a></code>.</p></td>
     </tr>
     <tr>
       <th>short</th>
@@ -293,46 +293,46 @@ long tick marks. In base 10, these are the "1" (or "10") ticks.</p></td>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_continuous()</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_log10()</a></code> for log scale
+    <div class='dont-index'><p><code><a href='scale_continuous.html'>scale_y_continuous()</a></code>, <code><a href='scale_continuous.html'>scale_y_log10()</a></code> for log scale
 transformations.</p>
-<p><code><a href='https://ggplot2.tidyverse.org/reference/coord_trans.html'>coord_trans()</a></code> for log coordinate transformations.</p></div>
+<p><code><a href='coord_trans.html'>coord_trans()</a></code> for log coordinate transformations.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Make a log-log plot (without log ticks)</span>
-<span class='kw'>a</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>msleep</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>bodywt</span>, <span class='kw'>brainwt</span>)) <span class='op'>+</span>
- <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(na.rm = <span class='fl'>TRUE</span>) <span class='op'>+</span>
- <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_x_log10</a></span>(
+<span class='kw'>a</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>msleep</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>bodywt</span>, <span class='kw'>brainwt</span>)) <span class='op'>+</span>
+ <span class='fu'><a href='geom_point.html'>geom_point</a></span>(na.rm = <span class='fl'>TRUE</span>) <span class='op'>+</span>
+ <span class='fu'><a href='scale_continuous.html'>scale_x_log10</a></span>(
    breaks = <span class='kw'>scales</span>::<span class='fu'><a href='https://scales.r-lib.org//reference/trans_breaks.html'>trans_breaks</a></span>(<span class='st'>"log10"</span>, <span class='fu'>function</span>(<span class='kw'>x</span>) <span class='fl'>10</span><span class='op'>^</span><span class='kw'>x</span>),
    labels = <span class='kw'>scales</span>::<span class='fu'><a href='https://scales.r-lib.org//reference/trans_format.html'>trans_format</a></span>(<span class='st'>"log10"</span>, <span class='kw'>scales</span>::<span class='fu'><a href='https://scales.r-lib.org//reference/label_parse.html'>math_format</a></span>(<span class='fl'>10</span><span class='op'>^</span><span class='kw'>.x</span>))
  ) <span class='op'>+</span>
- <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_log10</a></span>(
+ <span class='fu'><a href='scale_continuous.html'>scale_y_log10</a></span>(
    breaks = <span class='kw'>scales</span>::<span class='fu'><a href='https://scales.r-lib.org//reference/trans_breaks.html'>trans_breaks</a></span>(<span class='st'>"log10"</span>, <span class='fu'>function</span>(<span class='kw'>x</span>) <span class='fl'>10</span><span class='op'>^</span><span class='kw'>x</span>),
    labels = <span class='kw'>scales</span>::<span class='fu'><a href='https://scales.r-lib.org//reference/trans_format.html'>trans_format</a></span>(<span class='st'>"log10"</span>, <span class='kw'>scales</span>::<span class='fu'><a href='https://scales.r-lib.org//reference/label_parse.html'>math_format</a></span>(<span class='fl'>10</span><span class='op'>^</span><span class='kw'>.x</span>))
  ) <span class='op'>+</span>
- <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_bw</a></span>()
+ <span class='fu'><a href='ggtheme.html'>theme_bw</a></span>()
 
-<span class='kw'>a</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotation_logticks.html'>annotation_logticks</a></span>()                <span class='co'># Default: log ticks on bottom and left</span></div><div class='img'><img src='annotation_logticks-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>a</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotation_logticks.html'>annotation_logticks</a></span>(sides = <span class='st'>"lr"</span>)    <span class='co'># Log ticks for y, on left and right</span></div><div class='img'><img src='annotation_logticks-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>a</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotation_logticks.html'>annotation_logticks</a></span>(sides = <span class='st'>"trbl"</span>)  <span class='co'># All four sides</span></div><div class='img'><img src='annotation_logticks-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>a</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotation_logticks.html'>annotation_logticks</a></span>(sides = <span class='st'>"lr"</span>, outside = <span class='fl'>TRUE</span>) <span class='op'>+</span>
- <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_cartesian.html'>coord_cartesian</a></span>(clip = <span class='st'>"off"</span>)  <span class='co'># Ticks outside plot</span></div><div class='img'><img src='annotation_logticks-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>a</span> <span class='op'>+</span> <span class='fu'>annotation_logticks</span>()                <span class='co'># Default: log ticks on bottom and left</span></div><div class='img'><img src='annotation_logticks-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>a</span> <span class='op'>+</span> <span class='fu'>annotation_logticks</span>(sides = <span class='st'>"lr"</span>)    <span class='co'># Log ticks for y, on left and right</span></div><div class='img'><img src='annotation_logticks-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>a</span> <span class='op'>+</span> <span class='fu'>annotation_logticks</span>(sides = <span class='st'>"trbl"</span>)  <span class='co'># All four sides</span></div><div class='img'><img src='annotation_logticks-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>a</span> <span class='op'>+</span> <span class='fu'>annotation_logticks</span>(sides = <span class='st'>"lr"</span>, outside = <span class='fl'>TRUE</span>) <span class='op'>+</span>
+ <span class='fu'><a href='coord_cartesian.html'>coord_cartesian</a></span>(clip = <span class='st'>"off"</span>)  <span class='co'># Ticks outside plot</span></div><div class='img'><img src='annotation_logticks-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Hide the minor grid lines because they don't align with the ticks</span>
-<span class='kw'>a</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotation_logticks.html'>annotation_logticks</a></span>(sides = <span class='st'>"trbl"</span>) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span>(panel.grid.minor = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_blank</a></span>())</div><div class='img'><img src='annotation_logticks-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>a</span> <span class='op'>+</span> <span class='fu'>annotation_logticks</span>(sides = <span class='st'>"trbl"</span>) <span class='op'>+</span> <span class='fu'><a href='theme.html'>theme</a></span>(panel.grid.minor = <span class='fu'><a href='margin.html'>element_blank</a></span>())</div><div class='img'><img src='annotation_logticks-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Another way to get the same results as 'a' above: log-transform the data before</span>
 <span class='co'># plotting it. Also hide the minor grid lines.</span>
-<span class='kw'>b</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>msleep</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log10</a></span>(<span class='kw'>bodywt</span>), <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log10</a></span>(<span class='kw'>brainwt</span>))) <span class='op'>+</span>
- <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(na.rm = <span class='fl'>TRUE</span>) <span class='op'>+</span>
- <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_x_continuous</a></span>(name = <span class='st'>"body"</span>, labels = <span class='kw'>scales</span>::<span class='fu'><a href='https://scales.r-lib.org//reference/label_parse.html'>math_format</a></span>(<span class='fl'>10</span><span class='op'>^</span><span class='kw'>.x</span>)) <span class='op'>+</span>
- <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_continuous</a></span>(name = <span class='st'>"brain"</span>, labels = <span class='kw'>scales</span>::<span class='fu'><a href='https://scales.r-lib.org//reference/label_parse.html'>math_format</a></span>(<span class='fl'>10</span><span class='op'>^</span><span class='kw'>.x</span>)) <span class='op'>+</span>
- <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_bw</a></span>() <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span>(panel.grid.minor = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_blank</a></span>())
+<span class='kw'>b</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>msleep</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log10</a></span>(<span class='kw'>bodywt</span>), <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log10</a></span>(<span class='kw'>brainwt</span>))) <span class='op'>+</span>
+ <span class='fu'><a href='geom_point.html'>geom_point</a></span>(na.rm = <span class='fl'>TRUE</span>) <span class='op'>+</span>
+ <span class='fu'><a href='scale_continuous.html'>scale_x_continuous</a></span>(name = <span class='st'>"body"</span>, labels = <span class='kw'>scales</span>::<span class='fu'><a href='https://scales.r-lib.org//reference/label_parse.html'>math_format</a></span>(<span class='fl'>10</span><span class='op'>^</span><span class='kw'>.x</span>)) <span class='op'>+</span>
+ <span class='fu'><a href='scale_continuous.html'>scale_y_continuous</a></span>(name = <span class='st'>"brain"</span>, labels = <span class='kw'>scales</span>::<span class='fu'><a href='https://scales.r-lib.org//reference/label_parse.html'>math_format</a></span>(<span class='fl'>10</span><span class='op'>^</span><span class='kw'>.x</span>)) <span class='op'>+</span>
+ <span class='fu'><a href='ggtheme.html'>theme_bw</a></span>() <span class='op'>+</span> <span class='fu'><a href='theme.html'>theme</a></span>(panel.grid.minor = <span class='fu'><a href='margin.html'>element_blank</a></span>())
 
-<span class='kw'>b</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotation_logticks.html'>annotation_logticks</a></span>()</div><div class='img'><img src='annotation_logticks-6.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>b</span> <span class='op'>+</span> <span class='fu'>annotation_logticks</span>()</div><div class='img'><img src='annotation_logticks-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Using a coordinate transform requires scaled = FALSE</span>
-<span class='kw'>t</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>msleep</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>bodywt</span>, <span class='kw'>brainwt</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_trans.html'>coord_trans</a></span>(x = <span class='st'>"log10"</span>, y = <span class='st'>"log10"</span>) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_bw</a></span>()
-<span class='kw'>t</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotation_logticks.html'>annotation_logticks</a></span>(scaled = <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 27 rows containing missing values (geom_point).</span></div><div class='img'><img src='annotation_logticks-7.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>t</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>msleep</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>bodywt</span>, <span class='kw'>brainwt</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
+  <span class='fu'><a href='coord_trans.html'>coord_trans</a></span>(x = <span class='st'>"log10"</span>, y = <span class='st'>"log10"</span>) <span class='op'>+</span>
+  <span class='fu'><a href='ggtheme.html'>theme_bw</a></span>()
+<span class='kw'>t</span> <span class='op'>+</span> <span class='fu'>annotation_logticks</span>(scaled = <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 27 rows containing missing values (geom_point).</span></div><div class='img'><img src='annotation_logticks-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Change the length of the ticks</span>
-<span class='kw'>a</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotation_logticks.html'>annotation_logticks</a></span>(
+<span class='kw'>a</span> <span class='op'>+</span> <span class='fu'>annotation_logticks</span>(
   short = <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>.5</span>,<span class='st'>"mm"</span>),
   mid = <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>3</span>,<span class='st'>"mm"</span>),
   long = <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>4</span>,<span class='st'>"mm"</span>)

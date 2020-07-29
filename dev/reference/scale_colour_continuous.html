@@ -208,16 +208,16 @@ scale_fill_gradient())" />
     <div class="ref-description">
     <p>Colour scales for continuous data default to the values of the
 <code>ggplot2.continuous.colour</code> and <code>ggplot2.continuous.fill</code> options. These
-<code><a href='https://rdrr.io/r/base/options.html'>options()</a></code> default to <code>"gradient"</code> (i.e., <code><a href='https://ggplot2.tidyverse.org/reference/scale_gradient.html'>scale_colour_gradient()</a></code> and
-<code><a href='https://ggplot2.tidyverse.org/reference/scale_gradient.html'>scale_fill_gradient()</a></code>)</p>
+<code><a href='https://rdrr.io/r/base/options.html'>options()</a></code> default to <code>"gradient"</code> (i.e., <code><a href='scale_colour_gradient.html'>scale_colour_gradient()</a></code> and
+<code><a href='scale_colour_gradient.html'>scale_fill_gradient()</a></code>)</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_colour_continuous.html'>scale_colour_continuous</a></span>(
+    <pre class="usage"><span class='fu'>scale_colour_continuous</span>(
   <span class='kw'>...</span>,
   type = <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"ggplot2.continuous.colour"</span>, default = <span class='st'>"gradient"</span>)
 )
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_colour_continuous.html'>scale_fill_continuous</a></span>(
+<span class='fu'>scale_fill_continuous</span>(
   <span class='kw'>...</span>,
   type = <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"ggplot2.continuous.fill"</span>, default = <span class='st'>"gradient"</span>)
 )</pre>
@@ -259,17 +259,17 @@ see the <a href='https://arxiv.org/abs/1903.06490'>paper on the colorspace packa
 and references therein.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://ggplot2.tidyverse.org/reference/scale_gradient.html'>scale_colour_gradient()</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/scale_viridis.html'>scale_colour_viridis_c()</a></code>,
-<code><a href='https://ggplot2.tidyverse.org/reference/scale_steps.html'>scale_colour_steps()</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/scale_viridis.html'>scale_colour_viridis_b()</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/scale_gradient.html'>scale_fill_gradient()</a></code>,
-<code><a href='https://ggplot2.tidyverse.org/reference/scale_viridis.html'>scale_fill_viridis_c()</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/scale_steps.html'>scale_fill_steps()</a></code>, and <code><a href='https://ggplot2.tidyverse.org/reference/scale_viridis.html'>scale_fill_viridis_b()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='scale_colour_gradient.html'>scale_colour_gradient()</a></code>, <code><a href='scale_colour_viridis_d.html'>scale_colour_viridis_c()</a></code>,
+<code><a href='scale_colour_steps.html'>scale_colour_steps()</a></code>, <code><a href='scale_colour_viridis_d.html'>scale_colour_viridis_b()</a></code>, <code><a href='scale_colour_gradient.html'>scale_fill_gradient()</a></code>,
+<code><a href='scale_colour_viridis_d.html'>scale_fill_viridis_c()</a></code>, <code><a href='scale_colour_steps.html'>scale_fill_steps()</a></code>, and <code><a href='scale_colour_viridis_d.html'>scale_fill_viridis_b()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>v</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>faithfuld</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>waiting</span>, <span class='kw'>eruptions</span>, fill = <span class='kw'>density</span>)) <span class='op'>+</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_tile.html'>geom_tile</a></span>()
+    <pre class="examples"><div class='input'><span class='kw'>v</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>faithfuld</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>waiting</span>, <span class='kw'>eruptions</span>, fill = <span class='kw'>density</span>)) <span class='op'>+</span>
+<span class='fu'><a href='geom_raster.html'>geom_tile</a></span>()
 <span class='kw'>v</span></div><div class='img'><img src='scale_colour_continuous-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>v</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_colour_continuous.html'>scale_fill_continuous</a></span>(type = <span class='st'>"gradient"</span>)</div><div class='img'><img src='scale_colour_continuous-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>v</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_colour_continuous.html'>scale_fill_continuous</a></span>(type = <span class='st'>"viridis"</span>)</div><div class='img'><img src='scale_colour_continuous-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>v</span> <span class='op'>+</span> <span class='fu'>scale_fill_continuous</span>(type = <span class='st'>"gradient"</span>)</div><div class='img'><img src='scale_colour_continuous-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>v</span> <span class='op'>+</span> <span class='fu'>scale_fill_continuous</span>(type = <span class='st'>"viridis"</span>)</div><div class='img'><img src='scale_colour_continuous-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># The above are equivalent to</span>
-<span class='kw'>v</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_gradient.html'>scale_fill_gradient</a></span>()</div><div class='img'><img src='scale_colour_continuous-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>v</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_viridis.html'>scale_fill_viridis_c</a></span>()</div><div class='img'><img src='scale_colour_continuous-5.png' alt='' width='700' height='433' /></div></pre>
+<span class='kw'>v</span> <span class='op'>+</span> <span class='fu'><a href='scale_colour_gradient.html'>scale_fill_gradient</a></span>()</div><div class='img'><img src='scale_colour_continuous-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>v</span> <span class='op'>+</span> <span class='fu'><a href='scale_colour_viridis_d.html'>scale_fill_viridis_c</a></span>()</div><div class='img'><img src='scale_colour_continuous-5.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

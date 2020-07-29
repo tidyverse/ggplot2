@@ -209,7 +209,7 @@ polygon." />
     </div>
 
     <div class="ref-description">
-    <p>Polygons are very similar to paths (as drawn by <code><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_path()</a></code>)
+    <p>Polygons are very similar to paths (as drawn by <code><a href='geom_path.html'>geom_path()</a></code>)
 except that the start and end points are connected and the inside is
 coloured by <code>fill</code>. The <code>group</code> aesthetic determines which cases
 are connected together into a polygon. From R 3.6 and onwards it is possible
@@ -218,7 +218,7 @@ differentiates the outer ring points from those describing holes in the
 polygon.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_polygon.html'>geom_polygon</a></span>(
+    <pre class="usage"><span class='fu'>geom_polygon</span>(
   mapping = <span class='kw'>NULL</span>,
   data = <span class='kw'>NULL</span>,
   stat = <span class='st'>"identity"</span>,
@@ -235,8 +235,8 @@ polygon.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>mapping</th>
-      <td><p>Set of aesthetic mappings created by <code><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes()</a></code> or
-<code><a href='https://ggplot2.tidyverse.org/reference/aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
+      <td><p>Set of aesthetic mappings created by <code><a href='aes.html'>aes()</a></code> or
+<code><a href='aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
     </tr>
@@ -245,10 +245,10 @@ plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
       <td><p>The data to be displayed in this layer. There are three
 options:</p>
 <p>If <code>NULL</code>, the default, the data is inherited from the plot
-data as specified in the call to <code><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot()</a></code>.</p>
+data as specified in the call to <code><a href='ggplot.html'>ggplot()</a></code>.</p>
 <p>A <code>data.frame</code>, or other object, will override the plot
 data. All objects will be fortified to produce a data frame. See
-<code><a href='https://ggplot2.tidyverse.org/reference/fortify.html'>fortify()</a></code> for which variables will be created.</p>
+<code><a href='fortify.html'>fortify()</a></code> for which variables will be created.</p>
 <p>A <code>function</code> will be called with a single argument,
 the plot data. The return value must be a <code>data.frame</code>, and
 will be used as the layer data. A <code>function</code> can be created
@@ -273,7 +273,7 @@ an explanation.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Other arguments passed on to <code><a href='https://ggplot2.tidyverse.org/reference/layer.html'>layer()</a></code>. These are
+      <td><p>Other arguments passed on to <code><a href='layer.html'>layer()</a></code>. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 <code>colour = "red"</code> or <code>size = 3</code>. They may also be parameters
 to the paired geom/stat.</p></td>
@@ -296,7 +296,7 @@ display.</p></td>
       <td><p>If <code>FALSE</code>, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. <code><a href='https://ggplot2.tidyverse.org/reference/borders.html'>borders()</a></code>.</p></td>
+the default plot specification, e.g. <code><a href='borders.html'>borders()</a></code>.</p></td>
     </tr>
     </table>
 
@@ -304,7 +304,7 @@ the default plot specification, e.g. <code><a href='https://ggplot2.tidyverse.or
 
     
 
-<p><code><a href='https://ggplot2.tidyverse.org/reference/geom_polygon.html'>geom_polygon()</a></code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
+<p><code>geom_polygon()</code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
 <li><p><strong><code>x</code></strong></p></li>
 <li><p><strong><code>y</code></strong></p></li>
 <li><p><code>alpha</code></p></li>
@@ -314,11 +314,11 @@ the default plot specification, e.g. <code><a href='https://ggplot2.tidyverse.or
 <li><p><code>linetype</code></p></li>
 <li><p><code>size</code></p></li>
 <li><p><code>subgroup</code></p></li>
-</ul><p>Learn more about setting these aesthetics in <code>vignette("ggplot2-specs")</code>.</p>
+</ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_path()</a></code> for an unfilled polygon,
-<code><a href='https://ggplot2.tidyverse.org/reference/geom_ribbon.html'>geom_ribbon()</a></code> for a polygon anchored on the x-axis</p></div>
+    <div class='dont-index'><p><code><a href='geom_path.html'>geom_path()</a></code> for an unfilled polygon,
+<code><a href='geom_ribbon.html'>geom_ribbon()</a></code> for a polygon anchored on the x-axis</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># When using geom_polygon, you will typically need two data frames:</span>
@@ -344,8 +344,8 @@ the default plot specification, e.g. <code><a href='https://ggplot2.tidyverse.or
 <span class='co'># Currently we need to manually merge the two together</span>
 <span class='kw'>datapoly</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/merge.html'>merge</a></span>(<span class='kw'>values</span>, <span class='kw'>positions</span>, by = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"id"</span>))
 
-<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>datapoly</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(x = <span class='kw'>x</span>, y = <span class='kw'>y</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_polygon.html'>geom_polygon</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(fill = <span class='kw'>value</span>, group = <span class='kw'>id</span>))
+<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>datapoly</span>, <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='kw'>x</span>, y = <span class='kw'>y</span>)) <span class='op'>+</span>
+  <span class='fu'>geom_polygon</span>(<span class='fu'><a href='aes.html'>aes</a></span>(fill = <span class='kw'>value</span>, group = <span class='kw'>id</span>))
 <span class='kw'>p</span></div><div class='img'><img src='geom_polygon-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Which seems like a lot of work, but then it's easy to add on</span>
 <span class='co'># other features in this coordinate system, e.g.:</span>
@@ -355,7 +355,7 @@ the default plot specification, e.g. <code><a href='https://ggplot2.tidyverse.or
   y = <span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>50</span>,max = <span class='fl'>0.1</span>))
 )
 
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span>(data = <span class='kw'>stream</span>, colour = <span class='st'>"grey30"</span>, size = <span class='fl'>5</span>)</div><div class='img'><img src='geom_polygon-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_path.html'>geom_line</a></span>(data = <span class='kw'>stream</span>, colour = <span class='st'>"grey30"</span>, size = <span class='fl'>5</span>)</div><div class='img'><img src='geom_polygon-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># And if the positions are in longitude and latitude, you can use</span>
 <span class='co'># coord_map to produce different map projections.</span>
 
@@ -372,8 +372,8 @@ the default plot specification, e.g. <code><a href='https://ggplot2.tidyverse.or
   <span class='kw'>holes</span><span class='op'>$</span><span class='kw'>subid</span> <span class='op'>&lt;-</span> <span class='fl'>2L</span>
   <span class='kw'>datapoly</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='kw'>datapoly</span>, <span class='kw'>holes</span>)
 
-  <span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>datapoly</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(x = <span class='kw'>x</span>, y = <span class='kw'>y</span>)) <span class='op'>+</span>
-    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_polygon.html'>geom_polygon</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(fill = <span class='kw'>value</span>, group = <span class='kw'>id</span>, subgroup = <span class='kw'>subid</span>))
+  <span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>datapoly</span>, <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='kw'>x</span>, y = <span class='kw'>y</span>)) <span class='op'>+</span>
+    <span class='fu'>geom_polygon</span>(<span class='fu'><a href='aes.html'>aes</a></span>(fill = <span class='kw'>value</span>, group = <span class='kw'>id</span>, subgroup = <span class='kw'>subid</span>))
   <span class='kw'>p</span>
 }</div><div class='img'><img src='geom_polygon-3.png' alt='' width='700' height='433' /></div><div class='input'></div></pre>
   </div>

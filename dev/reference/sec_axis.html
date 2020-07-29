@@ -210,23 +210,23 @@ secondary axis, positioned opposite of the primary axis. All secondary
 axes must be based on a one-to-one transformation of the primary axes.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/sec_axis.html'>sec_axis</a></span>(
+    <pre class="usage"><span class='fu'>sec_axis</span>(
   trans = <span class='kw'>NULL</span>,
-  name = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(),
-  breaks = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(),
-  labels = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(),
-  guide = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>()
+  name = <span class='fu'><a href='waiver.html'>waiver</a></span>(),
+  breaks = <span class='fu'><a href='waiver.html'>waiver</a></span>(),
+  labels = <span class='fu'><a href='waiver.html'>waiver</a></span>(),
+  guide = <span class='fu'><a href='waiver.html'>waiver</a></span>()
 )
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/sec_axis.html'>dup_axis</a></span>(
+<span class='fu'>dup_axis</span>(
   trans = <span class='op'>~</span><span class='kw'>.</span>,
-  name = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/sec_axis.html'>derive</a></span>(),
-  breaks = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/sec_axis.html'>derive</a></span>(),
-  labels = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/sec_axis.html'>derive</a></span>(),
-  guide = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/sec_axis.html'>derive</a></span>()
+  name = <span class='fu'>derive</span>(),
+  breaks = <span class='fu'>derive</span>(),
+  labels = <span class='fu'>derive</span>(),
+  guide = <span class='fu'>derive</span>()
 )
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/sec_axis.html'>derive</a></span>()</pre>
+<span class='fu'>derive</span>()</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -243,7 +243,7 @@ axes must be based on a one-to-one transformation of the primary axes.</p>
       <th>breaks</th>
       <td><p>One of:</p><ul>
 <li><p><code>NULL</code> for no breaks</p></li>
-<li><p><code><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver()</a></code> for the default breaks computed by the transformation object</p></li>
+<li><p><code><a href='waiver.html'>waiver()</a></code> for the default breaks computed by the transformation object</p></li>
 <li><p>A numeric vector of positions</p></li>
 <li><p>A function that takes the limits as input and returns breaks as output</p></li>
 </ul></td>
@@ -252,7 +252,7 @@ axes must be based on a one-to-one transformation of the primary axes.</p>
       <th>labels</th>
       <td><p>One of:</p><ul>
 <li><p><code>NULL</code> for no labels</p></li>
-<li><p><code><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver()</a></code> for the default labels computed by the transformation object</p></li>
+<li><p><code><a href='waiver.html'>waiver()</a></code> for the default labels computed by the transformation object</p></li>
 <li><p>A character vector giving labels (must be same length as <code>breaks</code>)</p></li>
 <li><p>A function that takes the breaks as input and returns labels as output</p></li>
 </ul></td>
@@ -260,17 +260,17 @@ axes must be based on a one-to-one transformation of the primary axes.</p>
     <tr>
       <th>guide</th>
       <td><p>A position guide that will be used to render
-the axis on the plot. Usually this is <code><a href='https://ggplot2.tidyverse.org/reference/guide_axis.html'>guide_axis()</a></code>.</p></td>
+the axis on the plot. Usually this is <code><a href='guide_axis.html'>guide_axis()</a></code>.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code><a href='https://ggplot2.tidyverse.org/reference/sec_axis.html'>sec_axis()</a></code> is used to create the specifications for a secondary axis.
+    <p><code>sec_axis()</code> is used to create the specifications for a secondary axis.
 Except for the <code>trans</code> argument any of the arguments can be set to
-<code><a href='https://ggplot2.tidyverse.org/reference/sec_axis.html'>derive()</a></code> which would result in the secondary axis inheriting the
+<code>derive()</code> which would result in the secondary axis inheriting the
 settings from the primary axis.</p>
-<p><code><a href='https://ggplot2.tidyverse.org/reference/sec_axis.html'>dup_axis()</a></code> is provide as a shorthand for creating a secondary axis that
+<p><code>dup_axis()</code> is provide as a shorthand for creating a secondary axis that
 is a duplication of the primary axis, effectively mirroring the primary axis.</p>
 <p>As of v3.1, date and datetime scales have limited secondary axis capabilities.
 Unlike other continuous scales, secondary axis transformations for date and datetime scales
@@ -282,17 +282,17 @@ To produce a time-since-event secondary axis in this context, users
 may consider adapting secondary axis labels.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>cyl</span>, <span class='kw'>mpg</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>()
+    <pre class="examples"><div class='input'><span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>cyl</span>, <span class='kw'>mpg</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
 
 <span class='co'># Create a simple secondary axis</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_continuous</a></span>(sec.axis = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/sec_axis.html'>sec_axis</a></span>(<span class='op'>~</span> <span class='kw'>.</span> <span class='op'>+</span> <span class='fl'>10</span>))</div><div class='img'><img src='sec_axis-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_continuous.html'>scale_y_continuous</a></span>(sec.axis = <span class='fu'>sec_axis</span>(<span class='op'>~</span> <span class='kw'>.</span> <span class='op'>+</span> <span class='fl'>10</span>))</div><div class='img'><img src='sec_axis-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Inherit the name from the primary axis</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_continuous</a></span>(<span class='st'>"Miles/gallon"</span>, sec.axis = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/sec_axis.html'>sec_axis</a></span>(<span class='op'>~</span> <span class='kw'>.</span> <span class='op'>+</span> <span class='fl'>10</span>, name = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/sec_axis.html'>derive</a></span>()))</div><div class='img'><img src='sec_axis-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_continuous.html'>scale_y_continuous</a></span>(<span class='st'>"Miles/gallon"</span>, sec.axis = <span class='fu'>sec_axis</span>(<span class='op'>~</span> <span class='kw'>.</span> <span class='op'>+</span> <span class='fl'>10</span>, name = <span class='fu'>derive</span>()))</div><div class='img'><img src='sec_axis-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Duplicate the primary axis</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_continuous</a></span>(sec.axis = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/sec_axis.html'>dup_axis</a></span>())</div><div class='img'><img src='sec_axis-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_continuous.html'>scale_y_continuous</a></span>(sec.axis = <span class='fu'>dup_axis</span>())</div><div class='img'><img src='sec_axis-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can pass in a formula as a shorthand</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_continuous</a></span>(sec.axis = <span class='op'>~</span> <span class='kw'>.</span><span class='op'>^</span><span class='fl'>2</span>)</div><div class='img'><img src='sec_axis-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_continuous.html'>scale_y_continuous</a></span>(sec.axis = <span class='op'>~</span> <span class='kw'>.</span><span class='op'>^</span><span class='fl'>2</span>)</div><div class='img'><img src='sec_axis-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Secondary axes work for date and datetime scales too:</span>
 <span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
   dx = <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(
@@ -304,25 +304,25 @@ may consider adapting secondary axis labels.</p>
  )
 
 <span class='co'># This may useful for labelling different time scales in the same plot</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(x = <span class='kw'>dx</span>, y = <span class='kw'>price</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_date.html'>scale_x_datetime</a></span>(
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='kw'>dx</span>, y = <span class='kw'>price</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='geom_path.html'>geom_line</a></span>() <span class='op'>+</span>
+  <span class='fu'><a href='scale_date.html'>scale_x_datetime</a></span>(
     <span class='st'>"Date"</span>,
     date_labels = <span class='st'>"%b %d"</span>,
     date_breaks = <span class='st'>"6 hour"</span>,
-    sec.axis = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/sec_axis.html'>dup_axis</a></span>(
+    sec.axis = <span class='fu'>dup_axis</span>(
       name = <span class='st'>"Time of Day"</span>,
       labels = <span class='kw'>scales</span>::<span class='fu'><a href='https://scales.r-lib.org//reference/label_date.html'>time_format</a></span>(<span class='st'>"%I %p"</span>)
     )
   )</div><div class='img'><img src='sec_axis-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># or to transform axes for different timezones</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(x = <span class='kw'>dx</span>, y = <span class='kw'>price</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_date.html'>scale_x_datetime</a></span>(<span class='st'>"
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='kw'>dx</span>, y = <span class='kw'>price</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='geom_path.html'>geom_line</a></span>() <span class='op'>+</span>
+  <span class='fu'><a href='scale_date.html'>scale_x_datetime</a></span>(<span class='st'>"
     GMT"</span>x_datetime("
     GMT",
     date_labels = <span class='st'>"%b %d %I %p"</span>,
-    sec.axis = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/sec_axis.html'>sec_axis</a></span>(
+    sec.axis = <span class='fu'>sec_axis</span>(
       <span class='op'>~</span> <span class='kw'>.</span> <span class='op'>+</span> <span class='fl'>8</span> <span class='op'>*</span> <span class='fl'>3600</span>,
       name = <span class='st'>"GMT+8"</span>,
       labels = <span class='kw'>scales</span>::<span class='fu'><a href='https://scales.r-lib.org//reference/label_date.html'>time_format</a></span>(<span class='st'>"%b %d %I %p"</span>)

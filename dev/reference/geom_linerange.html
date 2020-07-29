@@ -208,7 +208,7 @@ ymin and ymax. Each case draws a single graphical object." />
 <code>ymin</code> and <code>ymax</code>. Each case draws a single graphical object.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_linerange.html'>geom_crossbar</a></span>(
+    <pre class="usage"><span class='fu'>geom_crossbar</span>(
   mapping = <span class='kw'>NULL</span>,
   data = <span class='kw'>NULL</span>,
   stat = <span class='st'>"identity"</span>,
@@ -221,7 +221,7 @@ ymin and ymax. Each case draws a single graphical object." />
   inherit.aes = <span class='fl'>TRUE</span>
 )
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_linerange.html'>geom_errorbar</a></span>(
+<span class='fu'>geom_errorbar</span>(
   mapping = <span class='kw'>NULL</span>,
   data = <span class='kw'>NULL</span>,
   stat = <span class='st'>"identity"</span>,
@@ -233,7 +233,7 @@ ymin and ymax. Each case draws a single graphical object." />
   inherit.aes = <span class='fl'>TRUE</span>
 )
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_linerange.html'>geom_linerange</a></span>(
+<span class='fu'>geom_linerange</span>(
   mapping = <span class='kw'>NULL</span>,
   data = <span class='kw'>NULL</span>,
   stat = <span class='st'>"identity"</span>,
@@ -245,7 +245,7 @@ ymin and ymax. Each case draws a single graphical object." />
   inherit.aes = <span class='fl'>TRUE</span>
 )
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_linerange.html'>geom_pointrange</a></span>(
+<span class='fu'>geom_pointrange</span>(
   mapping = <span class='kw'>NULL</span>,
   data = <span class='kw'>NULL</span>,
   stat = <span class='st'>"identity"</span>,
@@ -263,8 +263,8 @@ ymin and ymax. Each case draws a single graphical object." />
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>mapping</th>
-      <td><p>Set of aesthetic mappings created by <code><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes()</a></code> or
-<code><a href='https://ggplot2.tidyverse.org/reference/aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
+      <td><p>Set of aesthetic mappings created by <code><a href='aes.html'>aes()</a></code> or
+<code><a href='aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
     </tr>
@@ -273,10 +273,10 @@ plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
       <td><p>The data to be displayed in this layer. There are three
 options:</p>
 <p>If <code>NULL</code>, the default, the data is inherited from the plot
-data as specified in the call to <code><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot()</a></code>.</p>
+data as specified in the call to <code><a href='ggplot.html'>ggplot()</a></code>.</p>
 <p>A <code>data.frame</code>, or other object, will override the plot
 data. All objects will be fortified to produce a data frame. See
-<code><a href='https://ggplot2.tidyverse.org/reference/fortify.html'>fortify()</a></code> for which variables will be created.</p>
+<code><a href='fortify.html'>fortify()</a></code> for which variables will be created.</p>
 <p>A <code>function</code> will be called with a single argument,
 the plot data. The return value must be a <code>data.frame</code>, and
 will be used as the layer data. A <code>function</code> can be created
@@ -294,7 +294,7 @@ a call to a position adjustment function.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Other arguments passed on to <code><a href='https://ggplot2.tidyverse.org/reference/layer.html'>layer()</a></code>. These are
+      <td><p>Other arguments passed on to <code><a href='layer.html'>layer()</a></code>. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 <code>colour = "red"</code> or <code>size = 3</code>. They may also be parameters
 to the paired geom/stat.</p></td>
@@ -302,8 +302,8 @@ to the paired geom/stat.</p></td>
     <tr>
       <th>fatten</th>
       <td><p>A multiplicative factor used to increase the size of the
-middle bar in <code><a href='https://ggplot2.tidyverse.org/reference/geom_linerange.html'>geom_crossbar()</a></code> and the middle point in
-<code><a href='https://ggplot2.tidyverse.org/reference/geom_linerange.html'>geom_pointrange()</a></code>.</p></td>
+middle bar in <code>geom_crossbar()</code> and the middle point in
+<code>geom_pointrange()</code>.</p></td>
     </tr>
     <tr>
       <th>na.rm</th>
@@ -330,7 +330,7 @@ display.</p></td>
       <td><p>If <code>FALSE</code>, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. <code><a href='https://ggplot2.tidyverse.org/reference/borders.html'>borders()</a></code>.</p></td>
+the default plot specification, e.g. <code><a href='borders.html'>borders()</a></code>.</p></td>
     </tr>
     </table>
 
@@ -343,7 +343,7 @@ the default plot specification, e.g. <code><a href='https://ggplot2.tidyverse.or
 
     
 
-<p><code><a href='https://ggplot2.tidyverse.org/reference/geom_linerange.html'>geom_linerange()</a></code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
+<p><code>geom_linerange()</code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
 <li><p><strong><code>x</code> <em>or</em> <code>y</code></strong></p></li>
 <li><p><strong><code>ymin</code> <em>or</em> <code>xmin</code></strong></p></li>
 <li><p><strong><code>ymax</code> <em>or</em> <code>xmax</code></strong></p></li>
@@ -352,12 +352,12 @@ the default plot specification, e.g. <code><a href='https://ggplot2.tidyverse.or
 <li><p><code>group</code></p></li>
 <li><p><code>linetype</code></p></li>
 <li><p><code>size</code></p></li>
-</ul><p>Learn more about setting these aesthetics in <code>vignette("ggplot2-specs")</code>.</p>
+</ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://ggplot2.tidyverse.org/reference/stat_summary.html'>stat_summary()</a></code> for examples of these guys in use,
-<code><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth()</a></code> for continuous analogue,
-<code><a href='https://ggplot2.tidyverse.org/reference/geom_errorbarh.html'>geom_errorbarh()</a></code> for a horizontal error bar.</p></div>
+    <div class='dont-index'><p><code><a href='stat_summary_bin.html'>stat_summary()</a></code> for examples of these guys in use,
+<code><a href='geom_smooth.html'>geom_smooth()</a></code> for continuous analogue,
+<code><a href='geom_errorbarh.html'>geom_errorbarh()</a></code> for a horizontal error bar.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Create a simple example dataset</span>
@@ -369,34 +369,34 @@ the default plot specification, e.g. <code><a href='https://ggplot2.tidyverse.or
   lower = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.8</span>, <span class='fl'>4.6</span>, <span class='fl'>2.4</span>, <span class='fl'>3.6</span>)
 )
 
-<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>trt</span>, <span class='kw'>resp</span>, colour = <span class='kw'>group</span>))
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_linerange.html'>geom_linerange</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(ymin = <span class='kw'>lower</span>, ymax = <span class='kw'>upper</span>))</div><div class='img'><img src='geom_linerange-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_linerange.html'>geom_pointrange</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(ymin = <span class='kw'>lower</span>, ymax = <span class='kw'>upper</span>))</div><div class='img'><img src='geom_linerange-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_linerange.html'>geom_crossbar</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(ymin = <span class='kw'>lower</span>, ymax = <span class='kw'>upper</span>), width = <span class='fl'>0.2</span>)</div><div class='img'><img src='geom_linerange-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_linerange.html'>geom_errorbar</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(ymin = <span class='kw'>lower</span>, ymax = <span class='kw'>upper</span>), width = <span class='fl'>0.2</span>)</div><div class='img'><img src='geom_linerange-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>trt</span>, <span class='kw'>resp</span>, colour = <span class='kw'>group</span>))
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_linerange</span>(<span class='fu'><a href='aes.html'>aes</a></span>(ymin = <span class='kw'>lower</span>, ymax = <span class='kw'>upper</span>))</div><div class='img'><img src='geom_linerange-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_pointrange</span>(<span class='fu'><a href='aes.html'>aes</a></span>(ymin = <span class='kw'>lower</span>, ymax = <span class='kw'>upper</span>))</div><div class='img'><img src='geom_linerange-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_crossbar</span>(<span class='fu'><a href='aes.html'>aes</a></span>(ymin = <span class='kw'>lower</span>, ymax = <span class='kw'>upper</span>), width = <span class='fl'>0.2</span>)</div><div class='img'><img src='geom_linerange-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_errorbar</span>(<span class='fu'><a href='aes.html'>aes</a></span>(ymin = <span class='kw'>lower</span>, ymax = <span class='kw'>upper</span>), width = <span class='fl'>0.2</span>)</div><div class='img'><img src='geom_linerange-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Flip the orientation by changing mapping</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>resp</span>, <span class='kw'>trt</span>, colour = <span class='kw'>group</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_linerange.html'>geom_linerange</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(xmin = <span class='kw'>lower</span>, xmax = <span class='kw'>upper</span>))</div><div class='img'><img src='geom_linerange-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>resp</span>, <span class='kw'>trt</span>, colour = <span class='kw'>group</span>)) <span class='op'>+</span>
+  <span class='fu'>geom_linerange</span>(<span class='fu'><a href='aes.html'>aes</a></span>(xmin = <span class='kw'>lower</span>, xmax = <span class='kw'>upper</span>))</div><div class='img'><img src='geom_linerange-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Draw lines connecting group means</span>
 <span class='kw'>p</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(group = <span class='kw'>group</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_linerange.html'>geom_errorbar</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(ymin = <span class='kw'>lower</span>, ymax = <span class='kw'>upper</span>), width = <span class='fl'>0.2</span>)</div><div class='img'><img src='geom_linerange-6.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'><a href='geom_path.html'>geom_line</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(group = <span class='kw'>group</span>)) <span class='op'>+</span>
+  <span class='fu'>geom_errorbar</span>(<span class='fu'><a href='aes.html'>aes</a></span>(ymin = <span class='kw'>lower</span>, ymax = <span class='kw'>upper</span>), width = <span class='fl'>0.2</span>)</div><div class='img'><img src='geom_linerange-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># If you want to dodge bars and errorbars, you need to manually</span>
 <span class='co'># specify the dodge width</span>
-<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>trt</span>, <span class='kw'>resp</span>, fill = <span class='kw'>group</span>))
+<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>trt</span>, <span class='kw'>resp</span>, fill = <span class='kw'>group</span>))
 <span class='kw'>p</span> <span class='op'>+</span>
- <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_col</a></span>(position = <span class='st'>"dodge"</span>) <span class='op'>+</span>
- <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_linerange.html'>geom_errorbar</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(ymin = <span class='kw'>lower</span>, ymax = <span class='kw'>upper</span>), position = <span class='st'>"dodge"</span>, width = <span class='fl'>0.25</span>)</div><div class='img'><img src='geom_linerange-7.png' alt='' width='700' height='433' /></div><div class='input'>
+ <span class='fu'><a href='geom_bar.html'>geom_col</a></span>(position = <span class='st'>"dodge"</span>) <span class='op'>+</span>
+ <span class='fu'>geom_errorbar</span>(<span class='fu'><a href='aes.html'>aes</a></span>(ymin = <span class='kw'>lower</span>, ymax = <span class='kw'>upper</span>), position = <span class='st'>"dodge"</span>, width = <span class='fl'>0.25</span>)</div><div class='img'><img src='geom_linerange-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Because the bars and errorbars have different widths</span>
 <span class='co'># we need to specify how wide the objects we are dodging are</span>
-<span class='kw'>dodge</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/position_dodge.html'>position_dodge</a></span>(width=<span class='fl'>0.9</span>)
+<span class='kw'>dodge</span> <span class='op'>&lt;-</span> <span class='fu'><a href='position_dodge.html'>position_dodge</a></span>(width=<span class='fl'>0.9</span>)
 <span class='kw'>p</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_col</a></span>(position = <span class='kw'>dodge</span>) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_linerange.html'>geom_errorbar</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(ymin = <span class='kw'>lower</span>, ymax = <span class='kw'>upper</span>), position = <span class='kw'>dodge</span>, width = <span class='fl'>0.25</span>)</div><div class='img'><img src='geom_linerange-8.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'><a href='geom_bar.html'>geom_col</a></span>(position = <span class='kw'>dodge</span>) <span class='op'>+</span>
+  <span class='fu'>geom_errorbar</span>(<span class='fu'><a href='aes.html'>aes</a></span>(ymin = <span class='kw'>lower</span>, ymax = <span class='kw'>upper</span>), position = <span class='kw'>dodge</span>, width = <span class='fl'>0.25</span>)</div><div class='img'><img src='geom_linerange-8.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># When using geom_errorbar() with position_dodge2(), extra padding will be</span>
 <span class='co'># needed between the error bars to keep them aligned with the bars.</span>
 <span class='kw'>p</span> <span class='op'>+</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_col</a></span>(position = <span class='st'>"dodge2"</span>) <span class='op'>+</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_linerange.html'>geom_errorbar</a></span>(
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(ymin = <span class='kw'>lower</span>, ymax = <span class='kw'>upper</span>),
-  position = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/position_dodge.html'>position_dodge2</a></span>(width = <span class='fl'>0.5</span>, padding = <span class='fl'>0.5</span>)
+<span class='fu'><a href='geom_bar.html'>geom_col</a></span>(position = <span class='st'>"dodge2"</span>) <span class='op'>+</span>
+<span class='fu'>geom_errorbar</span>(
+  <span class='fu'><a href='aes.html'>aes</a></span>(ymin = <span class='kw'>lower</span>, ymax = <span class='kw'>upper</span>),
+  position = <span class='fu'><a href='position_dodge.html'>position_dodge2</a></span>(width = <span class='fl'>0.5</span>, padding = <span class='fl'>0.5</span>)
 )</div><div class='img'><img src='geom_linerange-9.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -212,29 +212,29 @@ These scales will not produce a legend unless you also supply the <code>breaks</
 <code>labels</code>, and type of <code>guide</code> you want.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_identity.html'>scale_colour_identity</a></span>(<span class='kw'>...</span>, guide = <span class='st'>"none"</span>, aesthetics = <span class='st'>"colour"</span>)
+    <pre class="usage"><span class='fu'>scale_colour_identity</span>(<span class='kw'>...</span>, guide = <span class='st'>"none"</span>, aesthetics = <span class='st'>"colour"</span>)
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_identity.html'>scale_fill_identity</a></span>(<span class='kw'>...</span>, guide = <span class='st'>"none"</span>, aesthetics = <span class='st'>"fill"</span>)
+<span class='fu'>scale_fill_identity</span>(<span class='kw'>...</span>, guide = <span class='st'>"none"</span>, aesthetics = <span class='st'>"fill"</span>)
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_identity.html'>scale_shape_identity</a></span>(<span class='kw'>...</span>, guide = <span class='st'>"none"</span>)
+<span class='fu'>scale_shape_identity</span>(<span class='kw'>...</span>, guide = <span class='st'>"none"</span>)
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_identity.html'>scale_linetype_identity</a></span>(<span class='kw'>...</span>, guide = <span class='st'>"none"</span>)
+<span class='fu'>scale_linetype_identity</span>(<span class='kw'>...</span>, guide = <span class='st'>"none"</span>)
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_identity.html'>scale_alpha_identity</a></span>(<span class='kw'>...</span>, guide = <span class='st'>"none"</span>)
+<span class='fu'>scale_alpha_identity</span>(<span class='kw'>...</span>, guide = <span class='st'>"none"</span>)
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_identity.html'>scale_size_identity</a></span>(<span class='kw'>...</span>, guide = <span class='st'>"none"</span>)
+<span class='fu'>scale_size_identity</span>(<span class='kw'>...</span>, guide = <span class='st'>"none"</span>)
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_identity.html'>scale_discrete_identity</a></span>(<span class='kw'>aesthetics</span>, <span class='kw'>...</span>, guide = <span class='st'>"none"</span>)
+<span class='fu'>scale_discrete_identity</span>(<span class='kw'>aesthetics</span>, <span class='kw'>...</span>, guide = <span class='st'>"none"</span>)
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_identity.html'>scale_continuous_identity</a></span>(<span class='kw'>aesthetics</span>, <span class='kw'>...</span>, guide = <span class='st'>"none"</span>)</pre>
+<span class='fu'>scale_continuous_identity</span>(<span class='kw'>aesthetics</span>, <span class='kw'>...</span>, guide = <span class='st'>"none"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>...</th>
-      <td><p>Other arguments passed on to <code><a href='https://ggplot2.tidyverse.org/reference/discrete_scale.html'>discrete_scale()</a></code> or
-<code><a href='https://ggplot2.tidyverse.org/reference/continuous_scale.html'>continuous_scale()</a></code></p></td>
+      <td><p>Other arguments passed on to <code><a href='discrete_scale.html'>discrete_scale()</a></code> or
+<code><a href='continuous_scale.html'>continuous_scale()</a></code></p></td>
     </tr>
     <tr>
       <th>guide</th>
@@ -251,43 +251,43 @@ same time, via <code>aesthetics = c("colour", "fill")</code>.</p></td>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The functions <code><a href='https://ggplot2.tidyverse.org/reference/scale_identity.html'>scale_colour_identity()</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/scale_identity.html'>scale_fill_identity()</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/scale_identity.html'>scale_size_identity()</a></code>,
+    <p>The functions <code>scale_colour_identity()</code>, <code>scale_fill_identity()</code>, <code>scale_size_identity()</code>,
 etc. work on the aesthetics specified in the scale name: <code>colour</code>, <code>fill</code>, <code>size</code>,
-etc. However, the functions <code><a href='https://ggplot2.tidyverse.org/reference/scale_identity.html'>scale_colour_identity()</a></code> and <code><a href='https://ggplot2.tidyverse.org/reference/scale_identity.html'>scale_fill_identity()</a></code> also
+etc. However, the functions <code>scale_colour_identity()</code> and <code>scale_fill_identity()</code> also
 have an optional <code>aesthetics</code> argument that can be used to define both <code>colour</code> and
 <code>fill</code> aesthetic mappings via a single function call. The functions
-<code><a href='https://ggplot2.tidyverse.org/reference/scale_identity.html'>scale_discrete_identity()</a></code> and <code><a href='https://ggplot2.tidyverse.org/reference/scale_identity.html'>scale_continuous_identity()</a></code> are generic scales that
+<code>scale_discrete_identity()</code> and <code>scale_continuous_identity()</code> are generic scales that
 can work with any aesthetic or set of aesthetics provided via the <code>aesthetics</code>
 argument.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>luv_colours</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>u</span>, <span class='kw'>v</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(colour = <span class='kw'>col</span>), size = <span class='fl'>3</span>) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_identity.html'>scale_color_identity</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_fixed.html'>coord_equal</a></span>()</div><div class='img'><img src='scale_identity-1.png' alt='' width='700' height='433' /></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>luv_colours</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>u</span>, <span class='kw'>v</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(colour = <span class='kw'>col</span>), size = <span class='fl'>3</span>) <span class='op'>+</span>
+  <span class='fu'>scale_color_identity</span>() <span class='op'>+</span>
+  <span class='fu'><a href='coord_fixed.html'>coord_equal</a></span>()</div><div class='img'><img src='scale_identity-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
   x = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>,
   y = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>,
   colour = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"red"</span>, <span class='st'>"green"</span>, <span class='st'>"blue"</span>, <span class='st'>"yellow"</span>)
 )
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_tile.html'>geom_tile</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(fill = <span class='kw'>colour</span>))</div><div class='img'><img src='scale_identity-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_tile.html'>geom_tile</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(fill = <span class='kw'>colour</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_identity.html'>scale_fill_identity</a></span>()</div><div class='img'><img src='scale_identity-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span> <span class='fu'><a href='geom_raster.html'>geom_tile</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(fill = <span class='kw'>colour</span>))</div><div class='img'><img src='scale_identity-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='geom_raster.html'>geom_tile</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(fill = <span class='kw'>colour</span>)) <span class='op'>+</span>
+  <span class='fu'>scale_fill_identity</span>()</div><div class='img'><img src='scale_identity-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># To get a legend guide, specify guide = "legend"</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_tile.html'>geom_tile</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(fill = <span class='kw'>colour</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_identity.html'>scale_fill_identity</a></span>(guide = <span class='st'>"legend"</span>)</div><div class='img'><img src='scale_identity-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># But you'll typically also need to supply breaks and labels:</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_tile.html'>geom_tile</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(fill = <span class='kw'>colour</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_identity.html'>scale_fill_identity</a></span>(<span class='st'>"trt"</span>, labels = <span class='kw'>letters</span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>], breaks = <span class='kw'>df</span><span class='op'>$</span><span class='kw'>colour</span>,
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='geom_raster.html'>geom_tile</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(fill = <span class='kw'>colour</span>)) <span class='op'>+</span>
+  <span class='fu'>scale_fill_identity</span>(guide = <span class='st'>"legend"</span>)</div><div class='img'><img src='scale_identity-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># But you'll typically also need to supply breaks and labels:</span>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='geom_raster.html'>geom_tile</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(fill = <span class='kw'>colour</span>)) <span class='op'>+</span>
+  <span class='fu'>scale_fill_identity</span>(<span class='st'>"trt"</span>, labels = <span class='kw'>letters</span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>], breaks = <span class='kw'>df</span><span class='op'>$</span><span class='kw'>colour</span>,
   guide = <span class='st'>"legend"</span>)</div><div class='img'><img src='scale_identity-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># cyl scaled to appropriate size</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(size = <span class='kw'>cyl</span>))</div><div class='img'><img src='scale_identity-6.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(size = <span class='kw'>cyl</span>))</div><div class='img'><img src='scale_identity-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># cyl used as point size</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(size = <span class='kw'>cyl</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_identity.html'>scale_size_identity</a></span>()</div><div class='img'><img src='scale_identity-7.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(size = <span class='kw'>cyl</span>)) <span class='op'>+</span>
+  <span class='fu'>scale_size_identity</span>()</div><div class='img'><img src='scale_identity-7.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

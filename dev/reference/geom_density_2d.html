@@ -209,12 +209,12 @@ bands." />
     <div class="ref-description">
     <p>Perform a 2D kernel density estimation using <code><a href='https://rdrr.io/pkg/MASS/man/kde2d.html'>MASS::kde2d()</a></code> and
 display the results with contours. This can be useful for dealing with
-overplotting. This is a 2D version of <code><a href='https://ggplot2.tidyverse.org/reference/geom_density.html'>geom_density()</a></code>. <code><a href='https://ggplot2.tidyverse.org/reference/geom_density_2d.html'>geom_density_2d()</a></code>
-draws contour lines, and <code><a href='https://ggplot2.tidyverse.org/reference/geom_density_2d.html'>geom_density_2d_filled()</a></code> draws filled contour
+overplotting. This is a 2D version of <code><a href='geom_density.html'>geom_density()</a></code>. <code>geom_density_2d()</code>
+draws contour lines, and <code>geom_density_2d_filled()</code> draws filled contour
 bands.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_density_2d.html'>geom_density_2d</a></span>(
+    <pre class="usage"><span class='fu'>geom_density_2d</span>(
   mapping = <span class='kw'>NULL</span>,
   data = <span class='kw'>NULL</span>,
   stat = <span class='st'>"density_2d"</span>,
@@ -229,7 +229,7 @@ bands.</p>
   inherit.aes = <span class='fl'>TRUE</span>
 )
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_density_2d.html'>geom_density_2d_filled</a></span>(
+<span class='fu'>geom_density_2d_filled</span>(
   mapping = <span class='kw'>NULL</span>,
   data = <span class='kw'>NULL</span>,
   stat = <span class='st'>"density_2d_filled"</span>,
@@ -241,7 +241,7 @@ bands.</p>
   inherit.aes = <span class='fl'>TRUE</span>
 )
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_density_2d.html'>stat_density_2d</a></span>(
+<span class='fu'>stat_density_2d</span>(
   mapping = <span class='kw'>NULL</span>,
   data = <span class='kw'>NULL</span>,
   geom = <span class='st'>"density_2d"</span>,
@@ -257,7 +257,7 @@ bands.</p>
   inherit.aes = <span class='fl'>TRUE</span>
 )
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_density_2d.html'>stat_density_2d_filled</a></span>(
+<span class='fu'>stat_density_2d_filled</span>(
   mapping = <span class='kw'>NULL</span>,
   data = <span class='kw'>NULL</span>,
   geom = <span class='st'>"density_2d_filled"</span>,
@@ -278,8 +278,8 @@ bands.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>mapping</th>
-      <td><p>Set of aesthetic mappings created by <code><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes()</a></code> or
-<code><a href='https://ggplot2.tidyverse.org/reference/aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
+      <td><p>Set of aesthetic mappings created by <code><a href='aes.html'>aes()</a></code> or
+<code><a href='aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
     </tr>
@@ -288,10 +288,10 @@ plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
       <td><p>The data to be displayed in this layer. There are three
 options:</p>
 <p>If <code>NULL</code>, the default, the data is inherited from the plot
-data as specified in the call to <code><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot()</a></code>.</p>
+data as specified in the call to <code><a href='ggplot.html'>ggplot()</a></code>.</p>
 <p>A <code>data.frame</code>, or other object, will override the plot
 data. All objects will be fortified to produce a data frame. See
-<code><a href='https://ggplot2.tidyverse.org/reference/fortify.html'>fortify()</a></code> for which variables will be created.</p>
+<code><a href='fortify.html'>fortify()</a></code> for which variables will be created.</p>
 <p>A <code>function</code> will be called with a single argument,
 the plot data. The return value must be a <code>data.frame</code>, and
 will be used as the layer data. A <code>function</code> can be created
@@ -304,7 +304,7 @@ a call to a position adjustment function.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Arguments passed on to <code><a href='https://ggplot2.tidyverse.org/reference/geom_contour.html'>geom_contour</a></code></p><dl>
+      <td><p>Arguments passed on to <code><a href='geom_contour.html'>geom_contour</a></code></p><dl>
     <dt><code>bins</code></dt><dd><p>Number of contour bins. Overridden by <code>binwidth</code>.</p></dd>
     <dt><code>binwidth</code></dt><dd><p>The width of the contour bins. Overridden by <code>breaks</code>.</p></dd>
     <dt><code>breaks</code></dt><dd><p>Numeric vector to set the contour breaks.
@@ -349,12 +349,12 @@ display.</p></td>
       <td><p>If <code>FALSE</code>, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. <code><a href='https://ggplot2.tidyverse.org/reference/borders.html'>borders()</a></code>.</p></td>
+the default plot specification, e.g. <code><a href='borders.html'>borders()</a></code>.</p></td>
     </tr>
     <tr>
       <th>geom, stat</th>
       <td><p>Use to override the default connection between
-<code><a href='https://ggplot2.tidyverse.org/reference/geom_density_2d.html'>geom_density_2d()</a></code> and <code><a href='https://ggplot2.tidyverse.org/reference/geom_density_2d.html'>stat_density_2d()</a></code>.</p></td>
+<code>geom_density_2d()</code> and <code>stat_density_2d()</code>.</p></td>
     </tr>
     <tr>
       <th>contour</th>
@@ -383,7 +383,7 @@ use half of the default bandwidth.</p></td>
 
     
 
-<p><code><a href='https://ggplot2.tidyverse.org/reference/geom_density_2d.html'>geom_density_2d()</a></code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
+<p><code>geom_density_2d()</code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
 <li><p><strong><code>x</code></strong></p></li>
 <li><p><strong><code>y</code></strong></p></li>
 <li><p><code>alpha</code></p></li>
@@ -391,9 +391,9 @@ use half of the default bandwidth.</p></td>
 <li><p><code>group</code></p></li>
 <li><p><code>linetype</code></p></li>
 <li><p><code>size</code></p></li>
-</ul><p>Learn more about setting these aesthetics in <code>vignette("ggplot2-specs")</code>.</p>
+</ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
 
-<p><code><a href='https://ggplot2.tidyverse.org/reference/geom_density_2d.html'>geom_density_2d_filled()</a></code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
+<p><code>geom_density_2d_filled()</code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
 <li><p><strong><code>x</code></strong></p></li>
 <li><p><strong><code>y</code></strong></p></li>
 <li><p><code>alpha</code></p></li>
@@ -403,12 +403,12 @@ use half of the default bandwidth.</p></td>
 <li><p><code>linetype</code></p></li>
 <li><p><code>size</code></p></li>
 <li><p><code>subgroup</code></p></li>
-</ul><p>Learn more about setting these aesthetics in <code>vignette("ggplot2-specs")</code>.</p>
+</ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
     <h2 class="hasAnchor" id="computed-variables"><a class="anchor" href="#computed-variables"></a>Computed variables</h2>
 
     
 
-<p><code><a href='https://ggplot2.tidyverse.org/reference/geom_density_2d.html'>stat_density_2d()</a></code> and <code><a href='https://ggplot2.tidyverse.org/reference/geom_density_2d.html'>stat_density_2d_filled()</a></code> compute different
+<p><code>stat_density_2d()</code> and <code>stat_density_2d_filled()</code> compute different
 variables depending on whether contouring is turned on or off. With
 contouring off (<code>contour = FALSE</code>), both stats behave the same, and the
 following variables are provided:</p><dl>
@@ -419,8 +419,8 @@ following variables are provided:</p><dl>
 
 </dl>
 
-<p>With contouring on (<code>contour = TRUE</code>), either <code><a href='https://ggplot2.tidyverse.org/reference/geom_contour.html'>stat_contour()</a></code> or
-<code><a href='https://ggplot2.tidyverse.org/reference/geom_contour.html'>stat_contour_filled()</a></code> (for contour lines or contour bands,
+<p>With contouring on (<code>contour = TRUE</code>), either <code><a href='geom_contour.html'>stat_contour()</a></code> or
+<code><a href='geom_contour.html'>stat_contour_filled()</a></code> (for contour lines or contour bands,
 respectively) is run after the density estimate has been obtained,
 and the computed variables are determined by these stats.
 Contours are calculated for one of the three types of density estimates
@@ -428,44 +428,44 @@ obtained before contouring, <code>density</code>, <code>ndensity</code>, and <co
 of those should be used is determined by the <code>contour_var</code> parameter.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://ggplot2.tidyverse.org/reference/geom_contour.html'>geom_contour()</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/geom_contour.html'>geom_contour_filled()</a></code> for information about
-how contours are drawn; <code><a href='https://ggplot2.tidyverse.org/reference/geom_bin2d.html'>geom_bin2d()</a></code> for another way of dealing with
+    <div class='dont-index'><p><code><a href='geom_contour.html'>geom_contour()</a></code>, <code><a href='geom_contour.html'>geom_contour_filled()</a></code> for information about
+how contours are drawn; <code><a href='geom_bin2d.html'>geom_bin2d()</a></code> for another way of dealing with
 overplotting.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>faithful</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(x = <span class='kw'>eruptions</span>, y = <span class='kw'>waiting</span>)) <span class='op'>+</span>
- <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
- <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>xlim</a></span>(<span class='fl'>0.5</span>, <span class='fl'>6</span>) <span class='op'>+</span>
- <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>ylim</a></span>(<span class='fl'>40</span>, <span class='fl'>110</span>)
+    <pre class="examples"><div class='input'><span class='kw'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>faithful</span>, <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='kw'>eruptions</span>, y = <span class='kw'>waiting</span>)) <span class='op'>+</span>
+ <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
+ <span class='fu'><a href='lims.html'>xlim</a></span>(<span class='fl'>0.5</span>, <span class='fl'>6</span>) <span class='op'>+</span>
+ <span class='fu'><a href='lims.html'>ylim</a></span>(<span class='fl'>40</span>, <span class='fl'>110</span>)
 
 <span class='co'># contour lines</span>
-<span class='kw'>m</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_density_2d.html'>geom_density_2d</a></span>()</div><div class='img'><img src='geom_density_2d-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>m</span> <span class='op'>+</span> <span class='fu'>geom_density_2d</span>()</div><div class='img'><img src='geom_density_2d-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># \donttest{</span>
 <span class='co'># contour bands</span>
-<span class='kw'>m</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_density_2d.html'>geom_density_2d_filled</a></span>(alpha = <span class='fl'>0.5</span>)</div><div class='img'><img src='geom_density_2d-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>m</span> <span class='op'>+</span> <span class='fu'>geom_density_2d_filled</span>(alpha = <span class='fl'>0.5</span>)</div><div class='img'><img src='geom_density_2d-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># contour bands and contour lines</span>
-<span class='kw'>m</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_density_2d.html'>geom_density_2d_filled</a></span>(alpha = <span class='fl'>0.5</span>) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_density_2d.html'>geom_density_2d</a></span>(size = <span class='fl'>0.25</span>, colour = <span class='st'>"black"</span>)</div><div class='img'><img src='geom_density_2d-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>m</span> <span class='op'>+</span> <span class='fu'>geom_density_2d_filled</span>(alpha = <span class='fl'>0.5</span>) <span class='op'>+</span>
+  <span class='fu'>geom_density_2d</span>(size = <span class='fl'>0.25</span>, colour = <span class='st'>"black"</span>)</div><div class='img'><img src='geom_density_2d-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>4393</span>)
 <span class='kw'>dsmall</span> <span class='op'>&lt;-</span> <span class='kw'>diamonds</span>[<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='kw'>diamonds</span>), <span class='fl'>1000</span>), ]
-<span class='kw'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>dsmall</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>))
+<span class='kw'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>dsmall</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>))
 <span class='co'># If you map an aesthetic to a categorical variable, you will get a</span>
 <span class='co'># set of contours for each value of that variable</span>
-<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_density_2d.html'>geom_density_2d</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(colour = <span class='kw'>cut</span>))</div><div class='img'><img src='geom_density_2d-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>geom_density_2d</span>(<span class='fu'><a href='aes.html'>aes</a></span>(colour = <span class='kw'>cut</span>))</div><div class='img'><img src='geom_density_2d-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># If you draw filled contours across multiple facets, the same bins are</span>
 <span class='co'># used across all facets</span>
-<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_density_2d.html'>geom_density_2d_filled</a></span>() <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/vars.html'>vars</a></span>(<span class='kw'>cut</span>))</div><div class='img'><img src='geom_density_2d-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># If you want to make sure the peak intensity is the same in each facet,</span>
+<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>geom_density_2d_filled</span>() <span class='op'>+</span> <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span>(<span class='fu'><a href='vars.html'>vars</a></span>(<span class='kw'>cut</span>))</div><div class='img'><img src='geom_density_2d-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># If you want to make sure the peak intensity is the same in each facet,</span>
 <span class='co'># use `contour_var = "ndensity"`.</span>
-<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_density_2d.html'>geom_density_2d_filled</a></span>(contour_var = <span class='st'>"ndensity"</span>) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/vars.html'>vars</a></span>(<span class='kw'>cut</span>))</div><div class='img'><img src='geom_density_2d-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># If you want to scale intensity by the number of observations in each group,</span>
+<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>geom_density_2d_filled</span>(contour_var = <span class='st'>"ndensity"</span>) <span class='op'>+</span> <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span>(<span class='fu'><a href='vars.html'>vars</a></span>(<span class='kw'>cut</span>))</div><div class='img'><img src='geom_density_2d-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># If you want to scale intensity by the number of observations in each group,</span>
 <span class='co'># use `contour_var = "count"`.</span>
-<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_density_2d.html'>geom_density_2d_filled</a></span>(contour_var = <span class='st'>"count"</span>) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/vars.html'>vars</a></span>(<span class='kw'>cut</span>))</div><div class='img'><img src='geom_density_2d-7.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>geom_density_2d_filled</span>(contour_var = <span class='st'>"count"</span>) <span class='op'>+</span> <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span>(<span class='fu'><a href='vars.html'>vars</a></span>(<span class='kw'>cut</span>))</div><div class='img'><img src='geom_density_2d-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># If we turn contouring off, we can use other geoms, such as tiles:</span>
-<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_density_2d.html'>stat_density_2d</a></span>(
+<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>stat_density_2d</span>(
   geom = <span class='st'>"raster"</span>,
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(fill = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes_eval.html'>after_stat</a></span>(<span class='kw'>density</span>)),
+  <span class='fu'><a href='aes.html'>aes</a></span>(fill = <span class='fu'><a href='aes_eval.html'>after_stat</a></span>(<span class='kw'>density</span>)),
   contour = <span class='fl'>FALSE</span>
-) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_viridis.html'>scale_fill_viridis_c</a></span>()</div><div class='img'><img src='geom_density_2d-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Or points:</span>
-<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_density_2d.html'>stat_density_2d</a></span>(geom = <span class='st'>"point"</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(size = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes_eval.html'>after_stat</a></span>(<span class='kw'>density</span>)), n = <span class='fl'>20</span>, contour = <span class='fl'>FALSE</span>)</div><div class='img'><img src='geom_density_2d-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span></div></pre>
+) <span class='op'>+</span> <span class='fu'><a href='scale_colour_viridis_d.html'>scale_fill_viridis_c</a></span>()</div><div class='img'><img src='geom_density_2d-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Or points:</span>
+<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>stat_density_2d</span>(geom = <span class='st'>"point"</span>, <span class='fu'><a href='aes.html'>aes</a></span>(size = <span class='fu'><a href='aes_eval.html'>after_stat</a></span>(<span class='kw'>density</span>)), n = <span class='fl'>20</span>, contour = <span class='fl'>FALSE</span>)</div><div class='img'><img src='geom_density_2d-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

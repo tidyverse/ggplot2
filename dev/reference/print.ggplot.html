@@ -241,7 +241,7 @@ function or for loop.</p>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Invisibly returns the result of <code><a href='https://ggplot2.tidyverse.org/reference/ggplot_build.html'>ggplot_build()</a></code>, which
+    <p>Invisibly returns the result of <code><a href='ggplot_build.html'>ggplot_build()</a></code>, which
 is a list with components that contain the plot itself, the data,
 information about the scales, panels etc.</p>
 
@@ -250,14 +250,14 @@ information about the scales, panels etc.</p>
 
 <span class='co'># Doesn't seem to do anything!</span>
 <span class='co'>for</span> (<span class='kw'>colour</span> <span class='co'>in</span> <span class='kw'>colours</span>) {
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes_.html'>aes_</a></span>(<span class='op'>~</span> <span class='kw'>displ</span>, <span class='op'>~</span> <span class='kw'>hwy</span>, colour = <span class='kw'>colour</span>)) <span class='op'>+</span>
-    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>()
+  <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes_.html'>aes_</a></span>(<span class='op'>~</span> <span class='kw'>displ</span>, <span class='op'>~</span> <span class='kw'>hwy</span>, colour = <span class='kw'>colour</span>)) <span class='op'>+</span>
+    <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
 }
 
 <span class='co'># Works when we explicitly print the plots</span>
 <span class='co'>for</span> (<span class='kw'>colour</span> <span class='co'>in</span> <span class='kw'>colours</span>) {
-  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes_.html'>aes_</a></span>(<span class='op'>~</span> <span class='kw'>displ</span>, <span class='op'>~</span> <span class='kw'>hwy</span>, colour = <span class='kw'>colour</span>)) <span class='op'>+</span>
-    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>())
+  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes_.html'>aes_</a></span>(<span class='op'>~</span> <span class='kw'>displ</span>, <span class='op'>~</span> <span class='kw'>hwy</span>, colour = <span class='kw'>colour</span>)) <span class='op'>+</span>
+    <span class='fu'><a href='geom_point.html'>geom_point</a></span>())
 }</div><div class='img'><img src='print.ggplot-1.png' alt='' width='700' height='433' /></div><div class='img'><img src='print.ggplot-2.png' alt='' width='700' height='433' /></div><div class='img'><img src='print.ggplot-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

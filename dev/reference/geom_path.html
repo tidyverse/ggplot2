@@ -207,14 +207,14 @@ connected together." />
     </div>
 
     <div class="ref-description">
-    <p><code><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_path()</a></code> connects the observations in the order in which they appear
-in the data. <code><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line()</a></code> connects them in order of the variable on the
-x axis. <code><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_step()</a></code> creates a stairstep plot, highlighting exactly
+    <p><code>geom_path()</code> connects the observations in the order in which they appear
+in the data. <code>geom_line()</code> connects them in order of the variable on the
+x axis. <code>geom_step()</code> creates a stairstep plot, highlighting exactly
 when changes occur. The <code>group</code> aesthetic determines which cases are
 connected together.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_path</a></span>(
+    <pre class="usage"><span class='fu'>geom_path</span>(
   mapping = <span class='kw'>NULL</span>,
   data = <span class='kw'>NULL</span>,
   stat = <span class='st'>"identity"</span>,
@@ -229,7 +229,7 @@ connected together.</p>
   inherit.aes = <span class='fl'>TRUE</span>
 )
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span>(
+<span class='fu'>geom_line</span>(
   mapping = <span class='kw'>NULL</span>,
   data = <span class='kw'>NULL</span>,
   stat = <span class='st'>"identity"</span>,
@@ -241,7 +241,7 @@ connected together.</p>
   <span class='kw'>...</span>
 )
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_step</a></span>(
+<span class='fu'>geom_step</span>(
   mapping = <span class='kw'>NULL</span>,
   data = <span class='kw'>NULL</span>,
   stat = <span class='st'>"identity"</span>,
@@ -258,8 +258,8 @@ connected together.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>mapping</th>
-      <td><p>Set of aesthetic mappings created by <code><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes()</a></code> or
-<code><a href='https://ggplot2.tidyverse.org/reference/aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
+      <td><p>Set of aesthetic mappings created by <code><a href='aes.html'>aes()</a></code> or
+<code><a href='aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
     </tr>
@@ -268,10 +268,10 @@ plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
       <td><p>The data to be displayed in this layer. There are three
 options:</p>
 <p>If <code>NULL</code>, the default, the data is inherited from the plot
-data as specified in the call to <code><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot()</a></code>.</p>
+data as specified in the call to <code><a href='ggplot.html'>ggplot()</a></code>.</p>
 <p>A <code>data.frame</code>, or other object, will override the plot
 data. All objects will be fortified to produce a data frame. See
-<code><a href='https://ggplot2.tidyverse.org/reference/fortify.html'>fortify()</a></code> for which variables will be created.</p>
+<code><a href='fortify.html'>fortify()</a></code> for which variables will be created.</p>
 <p>A <code>function</code> will be called with a single argument,
 the plot data. The return value must be a <code>data.frame</code>, and
 will be used as the layer data. A <code>function</code> can be created
@@ -289,7 +289,7 @@ a call to a position adjustment function.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Other arguments passed on to <code><a href='https://ggplot2.tidyverse.org/reference/layer.html'>layer()</a></code>. These are
+      <td><p>Other arguments passed on to <code><a href='layer.html'>layer()</a></code>. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 <code>colour = "red"</code> or <code>size = 3</code>. They may also be parameters
 to the paired geom/stat.</p></td>
@@ -328,7 +328,7 @@ display.</p></td>
       <td><p>If <code>FALSE</code>, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. <code><a href='https://ggplot2.tidyverse.org/reference/borders.html'>borders()</a></code>.</p></td>
+the default plot specification, e.g. <code><a href='borders.html'>borders()</a></code>.</p></td>
     </tr>
     <tr>
       <th>orientation</th>
@@ -347,7 +347,7 @@ adjacent x-values.</p></td>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>An alternative parameterisation is <code><a href='https://ggplot2.tidyverse.org/reference/geom_segment.html'>geom_segment()</a></code>, where each line
+    <p>An alternative parameterisation is <code><a href='geom_segment.html'>geom_segment()</a></code>, where each line
 corresponds to a single case which provides the start and end coordinates.</p>
     <h2 class="hasAnchor" id="orientation"><a class="anchor" href="#orientation"></a>Orientation</h2>
 
@@ -358,7 +358,7 @@ corresponds to a single case which provides the start and end coordinates.</p>
 
     
 
-<p><code><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_path()</a></code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
+<p><code>geom_path()</code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
 <li><p><strong><code>x</code></strong></p></li>
 <li><p><strong><code>y</code></strong></p></li>
 <li><p><code>alpha</code></p></li>
@@ -366,12 +366,12 @@ corresponds to a single case which provides the start and end coordinates.</p>
 <li><p><code>group</code></p></li>
 <li><p><code>linetype</code></p></li>
 <li><p><code>size</code></p></li>
-</ul><p>Learn more about setting these aesthetics in <code>vignette("ggplot2-specs")</code>.</p>
+</ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
     <h2 class="hasAnchor" id="missing-value-handling"><a class="anchor" href="#missing-value-handling"></a>Missing value handling</h2>
 
     
 
-<p><code><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_path()</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line()</a></code>, and <code><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_step()</a></code> handle <code>NA</code> as follows:</p><ul>
+<p><code>geom_path()</code>, <code>geom_line()</code>, and <code>geom_step()</code> handle <code>NA</code> as follows:</p><ul>
 <li><p>If an <code>NA</code> occurs in the middle of a line, it breaks the line. No warning
 is shown, regardless of whether <code>na.rm</code> is <code>TRUE</code> or <code>FALSE</code>.</p></li>
 <li><p>If an <code>NA</code> occurs at the start or the end of the line and <code>na.rm</code> is <code>FALSE</code>
@@ -382,39 +382,39 @@ the <code>NA</code> is removed silently, without warning.</p></li>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://ggplot2.tidyverse.org/reference/geom_polygon.html'>geom_polygon()</a></code>: Filled paths (polygons);
-<code><a href='https://ggplot2.tidyverse.org/reference/geom_segment.html'>geom_segment()</a></code>: Line segments</p></div>
+    <div class='dont-index'><p><code><a href='geom_polygon.html'>geom_polygon()</a></code>: Filled paths (polygons);
+<code><a href='geom_segment.html'>geom_segment()</a></code>: Line segments</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># geom_line() is suitable for time series</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>economics</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>date</span>, <span class='kw'>unemploy</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span>()</div><div class='img'><img src='geom_path-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>economics_long</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>date</span>, <span class='kw'>value01</span>, colour = <span class='kw'>variable</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span>()</div><div class='img'><img src='geom_path-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>economics</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>date</span>, <span class='kw'>unemploy</span>)) <span class='op'>+</span> <span class='fu'>geom_line</span>()</div><div class='img'><img src='geom_path-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>economics_long</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>date</span>, <span class='kw'>value01</span>, colour = <span class='kw'>variable</span>)) <span class='op'>+</span>
+  <span class='fu'>geom_line</span>()</div><div class='img'><img src='geom_path-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can get a timeseries that run vertically by setting the orientation</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>economics</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>unemploy</span>, <span class='kw'>date</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span>(orientation = <span class='st'>"y"</span>)</div><div class='img'><img src='geom_path-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>economics</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>unemploy</span>, <span class='kw'>date</span>)) <span class='op'>+</span> <span class='fu'>geom_line</span>(orientation = <span class='st'>"y"</span>)</div><div class='img'><img src='geom_path-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># geom_step() is useful when you want to highlight exactly when</span>
 <span class='co'># the y value changes</span>
 <span class='kw'>recent</span> <span class='op'>&lt;-</span> <span class='kw'>economics</span>[<span class='kw'>economics</span><span class='op'>$</span><span class='kw'>date</span> <span class='op'>&gt;</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2013-01-01"</span>), ]
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>recent</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>date</span>, <span class='kw'>unemploy</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span>()</div><div class='img'><img src='geom_path-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>recent</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>date</span>, <span class='kw'>unemploy</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_step</a></span>()</div><div class='img'><img src='geom_path-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>recent</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>date</span>, <span class='kw'>unemploy</span>)) <span class='op'>+</span> <span class='fu'>geom_line</span>()</div><div class='img'><img src='geom_path-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>recent</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>date</span>, <span class='kw'>unemploy</span>)) <span class='op'>+</span> <span class='fu'>geom_step</span>()</div><div class='img'><img src='geom_path-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># geom_path lets you explore how two variables are related over time,</span>
 <span class='co'># e.g. unemployment and personal savings rate</span>
-<span class='kw'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>economics</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>unemploy</span><span class='op'>/</span><span class='kw'>pop</span>, <span class='kw'>psavert</span>))
-<span class='kw'>m</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_path</a></span>()</div><div class='img'><img src='geom_path-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>m</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_path</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(colour = <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='kw'>date</span>)))</div><div class='img'><img src='geom_path-7.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>economics</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>unemploy</span><span class='op'>/</span><span class='kw'>pop</span>, <span class='kw'>psavert</span>))
+<span class='kw'>m</span> <span class='op'>+</span> <span class='fu'>geom_path</span>()</div><div class='img'><img src='geom_path-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>m</span> <span class='op'>+</span> <span class='fu'>geom_path</span>(<span class='fu'><a href='aes.html'>aes</a></span>(colour = <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='kw'>date</span>)))</div><div class='img'><img src='geom_path-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Changing parameters ----------------------------------------------</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>economics</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>date</span>, <span class='kw'>unemploy</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span>(colour = <span class='st'>"red"</span>)</div><div class='img'><img src='geom_path-8.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>economics</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>date</span>, <span class='kw'>unemploy</span>)) <span class='op'>+</span>
+  <span class='fu'>geom_line</span>(colour = <span class='st'>"red"</span>)</div><div class='img'><img src='geom_path-8.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Use the arrow parameter to add an arrow to the line</span>
 <span class='co'># See ?arrow for more details</span>
-<span class='kw'>c</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>economics</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(x = <span class='kw'>date</span>, y = <span class='kw'>pop</span>))
-<span class='kw'>c</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span>(arrow = <span class='fu'><a href='https://rdrr.io/r/grid/arrow.html'>arrow</a></span>())</div><div class='img'><img src='geom_path-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>c</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span>(
+<span class='kw'>c</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>economics</span>, <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='kw'>date</span>, y = <span class='kw'>pop</span>))
+<span class='kw'>c</span> <span class='op'>+</span> <span class='fu'>geom_line</span>(arrow = <span class='fu'><a href='https://rdrr.io/r/grid/arrow.html'>arrow</a></span>())</div><div class='img'><img src='geom_path-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>c</span> <span class='op'>+</span> <span class='fu'>geom_line</span>(
   arrow = <span class='fu'><a href='https://rdrr.io/r/grid/arrow.html'>arrow</a></span>(angle = <span class='fl'>15</span>, ends = <span class='st'>"both"</span>, type = <span class='st'>"closed"</span>)
 )</div><div class='img'><img src='geom_path-10.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Control line join parameters</span>
 <span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(x = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, y = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>, <span class='fl'>1</span>, <span class='fl'>9</span>))
-<span class='kw'>base</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>))
-<span class='kw'>base</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_path</a></span>(size = <span class='fl'>10</span>)</div><div class='img'><img src='geom_path-11.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>base</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_path</a></span>(size = <span class='fl'>10</span>, lineend = <span class='st'>"round"</span>)</div><div class='img'><img src='geom_path-12.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>base</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_path</a></span>(size = <span class='fl'>10</span>, linejoin = <span class='st'>"mitre"</span>, lineend = <span class='st'>"butt"</span>)</div><div class='img'><img src='geom_path-13.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>base</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>))
+<span class='kw'>base</span> <span class='op'>+</span> <span class='fu'>geom_path</span>(size = <span class='fl'>10</span>)</div><div class='img'><img src='geom_path-11.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>base</span> <span class='op'>+</span> <span class='fu'>geom_path</span>(size = <span class='fl'>10</span>, lineend = <span class='st'>"round"</span>)</div><div class='img'><img src='geom_path-12.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>base</span> <span class='op'>+</span> <span class='fu'>geom_path</span>(size = <span class='fl'>10</span>, linejoin = <span class='st'>"mitre"</span>, lineend = <span class='st'>"butt"</span>)</div><div class='img'><img src='geom_path-13.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can use NAs to break the line.</span>
 <span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(x = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, y = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>NA</span>, <span class='fl'>4</span>, <span class='fl'>5</span>))
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span>()</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 rows containing missing values (geom_point).</span></div><div class='img'><img src='geom_path-14.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span> <span class='fu'>geom_line</span>()</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 rows containing missing values (geom_point).</span></div><div class='img'><img src='geom_path-14.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># \donttest{</span>
 <span class='co'># Setting line type vs colour/size</span>
 <span class='co'># Line type needs to be applied to a line as a whole, so it can</span>
@@ -426,10 +426,10 @@ the <code>NA</code> is removed silently, without warning.</p></li>
   group = <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>,<span class='st'>"b"</span>),
   each = <span class='fl'>100</span>)
 )
-<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(x=<span class='kw'>x</span>, y=<span class='kw'>y</span>, group=<span class='kw'>group</span>))
+<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(x=<span class='kw'>x</span>, y=<span class='kw'>y</span>, group=<span class='kw'>group</span>))
 <span class='co'># These work</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span>(linetype = <span class='fl'>2</span>)</div><div class='img'><img src='geom_path-15.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(colour = <span class='kw'>group</span>), linetype = <span class='fl'>2</span>)</div><div class='img'><img src='geom_path-16.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(colour = <span class='kw'>x</span>))</div><div class='img'><img src='geom_path-17.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># But this doesn't</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/should_stop.html'>should_stop</a></span>(<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(colour = <span class='kw'>x</span>), linetype=<span class='fl'>2</span>))</div><div class='img'><img src='geom_path-18.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span></div></pre>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_line</span>(linetype = <span class='fl'>2</span>)</div><div class='img'><img src='geom_path-15.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_line</span>(<span class='fu'><a href='aes.html'>aes</a></span>(colour = <span class='kw'>group</span>), linetype = <span class='fl'>2</span>)</div><div class='img'><img src='geom_path-16.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_line</span>(<span class='fu'><a href='aes.html'>aes</a></span>(colour = <span class='kw'>x</span>))</div><div class='img'><img src='geom_path-17.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># But this doesn't</span>
+<span class='fu'><a href='should_stop.html'>should_stop</a></span>(<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_line</span>(<span class='fu'><a href='aes.html'>aes</a></span>(colour = <span class='kw'>x</span>), linetype=<span class='fl'>2</span>))</div><div class='img'><img src='geom_path-18.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

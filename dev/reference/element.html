@@ -212,23 +212,23 @@ margin() is used to specify the margins of elements." />
     </div>
 
     <div class="ref-description">
-    <p>In conjunction with the <a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a> system, the <code>element_</code> functions
+    <p>In conjunction with the <a href='theme.html'>theme</a> system, the <code>element_</code> functions
 specify the display of how non-data components of the plot are drawn.</p><ul>
-<li><p><code><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_blank()</a></code>: draws nothing, and assigns no space.</p></li>
-<li><p><code><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_rect()</a></code>: borders and backgrounds.</p></li>
-<li><p><code><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_line()</a></code>: lines.</p></li>
-<li><p><code><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text()</a></code>: text.</p></li>
+<li><p><code>element_blank()</code>: draws nothing, and assigns no space.</p></li>
+<li><p><code>element_rect()</code>: borders and backgrounds.</p></li>
+<li><p><code>element_line()</code>: lines.</p></li>
+<li><p><code>element_text()</code>: text.</p></li>
 </ul>
 
-<p><code><a href='https://ggplot2.tidyverse.org/reference/element.html'>rel()</a></code> is used to specify sizes relative to the parent,
-<code><a href='https://ggplot2.tidyverse.org/reference/element.html'>margin()</a></code> is used to specify the margins of elements.</p>
+<p><code>rel()</code> is used to specify sizes relative to the parent,
+<code>margin()</code> is used to specify the margins of elements.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>margin</a></span>(t = <span class='fl'>0</span>, r = <span class='fl'>0</span>, b = <span class='fl'>0</span>, l = <span class='fl'>0</span>, unit = <span class='st'>"pt"</span>)
+    <pre class="usage"><span class='fu'>margin</span>(t = <span class='fl'>0</span>, r = <span class='fl'>0</span>, b = <span class='fl'>0</span>, l = <span class='fl'>0</span>, unit = <span class='st'>"pt"</span>)
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_blank</a></span>()
+<span class='fu'>element_blank</span>()
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_rect</a></span>(
+<span class='fu'>element_rect</span>(
   fill = <span class='kw'>NULL</span>,
   colour = <span class='kw'>NULL</span>,
   size = <span class='kw'>NULL</span>,
@@ -237,7 +237,7 @@ specify the display of how non-data components of the plot are drawn.</p><ul>
   inherit.blank = <span class='fl'>FALSE</span>
 )
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_line</a></span>(
+<span class='fu'>element_line</span>(
   colour = <span class='kw'>NULL</span>,
   size = <span class='kw'>NULL</span>,
   linetype = <span class='kw'>NULL</span>,
@@ -247,7 +247,7 @@ specify the display of how non-data components of the plot are drawn.</p><ul>
   inherit.blank = <span class='fl'>FALSE</span>
 )
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span>(
+<span class='fu'>element_text</span>(
   family = <span class='kw'>NULL</span>,
   face = <span class='kw'>NULL</span>,
   colour = <span class='kw'>NULL</span>,
@@ -262,7 +262,7 @@ specify the display of how non-data components of the plot are drawn.</p><ul>
   inherit.blank = <span class='fl'>FALSE</span>
 )
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>rel</a></span>(<span class='kw'>x</span>)</pre>
+<span class='fu'>rel</span>(<span class='kw'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -337,7 +337,7 @@ calculating final element state.</p></td>
     </tr>
     <tr>
       <th>margin</th>
-      <td><p>Margins around the text. See <code><a href='https://ggplot2.tidyverse.org/reference/element.html'>margin()</a></code> for more
+      <td><p>Margins around the text. See <code>margin()</code> for more
 details. When creating a theme, the margins should be placed on the
 side of the text facing towards the center of the plot.</p></td>
     </tr>
@@ -358,22 +358,22 @@ is anchored.</p></td>
     <p>An S3 object of class <code>element</code>, <code>rel</code>, or <code>margin</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>plot</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>()
+    <pre class="examples"><div class='input'><span class='kw'>plot</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
 
-<span class='kw'>plot</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span>(
-  panel.background = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_blank</a></span>(),
-  axis.text = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_blank</a></span>()
+<span class='kw'>plot</span> <span class='op'>+</span> <span class='fu'><a href='theme.html'>theme</a></span>(
+  panel.background = <span class='fu'>element_blank</span>(),
+  axis.text = <span class='fu'>element_blank</span>()
 )</div><div class='img'><img src='element-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>plot</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span>(
-  axis.text = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span>(colour = <span class='st'>"red"</span>, size = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>rel</a></span>(<span class='fl'>1.5</span>))
+<span class='kw'>plot</span> <span class='op'>+</span> <span class='fu'><a href='theme.html'>theme</a></span>(
+  axis.text = <span class='fu'>element_text</span>(colour = <span class='st'>"red"</span>, size = <span class='fu'>rel</span>(<span class='fl'>1.5</span>))
 )</div><div class='img'><img src='element-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>plot</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span>(
-  axis.line = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_line</a></span>(arrow = <span class='fu'><a href='https://rdrr.io/r/grid/arrow.html'>arrow</a></span>())
+<span class='kw'>plot</span> <span class='op'>+</span> <span class='fu'><a href='theme.html'>theme</a></span>(
+  axis.line = <span class='fu'>element_line</span>(arrow = <span class='fu'><a href='https://rdrr.io/r/grid/arrow.html'>arrow</a></span>())
 )</div><div class='img'><img src='element-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>plot</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span>(
-  panel.background = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_rect</a></span>(fill = <span class='st'>"white"</span>),
-  plot.margin = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>margin</a></span>(<span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='st'>"cm"</span>),
-  plot.background = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_rect</a></span>(
+<span class='kw'>plot</span> <span class='op'>+</span> <span class='fu'><a href='theme.html'>theme</a></span>(
+  panel.background = <span class='fu'>element_rect</span>(fill = <span class='st'>"white"</span>),
+  plot.margin = <span class='fu'>margin</span>(<span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='st'>"cm"</span>),
+  plot.background = <span class='fu'>element_rect</span>(
     fill = <span class='st'>"grey90"</span>,
     colour = <span class='st'>"black"</span>,
     size = <span class='fl'>1</span>

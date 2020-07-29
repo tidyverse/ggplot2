@@ -212,8 +212,8 @@ For more information, see the inspiration for this function:
 <a href='http://www.mathworks.com/help/techdoc/ref/colorbar.html'>Matlab's colorbar function</a>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_colourbar.html'>guide_colourbar</a></span>(
-  title = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(),
+    <pre class="usage"><span class='fu'>guide_colourbar</span>(
+  title = <span class='fu'><a href='waiver.html'>waiver</a></span>(),
   title.position = <span class='kw'>NULL</span>,
   title.theme = <span class='kw'>NULL</span>,
   title.hjust = <span class='kw'>NULL</span>,
@@ -243,8 +243,8 @@ For more information, see the inspiration for this function:
   <span class='kw'>...</span>
 )
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_colourbar.html'>guide_colorbar</a></span>(
-  title = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(),
+<span class='fu'>guide_colorbar</span>(
+  title = <span class='fu'><a href='waiver.html'>waiver</a></span>(),
   title.position = <span class='kw'>NULL</span>,
   title.theme = <span class='kw'>NULL</span>,
   title.hjust = <span class='kw'>NULL</span>,
@@ -281,8 +281,8 @@ For more information, see the inspiration for this function:
       <th>title</th>
       <td><p>A character string or expression indicating a title of guide.
 If <code>NULL</code>, the title is not shown. By default
-(<code><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver()</a></code>), the name of the scale object or the name
-specified in <code><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs()</a></code> is used for the title.</p></td>
+(<code><a href='waiver.html'>waiver()</a></code>), the name of the scale object or the name
+specified in <code><a href='labs.html'>labs()</a></code> is used for the title.</p></td>
     </tr>
     <tr>
       <th>title.position</th>
@@ -293,8 +293,8 @@ title. One of "top" (default for a vertical guide), "bottom", "left"
     <tr>
       <th>title.theme</th>
       <td><p>A theme object for rendering the title text. Usually the
-object of <code><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text()</a></code> is expected. By default, the theme is
-specified by <code>legend.title</code> in <code><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme()</a></code> or theme.</p></td>
+object of <code><a href='margin.html'>element_text()</a></code> is expected. By default, the theme is
+specified by <code>legend.title</code> in <code><a href='theme.html'>theme()</a></code> or theme.</p></td>
     </tr>
     <tr>
       <th>title.hjust</th>
@@ -320,8 +320,8 @@ label. One of "top", "bottom" (default for horizontal guide), "left", or
     <tr>
       <th>label.theme</th>
       <td><p>A theme object for rendering the label text. Usually the
-object of <code><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text()</a></code> is expected. By default, the theme is
-specified by <code>legend.text</code> in <code><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme()</a></code>.</p></td>
+object of <code><a href='margin.html'>element_text()</a></code> is expected. By default, the theme is
+specified by <code>legend.text</code> in <code><a href='theme.html'>theme()</a></code>.</p></td>
     </tr>
     <tr>
       <th>label.hjust</th>
@@ -337,13 +337,13 @@ text.</p></td>
       <th>barwidth</th>
       <td><p>A numeric or a <code><a href='https://rdrr.io/r/grid/unit.html'>grid::unit()</a></code> object specifying
 the width of the colourbar. Default value is <code>legend.key.width</code> or
-<code>legend.key.size</code> in <code><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme()</a></code> or theme.</p></td>
+<code>legend.key.size</code> in <code><a href='theme.html'>theme()</a></code> or theme.</p></td>
     </tr>
     <tr>
       <th>barheight</th>
       <td><p>A numeric or a <code><a href='https://rdrr.io/r/grid/unit.html'>grid::unit()</a></code> object specifying
 the height of the colourbar. Default value is <code>legend.key.height</code> or
-<code>legend.key.size</code> in <code><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme()</a></code> or theme.</p></td>
+<code>legend.key.size</code> in <code><a href='theme.html'>theme()</a></code> or theme.</p></td>
     </tr>
     <tr>
       <th>nbin</th>
@@ -433,57 +433,57 @@ for which a colourbar can be drawn.</p></td>
     <p>A guide object</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Guides can be specified in each <code>scale_*</code> or in <code><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides()</a></code>.
+    <p>Guides can be specified in each <code>scale_*</code> or in <code><a href='guides.html'>guides()</a></code>.
 <code>guide="legend"</code> in <code>scale_*</code> is syntactic sugar for
-<code>guide=guide_legend()</code> (e.g. <code><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_colour_manual(guide = "legend")</a></code>).
+<code>guide=guide_legend()</code> (e.g. <code><a href='scale_manual.html'>scale_colour_manual(guide = "legend")</a></code>).
 As for how to specify the guide for each scale in more detail,
-see <code><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides()</a></code>.</p>
+see <code><a href='guides.html'>guides()</a></code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other guides: 
-<code><a href='https://ggplot2.tidyverse.org/reference/guide_bins.html'>guide_bins</a>()</code>,
-<code><a href='https://ggplot2.tidyverse.org/reference/guide_coloursteps.html'>guide_coloursteps</a>()</code>,
-<code><a href='https://ggplot2.tidyverse.org/reference/guide_legend.html'>guide_legend</a>()</code>,
-<code><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides</a>()</code></p></div>
+<code><a href='guide_bins.html'>guide_bins</a>()</code>,
+<code><a href='guide_coloursteps.html'>guide_coloursteps</a>()</code>,
+<code><a href='guide_legend.html'>guide_legend</a>()</code>,
+<code><a href='guides.html'>guides</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid</a></span>(X1 = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, X2 = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>)
 <span class='kw'>df</span><span class='op'>$</span><span class='kw'>value</span> <span class='op'>&lt;-</span> <span class='kw'>df</span><span class='op'>$</span><span class='kw'>X1</span> <span class='op'>*</span> <span class='kw'>df</span><span class='op'>$</span><span class='kw'>X2</span>
 
-<span class='kw'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>X1</span>, <span class='kw'>X2</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_tile.html'>geom_tile</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(fill = <span class='kw'>value</span>))
-<span class='kw'>p2</span> <span class='op'>&lt;-</span> <span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(size = <span class='kw'>value</span>))
+<span class='kw'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>X1</span>, <span class='kw'>X2</span>)) <span class='op'>+</span> <span class='fu'><a href='geom_raster.html'>geom_tile</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(fill = <span class='kw'>value</span>))
+<span class='kw'>p2</span> <span class='op'>&lt;-</span> <span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(size = <span class='kw'>value</span>))
 
 <span class='co'># Basic form</span>
-<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_colour_continuous.html'>scale_fill_continuous</a></span>(guide = <span class='st'>"colourbar"</span>)</div><div class='img'><img src='guide_colourbar-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_colour_continuous.html'>scale_fill_continuous</a></span>(guide = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_colourbar.html'>guide_colourbar</a></span>())</div><div class='img'><img src='guide_colourbar-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides</a></span>(fill = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_colourbar.html'>guide_colourbar</a></span>())</div><div class='img'><img src='guide_colourbar-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_continuous</a></span>(guide = <span class='st'>"colourbar"</span>)</div><div class='img'><img src='guide_colourbar-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_continuous</a></span>(guide = <span class='fu'>guide_colourbar</span>())</div><div class='img'><img src='guide_colourbar-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span>(fill = <span class='fu'>guide_colourbar</span>())</div><div class='img'><img src='guide_colourbar-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Control styles</span>
 
 <span class='co'># bar size</span>
-<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides</a></span>(fill = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_colourbar.html'>guide_colourbar</a></span>(barwidth = <span class='fl'>0.5</span>, barheight = <span class='fl'>10</span>))</div><div class='img'><img src='guide_colourbar-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span>(fill = <span class='fu'>guide_colourbar</span>(barwidth = <span class='fl'>0.5</span>, barheight = <span class='fl'>10</span>))</div><div class='img'><img src='guide_colourbar-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># no label</span>
-<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides</a></span>(fill = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_colourbar.html'>guide_colourbar</a></span>(label = <span class='fl'>FALSE</span>))</div><div class='img'><img src='guide_colourbar-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span>(fill = <span class='fu'>guide_colourbar</span>(label = <span class='fl'>FALSE</span>))</div><div class='img'><img src='guide_colourbar-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># no tick marks</span>
-<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides</a></span>(fill = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_colourbar.html'>guide_colourbar</a></span>(ticks = <span class='fl'>FALSE</span>))</div><div class='img'><img src='guide_colourbar-6.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span>(fill = <span class='fu'>guide_colourbar</span>(ticks = <span class='fl'>FALSE</span>))</div><div class='img'><img src='guide_colourbar-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># label position</span>
-<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides</a></span>(fill = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_colourbar.html'>guide_colourbar</a></span>(label.position = <span class='st'>"left"</span>))</div><div class='img'><img src='guide_colourbar-7.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span>(fill = <span class='fu'>guide_colourbar</span>(label.position = <span class='st'>"left"</span>))</div><div class='img'><img src='guide_colourbar-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># label theme</span>
-<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides</a></span>(fill = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_colourbar.html'>guide_colourbar</a></span>(label.theme = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span>(colour = <span class='st'>"blue"</span>, angle = <span class='fl'>0</span>)))</div><div class='img'><img src='guide_colourbar-8.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span>(fill = <span class='fu'>guide_colourbar</span>(label.theme = <span class='fu'><a href='margin.html'>element_text</a></span>(colour = <span class='st'>"blue"</span>, angle = <span class='fl'>0</span>)))</div><div class='img'><img src='guide_colourbar-8.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># small number of bins</span>
-<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides</a></span>(fill = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_colourbar.html'>guide_colourbar</a></span>(nbin = <span class='fl'>3</span>))</div><div class='img'><img src='guide_colourbar-9.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span>(fill = <span class='fu'>guide_colourbar</span>(nbin = <span class='fl'>3</span>))</div><div class='img'><img src='guide_colourbar-9.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># large number of bins</span>
-<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides</a></span>(fill = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_colourbar.html'>guide_colourbar</a></span>(nbin = <span class='fl'>100</span>))</div><div class='img'><img src='guide_colourbar-10.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span>(fill = <span class='fu'>guide_colourbar</span>(nbin = <span class='fl'>100</span>))</div><div class='img'><img src='guide_colourbar-10.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># make top- and bottom-most ticks invisible</span>
 <span class='kw'>p1</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_colour_continuous.html'>scale_fill_continuous</a></span>(
+  <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_continuous</a></span>(
     limits = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>20</span>), breaks = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>5</span>, <span class='fl'>10</span>, <span class='fl'>15</span>, <span class='fl'>20</span>),
-    guide = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_colourbar.html'>guide_colourbar</a></span>(nbin = <span class='fl'>100</span>, draw.ulim = <span class='fl'>FALSE</span>, draw.llim = <span class='fl'>FALSE</span>)
+    guide = <span class='fu'>guide_colourbar</span>(nbin = <span class='fl'>100</span>, draw.ulim = <span class='fl'>FALSE</span>, draw.llim = <span class='fl'>FALSE</span>)
    )</div><div class='img'><img src='guide_colourbar-11.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># guides can be controlled independently</span>
 <span class='kw'>p2</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_colour_continuous.html'>scale_fill_continuous</a></span>(guide = <span class='st'>"colourbar"</span>) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_size.html'>scale_size</a></span>(guide = <span class='st'>"legend"</span>)</div><div class='img'><img src='guide_colourbar-12.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p2</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides</a></span>(fill = <span class='st'>"colourbar"</span>, size = <span class='st'>"legend"</span>)</div><div class='img'><img src='guide_colourbar-13.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_continuous</a></span>(guide = <span class='st'>"colourbar"</span>) <span class='op'>+</span>
+  <span class='fu'><a href='scale_size.html'>scale_size</a></span>(guide = <span class='st'>"legend"</span>)</div><div class='img'><img src='guide_colourbar-12.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p2</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span>(fill = <span class='st'>"colourbar"</span>, size = <span class='st'>"legend"</span>)</div><div class='img'><img src='guide_colourbar-13.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='kw'>p2</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_colour_continuous.html'>scale_fill_continuous</a></span>(guide = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_colourbar.html'>guide_colourbar</a></span>(direction = <span class='st'>"horizontal"</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_size.html'>scale_size</a></span>(guide = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_legend.html'>guide_legend</a></span>(direction = <span class='st'>"vertical"</span>))</div><div class='img'><img src='guide_colourbar-14.png' alt='' width='700' height='433' /></div></pre>
+  <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_continuous</a></span>(guide = <span class='fu'>guide_colourbar</span>(direction = <span class='st'>"horizontal"</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='scale_size.html'>scale_size</a></span>(guide = <span class='fu'><a href='guide_legend.html'>guide_legend</a></span>(direction = <span class='st'>"vertical"</span>))</div><div class='img'><img src='guide_colourbar-14.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

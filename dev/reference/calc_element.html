@@ -206,7 +206,7 @@
     <p>Calculate the element properties, by inheriting properties from its parents</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/calc_element.html'>calc_element</a></span>(<span class='kw'>element</span>, <span class='kw'>theme</span>, verbose = <span class='fl'>FALSE</span>, skip_blank = <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>calc_element</span>(<span class='kw'>element</span>, <span class='kw'>theme</span>, verbose = <span class='fl'>FALSE</span>, skip_blank = <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -217,7 +217,7 @@
     </tr>
     <tr>
       <th>theme</th>
-      <td><p>A theme object (like <code><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_grey()</a></code>)</p></td>
+      <td><p>A theme object (like <code><a href='ggtheme.html'>theme_grey()</a></code>)</p></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -232,8 +232,8 @@ inheritance hierarchy will be ignored.</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>t</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_grey</a></span>()
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/calc_element.html'>calc_element</a></span>(<span class='st'>'text'</span>, <span class='kw'>t</span>)</div><div class='output co'>#&gt; List of 11
+    <pre class="examples"><div class='input'><span class='kw'>t</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggtheme.html'>theme_grey</a></span>()
+<span class='fu'>calc_element</span>(<span class='st'>'text'</span>, <span class='kw'>t</span>)</div><div class='output co'>#&gt; List of 11
 #&gt;  $ family       : chr ""
 #&gt;  $ face         : chr "plain"
 #&gt;  $ colour       : chr "black"
@@ -261,7 +261,7 @@ inheritance hierarchy will be ignored.</p></td>
 #&gt;   ..- attr(*, "unit")= int 8
 #&gt;  $ debug        : NULL
 #&gt;  $ inherit.blank: logi TRUE
-#&gt;  - attr(*, "class")= chr [1:2] "element_text" "element"</div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/calc_element.html'>calc_element</a></span>(<span class='st'>'axis.text.x'</span>, <span class='kw'>t</span>, verbose = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>axis.text.x --&gt; </span></div><div class='output co'>#&gt; <span class='message'>axis.text</span></div><div class='output co'>#&gt; <span class='message'>axis.text --&gt; </span></div><div class='output co'>#&gt; <span class='message'>text</span></div><div class='output co'>#&gt; <span class='message'>text --&gt; </span></div><div class='output co'>#&gt; <span class='message'>nothing (top level)</span></div><div class='output co'>#&gt; List of 11
+#&gt;  - attr(*, "class")= chr [1:2] "element_text" "element"</div><div class='input'><span class='fu'>calc_element</span>(<span class='st'>'axis.text.x'</span>, <span class='kw'>t</span>, verbose = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>axis.text.x --&gt; </span></div><div class='output co'>#&gt; <span class='message'>axis.text</span></div><div class='output co'>#&gt; <span class='message'>axis.text --&gt; </span></div><div class='output co'>#&gt; <span class='message'>text</span></div><div class='output co'>#&gt; <span class='message'>text --&gt; </span></div><div class='output co'>#&gt; <span class='message'>nothing (top level)</span></div><div class='output co'>#&gt; List of 11
 #&gt;  $ family       : chr ""
 #&gt;  $ face         : chr "plain"
 #&gt;  $ colour       : chr "grey30"

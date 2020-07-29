@@ -206,15 +206,15 @@
     <p>Discrete scale constructor</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/discrete_scale.html'>discrete_scale</a></span>(
+    <pre class="usage"><span class='fu'>discrete_scale</span>(
   <span class='kw'>aesthetics</span>,
   <span class='kw'>scale_name</span>,
   <span class='kw'>palette</span>,
-  name = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(),
-  breaks = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(),
-  labels = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(),
+  name = <span class='fu'><a href='waiver.html'>waiver</a></span>(),
+  breaks = <span class='fu'><a href='waiver.html'>waiver</a></span>(),
+  labels = <span class='fu'><a href='waiver.html'>waiver</a></span>(),
   limits = <span class='kw'>NULL</span>,
-  expand = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(),
+  expand = <span class='fu'><a href='waiver.html'>waiver</a></span>(),
   na.translate = <span class='fl'>TRUE</span>,
   na.value = <span class='fl'>NA</span>,
   drop = <span class='fl'>TRUE</span>,
@@ -244,7 +244,7 @@ they should take (e.g., <code><a href='https://scales.r-lib.org//reference/hue_p
     <tr>
       <th>name</th>
       <td><p>The name of the scale. Used as the axis or legend title. If
-<code><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver()</a></code>, the default, the name of the scale is taken from the first
+<code><a href='waiver.html'>waiver()</a></code>, the default, the name of the scale is taken from the first
 mapping used for that aesthetic. If <code>NULL</code>, the legend title will be
 omitted.</p></td>
     </tr>
@@ -252,7 +252,7 @@ omitted.</p></td>
       <th>breaks</th>
       <td><p>One of:</p><ul>
 <li><p><code>NULL</code> for no breaks</p></li>
-<li><p><code><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver()</a></code> for the default breaks (the scale limits)</p></li>
+<li><p><code><a href='waiver.html'>waiver()</a></code> for the default breaks (the scale limits)</p></li>
 <li><p>A character vector of breaks</p></li>
 <li><p>A function that takes the limits as input and returns breaks
 as output</p></li>
@@ -262,7 +262,7 @@ as output</p></li>
       <th>labels</th>
       <td><p>One of:</p><ul>
 <li><p><code>NULL</code> for no labels</p></li>
-<li><p><code><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver()</a></code> for the default labels computed by the
+<li><p><code><a href='waiver.html'>waiver()</a></code> for the default labels computed by the
 transformation object</p></li>
 <li><p>A character vector giving labels (must be same length as <code>breaks</code>)</p></li>
 <li><p>A function that takes the breaks as input and returns labels
@@ -283,7 +283,7 @@ new ones</p></li>
       <th>expand</th>
       <td><p>For position scales, a vector of range expansion constants used to add some
 padding around the data to ensure that they are placed some distance
-away from the axes. Use the convenience function <code><a href='https://ggplot2.tidyverse.org/reference/expansion.html'>expansion()</a></code>
+away from the axes. Use the convenience function <code><a href='expansion.html'>expansion()</a></code>
 to generate the values for the <code>expand</code> argument. The defaults are to
 expand the scale by 5% on each side for continuous variables, and by
 0.6 units on each side for discrete variables.</p></td>
@@ -309,7 +309,7 @@ The default, <code>TRUE</code>, uses the levels that appear in the data;
     <tr>
       <th>guide</th>
       <td><p>A function used to create a guide or its name. See
-<code><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides()</a></code> for more information.</p></td>
+<code><a href='guides.html'>guides()</a></code> for more information.</p></td>
     </tr>
     <tr>
       <th>position</th>

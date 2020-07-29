@@ -206,13 +206,13 @@ distance from what they're labelling." />
     </div>
 
     <div class="ref-description">
-    <p><code><a href='https://ggplot2.tidyverse.org/reference/position_nudge.html'>position_nudge()</a></code> is generally useful for adjusting the position of
+    <p><code>position_nudge()</code> is generally useful for adjusting the position of
 items on discrete scales by a small amount. Nudging is built in to
-<code><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_text()</a></code> because it's so useful for moving labels a small
+<code><a href='geom_label.html'>geom_text()</a></code> because it's so useful for moving labels a small
 distance from what they're labelling.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/position_nudge.html'>position_nudge</a></span>(x = <span class='fl'>0</span>, y = <span class='fl'>0</span>)</pre>
+    <pre class="usage"><span class='fu'>position_nudge</span>(x = <span class='fl'>0</span>, y = <span class='fl'>0</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -226,11 +226,11 @@ distance from what they're labelling.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other position adjustments: 
-<code><a href='https://ggplot2.tidyverse.org/reference/position_dodge.html'>position_dodge</a>()</code>,
-<code><a href='https://ggplot2.tidyverse.org/reference/position_identity.html'>position_identity</a>()</code>,
-<code><a href='https://ggplot2.tidyverse.org/reference/position_jitterdodge.html'>position_jitterdodge</a>()</code>,
-<code><a href='https://ggplot2.tidyverse.org/reference/position_jitter.html'>position_jitter</a>()</code>,
-<code><a href='https://ggplot2.tidyverse.org/reference/position_stack.html'>position_stack</a>()</code></p></div>
+<code><a href='position_dodge.html'>position_dodge</a>()</code>,
+<code><a href='position_identity.html'>position_identity</a>()</code>,
+<code><a href='position_jitterdodge.html'>position_jitterdodge</a>()</code>,
+<code><a href='position_jitter.html'>position_jitter</a>()</code>,
+<code><a href='position_stack.html'>position_stack</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
@@ -238,16 +238,16 @@ distance from what they're labelling.</p>
   y = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>,<span class='st'>"c"</span>,<span class='st'>"d"</span>,<span class='st'>"c"</span>)
 )
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_text</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(label = <span class='kw'>y</span>))</div><div class='img'><img src='position_nudge-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_text</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(label = <span class='kw'>y</span>), position = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/position_nudge.html'>position_nudge</a></span>(y = <span class='op'>-</span><span class='fl'>0.1</span>))</div><div class='img'><img src='position_nudge-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
+  <span class='fu'><a href='geom_label.html'>geom_text</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(label = <span class='kw'>y</span>))</div><div class='img'><img src='position_nudge-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
+  <span class='fu'><a href='geom_label.html'>geom_text</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(label = <span class='kw'>y</span>), position = <span class='fu'>position_nudge</span>(y = <span class='op'>-</span><span class='fl'>0.1</span>))</div><div class='img'><img src='position_nudge-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Or, in brief</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_text</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(label = <span class='kw'>y</span>), nudge_y = <span class='op'>-</span><span class='fl'>0.1</span>)</div><div class='img'><img src='position_nudge-3.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
+  <span class='fu'><a href='geom_label.html'>geom_text</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(label = <span class='kw'>y</span>), nudge_y = <span class='op'>-</span><span class='fl'>0.1</span>)</div><div class='img'><img src='position_nudge-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

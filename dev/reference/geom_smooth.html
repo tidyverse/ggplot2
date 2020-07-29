@@ -207,12 +207,12 @@ display the results with a non-standard geom." />
 
     <div class="ref-description">
     <p>Aids the eye in seeing patterns in the presence of overplotting.
-<code><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth()</a></code> and <code><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>stat_smooth()</a></code> are effectively aliases: they
-both use the same arguments. Use <code><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>stat_smooth()</a></code> if you want to
+<code>geom_smooth()</code> and <code>stat_smooth()</code> are effectively aliases: they
+both use the same arguments. Use <code>stat_smooth()</code> if you want to
 display the results with a non-standard geom.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span>(
+    <pre class="usage"><span class='fu'>geom_smooth</span>(
   mapping = <span class='kw'>NULL</span>,
   data = <span class='kw'>NULL</span>,
   stat = <span class='st'>"smooth"</span>,
@@ -227,7 +227,7 @@ display the results with a non-standard geom.</p>
   inherit.aes = <span class='fl'>TRUE</span>
 )
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>stat_smooth</a></span>(
+<span class='fu'>stat_smooth</span>(
   mapping = <span class='kw'>NULL</span>,
   data = <span class='kw'>NULL</span>,
   geom = <span class='st'>"smooth"</span>,
@@ -252,8 +252,8 @@ display the results with a non-standard geom.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>mapping</th>
-      <td><p>Set of aesthetic mappings created by <code><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes()</a></code> or
-<code><a href='https://ggplot2.tidyverse.org/reference/aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
+      <td><p>Set of aesthetic mappings created by <code><a href='aes.html'>aes()</a></code> or
+<code><a href='aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
     </tr>
@@ -262,10 +262,10 @@ plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
       <td><p>The data to be displayed in this layer. There are three
 options:</p>
 <p>If <code>NULL</code>, the default, the data is inherited from the plot
-data as specified in the call to <code><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot()</a></code>.</p>
+data as specified in the call to <code><a href='ggplot.html'>ggplot()</a></code>.</p>
 <p>A <code>data.frame</code>, or other object, will override the plot
 data. All objects will be fortified to produce a data frame. See
-<code><a href='https://ggplot2.tidyverse.org/reference/fortify.html'>fortify()</a></code> for which variables will be created.</p>
+<code><a href='fortify.html'>fortify()</a></code> for which variables will be created.</p>
 <p>A <code>function</code> will be called with a single argument,
 the plot data. The return value must be a <code>data.frame</code>, and
 will be used as the layer data. A <code>function</code> can be created
@@ -278,7 +278,7 @@ a call to a position adjustment function.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Other arguments passed on to <code><a href='https://ggplot2.tidyverse.org/reference/layer.html'>layer()</a></code>. These are
+      <td><p>Other arguments passed on to <code><a href='layer.html'>layer()</a></code>. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 <code>colour = "red"</code> or <code>size = 3</code>. They may also be parameters
 to the paired geom/stat.</p></td>
@@ -337,12 +337,12 @@ display.</p></td>
       <td><p>If <code>FALSE</code>, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. <code><a href='https://ggplot2.tidyverse.org/reference/borders.html'>borders()</a></code>.</p></td>
+the default plot specification, e.g. <code><a href='borders.html'>borders()</a></code>.</p></td>
     </tr>
     <tr>
       <th>geom, stat</th>
       <td><p>Use to override the default connection between
-<code><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth()</a></code> and <code><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>stat_smooth()</a></code>.</p></td>
+<code>geom_smooth()</code> and <code>stat_smooth()</code>.</p></td>
     </tr>
     <tr>
       <th>n</th>
@@ -387,7 +387,7 @@ scale and then back-transformed to the response scale.</p>
 
     
 
-<p><code><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth()</a></code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
+<p><code>geom_smooth()</code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
 <li><p><strong><code>x</code></strong></p></li>
 <li><p><strong><code>y</code></strong></p></li>
 <li><p><code>alpha</code></p></li>
@@ -399,12 +399,12 @@ scale and then back-transformed to the response scale.</p>
 <li><p><code>weight</code></p></li>
 <li><p><code>ymax</code></p></li>
 <li><p><code>ymin</code></p></li>
-</ul><p>Learn more about setting these aesthetics in <code>vignette("ggplot2-specs")</code>.</p>
+</ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
     <h2 class="hasAnchor" id="computed-variables"><a class="anchor" href="#computed-variables"></a>Computed variables</h2>
 
     
 
-<p><code><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>stat_smooth()</a></code> provides the following variables, some of which depend on the orientation:</p><dl>
+<p><code>stat_smooth()</code> provides the following variables, some of which depend on the orientation:</p><dl>
 <dt>y <em>or</em> x</dt><dd><p>predicted value</p></dd>
 <dt>ymin <em>or</em> xmin</dt><dd><p>lower pointwise confidence interval around the mean</p></dd>
 <dt>ymax <em>or</em> xmax</dt><dd><p>upper pointwise confidence interval around the mean</p></dd>
@@ -420,50 +420,50 @@ scale and then back-transformed to the response scale.</p>
 <code><a href='https://rdrr.io/r/stats/loess.html'>loess()</a></code> for local smooths.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span>()</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='geom_smooth-1.png' alt='' width='700' height='433' /></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
+  <span class='fu'>geom_smooth</span>()</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='geom_smooth-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># If you need the fitting to be done along the y-axis set the orientation</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span>(orientation = <span class='st'>"y"</span>)</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='geom_smooth-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
+  <span class='fu'>geom_smooth</span>(orientation = <span class='st'>"y"</span>)</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='geom_smooth-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Use span to control the "wiggliness" of the default loess smoother.</span>
 <span class='co'># The span is the fraction of points used to fit each local regression:</span>
 <span class='co'># small numbers make a wigglier curve, larger numbers make a smoother curve.</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span>(span = <span class='fl'>0.3</span>)</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='geom_smooth-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
+  <span class='fu'>geom_smooth</span>(span = <span class='fl'>0.3</span>)</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='geom_smooth-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Instead of a loess smooth, you can use any other modelling function:</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span>(method = <span class='kw'>lm</span>, se = <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using formula 'y ~ x'</span></div><div class='img'><img src='geom_smooth-4.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span>(method = <span class='kw'>lm</span>, formula = <span class='kw'>y</span> <span class='op'>~</span> <span class='kw'>splines</span>::<span class='fu'><a href='https://rdrr.io/r/splines/bs.html'>bs</a></span>(<span class='kw'>x</span>, <span class='fl'>3</span>), se = <span class='fl'>FALSE</span>)</div><div class='img'><img src='geom_smooth-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
+  <span class='fu'>geom_smooth</span>(method = <span class='kw'>lm</span>, se = <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using formula 'y ~ x'</span></div><div class='img'><img src='geom_smooth-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
+  <span class='fu'>geom_smooth</span>(method = <span class='kw'>lm</span>, formula = <span class='kw'>y</span> <span class='op'>~</span> <span class='kw'>splines</span>::<span class='fu'><a href='https://rdrr.io/r/splines/bs.html'>bs</a></span>(<span class='kw'>x</span>, <span class='fl'>3</span>), se = <span class='fl'>FALSE</span>)</div><div class='img'><img src='geom_smooth-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Smooths are automatically fit to each group (defined by categorical</span>
 <span class='co'># aesthetics or the group aesthetic) and for each facet.</span>
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>, colour = <span class='kw'>class</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span>(se = <span class='fl'>FALSE</span>, method = <span class='kw'>lm</span>)</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using formula 'y ~ x'</span></div><div class='img'><img src='geom_smooth-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span>(span = <span class='fl'>0.8</span>) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span>(<span class='op'>~</span><span class='kw'>drv</span>)</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='geom_smooth-7.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>, colour = <span class='kw'>class</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
+  <span class='fu'>geom_smooth</span>(se = <span class='fl'>FALSE</span>, method = <span class='kw'>lm</span>)</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using formula 'y ~ x'</span></div><div class='img'><img src='geom_smooth-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
+  <span class='fu'>geom_smooth</span>(span = <span class='fl'>0.8</span>) <span class='op'>+</span>
+  <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span>(<span class='op'>~</span><span class='kw'>drv</span>)</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='geom_smooth-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># \donttest{</span>
 <span class='kw'>binomial_smooth</span> <span class='op'>&lt;-</span> <span class='fu'>function</span>(<span class='kw'>...</span>) {
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span>(method = <span class='st'>"glm"</span>, method.args = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(family = <span class='st'>"binomial"</span>), <span class='kw'>...</span>)
+  <span class='fu'>geom_smooth</span>(method = <span class='st'>"glm"</span>, method.args = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(family = <span class='st'>"binomial"</span>), <span class='kw'>...</span>)
 }
 <span class='co'># To fit a logistic regression, you need to coerce the values to</span>
 <span class='co'># a numeric vector lying between 0 and 1.</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>rpart</span>::<span class='kw'><a href='https://rdrr.io/pkg/rpart/man/kyphosis.html'>kyphosis</a></span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>Age</span>, <span class='kw'>Kyphosis</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_jitter.html'>geom_jitter</a></span>(height = <span class='fl'>0.05</span>) <span class='op'>+</span>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>rpart</span>::<span class='kw'><a href='https://rdrr.io/pkg/rpart/man/kyphosis.html'>kyphosis</a></span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>Age</span>, <span class='kw'>Kyphosis</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span>(height = <span class='fl'>0.05</span>) <span class='op'>+</span>
   <span class='fu'>binomial_smooth</span>()</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using formula 'y ~ x'</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Computation failed in `stat_smooth()`:</span>
 #&gt; <span class='warning'>y values must be 0 &lt;= y &lt;= 1</span></div><div class='img'><img src='geom_smooth-8.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>rpart</span>::<span class='kw'><a href='https://rdrr.io/pkg/rpart/man/kyphosis.html'>kyphosis</a></span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>Age</span>, <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='kw'>Kyphosis</span>) <span class='op'>-</span> <span class='fl'>1</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_jitter.html'>geom_jitter</a></span>(height = <span class='fl'>0.05</span>) <span class='op'>+</span>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>rpart</span>::<span class='kw'><a href='https://rdrr.io/pkg/rpart/man/kyphosis.html'>kyphosis</a></span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>Age</span>, <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='kw'>Kyphosis</span>) <span class='op'>-</span> <span class='fl'>1</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span>(height = <span class='fl'>0.05</span>) <span class='op'>+</span>
   <span class='fu'>binomial_smooth</span>()</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using formula 'y ~ x'</span></div><div class='img'><img src='geom_smooth-9.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>rpart</span>::<span class='kw'><a href='https://rdrr.io/pkg/rpart/man/kyphosis.html'>kyphosis</a></span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>Age</span>, <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='kw'>Kyphosis</span>) <span class='op'>-</span> <span class='fl'>1</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_jitter.html'>geom_jitter</a></span>(height = <span class='fl'>0.05</span>) <span class='op'>+</span>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>rpart</span>::<span class='kw'><a href='https://rdrr.io/pkg/rpart/man/kyphosis.html'>kyphosis</a></span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>Age</span>, <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='kw'>Kyphosis</span>) <span class='op'>-</span> <span class='fl'>1</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span>(height = <span class='fl'>0.05</span>) <span class='op'>+</span>
   <span class='fu'>binomial_smooth</span>(formula = <span class='kw'>y</span> <span class='op'>~</span> <span class='kw'>splines</span>::<span class='fu'><a href='https://rdrr.io/r/splines/ns.html'>ns</a></span>(<span class='kw'>x</span>, <span class='fl'>2</span>))</div><div class='img'><img src='geom_smooth-10.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># But in this case, it's probably better to fit the model yourself</span>
 <span class='co'># so you can exercise more control and see whether or not it's a good model.</span>

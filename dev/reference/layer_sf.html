@@ -206,13 +206,13 @@ if one is found it is automatically mapped to the geometry aesthetic." />
     </div>
 
     <div class="ref-description">
-    <p>The <code><a href='https://ggplot2.tidyverse.org/reference/layer_sf.html'>layer_sf()</a></code> function is a variant of <code><a href='https://ggplot2.tidyverse.org/reference/layer.html'>layer()</a></code> meant to be used by
+    <p>The <code>layer_sf()</code> function is a variant of <code><a href='layer.html'>layer()</a></code> meant to be used by
 extension developers who are writing new sf-based geoms or stats.
 The sf layer checks whether the data contains a geometry column, and
 if one is found it is automatically mapped to the <code>geometry</code> aesthetic.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/layer_sf.html'>layer_sf</a></span>(
+    <pre class="usage"><span class='fu'>layer_sf</span>(
   geom = <span class='kw'>NULL</span>,
   stat = <span class='kw'>NULL</span>,
   data = <span class='kw'>NULL</span>,
@@ -242,10 +242,10 @@ layer, as a string.</p></td>
       <td><p>The data to be displayed in this layer. There are three
 options:</p>
 <p>If <code>NULL</code>, the default, the data is inherited from the plot
-data as specified in the call to <code><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot()</a></code>.</p>
+data as specified in the call to <code><a href='ggplot.html'>ggplot()</a></code>.</p>
 <p>A <code>data.frame</code>, or other object, will override the plot
 data. All objects will be fortified to produce a data frame. See
-<code><a href='https://ggplot2.tidyverse.org/reference/fortify.html'>fortify()</a></code> for which variables will be created.</p>
+<code><a href='fortify.html'>fortify()</a></code> for which variables will be created.</p>
 <p>A <code>function</code> will be called with a single argument,
 the plot data. The return value must be a <code>data.frame</code>, and
 will be used as the layer data. A <code>function</code> can be created
@@ -253,8 +253,8 @@ from a <code>formula</code> (e.g. <code>~ head(.x, 10)</code>).</p></td>
     </tr>
     <tr>
       <th>mapping</th>
-      <td><p>Set of aesthetic mappings created by <code><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes()</a></code> or
-<code><a href='https://ggplot2.tidyverse.org/reference/aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
+      <td><p>Set of aesthetic mappings created by <code><a href='aes.html'>aes()</a></code> or
+<code><a href='aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
     </tr>
@@ -272,7 +272,7 @@ a call to a position adjustment function.</p></td>
       <td><p>If <code>FALSE</code>, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. <code><a href='https://ggplot2.tidyverse.org/reference/borders.html'>borders()</a></code>.</p></td>
+the default plot specification, e.g. <code><a href='borders.html'>borders()</a></code>.</p></td>
     </tr>
     <tr>
       <th>check.aes</th>

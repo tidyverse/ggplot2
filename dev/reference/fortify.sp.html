@@ -209,25 +209,25 @@ as.data.frame(model)." />
     </div>
 
     <pre class="usage"><span class='co'># S3 method for SpatialPolygonsDataFrame</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/fortify.html'>fortify</a></span>(<span class='kw'>model</span>, <span class='kw'>data</span>, region = <span class='kw'>NULL</span>, <span class='kw'>...</span>)
+<span class='fu'><a href='fortify.html'>fortify</a></span>(<span class='kw'>model</span>, <span class='kw'>data</span>, region = <span class='kw'>NULL</span>, <span class='kw'>...</span>)
 
 <span class='co'># S3 method for SpatialPolygons</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/fortify.html'>fortify</a></span>(<span class='kw'>model</span>, <span class='kw'>data</span>, <span class='kw'>...</span>)
+<span class='fu'><a href='fortify.html'>fortify</a></span>(<span class='kw'>model</span>, <span class='kw'>data</span>, <span class='kw'>...</span>)
 
 <span class='co'># S3 method for Polygons</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/fortify.html'>fortify</a></span>(<span class='kw'>model</span>, <span class='kw'>data</span>, <span class='kw'>...</span>)
+<span class='fu'><a href='fortify.html'>fortify</a></span>(<span class='kw'>model</span>, <span class='kw'>data</span>, <span class='kw'>...</span>)
 
 <span class='co'># S3 method for Polygon</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/fortify.html'>fortify</a></span>(<span class='kw'>model</span>, <span class='kw'>data</span>, <span class='kw'>...</span>)
+<span class='fu'><a href='fortify.html'>fortify</a></span>(<span class='kw'>model</span>, <span class='kw'>data</span>, <span class='kw'>...</span>)
 
 <span class='co'># S3 method for SpatialLinesDataFrame</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/fortify.html'>fortify</a></span>(<span class='kw'>model</span>, <span class='kw'>data</span>, <span class='kw'>...</span>)
+<span class='fu'><a href='fortify.html'>fortify</a></span>(<span class='kw'>model</span>, <span class='kw'>data</span>, <span class='kw'>...</span>)
 
 <span class='co'># S3 method for Lines</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/fortify.html'>fortify</a></span>(<span class='kw'>model</span>, <span class='kw'>data</span>, <span class='kw'>...</span>)
+<span class='fu'><a href='fortify.html'>fortify</a></span>(<span class='kw'>model</span>, <span class='kw'>data</span>, <span class='kw'>...</span>)
 
 <span class='co'># S3 method for Line</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/fortify.html'>fortify</a></span>(<span class='kw'>model</span>, <span class='kw'>data</span>, <span class='kw'>...</span>)</pre>
+<span class='fu'><a href='fortify.html'>fortify</a></span>(<span class='kw'>model</span>, <span class='kw'>data</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -256,7 +256,7 @@ as.data.frame(model)." />
  <span class='kw'>sids</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"shapes/sids.shp"</span>, package=<span class='st'>"maptools"</span>)
  <span class='kw'>nc1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/maptools/man/readShapePoly.html'>readShapePoly</a></span>(<span class='kw'>sids</span>,
    proj4string = <span class='fu'>CRS</span>(<span class='st'>"+proj=longlat +datum=NAD27"</span>))
- <span class='kw'>nc1_df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/fortify.html'>fortify</a></span>(<span class='kw'>nc1</span>)
+ <span class='kw'>nc1_df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fortify.html'>fortify</a></span>(<span class='kw'>nc1</span>)
 }</div><div class='output co'>#&gt; <span class='message'>Loading required package: maptools</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: sp</span></div><div class='output co'>#&gt; <span class='message'>Checking rgeos availability: TRUE</span></div><div class='output co'>#&gt; <span class='warning'>Warning: readShapePoly is deprecated; use rgdal::readOGR or sf::st_read</span></div><div class='output co'>#&gt; <span class='message'>Regions defined for each Polygons</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

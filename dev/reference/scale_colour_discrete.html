@@ -205,17 +205,17 @@ is specified." />
     </div>
 
     <div class="ref-description">
-    <p>The default discrete colour scale. Defaults to <code><a href='https://ggplot2.tidyverse.org/reference/scale_hue.html'>scale_fill_hue()</a></code>/<code><a href='https://ggplot2.tidyverse.org/reference/scale_brewer.html'>scale_fill_brewer()</a></code>
+    <p>The default discrete colour scale. Defaults to <code><a href='scale_colour_hue.html'>scale_fill_hue()</a></code>/<code><a href='scale_colour_brewer.html'>scale_fill_brewer()</a></code>
 unless <code>type</code> (which defaults to the <code>ggplot2.discrete.fill</code>/<code>ggplot2.discrete.colour</code> options)
 is specified.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_colour_discrete.html'>scale_colour_discrete</a></span>(
+    <pre class="usage"><span class='fu'>scale_colour_discrete</span>(
   <span class='kw'>...</span>,
   type = <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"ggplot2.discrete.colour"</span>, <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"ggplot2.discrete.fill"</span>))
 )
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_colour_discrete.html'>scale_fill_discrete</a></span>(
+<span class='fu'>scale_fill_discrete</span>(
   <span class='kw'>...</span>,
   type = <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"ggplot2.discrete.fill"</span>, <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"ggplot2.discrete.colour"</span>))
 )</pre>
@@ -232,13 +232,13 @@ is specified.</p>
       <td><p>One of the following:</p><ul>
 <li><p>A character vector of color codes. The codes are used for a 'manual' color
 scale as long as the number of codes exceeds the number of data levels
-(if there are more levels than codes, <code><a href='https://ggplot2.tidyverse.org/reference/scale_hue.html'>scale_colour_hue()</a></code>/<code><a href='https://ggplot2.tidyverse.org/reference/scale_hue.html'>scale_fill_hue()</a></code>
+(if there are more levels than codes, <code><a href='scale_colour_hue.html'>scale_colour_hue()</a></code>/<code><a href='scale_colour_hue.html'>scale_fill_hue()</a></code>
 are used to construct the default scale).</p></li>
 <li><p>A list of character vectors of color codes. The minimum length vector that exceeds the
 number of data levels is chosen for the color scaling. This is useful if you
 want to change the color palette based on the number of levels.</p></li>
-<li><p>A function that returns a discrete colour/fill scale (e.g., <code><a href='https://ggplot2.tidyverse.org/reference/scale_hue.html'>scale_fill_hue()</a></code>,
-<code><a href='https://ggplot2.tidyverse.org/reference/scale_brewer.html'>scale_fill_brewer()</a></code>, etc).</p></li>
+<li><p>A function that returns a discrete colour/fill scale (e.g., <code><a href='scale_colour_hue.html'>scale_fill_hue()</a></code>,
+<code><a href='scale_colour_brewer.html'>scale_fill_brewer()</a></code>, etc).</p></li>
 </ul></td>
     </tr>
     </table>
@@ -247,8 +247,8 @@ want to change the color palette based on the number of levels.</p></li>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Template function for creating densities grouped by a variable</span>
 <span class='kw'>cty_by_var</span> <span class='op'>&lt;-</span> <span class='fu'>function</span>(<span class='kw'>var</span>) {
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>cty</span>, colour = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>({{<span class='kw'>var</span>}}), fill = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>({{<span class='kw'>var</span>}}))) <span class='op'>+</span>
-    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_density.html'>geom_density</a></span>(alpha = <span class='fl'>0.2</span>)
+  <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>cty</span>, colour = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>({{<span class='kw'>var</span>}}), fill = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>({{<span class='kw'>var</span>}}))) <span class='op'>+</span>
+    <span class='fu'><a href='geom_density.html'>geom_density</a></span>(alpha = <span class='fl'>0.2</span>)
 }
 
 <span class='co'># The default, scale_fill_hue(), is not colour-blind safe</span>

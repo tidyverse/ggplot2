@@ -214,7 +214,7 @@ of the grob, and the grob will not be modified by any ggplot settings
 or mappings).</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotation_custom.html'>annotation_custom</a></span>(<span class='kw'>grob</span>, xmin = <span class='op'>-</span><span class='fl'>Inf</span>, xmax = <span class='fl'>Inf</span>, ymin = <span class='op'>-</span><span class='fl'>Inf</span>, ymax = <span class='fl'>Inf</span>)</pre>
+    <pre class="usage"><span class='fu'>annotation_custom</span>(<span class='kw'>grob</span>, xmin = <span class='op'>-</span><span class='fl'>Inf</span>, xmax = <span class='fl'>Inf</span>, ymin = <span class='op'>-</span><span class='fl'>Inf</span>, ymax = <span class='fl'>Inf</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -240,7 +240,7 @@ location of raster</p></td>
     <p>Most useful for adding tables, inset plots, and other grid-based decorations.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p><code><a href='https://ggplot2.tidyverse.org/reference/annotation_custom.html'>annotation_custom()</a></code> expects the grob to fill the entire viewport
+    <p><code>annotation_custom()</code> expects the grob to fill the entire viewport
 defined by xmin, xmax, ymin, ymax. Grobs with a different (absolute) size
 will be center-justified in that region.
 Inf values can be used to fill the full plot panel (see examples).</p>
@@ -248,22 +248,22 @@ Inf values can be used to fill the full plot panel (see examples).</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Dummy plot</span>
 <span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(x = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, y = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>)
-<span class='kw'>base</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_blank.html'>geom_blank</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_bw</a></span>()
+<span class='kw'>base</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='geom_blank.html'>geom_blank</a></span>() <span class='op'>+</span>
+  <span class='fu'><a href='ggtheme.html'>theme_bw</a></span>()
 
 <span class='co'># Full panel annotation</span>
-<span class='kw'>base</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotation_custom.html'>annotation_custom</a></span>(
+<span class='kw'>base</span> <span class='op'>+</span> <span class='fu'>annotation_custom</span>(
   grob = <span class='kw'>grid</span>::<span class='fu'><a href='https://rdrr.io/r/grid/grid.roundrect.html'>roundrectGrob</a></span>(),
   xmin = <span class='op'>-</span><span class='fl'>Inf</span>, xmax = <span class='fl'>Inf</span>, ymin = <span class='op'>-</span><span class='fl'>Inf</span>, ymax = <span class='fl'>Inf</span>
 )</div><div class='img'><img src='annotation_custom-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Inset plot</span>
 <span class='kw'>df2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(x = <span class='fl'>1</span> , y = <span class='fl'>1</span>)
-<span class='kw'>g</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplotGrob.html'>ggplotGrob</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df2</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span>(plot.background = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_rect</a></span>(colour = <span class='st'>"black"</span>)))
+<span class='kw'>g</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplotGrob.html'>ggplotGrob</a></span>(<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df2</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
+  <span class='fu'><a href='theme.html'>theme</a></span>(plot.background = <span class='fu'><a href='margin.html'>element_rect</a></span>(colour = <span class='st'>"black"</span>)))
 <span class='kw'>base</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotation_custom.html'>annotation_custom</a></span>(grob = <span class='kw'>g</span>, xmin = <span class='fl'>1</span>, xmax = <span class='fl'>10</span>, ymin = <span class='fl'>8</span>, ymax = <span class='fl'>10</span>)</div><div class='img'><img src='annotation_custom-2.png' alt='' width='700' height='433' /></div></pre>
+  <span class='fu'>annotation_custom</span>(grob = <span class='kw'>g</span>, xmin = <span class='fl'>1</span>, xmax = <span class='fl'>10</span>, ymin = <span class='fl'>8</span>, ymax = <span class='fl'>10</span>)</div><div class='img'><img src='annotation_custom-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

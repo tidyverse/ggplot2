@@ -210,7 +210,7 @@ values) among coordinate systems. This is implemented as a thin wrapper
 around <code><a href='https://rdrr.io/pkg/sf/man/sf_project.html'>sf::sf_project()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/sf_transform_xy.html'>sf_transform_xy</a></span>(<span class='kw'>data</span>, <span class='kw'>target_crs</span>, <span class='kw'>source_crs</span>, authority_compliant = <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>sf_transform_xy</span>(<span class='kw'>data</span>, <span class='kw'>target_crs</span>, <span class='kw'>source_crs</span>, authority_compliant = <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -246,11 +246,11 @@ visualisation order (i.e. always <code>x = lon</code>, <code>y = lat</code>). De
 )
 
 <span class='co'># transform to projected coordinates</span>
-<span class='kw'>data_proj</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/sf_transform_xy.html'>sf_transform_xy</a></span>(<span class='kw'>data</span>, <span class='fl'>3347</span>, <span class='fl'>4326</span>)
+<span class='kw'>data_proj</span> <span class='op'>&lt;-</span> <span class='fu'>sf_transform_xy</span>(<span class='kw'>data</span>, <span class='fl'>3347</span>, <span class='fl'>4326</span>)
 <span class='kw'>data_proj</span>
 
 <span class='co'># transform back</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/sf_transform_xy.html'>sf_transform_xy</a></span>(<span class='kw'>data_proj</span>, <span class='fl'>4326</span>, <span class='fl'>3347</span>)
+<span class='fu'>sf_transform_xy</span>(<span class='kw'>data_proj</span>, <span class='fl'>4326</span>, <span class='fl'>3347</span>)
 }</div><div class='output co'>#&gt;         city       x      y
 #&gt; 1  Charlotte -80.843 35.227
 #&gt; 2    Raleigh -78.639 35.772

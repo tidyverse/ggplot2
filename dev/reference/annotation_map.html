@@ -206,20 +206,20 @@ coord_sf() (see examples)." />
     </div>
 
     <div class="ref-description">
-    <p>Display a fixed map on a plot. This function predates the <code><a href='https://ggplot2.tidyverse.org/reference/ggsf.html'>geom_sf()</a></code>
+    <p>Display a fixed map on a plot. This function predates the <code><a href='CoordSf.html'>geom_sf()</a></code>
 framework and does not work with sf geometry columns as input. However,
-it can be used in conjunction with <code><a href='https://ggplot2.tidyverse.org/reference/ggsf.html'>geom_sf()</a></code> layers and/or
-<code><a href='https://ggplot2.tidyverse.org/reference/ggsf.html'>coord_sf()</a></code> (see examples).</p>
+it can be used in conjunction with <code><a href='CoordSf.html'>geom_sf()</a></code> layers and/or
+<code><a href='CoordSf.html'>coord_sf()</a></code> (see examples).</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotation_map.html'>annotation_map</a></span>(<span class='kw'>map</span>, <span class='kw'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>annotation_map</span>(<span class='kw'>map</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>map</th>
-      <td><p>Data frame representing a map. See <code><a href='https://ggplot2.tidyverse.org/reference/geom_map.html'>geom_map()</a></code> for
+      <td><p>Data frame representing a map. See <code><a href='geom_map.html'>geom_map()</a></code> for
 details.</p></td>
     </tr>
     <tr>
@@ -240,24 +240,24 @@ details.</p></td>
   long = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='op'>-</span><span class='fl'>80.843</span>, <span class='op'>-</span><span class='fl'>78.639</span>, <span class='op'>-</span><span class='fl'>79.792</span>)
 )
 
-<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(x = <span class='kw'>long</span>, y = <span class='kw'>lat</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotation_map.html'>annotation_map</a></span>(
-    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/map_data.html'>map_data</a></span>(<span class='st'>"state"</span>),
+<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='kw'>long</span>, y = <span class='kw'>lat</span>)) <span class='op'>+</span>
+  <span class='fu'>annotation_map</span>(
+    <span class='fu'><a href='map_data.html'>map_data</a></span>(<span class='st'>"state"</span>),
     fill = <span class='st'>"antiquewhite"</span>, colour = <span class='st'>"darkgrey"</span>
   ) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(color = <span class='st'>"blue"</span>) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_text</a></span>(
-    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(label = <span class='kw'>name</span>),
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(color = <span class='st'>"blue"</span>) <span class='op'>+</span>
+  <span class='fu'><a href='geom_label.html'>geom_text</a></span>(
+    <span class='fu'><a href='aes.html'>aes</a></span>(label = <span class='kw'>name</span>),
     hjust = <span class='fl'>1.105</span>, vjust = <span class='fl'>1.05</span>, color = <span class='st'>"blue"</span>
   )
 
 <span class='co'># use without coord_sf() is possible but not recommended</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>xlim</a></span>(<span class='op'>-</span><span class='fl'>84</span>, <span class='op'>-</span><span class='fl'>76</span>) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>ylim</a></span>(<span class='fl'>34</span>, <span class='fl'>37.2</span>)
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='lims.html'>xlim</a></span>(<span class='op'>-</span><span class='fl'>84</span>, <span class='op'>-</span><span class='fl'>76</span>) <span class='op'>+</span> <span class='fu'><a href='lims.html'>ylim</a></span>(<span class='fl'>34</span>, <span class='fl'>37.2</span>)
 
 <span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"sf"</span>, quietly = <span class='fl'>TRUE</span>)) {
 <span class='co'># use with coord_sf() for appropriate projection</span>
 <span class='kw'>p</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggsf.html'>coord_sf</a></span>(
+  <span class='fu'><a href='CoordSf.html'>coord_sf</a></span>(
     crs = <span class='fu'>st_crs</span>(<span class='fl'>3347</span>),
     xlim = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='op'>-</span><span class='fl'>84</span>, <span class='op'>-</span><span class='fl'>76</span>),
     ylim = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>34</span>, <span class='fl'>37.2</span>)
@@ -266,11 +266,11 @@ details.</p></td>
 <span class='co'># you can mix annotation_map() and geom_sf()</span>
 <span class='kw'>nc</span> <span class='op'>&lt;-</span> <span class='kw'>sf</span>::<span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_read.html'>st_read</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"shape/nc.shp"</span>, package = <span class='st'>"sf"</span>), quiet = <span class='fl'>TRUE</span>)
 <span class='kw'>p</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggsf.html'>geom_sf</a></span>(
+  <span class='fu'><a href='CoordSf.html'>geom_sf</a></span>(
     data = <span class='kw'>nc</span>, inherit.aes = <span class='fl'>FALSE</span>,
     fill = <span class='fl'>NA</span>, color = <span class='st'>"black"</span>, size = <span class='fl'>0.1</span>
   ) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggsf.html'>coord_sf</a></span>(crs = <span class='fu'>st_crs</span>(<span class='fl'>3347</span>))
+  <span class='fu'><a href='CoordSf.html'>coord_sf</a></span>(crs = <span class='fu'>st_crs</span>(<span class='fl'>3347</span>))
 }}}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

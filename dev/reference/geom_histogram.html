@@ -210,13 +210,13 @@ across the levels of a categorical variable." />
     <div class="ref-description">
     <p>Visualise the distribution of a single continuous variable by dividing
 the x axis into bins and counting the number of observations in each bin.
-Histograms (<code><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram()</a></code>) display the counts with bars; frequency
-polygons (<code><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_freqpoly()</a></code>) display the counts with lines. Frequency
+Histograms (<code>geom_histogram()</code>) display the counts with bars; frequency
+polygons (<code>geom_freqpoly()</code>) display the counts with lines. Frequency
 polygons are more suitable when you want to compare the distribution
 across the levels of a categorical variable.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_freqpoly</a></span>(
+    <pre class="usage"><span class='fu'>geom_freqpoly</span>(
   mapping = <span class='kw'>NULL</span>,
   data = <span class='kw'>NULL</span>,
   stat = <span class='st'>"bin"</span>,
@@ -227,7 +227,7 @@ across the levels of a categorical variable.</p>
   inherit.aes = <span class='fl'>TRUE</span>
 )
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span>(
+<span class='fu'>geom_histogram</span>(
   mapping = <span class='kw'>NULL</span>,
   data = <span class='kw'>NULL</span>,
   stat = <span class='st'>"bin"</span>,
@@ -241,7 +241,7 @@ across the levels of a categorical variable.</p>
   inherit.aes = <span class='fl'>TRUE</span>
 )
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>stat_bin</a></span>(
+<span class='fu'>stat_bin</span>(
   mapping = <span class='kw'>NULL</span>,
   data = <span class='kw'>NULL</span>,
   geom = <span class='st'>"bar"</span>,
@@ -265,8 +265,8 @@ across the levels of a categorical variable.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>mapping</th>
-      <td><p>Set of aesthetic mappings created by <code><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes()</a></code> or
-<code><a href='https://ggplot2.tidyverse.org/reference/aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
+      <td><p>Set of aesthetic mappings created by <code><a href='aes.html'>aes()</a></code> or
+<code><a href='aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
     </tr>
@@ -275,10 +275,10 @@ plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
       <td><p>The data to be displayed in this layer. There are three
 options:</p>
 <p>If <code>NULL</code>, the default, the data is inherited from the plot
-data as specified in the call to <code><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot()</a></code>.</p>
+data as specified in the call to <code><a href='ggplot.html'>ggplot()</a></code>.</p>
 <p>A <code>data.frame</code>, or other object, will override the plot
 data. All objects will be fortified to produce a data frame. See
-<code><a href='https://ggplot2.tidyverse.org/reference/fortify.html'>fortify()</a></code> for which variables will be created.</p>
+<code><a href='fortify.html'>fortify()</a></code> for which variables will be created.</p>
 <p>A <code>function</code> will be called with a single argument,
 the plot data. The return value must be a <code>data.frame</code>, and
 will be used as the layer data. A <code>function</code> can be created
@@ -291,7 +291,7 @@ a call to a position adjustment function.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Other arguments passed on to <code><a href='https://ggplot2.tidyverse.org/reference/layer.html'>layer()</a></code>. These are
+      <td><p>Other arguments passed on to <code><a href='layer.html'>layer()</a></code>. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 <code>colour = "red"</code> or <code>size = 3</code>. They may also be parameters
 to the paired geom/stat.</p></td>
@@ -314,7 +314,7 @@ display.</p></td>
       <td><p>If <code>FALSE</code>, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. <code><a href='https://ggplot2.tidyverse.org/reference/borders.html'>borders()</a></code>.</p></td>
+the default plot specification, e.g. <code><a href='borders.html'>borders()</a></code>.</p></td>
     </tr>
     <tr>
       <th>binwidth</th>
@@ -344,7 +344,7 @@ to either <code>"x"</code> or <code>"y"</code>. See the <em>Orientation</em> sec
     <tr>
       <th>geom, stat</th>
       <td><p>Use to override the default connection between
-<code><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram()</a></code>/<code><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_freqpoly()</a></code> and <code><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>stat_bin()</a></code>.</p></td>
+<code>geom_histogram()</code>/<code>geom_freqpoly()</code> and <code>stat_bin()</code>.</p></td>
     </tr>
     <tr>
       <th>center, boundary</th>
@@ -378,16 +378,16 @@ frequency polygons touch 0. Defaults to <code>FALSE</code>.</p></td>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>stat_bin()</a></code> is suitable only for continuous x data. If your x data is
-discrete, you probably want to use <code><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>stat_count()</a></code>.</p>
-<p>By default, the underlying computation (<code><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>stat_bin()</a></code>) uses 30 bins;
+    <p><code>stat_bin()</code> is suitable only for continuous x data. If your x data is
+discrete, you probably want to use <code><a href='geom_bar.html'>stat_count()</a></code>.</p>
+<p>By default, the underlying computation (<code>stat_bin()</code>) uses 30 bins;
 this is not a good default, but the idea is to get you experimenting with
 different number of bins. You can also experiment modifying the <code>binwidth</code> with
 <code>center</code> or <code>boundary</code> arguments. <code>binwidth</code> overrides <code>bins</code> so you should do
 one change at a time. You may need to look at a few options to uncover
 the full story behind your data.</p>
-<p>In addition to <code><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram()</a></code>, you can create a histogram plot by using
-<code><a href='https://ggplot2.tidyverse.org/reference/scale_binned.html'>scale_x_binned()</a></code> with <code><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar()</a></code>. This method by default plots tick marks
+<p>In addition to <code>geom_histogram()</code>, you can create a histogram plot by using
+<code><a href='scale_binned.html'>scale_x_binned()</a></code> with <code><a href='geom_bar.html'>geom_bar()</a></code>. This method by default plots tick marks
 in between each bar.</p>
     <h2 class="hasAnchor" id="orientation"><a class="anchor" href="#orientation"></a>Orientation</h2>
 
@@ -398,8 +398,8 @@ in between each bar.</p>
 
     
 
-<p><code><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram()</a></code> uses the same aesthetics as <code><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar()</a></code>;
-<code><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_freqpoly()</a></code> uses the same aesthetics as <code><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line()</a></code>.</p>
+<p><code>geom_histogram()</code> uses the same aesthetics as <code><a href='geom_bar.html'>geom_bar()</a></code>;
+<code>geom_freqpoly()</code> uses the same aesthetics as <code><a href='geom_path.html'>geom_line()</a></code>.</p>
     <h2 class="hasAnchor" id="computed-variables"><a class="anchor" href="#computed-variables"></a>Computed variables</h2>
 
     
@@ -415,53 +415,53 @@ in between each bar.</p>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>stat_count()</a></code>, which counts the number of cases at each x
+    <div class='dont-index'><p><code><a href='geom_bar.html'>stat_count()</a></code>, which counts the number of cases at each x
 position, without binning. It is suitable for both discrete and continuous
-x data, whereas <code><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>stat_bin()</a></code> is suitable only for continuous x data.</p></div>
+x data, whereas <code>stat_bin()</code> is suitable only for continuous x data.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>carat</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span>()</div><div class='output co'>#&gt; <span class='message'>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></div><div class='img'><img src='geom_histogram-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>carat</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span>(binwidth = <span class='fl'>0.01</span>)</div><div class='img'><img src='geom_histogram-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>carat</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span>(bins = <span class='fl'>200</span>)</div><div class='img'><img src='geom_histogram-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Map values to y to flip the orientation</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(y = <span class='kw'>carat</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span>()</div><div class='output co'>#&gt; <span class='message'>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></div><div class='img'><img src='geom_histogram-4.png' alt='' width='700' height='433' /></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>carat</span>)) <span class='op'>+</span>
+  <span class='fu'>geom_histogram</span>()</div><div class='output co'>#&gt; <span class='message'>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></div><div class='img'><img src='geom_histogram-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>carat</span>)) <span class='op'>+</span>
+  <span class='fu'>geom_histogram</span>(binwidth = <span class='fl'>0.01</span>)</div><div class='img'><img src='geom_histogram-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>carat</span>)) <span class='op'>+</span>
+  <span class='fu'>geom_histogram</span>(bins = <span class='fl'>200</span>)</div><div class='img'><img src='geom_histogram-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Map values to y to flip the orientation</span>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(y = <span class='kw'>carat</span>)) <span class='op'>+</span>
+  <span class='fu'>geom_histogram</span>()</div><div class='output co'>#&gt; <span class='message'>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></div><div class='img'><img src='geom_histogram-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># For histograms with tick marks between each bin, use `geom_bar()` with</span>
 <span class='co'># `scale_x_binned()`.</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>carat</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_binned.html'>scale_x_binned</a></span>()</div><div class='img'><img src='geom_histogram-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>carat</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='geom_bar.html'>geom_bar</a></span>() <span class='op'>+</span>
+  <span class='fu'><a href='scale_binned.html'>scale_x_binned</a></span>()</div><div class='img'><img src='geom_histogram-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Rather than stacking histograms, it's easier to compare frequency</span>
 <span class='co'># polygons</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>price</span>, fill = <span class='kw'>cut</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span>(binwidth = <span class='fl'>500</span>)</div><div class='img'><img src='geom_histogram-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>price</span>, colour = <span class='kw'>cut</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_freqpoly</a></span>(binwidth = <span class='fl'>500</span>)</div><div class='img'><img src='geom_histogram-7.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>price</span>, fill = <span class='kw'>cut</span>)) <span class='op'>+</span>
+  <span class='fu'>geom_histogram</span>(binwidth = <span class='fl'>500</span>)</div><div class='img'><img src='geom_histogram-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>price</span>, colour = <span class='kw'>cut</span>)) <span class='op'>+</span>
+  <span class='fu'>geom_freqpoly</span>(binwidth = <span class='fl'>500</span>)</div><div class='img'><img src='geom_histogram-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># To make it easier to compare distributions with very different counts,</span>
 <span class='co'># put density on the y axis instead of the default count</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>price</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes_eval.html'>after_stat</a></span>(<span class='kw'>density</span>), colour = <span class='kw'>cut</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_freqpoly</a></span>(binwidth = <span class='fl'>500</span>)</div><div class='img'><img src='geom_histogram-8.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>price</span>, <span class='fu'><a href='aes_eval.html'>after_stat</a></span>(<span class='kw'>density</span>), colour = <span class='kw'>cut</span>)) <span class='op'>+</span>
+  <span class='fu'>geom_freqpoly</span>(binwidth = <span class='fl'>500</span>)</div><div class='img'><img src='geom_histogram-8.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"ggplot2movies"</span>)) {
 <span class='co'># Often we don't want the height of the bar to represent the</span>
 <span class='co'># count of observations, but the sum of some other variable.</span>
 <span class='co'># For example, the following plot shows the number of movies</span>
 <span class='co'># in each rating.</span>
-<span class='kw'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>movies</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>rating</span>))
-<span class='kw'>m</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span>(binwidth = <span class='fl'>0.1</span>)
+<span class='kw'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>movies</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>rating</span>))
+<span class='kw'>m</span> <span class='op'>+</span> <span class='fu'>geom_histogram</span>(binwidth = <span class='fl'>0.1</span>)
 
 <span class='co'># If, however, we want to see the number of votes cast in each</span>
 <span class='co'># category, we need to weight by the votes variable</span>
 <span class='kw'>m</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(weight = <span class='kw'>votes</span>), binwidth = <span class='fl'>0.1</span>) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>ylab</a></span>(<span class='st'>"votes"</span>)
+  <span class='fu'>geom_histogram</span>(<span class='fu'><a href='aes.html'>aes</a></span>(weight = <span class='kw'>votes</span>), binwidth = <span class='fl'>0.1</span>) <span class='op'>+</span>
+  <span class='fu'><a href='labs.html'>ylab</a></span>(<span class='st'>"votes"</span>)
 
 <span class='co'># For transformed scales, binwidth applies to the transformed data.</span>
 <span class='co'># The bins have constant width on the transformed scale.</span>
 <span class='kw'>m</span> <span class='op'>+</span>
- <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span>() <span class='op'>+</span>
- <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_x_log10</a></span>()
+ <span class='fu'>geom_histogram</span>() <span class='op'>+</span>
+ <span class='fu'><a href='scale_continuous.html'>scale_x_log10</a></span>()
 <span class='kw'>m</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span>(binwidth = <span class='fl'>0.05</span>) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_x_log10</a></span>()
+  <span class='fu'>geom_histogram</span>(binwidth = <span class='fl'>0.05</span>) <span class='op'>+</span>
+  <span class='fu'><a href='scale_continuous.html'>scale_x_log10</a></span>()
 
 <span class='co'># For transformed coordinate systems, the binwidth applies to the</span>
 <span class='co'># raw data. The bins have constant width on the original scale.</span>
@@ -471,26 +471,26 @@ x data, whereas <code><a href='https://ggplot2.tidyverse.org/reference/geom_hist
 <span class='co'># infinity. This is not a problem when transforming the scales, because</span>
 <span class='co'># no observations have 0 ratings.</span>
 <span class='kw'>m</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span>(boundary = <span class='fl'>0</span>) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_trans.html'>coord_trans</a></span>(x = <span class='st'>"log10"</span>)
+  <span class='fu'>geom_histogram</span>(boundary = <span class='fl'>0</span>) <span class='op'>+</span>
+  <span class='fu'><a href='coord_trans.html'>coord_trans</a></span>(x = <span class='st'>"log10"</span>)
 <span class='co'># Use boundary = 0, to make sure we don't take sqrt of negative values</span>
 <span class='kw'>m</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span>(boundary = <span class='fl'>0</span>) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_trans.html'>coord_trans</a></span>(x = <span class='st'>"sqrt"</span>)
+  <span class='fu'>geom_histogram</span>(boundary = <span class='fl'>0</span>) <span class='op'>+</span>
+  <span class='fu'><a href='coord_trans.html'>coord_trans</a></span>(x = <span class='st'>"sqrt"</span>)
 
 <span class='co'># You can also transform the y axis.  Remember that the base of the bars</span>
 <span class='co'># has value 0, so log transformations are not appropriate</span>
-<span class='kw'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>movies</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(x = <span class='kw'>rating</span>))
+<span class='kw'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>movies</span>, <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='kw'>rating</span>))
 <span class='kw'>m</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span>(binwidth = <span class='fl'>0.5</span>) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_sqrt</a></span>()
+  <span class='fu'>geom_histogram</span>(binwidth = <span class='fl'>0.5</span>) <span class='op'>+</span>
+  <span class='fu'><a href='scale_continuous.html'>scale_y_sqrt</a></span>()
 }</div><div class='img'><img src='geom_histogram-9.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can specify a function for calculating binwidth, which is</span>
 <span class='co'># particularly useful when faceting along variables with</span>
 <span class='co'># different ranges because the function will be called once per facet</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>economics_long</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>value</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span>(<span class='op'>~</span><span class='kw'>variable</span>, scales = <span class='st'>'free_x'</span>) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span>(binwidth = <span class='fu'>function</span>(<span class='kw'>x</span>) <span class='fl'>2</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/stats/IQR.html'>IQR</a></span>(<span class='kw'>x</span>) <span class='op'>/</span> (<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='kw'>x</span>)<span class='op'>^</span>(<span class='fl'>1</span><span class='op'>/</span><span class='fl'>3</span>)))</div><div class='img'><img src='geom_histogram-10.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>economics_long</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>value</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span>(<span class='op'>~</span><span class='kw'>variable</span>, scales = <span class='st'>'free_x'</span>) <span class='op'>+</span>
+  <span class='fu'>geom_histogram</span>(binwidth = <span class='fu'>function</span>(<span class='kw'>x</span>) <span class='fl'>2</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/stats/IQR.html'>IQR</a></span>(<span class='kw'>x</span>) <span class='op'>/</span> (<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='kw'>x</span>)<span class='op'>^</span>(<span class='fl'>1</span><span class='op'>/</span><span class='fl'>3</span>)))</div><div class='img'><img src='geom_histogram-10.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -203,10 +203,10 @@
     </div>
 
     <div class="ref-description">
-    <p>A rotated version of <code><a href='https://ggplot2.tidyverse.org/reference/geom_linerange.html'>geom_errorbar()</a></code>.</p>
+    <p>A rotated version of <code><a href='geom_crossbar.html'>geom_errorbar()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_errorbarh.html'>geom_errorbarh</a></span>(
+    <pre class="usage"><span class='fu'>geom_errorbarh</span>(
   mapping = <span class='kw'>NULL</span>,
   data = <span class='kw'>NULL</span>,
   stat = <span class='st'>"identity"</span>,
@@ -222,8 +222,8 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>mapping</th>
-      <td><p>Set of aesthetic mappings created by <code><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes()</a></code> or
-<code><a href='https://ggplot2.tidyverse.org/reference/aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
+      <td><p>Set of aesthetic mappings created by <code><a href='aes.html'>aes()</a></code> or
+<code><a href='aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
     </tr>
@@ -232,10 +232,10 @@ plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
       <td><p>The data to be displayed in this layer. There are three
 options:</p>
 <p>If <code>NULL</code>, the default, the data is inherited from the plot
-data as specified in the call to <code><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot()</a></code>.</p>
+data as specified in the call to <code><a href='ggplot.html'>ggplot()</a></code>.</p>
 <p>A <code>data.frame</code>, or other object, will override the plot
 data. All objects will be fortified to produce a data frame. See
-<code><a href='https://ggplot2.tidyverse.org/reference/fortify.html'>fortify()</a></code> for which variables will be created.</p>
+<code><a href='fortify.html'>fortify()</a></code> for which variables will be created.</p>
 <p>A <code>function</code> will be called with a single argument,
 the plot data. The return value must be a <code>data.frame</code>, and
 will be used as the layer data. A <code>function</code> can be created
@@ -253,7 +253,7 @@ a call to a position adjustment function.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Other arguments passed on to <code><a href='https://ggplot2.tidyverse.org/reference/layer.html'>layer()</a></code>. These are
+      <td><p>Other arguments passed on to <code><a href='layer.html'>layer()</a></code>. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 <code>colour = "red"</code> or <code>size = 3</code>. They may also be parameters
 to the paired geom/stat.</p></td>
@@ -276,7 +276,7 @@ display.</p></td>
       <td><p>If <code>FALSE</code>, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. <code><a href='https://ggplot2.tidyverse.org/reference/borders.html'>borders()</a></code>.</p></td>
+the default plot specification, e.g. <code><a href='borders.html'>borders()</a></code>.</p></td>
     </tr>
     </table>
 
@@ -284,7 +284,7 @@ the default plot specification, e.g. <code><a href='https://ggplot2.tidyverse.or
 
     
 
-<p><code><a href='https://ggplot2.tidyverse.org/reference/geom_errorbarh.html'>geom_errorbarh()</a></code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
+<p><code>geom_errorbarh()</code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
 <li><p><strong><code>xmin</code></strong></p></li>
 <li><p><strong><code>xmax</code></strong></p></li>
 <li><p><strong><code>y</code></strong></p></li>
@@ -294,7 +294,7 @@ the default plot specification, e.g. <code><a href='https://ggplot2.tidyverse.or
 <li><p><code>height</code></p></li>
 <li><p><code>linetype</code></p></li>
 <li><p><code>size</code></p></li>
-</ul><p>Learn more about setting these aesthetics in <code>vignette("ggplot2-specs")</code>.</p>
+</ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
@@ -306,13 +306,13 @@ the default plot specification, e.g. <code><a href='https://ggplot2.tidyverse.or
 
 <span class='co'># Define the top and bottom of the errorbars</span>
 
-<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>resp</span>, <span class='kw'>trt</span>, colour = <span class='kw'>group</span>))
+<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>resp</span>, <span class='kw'>trt</span>, colour = <span class='kw'>group</span>))
 <span class='kw'>p</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_errorbarh.html'>geom_errorbarh</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(xmax = <span class='kw'>resp</span> <span class='op'>+</span> <span class='kw'>se</span>, xmin = <span class='kw'>resp</span> <span class='op'>-</span> <span class='kw'>se</span>))</div><div class='img'><img src='geom_errorbarh-1.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
+  <span class='fu'>geom_errorbarh</span>(<span class='fu'><a href='aes.html'>aes</a></span>(xmax = <span class='kw'>resp</span> <span class='op'>+</span> <span class='kw'>se</span>, xmin = <span class='kw'>resp</span> <span class='op'>-</span> <span class='kw'>se</span>))</div><div class='img'><img src='geom_errorbarh-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='kw'>p</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_errorbarh.html'>geom_errorbarh</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(xmax = <span class='kw'>resp</span> <span class='op'>+</span> <span class='kw'>se</span>, xmin = <span class='kw'>resp</span> <span class='op'>-</span> <span class='kw'>se</span>, height = <span class='fl'>.2</span>))</div><div class='img'><img src='geom_errorbarh-2.png' alt='' width='700' height='433' /></div></pre>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
+  <span class='fu'>geom_errorbarh</span>(<span class='fu'><a href='aes.html'>aes</a></span>(xmax = <span class='kw'>resp</span> <span class='op'>+</span> <span class='kw'>se</span>, xmin = <span class='kw'>resp</span> <span class='op'>-</span> <span class='kw'>se</span>, height = <span class='fl'>.2</span>))</div><div class='img'><img src='geom_errorbarh-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
