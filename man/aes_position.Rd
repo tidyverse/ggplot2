@@ -10,10 +10,21 @@
 \alias{ymax}
 \alias{xend}
 \alias{yend}
-\title{Position related aesthetics: x, y, xmin, xmax, ymin, ymax, xend, yend}
+\alias{get_x_aes_names}
+\alias{get_y_aes_names}
+\title{Position related aesthetics}
+\usage{
+get_x_aes_names()
+
+get_y_aes_names()
+}
+\value{
+A character vector of the names of positional aesthetics
+}
 \description{
-The following aesthetics can be used to specify the position of elements:
-\code{x}, \code{y}, \code{xmin}, \code{xmax}, \code{ymin}, \code{ymax}, \code{xend}, \code{yend}.
+The following are the example of aesthetics that can be used to specify
+the position of elements: \code{x}, \code{y}, \code{xmin}, \code{xmax}, \code{ymin}, \code{ymax}, \code{xend},
+\code{yend}.
 }
 \details{
 \code{x} and \code{y} define the locations of points or of positions along a line
@@ -24,6 +35,9 @@ segment and curve geometries.
 
 \code{xmin}, \code{xmax}, \code{ymin}  and \code{ymax} can be used to specify the position of
 annotations and to represent rectangular areas.
+
+For the full list of positional aesthetics, you can refer to the result of
+\code{get_x_aes_names()} and \code{get_y_aes_names()}.
 }
 \examples{
 

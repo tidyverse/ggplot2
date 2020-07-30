@@ -1,7 +1,8 @@
-#' Position related aesthetics: x, y, xmin, xmax, ymin, ymax, xend, yend
+#' Position related aesthetics
 #'
-#' The following aesthetics can be used to specify the position of elements:
-#' `x`, `y`, `xmin`, `xmax`, `ymin`, `ymax`, `xend`, `yend`.
+#' The following are the example of aesthetics that can be used to specify
+#' the position of elements: `x`, `y`, `xmin`, `xmax`, `ymin`, `ymax`, `xend`,
+#' `yend`.
 #'
 #' `x` and `y` define the locations of points or of positions along a line
 #' or path.
@@ -12,8 +13,12 @@
 #' `xmin`, `xmax`, `ymin`  and `ymax` can be used to specify the position of
 #' annotations and to represent rectangular areas.
 #'
+#' For the full list of positional aesthetics, you can refer to the result of
+#' `get_x_aes_names()` and `get_y_aes_names()`.
+#'
 #' @name aes_position
 #' @aliases x y xmin xmax ymin ymax xend yend
+#' @return A character vector of the names of positional aesthetics
 #'
 #' @seealso
 #' * Geoms that commonly use these aesthetics: [geom_crossbar()],
@@ -72,3 +77,15 @@
 #' ggplot(counts, aes(x = x, y = Freq)) +
 #'   geom_segment(aes(yend = 0, xend = x), size = 10)
 NULL
+
+#' @rdname aes_position
+#' @export
+get_x_aes_names <- function() {
+  ggplot_global$x_aes
+}
+
+#' @rdname aes_position
+#' @export
+get_y_aes_names <- function() {
+  ggplot_global$y_aes
+}
