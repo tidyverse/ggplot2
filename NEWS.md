@@ -14,6 +14,9 @@
 
 * `stat_bin()`'s computed variable `width` is now documented (#3522).
 
+* New functions `get_x_aes_names()` and `get_y_aes_names()` provide a list of
+  positional aesthetic names (@yutannihilation, #4135).
+
 # ggplot2 3.3.2
 This is a small release focusing on fixing regressions introduced in 3.3.1.
 
