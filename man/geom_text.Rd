@@ -104,7 +104,7 @@ column before calling \code{geom_label()} or \code{geom_text()}.}
 }
 \description{
 Text geoms are useful for labeling plots. They can be used by themselves as
-scatterplots or in cobination with other geoms, for example, for labeling
+scatterplots or in combination with other geoms, for example, for labeling
 points or for annotating the height of bars. \code{geom_text()} adds only text
 to the plot. \code{geom_label()} draws a rectangle behind the text, making it
 easier to read.
