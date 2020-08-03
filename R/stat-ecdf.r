@@ -22,7 +22,7 @@
 #'   and (Inf, 1)
 #' @section Computed variables:
 #' \describe{
-#'   \item{ecdf}{cumulative density corresponding to the input variable}
+#'   \item{y}{cumulative density corresponding x}
 #' }
 #' @export
 #' @examples
@@ -70,7 +70,7 @@ stat_ecdf <- function(mapping = NULL, data = NULL,
 StatEcdf <- ggproto("StatEcdf", Stat,
   required_aes = c("x|y"),
 
-  default_aes = aes(x = after_stat(ecdf), y = after_stat(ecdf)),
+  default_aes = aes(y = after_stat(y)),
 
   setup_params = function(data, params) {
     params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = FALSE, main_is_continuous = TRUE)
@@ -98,7 +98,7 @@ StatEcdf <- ggproto("StatEcdf", Stat,
     }
     data_ecdf <- ecdf(data$x)(x)
 
-    df_ecdf <- new_data_frame(list(x = x, ecdf = data_ecdf), n = length(x))
+    df_ecdf <- new_data_frame(list(x = x, y = data_ecdf), n = length(x))
     df_ecdf$flipped_aes <- flipped_aes
     flip_data(df_ecdf, flipped_aes)
   }
