@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Extend `stat_ecdf()` to calculate the cdf from either x or y instead from y only (@jgjl, #4005).
+
 * Fixed a bug in `geom_sf()` that caused problems with legend-type
   autodetection (@clauswilke, #3963).
 
