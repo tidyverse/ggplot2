@@ -30,10 +30,11 @@
 #' @param method.args List of additional arguments passed on to the modelling
 #'   function defined by `method`.
 #' @section Computed variables:
+#' `stat_smooth()` provides the following variables, some of which depend on the orientation:
 #' \describe{
-#'   \item{y}{predicted value}
-#'   \item{ymin}{lower pointwise confidence interval around the mean}
-#'   \item{ymax}{upper pointwise confidence interval around the mean}
+#'   \item{y *or* x}{predicted value}
+#'   \item{ymin *or* xmin}{lower pointwise confidence interval around the mean}
+#'   \item{ymax *or* xmax}{upper pointwise confidence interval around the mean}
 #'   \item{se}{standard error}
 #' }
 #' @export

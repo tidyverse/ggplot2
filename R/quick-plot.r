@@ -13,7 +13,7 @@
 #' @param facets faceting formula to use. Picks [facet_wrap()] or
 #'   [facet_grid()] depending on whether the formula is one-
 #'   or two-sided
-#' @param margins See `facet_grid`: display marginal facets?
+#' @param margins See `facet_grid()`: display marginal facets?
 #' @param geom Character vector specifying geom(s) to draw. Defaults to
 #'  "point" if x and y are specified, and "histogram" if only x is specified.
 #' @param stat,position DEPRECATED.
@@ -89,10 +89,10 @@ qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
 
 
   if (is.null(xlab)) {
-    xlab <- quo_name(exprs$x)
+    xlab <- as_label(exprs$x)
   }
   if (is.null(ylab)) {
-    ylab <- quo_name(exprs$y)
+    ylab <- as_label(exprs$y)
   }
 
   if (missing(data)) {

@@ -186,7 +186,7 @@ d <- ggplot(mtcars, aes(cyl, mpg)) + geom_point()
 d + stat_summary(fun.data = "mean_cl_boot", colour = "red", size = 2)
 
 # Orientation follows the discrete axis
-ggplot(mtcars, aes(mpg, cyl)) +
+ggplot(mtcars, aes(mpg, factor(cyl))) +
   geom_point() +
   stat_summary(fun.data = "mean_cl_boot", colour = "red", size = 2)
 
@@ -196,8 +196,7 @@ d + stat_summary(fun = "median", colour = "red", size = 2, geom = "point")
 d + stat_summary(fun = "mean", colour = "red", size = 2, geom = "point")
 d + aes(colour = factor(vs)) + stat_summary(fun = mean, geom="line")
 
-d + stat_summary(fun = mean, fun.min = min, fun.max = max,
-  colour = "red")
+d + stat_summary(fun = mean, fun.min = min, fun.max = max, colour = "red")
 
 d <- ggplot(diamonds, aes(cut))
 d + geom_bar()
@@ -233,9 +232,17 @@ d + stat_sum_df("median_hilow", mapping = aes(group = cyl))
 if (require("ggplot2movies")) {
 set.seed(596)
 mov <- movies[sample(nrow(movies), 1000), ]
- m2 <- ggplot(mov, aes(x = factor(round(rating)), y = votes)) + geom_point()
- m2 <- m2 + stat_summary(fun.data = "mean_cl_boot", geom = "crossbar",
-                         colour = "red", width = 0.3) + xlab("rating")
+ m2 <-
+   ggplot(mov, aes(x = factor(round(rating)), y = votes)) +
+   geom_point()
+ m2 <-
+   m2 +
+   stat_summary(
+     fun.data = "mean_cl_boot",
+     geom = "crossbar",
+     colour = "red", width = 0.3
+   ) +
+   xlab("rating")
 m2
 # Notice how the overplotting skews off visual perception of the mean
 # supplementing the raw data with summary statistics is _very_ important

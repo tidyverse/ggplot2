@@ -15,7 +15,7 @@
 #' @param trim If `TRUE` (default), trim the tails of the violins
 #'   to the range of the data. If `FALSE`, don't trim the tails.
 #' @param geom,stat Use to override the default connection between
-#'   `geom_violin` and `stat_ydensity`.
+#'   `geom_violin()` and `stat_ydensity()`.
 #' @export
 #' @references Hintze, J. L., Nelson, R. D. (1998) Violin Plots: A Box
 #' Plot-Density Trace Synergism. The American Statistician 52, 181-184.
@@ -63,13 +63,20 @@
 #' # number of outliers.
 #' m <- ggplot(movies, aes(y = votes, x = rating, group = cut_width(rating, 0.5)))
 #' m + geom_violin()
-#' m + geom_violin() + scale_y_log10()
-#' m + geom_violin() + coord_trans(y = "log10")
-#' m + geom_violin() + scale_y_log10() + coord_trans(y = "log10")
+#' m +
+#'   geom_violin() +
+#'   scale_y_log10()
+#' m +
+#'   geom_violin() +
+#'   coord_trans(y = "log10")
+#' m +
+#'   geom_violin() +
+#'   scale_y_log10() + coord_trans(y = "log10")
 #'
 #' # Violin plots with continuous x:
 #' # Use the group aesthetic to group observations in violins
-#' ggplot(movies, aes(year, budget)) + geom_violin()
+#' ggplot(movies, aes(year, budget)) +
+#'   geom_violin()
 #' ggplot(movies, aes(year, budget)) +
 #'   geom_violin(aes(group = cut_width(year, 10)), scale = "width")
 #' }

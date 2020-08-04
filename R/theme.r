@@ -49,7 +49,7 @@
 #'   `axis.ticks.*` which inherits from `axis.ticks`, which in turn inherits
 #'   from `line`
 #' @param axis.ticks.length,axis.ticks.length.x,axis.ticks.length.x.top,axis.ticks.length.x.bottom,axis.ticks.length.y,axis.ticks.length.y.left,axis.ticks.length.y.right
-#' length of tick marks (`unit`)
+#'   length of tick marks (`unit`)
 #' @param axis.line,axis.line.x,axis.line.x.top,axis.line.x.bottom,axis.line.y,axis.line.y.left,axis.line.y.right
 #'   lines along axes ([element_line()]). Specify lines along all axes (`axis.line`),
 #'   lines for each plane (using `axis.line.x` or `axis.line.y`), or individually

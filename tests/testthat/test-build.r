@@ -48,7 +48,7 @@ test_that("non-position aesthetics are mapped", {
 })
 
 test_that("strings are not converted to factors", {
-  df <- data_frame(x = 1:2, y = 2:1, label = c("alpha", "beta"), stringsAsFactors = FALSE)
+  df <- data_frame(x = 1:2, y = 2:1, label = c("alpha", "beta"))
   p <- ggplot(df, aes(x, y)) +
     geom_text(aes(label = label), parse = TRUE)
 

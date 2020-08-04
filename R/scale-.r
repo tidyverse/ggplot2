@@ -806,7 +806,7 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
       self$n.breaks.cache <- n
     }
 
-    if (is_named(pal)) {
+    if (!is_null(names(pal))) {
       # if pal is named, limit the pal by the names first,
       # then limit the values by the pal
       idx_nomatch <- is.na(match(names(pal), limits))

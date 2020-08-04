@@ -53,7 +53,7 @@ one, extracting vectors from the current environment.}
 \code{\link[=facet_grid]{facet_grid()}} depending on whether the formula is one-
 or two-sided}
 
-\item{margins}{See \code{facet_grid}: display marginal facets?}
+\item{margins}{See \code{facet_grid()}: display marginal facets?}
 
 \item{geom}{Character vector specifying geom(s) to draw. Defaults to
 "point" if x and y are specified, and "histogram" if only x is specified.}

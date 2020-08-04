@@ -12,12 +12,12 @@
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @section Computed variables:
-#' Variables computed by `stat_qq`:
+#' Variables computed by `stat_qq()`:
 #' \describe{
 #'   \item{sample}{sample quantiles}
 #'   \item{theoretical}{theoretical quantiles}
 #' }
-#' Variables computed by `stat_qq_line`:
+#' Variables computed by `stat_qq_line()`:
 #' \describe{
 #'   \item{x}{x-coordinates of the endpoints of the line segment connecting the
 #'            points at the chosen quantiles of the theoretical and the sample

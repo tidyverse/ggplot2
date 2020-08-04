@@ -5,7 +5,7 @@
 #' `cut_width()` makes groups of width `width`.
 #'
 #' @author Randall Prium contributed most of the implementation of
-#'    `cut_width`.
+#'    `cut_width()`.
 #' @param x numeric vector
 #' @param n number of intervals to create, OR
 #' @param length length of each interval

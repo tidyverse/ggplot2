@@ -194,3 +194,8 @@ scale_color_viridis_d <- scale_colour_viridis_d
 #' @rdname scale_viridis
 #' @usage NULL
 scale_color_viridis_c <- scale_colour_viridis_c
+
+#' @export
+#' @rdname scale_viridis
+#' @usage NULL
+scale_color_viridis_b <- scale_colour_viridis_b
