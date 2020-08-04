@@ -75,18 +75,22 @@ test_that("works with transformed scales", {
 
   ret <- layer_data(base)
   expect_equal(nrow(ret), 5)
+  expect_equal(ret$x, seq(1, 10, length.out = 5))
   expect_equal(ret$y, ret$x^2)
 
   ret <- layer_data(base + scale_x_log10())
   expect_equal(nrow(ret), 5)
+  expect_equal(ret$x, seq(0, 1, length.out = 5))
   expect_equal(ret$y, (10^ret$x)^2)
 
   ret <- layer_data(base + scale_y_log10())
   expect_equal(nrow(ret), 5)
+  expect_equal(ret$x, seq(1, 10, length.out = 5))
   expect_equal(10^ret$y, ret$x^2)
 
   ret <- layer_data(base + scale_x_log10() + scale_y_log10())
   expect_equal(nrow(ret), 5)
+  expect_equal(ret$x, seq(0, 1, length.out = 5))
   expect_equal(10^ret$y, (10^ret$x)^2)
 
   # now with explicit mapping of y
@@ -95,18 +99,22 @@ test_that("works with transformed scales", {
 
   ret <- layer_data(base, 2)
   expect_equal(nrow(ret), 5)
+  expect_equal(ret$x, seq(1, 10, length.out = 5))
   expect_equal(ret$y, ret$x^2)
 
   ret <- layer_data(base + scale_x_log10(), 2)
   expect_equal(nrow(ret), 5)
+  expect_equal(ret$x, seq(0, 1, length.out = 5))
   expect_equal(ret$y, (10^ret$x)^2)
 
   ret <- layer_data(base + scale_y_log10(), 2)
   expect_equal(nrow(ret), 5)
+  expect_equal(ret$x, seq(1, 10, length.out = 5))
   expect_equal(10^ret$y, ret$x^2)
 
   ret <- layer_data(base + scale_x_log10() + scale_y_log10(), 2)
   expect_equal(nrow(ret), 5)
+  expect_equal(ret$x, seq(0, 1, length.out = 5))
   expect_equal(10^ret$y, (10^ret$x)^2)
 })
 
@@ -131,7 +139,34 @@ test_that("Warn when drawing multiple copies of the same function", {
   expect_warning(f(), "Multiple drawing groups")
 })
 
-test_that("`data` is not used by stat_function()", {
-  expect_warning(geom_function(data = mtcars, fun = identity), "`data` is not used")
-  expect_warning(stat_function(data = mtcars, fun = identity), "`data` is not used")
+test_that("Line style can be changed via provided data", {
+  df <- data_frame(fun = "#D55E00")
+
+  base <- ggplot(df) +
+    geom_function(aes(color = fun), fun = identity, n = 6) +
+    scale_color_identity()
+  ret <- layer_data(base)
+  expect_identical(ret$x, seq(0, 1, length.out = 6))
+  expect_identical(ret$y, ret$x)
+  expect_identical(ret$colour, rep("#D55E00", 6))
+
+  base <- ggplot() +
+    geom_function(
+      data = df, aes(color = fun), fun = identity, n = 6
+    ) +
+    scale_color_identity()
+  ret <- layer_data(base)
+  expect_identical(ret$x, seq(0, 1, length.out = 6))
+  expect_identical(ret$y, ret$x)
+  expect_identical(ret$colour, rep("#D55E00", 6))
+
+  base <- ggplot() +
+    stat_function(
+      data = df, aes(color = fun), fun = identity, n = 6
+    ) +
+    scale_color_identity()
+  ret <- layer_data(base)
+  expect_identical(ret$x, seq(0, 1, length.out = 6))
+  expect_identical(ret$y, ret$x)
+  expect_identical(ret$colour, rep("#D55E00", 6))
 })

@@ -5,8 +5,8 @@ NULL
 #' Get, set, and modify the active theme
 #'
 #' The current/active theme (see [theme()]) is automatically applied to every
-#' plot you draw. Use `theme_get` to get the current theme, and `theme_set` to
-#' completely override it. `theme_update` and `theme_replace` are shorthands for
+#' plot you draw. Use `theme_get()` to get the current theme, and `theme_set()` to
+#' completely override it. `theme_update()` and `theme_replace()` are shorthands for
 #' changing individual elements.
 #'
 #' @section Adding on to a theme:
@@ -21,9 +21,9 @@ NULL
 #'   theme not specified in e2 will not be present in the resulting theme (i.e.
 #'   NULL). Thus this operator can be used to overwrite an entire theme.
 #'
-#'   `theme_update` uses the `+` operator, so that any unspecified values in the
+#'   `theme_update()` uses the `+` operator, so that any unspecified values in the
 #'   theme element will default to the values they are set in the theme.
-#'   `theme_replace` uses `%+replace%` to completely replace the element, so any
+#'   `theme_replace()` uses `%+replace%` to completely replace the element, so any
 #'   unspecified values will overwrite the current value in the theme with
 #'   `NULL`.
 #'
@@ -37,7 +37,7 @@ NULL
 #'
 #' @param ... named list of theme settings
 #' @param e1,e2 Theme and element to combine
-#' @return `theme_set`, `theme_update`, and `theme_replace`
+#' @return `theme_set()`, `theme_update()`, and `theme_replace()`
 #'   invisibly return the previous theme so you can easily save it, then
 #'   later restore it.
 #' @seealso [+.gg()]

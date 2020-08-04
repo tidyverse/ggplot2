@@ -71,7 +71,10 @@ StatYdensity <- ggproto("StatYdensity", Stat,
 
   compute_group = function(data, scales, width = NULL, bw = "nrd0", adjust = 1,
                        kernel = "gaussian", trim = TRUE, na.rm = FALSE, flipped_aes = FALSE) {
-    if (nrow(data) < 3) return(new_data_frame())
+    if (nrow(data) < 2) {
+      warn("Groups with fewer than two data points have been dropped.")
+      return(new_data_frame())
+    }
     range <- range(data$y, na.rm = TRUE)
     modifier <- if (trim) 0 else 3
     bw <- calc_bw(data$y, bw)

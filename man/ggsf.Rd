@@ -18,9 +18,11 @@ coord_sf(
   ylim = NULL,
   expand = TRUE,
   crs = NULL,
+  default_crs = sf::st_crs(4326),
   datum = sf::st_crs(4326),
   label_graticule = waiver(),
   label_axes = waiver(),
+  lims_method = c("cross", "box", "orthogonal", "geometry_bbox"),
   ndiscr = 100,
   default = FALSE,
   clip = "on"
@@ -83,18 +85,39 @@ stat_sf(
 )
 }
 \arguments{
-\item{xlim}{Limits for the x and y axes.}
-
-\item{ylim}{Limits for the x and y axes.}
+\item{xlim, ylim}{Limits for the x and y axes. These limits are specified
+in the units of the default CRS. To specify limits in projected coordinates,
+set \code{default_crs = NULL}. How limit specifications translate into the exact
+region shown on the plot can be confusing when non-linear or rotated coordinate
+systems are used. First, different methods can be preferable under different
+conditions. See parameter \code{lims_method} for details. Second, specifying limits
+along only one direction can affect the automatically generated limits along the
+other direction. Therefore, it is best to always specify limits for both x and y.
+Third, specifying limits via position scales or \code{xlim()}/\code{ylim()} is strongly
+discouraged, as it can result in data points being dropped from the plot even
+though they would be visible in the final plot region. Finally, specifying limits
+that cross the international date boundary is not possible with WGS84 as the default
+crs. All these issues can be avoided by working in projected coordinates,
+via \code{default_crs = NULL}, but at the cost of having to provide less intuitive
+numeric values for the limit parameters.}
 
 \item{expand}{If \code{TRUE}, the default, adds a small expansion factor to
 the limits to ensure that data and axes don't overlap. If \code{FALSE},
 limits are taken exactly from the data or \code{xlim}/\code{ylim}.}
 
-\item{crs}{Use this to select a specific coordinate reference system (CRS).
-If not specified, will use the CRS defined in the first layer.}
+\item{crs}{The coordinate reference system (CRS) into which all data should
+be projected before plotting. If not specified, will use the CRS defined
+in the first sf layer of the plot.}
 
-\item{datum}{CRS that provides datum to use when generating graticules}
+\item{default_crs}{The default CRS to be used for non-sf layers (which
+don't carry any CRS information) and scale limits. If not specified, this
+defaults to the World Geodetic System 1984 (WGS84), which means x and y
+positions are interpreted as longitude and latitude, respectively. If
+set to \code{NULL}, uses the setting for \code{crs}, which means that then all
+non-sf layers and scale limits are assumed to be specified in projected
+coordinates.}
+
+\item{datum}{CRS that provides datum to use when generating graticules.}
 
 \item{label_graticule}{Character vector indicating which graticule lines should be labeled
 where. Meridians run north-south, and the letters \code{"N"} and \code{"S"} indicate that
@@ -122,8 +145,24 @@ specified with \code{list(bottom = "E", left = "N")}.
 
 This parameter can be used alone or in combination with \code{label_graticule}.}
 
-\item{ndiscr}{number of segments to use for discretising graticule lines;
-try increasing this when graticules look unexpected}
+\item{lims_method}{Method specifying how scale limits are converted into
+limits on the plot region. For a very non-linear CRS (e.g., a perspective centered
+around the North pole), the available methods yield widely differing results, and
+you may want to try various options. Methods currently implemented include \code{"cross"}
+(the default), \code{"box"}, \code{"orthogonal"}, and \code{"geometry_bbox"}. For method \code{"cross"},
+limits along one direction (e.g., longitude) are applied at the midpoint of the
+other direction (e.g., latitude). This method avoids excessively large limits for
+rotated coordinate systems but means that sometimes limits need to be expanded a
+little further if extreme data points are to be included in the final plot region.
+By contrast, for method \code{"box"}, a box is generated out of the limits along both directions,
+and then limits in projected coordinates are chosen such that the entire box is
+visible. This method can yield plot regions that are too large. Finally, method
+\code{"orthogonal"} applies limits separately along each axis, and method
+\code{"geometry_bbox"} ignores all limit information except the bounding boxes of any
+objects in the \code{geometry} aesthetic.}
+
+\item{ndiscr}{Number of segments to use for discretising graticule lines;
+try increasing this number when graticules look incorrect.}
 
 \item{default}{Is this the default coordinate system? If \code{FALSE} (the default),
 then replacing this coordinate system with another one creates a message alerting
@@ -190,11 +229,11 @@ displayed as described in \code{?plotmath}.}
 
 \item{nudge_x}{Horizontal and vertical adjustment to nudge labels by.
 Useful for offsetting text from points, particularly on discrete scales.
-Cannot be jointy specified with \code{position}.}
+Cannot be jointly specified with \code{position}.}
 
 \item{nudge_y}{Horizontal and vertical adjustment to nudge labels by.
 Useful for offsetting text from points, particularly on discrete scales.
-Cannot be jointy specified with \code{position}.}
+Cannot be jointly specified with \code{position}.}
 
 \item{label.padding}{Amount of padding around label. Defaults to 0.25 lines.}
 
@@ -246,6 +285,31 @@ the plot.
 \code{coord_sf()} ensures that all layers use a common CRS. You can
 either specify it using the \code{CRS} param, or \code{coord_sf()} will
 take it from the first layer that defines a CRS.
+}
+
+\section{Combining sf layers and regular geoms}{
+
+Most regular geoms, such as \code{\link[=geom_point]{geom_point()}}, \code{\link[=geom_path]{geom_path()}},
+\code{\link[=geom_text]{geom_text()}}, \code{\link[=geom_polygon]{geom_polygon()}} etc. will work fine with \code{coord_sf()}. However
+when using these geoms, two problems arise. First, what CRS should be used
+for the x and y coordinates used by these non-sf geoms? The CRS applied to
+non-sf geoms is set by the \code{default_crs} parameter, and it defaults to
+the World Geodetic System 1984 (WGS84). This means that x and y
+positions are interpreted as longitude and latitude, respectively. You can
+also specify any other valid CRS as the default CRS for non-sf geoms. Moreover,
+if you set \code{default_crs = NULL}, then positions for non-sf geoms are
+interpreted as projected coordinates. This setting allows you complete control
+over where exactly items are placed on the plot canvas.
+
+The second problem that arises for non-sf geoms is how straight lines
+should be interpreted in projected space. The approach \code{coord_sf()} takes is
+to break straight lines into small pieces (i.e., segmentize them) and
+then transform the pieces into projected coordinates. For the default setting
+where x and y are interpreted as longitude and latitude, this approach means
+that horizontal lines follow the parallels and vertical lines follow the
+meridians. If you need a different approach to handling straight lines, then
+you should manually segmentize and project coordinates and generate the plot
+in projected coordinates.
 }
 
 \examples{

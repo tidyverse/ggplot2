@@ -3,7 +3,6 @@
 visual_test
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^\.travis\.yml$
 ^/\.gitattributes$
 ^inst/web$
 ^notes$
@@ -22,7 +21,6 @@ visual_test
 ^README\.Rmd$
 ^README-.*\.png$
 ^logo\.png$
-^appveyor\.yml$
 ^\.github$
 ^vignettes/profilings
 ^vignettes/profiling.Rmd$

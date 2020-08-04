@@ -12,7 +12,7 @@ evaluated in the context of the data to form faceting groups. Can
 be named (the names are passed to a \link[=labellers]{labeller}).}
 }
 \description{
-Just like \code{\link[=aes]{aes()}}, \code{vars()} is a \link[rlang:quotation]{quoting function}
+Just like \code{\link[=aes]{aes()}}, \code{vars()} is a \link[rlang:nse-defuse]{quoting function}
 that takes inputs to be evaluated in the context of a dataset.
 These inputs can be:
 \itemize{
@@ -46,8 +46,8 @@ wrap_cut <- function(var, n = 3) {
   # Let's enquote the named argument `var` to make it auto-quoting:
   var <- enquo(var)
 
-  # `quo_name()` will create a nice default name:
-  nm <- quo_name(var)
+  # `as_label()` will create a nice default name:
+  nm <- as_label(var)
 
   # Now let's unquote everything at the right place. Note that we also
   # unquote `n` just in case the data frame has a column named

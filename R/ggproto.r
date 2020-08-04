@@ -1,7 +1,7 @@
 #' Create a new ggproto object
 #'
-#' Construct a new object with `ggproto`, test with `is.proto`,
-#' and access parent methods/fields with `ggproto_parent`.
+#' Construct a new object with `ggproto()`, test with `is.ggproto()`,
+#' and access parent methods/fields with `ggproto_parent()`.
 #'
 #' ggproto implements a protype based OO system which blurs the lines between
 #' classes and instances. It is inspired by the proto package, but it has some

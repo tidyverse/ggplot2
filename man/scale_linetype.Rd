@@ -30,8 +30,14 @@ they should take (e.g., \code{\link[scales:hue_pal]{scales::hue_pal()}}).}
 \item A function that takes the limits as input and returns breaks
 as output
 }}
-    \item{\code{limits}}{A character vector that defines possible values of the scale
-and their order.}
+    \item{\code{limits}}{One of:
+\itemize{
+\item \code{NULL} to use the default scale values
+\item A character vector that defines possible values of the scale and their
+order
+\item A function that accepts the existing (automatic) values and returns
+new ones
+}}
     \item{\code{drop}}{Should unused factor levels be omitted from the scale?
 The default, \code{TRUE}, uses the levels that appear in the data;
 \code{FALSE} uses all the levels in the factor.}

@@ -24,6 +24,10 @@ test_that("geom_smooth works in both directions", {
 })
 
 test_that("default smoothing methods for small and large data sets work", {
+  # Numeric differences on the MLK machine on CRAN makes these test fail
+  # on that particular machine
+  skip_on_cran()
+
   # test small data set
   set.seed(6531)
   x <- rnorm(10)

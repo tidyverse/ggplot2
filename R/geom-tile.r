@@ -1,10 +1,10 @@
 #' Rectangles
 #'
-#' `geom_rect` and `geom_tile` do the same thing, but are
-#' parameterised differently: `geom_rect` uses the locations of the four
+#' `geom_rect()` and `geom_tile()` do the same thing, but are
+#' parameterised differently: `geom_rect()` uses the locations of the four
 #' corners (`xmin`, `xmax`, `ymin` and `ymax`), while
-#' `geom_tile` uses the center of the tile and its size (`x`,
-#' `y`, `width`, `height`). `geom_raster` is a high
+#' `geom_tile()` uses the center of the tile and its size (`x`,
+#' `y`, `width`, `height`). `geom_raster()` is a high
 #' performance special case for when all the tiles are the same size.
 #'
 #' @eval rd_aesthetics("geom", "tile")
@@ -42,9 +42,11 @@
 #' df <- expand.grid(x = 0:5, y = 0:5)
 #' df$z <- runif(nrow(df))
 #' # default is compatible with geom_tile()
-#' ggplot(df, aes(x, y, fill = z)) + geom_raster()
+#' ggplot(df, aes(x, y, fill = z)) +
+#'   geom_raster()
 #' # zero padding
-#' ggplot(df, aes(x, y, fill = z)) + geom_raster(hjust = 0, vjust = 0)
+#' ggplot(df, aes(x, y, fill = z)) +
+#'   geom_raster(hjust = 0, vjust = 0)
 #'
 #' # Inspired by the image-density plots of Ken Knoblauch
 #' cars <- ggplot(mtcars, aes(mpg, factor(cyl)))
@@ -52,8 +54,18 @@
 #' cars + stat_bin2d(aes(fill = after_stat(count)), binwidth = c(3,1))
 #' cars + stat_bin2d(aes(fill = after_stat(density)), binwidth = c(3,1))
 #'
-#' cars + stat_density(aes(fill = after_stat(density)), geom = "raster", position = "identity")
-#' cars + stat_density(aes(fill = after_stat(count)), geom = "raster", position = "identity")
+#' cars +
+#'   stat_density(
+#'     aes(fill = after_stat(density)),
+#'     geom = "raster",
+#'     position = "identity"
+#'    )
+#' cars +
+#'   stat_density(
+#'     aes(fill = after_stat(count)),
+#'     geom = "raster",
+#'     position = "identity"
+#'   )
 #' }
 geom_tile <- function(mapping = NULL, data = NULL,
                       stat = "identity", position = "identity",

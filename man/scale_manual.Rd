@@ -32,8 +32,14 @@ scale_discrete_manual(aesthetics, ..., values, breaks = waiver())
     \item{\code{palette}}{A palette function that when called with a single integer
 argument (the number of levels in the scale) returns the values that
 they should take (e.g., \code{\link[scales:hue_pal]{scales::hue_pal()}}).}
-    \item{\code{limits}}{A character vector that defines possible values of the scale
-and their order.}
+    \item{\code{limits}}{One of:
+\itemize{
+\item \code{NULL} to use the default scale values
+\item A character vector that defines possible values of the scale and their
+order
+\item A function that accepts the existing (automatic) values and returns
+new ones
+}}
     \item{\code{drop}}{Should unused factor levels be omitted from the scale?
 The default, \code{TRUE}, uses the levels that appear in the data;
 \code{FALSE} uses all the levels in the factor.}

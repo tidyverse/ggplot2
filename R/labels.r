@@ -64,7 +64,9 @@ update_labels <- function(p, labels) {
 #' p + labs(title = "title", tag = "A")
 #'
 #' # If you want to remove a label, set it to NULL.
-#' p + labs(title = "title") + labs(title = NULL)
+#' p +
+#'  labs(title = "title") +
+#'  labs(title = NULL)
 labs <- function(..., title = waiver(), subtitle = waiver(), caption = waiver(), tag = waiver()) {
   args <- list2(..., title = title, subtitle = subtitle, caption = caption, tag = tag)
 

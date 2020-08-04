@@ -39,7 +39,7 @@ If not supplied, uses the size of current graphics device.}
 \item{dpi}{Plot resolution. Also accepts a string input: "retina" (320),
 "print" (300), or "screen" (72). Applies only to raster output types.}
 
-\item{limitsize}{When \code{TRUE} (the default), \code{ggsave} will not
+\item{limitsize}{When \code{TRUE} (the default), \code{ggsave()} will not
 save images larger than 50x50 inches, to prevent the common error of
 specifying dimensions in pixels.}
 
@@ -74,7 +74,8 @@ examples section.
 
 \examples{
 \dontrun{
-ggplot(mtcars, aes(mpg, wt)) + geom_point()
+ggplot(mtcars, aes(mpg, wt)) +
+  geom_point()
 
 ggsave("mtcars.pdf")
 ggsave("mtcars.png")
@@ -93,7 +94,9 @@ ggsave(file, device = "pdf")
 unlink(file)
 
 # save plot to file without using ggsave
-p <- ggplot(mtcars, aes(mpg, wt)) + geom_point()
+p <-
+  ggplot(mtcars, aes(mpg, wt)) +
+  geom_point()
 png("mtcars.png")
 print(p)
 dev.off()

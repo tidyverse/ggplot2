@@ -141,17 +141,19 @@ p1 + guides(fill =
 p1 + guides(fill = guide_legend(label.position = "left", label.hjust = 1))
 
 # label styles
-p1 + scale_fill_continuous(breaks = c(5, 10, 15),
-  labels = paste("long", c(5, 10, 15)),
-  guide = guide_legend(
-    direction = "horizontal",
-    title.position = "top",
-    label.position = "bottom",
-    label.hjust = 0.5,
-    label.vjust = 1,
-    label.theme = element_text(angle = 90)
+p1 +
+  scale_fill_continuous(
+    breaks = c(5, 10, 15),
+    labels = paste("long", c(5, 10, 15)),
+    guide = guide_legend(
+      direction = "horizontal",
+      title.position = "top",
+      label.position = "bottom",
+      label.hjust = 0.5,
+      label.vjust = 1,
+      label.theme = element_text(angle = 90)
+    )
   )
-)
 
 # Set aesthetic of legend key
 # very low alpha value make it difficult to see legend key

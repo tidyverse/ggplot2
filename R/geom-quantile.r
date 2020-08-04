@@ -11,9 +11,11 @@
 #' @param method.args List of additional arguments passed on to the modelling
 #'   function defined by `method`.
 #' @param geom,stat Use to override the default connection between
-#'   `geom_quantile` and `stat_quantile`.
+#'   `geom_quantile()` and `stat_quantile()`.
 #' @examples
-#' m <- ggplot(mpg, aes(displ, 1 / hwy)) + geom_point()
+#' m <-
+#'   ggplot(mpg, aes(displ, 1 / hwy)) +
+#'   geom_point()
 #' m + geom_quantile()
 #' m + geom_quantile(quantiles = 0.5)
 #' q10 <- seq(0.05, 0.95, by = 0.05)

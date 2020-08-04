@@ -13,7 +13,7 @@
 the returned list. If \code{FALSE}, do not include any inherited items.}
 
 \item{...}{
-  Arguments passed on to \code{\link[base:as.list.environment]{base::as.list.environment}}
+  Arguments passed on to \code{\link[base:list]{base::as.list.environment}}
   \describe{
     \item{\code{all.names}}{a logical indicating whether to copy all values or
     (default) only those whose names do not begin with a dot.}
