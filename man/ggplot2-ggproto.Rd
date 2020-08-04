@@ -149,6 +149,11 @@ Each of the \verb{Geom*} objects is a \code{\link[=ggproto]{ggproto()}} object, 
 from the top-level \code{Geom}, and each implements various methods and
 fields.
 
+Compared to \code{Stat} and \code{Position}, \code{Geom} is a little
+different because the execution of the setup and compute functions is
+split up. \code{setup_data} runs before position adjustments, and
+\code{draw_layer()} is not run until render time, much later.
+
 To create a new type of Geom object, you typically will want to
 override one or more of the following:
 \itemize{
