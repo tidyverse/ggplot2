@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Extended `stat_ecdf()` to calculate the cdf from either x or y instead from y only (@jgjl, #4005).
+
 * Fixed a bug in `labeller()` so that `.default` is passed to `as_labeller()`
   when labellers are specified by naming faceting variables. (@waltersom, #4031)
   
