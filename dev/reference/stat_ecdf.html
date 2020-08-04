@@ -301,12 +301,17 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The statistic relies on the aesthetics assignment to guess which variable to
+use as the input and which to use as the output. Either x or y must be provided
+and one of them must be unused. The ECDF will be calculated on the given aesthetic
+and will be output on the unused one.</p>
     <h2 class="hasAnchor" id="computed-variables"><a class="anchor" href="#computed-variables"></a>Computed variables</h2>
 
     
 
 <dl>
-<dt>x</dt><dd><p>x in data</p></dd>
 <dt>y</dt><dd><p>cumulative density corresponding x</p></dd>
 
 </dl>
