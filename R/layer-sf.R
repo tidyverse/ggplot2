@@ -52,7 +52,7 @@ LayerSf <- ggproto("LayerSf", Layer,
       self$geom_params$legend <- "polygon"
 
       # now check if the type should not be polygon
-      if (!is.null(self$mapping$geometry)) {
+      if (!is.null(self$mapping$geometry) && quo_is_symbol(self$mapping$geometry)) {
         geometry_column <- as_name(self$mapping$geometry)
         if (inherits(data[[geometry_column]], "sfc")) {
           sf_type <- detect_sf_type(data[[geometry_column]])

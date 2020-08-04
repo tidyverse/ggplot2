@@ -1,11 +1,11 @@
 #' Scales for shapes, aka glyphs
 #'
-#' `scale_shape` maps discrete variables to six easily discernible shapes.
+#' `scale_shape()` maps discrete variables to six easily discernible shapes.
 #' If you have more than six levels, you will get a warning message, and the
-#' seventh and subsequence levels will not appear on the plot. Use
+#' seventh and subsequent levels will not appear on the plot. Use
 #' [scale_shape_manual()] to supply your own values. You can not map
 #' a continuous variable to shape unless `scale_shape_binned()` is used. Still,
-#' as shape has no inherent order, this use is not advised..
+#' as shape has no inherent order, this use is not advised.
 #'
 #' @param solid Should the shapes be solid, `TRUE`, or hollow,
 #'   `FALSE`?

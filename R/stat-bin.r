@@ -33,6 +33,7 @@
 #'   \item{density}{density of points in bin, scaled to integrate to 1}
 #'   \item{ncount}{count, scaled to maximum of 1}
 #'   \item{ndensity}{density, scaled to maximum of 1}
+#'   \item{width}{widths of bins}
 #' }
 #'
 #' @seealso [stat_count()], which counts the number of cases at each x

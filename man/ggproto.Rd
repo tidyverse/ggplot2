@@ -27,8 +27,8 @@ inherit from any object.}
 \item{x}{An object to test.}
 }
 \description{
-Construct a new object with \code{ggproto}, test with \code{is.proto},
-and access parent methods/fields with \code{ggproto_parent}.
+Construct a new object with \code{ggproto()}, test with \code{is.ggproto()},
+and access parent methods/fields with \code{ggproto_parent()}.
 }
 \details{
 ggproto implements a protype based OO system which blurs the lines between

@@ -1,43 +1,87 @@
 # ggplot2 (development version)
 
-* Extend `stat_ecdf()` to calculate the cdf from either x or y instead from y only (@jgjl, #4005).
+* Extended `stat_ecdf()` to calculate the cdf from either x or y instead from y only (@jgjl, #4005).
 
-* Fixed a bug in `geom_sf()` that caused problems with legend-type
-  autodetection (@clauswilke, #3963).
+* Fixed a bug in `labeller()` so that `.default` is passed to `as_labeller()`
+  when labellers are specified by naming faceting variables. (@waltersom, #4031)
+  
+* Updated style for example code (@rjake, #4092)
+
+* Only drop groups in `stat_ydensity()` when there are fewer than two data points and throw a warning (@andrewwbutler, #4111).
+
+* It is now deprecated to specify `guides(<scale> = FALSE)` or
+  `scale_*(guide = FALSE)` to remove a guide. Please use 
+  `guides(<scale> = "none")` or `scale_*(guide = "none")` instead 
+  (@yutannihilation, #4094).
+
+* `stat_bin()`'s computed variable `width` is now documented (#3522).
+
+# ggplot2 3.3.2
+This is a small release focusing on fixing regressions introduced in 3.3.1.
+
+* Added an `outside` option to `annotation_logticks()` that places tick marks
+  outside of the plot bounds. (#3783, @kbodwin)
 
 * `annotation_raster()` adds support for native rasters. For large rasters,
   native rasters render significantly faster than arrays (@kent37, #3388)
 
-* Default continuous color scales (i.e., the `options()` `ggplot2.continuous.colour` and `ggplot2.continuous.fill`, which inform the `type` argument of `scale_fill_continuous()` and `scale_colour_continuous()`) now accept a function, which allows more control over these default `continuous_scale()`s (@cpsievert, #3827)
+* `coord_sf()` now has an argument `default_crs` that specifies the coordinate
+  reference system (CRS) for non-sf layers and scale/coord limits. This argument
+  defaults to the World Geodetic System 1984 (WGS84), which means x and y positions
+  are interpreted as longitude and latitude. This is a potentially breaking change
+  for users who use projected coordinates in non-sf layers or in limits. Setting
+  `default_crs = NULL` recovers the old behavior. Further, authors of extension
+  packages implementing `stat_sf()`-like functionality are encouraged to look at the
+  source code of `stat_sf()`'s `compute_group()` function to see how to provide
+  scale-limit hints to `coord_sf()` (@clauswilke, #3659).
+  
+* Facet strips now have dedicated position-dependent theme elements 
+  (`strip.text.x.top`, `strip.text.x.bottom`, `strip.text.y.left`, 
+  `strip.text.y.right`) that inherit from `strip.text.x` and `strip.text.y`, 
+  respectively. As a consequence, some theme stylings now need to be applied to 
+  the position-dependent elements rather than to the parent elements. This 
+  change was already introduced in ggplot2 3.3.0 but not listed in the 
+  changelog. (@thomasp85, #3683)
+
+* Facets now handle layers containing no data (@yutannihilation, #3853).
+  
+* A newly added geom `geom_density_2d_filled()` and associated stat 
+  `stat_density_2d_filled()` can draw filled density contours
+  (@clauswilke, #3846).
 
 * A newly added `geom_function()` is now recommended to use in conjunction
   with/instead of `stat_function()`. In addition, `stat_function()` now
   works with transformed y axes, e.g. `scale_y_log10()`, and in plots
   containing no other data or layers (@clauswilke, #3611, #3905, #3983).
 
-* A bug was fixed in `stat_contour()` when calculating breaks based on 
-  the `bins` argument (@clauswilke, #3879).
-  
-* A newly added geom `geom_density_2d_filled()` and associated stat 
-  `stat_density_2d_filled()` can draw filled density contours
-  (@clauswilke, #3846).
+* Fixed a bug in `geom_sf()` that caused problems with legend-type
+  autodetection (@clauswilke, #3963).
   
 * Support graphics devices that use the `file` argument instead of `fileneame` 
   in `ggsave()` (@bwiernik, #3810)
-
-* Added an `outside` option to `annotation_logticks()` that places tick marks
-  outside of the plot bounds. (#3783, @kbodwin)
   
-* Facet strips now have dedicated position-dependent theme elements (`strip.text.x.top`,
-  `strip.text.x.bottom`, `strip.text.y.left`, `strip.text.y.right`) that inherit from
-  `strip.text.x` and `strip.text.y`, respectively. As a consequence, some theme stylings now
-  need to be applied to the position-dependent elements rather than to the parent elements. This
-  change was already introduced in ggplot2 3.3.0 but not listed in the changelog. (@thomasp85, #3683)
+* Default discrete color scales are now configurable through the `options()` of 
+  `ggplot2.discrete.colour` and `ggplot2.discrete.fill`. When set to a character 
+  vector of colour codes (or list of character vectors)  with sufficient length, 
+  these colours are used for the default scale. See `help(scale_colour_discrete)` 
+  for more details and examples (@cpsievert, #3833).
+
+* Default continuous colour scales (i.e., the `options()` 
+  `ggplot2.continuous.colour` and `ggplot2.continuous.fill`, which inform the 
+  `type` argument of `scale_fill_continuous()` and `scale_colour_continuous()`) 
+  now accept a function, which allows more control over these default 
+  `continuous_scale()`s (@cpsievert, #3827).
+
+* A bug was fixed in `stat_contour()` when calculating breaks based on 
+  the `bins` argument (@clauswilke, #3879, #4004).
   
 * Data columns can now contain `Vector` S4 objects, which are widely used in the 
   Bioconductor project. (@teunbrand, #3837)
 
-* Facets now handle layers containing no data (@yutannihilation, #3853).
+# ggplot2 3.3.1
+
+This is a small release with no code change. It removes all malicious links to a 
+site that got hijacked from the readme and pkgdown site.
 
 # ggplot2 3.3.0
 

@@ -10,7 +10,7 @@ position_nudge(x = 0, y = 0)
 \item{x, y}{Amount of vertical and horizontal distance to move.}
 }
 \description{
-\code{position_nudge} is generally useful for adjusting the position of
+\code{position_nudge()} is generally useful for adjusting the position of
 items on discrete scales by a small amount. Nudging is built in to
 \code{\link[=geom_text]{geom_text()}} because it's so useful for moving labels a small
 distance from what they're labelling.

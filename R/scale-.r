@@ -143,8 +143,12 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 #'   - A character vector of breaks
 #'   - A function that takes the limits as input and returns breaks
 #'     as output
-#' @param limits A character vector that defines possible values of the scale
-#'   and their order.
+#' @param limits One of:
+#'   - `NULL` to use the default scale values
+#'   - A character vector that defines possible values of the scale and their
+#'     order
+#'   - A function that accepts the existing (automatic) values and returns
+#'     new ones
 #' @param drop Should unused factor levels be omitted from the scale?
 #'    The default, `TRUE`, uses the levels that appear in the data;
 #'    `FALSE` uses all the levels in the factor.
@@ -205,6 +209,7 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 
 #' Binning scale constructor
 #'
+#' @export
 #' @inheritParams continuous_scale
 #' @param n.breaks The number of break points to create if breaks are not given
 #'   directly.
@@ -801,7 +806,7 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
       self$n.breaks.cache <- n
     }
 
-    if (is_named(pal)) {
+    if (!is_null(names(pal))) {
       # if pal is named, limit the pal by the names first,
       # then limit the values by the pal
       idx_nomatch <- is.na(match(names(pal), limits))

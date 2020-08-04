@@ -1,34 +1,60 @@
 #' @include geom-map.r
 NULL
 
-#' Annotation: a maps
+#' Annotation: a map
 #'
-#' Display a fixed map on a plot.
+#' Display a fixed map on a plot. This function predates the [`geom_sf()`]
+#' framework and does not work with sf geometry columns as input. However,
+#' it can be used in conjunction with `geom_sf()` layers and/or
+#' [`coord_sf()`] (see examples).
 #'
-#' @param map data frame representing a map.  Most map objects can be
-#'   converted into the right format by using [fortify()]
-#' @param ... other arguments used to modify aesthetics
+#' @param map Data frame representing a map. See [`geom_map()`] for
+#'   details.
+#' @param ... Other arguments used to modify visual parameters, such as
+#'   `colour` or `fill`.
 #' @export
 #' @examples
-#' if (require("maps")) {
-#' usamap <- map_data("state")
+#' \dontrun{
+#' if (requireNamespace("maps", quietly = TRUE)) {
+#' # location of cities in North Carolina
+#' df <- data.frame(
+#'   name = c("Charlotte", "Raleigh", "Greensboro"),
+#'   lat = c(35.227, 35.772, 36.073),
+#'   long = c(-80.843, -78.639, -79.792)
+#' )
 #'
-#' seal.sub <- subset(seals, long > -130 & lat < 45 & lat > 40)
-#' ggplot(seal.sub, aes(x = long, y = lat)) +
-#'   annotation_map(usamap, fill = NA, colour = "grey50") +
-#'   geom_segment(aes(xend = long + delta_long, yend = lat + delta_lat))
-#' }
+#' p <- ggplot(df, aes(x = long, y = lat)) +
+#'   annotation_map(
+#'     map_data("state"),
+#'     fill = "antiquewhite", colour = "darkgrey"
+#'   ) +
+#'   geom_point(color = "blue") +
+#'   geom_text(
+#'     aes(label = name),
+#'     hjust = 1.105, vjust = 1.05, color = "blue"
+#'   )
 #'
-#' if (require("maps")) {
-#' seal2 <- transform(seal.sub,
-#'   latr = cut(lat, 2),
-#'   longr = cut(long, 2))
+#' # use without coord_sf() is possible but not recommended
+#' p + xlim(-84, -76) + ylim(34, 37.2)
 #'
-#' ggplot(seal2,  aes(x = long, y = lat)) +
-#'   annotation_map(usamap, fill = NA, colour = "grey50") +
-#'   geom_segment(aes(xend = long + delta_long, yend = lat + delta_lat)) +
-#'   facet_grid(latr ~ longr, scales = "free", space = "free")
-#' }
+#' if (requireNamespace("sf", quietly = TRUE)) {
+#' # use with coord_sf() for appropriate projection
+#' p +
+#'   coord_sf(
+#'     crs = st_crs(3347),
+#'     xlim = c(-84, -76),
+#'     ylim = c(34, 37.2)
+#'   )
+#'
+#' # you can mix annotation_map() and geom_sf()
+#' nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE)
+#' p +
+#'   geom_sf(
+#'     data = nc, inherit.aes = FALSE,
+#'     fill = NA, color = "black", size = 0.1
+#'   ) +
+#'   coord_sf(crs = st_crs(3347))
+#' }}}
 annotation_map <- function(map, ...) {
   # Get map input into correct form
   if (!is.data.frame(map)) {

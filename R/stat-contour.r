@@ -156,6 +156,16 @@ contour_breaks <- function(z_range, bins = NULL, binwidth = NULL, breaks = NULL)
 
   # If provided, use bins to calculate binwidth
   if (!is.null(bins)) {
+    # round lower limit down and upper limit up to make sure
+    # we generate bins that span the data range nicely
+    accuracy <- signif(diff(z_range), 1)/10
+    z_range[1] <- floor(z_range[1]/accuracy)*accuracy
+    z_range[2] <- ceiling(z_range[2]/accuracy)*accuracy
+
+    if (bins == 1) {
+      return(z_range)
+    }
+
     binwidth <- diff(z_range) / (bins - 1)
     breaks <- fullseq(z_range, binwidth)
 

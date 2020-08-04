@@ -71,7 +71,7 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
 \item{geom, stat}{Use to override the default connection between
-\code{geom_count} and \code{stat_sum}.}
+\code{geom_count()} and \code{stat_sum()}.}
 }
 \description{
 This is a variant \code{\link[=geom_point]{geom_point()}} that counts the number of

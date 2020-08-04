@@ -7,8 +7,8 @@
 #'
 #' @eval rd_aesthetics("geom", "hex")
 #' @seealso [stat_bin2d()] for rectangular binning
-#' @param geom,stat Override the default connection between `geom_hex` and
-#'   `stat_binhex.`
+#' @param geom,stat Override the default connection between `geom_hex()` and
+#'   `stat_binhex()`.
 #' @export
 #' @inheritParams layer
 #' @inheritParams geom_point

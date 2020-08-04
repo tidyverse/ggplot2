@@ -1,6 +1,6 @@
 #' Transformed Cartesian coordinate system
 #'
-#' `coord_trans` is different to scale transformations in that it occurs after
+#' `coord_trans()` is different to scale transformations in that it occurs after
 #' statistical transformation and will affect the visual appearance of geoms - there is
 #' no guarantee that straight lines will continue to be straight.
 #'

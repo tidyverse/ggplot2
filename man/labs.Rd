@@ -75,5 +75,7 @@ p + labs(caption = "(based on data from ...)")
 p + labs(title = "title", tag = "A")
 
 # If you want to remove a label, set it to NULL.
-p + labs(title = "title") + labs(title = NULL)
+p +
+ labs(title = "title") +
+ labs(title = NULL)
 }

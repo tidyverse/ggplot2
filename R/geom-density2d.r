@@ -12,7 +12,7 @@
 #'  how contours are drawn; [geom_bin2d()] for another way of dealing with
 #'  overplotting.
 #' @param geom,stat Use to override the default connection between
-#'   `geom_density_2d` and `stat_density_2d`.
+#'   `geom_density_2d()` and `stat_density_2d()`.
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @inheritParams geom_path

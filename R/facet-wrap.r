@@ -3,7 +3,7 @@ NULL
 
 #' Wrap a 1d ribbon of panels into 2d
 #'
-#' `facet_wrap` wraps a 1d sequence of panels into 2d. This is generally
+#' `facet_wrap()` wraps a 1d sequence of panels into 2d. This is generally
 #' a better use of screen space than [facet_grid()] because most
 #' displays are roughly rectangular.
 #'
@@ -269,7 +269,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     empties <- apply(panel_table, c(1,2), function(x) is.zero(x[[1]]))
     panel_table <- gtable_matrix("layout", panel_table,
      widths = unit(rep(1, ncol), "null"),
-     heights = unit(rep(aspect_ratio, nrow), "null"), respect = respect, clip = coord$clip, z = matrix(1, ncol = ncol, nrow = nrow))
+     heights = unit(rep(abs(aspect_ratio), nrow), "null"), respect = respect, clip = coord$clip, z = matrix(1, ncol = ncol, nrow = nrow))
     panel_table$layout$name <- paste0('panel-', rep(seq_len(ncol), nrow), '-', rep(seq_len(nrow), each = ncol))
 
     panel_table <- gtable_add_col_space(panel_table,
@@ -393,7 +393,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
 #'
 #' Cleans up the input to be an integer greater than or equal to one, or
 #' `NULL`. Intended to be used on the `nrow` and `ncol`
-#' arguments of `facet_wrap`.
+#' arguments of `facet_wrap()`.
 #' @param n Hopefully an integer greater than or equal to one, or `NULL`,
 #' though other inputs are handled.
 #' @return An integer greater than or equal to one, or `NULL`.

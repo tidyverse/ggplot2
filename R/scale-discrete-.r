@@ -1,6 +1,6 @@
 #' Position scales for discrete data
 #'
-#' `scale_x_discrete` and `scale_y_discrete` are used to set the values for
+#' `scale_x_discrete()` and `scale_y_discrete()` are used to set the values for
 #' discrete x and y scale aesthetics. For simple manipulation of scale labels
 #' and limits, you may wish to use [labs()] and [lims()] instead.
 #'
@@ -26,8 +26,17 @@
 #'       geom_jitter())
 #'
 #' d + scale_x_discrete("Cut")
-#' d + scale_x_discrete("Cut", labels = c("Fair" = "F","Good" = "G",
-#'   "Very Good" = "VG","Perfect" = "P","Ideal" = "I"))
+#' d +
+#'   scale_x_discrete(
+#'     "Cut",
+#'     labels = c(
+#'       "Fair" = "F",
+#'       "Good" = "G",
+#'       "Very Good" = "VG",
+#'       "Perfect" = "P",
+#'       "Ideal" = "I"
+#'     )
+#'   )
 #'
 #' # Use limits to adjust the which levels (and in what order)
 #' # are displayed
@@ -38,9 +47,12 @@
 #' d + ylim("I1", "IF")
 #'
 #' # See ?reorder to reorder based on the values of another variable
-#' ggplot(mpg, aes(manufacturer, cty)) + geom_point()
-#' ggplot(mpg, aes(reorder(manufacturer, cty), cty)) + geom_point()
-#' ggplot(mpg, aes(reorder(manufacturer, displ), cty)) + geom_point()
+#' ggplot(mpg, aes(manufacturer, cty)) +
+#'   geom_point()
+#' ggplot(mpg, aes(reorder(manufacturer, cty), cty)) +
+#'   geom_point()
+#' ggplot(mpg, aes(reorder(manufacturer, displ), cty)) +
+#'   geom_point()
 #'
 #' # Use abbreviate as a formatter to reduce long names
 #' ggplot(mpg, aes(reorder(manufacturer, displ), cty)) +
@@ -131,6 +143,9 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
 
 # TODO: This is a clear candidate for vctrs once we adopt it
 new_mapped_discrete <- function(x) {
+  if (is.null(x)) {
+    return(x)
+  }
   if (!is.numeric(x)) {
     abort("`mapped_discrete` objects can only be created from numeric vectors")
   }
@@ -153,4 +168,8 @@ c.mapped_discrete <- function(..., recursive = FALSE) {
   }
   value <- as.numeric(unclass(value))
   new_mapped_discrete(NextMethod())
+}
+#' @export
+as.data.frame.mapped_discrete <- function (x, ..., stringsAsFactors = default.stringsAsFactors()) {
+  as.data.frame.vector(x = unclass(x), ..., stringsAsFactors = stringsAsFactors)
 }

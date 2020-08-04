@@ -1,7 +1,7 @@
 #' Fortify a model with data.
 #'
 #' Rather than using this function, I now recommend using the \pkg{broom}
-#' package, which implements a much wider range of methods. `fortify`
+#' package, which implements a much wider range of methods. `fortify()`
 #' may be deprecated in the future.
 #'
 #' @seealso [fortify.lm()]
