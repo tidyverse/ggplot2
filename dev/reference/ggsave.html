@@ -223,6 +223,7 @@ extension.</p>
   units = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"in"</span>, <span class='st'>"cm"</span>, <span class='st'>"mm"</span>),
   dpi = <span class='fl'>300</span>,
   limitsize = <span class='fl'>TRUE</span>,
+  bg = <span class='kw'>NULL</span>,
   <span class='kw'>...</span>
 )</pre>
 
@@ -268,6 +269,11 @@ If not supplied, uses the size of current graphics device.</p></td>
       <td><p>When <code>TRUE</code> (the default), <code>ggsave()</code> will not
 save images larger than 50x50 inches, to prevent the common error of
 specifying dimensions in pixels.</p></td>
+    </tr>
+    <tr>
+      <th>bg</th>
+      <td><p>Background colour. If <code>NULL</code>, uses the <code>plot.background</code> fill value
+from the plot theme.</p></td>
     </tr>
     <tr>
       <th>...</th>
