@@ -15,6 +15,7 @@ ggsave(
   units = c("in", "cm", "mm"),
   dpi = 300,
   limitsize = TRUE,
+  bg = NULL,
   ...
 )
 }
@@ -42,6 +43,9 @@ If not supplied, uses the size of current graphics device.}
 \item{limitsize}{When \code{TRUE} (the default), \code{ggsave()} will not
 save images larger than 50x50 inches, to prevent the common error of
 specifying dimensions in pixels.}
+
+\item{bg}{Background colour. If \code{NULL}, uses the \code{plot.background} fill value
+from the plot theme.}
 
 \item{...}{Other arguments passed on to the graphics device function,
 as specified by \code{device}.}

@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `ggsave()` now sets the default background to match the fill value of the
+  `plot.background` theme element (@karawoo, #4057)
+
 * Extended `stat_ecdf()` to calculate the cdf from either x or y instead from y only (@jgjl, #4005).
 
 * Fixed a bug in `labeller()` so that `.default` is passed to `as_labeller()`
