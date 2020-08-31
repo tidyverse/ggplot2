@@ -1,0 +1,21 @@
+---
+title: "FAQ: Annotation"
+output: rmarkdown::html_vignette
+description: |
+  Annotating plots.
+vignette: >
+  %\VignetteIndexEntry{Annotation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+library(ggplot2)
+knitr::opts_chunk$set(fig.dpi = 96, collapse = TRUE, comment = "#>")
+```
+
+  - font
+  - color
+  - where solution is ggrepel (selective labeling)
+  - text instead of geom_point
+  - annotate bars / above bars

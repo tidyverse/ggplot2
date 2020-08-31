@@ -1,0 +1,84 @@
+---
+title: "FAQ: Axes"
+output: rmarkdown::html_vignette
+description: |
+  Customising axes and grid lines.
+vignette: >
+  %\VignetteIndexEntry{Axes}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+library(ggplot2)
+knitr::opts_chunk$set(fig.dpi = 96, collapse = TRUE, comment = "#>")
+```
+
+## How do I rotate the axis tick labels in ggplot2 so that tick labels that are long character strings so that they don't overlap?
+
+```{r msleep-order-sleep-total}
+ggplot(msleep, aes(x = order, y = sleep_total)) +
+  geom_boxplot()
+```
+
+#### Answers:
+
+-   One option for addressing this issue is rotating the axis labels by 90 degrees. We can do this by components of the `theme()`, specifically the `axis.text.x` component. Applying some vertical and horizontal justification to the labels centers them at the axis ticks. The `angle` can be set as desired within the 0 to 360 degree range.
+
+```{r msleep-order-sleep-total-rotate}
+ggplot(msleep, aes(x = order, y = sleep_total)) +
+  geom_boxplot() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+```
+
+-   Another option is to flip the axes so the text is easier to read.
+
+```{r msleep-order-sleep-total-flip}
+ggplot(msleep, aes(y = order, x = sleep_total)) +
+  geom_boxplot()
+```
+
+-   A third option is to dodge the axis labels. Here `n.dodge` indicates the number of rows that should be used to render the labels.
+
+```{r msleep-order-sleep-total-dodge}
+ggplot(msleep, aes(x = order, y = sleep_total)) +
+  geom_boxplot() +
+  scale_x_discrete(guide = guide_axis(n.dodge = 2))
+```
+
+-   A fourth option is to remove overlapping labels, prioritizing the first, last, and middle labels. Note that this option might be more preferable for axes representing variables that have an inherent ordering that is obvious to the audience of the plot, so that it's trivial to guess what the missing labels are. (This is not the case for the following plot.)
+
+```{r msleep-order-sleep-total-check-overlap}
+ggplot(msleep, aes(x = order, y = sleep_total)) +
+  geom_boxplot() +
+  scale_x_discrete(guide = guide_axis(check.overlap = TRUE))
+```
+
+------------------------------------------------------------------------
+
+### How do I remove all axis labels in ggplot2?
+
+```{r ref.label="msleep-order-sleep-total"}
+```
+
+#### Answer:
+
+If you want to modify just one of the axes, you can do so by modifying the components of the `theme()`, setting the elements you want to remove to `element_blank()`.
+
+```{r}
+ggplot(msleep, aes(x = order, y = sleep_total)) +
+  geom_boxplot() + 
+  theme(axis.title.x = element_blank(),
+        axis.text.x  = element_blank(),
+        axis.ticks.x = element_blank())
+```
+
+------------------------------------------------------------------------
+
+-   formatting numbers (decimals, percentages, scientific notation)
+-   subscript / supercript
+-   multirow axis labels
+-   rotating / spacing
+-   remove all labels
+-   major / minor gridlines
+-   space between axis and plot

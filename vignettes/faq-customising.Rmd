@@ -1,0 +1,23 @@
+---
+title: "FAQ: Customising"
+output: rmarkdown::html_vignette
+description: |
+  Customising miscellanous aspects of your plots.
+vignette: >
+  %\VignetteIndexEntry{Customising}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+library(ggplot2)
+knitr::opts_chunk$set(fig.dpi = 96, collapse = TRUE, comment = "#>")
+```
+
+  - change legend title
+  - change background
+  - change spacing
+  - change font size of axis labels
+  - change font size of legend
+  - change NA color
+  - change default color palette

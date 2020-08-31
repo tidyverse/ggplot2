@@ -1,0 +1,22 @@
+---
+title: "FAQ: Faceting"
+output: rmarkdown::html_vignette
+description: |                     
+  Faceting and customising facets.
+vignette: >
+  %\VignetteIndexEntry{Faceting}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+library(ggplot2)
+knitr::opts_chunk$set(fig.dpi = 96, collapse = TRUE, comment = "#>")
+```
+
+  - customaising axis labels
+  - vary axis label formatting by facet
+  - floating axis labels
+  - change pane order
+  - change facet labels
+  - wrap vs. grid

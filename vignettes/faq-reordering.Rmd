@@ -1,0 +1,21 @@
+---
+title: "FAQ: Reordering"
+output: rmarkdown::html_vignette
+description: |
+  Changing the order in which data are plotted or presented on a plot.
+vignette: >
+  %\VignetteIndexEntry{Reordering}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+library(ggplot2)
+knitr::opts_chunk$set(fig.dpi = 96, collapse = TRUE, comment = "#>")
+```
+
+- side-by-side box plots
+- bars
+- stacking in bars
+- facets
+- overplotting / order of points
