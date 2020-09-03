@@ -430,10 +430,10 @@ labeller <- function(..., .rows = NULL, .cols = NULL,
 
   dots <- list(...)
 
-  first_dot <- dots[[1]]
-
-  if (is.formula(first_dot) || is.function(first_dot)) {
-    return(as_labeller(first_dot))
+  if (length(dots) == 1) {
+    if (is.formula(dots[[1]]) || is.function(dots[[1]]) && !is_labeller(dots[[1]])) {
+      return(as_labeller(dots[[1]]))
+    }
   }
 
   .default <- as_labeller(.default)
