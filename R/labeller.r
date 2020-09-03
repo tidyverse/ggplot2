@@ -297,6 +297,7 @@ resolve_labeller <- function(rows, cols, labels) {
 #' # your labeller to the right variable with labeller()
 #' p + facet_grid(cyl ~ am, labeller = labeller(am = to_string))
 as_labeller <- function(x, default = label_value, multi_line = TRUE) {
+  if(is.formula(x)) x <- as_function(x)
   force(x)
   fun <- function(labels) {
     labels <- lapply(labels, as.character)
@@ -426,7 +427,15 @@ labeller <- function(..., .rows = NULL, .cols = NULL,
   if (!is.null(keep.as.numeric)) {
     .Deprecated(old = "keep.as.numeric")
   }
+
   dots <- list(...)
+
+  first_dot <- dots[[1]]
+
+  if (is.formula(first_dot) || is.function(first_dot)) {
+    return(as_labeller(first_dot))
+  }
+
   .default <- as_labeller(.default)
 
   function(labels) {

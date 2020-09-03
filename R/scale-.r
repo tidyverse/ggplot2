@@ -168,6 +168,8 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 
   check_breaks_labels(breaks, labels)
 
+  if (is.formula(labels)) labels <- as_function(labels)
+
   if (!is.function(limits) && (length(limits) > 0) && !is.discrete(limits)) {
     warn(
       glue(
