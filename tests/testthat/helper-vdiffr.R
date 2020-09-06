@@ -5,6 +5,11 @@
 if (requireNamespace("vdiffr", quietly = TRUE)) {
   expect_doppelganger <- vdiffr::expect_doppelganger
 } else {
-  # If vdiffr is not available, assign a dummy function
+  # If vdiffr is not available and visual tests are not explicitly disabled, raise error.
+  if (!identical(Sys.getenv("VDIFFR_RUN_TESTS"), "false")) {
+    abort("vdiffr is not installed")
+  }
+
+  # Otherwise, assign a dummy function
   expect_doppelganger <- function(...) skip("vdiffr is not installed.")
 }
