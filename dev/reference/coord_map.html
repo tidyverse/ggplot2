@@ -291,19 +291,23 @@ plots like <code><a href='geom_raster.html'>geom_tile()</a></code>) at the expen
 
 <span class='co'># Plot it in cartesian coordinates</span>
 <span class='kw'>nzmap</span>
-}</div><div class='img'><img src='coord_map-1.png' alt='' width='700' height='433' /></div><div class='input'>
+}
+</div><div class='img'><img src='coord_map-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"maps"</span>)) {
 <span class='co'># With correct mercator projection</span>
 <span class='kw'>nzmap</span> <span class='op'>+</span> <span class='fu'>coord_map</span>()
-}</div><div class='img'><img src='coord_map-2.png' alt='' width='700' height='433' /></div><div class='input'>
+}
+</div><div class='img'><img src='coord_map-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"maps"</span>)) {
 <span class='co'># With the aspect ratio approximation</span>
 <span class='kw'>nzmap</span> <span class='op'>+</span> <span class='fu'>coord_quickmap</span>()
-}</div><div class='img'><img src='coord_map-3.png' alt='' width='700' height='433' /></div><div class='input'>
+}
+</div><div class='img'><img src='coord_map-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"maps"</span>)) {
 <span class='co'># Other projections</span>
 <span class='kw'>nzmap</span> <span class='op'>+</span> <span class='fu'>coord_map</span>(<span class='st'>"azequalarea"</span>, orientation = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='op'>-</span><span class='fl'>36.92</span>, <span class='fl'>174.6</span>, <span class='fl'>0</span>))
-}</div><div class='img'><img src='coord_map-4.png' alt='' width='700' height='433' /></div><div class='input'>
+}
+</div><div class='img'><img src='coord_map-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"maps"</span>)) {
 <span class='kw'>states</span> <span class='op'>&lt;-</span> <span class='fu'><a href='map_data.html'>map_data</a></span>(<span class='st'>"state"</span>)
 <span class='kw'>usamap</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>states</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>long</span>, <span class='kw'>lat</span>, group = <span class='kw'>group</span>)) <span class='op'>+</span>
@@ -311,27 +315,33 @@ plots like <code><a href='geom_raster.html'>geom_tile()</a></code>) at the expen
 
 <span class='co'># Use cartesian coordinates</span>
 <span class='kw'>usamap</span>
-}</div><div class='img'><img src='coord_map-5.png' alt='' width='700' height='433' /></div><div class='input'>
+}
+</div><div class='img'><img src='coord_map-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"maps"</span>)) {
 <span class='co'># With mercator projection</span>
 <span class='kw'>usamap</span> <span class='op'>+</span> <span class='fu'>coord_map</span>()
-}</div><div class='img'><img src='coord_map-6.png' alt='' width='700' height='433' /></div><div class='input'>
+}
+</div><div class='img'><img src='coord_map-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"maps"</span>)) {
 <span class='co'># See ?mapproject for coordinate systems and their parameters</span>
 <span class='kw'>usamap</span> <span class='op'>+</span> <span class='fu'>coord_map</span>(<span class='st'>"gilbert"</span>)
-}</div><div class='img'><img src='coord_map-7.png' alt='' width='700' height='433' /></div><div class='input'>
+}
+</div><div class='img'><img src='coord_map-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"maps"</span>)) {
 <span class='co'># For most projections, you'll need to set the orientation yourself</span>
 <span class='co'># as the automatic selection done by mapproject is not available to</span>
 <span class='co'># ggplot</span>
 <span class='kw'>usamap</span> <span class='op'>+</span> <span class='fu'>coord_map</span>(<span class='st'>"orthographic"</span>)
-}</div><div class='img'><img src='coord_map-8.png' alt='' width='700' height='433' /></div><div class='input'>
+}
+</div><div class='img'><img src='coord_map-8.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"maps"</span>)) {
 <span class='kw'>usamap</span> <span class='op'>+</span> <span class='fu'>coord_map</span>(<span class='st'>"conic"</span>, lat0 = <span class='fl'>30</span>)
-}</div><div class='img'><img src='coord_map-9.png' alt='' width='700' height='433' /></div><div class='input'>
+}
+</div><div class='img'><img src='coord_map-9.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"maps"</span>)) {
 <span class='kw'>usamap</span> <span class='op'>+</span> <span class='fu'>coord_map</span>(<span class='st'>"bonne"</span>, lat0 = <span class='fl'>50</span>)
-}</div><div class='img'><img src='coord_map-10.png' alt='' width='700' height='433' /></div><div class='input'>
+}
+</div><div class='img'><img src='coord_map-10.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"maps"</span>)) {
 <span class='co'># World map, using geom_path instead of geom_polygon</span>
@@ -354,7 +364,8 @@ plots like <code><a href='geom_raster.html'>geom_tile()</a></code>) at the expen
 <span class='co'># Centered on New York (currently has issues with closing polygons)</span>
 <span class='kw'>worldmap</span> <span class='op'>+</span> <span class='fu'>coord_map</span>(<span class='st'>"ortho"</span>, orientation = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>41</span>, <span class='op'>-</span><span class='fl'>74</span>, <span class='fl'>0</span>))
 }
-}</div></pre>
+}
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

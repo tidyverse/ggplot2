@@ -252,20 +252,22 @@ want to change the color palette based on the number of levels.</p></li>
 }
 
 <span class='co'># The default, scale_fill_hue(), is not colour-blind safe</span>
-<span class='fu'>cty_by_var</span>(<span class='kw'>class</span>)</div><div class='img'><img src='scale_colour_discrete-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>cty_by_var</span>(<span class='kw'>class</span>)
+</div><div class='img'><img src='scale_colour_discrete-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># (Temporarily) set the default to Okabe-Ito (which is colour-blind safe)</span>
 <span class='kw'>okabe</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"#E69F00"</span>, <span class='st'>"#56B4E9"</span>, <span class='st'>"#009E73"</span>, <span class='st'>"#F0E442"</span>, <span class='st'>"#0072B2"</span>, <span class='st'>"#D55E00"</span>, <span class='st'>"#CC79A7"</span>)
-<span class='kw'>withr</span>::<span class='fu'><a href='https://rdrr.io/pkg/withr/man/with_options.html'>with_options</a></span>(
+<span class='kw'>withr</span>::<span class='fu'><a href='https://withr.r-lib.org/reference/with_options.html'>with_options</a></span>(
   <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(ggplot2.discrete.fill = <span class='kw'>okabe</span>),
   <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>cty_by_var</span>(<span class='kw'>class</span>))
-)</div><div class='img'><img src='scale_colour_discrete-2.png' alt='' width='700' height='433' /></div><div class='input'>
+)
+</div><div class='img'><img src='scale_colour_discrete-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Define a collection of palettes to alter the default based on number of levels to encode</span>
 <span class='kw'>discrete_palettes</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
   <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"skyblue"</span>, <span class='st'>"orange"</span>),
   <span class='kw'>RColorBrewer</span>::<span class='fu'><a href='https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html'>brewer.pal</a></span>(<span class='fl'>3</span>, <span class='st'>"Set2"</span>),
   <span class='kw'>RColorBrewer</span>::<span class='fu'><a href='https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html'>brewer.pal</a></span>(<span class='fl'>6</span>, <span class='st'>"Accent"</span>)
 )
-<span class='kw'>withr</span>::<span class='fu'><a href='https://rdrr.io/pkg/withr/man/with_options.html'>with_options</a></span>(
+<span class='kw'>withr</span>::<span class='fu'><a href='https://withr.r-lib.org/reference/with_options.html'>with_options</a></span>(
   <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(ggplot2.discrete.fill = <span class='kw'>discrete_palettes</span>), {
   <span class='co'># 1st palette is used when there 1-2 levels (e.g., year)</span>
   <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>cty_by_var</span>(<span class='kw'>year</span>))
@@ -273,7 +275,9 @@ want to change the color palette based on the number of levels.</p></li>
   <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>cty_by_var</span>(<span class='kw'>drv</span>))
   <span class='co'># 3rd palette is used when there are 4-6 levels</span>
   <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>cty_by_var</span>(<span class='kw'>fl</span>))
-})</div><div class='img'><img src='scale_colour_discrete-3.png' alt='' width='700' height='433' /></div><div class='img'><img src='scale_colour_discrete-4.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; <span class='warning'>Warning: Groups with fewer than two data points have been dropped.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: no non-missing arguments to max; returning -Inf</span></div><div class='img'><img src='scale_colour_discrete-5.png' alt='' width='700' height='433' /></div><div class='input'></div></pre>
+})
+</div><div class='img'><img src='scale_colour_discrete-3.png' alt='' width='700' height='433' /></div><div class='img'><img src='scale_colour_discrete-4.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; <span class='warning'>Warning: Groups with fewer than two data points have been dropped.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: no non-missing arguments to max; returning -Inf</span></div><div class='img'><img src='scale_colour_discrete-5.png' alt='' width='700' height='433' /></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

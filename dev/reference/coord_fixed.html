@@ -260,8 +260,13 @@ legend, the plot title, or the plot margins.</p></td>
 <span class='co'># adjusting the plot aspect ratio</span>
 
 <span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>)) <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>coord_fixed</span>(ratio = <span class='fl'>1</span>)</div><div class='img'><img src='coord_fixed-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>coord_fixed</span>(ratio = <span class='fl'>5</span>)</div><div class='img'><img src='coord_fixed-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>coord_fixed</span>(ratio = <span class='fl'>1</span><span class='op'>/</span><span class='fl'>5</span>)</div><div class='img'><img src='coord_fixed-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>coord_fixed</span>(xlim = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>15</span>, <span class='fl'>30</span>))</div><div class='img'><img src='coord_fixed-4.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Resize the plot to see that the specified aspect ratio is maintained</span></div></pre>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>coord_fixed</span>(ratio = <span class='fl'>1</span>)
+</div><div class='img'><img src='coord_fixed-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>coord_fixed</span>(ratio = <span class='fl'>5</span>)
+</div><div class='img'><img src='coord_fixed-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>coord_fixed</span>(ratio = <span class='fl'>1</span><span class='op'>/</span><span class='fl'>5</span>)
+</div><div class='img'><img src='coord_fixed-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>coord_fixed</span>(xlim = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>15</span>, <span class='fl'>30</span>))
+</div><div class='img'><img src='coord_fixed-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Resize the plot to see that the specified aspect ratio is maintained</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

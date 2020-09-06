@@ -341,13 +341,19 @@ horizontal directions. Overrides <code>bins</code> if both set.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>carat</span>, <span class='kw'>price</span>))
-<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>geom_hex</span>()</div><div class='img'><img src='geom_hex-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>geom_hex</span>()
+</div><div class='img'><img src='geom_hex-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># \donttest{</span>
 <span class='co'># You can control the size of the bins by specifying the number of</span>
 <span class='co'># bins in each direction:</span>
-<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>geom_hex</span>(bins = <span class='fl'>10</span>)</div><div class='img'><img src='geom_hex-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>geom_hex</span>(bins = <span class='fl'>30</span>)</div><div class='img'><img src='geom_hex-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>geom_hex</span>(bins = <span class='fl'>10</span>)
+</div><div class='img'><img src='geom_hex-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>geom_hex</span>(bins = <span class='fl'>30</span>)
+</div><div class='img'><img src='geom_hex-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Or by specifying the width of the bins</span>
-<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>geom_hex</span>(binwidth = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1000</span>))</div><div class='img'><img src='geom_hex-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>geom_hex</span>(binwidth = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.1</span>, <span class='fl'>500</span>))</div><div class='img'><img src='geom_hex-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span></div></pre>
+<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>geom_hex</span>(binwidth = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1000</span>))
+</div><div class='img'><img src='geom_hex-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>geom_hex</span>(binwidth = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.1</span>, <span class='fl'>500</span>))
+</div><div class='img'><img src='geom_hex-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

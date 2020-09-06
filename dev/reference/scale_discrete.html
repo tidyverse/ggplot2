@@ -304,14 +304,17 @@ at integer positions).  This is what allows jittering to work.</p>
 <code><a href='scale_date.html'>scale_x_date</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>cut</span>)) <span class='op'>+</span> <span class='fu'><a href='geom_bar.html'>geom_bar</a></span>()</div><div class='img'><img src='scale_discrete-1.png' alt='' width='700' height='433' /></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>cut</span>)) <span class='op'>+</span> <span class='fu'><a href='geom_bar.html'>geom_bar</a></span>()
+</div><div class='img'><img src='scale_discrete-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># \donttest{</span>
 <span class='co'># The discrete position scale is added automatically whenever you</span>
 <span class='co'># have a discrete position.</span>
 
 (<span class='kw'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='kw'>diamonds</span>, <span class='kw'>carat</span> <span class='op'>&gt;</span> <span class='fl'>1</span>), <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>cut</span>, <span class='kw'>clarity</span>)) <span class='op'>+</span>
-      <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span>())</div><div class='img'><img src='scale_discrete-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>scale_x_discrete</span>(<span class='st'>"Cut"</span>)</div><div class='img'><img src='scale_discrete-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span>
+      <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span>())
+</div><div class='img'><img src='scale_discrete-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>scale_x_discrete</span>(<span class='st'>"Cut"</span>)
+</div><div class='img'><img src='scale_discrete-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span>
   <span class='fu'>scale_x_discrete</span>(
     <span class='st'>"Cut"</span>,
     labels = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(
@@ -321,21 +324,30 @@ at integer positions).  This is what allows jittering to work.</p>
       <span class='st'>"Perfect"</span> = <span class='st'>"P"</span>,
       <span class='st'>"Ideal"</span> = <span class='st'>"I"</span>
     )
-  )</div><div class='img'><img src='scale_discrete-4.png' alt='' width='700' height='433' /></div><div class='input'>
+  )
+</div><div class='img'><img src='scale_discrete-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Use limits to adjust the which levels (and in what order)</span>
 <span class='co'># are displayed</span>
-<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>scale_x_discrete</span>(limits = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Fair"</span>,<span class='st'>"Ideal"</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 11189 rows containing missing values (geom_point).</span></div><div class='img'><img src='scale_discrete-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>scale_x_discrete</span>(limits = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Fair"</span>,<span class='st'>"Ideal"</span>))
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 11189 rows containing missing values (geom_point).</span></div><div class='img'><img src='scale_discrete-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># you can also use the short hand functions xlim and ylim</span>
-<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='lims.html'>xlim</a></span>(<span class='st'>"Fair"</span>,<span class='st'>"Ideal"</span>, <span class='st'>"Good"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 9610 rows containing missing values (geom_point).</span></div><div class='img'><img src='scale_discrete-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='lims.html'>ylim</a></span>(<span class='st'>"I1"</span>, <span class='st'>"IF"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 16770 rows containing missing values (geom_point).</span></div><div class='img'><img src='scale_discrete-7.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='lims.html'>xlim</a></span>(<span class='st'>"Fair"</span>,<span class='st'>"Ideal"</span>, <span class='st'>"Good"</span>)
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 9610 rows containing missing values (geom_point).</span></div><div class='img'><img src='scale_discrete-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='lims.html'>ylim</a></span>(<span class='st'>"I1"</span>, <span class='st'>"IF"</span>)
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 16770 rows containing missing values (geom_point).</span></div><div class='img'><img src='scale_discrete-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># See ?reorder to reorder based on the values of another variable</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>manufacturer</span>, <span class='kw'>cty</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>()</div><div class='img'><img src='scale_discrete-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/reorder.factor.html'>reorder</a></span>(<span class='kw'>manufacturer</span>, <span class='kw'>cty</span>), <span class='kw'>cty</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>()</div><div class='img'><img src='scale_discrete-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/reorder.factor.html'>reorder</a></span>(<span class='kw'>manufacturer</span>, <span class='kw'>displ</span>), <span class='kw'>cty</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>()</div><div class='img'><img src='scale_discrete-10.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
+</div><div class='img'><img src='scale_discrete-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/reorder.factor.html'>reorder</a></span>(<span class='kw'>manufacturer</span>, <span class='kw'>cty</span>), <span class='kw'>cty</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
+</div><div class='img'><img src='scale_discrete-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/reorder.factor.html'>reorder</a></span>(<span class='kw'>manufacturer</span>, <span class='kw'>displ</span>), <span class='kw'>cty</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
+</div><div class='img'><img src='scale_discrete-10.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Use abbreviate as a formatter to reduce long names</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/reorder.factor.html'>reorder</a></span>(<span class='kw'>manufacturer</span>, <span class='kw'>displ</span>), <span class='kw'>cty</span>)) <span class='op'>+</span>
   <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'>scale_x_discrete</span>(labels = <span class='kw'>abbreviate</span>)</div><div class='img'><img src='scale_discrete-11.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span></div></pre>
+  <span class='fu'>scale_x_discrete</span>(labels = <span class='kw'>abbreviate</span>)
+</div><div class='img'><img src='scale_discrete-11.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

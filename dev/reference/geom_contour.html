@@ -439,21 +439,32 @@ bin boundaries for each band, as well the mid point between the boundaries.</p><
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Basic plot</span>
 <span class='kw'>v</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>faithfuld</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>waiting</span>, <span class='kw'>eruptions</span>, z = <span class='kw'>density</span>))
-<span class='kw'>v</span> <span class='op'>+</span> <span class='fu'>geom_contour</span>()</div><div class='img'><img src='geom_contour-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>v</span> <span class='op'>+</span> <span class='fu'>geom_contour</span>()
+</div><div class='img'><img src='geom_contour-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Or compute from raw data</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>faithful</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>waiting</span>, <span class='kw'>eruptions</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_density_2d.html'>geom_density_2d</a></span>()</div><div class='img'><img src='geom_contour-2.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'><a href='geom_density_2d.html'>geom_density_2d</a></span>()
+</div><div class='img'><img src='geom_contour-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># \donttest{</span>
 <span class='co'># use geom_contour_filled() for filled contours</span>
-<span class='kw'>v</span> <span class='op'>+</span> <span class='fu'>geom_contour_filled</span>()</div><div class='img'><img src='geom_contour-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>v</span> <span class='op'>+</span> <span class='fu'>geom_contour_filled</span>()
+</div><div class='img'><img src='geom_contour-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Setting bins creates evenly spaced contours in the range of the data</span>
-<span class='kw'>v</span> <span class='op'>+</span> <span class='fu'>geom_contour</span>(bins = <span class='fl'>3</span>)</div><div class='img'><img src='geom_contour-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>v</span> <span class='op'>+</span> <span class='fu'>geom_contour</span>(bins = <span class='fl'>5</span>)</div><div class='img'><img src='geom_contour-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>v</span> <span class='op'>+</span> <span class='fu'>geom_contour</span>(bins = <span class='fl'>3</span>)
+</div><div class='img'><img src='geom_contour-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>v</span> <span class='op'>+</span> <span class='fu'>geom_contour</span>(bins = <span class='fl'>5</span>)
+</div><div class='img'><img src='geom_contour-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Setting binwidth does the same thing, parameterised by the distance</span>
 <span class='co'># between contours</span>
-<span class='kw'>v</span> <span class='op'>+</span> <span class='fu'>geom_contour</span>(binwidth = <span class='fl'>0.01</span>)</div><div class='img'><img src='geom_contour-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>v</span> <span class='op'>+</span> <span class='fu'>geom_contour</span>(binwidth = <span class='fl'>0.001</span>)</div><div class='img'><img src='geom_contour-7.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>v</span> <span class='op'>+</span> <span class='fu'>geom_contour</span>(binwidth = <span class='fl'>0.01</span>)
+</div><div class='img'><img src='geom_contour-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>v</span> <span class='op'>+</span> <span class='fu'>geom_contour</span>(binwidth = <span class='fl'>0.001</span>)
+</div><div class='img'><img src='geom_contour-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Other parameters</span>
-<span class='kw'>v</span> <span class='op'>+</span> <span class='fu'>geom_contour</span>(<span class='fu'><a href='aes.html'>aes</a></span>(colour = <span class='fu'><a href='aes_eval.html'>after_stat</a></span>(<span class='kw'>level</span>)))</div><div class='img'><img src='geom_contour-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>v</span> <span class='op'>+</span> <span class='fu'>geom_contour</span>(colour = <span class='st'>"red"</span>)</div><div class='img'><img src='geom_contour-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>v</span> <span class='op'>+</span> <span class='fu'><a href='geom_raster.html'>geom_raster</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(fill = <span class='kw'>density</span>)) <span class='op'>+</span>
-  <span class='fu'>geom_contour</span>(colour = <span class='st'>"white"</span>)</div><div class='img'><img src='geom_contour-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span></div></pre>
+<span class='kw'>v</span> <span class='op'>+</span> <span class='fu'>geom_contour</span>(<span class='fu'><a href='aes.html'>aes</a></span>(colour = <span class='fu'><a href='aes_eval.html'>after_stat</a></span>(<span class='kw'>level</span>)))
+</div><div class='img'><img src='geom_contour-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>v</span> <span class='op'>+</span> <span class='fu'>geom_contour</span>(colour = <span class='st'>"red"</span>)
+</div><div class='img'><img src='geom_contour-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>v</span> <span class='op'>+</span> <span class='fu'><a href='geom_raster.html'>geom_raster</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(fill = <span class='kw'>density</span>)) <span class='op'>+</span>
+  <span class='fu'>geom_contour</span>(colour = <span class='st'>"white"</span>)
+</div><div class='img'><img src='geom_contour-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

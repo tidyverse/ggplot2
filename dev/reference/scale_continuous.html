@@ -389,26 +389,34 @@ transformation with <code><a href='https://scales.r-lib.org//reference/trans_new
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
   <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
-<span class='kw'>p1</span></div><div class='img'><img src='scale_continuous-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p1</span>
+</div><div class='img'><img src='scale_continuous-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Manipulating the default position scales lets you:</span>
 <span class='co'>#  * change the axis labels</span>
 <span class='kw'>p1</span> <span class='op'>+</span>
   <span class='fu'>scale_x_continuous</span>(<span class='st'>"Engine displacement (L)"</span>) <span class='op'>+</span>
-  <span class='fu'>scale_y_continuous</span>(<span class='st'>"Highway MPG"</span>)</div><div class='img'><img src='scale_continuous-2.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>scale_y_continuous</span>(<span class='st'>"Highway MPG"</span>)
+</div><div class='img'><img src='scale_continuous-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can also use the short-cut labs().</span>
 <span class='co'># Use NULL to suppress axis labels</span>
-<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='labs.html'>labs</a></span>(x = <span class='kw'>NULL</span>, y = <span class='kw'>NULL</span>)</div><div class='img'><img src='scale_continuous-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='labs.html'>labs</a></span>(x = <span class='kw'>NULL</span>, y = <span class='kw'>NULL</span>)
+</div><div class='img'><img src='scale_continuous-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>#  * modify the axis limits</span>
-<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'>scale_x_continuous</span>(limits = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>6</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 27 rows containing missing values (geom_point).</span></div><div class='img'><img src='scale_continuous-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'>scale_x_continuous</span>(limits = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>10</span>))</div><div class='img'><img src='scale_continuous-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'>scale_x_continuous</span>(limits = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>6</span>))
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 27 rows containing missing values (geom_point).</span></div><div class='img'><img src='scale_continuous-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'>scale_x_continuous</span>(limits = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>10</span>))
+</div><div class='img'><img src='scale_continuous-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># you can also use the short hand functions `xlim()` and `ylim()`</span>
-<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='lims.html'>xlim</a></span>(<span class='fl'>2</span>, <span class='fl'>6</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 27 rows containing missing values (geom_point).</span></div><div class='img'><img src='scale_continuous-6.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='lims.html'>xlim</a></span>(<span class='fl'>2</span>, <span class='fl'>6</span>)
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 27 rows containing missing values (geom_point).</span></div><div class='img'><img src='scale_continuous-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>#  * choose where the ticks appear</span>
-<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'>scale_x_continuous</span>(breaks = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>4</span>, <span class='fl'>6</span>))</div><div class='img'><img src='scale_continuous-7.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'>scale_x_continuous</span>(breaks = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>4</span>, <span class='fl'>6</span>))
+</div><div class='img'><img src='scale_continuous-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>#  * choose your own labels</span>
 <span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'>scale_x_continuous</span>(
   breaks = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>4</span>, <span class='fl'>6</span>),
   label = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"two"</span>, <span class='st'>"four"</span>, <span class='st'>"six"</span>)
-)</div><div class='img'><img src='scale_continuous-8.png' alt='' width='700' height='433' /></div><div class='input'>
+)
+</div><div class='img'><img src='scale_continuous-8.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Typically you'll pass a function to the `labels` argument.</span>
 <span class='co'># Some common formats are built into the scales package:</span>
 <span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
@@ -416,13 +424,21 @@ transformation with <code><a href='https://scales.r-lib.org//reference/trans_new
   y = <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>, length.out = <span class='fl'>10</span>)
 )
 <span class='kw'>p2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
-<span class='kw'>p2</span> <span class='op'>+</span> <span class='fu'>scale_y_continuous</span>(labels = <span class='kw'>scales</span>::<span class='kw'><a href='https://scales.r-lib.org//reference/label_percent.html'>percent</a></span>)</div><div class='img'><img src='scale_continuous-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p2</span> <span class='op'>+</span> <span class='fu'>scale_y_continuous</span>(labels = <span class='kw'>scales</span>::<span class='kw'><a href='https://scales.r-lib.org//reference/label_dollar.html'>dollar</a></span>)</div><div class='img'><img src='scale_continuous-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p2</span> <span class='op'>+</span> <span class='fu'>scale_x_continuous</span>(labels = <span class='kw'>scales</span>::<span class='kw'><a href='https://scales.r-lib.org//reference/label_number.html'>comma</a></span>)</div><div class='img'><img src='scale_continuous-11.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p2</span> <span class='op'>+</span> <span class='fu'>scale_y_continuous</span>(labels = <span class='kw'>scales</span>::<span class='kw'><a href='https://scales.r-lib.org//reference/label_percent.html'>percent</a></span>)
+</div><div class='img'><img src='scale_continuous-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p2</span> <span class='op'>+</span> <span class='fu'>scale_y_continuous</span>(labels = <span class='kw'>scales</span>::<span class='kw'><a href='https://scales.r-lib.org//reference/label_dollar.html'>dollar</a></span>)
+</div><div class='img'><img src='scale_continuous-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p2</span> <span class='op'>+</span> <span class='fu'>scale_x_continuous</span>(labels = <span class='kw'>scales</span>::<span class='kw'><a href='https://scales.r-lib.org//reference/label_number.html'>comma</a></span>)
+</div><div class='img'><img src='scale_continuous-11.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can also override the default linear mapping by using a</span>
 <span class='co'># transformation. There are three shortcuts:</span>
-<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'>scale_y_log10</span>()</div><div class='img'><img src='scale_continuous-12.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'>scale_y_sqrt</span>()</div><div class='img'><img src='scale_continuous-13.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'>scale_y_reverse</span>()</div><div class='img'><img src='scale_continuous-14.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'>scale_y_log10</span>()
+</div><div class='img'><img src='scale_continuous-12.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'>scale_y_sqrt</span>()
+</div><div class='img'><img src='scale_continuous-13.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'>scale_y_reverse</span>()
+</div><div class='img'><img src='scale_continuous-14.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Or you can supply a transformation in the `trans` argument:</span>
-<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'>scale_y_continuous</span>(trans = <span class='kw'>scales</span>::<span class='fu'><a href='https://scales.r-lib.org//reference/reciprocal_trans.html'>reciprocal_trans</a></span>())</div><div class='img'><img src='scale_continuous-15.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'>scale_y_continuous</span>(trans = <span class='kw'>scales</span>::<span class='fu'><a href='https://scales.r-lib.org//reference/reciprocal_trans.html'>reciprocal_trans</a></span>())
+</div><div class='img'><img src='scale_continuous-15.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can also create your own. See ?scales::trans_new</span>
+
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

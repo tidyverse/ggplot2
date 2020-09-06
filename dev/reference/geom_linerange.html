@@ -370,26 +370,34 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
 )
 
 <span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>trt</span>, <span class='kw'>resp</span>, colour = <span class='kw'>group</span>))
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_linerange</span>(<span class='fu'><a href='aes.html'>aes</a></span>(ymin = <span class='kw'>lower</span>, ymax = <span class='kw'>upper</span>))</div><div class='img'><img src='geom_linerange-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_pointrange</span>(<span class='fu'><a href='aes.html'>aes</a></span>(ymin = <span class='kw'>lower</span>, ymax = <span class='kw'>upper</span>))</div><div class='img'><img src='geom_linerange-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_crossbar</span>(<span class='fu'><a href='aes.html'>aes</a></span>(ymin = <span class='kw'>lower</span>, ymax = <span class='kw'>upper</span>), width = <span class='fl'>0.2</span>)</div><div class='img'><img src='geom_linerange-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_errorbar</span>(<span class='fu'><a href='aes.html'>aes</a></span>(ymin = <span class='kw'>lower</span>, ymax = <span class='kw'>upper</span>), width = <span class='fl'>0.2</span>)</div><div class='img'><img src='geom_linerange-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_linerange</span>(<span class='fu'><a href='aes.html'>aes</a></span>(ymin = <span class='kw'>lower</span>, ymax = <span class='kw'>upper</span>))
+</div><div class='img'><img src='geom_linerange-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_pointrange</span>(<span class='fu'><a href='aes.html'>aes</a></span>(ymin = <span class='kw'>lower</span>, ymax = <span class='kw'>upper</span>))
+</div><div class='img'><img src='geom_linerange-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_crossbar</span>(<span class='fu'><a href='aes.html'>aes</a></span>(ymin = <span class='kw'>lower</span>, ymax = <span class='kw'>upper</span>), width = <span class='fl'>0.2</span>)
+</div><div class='img'><img src='geom_linerange-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_errorbar</span>(<span class='fu'><a href='aes.html'>aes</a></span>(ymin = <span class='kw'>lower</span>, ymax = <span class='kw'>upper</span>), width = <span class='fl'>0.2</span>)
+</div><div class='img'><img src='geom_linerange-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Flip the orientation by changing mapping</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>resp</span>, <span class='kw'>trt</span>, colour = <span class='kw'>group</span>)) <span class='op'>+</span>
-  <span class='fu'>geom_linerange</span>(<span class='fu'><a href='aes.html'>aes</a></span>(xmin = <span class='kw'>lower</span>, xmax = <span class='kw'>upper</span>))</div><div class='img'><img src='geom_linerange-5.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_linerange</span>(<span class='fu'><a href='aes.html'>aes</a></span>(xmin = <span class='kw'>lower</span>, xmax = <span class='kw'>upper</span>))
+</div><div class='img'><img src='geom_linerange-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Draw lines connecting group means</span>
 <span class='kw'>p</span> <span class='op'>+</span>
   <span class='fu'><a href='geom_path.html'>geom_line</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(group = <span class='kw'>group</span>)) <span class='op'>+</span>
-  <span class='fu'>geom_errorbar</span>(<span class='fu'><a href='aes.html'>aes</a></span>(ymin = <span class='kw'>lower</span>, ymax = <span class='kw'>upper</span>), width = <span class='fl'>0.2</span>)</div><div class='img'><img src='geom_linerange-6.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_errorbar</span>(<span class='fu'><a href='aes.html'>aes</a></span>(ymin = <span class='kw'>lower</span>, ymax = <span class='kw'>upper</span>), width = <span class='fl'>0.2</span>)
+</div><div class='img'><img src='geom_linerange-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># If you want to dodge bars and errorbars, you need to manually</span>
 <span class='co'># specify the dodge width</span>
 <span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>trt</span>, <span class='kw'>resp</span>, fill = <span class='kw'>group</span>))
 <span class='kw'>p</span> <span class='op'>+</span>
  <span class='fu'><a href='geom_bar.html'>geom_col</a></span>(position = <span class='st'>"dodge"</span>) <span class='op'>+</span>
- <span class='fu'>geom_errorbar</span>(<span class='fu'><a href='aes.html'>aes</a></span>(ymin = <span class='kw'>lower</span>, ymax = <span class='kw'>upper</span>), position = <span class='st'>"dodge"</span>, width = <span class='fl'>0.25</span>)</div><div class='img'><img src='geom_linerange-7.png' alt='' width='700' height='433' /></div><div class='input'>
+ <span class='fu'>geom_errorbar</span>(<span class='fu'><a href='aes.html'>aes</a></span>(ymin = <span class='kw'>lower</span>, ymax = <span class='kw'>upper</span>), position = <span class='st'>"dodge"</span>, width = <span class='fl'>0.25</span>)
+</div><div class='img'><img src='geom_linerange-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Because the bars and errorbars have different widths</span>
 <span class='co'># we need to specify how wide the objects we are dodging are</span>
 <span class='kw'>dodge</span> <span class='op'>&lt;-</span> <span class='fu'><a href='position_dodge.html'>position_dodge</a></span>(width=<span class='fl'>0.9</span>)
 <span class='kw'>p</span> <span class='op'>+</span>
   <span class='fu'><a href='geom_bar.html'>geom_col</a></span>(position = <span class='kw'>dodge</span>) <span class='op'>+</span>
-  <span class='fu'>geom_errorbar</span>(<span class='fu'><a href='aes.html'>aes</a></span>(ymin = <span class='kw'>lower</span>, ymax = <span class='kw'>upper</span>), position = <span class='kw'>dodge</span>, width = <span class='fl'>0.25</span>)</div><div class='img'><img src='geom_linerange-8.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_errorbar</span>(<span class='fu'><a href='aes.html'>aes</a></span>(ymin = <span class='kw'>lower</span>, ymax = <span class='kw'>upper</span>), position = <span class='kw'>dodge</span>, width = <span class='fl'>0.25</span>)
+</div><div class='img'><img src='geom_linerange-8.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># When using geom_errorbar() with position_dodge2(), extra padding will be</span>
 <span class='co'># needed between the error bars to keep them aligned with the bars.</span>
 <span class='kw'>p</span> <span class='op'>+</span>
@@ -397,7 +405,8 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
 <span class='fu'>geom_errorbar</span>(
   <span class='fu'><a href='aes.html'>aes</a></span>(ymin = <span class='kw'>lower</span>, ymax = <span class='kw'>upper</span>),
   position = <span class='fu'><a href='position_dodge.html'>position_dodge2</a></span>(width = <span class='fl'>0.5</span>, padding = <span class='fl'>0.5</span>)
-)</div><div class='img'><img src='geom_linerange-9.png' alt='' width='700' height='433' /></div></pre>
+)
+</div><div class='img'><img src='geom_linerange-9.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

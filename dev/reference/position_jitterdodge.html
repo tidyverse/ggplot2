@@ -260,7 +260,8 @@ Use <code>NULL</code> to use the current random seed and also avoid resetting
     <pre class="examples"><div class='input'><span class='kw'>dsub</span> <span class='op'>&lt;-</span> <span class='kw'>diamonds</span>[ <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='kw'>diamonds</span>), <span class='fl'>1000</span>), ]
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>dsub</span>, <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='kw'>cut</span>, y = <span class='kw'>carat</span>, fill = <span class='kw'>clarity</span>)) <span class='op'>+</span>
   <span class='fu'><a href='geom_boxplot.html'>geom_boxplot</a></span>(outlier.size = <span class='fl'>0</span>) <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(pch = <span class='fl'>21</span>, position = <span class='fu'>position_jitterdodge</span>())</div><div class='img'><img src='position_jitterdodge-1.png' alt='' width='700' height='433' /></div></pre>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(pch = <span class='fl'>21</span>, position = <span class='fu'>position_jitterdodge</span>())
+</div><div class='img'><img src='position_jitterdodge-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

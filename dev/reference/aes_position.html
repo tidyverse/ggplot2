@@ -248,31 +248,39 @@ annotations and to represent rectangular areas.</p>
    ymax = <span class='kw'>fit</span> <span class='op'>+</span> <span class='kw'>se.fit</span>,
    colour = <span class='kw'>cut</span>
   ) <span class='op'>+</span>
-  <span class='fu'><a href='geom_crossbar.html'>geom_pointrange</a></span>()</div><div class='img'><img src='aes_position-1.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'><a href='geom_crossbar.html'>geom_pointrange</a></span>()
+</div><div class='img'><img src='aes_position-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Using annotate</span>
 <span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='kw'>wt</span>, y = <span class='kw'>mpg</span>)) <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
-<span class='kw'>p</span></div><div class='img'><img src='aes_position-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='annotate.html'>annotate</a></span>(
+<span class='kw'>p</span>
+</div><div class='img'><img src='aes_position-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='annotate.html'>annotate</a></span>(
   <span class='st'>"rect"</span>, xmin = <span class='fl'>2</span>, xmax = <span class='fl'>3.5</span>, ymin = <span class='fl'>2</span>, ymax = <span class='fl'>25</span>,
   fill = <span class='st'>"dark grey"</span>, alpha = <span class='fl'>.5</span>
-)</div><div class='img'><img src='aes_position-3.png' alt='' width='700' height='433' /></div><div class='input'>
+)
+</div><div class='img'><img src='aes_position-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Geom_segment examples</span>
 <span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_segment.html'>geom_segment</a></span>(
   <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='fl'>2</span>, y = <span class='fl'>15</span>, xend = <span class='fl'>2</span>, yend = <span class='fl'>25</span>),
   arrow = <span class='fu'><a href='https://rdrr.io/r/grid/arrow.html'>arrow</a></span>(length = <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>0.5</span>, <span class='st'>"cm"</span>))
-)</div><div class='img'><img src='aes_position-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_segment.html'>geom_segment</a></span>(
+)
+</div><div class='img'><img src='aes_position-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_segment.html'>geom_segment</a></span>(
   <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='fl'>2</span>, y = <span class='fl'>15</span>, xend = <span class='fl'>3</span>, yend = <span class='fl'>15</span>),
   arrow = <span class='fu'><a href='https://rdrr.io/r/grid/arrow.html'>arrow</a></span>(length = <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>0.5</span>, <span class='st'>"cm"</span>))
-)</div><div class='img'><img src='aes_position-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_segment.html'>geom_segment</a></span>(
+)
+</div><div class='img'><img src='aes_position-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_segment.html'>geom_segment</a></span>(
   <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='fl'>5</span>, y = <span class='fl'>30</span>, xend = <span class='fl'>3.5</span>, yend = <span class='fl'>25</span>),
   arrow = <span class='fu'><a href='https://rdrr.io/r/grid/arrow.html'>arrow</a></span>(length = <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>0.5</span>, <span class='st'>"cm"</span>))
-)</div><div class='img'><img src='aes_position-6.png' alt='' width='700' height='433' /></div><div class='input'>
+)
+</div><div class='img'><img src='aes_position-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can also use geom_segment() to recreate plot(type = "h")</span>
 <span class='co'># from base R:</span>
 <span class='kw'>counts</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(x = <span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>rpois</a></span>(<span class='fl'>100</span>, <span class='fl'>5</span>)))
 <span class='kw'>counts</span><span class='op'>$</span><span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span>(<span class='kw'>counts</span><span class='op'>$</span><span class='kw'>x</span>))
-<span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span>(<span class='kw'>counts</span>, <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='kw'>x</span>, <span class='kw'>Freq</span>, type = <span class='st'>"h"</span>, lwd = <span class='fl'>10</span>))</div><div class='img'><img src='aes_position-7.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span>(<span class='kw'>counts</span>, <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='kw'>x</span>, <span class='kw'>Freq</span>, type = <span class='st'>"h"</span>, lwd = <span class='fl'>10</span>))
+</div><div class='img'><img src='aes_position-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>counts</span>, <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='kw'>x</span>, y = <span class='kw'>Freq</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_segment.html'>geom_segment</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(yend = <span class='fl'>0</span>, xend = <span class='kw'>x</span>), size = <span class='fl'>10</span>)</div><div class='img'><img src='aes_position-8.png' alt='' width='700' height='433' /></div></pre>
+  <span class='fu'><a href='geom_segment.html'>geom_segment</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(yend = <span class='fl'>0</span>, xend = <span class='kw'>x</span>), size = <span class='fl'>10</span>)
+</div><div class='img'><img src='aes_position-8.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

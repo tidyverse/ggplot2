@@ -331,17 +331,24 @@ distribution of a variable</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>cyl</span>, <span class='kw'>hwy</span>))
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span>()</div><div class='img'><img src='geom_jitter-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_jitter</span>()</div><div class='img'><img src='geom_jitter-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
+</div><div class='img'><img src='geom_jitter-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_jitter</span>()
+</div><div class='img'><img src='geom_jitter-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Add aesthetic mappings</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_jitter</span>(<span class='fu'><a href='aes.html'>aes</a></span>(colour = <span class='kw'>class</span>))</div><div class='img'><img src='geom_jitter-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_jitter</span>(<span class='fu'><a href='aes.html'>aes</a></span>(colour = <span class='kw'>class</span>))
+</div><div class='img'><img src='geom_jitter-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Use smaller width/height to emphasise categories</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>cyl</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
-  <span class='fu'>geom_jitter</span>()</div><div class='img'><img src='geom_jitter-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>cyl</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
-  <span class='fu'>geom_jitter</span>(width = <span class='fl'>0.25</span>)</div><div class='img'><img src='geom_jitter-5.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_jitter</span>()
+</div><div class='img'><img src='geom_jitter-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>cyl</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
+  <span class='fu'>geom_jitter</span>(width = <span class='fl'>0.25</span>)
+</div><div class='img'><img src='geom_jitter-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Use larger width/height to completely smooth away discreteness</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>cty</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
-  <span class='fu'>geom_jitter</span>()</div><div class='img'><img src='geom_jitter-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>cty</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
-  <span class='fu'>geom_jitter</span>(width = <span class='fl'>0.5</span>, height = <span class='fl'>0.5</span>)</div><div class='img'><img src='geom_jitter-7.png' alt='' width='700' height='433' /></div></pre>
+  <span class='fu'>geom_jitter</span>()
+</div><div class='img'><img src='geom_jitter-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>cty</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
+  <span class='fu'>geom_jitter</span>(width = <span class='fl'>0.5</span>, height = <span class='fl'>0.5</span>)
+</div><div class='img'><img src='geom_jitter-7.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

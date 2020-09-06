@@ -326,28 +326,35 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>cty</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
- <span class='fu'><a href='geom_point.html'>geom_point</a></span>()</div><div class='img'><img src='geom_count-1.png' alt='' width='700' height='433' /></div><div class='input'>
+ <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
+</div><div class='img'><img src='geom_count-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>cty</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
- <span class='fu'>geom_count</span>()</div><div class='img'><img src='geom_count-2.png' alt='' width='700' height='433' /></div><div class='input'>
+ <span class='fu'>geom_count</span>()
+</div><div class='img'><img src='geom_count-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Best used in conjunction with scale_size_area which ensures that</span>
 <span class='co'># counts of zero would be given size 0. Doesn't make much different</span>
 <span class='co'># here because the smallest count is already close to 0.</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>cty</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
  <span class='fu'>geom_count</span>() <span class='op'>+</span>
- <span class='fu'><a href='scale_size.html'>scale_size_area</a></span>()</div><div class='img'><img src='geom_count-3.png' alt='' width='700' height='433' /></div><div class='input'>
+ <span class='fu'><a href='scale_size.html'>scale_size_area</a></span>()
+</div><div class='img'><img src='geom_count-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Display proportions instead of counts -------------------------------------</span>
 <span class='co'># By default, all categorical variables in the plot form the groups.</span>
 <span class='co'># Specifying geom_count without a group identifier leads to a plot which is</span>
 <span class='co'># not useful:</span>
 <span class='kw'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='kw'>cut</span>, y = <span class='kw'>clarity</span>))
-<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>geom_count</span>(<span class='fu'><a href='aes.html'>aes</a></span>(size = <span class='fu'><a href='aes_eval.html'>after_stat</a></span>(<span class='kw'>prop</span>)))</div><div class='img'><img src='geom_count-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># To correct this problem and achieve a more desirable plot, we need</span>
+<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>geom_count</span>(<span class='fu'><a href='aes.html'>aes</a></span>(size = <span class='fu'><a href='aes_eval.html'>after_stat</a></span>(<span class='kw'>prop</span>)))
+</div><div class='img'><img src='geom_count-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># To correct this problem and achieve a more desirable plot, we need</span>
 <span class='co'># to specify which group the proportion is to be calculated over.</span>
 <span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>geom_count</span>(<span class='fu'><a href='aes.html'>aes</a></span>(size = <span class='fu'><a href='aes_eval.html'>after_stat</a></span>(<span class='kw'>prop</span>), group = <span class='fl'>1</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='scale_size.html'>scale_size_area</a></span>(max_size = <span class='fl'>10</span>)</div><div class='img'><img src='geom_count-5.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'><a href='scale_size.html'>scale_size_area</a></span>(max_size = <span class='fl'>10</span>)
+</div><div class='img'><img src='geom_count-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Or group by x/y variables to have rows/columns sum to 1.</span>
 <span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>geom_count</span>(<span class='fu'><a href='aes.html'>aes</a></span>(size = <span class='fu'><a href='aes_eval.html'>after_stat</a></span>(<span class='kw'>prop</span>), group = <span class='kw'>cut</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='scale_size.html'>scale_size_area</a></span>(max_size = <span class='fl'>10</span>)</div><div class='img'><img src='geom_count-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>geom_count</span>(<span class='fu'><a href='aes.html'>aes</a></span>(size = <span class='fu'><a href='aes_eval.html'>after_stat</a></span>(<span class='kw'>prop</span>), group = <span class='kw'>clarity</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='scale_size.html'>scale_size_area</a></span>(max_size = <span class='fl'>10</span>)</div><div class='img'><img src='geom_count-7.png' alt='' width='700' height='433' /></div></pre>
+  <span class='fu'><a href='scale_size.html'>scale_size_area</a></span>(max_size = <span class='fl'>10</span>)
+</div><div class='img'><img src='geom_count-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>geom_count</span>(<span class='fu'><a href='aes.html'>aes</a></span>(size = <span class='fu'><a href='aes_eval.html'>after_stat</a></span>(<span class='kw'>prop</span>), group = <span class='kw'>clarity</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='scale_size.html'>scale_size_area</a></span>(max_size = <span class='fl'>10</span>)
+</div><div class='img'><img src='geom_count-7.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

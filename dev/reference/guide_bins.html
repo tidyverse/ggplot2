@@ -395,18 +395,24 @@ may be needed.</p>
   <span class='fu'><a href='scale_size.html'>scale_size_binned</a></span>()
 
 <span class='co'># Standard look</span>
-<span class='kw'>p</span></div><div class='img'><img src='guide_bins-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span>
+</div><div class='img'><img src='guide_bins-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Remove the axis or style it</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span>(size = <span class='fu'>guide_bins</span>(axis = <span class='fl'>FALSE</span>))</div><div class='img'><img src='guide_bins-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span>(size = <span class='fu'>guide_bins</span>(show.limits = <span class='fl'>TRUE</span>))</div><div class='img'><img src='guide_bins-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span>(size = <span class='fu'>guide_bins</span>(axis = <span class='fl'>FALSE</span>))
+</div><div class='img'><img src='guide_bins-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span>(size = <span class='fu'>guide_bins</span>(show.limits = <span class='fl'>TRUE</span>))
+</div><div class='img'><img src='guide_bins-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span>(size = <span class='fu'>guide_bins</span>(
   axis.arrow = <span class='fu'><a href='https://rdrr.io/r/grid/arrow.html'>arrow</a></span>(length = <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>1.5</span>, <span class='st'>'mm'</span>), ends = <span class='st'>'both'</span>)
-))</div><div class='img'><img src='guide_bins-4.png' alt='' width='700' height='433' /></div><div class='input'>
+))
+</div><div class='img'><img src='guide_bins-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Guides are merged together if possible</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>) <span class='op'>+</span>
   <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>disp</span>, <span class='kw'>mpg</span>, size = <span class='kw'>hp</span>, colour = <span class='kw'>hp</span>)) <span class='op'>+</span>
   <span class='fu'><a href='scale_size.html'>scale_size_binned</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='scale_colour_continuous.html'>scale_colour_binned</a></span>(guide = <span class='st'>"bins"</span>)</div><div class='img'><img src='guide_bins-5.png' alt='' width='700' height='433' /></div><div class='input'></div></pre>
+  <span class='fu'><a href='scale_colour_continuous.html'>scale_colour_binned</a></span>(guide = <span class='st'>"bins"</span>)
+</div><div class='img'><img src='guide_bins-5.png' alt='' width='700' height='433' /></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -298,7 +298,8 @@ a warning. If <code>TRUE</code>, missing values are silently removed.</p></dd>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>ia</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>long</span>, <span class='kw'>lat</span>)) <span class='op'>+</span>
   <span class='fu'><a href='geom_polygon.html'>geom_polygon</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(group = <span class='kw'>group</span>), fill = <span class='fl'>NA</span>, colour = <span class='st'>"grey60"</span>) <span class='op'>+</span>
   <span class='fu'><a href='geom_label.html'>geom_text</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(label = <span class='kw'>subregion</span>), data = <span class='kw'>seats</span>, size = <span class='fl'>2</span>, angle = <span class='fl'>45</span>)
-}</div><div class='output co'>#&gt; <span class='message'>Loading required package: maps</span></div><div class='img'><img src='borders-1.png' alt='' width='700' height='433' /></div><div class='input'>
+}
+</div><div class='output co'>#&gt; <span class='message'>Loading required package: maps</span></div><div class='img'><img src='borders-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"maps"</span>)) {
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>us.cities</span>)
 <span class='kw'>capitals</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='kw'>us.cities</span>, <span class='kw'>capital</span> <span class='op'>==</span> <span class='fl'>2</span>)
@@ -307,7 +308,8 @@ a warning. If <code>TRUE</code>, missing values are silently removed.</p></dd>
   <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(size = <span class='kw'>pop</span>)) <span class='op'>+</span>
   <span class='fu'><a href='scale_size.html'>scale_size_area</a></span>() <span class='op'>+</span>
   <span class='fu'><a href='coord_map.html'>coord_quickmap</a></span>()
-}</div><div class='img'><img src='borders-2.png' alt='' width='700' height='433' /></div><div class='input'>
+}
+</div><div class='img'><img src='borders-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"maps"</span>)) {
 <span class='co'># Same map, with some world context</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>capitals</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>long</span>, <span class='kw'>lat</span>)) <span class='op'>+</span>
@@ -315,7 +317,8 @@ a warning. If <code>TRUE</code>, missing values are silently removed.</p></dd>
   <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(size = <span class='kw'>pop</span>)) <span class='op'>+</span>
   <span class='fu'><a href='scale_size.html'>scale_size_area</a></span>() <span class='op'>+</span>
   <span class='fu'><a href='coord_map.html'>coord_quickmap</a></span>()
-}</div><div class='img'><img src='borders-3.png' alt='' width='700' height='433' /></div></pre>
+}
+</div><div class='img'><img src='borders-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

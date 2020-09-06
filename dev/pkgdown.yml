@@ -1,8 +1,8 @@
 pandoc: 2.7.3
 pkgdown: 1.5.1.9000
-pkgdown_sha: eae56f08694abebf93cdfc0dd8e9ede06d8c815f
+pkgdown_sha: c6b35532515a7ae433eff4b547d77eeae4278664
 articles: []
-last_built: 2020-08-20T20:43Z
+last_built: 2020-09-06T04:24Z
 urls:
   reference: https://ggplot2.tidyverse.org/reference
   article: https://ggplot2.tidyverse.org/articles

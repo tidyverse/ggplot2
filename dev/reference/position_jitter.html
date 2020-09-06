@@ -253,19 +253,24 @@ Use <code>NULL</code> to use the current random seed and also avoid resetting
 <span class='co'># take up as much space as a boxplot or a bar</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>class</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
   <span class='fu'><a href='geom_boxplot.html'>geom_boxplot</a></span>(colour = <span class='st'>"grey50"</span>) <span class='op'>+</span>
-  <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span>()</div><div class='img'><img src='position_jitter-1.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span>()
+</div><div class='img'><img src='position_jitter-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># If the default jittering is too much, as in this plot:</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>am</span>, <span class='kw'>vs</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span>()</div><div class='img'><img src='position_jitter-2.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span>()
+</div><div class='img'><img src='position_jitter-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can adjust it in two ways</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>am</span>, <span class='kw'>vs</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span>(width = <span class='fl'>0.1</span>, height = <span class='fl'>0.1</span>)</div><div class='img'><img src='position_jitter-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>am</span>, <span class='kw'>vs</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span>(position = <span class='fu'>position_jitter</span>(width = <span class='fl'>0.1</span>, height = <span class='fl'>0.1</span>))</div><div class='img'><img src='position_jitter-4.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span>(width = <span class='fl'>0.1</span>, height = <span class='fl'>0.1</span>)
+</div><div class='img'><img src='position_jitter-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>am</span>, <span class='kw'>vs</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span>(position = <span class='fu'>position_jitter</span>(width = <span class='fl'>0.1</span>, height = <span class='fl'>0.1</span>))
+</div><div class='img'><img src='position_jitter-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Create a jitter object for reproducible jitter:</span>
 <span class='kw'>jitter</span> <span class='op'>&lt;-</span> <span class='fu'>position_jitter</span>(width = <span class='fl'>0.1</span>, height = <span class='fl'>0.1</span>)
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>am</span>, <span class='kw'>vs</span>)) <span class='op'>+</span>
   <span class='fu'><a href='geom_point.html'>geom_point</a></span>(position = <span class='kw'>jitter</span>) <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(position = <span class='kw'>jitter</span>, color = <span class='st'>"red"</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>am</span> <span class='op'>+</span> <span class='fl'>0.2</span>, <span class='kw'>vs</span> <span class='op'>+</span> <span class='fl'>0.2</span>))</div><div class='img'><img src='position_jitter-5.png' alt='' width='700' height='433' /></div></pre>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(position = <span class='kw'>jitter</span>, color = <span class='st'>"red"</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>am</span> <span class='op'>+</span> <span class='fl'>0.2</span>, <span class='kw'>vs</span> <span class='op'>+</span> <span class='fl'>0.2</span>))
+</div><div class='img'><img src='position_jitter-5.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

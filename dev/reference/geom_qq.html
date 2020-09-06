@@ -385,17 +385,23 @@ distributions</p></dd>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
 <span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(y = <span class='fu'><a href='https://rdrr.io/r/stats/TDist.html'>rt</a></span>(<span class='fl'>200</span>, df = <span class='fl'>5</span>))
 <span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(sample = <span class='kw'>y</span>))
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>stat_qq</span>() <span class='op'>+</span> <span class='fu'>stat_qq_line</span>()</div><div class='img'><img src='geom_qq-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>stat_qq</span>() <span class='op'>+</span> <span class='fu'>stat_qq_line</span>()
+</div><div class='img'><img src='geom_qq-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Use fitdistr from MASS to estimate distribution params</span>
-<span class='kw'>params</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>as.list</a></span>(<span class='kw'>MASS</span>::<span class='fu'><a href='https://rdrr.io/pkg/MASS/man/fitdistr.html'>fitdistr</a></span>(<span class='kw'>df</span><span class='op'>$</span><span class='kw'>y</span>, <span class='st'>"t"</span>)<span class='op'>$</span><span class='kw'>estimate</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(sample = <span class='kw'>y</span>)) <span class='op'>+</span>
+<span class='kw'>params</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>as.list</a></span>(<span class='kw'>MASS</span>::<span class='fu'><a href='https://rdrr.io/pkg/MASS/man/fitdistr.html'>fitdistr</a></span>(<span class='kw'>df</span><span class='op'>$</span><span class='kw'>y</span>, <span class='st'>"t"</span>)<span class='op'>$</span><span class='kw'>estimate</span>)
+</div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(sample = <span class='kw'>y</span>)) <span class='op'>+</span>
   <span class='fu'>stat_qq</span>(distribution = <span class='kw'>qt</span>, dparams = <span class='kw'>params</span>[<span class='st'>"df"</span>]) <span class='op'>+</span>
-  <span class='fu'>stat_qq_line</span>(distribution = <span class='kw'>qt</span>, dparams = <span class='kw'>params</span>[<span class='st'>"df"</span>])</div><div class='img'><img src='geom_qq-2.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>stat_qq_line</span>(distribution = <span class='kw'>qt</span>, dparams = <span class='kw'>params</span>[<span class='st'>"df"</span>])
+</div><div class='img'><img src='geom_qq-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Using to explore the distribution of a variable</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(sample = <span class='kw'>mpg</span>)) <span class='op'>+</span>
   <span class='fu'>stat_qq</span>() <span class='op'>+</span>
-  <span class='fu'>stat_qq_line</span>()</div><div class='img'><img src='geom_qq-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(sample = <span class='kw'>mpg</span>, colour = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>))) <span class='op'>+</span>
+  <span class='fu'>stat_qq_line</span>()
+</div><div class='img'><img src='geom_qq-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(sample = <span class='kw'>mpg</span>, colour = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>))) <span class='op'>+</span>
   <span class='fu'>stat_qq</span>() <span class='op'>+</span>
-  <span class='fu'>stat_qq_line</span>()</div><div class='img'><img src='geom_qq-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span></div></pre>
+  <span class='fu'>stat_qq_line</span>()
+</div><div class='img'><img src='geom_qq-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

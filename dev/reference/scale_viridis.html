@@ -365,27 +365,40 @@ other values are deprecated.</p></td>
     <pre class="examples"><div class='input'><span class='co'># viridis is the default colour/fill scale for ordered factors</span>
 <span class='kw'>dsamp</span> <span class='op'>&lt;-</span> <span class='kw'>diamonds</span>[<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='kw'>diamonds</span>), <span class='fl'>1000</span>), ]
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>dsamp</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>carat</span>, <span class='kw'>price</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(colour = <span class='kw'>clarity</span>))</div><div class='img'><img src='scale_viridis-1.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(colour = <span class='kw'>clarity</span>))
+</div><div class='img'><img src='scale_viridis-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Use viridis_d with discrete data</span>
 <span class='kw'>txsamp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='kw'>txhousing</span>, <span class='kw'>city</span> <span class='op'>%in%</span>
   <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Houston"</span>, <span class='st'>"Fort Worth"</span>, <span class='st'>"San Antonio"</span>, <span class='st'>"Dallas"</span>, <span class='st'>"Austin"</span>))
 (<span class='kw'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(data = <span class='kw'>txsamp</span>, <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='kw'>sales</span>, y = <span class='kw'>median</span>)) <span class='op'>+</span>
-   <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(colour = <span class='kw'>city</span>)))</div><div class='img'><img src='scale_viridis-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>scale_colour_viridis_d</span>()</div><div class='img'><img src='scale_viridis-3.png' alt='' width='700' height='433' /></div><div class='input'>
+   <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(colour = <span class='kw'>city</span>)))
+</div><div class='img'><img src='scale_viridis-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>scale_colour_viridis_d</span>()
+</div><div class='img'><img src='scale_viridis-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Change scale label</span>
-<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>scale_colour_viridis_d</span>(<span class='st'>"City\nCenter"</span>)</div><div class='img'><img src='scale_viridis-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>scale_colour_viridis_d</span>(<span class='st'>"City\nCenter"</span>)
+</div><div class='img'><img src='scale_viridis-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Select palette to use, see ?scales::viridis_pal for more details</span>
-<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>scale_colour_viridis_d</span>(option = <span class='st'>"plasma"</span>)</div><div class='img'><img src='scale_viridis-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>scale_colour_viridis_d</span>(option = <span class='st'>"inferno"</span>)</div><div class='img'><img src='scale_viridis-6.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>scale_colour_viridis_d</span>(option = <span class='st'>"plasma"</span>)
+</div><div class='img'><img src='scale_viridis-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>scale_colour_viridis_d</span>(option = <span class='st'>"inferno"</span>)
+</div><div class='img'><img src='scale_viridis-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># scale_fill_viridis_d works just the same as</span>
 <span class='co'># scale_colour_viridis_d but for fill colours</span>
 <span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>txsamp</span>, <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='kw'>median</span>, fill = <span class='kw'>city</span>)) <span class='op'>+</span>
   <span class='fu'><a href='geom_freqpoly.html'>geom_histogram</a></span>(position = <span class='st'>"dodge"</span>, binwidth = <span class='fl'>15000</span>)
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>scale_fill_viridis_d</span>()</div><div class='img'><img src='scale_viridis-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># the order of colour can be reversed</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>scale_fill_viridis_d</span>(direction = <span class='op'>-</span><span class='fl'>1</span>)</div><div class='img'><img src='scale_viridis-8.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>scale_fill_viridis_d</span>()
+</div><div class='img'><img src='scale_viridis-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># the order of colour can be reversed</span>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>scale_fill_viridis_d</span>(direction = <span class='op'>-</span><span class='fl'>1</span>)
+</div><div class='img'><img src='scale_viridis-8.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Use viridis_c with continous data</span>
 (<span class='kw'>v</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>faithfuld</span>) <span class='op'>+</span>
-  <span class='fu'><a href='geom_raster.html'>geom_tile</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>waiting</span>, <span class='kw'>eruptions</span>, fill = <span class='kw'>density</span>)))</div><div class='img'><img src='scale_viridis-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>v</span> <span class='op'>+</span> <span class='fu'>scale_fill_viridis_c</span>()</div><div class='img'><img src='scale_viridis-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>v</span> <span class='op'>+</span> <span class='fu'>scale_fill_viridis_c</span>(option = <span class='st'>"plasma"</span>)</div><div class='img'><img src='scale_viridis-11.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'><a href='geom_raster.html'>geom_tile</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>waiting</span>, <span class='kw'>eruptions</span>, fill = <span class='kw'>density</span>)))
+</div><div class='img'><img src='scale_viridis-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>v</span> <span class='op'>+</span> <span class='fu'>scale_fill_viridis_c</span>()
+</div><div class='img'><img src='scale_viridis-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>v</span> <span class='op'>+</span> <span class='fu'>scale_fill_viridis_c</span>(option = <span class='st'>"plasma"</span>)
+</div><div class='img'><img src='scale_viridis-11.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Use viridis_b to bin continuous data before mapping</span>
-<span class='kw'>v</span> <span class='op'>+</span> <span class='fu'>scale_fill_viridis_b</span>()</div><div class='img'><img src='scale_viridis-12.png' alt='' width='700' height='433' /></div><div class='input'></div></pre>
+<span class='kw'>v</span> <span class='op'>+</span> <span class='fu'>scale_fill_viridis_b</span>()
+</div><div class='img'><img src='scale_viridis-12.png' alt='' width='700' height='433' /></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -320,11 +320,14 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
 
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>values</span>) <span class='op'>+</span>
   <span class='fu'>geom_map</span>(<span class='fu'><a href='aes.html'>aes</a></span>(map_id = <span class='kw'>id</span>), map = <span class='kw'>positions</span>) <span class='op'>+</span>
-  <span class='fu'><a href='expand_limits.html'>expand_limits</a></span>(<span class='kw'>positions</span>)</div><div class='img'><img src='geom_map-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>values</span>, <span class='fu'><a href='aes.html'>aes</a></span>(fill = <span class='kw'>value</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='expand_limits.html'>expand_limits</a></span>(<span class='kw'>positions</span>)
+</div><div class='img'><img src='geom_map-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>values</span>, <span class='fu'><a href='aes.html'>aes</a></span>(fill = <span class='kw'>value</span>)) <span class='op'>+</span>
   <span class='fu'>geom_map</span>(<span class='fu'><a href='aes.html'>aes</a></span>(map_id = <span class='kw'>id</span>), map = <span class='kw'>positions</span>) <span class='op'>+</span>
-  <span class='fu'><a href='expand_limits.html'>expand_limits</a></span>(<span class='kw'>positions</span>)</div><div class='img'><img src='geom_map-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>values</span>, <span class='fu'><a href='aes.html'>aes</a></span>(fill = <span class='kw'>value</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='expand_limits.html'>expand_limits</a></span>(<span class='kw'>positions</span>)
+</div><div class='img'><img src='geom_map-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>values</span>, <span class='fu'><a href='aes.html'>aes</a></span>(fill = <span class='kw'>value</span>)) <span class='op'>+</span>
   <span class='fu'>geom_map</span>(<span class='fu'><a href='aes.html'>aes</a></span>(map_id = <span class='kw'>id</span>), map = <span class='kw'>positions</span>) <span class='op'>+</span>
-  <span class='fu'><a href='expand_limits.html'>expand_limits</a></span>(<span class='kw'>positions</span>) <span class='op'>+</span> <span class='fu'><a href='lims.html'>ylim</a></span>(<span class='fl'>0</span>, <span class='fl'>3</span>)</div><div class='img'><img src='geom_map-3.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'><a href='expand_limits.html'>expand_limits</a></span>(<span class='kw'>positions</span>) <span class='op'>+</span> <span class='fu'><a href='lims.html'>ylim</a></span>(<span class='fl'>0</span>, <span class='fl'>3</span>)
+</div><div class='img'><img src='geom_map-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Better example</span>
 <span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='kw'>maps</span>)) {
 
@@ -346,7 +349,8 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
     <span class='fu'>geom_map</span>(<span class='fu'><a href='aes.html'>aes</a></span>(fill = <span class='kw'>value</span>), map = <span class='kw'>states_map</span>) <span class='op'>+</span>
     <span class='fu'><a href='expand_limits.html'>expand_limits</a></span>(x = <span class='kw'>states_map</span><span class='op'>$</span><span class='kw'>long</span>, y = <span class='kw'>states_map</span><span class='op'>$</span><span class='kw'>lat</span>) <span class='op'>+</span>
     <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span>( <span class='op'>~</span> <span class='kw'>variable</span>)
-}</div><div class='img'><img src='geom_map-4.png' alt='' width='700' height='433' /></div></pre>
+}
+</div><div class='img'><img src='geom_map-4.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

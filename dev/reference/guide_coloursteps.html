@@ -326,19 +326,25 @@ may be needed.</p>
 <span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>X1</span>, <span class='kw'>X2</span>)) <span class='op'>+</span> <span class='fu'><a href='geom_raster.html'>geom_tile</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(fill = <span class='kw'>value</span>))
 
 <span class='co'># Coloursteps guide is the default for binned colour scales</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_binned</a></span>()</div><div class='img'><img src='guide_coloursteps-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_binned</a></span>()
+</div><div class='img'><img src='guide_coloursteps-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># By default each bin in the guide is the same size irrespectively of how</span>
 <span class='co'># their sizes relate in data space</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_binned</a></span>(breaks = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>10</span>, <span class='fl'>25</span>, <span class='fl'>50</span>))</div><div class='img'><img src='guide_coloursteps-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_binned</a></span>(breaks = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>10</span>, <span class='fl'>25</span>, <span class='fl'>50</span>))
+</div><div class='img'><img src='guide_coloursteps-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># This can be changed with the `even.steps` argument</span>
 <span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_binned</a></span>(
   breaks = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>10</span>, <span class='fl'>25</span>, <span class='fl'>50</span>),
   guide = <span class='fu'>guide_coloursteps</span>(even.steps = <span class='fl'>FALSE</span>)
-)</div><div class='img'><img src='guide_coloursteps-3.png' alt='' width='700' height='433' /></div><div class='input'>
+)
+</div><div class='img'><img src='guide_coloursteps-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># By default the limits is not shown, but this can be changed</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_binned</a></span>(guide = <span class='fu'>guide_coloursteps</span>(show.limits = <span class='fl'>TRUE</span>))</div><div class='img'><img src='guide_coloursteps-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_binned</a></span>(guide = <span class='fu'>guide_coloursteps</span>(show.limits = <span class='fl'>TRUE</span>))
+</div><div class='img'><img src='guide_coloursteps-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># (can also be set in the scale)</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_binned</a></span>(show.limits = <span class='fl'>TRUE</span>)</div><div class='img'><img src='guide_coloursteps-5.png' alt='' width='700' height='433' /></div><div class='input'></div></pre>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_binned</a></span>(show.limits = <span class='fl'>TRUE</span>)
+</div><div class='img'><img src='guide_coloursteps-5.png' alt='' width='700' height='433' /></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

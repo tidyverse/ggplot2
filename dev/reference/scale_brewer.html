@@ -361,28 +361,41 @@ OrRd, PuBu, PuBuGn, PuRd, Purples, RdPu, Reds, YlGn, YlGnBu, YlOrBr, YlOrRd</p><
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>dsamp</span> <span class='op'>&lt;-</span> <span class='kw'>diamonds</span>[<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='kw'>diamonds</span>), <span class='fl'>1000</span>), ]
 (<span class='kw'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>dsamp</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>carat</span>, <span class='kw'>price</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(colour = <span class='kw'>clarity</span>)))</div><div class='img'><img src='scale_brewer-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>scale_colour_brewer</span>()</div><div class='img'><img src='scale_brewer-2.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(colour = <span class='kw'>clarity</span>)))
+</div><div class='img'><img src='scale_brewer-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>scale_colour_brewer</span>()
+</div><div class='img'><img src='scale_brewer-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Change scale label</span>
-<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>scale_colour_brewer</span>(<span class='st'>"Diamond\nclarity"</span>)</div><div class='img'><img src='scale_brewer-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>scale_colour_brewer</span>(<span class='st'>"Diamond\nclarity"</span>)
+</div><div class='img'><img src='scale_brewer-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Select brewer palette to use, see ?scales::brewer_pal for more details</span>
-<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>scale_colour_brewer</span>(palette = <span class='st'>"Greens"</span>)</div><div class='img'><img src='scale_brewer-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>scale_colour_brewer</span>(palette = <span class='st'>"Set1"</span>)</div><div class='img'><img src='scale_brewer-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>scale_colour_brewer</span>(palette = <span class='st'>"Greens"</span>)
+</div><div class='img'><img src='scale_brewer-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>scale_colour_brewer</span>(palette = <span class='st'>"Set1"</span>)
+</div><div class='img'><img src='scale_brewer-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># \donttest{</span>
 <span class='co'># scale_fill_brewer works just the same as</span>
 <span class='co'># scale_colour_brewer but for fill colours</span>
 <span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='kw'>price</span>, fill = <span class='kw'>cut</span>)) <span class='op'>+</span>
   <span class='fu'><a href='geom_freqpoly.html'>geom_histogram</a></span>(position = <span class='st'>"dodge"</span>, binwidth = <span class='fl'>1000</span>)
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>scale_fill_brewer</span>()</div><div class='img'><img src='scale_brewer-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># the order of colour can be reversed</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>scale_fill_brewer</span>(direction = <span class='op'>-</span><span class='fl'>1</span>)</div><div class='img'><img src='scale_brewer-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># the brewer scales look better on a darker background</span>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>scale_fill_brewer</span>()
+</div><div class='img'><img src='scale_brewer-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># the order of colour can be reversed</span>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>scale_fill_brewer</span>(direction = <span class='op'>-</span><span class='fl'>1</span>)
+</div><div class='img'><img src='scale_brewer-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># the brewer scales look better on a darker background</span>
 <span class='kw'>p</span> <span class='op'>+</span>
   <span class='fu'>scale_fill_brewer</span>(direction = <span class='op'>-</span><span class='fl'>1</span>) <span class='op'>+</span>
-  <span class='fu'><a href='ggtheme.html'>theme_dark</a></span>()</div><div class='img'><img src='scale_brewer-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+  <span class='fu'><a href='ggtheme.html'>theme_dark</a></span>()
+</div><div class='img'><img src='scale_brewer-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 
 <span class='co'># Use distiller variant with continous data</span>
 <span class='kw'>v</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>faithfuld</span>) <span class='op'>+</span>
   <span class='fu'><a href='geom_raster.html'>geom_tile</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>waiting</span>, <span class='kw'>eruptions</span>, fill = <span class='kw'>density</span>))
-<span class='kw'>v</span></div><div class='img'><img src='scale_brewer-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>v</span> <span class='op'>+</span> <span class='fu'>scale_fill_distiller</span>()</div><div class='img'><img src='scale_brewer-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>v</span> <span class='op'>+</span> <span class='fu'>scale_fill_distiller</span>(palette = <span class='st'>"Spectral"</span>)</div><div class='img'><img src='scale_brewer-11.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>v</span>
+</div><div class='img'><img src='scale_brewer-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>v</span> <span class='op'>+</span> <span class='fu'>scale_fill_distiller</span>()
+</div><div class='img'><img src='scale_brewer-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>v</span> <span class='op'>+</span> <span class='fu'>scale_fill_distiller</span>(palette = <span class='st'>"Spectral"</span>)
+</div><div class='img'><img src='scale_brewer-11.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># or use blender variants to discretise continuous data</span>
-<span class='kw'>v</span> <span class='op'>+</span> <span class='fu'>scale_fill_fermenter</span>()</div><div class='img'><img src='scale_brewer-12.png' alt='' width='700' height='433' /></div><div class='input'></div></pre>
+<span class='kw'>v</span> <span class='op'>+</span> <span class='fu'>scale_fill_fermenter</span>()
+</div><div class='img'><img src='scale_brewer-12.png' alt='' width='700' height='433' /></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

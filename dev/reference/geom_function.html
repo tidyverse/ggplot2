@@ -347,30 +347,41 @@ be vectorised.</p></td>
 <span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>1492</span>)
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(x = <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>100</span>)), <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span>)) <span class='op'>+</span>
   <span class='fu'><a href='geom_density.html'>geom_density</a></span>() <span class='op'>+</span>
-  <span class='fu'>geom_function</span>(fun = <span class='kw'>dnorm</span>, colour = <span class='st'>"red"</span>)</div><div class='img'><img src='geom_function-1.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_function</span>(fun = <span class='kw'>dnorm</span>, colour = <span class='st'>"red"</span>)
+</div><div class='img'><img src='geom_function-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># To plot functions without data, specify range of x-axis</span>
 <span class='kw'>base</span> <span class='op'>&lt;-</span>
   <span class='fu'><a href='ggplot.html'>ggplot</a></span>() <span class='op'>+</span>
   <span class='fu'><a href='lims.html'>xlim</a></span>(<span class='op'>-</span><span class='fl'>5</span>, <span class='fl'>5</span>)
 
-<span class='kw'>base</span> <span class='op'>+</span> <span class='fu'>geom_function</span>(fun = <span class='kw'>dnorm</span>)</div><div class='img'><img src='geom_function-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>base</span> <span class='op'>+</span> <span class='fu'>geom_function</span>(fun = <span class='kw'>dnorm</span>, args = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(mean = <span class='fl'>2</span>, sd = <span class='fl'>.5</span>))</div><div class='img'><img src='geom_function-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>base</span> <span class='op'>+</span> <span class='fu'>geom_function</span>(fun = <span class='kw'>dnorm</span>)
+</div><div class='img'><img src='geom_function-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>base</span> <span class='op'>+</span> <span class='fu'>geom_function</span>(fun = <span class='kw'>dnorm</span>, args = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(mean = <span class='fl'>2</span>, sd = <span class='fl'>.5</span>))
+</div><div class='img'><img src='geom_function-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># The underlying mechanics evaluate the function at discrete points</span>
 <span class='co'># and connect the points with lines</span>
-<span class='kw'>base</span> <span class='op'>+</span> <span class='fu'>stat_function</span>(fun = <span class='kw'>dnorm</span>, geom = <span class='st'>"point"</span>)</div><div class='img'><img src='geom_function-4.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>base</span> <span class='op'>+</span> <span class='fu'>stat_function</span>(fun = <span class='kw'>dnorm</span>, geom = <span class='st'>"point"</span>, n = <span class='fl'>20</span>)</div><div class='img'><img src='geom_function-5.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>base</span> <span class='op'>+</span> <span class='fu'>geom_function</span>(fun = <span class='kw'>dnorm</span>, n = <span class='fl'>20</span>)</div><div class='img'><img src='geom_function-6.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>base</span> <span class='op'>+</span> <span class='fu'>stat_function</span>(fun = <span class='kw'>dnorm</span>, geom = <span class='st'>"point"</span>)
+</div><div class='img'><img src='geom_function-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>base</span> <span class='op'>+</span> <span class='fu'>stat_function</span>(fun = <span class='kw'>dnorm</span>, geom = <span class='st'>"point"</span>, n = <span class='fl'>20</span>)
+</div><div class='img'><img src='geom_function-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>base</span> <span class='op'>+</span> <span class='fu'>geom_function</span>(fun = <span class='kw'>dnorm</span>, n = <span class='fl'>20</span>)
+</div><div class='img'><img src='geom_function-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Two functions on the same plot</span>
 <span class='kw'>base</span> <span class='op'>+</span>
   <span class='fu'>geom_function</span>(<span class='fu'><a href='aes.html'>aes</a></span>(colour = <span class='st'>"normal"</span>), fun = <span class='kw'>dnorm</span>) <span class='op'>+</span>
-  <span class='fu'>geom_function</span>(<span class='fu'><a href='aes.html'>aes</a></span>(colour = <span class='st'>"t, df = 1"</span>), fun = <span class='kw'>dt</span>, args = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(df = <span class='fl'>1</span>))</div><div class='img'><img src='geom_function-7.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_function</span>(<span class='fu'><a href='aes.html'>aes</a></span>(colour = <span class='st'>"t, df = 1"</span>), fun = <span class='kw'>dt</span>, args = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(df = <span class='fl'>1</span>))
+</div><div class='img'><img src='geom_function-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Using a custom anonymous function</span>
-<span class='kw'>base</span> <span class='op'>+</span> <span class='fu'>geom_function</span>(fun = <span class='fu'>function</span>(<span class='kw'>x</span>) <span class='fl'>0.5</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span>(<span class='op'>-</span><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span>(<span class='kw'>x</span>)))</div><div class='img'><img src='geom_function-8.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>base</span> <span class='op'>+</span> <span class='fu'>geom_function</span>(fun = <span class='op'>~</span> <span class='fl'>0.5</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span>(<span class='op'>-</span><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span>(<span class='kw'>.x</span>)))</div><div class='img'><img src='geom_function-9.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>base</span> <span class='op'>+</span> <span class='fu'>geom_function</span>(fun = <span class='fu'>function</span>(<span class='kw'>x</span>) <span class='fl'>0.5</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span>(<span class='op'>-</span><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span>(<span class='kw'>x</span>)))
+</div><div class='img'><img src='geom_function-8.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>base</span> <span class='op'>+</span> <span class='fu'>geom_function</span>(fun = <span class='op'>~</span> <span class='fl'>0.5</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span>(<span class='op'>-</span><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span>(<span class='kw'>.x</span>)))
+</div><div class='img'><img src='geom_function-9.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Using a custom named function</span>
 <span class='kw'>f</span> <span class='op'>&lt;-</span> <span class='fu'>function</span>(<span class='kw'>x</span>) <span class='fl'>0.5</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span>(<span class='op'>-</span><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span>(<span class='kw'>x</span>))
 
-<span class='kw'>base</span> <span class='op'>+</span> <span class='fu'>geom_function</span>(fun = <span class='kw'>f</span>)</div><div class='img'><img src='geom_function-10.png' alt='' width='700' height='433' /></div><div class='input'></div></pre>
+<span class='kw'>base</span> <span class='op'>+</span> <span class='fu'>geom_function</span>(fun = <span class='kw'>f</span>)
+</div><div class='img'><img src='geom_function-10.png' alt='' width='700' height='433' /></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

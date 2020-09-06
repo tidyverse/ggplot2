@@ -244,17 +244,23 @@ specifying additional arguments.</p></td>
   <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
 
 <span class='co'># without guide specification</span>
-<span class='kw'>p</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Using size for a discrete variable is not advised.</span></div><div class='img'><img src='guides-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Using size for a discrete variable is not advised.</span></div><div class='img'><img src='guides-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Show colorbar guide for colour.</span>
 <span class='co'># All these examples below have a same effect.</span>
 
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>guides</span>(colour = <span class='st'>"colorbar"</span>, size = <span class='st'>"legend"</span>, shape = <span class='st'>"legend"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Using size for a discrete variable is not advised.</span></div><div class='img'><img src='guides-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>guides</span>(colour = <span class='fu'><a href='guide_colourbar.html'>guide_colorbar</a></span>(), size = <span class='fu'><a href='guide_legend.html'>guide_legend</a></span>(),
-  shape = <span class='fu'><a href='guide_legend.html'>guide_legend</a></span>())</div><div class='output co'>#&gt; <span class='warning'>Warning: Using size for a discrete variable is not advised.</span></div><div class='img'><img src='guides-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>guides</span>(colour = <span class='st'>"colorbar"</span>, size = <span class='st'>"legend"</span>, shape = <span class='st'>"legend"</span>)
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Using size for a discrete variable is not advised.</span></div><div class='img'><img src='guides-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>guides</span>(colour = <span class='fu'><a href='guide_colourbar.html'>guide_colorbar</a></span>(), size = <span class='fu'><a href='guide_legend.html'>guide_legend</a></span>(),
+  shape = <span class='fu'><a href='guide_legend.html'>guide_legend</a></span>())
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Using size for a discrete variable is not advised.</span></div><div class='img'><img src='guides-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span>
  <span class='fu'><a href='scale_colour_continuous.html'>scale_colour_continuous</a></span>(guide = <span class='st'>"colorbar"</span>) <span class='op'>+</span>
  <span class='fu'><a href='scale_size.html'>scale_size_discrete</a></span>(guide = <span class='st'>"legend"</span>) <span class='op'>+</span>
- <span class='fu'><a href='scale_shape.html'>scale_shape</a></span>(guide = <span class='st'>"legend"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Using size for a discrete variable is not advised.</span></div><div class='img'><img src='guides-4.png' alt='' width='700' height='433' /></div><div class='input'>
+ <span class='fu'><a href='scale_shape.html'>scale_shape</a></span>(guide = <span class='st'>"legend"</span>)
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Using size for a discrete variable is not advised.</span></div><div class='img'><img src='guides-4.png' alt='' width='700' height='433' /></div><div class='input'>
  <span class='co'># Remove some guides</span>
- <span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>guides</span>(colour = <span class='st'>"none"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Using size for a discrete variable is not advised.</span></div><div class='img'><img src='guides-5.png' alt='' width='700' height='433' /></div><div class='input'> <span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>guides</span>(colour = <span class='st'>"colorbar"</span>,size = <span class='st'>"none"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Using size for a discrete variable is not advised.</span></div><div class='img'><img src='guides-6.png' alt='' width='700' height='433' /></div><div class='input'>
+ <span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>guides</span>(colour = <span class='st'>"none"</span>)
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Using size for a discrete variable is not advised.</span></div><div class='img'><img src='guides-5.png' alt='' width='700' height='433' /></div><div class='input'> <span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>guides</span>(colour = <span class='st'>"colorbar"</span>,size = <span class='st'>"none"</span>)
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Using size for a discrete variable is not advised.</span></div><div class='img'><img src='guides-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Guides are integrated where possible</span>
 
 <span class='kw'>p</span> <span class='op'>+</span>
@@ -262,10 +268,13 @@ specifying additional arguments.</p></td>
     colour = <span class='fu'><a href='guide_legend.html'>guide_legend</a></span>(<span class='st'>"title"</span>),
     size = <span class='fu'><a href='guide_legend.html'>guide_legend</a></span>(<span class='st'>"title"</span>),
     shape = <span class='fu'><a href='guide_legend.html'>guide_legend</a></span>(<span class='st'>"title"</span>)
- )</div><div class='output co'>#&gt; <span class='warning'>Warning: Using size for a discrete variable is not advised.</span></div><div class='img'><img src='guides-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># same as</span>
+ )
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Using size for a discrete variable is not advised.</span></div><div class='img'><img src='guides-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># same as</span>
 <span class='kw'>g</span> <span class='op'>&lt;-</span> <span class='fu'><a href='guide_legend.html'>guide_legend</a></span>(<span class='st'>"title"</span>)
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>guides</span>(colour = <span class='kw'>g</span>, size = <span class='kw'>g</span>, shape = <span class='kw'>g</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Using size for a discrete variable is not advised.</span></div><div class='img'><img src='guides-8.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='theme.html'>theme</a></span>(legend.position = <span class='st'>"bottom"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Using size for a discrete variable is not advised.</span></div><div class='img'><img src='guides-9.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>guides</span>(colour = <span class='kw'>g</span>, size = <span class='kw'>g</span>, shape = <span class='kw'>g</span>)
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Using size for a discrete variable is not advised.</span></div><div class='img'><img src='guides-8.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='theme.html'>theme</a></span>(legend.position = <span class='st'>"bottom"</span>)
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Using size for a discrete variable is not advised.</span></div><div class='img'><img src='guides-9.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># position of guides</span>
 
 <span class='co'># Set order for multiple guides</span>
@@ -275,7 +284,9 @@ specifying additional arguments.</p></td>
    colour = <span class='fu'><a href='guide_colourbar.html'>guide_colourbar</a></span>(order = <span class='fl'>1</span>),
    shape = <span class='fu'><a href='guide_legend.html'>guide_legend</a></span>(order = <span class='fl'>2</span>),
    size = <span class='fu'><a href='guide_legend.html'>guide_legend</a></span>(order = <span class='fl'>3</span>)
- )</div><div class='img'><img src='guides-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span></div></pre>
+ )
+</div><div class='img'><img src='guides-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

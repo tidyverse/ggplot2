@@ -286,13 +286,17 @@ may consider adapting secondary axis labels.</p>
   <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
 
 <span class='co'># Create a simple secondary axis</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_continuous.html'>scale_y_continuous</a></span>(sec.axis = <span class='fu'>sec_axis</span>(<span class='op'>~</span> <span class='kw'>.</span> <span class='op'>+</span> <span class='fl'>10</span>))</div><div class='img'><img src='sec_axis-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_continuous.html'>scale_y_continuous</a></span>(sec.axis = <span class='fu'>sec_axis</span>(<span class='op'>~</span> <span class='kw'>.</span> <span class='op'>+</span> <span class='fl'>10</span>))
+</div><div class='img'><img src='sec_axis-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Inherit the name from the primary axis</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_continuous.html'>scale_y_continuous</a></span>(<span class='st'>"Miles/gallon"</span>, sec.axis = <span class='fu'>sec_axis</span>(<span class='op'>~</span> <span class='kw'>.</span> <span class='op'>+</span> <span class='fl'>10</span>, name = <span class='fu'>derive</span>()))</div><div class='img'><img src='sec_axis-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_continuous.html'>scale_y_continuous</a></span>(<span class='st'>"Miles/gallon"</span>, sec.axis = <span class='fu'>sec_axis</span>(<span class='op'>~</span> <span class='kw'>.</span> <span class='op'>+</span> <span class='fl'>10</span>, name = <span class='fu'>derive</span>()))
+</div><div class='img'><img src='sec_axis-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Duplicate the primary axis</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_continuous.html'>scale_y_continuous</a></span>(sec.axis = <span class='fu'>dup_axis</span>())</div><div class='img'><img src='sec_axis-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_continuous.html'>scale_y_continuous</a></span>(sec.axis = <span class='fu'>dup_axis</span>())
+</div><div class='img'><img src='sec_axis-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can pass in a formula as a shorthand</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_continuous.html'>scale_y_continuous</a></span>(sec.axis = <span class='op'>~</span> <span class='kw'>.</span><span class='op'>^</span><span class='fl'>2</span>)</div><div class='img'><img src='sec_axis-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_continuous.html'>scale_y_continuous</a></span>(sec.axis = <span class='op'>~</span> <span class='kw'>.</span><span class='op'>^</span><span class='fl'>2</span>)
+</div><div class='img'><img src='sec_axis-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Secondary axes work for date and datetime scales too:</span>
 <span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
   dx = <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(
@@ -314,20 +318,22 @@ may consider adapting secondary axis labels.</p>
       name = <span class='st'>"Time of Day"</span>,
       labels = <span class='kw'>scales</span>::<span class='fu'><a href='https://scales.r-lib.org//reference/label_date.html'>time_format</a></span>(<span class='st'>"%I %p"</span>)
     )
-  )</div><div class='img'><img src='sec_axis-5.png' alt='' width='700' height='433' /></div><div class='input'>
+  )
+</div><div class='img'><img src='sec_axis-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># or to transform axes for different timezones</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='kw'>dx</span>, y = <span class='kw'>price</span>)) <span class='op'>+</span>
   <span class='fu'><a href='geom_path.html'>geom_line</a></span>() <span class='op'>+</span>
   <span class='fu'><a href='scale_date.html'>scale_x_datetime</a></span>(<span class='st'>"
-    GMT"</span>x_datetime("
-    GMT",
+    GMT"</span>,
     date_labels = <span class='st'>"%b %d %I %p"</span>,
     sec.axis = <span class='fu'>sec_axis</span>(
       <span class='op'>~</span> <span class='kw'>.</span> <span class='op'>+</span> <span class='fl'>8</span> <span class='op'>*</span> <span class='fl'>3600</span>,
       name = <span class='st'>"GMT+8"</span>,
       labels = <span class='kw'>scales</span>::<span class='fu'><a href='https://scales.r-lib.org//reference/label_date.html'>time_format</a></span>(<span class='st'>"%b %d %I %p"</span>)
     )
-  )</div><div class='img'><img src='sec_axis-6.png' alt='' width='700' height='433' /></div><div class='input'></div></pre>
+  )
+</div><div class='img'><img src='sec_axis-6.png' alt='' width='700' height='433' /></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -264,30 +264,37 @@ argument.</p>
     <pre class="examples"><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>luv_colours</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>u</span>, <span class='kw'>v</span>)) <span class='op'>+</span>
   <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(colour = <span class='kw'>col</span>), size = <span class='fl'>3</span>) <span class='op'>+</span>
   <span class='fu'>scale_color_identity</span>() <span class='op'>+</span>
-  <span class='fu'><a href='coord_fixed.html'>coord_equal</a></span>()</div><div class='img'><img src='scale_identity-1.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'><a href='coord_fixed.html'>coord_equal</a></span>()
+</div><div class='img'><img src='scale_identity-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
   x = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>,
   y = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>,
   colour = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"red"</span>, <span class='st'>"green"</span>, <span class='st'>"blue"</span>, <span class='st'>"yellow"</span>)
 )
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span> <span class='fu'><a href='geom_raster.html'>geom_tile</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(fill = <span class='kw'>colour</span>))</div><div class='img'><img src='scale_identity-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span> <span class='fu'><a href='geom_raster.html'>geom_tile</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(fill = <span class='kw'>colour</span>))
+</div><div class='img'><img src='scale_identity-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
   <span class='fu'><a href='geom_raster.html'>geom_tile</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(fill = <span class='kw'>colour</span>)) <span class='op'>+</span>
-  <span class='fu'>scale_fill_identity</span>()</div><div class='img'><img src='scale_identity-3.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>scale_fill_identity</span>()
+</div><div class='img'><img src='scale_identity-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># To get a legend guide, specify guide = "legend"</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
   <span class='fu'><a href='geom_raster.html'>geom_tile</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(fill = <span class='kw'>colour</span>)) <span class='op'>+</span>
-  <span class='fu'>scale_fill_identity</span>(guide = <span class='st'>"legend"</span>)</div><div class='img'><img src='scale_identity-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># But you'll typically also need to supply breaks and labels:</span>
+  <span class='fu'>scale_fill_identity</span>(guide = <span class='st'>"legend"</span>)
+</div><div class='img'><img src='scale_identity-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># But you'll typically also need to supply breaks and labels:</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
   <span class='fu'><a href='geom_raster.html'>geom_tile</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(fill = <span class='kw'>colour</span>)) <span class='op'>+</span>
   <span class='fu'>scale_fill_identity</span>(<span class='st'>"trt"</span>, labels = <span class='kw'>letters</span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>], breaks = <span class='kw'>df</span><span class='op'>$</span><span class='kw'>colour</span>,
-  guide = <span class='st'>"legend"</span>)</div><div class='img'><img src='scale_identity-5.png' alt='' width='700' height='433' /></div><div class='input'>
+  guide = <span class='st'>"legend"</span>)
+</div><div class='img'><img src='scale_identity-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># cyl scaled to appropriate size</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(size = <span class='kw'>cyl</span>))</div><div class='img'><img src='scale_identity-6.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(size = <span class='kw'>cyl</span>))
+</div><div class='img'><img src='scale_identity-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># cyl used as point size</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>)) <span class='op'>+</span>
   <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(size = <span class='kw'>cyl</span>)) <span class='op'>+</span>
-  <span class='fu'>scale_size_identity</span>()</div><div class='img'><img src='scale_identity-7.png' alt='' width='700' height='433' /></div></pre>
+  <span class='fu'>scale_size_identity</span>()
+</div><div class='img'><img src='scale_identity-7.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -400,49 +400,67 @@ if method is "histodot"</p></dd>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='kw'>mpg</span>)) <span class='op'>+</span>
-  <span class='fu'>geom_dotplot</span>()</div><div class='output co'>#&gt; <span class='message'>`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.</span></div><div class='img'><img src='geom_dotplot-1.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_dotplot</span>()
+</div><div class='output co'>#&gt; <span class='message'>`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.</span></div><div class='img'><img src='geom_dotplot-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='kw'>mpg</span>)) <span class='op'>+</span>
-  <span class='fu'>geom_dotplot</span>(binwidth = <span class='fl'>1.5</span>)</div><div class='img'><img src='geom_dotplot-2.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_dotplot</span>(binwidth = <span class='fl'>1.5</span>)
+</div><div class='img'><img src='geom_dotplot-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Use fixed-width bins</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='kw'>mpg</span>)) <span class='op'>+</span>
-  <span class='fu'>geom_dotplot</span>(method=<span class='st'>"histodot"</span>, binwidth = <span class='fl'>1.5</span>)</div><div class='img'><img src='geom_dotplot-3.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_dotplot</span>(method=<span class='st'>"histodot"</span>, binwidth = <span class='fl'>1.5</span>)
+</div><div class='img'><img src='geom_dotplot-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Some other stacking methods</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='kw'>mpg</span>)) <span class='op'>+</span>
-  <span class='fu'>geom_dotplot</span>(binwidth = <span class='fl'>1.5</span>, stackdir = <span class='st'>"center"</span>)</div><div class='img'><img src='geom_dotplot-4.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_dotplot</span>(binwidth = <span class='fl'>1.5</span>, stackdir = <span class='st'>"center"</span>)
+</div><div class='img'><img src='geom_dotplot-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='kw'>mpg</span>)) <span class='op'>+</span>
-  <span class='fu'>geom_dotplot</span>(binwidth = <span class='fl'>1.5</span>, stackdir = <span class='st'>"centerwhole"</span>)</div><div class='img'><img src='geom_dotplot-5.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_dotplot</span>(binwidth = <span class='fl'>1.5</span>, stackdir = <span class='st'>"centerwhole"</span>)
+</div><div class='img'><img src='geom_dotplot-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># y axis isn't really meaningful, so hide it</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='kw'>mpg</span>)) <span class='op'>+</span> <span class='fu'>geom_dotplot</span>(binwidth = <span class='fl'>1.5</span>) <span class='op'>+</span>
-  <span class='fu'><a href='scale_continuous.html'>scale_y_continuous</a></span>(<span class='kw'>NULL</span>, breaks = <span class='kw'>NULL</span>)</div><div class='img'><img src='geom_dotplot-6.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'><a href='scale_continuous.html'>scale_y_continuous</a></span>(<span class='kw'>NULL</span>, breaks = <span class='kw'>NULL</span>)
+</div><div class='img'><img src='geom_dotplot-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Overlap dots vertically</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='kw'>mpg</span>)) <span class='op'>+</span>
-  <span class='fu'>geom_dotplot</span>(binwidth = <span class='fl'>1.5</span>, stackratio = <span class='fl'>.7</span>)</div><div class='img'><img src='geom_dotplot-7.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_dotplot</span>(binwidth = <span class='fl'>1.5</span>, stackratio = <span class='fl'>.7</span>)
+</div><div class='img'><img src='geom_dotplot-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Expand dot diameter</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='kw'>mpg</span>)) <span class='op'>+</span>
-  <span class='fu'>geom_dotplot</span>(binwidth = <span class='fl'>1.5</span>, dotsize = <span class='fl'>1.25</span>)</div><div class='img'><img src='geom_dotplot-8.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_dotplot</span>(binwidth = <span class='fl'>1.5</span>, dotsize = <span class='fl'>1.25</span>)
+</div><div class='img'><img src='geom_dotplot-8.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Change dot fill colour, stroke width</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='kw'>mpg</span>)) <span class='op'>+</span>
-  <span class='fu'>geom_dotplot</span>(binwidth = <span class='fl'>1.5</span>, fill = <span class='st'>"white"</span>, stroke = <span class='fl'>2</span>)</div><div class='img'><img src='geom_dotplot-9.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_dotplot</span>(binwidth = <span class='fl'>1.5</span>, fill = <span class='st'>"white"</span>, stroke = <span class='fl'>2</span>)
+</div><div class='img'><img src='geom_dotplot-9.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># \donttest{</span>
 <span class='co'># Examples with stacking along y axis instead of x</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='fl'>1</span>, y = <span class='kw'>mpg</span>)) <span class='op'>+</span>
-  <span class='fu'>geom_dotplot</span>(binaxis = <span class='st'>"y"</span>, stackdir = <span class='st'>"center"</span>)</div><div class='output co'>#&gt; <span class='message'>`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.</span></div><div class='img'><img src='geom_dotplot-10.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_dotplot</span>(binaxis = <span class='st'>"y"</span>, stackdir = <span class='st'>"center"</span>)
+</div><div class='output co'>#&gt; <span class='message'>`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.</span></div><div class='img'><img src='geom_dotplot-10.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>), y = <span class='kw'>mpg</span>)) <span class='op'>+</span>
-  <span class='fu'>geom_dotplot</span>(binaxis = <span class='st'>"y"</span>, stackdir = <span class='st'>"center"</span>)</div><div class='output co'>#&gt; <span class='message'>`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.</span></div><div class='img'><img src='geom_dotplot-11.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_dotplot</span>(binaxis = <span class='st'>"y"</span>, stackdir = <span class='st'>"center"</span>)
+</div><div class='output co'>#&gt; <span class='message'>`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.</span></div><div class='img'><img src='geom_dotplot-11.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>), y = <span class='kw'>mpg</span>)) <span class='op'>+</span>
-  <span class='fu'>geom_dotplot</span>(binaxis = <span class='st'>"y"</span>, stackdir = <span class='st'>"centerwhole"</span>)</div><div class='output co'>#&gt; <span class='message'>`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.</span></div><div class='img'><img src='geom_dotplot-12.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_dotplot</span>(binaxis = <span class='st'>"y"</span>, stackdir = <span class='st'>"centerwhole"</span>)
+</div><div class='output co'>#&gt; <span class='message'>`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.</span></div><div class='img'><img src='geom_dotplot-12.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>vs</span>), fill = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>), y = <span class='kw'>mpg</span>)) <span class='op'>+</span>
-  <span class='fu'>geom_dotplot</span>(binaxis = <span class='st'>"y"</span>, stackdir = <span class='st'>"center"</span>, position = <span class='st'>"dodge"</span>)</div><div class='output co'>#&gt; <span class='message'>`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.</span></div><div class='img'><img src='geom_dotplot-13.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_dotplot</span>(binaxis = <span class='st'>"y"</span>, stackdir = <span class='st'>"center"</span>, position = <span class='st'>"dodge"</span>)
+</div><div class='output co'>#&gt; <span class='message'>`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.</span></div><div class='img'><img src='geom_dotplot-13.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># binpositions="all" ensures that the bins are aligned between groups</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>am</span>), y = <span class='kw'>mpg</span>)) <span class='op'>+</span>
-  <span class='fu'>geom_dotplot</span>(binaxis = <span class='st'>"y"</span>, stackdir = <span class='st'>"center"</span>, binpositions=<span class='st'>"all"</span>)</div><div class='output co'>#&gt; <span class='message'>`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.</span></div><div class='img'><img src='geom_dotplot-14.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_dotplot</span>(binaxis = <span class='st'>"y"</span>, stackdir = <span class='st'>"center"</span>, binpositions=<span class='st'>"all"</span>)
+</div><div class='output co'>#&gt; <span class='message'>`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.</span></div><div class='img'><img src='geom_dotplot-14.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Stacking multiple groups, with different fill</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='kw'>mpg</span>, fill = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>))) <span class='op'>+</span>
-  <span class='fu'>geom_dotplot</span>(stackgroups = <span class='fl'>TRUE</span>, binwidth = <span class='fl'>1</span>, binpositions = <span class='st'>"all"</span>)</div><div class='img'><img src='geom_dotplot-15.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_dotplot</span>(stackgroups = <span class='fl'>TRUE</span>, binwidth = <span class='fl'>1</span>, binpositions = <span class='st'>"all"</span>)
+</div><div class='img'><img src='geom_dotplot-15.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='kw'>mpg</span>, fill = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>))) <span class='op'>+</span>
-  <span class='fu'>geom_dotplot</span>(stackgroups = <span class='fl'>TRUE</span>, binwidth = <span class='fl'>1</span>, method = <span class='st'>"histodot"</span>)</div><div class='img'><img src='geom_dotplot-16.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_dotplot</span>(stackgroups = <span class='fl'>TRUE</span>, binwidth = <span class='fl'>1</span>, method = <span class='st'>"histodot"</span>)
+</div><div class='img'><img src='geom_dotplot-16.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='fl'>1</span>, y = <span class='kw'>mpg</span>, fill = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>))) <span class='op'>+</span>
-  <span class='fu'>geom_dotplot</span>(binaxis = <span class='st'>"y"</span>, stackgroups = <span class='fl'>TRUE</span>, binwidth = <span class='fl'>1</span>, method = <span class='st'>"histodot"</span>)</div><div class='img'><img src='geom_dotplot-17.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span></div></pre>
+  <span class='fu'>geom_dotplot</span>(binaxis = <span class='st'>"y"</span>, stackgroups = <span class='fl'>TRUE</span>, binwidth = <span class='fl'>1</span>, method = <span class='st'>"histodot"</span>)
+</div><div class='img'><img src='geom_dotplot-17.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

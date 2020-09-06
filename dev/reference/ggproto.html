@@ -278,14 +278,19 @@ in the function signature, although customarily it comes first.</p>
     <span class='kw'>self</span><span class='op'>$</span><span class='kw'>x</span>
   }
  )
-<span class='fu'>is.ggproto</span>(<span class='kw'>Adder</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
-<span class='kw'>Adder</span><span class='op'>$</span><span class='fu'>add</span>(<span class='fl'>10</span>)</div><div class='output co'>#&gt; [1] 10</div><div class='input'><span class='kw'>Adder</span><span class='op'>$</span><span class='fu'>add</span>(<span class='fl'>10</span>)</div><div class='output co'>#&gt; [1] 20</div><div class='input'>
+<span class='fu'>is.ggproto</span>(<span class='kw'>Adder</span>)
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+<span class='kw'>Adder</span><span class='op'>$</span><span class='fu'>add</span>(<span class='fl'>10</span>)
+</div><div class='output co'>#&gt; [1] 10</div><div class='input'><span class='kw'>Adder</span><span class='op'>$</span><span class='fu'>add</span>(<span class='fl'>10</span>)
+</div><div class='output co'>#&gt; [1] 20</div><div class='input'>
 <span class='kw'>Doubler</span> <span class='op'>&lt;-</span> <span class='fu'>ggproto</span>(<span class='st'>"Doubler"</span>, <span class='kw'>Adder</span>,
   add = <span class='fu'>function</span>(<span class='kw'>self</span>, <span class='kw'>n</span>) {
     <span class='fu'>ggproto_parent</span>(<span class='kw'>Adder</span>, <span class='kw'>self</span>)<span class='op'>$</span><span class='fu'>add</span>(<span class='kw'>n</span> <span class='op'>*</span> <span class='fl'>2</span>)
   }
 )
-<span class='kw'>Doubler</span><span class='op'>$</span><span class='kw'>x</span></div><div class='output co'>#&gt; [1] 20</div><div class='input'><span class='kw'>Doubler</span><span class='op'>$</span><span class='fu'>add</span>(<span class='fl'>10</span>)</div><div class='output co'>#&gt; [1] 40</div></pre>
+<span class='kw'>Doubler</span><span class='op'>$</span><span class='kw'>x</span>
+</div><div class='output co'>#&gt; [1] 20</div><div class='input'><span class='kw'>Doubler</span><span class='op'>$</span><span class='fu'>add</span>(<span class='fl'>10</span>)
+</div><div class='output co'>#&gt; [1] 40</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -277,13 +277,15 @@ is often the case in complex graphics.</p>
 <span class='co'># in each layer because the defaults from ggplot() are used.</span>
 <span class='fu'>ggplot</span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>gp</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
   <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(data = <span class='kw'>ds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(y = <span class='kw'>mean</span>), colour = <span class='st'>'red'</span>, size = <span class='fl'>3</span>)</div><div class='img'><img src='ggplot-1.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(data = <span class='kw'>ds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(y = <span class='kw'>mean</span>), colour = <span class='st'>'red'</span>, size = <span class='fl'>3</span>)
+</div><div class='img'><img src='ggplot-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Same plot as above, declaring only the data frame in ggplot().</span>
 <span class='co'># Note how the x and y aesthetics must now be declared in</span>
 <span class='co'># each geom_point() layer.</span>
 <span class='fu'>ggplot</span>(<span class='kw'>df</span>) <span class='op'>+</span>
   <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>gp</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(data = <span class='kw'>ds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>gp</span>, <span class='kw'>mean</span>), colour = <span class='st'>'red'</span>, size = <span class='fl'>3</span>)</div><div class='img'><img src='ggplot-2.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(data = <span class='kw'>ds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>gp</span>, <span class='kw'>mean</span>), colour = <span class='st'>'red'</span>, size = <span class='fl'>3</span>)
+</div><div class='img'><img src='ggplot-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Alternatively we can fully specify the plot in each layer. This</span>
 <span class='co'># is not useful here, but can be more clear when working with complex</span>
 <span class='co'># mult-dataset graphics</span>
@@ -295,7 +297,8 @@ is often the case in complex graphics.</p>
     <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>gp</span>, <span class='kw'>mean</span>, ymin = <span class='kw'>mean</span> <span class='op'>-</span> <span class='kw'>sd</span>, ymax = <span class='kw'>mean</span> <span class='op'>+</span> <span class='kw'>sd</span>),
     colour = <span class='st'>'red'</span>,
     width = <span class='fl'>0.4</span>
-  )</div><div class='img'><img src='ggplot-3.png' alt='' width='700' height='433' /></div></pre>
+  )
+</div><div class='img'><img src='ggplot-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

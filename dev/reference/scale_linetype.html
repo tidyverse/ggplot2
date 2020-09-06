@@ -282,7 +282,9 @@ as output</p></li>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>base</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>economics_long</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>date</span>, <span class='kw'>value01</span>))
-<span class='kw'>base</span> <span class='op'>+</span> <span class='fu'><a href='geom_path.html'>geom_line</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(group = <span class='kw'>variable</span>))</div><div class='img'><img src='scale_linetype-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>base</span> <span class='op'>+</span> <span class='fu'><a href='geom_path.html'>geom_line</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(linetype = <span class='kw'>variable</span>))</div><div class='img'><img src='scale_linetype-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>base</span> <span class='op'>+</span> <span class='fu'><a href='geom_path.html'>geom_line</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(group = <span class='kw'>variable</span>))
+</div><div class='img'><img src='scale_linetype-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>base</span> <span class='op'>+</span> <span class='fu'><a href='geom_path.html'>geom_line</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(linetype = <span class='kw'>variable</span>))
+</div><div class='img'><img src='scale_linetype-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># See scale_manual for more flexibility</span>
 
 <span class='co'># Common line types ----------------------------</span>
@@ -296,7 +298,8 @@ as output</p></li>
   <span class='fu'><a href='geom_abline.html'>geom_hline</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(linetype = <span class='kw'>linetype</span>, yintercept = <span class='fl'>0</span>), size = <span class='fl'>2</span>) <span class='op'>+</span>
   <span class='fu'><a href='scale_identity.html'>scale_linetype_identity</a></span>() <span class='op'>+</span>
   <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='kw'>linetype</span> <span class='op'>~</span> <span class='kw'>.</span>) <span class='op'>+</span>
-  <span class='fu'><a href='ggtheme.html'>theme_void</a></span>(<span class='fl'>20</span>)</div><div class='img'><img src='scale_linetype-3.png' alt='' width='700' height='433' /></div></pre>
+  <span class='fu'><a href='ggtheme.html'>theme_void</a></span>(<span class='fl'>20</span>)
+</div><div class='img'><img src='scale_linetype-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

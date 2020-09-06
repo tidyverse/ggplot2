@@ -443,15 +443,18 @@ palette</p>
 <span class='co'># Use scale_colour_steps for a standard binned gradient</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
   <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(colour = <span class='kw'>z1</span>)) <span class='op'>+</span>
-  <span class='fu'>scale_colour_steps</span>()</div><div class='img'><img src='scale_steps-1.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>scale_colour_steps</span>()
+</div><div class='img'><img src='scale_steps-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Get a divergent binned scale with the *2 variant</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
   <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(colour = <span class='kw'>z1</span>)) <span class='op'>+</span>
-  <span class='fu'>scale_colour_steps2</span>()</div><div class='img'><img src='scale_steps-2.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>scale_colour_steps2</span>()
+</div><div class='img'><img src='scale_steps-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Define your own colour ramp to extract binned colours from</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
   <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(colour = <span class='kw'>z1</span>)) <span class='op'>+</span>
-  <span class='fu'>scale_colour_stepsn</span>(colours = <span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>terrain.colors</a></span>(<span class='fl'>10</span>))</div><div class='img'><img src='scale_steps-3.png' alt='' width='700' height='433' /></div></pre>
+  <span class='fu'>scale_colour_stepsn</span>(colours = <span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>terrain.colors</a></span>(<span class='fl'>10</span>))
+</div><div class='img'><img src='scale_steps-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

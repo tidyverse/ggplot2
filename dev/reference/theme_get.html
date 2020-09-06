@@ -277,7 +277,8 @@ using the <code>%+replace%</code> operator.</p></li>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>)) <span class='op'>+</span>
   <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
-<span class='kw'>p</span></div><div class='img'><img src='theme_get-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span>
+</div><div class='img'><img src='theme_get-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Use theme_set() to completely override the current theme.</span>
 <span class='co'># theme_update() and theme_replace() are similar except they</span>
 <span class='co'># apply directly to the current/active theme.</span>
@@ -286,15 +287,19 @@ using the <code>%+replace%</code> operator.</p></li>
 <span class='co'># Note that the theme is applied when the plot is drawn, not</span>
 <span class='co'># when it is created.</span>
 <span class='kw'>old</span> <span class='op'>&lt;-</span> <span class='fu'>theme_set</span>(<span class='fu'><a href='ggtheme.html'>theme_bw</a></span>())
-<span class='kw'>p</span></div><div class='img'><img src='theme_get-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span>
+</div><div class='img'><img src='theme_get-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'>theme_set</span>(<span class='kw'>old</span>)
 <span class='fu'>theme_update</span>(panel.grid.minor = <span class='fu'><a href='margin.html'>element_line</a></span>(colour = <span class='st'>"red"</span>))
-<span class='kw'>p</span></div><div class='img'><img src='theme_get-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span>
+</div><div class='img'><img src='theme_get-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'>theme_set</span>(<span class='kw'>old</span>)
 <span class='fu'>theme_replace</span>(panel.grid.minor = <span class='fu'><a href='margin.html'>element_line</a></span>(colour = <span class='st'>"red"</span>))
-<span class='kw'>p</span></div><div class='img'><img src='theme_get-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span>
+</div><div class='img'><img src='theme_get-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'>theme_set</span>(<span class='kw'>old</span>)
-<span class='kw'>p</span></div><div class='img'><img src='theme_get-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span>
+</div><div class='img'><img src='theme_get-5.png' alt='' width='700' height='433' /></div><div class='input'>
 
 <span class='co'># Modifying theme objects -----------------------------------------</span>
 <span class='co'># You can use + and %+replace% to modify a theme object.</span>
@@ -303,7 +308,8 @@ using the <code>%+replace%</code> operator.</p></li>
 
 <span class='kw'>add_el</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggtheme.html'>theme_grey</a></span>() <span class='op'>+</span>
   <span class='fu'><a href='theme.html'>theme</a></span>(text = <span class='fu'><a href='margin.html'>element_text</a></span>(family = <span class='st'>"Times"</span>))
-<span class='kw'>add_el</span><span class='op'>$</span><span class='kw'>text</span></div><div class='output co'>#&gt; List of 11
+<span class='kw'>add_el</span><span class='op'>$</span><span class='kw'>text</span>
+</div><div class='output co'>#&gt; List of 11
 #&gt;  $ family       : chr "Times"
 #&gt;  $ face         : chr "plain"
 #&gt;  $ colour       : chr "black"
@@ -319,7 +325,8 @@ using the <code>%+replace%</code> operator.</p></li>
 #&gt;  - attr(*, "class")= chr [1:2] "element_text" "element"</div><div class='input'>
 <span class='kw'>rep_el</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggtheme.html'>theme_grey</a></span>() <span class='op'>%+replace%</span>
   <span class='fu'><a href='theme.html'>theme</a></span>(text = <span class='fu'><a href='margin.html'>element_text</a></span>(family = <span class='st'>"Times"</span>))
-<span class='kw'>rep_el</span><span class='op'>$</span><span class='kw'>text</span></div><div class='output co'>#&gt; List of 11
+<span class='kw'>rep_el</span><span class='op'>$</span><span class='kw'>text</span>
+</div><div class='output co'>#&gt; List of 11
 #&gt;  $ family       : chr "Times"
 #&gt;  $ face         : NULL
 #&gt;  $ colour       : NULL
@@ -331,7 +338,8 @@ using the <code>%+replace%</code> operator.</p></li>
 #&gt;  $ margin       : NULL
 #&gt;  $ debug        : NULL
 #&gt;  $ inherit.blank: logi FALSE
-#&gt;  - attr(*, "class")= chr [1:2] "element_text" "element"</div><div class='input'></div></pre>
+#&gt;  - attr(*, "class")= chr [1:2] "element_text" "element"</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

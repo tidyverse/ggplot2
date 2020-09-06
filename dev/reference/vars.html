@@ -243,15 +243,19 @@ be named (the names are passed to a <a href='labellers.html'>labeller</a>).</p><
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>wt</span>, <span class='kw'>disp</span>)) <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span>(<span class='fu'>vars</span>(<span class='kw'>vs</span>, <span class='kw'>am</span>))</div><div class='img'><img src='vars-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span>(<span class='fu'>vars</span>(<span class='kw'>vs</span>, <span class='kw'>am</span>))
+</div><div class='img'><img src='vars-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># vars() makes it easy to pass variables from wrapper functions:</span>
 <span class='kw'>wrap_by</span> <span class='op'>&lt;-</span> <span class='fu'>function</span>(<span class='kw'>...</span>) {
   <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span>(<span class='fu'>vars</span>(<span class='kw'>...</span>), labeller = <span class='kw'>label_both</span>)
 }
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>wrap_by</span>(<span class='kw'>vs</span>)</div><div class='img'><img src='vars-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>wrap_by</span>(<span class='kw'>vs</span>, <span class='kw'>am</span>)</div><div class='img'><img src='vars-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>wrap_by</span>(<span class='kw'>vs</span>)
+</div><div class='img'><img src='vars-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>wrap_by</span>(<span class='kw'>vs</span>, <span class='kw'>am</span>)
+</div><div class='img'><img src='vars-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can also supply expressions to vars(). In this case it's often a</span>
 <span class='co'># good idea to supply a name as well:</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>wrap_by</span>(drat = <span class='fu'><a href='cut_interval.html'>cut_number</a></span>(<span class='kw'>drat</span>, <span class='fl'>3</span>))</div><div class='img'><img src='vars-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>wrap_by</span>(drat = <span class='fu'><a href='cut_interval.html'>cut_number</a></span>(<span class='kw'>drat</span>, <span class='fl'>3</span>))
+</div><div class='img'><img src='vars-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Let's create another function for cutting and wrapping a</span>
 <span class='co'># variable. This time it will take a named argument instead of dots,</span>
 <span class='co'># so we'll have to use the "enquote and unquote" pattern:</span>
@@ -270,7 +274,8 @@ be named (the names are passed to a <a href='labellers.html'>labeller</a>).</p><
 }
 
 <span class='co'># Thanks to tidy eval idioms we now have another useful wrapper:</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>wrap_cut</span>(<span class='kw'>drat</span>)</div><div class='img'><img src='vars-5.png' alt='' width='700' height='433' /></div></pre>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>wrap_cut</span>(<span class='kw'>drat</span>)
+</div><div class='img'><img src='vars-5.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

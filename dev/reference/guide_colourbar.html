@@ -454,36 +454,50 @@ see <code><a href='guides.html'>guides()</a></code>.</p>
 <span class='kw'>p2</span> <span class='op'>&lt;-</span> <span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(size = <span class='kw'>value</span>))
 
 <span class='co'># Basic form</span>
-<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_continuous</a></span>(guide = <span class='st'>"colourbar"</span>)</div><div class='img'><img src='guide_colourbar-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_continuous</a></span>(guide = <span class='fu'>guide_colourbar</span>())</div><div class='img'><img src='guide_colourbar-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span>(fill = <span class='fu'>guide_colourbar</span>())</div><div class='img'><img src='guide_colourbar-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_continuous</a></span>(guide = <span class='st'>"colourbar"</span>)
+</div><div class='img'><img src='guide_colourbar-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_continuous</a></span>(guide = <span class='fu'>guide_colourbar</span>())
+</div><div class='img'><img src='guide_colourbar-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span>(fill = <span class='fu'>guide_colourbar</span>())
+</div><div class='img'><img src='guide_colourbar-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Control styles</span>
 
 <span class='co'># bar size</span>
-<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span>(fill = <span class='fu'>guide_colourbar</span>(barwidth = <span class='fl'>0.5</span>, barheight = <span class='fl'>10</span>))</div><div class='img'><img src='guide_colourbar-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span>(fill = <span class='fu'>guide_colourbar</span>(barwidth = <span class='fl'>0.5</span>, barheight = <span class='fl'>10</span>))
+</div><div class='img'><img src='guide_colourbar-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># no label</span>
-<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span>(fill = <span class='fu'>guide_colourbar</span>(label = <span class='fl'>FALSE</span>))</div><div class='img'><img src='guide_colourbar-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span>(fill = <span class='fu'>guide_colourbar</span>(label = <span class='fl'>FALSE</span>))
+</div><div class='img'><img src='guide_colourbar-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># no tick marks</span>
-<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span>(fill = <span class='fu'>guide_colourbar</span>(ticks = <span class='fl'>FALSE</span>))</div><div class='img'><img src='guide_colourbar-6.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span>(fill = <span class='fu'>guide_colourbar</span>(ticks = <span class='fl'>FALSE</span>))
+</div><div class='img'><img src='guide_colourbar-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># label position</span>
-<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span>(fill = <span class='fu'>guide_colourbar</span>(label.position = <span class='st'>"left"</span>))</div><div class='img'><img src='guide_colourbar-7.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span>(fill = <span class='fu'>guide_colourbar</span>(label.position = <span class='st'>"left"</span>))
+</div><div class='img'><img src='guide_colourbar-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># label theme</span>
-<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span>(fill = <span class='fu'>guide_colourbar</span>(label.theme = <span class='fu'><a href='margin.html'>element_text</a></span>(colour = <span class='st'>"blue"</span>, angle = <span class='fl'>0</span>)))</div><div class='img'><img src='guide_colourbar-8.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span>(fill = <span class='fu'>guide_colourbar</span>(label.theme = <span class='fu'><a href='margin.html'>element_text</a></span>(colour = <span class='st'>"blue"</span>, angle = <span class='fl'>0</span>)))
+</div><div class='img'><img src='guide_colourbar-8.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># small number of bins</span>
-<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span>(fill = <span class='fu'>guide_colourbar</span>(nbin = <span class='fl'>3</span>))</div><div class='img'><img src='guide_colourbar-9.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span>(fill = <span class='fu'>guide_colourbar</span>(nbin = <span class='fl'>3</span>))
+</div><div class='img'><img src='guide_colourbar-9.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># large number of bins</span>
-<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span>(fill = <span class='fu'>guide_colourbar</span>(nbin = <span class='fl'>100</span>))</div><div class='img'><img src='guide_colourbar-10.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span>(fill = <span class='fu'>guide_colourbar</span>(nbin = <span class='fl'>100</span>))
+</div><div class='img'><img src='guide_colourbar-10.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># make top- and bottom-most ticks invisible</span>
 <span class='kw'>p1</span> <span class='op'>+</span>
   <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_continuous</a></span>(
     limits = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>20</span>), breaks = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>5</span>, <span class='fl'>10</span>, <span class='fl'>15</span>, <span class='fl'>20</span>),
     guide = <span class='fu'>guide_colourbar</span>(nbin = <span class='fl'>100</span>, draw.ulim = <span class='fl'>FALSE</span>, draw.llim = <span class='fl'>FALSE</span>)
-   )</div><div class='img'><img src='guide_colourbar-11.png' alt='' width='700' height='433' /></div><div class='input'>
+   )
+</div><div class='img'><img src='guide_colourbar-11.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># guides can be controlled independently</span>
 <span class='kw'>p2</span> <span class='op'>+</span>
   <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_continuous</a></span>(guide = <span class='st'>"colourbar"</span>) <span class='op'>+</span>
-  <span class='fu'><a href='scale_size.html'>scale_size</a></span>(guide = <span class='st'>"legend"</span>)</div><div class='img'><img src='guide_colourbar-12.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p2</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span>(fill = <span class='st'>"colourbar"</span>, size = <span class='st'>"legend"</span>)</div><div class='img'><img src='guide_colourbar-13.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'><a href='scale_size.html'>scale_size</a></span>(guide = <span class='st'>"legend"</span>)
+</div><div class='img'><img src='guide_colourbar-12.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p2</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span>(fill = <span class='st'>"colourbar"</span>, size = <span class='st'>"legend"</span>)
+</div><div class='img'><img src='guide_colourbar-13.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='kw'>p2</span> <span class='op'>+</span>
   <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_continuous</a></span>(guide = <span class='fu'>guide_colourbar</span>(direction = <span class='st'>"horizontal"</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='scale_size.html'>scale_size</a></span>(guide = <span class='fu'><a href='guide_legend.html'>guide_legend</a></span>(direction = <span class='st'>"vertical"</span>))</div><div class='img'><img src='guide_colourbar-14.png' alt='' width='700' height='433' /></div></pre>
+  <span class='fu'><a href='scale_size.html'>scale_size</a></span>(guide = <span class='fu'><a href='guide_legend.html'>guide_legend</a></span>(direction = <span class='st'>"vertical"</span>))
+</div><div class='img'><img src='guide_colourbar-14.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

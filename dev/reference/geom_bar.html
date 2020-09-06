@@ -407,30 +407,39 @@ number of cases at each <code>x</code> position (without binning into ranges).
 <span class='co'># counts (or sums of weights)</span>
 <span class='kw'>g</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>class</span>))
 <span class='co'># Number of cars in each class:</span>
-<span class='kw'>g</span> <span class='op'>+</span> <span class='fu'>geom_bar</span>()</div><div class='img'><img src='geom_bar-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Total engine displacement of each class</span>
-<span class='kw'>g</span> <span class='op'>+</span> <span class='fu'>geom_bar</span>(<span class='fu'><a href='aes.html'>aes</a></span>(weight = <span class='kw'>displ</span>))</div><div class='img'><img src='geom_bar-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Map class to y instead to flip the orientation</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>) <span class='op'>+</span> <span class='fu'>geom_bar</span>(<span class='fu'><a href='aes.html'>aes</a></span>(y = <span class='kw'>class</span>))</div><div class='img'><img src='geom_bar-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>g</span> <span class='op'>+</span> <span class='fu'>geom_bar</span>()
+</div><div class='img'><img src='geom_bar-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Total engine displacement of each class</span>
+<span class='kw'>g</span> <span class='op'>+</span> <span class='fu'>geom_bar</span>(<span class='fu'><a href='aes.html'>aes</a></span>(weight = <span class='kw'>displ</span>))
+</div><div class='img'><img src='geom_bar-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Map class to y instead to flip the orientation</span>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>) <span class='op'>+</span> <span class='fu'>geom_bar</span>(<span class='fu'><a href='aes.html'>aes</a></span>(y = <span class='kw'>class</span>))
+</div><div class='img'><img src='geom_bar-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Bar charts are automatically stacked when multiple bars are placed</span>
 <span class='co'># at the same location. The order of the fill is designed to match</span>
 <span class='co'># the legend</span>
-<span class='kw'>g</span> <span class='op'>+</span> <span class='fu'>geom_bar</span>(<span class='fu'><a href='aes.html'>aes</a></span>(fill = <span class='kw'>drv</span>))</div><div class='img'><img src='geom_bar-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>g</span> <span class='op'>+</span> <span class='fu'>geom_bar</span>(<span class='fu'><a href='aes.html'>aes</a></span>(fill = <span class='kw'>drv</span>))
+</div><div class='img'><img src='geom_bar-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># If you need to flip the order (because you've flipped the orientation)</span>
 <span class='co'># call position_stack() explicitly:</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(y = <span class='kw'>class</span>)) <span class='op'>+</span>
  <span class='fu'>geom_bar</span>(<span class='fu'><a href='aes.html'>aes</a></span>(fill = <span class='kw'>drv</span>), position = <span class='fu'><a href='position_stack.html'>position_stack</a></span>(reverse = <span class='fl'>TRUE</span>)) <span class='op'>+</span>
- <span class='fu'><a href='theme.html'>theme</a></span>(legend.position = <span class='st'>"top"</span>)</div><div class='img'><img src='geom_bar-5.png' alt='' width='700' height='433' /></div><div class='input'>
+ <span class='fu'><a href='theme.html'>theme</a></span>(legend.position = <span class='st'>"top"</span>)
+</div><div class='img'><img src='geom_bar-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># To show (e.g.) means, you need geom_col()</span>
 <span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(trt = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"c"</span>), outcome = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2.3</span>, <span class='fl'>1.9</span>, <span class='fl'>3.2</span>))
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>trt</span>, <span class='kw'>outcome</span>)) <span class='op'>+</span>
-  <span class='fu'>geom_col</span>()</div><div class='img'><img src='geom_bar-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># But geom_point() displays exactly the same information and doesn't</span>
+  <span class='fu'>geom_col</span>()
+</div><div class='img'><img src='geom_bar-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># But geom_point() displays exactly the same information and doesn't</span>
 <span class='co'># require the y-axis to touch zero.</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>trt</span>, <span class='kw'>outcome</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>()</div><div class='img'><img src='geom_bar-7.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
+</div><div class='img'><img src='geom_bar-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can also use geom_bar() with continuous data, in which case</span>
 <span class='co'># it will show counts at unique locations</span>
 <span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(x = <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2.9</span>, <span class='fl'>3.1</span>, <span class='fl'>4.5</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>, <span class='fl'>10</span>, <span class='fl'>4</span>)))
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span>)) <span class='op'>+</span> <span class='fu'>geom_bar</span>()</div><div class='img'><img src='geom_bar-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># cf. a histogram of the same data</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span>)) <span class='op'>+</span> <span class='fu'><a href='geom_freqpoly.html'>geom_histogram</a></span>(binwidth = <span class='fl'>0.5</span>)</div><div class='img'><img src='geom_bar-9.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span>)) <span class='op'>+</span> <span class='fu'>geom_bar</span>()
+</div><div class='img'><img src='geom_bar-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># cf. a histogram of the same data</span>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span>)) <span class='op'>+</span> <span class='fu'><a href='geom_freqpoly.html'>geom_histogram</a></span>(binwidth = <span class='fl'>0.5</span>)
+</div><div class='img'><img src='geom_bar-9.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

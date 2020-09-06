@@ -421,21 +421,32 @@ box plots. The American Statistician 32, 12-16.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>class</span>, <span class='kw'>hwy</span>))
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_boxplot</span>()</div><div class='img'><img src='geom_boxplot-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Orientation follows the discrete axis</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>hwy</span>, <span class='kw'>class</span>)) <span class='op'>+</span> <span class='fu'>geom_boxplot</span>()</div><div class='img'><img src='geom_boxplot-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_boxplot</span>(notch = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>notch went outside hinges. Try setting notch=FALSE.</span></div><div class='output co'>#&gt; <span class='message'>notch went outside hinges. Try setting notch=FALSE.</span></div><div class='img'><img src='geom_boxplot-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_boxplot</span>(varwidth = <span class='fl'>TRUE</span>)</div><div class='img'><img src='geom_boxplot-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_boxplot</span>(fill = <span class='st'>"white"</span>, colour = <span class='st'>"#3366FF"</span>)</div><div class='img'><img src='geom_boxplot-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># By default, outlier points match the colour of the box. Use</span>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_boxplot</span>()
+</div><div class='img'><img src='geom_boxplot-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Orientation follows the discrete axis</span>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>hwy</span>, <span class='kw'>class</span>)) <span class='op'>+</span> <span class='fu'>geom_boxplot</span>()
+</div><div class='img'><img src='geom_boxplot-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_boxplot</span>(notch = <span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt; <span class='message'>notch went outside hinges. Try setting notch=FALSE.</span></div><div class='output co'>#&gt; <span class='message'>notch went outside hinges. Try setting notch=FALSE.</span></div><div class='img'><img src='geom_boxplot-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_boxplot</span>(varwidth = <span class='fl'>TRUE</span>)
+</div><div class='img'><img src='geom_boxplot-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_boxplot</span>(fill = <span class='st'>"white"</span>, colour = <span class='st'>"#3366FF"</span>)
+</div><div class='img'><img src='geom_boxplot-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># By default, outlier points match the colour of the box. Use</span>
 <span class='co'># outlier.colour to override</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_boxplot</span>(outlier.colour = <span class='st'>"red"</span>, outlier.shape = <span class='fl'>1</span>)</div><div class='img'><img src='geom_boxplot-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Remove outliers when overlaying boxplot with original data points</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_boxplot</span>(outlier.shape = <span class='fl'>NA</span>) <span class='op'>+</span> <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span>(width = <span class='fl'>0.2</span>)</div><div class='img'><img src='geom_boxplot-7.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_boxplot</span>(outlier.colour = <span class='st'>"red"</span>, outlier.shape = <span class='fl'>1</span>)
+</div><div class='img'><img src='geom_boxplot-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Remove outliers when overlaying boxplot with original data points</span>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_boxplot</span>(outlier.shape = <span class='fl'>NA</span>) <span class='op'>+</span> <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span>(width = <span class='fl'>0.2</span>)
+</div><div class='img'><img src='geom_boxplot-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Boxplots are automatically dodged when any aesthetic is a factor</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_boxplot</span>(<span class='fu'><a href='aes.html'>aes</a></span>(colour = <span class='kw'>drv</span>))</div><div class='img'><img src='geom_boxplot-8.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_boxplot</span>(<span class='fu'><a href='aes.html'>aes</a></span>(colour = <span class='kw'>drv</span>))
+</div><div class='img'><img src='geom_boxplot-8.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can also use boxplots with continuous x, as long as you supply</span>
 <span class='co'># a grouping variable. cut_width is particularly useful</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>carat</span>, <span class='kw'>price</span>)) <span class='op'>+</span>
-  <span class='fu'>geom_boxplot</span>()</div><div class='output co'>#&gt; <span class='warning'>Warning: Continuous x aesthetic -- did you forget aes(group=...)?</span></div><div class='img'><img src='geom_boxplot-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>carat</span>, <span class='kw'>price</span>)) <span class='op'>+</span>
-  <span class='fu'>geom_boxplot</span>(<span class='fu'><a href='aes.html'>aes</a></span>(group = <span class='fu'><a href='cut_interval.html'>cut_width</a></span>(<span class='kw'>carat</span>, <span class='fl'>0.25</span>)))</div><div class='img'><img src='geom_boxplot-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Adjust the transparency of outliers using outlier.alpha</span>
+  <span class='fu'>geom_boxplot</span>()
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Continuous x aesthetic -- did you forget aes(group=...)?</span></div><div class='img'><img src='geom_boxplot-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>carat</span>, <span class='kw'>price</span>)) <span class='op'>+</span>
+  <span class='fu'>geom_boxplot</span>(<span class='fu'><a href='aes.html'>aes</a></span>(group = <span class='fu'><a href='cut_interval.html'>cut_width</a></span>(<span class='kw'>carat</span>, <span class='fl'>0.25</span>)))
+</div><div class='img'><img src='geom_boxplot-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Adjust the transparency of outliers using outlier.alpha</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>carat</span>, <span class='kw'>price</span>)) <span class='op'>+</span>
-  <span class='fu'>geom_boxplot</span>(<span class='fu'><a href='aes.html'>aes</a></span>(group = <span class='fu'><a href='cut_interval.html'>cut_width</a></span>(<span class='kw'>carat</span>, <span class='fl'>0.25</span>)), outlier.alpha = <span class='fl'>0.1</span>)</div><div class='img'><img src='geom_boxplot-11.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_boxplot</span>(<span class='fu'><a href='aes.html'>aes</a></span>(group = <span class='fu'><a href='cut_interval.html'>cut_width</a></span>(<span class='kw'>carat</span>, <span class='fl'>0.25</span>)), outlier.alpha = <span class='fl'>0.1</span>)
+</div><div class='img'><img src='geom_boxplot-11.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># \donttest{</span>
 <span class='co'># It's possible to draw a boxplot with your own computations if you</span>
 <span class='co'># use stat = "identity":</span>
@@ -452,7 +463,9 @@ box plots. The American Statistician 32, 12-16.</p>
   <span class='fu'>geom_boxplot</span>(
    <span class='fu'><a href='aes.html'>aes</a></span>(ymin = <span class='kw'>y0</span>, lower = <span class='kw'>y25</span>, middle = <span class='kw'>y50</span>, upper = <span class='kw'>y75</span>, ymax = <span class='kw'>y100</span>),
    stat = <span class='st'>"identity"</span>
- )</div><div class='img'><img src='geom_boxplot-12.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span></div></pre>
+ )
+</div><div class='img'><img src='geom_boxplot-12.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

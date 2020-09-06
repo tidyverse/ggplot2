@@ -271,9 +271,11 @@ display in this key</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>economics</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>date</span>, <span class='kw'>psavert</span>, color = <span class='st'>"savings rate"</span>))
 <span class='co'># key glyphs can be specified by their name</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_path.html'>geom_line</a></span>(key_glyph = <span class='st'>"timeseries"</span>)</div><div class='img'><img src='draw_key-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_path.html'>geom_line</a></span>(key_glyph = <span class='st'>"timeseries"</span>)
+</div><div class='img'><img src='draw_key-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># key glyphs can be specified via their drawing function</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_path.html'>geom_line</a></span>(key_glyph = <span class='kw'>draw_key_rect</span>)</div><div class='img'><img src='draw_key-2.png' alt='' width='700' height='433' /></div></pre>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_path.html'>geom_line</a></span>(key_glyph = <span class='kw'>draw_key_rect</span>)
+</div><div class='img'><img src='draw_key-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

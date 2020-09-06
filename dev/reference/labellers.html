@@ -304,15 +304,21 @@ function must have the <code>labeller</code> S3 class.</p>
 <span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>wt</span>, <span class='kw'>mpg</span>)) <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
 
 <span class='co'># The default is label_value</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='kw'>.</span> <span class='op'>~</span> <span class='kw'>cyl</span>, labeller = <span class='kw'>label_value</span>)</div><div class='img'><img src='labellers-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='kw'>.</span> <span class='op'>~</span> <span class='kw'>cyl</span>, labeller = <span class='kw'>label_value</span>)
+</div><div class='img'><img src='labellers-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># \donttest{</span>
 <span class='co'># Displaying both the values and the variables</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='kw'>.</span> <span class='op'>~</span> <span class='kw'>cyl</span>, labeller = <span class='kw'>label_both</span>)</div><div class='img'><img src='labellers-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='kw'>.</span> <span class='op'>~</span> <span class='kw'>cyl</span>, labeller = <span class='kw'>label_both</span>)
+</div><div class='img'><img src='labellers-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Displaying only the values or both the values and variables</span>
 <span class='co'># depending on whether multiple factors are facetted over</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='kw'>am</span> <span class='op'>~</span> <span class='kw'>vs</span><span class='op'>+</span><span class='kw'>cyl</span>, labeller = <span class='kw'>label_context</span>)</div><div class='img'><img src='labellers-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='kw'>am</span> <span class='op'>~</span> <span class='kw'>vs</span><span class='op'>+</span><span class='kw'>cyl</span>, labeller = <span class='kw'>label_context</span>)
+</div><div class='img'><img src='labellers-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Interpreting the labels as plotmath expressions</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='kw'>.</span> <span class='op'>~</span> <span class='kw'>cyl2</span>)</div><div class='img'><img src='labellers-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='kw'>.</span> <span class='op'>~</span> <span class='kw'>cyl2</span>, labeller = <span class='kw'>label_parsed</span>)</div><div class='img'><img src='labellers-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span></div></pre>
+<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='kw'>.</span> <span class='op'>~</span> <span class='kw'>cyl2</span>)
+</div><div class='img'><img src='labellers-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='kw'>.</span> <span class='op'>~</span> <span class='kw'>cyl2</span>, labeller = <span class='kw'>label_parsed</span>)
+</div><div class='img'><img src='labellers-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
