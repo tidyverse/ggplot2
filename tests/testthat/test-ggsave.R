@@ -29,6 +29,10 @@ test_that("ggsave restores previous graphics device", {
 })
 
 test_that("ggsave uses theme background as image background", {
+  # FIXME: This should check svglite, but, at the time of writing this, there's already a binary
+  #        package of svglite, and it can be installed even if the dependency is not available, surprisingly...
+  skip_if_not_installed("systemfonts")
+
   path <- tempfile()
   on.exit(unlink(path))
   p <- ggplot(mtcars, aes(disp, mpg)) +
