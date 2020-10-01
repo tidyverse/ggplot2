@@ -34,6 +34,9 @@ install.packages("ggplot2")
 # Or the development version from GitHub:
 # install.packages("devtools")
 devtools::install_github("tidyverse/ggplot2")
+After the installation you just need to run on your IDE or R interpreter:
+library(ggplot2)
+This will give you all access to all functions
 ```
 
 ## Cheatsheet
