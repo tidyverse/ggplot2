@@ -88,6 +88,9 @@ ggsave <- function(filename, plot = last_plot(),
   }
   if (is_null(bg)) {
     bg <- calc_element("plot.background", plot_theme(plot))$fill
+    if (is_null(bg)) {
+      bg <- "transparent"
+    }
   }
   old_dev <- grDevices::dev.cur()
   dev(filename = filename, width = dim[1], height = dim[2], bg = bg, ...)
