@@ -210,7 +210,7 @@ NULL
 .stroke <- 96 / 25.4
 
 check_aesthetics <- function(x, n) {
-  ns <- vapply(x, length, numeric(1))
+  ns <- vapply(x, NROW, numeric(1))
   good <- ns == 1L | ns == n
 
   if (all(good)) {
