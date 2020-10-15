@@ -11,6 +11,9 @@
   `scale_*(guide = FALSE)` to remove a guide. Please use 
   `guides(<scale> = "none")` or `scale_*(guide = "none")` instead 
   (@yutannihilation, #4094).
+  
+* Date and datetime position scales support out-of-bounds (oob) arguments to 
+  control how limits affect data outside those limits (@teunbrand, #4199).
 
 # ggplot2 3.3.2
 This is a small release focusing on fixing regressions introduced in 3.3.1.
