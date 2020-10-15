@@ -64,7 +64,7 @@
 #'  )
 #' }
 guides <- function(...) {
-  args <- list(...)
+  args <- list2(...)
   if (length(args) > 0) {
     if (is.list(args[[1]]) && !inherits(args[[1]], "guide")) args <- args[[1]]
     args <- rename_aes(args)
