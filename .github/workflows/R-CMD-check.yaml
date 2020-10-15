@@ -10,7 +10,7 @@ name: R-CMD-check
 
 # Increment this version when we want to clear cache
 env:
-  cache-version: v3
+  cache-version: v4
 
 jobs:
   R-CMD-check:
@@ -24,7 +24,7 @@ jobs:
         config:
           - {os: windows-latest, r: '4.0',   vdiffr: true,  xref: true}
           - {os: macOS-latest,   r: '4.0',   vdiffr: true,  xref: true}
-          - {os: ubuntu-16.04,   r: 'devel', vdiffr: false, xref: true,   rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest", http-user-agent: "R/4.0.0 (ubuntu-16.04) R (4.0.0 x86_64-pc-linux-gnu x86_64 linux-gnu) on GitHub Actions"}
+          - {os: ubuntu-16.04,   r: 'devel', vdiffr: false, xref: true}
           - {os: ubuntu-16.04,   r: '4.0',   vdiffr: true,  xref: true,   rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
           - {os: ubuntu-16.04,   r: '3.6',   vdiffr: false, xref: true,   rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
           - {os: ubuntu-16.04,   r: '3.5',   vdiffr: false, xref: true,   rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
