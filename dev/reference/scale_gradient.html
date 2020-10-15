@@ -210,71 +210,71 @@ scale_*_gradientn creates a n-colour gradient." />
 <code>scale_*_gradientn</code> creates a n-colour gradient.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>scale_colour_gradient</span>(
-  <span class='kw'>...</span>,
-  low = <span class='st'>"#132B43"</span>,
-  high = <span class='st'>"#56B1F7"</span>,
-  space = <span class='st'>"Lab"</span>,
-  na.value = <span class='st'>"grey50"</span>,
-  guide = <span class='st'>"colourbar"</span>,
-  aesthetics = <span class='st'>"colour"</span>
-)
+    <pre class="usage"><span class='fu'>scale_colour_gradient</span><span class='op'>(</span>
+  <span class='va'>...</span>,
+  low <span class='op'>=</span> <span class='st'>"#132B43"</span>,
+  high <span class='op'>=</span> <span class='st'>"#56B1F7"</span>,
+  space <span class='op'>=</span> <span class='st'>"Lab"</span>,
+  na.value <span class='op'>=</span> <span class='st'>"grey50"</span>,
+  guide <span class='op'>=</span> <span class='st'>"colourbar"</span>,
+  aesthetics <span class='op'>=</span> <span class='st'>"colour"</span>
+<span class='op'>)</span>
 
-<span class='fu'>scale_fill_gradient</span>(
-  <span class='kw'>...</span>,
-  low = <span class='st'>"#132B43"</span>,
-  high = <span class='st'>"#56B1F7"</span>,
-  space = <span class='st'>"Lab"</span>,
-  na.value = <span class='st'>"grey50"</span>,
-  guide = <span class='st'>"colourbar"</span>,
-  aesthetics = <span class='st'>"fill"</span>
-)
+<span class='fu'>scale_fill_gradient</span><span class='op'>(</span>
+  <span class='va'>...</span>,
+  low <span class='op'>=</span> <span class='st'>"#132B43"</span>,
+  high <span class='op'>=</span> <span class='st'>"#56B1F7"</span>,
+  space <span class='op'>=</span> <span class='st'>"Lab"</span>,
+  na.value <span class='op'>=</span> <span class='st'>"grey50"</span>,
+  guide <span class='op'>=</span> <span class='st'>"colourbar"</span>,
+  aesthetics <span class='op'>=</span> <span class='st'>"fill"</span>
+<span class='op'>)</span>
 
-<span class='fu'>scale_colour_gradient2</span>(
-  <span class='kw'>...</span>,
-  low = <span class='fu'>muted</span>(<span class='st'>"red"</span>),
-  mid = <span class='st'>"white"</span>,
-  high = <span class='fu'>muted</span>(<span class='st'>"blue"</span>),
-  midpoint = <span class='fl'>0</span>,
-  space = <span class='st'>"Lab"</span>,
-  na.value = <span class='st'>"grey50"</span>,
-  guide = <span class='st'>"colourbar"</span>,
-  aesthetics = <span class='st'>"colour"</span>
-)
+<span class='fu'>scale_colour_gradient2</span><span class='op'>(</span>
+  <span class='va'>...</span>,
+  low <span class='op'>=</span> <span class='fu'>muted</span><span class='op'>(</span><span class='st'>"red"</span><span class='op'>)</span>,
+  mid <span class='op'>=</span> <span class='st'>"white"</span>,
+  high <span class='op'>=</span> <span class='fu'>muted</span><span class='op'>(</span><span class='st'>"blue"</span><span class='op'>)</span>,
+  midpoint <span class='op'>=</span> <span class='fl'>0</span>,
+  space <span class='op'>=</span> <span class='st'>"Lab"</span>,
+  na.value <span class='op'>=</span> <span class='st'>"grey50"</span>,
+  guide <span class='op'>=</span> <span class='st'>"colourbar"</span>,
+  aesthetics <span class='op'>=</span> <span class='st'>"colour"</span>
+<span class='op'>)</span>
 
-<span class='fu'>scale_fill_gradient2</span>(
-  <span class='kw'>...</span>,
-  low = <span class='fu'>muted</span>(<span class='st'>"red"</span>),
-  mid = <span class='st'>"white"</span>,
-  high = <span class='fu'>muted</span>(<span class='st'>"blue"</span>),
-  midpoint = <span class='fl'>0</span>,
-  space = <span class='st'>"Lab"</span>,
-  na.value = <span class='st'>"grey50"</span>,
-  guide = <span class='st'>"colourbar"</span>,
-  aesthetics = <span class='st'>"fill"</span>
-)
+<span class='fu'>scale_fill_gradient2</span><span class='op'>(</span>
+  <span class='va'>...</span>,
+  low <span class='op'>=</span> <span class='fu'>muted</span><span class='op'>(</span><span class='st'>"red"</span><span class='op'>)</span>,
+  mid <span class='op'>=</span> <span class='st'>"white"</span>,
+  high <span class='op'>=</span> <span class='fu'>muted</span><span class='op'>(</span><span class='st'>"blue"</span><span class='op'>)</span>,
+  midpoint <span class='op'>=</span> <span class='fl'>0</span>,
+  space <span class='op'>=</span> <span class='st'>"Lab"</span>,
+  na.value <span class='op'>=</span> <span class='st'>"grey50"</span>,
+  guide <span class='op'>=</span> <span class='st'>"colourbar"</span>,
+  aesthetics <span class='op'>=</span> <span class='st'>"fill"</span>
+<span class='op'>)</span>
 
-<span class='fu'>scale_colour_gradientn</span>(
-  <span class='kw'>...</span>,
-  <span class='kw'>colours</span>,
-  values = <span class='kw'>NULL</span>,
-  space = <span class='st'>"Lab"</span>,
-  na.value = <span class='st'>"grey50"</span>,
-  guide = <span class='st'>"colourbar"</span>,
-  aesthetics = <span class='st'>"colour"</span>,
-  <span class='kw'>colors</span>
-)
+<span class='fu'>scale_colour_gradientn</span><span class='op'>(</span>
+  <span class='va'>...</span>,
+  <span class='va'>colours</span>,
+  values <span class='op'>=</span> <span class='cn'>NULL</span>,
+  space <span class='op'>=</span> <span class='st'>"Lab"</span>,
+  na.value <span class='op'>=</span> <span class='st'>"grey50"</span>,
+  guide <span class='op'>=</span> <span class='st'>"colourbar"</span>,
+  aesthetics <span class='op'>=</span> <span class='st'>"colour"</span>,
+  <span class='va'>colors</span>
+<span class='op'>)</span>
 
-<span class='fu'>scale_fill_gradientn</span>(
-  <span class='kw'>...</span>,
-  <span class='kw'>colours</span>,
-  values = <span class='kw'>NULL</span>,
-  space = <span class='st'>"Lab"</span>,
-  na.value = <span class='st'>"grey50"</span>,
-  guide = <span class='st'>"colourbar"</span>,
-  aesthetics = <span class='st'>"fill"</span>,
-  <span class='kw'>colors</span>
-)</pre>
+<span class='fu'>scale_fill_gradientn</span><span class='op'>(</span>
+  <span class='va'>...</span>,
+  <span class='va'>colours</span>,
+  values <span class='op'>=</span> <span class='cn'>NULL</span>,
+  space <span class='op'>=</span> <span class='st'>"Lab"</span>,
+  na.value <span class='op'>=</span> <span class='st'>"grey50"</span>,
+  guide <span class='op'>=</span> <span class='st'>"colourbar"</span>,
+  aesthetics <span class='op'>=</span> <span class='st'>"fill"</span>,
+  <span class='va'>colors</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -434,54 +434,54 @@ palette</p>
 <code><a href='scale_colour_viridis_d.html'>scale_colour_viridis_d</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  x = <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>100</span>),
-  y = <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>100</span>),
-  z1 = <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>100</span>),
-  z2 = <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>100</span>))
-)
+    <pre class="examples"><div class='input'><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
+  x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>100</span><span class='op'>)</span>,
+  y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>100</span><span class='op'>)</span>,
+  z1 <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100</span><span class='op'>)</span>,
+  z2 <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>)</span>
 
-<span class='kw'>df_na</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  value = <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>1</span>, <span class='fl'>20</span>),
-  x = <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>20</span>),
-  y = <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>20</span>),
-  z1 = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>NA</span>, <span class='fl'>10</span>), <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>10</span>))
-)
+<span class='va'>df_na</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
+  value <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>20</span><span class='op'>)</span>,
+  x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>20</span><span class='op'>)</span>,
+  y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>20</span><span class='op'>)</span>,
+  z1 <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='cn'>NA</span>, <span class='fl'>10</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>)</span>
 
 <span class='co'># Default colour scale colours from light blue to dark blue</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(colour = <span class='kw'>z2</span>))
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='va'>z2</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='scale_gradient-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># For diverging colour scales use gradient2</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(colour = <span class='kw'>z1</span>)) <span class='op'>+</span>
-  <span class='fu'>scale_colour_gradient2</span>()
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='va'>z1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>scale_colour_gradient2</span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='img'><img src='scale_gradient-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Use your own colour scale with gradientn</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(colour = <span class='kw'>z1</span>)) <span class='op'>+</span>
-  <span class='fu'>scale_colour_gradientn</span>(colours = <span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>terrain.colors</a></span>(<span class='fl'>10</span>))
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='va'>z1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>scale_colour_gradientn</span><span class='op'>(</span>colours <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>terrain.colors</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='scale_gradient-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Equivalent fill scales do the same job for the fill aesthetic</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>faithfuld</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>waiting</span>, <span class='kw'>eruptions</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_raster.html'>geom_raster</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(fill = <span class='kw'>density</span>)) <span class='op'>+</span>
-  <span class='fu'>scale_fill_gradientn</span>(colours = <span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>terrain.colors</a></span>(<span class='fl'>10</span>))
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>faithfuld</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>waiting</span>, <span class='va'>eruptions</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_raster.html'>geom_raster</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>density</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>scale_fill_gradientn</span><span class='op'>(</span>colours <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>terrain.colors</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='scale_gradient-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Adjust colour choices with low and high</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(colour = <span class='kw'>z2</span>)) <span class='op'>+</span>
-  <span class='fu'>scale_colour_gradient</span>(low = <span class='st'>"white"</span>, high = <span class='st'>"black"</span>)
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='va'>z2</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>scale_colour_gradient</span><span class='op'>(</span>low <span class='op'>=</span> <span class='st'>"white"</span>, high <span class='op'>=</span> <span class='st'>"black"</span><span class='op'>)</span>
 </div><div class='img'><img src='scale_gradient-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Avoid red-green colour contrasts because ~10% of men have difficulty</span>
 <span class='co'># seeing them</span>
 
 <span class='co'># Use `na.value = NA` to hide missing values but keep the original axis range</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df_na</span>, <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='kw'>value</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_bar.html'>geom_bar</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(fill = <span class='kw'>z1</span>), stat = <span class='st'>"identity"</span>) <span class='op'>+</span>
-  <span class='fu'>scale_fill_gradient</span>(low = <span class='st'>"yellow"</span>, high = <span class='st'>"red"</span>, na.value = <span class='fl'>NA</span>)
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df_na</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>value</span>, <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_bar.html'>geom_bar</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>z1</span><span class='op'>)</span>, stat <span class='op'>=</span> <span class='st'>"identity"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>scale_fill_gradient</span><span class='op'>(</span>low <span class='op'>=</span> <span class='st'>"yellow"</span>, high <span class='op'>=</span> <span class='st'>"red"</span>, na.value <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span>
 </div><div class='img'><img src='scale_gradient-6.png' alt='' width='700' height='433' /></div><div class='input'>
- <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df_na</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
-   <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(colour = <span class='kw'>z1</span>)) <span class='op'>+</span>
-   <span class='fu'>scale_colour_gradient</span>(low = <span class='st'>"yellow"</span>, high = <span class='st'>"red"</span>, na.value = <span class='fl'>NA</span>)
+ <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df_na</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+   <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='va'>z1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+   <span class='fu'>scale_colour_gradient</span><span class='op'>(</span>low <span class='op'>=</span> <span class='st'>"yellow"</span>, high <span class='op'>=</span> <span class='st'>"red"</span>, na.value <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 10 rows containing missing values (geom_point).</span></div><div class='img'><img src='scale_gradient-7.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>

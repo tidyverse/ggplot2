@@ -218,64 +218,64 @@ spaced grid. If your data is not evenly spaced, you may want to interpolate
 to a grid before visualising, see <code><a href='geom_density_2d.html'>geom_density_2d()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>geom_contour</span>(
-  mapping = <span class='kw'>NULL</span>,
-  data = <span class='kw'>NULL</span>,
-  stat = <span class='st'>"contour"</span>,
-  position = <span class='st'>"identity"</span>,
-  <span class='kw'>...</span>,
-  bins = <span class='kw'>NULL</span>,
-  binwidth = <span class='kw'>NULL</span>,
-  breaks = <span class='kw'>NULL</span>,
-  lineend = <span class='st'>"butt"</span>,
-  linejoin = <span class='st'>"round"</span>,
-  linemitre = <span class='fl'>10</span>,
-  na.rm = <span class='fl'>FALSE</span>,
-  show.legend = <span class='fl'>NA</span>,
-  inherit.aes = <span class='fl'>TRUE</span>
-)
+    <pre class="usage"><span class='fu'>geom_contour</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  stat <span class='op'>=</span> <span class='st'>"contour"</span>,
+  position <span class='op'>=</span> <span class='st'>"identity"</span>,
+  <span class='va'>...</span>,
+  bins <span class='op'>=</span> <span class='cn'>NULL</span>,
+  binwidth <span class='op'>=</span> <span class='cn'>NULL</span>,
+  breaks <span class='op'>=</span> <span class='cn'>NULL</span>,
+  lineend <span class='op'>=</span> <span class='st'>"butt"</span>,
+  linejoin <span class='op'>=</span> <span class='st'>"round"</span>,
+  linemitre <span class='op'>=</span> <span class='fl'>10</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
+  inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span>
 
-<span class='fu'>geom_contour_filled</span>(
-  mapping = <span class='kw'>NULL</span>,
-  data = <span class='kw'>NULL</span>,
-  stat = <span class='st'>"contour_filled"</span>,
-  position = <span class='st'>"identity"</span>,
-  <span class='kw'>...</span>,
-  bins = <span class='kw'>NULL</span>,
-  binwidth = <span class='kw'>NULL</span>,
-  breaks = <span class='kw'>NULL</span>,
-  na.rm = <span class='fl'>FALSE</span>,
-  show.legend = <span class='fl'>NA</span>,
-  inherit.aes = <span class='fl'>TRUE</span>
-)
+<span class='fu'>geom_contour_filled</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  stat <span class='op'>=</span> <span class='st'>"contour_filled"</span>,
+  position <span class='op'>=</span> <span class='st'>"identity"</span>,
+  <span class='va'>...</span>,
+  bins <span class='op'>=</span> <span class='cn'>NULL</span>,
+  binwidth <span class='op'>=</span> <span class='cn'>NULL</span>,
+  breaks <span class='op'>=</span> <span class='cn'>NULL</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
+  inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span>
 
-<span class='fu'>stat_contour</span>(
-  mapping = <span class='kw'>NULL</span>,
-  data = <span class='kw'>NULL</span>,
-  geom = <span class='st'>"contour"</span>,
-  position = <span class='st'>"identity"</span>,
-  <span class='kw'>...</span>,
-  bins = <span class='kw'>NULL</span>,
-  binwidth = <span class='kw'>NULL</span>,
-  breaks = <span class='kw'>NULL</span>,
-  na.rm = <span class='fl'>FALSE</span>,
-  show.legend = <span class='fl'>NA</span>,
-  inherit.aes = <span class='fl'>TRUE</span>
-)
+<span class='fu'>stat_contour</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  geom <span class='op'>=</span> <span class='st'>"contour"</span>,
+  position <span class='op'>=</span> <span class='st'>"identity"</span>,
+  <span class='va'>...</span>,
+  bins <span class='op'>=</span> <span class='cn'>NULL</span>,
+  binwidth <span class='op'>=</span> <span class='cn'>NULL</span>,
+  breaks <span class='op'>=</span> <span class='cn'>NULL</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
+  inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span>
 
-<span class='fu'>stat_contour_filled</span>(
-  mapping = <span class='kw'>NULL</span>,
-  data = <span class='kw'>NULL</span>,
-  geom = <span class='st'>"contour_filled"</span>,
-  position = <span class='st'>"identity"</span>,
-  <span class='kw'>...</span>,
-  bins = <span class='kw'>NULL</span>,
-  binwidth = <span class='kw'>NULL</span>,
-  breaks = <span class='kw'>NULL</span>,
-  na.rm = <span class='fl'>FALSE</span>,
-  show.legend = <span class='fl'>NA</span>,
-  inherit.aes = <span class='fl'>TRUE</span>
-)</pre>
+<span class='fu'>stat_contour_filled</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  geom <span class='op'>=</span> <span class='st'>"contour_filled"</span>,
+  position <span class='op'>=</span> <span class='st'>"identity"</span>,
+  <span class='va'>...</span>,
+  bins <span class='op'>=</span> <span class='cn'>NULL</span>,
+  binwidth <span class='op'>=</span> <span class='cn'>NULL</span>,
+  breaks <span class='op'>=</span> <span class='cn'>NULL</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
+  inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -438,31 +438,31 @@ bin boundaries for each band, as well the mid point between the boundaries.</p><
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Basic plot</span>
-<span class='kw'>v</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>faithfuld</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>waiting</span>, <span class='kw'>eruptions</span>, z = <span class='kw'>density</span>))
-<span class='kw'>v</span> <span class='op'>+</span> <span class='fu'>geom_contour</span>()
+<span class='va'>v</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>faithfuld</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>waiting</span>, <span class='va'>eruptions</span>, z <span class='op'>=</span> <span class='va'>density</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>v</span> <span class='op'>+</span> <span class='fu'>geom_contour</span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_contour-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Or compute from raw data</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>faithful</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>waiting</span>, <span class='kw'>eruptions</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_density_2d.html'>geom_density_2d</a></span>()
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>faithful</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>waiting</span>, <span class='va'>eruptions</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_density_2d.html'>geom_density_2d</a></span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_contour-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># \donttest{</span>
 <span class='co'># use geom_contour_filled() for filled contours</span>
-<span class='kw'>v</span> <span class='op'>+</span> <span class='fu'>geom_contour_filled</span>()
+<span class='va'>v</span> <span class='op'>+</span> <span class='fu'>geom_contour_filled</span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_contour-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Setting bins creates evenly spaced contours in the range of the data</span>
-<span class='kw'>v</span> <span class='op'>+</span> <span class='fu'>geom_contour</span>(bins = <span class='fl'>3</span>)
-</div><div class='img'><img src='geom_contour-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>v</span> <span class='op'>+</span> <span class='fu'>geom_contour</span>(bins = <span class='fl'>5</span>)
+<span class='va'>v</span> <span class='op'>+</span> <span class='fu'>geom_contour</span><span class='op'>(</span>bins <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
+</div><div class='img'><img src='geom_contour-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>v</span> <span class='op'>+</span> <span class='fu'>geom_contour</span><span class='op'>(</span>bins <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_contour-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Setting binwidth does the same thing, parameterised by the distance</span>
 <span class='co'># between contours</span>
-<span class='kw'>v</span> <span class='op'>+</span> <span class='fu'>geom_contour</span>(binwidth = <span class='fl'>0.01</span>)
-</div><div class='img'><img src='geom_contour-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>v</span> <span class='op'>+</span> <span class='fu'>geom_contour</span>(binwidth = <span class='fl'>0.001</span>)
+<span class='va'>v</span> <span class='op'>+</span> <span class='fu'>geom_contour</span><span class='op'>(</span>binwidth <span class='op'>=</span> <span class='fl'>0.01</span><span class='op'>)</span>
+</div><div class='img'><img src='geom_contour-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>v</span> <span class='op'>+</span> <span class='fu'>geom_contour</span><span class='op'>(</span>binwidth <span class='op'>=</span> <span class='fl'>0.001</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_contour-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Other parameters</span>
-<span class='kw'>v</span> <span class='op'>+</span> <span class='fu'>geom_contour</span>(<span class='fu'><a href='aes.html'>aes</a></span>(colour = <span class='fu'><a href='aes_eval.html'>after_stat</a></span>(<span class='kw'>level</span>)))
-</div><div class='img'><img src='geom_contour-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>v</span> <span class='op'>+</span> <span class='fu'>geom_contour</span>(colour = <span class='st'>"red"</span>)
-</div><div class='img'><img src='geom_contour-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>v</span> <span class='op'>+</span> <span class='fu'><a href='geom_raster.html'>geom_raster</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(fill = <span class='kw'>density</span>)) <span class='op'>+</span>
-  <span class='fu'>geom_contour</span>(colour = <span class='st'>"white"</span>)
+<span class='va'>v</span> <span class='op'>+</span> <span class='fu'>geom_contour</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='fu'><a href='aes_eval.html'>after_stat</a></span><span class='op'>(</span><span class='va'>level</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='geom_contour-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>v</span> <span class='op'>+</span> <span class='fu'>geom_contour</span><span class='op'>(</span>colour <span class='op'>=</span> <span class='st'>"red"</span><span class='op'>)</span>
+</div><div class='img'><img src='geom_contour-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>v</span> <span class='op'>+</span> <span class='fu'><a href='geom_raster.html'>geom_raster</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>density</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_contour</span><span class='op'>(</span>colour <span class='op'>=</span> <span class='st'>"white"</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_contour-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 </div></pre>
   </div>

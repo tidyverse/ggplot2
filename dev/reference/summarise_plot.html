@@ -206,11 +206,11 @@
     <p>These functions provide summarised information about built ggplot objects.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>summarise_layout</span>(<span class='kw'>p</span>)
+    <pre class="usage"><span class='fu'>summarise_layout</span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span>
 
-<span class='fu'>summarise_coord</span>(<span class='kw'>p</span>)
+<span class='fu'>summarise_coord</span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span>
 
-<span class='fu'>summarise_layers</span>(<span class='kw'>p</span>)</pre>
+<span class='fu'>summarise_layers</span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -269,13 +269,13 @@ whether the coord has flipped the x and y axes.</p>
 contains information about aesthetic mapping for each layer.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>p</span> <span class='op'>&lt;-</span>
-  <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span>(<span class='op'>~</span><span class='kw'>class</span>)
-<span class='kw'>b</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot_build.html'>ggplot_build</a></span>(<span class='kw'>p</span>)
+    <pre class="examples"><div class='input'><span class='va'>p</span> <span class='op'>&lt;-</span>
+  <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>displ</span>, <span class='va'>hwy</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>class</span><span class='op'>)</span>
+<span class='va'>b</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot_build.html'>ggplot_build</a></span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span>
 
-<span class='fu'>summarise_layout</span>(<span class='kw'>b</span>)
+<span class='fu'>summarise_layout</span><span class='op'>(</span><span class='va'>b</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 7 x 10</span><span>
 #&gt;   panel   row   col vars             xmin  xmax  ymin  ymax xscale     yscale   
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>   
@@ -285,7 +285,7 @@ contains information about aesthetic mapping for each layer.</p>
 #&gt; </span><span style='color: #555555;'>4</span><span> 4         2     1 </span><span style='color: #555555;'>&lt;named list [1</span><span>…  1.33  7.27  10.4  45.6 </span><span style='color: #555555;'>&lt;SclCntnP&gt;</span><span> </span><span style='color: #555555;'>&lt;SclCntn</span><span>…
 #&gt; </span><span style='color: #555555;'>5</span><span> 5         2     2 </span><span style='color: #555555;'>&lt;named list [1</span><span>…  1.33  7.27  10.4  45.6 </span><span style='color: #555555;'>&lt;SclCntnP&gt;</span><span> </span><span style='color: #555555;'>&lt;SclCntn</span><span>…
 #&gt; </span><span style='color: #555555;'>6</span><span> 6         2     3 </span><span style='color: #555555;'>&lt;named list [1</span><span>…  1.33  7.27  10.4  45.6 </span><span style='color: #555555;'>&lt;SclCntnP&gt;</span><span> </span><span style='color: #555555;'>&lt;SclCntn</span><span>…
-#&gt; </span><span style='color: #555555;'>7</span><span> 7         3     1 </span><span style='color: #555555;'>&lt;named list [1</span><span>…  1.33  7.27  10.4  45.6 </span><span style='color: #555555;'>&lt;SclCntnP&gt;</span><span> </span><span style='color: #555555;'>&lt;SclCntn</span><span>…</div><div class='input'><span class='fu'>summarise_coord</span>(<span class='kw'>b</span>)
+#&gt; </span><span style='color: #555555;'>7</span><span> 7         3     1 </span><span style='color: #555555;'>&lt;named list [1</span><span>…  1.33  7.27  10.4  45.6 </span><span style='color: #555555;'>&lt;SclCntnP&gt;</span><span> </span><span style='color: #555555;'>&lt;SclCntn</span><span>…</div><div class='input'><span class='fu'>summarise_coord</span><span class='op'>(</span><span class='va'>b</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; $xlog
 #&gt; [1] NA
 #&gt; 
@@ -294,7 +294,7 @@ contains information about aesthetic mapping for each layer.</p>
 #&gt; 
 #&gt; $flip
 #&gt; [1] FALSE
-#&gt; </div><div class='input'><span class='fu'>summarise_layers</span>(<span class='kw'>b</span>)
+#&gt; </div><div class='input'><span class='fu'>summarise_layers</span><span class='op'>(</span><span class='va'>b</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 1</span><span>
 #&gt;   mapping         
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>          

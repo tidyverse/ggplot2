@@ -212,40 +212,40 @@ both use the same arguments. Use <code>stat_smooth()</code> if you want to
 display the results with a non-standard geom.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>geom_smooth</span>(
-  mapping = <span class='kw'>NULL</span>,
-  data = <span class='kw'>NULL</span>,
-  stat = <span class='st'>"smooth"</span>,
-  position = <span class='st'>"identity"</span>,
-  <span class='kw'>...</span>,
-  method = <span class='kw'>NULL</span>,
-  formula = <span class='kw'>NULL</span>,
-  se = <span class='fl'>TRUE</span>,
-  na.rm = <span class='fl'>FALSE</span>,
-  orientation = <span class='fl'>NA</span>,
-  show.legend = <span class='fl'>NA</span>,
-  inherit.aes = <span class='fl'>TRUE</span>
-)
+    <pre class="usage"><span class='fu'>geom_smooth</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  stat <span class='op'>=</span> <span class='st'>"smooth"</span>,
+  position <span class='op'>=</span> <span class='st'>"identity"</span>,
+  <span class='va'>...</span>,
+  method <span class='op'>=</span> <span class='cn'>NULL</span>,
+  formula <span class='op'>=</span> <span class='cn'>NULL</span>,
+  se <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  orientation <span class='op'>=</span> <span class='cn'>NA</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
+  inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span>
 
-<span class='fu'>stat_smooth</span>(
-  mapping = <span class='kw'>NULL</span>,
-  data = <span class='kw'>NULL</span>,
-  geom = <span class='st'>"smooth"</span>,
-  position = <span class='st'>"identity"</span>,
-  <span class='kw'>...</span>,
-  method = <span class='kw'>NULL</span>,
-  formula = <span class='kw'>NULL</span>,
-  se = <span class='fl'>TRUE</span>,
-  n = <span class='fl'>80</span>,
-  span = <span class='fl'>0.75</span>,
-  fullrange = <span class='fl'>FALSE</span>,
-  level = <span class='fl'>0.95</span>,
-  method.args = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
-  na.rm = <span class='fl'>FALSE</span>,
-  orientation = <span class='fl'>NA</span>,
-  show.legend = <span class='fl'>NA</span>,
-  inherit.aes = <span class='fl'>TRUE</span>
-)</pre>
+<span class='fu'>stat_smooth</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  geom <span class='op'>=</span> <span class='st'>"smooth"</span>,
+  position <span class='op'>=</span> <span class='st'>"identity"</span>,
+  <span class='va'>...</span>,
+  method <span class='op'>=</span> <span class='cn'>NULL</span>,
+  formula <span class='op'>=</span> <span class='cn'>NULL</span>,
+  se <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  n <span class='op'>=</span> <span class='fl'>80</span>,
+  span <span class='op'>=</span> <span class='fl'>0.75</span>,
+  fullrange <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  level <span class='op'>=</span> <span class='fl'>0.95</span>,
+  method.args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  orientation <span class='op'>=</span> <span class='cn'>NA</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
+  inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -420,60 +420,60 @@ scale and then back-transformed to the response scale.</p>
 <code><a href='https://rdrr.io/r/stats/loess.html'>loess()</a></code> for local smooths.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'>geom_smooth</span>()
+    <pre class="examples"><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>displ</span>, <span class='va'>hwy</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_smooth</span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='geom_smooth-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># If you need the fitting to be done along the y-axis set the orientation</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'>geom_smooth</span>(orientation = <span class='st'>"y"</span>)
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>displ</span>, <span class='va'>hwy</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_smooth</span><span class='op'>(</span>orientation <span class='op'>=</span> <span class='st'>"y"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='geom_smooth-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Use span to control the "wiggliness" of the default loess smoother.</span>
 <span class='co'># The span is the fraction of points used to fit each local regression:</span>
 <span class='co'># small numbers make a wigglier curve, larger numbers make a smoother curve.</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'>geom_smooth</span>(span = <span class='fl'>0.3</span>)
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>displ</span>, <span class='va'>hwy</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_smooth</span><span class='op'>(</span>span <span class='op'>=</span> <span class='fl'>0.3</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='geom_smooth-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Instead of a loess smooth, you can use any other modelling function:</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'>geom_smooth</span>(method = <span class='kw'>lm</span>, se = <span class='fl'>FALSE</span>)
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>displ</span>, <span class='va'>hwy</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_smooth</span><span class='op'>(</span>method <span class='op'>=</span> <span class='va'>lm</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using formula 'y ~ x'</span></div><div class='img'><img src='geom_smooth-4.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'>geom_smooth</span>(method = <span class='kw'>lm</span>, formula = <span class='kw'>y</span> <span class='op'>~</span> <span class='kw'>splines</span>::<span class='fu'><a href='https://rdrr.io/r/splines/bs.html'>bs</a></span>(<span class='kw'>x</span>, <span class='fl'>3</span>), se = <span class='fl'>FALSE</span>)
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>displ</span>, <span class='va'>hwy</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_smooth</span><span class='op'>(</span>method <span class='op'>=</span> <span class='va'>lm</span>, formula <span class='op'>=</span> <span class='va'>y</span> <span class='op'>~</span> <span class='fu'>splines</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/r/splines/bs.html'>bs</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='fl'>3</span><span class='op'>)</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_smooth-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Smooths are automatically fit to each group (defined by categorical</span>
 <span class='co'># aesthetics or the group aesthetic) and for each facet.</span>
 
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>, colour = <span class='kw'>class</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'>geom_smooth</span>(se = <span class='fl'>FALSE</span>, method = <span class='kw'>lm</span>)
-</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using formula 'y ~ x'</span></div><div class='img'><img src='geom_smooth-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'>geom_smooth</span>(span = <span class='fl'>0.8</span>) <span class='op'>+</span>
-  <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span>(<span class='op'>~</span><span class='kw'>drv</span>)
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>displ</span>, <span class='va'>hwy</span>, colour <span class='op'>=</span> <span class='va'>class</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_smooth</span><span class='op'>(</span>se <span class='op'>=</span> <span class='cn'>FALSE</span>, method <span class='op'>=</span> <span class='va'>lm</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using formula 'y ~ x'</span></div><div class='img'><img src='geom_smooth-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>displ</span>, <span class='va'>hwy</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_smooth</span><span class='op'>(</span>span <span class='op'>=</span> <span class='fl'>0.8</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>drv</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='geom_smooth-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># \donttest{</span>
-<span class='kw'>binomial_smooth</span> <span class='op'>&lt;-</span> <span class='fu'>function</span>(<span class='kw'>...</span>) {
-  <span class='fu'>geom_smooth</span>(method = <span class='st'>"glm"</span>, method.args = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(family = <span class='st'>"binomial"</span>), <span class='kw'>...</span>)
-}
+<span class='va'>binomial_smooth</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='fu'>geom_smooth</span><span class='op'>(</span>method <span class='op'>=</span> <span class='st'>"glm"</span>, method.args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>family <span class='op'>=</span> <span class='st'>"binomial"</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='op'>}</span>
 <span class='co'># To fit a logistic regression, you need to coerce the values to</span>
 <span class='co'># a numeric vector lying between 0 and 1.</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>rpart</span>::<span class='kw'><a href='https://rdrr.io/pkg/rpart/man/kyphosis.html'>kyphosis</a></span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>Age</span>, <span class='kw'>Kyphosis</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span>(height = <span class='fl'>0.05</span>) <span class='op'>+</span>
-  <span class='fu'>binomial_smooth</span>()
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'>rpart</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/rpart/man/kyphosis.html'>kyphosis</a></span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>Age</span>, <span class='va'>Kyphosis</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span><span class='op'>(</span>height <span class='op'>=</span> <span class='fl'>0.05</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>binomial_smooth</span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using formula 'y ~ x'</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Computation failed in `stat_smooth()`:</span>
 #&gt; <span class='warning'>y values must be 0 &lt;= y &lt;= 1</span></div><div class='img'><img src='geom_smooth-8.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>rpart</span>::<span class='kw'><a href='https://rdrr.io/pkg/rpart/man/kyphosis.html'>kyphosis</a></span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>Age</span>, <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='kw'>Kyphosis</span>) <span class='op'>-</span> <span class='fl'>1</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span>(height = <span class='fl'>0.05</span>) <span class='op'>+</span>
-  <span class='fu'>binomial_smooth</span>()
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'>rpart</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/rpart/man/kyphosis.html'>kyphosis</a></span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>Age</span>, <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='va'>Kyphosis</span><span class='op'>)</span> <span class='op'>-</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span><span class='op'>(</span>height <span class='op'>=</span> <span class='fl'>0.05</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>binomial_smooth</span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using formula 'y ~ x'</span></div><div class='img'><img src='geom_smooth-9.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>rpart</span>::<span class='kw'><a href='https://rdrr.io/pkg/rpart/man/kyphosis.html'>kyphosis</a></span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>Age</span>, <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='kw'>Kyphosis</span>) <span class='op'>-</span> <span class='fl'>1</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span>(height = <span class='fl'>0.05</span>) <span class='op'>+</span>
-  <span class='fu'>binomial_smooth</span>(formula = <span class='kw'>y</span> <span class='op'>~</span> <span class='kw'>splines</span>::<span class='fu'><a href='https://rdrr.io/r/splines/ns.html'>ns</a></span>(<span class='kw'>x</span>, <span class='fl'>2</span>))
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'>rpart</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/rpart/man/kyphosis.html'>kyphosis</a></span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>Age</span>, <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='va'>Kyphosis</span><span class='op'>)</span> <span class='op'>-</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span><span class='op'>(</span>height <span class='op'>=</span> <span class='fl'>0.05</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>binomial_smooth</span><span class='op'>(</span>formula <span class='op'>=</span> <span class='va'>y</span> <span class='op'>~</span> <span class='fu'>splines</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/r/splines/ns.html'>ns</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_smooth-10.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># But in this case, it's probably better to fit the model yourself</span>
 <span class='co'># so you can exercise more control and see whether or not it's a good model.</span>

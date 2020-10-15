@@ -208,34 +208,34 @@ with lines. This is as a continuous analogue to geom_boxplot()." />
 with lines. This is as a continuous analogue to <code><a href='geom_boxplot.html'>geom_boxplot()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>geom_quantile</span>(
-  mapping = <span class='kw'>NULL</span>,
-  data = <span class='kw'>NULL</span>,
-  stat = <span class='st'>"quantile"</span>,
-  position = <span class='st'>"identity"</span>,
-  <span class='kw'>...</span>,
-  lineend = <span class='st'>"butt"</span>,
-  linejoin = <span class='st'>"round"</span>,
-  linemitre = <span class='fl'>10</span>,
-  na.rm = <span class='fl'>FALSE</span>,
-  show.legend = <span class='fl'>NA</span>,
-  inherit.aes = <span class='fl'>TRUE</span>
-)
+    <pre class="usage"><span class='fu'>geom_quantile</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  stat <span class='op'>=</span> <span class='st'>"quantile"</span>,
+  position <span class='op'>=</span> <span class='st'>"identity"</span>,
+  <span class='va'>...</span>,
+  lineend <span class='op'>=</span> <span class='st'>"butt"</span>,
+  linejoin <span class='op'>=</span> <span class='st'>"round"</span>,
+  linemitre <span class='op'>=</span> <span class='fl'>10</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
+  inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span>
 
-<span class='fu'>stat_quantile</span>(
-  mapping = <span class='kw'>NULL</span>,
-  data = <span class='kw'>NULL</span>,
-  geom = <span class='st'>"quantile"</span>,
-  position = <span class='st'>"identity"</span>,
-  <span class='kw'>...</span>,
-  quantiles = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.25</span>, <span class='fl'>0.5</span>, <span class='fl'>0.75</span>),
-  formula = <span class='kw'>NULL</span>,
-  method = <span class='st'>"rq"</span>,
-  method.args = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
-  na.rm = <span class='fl'>FALSE</span>,
-  show.legend = <span class='fl'>NA</span>,
-  inherit.aes = <span class='fl'>TRUE</span>
-)</pre>
+<span class='fu'>stat_quantile</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  geom <span class='op'>=</span> <span class='st'>"quantile"</span>,
+  position <span class='op'>=</span> <span class='st'>"identity"</span>,
+  <span class='va'>...</span>,
+  quantiles <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.25</span>, <span class='fl'>0.5</span>, <span class='fl'>0.75</span><span class='op'>)</span>,
+  formula <span class='op'>=</span> <span class='cn'>NULL</span>,
+  method <span class='op'>=</span> <span class='st'>"rq"</span>,
+  method.args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
+  inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -355,22 +355,22 @@ function defined by <code>method</code>.</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>m</span> <span class='op'>&lt;-</span>
-  <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='fl'>1</span> <span class='op'>/</span> <span class='kw'>hwy</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
-<span class='kw'>m</span> <span class='op'>+</span> <span class='fu'>geom_quantile</span>()
-</div><div class='output co'>#&gt; <span class='message'>Smoothing formula not specified. Using: y ~ x</span></div><div class='img'><img src='geom_quantile-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>m</span> <span class='op'>+</span> <span class='fu'>geom_quantile</span>(quantiles = <span class='fl'>0.5</span>)
-</div><div class='output co'>#&gt; <span class='message'>Smoothing formula not specified. Using: y ~ x</span></div><div class='img'><img src='geom_quantile-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>q10</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0.05</span>, <span class='fl'>0.95</span>, by = <span class='fl'>0.05</span>)
-<span class='kw'>m</span> <span class='op'>+</span> <span class='fu'>geom_quantile</span>(quantiles = <span class='kw'>q10</span>)
+    <pre class="examples"><div class='input'><span class='va'>m</span> <span class='op'>&lt;-</span>
+  <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>displ</span>, <span class='fl'>1</span> <span class='op'>/</span> <span class='va'>hwy</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>m</span> <span class='op'>+</span> <span class='fu'>geom_quantile</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Smoothing formula not specified. Using: y ~ x</span></div><div class='img'><img src='geom_quantile-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>m</span> <span class='op'>+</span> <span class='fu'>geom_quantile</span><span class='op'>(</span>quantiles <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Smoothing formula not specified. Using: y ~ x</span></div><div class='img'><img src='geom_quantile-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>q10</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0.05</span>, <span class='fl'>0.95</span>, by <span class='op'>=</span> <span class='fl'>0.05</span><span class='op'>)</span>
+<span class='va'>m</span> <span class='op'>+</span> <span class='fu'>geom_quantile</span><span class='op'>(</span>quantiles <span class='op'>=</span> <span class='va'>q10</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>Smoothing formula not specified. Using: y ~ x</span></div><div class='img'><img src='geom_quantile-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can also use rqss to fit smooth quantiles</span>
-<span class='kw'>m</span> <span class='op'>+</span> <span class='fu'>geom_quantile</span>(method = <span class='st'>"rqss"</span>)
+<span class='va'>m</span> <span class='op'>+</span> <span class='fu'>geom_quantile</span><span class='op'>(</span>method <span class='op'>=</span> <span class='st'>"rqss"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>Smoothing formula not specified. Using: y ~ qss(x, lambda = 1)</span></div><div class='img'><img src='geom_quantile-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Note that rqss doesn't pick a smoothing constant automatically, so</span>
 <span class='co'># you'll need to tweak lambda yourself</span>
-<span class='kw'>m</span> <span class='op'>+</span> <span class='fu'>geom_quantile</span>(method = <span class='st'>"rqss"</span>, lambda = <span class='fl'>0.1</span>)
+<span class='va'>m</span> <span class='op'>+</span> <span class='fu'>geom_quantile</span><span class='op'>(</span>method <span class='op'>=</span> <span class='st'>"rqss"</span>, lambda <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>Smoothing formula not specified. Using: y ~ qss(x, lambda = 0.1)</span></div><div class='img'><img src='geom_quantile-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Set aesthetics to fixed value</span>
-<span class='kw'>m</span> <span class='op'>+</span> <span class='fu'>geom_quantile</span>(colour = <span class='st'>"red"</span>, size = <span class='fl'>2</span>, alpha = <span class='fl'>0.5</span>)
+<span class='va'>m</span> <span class='op'>+</span> <span class='fu'>geom_quantile</span><span class='op'>(</span>colour <span class='op'>=</span> <span class='st'>"red"</span>, size <span class='op'>=</span> <span class='fl'>2</span>, alpha <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>Smoothing formula not specified. Using: y ~ x</span></div><div class='img'><img src='geom_quantile-6.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

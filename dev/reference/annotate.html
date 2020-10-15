@@ -214,19 +214,19 @@ but are instead passed in as vectors. This is useful for adding small annotation
 reason don't want to put them in a data frame.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>annotate</span>(
-  <span class='kw'>geom</span>,
-  x = <span class='kw'>NULL</span>,
-  y = <span class='kw'>NULL</span>,
-  xmin = <span class='kw'>NULL</span>,
-  xmax = <span class='kw'>NULL</span>,
-  ymin = <span class='kw'>NULL</span>,
-  ymax = <span class='kw'>NULL</span>,
-  xend = <span class='kw'>NULL</span>,
-  yend = <span class='kw'>NULL</span>,
-  <span class='kw'>...</span>,
-  na.rm = <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>annotate</span><span class='op'>(</span>
+  <span class='va'>geom</span>,
+  x <span class='op'>=</span> <span class='cn'>NULL</span>,
+  y <span class='op'>=</span> <span class='cn'>NULL</span>,
+  xmin <span class='op'>=</span> <span class='cn'>NULL</span>,
+  xmax <span class='op'>=</span> <span class='cn'>NULL</span>,
+  ymin <span class='op'>=</span> <span class='cn'>NULL</span>,
+  ymax <span class='op'>=</span> <span class='cn'>NULL</span>,
+  xend <span class='op'>=</span> <span class='cn'>NULL</span>,
+  yend <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>...</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -262,22 +262,22 @@ set. This means that layers created with this function will never
 affect the legend.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='kw'>wt</span>, y = <span class='kw'>mpg</span>)) <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>annotate</span>(<span class='st'>"text"</span>, x = <span class='fl'>4</span>, y = <span class='fl'>25</span>, label = <span class='st'>"Some text"</span>)
-</div><div class='img'><img src='annotate-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>annotate</span>(<span class='st'>"text"</span>, x = <span class='fl'>2</span><span class='op'>:</span><span class='fl'>5</span>, y = <span class='fl'>25</span>, label = <span class='st'>"Some text"</span>)
-</div><div class='img'><img src='annotate-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>annotate</span>(<span class='st'>"rect"</span>, xmin = <span class='fl'>3</span>, xmax = <span class='fl'>4.2</span>, ymin = <span class='fl'>12</span>, ymax = <span class='fl'>21</span>,
-  alpha = <span class='fl'>.2</span>)
-</div><div class='img'><img src='annotate-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>annotate</span>(<span class='st'>"segment"</span>, x = <span class='fl'>2.5</span>, xend = <span class='fl'>4</span>, y = <span class='fl'>15</span>, yend = <span class='fl'>25</span>,
-  colour = <span class='st'>"blue"</span>)
-</div><div class='img'><img src='annotate-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>annotate</span>(<span class='st'>"pointrange"</span>, x = <span class='fl'>3.5</span>, y = <span class='fl'>20</span>, ymin = <span class='fl'>12</span>, ymax = <span class='fl'>28</span>,
-  colour = <span class='st'>"red"</span>, size = <span class='fl'>1.5</span>)
+    <pre class="examples"><div class='input'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>wt</span>, y <span class='op'>=</span> <span class='va'>mpg</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>annotate</span><span class='op'>(</span><span class='st'>"text"</span>, x <span class='op'>=</span> <span class='fl'>4</span>, y <span class='op'>=</span> <span class='fl'>25</span>, label <span class='op'>=</span> <span class='st'>"Some text"</span><span class='op'>)</span>
+</div><div class='img'><img src='annotate-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'>annotate</span><span class='op'>(</span><span class='st'>"text"</span>, x <span class='op'>=</span> <span class='fl'>2</span><span class='op'>:</span><span class='fl'>5</span>, y <span class='op'>=</span> <span class='fl'>25</span>, label <span class='op'>=</span> <span class='st'>"Some text"</span><span class='op'>)</span>
+</div><div class='img'><img src='annotate-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'>annotate</span><span class='op'>(</span><span class='st'>"rect"</span>, xmin <span class='op'>=</span> <span class='fl'>3</span>, xmax <span class='op'>=</span> <span class='fl'>4.2</span>, ymin <span class='op'>=</span> <span class='fl'>12</span>, ymax <span class='op'>=</span> <span class='fl'>21</span>,
+  alpha <span class='op'>=</span> <span class='fl'>.2</span><span class='op'>)</span>
+</div><div class='img'><img src='annotate-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'>annotate</span><span class='op'>(</span><span class='st'>"segment"</span>, x <span class='op'>=</span> <span class='fl'>2.5</span>, xend <span class='op'>=</span> <span class='fl'>4</span>, y <span class='op'>=</span> <span class='fl'>15</span>, yend <span class='op'>=</span> <span class='fl'>25</span>,
+  colour <span class='op'>=</span> <span class='st'>"blue"</span><span class='op'>)</span>
+</div><div class='img'><img src='annotate-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'>annotate</span><span class='op'>(</span><span class='st'>"pointrange"</span>, x <span class='op'>=</span> <span class='fl'>3.5</span>, y <span class='op'>=</span> <span class='fl'>20</span>, ymin <span class='op'>=</span> <span class='fl'>12</span>, ymax <span class='op'>=</span> <span class='fl'>28</span>,
+  colour <span class='op'>=</span> <span class='st'>"red"</span>, size <span class='op'>=</span> <span class='fl'>1.5</span><span class='op'>)</span>
 </div><div class='img'><img src='annotate-5.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>annotate</span>(<span class='st'>"text"</span>, x = <span class='fl'>2</span><span class='op'>:</span><span class='fl'>3</span>, y = <span class='fl'>20</span><span class='op'>:</span><span class='fl'>21</span>, label = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"my label"</span>, <span class='st'>"label 2"</span>))
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>annotate</span><span class='op'>(</span><span class='st'>"text"</span>, x <span class='op'>=</span> <span class='fl'>2</span><span class='op'>:</span><span class='fl'>3</span>, y <span class='op'>=</span> <span class='fl'>20</span><span class='op'>:</span><span class='fl'>21</span>, label <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"my label"</span>, <span class='st'>"label 2"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='annotate-6.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>annotate</span>(<span class='st'>"text"</span>, x = <span class='fl'>4</span>, y = <span class='fl'>25</span>, label = <span class='st'>"italic(R) ^ 2 == 0.75"</span>,
-  parse = <span class='fl'>TRUE</span>)
-</div><div class='img'><img src='annotate-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>annotate</span>(<span class='st'>"text"</span>, x = <span class='fl'>4</span>, y = <span class='fl'>25</span>,
-  label = <span class='st'>"paste(italic(R) ^ 2, \" = .75\")"</span>, parse = <span class='fl'>TRUE</span>)
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>annotate</span><span class='op'>(</span><span class='st'>"text"</span>, x <span class='op'>=</span> <span class='fl'>4</span>, y <span class='op'>=</span> <span class='fl'>25</span>, label <span class='op'>=</span> <span class='st'>"italic(R) ^ 2 == 0.75"</span>,
+  parse <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='img'><img src='annotate-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'>annotate</span><span class='op'>(</span><span class='st'>"text"</span>, x <span class='op'>=</span> <span class='fl'>4</span>, y <span class='op'>=</span> <span class='fl'>25</span>,
+  label <span class='op'>=</span> <span class='st'>"paste(italic(R) ^ 2, \" = .75\")"</span>, parse <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='img'><img src='annotate-8.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

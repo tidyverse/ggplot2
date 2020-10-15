@@ -209,7 +209,7 @@ the model with <code>na.action = na.exclude</code>.</p>
     </div>
 
     <pre class="usage"><span class='co'># S3 method for lm</span>
-<span class='fu'><a href='fortify.html'>fortify</a></span>(<span class='kw'>model</span>, data = <span class='kw'>model</span><span class='op'>$</span><span class='kw'>model</span>, <span class='kw'>...</span>)</pre>
+<span class='fu'><a href='fortify.html'>fortify</a></span><span class='op'>(</span><span class='va'>model</span>, data <span class='op'>=</span> <span class='va'>model</span><span class='op'>$</span><span class='va'>model</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -241,8 +241,8 @@ corresponding observation is dropped from model</p></dd>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>mod</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='kw'>mpg</span> <span class='op'>~</span> <span class='kw'>wt</span>, data = <span class='kw'>mtcars</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fu'><a href='fortify.html'>fortify</a></span>(<span class='kw'>mod</span>))
+    <pre class="examples"><div class='input'><span class='va'>mod</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>wt</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fu'><a href='fortify.html'>fortify</a></span><span class='op'>(</span><span class='va'>mod</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;                    mpg    wt       .hat   .sigma      .cooksd  .fitted
 #&gt; Mazda RX4         21.0 2.620 0.04326896 3.067494 1.327407e-02 23.28261
 #&gt; Mazda RX4 Wag     21.0 2.875 0.03519677 3.093068 1.723963e-03 21.91977
@@ -256,7 +256,7 @@ corresponding observation is dropped from model</p></dd>
 #&gt; Datsun 710        -2.0859521 -0.70575249
 #&gt; Hornet 4 Drive     1.2973499  0.43275114
 #&gt; Hornet Sportabout -0.2001440 -0.06681879
-#&gt; Valiant           -0.6932545 -0.23148309</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fu'><a href='fortify.html'>fortify</a></span>(<span class='kw'>mod</span>, <span class='kw'>mtcars</span>))
+#&gt; Valiant           -0.6932545 -0.23148309</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fu'><a href='fortify.html'>fortify</a></span><span class='op'>(</span><span class='va'>mod</span>, <span class='va'>mtcars</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;                    mpg cyl disp  hp drat    wt  qsec vs am gear carb       .hat
 #&gt; Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4 0.04326896
 #&gt; Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4 0.03519677
@@ -271,58 +271,58 @@ corresponding observation is dropped from model</p></dd>
 #&gt; Hornet 4 Drive    3.088268 3.020558e-03 20.10265  1.2973499  0.43275114
 #&gt; Hornet Sportabout 3.097722 7.599578e-05 18.90014 -0.2001440 -0.06681879
 #&gt; Valiant           3.095184 9.210650e-04 18.79325 -0.6932545 -0.23148309</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='kw'>mod</span>, which = <span class='fl'>1</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>mod</span>, which <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
 </div><div class='img'><img src='fortify.lm-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mod</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>.fitted</span>, <span class='kw'>.resid</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='geom_abline.html'>geom_hline</a></span>(yintercept = <span class='fl'>0</span>) <span class='op'>+</span>
-  <span class='fu'><a href='geom_smooth.html'>geom_smooth</a></span>(se = <span class='fl'>FALSE</span>)
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mod</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>.fitted</span>, <span class='va'>.resid</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_abline.html'>geom_hline</a></span><span class='op'>(</span>yintercept <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span>se <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='fortify.lm-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mod</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>.fitted</span>, <span class='kw'>.stdresid</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='geom_abline.html'>geom_hline</a></span>(yintercept = <span class='fl'>0</span>) <span class='op'>+</span>
-  <span class='fu'><a href='geom_smooth.html'>geom_smooth</a></span>(se = <span class='fl'>FALSE</span>)
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mod</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>.fitted</span>, <span class='va'>.stdresid</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_abline.html'>geom_hline</a></span><span class='op'>(</span>yintercept <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span>se <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='fortify.lm-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='fu'><a href='fortify.html'>fortify</a></span>(<span class='kw'>mod</span>, <span class='kw'>mtcars</span>), <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>.fitted</span>, <span class='kw'>.stdresid</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(colour = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>)))
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='fortify.html'>fortify</a></span><span class='op'>(</span><span class='va'>mod</span>, <span class='va'>mtcars</span><span class='op'>)</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>.fitted</span>, <span class='va'>.stdresid</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='fortify.lm-4.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='fu'><a href='fortify.html'>fortify</a></span>(<span class='kw'>mod</span>, <span class='kw'>mtcars</span>), <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>mpg</span>, <span class='kw'>.stdresid</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(colour = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>)))
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='fortify.html'>fortify</a></span><span class='op'>(</span><span class='va'>mod</span>, <span class='va'>mtcars</span><span class='op'>)</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>.stdresid</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='fortify.lm-5.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='kw'>mod</span>, which = <span class='fl'>2</span>)
-</div><div class='img'><img src='fortify.lm-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mod</span>) <span class='op'>+</span>
-  <span class='fu'><a href='geom_qq_line.html'>stat_qq</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(sample = <span class='kw'>.stdresid</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_abline.html'>geom_abline</a></span>()
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>mod</span>, which <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+</div><div class='img'><img src='fortify.lm-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mod</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_qq_line.html'>stat_qq</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>sample <span class='op'>=</span> <span class='va'>.stdresid</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_abline.html'>geom_abline</a></span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='img'><img src='fortify.lm-7.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='kw'>mod</span>, which = <span class='fl'>3</span>)
-</div><div class='img'><img src='fortify.lm-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mod</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>.fitted</span>, <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span>(<span class='kw'>.stdresid</span>)))) <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='geom_smooth.html'>geom_smooth</a></span>(se = <span class='fl'>FALSE</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>mod</span>, which <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
+</div><div class='img'><img src='fortify.lm-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mod</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>.fitted</span>, <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span><span class='op'>(</span><span class='va'>.stdresid</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span>se <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='fortify.lm-9.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='kw'>mod</span>, which = <span class='fl'>4</span>)
-</div><div class='img'><img src='fortify.lm-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mod</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_along</a></span>(<span class='kw'>.cooksd</span>), <span class='kw'>.cooksd</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_bar.html'>geom_col</a></span>()
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>mod</span>, which <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span>
+</div><div class='img'><img src='fortify.lm-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mod</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_along</a></span><span class='op'>(</span><span class='va'>.cooksd</span><span class='op'>)</span>, <span class='va'>.cooksd</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_bar.html'>geom_col</a></span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='img'><img src='fortify.lm-11.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='kw'>mod</span>, which = <span class='fl'>5</span>)
-</div><div class='img'><img src='fortify.lm-12.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mod</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>.hat</span>, <span class='kw'>.stdresid</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_abline.html'>geom_vline</a></span>(size = <span class='fl'>2</span>, colour = <span class='st'>"white"</span>, xintercept = <span class='fl'>0</span>) <span class='op'>+</span>
-  <span class='fu'><a href='geom_abline.html'>geom_hline</a></span>(size = <span class='fl'>2</span>, colour = <span class='st'>"white"</span>, yintercept = <span class='fl'>0</span>) <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span> <span class='fu'><a href='geom_smooth.html'>geom_smooth</a></span>(se = <span class='fl'>FALSE</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>mod</span>, which <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>
+</div><div class='img'><img src='fortify.lm-12.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mod</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>.hat</span>, <span class='va'>.stdresid</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_abline.html'>geom_vline</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>2</span>, colour <span class='op'>=</span> <span class='st'>"white"</span>, xintercept <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_abline.html'>geom_hline</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>2</span>, colour <span class='op'>=</span> <span class='st'>"white"</span>, yintercept <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span>se <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='fortify.lm-13.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mod</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>.hat</span>, <span class='kw'>.stdresid</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(size = <span class='kw'>.cooksd</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_smooth.html'>geom_smooth</a></span>(se = <span class='fl'>FALSE</span>, size = <span class='fl'>0.5</span>)
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mod</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>.hat</span>, <span class='va'>.stdresid</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='va'>.cooksd</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span>se <span class='op'>=</span> <span class='cn'>FALSE</span>, size <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='fortify.lm-14.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='kw'>mod</span>, which = <span class='fl'>6</span>)
-</div><div class='img'><img src='fortify.lm-15.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mod</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>.hat</span>, <span class='kw'>.cooksd</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_abline.html'>geom_vline</a></span>(xintercept = <span class='fl'>0</span>, colour = <span class='fl'>NA</span>) <span class='op'>+</span>
-  <span class='fu'><a href='geom_abline.html'>geom_abline</a></span>(slope = <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0</span>, <span class='fl'>3</span>, by = <span class='fl'>0.5</span>), colour = <span class='st'>"white"</span>) <span class='op'>+</span>
-  <span class='fu'><a href='geom_smooth.html'>geom_smooth</a></span>(se = <span class='fl'>FALSE</span>) <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>mod</span>, which <span class='op'>=</span> <span class='fl'>6</span><span class='op'>)</span>
+</div><div class='img'><img src='fortify.lm-15.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mod</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>.hat</span>, <span class='va'>.cooksd</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_abline.html'>geom_vline</a></span><span class='op'>(</span>xintercept <span class='op'>=</span> <span class='fl'>0</span>, colour <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_abline.html'>geom_abline</a></span><span class='op'>(</span>slope <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>3</span>, by <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span>, colour <span class='op'>=</span> <span class='st'>"white"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span>se <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='fortify.lm-16.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mod</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>.hat</span>, <span class='kw'>.cooksd</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(size = <span class='kw'>.cooksd</span> <span class='op'>/</span> <span class='kw'>.hat</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='scale_size.html'>scale_size_area</a></span>()
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mod</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>.hat</span>, <span class='va'>.cooksd</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='va'>.cooksd</span> <span class='op'>/</span> <span class='va'>.hat</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='scale_size.html'>scale_size_area</a></span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='img'><img src='fortify.lm-17.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

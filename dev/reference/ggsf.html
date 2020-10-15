@@ -218,76 +218,76 @@ or polygons.
 For text and labels, you can use <code>geom_sf_text()</code> and <code>geom_sf_label()</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>coord_sf</span>(
-  xlim = <span class='kw'>NULL</span>,
-  ylim = <span class='kw'>NULL</span>,
-  expand = <span class='fl'>TRUE</span>,
-  crs = <span class='kw'>NULL</span>,
-  default_crs = <span class='kw'>sf</span>::<span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_crs.html'>st_crs</a></span>(<span class='fl'>4326</span>),
-  datum = <span class='kw'>sf</span>::<span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_crs.html'>st_crs</a></span>(<span class='fl'>4326</span>),
-  label_graticule = <span class='fu'><a href='waiver.html'>waiver</a></span>(),
-  label_axes = <span class='fu'><a href='waiver.html'>waiver</a></span>(),
-  lims_method = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"cross"</span>, <span class='st'>"box"</span>, <span class='st'>"orthogonal"</span>, <span class='st'>"geometry_bbox"</span>),
-  ndiscr = <span class='fl'>100</span>,
-  default = <span class='fl'>FALSE</span>,
-  clip = <span class='st'>"on"</span>
-)
+    <pre class="usage"><span class='fu'>coord_sf</span><span class='op'>(</span>
+  xlim <span class='op'>=</span> <span class='cn'>NULL</span>,
+  ylim <span class='op'>=</span> <span class='cn'>NULL</span>,
+  expand <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  crs <span class='op'>=</span> <span class='cn'>NULL</span>,
+  default_crs <span class='op'>=</span> <span class='fu'>sf</span><span class='fu'>::</span><span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_crs.html'>st_crs</a></span><span class='op'>(</span><span class='fl'>4326</span><span class='op'>)</span>,
+  datum <span class='op'>=</span> <span class='fu'>sf</span><span class='fu'>::</span><span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_crs.html'>st_crs</a></span><span class='op'>(</span><span class='fl'>4326</span><span class='op'>)</span>,
+  label_graticule <span class='op'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span><span class='op'>(</span><span class='op'>)</span>,
+  label_axes <span class='op'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span><span class='op'>(</span><span class='op'>)</span>,
+  lims_method <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"cross"</span>, <span class='st'>"box"</span>, <span class='st'>"orthogonal"</span>, <span class='st'>"geometry_bbox"</span><span class='op'>)</span>,
+  ndiscr <span class='op'>=</span> <span class='fl'>100</span>,
+  default <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  clip <span class='op'>=</span> <span class='st'>"on"</span>
+<span class='op'>)</span>
 
-<span class='fu'>geom_sf</span>(
-  mapping = <span class='fu'><a href='aes.html'>aes</a></span>(),
-  data = <span class='kw'>NULL</span>,
-  stat = <span class='st'>"sf"</span>,
-  position = <span class='st'>"identity"</span>,
-  na.rm = <span class='fl'>FALSE</span>,
-  show.legend = <span class='fl'>NA</span>,
-  inherit.aes = <span class='fl'>TRUE</span>,
-  <span class='kw'>...</span>
-)
+<span class='fu'>geom_sf</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='op'>)</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  stat <span class='op'>=</span> <span class='st'>"sf"</span>,
+  position <span class='op'>=</span> <span class='st'>"identity"</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
+  inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
-<span class='fu'>geom_sf_label</span>(
-  mapping = <span class='fu'><a href='aes.html'>aes</a></span>(),
-  data = <span class='kw'>NULL</span>,
-  stat = <span class='st'>"sf_coordinates"</span>,
-  position = <span class='st'>"identity"</span>,
-  <span class='kw'>...</span>,
-  parse = <span class='fl'>FALSE</span>,
-  nudge_x = <span class='fl'>0</span>,
-  nudge_y = <span class='fl'>0</span>,
-  label.padding = <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>0.25</span>, <span class='st'>"lines"</span>),
-  label.r = <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>0.15</span>, <span class='st'>"lines"</span>),
-  label.size = <span class='fl'>0.25</span>,
-  na.rm = <span class='fl'>FALSE</span>,
-  show.legend = <span class='fl'>NA</span>,
-  inherit.aes = <span class='fl'>TRUE</span>,
-  fun.geometry = <span class='kw'>NULL</span>
-)
+<span class='fu'>geom_sf_label</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='op'>)</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  stat <span class='op'>=</span> <span class='st'>"sf_coordinates"</span>,
+  position <span class='op'>=</span> <span class='st'>"identity"</span>,
+  <span class='va'>...</span>,
+  parse <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  nudge_x <span class='op'>=</span> <span class='fl'>0</span>,
+  nudge_y <span class='op'>=</span> <span class='fl'>0</span>,
+  label.padding <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span><span class='op'>(</span><span class='fl'>0.25</span>, <span class='st'>"lines"</span><span class='op'>)</span>,
+  label.r <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span><span class='op'>(</span><span class='fl'>0.15</span>, <span class='st'>"lines"</span><span class='op'>)</span>,
+  label.size <span class='op'>=</span> <span class='fl'>0.25</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
+  inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  fun.geometry <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span>
 
-<span class='fu'>geom_sf_text</span>(
-  mapping = <span class='fu'><a href='aes.html'>aes</a></span>(),
-  data = <span class='kw'>NULL</span>,
-  stat = <span class='st'>"sf_coordinates"</span>,
-  position = <span class='st'>"identity"</span>,
-  <span class='kw'>...</span>,
-  parse = <span class='fl'>FALSE</span>,
-  nudge_x = <span class='fl'>0</span>,
-  nudge_y = <span class='fl'>0</span>,
-  check_overlap = <span class='fl'>FALSE</span>,
-  na.rm = <span class='fl'>FALSE</span>,
-  show.legend = <span class='fl'>NA</span>,
-  inherit.aes = <span class='fl'>TRUE</span>,
-  fun.geometry = <span class='kw'>NULL</span>
-)
+<span class='fu'>geom_sf_text</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='op'>)</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  stat <span class='op'>=</span> <span class='st'>"sf_coordinates"</span>,
+  position <span class='op'>=</span> <span class='st'>"identity"</span>,
+  <span class='va'>...</span>,
+  parse <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  nudge_x <span class='op'>=</span> <span class='fl'>0</span>,
+  nudge_y <span class='op'>=</span> <span class='fl'>0</span>,
+  check_overlap <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
+  inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  fun.geometry <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span>
 
-<span class='fu'>stat_sf</span>(
-  mapping = <span class='kw'>NULL</span>,
-  data = <span class='kw'>NULL</span>,
-  geom = <span class='st'>"rect"</span>,
-  position = <span class='st'>"identity"</span>,
-  na.rm = <span class='fl'>FALSE</span>,
-  show.legend = <span class='fl'>NA</span>,
-  inherit.aes = <span class='fl'>TRUE</span>,
-  <span class='kw'>...</span>
-)</pre>
+<span class='fu'>stat_sf</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  geom <span class='op'>=</span> <span class='st'>"rect"</span>,
+  position <span class='op'>=</span> <span class='st'>"identity"</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
+  inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -565,49 +565,49 @@ in projected coordinates.</p>
     <div class='dont-index'><p><code><a href='stat_sf_coordinates.html'>stat_sf_coordinates()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"sf"</span>, quietly = <span class='fl'>TRUE</span>)) {
-<span class='kw'>nc</span> <span class='op'>&lt;-</span> <span class='kw'>sf</span>::<span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_read.html'>st_read</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"shape/nc.shp"</span>, package = <span class='st'>"sf"</span>), quiet = <span class='fl'>TRUE</span>)
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>nc</span>) <span class='op'>+</span>
-  <span class='fu'>geom_sf</span>(<span class='fu'><a href='aes.html'>aes</a></span>(fill = <span class='kw'>AREA</span>))
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"sf"</span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='va'>nc</span> <span class='op'>&lt;-</span> <span class='fu'>sf</span><span class='fu'>::</span><span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_read.html'>st_read</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"shape/nc.shp"</span>, package <span class='op'>=</span> <span class='st'>"sf"</span><span class='op'>)</span>, quiet <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>nc</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_sf</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>AREA</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># If not supplied, coord_sf() will take the CRS from the first layer</span>
 <span class='co'># and automatically transform all other layers to use that CRS. This</span>
 <span class='co'># ensures that all data will correctly line up</span>
-<span class='kw'>nc_3857</span> <span class='op'>&lt;-</span> <span class='kw'>sf</span>::<span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_transform.html'>st_transform</a></span>(<span class='kw'>nc</span>, <span class='fl'>3857</span>)
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>() <span class='op'>+</span>
-  <span class='fu'>geom_sf</span>(data = <span class='kw'>nc</span>) <span class='op'>+</span>
-  <span class='fu'>geom_sf</span>(data = <span class='kw'>nc_3857</span>, colour = <span class='st'>"red"</span>, fill = <span class='fl'>NA</span>)
+<span class='va'>nc_3857</span> <span class='op'>&lt;-</span> <span class='fu'>sf</span><span class='fu'>::</span><span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_transform.html'>st_transform</a></span><span class='op'>(</span><span class='va'>nc</span>, <span class='fl'>3857</span><span class='op'>)</span>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_sf</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>nc</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_sf</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>nc_3857</span>, colour <span class='op'>=</span> <span class='st'>"red"</span>, fill <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span>
 
 <span class='co'># Unfortunately if you plot other types of feature you'll need to use</span>
 <span class='co'># show.legend to tell ggplot2 what type of legend to use</span>
-<span class='kw'>nc_3857</span><span class='op'>$</span><span class='kw'>mid</span> <span class='op'>&lt;-</span> <span class='kw'>sf</span>::<span class='fu'><a href='https://rdrr.io/pkg/sf/man/geos_unary.html'>st_centroid</a></span>(<span class='kw'>nc_3857</span><span class='op'>$</span><span class='kw'>geometry</span>)
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>nc_3857</span>) <span class='op'>+</span>
-  <span class='fu'>geom_sf</span>(colour = <span class='st'>"white"</span>) <span class='op'>+</span>
-  <span class='fu'>geom_sf</span>(<span class='fu'><a href='aes.html'>aes</a></span>(geometry = <span class='kw'>mid</span>, size = <span class='kw'>AREA</span>), show.legend = <span class='st'>"point"</span>)
+<span class='va'>nc_3857</span><span class='op'>$</span><span class='va'>mid</span> <span class='op'>&lt;-</span> <span class='fu'>sf</span><span class='fu'>::</span><span class='fu'><a href='https://r-spatial.github.io/sf/reference/geos_unary.html'>st_centroid</a></span><span class='op'>(</span><span class='va'>nc_3857</span><span class='op'>$</span><span class='va'>geometry</span><span class='op'>)</span>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>nc_3857</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_sf</span><span class='op'>(</span>colour <span class='op'>=</span> <span class='st'>"white"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_sf</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>geometry <span class='op'>=</span> <span class='va'>mid</span>, size <span class='op'>=</span> <span class='va'>AREA</span><span class='op'>)</span>, show.legend <span class='op'>=</span> <span class='st'>"point"</span><span class='op'>)</span>
 
 <span class='co'># You can also use layers with x and y aesthetics: these are</span>
 <span class='co'># assumed to already be in the common CRS.</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>nc</span>) <span class='op'>+</span>
-  <span class='fu'>geom_sf</span>() <span class='op'>+</span>
-  <span class='fu'><a href='annotate.html'>annotate</a></span>(<span class='st'>"point"</span>, x = <span class='op'>-</span><span class='fl'>80</span>, y = <span class='fl'>35</span>, colour = <span class='st'>"red"</span>, size = <span class='fl'>4</span>)
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>nc</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_sf</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='annotate.html'>annotate</a></span><span class='op'>(</span><span class='st'>"point"</span>, x <span class='op'>=</span> <span class='op'>-</span><span class='fl'>80</span>, y <span class='op'>=</span> <span class='fl'>35</span>, colour <span class='op'>=</span> <span class='st'>"red"</span>, size <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span>
 
 <span class='co'># Thanks to the power of sf, a geom_sf nicely handles varying projections</span>
 <span class='co'># setting the aspect ratio correctly.</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'>maps</span>)
-<span class='kw'>world1</span> <span class='op'>&lt;-</span> <span class='kw'>sf</span>::<span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_as_sf.html'>st_as_sf</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/maps/man/map.html'>map</a></span>(<span class='st'>'world'</span>, plot = <span class='fl'>FALSE</span>, fill = <span class='fl'>TRUE</span>))
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>() <span class='op'>+</span> <span class='fu'>geom_sf</span>(data = <span class='kw'>world1</span>)
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>maps</span><span class='op'>)</span>
+<span class='va'>world1</span> <span class='op'>&lt;-</span> <span class='fu'>sf</span><span class='fu'>::</span><span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_as_sf.html'>st_as_sf</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/maps/man/map.html'>map</a></span><span class='op'>(</span><span class='st'>'world'</span>, plot <span class='op'>=</span> <span class='cn'>FALSE</span>, fill <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>geom_sf</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>world1</span><span class='op'>)</span>
 
-<span class='kw'>world2</span> <span class='op'>&lt;-</span> <span class='kw'>sf</span>::<span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_transform.html'>st_transform</a></span>(
-  <span class='kw'>world1</span>,
+<span class='va'>world2</span> <span class='op'>&lt;-</span> <span class='fu'>sf</span><span class='fu'>::</span><span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_transform.html'>st_transform</a></span><span class='op'>(</span>
+  <span class='va'>world1</span>,
   <span class='st'>"+proj=laea +y_0=0 +lon_0=155 +lat_0=-90 +ellps=WGS84 +no_defs"</span>
-)
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>() <span class='op'>+</span> <span class='fu'>geom_sf</span>(data = <span class='kw'>world2</span>)
+<span class='op'>)</span>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>geom_sf</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>world2</span><span class='op'>)</span>
 
 <span class='co'># To add labels, use geom_sf_label().</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>nc_3857</span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, ]) <span class='op'>+</span>
-   <span class='fu'>geom_sf</span>(<span class='fu'><a href='aes.html'>aes</a></span>(fill = <span class='kw'>AREA</span>)) <span class='op'>+</span>
-   <span class='fu'>geom_sf_label</span>(<span class='fu'><a href='aes.html'>aes</a></span>(label = <span class='kw'>NAME</span>))
-}
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>nc_3857</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, <span class='op'>]</span><span class='op'>)</span> <span class='op'>+</span>
+   <span class='fu'>geom_sf</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>AREA</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+   <span class='fu'>geom_sf_label</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>label <span class='op'>=</span> <span class='va'>NAME</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>}</span>
 </div><div class='img'><img src='ggsf-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

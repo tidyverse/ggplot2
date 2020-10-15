@@ -214,37 +214,37 @@ by <code>x</code> and <code>y</code>, and then the values of <code>z</code> in e
 are summarised with <code>fun</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>stat_summary_2d</span>(
-  mapping = <span class='kw'>NULL</span>,
-  data = <span class='kw'>NULL</span>,
-  geom = <span class='st'>"tile"</span>,
-  position = <span class='st'>"identity"</span>,
-  <span class='kw'>...</span>,
-  bins = <span class='fl'>30</span>,
-  binwidth = <span class='kw'>NULL</span>,
-  drop = <span class='fl'>TRUE</span>,
-  fun = <span class='st'>"mean"</span>,
-  fun.args = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
-  na.rm = <span class='fl'>FALSE</span>,
-  show.legend = <span class='fl'>NA</span>,
-  inherit.aes = <span class='fl'>TRUE</span>
-)
+    <pre class="usage"><span class='fu'>stat_summary_2d</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  geom <span class='op'>=</span> <span class='st'>"tile"</span>,
+  position <span class='op'>=</span> <span class='st'>"identity"</span>,
+  <span class='va'>...</span>,
+  bins <span class='op'>=</span> <span class='fl'>30</span>,
+  binwidth <span class='op'>=</span> <span class='cn'>NULL</span>,
+  drop <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  fun <span class='op'>=</span> <span class='st'>"mean"</span>,
+  fun.args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
+  inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span>
 
-<span class='fu'>stat_summary_hex</span>(
-  mapping = <span class='kw'>NULL</span>,
-  data = <span class='kw'>NULL</span>,
-  geom = <span class='st'>"hex"</span>,
-  position = <span class='st'>"identity"</span>,
-  <span class='kw'>...</span>,
-  bins = <span class='fl'>30</span>,
-  binwidth = <span class='kw'>NULL</span>,
-  drop = <span class='fl'>TRUE</span>,
-  fun = <span class='st'>"mean"</span>,
-  fun.args = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
-  na.rm = <span class='fl'>FALSE</span>,
-  show.legend = <span class='fl'>NA</span>,
-  inherit.aes = <span class='fl'>TRUE</span>
-)</pre>
+<span class='fu'>stat_summary_hex</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  geom <span class='op'>=</span> <span class='st'>"hex"</span>,
+  position <span class='op'>=</span> <span class='st'>"identity"</span>,
+  <span class='va'>...</span>,
+  bins <span class='op'>=</span> <span class='fl'>30</span>,
+  binwidth <span class='op'>=</span> <span class='cn'>NULL</span>,
+  drop <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  fun <span class='op'>=</span> <span class='st'>"mean"</span>,
+  fun.args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
+  inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -356,19 +356,19 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
 <code><a href='geom_bin2d.html'>stat_bin2d()</a></code> for the binning options.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>carat</span>, <span class='kw'>depth</span>, z = <span class='kw'>price</span>))
-<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>stat_summary_2d</span>()
+    <pre class="examples"><div class='input'><span class='va'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>carat</span>, <span class='va'>depth</span>, z <span class='op'>=</span> <span class='va'>price</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>d</span> <span class='op'>+</span> <span class='fu'>stat_summary_2d</span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='img'><img src='stat_summary_2d-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Specifying function</span>
-<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>stat_summary_2d</span>(fun = <span class='fu'>function</span>(<span class='kw'>x</span>) <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='kw'>x</span><span class='op'>^</span><span class='fl'>2</span>))
-</div><div class='img'><img src='stat_summary_2d-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>stat_summary_2d</span>(fun = <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='kw'>.x</span><span class='op'>^</span><span class='fl'>2</span>))
-</div><div class='img'><img src='stat_summary_2d-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>stat_summary_2d</span>(fun = <span class='kw'>var</span>)
-</div><div class='img'><img src='stat_summary_2d-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>stat_summary_2d</span>(fun = <span class='st'>"quantile"</span>, fun.args = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(probs = <span class='fl'>0.1</span>))
+<span class='va'>d</span> <span class='op'>+</span> <span class='fu'>stat_summary_2d</span><span class='op'>(</span>fun <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='stat_summary_2d-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'>stat_summary_2d</span><span class='op'>(</span>fun <span class='op'>=</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>.x</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='stat_summary_2d-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'>stat_summary_2d</span><span class='op'>(</span>fun <span class='op'>=</span> <span class='va'>var</span><span class='op'>)</span>
+</div><div class='img'><img src='stat_summary_2d-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'>stat_summary_2d</span><span class='op'>(</span>fun <span class='op'>=</span> <span class='st'>"quantile"</span>, fun.args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>probs <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='stat_summary_2d-5.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"hexbin"</span>)) {
-<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>stat_summary_hex</span>()
-<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>stat_summary_hex</span>(fun = <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='kw'>.x</span><span class='op'>^</span><span class='fl'>2</span>))
-}
+<span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"hexbin"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='va'>d</span> <span class='op'>+</span> <span class='fu'>stat_summary_hex</span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>d</span> <span class='op'>+</span> <span class='fu'>stat_summary_hex</span><span class='op'>(</span>fun <span class='op'>=</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>.x</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>}</span>
 </div><div class='img'><img src='stat_summary_2d-6.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

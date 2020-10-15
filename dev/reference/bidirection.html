@@ -210,20 +210,20 @@ automatically in both directions. See the <em>Extending ggplot2</em> vignette fo
 how they are used when implementing <code>Geom</code>, <code>Stat</code>, and <code>Position</code> classes.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>has_flipped_aes</span>(
-  <span class='kw'>data</span>,
-  params = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
-  main_is_orthogonal = <span class='fl'>NA</span>,
-  range_is_orthogonal = <span class='fl'>NA</span>,
-  group_has_equal = <span class='fl'>FALSE</span>,
-  ambiguous = <span class='fl'>FALSE</span>,
-  main_is_continuous = <span class='fl'>FALSE</span>,
-  main_is_optional = <span class='fl'>FALSE</span>
-)
+    <pre class="usage"><span class='fu'>has_flipped_aes</span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  params <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+  main_is_orthogonal <span class='op'>=</span> <span class='cn'>NA</span>,
+  range_is_orthogonal <span class='op'>=</span> <span class='cn'>NA</span>,
+  group_has_equal <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  ambiguous <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  main_is_continuous <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  main_is_optional <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span>
 
-<span class='fu'>flip_data</span>(<span class='kw'>data</span>, flip = <span class='kw'>NULL</span>)
+<span class='fu'>flip_data</span><span class='op'>(</span><span class='va'>data</span>, flip <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 
-<span class='fu'>flipped_names</span>(flip = <span class='fl'>FALSE</span>)</pre>
+<span class='fu'>flipped_names</span><span class='op'>(</span>flip <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

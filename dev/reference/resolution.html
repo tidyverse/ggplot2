@@ -212,7 +212,7 @@ to be one. If x is an integer vector, then it is assumed to represent a
 discrete variable, and the resolution is 1.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>resolution</span>(<span class='kw'>x</span>, zero = <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>resolution</span><span class='op'>(</span><span class='va'>x</span>, zero <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -230,13 +230,13 @@ computation of resolution</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>resolution</span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>)
-</div><div class='output co'>#&gt; [1] 1</div><div class='input'><span class='fu'>resolution</span>((<span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>) <span class='op'>-</span> <span class='fl'>0.5</span>)
-</div><div class='output co'>#&gt; [1] 0.5</div><div class='input'><span class='fu'>resolution</span>((<span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>) <span class='op'>-</span> <span class='fl'>0.5</span>, <span class='fl'>FALSE</span>)
+    <pre class="examples"><div class='input'><span class='fu'>resolution</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 1</div><div class='input'><span class='fu'>resolution</span><span class='op'>(</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span> <span class='op'>-</span> <span class='fl'>0.5</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 0.5</div><div class='input'><span class='fu'>resolution</span><span class='op'>(</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span> <span class='op'>-</span> <span class='fl'>0.5</span>, <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] 1</div><div class='input'>
 <span class='co'># Note the difference between numeric and integer vectors</span>
-<span class='fu'>resolution</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>10</span>, <span class='fl'>20</span>, <span class='fl'>50</span>))
-</div><div class='output co'>#&gt; [1] 2</div><div class='input'><span class='fu'>resolution</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2L</span>, <span class='fl'>10L</span>, <span class='fl'>20L</span>, <span class='fl'>50L</span>))
+<span class='fu'>resolution</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>10</span>, <span class='fl'>20</span>, <span class='fl'>50</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 2</div><div class='input'><span class='fu'>resolution</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2L</span>, <span class='fl'>10L</span>, <span class='fl'>20L</span>, <span class='fl'>50L</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] 1</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

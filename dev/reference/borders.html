@@ -212,15 +212,15 @@ reference lines, but you'll typically want something more sophisticated
 for communication graphics.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>borders</span>(
-  database = <span class='st'>"world"</span>,
-  regions = <span class='st'>"."</span>,
-  fill = <span class='fl'>NA</span>,
-  colour = <span class='st'>"grey50"</span>,
-  xlim = <span class='kw'>NULL</span>,
-  ylim = <span class='kw'>NULL</span>,
-  <span class='kw'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>borders</span><span class='op'>(</span>
+  database <span class='op'>=</span> <span class='st'>"world"</span>,
+  regions <span class='op'>=</span> <span class='st'>"."</span>,
+  fill <span class='op'>=</span> <span class='cn'>NA</span>,
+  colour <span class='op'>=</span> <span class='st'>"grey50"</span>,
+  xlim <span class='op'>=</span> <span class='cn'>NULL</span>,
+  ylim <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -287,37 +287,37 @@ a warning. If <code>TRUE</code>, missing values are silently removed.</p></dd>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"maps"</span>)) {
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'>"maps"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
 
-<span class='kw'>ia</span> <span class='op'>&lt;-</span> <span class='fu'><a href='map_data.html'>map_data</a></span>(<span class='st'>"county"</span>, <span class='st'>"iowa"</span>)
-<span class='kw'>mid_range</span> <span class='op'>&lt;-</span> <span class='fu'>function</span>(<span class='kw'>x</span>) <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/range.html'>range</a></span>(<span class='kw'>x</span>))
-<span class='kw'>seats</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span>(<span class='kw'>rbind</span>, <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/split.html'>split</a></span>(<span class='kw'>ia</span>, <span class='kw'>ia</span><span class='op'>$</span><span class='kw'>subregion</span>), <span class='fu'>function</span>(<span class='kw'>d</span>) {
-  <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(lat = <span class='fu'>mid_range</span>(<span class='kw'>d</span><span class='op'>$</span><span class='kw'>lat</span>), long = <span class='fu'>mid_range</span>(<span class='kw'>d</span><span class='op'>$</span><span class='kw'>long</span>), subregion = <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span>(<span class='kw'>d</span><span class='op'>$</span><span class='kw'>subregion</span>))
-}))
+<span class='va'>ia</span> <span class='op'>&lt;-</span> <span class='fu'><a href='map_data.html'>map_data</a></span><span class='op'>(</span><span class='st'>"county"</span>, <span class='st'>"iowa"</span><span class='op'>)</span>
+<span class='va'>mid_range</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/range.html'>range</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>seats</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span><span class='op'>(</span><span class='va'>rbind</span>, <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/split.html'>split</a></span><span class='op'>(</span><span class='va'>ia</span>, <span class='va'>ia</span><span class='op'>$</span><span class='va'>subregion</span><span class='op'>)</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>d</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>lat <span class='op'>=</span> <span class='fu'>mid_range</span><span class='op'>(</span><span class='va'>d</span><span class='op'>$</span><span class='va'>lat</span><span class='op'>)</span>, long <span class='op'>=</span> <span class='fu'>mid_range</span><span class='op'>(</span><span class='va'>d</span><span class='op'>$</span><span class='va'>long</span><span class='op'>)</span>, subregion <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>d</span><span class='op'>$</span><span class='va'>subregion</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>}</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>ia</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>long</span>, <span class='kw'>lat</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_polygon.html'>geom_polygon</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(group = <span class='kw'>group</span>), fill = <span class='fl'>NA</span>, colour = <span class='st'>"grey60"</span>) <span class='op'>+</span>
-  <span class='fu'><a href='geom_label.html'>geom_text</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(label = <span class='kw'>subregion</span>), data = <span class='kw'>seats</span>, size = <span class='fl'>2</span>, angle = <span class='fl'>45</span>)
-}
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>ia</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>long</span>, <span class='va'>lat</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_polygon.html'>geom_polygon</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>group <span class='op'>=</span> <span class='va'>group</span><span class='op'>)</span>, fill <span class='op'>=</span> <span class='cn'>NA</span>, colour <span class='op'>=</span> <span class='st'>"grey60"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_label.html'>geom_text</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>label <span class='op'>=</span> <span class='va'>subregion</span><span class='op'>)</span>, data <span class='op'>=</span> <span class='va'>seats</span>, size <span class='op'>=</span> <span class='fl'>2</span>, angle <span class='op'>=</span> <span class='fl'>45</span><span class='op'>)</span>
+<span class='op'>}</span>
 </div><div class='output co'>#&gt; <span class='message'>Loading required package: maps</span></div><div class='img'><img src='borders-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"maps"</span>)) {
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>us.cities</span>)
-<span class='kw'>capitals</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='kw'>us.cities</span>, <span class='kw'>capital</span> <span class='op'>==</span> <span class='fl'>2</span>)
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>capitals</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>long</span>, <span class='kw'>lat</span>)) <span class='op'>+</span>
-  <span class='fu'>borders</span>(<span class='st'>"state"</span>) <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(size = <span class='kw'>pop</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='scale_size.html'>scale_size_area</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='coord_map.html'>coord_quickmap</a></span>()
-}
+<span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'>"maps"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>us.cities</span><span class='op'>)</span>
+<span class='va'>capitals</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>us.cities</span>, <span class='va'>capital</span> <span class='op'>==</span> <span class='fl'>2</span><span class='op'>)</span>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>capitals</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>long</span>, <span class='va'>lat</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>borders</span><span class='op'>(</span><span class='st'>"state"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='va'>pop</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='scale_size.html'>scale_size_area</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='coord_map.html'>coord_quickmap</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='op'>}</span>
 </div><div class='img'><img src='borders-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"maps"</span>)) {
+<span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'>"maps"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'># Same map, with some world context</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>capitals</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>long</span>, <span class='kw'>lat</span>)) <span class='op'>+</span>
-  <span class='fu'>borders</span>(<span class='st'>"world"</span>, xlim = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='op'>-</span><span class='fl'>130</span>, <span class='op'>-</span><span class='fl'>60</span>), ylim = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>20</span>, <span class='fl'>50</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(size = <span class='kw'>pop</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='scale_size.html'>scale_size_area</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='coord_map.html'>coord_quickmap</a></span>()
-}
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>capitals</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>long</span>, <span class='va'>lat</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>borders</span><span class='op'>(</span><span class='st'>"world"</span>, xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>130</span>, <span class='op'>-</span><span class='fl'>60</span><span class='op'>)</span>, ylim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>50</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='va'>pop</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='scale_size.html'>scale_size_area</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='coord_map.html'>coord_quickmap</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='op'>}</span>
 </div><div class='img'><img src='borders-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

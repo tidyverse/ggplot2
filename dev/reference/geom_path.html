@@ -214,44 +214,44 @@ when changes occur. The <code>group</code> aesthetic determines which cases are
 connected together.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>geom_path</span>(
-  mapping = <span class='kw'>NULL</span>,
-  data = <span class='kw'>NULL</span>,
-  stat = <span class='st'>"identity"</span>,
-  position = <span class='st'>"identity"</span>,
-  <span class='kw'>...</span>,
-  lineend = <span class='st'>"butt"</span>,
-  linejoin = <span class='st'>"round"</span>,
-  linemitre = <span class='fl'>10</span>,
-  arrow = <span class='kw'>NULL</span>,
-  na.rm = <span class='fl'>FALSE</span>,
-  show.legend = <span class='fl'>NA</span>,
-  inherit.aes = <span class='fl'>TRUE</span>
-)
+    <pre class="usage"><span class='fu'>geom_path</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  stat <span class='op'>=</span> <span class='st'>"identity"</span>,
+  position <span class='op'>=</span> <span class='st'>"identity"</span>,
+  <span class='va'>...</span>,
+  lineend <span class='op'>=</span> <span class='st'>"butt"</span>,
+  linejoin <span class='op'>=</span> <span class='st'>"round"</span>,
+  linemitre <span class='op'>=</span> <span class='fl'>10</span>,
+  arrow <span class='op'>=</span> <span class='cn'>NULL</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
+  inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span>
 
-<span class='fu'>geom_line</span>(
-  mapping = <span class='kw'>NULL</span>,
-  data = <span class='kw'>NULL</span>,
-  stat = <span class='st'>"identity"</span>,
-  position = <span class='st'>"identity"</span>,
-  na.rm = <span class='fl'>FALSE</span>,
-  orientation = <span class='fl'>NA</span>,
-  show.legend = <span class='fl'>NA</span>,
-  inherit.aes = <span class='fl'>TRUE</span>,
-  <span class='kw'>...</span>
-)
+<span class='fu'>geom_line</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  stat <span class='op'>=</span> <span class='st'>"identity"</span>,
+  position <span class='op'>=</span> <span class='st'>"identity"</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  orientation <span class='op'>=</span> <span class='cn'>NA</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
+  inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
-<span class='fu'>geom_step</span>(
-  mapping = <span class='kw'>NULL</span>,
-  data = <span class='kw'>NULL</span>,
-  stat = <span class='st'>"identity"</span>,
-  position = <span class='st'>"identity"</span>,
-  direction = <span class='st'>"hv"</span>,
-  na.rm = <span class='fl'>FALSE</span>,
-  show.legend = <span class='fl'>NA</span>,
-  inherit.aes = <span class='fl'>TRUE</span>,
-  <span class='kw'>...</span>
-)</pre>
+<span class='fu'>geom_step</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  stat <span class='op'>=</span> <span class='st'>"identity"</span>,
+  position <span class='op'>=</span> <span class='st'>"identity"</span>,
+  direction <span class='op'>=</span> <span class='st'>"hv"</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
+  inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -387,66 +387,66 @@ the <code>NA</code> is removed silently, without warning.</p></li>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># geom_line() is suitable for time series</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>economics</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>date</span>, <span class='kw'>unemploy</span>)) <span class='op'>+</span> <span class='fu'>geom_line</span>()
-</div><div class='img'><img src='geom_path-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>economics_long</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>date</span>, <span class='kw'>value01</span>, colour = <span class='kw'>variable</span>)) <span class='op'>+</span>
-  <span class='fu'>geom_line</span>()
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>economics</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>unemploy</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>geom_line</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='geom_path-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>economics_long</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>value01</span>, colour <span class='op'>=</span> <span class='va'>variable</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_line</span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_path-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can get a timeseries that run vertically by setting the orientation</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>economics</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>unemploy</span>, <span class='kw'>date</span>)) <span class='op'>+</span> <span class='fu'>geom_line</span>(orientation = <span class='st'>"y"</span>)
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>economics</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>unemploy</span>, <span class='va'>date</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>geom_line</span><span class='op'>(</span>orientation <span class='op'>=</span> <span class='st'>"y"</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_path-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># geom_step() is useful when you want to highlight exactly when</span>
 <span class='co'># the y value changes</span>
-<span class='kw'>recent</span> <span class='op'>&lt;-</span> <span class='kw'>economics</span>[<span class='kw'>economics</span><span class='op'>$</span><span class='kw'>date</span> <span class='op'>&gt;</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2013-01-01"</span>), ]
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>recent</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>date</span>, <span class='kw'>unemploy</span>)) <span class='op'>+</span> <span class='fu'>geom_line</span>()
-</div><div class='img'><img src='geom_path-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>recent</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>date</span>, <span class='kw'>unemploy</span>)) <span class='op'>+</span> <span class='fu'>geom_step</span>()
+<span class='va'>recent</span> <span class='op'>&lt;-</span> <span class='va'>economics</span><span class='op'>[</span><span class='va'>economics</span><span class='op'>$</span><span class='va'>date</span> <span class='op'>&gt;</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"2013-01-01"</span><span class='op'>)</span>, <span class='op'>]</span>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>recent</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>unemploy</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>geom_line</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='geom_path-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>recent</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>unemploy</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>geom_step</span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_path-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># geom_path lets you explore how two variables are related over time,</span>
 <span class='co'># e.g. unemployment and personal savings rate</span>
-<span class='kw'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>economics</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>unemploy</span><span class='op'>/</span><span class='kw'>pop</span>, <span class='kw'>psavert</span>))
-<span class='kw'>m</span> <span class='op'>+</span> <span class='fu'>geom_path</span>()
-</div><div class='img'><img src='geom_path-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>m</span> <span class='op'>+</span> <span class='fu'>geom_path</span>(<span class='fu'><a href='aes.html'>aes</a></span>(colour = <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='kw'>date</span>)))
+<span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>economics</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>unemploy</span><span class='op'>/</span><span class='va'>pop</span>, <span class='va'>psavert</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>m</span> <span class='op'>+</span> <span class='fu'>geom_path</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='geom_path-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>m</span> <span class='op'>+</span> <span class='fu'>geom_path</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_path-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Changing parameters ----------------------------------------------</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>economics</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>date</span>, <span class='kw'>unemploy</span>)) <span class='op'>+</span>
-  <span class='fu'>geom_line</span>(colour = <span class='st'>"red"</span>)
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>economics</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>unemploy</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_line</span><span class='op'>(</span>colour <span class='op'>=</span> <span class='st'>"red"</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_path-8.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Use the arrow parameter to add an arrow to the line</span>
 <span class='co'># See ?arrow for more details</span>
-<span class='kw'>c</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>economics</span>, <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='kw'>date</span>, y = <span class='kw'>pop</span>))
-<span class='kw'>c</span> <span class='op'>+</span> <span class='fu'>geom_line</span>(arrow = <span class='fu'><a href='https://rdrr.io/r/grid/arrow.html'>arrow</a></span>())
-</div><div class='img'><img src='geom_path-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>c</span> <span class='op'>+</span> <span class='fu'>geom_line</span>(
-  arrow = <span class='fu'><a href='https://rdrr.io/r/grid/arrow.html'>arrow</a></span>(angle = <span class='fl'>15</span>, ends = <span class='st'>"both"</span>, type = <span class='st'>"closed"</span>)
-)
+<span class='va'>c</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>economics</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>date</span>, y <span class='op'>=</span> <span class='va'>pop</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>c</span> <span class='op'>+</span> <span class='fu'>geom_line</span><span class='op'>(</span>arrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/arrow.html'>arrow</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='geom_path-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>c</span> <span class='op'>+</span> <span class='fu'>geom_line</span><span class='op'>(</span>
+  arrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/arrow.html'>arrow</a></span><span class='op'>(</span>angle <span class='op'>=</span> <span class='fl'>15</span>, ends <span class='op'>=</span> <span class='st'>"both"</span>, type <span class='op'>=</span> <span class='st'>"closed"</span><span class='op'>)</span>
+<span class='op'>)</span>
 </div><div class='img'><img src='geom_path-10.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Control line join parameters</span>
-<span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(x = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, y = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>, <span class='fl'>1</span>, <span class='fl'>9</span>))
-<span class='kw'>base</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>))
-<span class='kw'>base</span> <span class='op'>+</span> <span class='fu'>geom_path</span>(size = <span class='fl'>10</span>)
-</div><div class='img'><img src='geom_path-11.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>base</span> <span class='op'>+</span> <span class='fu'>geom_path</span>(size = <span class='fl'>10</span>, lineend = <span class='st'>"round"</span>)
-</div><div class='img'><img src='geom_path-12.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>base</span> <span class='op'>+</span> <span class='fu'>geom_path</span>(size = <span class='fl'>10</span>, linejoin = <span class='st'>"mitre"</span>, lineend = <span class='st'>"butt"</span>)
+<span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>4</span>, <span class='fl'>1</span>, <span class='fl'>9</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>base</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>base</span> <span class='op'>+</span> <span class='fu'>geom_path</span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
+</div><div class='img'><img src='geom_path-11.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>base</span> <span class='op'>+</span> <span class='fu'>geom_path</span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>10</span>, lineend <span class='op'>=</span> <span class='st'>"round"</span><span class='op'>)</span>
+</div><div class='img'><img src='geom_path-12.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>base</span> <span class='op'>+</span> <span class='fu'>geom_path</span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>10</span>, linejoin <span class='op'>=</span> <span class='st'>"mitre"</span>, lineend <span class='op'>=</span> <span class='st'>"butt"</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_path-13.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can use NAs to break the line.</span>
-<span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(x = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, y = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>NA</span>, <span class='fl'>4</span>, <span class='fl'>5</span>))
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span> <span class='fu'>geom_line</span>()
+<span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span>, <span class='cn'>NA</span>, <span class='fl'>4</span>, <span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>geom_line</span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 rows containing missing values (geom_point).</span></div><div class='img'><img src='geom_path-14.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># \donttest{</span>
 <span class='co'># Setting line type vs colour/size</span>
 <span class='co'># Line type needs to be applied to a line as a whole, so it can</span>
 <span class='co'># not be used with colour or size that vary across a line</span>
-<span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0.01</span>, <span class='fl'>.99</span>, length.out = <span class='fl'>100</span>)
-<span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  x = <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='kw'>x</span>, <span class='fl'>2</span>),
-  y = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Logistic.html'>qlogis</a></span>(<span class='kw'>x</span>), <span class='fl'>2</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/stats/Logistic.html'>qlogis</a></span>(<span class='kw'>x</span>)),
-  group = <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>,<span class='st'>"b"</span>),
-  each = <span class='fl'>100</span>)
-)
-<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(x=<span class='kw'>x</span>, y=<span class='kw'>y</span>, group=<span class='kw'>group</span>))
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0.01</span>, <span class='fl'>.99</span>, length.out <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span>
+<span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
+  x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='fl'>2</span><span class='op'>)</span>,
+  y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Logistic.html'>qlogis</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, <span class='fl'>2</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/stats/Logistic.html'>qlogis</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span>,
+  group <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span>,<span class='st'>"b"</span><span class='op'>)</span>,
+  each <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span>
+<span class='op'>)</span>
+<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>x</span>, y<span class='op'>=</span><span class='va'>y</span>, group<span class='op'>=</span><span class='va'>group</span><span class='op'>)</span><span class='op'>)</span>
 <span class='co'># These work</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_line</span>(linetype = <span class='fl'>2</span>)
-</div><div class='img'><img src='geom_path-15.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_line</span>(<span class='fu'><a href='aes.html'>aes</a></span>(colour = <span class='kw'>group</span>), linetype = <span class='fl'>2</span>)
-</div><div class='img'><img src='geom_path-16.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_line</span>(<span class='fu'><a href='aes.html'>aes</a></span>(colour = <span class='kw'>x</span>))
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_line</span><span class='op'>(</span>linetype <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+</div><div class='img'><img src='geom_path-15.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_line</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='va'>group</span><span class='op'>)</span>, linetype <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+</div><div class='img'><img src='geom_path-16.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_line</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='va'>x</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_path-17.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># But this doesn't</span>
-<span class='fu'><a href='should_stop.html'>should_stop</a></span>(<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_line</span>(<span class='fu'><a href='aes.html'>aes</a></span>(colour = <span class='kw'>x</span>), linetype=<span class='fl'>2</span>))
+<span class='fu'><a href='should_stop.html'>should_stop</a></span><span class='op'>(</span><span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_line</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='va'>x</span><span class='op'>)</span>, linetype<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_path-18.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 </div></pre>
   </div>

@@ -212,30 +212,30 @@ rectangle's fill. This is a useful alternative to <code><a href='geom_point.html
 in the presence of overplotting.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>geom_bin2d</span>(
-  mapping = <span class='kw'>NULL</span>,
-  data = <span class='kw'>NULL</span>,
-  stat = <span class='st'>"bin2d"</span>,
-  position = <span class='st'>"identity"</span>,
-  <span class='kw'>...</span>,
-  na.rm = <span class='fl'>FALSE</span>,
-  show.legend = <span class='fl'>NA</span>,
-  inherit.aes = <span class='fl'>TRUE</span>
-)
+    <pre class="usage"><span class='fu'>geom_bin2d</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  stat <span class='op'>=</span> <span class='st'>"bin2d"</span>,
+  position <span class='op'>=</span> <span class='st'>"identity"</span>,
+  <span class='va'>...</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
+  inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span>
 
-<span class='fu'>stat_bin_2d</span>(
-  mapping = <span class='kw'>NULL</span>,
-  data = <span class='kw'>NULL</span>,
-  geom = <span class='st'>"tile"</span>,
-  position = <span class='st'>"identity"</span>,
-  <span class='kw'>...</span>,
-  bins = <span class='fl'>30</span>,
-  binwidth = <span class='kw'>NULL</span>,
-  drop = <span class='fl'>TRUE</span>,
-  na.rm = <span class='fl'>FALSE</span>,
-  show.legend = <span class='fl'>NA</span>,
-  inherit.aes = <span class='fl'>TRUE</span>
-)</pre>
+<span class='fu'>stat_bin_2d</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  geom <span class='op'>=</span> <span class='st'>"tile"</span>,
+  position <span class='op'>=</span> <span class='st'>"identity"</span>,
+  <span class='va'>...</span>,
+  bins <span class='op'>=</span> <span class='fl'>30</span>,
+  binwidth <span class='op'>=</span> <span class='cn'>NULL</span>,
+  drop <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
+  inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -341,16 +341,16 @@ horizontal directions. Overrides <code>bins</code> if both set.</p></td>
     <div class='dont-index'><p><code><a href='geom_hex.html'>stat_binhex()</a></code> for hexagonal binning</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span> <span class='fu'><a href='lims.html'>xlim</a></span>(<span class='fl'>4</span>, <span class='fl'>10</span>) <span class='op'>+</span> <span class='fu'><a href='lims.html'>ylim</a></span>(<span class='fl'>4</span>, <span class='fl'>10</span>)
-<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>geom_bin2d</span>()
+    <pre class="examples"><div class='input'><span class='va'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='lims.html'>xlim</a></span><span class='op'>(</span><span class='fl'>4</span>, <span class='fl'>10</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='lims.html'>ylim</a></span><span class='op'>(</span><span class='fl'>4</span>, <span class='fl'>10</span><span class='op'>)</span>
+<span class='va'>d</span> <span class='op'>+</span> <span class='fu'>geom_bin2d</span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 478 rows containing non-finite values (stat_bin2d).</span></div><div class='img'><img src='geom_bin2d-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can control the size of the bins by specifying the number of</span>
 <span class='co'># bins in each direction:</span>
-<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>geom_bin2d</span>(bins = <span class='fl'>10</span>)
-</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 478 rows containing non-finite values (stat_bin2d).</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 4 rows containing missing values (geom_tile).</span></div><div class='img'><img src='geom_bin2d-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>geom_bin2d</span>(bins = <span class='fl'>30</span>)
+<span class='va'>d</span> <span class='op'>+</span> <span class='fu'>geom_bin2d</span><span class='op'>(</span>bins <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 478 rows containing non-finite values (stat_bin2d).</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 4 rows containing missing values (geom_tile).</span></div><div class='img'><img src='geom_bin2d-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'>geom_bin2d</span><span class='op'>(</span>bins <span class='op'>=</span> <span class='fl'>30</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 478 rows containing non-finite values (stat_bin2d).</span></div><div class='img'><img src='geom_bin2d-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Or by specifying the width of the bins</span>
-<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>geom_bin2d</span>(binwidth = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.1</span>, <span class='fl'>0.1</span>))
+<span class='va'>d</span> <span class='op'>+</span> <span class='fu'>geom_bin2d</span><span class='op'>(</span>binwidth <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.1</span>, <span class='fl'>0.1</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 478 rows containing non-finite values (stat_bin2d).</span></div><div class='img'><img src='geom_bin2d-4.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

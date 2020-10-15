@@ -234,52 +234,52 @@ annotations and to represent rectangular areas.</p>
     <pre class="examples"><div class='input'>
 <span class='co'># Generate data: means and standard errors of means for prices</span>
 <span class='co'># for each type of cut</span>
-<span class='kw'>dmod</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='kw'>price</span> <span class='op'>~</span> <span class='kw'>cut</span>, data = <span class='kw'>diamonds</span>)
-<span class='kw'>cut</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span>(<span class='kw'>diamonds</span><span class='op'>$</span><span class='kw'>cut</span>)
-<span class='kw'>cuts_df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  <span class='kw'>cut</span>,
-  <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span>(<span class='kw'>dmod</span>, <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>cut</span>), se = <span class='fl'>TRUE</span>)[<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"fit"</span>, <span class='st'>"se.fit"</span>)]
-)
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>cuts_df</span>) <span class='op'>+</span>
-  <span class='fu'><a href='aes.html'>aes</a></span>(
-   x = <span class='kw'>cut</span>,
-   y = <span class='kw'>fit</span>,
-   ymin = <span class='kw'>fit</span> <span class='op'>-</span> <span class='kw'>se.fit</span>,
-   ymax = <span class='kw'>fit</span> <span class='op'>+</span> <span class='kw'>se.fit</span>,
-   colour = <span class='kw'>cut</span>
-  ) <span class='op'>+</span>
-  <span class='fu'><a href='geom_crossbar.html'>geom_pointrange</a></span>()
+<span class='va'>dmod</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>price</span> <span class='op'>~</span> <span class='va'>cut</span>, data <span class='op'>=</span> <span class='va'>diamonds</span><span class='op'>)</span>
+<span class='va'>cut</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>diamonds</span><span class='op'>$</span><span class='va'>cut</span><span class='op'>)</span>
+<span class='va'>cuts_df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
+  <span class='va'>cut</span>,
+  <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>dmod</span>, <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='va'>cut</span><span class='op'>)</span>, se <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"fit"</span>, <span class='st'>"se.fit"</span><span class='op'>)</span><span class='op'>]</span>
+<span class='op'>)</span>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>cuts_df</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>
+   x <span class='op'>=</span> <span class='va'>cut</span>,
+   y <span class='op'>=</span> <span class='va'>fit</span>,
+   ymin <span class='op'>=</span> <span class='va'>fit</span> <span class='op'>-</span> <span class='va'>se.fit</span>,
+   ymax <span class='op'>=</span> <span class='va'>fit</span> <span class='op'>+</span> <span class='va'>se.fit</span>,
+   colour <span class='op'>=</span> <span class='va'>cut</span>
+  <span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_crossbar.html'>geom_pointrange</a></span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='img'><img src='aes_position-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Using annotate</span>
-<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='kw'>wt</span>, y = <span class='kw'>mpg</span>)) <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
-<span class='kw'>p</span>
-</div><div class='img'><img src='aes_position-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='annotate.html'>annotate</a></span>(
-  <span class='st'>"rect"</span>, xmin = <span class='fl'>2</span>, xmax = <span class='fl'>3.5</span>, ymin = <span class='fl'>2</span>, ymax = <span class='fl'>25</span>,
-  fill = <span class='st'>"dark grey"</span>, alpha = <span class='fl'>.5</span>
-)
+<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>wt</span>, y <span class='op'>=</span> <span class='va'>mpg</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>p</span>
+</div><div class='img'><img src='aes_position-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='annotate.html'>annotate</a></span><span class='op'>(</span>
+  <span class='st'>"rect"</span>, xmin <span class='op'>=</span> <span class='fl'>2</span>, xmax <span class='op'>=</span> <span class='fl'>3.5</span>, ymin <span class='op'>=</span> <span class='fl'>2</span>, ymax <span class='op'>=</span> <span class='fl'>25</span>,
+  fill <span class='op'>=</span> <span class='st'>"dark grey"</span>, alpha <span class='op'>=</span> <span class='fl'>.5</span>
+<span class='op'>)</span>
 </div><div class='img'><img src='aes_position-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Geom_segment examples</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_segment.html'>geom_segment</a></span>(
-  <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='fl'>2</span>, y = <span class='fl'>15</span>, xend = <span class='fl'>2</span>, yend = <span class='fl'>25</span>),
-  arrow = <span class='fu'><a href='https://rdrr.io/r/grid/arrow.html'>arrow</a></span>(length = <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>0.5</span>, <span class='st'>"cm"</span>))
-)
-</div><div class='img'><img src='aes_position-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_segment.html'>geom_segment</a></span>(
-  <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='fl'>2</span>, y = <span class='fl'>15</span>, xend = <span class='fl'>3</span>, yend = <span class='fl'>15</span>),
-  arrow = <span class='fu'><a href='https://rdrr.io/r/grid/arrow.html'>arrow</a></span>(length = <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>0.5</span>, <span class='st'>"cm"</span>))
-)
-</div><div class='img'><img src='aes_position-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_segment.html'>geom_segment</a></span>(
-  <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='fl'>5</span>, y = <span class='fl'>30</span>, xend = <span class='fl'>3.5</span>, yend = <span class='fl'>25</span>),
-  arrow = <span class='fu'><a href='https://rdrr.io/r/grid/arrow.html'>arrow</a></span>(length = <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>0.5</span>, <span class='st'>"cm"</span>))
-)
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_segment.html'>geom_segment</a></span><span class='op'>(</span>
+  <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fl'>2</span>, y <span class='op'>=</span> <span class='fl'>15</span>, xend <span class='op'>=</span> <span class='fl'>2</span>, yend <span class='op'>=</span> <span class='fl'>25</span><span class='op'>)</span>,
+  arrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/arrow.html'>arrow</a></span><span class='op'>(</span>length <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span><span class='op'>(</span><span class='fl'>0.5</span>, <span class='st'>"cm"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>)</span>
+</div><div class='img'><img src='aes_position-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_segment.html'>geom_segment</a></span><span class='op'>(</span>
+  <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fl'>2</span>, y <span class='op'>=</span> <span class='fl'>15</span>, xend <span class='op'>=</span> <span class='fl'>3</span>, yend <span class='op'>=</span> <span class='fl'>15</span><span class='op'>)</span>,
+  arrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/arrow.html'>arrow</a></span><span class='op'>(</span>length <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span><span class='op'>(</span><span class='fl'>0.5</span>, <span class='st'>"cm"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>)</span>
+</div><div class='img'><img src='aes_position-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_segment.html'>geom_segment</a></span><span class='op'>(</span>
+  <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fl'>5</span>, y <span class='op'>=</span> <span class='fl'>30</span>, xend <span class='op'>=</span> <span class='fl'>3.5</span>, yend <span class='op'>=</span> <span class='fl'>25</span><span class='op'>)</span>,
+  arrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/arrow.html'>arrow</a></span><span class='op'>(</span>length <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span><span class='op'>(</span><span class='fl'>0.5</span>, <span class='st'>"cm"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>)</span>
 </div><div class='img'><img src='aes_position-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can also use geom_segment() to recreate plot(type = "h")</span>
 <span class='co'># from base R:</span>
-<span class='kw'>counts</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(x = <span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>rpois</a></span>(<span class='fl'>100</span>, <span class='fl'>5</span>)))
-<span class='kw'>counts</span><span class='op'>$</span><span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span>(<span class='kw'>counts</span><span class='op'>$</span><span class='kw'>x</span>))
-<span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span>(<span class='kw'>counts</span>, <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='kw'>x</span>, <span class='kw'>Freq</span>, type = <span class='st'>"h"</span>, lwd = <span class='fl'>10</span>))
+<span class='va'>counts</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>rpois</a></span><span class='op'>(</span><span class='fl'>100</span>, <span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>counts</span><span class='op'>$</span><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span><span class='op'>(</span><span class='va'>counts</span><span class='op'>$</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span><span class='op'>(</span><span class='va'>counts</span>, <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>Freq</span>, type <span class='op'>=</span> <span class='st'>"h"</span>, lwd <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='aes_position-7.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>counts</span>, <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='kw'>x</span>, y = <span class='kw'>Freq</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_segment.html'>geom_segment</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(yend = <span class='fl'>0</span>, xend = <span class='kw'>x</span>), size = <span class='fl'>10</span>)
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>counts</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>x</span>, y <span class='op'>=</span> <span class='va'>Freq</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_segment.html'>geom_segment</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>yend <span class='op'>=</span> <span class='fl'>0</span>, xend <span class='op'>=</span> <span class='va'>x</span><span class='op'>)</span>, size <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
 </div><div class='img'><img src='aes_position-8.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -89,11 +89,14 @@ a:hover {
   }
 }
 
-.contents h1, .contents h2, .conents h3, .contents h4{
+.contents h1, .contents h2, .contents h3, .contents h4{
   margin-bottom: 1.3em;
   margin-top: -30px; /* originally -40px */
 }
 
+.page-header h1 {
+  margin-bottom: 0.5em;
+}
 
 /* sidebar ------------------------------------------------ */
 
@@ -171,6 +174,12 @@ nav[data-toggle='toc'] .nav > li > a:focus {
   border-left: 3px solid #e795ad50;
 }
 
+
+.dropdown-menu > .active > a,
+.dropdown-menu > .active > a:hover,
+.dropdown-menu > .active > a:focus {
+  background-color: #1a161d63;
+}
 
 /* Links NOT hovered or active */
 

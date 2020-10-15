@@ -224,45 +224,45 @@ specify the display of how non-data components of the plot are drawn.</p><ul>
 <code>margin()</code> is used to specify the margins of elements.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>margin</span>(t = <span class='fl'>0</span>, r = <span class='fl'>0</span>, b = <span class='fl'>0</span>, l = <span class='fl'>0</span>, unit = <span class='st'>"pt"</span>)
+    <pre class="usage"><span class='fu'>margin</span><span class='op'>(</span>t <span class='op'>=</span> <span class='fl'>0</span>, r <span class='op'>=</span> <span class='fl'>0</span>, b <span class='op'>=</span> <span class='fl'>0</span>, l <span class='op'>=</span> <span class='fl'>0</span>, unit <span class='op'>=</span> <span class='st'>"pt"</span><span class='op'>)</span>
 
-<span class='fu'>element_blank</span>()
+<span class='fu'>element_blank</span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'>element_rect</span>(
-  fill = <span class='kw'>NULL</span>,
-  colour = <span class='kw'>NULL</span>,
-  size = <span class='kw'>NULL</span>,
-  linetype = <span class='kw'>NULL</span>,
-  color = <span class='kw'>NULL</span>,
-  inherit.blank = <span class='fl'>FALSE</span>
-)
+<span class='fu'>element_rect</span><span class='op'>(</span>
+  fill <span class='op'>=</span> <span class='cn'>NULL</span>,
+  colour <span class='op'>=</span> <span class='cn'>NULL</span>,
+  size <span class='op'>=</span> <span class='cn'>NULL</span>,
+  linetype <span class='op'>=</span> <span class='cn'>NULL</span>,
+  color <span class='op'>=</span> <span class='cn'>NULL</span>,
+  inherit.blank <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span>
 
-<span class='fu'>element_line</span>(
-  colour = <span class='kw'>NULL</span>,
-  size = <span class='kw'>NULL</span>,
-  linetype = <span class='kw'>NULL</span>,
-  lineend = <span class='kw'>NULL</span>,
-  color = <span class='kw'>NULL</span>,
-  arrow = <span class='kw'>NULL</span>,
-  inherit.blank = <span class='fl'>FALSE</span>
-)
+<span class='fu'>element_line</span><span class='op'>(</span>
+  colour <span class='op'>=</span> <span class='cn'>NULL</span>,
+  size <span class='op'>=</span> <span class='cn'>NULL</span>,
+  linetype <span class='op'>=</span> <span class='cn'>NULL</span>,
+  lineend <span class='op'>=</span> <span class='cn'>NULL</span>,
+  color <span class='op'>=</span> <span class='cn'>NULL</span>,
+  arrow <span class='op'>=</span> <span class='cn'>NULL</span>,
+  inherit.blank <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span>
 
-<span class='fu'>element_text</span>(
-  family = <span class='kw'>NULL</span>,
-  face = <span class='kw'>NULL</span>,
-  colour = <span class='kw'>NULL</span>,
-  size = <span class='kw'>NULL</span>,
-  hjust = <span class='kw'>NULL</span>,
-  vjust = <span class='kw'>NULL</span>,
-  angle = <span class='kw'>NULL</span>,
-  lineheight = <span class='kw'>NULL</span>,
-  color = <span class='kw'>NULL</span>,
-  margin = <span class='kw'>NULL</span>,
-  debug = <span class='kw'>NULL</span>,
-  inherit.blank = <span class='fl'>FALSE</span>
-)
+<span class='fu'>element_text</span><span class='op'>(</span>
+  family <span class='op'>=</span> <span class='cn'>NULL</span>,
+  face <span class='op'>=</span> <span class='cn'>NULL</span>,
+  colour <span class='op'>=</span> <span class='cn'>NULL</span>,
+  size <span class='op'>=</span> <span class='cn'>NULL</span>,
+  hjust <span class='op'>=</span> <span class='cn'>NULL</span>,
+  vjust <span class='op'>=</span> <span class='cn'>NULL</span>,
+  angle <span class='op'>=</span> <span class='cn'>NULL</span>,
+  lineheight <span class='op'>=</span> <span class='cn'>NULL</span>,
+  color <span class='op'>=</span> <span class='cn'>NULL</span>,
+  margin <span class='op'>=</span> <span class='cn'>NULL</span>,
+  debug <span class='op'>=</span> <span class='cn'>NULL</span>,
+  inherit.blank <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span>
 
-<span class='fu'>rel</span>(<span class='kw'>x</span>)</pre>
+<span class='fu'>rel</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -358,30 +358,30 @@ is anchored.</p></td>
     <p>An S3 object of class <code>element</code>, <code>rel</code>, or <code>margin</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>plot</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
+    <pre class="examples"><div class='input'><span class='va'>plot</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>displ</span>, <span class='va'>hwy</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='kw'>plot</span> <span class='op'>+</span> <span class='fu'><a href='theme.html'>theme</a></span>(
-  panel.background = <span class='fu'>element_blank</span>(),
-  axis.text = <span class='fu'>element_blank</span>()
-)
+<span class='va'>plot</span> <span class='op'>+</span> <span class='fu'><a href='theme.html'>theme</a></span><span class='op'>(</span>
+  panel.background <span class='op'>=</span> <span class='fu'>element_blank</span><span class='op'>(</span><span class='op'>)</span>,
+  axis.text <span class='op'>=</span> <span class='fu'>element_blank</span><span class='op'>(</span><span class='op'>)</span>
+<span class='op'>)</span>
 </div><div class='img'><img src='element-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>plot</span> <span class='op'>+</span> <span class='fu'><a href='theme.html'>theme</a></span>(
-  axis.text = <span class='fu'>element_text</span>(colour = <span class='st'>"red"</span>, size = <span class='fu'>rel</span>(<span class='fl'>1.5</span>))
-)
+<span class='va'>plot</span> <span class='op'>+</span> <span class='fu'><a href='theme.html'>theme</a></span><span class='op'>(</span>
+  axis.text <span class='op'>=</span> <span class='fu'>element_text</span><span class='op'>(</span>colour <span class='op'>=</span> <span class='st'>"red"</span>, size <span class='op'>=</span> <span class='fu'>rel</span><span class='op'>(</span><span class='fl'>1.5</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>)</span>
 </div><div class='img'><img src='element-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>plot</span> <span class='op'>+</span> <span class='fu'><a href='theme.html'>theme</a></span>(
-  axis.line = <span class='fu'>element_line</span>(arrow = <span class='fu'><a href='https://rdrr.io/r/grid/arrow.html'>arrow</a></span>())
-)
+<span class='va'>plot</span> <span class='op'>+</span> <span class='fu'><a href='theme.html'>theme</a></span><span class='op'>(</span>
+  axis.line <span class='op'>=</span> <span class='fu'>element_line</span><span class='op'>(</span>arrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/arrow.html'>arrow</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>)</span>
 </div><div class='img'><img src='element-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>plot</span> <span class='op'>+</span> <span class='fu'><a href='theme.html'>theme</a></span>(
-  panel.background = <span class='fu'>element_rect</span>(fill = <span class='st'>"white"</span>),
-  plot.margin = <span class='fu'>margin</span>(<span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='st'>"cm"</span>),
-  plot.background = <span class='fu'>element_rect</span>(
-    fill = <span class='st'>"grey90"</span>,
-    colour = <span class='st'>"black"</span>,
-    size = <span class='fl'>1</span>
-  )
-)
+<span class='va'>plot</span> <span class='op'>+</span> <span class='fu'><a href='theme.html'>theme</a></span><span class='op'>(</span>
+  panel.background <span class='op'>=</span> <span class='fu'>element_rect</span><span class='op'>(</span>fill <span class='op'>=</span> <span class='st'>"white"</span><span class='op'>)</span>,
+  plot.margin <span class='op'>=</span> <span class='fu'>margin</span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='st'>"cm"</span><span class='op'>)</span>,
+  plot.background <span class='op'>=</span> <span class='fu'>element_rect</span><span class='op'>(</span>
+    fill <span class='op'>=</span> <span class='st'>"grey90"</span>,
+    colour <span class='op'>=</span> <span class='st'>"black"</span>,
+    size <span class='op'>=</span> <span class='fl'>1</span>
+  <span class='op'>)</span>
+<span class='op'>)</span>
 </div><div class='img'><img src='element-4.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

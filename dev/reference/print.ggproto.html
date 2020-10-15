@@ -211,10 +211,10 @@ members of the inherited objects.</p>
     </div>
 
     <pre class="usage"><span class='co'># S3 method for ggproto</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>, flat = <span class='fl'>TRUE</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span>, flat <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
 <span class='co'># S3 method for ggproto</span>
-<span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>, flat = <span class='fl'>TRUE</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span>, flat <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -237,13 +237,13 @@ and inherited members. If <code>FALSE</code>, show the inheritance hierarchy.</p
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>Dog</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggproto.html'>ggproto</a></span>(
-  print = <span class='fu'>function</span>(<span class='kw'>self</span>, <span class='kw'>n</span>) {
-    <span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span>(<span class='st'>"Woof!\n"</span>)
-  }
- )
-<span class='kw'>Dog</span>
-</div><div class='output co'>#&gt; Woof!</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span>(<span class='kw'>Dog</span>), <span class='st'>"\n"</span>)
+    <pre class="examples"><div class='input'><span class='va'>Dog</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggproto.html'>ggproto</a></span><span class='op'>(</span>
+  print <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>self</span>, <span class='va'>n</span><span class='op'>)</span> <span class='op'>{</span>
+    <span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='st'>"Woof!\n"</span><span class='op'>)</span>
+  <span class='op'>}</span>
+ <span class='op'>)</span>
+<span class='va'>Dog</span>
+</div><div class='output co'>#&gt; Woof!</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span><span class='op'>(</span><span class='va'>Dog</span><span class='op'>)</span>, <span class='st'>"\n"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;ggproto object: Class gg&gt;
 #&gt;     print: function </div></pre>
   </div>

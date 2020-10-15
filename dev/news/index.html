@@ -211,6 +211,7 @@
 <li><p>Updated style for example code (<a href='https://github.com/rjake'>@rjake</a>, <a href='https://github.com/tidyverse/ggplot2/issues/4092'>#4092</a>)</p></li>
 <li><p>Only drop groups in <code><a href="../reference/geom_violin.html">stat_ydensity()</a></code> when there are fewer than two data points and throw a warning (<a href='https://github.com/andrewwbutler'>@andrewwbutler</a>, <a href='https://github.com/tidyverse/ggplot2/issues/4111'>#4111</a>).</p></li>
 <li><p>It is now deprecated to specify <code>guides(&lt;scale&gt; = FALSE)</code> or <code>scale_*(guide = FALSE)</code> to remove a guide. Please use <code>guides(&lt;scale&gt; = "none")</code> or <code>scale_*(guide = "none")</code> instead (<a href='https://github.com/yutannihilation'>@yutannihilation</a>, <a href='https://github.com/tidyverse/ggplot2/issues/4094'>#4094</a>).</p></li>
+<li><p>Date and datetime position scales support out-of-bounds (oob) arguments to control how limits affect data outside those limits (<a href='https://github.com/teunbrand'>@teunbrand</a>, <a href='https://github.com/tidyverse/ggplot2/issues/4199'>#4199</a>).</p></li>
 <li><p><code><a href="../reference/geom_freqpoly.html">stat_bin()</a></code>’s computed variable <code>width</code> is now documented (<a href='https://github.com/tidyverse/ggplot2/issues/3522'>#3522</a>).</p></li>
 </ul>
 </div>
@@ -512,19 +513,17 @@
 <p>The function <code><a href="../reference/guide-exts.html">guide_train()</a></code> now has an optional parameter <code>aesthetic</code> that allows you to override the <code>aesthetic</code> setting in the scale. To make your code work with the both released and development versions of ggplot2 appropriate, add <code>aesthetic = NULL</code> to the <code><a href="../reference/guide-exts.html">guide_train()</a></code> method signature.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
 <span class="co"># old</span>
-<span class="kw">guide_train.legend</span> <span class="op">&lt;-</span> <span class="fu">function</span>(<span class="kw">guide</span>, <span class="kw">scale</span>) {<span class="kw">...</span>}
+<span class="va">guide_train.legend</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">guide</span>, <span class="va">scale</span><span class="op">)</span> <span class="op">{</span><span class="va">...</span><span class="op">}</span>
 
 <span class="co"># new </span>
-<span class="kw">guide_train.legend</span> <span class="op">&lt;-</span> <span class="fu">function</span>(<span class="kw">guide</span>, <span class="kw">scale</span>, <span class="kw">aesthetic</span> = <span class="kw">NULL</span>) {<span class="kw">...</span>}
-</pre></div>
+<span class="va">guide_train.legend</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">guide</span>, <span class="va">scale</span>, <span class="va">aesthetic</span> <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">{</span><span class="va">...</span><span class="op">}</span></pre></div>
 <p>Then, inside the function, replace <code>scale$aesthetics[1]</code>, <code>aesthetic %||% scale$aesthetics[1]</code>. (The %||% operator is defined in the rlang package).</p>
 <div class="sourceCode" id="cb2"><pre class="downlit">
 <span class="co"># old</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/setNames.html">setNames</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">scale</span><span class="op">$</span><span class="fu"><a href="https://rdrr.io/pkg/maps/man/map.html">map</a></span>(<span class="kw">breaks</span>)), <span class="kw">scale</span><span class="op">$</span><span class="kw">aesthetics</span>[<span class="fl">1</span>])
+<span class="fu"><a href="https://rdrr.io/r/stats/setNames.html">setNames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">scale</span><span class="op">$</span><span class="fu">map</span><span class="op">(</span><span class="va">breaks</span><span class="op">)</span><span class="op">)</span>, <span class="va">scale</span><span class="op">$</span><span class="va">aesthetics</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>
 
 <span class="co"># new</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/setNames.html">setNames</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">scale</span><span class="op">$</span><span class="fu"><a href="https://rdrr.io/pkg/maps/man/map.html">map</a></span>(<span class="kw">breaks</span>)), <span class="kw">aesthetic</span> <span class="op">%||%</span> <span class="kw">scale</span><span class="op">$</span><span class="kw">aesthetics</span>[<span class="fl">1</span>])
-</pre></div>
+<span class="fu"><a href="https://rdrr.io/r/stats/setNames.html">setNames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">scale</span><span class="op">$</span><span class="fu">map</span><span class="op">(</span><span class="va">breaks</span><span class="op">)</span><span class="op">)</span>, <span class="va">aesthetic</span> <span class="op">%||%</span> <span class="va">scale</span><span class="op">$</span><span class="va">aesthetics</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></pre></div>
 </li>
 <li><p>The long-deprecated <code>subset</code> argument to <code><a href="../reference/layer.html">layer()</a></code> has been removed.</p></li>
 </ul>
@@ -547,10 +546,9 @@
 <li>
 <p>ggplot2 now has full support for sf with <code><a href="../reference/CoordSf.html">geom_sf()</a></code> and <code><a href="../reference/CoordSf.html">coord_sf()</a></code>:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="kw">nc</span> <span class="op">&lt;-</span> <span class="kw">sf</span>::<span class="fu"><a href="https://rdrr.io/pkg/sf/man/st_read.html">st_read</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"shape/nc.shp"</span>, package = <span class="st">"sf"</span>), quiet = <span class="fl">TRUE</span>)
-<span class="fu"><a href="../reference/ggplot.html">ggplot</a></span>(<span class="kw">nc</span>) <span class="op">+</span>
-  <span class="fu"><a href="../reference/CoordSf.html">geom_sf</a></span>(<span class="fu"><a href="../reference/aes.html">aes</a></span>(fill = <span class="kw">AREA</span>))
-</pre></div>
+<span class="va">nc</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"shape/nc.shp"</span>, package <span class="op">=</span> <span class="st">"sf"</span><span class="op">)</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">nc</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="../reference/CoordSf.html">geom_sf</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">AREA</span><span class="op">)</span><span class="op">)</span></pre></div>
 <p>It supports all simple features, automatically aligns CRS across layers, sets up the correct aspect ratio, and draws a graticule.</p>
 </li>
 </ul>
@@ -593,10 +591,9 @@ to determine which elements overlap, and spreads overlapping elements evenly wit
 <p>The <code>expand</code> argument of <code>scale_*_continuous()</code> and <code>scale_*_discrete()</code> now accepts separate expansion values for the lower and upper range limits. The expansion limits can be specified using the convenience function <code><a href="../reference/expansion.html">expand_scale()</a></code>.</p>
 <p>Separate expansion limits may be useful for bar charts, e.g. if one wants the bottom of the bars to be flush with the x axis but still leave some (automatically calculated amount of) space above them:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="fu"><a href="../reference/ggplot.html">ggplot</a></span>(<span class="kw">mtcars</span>) <span class="op">+</span>
-    <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span>(<span class="fu"><a href="../reference/aes.html">aes</a></span>(x = <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="kw">cyl</span>))) <span class="op">+</span>
-    <span class="fu"><a href="../reference/scale_continuous.html">scale_y_continuous</a></span>(expand = <span class="fu"><a href="../reference/expansion.html">expand_scale</a></span>(mult = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">.1</span>)))
-</pre></div>
+<span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="../reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="../reference/expansion.html">expand_scale</a></span><span class="op">(</span>mult <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">.1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></pre></div>
 <p>It can also be useful for line charts, e.g. for counts over time, where one wants to have a ’hard’ lower limit of y = 0 but leave the upper limit unspecified (and perhaps differing between panels), with some extra space above the highest point on the line (with symmetrical limits, the extra space above the highest point could in some cases cause the lower limit to be negative).</p>
 <p>The old syntax for the <code>expand</code> argument will, of course, continue to work (<a href='https://github.com/huftis'>@huftis</a>, <a href='https://github.com/tidyverse/ggplot2/issues/1669'>#1669</a>).</p>
 </li>
@@ -1043,12 +1040,11 @@ to determine which elements overlap, and spreads overlapping elements evenly wit
 <li>
 <p>The default legend will now allocate multiple rows (if vertical) or columns (if horizontal) in order to make a legend that is more likely to fit on the screen. You can override with the <code>nrow</code>/<code>ncol</code> arguments to <code><a href="../reference/guide_legend.html">guide_legend()</a></code></p>
 <div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="kw">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span>(<span class="kw">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span>(<span class="kw">displ</span>,<span class="kw">hwy</span>, colour = <span class="kw">model</span>)) <span class="op">+</span> <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span>()
-<span class="kw">p</span>
-<span class="kw">p</span> <span class="op">+</span> <span class="fu"><a href="../reference/theme.html">theme</a></span>(legend.position = <span class="st">"bottom"</span>)
+<span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>,<span class="va">hwy</span>, colour <span class="op">=</span> <span class="va">model</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">p</span>
+<span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="../reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span>
 <span class="co"># Previous behaviour</span>
-<span class="kw">p</span> <span class="op">+</span> <span class="fu"><a href="../reference/guides.html">guides</a></span>(colour = <span class="fu"><a href="../reference/guide_legend.html">guide_legend</a></span>(ncol = <span class="fl">1</span>))
-</pre></div>
+<span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="../reference/guides.html">guides</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="fu"><a href="../reference/guide_legend.html">guide_legend</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></pre></div>
 </li>
 </ul>
 </div>

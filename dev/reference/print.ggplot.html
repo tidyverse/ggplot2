@@ -213,10 +213,10 @@ function or for loop.</p>
     </div>
 
     <pre class="usage"><span class='co'># S3 method for ggplot</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>x</span>, newpage = <span class='fu'><a href='https://rdrr.io/r/base/NULL.html'>is.null</a></span>(<span class='kw'>vp</span>), vp = <span class='kw'>NULL</span>, <span class='kw'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>x</span>, newpage <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/NULL.html'>is.null</a></span><span class='op'>(</span><span class='va'>vp</span><span class='op'>)</span>, vp <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for ggplot</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='kw'>x</span>, newpage = <span class='fu'><a href='https://rdrr.io/r/base/NULL.html'>is.null</a></span>(<span class='kw'>vp</span>), vp = <span class='kw'>NULL</span>, <span class='kw'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>x</span>, newpage <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/NULL.html'>is.null</a></span><span class='op'>(</span><span class='va'>vp</span><span class='op'>)</span>, vp <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -246,19 +246,19 @@ is a list with components that contain the plot itself, the data,
 information about the scales, panels etc.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>colours</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='op'>~</span><span class='kw'>class</span>, <span class='op'>~</span><span class='kw'>drv</span>, <span class='op'>~</span><span class='kw'>fl</span>)
+    <pre class="examples"><div class='input'><span class='va'>colours</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>class</span>, <span class='op'>~</span><span class='va'>drv</span>, <span class='op'>~</span><span class='va'>fl</span><span class='op'>)</span>
 
 <span class='co'># Doesn't seem to do anything!</span>
-<span class='co'>for</span> (<span class='kw'>colour</span> <span class='co'>in</span> <span class='kw'>colours</span>) {
-  <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes_.html'>aes_</a></span>(<span class='op'>~</span> <span class='kw'>displ</span>, <span class='op'>~</span> <span class='kw'>hwy</span>, colour = <span class='kw'>colour</span>)) <span class='op'>+</span>
-    <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
-}
+<span class='kw'>for</span> <span class='op'>(</span><span class='va'>colour</span> <span class='kw'>in</span> <span class='va'>colours</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes_.html'>aes_</a></span><span class='op'>(</span><span class='op'>~</span> <span class='va'>displ</span>, <span class='op'>~</span> <span class='va'>hwy</span>, colour <span class='op'>=</span> <span class='va'>colour</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='op'>}</span>
 
 <span class='co'># Works when we explicitly print the plots</span>
-<span class='co'>for</span> (<span class='kw'>colour</span> <span class='co'>in</span> <span class='kw'>colours</span>) {
-  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes_.html'>aes_</a></span>(<span class='op'>~</span> <span class='kw'>displ</span>, <span class='op'>~</span> <span class='kw'>hwy</span>, colour = <span class='kw'>colour</span>)) <span class='op'>+</span>
-    <span class='fu'><a href='geom_point.html'>geom_point</a></span>())
-}
+<span class='kw'>for</span> <span class='op'>(</span><span class='va'>colour</span> <span class='kw'>in</span> <span class='va'>colours</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes_.html'>aes_</a></span><span class='op'>(</span><span class='op'>~</span> <span class='va'>displ</span>, <span class='op'>~</span> <span class='va'>hwy</span>, colour <span class='op'>=</span> <span class='va'>colour</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>}</span>
 </div><div class='img'><img src='print.ggplot-1.png' alt='' width='700' height='433' /></div><div class='img'><img src='print.ggplot-2.png' alt='' width='700' height='433' /></div><div class='img'><img src='print.ggplot-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

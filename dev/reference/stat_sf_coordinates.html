@@ -212,17 +212,17 @@ convenient when you draw an sf object as geoms like text and labels (so
 <code><a href='CoordSf.html'>geom_sf_text()</a></code> and <code><a href='CoordSf.html'>geom_sf_label()</a></code> relies on this).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>stat_sf_coordinates</span>(
-  mapping = <span class='fu'><a href='aes.html'>aes</a></span>(),
-  data = <span class='kw'>NULL</span>,
-  geom = <span class='st'>"point"</span>,
-  position = <span class='st'>"identity"</span>,
-  na.rm = <span class='fl'>FALSE</span>,
-  show.legend = <span class='fl'>NA</span>,
-  inherit.aes = <span class='fl'>TRUE</span>,
-  fun.geometry = <span class='kw'>NULL</span>,
-  <span class='kw'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>stat_sf_coordinates</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='op'>)</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  geom <span class='op'>=</span> <span class='st'>"point"</span>,
+  position <span class='op'>=</span> <span class='st'>"identity"</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
+  inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  fun.geometry <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -296,21 +296,21 @@ to the paired geom/stat.</p></td>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>coordinates of an <code>sf</code> object can be retrieved by <code><a href='https://rdrr.io/pkg/sf/man/st_coordinates.html'>sf::st_coordinates()</a></code>.
-But, we cannot simply use <code><a href='https://rdrr.io/pkg/sf/man/st_coordinates.html'>sf::st_coordinates()</a></code> because, whereas text and
+    <p>coordinates of an <code>sf</code> object can be retrieved by <code><a href='https://r-spatial.github.io/sf/reference/st_coordinates.html'>sf::st_coordinates()</a></code>.
+But, we cannot simply use <code><a href='https://r-spatial.github.io/sf/reference/st_coordinates.html'>sf::st_coordinates()</a></code> because, whereas text and
 labels require exactly one coordinate per geometry, it returns multiple ones
 for a polygon or a line. Thus, these two steps are needed:</p><ol>
-<li><p>Choose one point per geometry by some function like <code><a href='https://rdrr.io/pkg/sf/man/geos_unary.html'>sf::st_centroid()</a></code>
-or <code><a href='https://rdrr.io/pkg/sf/man/geos_unary.html'>sf::st_point_on_surface()</a></code>.</p></li>
-<li><p>Retrieve coordinates from the points by <code><a href='https://rdrr.io/pkg/sf/man/st_coordinates.html'>sf::st_coordinates()</a></code>.</p></li>
+<li><p>Choose one point per geometry by some function like <code><a href='https://r-spatial.github.io/sf/reference/geos_unary.html'>sf::st_centroid()</a></code>
+or <code><a href='https://r-spatial.github.io/sf/reference/geos_unary.html'>sf::st_point_on_surface()</a></code>.</p></li>
+<li><p>Retrieve coordinates from the points by <code><a href='https://r-spatial.github.io/sf/reference/st_coordinates.html'>sf::st_coordinates()</a></code>.</p></li>
 </ol>
 
 <p>For the first step, you can use an arbitrary function via <code>fun.geometry</code>.
 By default, <code>function(x) sf::st_point_on_surface(sf::st_zm(x))</code> is used;
-<code><a href='https://rdrr.io/pkg/sf/man/geos_unary.html'>sf::st_point_on_surface()</a></code> seems more appropriate than <code><a href='https://rdrr.io/pkg/sf/man/geos_unary.html'>sf::st_centroid()</a></code>
+<code><a href='https://r-spatial.github.io/sf/reference/geos_unary.html'>sf::st_point_on_surface()</a></code> seems more appropriate than <code><a href='https://r-spatial.github.io/sf/reference/geos_unary.html'>sf::st_centroid()</a></code>
 since lables and text usually are intended to be put within the polygon or
-the line. <code><a href='https://rdrr.io/pkg/sf/man/st_zm.html'>sf::st_zm()</a></code> is needed to drop Z and M dimension beforehand,
-otherwise <code><a href='https://rdrr.io/pkg/sf/man/geos_unary.html'>sf::st_point_on_surface()</a></code> may fail when the geometries have M
+the line. <code><a href='https://r-spatial.github.io/sf/reference/st_zm.html'>sf::st_zm()</a></code> is needed to drop Z and M dimension beforehand,
+otherwise <code><a href='https://r-spatial.github.io/sf/reference/geos_unary.html'>sf::st_point_on_surface()</a></code> may fail when the geometries have M
 dimension.</p>
     <h2 class="hasAnchor" id="computed-variables"><a class="anchor" href="#computed-variables"></a>Computed variables</h2>
 
@@ -324,22 +324,22 @@ dimension.</p>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"sf"</span>, quietly = <span class='fl'>TRUE</span>)) {
-<span class='kw'>nc</span> <span class='op'>&lt;-</span> <span class='kw'>sf</span>::<span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_read.html'>st_read</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"shape/nc.shp"</span>, package=<span class='st'>"sf"</span>))
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"sf"</span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='va'>nc</span> <span class='op'>&lt;-</span> <span class='fu'>sf</span><span class='fu'>::</span><span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_read.html'>st_read</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"shape/nc.shp"</span>, package<span class='op'>=</span><span class='st'>"sf"</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>nc</span>) <span class='op'>+</span>
-  <span class='fu'>stat_sf_coordinates</span>()
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>nc</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>stat_sf_coordinates</span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>nc</span>) <span class='op'>+</span>
-  <span class='fu'><a href='geom_errorbarh.html'>geom_errorbarh</a></span>(
-    <span class='fu'><a href='aes.html'>aes</a></span>(geometry = <span class='kw'>geometry</span>,
-        xmin = <span class='fu'><a href='aes_eval.html'>after_stat</a></span>(<span class='kw'>x</span>) <span class='op'>-</span> <span class='fl'>0.1</span>,
-        xmax = <span class='fu'><a href='aes_eval.html'>after_stat</a></span>(<span class='kw'>x</span>) <span class='op'>+</span> <span class='fl'>0.1</span>,
-        y = <span class='fu'><a href='aes_eval.html'>after_stat</a></span>(<span class='kw'>y</span>),
-        height = <span class='fl'>0.04</span>),
-    stat = <span class='st'>"sf_coordinates"</span>
-  )
-}
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>nc</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_errorbarh.html'>geom_errorbarh</a></span><span class='op'>(</span>
+    <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>geometry <span class='op'>=</span> <span class='va'>geometry</span>,
+        xmin <span class='op'>=</span> <span class='fu'><a href='aes_eval.html'>after_stat</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>-</span> <span class='fl'>0.1</span>,
+        xmax <span class='op'>=</span> <span class='fu'><a href='aes_eval.html'>after_stat</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>+</span> <span class='fl'>0.1</span>,
+        y <span class='op'>=</span> <span class='fu'><a href='aes_eval.html'>after_stat</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span>,
+        height <span class='op'>=</span> <span class='fl'>0.04</span><span class='op'>)</span>,
+    stat <span class='op'>=</span> <span class='st'>"sf_coordinates"</span>
+  <span class='op'>)</span>
+<span class='op'>}</span>
 </div><div class='output co'>#&gt; Reading layer `nc' from data source `/Users/runner/work/_temp/Library/sf/shape/nc.shp' using driver `ESRI Shapefile'
 #&gt; Simple feature collection with 100 features and 14 fields
 #&gt; geometry type:  MULTIPOLYGON

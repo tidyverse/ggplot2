@@ -210,9 +210,9 @@ scales. It shows areas between breaks as a single constant colour instead of
 the gradient known from the colourbar counterpart.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>guide_coloursteps</span>(even.steps = <span class='fl'>TRUE</span>, show.limits = <span class='kw'>NULL</span>, ticks = <span class='fl'>FALSE</span>, <span class='kw'>...</span>)
+    <pre class="usage"><span class='fu'>guide_coloursteps</span><span class='op'>(</span>even.steps <span class='op'>=</span> <span class='cn'>TRUE</span>, show.limits <span class='op'>=</span> <span class='cn'>NULL</span>, ticks <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>guide_colorsteps</span>(even.steps = <span class='fl'>TRUE</span>, show.limits = <span class='kw'>NULL</span>, ticks = <span class='fl'>FALSE</span>, <span class='kw'>...</span>)</pre>
+<span class='fu'>guide_colorsteps</span><span class='op'>(</span>even.steps <span class='op'>=</span> <span class='cn'>TRUE</span>, show.limits <span class='op'>=</span> <span class='cn'>NULL</span>, ticks <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -320,29 +320,29 @@ may be needed.</p>
 <code><a href='guides.html'>guides</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid</a></span>(X1 = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, X2 = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>)
-<span class='kw'>df</span><span class='op'>$</span><span class='kw'>value</span> <span class='op'>&lt;-</span> <span class='kw'>df</span><span class='op'>$</span><span class='kw'>X1</span> <span class='op'>*</span> <span class='kw'>df</span><span class='op'>$</span><span class='kw'>X2</span>
+    <pre class="examples"><div class='input'><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid</a></span><span class='op'>(</span>X1 <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, X2 <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span>
+<span class='va'>df</span><span class='op'>$</span><span class='va'>value</span> <span class='op'>&lt;-</span> <span class='va'>df</span><span class='op'>$</span><span class='va'>X1</span> <span class='op'>*</span> <span class='va'>df</span><span class='op'>$</span><span class='va'>X2</span>
 
-<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>X1</span>, <span class='kw'>X2</span>)) <span class='op'>+</span> <span class='fu'><a href='geom_raster.html'>geom_tile</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(fill = <span class='kw'>value</span>))
+<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>X1</span>, <span class='va'>X2</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_raster.html'>geom_tile</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>value</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># Coloursteps guide is the default for binned colour scales</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_binned</a></span>()
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_binned</a></span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='img'><img src='guide_coloursteps-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># By default each bin in the guide is the same size irrespectively of how</span>
 <span class='co'># their sizes relate in data space</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_binned</a></span>(breaks = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>10</span>, <span class='fl'>25</span>, <span class='fl'>50</span>))
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_binned</a></span><span class='op'>(</span>breaks <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>25</span>, <span class='fl'>50</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='guide_coloursteps-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># This can be changed with the `even.steps` argument</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_binned</a></span>(
-  breaks = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>10</span>, <span class='fl'>25</span>, <span class='fl'>50</span>),
-  guide = <span class='fu'>guide_coloursteps</span>(even.steps = <span class='fl'>FALSE</span>)
-)
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_binned</a></span><span class='op'>(</span>
+  breaks <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>25</span>, <span class='fl'>50</span><span class='op'>)</span>,
+  guide <span class='op'>=</span> <span class='fu'>guide_coloursteps</span><span class='op'>(</span>even.steps <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='op'>)</span>
 </div><div class='img'><img src='guide_coloursteps-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># By default the limits is not shown, but this can be changed</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_binned</a></span>(guide = <span class='fu'>guide_coloursteps</span>(show.limits = <span class='fl'>TRUE</span>))
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_binned</a></span><span class='op'>(</span>guide <span class='op'>=</span> <span class='fu'>guide_coloursteps</span><span class='op'>(</span>show.limits <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='guide_coloursteps-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># (can also be set in the scale)</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_binned</a></span>(show.limits = <span class='fl'>TRUE</span>)
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_binned</a></span><span class='op'>(</span>show.limits <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='img'><img src='guide_coloursteps-5.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>

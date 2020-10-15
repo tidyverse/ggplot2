@@ -218,11 +218,11 @@ require you to explicitly quote the inputs either with <code>""</code> for
 <code>aes_string()</code> easy to program with.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>aes_</span>(<span class='kw'>x</span>, <span class='kw'>y</span>, <span class='kw'>...</span>)
+    <pre class="usage"><span class='fu'>aes_</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>aes_string</span>(<span class='kw'>x</span>, <span class='kw'>y</span>, <span class='kw'>...</span>)
+<span class='fu'>aes_string</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>aes_q</span>(<span class='kw'>x</span>, <span class='kw'>y</span>, <span class='kw'>...</span>)</pre>
+<span class='fu'>aes_q</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -257,40 +257,40 @@ idioms instead (see the quasiquotation section in
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Three ways of generating the same aesthetics</span>
-<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>, col = <span class='kw'>cyl</span>)
+<span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>wt</span>, col <span class='op'>=</span> <span class='va'>cyl</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Aesthetic mapping: 
 #&gt; * `x`      -&gt; `mpg`
 #&gt; * `y`      -&gt; `wt`
-#&gt; * `colour` -&gt; `cyl`</div><div class='input'><span class='fu'>aes_</span>(<span class='fu'><a href='https://rdrr.io/r/base/substitute.html'>quote</a></span>(<span class='kw'>mpg</span>), <span class='fu'><a href='https://rdrr.io/r/base/substitute.html'>quote</a></span>(<span class='kw'>wt</span>), col = <span class='fu'><a href='https://rdrr.io/r/base/substitute.html'>quote</a></span>(<span class='kw'>cyl</span>))
+#&gt; * `colour` -&gt; `cyl`</div><div class='input'><span class='fu'>aes_</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/substitute.html'>quote</a></span><span class='op'>(</span><span class='va'>mpg</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/substitute.html'>quote</a></span><span class='op'>(</span><span class='va'>wt</span><span class='op'>)</span>, col <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/substitute.html'>quote</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Aesthetic mapping: 
 #&gt; * `colour` -&gt; `cyl`
 #&gt; * `x`      -&gt; `mpg`
-#&gt; * `y`      -&gt; `wt`</div><div class='input'><span class='fu'>aes_</span>(<span class='op'>~</span><span class='kw'>mpg</span>, <span class='op'>~</span><span class='kw'>wt</span>, col = <span class='op'>~</span><span class='kw'>cyl</span>)
+#&gt; * `y`      -&gt; `wt`</div><div class='input'><span class='fu'>aes_</span><span class='op'>(</span><span class='op'>~</span><span class='va'>mpg</span>, <span class='op'>~</span><span class='va'>wt</span>, col <span class='op'>=</span> <span class='op'>~</span><span class='va'>cyl</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Aesthetic mapping: 
 #&gt; * `colour` -&gt; `cyl`
 #&gt; * `x`      -&gt; `mpg`
-#&gt; * `y`      -&gt; `wt`</div><div class='input'><span class='fu'>aes_string</span>(<span class='st'>"mpg"</span>, <span class='st'>"wt"</span>, col = <span class='st'>"cyl"</span>)
+#&gt; * `y`      -&gt; `wt`</div><div class='input'><span class='fu'>aes_string</span><span class='op'>(</span><span class='st'>"mpg"</span>, <span class='st'>"wt"</span>, col <span class='op'>=</span> <span class='st'>"cyl"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Aesthetic mapping: 
 #&gt; * `colour` -&gt; `cyl`
 #&gt; * `x`      -&gt; `mpg`
 #&gt; * `y`      -&gt; `wt`</div><div class='input'>
 <span class='co'># You can't easily mimic these calls with aes_string</span>
-<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>`$100`</span>, colour = <span class='st'>"smooth"</span>)
+<span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>`$100`</span>, colour <span class='op'>=</span> <span class='st'>"smooth"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Aesthetic mapping: 
 #&gt; * `x`      -&gt; `$100`
-#&gt; * `colour` -&gt; "smooth"</div><div class='input'><span class='fu'>aes_</span>(<span class='op'>~</span> <span class='kw'>`$100`</span>, colour = <span class='st'>"smooth"</span>)
+#&gt; * `colour` -&gt; "smooth"</div><div class='input'><span class='fu'>aes_</span><span class='op'>(</span><span class='op'>~</span> <span class='va'>`$100`</span>, colour <span class='op'>=</span> <span class='st'>"smooth"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Aesthetic mapping: 
 #&gt; * `colour` -&gt; "smooth"
 #&gt; * `x`      -&gt; `$100`</div><div class='input'><span class='co'># Ok, you can, but it requires a _lot_ of quotes</span>
-<span class='fu'>aes_string</span>(<span class='st'>"`$100`"</span>, colour = <span class='st'>'"smooth"'</span>)
+<span class='fu'>aes_string</span><span class='op'>(</span><span class='st'>"`$100`"</span>, colour <span class='op'>=</span> <span class='st'>'"smooth"'</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Aesthetic mapping: 
 #&gt; * `colour` -&gt; "smooth"
 #&gt; * `x`      -&gt; `$100`</div><div class='input'>
 <span class='co'># Convert strings to names with as.name</span>
-<span class='kw'>var</span> <span class='op'>&lt;-</span> <span class='st'>"cyl"</span>
-<span class='fu'><a href='aes.html'>aes</a></span>(col = <span class='kw'>x</span>)
+<span class='va'>var</span> <span class='op'>&lt;-</span> <span class='st'>"cyl"</span>
+<span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>col <span class='op'>=</span> <span class='va'>x</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Aesthetic mapping: 
-#&gt; * `colour` -&gt; `x`</div><div class='input'><span class='fu'>aes_</span>(col = <span class='fu'><a href='https://rdrr.io/r/base/name.html'>as.name</a></span>(<span class='kw'>var</span>))
+#&gt; * `colour` -&gt; `x`</div><div class='input'><span class='fu'>aes_</span><span class='op'>(</span>col <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/name.html'>as.name</a></span><span class='op'>(</span><span class='va'>var</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Aesthetic mapping: 
 #&gt; * `colour` -&gt; `cyl`</div></pre>
   </div>

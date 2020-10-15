@@ -222,13 +222,13 @@ for more details:</p><ul>
 
     </div>
 
-    <pre class="usage"><span class='fu'>mean_cl_boot</span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
+    <pre class="usage"><span class='fu'>mean_cl_boot</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>mean_cl_normal</span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
+<span class='fu'>mean_cl_normal</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>mean_sdl</span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
+<span class='fu'>mean_sdl</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>median_hilow</span>(<span class='kw'>x</span>, <span class='kw'>...</span>)</pre>
+<span class='fu'>median_hilow</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -248,13 +248,13 @@ for more details:</p><ul>
     <p>A data frame with columns <code>y</code>, <code>ymin</code>, and <code>ymax</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"Hmisc"</span>, quietly = <span class='fl'>TRUE</span>)) {
-<span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>100</span>)
-<span class='fu'>mean_cl_boot</span>(<span class='kw'>x</span>)
-<span class='fu'>mean_cl_normal</span>(<span class='kw'>x</span>)
-<span class='fu'>mean_sdl</span>(<span class='kw'>x</span>)
-<span class='fu'>median_hilow</span>(<span class='kw'>x</span>)
-}
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"Hmisc"</span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100</span><span class='op'>)</span>
+<span class='fu'>mean_cl_boot</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+<span class='fu'>mean_cl_normal</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+<span class='fu'>mean_sdl</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+<span class='fu'>median_hilow</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+<span class='op'>}</span>
 </div><div class='output co'>#&gt;            y      ymin    ymax
 #&gt; 1 -0.1903763 -2.107796 2.22499</div></pre>
   </div>

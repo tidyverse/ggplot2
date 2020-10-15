@@ -218,17 +218,17 @@ differentiates the outer ring points from those describing holes in the
 polygon.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>geom_polygon</span>(
-  mapping = <span class='kw'>NULL</span>,
-  data = <span class='kw'>NULL</span>,
-  stat = <span class='st'>"identity"</span>,
-  position = <span class='st'>"identity"</span>,
-  rule = <span class='st'>"evenodd"</span>,
-  <span class='kw'>...</span>,
-  na.rm = <span class='fl'>FALSE</span>,
-  show.legend = <span class='fl'>NA</span>,
-  inherit.aes = <span class='fl'>TRUE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>geom_polygon</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  stat <span class='op'>=</span> <span class='st'>"identity"</span>,
+  position <span class='op'>=</span> <span class='st'>"identity"</span>,
+  rule <span class='op'>=</span> <span class='st'>"evenodd"</span>,
+  <span class='va'>...</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
+  inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -326,58 +326,58 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
 <span class='co'># other the values associated with each polygon (values).  An id</span>
 <span class='co'># variable links the two together</span>
 
-<span class='kw'>ids</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"1.1"</span>, <span class='st'>"2.1"</span>, <span class='st'>"1.2"</span>, <span class='st'>"2.2"</span>, <span class='st'>"1.3"</span>, <span class='st'>"2.3"</span>))
+<span class='va'>ids</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"1.1"</span>, <span class='st'>"2.1"</span>, <span class='st'>"1.2"</span>, <span class='st'>"2.2"</span>, <span class='st'>"1.3"</span>, <span class='st'>"2.3"</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='kw'>values</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  id = <span class='kw'>ids</span>,
-  value = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>3.1</span>, <span class='fl'>3.1</span>, <span class='fl'>3.2</span>, <span class='fl'>3.15</span>, <span class='fl'>3.5</span>)
-)
+<span class='va'>values</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
+  id <span class='op'>=</span> <span class='va'>ids</span>,
+  value <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>3.1</span>, <span class='fl'>3.1</span>, <span class='fl'>3.2</span>, <span class='fl'>3.15</span>, <span class='fl'>3.5</span><span class='op'>)</span>
+<span class='op'>)</span>
 
-<span class='kw'>positions</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  id = <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='kw'>ids</span>, each = <span class='fl'>4</span>),
-  x = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>1</span>, <span class='fl'>1.1</span>, <span class='fl'>2.2</span>, <span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>0.3</span>, <span class='fl'>1.1</span>, <span class='fl'>2.2</span>, <span class='fl'>1.1</span>, <span class='fl'>1.2</span>, <span class='fl'>2.5</span>, <span class='fl'>1.1</span>, <span class='fl'>0.3</span>,
-  <span class='fl'>0.5</span>, <span class='fl'>1.2</span>, <span class='fl'>2.5</span>, <span class='fl'>1.2</span>, <span class='fl'>1.3</span>, <span class='fl'>2.7</span>, <span class='fl'>1.2</span>, <span class='fl'>0.5</span>, <span class='fl'>0.6</span>, <span class='fl'>1.3</span>),
-  y = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='op'>-</span><span class='fl'>0.5</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>0.5</span>, <span class='fl'>0</span>, <span class='fl'>0.5</span>, <span class='fl'>1.5</span>, <span class='fl'>1</span>, <span class='fl'>0.5</span>, <span class='fl'>1</span>, <span class='fl'>2.1</span>, <span class='fl'>1.7</span>, <span class='fl'>1</span>, <span class='fl'>1.5</span>,
-  <span class='fl'>2.2</span>, <span class='fl'>2.1</span>, <span class='fl'>1.7</span>, <span class='fl'>2.1</span>, <span class='fl'>3.2</span>, <span class='fl'>2.8</span>, <span class='fl'>2.1</span>, <span class='fl'>2.2</span>, <span class='fl'>3.3</span>, <span class='fl'>3.2</span>)
-)
+<span class='va'>positions</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
+  id <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='va'>ids</span>, each <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span>,
+  x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>1</span>, <span class='fl'>1.1</span>, <span class='fl'>2.2</span>, <span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>0.3</span>, <span class='fl'>1.1</span>, <span class='fl'>2.2</span>, <span class='fl'>1.1</span>, <span class='fl'>1.2</span>, <span class='fl'>2.5</span>, <span class='fl'>1.1</span>, <span class='fl'>0.3</span>,
+  <span class='fl'>0.5</span>, <span class='fl'>1.2</span>, <span class='fl'>2.5</span>, <span class='fl'>1.2</span>, <span class='fl'>1.3</span>, <span class='fl'>2.7</span>, <span class='fl'>1.2</span>, <span class='fl'>0.5</span>, <span class='fl'>0.6</span>, <span class='fl'>1.3</span><span class='op'>)</span>,
+  y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>0.5</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>0.5</span>, <span class='fl'>0</span>, <span class='fl'>0.5</span>, <span class='fl'>1.5</span>, <span class='fl'>1</span>, <span class='fl'>0.5</span>, <span class='fl'>1</span>, <span class='fl'>2.1</span>, <span class='fl'>1.7</span>, <span class='fl'>1</span>, <span class='fl'>1.5</span>,
+  <span class='fl'>2.2</span>, <span class='fl'>2.1</span>, <span class='fl'>1.7</span>, <span class='fl'>2.1</span>, <span class='fl'>3.2</span>, <span class='fl'>2.8</span>, <span class='fl'>2.1</span>, <span class='fl'>2.2</span>, <span class='fl'>3.3</span>, <span class='fl'>3.2</span><span class='op'>)</span>
+<span class='op'>)</span>
 
 <span class='co'># Currently we need to manually merge the two together</span>
-<span class='kw'>datapoly</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/merge.html'>merge</a></span>(<span class='kw'>values</span>, <span class='kw'>positions</span>, by = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"id"</span>))
+<span class='va'>datapoly</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/merge.html'>merge</a></span><span class='op'>(</span><span class='va'>values</span>, <span class='va'>positions</span>, by <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"id"</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>datapoly</span>, <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='kw'>x</span>, y = <span class='kw'>y</span>)) <span class='op'>+</span>
-  <span class='fu'>geom_polygon</span>(<span class='fu'><a href='aes.html'>aes</a></span>(fill = <span class='kw'>value</span>, group = <span class='kw'>id</span>))
-<span class='kw'>p</span>
+<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>datapoly</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>x</span>, y <span class='op'>=</span> <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_polygon</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>value</span>, group <span class='op'>=</span> <span class='va'>id</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>p</span>
 </div><div class='img'><img src='geom_polygon-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Which seems like a lot of work, but then it's easy to add on</span>
 <span class='co'># other features in this coordinate system, e.g.:</span>
 
-<span class='kw'>stream</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  x = <span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>50</span>, max = <span class='fl'>0.1</span>)),
-  y = <span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>50</span>,max = <span class='fl'>0.1</span>))
-)
+<span class='va'>stream</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
+  x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>50</span>, max <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span><span class='op'>)</span>,
+  y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>50</span>,max <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>)</span>
 
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_path.html'>geom_line</a></span>(data = <span class='kw'>stream</span>, colour = <span class='st'>"grey30"</span>, size = <span class='fl'>5</span>)
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_path.html'>geom_line</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>stream</span>, colour <span class='op'>=</span> <span class='st'>"grey30"</span>, size <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_polygon-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># And if the positions are in longitude and latitude, you can use</span>
 <span class='co'># coord_map to produce different map projections.</span>
 
-<span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/utils/packageDescription.html'>packageVersion</a></span>(<span class='st'>"grid"</span>) <span class='op'>&gt;=</span> <span class='st'>"3.6"</span>) {
+<span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/packageDescription.html'>packageVersion</a></span><span class='op'>(</span><span class='st'>"grid"</span><span class='op'>)</span> <span class='op'>&gt;=</span> <span class='st'>"3.6"</span><span class='op'>)</span> <span class='op'>{</span>
   <span class='co'># As of R version 3.6 geom_polygon() supports polygons with holes</span>
   <span class='co'># Use the subgroup aesthetic to differentiate holes from the main polygon</span>
 
-  <span class='kw'>holes</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span>(<span class='kw'>rbind</span>, <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/split.html'>split</a></span>(<span class='kw'>datapoly</span>, <span class='kw'>datapoly</span><span class='op'>$</span><span class='kw'>id</span>), <span class='fu'>function</span>(<span class='kw'>df</span>) {
-    <span class='kw'>df</span><span class='op'>$</span><span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='kw'>df</span><span class='op'>$</span><span class='kw'>x</span> <span class='op'>+</span> <span class='fl'>0.5</span> <span class='op'>*</span> (<span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='kw'>df</span><span class='op'>$</span><span class='kw'>x</span>) <span class='op'>-</span> <span class='kw'>df</span><span class='op'>$</span><span class='kw'>x</span>)
-    <span class='kw'>df</span><span class='op'>$</span><span class='kw'>y</span> <span class='op'>&lt;-</span> <span class='kw'>df</span><span class='op'>$</span><span class='kw'>y</span> <span class='op'>+</span> <span class='fl'>0.5</span> <span class='op'>*</span> (<span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='kw'>df</span><span class='op'>$</span><span class='kw'>y</span>) <span class='op'>-</span> <span class='kw'>df</span><span class='op'>$</span><span class='kw'>y</span>)
-    <span class='kw'>df</span>
-  }))
-  <span class='kw'>datapoly</span><span class='op'>$</span><span class='kw'>subid</span> <span class='op'>&lt;-</span> <span class='fl'>1L</span>
-  <span class='kw'>holes</span><span class='op'>$</span><span class='kw'>subid</span> <span class='op'>&lt;-</span> <span class='fl'>2L</span>
-  <span class='kw'>datapoly</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='kw'>datapoly</span>, <span class='kw'>holes</span>)
+  <span class='va'>holes</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span><span class='op'>(</span><span class='va'>rbind</span>, <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/split.html'>split</a></span><span class='op'>(</span><span class='va'>datapoly</span>, <span class='va'>datapoly</span><span class='op'>$</span><span class='va'>id</span><span class='op'>)</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>df</span><span class='op'>)</span> <span class='op'>{</span>
+    <span class='va'>df</span><span class='op'>$</span><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='va'>df</span><span class='op'>$</span><span class='va'>x</span> <span class='op'>+</span> <span class='fl'>0.5</span> <span class='op'>*</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>df</span><span class='op'>$</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>-</span> <span class='va'>df</span><span class='op'>$</span><span class='va'>x</span><span class='op'>)</span>
+    <span class='va'>df</span><span class='op'>$</span><span class='va'>y</span> <span class='op'>&lt;-</span> <span class='va'>df</span><span class='op'>$</span><span class='va'>y</span> <span class='op'>+</span> <span class='fl'>0.5</span> <span class='op'>*</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>df</span><span class='op'>$</span><span class='va'>y</span><span class='op'>)</span> <span class='op'>-</span> <span class='va'>df</span><span class='op'>$</span><span class='va'>y</span><span class='op'>)</span>
+    <span class='va'>df</span>
+  <span class='op'>}</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='va'>datapoly</span><span class='op'>$</span><span class='va'>subid</span> <span class='op'>&lt;-</span> <span class='fl'>1L</span>
+  <span class='va'>holes</span><span class='op'>$</span><span class='va'>subid</span> <span class='op'>&lt;-</span> <span class='fl'>2L</span>
+  <span class='va'>datapoly</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='va'>datapoly</span>, <span class='va'>holes</span><span class='op'>)</span>
 
-  <span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>datapoly</span>, <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='kw'>x</span>, y = <span class='kw'>y</span>)) <span class='op'>+</span>
-    <span class='fu'>geom_polygon</span>(<span class='fu'><a href='aes.html'>aes</a></span>(fill = <span class='kw'>value</span>, group = <span class='kw'>id</span>, subgroup = <span class='kw'>subid</span>))
-  <span class='kw'>p</span>
-}
+  <span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>datapoly</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>x</span>, y <span class='op'>=</span> <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'>geom_polygon</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>value</span>, group <span class='op'>=</span> <span class='va'>id</span>, subgroup <span class='op'>=</span> <span class='va'>subid</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='va'>p</span>
+<span class='op'>}</span>
 </div><div class='img'><img src='geom_polygon-3.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>

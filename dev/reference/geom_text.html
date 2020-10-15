@@ -214,37 +214,37 @@ to the plot. <code>geom_label()</code> draws a rectangle behind the text, making
 easier to read.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>geom_label</span>(
-  mapping = <span class='kw'>NULL</span>,
-  data = <span class='kw'>NULL</span>,
-  stat = <span class='st'>"identity"</span>,
-  position = <span class='st'>"identity"</span>,
-  <span class='kw'>...</span>,
-  parse = <span class='fl'>FALSE</span>,
-  nudge_x = <span class='fl'>0</span>,
-  nudge_y = <span class='fl'>0</span>,
-  label.padding = <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>0.25</span>, <span class='st'>"lines"</span>),
-  label.r = <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>0.15</span>, <span class='st'>"lines"</span>),
-  label.size = <span class='fl'>0.25</span>,
-  na.rm = <span class='fl'>FALSE</span>,
-  show.legend = <span class='fl'>NA</span>,
-  inherit.aes = <span class='fl'>TRUE</span>
-)
+    <pre class="usage"><span class='fu'>geom_label</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  stat <span class='op'>=</span> <span class='st'>"identity"</span>,
+  position <span class='op'>=</span> <span class='st'>"identity"</span>,
+  <span class='va'>...</span>,
+  parse <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  nudge_x <span class='op'>=</span> <span class='fl'>0</span>,
+  nudge_y <span class='op'>=</span> <span class='fl'>0</span>,
+  label.padding <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span><span class='op'>(</span><span class='fl'>0.25</span>, <span class='st'>"lines"</span><span class='op'>)</span>,
+  label.r <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span><span class='op'>(</span><span class='fl'>0.15</span>, <span class='st'>"lines"</span><span class='op'>)</span>,
+  label.size <span class='op'>=</span> <span class='fl'>0.25</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
+  inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span>
 
-<span class='fu'>geom_text</span>(
-  mapping = <span class='kw'>NULL</span>,
-  data = <span class='kw'>NULL</span>,
-  stat = <span class='st'>"identity"</span>,
-  position = <span class='st'>"identity"</span>,
-  <span class='kw'>...</span>,
-  parse = <span class='fl'>FALSE</span>,
-  nudge_x = <span class='fl'>0</span>,
-  nudge_y = <span class='fl'>0</span>,
-  check_overlap = <span class='fl'>FALSE</span>,
-  na.rm = <span class='fl'>FALSE</span>,
-  show.legend = <span class='fl'>NA</span>,
-  inherit.aes = <span class='fl'>TRUE</span>
-)</pre>
+<span class='fu'>geom_text</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  stat <span class='op'>=</span> <span class='st'>"identity"</span>,
+  position <span class='op'>=</span> <span class='st'>"identity"</span>,
+  <span class='va'>...</span>,
+  parse <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  nudge_x <span class='op'>=</span> <span class='fl'>0</span>,
+  nudge_y <span class='op'>=</span> <span class='fl'>0</span>,
+  check_overlap <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
+  inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -394,103 +394,103 @@ aesthetics. These can either be a number between 0 (right/bottom) and
 aligns it away from the center.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>wt</span>, <span class='kw'>mpg</span>, label = <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='kw'>mtcars</span>)))
+    <pre class="examples"><div class='input'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>wt</span>, <span class='va'>mpg</span>, label <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_text</span>()
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_text</span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_text-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Avoid overlaps</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_text</span>(check_overlap = <span class='fl'>TRUE</span>)
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_text</span><span class='op'>(</span>check_overlap <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_text-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Labels with background</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_label</span>()
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_label</span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_text-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Change size of the label</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_text</span>(size = <span class='fl'>10</span>)
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_text</span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_text-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Set aesthetics to fixed value</span>
-<span class='kw'>p</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'>geom_text</span>(hjust = <span class='fl'>0</span>, nudge_x = <span class='fl'>0.05</span>)
-</div><div class='img'><img src='geom_text-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'>geom_text</span>(vjust = <span class='fl'>0</span>, nudge_y = <span class='fl'>0.5</span>)
-</div><div class='img'><img src='geom_text-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'>geom_text</span>(angle = <span class='fl'>45</span>)
-</div><div class='img'><img src='geom_text-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='va'>p</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_text</span><span class='op'>(</span>hjust <span class='op'>=</span> <span class='fl'>0</span>, nudge_x <span class='op'>=</span> <span class='fl'>0.05</span><span class='op'>)</span>
+</div><div class='img'><img src='geom_text-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_text</span><span class='op'>(</span>vjust <span class='op'>=</span> <span class='fl'>0</span>, nudge_y <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span>
+</div><div class='img'><img src='geom_text-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_text</span><span class='op'>(</span>angle <span class='op'>=</span> <span class='fl'>45</span><span class='op'>)</span>
+</div><div class='img'><img src='geom_text-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'># Doesn't work on all systems</span>
-<span class='kw'>p</span> <span class='op'>+</span>
-  <span class='fu'>geom_text</span>(family = <span class='st'>"Times New Roman"</span>)
-}
+<span class='va'>p</span> <span class='op'>+</span>
+  <span class='fu'>geom_text</span><span class='op'>(</span>family <span class='op'>=</span> <span class='st'>"Times New Roman"</span><span class='op'>)</span>
+<span class='op'>}</span>
 
 <span class='co'># Add aesthetic mappings</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_text</span>(<span class='fu'><a href='aes.html'>aes</a></span>(colour = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>)))
-</div><div class='img'><img src='geom_text-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_text</span>(<span class='fu'><a href='aes.html'>aes</a></span>(colour = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>))) <span class='op'>+</span>
-  <span class='fu'><a href='scale_colour_discrete.html'>scale_colour_discrete</a></span>(l = <span class='fl'>40</span>)
-</div><div class='img'><img src='geom_text-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_label</span>(<span class='fu'><a href='aes.html'>aes</a></span>(fill = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>)), colour = <span class='st'>"white"</span>, fontface = <span class='st'>"bold"</span>)
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_text</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='geom_text-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_text</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='scale_colour_discrete.html'>scale_colour_discrete</a></span><span class='op'>(</span>l <span class='op'>=</span> <span class='fl'>40</span><span class='op'>)</span>
+</div><div class='img'><img src='geom_text-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_label</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span><span class='op'>)</span>, colour <span class='op'>=</span> <span class='st'>"white"</span>, fontface <span class='op'>=</span> <span class='st'>"bold"</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_text-10.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_text</span>(<span class='fu'><a href='aes.html'>aes</a></span>(size = <span class='kw'>wt</span>))
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_text</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='va'>wt</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_text-11.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Scale height of text, rather than sqrt(height)</span>
-<span class='kw'>p</span> <span class='op'>+</span>
-  <span class='fu'>geom_text</span>(<span class='fu'><a href='aes.html'>aes</a></span>(size = <span class='kw'>wt</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='scale_size.html'>scale_radius</a></span>(range = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>6</span>))
+<span class='va'>p</span> <span class='op'>+</span>
+  <span class='fu'>geom_text</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='va'>wt</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='scale_size.html'>scale_radius</a></span><span class='op'>(</span>range <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>6</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_text-12.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can display expressions by setting parse = TRUE.  The</span>
 <span class='co'># details of the display are described in ?plotmath, but note that</span>
 <span class='co'># geom_text uses strings, not expressions.</span>
-<span class='kw'>p</span> <span class='op'>+</span>
-  <span class='fu'>geom_text</span>(
-    <span class='fu'><a href='aes.html'>aes</a></span>(label = <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='kw'>wt</span>, <span class='st'>"^("</span>, <span class='kw'>cyl</span>, <span class='st'>")"</span>, sep = <span class='st'>""</span>)),
-    parse = <span class='fl'>TRUE</span>
-  )
+<span class='va'>p</span> <span class='op'>+</span>
+  <span class='fu'>geom_text</span><span class='op'>(</span>
+    <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>label <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='va'>wt</span>, <span class='st'>"^("</span>, <span class='va'>cyl</span>, <span class='st'>")"</span>, sep <span class='op'>=</span> <span class='st'>""</span><span class='op'>)</span><span class='op'>)</span>,
+    parse <span class='op'>=</span> <span class='cn'>TRUE</span>
+  <span class='op'>)</span>
 </div><div class='img'><img src='geom_text-13.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Add a text annotation</span>
-<span class='kw'>p</span> <span class='op'>+</span>
-  <span class='fu'>geom_text</span>() <span class='op'>+</span>
-  <span class='fu'><a href='annotate.html'>annotate</a></span>(
-    <span class='st'>"text"</span>, label = <span class='st'>"plot mpg vs. wt"</span>,
-    x = <span class='fl'>2</span>, y = <span class='fl'>15</span>, size = <span class='fl'>8</span>, colour = <span class='st'>"red"</span>
-  )
+<span class='va'>p</span> <span class='op'>+</span>
+  <span class='fu'>geom_text</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='annotate.html'>annotate</a></span><span class='op'>(</span>
+    <span class='st'>"text"</span>, label <span class='op'>=</span> <span class='st'>"plot mpg vs. wt"</span>,
+    x <span class='op'>=</span> <span class='fl'>2</span>, y <span class='op'>=</span> <span class='fl'>15</span>, size <span class='op'>=</span> <span class='fl'>8</span>, colour <span class='op'>=</span> <span class='st'>"red"</span>
+  <span class='op'>)</span>
 </div><div class='img'><img src='geom_text-14.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># \donttest{</span>
 <span class='co'># Aligning labels and bars --------------------------------------------------</span>
-<span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  x = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>)),
-  y = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>3</span>, <span class='fl'>2</span>, <span class='fl'>1</span>),
-  grp = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"a"</span>, <span class='st'>"b"</span>)
-)
+<span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
+  x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>,
+  y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>3</span>, <span class='fl'>2</span>, <span class='fl'>1</span><span class='op'>)</span>,
+  grp <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"a"</span>, <span class='st'>"b"</span><span class='op'>)</span>
+<span class='op'>)</span>
 
 <span class='co'># ggplot2 doesn't know you want to give the labels the same virtual width</span>
 <span class='co'># as the bars:</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(data = <span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>, group = <span class='kw'>grp</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_bar.html'>geom_col</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(fill = <span class='kw'>grp</span>), position = <span class='st'>"dodge"</span>) <span class='op'>+</span>
-  <span class='fu'>geom_text</span>(<span class='fu'><a href='aes.html'>aes</a></span>(label = <span class='kw'>y</span>), position = <span class='st'>"dodge"</span>)
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, group <span class='op'>=</span> <span class='va'>grp</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_bar.html'>geom_col</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>grp</span><span class='op'>)</span>, position <span class='op'>=</span> <span class='st'>"dodge"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_text</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>label <span class='op'>=</span> <span class='va'>y</span><span class='op'>)</span>, position <span class='op'>=</span> <span class='st'>"dodge"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Width not defined. Set with `position_dodge(width = ?)`</span></div><div class='img'><img src='geom_text-15.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># So tell it:</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(data = <span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>, group = <span class='kw'>grp</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_bar.html'>geom_col</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(fill = <span class='kw'>grp</span>), position = <span class='st'>"dodge"</span>) <span class='op'>+</span>
-  <span class='fu'>geom_text</span>(<span class='fu'><a href='aes.html'>aes</a></span>(label = <span class='kw'>y</span>), position = <span class='fu'><a href='position_dodge.html'>position_dodge</a></span>(<span class='fl'>0.9</span>))
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, group <span class='op'>=</span> <span class='va'>grp</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_bar.html'>geom_col</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>grp</span><span class='op'>)</span>, position <span class='op'>=</span> <span class='st'>"dodge"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_text</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>label <span class='op'>=</span> <span class='va'>y</span><span class='op'>)</span>, position <span class='op'>=</span> <span class='fu'><a href='position_dodge.html'>position_dodge</a></span><span class='op'>(</span><span class='fl'>0.9</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_text-16.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Use you can't nudge and dodge text, so instead adjust the y position</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(data = <span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>, group = <span class='kw'>grp</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_bar.html'>geom_col</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(fill = <span class='kw'>grp</span>), position = <span class='st'>"dodge"</span>) <span class='op'>+</span>
-  <span class='fu'>geom_text</span>(
-    <span class='fu'><a href='aes.html'>aes</a></span>(label = <span class='kw'>y</span>, y = <span class='kw'>y</span> <span class='op'>+</span> <span class='fl'>0.05</span>),
-    position = <span class='fu'><a href='position_dodge.html'>position_dodge</a></span>(<span class='fl'>0.9</span>),
-    vjust = <span class='fl'>0</span>
-  )
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, group <span class='op'>=</span> <span class='va'>grp</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_bar.html'>geom_col</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>grp</span><span class='op'>)</span>, position <span class='op'>=</span> <span class='st'>"dodge"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_text</span><span class='op'>(</span>
+    <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>label <span class='op'>=</span> <span class='va'>y</span>, y <span class='op'>=</span> <span class='va'>y</span> <span class='op'>+</span> <span class='fl'>0.05</span><span class='op'>)</span>,
+    position <span class='op'>=</span> <span class='fu'><a href='position_dodge.html'>position_dodge</a></span><span class='op'>(</span><span class='fl'>0.9</span><span class='op'>)</span>,
+    vjust <span class='op'>=</span> <span class='fl'>0</span>
+  <span class='op'>)</span>
 </div><div class='img'><img src='geom_text-17.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># To place text in the middle of each bar in a stacked barplot, you</span>
 <span class='co'># need to set the vjust parameter of position_stack()</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(data = <span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>, group = <span class='kw'>grp</span>)) <span class='op'>+</span>
- <span class='fu'><a href='geom_bar.html'>geom_col</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(fill = <span class='kw'>grp</span>)) <span class='op'>+</span>
- <span class='fu'>geom_text</span>(<span class='fu'><a href='aes.html'>aes</a></span>(label = <span class='kw'>y</span>), position = <span class='fu'><a href='position_stack.html'>position_stack</a></span>(vjust = <span class='fl'>0.5</span>))
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, group <span class='op'>=</span> <span class='va'>grp</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+ <span class='fu'><a href='geom_bar.html'>geom_col</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>grp</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+ <span class='fu'>geom_text</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>label <span class='op'>=</span> <span class='va'>y</span><span class='op'>)</span>, position <span class='op'>=</span> <span class='fu'><a href='position_stack.html'>position_stack</a></span><span class='op'>(</span>vjust <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_text-18.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Justification -------------------------------------------------------------</span>
-<span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  x = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>1.5</span>),
-  y = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>1.5</span>),
-  text = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"bottom-left"</span>, <span class='st'>"bottom-right"</span>, <span class='st'>"top-left"</span>, <span class='st'>"top-right"</span>, <span class='st'>"center"</span>)
-)
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
-  <span class='fu'>geom_text</span>(<span class='fu'><a href='aes.html'>aes</a></span>(label = <span class='kw'>text</span>))
-</div><div class='img'><img src='geom_text-19.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
-  <span class='fu'>geom_text</span>(<span class='fu'><a href='aes.html'>aes</a></span>(label = <span class='kw'>text</span>), vjust = <span class='st'>"inward"</span>, hjust = <span class='st'>"inward"</span>)
+<span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
+  x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>1.5</span><span class='op'>)</span>,
+  y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>1.5</span><span class='op'>)</span>,
+  text <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"bottom-left"</span>, <span class='st'>"bottom-right"</span>, <span class='st'>"top-left"</span>, <span class='st'>"top-right"</span>, <span class='st'>"center"</span><span class='op'>)</span>
+<span class='op'>)</span>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_text</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>label <span class='op'>=</span> <span class='va'>text</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='geom_text-19.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_text</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>label <span class='op'>=</span> <span class='va'>text</span><span class='op'>)</span>, vjust <span class='op'>=</span> <span class='st'>"inward"</span>, hjust <span class='op'>=</span> <span class='st'>"inward"</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_text-20.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 </div></pre>
   </div>

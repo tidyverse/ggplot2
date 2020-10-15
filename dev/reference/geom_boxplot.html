@@ -210,40 +210,40 @@ It visualises five summary statistics (the median, two hinges
 and two whiskers), and all "outlying" points individually.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>geom_boxplot</span>(
-  mapping = <span class='kw'>NULL</span>,
-  data = <span class='kw'>NULL</span>,
-  stat = <span class='st'>"boxplot"</span>,
-  position = <span class='st'>"dodge2"</span>,
-  <span class='kw'>...</span>,
-  outlier.colour = <span class='kw'>NULL</span>,
-  outlier.color = <span class='kw'>NULL</span>,
-  outlier.fill = <span class='kw'>NULL</span>,
-  outlier.shape = <span class='fl'>19</span>,
-  outlier.size = <span class='fl'>1.5</span>,
-  outlier.stroke = <span class='fl'>0.5</span>,
-  outlier.alpha = <span class='kw'>NULL</span>,
-  notch = <span class='fl'>FALSE</span>,
-  notchwidth = <span class='fl'>0.5</span>,
-  varwidth = <span class='fl'>FALSE</span>,
-  na.rm = <span class='fl'>FALSE</span>,
-  orientation = <span class='fl'>NA</span>,
-  show.legend = <span class='fl'>NA</span>,
-  inherit.aes = <span class='fl'>TRUE</span>
-)
+    <pre class="usage"><span class='fu'>geom_boxplot</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  stat <span class='op'>=</span> <span class='st'>"boxplot"</span>,
+  position <span class='op'>=</span> <span class='st'>"dodge2"</span>,
+  <span class='va'>...</span>,
+  outlier.colour <span class='op'>=</span> <span class='cn'>NULL</span>,
+  outlier.color <span class='op'>=</span> <span class='cn'>NULL</span>,
+  outlier.fill <span class='op'>=</span> <span class='cn'>NULL</span>,
+  outlier.shape <span class='op'>=</span> <span class='fl'>19</span>,
+  outlier.size <span class='op'>=</span> <span class='fl'>1.5</span>,
+  outlier.stroke <span class='op'>=</span> <span class='fl'>0.5</span>,
+  outlier.alpha <span class='op'>=</span> <span class='cn'>NULL</span>,
+  notch <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  notchwidth <span class='op'>=</span> <span class='fl'>0.5</span>,
+  varwidth <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  orientation <span class='op'>=</span> <span class='cn'>NA</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
+  inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span>
 
-<span class='fu'>stat_boxplot</span>(
-  mapping = <span class='kw'>NULL</span>,
-  data = <span class='kw'>NULL</span>,
-  geom = <span class='st'>"boxplot"</span>,
-  position = <span class='st'>"dodge2"</span>,
-  <span class='kw'>...</span>,
-  coef = <span class='fl'>1.5</span>,
-  na.rm = <span class='fl'>FALSE</span>,
-  orientation = <span class='fl'>NA</span>,
-  show.legend = <span class='fl'>NA</span>,
-  inherit.aes = <span class='fl'>TRUE</span>
-)</pre>
+<span class='fu'>stat_boxplot</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  geom <span class='op'>=</span> <span class='st'>"boxplot"</span>,
+  position <span class='op'>=</span> <span class='st'>"dodge2"</span>,
+  <span class='va'>...</span>,
+  coef <span class='op'>=</span> <span class='fl'>1.5</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  orientation <span class='op'>=</span> <span class='cn'>NA</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
+  inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -420,50 +420,50 @@ box plots. The American Statistician 32, 12-16.</p>
 <code><a href='geom_jitter.html'>geom_jitter()</a></code> for a useful technique for small data.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>class</span>, <span class='kw'>hwy</span>))
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_boxplot</span>()
+    <pre class="examples"><div class='input'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>class</span>, <span class='va'>hwy</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_boxplot</span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_boxplot-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Orientation follows the discrete axis</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>hwy</span>, <span class='kw'>class</span>)) <span class='op'>+</span> <span class='fu'>geom_boxplot</span>()
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>hwy</span>, <span class='va'>class</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>geom_boxplot</span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_boxplot-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_boxplot</span>(notch = <span class='fl'>TRUE</span>)
-</div><div class='output co'>#&gt; <span class='message'>notch went outside hinges. Try setting notch=FALSE.</span></div><div class='output co'>#&gt; <span class='message'>notch went outside hinges. Try setting notch=FALSE.</span></div><div class='img'><img src='geom_boxplot-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_boxplot</span>(varwidth = <span class='fl'>TRUE</span>)
-</div><div class='img'><img src='geom_boxplot-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_boxplot</span>(fill = <span class='st'>"white"</span>, colour = <span class='st'>"#3366FF"</span>)
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_boxplot</span><span class='op'>(</span>notch <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>notch went outside hinges. Try setting notch=FALSE.</span></div><div class='output co'>#&gt; <span class='message'>notch went outside hinges. Try setting notch=FALSE.</span></div><div class='img'><img src='geom_boxplot-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_boxplot</span><span class='op'>(</span>varwidth <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='img'><img src='geom_boxplot-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_boxplot</span><span class='op'>(</span>fill <span class='op'>=</span> <span class='st'>"white"</span>, colour <span class='op'>=</span> <span class='st'>"#3366FF"</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_boxplot-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># By default, outlier points match the colour of the box. Use</span>
 <span class='co'># outlier.colour to override</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_boxplot</span>(outlier.colour = <span class='st'>"red"</span>, outlier.shape = <span class='fl'>1</span>)
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_boxplot</span><span class='op'>(</span>outlier.colour <span class='op'>=</span> <span class='st'>"red"</span>, outlier.shape <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_boxplot-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Remove outliers when overlaying boxplot with original data points</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_boxplot</span>(outlier.shape = <span class='fl'>NA</span>) <span class='op'>+</span> <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span>(width = <span class='fl'>0.2</span>)
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_boxplot</span><span class='op'>(</span>outlier.shape <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span><span class='op'>(</span>width <span class='op'>=</span> <span class='fl'>0.2</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_boxplot-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Boxplots are automatically dodged when any aesthetic is a factor</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_boxplot</span>(<span class='fu'><a href='aes.html'>aes</a></span>(colour = <span class='kw'>drv</span>))
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_boxplot</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='va'>drv</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_boxplot-8.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can also use boxplots with continuous x, as long as you supply</span>
 <span class='co'># a grouping variable. cut_width is particularly useful</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>carat</span>, <span class='kw'>price</span>)) <span class='op'>+</span>
-  <span class='fu'>geom_boxplot</span>()
-</div><div class='output co'>#&gt; <span class='warning'>Warning: Continuous x aesthetic -- did you forget aes(group=...)?</span></div><div class='img'><img src='geom_boxplot-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>carat</span>, <span class='kw'>price</span>)) <span class='op'>+</span>
-  <span class='fu'>geom_boxplot</span>(<span class='fu'><a href='aes.html'>aes</a></span>(group = <span class='fu'><a href='cut_interval.html'>cut_width</a></span>(<span class='kw'>carat</span>, <span class='fl'>0.25</span>)))
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>carat</span>, <span class='va'>price</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_boxplot</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Continuous x aesthetic -- did you forget aes(group=...)?</span></div><div class='img'><img src='geom_boxplot-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>carat</span>, <span class='va'>price</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_boxplot</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>group <span class='op'>=</span> <span class='fu'><a href='cut_interval.html'>cut_width</a></span><span class='op'>(</span><span class='va'>carat</span>, <span class='fl'>0.25</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_boxplot-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Adjust the transparency of outliers using outlier.alpha</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>carat</span>, <span class='kw'>price</span>)) <span class='op'>+</span>
-  <span class='fu'>geom_boxplot</span>(<span class='fu'><a href='aes.html'>aes</a></span>(group = <span class='fu'><a href='cut_interval.html'>cut_width</a></span>(<span class='kw'>carat</span>, <span class='fl'>0.25</span>)), outlier.alpha = <span class='fl'>0.1</span>)
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>carat</span>, <span class='va'>price</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_boxplot</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>group <span class='op'>=</span> <span class='fu'><a href='cut_interval.html'>cut_width</a></span><span class='op'>(</span><span class='va'>carat</span>, <span class='fl'>0.25</span><span class='op'>)</span><span class='op'>)</span>, outlier.alpha <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_boxplot-11.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># \donttest{</span>
 <span class='co'># It's possible to draw a boxplot with your own computations if you</span>
 <span class='co'># use stat = "identity":</span>
-<span class='kw'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>100</span>)
-<span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  x = <span class='fl'>1</span>,
-  y0 = <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span>(<span class='kw'>y</span>),
-  y25 = <span class='fu'><a href='https://rdrr.io/r/stats/quantile.html'>quantile</a></span>(<span class='kw'>y</span>, <span class='fl'>0.25</span>),
-  y50 = <span class='fu'><a href='https://rdrr.io/r/stats/median.html'>median</a></span>(<span class='kw'>y</span>),
-  y75 = <span class='fu'><a href='https://rdrr.io/r/stats/quantile.html'>quantile</a></span>(<span class='kw'>y</span>, <span class='fl'>0.75</span>),
-  y100 = <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='kw'>y</span>)
-)
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span>)) <span class='op'>+</span>
-  <span class='fu'>geom_boxplot</span>(
-   <span class='fu'><a href='aes.html'>aes</a></span>(ymin = <span class='kw'>y0</span>, lower = <span class='kw'>y25</span>, middle = <span class='kw'>y50</span>, upper = <span class='kw'>y75</span>, ymax = <span class='kw'>y100</span>),
-   stat = <span class='st'>"identity"</span>
- )
+<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100</span><span class='op'>)</span>
+<span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
+  x <span class='op'>=</span> <span class='fl'>1</span>,
+  y0 <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span>,
+  y25 <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/quantile.html'>quantile</a></span><span class='op'>(</span><span class='va'>y</span>, <span class='fl'>0.25</span><span class='op'>)</span>,
+  y50 <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/median.html'>median</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span>,
+  y75 <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/quantile.html'>quantile</a></span><span class='op'>(</span><span class='va'>y</span>, <span class='fl'>0.75</span><span class='op'>)</span>,
+  y100 <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span>
+<span class='op'>)</span>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_boxplot</span><span class='op'>(</span>
+   <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>ymin <span class='op'>=</span> <span class='va'>y0</span>, lower <span class='op'>=</span> <span class='va'>y25</span>, middle <span class='op'>=</span> <span class='va'>y50</span>, upper <span class='op'>=</span> <span class='va'>y75</span>, ymax <span class='op'>=</span> <span class='va'>y100</span><span class='op'>)</span>,
+   stat <span class='op'>=</span> <span class='st'>"identity"</span>
+ <span class='op'>)</span>
 </div><div class='img'><img src='geom_boxplot-12.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 </div></pre>
   </div>

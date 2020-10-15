@@ -210,27 +210,27 @@ observations at each location, then maps the count to point area. It
 useful when you have discrete data and overplotting.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>geom_count</span>(
-  mapping = <span class='kw'>NULL</span>,
-  data = <span class='kw'>NULL</span>,
-  stat = <span class='st'>"sum"</span>,
-  position = <span class='st'>"identity"</span>,
-  <span class='kw'>...</span>,
-  na.rm = <span class='fl'>FALSE</span>,
-  show.legend = <span class='fl'>NA</span>,
-  inherit.aes = <span class='fl'>TRUE</span>
-)
+    <pre class="usage"><span class='fu'>geom_count</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  stat <span class='op'>=</span> <span class='st'>"sum"</span>,
+  position <span class='op'>=</span> <span class='st'>"identity"</span>,
+  <span class='va'>...</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
+  inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span>
 
-<span class='fu'>stat_sum</span>(
-  mapping = <span class='kw'>NULL</span>,
-  data = <span class='kw'>NULL</span>,
-  geom = <span class='st'>"point"</span>,
-  position = <span class='st'>"identity"</span>,
-  <span class='kw'>...</span>,
-  na.rm = <span class='fl'>FALSE</span>,
-  show.legend = <span class='fl'>NA</span>,
-  inherit.aes = <span class='fl'>TRUE</span>
-)</pre>
+<span class='fu'>stat_sum</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  geom <span class='op'>=</span> <span class='st'>"point"</span>,
+  position <span class='op'>=</span> <span class='st'>"identity"</span>,
+  <span class='va'>...</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
+  inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -325,35 +325,35 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
     <div class='dont-index'><p>For continuous <code>x</code> and <code>y</code>, use <code><a href='geom_bin2d.html'>geom_bin2d()</a></code>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>cty</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
- <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
+    <pre class="examples"><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>cty</span>, <span class='va'>hwy</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+ <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_count-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>cty</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
- <span class='fu'>geom_count</span>()
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>cty</span>, <span class='va'>hwy</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+ <span class='fu'>geom_count</span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_count-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Best used in conjunction with scale_size_area which ensures that</span>
 <span class='co'># counts of zero would be given size 0. Doesn't make much different</span>
 <span class='co'># here because the smallest count is already close to 0.</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>cty</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
- <span class='fu'>geom_count</span>() <span class='op'>+</span>
- <span class='fu'><a href='scale_size.html'>scale_size_area</a></span>()
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>cty</span>, <span class='va'>hwy</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+ <span class='fu'>geom_count</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+ <span class='fu'><a href='scale_size.html'>scale_size_area</a></span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_count-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Display proportions instead of counts -------------------------------------</span>
 <span class='co'># By default, all categorical variables in the plot form the groups.</span>
 <span class='co'># Specifying geom_count without a group identifier leads to a plot which is</span>
 <span class='co'># not useful:</span>
-<span class='kw'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='kw'>cut</span>, y = <span class='kw'>clarity</span>))
-<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>geom_count</span>(<span class='fu'><a href='aes.html'>aes</a></span>(size = <span class='fu'><a href='aes_eval.html'>after_stat</a></span>(<span class='kw'>prop</span>)))
+<span class='va'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>cut</span>, y <span class='op'>=</span> <span class='va'>clarity</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>d</span> <span class='op'>+</span> <span class='fu'>geom_count</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fu'><a href='aes_eval.html'>after_stat</a></span><span class='op'>(</span><span class='va'>prop</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_count-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># To correct this problem and achieve a more desirable plot, we need</span>
 <span class='co'># to specify which group the proportion is to be calculated over.</span>
-<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>geom_count</span>(<span class='fu'><a href='aes.html'>aes</a></span>(size = <span class='fu'><a href='aes_eval.html'>after_stat</a></span>(<span class='kw'>prop</span>), group = <span class='fl'>1</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='scale_size.html'>scale_size_area</a></span>(max_size = <span class='fl'>10</span>)
+<span class='va'>d</span> <span class='op'>+</span> <span class='fu'>geom_count</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fu'><a href='aes_eval.html'>after_stat</a></span><span class='op'>(</span><span class='va'>prop</span><span class='op'>)</span>, group <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='scale_size.html'>scale_size_area</a></span><span class='op'>(</span>max_size <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_count-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Or group by x/y variables to have rows/columns sum to 1.</span>
-<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>geom_count</span>(<span class='fu'><a href='aes.html'>aes</a></span>(size = <span class='fu'><a href='aes_eval.html'>after_stat</a></span>(<span class='kw'>prop</span>), group = <span class='kw'>cut</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='scale_size.html'>scale_size_area</a></span>(max_size = <span class='fl'>10</span>)
-</div><div class='img'><img src='geom_count-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span> <span class='fu'>geom_count</span>(<span class='fu'><a href='aes.html'>aes</a></span>(size = <span class='fu'><a href='aes_eval.html'>after_stat</a></span>(<span class='kw'>prop</span>), group = <span class='kw'>clarity</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='scale_size.html'>scale_size_area</a></span>(max_size = <span class='fl'>10</span>)
+<span class='va'>d</span> <span class='op'>+</span> <span class='fu'>geom_count</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fu'><a href='aes_eval.html'>after_stat</a></span><span class='op'>(</span><span class='va'>prop</span><span class='op'>)</span>, group <span class='op'>=</span> <span class='va'>cut</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='scale_size.html'>scale_size_area</a></span><span class='op'>(</span>max_size <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
+</div><div class='img'><img src='geom_count-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'>geom_count</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fu'><a href='aes_eval.html'>after_stat</a></span><span class='op'>(</span><span class='va'>prop</span><span class='op'>)</span>, group <span class='op'>=</span> <span class='va'>clarity</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='scale_size.html'>scale_size_area</a></span><span class='op'>(</span>max_size <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_count-7.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

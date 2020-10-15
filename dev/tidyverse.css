@@ -5,7 +5,7 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
-@import url("https://fonts.googleapis.com/css?family=Source+Code+Pro:300,400,700|Source+Sans+Pro:300,400,700");
+@import url("https://fonts.googleapis.com/css?family=Source+Code+Pro:300,400,500,700|Source+Sans+Pro:300,400,700");
 html {
   font-family: sans-serif;
   -ms-text-size-adjust: 100%;
@@ -1484,7 +1484,7 @@ pre {
   word-break: break-all;
   word-wrap: break-word;
   color: #212121;
-  background-color: #f5f5f5;
+  background-color: #fbfbfb !important;
   border: 1px solid #ccc;
   border-radius: 3px; }
   pre code {
@@ -1494,6 +1494,12 @@ pre {
     white-space: pre-wrap;
     background-color: transparent;
     border-radius: 0; }
+
+/* Commented code */
+span.co {
+  color: #00825d;
+  font-weight: 500;
+}
 
 .pre-scrollable {
   max-height: 340px;

@@ -251,17 +251,17 @@ be added in turn.</p>
     <div class='dont-index'><p><code><a href='theme.html'>theme()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>base</span> <span class='op'>&lt;-</span>
- <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
- <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
-<span class='kw'>base</span> <span class='op'>+</span> <span class='fu'><a href='geom_smooth.html'>geom_smooth</a></span>()
+    <pre class="examples"><div class='input'><span class='va'>base</span> <span class='op'>&lt;-</span>
+ <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>displ</span>, <span class='va'>hwy</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+ <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>base</span> <span class='op'>+</span> <span class='fu'><a href='geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='gg-add-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># To override the data, you must use %+%</span>
-<span class='kw'>base</span> <span class='op'>%+%</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='kw'>mpg</span>, <span class='kw'>fl</span> <span class='op'>==</span> <span class='st'>"p"</span>)
+<span class='va'>base</span> <span class='op'>%+%</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>fl</span> <span class='op'>==</span> <span class='st'>"p"</span><span class='op'>)</span>
 </div><div class='img'><img src='gg-add-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Alternatively, you can add multiple components with a list.</span>
 <span class='co'># This can be useful to return from a function.</span>
-<span class='kw'>base</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='kw'>mpg</span>, <span class='kw'>fl</span> <span class='op'>==</span> <span class='st'>"p"</span>), <span class='fu'><a href='geom_smooth.html'>geom_smooth</a></span>())
+<span class='va'>base</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>fl</span> <span class='op'>==</span> <span class='st'>"p"</span><span class='op'>)</span>, <span class='fu'><a href='geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='gg-add-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

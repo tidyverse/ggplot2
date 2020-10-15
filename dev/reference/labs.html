@@ -216,19 +216,19 @@ about the data source. <code>tag</code> can be used for adding identification ta
 to differentiate between multiple plots.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>labs</span>(
-  <span class='kw'>...</span>,
-  title = <span class='fu'><a href='waiver.html'>waiver</a></span>(),
-  subtitle = <span class='fu'><a href='waiver.html'>waiver</a></span>(),
-  caption = <span class='fu'><a href='waiver.html'>waiver</a></span>(),
-  tag = <span class='fu'><a href='waiver.html'>waiver</a></span>()
-)
+    <pre class="usage"><span class='fu'>labs</span><span class='op'>(</span>
+  <span class='va'>...</span>,
+  title <span class='op'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span><span class='op'>(</span><span class='op'>)</span>,
+  subtitle <span class='op'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span><span class='op'>(</span><span class='op'>)</span>,
+  caption <span class='op'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span><span class='op'>(</span><span class='op'>)</span>,
+  tag <span class='op'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='op'>)</span>
 
-<span class='fu'>xlab</span>(<span class='kw'>label</span>)
+<span class='fu'>xlab</span><span class='op'>(</span><span class='va'>label</span><span class='op'>)</span>
 
-<span class='fu'>ylab</span>(<span class='kw'>label</span>)
+<span class='fu'>ylab</span><span class='op'>(</span><span class='va'>label</span><span class='op'>)</span>
 
-<span class='fu'>ggtitle</span>(<span class='kw'>label</span>, subtitle = <span class='fu'><a href='waiver.html'>waiver</a></span>())</pre>
+<span class='fu'>ggtitle</span><span class='op'>(</span><span class='va'>label</span>, subtitle <span class='op'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -274,27 +274,27 @@ example, if plot <code>p</code> has a subtitle, then <code>p + labs(subtitle = N
 remove the subtitle from the plot.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>, colour = <span class='kw'>cyl</span>)) <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>labs</span>(colour = <span class='st'>"Cylinders"</span>)
-</div><div class='img'><img src='labs-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>labs</span>(x = <span class='st'>"New x label"</span>)
+    <pre class="examples"><div class='input'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>wt</span>, colour <span class='op'>=</span> <span class='va'>cyl</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>labs</span><span class='op'>(</span>colour <span class='op'>=</span> <span class='st'>"Cylinders"</span><span class='op'>)</span>
+</div><div class='img'><img src='labs-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'>labs</span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>"New x label"</span><span class='op'>)</span>
 </div><div class='img'><img src='labs-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># The plot title appears at the top-left, with the subtitle</span>
 <span class='co'># display in smaller text underneath it</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>labs</span>(title = <span class='st'>"New plot title"</span>)
-</div><div class='img'><img src='labs-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>labs</span>(title = <span class='st'>"New plot title"</span>, subtitle = <span class='st'>"A subtitle"</span>)
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>labs</span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"New plot title"</span><span class='op'>)</span>
+</div><div class='img'><img src='labs-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'>labs</span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"New plot title"</span>, subtitle <span class='op'>=</span> <span class='st'>"A subtitle"</span><span class='op'>)</span>
 </div><div class='img'><img src='labs-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># The caption appears in the bottom-right, and is often used for</span>
 <span class='co'># sources, notes or copyright</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>labs</span>(caption = <span class='st'>"(based on data from ...)"</span>)
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>labs</span><span class='op'>(</span>caption <span class='op'>=</span> <span class='st'>"(based on data from ...)"</span><span class='op'>)</span>
 </div><div class='img'><img src='labs-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># The plot tag appears at the top-left, and is typically used</span>
 <span class='co'># for labelling a subplot with a letter.</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>labs</span>(title = <span class='st'>"title"</span>, tag = <span class='st'>"A"</span>)
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>labs</span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"title"</span>, tag <span class='op'>=</span> <span class='st'>"A"</span><span class='op'>)</span>
 </div><div class='img'><img src='labs-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># If you want to remove a label, set it to NULL.</span>
-<span class='kw'>p</span> <span class='op'>+</span>
- <span class='fu'>labs</span>(title = <span class='st'>"title"</span>) <span class='op'>+</span>
- <span class='fu'>labs</span>(title = <span class='kw'>NULL</span>)
+<span class='va'>p</span> <span class='op'>+</span>
+ <span class='fu'>labs</span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"title"</span><span class='op'>)</span> <span class='op'>+</span>
+ <span class='fu'>labs</span><span class='op'>(</span>title <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 </div><div class='img'><img src='labs-7.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

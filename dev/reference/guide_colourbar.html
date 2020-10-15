@@ -212,67 +212,67 @@ For more information, see the inspiration for this function:
 <a href='http://www.mathworks.com/help/techdoc/ref/colorbar.html'>Matlab's colorbar function</a>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>guide_colourbar</span>(
-  title = <span class='fu'><a href='waiver.html'>waiver</a></span>(),
-  title.position = <span class='kw'>NULL</span>,
-  title.theme = <span class='kw'>NULL</span>,
-  title.hjust = <span class='kw'>NULL</span>,
-  title.vjust = <span class='kw'>NULL</span>,
-  label = <span class='fl'>TRUE</span>,
-  label.position = <span class='kw'>NULL</span>,
-  label.theme = <span class='kw'>NULL</span>,
-  label.hjust = <span class='kw'>NULL</span>,
-  label.vjust = <span class='kw'>NULL</span>,
-  barwidth = <span class='kw'>NULL</span>,
-  barheight = <span class='kw'>NULL</span>,
-  nbin = <span class='fl'>300</span>,
-  raster = <span class='fl'>TRUE</span>,
-  frame.colour = <span class='kw'>NULL</span>,
-  frame.linewidth = <span class='fl'>0.5</span>,
-  frame.linetype = <span class='fl'>1</span>,
-  ticks = <span class='fl'>TRUE</span>,
-  ticks.colour = <span class='st'>"white"</span>,
-  ticks.linewidth = <span class='fl'>0.5</span>,
-  draw.ulim = <span class='fl'>TRUE</span>,
-  draw.llim = <span class='fl'>TRUE</span>,
-  direction = <span class='kw'>NULL</span>,
-  default.unit = <span class='st'>"line"</span>,
-  reverse = <span class='fl'>FALSE</span>,
-  order = <span class='fl'>0</span>,
-  available_aes = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"colour"</span>, <span class='st'>"color"</span>, <span class='st'>"fill"</span>),
-  <span class='kw'>...</span>
-)
+    <pre class="usage"><span class='fu'>guide_colourbar</span><span class='op'>(</span>
+  title <span class='op'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span><span class='op'>(</span><span class='op'>)</span>,
+  title.position <span class='op'>=</span> <span class='cn'>NULL</span>,
+  title.theme <span class='op'>=</span> <span class='cn'>NULL</span>,
+  title.hjust <span class='op'>=</span> <span class='cn'>NULL</span>,
+  title.vjust <span class='op'>=</span> <span class='cn'>NULL</span>,
+  label <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  label.position <span class='op'>=</span> <span class='cn'>NULL</span>,
+  label.theme <span class='op'>=</span> <span class='cn'>NULL</span>,
+  label.hjust <span class='op'>=</span> <span class='cn'>NULL</span>,
+  label.vjust <span class='op'>=</span> <span class='cn'>NULL</span>,
+  barwidth <span class='op'>=</span> <span class='cn'>NULL</span>,
+  barheight <span class='op'>=</span> <span class='cn'>NULL</span>,
+  nbin <span class='op'>=</span> <span class='fl'>300</span>,
+  raster <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  frame.colour <span class='op'>=</span> <span class='cn'>NULL</span>,
+  frame.linewidth <span class='op'>=</span> <span class='fl'>0.5</span>,
+  frame.linetype <span class='op'>=</span> <span class='fl'>1</span>,
+  ticks <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  ticks.colour <span class='op'>=</span> <span class='st'>"white"</span>,
+  ticks.linewidth <span class='op'>=</span> <span class='fl'>0.5</span>,
+  draw.ulim <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  draw.llim <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  direction <span class='op'>=</span> <span class='cn'>NULL</span>,
+  default.unit <span class='op'>=</span> <span class='st'>"line"</span>,
+  reverse <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  order <span class='op'>=</span> <span class='fl'>0</span>,
+  available_aes <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"colour"</span>, <span class='st'>"color"</span>, <span class='st'>"fill"</span><span class='op'>)</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
-<span class='fu'>guide_colorbar</span>(
-  title = <span class='fu'><a href='waiver.html'>waiver</a></span>(),
-  title.position = <span class='kw'>NULL</span>,
-  title.theme = <span class='kw'>NULL</span>,
-  title.hjust = <span class='kw'>NULL</span>,
-  title.vjust = <span class='kw'>NULL</span>,
-  label = <span class='fl'>TRUE</span>,
-  label.position = <span class='kw'>NULL</span>,
-  label.theme = <span class='kw'>NULL</span>,
-  label.hjust = <span class='kw'>NULL</span>,
-  label.vjust = <span class='kw'>NULL</span>,
-  barwidth = <span class='kw'>NULL</span>,
-  barheight = <span class='kw'>NULL</span>,
-  nbin = <span class='fl'>300</span>,
-  raster = <span class='fl'>TRUE</span>,
-  frame.colour = <span class='kw'>NULL</span>,
-  frame.linewidth = <span class='fl'>0.5</span>,
-  frame.linetype = <span class='fl'>1</span>,
-  ticks = <span class='fl'>TRUE</span>,
-  ticks.colour = <span class='st'>"white"</span>,
-  ticks.linewidth = <span class='fl'>0.5</span>,
-  draw.ulim = <span class='fl'>TRUE</span>,
-  draw.llim = <span class='fl'>TRUE</span>,
-  direction = <span class='kw'>NULL</span>,
-  default.unit = <span class='st'>"line"</span>,
-  reverse = <span class='fl'>FALSE</span>,
-  order = <span class='fl'>0</span>,
-  available_aes = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"colour"</span>, <span class='st'>"color"</span>, <span class='st'>"fill"</span>),
-  <span class='kw'>...</span>
-)</pre>
+<span class='fu'>guide_colorbar</span><span class='op'>(</span>
+  title <span class='op'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span><span class='op'>(</span><span class='op'>)</span>,
+  title.position <span class='op'>=</span> <span class='cn'>NULL</span>,
+  title.theme <span class='op'>=</span> <span class='cn'>NULL</span>,
+  title.hjust <span class='op'>=</span> <span class='cn'>NULL</span>,
+  title.vjust <span class='op'>=</span> <span class='cn'>NULL</span>,
+  label <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  label.position <span class='op'>=</span> <span class='cn'>NULL</span>,
+  label.theme <span class='op'>=</span> <span class='cn'>NULL</span>,
+  label.hjust <span class='op'>=</span> <span class='cn'>NULL</span>,
+  label.vjust <span class='op'>=</span> <span class='cn'>NULL</span>,
+  barwidth <span class='op'>=</span> <span class='cn'>NULL</span>,
+  barheight <span class='op'>=</span> <span class='cn'>NULL</span>,
+  nbin <span class='op'>=</span> <span class='fl'>300</span>,
+  raster <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  frame.colour <span class='op'>=</span> <span class='cn'>NULL</span>,
+  frame.linewidth <span class='op'>=</span> <span class='fl'>0.5</span>,
+  frame.linetype <span class='op'>=</span> <span class='fl'>1</span>,
+  ticks <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  ticks.colour <span class='op'>=</span> <span class='st'>"white"</span>,
+  ticks.linewidth <span class='op'>=</span> <span class='fl'>0.5</span>,
+  draw.ulim <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  draw.llim <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  direction <span class='op'>=</span> <span class='cn'>NULL</span>,
+  default.unit <span class='op'>=</span> <span class='st'>"line"</span>,
+  reverse <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  order <span class='op'>=</span> <span class='fl'>0</span>,
+  available_aes <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"colour"</span>, <span class='st'>"color"</span>, <span class='st'>"fill"</span><span class='op'>)</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -447,56 +447,56 @@ see <code><a href='guides.html'>guides()</a></code>.</p>
 <code><a href='guides.html'>guides</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid</a></span>(X1 = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, X2 = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>)
-<span class='kw'>df</span><span class='op'>$</span><span class='kw'>value</span> <span class='op'>&lt;-</span> <span class='kw'>df</span><span class='op'>$</span><span class='kw'>X1</span> <span class='op'>*</span> <span class='kw'>df</span><span class='op'>$</span><span class='kw'>X2</span>
+    <pre class="examples"><div class='input'><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid</a></span><span class='op'>(</span>X1 <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, X2 <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span>
+<span class='va'>df</span><span class='op'>$</span><span class='va'>value</span> <span class='op'>&lt;-</span> <span class='va'>df</span><span class='op'>$</span><span class='va'>X1</span> <span class='op'>*</span> <span class='va'>df</span><span class='op'>$</span><span class='va'>X2</span>
 
-<span class='kw'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>X1</span>, <span class='kw'>X2</span>)) <span class='op'>+</span> <span class='fu'><a href='geom_raster.html'>geom_tile</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(fill = <span class='kw'>value</span>))
-<span class='kw'>p2</span> <span class='op'>&lt;-</span> <span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(size = <span class='kw'>value</span>))
+<span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>X1</span>, <span class='va'>X2</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_raster.html'>geom_tile</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>value</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='va'>p1</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='va'>value</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># Basic form</span>
-<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_continuous</a></span>(guide = <span class='st'>"colourbar"</span>)
-</div><div class='img'><img src='guide_colourbar-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_continuous</a></span>(guide = <span class='fu'>guide_colourbar</span>())
-</div><div class='img'><img src='guide_colourbar-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span>(fill = <span class='fu'>guide_colourbar</span>())
+<span class='va'>p1</span> <span class='op'>+</span> <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_continuous</a></span><span class='op'>(</span>guide <span class='op'>=</span> <span class='st'>"colourbar"</span><span class='op'>)</span>
+</div><div class='img'><img src='guide_colourbar-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p1</span> <span class='op'>+</span> <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_continuous</a></span><span class='op'>(</span>guide <span class='op'>=</span> <span class='fu'>guide_colourbar</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='guide_colourbar-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p1</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='fu'>guide_colourbar</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='guide_colourbar-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Control styles</span>
 
 <span class='co'># bar size</span>
-<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span>(fill = <span class='fu'>guide_colourbar</span>(barwidth = <span class='fl'>0.5</span>, barheight = <span class='fl'>10</span>))
+<span class='va'>p1</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='fu'>guide_colourbar</span><span class='op'>(</span>barwidth <span class='op'>=</span> <span class='fl'>0.5</span>, barheight <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='guide_colourbar-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># no label</span>
-<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span>(fill = <span class='fu'>guide_colourbar</span>(label = <span class='fl'>FALSE</span>))
+<span class='va'>p1</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='fu'>guide_colourbar</span><span class='op'>(</span>label <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='guide_colourbar-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># no tick marks</span>
-<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span>(fill = <span class='fu'>guide_colourbar</span>(ticks = <span class='fl'>FALSE</span>))
+<span class='va'>p1</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='fu'>guide_colourbar</span><span class='op'>(</span>ticks <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='guide_colourbar-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># label position</span>
-<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span>(fill = <span class='fu'>guide_colourbar</span>(label.position = <span class='st'>"left"</span>))
+<span class='va'>p1</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='fu'>guide_colourbar</span><span class='op'>(</span>label.position <span class='op'>=</span> <span class='st'>"left"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='guide_colourbar-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># label theme</span>
-<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span>(fill = <span class='fu'>guide_colourbar</span>(label.theme = <span class='fu'><a href='margin.html'>element_text</a></span>(colour = <span class='st'>"blue"</span>, angle = <span class='fl'>0</span>)))
+<span class='va'>p1</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='fu'>guide_colourbar</span><span class='op'>(</span>label.theme <span class='op'>=</span> <span class='fu'><a href='margin.html'>element_text</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='st'>"blue"</span>, angle <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='guide_colourbar-8.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># small number of bins</span>
-<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span>(fill = <span class='fu'>guide_colourbar</span>(nbin = <span class='fl'>3</span>))
+<span class='va'>p1</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='fu'>guide_colourbar</span><span class='op'>(</span>nbin <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='guide_colourbar-9.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># large number of bins</span>
-<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span>(fill = <span class='fu'>guide_colourbar</span>(nbin = <span class='fl'>100</span>))
+<span class='va'>p1</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='fu'>guide_colourbar</span><span class='op'>(</span>nbin <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='guide_colourbar-10.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># make top- and bottom-most ticks invisible</span>
-<span class='kw'>p1</span> <span class='op'>+</span>
-  <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_continuous</a></span>(
-    limits = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>20</span>), breaks = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>5</span>, <span class='fl'>10</span>, <span class='fl'>15</span>, <span class='fl'>20</span>),
-    guide = <span class='fu'>guide_colourbar</span>(nbin = <span class='fl'>100</span>, draw.ulim = <span class='fl'>FALSE</span>, draw.llim = <span class='fl'>FALSE</span>)
-   )
+<span class='va'>p1</span> <span class='op'>+</span>
+  <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_continuous</a></span><span class='op'>(</span>
+    limits <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>20</span><span class='op'>)</span>, breaks <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>5</span>, <span class='fl'>10</span>, <span class='fl'>15</span>, <span class='fl'>20</span><span class='op'>)</span>,
+    guide <span class='op'>=</span> <span class='fu'>guide_colourbar</span><span class='op'>(</span>nbin <span class='op'>=</span> <span class='fl'>100</span>, draw.ulim <span class='op'>=</span> <span class='cn'>FALSE</span>, draw.llim <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+   <span class='op'>)</span>
 </div><div class='img'><img src='guide_colourbar-11.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># guides can be controlled independently</span>
-<span class='kw'>p2</span> <span class='op'>+</span>
-  <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_continuous</a></span>(guide = <span class='st'>"colourbar"</span>) <span class='op'>+</span>
-  <span class='fu'><a href='scale_size.html'>scale_size</a></span>(guide = <span class='st'>"legend"</span>)
-</div><div class='img'><img src='guide_colourbar-12.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p2</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span>(fill = <span class='st'>"colourbar"</span>, size = <span class='st'>"legend"</span>)
+<span class='va'>p2</span> <span class='op'>+</span>
+  <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_continuous</a></span><span class='op'>(</span>guide <span class='op'>=</span> <span class='st'>"colourbar"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='scale_size.html'>scale_size</a></span><span class='op'>(</span>guide <span class='op'>=</span> <span class='st'>"legend"</span><span class='op'>)</span>
+</div><div class='img'><img src='guide_colourbar-12.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p2</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='st'>"colourbar"</span>, size <span class='op'>=</span> <span class='st'>"legend"</span><span class='op'>)</span>
 </div><div class='img'><img src='guide_colourbar-13.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>p2</span> <span class='op'>+</span>
-  <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_continuous</a></span>(guide = <span class='fu'>guide_colourbar</span>(direction = <span class='st'>"horizontal"</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='scale_size.html'>scale_size</a></span>(guide = <span class='fu'><a href='guide_legend.html'>guide_legend</a></span>(direction = <span class='st'>"vertical"</span>))
+<span class='va'>p2</span> <span class='op'>+</span>
+  <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_continuous</a></span><span class='op'>(</span>guide <span class='op'>=</span> <span class='fu'>guide_colourbar</span><span class='op'>(</span>direction <span class='op'>=</span> <span class='st'>"horizontal"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='scale_size.html'>scale_size</a></span><span class='op'>(</span>guide <span class='op'>=</span> <span class='fu'><a href='guide_legend.html'>guide_legend</a></span><span class='op'>(</span>direction <span class='op'>=</span> <span class='st'>"vertical"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='guide_colourbar-14.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

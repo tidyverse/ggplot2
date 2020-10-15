@@ -208,19 +208,19 @@ car::dataEllipse (Fox and Weisberg, 2011)" />
 <code>car::dataEllipse</code> (Fox and Weisberg, 2011)</p>
     </div>
 
-    <pre class="usage"><span class='fu'>stat_ellipse</span>(
-  mapping = <span class='kw'>NULL</span>,
-  data = <span class='kw'>NULL</span>,
-  geom = <span class='st'>"path"</span>,
-  position = <span class='st'>"identity"</span>,
-  <span class='kw'>...</span>,
-  type = <span class='st'>"t"</span>,
-  level = <span class='fl'>0.95</span>,
-  segments = <span class='fl'>51</span>,
-  na.rm = <span class='fl'>FALSE</span>,
-  show.legend = <span class='fl'>NA</span>,
-  inherit.aes = <span class='fl'>TRUE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>stat_ellipse</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  geom <span class='op'>=</span> <span class='st'>"path"</span>,
+  position <span class='op'>=</span> <span class='st'>"identity"</span>,
+  <span class='va'>...</span>,
+  type <span class='op'>=</span> <span class='st'>"t"</span>,
+  level <span class='op'>=</span> <span class='fl'>0.95</span>,
+  segments <span class='op'>=</span> <span class='fl'>51</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
+  inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -309,27 +309,27 @@ Applied Regression, Second Edition. Thousand Oaks CA: Sage. URL:
 <a href='http://socserv.socsci.mcmaster.ca/jfox/Books/Companion'>http://socserv.socsci.mcmaster.ca/jfox/Books/Companion</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>faithful</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>waiting</span>, <span class='kw'>eruptions</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'>stat_ellipse</span>()
+    <pre class="examples"><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>faithful</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>waiting</span>, <span class='va'>eruptions</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>stat_ellipse</span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='img'><img src='stat_ellipse-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>faithful</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>waiting</span>, <span class='kw'>eruptions</span>, color = <span class='kw'>eruptions</span> <span class='op'>&gt;</span> <span class='fl'>3</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'>stat_ellipse</span>()
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>faithful</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>waiting</span>, <span class='va'>eruptions</span>, color <span class='op'>=</span> <span class='va'>eruptions</span> <span class='op'>&gt;</span> <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>stat_ellipse</span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='img'><img src='stat_ellipse-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>faithful</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>waiting</span>, <span class='kw'>eruptions</span>, color = <span class='kw'>eruptions</span> <span class='op'>&gt;</span> <span class='fl'>3</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'>stat_ellipse</span>(type = <span class='st'>"norm"</span>, linetype = <span class='fl'>2</span>) <span class='op'>+</span>
-  <span class='fu'>stat_ellipse</span>(type = <span class='st'>"t"</span>)
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>faithful</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>waiting</span>, <span class='va'>eruptions</span>, color <span class='op'>=</span> <span class='va'>eruptions</span> <span class='op'>&gt;</span> <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>stat_ellipse</span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"norm"</span>, linetype <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>stat_ellipse</span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"t"</span><span class='op'>)</span>
 </div><div class='img'><img src='stat_ellipse-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>faithful</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>waiting</span>, <span class='kw'>eruptions</span>, color = <span class='kw'>eruptions</span> <span class='op'>&gt;</span> <span class='fl'>3</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'>stat_ellipse</span>(type = <span class='st'>"norm"</span>, linetype = <span class='fl'>2</span>) <span class='op'>+</span>
-  <span class='fu'>stat_ellipse</span>(type = <span class='st'>"euclid"</span>, level = <span class='fl'>3</span>) <span class='op'>+</span>
-  <span class='fu'><a href='coord_fixed.html'>coord_fixed</a></span>()
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>faithful</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>waiting</span>, <span class='va'>eruptions</span>, color <span class='op'>=</span> <span class='va'>eruptions</span> <span class='op'>&gt;</span> <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>stat_ellipse</span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"norm"</span>, linetype <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>stat_ellipse</span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"euclid"</span>, level <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='coord_fixed.html'>coord_fixed</a></span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='img'><img src='stat_ellipse-4.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>faithful</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>waiting</span>, <span class='kw'>eruptions</span>, fill = <span class='kw'>eruptions</span> <span class='op'>&gt;</span> <span class='fl'>3</span>)) <span class='op'>+</span>
-  <span class='fu'>stat_ellipse</span>(geom = <span class='st'>"polygon"</span>)
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>faithful</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>waiting</span>, <span class='va'>eruptions</span>, fill <span class='op'>=</span> <span class='va'>eruptions</span> <span class='op'>&gt;</span> <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>stat_ellipse</span><span class='op'>(</span>geom <span class='op'>=</span> <span class='st'>"polygon"</span><span class='op'>)</span>
 </div><div class='img'><img src='stat_ellipse-5.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -212,15 +212,15 @@ completely override it. <code>theme_update()</code> and <code>theme_replace()</c
 changing individual elements.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>theme_get</span>()
+    <pre class="usage"><span class='fu'>theme_get</span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'>theme_set</span>(<span class='kw'>new</span>)
+<span class='fu'>theme_set</span><span class='op'>(</span><span class='va'>new</span><span class='op'>)</span>
 
-<span class='fu'>theme_update</span>(<span class='kw'>...</span>)
+<span class='fu'>theme_update</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>theme_replace</span>(<span class='kw'>...</span>)
+<span class='fu'>theme_replace</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
 
-<span class='kw'>e1</span> <span class='op'>%+replace%</span> <span class='kw'>e2</span></pre>
+<span class='va'>e1</span> <span class='op'>%+replace%</span> <span class='va'>e2</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -275,9 +275,9 @@ using the <code>%+replace%</code> operator.</p></li>
     <div class='dont-index'><p><code><a href='+.gg.html'>+.gg()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
-<span class='kw'>p</span>
+    <pre class="examples"><div class='input'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>wt</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>p</span>
 </div><div class='img'><img src='theme_get-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Use theme_set() to completely override the current theme.</span>
 <span class='co'># theme_update() and theme_replace() are similar except they</span>
@@ -286,19 +286,19 @@ using the <code>%+replace%</code> operator.</p></li>
 <span class='co'># Here we have the old theme so we can later restore it.</span>
 <span class='co'># Note that the theme is applied when the plot is drawn, not</span>
 <span class='co'># when it is created.</span>
-<span class='kw'>old</span> <span class='op'>&lt;-</span> <span class='fu'>theme_set</span>(<span class='fu'><a href='ggtheme.html'>theme_bw</a></span>())
-<span class='kw'>p</span>
+<span class='va'>old</span> <span class='op'>&lt;-</span> <span class='fu'>theme_set</span><span class='op'>(</span><span class='fu'><a href='ggtheme.html'>theme_bw</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>p</span>
 </div><div class='img'><img src='theme_get-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'>theme_set</span>(<span class='kw'>old</span>)
-<span class='fu'>theme_update</span>(panel.grid.minor = <span class='fu'><a href='margin.html'>element_line</a></span>(colour = <span class='st'>"red"</span>))
-<span class='kw'>p</span>
+<span class='fu'>theme_set</span><span class='op'>(</span><span class='va'>old</span><span class='op'>)</span>
+<span class='fu'>theme_update</span><span class='op'>(</span>panel.grid.minor <span class='op'>=</span> <span class='fu'><a href='margin.html'>element_line</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='st'>"red"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>p</span>
 </div><div class='img'><img src='theme_get-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'>theme_set</span>(<span class='kw'>old</span>)
-<span class='fu'>theme_replace</span>(panel.grid.minor = <span class='fu'><a href='margin.html'>element_line</a></span>(colour = <span class='st'>"red"</span>))
-<span class='kw'>p</span>
+<span class='fu'>theme_set</span><span class='op'>(</span><span class='va'>old</span><span class='op'>)</span>
+<span class='fu'>theme_replace</span><span class='op'>(</span>panel.grid.minor <span class='op'>=</span> <span class='fu'><a href='margin.html'>element_line</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='st'>"red"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>p</span>
 </div><div class='img'><img src='theme_get-4.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'>theme_set</span>(<span class='kw'>old</span>)
-<span class='kw'>p</span>
+<span class='fu'>theme_set</span><span class='op'>(</span><span class='va'>old</span><span class='op'>)</span>
+<span class='va'>p</span>
 </div><div class='img'><img src='theme_get-5.png' alt='' width='700' height='433' /></div><div class='input'>
 
 <span class='co'># Modifying theme objects -----------------------------------------</span>
@@ -306,9 +306,9 @@ using the <code>%+replace%</code> operator.</p></li>
 <span class='co'># They differ in how they deal with missing arguments in</span>
 <span class='co'># the theme elements.</span>
 
-<span class='kw'>add_el</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggtheme.html'>theme_grey</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='theme.html'>theme</a></span>(text = <span class='fu'><a href='margin.html'>element_text</a></span>(family = <span class='st'>"Times"</span>))
-<span class='kw'>add_el</span><span class='op'>$</span><span class='kw'>text</span>
+<span class='va'>add_el</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggtheme.html'>theme_grey</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='theme.html'>theme</a></span><span class='op'>(</span>text <span class='op'>=</span> <span class='fu'><a href='margin.html'>element_text</a></span><span class='op'>(</span>family <span class='op'>=</span> <span class='st'>"Times"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>add_el</span><span class='op'>$</span><span class='va'>text</span>
 </div><div class='output co'>#&gt; List of 11
 #&gt;  $ family       : chr "Times"
 #&gt;  $ face         : chr "plain"
@@ -323,9 +323,9 @@ using the <code>%+replace%</code> operator.</p></li>
 #&gt;  $ debug        : logi FALSE
 #&gt;  $ inherit.blank: logi FALSE
 #&gt;  - attr(*, "class")= chr [1:2] "element_text" "element"</div><div class='input'>
-<span class='kw'>rep_el</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggtheme.html'>theme_grey</a></span>() <span class='op'>%+replace%</span>
-  <span class='fu'><a href='theme.html'>theme</a></span>(text = <span class='fu'><a href='margin.html'>element_text</a></span>(family = <span class='st'>"Times"</span>))
-<span class='kw'>rep_el</span><span class='op'>$</span><span class='kw'>text</span>
+<span class='va'>rep_el</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggtheme.html'>theme_grey</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%+replace%</span>
+  <span class='fu'><a href='theme.html'>theme</a></span><span class='op'>(</span>text <span class='op'>=</span> <span class='fu'><a href='margin.html'>element_text</a></span><span class='op'>(</span>family <span class='op'>=</span> <span class='st'>"Times"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>rep_el</span><span class='op'>$</span><span class='va'>text</span>
 </div><div class='output co'>#&gt; List of 11
 #&gt;  $ family       : chr "Times"
 #&gt;  $ face         : NULL

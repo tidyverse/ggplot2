@@ -206,7 +206,7 @@
     <p>Calculate the element properties, by inheriting properties from its parents</p>
     </div>
 
-    <pre class="usage"><span class='fu'>calc_element</span>(<span class='kw'>element</span>, <span class='kw'>theme</span>, verbose = <span class='fl'>FALSE</span>, skip_blank = <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>calc_element</span><span class='op'>(</span><span class='va'>element</span>, <span class='va'>theme</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span>, skip_blank <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -232,8 +232,8 @@ inheritance hierarchy will be ignored.</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>t</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggtheme.html'>theme_grey</a></span>()
-<span class='fu'>calc_element</span>(<span class='st'>'text'</span>, <span class='kw'>t</span>)
+    <pre class="examples"><div class='input'><span class='va'>t</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggtheme.html'>theme_grey</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='fu'>calc_element</span><span class='op'>(</span><span class='st'>'text'</span>, <span class='va'>t</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; List of 11
 #&gt;  $ family       : chr ""
 #&gt;  $ face         : chr "plain"
@@ -249,7 +249,7 @@ inheritance hierarchy will be ignored.</p></td>
 #&gt;  $ inherit.blank: logi TRUE
 #&gt;  - attr(*, "class")= chr [1:2] "element_text" "element"</div><div class='input'>
 <span class='co'># Compare the "raw" element definition to the element with calculated inheritance</span>
-<span class='kw'>t</span><span class='op'>$</span><span class='kw'>axis.text.x</span>
+<span class='va'>t</span><span class='op'>$</span><span class='va'>axis.text.x</span>
 </div><div class='output co'>#&gt; List of 11
 #&gt;  $ family       : NULL
 #&gt;  $ face         : NULL
@@ -263,7 +263,7 @@ inheritance hierarchy will be ignored.</p></td>
 #&gt;   ..- attr(*, "unit")= int 8
 #&gt;  $ debug        : NULL
 #&gt;  $ inherit.blank: logi TRUE
-#&gt;  - attr(*, "class")= chr [1:2] "element_text" "element"</div><div class='input'><span class='fu'>calc_element</span>(<span class='st'>'axis.text.x'</span>, <span class='kw'>t</span>, verbose = <span class='fl'>TRUE</span>)
+#&gt;  - attr(*, "class")= chr [1:2] "element_text" "element"</div><div class='input'><span class='fu'>calc_element</span><span class='op'>(</span><span class='st'>'axis.text.x'</span>, <span class='va'>t</span>, verbose <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>axis.text.x --&gt; </span></div><div class='output co'>#&gt; <span class='message'>axis.text</span></div><div class='output co'>#&gt; <span class='message'>axis.text --&gt; </span></div><div class='output co'>#&gt; <span class='message'>text</span></div><div class='output co'>#&gt; <span class='message'>text --&gt; </span></div><div class='output co'>#&gt; <span class='message'>nothing (top level)</span></div><div class='output co'>#&gt; List of 11
 #&gt;  $ family       : chr ""
 #&gt;  $ face         : chr "plain"
@@ -280,7 +280,7 @@ inheritance hierarchy will be ignored.</p></td>
 #&gt;  - attr(*, "class")= chr [1:2] "element_text" "element"</div><div class='input'>
 <span class='co'># This reports that axis.text.x inherits from axis.text,</span>
 <span class='co'># which inherits from text. You can view each of them with:</span>
-<span class='kw'>t</span><span class='op'>$</span><span class='kw'>axis.text.x</span>
+<span class='va'>t</span><span class='op'>$</span><span class='va'>axis.text.x</span>
 </div><div class='output co'>#&gt; List of 11
 #&gt;  $ family       : NULL
 #&gt;  $ face         : NULL
@@ -294,7 +294,7 @@ inheritance hierarchy will be ignored.</p></td>
 #&gt;   ..- attr(*, "unit")= int 8
 #&gt;  $ debug        : NULL
 #&gt;  $ inherit.blank: logi TRUE
-#&gt;  - attr(*, "class")= chr [1:2] "element_text" "element"</div><div class='input'><span class='kw'>t</span><span class='op'>$</span><span class='kw'>axis.text</span>
+#&gt;  - attr(*, "class")= chr [1:2] "element_text" "element"</div><div class='input'><span class='va'>t</span><span class='op'>$</span><span class='va'>axis.text</span>
 </div><div class='output co'>#&gt; List of 11
 #&gt;  $ family       : NULL
 #&gt;  $ face         : NULL
@@ -307,7 +307,7 @@ inheritance hierarchy will be ignored.</p></td>
 #&gt;  $ margin       : NULL
 #&gt;  $ debug        : NULL
 #&gt;  $ inherit.blank: logi TRUE
-#&gt;  - attr(*, "class")= chr [1:2] "element_text" "element"</div><div class='input'><span class='kw'>t</span><span class='op'>$</span><span class='kw'>text</span>
+#&gt;  - attr(*, "class")= chr [1:2] "element_text" "element"</div><div class='input'><span class='va'>t</span><span class='op'>$</span><span class='va'>text</span>
 </div><div class='output co'>#&gt; List of 11
 #&gt;  $ family       : chr ""
 #&gt;  $ face         : chr "plain"

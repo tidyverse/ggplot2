@@ -208,21 +208,21 @@ These tick marks probably make sense only for base 10." />
 These tick marks probably make sense only for base 10.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>annotation_logticks</span>(
-  base = <span class='fl'>10</span>,
-  sides = <span class='st'>"bl"</span>,
-  outside = <span class='fl'>FALSE</span>,
-  scaled = <span class='fl'>TRUE</span>,
-  short = <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>0.1</span>, <span class='st'>"cm"</span>),
-  mid = <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>0.2</span>, <span class='st'>"cm"</span>),
-  long = <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>0.3</span>, <span class='st'>"cm"</span>),
-  colour = <span class='st'>"black"</span>,
-  size = <span class='fl'>0.5</span>,
-  linetype = <span class='fl'>1</span>,
-  alpha = <span class='fl'>1</span>,
-  color = <span class='kw'>NULL</span>,
-  <span class='kw'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>annotation_logticks</span><span class='op'>(</span>
+  base <span class='op'>=</span> <span class='fl'>10</span>,
+  sides <span class='op'>=</span> <span class='st'>"bl"</span>,
+  outside <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  scaled <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  short <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span><span class='op'>(</span><span class='fl'>0.1</span>, <span class='st'>"cm"</span><span class='op'>)</span>,
+  mid <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span><span class='op'>(</span><span class='fl'>0.2</span>, <span class='st'>"cm"</span><span class='op'>)</span>,
+  long <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span><span class='op'>(</span><span class='fl'>0.3</span>, <span class='st'>"cm"</span><span class='op'>)</span>,
+  colour <span class='op'>=</span> <span class='st'>"black"</span>,
+  size <span class='op'>=</span> <span class='fl'>0.5</span>,
+  linetype <span class='op'>=</span> <span class='fl'>1</span>,
+  alpha <span class='op'>=</span> <span class='fl'>1</span>,
+  color <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -299,51 +299,51 @@ transformations.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Make a log-log plot (without log ticks)</span>
-<span class='kw'>a</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>msleep</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>bodywt</span>, <span class='kw'>brainwt</span>)) <span class='op'>+</span>
- <span class='fu'><a href='geom_point.html'>geom_point</a></span>(na.rm = <span class='fl'>TRUE</span>) <span class='op'>+</span>
- <span class='fu'><a href='scale_continuous.html'>scale_x_log10</a></span>(
-   breaks = <span class='kw'>scales</span>::<span class='fu'><a href='https://scales.r-lib.org//reference/trans_breaks.html'>trans_breaks</a></span>(<span class='st'>"log10"</span>, <span class='fu'>function</span>(<span class='kw'>x</span>) <span class='fl'>10</span><span class='op'>^</span><span class='kw'>x</span>),
-   labels = <span class='kw'>scales</span>::<span class='fu'><a href='https://scales.r-lib.org//reference/trans_format.html'>trans_format</a></span>(<span class='st'>"log10"</span>, <span class='kw'>scales</span>::<span class='fu'><a href='https://scales.r-lib.org//reference/label_parse.html'>math_format</a></span>(<span class='fl'>10</span><span class='op'>^</span><span class='kw'>.x</span>))
- ) <span class='op'>+</span>
- <span class='fu'><a href='scale_continuous.html'>scale_y_log10</a></span>(
-   breaks = <span class='kw'>scales</span>::<span class='fu'><a href='https://scales.r-lib.org//reference/trans_breaks.html'>trans_breaks</a></span>(<span class='st'>"log10"</span>, <span class='fu'>function</span>(<span class='kw'>x</span>) <span class='fl'>10</span><span class='op'>^</span><span class='kw'>x</span>),
-   labels = <span class='kw'>scales</span>::<span class='fu'><a href='https://scales.r-lib.org//reference/trans_format.html'>trans_format</a></span>(<span class='st'>"log10"</span>, <span class='kw'>scales</span>::<span class='fu'><a href='https://scales.r-lib.org//reference/label_parse.html'>math_format</a></span>(<span class='fl'>10</span><span class='op'>^</span><span class='kw'>.x</span>))
- ) <span class='op'>+</span>
- <span class='fu'><a href='ggtheme.html'>theme_bw</a></span>()
+<span class='va'>a</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>msleep</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>bodywt</span>, <span class='va'>brainwt</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+ <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span>na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>+</span>
+ <span class='fu'><a href='scale_continuous.html'>scale_x_log10</a></span><span class='op'>(</span>
+   breaks <span class='op'>=</span> <span class='fu'>scales</span><span class='fu'>::</span><span class='fu'><a href='https://scales.r-lib.org//reference/trans_breaks.html'>trans_breaks</a></span><span class='op'>(</span><span class='st'>"log10"</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fl'>10</span><span class='op'>^</span><span class='va'>x</span><span class='op'>)</span>,
+   labels <span class='op'>=</span> <span class='fu'>scales</span><span class='fu'>::</span><span class='fu'><a href='https://scales.r-lib.org//reference/trans_format.html'>trans_format</a></span><span class='op'>(</span><span class='st'>"log10"</span>, <span class='fu'>scales</span><span class='fu'>::</span><span class='fu'><a href='https://scales.r-lib.org//reference/label_parse.html'>math_format</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>^</span><span class='va'>.x</span><span class='op'>)</span><span class='op'>)</span>
+ <span class='op'>)</span> <span class='op'>+</span>
+ <span class='fu'><a href='scale_continuous.html'>scale_y_log10</a></span><span class='op'>(</span>
+   breaks <span class='op'>=</span> <span class='fu'>scales</span><span class='fu'>::</span><span class='fu'><a href='https://scales.r-lib.org//reference/trans_breaks.html'>trans_breaks</a></span><span class='op'>(</span><span class='st'>"log10"</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fl'>10</span><span class='op'>^</span><span class='va'>x</span><span class='op'>)</span>,
+   labels <span class='op'>=</span> <span class='fu'>scales</span><span class='fu'>::</span><span class='fu'><a href='https://scales.r-lib.org//reference/trans_format.html'>trans_format</a></span><span class='op'>(</span><span class='st'>"log10"</span>, <span class='fu'>scales</span><span class='fu'>::</span><span class='fu'><a href='https://scales.r-lib.org//reference/label_parse.html'>math_format</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>^</span><span class='va'>.x</span><span class='op'>)</span><span class='op'>)</span>
+ <span class='op'>)</span> <span class='op'>+</span>
+ <span class='fu'><a href='ggtheme.html'>theme_bw</a></span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='kw'>a</span> <span class='op'>+</span> <span class='fu'>annotation_logticks</span>()                <span class='co'># Default: log ticks on bottom and left</span>
-</div><div class='img'><img src='annotation_logticks-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>a</span> <span class='op'>+</span> <span class='fu'>annotation_logticks</span>(sides = <span class='st'>"lr"</span>)    <span class='co'># Log ticks for y, on left and right</span>
-</div><div class='img'><img src='annotation_logticks-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>a</span> <span class='op'>+</span> <span class='fu'>annotation_logticks</span>(sides = <span class='st'>"trbl"</span>)  <span class='co'># All four sides</span>
+<span class='va'>a</span> <span class='op'>+</span> <span class='fu'>annotation_logticks</span><span class='op'>(</span><span class='op'>)</span>                <span class='co'># Default: log ticks on bottom and left</span>
+</div><div class='img'><img src='annotation_logticks-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>a</span> <span class='op'>+</span> <span class='fu'>annotation_logticks</span><span class='op'>(</span>sides <span class='op'>=</span> <span class='st'>"lr"</span><span class='op'>)</span>    <span class='co'># Log ticks for y, on left and right</span>
+</div><div class='img'><img src='annotation_logticks-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>a</span> <span class='op'>+</span> <span class='fu'>annotation_logticks</span><span class='op'>(</span>sides <span class='op'>=</span> <span class='st'>"trbl"</span><span class='op'>)</span>  <span class='co'># All four sides</span>
 </div><div class='img'><img src='annotation_logticks-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>a</span> <span class='op'>+</span> <span class='fu'>annotation_logticks</span>(sides = <span class='st'>"lr"</span>, outside = <span class='fl'>TRUE</span>) <span class='op'>+</span>
- <span class='fu'><a href='coord_cartesian.html'>coord_cartesian</a></span>(clip = <span class='st'>"off"</span>)  <span class='co'># Ticks outside plot</span>
+<span class='va'>a</span> <span class='op'>+</span> <span class='fu'>annotation_logticks</span><span class='op'>(</span>sides <span class='op'>=</span> <span class='st'>"lr"</span>, outside <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>+</span>
+ <span class='fu'><a href='coord_cartesian.html'>coord_cartesian</a></span><span class='op'>(</span>clip <span class='op'>=</span> <span class='st'>"off"</span><span class='op'>)</span>  <span class='co'># Ticks outside plot</span>
 </div><div class='img'><img src='annotation_logticks-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Hide the minor grid lines because they don't align with the ticks</span>
-<span class='kw'>a</span> <span class='op'>+</span> <span class='fu'>annotation_logticks</span>(sides = <span class='st'>"trbl"</span>) <span class='op'>+</span> <span class='fu'><a href='theme.html'>theme</a></span>(panel.grid.minor = <span class='fu'><a href='margin.html'>element_blank</a></span>())
+<span class='va'>a</span> <span class='op'>+</span> <span class='fu'>annotation_logticks</span><span class='op'>(</span>sides <span class='op'>=</span> <span class='st'>"trbl"</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='theme.html'>theme</a></span><span class='op'>(</span>panel.grid.minor <span class='op'>=</span> <span class='fu'><a href='margin.html'>element_blank</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='annotation_logticks-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Another way to get the same results as 'a' above: log-transform the data before</span>
 <span class='co'># plotting it. Also hide the minor grid lines.</span>
-<span class='kw'>b</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>msleep</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log10</a></span>(<span class='kw'>bodywt</span>), <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log10</a></span>(<span class='kw'>brainwt</span>))) <span class='op'>+</span>
- <span class='fu'><a href='geom_point.html'>geom_point</a></span>(na.rm = <span class='fl'>TRUE</span>) <span class='op'>+</span>
- <span class='fu'><a href='scale_continuous.html'>scale_x_continuous</a></span>(name = <span class='st'>"body"</span>, labels = <span class='kw'>scales</span>::<span class='fu'><a href='https://scales.r-lib.org//reference/label_parse.html'>math_format</a></span>(<span class='fl'>10</span><span class='op'>^</span><span class='kw'>.x</span>)) <span class='op'>+</span>
- <span class='fu'><a href='scale_continuous.html'>scale_y_continuous</a></span>(name = <span class='st'>"brain"</span>, labels = <span class='kw'>scales</span>::<span class='fu'><a href='https://scales.r-lib.org//reference/label_parse.html'>math_format</a></span>(<span class='fl'>10</span><span class='op'>^</span><span class='kw'>.x</span>)) <span class='op'>+</span>
- <span class='fu'><a href='ggtheme.html'>theme_bw</a></span>() <span class='op'>+</span> <span class='fu'><a href='theme.html'>theme</a></span>(panel.grid.minor = <span class='fu'><a href='margin.html'>element_blank</a></span>())
+<span class='va'>b</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>msleep</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log10</a></span><span class='op'>(</span><span class='va'>bodywt</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log10</a></span><span class='op'>(</span><span class='va'>brainwt</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+ <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span>na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>+</span>
+ <span class='fu'><a href='scale_continuous.html'>scale_x_continuous</a></span><span class='op'>(</span>name <span class='op'>=</span> <span class='st'>"body"</span>, labels <span class='op'>=</span> <span class='fu'>scales</span><span class='fu'>::</span><span class='fu'><a href='https://scales.r-lib.org//reference/label_parse.html'>math_format</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>^</span><span class='va'>.x</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+ <span class='fu'><a href='scale_continuous.html'>scale_y_continuous</a></span><span class='op'>(</span>name <span class='op'>=</span> <span class='st'>"brain"</span>, labels <span class='op'>=</span> <span class='fu'>scales</span><span class='fu'>::</span><span class='fu'><a href='https://scales.r-lib.org//reference/label_parse.html'>math_format</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>^</span><span class='va'>.x</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+ <span class='fu'><a href='ggtheme.html'>theme_bw</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='theme.html'>theme</a></span><span class='op'>(</span>panel.grid.minor <span class='op'>=</span> <span class='fu'><a href='margin.html'>element_blank</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='kw'>b</span> <span class='op'>+</span> <span class='fu'>annotation_logticks</span>()
+<span class='va'>b</span> <span class='op'>+</span> <span class='fu'>annotation_logticks</span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='img'><img src='annotation_logticks-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Using a coordinate transform requires scaled = FALSE</span>
-<span class='kw'>t</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>msleep</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>bodywt</span>, <span class='kw'>brainwt</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='coord_trans.html'>coord_trans</a></span>(x = <span class='st'>"log10"</span>, y = <span class='st'>"log10"</span>) <span class='op'>+</span>
-  <span class='fu'><a href='ggtheme.html'>theme_bw</a></span>()
-<span class='kw'>t</span> <span class='op'>+</span> <span class='fu'>annotation_logticks</span>(scaled = <span class='fl'>FALSE</span>)
+<span class='va'>t</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>msleep</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>bodywt</span>, <span class='va'>brainwt</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='coord_trans.html'>coord_trans</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>"log10"</span>, y <span class='op'>=</span> <span class='st'>"log10"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='ggtheme.html'>theme_bw</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>t</span> <span class='op'>+</span> <span class='fu'>annotation_logticks</span><span class='op'>(</span>scaled <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 27 rows containing missing values (geom_point).</span></div><div class='img'><img src='annotation_logticks-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Change the length of the ticks</span>
-<span class='kw'>a</span> <span class='op'>+</span> <span class='fu'>annotation_logticks</span>(
-  short = <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>.5</span>,<span class='st'>"mm"</span>),
-  mid = <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>3</span>,<span class='st'>"mm"</span>),
-  long = <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>4</span>,<span class='st'>"mm"</span>)
-)
+<span class='va'>a</span> <span class='op'>+</span> <span class='fu'>annotation_logticks</span><span class='op'>(</span>
+  short <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span><span class='op'>(</span><span class='fl'>.5</span>,<span class='st'>"mm"</span><span class='op'>)</span>,
+  mid <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='st'>"mm"</span><span class='op'>)</span>,
+  long <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span><span class='op'>(</span><span class='fl'>4</span>,<span class='st'>"mm"</span><span class='op'>)</span>
+<span class='op'>)</span>
 </div><div class='img'><img src='annotation_logticks-8.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

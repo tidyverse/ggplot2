@@ -208,21 +208,21 @@ of scale_colour_gradient()." />
 of <code><a href='scale_colour_gradient.html'>scale_colour_gradient()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>scale_colour_grey</span>(
-  <span class='kw'>...</span>,
-  start = <span class='fl'>0.2</span>,
-  end = <span class='fl'>0.8</span>,
-  na.value = <span class='st'>"red"</span>,
-  aesthetics = <span class='st'>"colour"</span>
-)
+    <pre class="usage"><span class='fu'>scale_colour_grey</span><span class='op'>(</span>
+  <span class='va'>...</span>,
+  start <span class='op'>=</span> <span class='fl'>0.2</span>,
+  end <span class='op'>=</span> <span class='fl'>0.8</span>,
+  na.value <span class='op'>=</span> <span class='st'>"red"</span>,
+  aesthetics <span class='op'>=</span> <span class='st'>"colour"</span>
+<span class='op'>)</span>
 
-<span class='fu'>scale_fill_grey</span>(
-  <span class='kw'>...</span>,
-  start = <span class='fl'>0.2</span>,
-  end = <span class='fl'>0.8</span>,
-  na.value = <span class='st'>"red"</span>,
-  aesthetics = <span class='st'>"fill"</span>
-)</pre>
+<span class='fu'>scale_fill_grey</span><span class='op'>(</span>
+  <span class='va'>...</span>,
+  start <span class='op'>=</span> <span class='fl'>0.2</span>,
+  end <span class='op'>=</span> <span class='fl'>0.8</span>,
+  na.value <span class='op'>=</span> <span class='st'>"red"</span>,
+  aesthetics <span class='op'>=</span> <span class='st'>"fill"</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -316,21 +316,21 @@ same time, via <code>aesthetics = c("colour", "fill")</code>.</p></td>
 <code><a href='scale_colour_viridis_d.html'>scale_colour_viridis_d</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>)) <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(colour = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>)))
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>scale_colour_grey</span>()
-</div><div class='img'><img src='scale_grey-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>scale_colour_grey</span>(end = <span class='fl'>0</span>)
+    <pre class="examples"><div class='input'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>wt</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>scale_colour_grey</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='scale_grey-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'>scale_colour_grey</span><span class='op'>(</span>end <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
 </div><div class='img'><img src='scale_grey-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You may want to turn off the pale grey background with this scale</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>scale_colour_grey</span>() <span class='op'>+</span> <span class='fu'><a href='ggtheme.html'>theme_bw</a></span>()
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>scale_colour_grey</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='ggtheme.html'>theme_bw</a></span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='img'><img src='scale_grey-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Colour of missing values is controlled with na.value:</span>
-<span class='kw'>miss</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>NA</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>), <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='kw'>mtcars</span>), replace = <span class='fl'>TRUE</span>))
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(colour = <span class='kw'>miss</span>)) <span class='op'>+</span>
-  <span class='fu'>scale_colour_grey</span>()
-</div><div class='img'><img src='scale_grey-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(colour = <span class='kw'>miss</span>)) <span class='op'>+</span>
-  <span class='fu'>scale_colour_grey</span>(na.value = <span class='st'>"green"</span>)
+<span class='va'>miss</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>NA</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span>, replace <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>wt</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='va'>miss</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>scale_colour_grey</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='scale_grey-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>wt</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='va'>miss</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>scale_colour_grey</span><span class='op'>(</span>na.value <span class='op'>=</span> <span class='st'>"green"</span><span class='op'>)</span>
 </div><div class='img'><img src='scale_grey-5.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

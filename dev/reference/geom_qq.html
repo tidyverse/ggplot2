@@ -210,61 +210,61 @@ points at specified quartiles of the theoretical and sample distributions." />
 points at specified quartiles of the theoretical and sample distributions.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>geom_qq_line</span>(
-  mapping = <span class='kw'>NULL</span>,
-  data = <span class='kw'>NULL</span>,
-  geom = <span class='st'>"path"</span>,
-  position = <span class='st'>"identity"</span>,
-  <span class='kw'>...</span>,
-  distribution = <span class='kw'>stats</span>::<span class='kw'><a href='https://rdrr.io/r/stats/Normal.html'>qnorm</a></span>,
-  dparams = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
-  line.p = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.25</span>, <span class='fl'>0.75</span>),
-  fullrange = <span class='fl'>FALSE</span>,
-  na.rm = <span class='fl'>FALSE</span>,
-  show.legend = <span class='fl'>NA</span>,
-  inherit.aes = <span class='fl'>TRUE</span>
-)
+    <pre class="usage"><span class='fu'>geom_qq_line</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  geom <span class='op'>=</span> <span class='st'>"path"</span>,
+  position <span class='op'>=</span> <span class='st'>"identity"</span>,
+  <span class='va'>...</span>,
+  distribution <span class='op'>=</span> <span class='fu'>stats</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/r/stats/Normal.html'>qnorm</a></span>,
+  dparams <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+  line.p <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.25</span>, <span class='fl'>0.75</span><span class='op'>)</span>,
+  fullrange <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
+  inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span>
 
-<span class='fu'>stat_qq_line</span>(
-  mapping = <span class='kw'>NULL</span>,
-  data = <span class='kw'>NULL</span>,
-  geom = <span class='st'>"path"</span>,
-  position = <span class='st'>"identity"</span>,
-  <span class='kw'>...</span>,
-  distribution = <span class='kw'>stats</span>::<span class='kw'><a href='https://rdrr.io/r/stats/Normal.html'>qnorm</a></span>,
-  dparams = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
-  line.p = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.25</span>, <span class='fl'>0.75</span>),
-  fullrange = <span class='fl'>FALSE</span>,
-  na.rm = <span class='fl'>FALSE</span>,
-  show.legend = <span class='fl'>NA</span>,
-  inherit.aes = <span class='fl'>TRUE</span>
-)
+<span class='fu'>stat_qq_line</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  geom <span class='op'>=</span> <span class='st'>"path"</span>,
+  position <span class='op'>=</span> <span class='st'>"identity"</span>,
+  <span class='va'>...</span>,
+  distribution <span class='op'>=</span> <span class='fu'>stats</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/r/stats/Normal.html'>qnorm</a></span>,
+  dparams <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+  line.p <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.25</span>, <span class='fl'>0.75</span><span class='op'>)</span>,
+  fullrange <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
+  inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span>
 
-<span class='fu'>geom_qq</span>(
-  mapping = <span class='kw'>NULL</span>,
-  data = <span class='kw'>NULL</span>,
-  geom = <span class='st'>"point"</span>,
-  position = <span class='st'>"identity"</span>,
-  <span class='kw'>...</span>,
-  distribution = <span class='kw'>stats</span>::<span class='kw'><a href='https://rdrr.io/r/stats/Normal.html'>qnorm</a></span>,
-  dparams = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
-  na.rm = <span class='fl'>FALSE</span>,
-  show.legend = <span class='fl'>NA</span>,
-  inherit.aes = <span class='fl'>TRUE</span>
-)
+<span class='fu'>geom_qq</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  geom <span class='op'>=</span> <span class='st'>"point"</span>,
+  position <span class='op'>=</span> <span class='st'>"identity"</span>,
+  <span class='va'>...</span>,
+  distribution <span class='op'>=</span> <span class='fu'>stats</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/r/stats/Normal.html'>qnorm</a></span>,
+  dparams <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
+  inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span>
 
-<span class='fu'>stat_qq</span>(
-  mapping = <span class='kw'>NULL</span>,
-  data = <span class='kw'>NULL</span>,
-  geom = <span class='st'>"point"</span>,
-  position = <span class='st'>"identity"</span>,
-  <span class='kw'>...</span>,
-  distribution = <span class='kw'>stats</span>::<span class='kw'><a href='https://rdrr.io/r/stats/Normal.html'>qnorm</a></span>,
-  dparams = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
-  na.rm = <span class='fl'>FALSE</span>,
-  show.legend = <span class='fl'>NA</span>,
-  inherit.aes = <span class='fl'>TRUE</span>
-)</pre>
+<span class='fu'>stat_qq</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  geom <span class='op'>=</span> <span class='st'>"point"</span>,
+  position <span class='op'>=</span> <span class='st'>"identity"</span>,
+  <span class='va'>...</span>,
+  distribution <span class='op'>=</span> <span class='fu'>stats</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/r/stats/Normal.html'>qnorm</a></span>,
+  dparams <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
+  inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -383,23 +383,23 @@ distributions</p></dd>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
-<span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(y = <span class='fu'><a href='https://rdrr.io/r/stats/TDist.html'>rt</a></span>(<span class='fl'>200</span>, df = <span class='fl'>5</span>))
-<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(sample = <span class='kw'>y</span>))
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>stat_qq</span>() <span class='op'>+</span> <span class='fu'>stat_qq_line</span>()
+<span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/TDist.html'>rt</a></span><span class='op'>(</span><span class='fl'>200</span>, df <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>sample <span class='op'>=</span> <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>stat_qq</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>stat_qq_line</span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_qq-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Use fitdistr from MASS to estimate distribution params</span>
-<span class='kw'>params</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>as.list</a></span>(<span class='kw'>MASS</span>::<span class='fu'><a href='https://rdrr.io/pkg/MASS/man/fitdistr.html'>fitdistr</a></span>(<span class='kw'>df</span><span class='op'>$</span><span class='kw'>y</span>, <span class='st'>"t"</span>)<span class='op'>$</span><span class='kw'>estimate</span>)
-</div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(sample = <span class='kw'>y</span>)) <span class='op'>+</span>
-  <span class='fu'>stat_qq</span>(distribution = <span class='kw'>qt</span>, dparams = <span class='kw'>params</span>[<span class='st'>"df"</span>]) <span class='op'>+</span>
-  <span class='fu'>stat_qq_line</span>(distribution = <span class='kw'>qt</span>, dparams = <span class='kw'>params</span>[<span class='st'>"df"</span>])
+<span class='va'>params</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>as.list</a></span><span class='op'>(</span><span class='fu'>MASS</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/MASS/man/fitdistr.html'>fitdistr</a></span><span class='op'>(</span><span class='va'>df</span><span class='op'>$</span><span class='va'>y</span>, <span class='st'>"t"</span><span class='op'>)</span><span class='op'>$</span><span class='va'>estimate</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>sample <span class='op'>=</span> <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>stat_qq</span><span class='op'>(</span>distribution <span class='op'>=</span> <span class='va'>qt</span>, dparams <span class='op'>=</span> <span class='va'>params</span><span class='op'>[</span><span class='st'>"df"</span><span class='op'>]</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>stat_qq_line</span><span class='op'>(</span>distribution <span class='op'>=</span> <span class='va'>qt</span>, dparams <span class='op'>=</span> <span class='va'>params</span><span class='op'>[</span><span class='st'>"df"</span><span class='op'>]</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_qq-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Using to explore the distribution of a variable</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(sample = <span class='kw'>mpg</span>)) <span class='op'>+</span>
-  <span class='fu'>stat_qq</span>() <span class='op'>+</span>
-  <span class='fu'>stat_qq_line</span>()
-</div><div class='img'><img src='geom_qq-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(sample = <span class='kw'>mpg</span>, colour = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>))) <span class='op'>+</span>
-  <span class='fu'>stat_qq</span>() <span class='op'>+</span>
-  <span class='fu'>stat_qq_line</span>()
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>sample <span class='op'>=</span> <span class='va'>mpg</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>stat_qq</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>stat_qq_line</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='geom_qq-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>sample <span class='op'>=</span> <span class='va'>mpg</span>, colour <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>stat_qq</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>stat_qq_line</span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_qq-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 </div></pre>
   </div>

@@ -212,31 +212,31 @@ by <code>ymin</code> and <code>ymax</code>. <code>geom_area()</code> is a specia
 of <code>ymax</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>geom_ribbon</span>(
-  mapping = <span class='kw'>NULL</span>,
-  data = <span class='kw'>NULL</span>,
-  stat = <span class='st'>"identity"</span>,
-  position = <span class='st'>"identity"</span>,
-  <span class='kw'>...</span>,
-  na.rm = <span class='fl'>FALSE</span>,
-  orientation = <span class='fl'>NA</span>,
-  show.legend = <span class='fl'>NA</span>,
-  inherit.aes = <span class='fl'>TRUE</span>,
-  outline.type = <span class='st'>"both"</span>
-)
+    <pre class="usage"><span class='fu'>geom_ribbon</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  stat <span class='op'>=</span> <span class='st'>"identity"</span>,
+  position <span class='op'>=</span> <span class='st'>"identity"</span>,
+  <span class='va'>...</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  orientation <span class='op'>=</span> <span class='cn'>NA</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
+  inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  outline.type <span class='op'>=</span> <span class='st'>"both"</span>
+<span class='op'>)</span>
 
-<span class='fu'>geom_area</span>(
-  mapping = <span class='kw'>NULL</span>,
-  data = <span class='kw'>NULL</span>,
-  stat = <span class='st'>"identity"</span>,
-  position = <span class='st'>"stack"</span>,
-  na.rm = <span class='fl'>FALSE</span>,
-  orientation = <span class='fl'>NA</span>,
-  show.legend = <span class='fl'>NA</span>,
-  inherit.aes = <span class='fl'>TRUE</span>,
-  <span class='kw'>...</span>,
-  outline.type = <span class='st'>"upper"</span>
-)</pre>
+<span class='fu'>geom_area</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  stat <span class='op'>=</span> <span class='st'>"identity"</span>,
+  position <span class='op'>=</span> <span class='st'>"stack"</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  orientation <span class='op'>=</span> <span class='cn'>NA</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
+  inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>,
+  outline.type <span class='op'>=</span> <span class='st'>"upper"</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -350,20 +350,20 @@ see the individual pattern as you move up the stack. See
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Generate data</span>
-<span class='kw'>huron</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(year = <span class='fl'>1875</span><span class='op'>:</span><span class='fl'>1972</span>, level = <span class='fu'><a href='https://rdrr.io/r/base/vector.html'>as.vector</a></span>(<span class='kw'>LakeHuron</span>))
-<span class='kw'>h</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>huron</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>year</span>))
+<span class='va'>huron</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>year <span class='op'>=</span> <span class='fl'>1875</span><span class='op'>:</span><span class='fl'>1972</span>, level <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/vector.html'>as.vector</a></span><span class='op'>(</span><span class='va'>LakeHuron</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>h</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>huron</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>year</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='kw'>h</span> <span class='op'>+</span> <span class='fu'>geom_ribbon</span>(<span class='fu'><a href='aes.html'>aes</a></span>(ymin=<span class='fl'>0</span>, ymax=<span class='kw'>level</span>))
-</div><div class='img'><img src='geom_ribbon-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>h</span> <span class='op'>+</span> <span class='fu'>geom_area</span>(<span class='fu'><a href='aes.html'>aes</a></span>(y = <span class='kw'>level</span>))
+<span class='va'>h</span> <span class='op'>+</span> <span class='fu'>geom_ribbon</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>ymin<span class='op'>=</span><span class='fl'>0</span>, ymax<span class='op'>=</span><span class='va'>level</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='geom_ribbon-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>h</span> <span class='op'>+</span> <span class='fu'>geom_area</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>level</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_ribbon-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Orientation cannot be deduced by mapping, so must be given explicitly for</span>
 <span class='co'># flipped orientation</span>
-<span class='kw'>h</span> <span class='op'>+</span> <span class='fu'>geom_area</span>(<span class='fu'><a href='aes.html'>aes</a></span>(x = <span class='kw'>level</span>, y = <span class='kw'>year</span>), orientation = <span class='st'>"y"</span>)
+<span class='va'>h</span> <span class='op'>+</span> <span class='fu'>geom_area</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>level</span>, y <span class='op'>=</span> <span class='va'>year</span><span class='op'>)</span>, orientation <span class='op'>=</span> <span class='st'>"y"</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_ribbon-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Add aesthetic mappings</span>
-<span class='kw'>h</span> <span class='op'>+</span>
-  <span class='fu'>geom_ribbon</span>(<span class='fu'><a href='aes.html'>aes</a></span>(ymin = <span class='kw'>level</span> <span class='op'>-</span> <span class='fl'>1</span>, ymax = <span class='kw'>level</span> <span class='op'>+</span> <span class='fl'>1</span>), fill = <span class='st'>"grey70"</span>) <span class='op'>+</span>
-  <span class='fu'><a href='geom_path.html'>geom_line</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(y = <span class='kw'>level</span>))
+<span class='va'>h</span> <span class='op'>+</span>
+  <span class='fu'>geom_ribbon</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>ymin <span class='op'>=</span> <span class='va'>level</span> <span class='op'>-</span> <span class='fl'>1</span>, ymax <span class='op'>=</span> <span class='va'>level</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>)</span>, fill <span class='op'>=</span> <span class='st'>"grey70"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>level</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_ribbon-4.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

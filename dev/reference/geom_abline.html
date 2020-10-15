@@ -210,33 +210,33 @@ horizontal, vertical, or diagonal (specified by slope and intercept).
 These are useful for annotating plots.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>geom_abline</span>(
-  mapping = <span class='kw'>NULL</span>,
-  data = <span class='kw'>NULL</span>,
-  <span class='kw'>...</span>,
-  <span class='kw'>slope</span>,
-  <span class='kw'>intercept</span>,
-  na.rm = <span class='fl'>FALSE</span>,
-  show.legend = <span class='fl'>NA</span>
-)
+    <pre class="usage"><span class='fu'>geom_abline</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>...</span>,
+  <span class='va'>slope</span>,
+  <span class='va'>intercept</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>
+<span class='op'>)</span>
 
-<span class='fu'>geom_hline</span>(
-  mapping = <span class='kw'>NULL</span>,
-  data = <span class='kw'>NULL</span>,
-  <span class='kw'>...</span>,
-  <span class='kw'>yintercept</span>,
-  na.rm = <span class='fl'>FALSE</span>,
-  show.legend = <span class='fl'>NA</span>
-)
+<span class='fu'>geom_hline</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>...</span>,
+  <span class='va'>yintercept</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>
+<span class='op'>)</span>
 
-<span class='fu'>geom_vline</span>(
-  mapping = <span class='kw'>NULL</span>,
-  data = <span class='kw'>NULL</span>,
-  <span class='kw'>...</span>,
-  <span class='kw'>xintercept</span>,
-  na.rm = <span class='fl'>FALSE</span>,
-  show.legend = <span class='fl'>NA</span>
-)</pre>
+<span class='fu'>geom_vline</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>...</span>,
+  <span class='va'>xintercept</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -318,36 +318,36 @@ the line:</p><ul>
 adding straight line segments to a plot.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>wt</span>, <span class='kw'>mpg</span>)) <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
+    <pre class="examples"><div class='input'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>wt</span>, <span class='va'>mpg</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='co'># Fixed values</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_vline</span>(xintercept = <span class='fl'>5</span>)
-</div><div class='img'><img src='geom_abline-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_vline</span>(xintercept = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>)
-</div><div class='img'><img src='geom_abline-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_hline</span>(yintercept = <span class='fl'>20</span>)
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_vline</span><span class='op'>(</span>xintercept <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>
+</div><div class='img'><img src='geom_abline-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_vline</span><span class='op'>(</span>xintercept <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span>
+</div><div class='img'><img src='geom_abline-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_hline</span><span class='op'>(</span>yintercept <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_abline-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_abline</span>() <span class='co'># Can't see it - outside the range of the data</span>
-</div><div class='img'><img src='geom_abline-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_abline</span>(intercept = <span class='fl'>20</span>)
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_abline</span><span class='op'>(</span><span class='op'>)</span> <span class='co'># Can't see it - outside the range of the data</span>
+</div><div class='img'><img src='geom_abline-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_abline</span><span class='op'>(</span>intercept <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_abline-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Calculate slope and intercept of line of best fit</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='kw'>mpg</span> <span class='op'>~</span> <span class='kw'>wt</span>, data = <span class='kw'>mtcars</span>))
+<span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>wt</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; (Intercept)          wt 
-#&gt;   37.285126   -5.344472 </div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_abline</span>(intercept = <span class='fl'>37</span>, slope = <span class='op'>-</span><span class='fl'>5</span>)
+#&gt;   37.285126   -5.344472 </div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_abline</span><span class='op'>(</span>intercept <span class='op'>=</span> <span class='fl'>37</span>, slope <span class='op'>=</span> <span class='op'>-</span><span class='fl'>5</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_abline-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># But this is easier to do with geom_smooth:</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_smooth.html'>geom_smooth</a></span>(method = <span class='st'>"lm"</span>, se = <span class='fl'>FALSE</span>)
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span>method <span class='op'>=</span> <span class='st'>"lm"</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using formula 'y ~ x'</span></div><div class='img'><img src='geom_abline-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># To show different lines in different facets, use aesthetics</span>
-<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span>(<span class='op'>~</span> <span class='kw'>cyl</span>)
+<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>wt</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span> <span class='va'>cyl</span><span class='op'>)</span>
 
-<span class='kw'>mean_wt</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(cyl = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>, <span class='fl'>6</span>, <span class='fl'>8</span>), wt = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2.28</span>, <span class='fl'>3.11</span>, <span class='fl'>4.00</span>))
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_hline</span>(<span class='fu'><a href='aes.html'>aes</a></span>(yintercept = <span class='kw'>wt</span>), <span class='kw'>mean_wt</span>)
+<span class='va'>mean_wt</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>cyl <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>4</span>, <span class='fl'>6</span>, <span class='fl'>8</span><span class='op'>)</span>, wt <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2.28</span>, <span class='fl'>3.11</span>, <span class='fl'>4.00</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_hline</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>yintercept <span class='op'>=</span> <span class='va'>wt</span><span class='op'>)</span>, <span class='va'>mean_wt</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_abline-8.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can also control other aesthetics</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>, colour = <span class='kw'>wt</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'>geom_hline</span>(<span class='fu'><a href='aes.html'>aes</a></span>(yintercept = <span class='kw'>wt</span>, colour = <span class='kw'>wt</span>), <span class='kw'>mean_wt</span>) <span class='op'>+</span>
-  <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span>(<span class='op'>~</span> <span class='kw'>cyl</span>)
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>wt</span>, colour <span class='op'>=</span> <span class='va'>wt</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_hline</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>yintercept <span class='op'>=</span> <span class='va'>wt</span>, colour <span class='op'>=</span> <span class='va'>wt</span><span class='op'>)</span>, <span class='va'>mean_wt</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span> <span class='va'>cyl</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_abline-9.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

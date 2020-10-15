@@ -210,19 +210,19 @@ with the two 1d marginal distributions. Rug plots display individual
 cases so are best used with smaller datasets.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>geom_rug</span>(
-  mapping = <span class='kw'>NULL</span>,
-  data = <span class='kw'>NULL</span>,
-  stat = <span class='st'>"identity"</span>,
-  position = <span class='st'>"identity"</span>,
-  <span class='kw'>...</span>,
-  outside = <span class='fl'>FALSE</span>,
-  sides = <span class='st'>"bl"</span>,
-  length = <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>0.03</span>, <span class='st'>"npc"</span>),
-  na.rm = <span class='fl'>FALSE</span>,
-  show.legend = <span class='fl'>NA</span>,
-  inherit.aes = <span class='fl'>TRUE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>geom_rug</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  stat <span class='op'>=</span> <span class='st'>"identity"</span>,
+  position <span class='op'>=</span> <span class='st'>"identity"</span>,
+  <span class='va'>...</span>,
+  outside <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  sides <span class='op'>=</span> <span class='st'>"bl"</span>,
+  length <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span><span class='op'>(</span><span class='fl'>0.03</span>, <span class='st'>"npc"</span><span class='op'>)</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
+  inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -322,39 +322,39 @@ any data points under the default settings.</p>
 </ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>wt</span>, <span class='kw'>mpg</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
-<span class='kw'>p</span>
-</div><div class='img'><img src='geom_rug-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_rug</span>()
-</div><div class='img'><img src='geom_rug-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_rug</span>(sides=<span class='st'>"b"</span>)    <span class='co'># Rug on bottom only</span>
-</div><div class='img'><img src='geom_rug-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'>geom_rug</span>(sides=<span class='st'>"trbl"</span>) <span class='co'># All four sides</span>
+    <pre class="examples"><div class='input'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>wt</span>, <span class='va'>mpg</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>p</span>
+</div><div class='img'><img src='geom_rug-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_rug</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='geom_rug-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_rug</span><span class='op'>(</span>sides<span class='op'>=</span><span class='st'>"b"</span><span class='op'>)</span>    <span class='co'># Rug on bottom only</span>
+</div><div class='img'><img src='geom_rug-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_rug</span><span class='op'>(</span>sides<span class='op'>=</span><span class='st'>"trbl"</span><span class='op'>)</span> <span class='co'># All four sides</span>
 </div><div class='img'><img src='geom_rug-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Use jittering to avoid overplotting for smaller datasets</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>cty</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'>geom_rug</span>()
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>displ</span>, <span class='va'>cty</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_rug</span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_rug-5.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>cty</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span>() <span class='op'>+</span>
-  <span class='fu'>geom_rug</span>(alpha = <span class='fl'>1</span><span class='op'>/</span><span class='fl'>2</span>, position = <span class='st'>"jitter"</span>)
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>displ</span>, <span class='va'>cty</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_rug</span><span class='op'>(</span>alpha <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>2</span>, position <span class='op'>=</span> <span class='st'>"jitter"</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_rug-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># move the rug tassels to outside the plot</span>
 <span class='co'># remember to set clip = "off".</span>
-<span class='kw'>p</span> <span class='op'>+</span>
-  <span class='fu'>geom_rug</span>(outside = <span class='fl'>TRUE</span>) <span class='op'>+</span>
-  <span class='fu'><a href='coord_cartesian.html'>coord_cartesian</a></span>(clip = <span class='st'>"off"</span>)
+<span class='va'>p</span> <span class='op'>+</span>
+  <span class='fu'>geom_rug</span><span class='op'>(</span>outside <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='coord_cartesian.html'>coord_cartesian</a></span><span class='op'>(</span>clip <span class='op'>=</span> <span class='st'>"off"</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_rug-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># set sides to top right, and then move the margins</span>
-<span class='kw'>p</span> <span class='op'>+</span>
-  <span class='fu'>geom_rug</span>(outside = <span class='fl'>TRUE</span>, sides = <span class='st'>"tr"</span>) <span class='op'>+</span>
-  <span class='fu'><a href='coord_cartesian.html'>coord_cartesian</a></span>(clip = <span class='st'>"off"</span>) <span class='op'>+</span>
-  <span class='fu'><a href='theme.html'>theme</a></span>(plot.margin = <span class='fu'><a href='margin.html'>margin</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='st'>"cm"</span>))
+<span class='va'>p</span> <span class='op'>+</span>
+  <span class='fu'>geom_rug</span><span class='op'>(</span>outside <span class='op'>=</span> <span class='cn'>TRUE</span>, sides <span class='op'>=</span> <span class='st'>"tr"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='coord_cartesian.html'>coord_cartesian</a></span><span class='op'>(</span>clip <span class='op'>=</span> <span class='st'>"off"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='theme.html'>theme</a></span><span class='op'>(</span>plot.margin <span class='op'>=</span> <span class='fu'><a href='margin.html'>margin</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='st'>"cm"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_rug-8.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># increase the line length and</span>
 <span class='co'># expand axis to avoid overplotting</span>
-<span class='kw'>p</span> <span class='op'>+</span>
-  <span class='fu'>geom_rug</span>(length = <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>0.05</span>, <span class='st'>"npc"</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='scale_continuous.html'>scale_y_continuous</a></span>(expand = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.1</span>, <span class='fl'>0.1</span>))
+<span class='va'>p</span> <span class='op'>+</span>
+  <span class='fu'>geom_rug</span><span class='op'>(</span>length <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span><span class='op'>(</span><span class='fl'>0.05</span>, <span class='st'>"npc"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='scale_continuous.html'>scale_y_continuous</a></span><span class='op'>(</span>expand <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.1</span>, <span class='fl'>0.1</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_rug-9.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
