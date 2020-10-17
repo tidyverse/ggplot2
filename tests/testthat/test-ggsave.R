@@ -32,6 +32,7 @@ test_that("ggsave uses theme background as image background", {
   # FIXME: This should check svglite, but, at the time of writing this, there's already a binary
   #        package of svglite, and it can be installed even if the dependency is not available, surprisingly...
   skip_if_not_installed("systemfonts")
+  skip_if_not_installed("xml2")
 
   path <- tempfile()
   on.exit(unlink(path))
