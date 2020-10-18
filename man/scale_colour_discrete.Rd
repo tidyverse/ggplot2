@@ -23,7 +23,9 @@ scale_fill_discrete(
 \item A character vector of color codes. The codes are used for a 'manual' color
 scale as long as the number of codes exceeds the number of data levels
 (if there are more levels than codes, \code{\link[=scale_colour_hue]{scale_colour_hue()}}/\code{\link[=scale_fill_hue]{scale_fill_hue()}}
-are used to construct the default scale).
+are used to construct the default scale). If this is a named vector, then the color values
+will be matched to levels based on the names of the vectors. Data values that
+don't match will be set as \code{na.value}.
 \item A list of character vectors of color codes. The minimum length vector that exceeds the
 number of data levels is chosen for the color scaling. This is useful if you
 want to change the color palette based on the number of levels.
