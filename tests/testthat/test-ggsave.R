@@ -46,6 +46,21 @@ test_that("ggsave uses theme background as image background", {
   expect_true(grepl("fill: #00CCCC", bg))
 })
 
+test_that("ggsave can handle blank background", {
+  skip_if_not_installed("xml2")
+
+  path <- tempfile()
+  on.exit(unlink(path))
+  p <- ggplot(mtcars, aes(disp, mpg)) +
+    geom_point() +
+    theme(plot.background = element_blank())
+  ggsave(path, p, device = "svg", width = 5, height = 5)
+  img <- xml2::read_xml(path)
+  bg <- as.character(xml2::xml_find_first(img, xpath = "d1:rect/@style"))
+  expect_true(grepl("fill: none", bg))
+})
+
+
 # plot_dim ---------------------------------------------------------------
 
 test_that("guesses and informs if dim not specified", {
