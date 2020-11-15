@@ -353,11 +353,15 @@ Layer <- ggproto("Layer", NULL,
     self$position$compute_layer(data, params, layout)
   },
 
-  compute_geom_2 = function(self, data) {
+  compute_geom_2 = function(self, data, plot) {
     # Combine aesthetics, defaults, & params
     if (empty(data)) return(data)
 
-    aesthetics <- self$mapping
+    if (self$inherit.aes) {
+      aesthetics <- defaults(self$mapping, plot$mapping)
+    } else {
+      aesthetics <- self$mapping
+    }
     modifiers <- aesthetics[is_scaled_aes(aesthetics) | is_staged_aes(aesthetics)]
 
     self$geom$use_defaults(data, self$aes_params, modifiers)
