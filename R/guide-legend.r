@@ -261,7 +261,11 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
       n <- vapply(layer$aes_params, length, integer(1))
       params <- layer$aes_params[n == 1]
 
-      aesthetics <- layer$mapping
+      if (layer$inherit.aes) {
+        aesthetics <- defaults(layer$mapping, default_mapping)
+      } else {
+        aesthetics <- layer$mapping
+      }
       modifiers <- aesthetics[is_scaled_aes(aesthetics) | is_staged_aes(aesthetics)]
 
       data <- tryCatch(
