@@ -168,8 +168,8 @@
 <p>But why ggproto? Well when we turned to add an official extension mechanism to ggplot2, we found a major problem that caused problems when proto objects were extended in a different package (methods were evaluated in ggplot2, not the package where the extension was added). We tried converting to R6, but it was a poor fit for the needs of ggplot2. We could’ve modified proto, but that would’ve first involved understanding exactly how proto worked, and secondly making sure that the changes didn’t affect other users of proto.</p>
 <p>It’s strange to say, but this is a case where inventing a new OO system was actually the right answer to the problem! Fortunately Winston is now very good at creating OO systems, so it only took him a day to come up with ggproto: it maintains all the features of proto that ggplot2 needs, while allowing cross package inheritance to work.</p>
 <p>Here’s a quick demo of ggproto in action:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="va">A</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggproto.html">ggproto</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="cn">NULL</span>,
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">A</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggproto.html">ggproto</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="cn">NULL</span>,
   x <span class="op">=</span> <span class="fl">1</span>,
   inc <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">self</span><span class="op">)</span> <span class="op">{</span>
     <span class="va">self</span><span class="op">$</span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">self</span><span class="op">$</span><span class="va">x</span> <span class="op">+</span> <span class="fl">1</span>
@@ -183,7 +183,7 @@
 <span class="va">A</span><span class="op">$</span><span class="fu">inc</span><span class="op">(</span><span class="op">)</span>
 <span class="va">A</span><span class="op">$</span><span class="fu">inc</span><span class="op">(</span><span class="op">)</span>
 <span class="va">A</span><span class="op">$</span><span class="va">x</span>
-<span class="co">#&gt; [1] 4</span></pre></div>
+<span class="co">#&gt; [1] 4</span></code></pre></div>
 <p>The majority of ggplot2 classes are immutable and static: the methods neither use nor modify state in the class. They’re mostly used as a convenient way of bundling related methods together.</p>
 <p>To create a new geom or stat, you will just create a new ggproto that inherits from <code>Stat</code>, <code>Geom</code> and override the methods described below.</p>
 </div>
@@ -194,19 +194,19 @@
 <h3 class="hasAnchor">
 <a href="#the-simplest-stat" class="anchor"></a>The simplest stat</h3>
 <p>We’ll start by creating a very simple stat: one that gives the convex hull (the <em>c</em> hull) of a set of points. First we create a new ggproto object that inherits from <code>Stat</code>:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="va">StatChull</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggproto.html">ggproto</a></span><span class="op">(</span><span class="st">"StatChull"</span>, <span class="va">Stat</span>,
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">StatChull</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggproto.html">ggproto</a></span><span class="op">(</span><span class="st">"StatChull"</span>, <span class="va">Stat</span>,
   compute_group <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">scales</span><span class="op">)</span> <span class="op">{</span>
     <span class="va">data</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/grDevices/chull.html">chull</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">x</span>, <span class="va">data</span><span class="op">$</span><span class="va">y</span><span class="op">)</span>, , drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>
   <span class="op">}</span>,
   
   required_aes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span>
-<span class="op">)</span></pre></div>
+<span class="op">)</span></code></pre></div>
 <p>The two most important components are the <code>compute_group()</code> method (which does the computation), and the <code>required_aes</code> field, which lists which aesthetics must be present in order for the stat to work.</p>
 <p>Next we write a layer function. Unfortunately, due to an early design mistake I called these either <code>stat_()</code> or <code>geom_()</code>. A better decision would have been to call them <code>layer_()</code> functions: that’s a more accurate description because every layer involves a stat <em>and</em> a geom.</p>
 <p>All layer functions follow the same form - you specify defaults in the function arguments and then call the <code><a href="../reference/layer.html">layer()</a></code> function, sending <code>...</code> into the <code>params</code> argument. The arguments in <code>...</code> will either be arguments for the geom (if you’re making a stat wrapper), arguments for the stat (if you’re making a geom wrapper), or aesthetics to be set. <code><a href="../reference/layer.html">layer()</a></code> takes care of teasing the different parameters apart and making sure they’re stored in the right place:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="va">stat_chull</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">mapping</span> <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">data</span> <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">geom</span> <span class="op">=</span> <span class="st">"polygon"</span>,
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">stat_chull</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">mapping</span> <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">data</span> <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">geom</span> <span class="op">=</span> <span class="st">"polygon"</span>,
                        <span class="va">position</span> <span class="op">=</span> <span class="st">"identity"</span>, <span class="va">na.rm</span> <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">show.legend</span> <span class="op">=</span> <span class="cn">NA</span>, 
                        <span class="va">inherit.aes</span> <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu"><a href="../reference/layer.html">layer</a></span><span class="op">(</span>
@@ -214,34 +214,34 @@
     position <span class="op">=</span> <span class="va">position</span>, show.legend <span class="op">=</span> <span class="va">show.legend</span>, inherit.aes <span class="op">=</span> <span class="va">inherit.aes</span>,
     params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>na.rm <span class="op">=</span> <span class="va">na.rm</span>, <span class="va">...</span><span class="op">)</span>
   <span class="op">)</span>
-<span class="op">}</span></pre></div>
+<span class="op">}</span></code></pre></div>
 <p>(Note that if you’re writing this in your own package, you’ll either need to call <code><a href="../reference/layer.html">ggplot2::layer()</a></code> explicitly, or import the <code><a href="../reference/layer.html">layer()</a></code> function into your package namespace.)</p>
 <p>Once we have a layer function we can try our new stat:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu">stat_chull</span><span class="op">(</span>fill <span class="op">=</span> <span class="cn">NA</span>, colour <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></pre></div>
+  <span class="fu">stat_chull</span><span class="op">(</span>fill <span class="op">=</span> <span class="cn">NA</span>, colour <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></code></pre></div>
 <p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>(We’ll see later how to change the defaults of the geom so that you don’t need to specify <code>fill = NA</code> every time.)</p>
 <p>Once we’ve written this basic object, ggplot2 gives a lot for free. For example, ggplot2 automatically preserves aesthetics that are constant within each group:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span>, colour <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span>, colour <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu">stat_chull</span><span class="op">(</span>fill <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></pre></div>
+  <span class="fu">stat_chull</span><span class="op">(</span>fill <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></code></pre></div>
 <p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>We can also override the default geom to display the convex hull in a different way:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu">stat_chull</span><span class="op">(</span>geom <span class="op">=</span> <span class="st">"point"</span>, size <span class="op">=</span> <span class="fl">4</span>, colour <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></pre></div>
+  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div id="stat-parameters" class="section level3">
 <h3 class="hasAnchor">
 <a href="#stat-parameters" class="anchor"></a>Stat parameters</h3>
 <p>A more complex stat will do some computation. Let’s implement a simple version of <code><a href="../reference/geom_smooth.html">geom_smooth()</a></code> that adds a line of best fit to a plot. We create a <code>StatLm</code> that inherits from <code>Stat</code> and a layer function, <code>stat_lm()</code>:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="va">StatLm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggproto.html">ggproto</a></span><span class="op">(</span><span class="st">"StatLm"</span>, <span class="va">Stat</span>, 
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">StatLm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggproto.html">ggproto</a></span><span class="op">(</span><span class="st">"StatLm"</span>, <span class="va">Stat</span>, 
   required_aes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span>,
   
   compute_group <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">scales</span><span class="op">)</span> <span class="op">{</span>
@@ -267,11 +267,11 @@
 
 <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu">stat_lm</span><span class="op">(</span><span class="op">)</span></pre></div>
+  <span class="fu">stat_lm</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;"></p>
 <p><code>StatLm</code> is inflexible because it has no parameters. We might want to allow the user to control the model formula and the number of points used to generate the grid. To do so, we add arguments to the <code>compute_group()</code> method and our wrapper function:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="va">StatLm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggproto.html">ggproto</a></span><span class="op">(</span><span class="st">"StatLm"</span>, <span class="va">Stat</span>, 
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">StatLm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggproto.html">ggproto</a></span><span class="op">(</span><span class="st">"StatLm"</span>, <span class="va">Stat</span>, 
   required_aes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span>,
   
   compute_group <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">scales</span>, <span class="va">params</span>, <span class="va">n</span> <span class="op">=</span> <span class="fl">100</span>, <span class="va">formula</span> <span class="op">=</span> <span class="va">y</span> <span class="op">~</span> <span class="va">x</span><span class="op">)</span> <span class="op">{</span>
@@ -299,11 +299,11 @@
 <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu">stat_lm</span><span class="op">(</span>formula <span class="op">=</span> <span class="va">y</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/poly.html">poly</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu">stat_lm</span><span class="op">(</span>formula <span class="op">=</span> <span class="va">y</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/poly.html">poly</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">10</span><span class="op">)</span>, geom <span class="op">=</span> <span class="st">"point"</span>, colour <span class="op">=</span> <span class="st">"red"</span>, n <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></pre></div>
+  <span class="fu">stat_lm</span><span class="op">(</span>formula <span class="op">=</span> <span class="va">y</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/poly.html">poly</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">10</span><span class="op">)</span>, geom <span class="op">=</span> <span class="st">"point"</span>, colour <span class="op">=</span> <span class="st">"red"</span>, n <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></code></pre></div>
 <p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>Note that we don’t <em>have</em> to explicitly include the new parameters in the arguments for the layer, <code>...</code> will get passed to the right place anyway. But you’ll need to document them somewhere so the user knows about them. Here’s a brief example. Note <code>@inheritParams ggplot2::stat_identity</code>: that will automatically inherit documentation for all the parameters also defined for <code><a href="../reference/stat_identity.html">stat_identity()</a></code>.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit">
-<span class="co">#' @export</span>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#' @export</span>
 <span class="co">#' @inheritParams ggplot2::stat_identity</span>
 <span class="co">#' @param formula The modelling formula passed to \code{lm}. Should only </span>
 <span class="co">#'   involve \code{y} and \code{x}</span>
@@ -317,7 +317,7 @@
     position <span class="op">=</span> <span class="va">position</span>, show.legend <span class="op">=</span> <span class="va">show.legend</span>, inherit.aes <span class="op">=</span> <span class="va">inherit.aes</span>,
     params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="va">n</span>, formula <span class="op">=</span> <span class="va">formula</span>, na.rm <span class="op">=</span> <span class="va">na.rm</span>, <span class="va">...</span><span class="op">)</span>
   <span class="op">)</span>
-<span class="op">}</span></pre></div>
+<span class="op">}</span></code></pre></div>
 <p><code>stat_lm()</code> must be exported if you want other people to use it. You could also consider exporting <code>StatLm</code> if you want people to extend the underlying object; this should be done with care.</p>
 </div>
 <div id="picking-defaults" class="section level3">
@@ -325,8 +325,8 @@
 <a href="#picking-defaults" class="anchor"></a>Picking defaults</h3>
 <p>Sometimes you have calculations that should be performed once for the complete dataset, not once for each group. This is useful for picking sensible default values. For example, if we want to do a density estimate, it’s reasonable to pick one bandwidth for the whole plot. The following Stat creates a variation of the <code><a href="../reference/geom_density.html">stat_density()</a></code> that picks one bandwidth for all groups by choosing the mean of the “best” bandwidth for each group (I have no theoretical justification for this, but it doesn’t seem unreasonable).</p>
 <p>To do this we override the <code>setup_params()</code> method. It’s passed the data and a list of params, and returns an updated list.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit">
-<span class="va">StatDensityCommon</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggproto.html">ggproto</a></span><span class="op">(</span><span class="st">"StatDensityCommon"</span>, <span class="va">Stat</span>, 
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">StatDensityCommon</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggproto.html">ggproto</a></span><span class="op">(</span><span class="st">"StatDensityCommon"</span>, <span class="va">Stat</span>, 
   required_aes <span class="op">=</span> <span class="st">"x"</span>,
   
   setup_params <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">params</span><span class="op">)</span> <span class="op">{</span>
@@ -361,12 +361,12 @@
 
 <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, colour <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu">stat_density_common</span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; Picking bandwidth of 0.345</span></pre></div>
+<span class="co">#&gt; Picking bandwidth of 0.345</span></code></pre></div>
 <p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb11"><pre class="downlit">
-
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
 <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, colour <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu">stat_density_common</span><span class="op">(</span>bandwidth <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></pre></div>
+  <span class="fu">stat_density_common</span><span class="op">(</span>bandwidth <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></code></pre></div>
 <p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-9-2.png" width="672" style="display: block; margin: auto;"></p>
 <p>I recommend using <code>NULL</code> as a default value. If you pick important parameters automatically, it’s a good idea to <code><a href="https://rdrr.io/r/base/message.html">message()</a></code> to the user (and when printing a floating point parameter, using <code><a href="https://rdrr.io/r/base/Round.html">signif()</a></code> to show only a few significant digits).</p>
 </div>
@@ -374,8 +374,8 @@
 <h3 class="hasAnchor">
 <a href="#variable-names-and-default-aesthetics" class="anchor"></a>Variable names and default aesthetics</h3>
 <p>This stat illustrates another important point. If we want to make this stat usable with other geoms, we should return a variable called <code>density</code> instead of <code>y</code>. Then we can set up the <code>default_aes</code> to automatically map <code>density</code> to <code>y</code>, which allows the user to override it to use with different geoms:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit">
-<span class="va">StatDensityCommon</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggproto.html">ggproto</a></span><span class="op">(</span><span class="st">"StatDensity2"</span>, <span class="va">Stat</span>, 
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">StatDensityCommon</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggproto.html">ggproto</a></span><span class="op">(</span><span class="st">"StatDensity2"</span>, <span class="va">Stat</span>, 
   required_aes <span class="op">=</span> <span class="st">"x"</span>,
   default_aes <span class="op">=</span> <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="fu"><a href="../reference/aes_eval.html">stat</a></span><span class="op">(</span><span class="va">density</span><span class="op">)</span><span class="op">)</span>,
 
@@ -386,16 +386,16 @@
 <span class="op">)</span>
 
 <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">drv</span>, colour <span class="op">=</span> <span class="fu"><a href="../reference/aes_eval.html">stat</a></span><span class="op">(</span><span class="va">density</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu">stat_density_common</span><span class="op">(</span>bandwidth <span class="op">=</span> <span class="fl">1</span>, geom <span class="op">=</span> <span class="st">"point"</span><span class="op">)</span></pre></div>
+  <span class="fu">stat_density_common</span><span class="op">(</span>bandwidth <span class="op">=</span> <span class="fl">1</span>, geom <span class="op">=</span> <span class="st">"point"</span><span class="op">)</span></code></pre></div>
 <p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>However, using this stat with the area geom doesn’t work quite right. The areas don’t stack on top of each other:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit">
-<span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, fill <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu">stat_density_common</span><span class="op">(</span>bandwidth <span class="op">=</span> <span class="fl">1</span>, geom <span class="op">=</span> <span class="st">"area"</span>, position <span class="op">=</span> <span class="st">"stack"</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, fill <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">stat_density_common</span><span class="op">(</span>bandwidth <span class="op">=</span> <span class="fl">1</span>, geom <span class="op">=</span> <span class="st">"area"</span>, position <span class="op">=</span> <span class="st">"stack"</span><span class="op">)</span></code></pre></div>
 <p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>This is because each density is computed independently, and the estimated <code>x</code>s don’t line up. We can resolve that issue by computing the range of the data once in <code>setup_params()</code>.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit">
-<span class="va">StatDensityCommon</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggproto.html">ggproto</a></span><span class="op">(</span><span class="st">"StatDensityCommon"</span>, <span class="va">Stat</span>, 
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">StatDensityCommon</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggproto.html">ggproto</a></span><span class="op">(</span><span class="st">"StatDensityCommon"</span>, <span class="va">Stat</span>, 
   required_aes <span class="op">=</span> <span class="st">"x"</span>,
   default_aes <span class="op">=</span> <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="fu"><a href="../reference/aes_eval.html">stat</a></span><span class="op">(</span><span class="va">density</span><span class="op">)</span><span class="op">)</span>,
 
@@ -418,11 +418,11 @@
 <span class="op">)</span>
 
 <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, fill <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu">stat_density_common</span><span class="op">(</span>bandwidth <span class="op">=</span> <span class="fl">1</span>, geom <span class="op">=</span> <span class="st">"area"</span>, position <span class="op">=</span> <span class="st">"stack"</span><span class="op">)</span></pre></div>
+  <span class="fu">stat_density_common</span><span class="op">(</span>bandwidth <span class="op">=</span> <span class="fl">1</span>, geom <span class="op">=</span> <span class="st">"area"</span>, position <span class="op">=</span> <span class="st">"stack"</span><span class="op">)</span></code></pre></div>
 <p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb15"><pre class="downlit">
-<span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">drv</span>, fill <span class="op">=</span> <span class="fu"><a href="../reference/aes_eval.html">stat</a></span><span class="op">(</span><span class="va">density</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu">stat_density_common</span><span class="op">(</span>bandwidth <span class="op">=</span> <span class="fl">1</span>, geom <span class="op">=</span> <span class="st">"raster"</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">drv</span>, fill <span class="op">=</span> <span class="fu"><a href="../reference/aes_eval.html">stat</a></span><span class="op">(</span><span class="va">density</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">stat_density_common</span><span class="op">(</span>bandwidth <span class="op">=</span> <span class="fl">1</span>, geom <span class="op">=</span> <span class="st">"raster"</span><span class="op">)</span></code></pre></div>
 <p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-12-2.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div id="exercises" class="section level3">
@@ -446,8 +446,8 @@
 <h3 class="hasAnchor">
 <a href="#a-simple-geom" class="anchor"></a>A simple geom</h3>
 <p>It’s easiest to start with a simple example. The code below is a simplified version of <code><a href="../reference/geom_point.html">geom_point()</a></code>:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit">
-<span class="va">GeomSimplePoint</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggproto.html">ggproto</a></span><span class="op">(</span><span class="st">"GeomSimplePoint"</span>, <span class="va">Geom</span>,
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">GeomSimplePoint</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggproto.html">ggproto</a></span><span class="op">(</span><span class="st">"GeomSimplePoint"</span>, <span class="va">Geom</span>,
   required_aes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span>,
   default_aes <span class="op">=</span> <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="fl">19</span>, colour <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span>,
   draw_key <span class="op">=</span> <span class="va">draw_key_point</span>,
@@ -473,7 +473,7 @@
 <span class="op">}</span>
 
 <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu">geom_simple_point</span><span class="op">(</span><span class="op">)</span></pre></div>
+  <span class="fu">geom_simple_point</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="extending-ggplot2_files/figure-html/GeomSimplePoint-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>This is very similar to defining a new stat. You always need to provide fields/methods for the four pieces shown above:</p>
 <ul>
@@ -495,8 +495,8 @@
 <a href="#collective-geoms" class="anchor"></a>Collective geoms</h3>
 <p>Overriding <code>draw_panel()</code> is most appropriate if there is one graphic element per row. In other cases, you want graphic element per group. For example, take polygons: each row gives one vertex of a polygon. In this case, you should instead override <code>draw_group()</code>.</p>
 <p>The following code makes a simplified version of <code>GeomPolygon</code>:</p>
-<div class="sourceCode" id="cb17"><pre class="downlit">
-<span class="va">GeomSimplePolygon</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggproto.html">ggproto</a></span><span class="op">(</span><span class="st">"GeomPolygon"</span>, <span class="va">Geom</span>,
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">GeomSimplePolygon</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggproto.html">ggproto</a></span><span class="op">(</span><span class="st">"GeomPolygon"</span>, <span class="va">Geom</span>,
   required_aes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span>,
   
   default_aes <span class="op">=</span> <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>
@@ -538,7 +538,7 @@
 
 <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu">geom_simple_polygon</span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">class</span><span class="op">)</span>, fill <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></pre></div>
+  <span class="fu">geom_simple_polygon</span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">class</span><span class="op">)</span>, fill <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></code></pre></div>
 <p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>There are a few things to note here:</p>
 <ul>
@@ -552,8 +552,8 @@
 <h3 class="hasAnchor">
 <a href="#inheriting-from-an-existing-geom" class="anchor"></a>Inheriting from an existing Geom</h3>
 <p>Sometimes you just want to make a small modification to an existing geom. In this case, rather than inheriting from <code>Geom</code> you can inherit from an existing subclass. For example, we might want to change the defaults for <code>GeomPolygon</code> to work better with <code>StatChull</code>:</p>
-<div class="sourceCode" id="cb18"><pre class="downlit">
-<span class="va">GeomPolygonHollow</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggproto.html">ggproto</a></span><span class="op">(</span><span class="st">"GeomPolygonHollow"</span>, <span class="va">GeomPolygon</span>,
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">GeomPolygonHollow</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggproto.html">ggproto</a></span><span class="op">(</span><span class="st">"GeomPolygonHollow"</span>, <span class="va">GeomPolygon</span>,
   default_aes <span class="op">=</span> <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"black"</span>, fill <span class="op">=</span> <span class="cn">NA</span>, size <span class="op">=</span> <span class="fl">0.5</span>, linetype <span class="op">=</span> <span class="fl">1</span>,
     alpha <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>
   <span class="op">)</span>
@@ -569,7 +569,7 @@
 
 <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu">geom_chull</span><span class="op">(</span><span class="op">)</span></pre></div>
+  <span class="fu">geom_chull</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>This doesn’t allow you to use different geoms with the stat, but that seems appropriate here since the convex hull is primarily a polygonal feature.</p>
 </div>
@@ -590,8 +590,8 @@
 <h3 class="hasAnchor">
 <a href="#omnidirectional-stats" class="anchor"></a>Omnidirectional stats</h3>
 <p>The actual guessing of orientation will happen in <code>setup_params()</code> using the <code><a href="../reference/bidirection.html">has_flipped_aes()</a></code> helper:</p>
-<div class="sourceCode" id="cb19"><pre class="downlit">
-<span class="va">StatBoxplot</span><span class="op">$</span><span class="va">setup_params</span>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">StatBoxplot</span><span class="op">$</span><span class="va">setup_params</span>
 <span class="co">#&gt; &lt;ggproto method&gt;</span>
 <span class="co">#&gt;   &lt;Wrapper function&gt;</span>
 <span class="co">#&gt;     function (...) </span>
@@ -615,10 +615,10 @@
 <span class="co">#&gt;         warn(glue("Continuous {flipped_names(params$flipped_aes)$x} aesthetic -- did you forget aes(group=...)?"))</span>
 <span class="co">#&gt;     }</span>
 <span class="co">#&gt;     params</span>
-<span class="co">#&gt; }</span></pre></div>
+<span class="co">#&gt; }</span></code></pre></div>
 <p>Following this is a call to <code><a href="../reference/bidirection.html">flip_data()</a></code> which will make sure the data is in horizontal orientation. The rest of the code can then simply assume that the data is in a specific orientation. The same thing happens in <code>setup_data()</code>:</p>
-<div class="sourceCode" id="cb20"><pre class="downlit">
-<span class="va">StatBoxplot</span><span class="op">$</span><span class="va">setup_data</span>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">StatBoxplot</span><span class="op">$</span><span class="va">setup_data</span>
 <span class="co">#&gt; &lt;ggproto method&gt;</span>
 <span class="co">#&gt;   &lt;Wrapper function&gt;</span>
 <span class="co">#&gt;     function (...) </span>
@@ -632,7 +632,7 @@
 <span class="co">#&gt;     data &lt;- remove_missing(data, na.rm = params$na.rm, vars = "x", </span>
 <span class="co">#&gt;         name = "stat_boxplot")</span>
 <span class="co">#&gt;     flip_data(data, params$flipped_aes)</span>
-<span class="co">#&gt; }</span></pre></div>
+<span class="co">#&gt; }</span></code></pre></div>
 <p>The data is flipped (if needed), manipulated, and flipped back as it is returned.</p>
 <p>During the computation, this sandwiching between <code><a href="../reference/bidirection.html">flip_data()</a></code> is used as well, but right before the data is returned it will also get a <code>flipped_aes</code> column denoting if the data is flipped or not. This allow the stat to communicate to the geom that orientation has already been determined.</p>
 </div>
@@ -640,8 +640,8 @@
 <h3 class="hasAnchor">
 <a href="#omnidirecitonal-geoms" class="anchor"></a>Omnidirecitonal geoms</h3>
 <p>The setup for geoms is pretty much the same, with a few twists. <code><a href="../reference/bidirection.html">has_flipped_aes()</a></code> is also used in <code>setup_params()</code>, where it will usually be picked up from the <code>flipped_aes</code> column given by the stat. In <code>setup_data()</code> you will often see that <code>flipped_aes</code> is reassigned, to make sure it exist prior to position adjustment. This is needed if the geom is used together with a stat that doesn’t handle orientation (often <code><a href="../reference/stat_identity.html">stat_identity()</a></code>):</p>
-<div class="sourceCode" id="cb21"><pre class="downlit">
-<span class="va">GeomBoxplot</span><span class="op">$</span><span class="va">setup_data</span>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">GeomBoxplot</span><span class="op">$</span><span class="va">setup_data</span>
 <span class="co">#&gt; &lt;ggproto method&gt;</span>
 <span class="co">#&gt;   &lt;Wrapper function&gt;</span>
 <span class="co">#&gt;     function (...) </span>
@@ -676,25 +676,25 @@
 <span class="co">#&gt;     if (!is.null(data$relvarwidth)) </span>
 <span class="co">#&gt;         data$relvarwidth &lt;- NULL</span>
 <span class="co">#&gt;     flip_data(data, params$flipped_aes)</span>
-<span class="co">#&gt; }</span></pre></div>
+<span class="co">#&gt; }</span></code></pre></div>
 <p>In the <code>draw_*()</code> method you will once again sandwich any data manipulation between <code><a href="../reference/bidirection.html">flip_data()</a></code> calls. It is important to make sure that the data is flipped back prior to creating the grob or calling draw methods from other geoms.</p>
 </div>
 <div id="dealing-with-required-aesthetics" class="section level3">
 <h3 class="hasAnchor">
 <a href="#dealing-with-required-aesthetics" class="anchor"></a>Dealing with required aesthetics</h3>
 <p>Omnidirectional layers usually have two different sets of required aesthetics. Which set is used is often how it knows the orientation. To handle this gracefully the <code>required_aes</code> field of <code>Stat</code> and <code>Geom</code> classes understands the <code><a href="https://rdrr.io/r/base/Logic.html">|</a></code> (or) operator. Looking at <code>GeomBoxplot</code> we can see how it is used:</p>
-<div class="sourceCode" id="cb22"><pre class="downlit">
-<span class="va">GeomBoxplot</span><span class="op">$</span><span class="va">required_aes</span>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">GeomBoxplot</span><span class="op">$</span><span class="va">required_aes</span>
 <span class="co">#&gt; [1] "x|y"            "lower|xlower"   "upper|xupper"   "middle|xmiddle"</span>
-<span class="co">#&gt; [5] "ymin|xmin"      "ymax|xmax"</span></pre></div>
+<span class="co">#&gt; [5] "ymin|xmin"      "ymax|xmax"</span></code></pre></div>
 <p>This tells ggplot2 that either all the aesthetics before <code><a href="https://rdrr.io/r/base/Logic.html">|</a></code> are required or all the aesthetics after are required.</p>
 </div>
 <div id="ambiguous-layers" class="section level3">
 <h3 class="hasAnchor">
 <a href="#ambiguous-layers" class="anchor"></a>Ambiguous layers</h3>
 <p>Some layers will not have a clear interpretation of their data in terms of orientation. A classic example is <code><a href="../reference/geom_path.html">geom_line()</a></code> which just by convention runs along the x-axis. There is nothing in the data itself that indicates that. For these geoms the user must indicate a flipped orientation by setting <code>orientation = "y"</code>. The stat or geom will then call <code><a href="../reference/bidirection.html">has_flipped_aes()</a></code> with <code>ambiguous = TRUE</code> to cancel any guessing based on data format. As an example we can see the <code>setup_params()</code> method of <code>GeomLine</code>:</p>
-<div class="sourceCode" id="cb23"><pre class="downlit">
-<span class="va">GeomLine</span><span class="op">$</span><span class="va">setup_params</span>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">GeomLine</span><span class="op">$</span><span class="va">setup_params</span>
 <span class="co">#&gt; &lt;ggproto method&gt;</span>
 <span class="co">#&gt;   &lt;Wrapper function&gt;</span>
 <span class="co">#&gt;     function (...) </span>
@@ -705,7 +705,7 @@
 <span class="co">#&gt; {</span>
 <span class="co">#&gt;     params$flipped_aes &lt;- has_flipped_aes(data, params, ambiguous = TRUE)</span>
 <span class="co">#&gt;     params</span>
-<span class="co">#&gt; }</span></pre></div>
+<span class="co">#&gt; }</span></code></pre></div>
 </div>
 </div>
 <div id="creating-your-own-theme" class="section level2">
@@ -721,8 +721,8 @@
 <h3 class="hasAnchor">
 <a href="#overriding-elements" class="anchor"></a>Overriding elements</h3>
 <p>By default, when you add a new theme element, it inherits values from the existing theme. For example, the following code sets the key colour to red, but it inherits the existing fill colour:</p>
-<div class="sourceCode" id="cb24"><pre class="downlit">
-<span class="fu"><a href="../reference/ggtheme.html">theme_grey</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">legend.key</span>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/ggtheme.html">theme_grey</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">legend.key</span>
 <span class="co">#&gt; List of 5</span>
 <span class="co">#&gt;  $ fill         : chr "grey95"</span>
 <span class="co">#&gt;  $ colour       : logi NA</span>
@@ -739,10 +739,10 @@
 <span class="co">#&gt;  $ size         : NULL</span>
 <span class="co">#&gt;  $ linetype     : NULL</span>
 <span class="co">#&gt;  $ inherit.blank: logi FALSE</span>
-<span class="co">#&gt;  - attr(*, "class")= chr [1:2] "element_rect" "element"</span></pre></div>
+<span class="co">#&gt;  - attr(*, "class")= chr [1:2] "element_rect" "element"</span></code></pre></div>
 <p>To override it completely, use <code><a href="../reference/theme_get.html">%+replace%</a></code> instead of <code><a href="https://rdrr.io/r/base/Arithmetic.html">+</a></code>:</p>
-<div class="sourceCode" id="cb25"><pre class="downlit">
-<span class="va">new_theme</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggtheme.html">theme_grey</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%+replace%</span> <span class="fu"><a href="../reference/theme.html">theme</a></span><span class="op">(</span>legend.key <span class="op">=</span> <span class="fu"><a href="../reference/margin.html">element_rect</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span><span class="op">)</span>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">new_theme</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggtheme.html">theme_grey</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%+replace%</span> <span class="fu"><a href="../reference/theme.html">theme</a></span><span class="op">(</span>legend.key <span class="op">=</span> <span class="fu"><a href="../reference/margin.html">element_rect</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span><span class="op">)</span>
 <span class="va">new_theme</span><span class="op">$</span><span class="va">legend.key</span>
 <span class="co">#&gt; List of 5</span>
 <span class="co">#&gt;  $ fill         : NULL</span>
@@ -750,7 +750,7 @@
 <span class="co">#&gt;  $ size         : NULL</span>
 <span class="co">#&gt;  $ linetype     : NULL</span>
 <span class="co">#&gt;  $ inherit.blank: logi FALSE</span>
-<span class="co">#&gt;  - attr(*, "class")= chr [1:2] "element_rect" "element"</span></pre></div>
+<span class="co">#&gt;  - attr(*, "class")= chr [1:2] "element_rect" "element"</span></code></pre></div>
 </div>
 <div id="global-elements" class="section level3">
 <h3 class="hasAnchor">
@@ -786,16 +786,16 @@
 </tbody>
 </table>
 <p>These set default properties that are inherited by more specific settings. These are most useful for setting an overall “background” colour and overall font settings (e.g. family and size).</p>
-<div class="sourceCode" id="cb26"><pre class="downlit">
-<span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, y <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, y <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>
 <span class="va">base</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="../reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span>
 
-<span class="va">base</span></pre></div>
+<span class="va">base</span></code></pre></div>
 <p><img src="extending-ggplot2_files/figure-html/axis-line-ex-1.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb27"><pre class="downlit">
-<span class="va">base</span> <span class="op">+</span> <span class="fu"><a href="../reference/theme.html">theme</a></span><span class="op">(</span>text <span class="op">=</span> <span class="fu"><a href="../reference/margin.html">element_text</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">base</span> <span class="op">+</span> <span class="fu"><a href="../reference/theme.html">theme</a></span><span class="op">(</span>text <span class="op">=</span> <span class="fu"><a href="../reference/margin.html">element_text</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="extending-ggplot2_files/figure-html/axis-line-ex-2.png" width="672" style="display: block; margin: auto;"></p>
 <p>You should generally start creating a theme by modifying these values.</p>
 </div>
@@ -832,18 +832,18 @@
 <h3 class="hasAnchor">
 <a href="#creating-a-layout-specification" class="anchor"></a>Creating a layout specification</h3>
 <p>A layout in the context of facets is a <code>data.frame</code> that defines a mapping between data and the panels it should reside in as well as which positional scales should be used. The output should at least contain the columns <code>PANEL</code>, <code>SCALE_X</code>, and <code>SCALE_Y</code>, but will often contain more to help assign data to the correct panel (<code><a href="../reference/facet_grid.html">facet_grid()</a></code> will e.g. also return the faceting variables associated with each panel). Let’s make a function that defines a duplicate layout:</p>
-<div class="sourceCode" id="cb28"><pre class="downlit">
-<span class="va">layout</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">params</span><span class="op">)</span> <span class="op">{</span>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">layout</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">params</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>PANEL <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1L</span>, <span class="fl">2L</span><span class="op">)</span>, SCALE_X <span class="op">=</span> <span class="fl">1L</span>, SCALE_Y <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span>
-<span class="op">}</span></pre></div>
+<span class="op">}</span></code></pre></div>
 <p>This is quite simple as the faceting should just define two panels irrespectively of the input data and parameters.</p>
 </div>
 <div id="mapping-data-into-panels" class="section level3">
 <h3 class="hasAnchor">
 <a href="#mapping-data-into-panels" class="anchor"></a>Mapping data into panels</h3>
 <p>In order for ggplot2 to know which data should go where it needs the data to be assigned to a panel. The purpose of the mapping step is to assign a <code>PANEL</code> column to the layer data identifying which panel it belongs to.</p>
-<div class="sourceCode" id="cb29"><pre class="downlit">
-<span class="va">mapping</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">layout</span>, <span class="va">params</span><span class="op">)</span> <span class="op">{</span>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mapping</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">layout</span>, <span class="va">params</span><span class="op">)</span> <span class="op">{</span>
   <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html">is.null</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">||</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span>
     <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">data</span>, PANEL <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">integer</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
   <span class="op">}</span>
@@ -851,15 +851,15 @@
     <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">data</span>, PANEL <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span>,
     <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">data</span>, PANEL <span class="op">=</span> <span class="fl">2L</span><span class="op">)</span>
   <span class="op">)</span>
-<span class="op">}</span></pre></div>
+<span class="op">}</span></code></pre></div>
 <p>here we first investigate whether we have gotten an empty <code>data.frame</code> and if not we duplicate the data and assign the original data to the first panel and the new data to the second panel.</p>
 </div>
 <div id="laying-out-the-panels" class="section level3">
 <h3 class="hasAnchor">
 <a href="#laying-out-the-panels" class="anchor"></a>Laying out the panels</h3>
 <p>While the two functions above have been deceivingly simple, this last one is going to take some more work. Our goal is to draw two panels beside (or above) each other with axes etc.</p>
-<div class="sourceCode" id="cb30"><pre class="downlit">
-<span class="va">render</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">panels</span>, <span class="va">layout</span>, <span class="va">x_scales</span>, <span class="va">y_scales</span>, <span class="va">ranges</span>, <span class="va">coord</span>, <span class="va">data</span>,
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">render</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">panels</span>, <span class="va">layout</span>, <span class="va">x_scales</span>, <span class="va">y_scales</span>, <span class="va">ranges</span>, <span class="va">coord</span>, <span class="va">data</span>,
                    <span class="va">theme</span>, <span class="va">params</span><span class="op">)</span> <span class="op">{</span>
   <span class="co"># Place panels according to settings</span>
   <span class="kw">if</span> <span class="op">(</span><span class="va">params</span><span class="op">$</span><span class="va">horizontal</span><span class="op">)</span> <span class="op">{</span>
@@ -928,14 +928,14 @@
       clip <span class="op">=</span> <span class="st">"off"</span><span class="op">)</span>
   <span class="op">}</span>
   <span class="va">panel_table</span>
-<span class="op">}</span></pre></div>
+<span class="op">}</span></code></pre></div>
 </div>
 <div id="assembling-the-facet-class" class="section level3">
 <h3 class="hasAnchor">
 <a href="#assembling-the-facet-class" class="anchor"></a>Assembling the Facet class</h3>
 <p>Usually all methods are defined within the class definition in the same way as is done for <code>Geom</code> and <code>Stat</code>. Here we have split it out so we could go through each in turn. All that remains is to assign our functions to the correct methods as well as making a constructor</p>
-<div class="sourceCode" id="cb31"><pre class="downlit">
-<span class="co"># Constructor: shrink is required to govern whether scales are trained on </span>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Constructor: shrink is required to govern whether scales are trained on </span>
 <span class="co"># Stat-transformed data or not.</span>
 <span class="va">facet_duplicate</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">horizontal</span> <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">shrink</span> <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu"><a href="../reference/ggproto.html">ggproto</a></span><span class="op">(</span><span class="cn">NULL</span>, <span class="va">FacetDuplicate</span>,
@@ -950,22 +950,22 @@
   compute_layout <span class="op">=</span> <span class="va">layout</span>,
   map_data <span class="op">=</span> <span class="va">mapping</span>,
   draw_panels <span class="op">=</span> <span class="va">render</span>
-<span class="op">)</span></pre></div>
+<span class="op">)</span></code></pre></div>
 <p>Now with everything assembled, lets test it out:</p>
-<div class="sourceCode" id="cb32"><pre class="downlit">
-<span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hp</span>, y <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span>
-<span class="va">p</span></pre></div>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hp</span>, y <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">p</span></code></pre></div>
 <p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb33"><pre class="downlit">
-<span class="va">p</span> <span class="op">+</span> <span class="fu">facet_duplicate</span><span class="op">(</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">p</span> <span class="op">+</span> <span class="fu">facet_duplicate</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-26-2.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div id="doing-more-with-facets" class="section level3">
 <h3 class="hasAnchor">
 <a href="#doing-more-with-facets" class="anchor"></a>Doing more with facets</h3>
 <p>The example above was pretty useless and we’ll now try to expand on it to add some actual usability. We are going to make a faceting that adds panels with y-transformed axes:</p>
-<div class="sourceCode" id="cb34"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://scales.r-lib.org">scales</a></span><span class="op">)</span>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://scales.r-lib.org">scales</a></span><span class="op">)</span>
 
 <span class="va">facet_trans</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">trans</span>, <span class="va">horizontal</span> <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">shrink</span> <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu"><a href="../reference/ggproto.html">ggproto</a></span><span class="op">(</span><span class="cn">NULL</span>, <span class="va">FacetTrans</span>,
@@ -1146,11 +1146,11 @@
     
     <span class="va">panel_table</span>
   <span class="op">}</span>
-<span class="op">)</span></pre></div>
+<span class="op">)</span></code></pre></div>
 <p>As is very apparent, the <code>draw_panel</code> method can become very unwieldy once it begins to take multiple possibilities into account. The fact that we want to support both horizontal and vertical layout leads to a lot of if/else blocks in the above code. In general, this is the big challenge when writing facet extensions so be prepared to be very meticulous when writing these methods.</p>
 <p>Enough talk - lets see if our new and powerful faceting extension works:</p>
-<div class="sourceCode" id="cb35"><pre class="downlit">
-<span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hp</span>, y <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu">facet_trans</span><span class="op">(</span><span class="st">'sqrt'</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hp</span>, y <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu">facet_trans</span><span class="op">(</span><span class="st">'sqrt'</span><span class="op">)</span></code></pre></div>
 <p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 </div>
@@ -1158,8 +1158,8 @@
 <h2 class="hasAnchor">
 <a href="#extending-existing-facet-function" class="anchor"></a>Extending existing facet function</h2>
 <p>As the rendering part of a facet class is often the difficult development step, it is possible to piggyback on the existing faceting classes to achieve a range of new facetings. Below we will subclass <code><a href="../reference/facet_wrap.html">facet_wrap()</a></code> to make a <code>facet_bootstrap()</code> class that splits the input data into a number of panels at random.</p>
-<div class="sourceCode" id="cb36"><pre class="downlit">
-<span class="va">facet_bootstrap</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span> <span class="op">=</span> <span class="fl">9</span>, <span class="va">prop</span> <span class="op">=</span> <span class="fl">0.2</span>, <span class="va">nrow</span> <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">ncol</span> <span class="op">=</span> <span class="cn">NULL</span>, 
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">facet_bootstrap</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span> <span class="op">=</span> <span class="fl">9</span>, <span class="va">prop</span> <span class="op">=</span> <span class="fl">0.2</span>, <span class="va">nrow</span> <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">ncol</span> <span class="op">=</span> <span class="cn">NULL</span>, 
   <span class="va">scales</span> <span class="op">=</span> <span class="st">"fixed"</span>, <span class="va">shrink</span> <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">strip.position</span> <span class="op">=</span> <span class="st">"top"</span><span class="op">)</span> <span class="op">{</span>
   
   <span class="va">facet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">.bootstrap</span>, nrow <span class="op">=</span> <span class="va">nrow</span>, ncol <span class="op">=</span> <span class="va">ncol</span>, scales <span class="op">=</span> <span class="va">scales</span>, 
@@ -1209,7 +1209,7 @@
 
 <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">carat</span>, <span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu">facet_bootstrap</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">9</span>, prop <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></pre></div>
+  <span class="fu">facet_bootstrap</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">9</span>, prop <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></code></pre></div>
 <p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>What we are doing above is to intercept the <code>compute_layout</code> and <code>map_data</code> methods and instead of dividing the data by a variable we randomly assigns rows to a panel based on the sampling parameters (<code>n</code> determines the number of panels, <code>prop</code> determines the proportion of data in each panel). It is important here that the layout returned by <code>compute_layout</code> is a valid layout for <code>FacetWrap</code> as we are counting on the <code>draw_panel</code> method from <code>FacetWrap</code> to do all the work for us. Thus if you want to subclass FacetWrap or FacetGrid, make sure you understand the nature of their layout specification.</p>
 <div id="exercises-2" class="section level3">
