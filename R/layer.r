@@ -203,6 +203,12 @@ Layer <- ggproto("Layer", NULL,
   # hook to allow a layer access to the final layer data
   # in input form and to global plot info
   setup_layer = function(self, data, plot) {
+    if (isTRUE(self$inherit.aes)) {
+      self$mapping <- defaults(self$mapping, plot$mapping)
+      # defaults() strips class, but it needs to be preserved for now
+      class(self$mapping) <- "uneval"
+    }
+
     data
   },
 
