@@ -97,7 +97,7 @@ ggplot_build.ggplot <- function(plot) {
   }
 
   # Fill in defaults etc.
-  data <- by_layer(function(l, d) l$compute_geom_2(d, plot))
+  data <- by_layer(function(l, d) l$compute_geom_2(d))
 
   # Let layer stat have a final say before rendering
   data <- by_layer(function(l, d) l$finish_statistics(d))
