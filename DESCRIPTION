@@ -25,7 +25,7 @@ Authors@R: c(
     person("RStudio", role = c("cph", "fnd"))
     )
 Depends:
-    R (>= 3.2)
+    R (>= 3.3)
 Imports: 
     digest,
     glue,
