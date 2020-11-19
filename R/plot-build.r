@@ -35,6 +35,10 @@ ggplot_build.ggplot <- function(plot) {
   layer_data <- lapply(layers, function(y) y$layer_data(plot$data))
 
   scales <- plot$scales
+  # Make sure all scales are provided with any parameters that were separately
+  # provided. Note: this excludes missing but required scales, which don't yet
+  # exist at this time.
+  scales$update_scales_params()
   # Apply function to layer and matching data
   by_layer <- function(f) {
     out <- vector("list", length(data))

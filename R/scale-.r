@@ -341,6 +341,9 @@ binned_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 #'   (for non-position scales) or when the `Layout` calculates the x and y labels
 #'   (position scales).
 #'
+#' - `update_params()` Method to feed scale parameters into scale object at the end of
+#'   plot construction. For ggplot2 internal use only.
+#'
 #' These methods are only valid for position (x and y) scales:
 #'
 #' - `dimension()` For continuous scales, the dimension is the same concept as the limits.
@@ -388,6 +391,8 @@ Scale <- ggproto("Scale", NULL,
   guide = "legend",
   position = "left",
 
+  update_params = function(self, params) {
+  },
 
   is_discrete = function() {
     abort("Not implemented")
@@ -547,6 +552,13 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
   minor_breaks = waiver(),
   n.breaks = NULL,
   trans = identity_trans(),
+
+  update_params = function(self, params) {
+    self$name <- params$name %||% self$name
+    self$breaks <- params$breaks %||% self$breaks
+    self$labels <- params$labels %||% self$labels
+    self$expand <- params$expand %||% self$expand
+  },
 
   is_discrete = function() FALSE,
 
