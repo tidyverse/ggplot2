@@ -56,8 +56,8 @@
 #'  \item{county}{}
 #'  \item{state}{}
 #'  \item{area}{}
-#'  \item{poptotal}{Total population}
-#'  \item{popdensity}{Population density}
+#'  \item{poptotal}{Total population.}
+#'  \item{popdensity}{Population density.}
 #'  \item{popwhite}{Number of whites.}
 #'  \item{popblack}{Number of blacks.}
 #'  \item{popamerindian}{Number of American Indians.}
