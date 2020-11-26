@@ -48,7 +48,7 @@
 
 #' Midwest demographics
 #'
-#' Demographic information of midwest counties
+#' Demographic information of midwest counties from 2000 US census
 #'
 #' @format A data frame with 437 rows and 28 variables:
 #' \describe{
