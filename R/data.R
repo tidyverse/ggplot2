@@ -52,11 +52,11 @@
 #'
 #' @format A data frame with 437 rows and 28 variables:
 #' \describe{
-#'  \item{PID}{}
-#'  \item{county}{}
-#'  \item{state}{}
-#'  \item{area}{}
-#'  \item{poptotal}{Total population.}
+#'  \item{PID}{Unique county identifier.}
+#'  \item{county}{County name.}
+#'  \item{state}{State to which county belongs to.}
+#'  \item{area}{Area of county (units unknown).}
+#'  \item{poptotal}{Total population (person/unit area).}
 #'  \item{popdensity}{Population density.}
 #'  \item{popwhite}{Number of whites.}
 #'  \item{popblack}{Number of blacks.}
@@ -69,17 +69,17 @@
 #'  \item{percasian}{Percent Asian.}
 #'  \item{percother}{Percent other races.}
 #'  \item{popadults}{Number of adults.}
-#'  \item{perchsd}{}
+#'  \item{perchsd}{Percent with high school diploma.}
 #'  \item{percollege}{Percent college educated.}
-#'  \item{percprof}{Percent profession.}
-#'  \item{poppovertyknown}{}
-#'  \item{percpovertyknown}{}
-#'  \item{percbelowpoverty}{}
-#'  \item{percchildbelowpovert}{}
-#'  \item{percadultpoverty}{}
-#'  \item{percelderlypoverty}{}
-#'  \item{inmetro}{In a metro area.}
-#'  \item{category}{}
+#'  \item{percprof}{Percent with professional degree.}
+#'  \item{poppovertyknown}{Population with known poverty status.}
+#'  \item{percpovertyknown}{Percent of population with known poverty status.}
+#'  \item{percbelowpoverty}{Percent of people below poverty line.}
+#'  \item{percchildbelowpovert}{Percent of children below poverty line.}
+#'  \item{percadultpoverty}{Percent of adults below poverty line.}
+#'  \item{percelderlypoverty}{Percent of elderly below poverty line.}
+#'  \item{inmetro}{County considered in a metro area.}
+#'  \item{category}{Miscellaneous.}
 #' }
 #'
 "midwest"
