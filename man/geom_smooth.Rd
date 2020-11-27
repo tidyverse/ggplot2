@@ -120,7 +120,7 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
 \item{span}{Controls the amount of smoothing for the default loess smoother.
 Smaller numbers produce wigglier lines, larger numbers produce smoother
-lines. Only used when loess is used, i.e. when \code{method="loess"}
+lines. Only used with loess, i.e. when \code{method="loess"},
 or when \code{method=NULL} (the default) and there are fewer than 1,000
 observations.}
 
