@@ -25,8 +25,8 @@
 #' @param level Level of confidence interval to use (0.95 by default).
 #' @param span Controls the amount of smoothing for the default loess smoother.
 #'   Smaller numbers produce wigglier lines, larger numbers produce smoother
-#'   lines. Only used with loess, i.e. when `method="loess"`,
-#'   or when `method=NULL` (the default) and there are fewer than 1,000
+#'   lines. Only used with loess, i.e. when `method = "loess"`,
+#'   or when `method = NULL` (the default) and there are fewer than 1,000
 #'   observations.
 #' @param n Number of points at which to evaluate smoother.
 #' @param method.args List of additional arguments passed on to the modelling
