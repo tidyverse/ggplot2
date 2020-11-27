@@ -56,8 +56,8 @@
 #'  \item{county}{County name.}
 #'  \item{state}{State to which county belongs to.}
 #'  \item{area}{Area of county (units unknown).}
-#'  \item{poptotal}{Total population (person/unit area).}
-#'  \item{popdensity}{Population density.}
+#'  \item{poptotal}{Total population.}
+#'  \item{popdensity}{Population density (person/unit area).}
 #'  \item{popwhite}{Number of whites.}
 #'  \item{popblack}{Number of blacks.}
 #'  \item{popamerindian}{Number of American Indians.}
