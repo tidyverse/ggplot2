@@ -53,7 +53,7 @@
 #' Note: this dataset is included for illustrative purposes. The original
 #' descriptions were not documented and the current descriptions here are based
 #' on speculation. For more accurate and up-to-date US census data, see the
-#' [`acs` package](https://cran.r-project.org/web/packages/acs/index.html).
+#' [`acs` package](https://cran.r-project.org/package=acs).
 #'
 #' @format A data frame with 437 rows and 28 variables:
 #' \describe{
