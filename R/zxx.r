@@ -3,7 +3,15 @@
 #' @export
 #' @rdname scale_viridis
 #' @usage NULL
-scale_colour_ordinal <- scale_colour_viridis_d
+scale_colour_ordinal <- function(..., type = getOption("ggplot2.ordinal.colour", getOption("ggplot2.ordinal.fill"))) {
+  type <- type %||% scale_colour_viridis_d
+  if (is.function(type)) {
+    type(...)
+  } else {
+    discrete_scale("colour", "ordinal", ordinal_pal(type), ...)
+  }
+}
+
 
 #' @export
 #' @rdname scale_viridis
@@ -62,7 +70,21 @@ scale_color_date <- scale_colour_date
 #' @export
 #' @rdname scale_viridis
 #' @usage NULL
-scale_fill_ordinal <- scale_fill_viridis_d
+scale_fill_ordinal <- function(..., type = getOption("ggplot2.ordinal.fill", getOption("ggplot2.ordinal.colour"))) {
+  type <- type %||% scale_fill_viridis_d
+  if (is.function(type)) {
+    type(...)
+  } else {
+    discrete_scale("fill", "ordinal", ordinal_pal(type), ...)
+  }
+}
+
+ordinal_pal <- function(colours, na.color = "grey50", alpha = TRUE) {
+  pal <- scales::colour_ramp(colours, na.color = na.color, alpha = alpha)
+  function(n) {
+    pal(seq(0, 1, length.out = n))
+  }
+}
 
 #' @export
 #' @rdname scale_gradient
