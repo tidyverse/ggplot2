@@ -56,7 +56,7 @@
 
 
 <meta property="og:title" content="Midwest demographics — midwest" />
-<meta property="og:description" content="Demographic information of midwest counties" />
+<meta property="og:description" content="Demographic information of midwest counties from 2000 US census" />
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -203,7 +203,7 @@
     </div>
 
     <div class="ref-description">
-    <p>Demographic information of midwest counties</p>
+    <p>Demographic information of midwest counties from 2000 US census</p>
     </div>
 
     <pre class="usage"><span class='va'>midwest</span></pre>
@@ -212,12 +212,12 @@
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
     <p>A data frame with 437 rows and 28 variables:</p><dl>
-<dt>PID</dt><dd><p></p></dd>
-<dt>county</dt><dd><p></p></dd>
-<dt>state</dt><dd><p></p></dd>
-<dt>area</dt><dd><p></p></dd>
-<dt>poptotal</dt><dd><p>Total population</p></dd>
-<dt>popdensity</dt><dd><p>Population density</p></dd>
+<dt>PID</dt><dd><p>Unique county identifier.</p></dd>
+<dt>county</dt><dd><p>County name.</p></dd>
+<dt>state</dt><dd><p>State to which county belongs to.</p></dd>
+<dt>area</dt><dd><p>Area of county (units unknown).</p></dd>
+<dt>poptotal</dt><dd><p>Total population.</p></dd>
+<dt>popdensity</dt><dd><p>Population density (person/unit area).</p></dd>
 <dt>popwhite</dt><dd><p>Number of whites.</p></dd>
 <dt>popblack</dt><dd><p>Number of blacks.</p></dd>
 <dt>popamerindian</dt><dd><p>Number of American Indians.</p></dd>
@@ -229,20 +229,26 @@
 <dt>percasian</dt><dd><p>Percent Asian.</p></dd>
 <dt>percother</dt><dd><p>Percent other races.</p></dd>
 <dt>popadults</dt><dd><p>Number of adults.</p></dd>
-<dt>perchsd</dt><dd><p></p></dd>
+<dt>perchsd</dt><dd><p>Percent with high school diploma.</p></dd>
 <dt>percollege</dt><dd><p>Percent college educated.</p></dd>
-<dt>percprof</dt><dd><p>Percent profession.</p></dd>
-<dt>poppovertyknown</dt><dd><p></p></dd>
-<dt>percpovertyknown</dt><dd><p></p></dd>
-<dt>percbelowpoverty</dt><dd><p></p></dd>
-<dt>percchildbelowpovert</dt><dd><p></p></dd>
-<dt>percadultpoverty</dt><dd><p></p></dd>
-<dt>percelderlypoverty</dt><dd><p></p></dd>
-<dt>inmetro</dt><dd><p>In a metro area.</p></dd>
-<dt>category</dt><dd><p></p></dd>
+<dt>percprof</dt><dd><p>Percent with professional degree.</p></dd>
+<dt>poppovertyknown</dt><dd><p>Population with known poverty status.</p></dd>
+<dt>percpovertyknown</dt><dd><p>Percent of population with known poverty status.</p></dd>
+<dt>percbelowpoverty</dt><dd><p>Percent of people below poverty line.</p></dd>
+<dt>percchildbelowpovert</dt><dd><p>Percent of children below poverty line.</p></dd>
+<dt>percadultpoverty</dt><dd><p>Percent of adults below poverty line.</p></dd>
+<dt>percelderlypoverty</dt><dd><p>Percent of elderly below poverty line.</p></dd>
+<dt>inmetro</dt><dd><p>County considered in a metro area.</p></dd>
+<dt>category</dt><dd><p>Miscellaneous.</p></dd>
 
 </dl>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Note: this dataset is included for illustrative purposes. The original
+descriptions were not documented and the current descriptions here are based
+on speculation. For more accurate and up-to-date US census data, see the
+<a href='https://cran.r-project.org/package=acs'><code>acs</code> package</a>.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
