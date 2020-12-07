@@ -19,6 +19,7 @@ geom_abline(
 geom_hline(
   mapping = NULL,
   data = NULL,
+  position = "identity",
   ...,
   yintercept,
   na.rm = FALSE,
@@ -28,6 +29,7 @@ geom_hline(
 geom_vline(
   mapping = NULL,
   data = NULL,
+  position = "identity",
   ...,
   xintercept,
   na.rm = FALSE,
@@ -65,6 +67,9 @@ a warning. If \code{TRUE}, missing values are silently removed.}
 \code{FALSE} never includes, and \code{TRUE} always includes.
 It can also be a named logical vector to finely select the aesthetics to
 display.}
+
+\item{position}{Position adjustment, either as a string, or the result of
+a call to a position adjustment function.}
 
 \item{xintercept, yintercept, slope, intercept}{Parameters that control the
 position of the line. If these are set, \code{data}, \code{mapping} and
