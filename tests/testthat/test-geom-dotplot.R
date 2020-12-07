@@ -191,7 +191,8 @@ test_that("geom_dotplot draws correctly", {
       )
     ) +
       geom_dotplot(binwidth = .4, fill = "red", col = "blue") +
-      continuous_scale("stroke", "scaleName", function(x) scales::rescale(x, to = c(1, 6)))
+      continuous_scale("stroke", "scaleName", function(x) scales::rescale(x, to = c(1, 6)),
+                       guide = guide_legend(order = 0))
   )
 
   # Stacking groups
