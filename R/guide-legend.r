@@ -226,7 +226,7 @@ guide_train.legend <- function(guide, scale, aesthetic = NULL) {
   guide$key <- key
   guide$hash <- with(
     guide,
-    digest::digest(list(title, key$.label, direction, name))
+    digest::digest(list(title, key$.label, direction, name, order))
   )
   guide
 }
