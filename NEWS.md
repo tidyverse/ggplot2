@@ -24,6 +24,10 @@
 
 * ggplot2 now requires R >= 3.3 (#4247).
 
+* The hash of `guide_legend()` now includes information on the `order` argument. This means
+that guides with different orders will not be merged. It also means that legend order in 
+plots with multiple legends may change. (@eliocamp, #4280)
+
 # ggplot2 3.3.2
 This is a small release focusing on fixing regressions introduced in 3.3.1.
 
