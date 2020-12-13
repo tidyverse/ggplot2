@@ -277,9 +277,11 @@ median_hilow <- wrap_hmisc("smedian.hilow")
 #' @param x numeric vector.
 #' @param mult number of multiples of standard error.
 #' @return A data frame with three columns:
-#'  * `y` with the [mean()].
-#'  * `ymin` with the [mean()] minus the multiples of the standard error.
-#'  * `ymax` with the [mean()] plus the multiples of the standard error.
+#' \describe{
+#'     \item{`y`}{ The mean.}
+#'     \item{`ymin`}{ The mean minus the multiples of the standard error.}
+#'     \item{`ymax`}{ The mean plus the multiples of the standard error.}
+#' }
 #' @export
 #' @examples
 #' x <- rnorm(100)

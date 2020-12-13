@@ -13,10 +13,10 @@ mean_se(x, mult = 1)
 }
 \value{
 A data frame with three columns:
-\itemize{
-\item \code{y} with the \code{\link[=mean]{mean()}}.
-\item \code{ymin} with the \code{\link[=mean]{mean()}} minus the multiples of the standard error.
-\item \code{ymax} with the \code{\link[=mean]{mean()}} plus the multiples of the standard error.
+\describe{
+\item{\code{y}}{ The mean.}
+\item{\code{ymin}}{ The mean minus the multiples of the standard error.}
+\item{\code{ymax}}{ The mean plus the multiples of the standard error.}
 }
 }
 \description{
