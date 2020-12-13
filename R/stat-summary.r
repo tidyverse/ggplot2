@@ -31,7 +31,7 @@
 #' number, but is somewhat less flexible. If your summary function computes
 #' multiple values at once (e.g. min and max), use `fun.data`.
 #'
-#' `fun.data` will recieve data as if it was oriented along the x-axis and
+#' `fun.data` will receive data as if it was oriented along the x-axis and
 #' should return a data.frame that corresponds to that orientation. The layer
 #' will take care of flipping the input and output if it is oriented along the
 #' y-axis.
@@ -276,8 +276,10 @@ median_hilow <- wrap_hmisc("smedian.hilow")
 #'
 #' @param x numeric vector.
 #' @param mult number of multiples of standard error.
-#' @return A data frame with columns `y` with the `mean`, `ymin` with the mean
-#' minus the standard error, and `ymax`, the mean plus the standard error.
+#' @return A data frame with three columns:
+#'  * `y` with the [mean()].
+#'  * `ymin` with the [mean()] minus the multiples of the standard error.
+#'  * `ymax` with the [mean()] plus the multiples of the standard error.
 #' @export
 #' @examples
 #' x <- rnorm(100)
