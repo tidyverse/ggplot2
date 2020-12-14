@@ -65,7 +65,7 @@ Suggests:
     testthat (>= 2.1.0),
     vdiffr (>= 0.3.0)
 Enhances: sp
-License: GPL-2 | file LICENSE
+License: MIT + file LICENSE
 URL: http://ggplot2.tidyverse.org, https://github.com/tidyverse/ggplot2
 BugReports: https://github.com/tidyverse/ggplot2/issues
 LazyData: true
@@ -263,6 +263,6 @@ Collate:
     'zxx.r'
     'zzz.r'
 VignetteBuilder: knitr
-RoxygenNote: 7.1.0.9000
+RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8

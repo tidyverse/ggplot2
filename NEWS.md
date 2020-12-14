@@ -1,5 +1,9 @@
 # ggplot2 (development version)
 
+* Update the ggplot2 licence to an MIT license (#4231, #4232, #4233, and #4281)
+* Use vdiffr conditionally so ggplot2 can be tested on systems without vdiffr
+* Update tests to work with the new `all.equal()` defaults in R >4.0.3
+
 # ggplot2 3.3.2
 This is a small release focusing on fixing regressions introduced in 3.3.1.
 
