@@ -2,17 +2,22 @@
 % Please edit documentation in R/stat-summary.r
 \name{mean_se}
 \alias{mean_se}
-\title{Calculate mean and standard error}
+\title{Calculate mean and standard error of the mean}
 \usage{
 mean_se(x, mult = 1)
 }
 \arguments{
-\item{x}{numeric vector}
+\item{x}{numeric vector.}
 
-\item{mult}{number of multiples of standard error}
+\item{mult}{number of multiples of standard error.}
 }
 \value{
-A data frame with columns \code{y}, \code{ymin}, and \code{ymax}.
+A data frame with three columns:
+\describe{
+\item{\code{y}}{ The mean.}
+\item{\code{ymin}}{ The mean minus the multiples of the standard error.}
+\item{\code{ymax}}{ The mean plus the multiples of the standard error.}
+}
 }
 \description{
 For use with \code{\link[=stat_summary]{stat_summary()}}
