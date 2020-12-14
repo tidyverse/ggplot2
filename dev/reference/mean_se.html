@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Calculate mean and standard error — mean_se • ggplot2</title>
+<title>Calculate mean and standard error of the mean — mean_se • ggplot2</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -55,7 +55,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Calculate mean and standard error — mean_se" />
+<meta property="og:title" content="Calculate mean and standard error of the mean — mean_se" />
 <meta property="og:description" content="For use with stat_summary()" />
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -197,7 +197,7 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Calculate mean and standard error</h1>
+    <h1>Calculate mean and standard error of the mean</h1>
     <small class="dont-index">Source: <a href='https://github.com/tidyverse/ggplot2/blob/master/R/stat-summary.r'><code>R/stat-summary.r</code></a></small>
     <div class="hidden name"><code>mean_se.Rd</code></div>
     </div>
@@ -213,17 +213,23 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>numeric vector</p></td>
+      <td><p>numeric vector.</p></td>
     </tr>
     <tr>
       <th>mult</th>
-      <td><p>number of multiples of standard error</p></td>
+      <td><p>number of multiples of standard error.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A data frame with columns <code>y</code>, <code>ymin</code>, and <code>ymax</code>.</p>
+    <p>A data frame with three columns:</p><dl>
+<dt><code>y</code></dt><dd><p>The mean.</p></dd>
+<dt><code>ymin</code></dt><dd><p>The mean minus the multiples of the standard error.</p></dd>
+<dt><code>ymax</code></dt><dd><p>The mean plus the multiples of the standard error.</p></dd>
+
+</dl>
+
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100</span><span class='op'>)</span>
