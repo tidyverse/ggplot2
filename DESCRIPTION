@@ -66,7 +66,7 @@ Suggests:
     vdiffr (>= 0.3.0)
 Enhances: sp
 License: MIT + file LICENSE
-URL: http://ggplot2.tidyverse.org, https://github.com/tidyverse/ggplot2
+URL: https://ggplot2.tidyverse.org, https://github.com/tidyverse/ggplot2
 BugReports: https://github.com/tidyverse/ggplot2/issues
 LazyData: true
 Collate: 

@@ -22,6 +22,6 @@ txhousing
 }
 \description{
 Information about the housing market in Texas provided by the TAMU
-real estate center, \url{http://recenter.tamu.edu/}.
+real estate center, \url{https://www.recenter.tamu.edu/}.
 }
 \keyword{datasets}

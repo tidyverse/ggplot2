@@ -19,7 +19,7 @@ NULL
 #' because you can name those directly. The flip side is that you have
 #' to use [quasiquotation][rlang::quasiquotation] to program with
 #' `aes()`. See a tidy evaluation tutorial such as the [dplyr
-#' programming vignette](http://dplyr.tidyverse.org/articles/programming.html)
+#' programming vignette](https://dplyr.tidyverse.org/articles/programming.html)
 #' to learn more about these techniques.
 #'
 #' @param x,y,... List of name-value pairs in the form `aesthetic = variable`

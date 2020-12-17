@@ -681,7 +681,7 @@ accompanying issue #2890.
 ## New features
 
 * ggplot2 now works on R 3.1 onwards, and uses the 
-  [vdiffr](https://github.com/lionel-/vdiffr) package for visual testing.
+  [vdiffr](https://github.com/r-lib/vdiffr) package for visual testing.
 
 * In most cases, accidentally using `%>%` instead of `+` will generate an 
   informative error (#2400).
