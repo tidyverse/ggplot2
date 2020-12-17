@@ -1,4 +1,6 @@
 # ggplot2 (development version)
+This is a small patch release mainly intended to address changes in R and CRAN.
+It further changes the licensing model of ggplot2 to an MIT license.
 
 * Update the ggplot2 licence to an MIT license (#4231, #4232, #4233, and #4281)
 * Use vdiffr conditionally so ggplot2 can be tested on systems without vdiffr
