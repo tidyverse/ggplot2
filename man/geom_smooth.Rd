@@ -120,7 +120,9 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
 \item{span}{Controls the amount of smoothing for the default loess smoother.
 Smaller numbers produce wigglier lines, larger numbers produce smoother
-lines.}
+lines. Only used with loess, i.e. when \code{method = "loess"},
+or when \code{method = NULL} (the default) and there are fewer than 1,000
+observations.}
 
 \item{fullrange}{Should the fit span the full range of the plot, or just
 the data?}
