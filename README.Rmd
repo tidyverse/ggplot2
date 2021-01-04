@@ -73,7 +73,7 @@ If you are new to ggplot2 you are better off starting with a systematic introduc
     possible.
     
 1.  If you'd like to follow a webinar, try
-    [Plotting Anything with ggplot2][https://youtu.be/h29g21z0a68] by Thomas Lin 
+    [Plotting Anything with ggplot2](https://youtu.be/h29g21z0a68) by Thomas Lin 
     Pedersen.
 
 1.  If you want to dive into making common graphics as quickly 
