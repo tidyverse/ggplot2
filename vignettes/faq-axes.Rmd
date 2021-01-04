@@ -4,7 +4,7 @@ output: rmarkdown::html_vignette
 description: |
   Customising axes and grid lines.
 vignette: >
-  %\VignetteIndexEntry{Axes}
+  %\VignetteIndexEntry{FAQ: Axes}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -12,25 +12,24 @@ vignette: >
 ```{r, include = FALSE}
 library(ggplot2)
 knitr::opts_chunk$set(
-  fig.dpi = 96, 
+  fig.dpi = 300, 
   collapse = TRUE, 
   comment = "#>",
   fig.asp = 0.618,
-  fig.width = 6)
+  fig.width = 6,
+  out.width = "80%")
 ```
 
 ## Label placement
 
 ### How can I rotate the axis tick labels in ggplot2 so that tick labels that are long character strings don't overlap?
 
-We can do this by setting the angle of the text in the `axis.text.x` or `axis.text.y` components of the `theme()`, e.g. `theme(axis.text.x = element_text(angle = 90))`.
+Set the angle of the text in the `axis.text.x` or `axis.text.y` components of the `theme()`, e.g. `theme(axis.text.x = element_text(angle = 90))`.
 
 <br>
 
 <details>
-<summary>Details</summary>
-
-In the following plot the 
+In the following plot the labels on the x-axis are overlapping.
 
 ```{r msleep-order-sleep-total}
 ggplot(msleep, aes(x = order, y = sleep_total)) +
@@ -52,48 +51,37 @@ ggplot(msleep, aes(y = order, x = sleep_total)) +
   geom_boxplot()
 ```
 
-- Dodge axis labels: Use the `guide_axis()` function, where `n.dodge` indicates the number of rows that should be used to render the labels.
+- Dodge axis labels: Add a `scale_*()` layer, e.g. `scale_x_continuous()`, `scale_y_discrete()`, etc., and customise the `guide` argument with the `guide_axis()` function. In this case we want to customise the x-axis, and the variable on the x-axis is discrete, so we'll use `scale_x_continuous()`. In the `guide` argument we use the `guide_axis()` and specify how many rows to dodge the labels into with `n.dodge`. This is likely a trial-and-error exercise, depending on the lengths of your labels and the width of your plot. In this case we've settled on 3 rows to render the labels.
 
 ```{r msleep-order-sleep-total-dodge}
 ggplot(msleep, aes(x = order, y = sleep_total)) +
   geom_boxplot() +
-  scale_x_discrete(guide = guide_axis(n.dodge = 2))
+  scale_x_discrete(guide = guide_axis(n.dodge = 3))
 ```
 
-- Omit overlapping labels: Use the `guide_axis()` function, which prioritizes the first, last, and middle labels. Note that this option might be more preferable for axes representing variables that have an inherent ordering that is obvious to the audience of the plot, so that it's trivial to guess what the missing labels are. (This is not the case for the following plot.)
+- Omit overlapping labels: Alternatively, you can set `guide_axis(check.overlap = TRUE)` to omit axis labels that overlap. ggplot2 will prioritize the first, last, and middle labels. Note that this option might be more preferable for axes representing variables that have an inherent ordering that is obvious to the audience of the plot, so that it's trivial to guess what the missing labels are. (This is not the case for the following plot.)
 
 ```{r msleep-order-sleep-total-check-overlap}
 ggplot(msleep, aes(x = order, y = sleep_total)) +
   geom_boxplot() +
   scale_x_discrete(guide = guide_axis(check.overlap = TRUE))
 ```  
-  
-  </p>
+
 </details>
 
 ### How can I remove axis labels in ggplot2?
 
+Add a `theme()` layer and set relevant arguments, e.g. `axis.title.x`, `axis.text.x`, etc. to `element_blank()`.
+
+<br>
+
 <details>
-  <summary>Example</summary>
-  <p>
+Suppose we want to remove the axis labels entirely.
+
 ```{r ref.label="msleep-order-sleep-total"}
 ```
-  </p>
-</details>
 
-<details>
-  <summary>Answer</summary>
-  <p>
-  
-- Remove all axis labels: You can use `theme_void()` to remove all theming elements. Note that this might remove more features than you like. For finer control over the theme, see below.
-
-```{r}
-ggplot(msleep, aes(x = order, y = sleep_total)) +
-  geom_boxplot() + 
-  theme_void()
-```
-  
-- Remove x or y axis labels: If you want to modify just one of the axes, you can do so by modifying the components of the `theme()`, setting the elements you want to remove to `element_blank()`. You would replace `x` with `y` for applying the same update to the y-axis.
+- Remove x or y axis labels: If you want to modify just one of the axes, you can do so by modifying the components of the `theme()`, setting the elements you want to remove to `element_blank()`. You would replace `x` with `y` for applying the same update to the y-axis. Note the distinction between `axis.title` and `axis.ticks` -- `axis.title` is the name of the variable and `axis.text` is the text accompanying each of the ticks.
 
 ```{r}
 ggplot(msleep, aes(x = order, y = sleep_total)) +
@@ -104,65 +92,51 @@ ggplot(msleep, aes(x = order, y = sleep_total)) +
     axis.ticks.x = element_blank()
   )
 ```
+  
+- Remove all axis labels: You can use `theme_void()` to remove all theming elements. Note that this might remove more features than you like. For finer control over the theme, see below.
 
-  </p>
+```{r}
+ggplot(msleep, aes(x = order, y = sleep_total)) +
+  geom_boxplot() + 
+  theme_void()
+```
+
 </details>
 
 
 ## Label formatting and customization
 
-### How can I force R to stop using scientific notation on axis labels?
-
-<details>
-  <summary>Example</summary>
-  <p>
-```{r}
-ggplot(txhousing, aes(x = median, y = volume)) +
-  geom_point()
-```
-  </p>
-</details>
-
-<details>
-  <summary>Answer</summary>
-  <p>
-  
-The [scales](https://scales.r-lib.org/) package offers a large number of functions to control the formatting of axis labels and legend keys. 
-Use `scales::label_number()` to force decimal display of numbers rather than using scientific notation or use `scales::label_comma()` to insert a comma every three digits.
-
-```{r}
-library(scales)
-ggplot(txhousing, aes(x = median, y = volume)) +
-  geom_point() +
-  scale_x_continuous(labels = label_number()) +
-  scale_y_continuous(labels = label_comma())
-```
-
-  </p>
-</details>
-
-### How can I force R to stop using scientific notation on axis labels?
-
-
 ### How can I customize the text shown on the axis labels?
 
+Add a `scale_*()` layer, e.g. `scale_x_continuous`, `scale_y_discrete`, etc., and add custom labels to the `labels` argument.
+
+<br>
+
 <details>
-  <summary>Example</summary>
-  <p>
+
+Suppose you want to give more informative labels for the type of drive train. 
+
 ```{r}
 ggplot(mpg, aes(y = drv)) +
   geom_bar()
 ```  
-  </p>
-</details>
-
-<details>
-  <summary>Answer</summary>
-  <p>
   
-Use the `label` argument in the appropriate `scale_*()` function. 
+- Use the `labels` argument in the appropriate `scale_*()` function. 
 You can find a list of these functions [here](https://ggplot2.tidyverse.org/reference/index.html#section-scales). 
-In this case we have a discrete variable in the y-axis, so we'll use `scale_y_discrete()`.
+Type of drive train (`drv`) is a discrete variable on the y-axis, so we'll adjust the labels in `scale_y_discrete()`.
+One option is to list the labels in the same order as the levels. 
+Note that we start from the bottom and go up, just like we would if the variable was numeric/continuous.
+
+```{r}
+ggplot(mpg, aes(y = drv)) +
+  geom_bar() +
+  scale_y_discrete(
+    labels = c("Front wheel drive", "Rear wheel drive", "Four wheel drive")
+  )
+```
+
+- Another approach is to use a named list. 
+This approach not only makes the relabelling more explicit, but it also means you don't need to worry about the order of the levels.
 
 ```{r}
 ggplot(mpg, aes(y = drv)) +
@@ -175,26 +149,49 @@ ggplot(mpg, aes(y = drv)) +
     )
   )
 ```  
-  </p>
+
 </details>
 
+### How can I stop R from using scientific notation on axis labels?
+
+Use `scales::label_number()` to force decimal display of numbers. You will first need to add a `scale_*()` layer (e.g. `scale_x_continuous`, `scale_y_discrete`, etc.) and customise the `labels` argument within this layer with this function.
+
+<br>
+
+<details>
+By default, large numbers on the axis labels in the following plot are shown in scientific notation.
+
+```{r}
+ggplot(txhousing, aes(x = median, y = volume)) +
+  geom_point()
+```
+  
+The [scales](https://scales.r-lib.org/) package offers a large number of functions to control the formatting of axis labels and legend keys. 
+Use `scales::label_number()` to force decimal display of numbers rather than using scientific notation or use `scales::label_comma()` to insert a comma every three digits.
+
+```{r}
+library(scales)
+ggplot(txhousing, aes(x = median, y = volume)) +
+  geom_point() +
+  scale_x_continuous(labels = label_number()) +
+  scale_y_continuous(labels = label_comma())
+```
+
+</details>
 
 ### How can I change the number of decimal places on axis labels?
 
+Set the `accuracy` in `scales::label_number()` to the desired level of decimal places, e.g. 0.1 to show 1 decimal place, 0.0001 to show 4 decimal places, etc. You will first need to add a `scale_*()` layer (e.g. `scale_x_continuous`, `scale_y_discrete`, etc.) and customise the `labels` argument within this layer with this function.
+
 <details>
-  <summary>Example</summary>
-  <p>
+
+Suppose you want to increase/decrease the number of decimal spaces shown in the axis text in the following plot.
+
 ```{r}
 ggplot(seals, aes(x = delta_long, y = delta_lat)) +
   geom_point()
 ```
-  </p>
-</details>
 
-<details>
-  <summary>Answer</summary>
-  <p>
-  
 The [scales](https://scales.r-lib.org/) package offers a large number of functions to control the formatting of axis labels and legend keys. 
 Use `scales::label_number()` where the `accuracy` argument indicates the number to round to, e.g. 0.1 to show 1 decimal place, 0.0001 to show 4 decimal places, etc.
 
@@ -206,26 +203,56 @@ ggplot(seals, aes(x = delta_long, y = delta_lat)) +
   scale_y_continuous(labels = label_number(accuracy = 0.0001))
 ```
 
-  </p>
+</details>
+
+
+### How can I add percentage symbols (%) to axis labels?
+
+Use `scales::label_percent()`, which will place a `%` *after* the number, by default. You can customise where `%` is placed using the `prefix` and `suffix` arguments, and also `scale` the numbers if needed. You will first need to add a `scale_*()` layer (e.g. `scale_x_continuous`, `scale_y_discrete`, etc.) and customise the `labels` argument within this layer with this function.
+
+<details>
+
+The variable on the y-axis of the following line plot (`psavert`) indicates the personal savings rate, which is in percentages.
+
+```{r}
+ggplot(economics, aes(x = date, y = psavert, group = 1)) +
+  geom_line()
+```
+
+With `scales::label_percent()` you can add `%`s after the numbers shown on the axis to make the units more clear.
+
+```{r}
+ggplot(economics, aes(x = date, y = psavert, group = 1)) +
+  geom_line() +
+  scale_y_continuous(labels = scales::label_percent(scale = 1, accuracy = 1))
+```
+
+where the `accuracy` argument indicates the number to round to, e.g. 0.1 to show 1 decimal place, 0.0001 to show 4 decimal places, etc.
+
+```{r}
+library(scales)
+ggplot(seals, aes(x = delta_long, y = delta_lat)) +
+  geom_point() +
+  scale_x_continuous(labels = label_number(accuracy = 0.1)) +
+  scale_y_continuous(labels = label_number(accuracy = 0.0001))
+```
+
 </details>
 
 ### How can I add superscripts and subscripts to axis labels?
 
+You can either use `bquote()` to parse mathematical expressions or use the [ggtext](https://wilkelab.org/ggtext/) package to write the expression using Markdown or HTML syntax.
+
 <details>
-  <summary>Example</summary>
-  <p>
+
+In the following plot `cty` is squared and `hwy` is log transformed.
+
 ```{r}
 ggplot(mpg, aes(x = cty^2, y = log(hwy))) +
   geom_point()
-```  
-  </p>
-</details>
+```
 
-<details>
-  <summary>Answer</summary>
-  <p>
-
-Use `bquote()` function to parse mathematical expressions. 
+- Use `bquote()` function to parse mathematical expressions. 
   
 ```{r}
 ggplot(mpg, aes(x = cty^2, y = log(hwy, base = 10))) +
@@ -235,19 +262,111 @@ ggplot(mpg, aes(x = cty^2, y = log(hwy, base = 10))) +
     y = bquote(paste(log[10], "(hwy)"))
   )
 ```  
-  </p>
-</details>
 
+- If you're already familiar with Markdown and HTML, you might prefer using the [ggtext](https://wilkelab.org/ggtext/) package instead. In Markdown we can write the axis labels as `cty<sup>2</sup>` and `log<sub>10</sub>(hwy)` for x and y axes, respectively. Then, we tell ggplot2 to interpret the axis labels as Markdown and not as plain text by setting `axis.title.x` and `axis.title.y` to `ggtext::element_markdown()`.
+
+```{r}
+ggplot(mpg, aes(x = cty^2, y = log(hwy, base = 10))) +
+  geom_point() +
+  labs(
+    x = "cty<sup>2</sup>",
+    y = "log<sub>10</sub>(hwy)"
+  ) +
+  theme(
+    axis.title.x = ggtext::element_markdown(),
+    axis.title.y = ggtext::element_markdown()
+    )
+```  
+
+</details>
 
 ## Custom breaks
 
-### How can I customize 
+<div id="custom-number-of-axis-ticks">
+### How do I increase / decrease the number of axis ticks?
 
+Customise the `breaks` and `minor_breaks` in `scale_x_continuous()`, scale_y_continuous()`, etc.
 
--   formatting numbers (decimals, percentages, scientific notation)
--   subscript / supercript
--   multirow axis labels
--   rotating / spacing
--   remove all labels
--   major / minor gridlines
--   space between axis and plot
+<details>
+
+Suppose you want to customise the major and minor grid lines on both the x and the y axes of the following plot.
+
+```{r}
+ggplot(mpg, aes(x = cty, y = hwy)) +
+  geom_point()
+```
+
+You can set `breaks` and `minor_breaks` in `scale_x_continuous()` and `scale_y_continuous()` as desired. 
+For example, on the x-axis we have major and minor grid breaks defined as a sequence and on the y-axis we have explicitly stated where major breaks should appear as a vector (the value stated are randomly selected for illustrative purposes only, they don't follow a best practice) and we have completely turned off minor grid lines by setting `minor_breaks` to `NULL`.
+
+```{r}
+ggplot(mpg, aes(x = cty, y = hwy)) +
+  geom_point() +
+  scale_x_continuous(
+    breaks = seq(9, 35, 3),
+    minor_breaks = seq(8.5, 35.5, 1)
+  )  +
+  scale_y_continuous(
+    breaks = c(12, 23, 36, 41),
+    minor_breaks = NULL
+  )
+```
+
+</details>
+</div>
+
+### How do I control the number of major and minor grid lines shown on the plot?
+
+Customise the `breaks` and `minor_breaks` in `scale_x_continuous()`, scale_y_continuous()`, etc. See [*How do I increase / decrease the number of axis ticks?*](#custom-number-of-axis-ticks) for more detail.
+
+<details>
+
+Note that the question was about grid lines but we answered it using breaks. 
+This is because ggplot2 will place major grid lines at each break supplied to `breaks` and minor grid lines at each break supplied to `minor_breaks`.
+
+</details>
+
+### How do I remove the space between the plot and the axis? 
+
+Remove the padding around the data entirely using by setting `expand = c(0, 0)` within the `scale_x_continuous()`, `scale_y_discrete()`, etc. layers.
+
+<details>
+
+- Remove all padding: Suppose you want to remove the padding around the heatmap so it's flush against the axes.
+
+```{r}
+ggplot(faithfuld, aes(waiting, eruptions)) +
+  geom_raster(aes(fill = density))
+```
+
+Since both x and y variables are continuous, we set `expand = c(0, 0)` in both `scale_x_continuous()` and `scale_y_continuous()`.
+
+```{r}
+ggplot(faithfuld, aes(waiting, eruptions)) +
+  geom_raster(aes(fill = density)) +
+  scale_x_continuous(expand = c(0, 0)) +
+  scale_y_continuous(expand = c(0, 0))
+```
+
+- Remove some of the padding: Suppose you want to remove the padding below the bars and the x-axis only.
+
+```{r}
+ggplot(mpg, aes(drv)) +
+  geom_bar()
+```
+
+You would make this adjustment on `scale_y_continuous()` since that padding is in the vertical direction. 
+
+```{r}
+ggplot(mpg, aes(drv)) +
+  geom_bar() +
+  scale_y_continuous(expand = c(0, 0))
+```
+
+However note that this removes the padding at the bottom of the bars as well as on top. By default, ggplot2 The expands the scale by 5% on each side for continuous variables and by 0.6 units on each side for discrete variables. To keep the default expansion on top while removing it at the bottom, you can use the following. The `mult` argument in `expansion()` takes a multiplicative range expansion factors. Given a vector of length 2, the lower limit is expanded by `mult[1]` (in this case 0) and the upper limit is expanded by `mult[2]` (in this case 0.05).
+
+```{r}
+ggplot(mpg, aes(drv)) +
+  geom_bar() +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.05)))
+```
