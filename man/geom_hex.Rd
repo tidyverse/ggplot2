@@ -73,8 +73,8 @@ rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
-\item{geom, stat}{Override the default connection between \code{geom_hex} and
-\code{stat_binhex.}}
+\item{geom, stat}{Override the default connection between \code{geom_hex()} and
+\code{stat_binhex()}.}
 
 \item{bins}{numeric vector giving number of bins in both vertical and
 horizontal directions. Set to 30 by default.}

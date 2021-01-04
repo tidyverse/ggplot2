@@ -44,7 +44,8 @@
 #'
 #' # Colour of missing values is controlled with na.value:
 #' miss <- factor(sample(c(NA, 1:5), nrow(mtcars), replace = TRUE))
-#' ggplot(mtcars, aes(mpg, wt)) + geom_point(aes(colour = miss))
+#' ggplot(mtcars, aes(mpg, wt)) +
+#'   geom_point(aes(colour = miss))
 #' ggplot(mtcars, aes(mpg, wt)) +
 #'   geom_point(aes(colour = miss)) +
 #'   scale_colour_hue(na.value = "black")
@@ -75,7 +76,9 @@ scale_fill_hue <- function(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0
 #'   * A character vector of color codes. The codes are used for a 'manual' color
 #'   scale as long as the number of codes exceeds the number of data levels
 #'   (if there are more levels than codes, [scale_colour_hue()]/[scale_fill_hue()]
-#'   are used to construct the default scale).
+#'   are used to construct the default scale). If this is a named vector, then the color values
+#'   will be matched to levels based on the names of the vectors. Data values that
+#'   don't match will be set as `na.value`.
 #'   * A list of character vectors of color codes. The minimum length vector that exceeds the
 #'   number of data levels is chosen for the color scaling. This is useful if you
 #'   want to change the color palette based on the number of levels.

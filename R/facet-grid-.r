@@ -333,7 +333,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       heights <- vapply(ps, function(i) diff(ranges[[i]]$y.range), numeric(1))
       panel_heights <- unit(heights, "null")
     } else {
-      panel_heights <- rep(unit(1 * aspect_ratio, "null"), nrow)
+      panel_heights <- rep(unit(1 * abs(aspect_ratio), "null"), nrow)
     }
 
     panel_table <- gtable_matrix("layout", panel_table,

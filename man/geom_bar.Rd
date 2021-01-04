@@ -218,8 +218,8 @@ ggplot(df, aes(x)) + geom_histogram(binwidth = 0.5)
 bar charts.
 
 \code{\link[=stat_bin]{stat_bin()}}, which bins data in ranges and counts the
-cases in each range. It differs from \code{stat_count}, which counts the
+cases in each range. It differs from \code{stat_count()}, which counts the
 number of cases at each \code{x} position (without binning into ranges).
 \code{\link[=stat_bin]{stat_bin()}} requires continuous \code{x} data, whereas
-\code{stat_count} can be used for both discrete and continuous \code{x} data.
+\code{stat_count()} can be used for both discrete and continuous \code{x} data.
 }

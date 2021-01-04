@@ -25,7 +25,7 @@ Authors@R: c(
     person("RStudio", role = c("cph", "fnd"))
     )
 Depends:
-    R (>= 3.2)
+    R (>= 3.3)
 Imports: 
     digest,
     glue,
@@ -63,7 +63,8 @@ Suggests:
     sf (>= 0.7-3),
     svglite (>= 1.2.0.9001),
     testthat (>= 2.1.0),
-    vdiffr (>= 0.3.0)
+    vdiffr (>= 0.3.0),
+    xml2
 Enhances: sp
 License: MIT + file LICENSE
 URL: https://ggplot2.tidyverse.org, https://github.com/tidyverse/ggplot2

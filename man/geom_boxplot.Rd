@@ -114,7 +114,7 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
 \item{geom, stat}{Use to override the default connection between
-\code{geom_boxplot} and \code{stat_boxplot}.}
+\code{geom_boxplot()} and \code{stat_boxplot()}.}
 
 \item{coef}{Length of the whiskers as multiple of IQR. Defaults to 1.5.}
 }
@@ -172,15 +172,16 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 
 \section{Computed variables}{
 
+\code{stat_boxplot()} provides the following variables, some of which depend on the orientation:
 \describe{
 \item{width}{width of boxplot}
-\item{ymin}{lower whisker = smallest observation greater than or equal to lower hinge - 1.5 * IQR}
-\item{lower}{lower hinge, 25\% quantile}
+\item{ymin \emph{or} xmin}{lower whisker = smallest observation greater than or equal to lower hinge - 1.5 * IQR}
+\item{lower \emph{or} xlower}{lower hinge, 25\% quantile}
 \item{notchlower}{lower edge of notch = median - 1.58 * IQR / sqrt(n)}
-\item{middle}{median, 50\% quantile}
+\item{middle \emph{or} xmiddle}{median, 50\% quantile}
 \item{notchupper}{upper edge of notch = median + 1.58 * IQR / sqrt(n)}
-\item{upper}{upper hinge, 75\% quantile}
-\item{ymax}{upper whisker = largest observation less than or equal to upper hinge + 1.5 * IQR}
+\item{upper \emph{or} xupper}{upper hinge, 75\% quantile}
+\item{ymax \emph{or} xmax}{upper whisker = largest observation less than or equal to upper hinge + 1.5 * IQR}
 }
 }
 

@@ -4,10 +4,10 @@
 #'   \item{prop}{groupwise proportion}
 #' }
 #' @seealso [stat_bin()], which bins data in ranges and counts the
-#'   cases in each range. It differs from `stat_count`, which counts the
+#'   cases in each range. It differs from `stat_count()`, which counts the
 #'   number of cases at each `x` position (without binning into ranges).
 #'   [stat_bin()] requires continuous `x` data, whereas
-#'   `stat_count` can be used for both discrete and continuous `x` data.
+#'   `stat_count()` can be used for both discrete and continuous `x` data.
 #'
 #' @export
 #' @rdname geom_bar

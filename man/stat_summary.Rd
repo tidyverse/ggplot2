@@ -172,7 +172,7 @@ A simple vector function is easiest to work with as you can return a single
 number, but is somewhat less flexible. If your summary function computes
 multiple values at once (e.g. min and max), use \code{fun.data}.
 
-\code{fun.data} will recieve data as if it was oriented along the x-axis and
+\code{fun.data} will receive data as if it was oriented along the x-axis and
 should return a data.frame that corresponds to that orientation. The layer
 will take care of flipping the input and output if it is oriented along the
 y-axis.
@@ -186,7 +186,7 @@ d <- ggplot(mtcars, aes(cyl, mpg)) + geom_point()
 d + stat_summary(fun.data = "mean_cl_boot", colour = "red", size = 2)
 
 # Orientation follows the discrete axis
-ggplot(mtcars, aes(mpg, cyl)) +
+ggplot(mtcars, aes(mpg, factor(cyl))) +
   geom_point() +
   stat_summary(fun.data = "mean_cl_boot", colour = "red", size = 2)
 
@@ -196,8 +196,7 @@ d + stat_summary(fun = "median", colour = "red", size = 2, geom = "point")
 d + stat_summary(fun = "mean", colour = "red", size = 2, geom = "point")
 d + aes(colour = factor(vs)) + stat_summary(fun = mean, geom="line")
 
-d + stat_summary(fun = mean, fun.min = min, fun.max = max,
-  colour = "red")
+d + stat_summary(fun = mean, fun.min = min, fun.max = max, colour = "red")
 
 d <- ggplot(diamonds, aes(cut))
 d + geom_bar()
@@ -233,9 +232,17 @@ d + stat_sum_df("median_hilow", mapping = aes(group = cyl))
 if (require("ggplot2movies")) {
 set.seed(596)
 mov <- movies[sample(nrow(movies), 1000), ]
- m2 <- ggplot(mov, aes(x = factor(round(rating)), y = votes)) + geom_point()
- m2 <- m2 + stat_summary(fun.data = "mean_cl_boot", geom = "crossbar",
-                         colour = "red", width = 0.3) + xlab("rating")
+ m2 <-
+   ggplot(mov, aes(x = factor(round(rating)), y = votes)) +
+   geom_point()
+ m2 <-
+   m2 +
+   stat_summary(
+     fun.data = "mean_cl_boot",
+     geom = "crossbar",
+     colour = "red", width = 0.3
+   ) +
+   xlab("rating")
 m2
 # Notice how the overplotting skews off visual perception of the mean
 # supplementing the raw data with summary statistics is _very_ important

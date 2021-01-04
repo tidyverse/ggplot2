@@ -12,6 +12,7 @@
 \alias{scale_fill_ordinal}
 \alias{scale_color_viridis_d}
 \alias{scale_color_viridis_c}
+\alias{scale_color_viridis_b}
 \title{Viridis colour scales from viridisLite}
 \usage{
 scale_colour_viridis_d(

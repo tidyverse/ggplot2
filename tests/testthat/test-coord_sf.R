@@ -204,3 +204,81 @@ test_that("Inf is squished to range", {
   expect_equal(d[[2]]$x, 0)
   expect_equal(d[[2]]$y, 1)
 })
+
+test_that("default crs works", {
+  skip_if_not_installed("sf")
+
+  polygon <- sf::st_sfc(
+    sf::st_polygon(list(matrix(c(-80, -76, -76, -80, -80, 35, 35, 40, 40, 35), ncol = 2))),
+    crs = 4326 # basic long-lat crs
+  )
+  polygon <- sf::st_transform(polygon, crs = 3347)
+
+  points <- data_frame(
+    x = c(-80, -80, -76, -76),
+    y = c(35, 40, 35, 40)
+  )
+
+  p <- ggplot(polygon) + geom_sf(fill = NA)
+
+  # projected sf objects can be mixed with regular geoms using non-projected data
+  expect_doppelganger(
+    "non-sf geoms use long-lat",
+    p + geom_point(data = points, aes(x, y))
+  )
+
+  # default crs can be turned off
+  points_trans <- sf_transform_xy(points, 3347, 4326)
+  expect_doppelganger(
+    "default crs turned off",
+    p + geom_point(data = points_trans, aes(x, y)) +
+    coord_sf(default_crs = NULL)
+  )
+
+  # by default, coord limits are specified in long-lat
+  expect_doppelganger(
+    "limits specified in long-lat",
+    p + geom_point(data = points, aes(x, y)) +
+      coord_sf(xlim = c(-80.5, -76), ylim = c(36, 41))
+  )
+
+  # when default crs is off, limits are specified in projected coords
+  lims <- sf_transform_xy(
+    list(x = c(-80.5, -76, -78.25, -78.25), y = c(38.5, 38.5, 36, 41)),
+    3347, 4326
+  )
+  expect_doppelganger(
+    "limits specified in projected coords",
+    p + geom_point(data = points_trans, aes(x, y)) +
+      coord_sf(xlim = lims$x[1:2], ylim = lims$y[3:4], default_crs = NULL)
+  )
+})
+
+test_that("sf_transform_xy() works", {
+  skip_if_not_installed("sf")
+
+  data <- list(
+    city = c("Charlotte", "Raleigh", "Greensboro"),
+    x =  c(-80.843, -78.639, -79.792),
+    y = c(35.227, 35.772, 36.073)
+  )
+
+  # no transformation if one crs is missing
+  out <- sf_transform_xy(data, NULL, 4326)
+  expect_identical(data, out)
+  out <- sf_transform_xy(data, 4326, NULL)
+  expect_identical(data, out)
+
+  # transform to projected coordinates
+  out <- sf_transform_xy(data, 3347, 4326)
+  expect_identical(data$city, out$city) # columns other than x, y are not changed
+  expect_true(all(abs(out$x - c(7275499, 7474260, 7357835)) < 10))
+  expect_true(all(abs(out$y - c(-60169, 44384, 57438)) < 10))
+
+  # transform back
+  out2 <- sf_transform_xy(out, 4326, 3347)
+  expect_identical(data$city, out2$city)
+  expect_true(all(abs(out2$x - data$x) < .01))
+  expect_true(all(abs(out2$y - data$y) < .01))
+
+})

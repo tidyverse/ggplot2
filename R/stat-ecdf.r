@@ -7,6 +7,11 @@
 #' The downside is that it requires more training to accurately interpret,
 #' and the underlying visual tasks are somewhat more challenging.
 #'
+#' The statistic relies on the aesthetics assignment to guess which variable to
+#' use as the input and which to use as the output. Either x or y must be provided
+#' and one of them must be unused. The ECDF will be calculated on the given aesthetic
+#' and will be output on the unused one.
+#'
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @param na.rm If `FALSE` (the default), removes missing values with
@@ -17,7 +22,6 @@
 #'   and (Inf, 1)
 #' @section Computed variables:
 #' \describe{
-#'   \item{x}{x in data}
 #'   \item{y}{cumulative density corresponding x}
 #' }
 #' @export
@@ -26,13 +30,16 @@
 #'   x = c(rnorm(100, 0, 3), rnorm(100, 0, 10)),
 #'   g = gl(2, 100)
 #' )
-#' ggplot(df, aes(x)) + stat_ecdf(geom = "step")
+#' ggplot(df, aes(x)) +
+#'   stat_ecdf(geom = "step")
 #'
 #' # Don't go to positive/negative infinity
-#' ggplot(df, aes(x)) + stat_ecdf(geom = "step", pad = FALSE)
+#' ggplot(df, aes(x)) +
+#'   stat_ecdf(geom = "step", pad = FALSE)
 #'
 #' # Multiple ECDFs
-#' ggplot(df, aes(x, colour = g)) + stat_ecdf()
+#' ggplot(df, aes(x, colour = g)) +
+#'   stat_ecdf()
 stat_ecdf <- function(mapping = NULL, data = NULL,
                       geom = "step", position = "identity",
                       ...,
@@ -64,7 +71,24 @@ stat_ecdf <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 StatEcdf <- ggproto("StatEcdf", Stat,
-  compute_group = function(data, scales, n = NULL, pad = TRUE) {
+  required_aes = c("x|y"),
+
+  default_aes = aes(y = after_stat(y)),
+
+  setup_params = function(data, params) {
+    params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = FALSE, main_is_continuous = TRUE)
+
+    has_x <- !(is.null(data$x) && is.null(params$x))
+    has_y <- !(is.null(data$y) && is.null(params$y))
+    if (!has_x && !has_y) {
+      abort("stat_ecdf() requires an x or y aesthetic.")
+    }
+
+    params
+  },
+
+  compute_group = function(data, scales, n = NULL, pad = TRUE, flipped_aes = FALSE) {
+    data <- flip_data(data, flipped_aes)
     # If n is NULL, use raw values; otherwise interpolate
     if (is.null(n)) {
       x <- unique(data$x)
@@ -75,13 +99,11 @@ StatEcdf <- ggproto("StatEcdf", Stat,
     if (pad) {
       x <- c(-Inf, x, Inf)
     }
-    y <- ecdf(data$x)(x)
+    data_ecdf <- ecdf(data$x)(x)
 
-    new_data_frame(list(x = x, y = y), n = length(x))
-  },
-
-  default_aes = aes(y = after_stat(y)),
-
-  required_aes = c("x")
+    df_ecdf <- new_data_frame(list(x = x, y = data_ecdf), n = length(x))
+    df_ecdf$flipped_aes <- flipped_aes
+    flip_data(df_ecdf, flipped_aes)
+  }
 )
 

@@ -3,7 +3,7 @@
 #' `coord_map()` projects a portion of the earth, which is approximately
 #' spherical, onto a flat 2D plane using any projection defined by the
 #' `mapproj` package. Map projections do not, in general, preserve straight
-#' lines, so this requires considerable computation. `coord_quickmap` is a
+#' lines, so this requires considerable computation. `coord_quickmap()` is a
 #' quick approximation that does preserve straight lines. It works best for
 #' smaller areas closer to the equator.
 #'

@@ -22,7 +22,7 @@
 #'  [geom_polygon()]: Filled paths (polygons);
 #'  [geom_segment()]: Line segments
 #' @section Missing value handling:
-#' `geom_path()`, `geom_line()`, and `geom_step` handle `NA` as follows:
+#' `geom_path()`, `geom_line()`, and `geom_step()` handle `NA` as follows:
 #'
 #' * If an `NA` occurs in the middle of a line, it breaks the line. No warning
 #'   is shown, regardless of whether `na.rm` is `TRUE` or `FALSE`.

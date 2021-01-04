@@ -66,6 +66,7 @@ scale_x_date <- function(name = waiver(),
                          date_minor_breaks = waiver(),
                          limits = NULL,
                          expand = waiver(),
+                         oob = censor,
                          guide = waiver(),
                          position = "bottom",
                          sec.axis = waiver()) {
@@ -84,6 +85,7 @@ scale_x_date <- function(name = waiver(),
     guide = guide,
     limits = limits,
     expand = expand,
+    oob = oob,
     position = position
   )
 
@@ -101,6 +103,7 @@ scale_y_date <- function(name = waiver(),
                          date_minor_breaks = waiver(),
                          limits = NULL,
                          expand = waiver(),
+                         oob = censor,
                          guide = waiver(),
                          position = "left",
                          sec.axis = waiver()) {
@@ -119,6 +122,7 @@ scale_y_date <- function(name = waiver(),
     guide = guide,
     limits = limits,
     expand = expand,
+    oob = oob,
     position = position
   )
 
@@ -137,6 +141,7 @@ scale_x_datetime <- function(name = waiver(),
                              timezone = NULL,
                              limits = NULL,
                              expand = waiver(),
+                             oob = censor,
                              guide = waiver(),
                              position = "bottom",
                              sec.axis = waiver()) {
@@ -156,6 +161,7 @@ scale_x_datetime <- function(name = waiver(),
     guide = guide,
     limits = limits,
     expand = expand,
+    oob = oob,
     position = position
   )
 
@@ -175,6 +181,7 @@ scale_y_datetime <- function(name = waiver(),
                              timezone = NULL,
                              limits = NULL,
                              expand = waiver(),
+                             oob = censor,
                              guide = waiver(),
                              position = "left",
                              sec.axis = waiver()) {
@@ -194,6 +201,7 @@ scale_y_datetime <- function(name = waiver(),
     guide = guide,
     limits = limits,
     expand = expand,
+    oob = oob,
     position = position
   )
 

@@ -17,6 +17,22 @@
 #'   captured with [enquo()] or [enquos()]:
 #'   \code{expr(mean(!!enquo(arg), na.rm = TRUE))}.
 #'
+#' * \code{\link[rlang]{as_name}()} transforms a quoted variable name
+#'   into a string. Supplying something else than a quoted variable
+#'   name is an error.
+#'
+#'   That's unlike \code{\link[rlang]{as_label}()} which also returns
+#'   a single string but supports any kind of R object as input,
+#'   including quoted function calls and vectors. Its purpose is to
+#'   summarise that object into a single label. That label is often
+#'   suitable as a default name.
+#'
+#'   If you don't know what a quoted expression contains (for instance
+#'   expressions captured with \code{enquo()} could be a variable
+#'   name, a call to a function, or an unquoted constant), then use
+#'   \code{as_label()}. If you know you have quoted a simple variable
+#'   name, or would like to enforce this, use \code{as_name()}.
+#'
 #' To learn more about tidy eval and how to use these tools, visit
 #' \url{https://tidyeval.tidyverse.org} and the
 #' \href{https://adv-r.hadley.nz/metaprogramming.html}{Metaprogramming
@@ -25,12 +41,14 @@
 #' @md
 #' @name tidyeval
 #' @keywords internal
-#' @aliases          quo quos enquo enquos quo_name
-#'                   sym ensym syms ensyms
-#'                   expr exprs enexpr enexprs
-#'                   .data
-#' @export           quo quos enquo enquos quo_name
-#' @export           sym ensym syms ensyms
-#' @export           expr enexpr enexprs
-#' @export           .data
+#' @aliases expr enquo enquos sym syms .data := as_name as_label
+#' @export expr enquo enquos sym syms .data := as_name as_label
+NULL
+
+# For backward-compatibility, keep exporting the old ones
+
+#' @name tidyeval
+#' @keywords internal
+#' @aliases quo_name quo quos enexpr enexprs ensym ensyms
+#' @export quo_name quo quos enexpr enexprs ensym ensyms
 NULL

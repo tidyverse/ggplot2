@@ -25,15 +25,18 @@
 #' @param level Level of confidence interval to use (0.95 by default).
 #' @param span Controls the amount of smoothing for the default loess smoother.
 #'   Smaller numbers produce wigglier lines, larger numbers produce smoother
-#'   lines.
+#'   lines. Only used with loess, i.e. when `method = "loess"`,
+#'   or when `method = NULL` (the default) and there are fewer than 1,000
+#'   observations.
 #' @param n Number of points at which to evaluate smoother.
 #' @param method.args List of additional arguments passed on to the modelling
 #'   function defined by `method`.
 #' @section Computed variables:
+#' `stat_smooth()` provides the following variables, some of which depend on the orientation:
 #' \describe{
-#'   \item{y}{predicted value}
-#'   \item{ymin}{lower pointwise confidence interval around the mean}
-#'   \item{ymax}{upper pointwise confidence interval around the mean}
+#'   \item{y *or* x}{predicted value}
+#'   \item{ymin *or* xmin}{lower pointwise confidence interval around the mean}
+#'   \item{ymax *or* xmax}{upper pointwise confidence interval around the mean}
 #'   \item{se}{standard error}
 #' }
 #' @export
