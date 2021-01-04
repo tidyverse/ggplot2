@@ -100,7 +100,7 @@
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.2.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.3.9000</span>
         </div>
       </div>
     </div>
@@ -214,6 +214,17 @@
 <li><p>Date and datetime position scales support out-of-bounds (oob) arguments to control how limits affect data outside those limits (<a href='https://github.com/teunbrand'>@teunbrand</a>, <a href='https://github.com/tidyverse/ggplot2/issues/4199'>#4199</a>).</p></li>
 <li><p><code><a href="../reference/geom_freqpoly.html">stat_bin()</a></code>’s computed variable <code>width</code> is now documented (<a href='https://github.com/tidyverse/ggplot2/issues/3522'>#3522</a>).</p></li>
 <li><p>ggplot2 now requires R &gt;= 3.3 (<a href='https://github.com/tidyverse/ggplot2/issues/4247'>#4247</a>).</p></li>
+</ul>
+</div>
+    <div id="ggplot2-333" class="section level1">
+<h1 class="page-header" data-toc-text="3.3.3">
+<a href="#ggplot2-333" class="anchor"></a>ggplot2 3.3.3<small> 2020-12-30 </small>
+</h1>
+<p>This is a small patch release mainly intended to address changes in R and CRAN. It further changes the licensing model of ggplot2 to an MIT license.</p>
+<ul>
+<li><p>Update the ggplot2 licence to an MIT license (<a href='https://github.com/tidyverse/ggplot2/issues/4231'>#4231</a>, <a href='https://github.com/tidyverse/ggplot2/issues/4232'>#4232</a>, <a href='https://github.com/tidyverse/ggplot2/issues/4233'>#4233</a>, and <a href='https://github.com/tidyverse/ggplot2/issues/4281'>#4281</a>)</p></li>
+<li><p>Use vdiffr conditionally so ggplot2 can be tested on systems without vdiffr</p></li>
+<li><p>Update tests to work with the new <code><a href="https://rdrr.io/r/base/all.equal.html">all.equal()</a></code> defaults in R &gt;4.0.3</p></li>
 </ul>
 </div>
     <div id="ggplot2-332" class="section level1">
@@ -562,7 +573,7 @@
 <h2 class="hasAnchor">
 <a href="#new-features-3" class="anchor"></a>New features</h2>
 <ul>
-<li><p>ggplot2 now works on R 3.1 onwards, and uses the <a href="https://github.com/lionel-/vdiffr">vdiffr</a> package for visual testing.</p></li>
+<li><p>ggplot2 now works on R 3.1 onwards, and uses the <a href="https://github.com/r-lib/vdiffr">vdiffr</a> package for visual testing.</p></li>
 <li><p>In most cases, accidentally using <code>%&gt;%</code> instead of <code><a href="https://rdrr.io/r/base/Arithmetic.html">+</a></code> will generate an informative error (<a href='https://github.com/tidyverse/ggplot2/issues/2400'>#2400</a>).</p></li>
 <li>
 <p>New syntax for calculated aesthetics. Instead of using <code><a href="../reference/aes.html">aes(y = ..count..)</a></code> you can (and should!) use <code><a href="../reference/aes.html">aes(y = stat(count))</a></code>. <code><a href="../reference/aes_eval.html">stat()</a></code> is a real function with documentation which hopefully will make this part of ggplot2 less confusing (<a href='https://github.com/tidyverse/ggplot2/issues/2059'>#2059</a>).</p>
