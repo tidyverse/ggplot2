@@ -1,5 +1,5 @@
 Package: ggplot2
-Version: 3.3.2.9000
+Version: 3.3.3.9000
 Title: Create Elegant Data Visualisations Using the Grammar of Graphics
 Description: A system for 'declaratively' creating graphics,
     based on "The Grammar of Graphics". You provide the data, tell 'ggplot2'
@@ -66,8 +66,8 @@ Suggests:
     vdiffr (>= 0.3.0),
     xml2
 Enhances: sp
-License: GPL-2 | file LICENSE
-URL: http://ggplot2.tidyverse.org, https://github.com/tidyverse/ggplot2
+License: MIT + file LICENSE
+URL: https://ggplot2.tidyverse.org, https://github.com/tidyverse/ggplot2
 BugReports: https://github.com/tidyverse/ggplot2/issues
 LazyData: true
 Collate: 
