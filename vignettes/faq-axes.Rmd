@@ -26,9 +26,9 @@ knitr::opts_chunk$set(
 
 Set the angle of the text in the `axis.text.x` or `axis.text.y` components of the `theme()`, e.g. `theme(axis.text.x = element_text(angle = 90))`.
 
-<br>
-
 <details>
+<summary>More info</summary>
+
 In the following plot the labels on the x-axis are overlapping.
 
 ```{r msleep-order-sleep-total}
@@ -69,13 +69,16 @@ ggplot(msleep, aes(x = order, y = sleep_total)) +
 
 </details>
 
+<br>
+
 ### How can I remove axis labels in ggplot2?
 
 Add a `theme()` layer and set relevant arguments, e.g. `axis.title.x`, `axis.text.x`, etc. to `element_blank()`.
 
-<br>
 
 <details>
+<summary>More info</summary>
+
 Suppose we want to remove the axis labels entirely.
 
 ```{r ref.label="msleep-order-sleep-total"}
@@ -103,16 +106,16 @@ ggplot(msleep, aes(x = order, y = sleep_total)) +
 
 </details>
 
+<br>
 
 ## Label formatting and customization
 
 ### How can I customize the text shown on the axis labels?
 
-Add a `scale_*()` layer, e.g. `scale_x_continuous`, `scale_y_discrete`, etc., and add custom labels to the `labels` argument.
-
-<br>
+Add a `scale_*()` layer, e.g. `scale_x_continuous()`, `scale_y_discrete()`, etc., and add custom labels to the `labels` argument.
 
 <details>
+<summary>More info</summary>
 
 Suppose you want to give more informative labels for the type of drive train. 
 
@@ -152,13 +155,15 @@ ggplot(mpg, aes(y = drv)) +
 
 </details>
 
-### How can I stop R from using scientific notation on axis labels?
-
-Use `scales::label_number()` to force decimal display of numbers. You will first need to add a `scale_*()` layer (e.g. `scale_x_continuous`, `scale_y_discrete`, etc.) and customise the `labels` argument within this layer with this function.
-
 <br>
 
+### How can I stop R from using scientific notation on axis labels?
+
+Use `scales::label_number()` to force decimal display of numbers. You will first need to add a `scale_*()` layer (e.g. `scale_x_continuous()`, `scale_y_discrete()`, etc.) and customise the `labels` argument within this layer with this function.
+
 <details>
+<summary>More info</summary>
+
 By default, large numbers on the axis labels in the following plot are shown in scientific notation.
 
 ```{r}
@@ -166,7 +171,7 @@ ggplot(txhousing, aes(x = median, y = volume)) +
   geom_point()
 ```
   
-The [scales](https://scales.r-lib.org/) package offers a large number of functions to control the formatting of axis labels and legend keys. 
+The [**scales**](https://scales.r-lib.org/) package offers a large number of functions to control the formatting of axis labels and legend keys. 
 Use `scales::label_number()` to force decimal display of numbers rather than using scientific notation or use `scales::label_comma()` to insert a comma every three digits.
 
 ```{r}
@@ -179,11 +184,14 @@ ggplot(txhousing, aes(x = median, y = volume)) +
 
 </details>
 
+<br>
+
 ### How can I change the number of decimal places on axis labels?
 
-Set the `accuracy` in `scales::label_number()` to the desired level of decimal places, e.g. 0.1 to show 1 decimal place, 0.0001 to show 4 decimal places, etc. You will first need to add a `scale_*()` layer (e.g. `scale_x_continuous`, `scale_y_discrete`, etc.) and customise the `labels` argument within this layer with this function.
+Set the `accuracy` in `scales::label_number()` to the desired level of decimal places, e.g. 0.1 to show 1 decimal place, 0.0001 to show 4 decimal places, etc. You will first need to add a `scale_*()` layer (e.g. `scale_x_continuous()`, `scale_y_discrete()`, etc.) and customise the `labels` argument within this layer with this function.
 
 <details>
+<summary>More info</summary>
 
 Suppose you want to increase/decrease the number of decimal spaces shown in the axis text in the following plot.
 
@@ -192,7 +200,7 @@ ggplot(seals, aes(x = delta_long, y = delta_lat)) +
   geom_point()
 ```
 
-The [scales](https://scales.r-lib.org/) package offers a large number of functions to control the formatting of axis labels and legend keys. 
+The [**scales**](https://scales.r-lib.org/) package offers a large number of functions to control the formatting of axis labels and legend keys. 
 Use `scales::label_number()` where the `accuracy` argument indicates the number to round to, e.g. 0.1 to show 1 decimal place, 0.0001 to show 4 decimal places, etc.
 
 ```{r}
@@ -205,12 +213,14 @@ ggplot(seals, aes(x = delta_long, y = delta_lat)) +
 
 </details>
 
+<br>
 
 ### How can I add percentage symbols (%) to axis labels?
 
-Use `scales::label_percent()`, which will place a `%` *after* the number, by default. You can customise where `%` is placed using the `prefix` and `suffix` arguments, and also `scale` the numbers if needed. You will first need to add a `scale_*()` layer (e.g. `scale_x_continuous`, `scale_y_discrete`, etc.) and customise the `labels` argument within this layer with this function.
+Use `scales::label_percent()`, which will place a `%` *after* the number, by default. You can customise where `%` is placed using the `prefix` and `suffix` arguments, and also `scale` the numbers if needed. You will first need to add a `scale_*()` layer (e.g. `scale_x_continuous()`, `scale_y_discrete()`, etc.) and customise the `labels` argument within this layer with this function.
 
 <details>
+<summary>More info</summary>
 
 The variable on the y-axis of the following line plot (`psavert`) indicates the personal savings rate, which is in percentages.
 
@@ -239,11 +249,14 @@ ggplot(seals, aes(x = delta_long, y = delta_lat)) +
 
 </details>
 
+<br>
+
 ### How can I add superscripts and subscripts to axis labels?
 
-You can either use `bquote()` to parse mathematical expressions or use the [ggtext](https://wilkelab.org/ggtext/) package to write the expression using Markdown or HTML syntax.
+You can either use `bquote()` to parse mathematical expressions or use the [**ggtext**](https://wilkelab.org/ggtext/) package to write the expression using Markdown or HTML syntax.
 
 <details>
+<summary>More info</summary>
 
 In the following plot `cty` is squared and `hwy` is log transformed.
 
@@ -280,14 +293,16 @@ ggplot(mpg, aes(x = cty^2, y = log(hwy, base = 10))) +
 
 </details>
 
+<br>
+
 ## Custom breaks
 
-<div id="custom-number-of-axis-ticks">
 ### How do I increase / decrease the number of axis ticks?
 
 Customise the `breaks` and `minor_breaks` in `scale_x_continuous()`, scale_y_continuous()`, etc.
 
 <details>
+<summary>More info</summary>
 
 Suppose you want to customise the major and minor grid lines on both the x and the y axes of the following plot.
 
@@ -313,26 +328,31 @@ ggplot(mpg, aes(x = cty, y = hwy)) +
 ```
 
 </details>
-</div>
+
+<br>
 
 ### How do I control the number of major and minor grid lines shown on the plot?
 
-Customise the `breaks` and `minor_breaks` in `scale_x_continuous()`, scale_y_continuous()`, etc. See [*How do I increase / decrease the number of axis ticks?*](#custom-number-of-axis-ticks) for more detail.
+Customise the `breaks` and `minor_breaks` in `scale_x_continuous()`, scale_y_continuous()`, etc. See [How do I increase / decrease the number of axis ticks?](#how-do-i-increase-decrease-the-number-of-axis-ticks-) for more detail.
 
 <details>
+<summary>More info</summary>
 
 Note that the question was about grid lines but we answered it using breaks. 
 This is because ggplot2 will place major grid lines at each break supplied to `breaks` and minor grid lines at each break supplied to `minor_breaks`.
 
 </details>
 
+<br>
+
 ### How do I remove the space between the plot and the axis? 
 
 Remove the padding around the data entirely using by setting `expand = c(0, 0)` within the `scale_x_continuous()`, `scale_y_discrete()`, etc. layers.
 
 <details>
+<summary>More info</summary>
 
-- Remove all padding: Suppose you want to remove the padding around the heatmap so it's flush against the axes.
+- Remove all padding: Suppose you want to remove the padding around the heat map so it's flush against the axes.
 
 ```{r}
 ggplot(faithfuld, aes(waiting, eruptions)) +
@@ -370,3 +390,5 @@ ggplot(mpg, aes(drv)) +
   geom_bar() +
   scale_y_continuous(expand = expansion(mult = c(0, 0.05)))
 ```
+
+</details>
