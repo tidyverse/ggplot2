@@ -4,14 +4,20 @@ output: rmarkdown::html_vignette
 description: |                     
   Faceting and customising facets.
 vignette: >
-  %\VignetteIndexEntry{Faceting}
+  %\VignetteIndexEntry{FAQ: Faceting}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
 ```{r, include = FALSE}
 library(ggplot2)
-knitr::opts_chunk$set(fig.dpi = 96, collapse = TRUE, comment = "#>")
+knitr::opts_chunk$set(
+  fig.dpi = 300, 
+  collapse = TRUE, 
+  comment = "#>",
+  fig.asp = 0.618,
+  fig.width = 6,
+  out.width = "80%")
 ```
 
   - customaising axis labels
