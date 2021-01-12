@@ -165,13 +165,18 @@ FacetWrap <- ggproto("FacetWrap", Facet,
       layout[c("ROW", "COL")] <- layout[c("COL", "ROW")]
     }
 
+    # Add scale identification
+    layout$SCALE_X <- if (params$free$x) seq_len(n) else 1L
+    layout$SCALE_Y <- if (params$free$y) seq_len(n) else 1L
+
+    # Append data columns at the end. This helps to divide columns
+    # that refer to the data and those that refer to layout, which is
+    # important if there's duplicated column names (columns in data called
+    # COL, PANEL, usw.) and ensures that, for example layout$SCALE_X will catch
+    # the correct column.
     panels <- cbind(layout, unrowname(base))
     panels <- panels[order(panels$PANEL), , drop = FALSE]
     rownames(panels) <- NULL
-
-    # Add scale identification
-    panels$SCALE_X <- if (params$free$x) seq_len(n) else 1L
-    panels$SCALE_Y <- if (params$free$y) seq_len(n) else 1L
 
     panels
   },
@@ -204,7 +209,10 @@ FacetWrap <- ggproto("FacetWrap", Facet,
         to_add[facet_rep, , drop = FALSE]))
     }
 
-    keys <- join_keys(facet_vals, layout, by = names(vars))
+    # the first five columns ("PANEL", "ROW", "COLUMN", "SCALE_X" and "SCALE_Y")
+    # columns are not data columns. Don't use it for join.
+    layout_columns <- 1:5
+    keys <- join_keys(facet_vals, layout[, -layout_columns, drop = FALSE], by = names(vars))
 
     data$PANEL <- layout$PANEL[match(keys$x, keys$y)]
     data
@@ -227,6 +235,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
       }
     }
 
+
     ncol <- max(layout$COL)
     nrow <- max(layout$ROW)
     n <- nrow(layout)
@@ -235,13 +244,18 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     panels <- panels[panel_order]
     panel_pos <- convertInd(layout$ROW, layout$COL, nrow)
 
+    # Split layout into the columns that refer to data and those that
+    # refer to layout
+    layout_columns <- 1:5
+    layout_data <- layout[, -layout_columns, drop = FALSE]
+
     axes <- render_axes(ranges, ranges, coord, theme, transpose = TRUE)
 
     if (length(params$facets) == 0) {
       # Add a dummy label
       labels_df <- new_data_frame(list("(all)" = "(all)"), n = 1)
     } else {
-      labels_df <- layout[names(params$facets)]
+      labels_df <- layout_data[names(params$facets)]
     }
     attr(labels_df, "facet") <- "wrap"
     strips <- render_strips(

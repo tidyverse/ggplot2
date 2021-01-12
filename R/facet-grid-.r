@@ -224,12 +224,20 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     rows <- if (!length(names(rows))) rep(1L, length(panel)) else id(base[names(rows)], drop = TRUE)
     cols <- if (!length(names(cols))) rep(1L, length(panel)) else id(base[names(cols)], drop = TRUE)
 
-    panels <- new_data_frame(c(list(PANEL = panel, ROW = rows, COL = cols), base))
+    SCALE_X <- if (params$free$x) cols else 1L
+    SCALE_Y <- if (params$free$y) rows else 1L
+
+    panels <- new_data_frame(list(PANEL = panel, ROW = rows, COL = cols,
+                                  SCALE_X = SCALE_X, SCALE_Y = SCALE_Y))
+
+    # Append data columns at the end. This helps to divide columns
+    # that refer to the data and those that refer to layout, which is
+    # important if there's duplicated column names (columns in data called
+    # COL, PANEL, usw.) and ensures that, for example layout$SCALE_X will catch
+    # the correct column.
+    panels <- cbind(panels, unrowname(base))
     panels <- panels[order(panels$PANEL), , drop = FALSE]
     rownames(panels) <- NULL
-
-    panels$SCALE_X <- if (params$free$x) panels$COL else 1L
-    panels$SCALE_Y <- if (params$free$y) panels$ROW else 1L
 
     panels
   },
@@ -277,7 +285,10 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       facet_vals[] <- lapply(facet_vals[], as.factor)
       facet_vals[] <- lapply(facet_vals[], addNA, ifany = TRUE)
 
-      keys <- join_keys(facet_vals, layout, by = vars)
+      # the first five columns ("PANEL", "ROW", "COLUMN", "SCALE_X" and "SCALE_Y")
+      # columns are not data columns. Don't use it for join.
+      layout_columns <- 1:5
+      keys <- join_keys(facet_vals, layout[, -layout_columns, drop = FALSE], by = vars)
 
       data$PANEL <- layout$PANEL[match(keys$x, keys$y)]
     }
@@ -288,12 +299,18 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       abort(glue("{snake_class(coord)} doesn't support free scales"))
     }
 
-    cols <- which(layout$ROW == 1)
-    rows <- which(layout$COL == 1)
+    # Split layout into the columns that refer to data and those that
+    # refer to layout
+    layout_columns <- 1:5
+    layout_data <- layout[, -layout_columns, drop = FALSE]
+    layout_no_data <- layout[, layout_columns, drop = FALSE]
+
+    cols <- which(layout_no_data$ROW == 1)
+    rows <- which(layout_no_data$COL == 1)
     axes <- render_axes(ranges[cols], ranges[rows], coord, theme, transpose = TRUE)
 
-    col_vars <- unique(layout[names(params$cols)])
-    row_vars <- unique(layout[names(params$rows)])
+    col_vars <- unique(layout_data[names(params$cols)])
+    row_vars <- unique(layout_data[names(params$rows)])
     # Adding labels metadata, useful for labellers
     attr(col_vars, "type") <- "cols"
     attr(col_vars, "facet") <- "grid"
@@ -311,8 +328,8 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     } else {
       respect <- TRUE
     }
-    ncol <- max(layout$COL)
-    nrow <- max(layout$ROW)
+    ncol <- max(layout_no_data$COL)
+    nrow <- max(layout_no_data$ROW)
     panel_table <- matrix(panels, nrow = nrow, ncol = ncol, byrow = TRUE)
 
     # @kohske
@@ -322,14 +339,14 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     #
     # In general, panel has all information for building facet.
     if (params$space_free$x) {
-      ps <- layout$PANEL[layout$ROW == 1]
+      ps <- layout_no_data$PANEL[layout_no_data$ROW == 1]
       widths <- vapply(ps, function(i) diff(ranges[[i]]$x.range), numeric(1))
       panel_widths <- unit(widths, "null")
     } else {
       panel_widths <- rep(unit(1, "null"), ncol)
     }
     if (params$space_free$y) {
-      ps <- layout$PANEL[layout$COL == 1]
+      ps <- layout_no_data$PANEL[layout_no_data$COL == 1]
       heights <- vapply(ps, function(i) diff(ranges[[i]]$y.range), numeric(1))
       panel_heights <- unit(heights, "null")
     } else {
