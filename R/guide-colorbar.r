@@ -322,7 +322,7 @@ guide_gengrob.colorbar <- function(guide, theme) {
                     default.units = "cm",
                     gp = gpar(
                       col = guide$frame.colour,
-                      lwd = guide$frame.linewidth,
+                      lwd = guide$frame.linewidth * .pt,
                       lty = guide$frame.linetype,
                       fill = NA)
                     )
@@ -451,7 +451,7 @@ guide_gengrob.colorbar <- function(guide, theme) {
       default.units = "cm",
       gp = gpar(
         col = guide$ticks.colour,
-        lwd = guide$ticks.linewidth,
+        lwd = guide$ticks.linewidth * .pt,
         lineend = "butt"
       )
     )
