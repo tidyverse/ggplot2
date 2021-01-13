@@ -125,13 +125,13 @@ guide_colourbar <- function(
 
   # frame
   frame.colour = NULL,
-  frame.linewidth = 0.5,
+  frame.linewidth = 0.5 / .pt,
   frame.linetype = 1,
 
   # ticks
   ticks = TRUE,
   ticks.colour = "white",
-  ticks.linewidth = 0.5,
+  ticks.linewidth = 0.5 / .pt,
   draw.ulim= TRUE,
   draw.llim = TRUE,
 
