@@ -10,7 +10,7 @@ name: R-CMD-check
 
 # Increment this version when we want to clear cache
 env:
-  cache-version: v3
+  cache-version: v4
 
 jobs:
   R-CMD-check:
@@ -24,17 +24,16 @@ jobs:
         config:
           - {os: windows-latest, r: '4.0',   vdiffr: true,  xref: true}
           - {os: macOS-latest,   r: '4.0',   vdiffr: true,  xref: true}
-          - {os: macOS-latest,   r: 'devel', vdiffr: false, xref: true}
-          - {os: ubuntu-16.04,   r: '4.0',   vdiffr: true,  xref: true,  cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
-          - {os: ubuntu-16.04,   r: '3.6',   vdiffr: false, xref: true,  cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
-          - {os: ubuntu-16.04,   r: '3.5',   vdiffr: false, xref: true,  cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
-          - {os: ubuntu-16.04,   r: '3.4',   vdiffr: false, xref: true,  cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
-          - {os: ubuntu-16.04,   r: '3.3',   vdiffr: false, xref: true,  cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
-          - {os: ubuntu-16.04,   r: '3.2',   vdiffr: false, xref: false, cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
+          - {os: ubuntu-16.04,   r: 'devel', vdiffr: false, xref: true}
+          - {os: ubuntu-16.04,   r: '4.0',   vdiffr: true,  xref: true,   rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
+          - {os: ubuntu-16.04,   r: '3.6',   vdiffr: false, xref: true,   rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
+          - {os: ubuntu-16.04,   r: '3.5',   vdiffr: false, xref: true,   rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
+          - {os: ubuntu-16.04,   r: '3.4',   vdiffr: false, xref: true,   rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
+          - {os: ubuntu-16.04,   r: '3.3',   vdiffr: false, xref: true,   rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
 
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
-      CRAN: ${{ matrix.config.cran }}
+      RSPM: ${{ matrix.config.rspm }}
       # don't treat missing suggested packages as error
       _R_CHECK_FORCE_SUGGESTS_: false
       # Some packages might unavailable on the older versions, so let's ignore xref warnings
@@ -49,6 +48,7 @@ jobs:
       - uses: r-lib/actions/setup-r@master
         with:
           r-version: ${{ matrix.config.r }}
+          http-user-agent: ${{ matrix.config.http-user-agent }}
 
       - uses: r-lib/actions/setup-pandoc@master
 
@@ -68,16 +68,11 @@ jobs:
 
       - name: Install system dependencies on Linux
         if: runner.os == 'Linux'
-        env:
-          RHUB_PLATFORM: linux-x86_64-ubuntu-gcc
         run: |
-          # Use cran:libgit2 PPA to avoid conflicts of libcurl4-gnutls-dev
-          # Remove this after https://github.com/r-lib/actions/pull/97 gets merged
-          sudo add-apt-repository ppa:cran/libgit2
-
-          Rscript -e "remotes::install_github('r-hub/sysreqs')"
-          sysreqs=$(Rscript -e "cat(sysreqs::sysreq_commands('DESCRIPTION'))")
-          sudo -s eval "$sysreqs"
+          while read -r cmd
+          do
+            eval sudo $cmd
+          done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "16.04"))')
 
       - name: Install system dependencies on macOS
         if: runner.os == 'macOS'
@@ -85,17 +80,8 @@ jobs:
           # XQuartz is needed by vdiffr
           brew cask install xquartz
 
-          # To install vdiffr, these three libraries/tools are needed in addition to XQuartz
-          # - freetype (already installed, needed by systemfonts)
-          # - cairo (not installed, needed by gdtools)
-          # - pkg-config (not installed, needed to set proper build settings)
-          brew install pkg-config cairo
-
-          # Since sf dependencies are a bit heavy, install them only when they are needed
-          SF_NEEDS_UPDATED=$(Rscript -e 'if (!"sf" %in% installed.packages()[,"Package"] || "sf" %in% old.packages()[,"Package"]) cat("yes")')
-          if [ "${SF_NEEDS_UPDATED}" == "yes" ]; then
-            brew install udunits gdal
-          fi
+          # Use only binary packages
+          echo 'options(pkgType = "binary")' >> ~/.Rprofile
 
       - name: Install dependencies
         run: |

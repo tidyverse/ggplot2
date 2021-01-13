@@ -1,5 +1,5 @@
 Package: ggplot2
-Version: 3.3.2.9000
+Version: 3.3.3.9000
 Title: Create Elegant Data Visualisations Using the Grammar of Graphics
 Description: A system for 'declaratively' creating graphics,
     based on "The Grammar of Graphics". You provide the data, tell 'ggplot2'
@@ -25,7 +25,7 @@ Authors@R: c(
     person("RStudio", role = c("cph", "fnd"))
     )
 Depends:
-    R (>= 3.2)
+    R (>= 3.3)
 Imports: 
     digest,
     glue,
@@ -63,10 +63,11 @@ Suggests:
     sf (>= 0.7-3),
     svglite (>= 1.2.0.9001),
     testthat (>= 2.1.0),
-    vdiffr (>= 0.3.0)
+    vdiffr (>= 0.3.0),
+    xml2
 Enhances: sp
-License: GPL-2 | file LICENSE
-URL: http://ggplot2.tidyverse.org, https://github.com/tidyverse/ggplot2
+License: MIT + file LICENSE
+URL: https://ggplot2.tidyverse.org, https://github.com/tidyverse/ggplot2
 BugReports: https://github.com/tidyverse/ggplot2/issues
 LazyData: true
 Collate: 
@@ -263,6 +264,6 @@ Collate:
     'zxx.r'
     'zzz.r'
 VignetteBuilder: knitr
-RoxygenNote: 7.1.0.9000
+RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8

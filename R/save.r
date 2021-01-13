@@ -38,6 +38,8 @@
 #' @param limitsize When `TRUE` (the default), `ggsave()` will not
 #'   save images larger than 50x50 inches, to prevent the common error of
 #'   specifying dimensions in pixels.
+#' @param bg Background colour. If `NULL`, uses the `plot.background` fill value
+#'   from the plot theme.
 #' @param ... Other arguments passed on to the graphics device function,
 #'   as specified by `device`.
 #' @export
@@ -74,7 +76,7 @@
 ggsave <- function(filename, plot = last_plot(),
                    device = NULL, path = NULL, scale = 1,
                    width = NA, height = NA, units = c("in", "cm", "mm"),
-                   dpi = 300, limitsize = TRUE, ...) {
+                   dpi = 300, limitsize = TRUE, bg = NULL, ...) {
 
   dpi <- parse_dpi(dpi)
   dev <- plot_dev(device, filename, dpi = dpi)
@@ -84,8 +86,11 @@ ggsave <- function(filename, plot = last_plot(),
   if (!is.null(path)) {
     filename <- file.path(path, filename)
   }
+  if (is_null(bg)) {
+    bg <- calc_element("plot.background", plot_theme(plot))$fill %||% "transparent"
+  }
   old_dev <- grDevices::dev.cur()
-  dev(filename = filename, width = dim[1], height = dim[2], ...)
+  dev(filename = filename, width = dim[1], height = dim[2], bg = bg, ...)
   on.exit(utils::capture.output({
     grDevices::dev.off()
     if (old_dev > 1) grDevices::dev.set(old_dev) # restore old device unless null device

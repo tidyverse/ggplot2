@@ -31,7 +31,7 @@
 #' number, but is somewhat less flexible. If your summary function computes
 #' multiple values at once (e.g. min and max), use `fun.data`.
 #'
-#' `fun.data` will recieve data as if it was oriented along the x-axis and
+#' `fun.data` will receive data as if it was oriented along the x-axis and
 #' should return a data.frame that corresponds to that orientation. The layer
 #' will take care of flipping the input and output if it is oriented along the
 #' y-axis.
@@ -53,7 +53,7 @@
 #' d + stat_summary(fun.data = "mean_cl_boot", colour = "red", size = 2)
 #'
 #' # Orientation follows the discrete axis
-#' ggplot(mtcars, aes(mpg, cyl)) +
+#' ggplot(mtcars, aes(mpg, factor(cyl))) +
 #'   geom_point() +
 #'   stat_summary(fun.data = "mean_cl_boot", colour = "red", size = 2)
 #'
@@ -270,13 +270,18 @@ mean_sdl <- wrap_hmisc("smean.sdl")
 #' @rdname hmisc
 median_hilow <- wrap_hmisc("smedian.hilow")
 
-#' Calculate mean and standard error
+#' Calculate mean and standard error of the mean
 #'
 #' For use with [stat_summary()]
 #'
-#' @param x numeric vector
-#' @param mult number of multiples of standard error
-#' @return A data frame with columns `y`, `ymin`, and `ymax`.
+#' @param x numeric vector.
+#' @param mult number of multiples of standard error.
+#' @return A data frame with three columns:
+#' \describe{
+#'     \item{`y`}{ The mean.}
+#'     \item{`ymin`}{ The mean minus the multiples of the standard error.}
+#'     \item{`ymax`}{ The mean plus the multiples of the standard error.}
+#' }
 #' @export
 #' @examples
 #' x <- rnorm(100)

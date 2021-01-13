@@ -172,7 +172,7 @@ A simple vector function is easiest to work with as you can return a single
 number, but is somewhat less flexible. If your summary function computes
 multiple values at once (e.g. min and max), use \code{fun.data}.
 
-\code{fun.data} will recieve data as if it was oriented along the x-axis and
+\code{fun.data} will receive data as if it was oriented along the x-axis and
 should return a data.frame that corresponds to that orientation. The layer
 will take care of flipping the input and output if it is oriented along the
 y-axis.
@@ -186,7 +186,7 @@ d <- ggplot(mtcars, aes(cyl, mpg)) + geom_point()
 d + stat_summary(fun.data = "mean_cl_boot", colour = "red", size = 2)
 
 # Orientation follows the discrete axis
-ggplot(mtcars, aes(mpg, cyl)) +
+ggplot(mtcars, aes(mpg, factor(cyl))) +
   geom_point() +
   stat_summary(fun.data = "mean_cl_boot", colour = "red", size = 2)
 

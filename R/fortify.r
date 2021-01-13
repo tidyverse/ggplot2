@@ -41,7 +41,7 @@ fortify.grouped_df <- function(model, data, ...) {
 fortify.default <- function(model, data, ...) {
   msg <- paste0(
     "`data` must be a data frame, or other object coercible by `fortify()`, ",
-    "not ", obj_desc(model)
+    "not ", obj_desc(model), "."
   )
   if (inherits(model, "uneval")) {
     msg <- paste0(
