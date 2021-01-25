@@ -41,6 +41,7 @@ Imports:
     tibble,
     withr (>= 2.0.0)
 Suggests:
+    akima,
     covr,
     dplyr,
     ggplot2movies,

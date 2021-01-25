@@ -102,9 +102,9 @@ to the paired geom/stat.}
 
 \item{binwidth}{The width of the contour bins. Overridden by \code{breaks}.}
 
-\item{breaks}{Numeric vector to set the contour breaks.
-Overrides \code{binwidth} and \code{bins}. By default, this is a vector of
-length ten with \code{\link[=pretty]{pretty()}} breaks.}
+\item{breaks}{Numeric vector to set the contour breaks. Overrides \code{binwidth}
+and \code{bins}. By default, this is a vector of length ten with \code{\link[=pretty]{pretty()}}
+breaks.}
 
 \item{lineend}{Line end style (round, butt, square).}
 
@@ -130,12 +130,15 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 }
 \description{
 ggplot2 can not draw true 3D surfaces, but you can use \code{geom_contour()},
-\code{geom_contour_filled()}, and \code{\link[=geom_tile]{geom_tile()}} to visualise 3D surfaces in 2D.
-To specify a valid surface, the data must contain \code{x}, \code{y}, and \code{z} coordinates,
-and each unique combination of \code{x} and \code{y} can appear exactly once. Contouring
-tends to work best when \code{x} and \code{y} form a (roughly) evenly
-spaced grid. If your data is not evenly spaced, you may want to interpolate
-to a grid before visualising, see \code{\link[=geom_density_2d]{geom_density_2d()}}.
+\code{geom_contour_filled()}, and \code{\link[=geom_tile]{geom_tile()}} to visualise 3D surfaces in 2D. To
+specify a valid surface, the data must contain \code{x}, \code{y}, and \code{z} coordinates,
+and each unique combination of \code{x} and \code{y} can appear at most once.
+Contouring requires that the points can be rearranged so that the \code{z} values
+form a matrix, with rows corresponding to unique \code{x} values, and columns
+corresponding to unique \code{y} values. Missing entries are allowed, but contouring
+will only be done on cells of the grid with all four \code{z} values present. If
+your data is irregular, you can interpolate to a grid before visualising
+using the \code{\link[akima:interp]{akima::interp()}} function from the \code{akima} package.
 }
 \section{Aesthetics}{
 
@@ -237,6 +240,21 @@ v + geom_contour(colour = "red")
 v + geom_raster(aes(fill = density)) +
   geom_contour(colour = "white")
 }
+# Irregular data
+if (requireNamespace("akima")) {
+  fit <- lm(mpg ~ polym(disp, hp, degree = 2), data = mtcars)
+  grid <- akima::interp(mtcars$disp, mtcars$hp, predict(fit),
+                        duplicate = "mean", nx = 100, ny = 100)
+  griddf <- subset(data.frame(disp = rep(grid$x, nrow(grid$z)),
+                              hp = rep(grid$y, each = ncol(grid$z)),
+                              mpg = as.numeric(grid$z)),
+                   !is.na(mpg))
+  ggplot(griddf, aes(disp, hp, z = mpg)) +
+    geom_contour_filled() +
+    labs(fill = "MPG") +
+    geom_point(data = mtcars, aes(disp, hp))
+} else
+  message("Irregular data requires the 'akima' package")
 }
 \seealso{
 \code{\link[=geom_density_2d]{geom_density_2d()}}: 2d density contours

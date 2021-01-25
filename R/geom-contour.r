@@ -1,12 +1,15 @@
 #' 2D contours of a 3D surface
 #'
 #' ggplot2 can not draw true 3D surfaces, but you can use `geom_contour()`,
-#' `geom_contour_filled()`, and [geom_tile()] to visualise 3D surfaces in 2D.
-#' To specify a valid surface, the data must contain `x`, `y`, and `z` coordinates,
-#' and each unique combination of `x` and `y` can appear exactly once. Contouring
-#' tends to work best when `x` and `y` form a (roughly) evenly
-#' spaced grid. If your data is not evenly spaced, you may want to interpolate
-#' to a grid before visualising, see [geom_density_2d()].
+#' `geom_contour_filled()`, and [geom_tile()] to visualise 3D surfaces in 2D. To
+#' specify a valid surface, the data must contain `x`, `y`, and `z` coordinates,
+#' and each unique combination of `x` and `y` can appear at most once.
+#' Contouring requires that the points can be rearranged so that the `z` values
+#' form a matrix, with rows corresponding to unique `x` values, and columns
+#' corresponding to unique `y` values. Missing entries are allowed, but contouring
+#' will only be done on cells of the grid with all four `z` values present. If
+#' your data is irregular, you can interpolate to a grid before visualising
+#' using the [akima::interp()] function from the `akima` package.
 #'
 #' @eval rd_aesthetics("geom", "contour")
 #' @eval rd_aesthetics("geom", "contour_filled")
@@ -15,9 +18,9 @@
 #' @inheritParams geom_path
 #' @param bins Number of contour bins. Overridden by `binwidth`.
 #' @param binwidth The width of the contour bins. Overridden by `breaks`.
-#' @param breaks Numeric vector to set the contour breaks.
-#'   Overrides `binwidth` and `bins`. By default, this is a vector of
-#'   length ten with [pretty()] breaks.
+#' @param breaks Numeric vector to set the contour breaks. Overrides `binwidth`
+#'   and `bins`. By default, this is a vector of length ten with [pretty()]
+#'   breaks.
 #' @seealso [geom_density_2d()]: 2d density contours
 #' @export
 #' @examples
@@ -48,6 +51,21 @@
 #' v + geom_raster(aes(fill = density)) +
 #'   geom_contour(colour = "white")
 #' }
+#' # Irregular data
+#' if (requireNamespace("akima")) {
+#'   fit <- lm(mpg ~ polym(disp, hp, degree = 2), data = mtcars)
+#'   grid <- akima::interp(mtcars$disp, mtcars$hp, predict(fit),
+#'                         duplicate = "mean", nx = 100, ny = 100)
+#'   griddf <- subset(data.frame(disp = rep(grid$x, nrow(grid$z)),
+#'                               hp = rep(grid$y, each = ncol(grid$z)),
+#'                               mpg = as.numeric(grid$z)),
+#'                    !is.na(mpg))
+#'   ggplot(griddf, aes(disp, hp, z = mpg)) +
+#'     geom_contour_filled() +
+#'     labs(fill = "MPG") +
+#'     geom_point(data = mtcars, aes(disp, hp))
+#' } else
+#'   message("Irregular data requires the 'akima' package")
 geom_contour <- function(mapping = NULL, data = NULL,
                          stat = "contour", position = "identity",
                          ...,
