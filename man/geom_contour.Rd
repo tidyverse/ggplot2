@@ -239,7 +239,7 @@ v + geom_contour(aes(colour = after_stat(level)))
 v + geom_contour(colour = "red")
 v + geom_raster(aes(fill = density)) +
   geom_contour(colour = "white")
-}
+
 # Irregular data
 if (requireNamespace("akima")) {
   fit <- lm(mpg ~ polym(disp, hp, degree = 2), data = mtcars)
@@ -255,6 +255,7 @@ if (requireNamespace("akima")) {
     geom_point(data = mtcars, aes(disp, hp))
 } else
   message("Irregular data requires the 'akima' package")
+}
 }
 \seealso{
 \code{\link[=geom_density_2d]{geom_density_2d()}}: 2d density contours

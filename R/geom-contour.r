@@ -50,7 +50,7 @@
 #' v + geom_contour(colour = "red")
 #' v + geom_raster(aes(fill = density)) +
 #'   geom_contour(colour = "white")
-#' }
+#'
 #' # Irregular data
 #' if (requireNamespace("akima")) {
 #'   fit <- lm(mpg ~ polym(disp, hp, degree = 2), data = mtcars)
@@ -66,6 +66,7 @@
 #'     geom_point(data = mtcars, aes(disp, hp))
 #' } else
 #'   message("Irregular data requires the 'akima' package")
+#' }
 geom_contour <- function(mapping = NULL, data = NULL,
                          stat = "contour", position = "identity",
                          ...,
