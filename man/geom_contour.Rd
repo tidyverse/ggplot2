@@ -138,7 +138,8 @@ form a matrix, with rows corresponding to unique \code{x} values, and columns
 corresponding to unique \code{y} values. Missing entries are allowed, but contouring
 will only be done on cells of the grid with all four \code{z} values present. If
 your data is irregular, you can interpolate to a grid before visualising
-using the \code{\link[akima:interp]{akima::interp()}} function from the \code{akima} package.
+using the \code{\link[interp:interp]{interp::interp()}} function from the \code{interp} package
+(or one of the interpolating functions from the \code{akima} package.)
 }
 \section{Aesthetics}{
 
@@ -241,20 +242,20 @@ v + geom_raster(aes(fill = density)) +
   geom_contour(colour = "white")
 
 # Irregular data
-if (requireNamespace("akima")) {
-  fit <- lm(mpg ~ polym(disp, hp, degree = 2), data = mtcars)
-  grid <- akima::interp(mtcars$disp, mtcars$hp, predict(fit),
-                        duplicate = "mean", nx = 100, ny = 100)
-  griddf <- subset(data.frame(disp = rep(grid$x, nrow(grid$z)),
-                              hp = rep(grid$y, each = ncol(grid$z)),
-                              mpg = as.numeric(grid$z)),
-                   !is.na(mpg))
-  ggplot(griddf, aes(disp, hp, z = mpg)) +
+if (requireNamespace("interp")) {
+  # Use a dataset from the interp package
+  data(franke, package = "interp")
+  origdata <- as.data.frame(interp::franke.data(1, 1, franke))
+  grid <- with(origdata, interp::interp(x, y, z))
+  griddf <- subset(data.frame(x = rep(grid$x, nrow(grid$z)),
+                              y = rep(grid$y, each = ncol(grid$z)),
+                              z = as.numeric(grid$z)),
+                   !is.na(z))
+  ggplot(griddf, aes(x, y, z = z)) +
     geom_contour_filled() +
-    labs(fill = "MPG") +
-    geom_point(data = mtcars, aes(disp, hp))
+    geom_point(data = origdata)
 } else
-  message("Irregular data requires the 'akima' package")
+  message("Irregular data requires the 'interp' package")
 }
 }
 \seealso{

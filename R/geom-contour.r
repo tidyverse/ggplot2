@@ -9,7 +9,8 @@
 #' corresponding to unique `y` values. Missing entries are allowed, but contouring
 #' will only be done on cells of the grid with all four `z` values present. If
 #' your data is irregular, you can interpolate to a grid before visualising
-#' using the [akima::interp()] function from the `akima` package.
+#' using the [interp::interp()] function from the `interp` package
+#' (or one of the interpolating functions from the `akima` package.)
 #'
 #' @eval rd_aesthetics("geom", "contour")
 #' @eval rd_aesthetics("geom", "contour_filled")
@@ -52,20 +53,20 @@
 #'   geom_contour(colour = "white")
 #'
 #' # Irregular data
-#' if (requireNamespace("akima")) {
-#'   fit <- lm(mpg ~ polym(disp, hp, degree = 2), data = mtcars)
-#'   grid <- akima::interp(mtcars$disp, mtcars$hp, predict(fit),
-#'                         duplicate = "mean", nx = 100, ny = 100)
-#'   griddf <- subset(data.frame(disp = rep(grid$x, nrow(grid$z)),
-#'                               hp = rep(grid$y, each = ncol(grid$z)),
-#'                               mpg = as.numeric(grid$z)),
-#'                    !is.na(mpg))
-#'   ggplot(griddf, aes(disp, hp, z = mpg)) +
+#' if (requireNamespace("interp")) {
+#'   # Use a dataset from the interp package
+#'   data(franke, package = "interp")
+#'   origdata <- as.data.frame(interp::franke.data(1, 1, franke))
+#'   grid <- with(origdata, interp::interp(x, y, z))
+#'   griddf <- subset(data.frame(x = rep(grid$x, nrow(grid$z)),
+#'                               y = rep(grid$y, each = ncol(grid$z)),
+#'                               z = as.numeric(grid$z)),
+#'                    !is.na(z))
+#'   ggplot(griddf, aes(x, y, z = z)) +
 #'     geom_contour_filled() +
-#'     labs(fill = "MPG") +
-#'     geom_point(data = mtcars, aes(disp, hp))
+#'     geom_point(data = origdata)
 #' } else
-#'   message("Irregular data requires the 'akima' package")
+#'   message("Irregular data requires the 'interp' package")
 #' }
 geom_contour <- function(mapping = NULL, data = NULL,
                          stat = "contour", position = "identity",
