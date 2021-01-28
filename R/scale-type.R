@@ -1,4 +1,4 @@
-find_scale <- function(aes, x, env = parent.frame()) {
+find_scale <- function(aes, x, env = parent.frame(), theme = NULL) {
   # Inf is ambiguous; it can be used either with continuous scales or with
   # discrete scales, so just skip in the hope that we will have a better guess
   # with the other layers
@@ -8,11 +8,17 @@ find_scale <- function(aes, x, env = parent.frame()) {
 
   type <- scale_type(x)
   candidates <- paste("scale", aes, type, sep = "_")
-
   for (scale in candidates) {
+    ## First try lookup in theme (if supplied)
+    default_scales <- calc_element("default.scales", theme)
+    scale <- default_scales[[name]]
+    if (!is.null(scale) && isTRUE(mode(scale) == mode)) {
+      return(scale)
+    }
     scale_f <- find_global(scale, env, mode = "function")
-    if (!is.null(scale_f))
+    if (!is.null(scale_f)) {
       return(scale_f())
+    }
   }
 
   # Failure to find a scale is not an error because some "aesthetics" don't

@@ -480,6 +480,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   strip.placement.y   = el_def("character", "strip.placement"),
   strip.switch.pad.grid = el_def("unit"),
   strip.switch.pad.wrap = el_def("unit"),
+  default.scales      = el_def("list"),
 
   plot.background     = el_def("element_rect", "rect"),
   plot.title          = el_def("element_text", "title"),
