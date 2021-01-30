@@ -57,12 +57,16 @@
 
 <meta property="og:title" content="2D contours of a 3D surface — geom_contour" />
 <meta property="og:description" content="ggplot2 can not draw true 3D surfaces, but you can use geom_contour(),
-geom_contour_filled(), and geom_tile() to visualise 3D surfaces in 2D.
-To specify a valid surface, the data must contain x, y, and z coordinates,
-and each unique combination of x and y can appear exactly once. Contouring
-tends to work best when x and y form a (roughly) evenly
-spaced grid. If your data is not evenly spaced, you may want to interpolate
-to a grid before visualising, see geom_density_2d()." />
+geom_contour_filled(), and geom_tile() to visualise 3D surfaces in 2D. To
+specify a valid surface, the data must contain x, y, and z coordinates,
+and each unique combination of x and y can appear at most once.
+Contouring requires that the points can be rearranged so that the z values
+form a matrix, with rows corresponding to unique x values, and columns
+corresponding to unique y values. Missing entries are allowed, but contouring
+will only be done on cells of the grid with all four z values present. If
+your data is irregular, you can interpolate to a grid before visualising
+using the interp::interp() function from the interp package
+(or one of the interpolating functions from the akima package.)" />
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -210,12 +214,16 @@ to a grid before visualising, see geom_density_2d()." />
 
     <div class="ref-description">
     <p>ggplot2 can not draw true 3D surfaces, but you can use <code>geom_contour()</code>,
-<code>geom_contour_filled()</code>, and <code><a href='geom_raster.html'>geom_tile()</a></code> to visualise 3D surfaces in 2D.
-To specify a valid surface, the data must contain <code>x</code>, <code>y</code>, and <code>z</code> coordinates,
-and each unique combination of <code>x</code> and <code>y</code> can appear exactly once. Contouring
-tends to work best when <code>x</code> and <code>y</code> form a (roughly) evenly
-spaced grid. If your data is not evenly spaced, you may want to interpolate
-to a grid before visualising, see <code><a href='geom_density_2d.html'>geom_density_2d()</a></code>.</p>
+<code>geom_contour_filled()</code>, and <code><a href='geom_raster.html'>geom_tile()</a></code> to visualise 3D surfaces in 2D. To
+specify a valid surface, the data must contain <code>x</code>, <code>y</code>, and <code>z</code> coordinates,
+and each unique combination of <code>x</code> and <code>y</code> can appear at most once.
+Contouring requires that the points can be rearranged so that the <code>z</code> values
+form a matrix, with rows corresponding to unique <code>x</code> values, and columns
+corresponding to unique <code>y</code> values. Missing entries are allowed, but contouring
+will only be done on cells of the grid with all four <code>z</code> values present. If
+your data is irregular, you can interpolate to a grid before visualising
+using the <code><a href='https://rdrr.io/pkg/interp/man/interp.html'>interp::interp()</a></code> function from the <code>interp</code> package
+(or one of the interpolating functions from the <code>akima</code> package.)</p>
     </div>
 
     <pre class="usage"><span class='fu'>geom_contour</span><span class='op'>(</span>
@@ -328,9 +336,9 @@ to the paired geom/stat.</p></td>
     </tr>
     <tr>
       <th>breaks</th>
-      <td><p>Numeric vector to set the contour breaks.
-Overrides <code>binwidth</code> and <code>bins</code>. By default, this is a vector of
-length ten with <code><a href='https://rdrr.io/r/base/pretty.html'>pretty()</a></code> breaks.</p></td>
+      <td><p>Numeric vector to set the contour breaks. Overrides <code>binwidth</code>
+and <code>bins</code>. By default, this is a vector of length ten with <code><a href='https://rdrr.io/r/base/pretty.html'>pretty()</a></code>
+breaks.</p></td>
     </tr>
     <tr>
       <th>lineend</th>
@@ -463,7 +471,23 @@ bin boundaries for each band, as well the mid point between the boundaries.</p><
 </div><div class='img'><img src='geom_contour-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>v</span> <span class='op'>+</span> <span class='fu'>geom_contour</span><span class='op'>(</span>colour <span class='op'>=</span> <span class='st'>"red"</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_contour-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>v</span> <span class='op'>+</span> <span class='fu'><a href='geom_raster.html'>geom_raster</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>density</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'>geom_contour</span><span class='op'>(</span>colour <span class='op'>=</span> <span class='st'>"white"</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_contour-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+</div><div class='img'><img src='geom_contour-10.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Irregular data</span>
+<span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"interp"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='co'># Use a dataset from the interp package</span>
+  <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>franke</span>, package <span class='op'>=</span> <span class='st'>"interp"</span><span class='op'>)</span>
+  <span class='va'>origdata</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='fu'>interp</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/interp/man/franke.data.html'>franke.data</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1</span>, <span class='va'>franke</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='va'>grid</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span><span class='op'>(</span><span class='va'>origdata</span>, <span class='fu'>interp</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/interp/man/interp.html'>interp</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>z</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='va'>griddf</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='va'>grid</span><span class='op'>$</span><span class='va'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>grid</span><span class='op'>$</span><span class='va'>z</span><span class='op'>)</span><span class='op'>)</span>,
+                              y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='va'>grid</span><span class='op'>$</span><span class='va'>y</span>, each <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='va'>grid</span><span class='op'>$</span><span class='va'>z</span><span class='op'>)</span><span class='op'>)</span>,
+                              z <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='va'>grid</span><span class='op'>$</span><span class='va'>z</span><span class='op'>)</span><span class='op'>)</span>,
+                   <span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>z</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>griddf</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, z <span class='op'>=</span> <span class='va'>z</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'>geom_contour_filled</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>origdata</span><span class='op'>)</span>
+<span class='op'>}</span> <span class='kw'>else</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/message.html'>message</a></span><span class='op'>(</span><span class='st'>"Irregular data requires the 'interp' package"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Loading required namespace: interp</span></div><div class='img'><img src='geom_contour-11.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
