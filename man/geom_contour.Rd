@@ -102,9 +102,9 @@ to the paired geom/stat.}
 
 \item{binwidth}{The width of the contour bins. Overridden by \code{breaks}.}
 
-\item{breaks}{Numeric vector to set the contour breaks.
-Overrides \code{binwidth} and \code{bins}. By default, this is a vector of
-length ten with \code{\link[=pretty]{pretty()}} breaks.}
+\item{breaks}{Numeric vector to set the contour breaks. Overrides \code{binwidth}
+and \code{bins}. By default, this is a vector of length ten with \code{\link[=pretty]{pretty()}}
+breaks.}
 
 \item{lineend}{Line end style (round, butt, square).}
 
@@ -130,12 +130,16 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 }
 \description{
 ggplot2 can not draw true 3D surfaces, but you can use \code{geom_contour()},
-\code{geom_contour_filled()}, and \code{\link[=geom_tile]{geom_tile()}} to visualise 3D surfaces in 2D.
-To specify a valid surface, the data must contain \code{x}, \code{y}, and \code{z} coordinates,
-and each unique combination of \code{x} and \code{y} can appear exactly once. Contouring
-tends to work best when \code{x} and \code{y} form a (roughly) evenly
-spaced grid. If your data is not evenly spaced, you may want to interpolate
-to a grid before visualising, see \code{\link[=geom_density_2d]{geom_density_2d()}}.
+\code{geom_contour_filled()}, and \code{\link[=geom_tile]{geom_tile()}} to visualise 3D surfaces in 2D. To
+specify a valid surface, the data must contain \code{x}, \code{y}, and \code{z} coordinates,
+and each unique combination of \code{x} and \code{y} can appear at most once.
+Contouring requires that the points can be rearranged so that the \code{z} values
+form a matrix, with rows corresponding to unique \code{x} values, and columns
+corresponding to unique \code{y} values. Missing entries are allowed, but contouring
+will only be done on cells of the grid with all four \code{z} values present. If
+your data is irregular, you can interpolate to a grid before visualising
+using the \code{\link[interp:interp]{interp::interp()}} function from the \code{interp} package
+(or one of the interpolating functions from the \code{akima} package.)
 }
 \section{Aesthetics}{
 
@@ -236,6 +240,22 @@ v + geom_contour(aes(colour = after_stat(level)))
 v + geom_contour(colour = "red")
 v + geom_raster(aes(fill = density)) +
   geom_contour(colour = "white")
+
+# Irregular data
+if (requireNamespace("interp")) {
+  # Use a dataset from the interp package
+  data(franke, package = "interp")
+  origdata <- as.data.frame(interp::franke.data(1, 1, franke))
+  grid <- with(origdata, interp::interp(x, y, z))
+  griddf <- subset(data.frame(x = rep(grid$x, nrow(grid$z)),
+                              y = rep(grid$y, each = ncol(grid$z)),
+                              z = as.numeric(grid$z)),
+                   !is.na(z))
+  ggplot(griddf, aes(x, y, z = z)) +
+    geom_contour_filled() +
+    geom_point(data = origdata)
+} else
+  message("Irregular data requires the 'interp' package")
 }
 }
 \seealso{
