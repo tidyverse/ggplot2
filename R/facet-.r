@@ -562,7 +562,7 @@ combine_vars <- function(data, env = emptyenv(), vars = NULL, drop = TRUE) {
     ))
   }
 
-  base <- unique(rbind_dfs(values[has_all]))
+  base <- unique(vctrs::vec_rbind(!!!values[has_all]))
   if (!drop) {
     base <- unique_combs(base)
   }

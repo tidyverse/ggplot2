@@ -203,8 +203,8 @@ FacetGrid <- ggproto("FacetGrid", Facet,
 
     base_rows <- combine_vars(data, params$plot_env, rows, drop = params$drop)
     if (!params$as.table) {
-      rev_order <- function(x) factor(x, levels = rev(ulevels(x)))
-      base_rows[] <- lapply(base_rows, rev_order)
+      # rev_order <- function(x) factor(x, levels = rev(ulevels(x)))
+      # base_rows[] <- lapply(base_rows, rev_order)
     }
     base_cols <- combine_vars(data, params$plot_env, cols, drop = params$drop)
     base <- df.grid(base_rows, base_cols)
@@ -274,8 +274,8 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       # Special case of no faceting
       data$PANEL <- NO_PANEL
     } else {
-      facet_vals[] <- lapply(facet_vals[], as.factor)
-      facet_vals[] <- lapply(facet_vals[], addNA, ifany = TRUE)
+      # facet_vals[] <- lapply(facet_vals[], as.factor)
+      # facet_vals[] <- lapply(facet_vals[], addNA, ifany = TRUE)
 
       keys <- join_keys(facet_vals, layout, by = vars)
 
