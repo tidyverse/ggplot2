@@ -188,7 +188,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     }
 
     facet_vals <- eval_facets(vars, data, params$.possible_columns)
-    facet_vals[] <- lapply(facet_vals[], as.factor)
+    # facet_vals[] <- lapply(facet_vals[], as.factor)
 
     missing_facets <- setdiff(names(vars), names(facet_vals))
     if (length(missing_facets) > 0) {

@@ -87,8 +87,9 @@ StatQuantile <- ggproto("StatQuantile", Stat,
       method <- match.fun(method) # allow users to supply their own methods
     }
 
-    rbind_dfs(lapply(quantiles, quant_pred, data = data, method = method,
-      formula = formula, weight = weight, grid = grid, method.args = method.args))
+    pieces <- lapply(quantiles, quant_pred, data = data, method = method,
+      formula = formula, weight = weight, grid = grid, method.args = method.args)
+    vctrs::vec_rbind(!!!pieces)
   }
 )
 

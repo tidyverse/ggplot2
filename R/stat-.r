@@ -122,7 +122,7 @@ Stat <- ggproto("Stat",
       )
     }, stats, groups, SIMPLIFY = FALSE)
 
-    rbind_dfs(stats)
+    vctrs::vec_rbind(!!!stats)
   },
 
   compute_group = function(self, data, scales) {
