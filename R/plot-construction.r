@@ -16,7 +16,9 @@
 #'   - A `facet` specification overrides the current faceting.
 #'
 #' To replace the current default data frame, you must use `%+%`,
-#' due to S3 method precedence issues.
+#' due to S3 method precedence issues. I
+#'
+#' From R 4.1, if using the base pipe, `|>`, you must use `%+%`.
 #'
 #' You can also supply a list, in which case each element of the list will
 #' be added in turn.
@@ -39,6 +41,11 @@
 #' # Alternatively, you can add multiple components with a list.
 #' # This can be useful to return from a function.
 #' base + list(subset(mpg, fl == "p"), geom_smooth())
+#'
+#' mpg |>
+#'   ggplot(aes(displ,hw)) %+%
+#'   geom_point()
+#'
 "+.gg" <- function(e1, e2) {
   if (missing(e2)) {
     abort("Cannot use `+.gg()` with a single argument. Did you accidentally put + on a new line?")
@@ -58,7 +65,46 @@
 
 #' @rdname gg-add
 #' @export
-"%+%" <- `+.gg`
+"%+%" <- function(e1,e2,e3){
+  if(missing(e3)){
+    `+.gg`(e1,e2)
+  } else {
+    `+.gg`(insert_data_into_ggplot(e1,e2),e3)
+  }
+}
+
+
+insert_data_into_ggplot <- function(data,gg_chain){
+  if(is_gg_add(gg_chain)){
+    dep <- 2
+    while(is_gg_add(gg_chain[[dep]])){
+      dep <- c(dep,2)
+    }
+    first_piece <- gg_chain[[dep]]
+    len_fp <- length(first_piece)
+    if(len_fp > 1){
+      first_piece[2:len_fp + 1] <- first_piece[2:len_fp]
+    }
+    first_piece[[2]] <- data
+
+    gg_chain[[dep]] <- first_piece
+
+  } else {
+    len_gg <- length(gg_chain)
+
+    if(len_gg > 1){
+      gg_chain[2:len_gg + 1] <- gg_chain[2:len_gg]
+    }
+    gg_chain[[2]] <- data
+
+  }
+  eval(gg_chain,envir = parent.frame())
+}
+
+is_gg_add <- function(x){
+  is.call(x) && identical(x[[1]],quote(`%+%`))
+}
+
 
 add_ggplot <- function(p, object, objectname) {
   if (is.null(object)) return(p)
