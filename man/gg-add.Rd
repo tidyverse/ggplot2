@@ -33,7 +33,9 @@ new layer.
 }
 
 To replace the current default data frame, you must use \verb{\%+\%},
-due to S3 method precedence issues.
+due to S3 method precedence issues. I
+
+From R 4.1, if using the base pipe, \verb{|>}, you must use \verb{\%+\%}.
 
 You can also supply a list, in which case each element of the list will
 be added in turn.
@@ -51,6 +53,11 @@ base \%+\% subset(mpg, fl == "p")
 # Alternatively, you can add multiple components with a list.
 # This can be useful to return from a function.
 base + list(subset(mpg, fl == "p"), geom_smooth())
+
+mpg |>
+  ggplot(aes(displ,hw)) \%+\%
+  geom_point()
+
 }
 \seealso{
 \code{\link[=theme]{theme()}}
