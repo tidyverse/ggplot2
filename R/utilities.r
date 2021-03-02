@@ -618,3 +618,18 @@ split_with_index <- function(x, f, n = max(f)) {
   attributes(f) <- list(levels = as.character(seq_len(n)), class = "factor")
   unname(split(x, f))
 }
+
+#' Add a layer to a ggplot
+#'
+#' `add()` is an alias for `+`.
+#' `add()` can be used with the base R pipe `|>`, which prohibits `+`.
+#' Its functionality is otherwise identical to `+`.
+#'
+#' @export
+#' @examples
+#' \dontrun{
+#' ggplot(diamonds, aes(carat, price)) |>
+#'   add(geom_point()) |>
+#'   add(geom_smooth(method = "lm", colour = "blue"))
+#' }
+add <- `+`

@@ -24,6 +24,8 @@
 
 * ggplot2 now requires R >= 3.3 (#4247).
 
+* Export `add()` as a alias for `+`, to facilitate ggplot2 usage with the native R pipe `|>` (@bmwiernik, #4357)
+
 # ggplot2 3.3.3
 This is a small patch release mainly intended to address changes in R and CRAN.
 It further changes the licensing model of ggplot2 to an MIT license.
