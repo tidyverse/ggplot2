@@ -51,9 +51,9 @@
 <circle cx='373.65' cy='333.46' r='1.95pt' style='stroke-width: 0.71; fill: #000000;' clip-path='url(#cpMzIuNzh8NzE0LjUyfDU0NS4xM3wyMi43Nw==)' />
 <circle cx='668.78' cy='428.43' r='1.95pt' style='stroke-width: 0.71; fill: #000000;' clip-path='url(#cpMzIuNzh8NzE0LjUyfDU0NS4xM3wyMi43Nw==)' />
 <circle cx='78.52' cy='299.11' r='1.95pt' style='stroke-width: 0.71; fill: #000000;' clip-path='url(#cpMzIuNzh8NzE0LjUyfDU0NS4xM3wyMi43Nw==)' />
-<polyline points='63.76,165.27 63.76,220.22 93.28,220.22 93.28,165.27 63.76,165.27 63.76,165.27 ' style='stroke-width: 1.07; stroke: #FF0000;' clip-path='url(#cpMzIuNzh8NzE0LjUyfDU0NS4xM3wyMi43Nw==)' />
-<polyline points='358.89,321.49 358.89,343.69 388.40,343.69 388.40,321.49 358.89,321.49 358.89,321.49 ' style='stroke-width: 1.07; stroke: #FF0000;' clip-path='url(#cpMzIuNzh8NzE0LjUyfDU0NS4xM3wyMi43Nw==)' />
-<polyline points='654.02,412.59 654.02,440.24 683.53,440.24 683.53,412.59 654.02,412.59 654.02,412.59 ' style='stroke-width: 1.07; stroke: #FF0000;' clip-path='url(#cpMzIuNzh8NzE0LjUyfDU0NS4xM3wyMi43Nw==)' />
+<polygon points='63.76,165.27 63.76,220.22 93.28,220.22 93.28,165.27 63.76,165.27 ' style='stroke-width: 1.07; stroke: #FF0000; fill: none;' clip-path='url(#cpMzIuNzh8NzE0LjUyfDU0NS4xM3wyMi43Nw==)' />
+<polygon points='358.89,321.49 358.89,343.69 388.40,343.69 388.40,321.49 358.89,321.49 ' style='stroke-width: 1.07; stroke: #FF0000; fill: none;' clip-path='url(#cpMzIuNzh8NzE0LjUyfDU0NS4xM3wyMi43Nw==)' />
+<polygon points='654.02,412.59 654.02,440.24 683.53,440.24 683.53,412.59 654.02,412.59 ' style='stroke-width: 1.07; stroke: #FF0000; fill: none;' clip-path='url(#cpMzIuNzh8NzE0LjUyfDU0NS4xM3wyMi43Nw==)' />
 <line x1='63.76' y1='192.74' x2='93.28' y2='192.74' style='stroke-width: 2.67; stroke: #FF0000; stroke-linecap: butt;' clip-path='url(#cpMzIuNzh8NzE0LjUyfDU0NS4xM3wyMi43Nw==)' />
 <line x1='358.89' y1='332.59' x2='388.40' y2='332.59' style='stroke-width: 2.67; stroke: #FF0000; stroke-linecap: butt;' clip-path='url(#cpMzIuNzh8NzE0LjUyfDU0NS4xM3wyMi43Nw==)' />
 <line x1='654.02' y1='426.41' x2='683.53' y2='426.41' style='stroke-width: 2.67; stroke: #FF0000; stroke-linecap: butt;' clip-path='url(#cpMzIuNzh8NzE0LjUyfDU0NS4xM3wyMi43Nw==)' />

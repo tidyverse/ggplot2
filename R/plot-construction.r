@@ -23,8 +23,12 @@
 #' You can also supply a list, in which case each element of the list will
 #' be added in turn.
 #'
-#' @param e1 An object of class [ggplot()] or a [theme()].
-#' @param e2 A plot component, as described below.
+#' @param e1
+#' An object of class [ggplot()] or a [theme()], or potentially a
+#' data.frame-like object in the ternary use of `%+%`.
+#'
+#' @param e2 A plot component, as described below, or potentially a
+#' chain of ggplot functions in the ternary use of `%+%`.
 #' @seealso [theme()]
 #' @export
 #' @method + gg
@@ -42,9 +46,18 @@
 #' # This can be useful to return from a function.
 #' base + list(subset(mpg, fl == "p"), geom_smooth())
 #'
+#' \dontrun{
+#' #Compatible with R 4.1+ only
 #' mpg |>
 #'   ggplot(aes(displ,hw)) %+%
 #'   geom_point()
+#'
+#' mpg |>
+#'   ggplot() %+%
+#'   aes(displ,hw) %+%
+#'   geom_point() %+%
+#'   geom_path()
+#' }
 #'
 "+.gg" <- function(e1, e2) {
   if (missing(e2)) {
@@ -64,8 +77,10 @@
 
 
 #' @rdname gg-add
+#' @param e3 A plot component, as described below (only used in `%+%`)
+#' @usage `\%+\%`(e1,e2,e3)
 #' @export
-"%+%" <- function(e1,e2,e3){
+`%+%` <- function(e1,e2,e3){
   if(missing(e3)){
     `+.gg`(e1,e2)
   } else {

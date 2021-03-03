@@ -7,12 +7,16 @@
 \usage{
 \method{+}{gg}(e1, e2)
 
-e1 \%+\% e2
+`\%+\%`(e1,e2,e3)
 }
 \arguments{
-\item{e1}{An object of class \code{\link[=ggplot]{ggplot()}} or a \code{\link[=theme]{theme()}}.}
+\item{e1}{An object of class \code{\link[=ggplot]{ggplot()}} or a \code{\link[=theme]{theme()}}, or potentially a
+data.frame-like object in the ternary use of \verb{\%+\%}.}
 
-\item{e2}{A plot component, as described below.}
+\item{e2}{A plot component, as described below, or potentially a
+chain of ggplot functions in the ternary use of \verb{\%+\%}.}
+
+\item{e3}{A plot component, as described below (only used in \verb{\%+\%})}
 }
 \description{
 \code{+} is the key to constructing sophisticated ggplot2 graphics. It
@@ -54,9 +58,18 @@ base \%+\% subset(mpg, fl == "p")
 # This can be useful to return from a function.
 base + list(subset(mpg, fl == "p"), geom_smooth())
 
+\dontrun{
+#Compatible with R 4.1+ only
 mpg |>
   ggplot(aes(displ,hw)) \%+\%
   geom_point()
+
+mpg |>
+  ggplot() \%+\%
+  aes(displ,hw) \%+\%
+  geom_point() \%+\%
+  geom_path()
+}
 
 }
 \seealso{
