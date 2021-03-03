@@ -81,9 +81,15 @@
   gtag('config', 'UA-115082821-1');
 </script>
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -106,68 +112,7 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    News
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Releases</li>
-    <li>
-      <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
-    </li>
-    <li>
-      <a href="https://www.tidyverse.org/articles/2019/06/ggplot2-3-2-0/">Version 3.2.0</a>
-    </li>
-    <li>
-      <a href="https://www.tidyverse.org/articles/2018/10/ggplot2-3-1-0/">Version 3.1.0</a>
-    </li>
-    <li>
-      <a href="https://www.tidyverse.org/articles/2018/07/ggplot2-3-0-0/">Version 3.0.0</a>
-    </li>
-    <li>
-      <a href="https://blog.rstudio.com/2016/11/14/ggplot2-2-2-0/">Version 2.2.0</a>
-    </li>
-    <li>
-      <a href="https://blog.rstudio.com/2016/03/03/ggplot2-2-1-0/">Version 2.1.0</a>
-    </li>
-    <li>
-      <a href="https://blog.rstudio.com/2015/12/21/ggplot2-2-0-0/">Version 2.0.0</a>
-    </li>
-    <li>
-      <a href="https://blog.rstudio.com/2015/01/09/ggplot2-updates/">Version 1.0.0</a>
-    </li>
-    <li class="divider"></li>
-    <li>
-      <a href="../news/index.html">Changelog</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/extending-ggplot2.html">Extending ggplot2</a>
-    </li>
-    <li>
-      <a href="../articles/ggplot2-in-packages.html">Using ggplot2 in packages</a>
-    </li>
-    <li>
-      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
-    </li>
-    <li>
-      <a href="../articles/profiling.html">Profiling Performance</a>
-    </li>
-  </ul>
-</li>
+        
         <li>
   <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
 </li>
@@ -224,7 +169,7 @@
 <ul>
 <li><p>Update the ggplot2 licence to an MIT license (<a href='https://github.com/tidyverse/ggplot2/issues/4231'>#4231</a>, <a href='https://github.com/tidyverse/ggplot2/issues/4232'>#4232</a>, <a href='https://github.com/tidyverse/ggplot2/issues/4233'>#4233</a>, and <a href='https://github.com/tidyverse/ggplot2/issues/4281'>#4281</a>)</p></li>
 <li><p>Use vdiffr conditionally so ggplot2 can be tested on systems without vdiffr</p></li>
-<li><p>Update tests to work with the new <code><a href="https://rdrr.io/r/base/all.equal.html">all.equal()</a></code> defaults in R &gt;4.0.3</p></li>
+<li><p>Update tests to work with the new <code><a href="https://rdrr.io/r/base/all.equal.html" class="external-link">all.equal()</a></code> defaults in R &gt;4.0.3</p></li>
 </ul>
 </div>
     <div id="ggplot2-332" class="section level1">
@@ -242,8 +187,8 @@
 <li><p>A newly added <code><a href="../reference/geom_function.html">geom_function()</a></code> is now recommended to use in conjunction with/instead of <code><a href="../reference/geom_function.html">stat_function()</a></code>. In addition, <code><a href="../reference/geom_function.html">stat_function()</a></code> now works with transformed y axes, e.g. <code><a href="../reference/scale_continuous.html">scale_y_log10()</a></code>, and in plots containing no other data or layers (<a href='https://github.com/clauswilke'>@clauswilke</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3611'>#3611</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3905'>#3905</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3983'>#3983</a>).</p></li>
 <li><p>Fixed a bug in <code><a href="../reference/CoordSf.html">geom_sf()</a></code> that caused problems with legend-type autodetection (<a href='https://github.com/clauswilke'>@clauswilke</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3963'>#3963</a>).</p></li>
 <li><p>Support graphics devices that use the <code>file</code> argument instead of <code>fileneame</code> in <code><a href="../reference/ggsave.html">ggsave()</a></code> (<a href='https://github.com/bwiernik'>@bwiernik</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3810'>#3810</a>)</p></li>
-<li><p>Default discrete color scales are now configurable through the <code><a href="https://rdrr.io/r/base/options.html">options()</a></code> of <code>ggplot2.discrete.colour</code> and <code>ggplot2.discrete.fill</code>. When set to a character vector of colour codes (or list of character vectors) with sufficient length, these colours are used for the default scale. See <code><a href="../reference/scale_colour_discrete.html">help(scale_colour_discrete)</a></code> for more details and examples (<a href='https://github.com/cpsievert'>@cpsievert</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3833'>#3833</a>).</p></li>
-<li><p>Default continuous colour scales (i.e., the <code><a href="https://rdrr.io/r/base/options.html">options()</a></code> <code>ggplot2.continuous.colour</code> and <code>ggplot2.continuous.fill</code>, which inform the <code>type</code> argument of <code><a href="../reference/scale_colour_continuous.html">scale_fill_continuous()</a></code> and <code><a href="../reference/scale_colour_continuous.html">scale_colour_continuous()</a></code>) now accept a function, which allows more control over these default <code><a href="../reference/continuous_scale.html">continuous_scale()</a></code>s (<a href='https://github.com/cpsievert'>@cpsievert</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3827'>#3827</a>).</p></li>
+<li><p>Default discrete color scales are now configurable through the <code><a href="https://rdrr.io/r/base/options.html" class="external-link">options()</a></code> of <code>ggplot2.discrete.colour</code> and <code>ggplot2.discrete.fill</code>. When set to a character vector of colour codes (or list of character vectors) with sufficient length, these colours are used for the default scale. See <code><a href="../reference/scale_colour_discrete.html">help(scale_colour_discrete)</a></code> for more details and examples (<a href='https://github.com/cpsievert'>@cpsievert</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3833'>#3833</a>).</p></li>
+<li><p>Default continuous colour scales (i.e., the <code><a href="https://rdrr.io/r/base/options.html" class="external-link">options()</a></code> <code>ggplot2.continuous.colour</code> and <code>ggplot2.continuous.fill</code>, which inform the <code>type</code> argument of <code><a href="../reference/scale_colour_continuous.html">scale_fill_continuous()</a></code> and <code><a href="../reference/scale_colour_continuous.html">scale_colour_continuous()</a></code>) now accept a function, which allows more control over these default <code><a href="../reference/continuous_scale.html">continuous_scale()</a></code>s (<a href='https://github.com/cpsievert'>@cpsievert</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3827'>#3827</a>).</p></li>
 <li><p>A bug was fixed in <code><a href="../reference/geom_contour.html">stat_contour()</a></code> when calculating breaks based on the <code>bins</code> argument (<a href='https://github.com/clauswilke'>@clauswilke</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3879'>#3879</a>, <a href='https://github.com/tidyverse/ggplot2/issues/4004'>#4004</a>).</p></li>
 <li><p>Data columns can now contain <code>Vector</code> S4 objects, which are widely used in the Bioconductor project. (<a href='https://github.com/teunbrand'>@teunbrand</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3837'>#3837</a>)</p></li>
 </ul>
@@ -307,7 +252,7 @@
 <li><p><code><a href="../reference/CoordSf.html">geom_sf()</a></code> now removes rows that can’t be plotted due to <code>NA</code> aesthetics (<a href='https://github.com/tidyverse/ggplot2/issues/3546'>#3546</a>, <a href='https://github.com/thomasp85'>@thomasp85</a>)</p></li>
 <li><p><code><a href="../reference/CoordSf.html">geom_sf()</a></code> now applies alpha to linestring geometries (<a href='https://github.com/tidyverse/ggplot2/issues/3589'>#3589</a>, <a href='https://github.com/yutannihilation'>@yutannihilation</a>).</p></li>
 <li><p><code><a href="../reference/gg_dep.html">gg_dep()</a></code> was deprecated (<a href='https://github.com/perezp44'>@perezp44</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3382'>#3382</a>).</p></li>
-<li><p>Added function <code>ggplot_add.by()</code> for lists created with <code><a href="https://rdrr.io/r/base/by.html">by()</a></code>, allowing such lists to be added to ggplot objects (<a href='https://github.com/tidyverse/ggplot2/issues/2734'>#2734</a>, <a href='https://github.com/Maschette'>@Maschette</a>)</p></li>
+<li><p>Added function <code>ggplot_add.by()</code> for lists created with <code><a href="https://rdrr.io/r/base/by.html" class="external-link">by()</a></code>, allowing such lists to be added to ggplot objects (<a href='https://github.com/tidyverse/ggplot2/issues/2734'>#2734</a>, <a href='https://github.com/Maschette'>@Maschette</a>)</p></li>
 <li><p>ggplot2 no longer depends on reshape2, which means that it no longer (recursively) needs plyr, stringr, or stringi packages.</p></li>
 <li><p>Increase the default <code>nbin</code> of <code><a href="../reference/guide_colourbar.html">guide_colourbar()</a></code> to place the ticks more precisely (<a href='https://github.com/tidyverse/ggplot2/issues/3508'>#3508</a>, <a href='https://github.com/yutannihilation'>@yutannihilation</a>).</p></li>
 <li><p><code>manual_scale()</code> now matches <code>values</code> with the order of <code>breaks</code> whenever <code>values</code> is an unnamed vector. Previously, unnamed <code>values</code> would match with the limits of the scale and ignore the order of any <code>breaks</code> provided. Note that this may change the appearance of plots that previously relied on the unordered behaviour (<a href='https://github.com/tidyverse/ggplot2/issues/2429'>#2429</a>, <a href='https://github.com/idno0001'>@idno0001</a>).</p></li>
@@ -363,10 +308,7 @@
 </ul>
 </li>
 <li><p><code><a href="../reference/geom_polygon.html">geom_polygon()</a></code> can now draw polygons with holes using the new <code>subgroup</code> aesthetic. This functionality requires R 3.6.0 (<a href='https://github.com/thomasp85'>@thomasp85</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3128'>#3128</a>)</p></li>
-<li>
-<p>Aesthetic mappings now accept functions that return <code>NULL</code> (<a href='https://github.com/yutannihilation'>@yutannihilation</a>,</p>
-<p><a href='https://github.com/tidyverse/ggplot2/issues/2997'>#2997</a>).</p>
-</li>
+<li><p>Aesthetic mappings now accept functions that return <code>NULL</code> (<a href='https://github.com/yutannihilation'>@yutannihilation</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2997'>#2997</a>).</p></li>
 <li><p><code><a href="../reference/geom_function.html">stat_function()</a></code> now accepts rlang/purrr style anonymous functions for the <code>fun</code> parameter (<a href='https://github.com/dkahle'>@dkahle</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3159'>#3159</a>).</p></li>
 <li><p><code><a href="../reference/geom_rug.html">geom_rug()</a></code> gains an “outside” option to allow for moving the rug tassels to outside the plot area (<a href='https://github.com/njtierney'>@njtierney</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3085'>#3085</a>) and a <code>length</code> option to allow for changing the length of the rug lines (<a href='https://github.com/daniel-wells'>@daniel-wells</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3109'>#3109</a>).</p></li>
 <li><p>All geoms now take a <code>key_glyph</code> paramter that allows users to customize how legend keys are drawn (<a href='https://github.com/clauswilke'>@clauswilke</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3145'>#3145</a>). In addition, a new key glyph <code>timeseries</code> is provided to draw nice legends for time series (<a href='https://github.com/mitchelloharawild'>@mitchelloharawild</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3145'>#3145</a>).</p></li>
@@ -386,7 +328,7 @@
 <h2 class="hasAnchor">
 <a href="#minor-improvements-and-bug-fixes-1" class="anchor"></a>Minor improvements and bug fixes</h2>
 <ul>
-<li><p><code><a href="../reference/cut_interval.html">cut_width()</a></code> now accepts <code>...</code> to pass further arguments to <code><a href="https://rdrr.io/r/base/cut.html">base::cut.default()</a></code> like <code><a href="../reference/cut_interval.html">cut_number()</a></code> and <code><a href="../reference/cut_interval.html">cut_interval()</a></code> already did (<a href='https://github.com/cderv'>@cderv</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3055'>#3055</a>)</p></li>
+<li><p><code><a href="../reference/cut_interval.html">cut_width()</a></code> now accepts <code>...</code> to pass further arguments to <code><a href="https://rdrr.io/r/base/cut.html" class="external-link">base::cut.default()</a></code> like <code><a href="../reference/cut_interval.html">cut_number()</a></code> and <code><a href="../reference/cut_interval.html">cut_interval()</a></code> already did (<a href='https://github.com/cderv'>@cderv</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3055'>#3055</a>)</p></li>
 <li><p><code><a href="../reference/coord_map.html">coord_map()</a></code> now can have axes on the top and right (<a href='https://github.com/karawoo'>@karawoo</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3042'>#3042</a>).</p></li>
 <li><p><code><a href="../reference/coord_polar.html">coord_polar()</a></code> now correctly rescales the secondary axis (<a href='https://github.com/linzi-sg'>@linzi-sg</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3278'>#3278</a>)</p></li>
 <li><p><code><a href="../reference/CoordSf.html">coord_sf()</a></code>, <code><a href="../reference/coord_map.html">coord_map()</a></code>, and <code><a href="../reference/coord_polar.html">coord_polar()</a></code> now squash <code>-Inf</code> and <code>Inf</code> into the min and max of the plot (<a href='https://github.com/yutannihilation'>@yutannihilation</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2972'>#2972</a>).</p></li>
@@ -397,33 +339,21 @@
 <li><p>ggplot2 now works in Turkish locale (<a href='https://github.com/yutannihilation'>@yutannihilation</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3011'>#3011</a>).</p></li>
 <li><p>Clearer error messages for inappropriate aesthetics (<a href='https://github.com/clairemcwhite'>@clairemcwhite</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3060'>#3060</a>).</p></li>
 <li><p>ggplot2 no longer attaches any external packages when using functions that depend on packages that are suggested but not imported by ggplot2. The affected functions include <code><a href="../reference/geom_hex.html">geom_hex()</a></code>, <code><a href="../reference/geom_hex.html">stat_binhex()</a></code>, <code><a href="../reference/stat_summary_2d.html">stat_summary_hex()</a></code>, <code><a href="../reference/geom_quantile.html">geom_quantile()</a></code>, <code><a href="../reference/geom_quantile.html">stat_quantile()</a></code>, and <code><a href="../reference/map_data.html">map_data()</a></code> (<a href='https://github.com/clauswilke'>@clauswilke</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3126'>#3126</a>).</p></li>
-<li>
-<p><code><a href="../reference/geom_ribbon.html">geom_area()</a></code> and <code><a href="../reference/geom_ribbon.html">geom_ribbon()</a></code> now sort the data along the x-axis in the <code>setup_data()</code> method rather than as part of <code>draw_group()</code> (<a href='https://github.com/thomasp85'>@thomasp85</a>,</p>
-<p><a href='https://github.com/tidyverse/ggplot2/issues/3023'>#3023</a>)</p>
-</li>
+<li><p><code><a href="../reference/geom_ribbon.html">geom_area()</a></code> and <code><a href="../reference/geom_ribbon.html">geom_ribbon()</a></code> now sort the data along the x-axis in the <code>setup_data()</code> method rather than as part of <code>draw_group()</code> (<a href='https://github.com/thomasp85'>@thomasp85</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3023'>#3023</a>)</p></li>
 <li><p><code><a href="../reference/geom_abline.html">geom_hline()</a></code>, <code><a href="../reference/geom_abline.html">geom_vline()</a></code>, and <code><a href="../reference/geom_abline.html">geom_abline()</a></code> now throw a warning if the user supplies both an <code>xintercept</code>, <code>yintercept</code>, or <code>slope</code> value and a mapping (<a href='https://github.com/RichardJActon'>@RichardJActon</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2950'>#2950</a>).</p></li>
 <li><p><code><a href="../reference/geom_rug.html">geom_rug()</a></code> now works with <code><a href="../reference/coord_flip.html">coord_flip()</a></code> (<a href='https://github.com/has2k1'>@has2k1</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2987'>#2987</a>).</p></li>
 <li><p><code><a href="../reference/geom_violin.html">geom_violin()</a></code> no longer throws an error when quantile lines fall outside the violin polygon (<a href='https://github.com/thomasp85'>@thomasp85</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3254'>#3254</a>).</p></li>
 <li><p><code><a href="../reference/guide_legend.html">guide_legend()</a></code> and <code><a href="../reference/guide_colourbar.html">guide_colorbar()</a></code> now use appropriate spacing between legend key glyphs and legend text even if the legend title is missing (<a href='https://github.com/clauswilke'>@clauswilke</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2943'>#2943</a>).</p></li>
 <li><p>Default labels are now generated more consistently; e.g., symbols no longer get backticks, and long expressions are abbreviated with <code>...</code> (<a href='https://github.com/yutannihilation'>@yutannihilation</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2981'>#2981</a>).</p></li>
-<li>
-<p>All-<code>Inf</code> layers are now ignored for picking the scale (<a href='https://github.com/yutannihilation'>@yutannihilation</a>,</p>
-<p><a href='https://github.com/tidyverse/ggplot2/issues/3184'>#3184</a>).</p>
-</li>
+<li><p>All-<code>Inf</code> layers are now ignored for picking the scale (<a href='https://github.com/yutannihilation'>@yutannihilation</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3184'>#3184</a>).</p></li>
 <li><p>Diverging Brewer colour palette now use the correct mid-point colour (<a href='https://github.com/dariyasydykova'>@dariyasydykova</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3072'>#3072</a>).</p></li>
-<li>
-<p><code><a href="../reference/scale_colour_continuous.html">scale_color_continuous()</a></code> now points to <code><a href="../reference/scale_colour_continuous.html">scale_colour_continuous()</a></code> so that it will handle <code>type = "viridis"</code> as the documentation states (<a href='https://github.com/hlendway'>@hlendway</a>,</p>
-<p><a href='https://github.com/tidyverse/ggplot2/issues/3079'>#3079</a>).</p>
-</li>
+<li><p><code><a href="../reference/scale_colour_continuous.html">scale_color_continuous()</a></code> now points to <code><a href="../reference/scale_colour_continuous.html">scale_colour_continuous()</a></code> so that it will handle <code>type = "viridis"</code> as the documentation states (<a href='https://github.com/hlendway'>@hlendway</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3079'>#3079</a>).</p></li>
 <li><p><code><a href="../reference/scale_identity.html">scale_shape_identity()</a></code> now works correctly with <code>guide = "legend"</code> (<a href='https://github.com/malcolmbarrett'>@malcolmbarrett</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3029'>#3029</a>)</p></li>
 <li><p><code>scale_continuous</code> will now draw axis line even if the length of breaks is 0 (<a href='https://github.com/thomasp85'>@thomasp85</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3257'>#3257</a>)</p></li>
 <li><p><code><a href="../reference/geom_freqpoly.html">stat_bin()</a></code> will now error when the number of bins exceeds 1e6 to avoid accidentally freezing the user session (<a href='https://github.com/thomasp85'>@thomasp85</a>).</p></li>
 <li><p><code><a href="../reference/sec_axis.html">sec_axis()</a></code> now places ticks accurately when using nonlinear transformations (<a href='https://github.com/dpseidel'>@dpseidel</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2978'>#2978</a>).</p></li>
 <li><p><code><a href="../reference/facet_wrap.html">facet_wrap()</a></code> and <code><a href="../reference/facet_grid.html">facet_grid()</a></code> now automatically remove NULL from facet specs, and accept empty specs (<a href='https://github.com/yutannihilation'>@yutannihilation</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3070'>#3070</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2986'>#2986</a>).</p></li>
-<li>
-<p><code><a href="../reference/geom_freqpoly.html">stat_bin()</a></code> now handles data with only one unique value (<a href='https://github.com/yutannihilation'>@yutannihilation</a></p>
-<p><a href='https://github.com/tidyverse/ggplot2/issues/3047'>#3047</a>).</p>
-</li>
+<li><p><code><a href="../reference/geom_freqpoly.html">stat_bin()</a></code> now handles data with only one unique value (<a href='https://github.com/yutannihilation'>@yutannihilation</a> <a href='https://github.com/tidyverse/ggplot2/issues/3047'>#3047</a>).</p></li>
 <li><p><code><a href="../reference/sec_axis.html">sec_axis()</a></code> now accepts functions as well as formulas (<a href='https://github.com/yutannihilation'>@yutannihilation</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3031'>#3031</a>).</p></li>
 <li><p>New theme elements allowing different ticks lengths for each axis. For instance, this can be used to have inwards ticks on the x-axis (<code>axis.ticks.length.x</code>) and outwards ticks on the y-axis (<code>axis.ticks.length.y</code>) (<a href='https://github.com/pank'>@pank</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2935'>#2935</a>).</p></li>
 <li><p>The arguments of <code>Stat*$compute_layer()</code> and <code>Position*$compute_layer()</code> are now renamed to always match the ones of <code>Stat$compute_layer()</code> and <code>Position$compute_layer()</code> (<a href='https://github.com/yutannihilation'>@yutannihilation</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3202'>#3202</a>).</p></li>
@@ -443,7 +373,7 @@
 <ul>
 <li><p>In non-user-facing internal code (specifically in the <code><a href="../reference/aes.html">aes()</a></code> function and in the <code>aesthetics</code> argument of scale functions), ggplot2 now always uses the British spelling for aesthetics containing the word “colour”. When users specify a “color” aesthetic it is automatically renamed to “colour”. This renaming is also applied to non-standard aesthetics that contain the word “color”. For example, “point_color” is renamed to “point_colour”. This convention makes it easier to support both British and American spelling for novel, non-standard aesthetics, but it may require some adjustment for packages that have previously introduced non-standard color aesthetics using American spelling. A new function <code><a href="../reference/standardise_aes_names.html">standardise_aes_names()</a></code> is provided in case extension writers need to perform this renaming in their own code (<a href='https://github.com/clauswilke'>@clauswilke</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2649'>#2649</a>).</p></li>
 <li><p>Functions that generate other functions (closures) now force the arguments that are used from the generated functions, to avoid hard-to-catch errors. This may affect some users of manual scales (such as <code><a href="../reference/scale_manual.html">scale_colour_manual()</a></code>, <code><a href="../reference/scale_manual.html">scale_fill_manual()</a></code>, etc.) who depend on incorrect behavior (<a href='https://github.com/krlmlr'>@krlmlr</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2807'>#2807</a>).</p></li>
-<li><p><code>Coord</code> objects now have a function <code>backtransform_range()</code> that returns the panel range in data coordinates. This change may affect developers of custom coords, who now should implement this function. It may also affect developers of custom geoms that use the <code><a href="https://rdrr.io/r/base/range.html">range()</a></code> function. In some applications, <code>backtransform_range()</code> may be more appropriate (<a href='https://github.com/clauswilke'>@clauswilke</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2821'>#2821</a>).</p></li>
+<li><p><code>Coord</code> objects now have a function <code>backtransform_range()</code> that returns the panel range in data coordinates. This change may affect developers of custom coords, who now should implement this function. It may also affect developers of custom geoms that use the <code><a href="https://rdrr.io/r/base/range.html" class="external-link">range()</a></code> function. In some applications, <code>backtransform_range()</code> may be more appropriate (<a href='https://github.com/clauswilke'>@clauswilke</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2821'>#2821</a>).</p></li>
 </ul>
 </div>
 <div id="new-features-2" class="section level2">
@@ -459,10 +389,7 @@
 <a href="#minor-improvements-and-fixes" class="anchor"></a>Minor improvements and fixes</h2>
 <ul>
 <li><p><code><a href="../reference/benchplot.html">benchplot()</a></code> now uses tidy evaluation (<a href='https://github.com/dpseidel'>@dpseidel</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2699'>#2699</a>).</p></li>
-<li>
-<p>The error message in <code>compute_aesthetics()</code> now only provides the names of aesthetics with mismatched lengths, rather than all aesthetics (<a href='https://github.com/karawoo'>@karawoo</a>,</p>
-<p><a href='https://github.com/tidyverse/ggplot2/issues/2853'>#2853</a>).</p>
-</li>
+<li><p>The error message in <code>compute_aesthetics()</code> now only provides the names of aesthetics with mismatched lengths, rather than all aesthetics (<a href='https://github.com/karawoo'>@karawoo</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2853'>#2853</a>).</p></li>
 <li><p>For faceted plots, data is no longer internally reordered. This makes it safer to feed data columns into <code><a href="../reference/aes.html">aes()</a></code> or into parameters of geoms or stats. However, doing so remains discouraged (<a href='https://github.com/clauswilke'>@clauswilke</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2694'>#2694</a>).</p></li>
 <li><p><code><a href="../reference/CoordSf.html">coord_sf()</a></code> now also understands the <code>clip</code> argument, just like the other coords (<a href='https://github.com/clauswilke'>@clauswilke</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2938'>#2938</a>).</p></li>
 <li><p><code><a href="../reference/fortify.html">fortify()</a></code> now displays a more informative error message for <code>grouped_df()</code> objects when dplyr is not installed (<a href='https://github.com/jimhester'>@jimhester</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2822'>#2822</a>).</p></li>
@@ -491,14 +418,14 @@
 <a href="#breaking-changes-3" class="anchor"></a>Breaking changes</h2>
 <ul>
 <li>
-<p>ggplot2 now supports/uses tidy evaluation (as described below). This is a major change and breaks a number of packages; we made this breaking change because it is important to make ggplot2 more programmable, and to be more consistent with the rest of the tidyverse. The best general (and detailed) introduction to tidy evaluation can be found in the meta programming chapters in <a href="https://adv-r.hadley.nz">Advanced R</a>.</p>
+<p>ggplot2 now supports/uses tidy evaluation (as described below). This is a major change and breaks a number of packages; we made this breaking change because it is important to make ggplot2 more programmable, and to be more consistent with the rest of the tidyverse. The best general (and detailed) introduction to tidy evaluation can be found in the meta programming chapters in <a href="https://adv-r.hadley.nz" class="external-link">Advanced R</a>.</p>
 <p>The primary developer facing change is that <code><a href="../reference/aes.html">aes()</a></code> now contains quosures (expression + environment pairs) rather than symbols, and you’ll need to take a different approach to extracting the information you need. A common symptom of this change are errors “undefined columns selected” or “invalid ‘type’ (list) of argument” (<a href='https://github.com/tidyverse/ggplot2/issues/2610'>#2610</a>). As in the previous version, constants (like <code><a href="../reference/aes.html">aes(x = 1)</a></code> or <code><a href="../reference/aes.html">aes(colour = "smoothed")</a></code>) are stored as is.</p>
-<p>In this version of ggplot2, if you need to describe a mapping in a string, use <code><a href="../reference/tidyeval.html">quo_name()</a></code> (to generate single-line strings; longer expressions may be abbreviated) or <code>quo_text()</code> (to generate non-abbreviated strings that may span multiple lines). If you do need to extract the value of a variable instead use <code><a href="https://rlang.r-lib.org/reference/eval_tidy.html">rlang::eval_tidy()</a></code>. You may want to condition on <code>(packageVersion("ggplot2") &lt;= "2.2.1")</code> so that your code can work with both released and development versions of ggplot2.</p>
-<p>We recognise that this is a big change and if you’re not already familiar with rlang, there’s a lot to learn. If you are stuck, or need any help, please reach out on <a href="https://community.rstudio.com" class="uri">https://community.rstudio.com</a>.</p>
+<p>In this version of ggplot2, if you need to describe a mapping in a string, use <code><a href="../reference/tidyeval.html">quo_name()</a></code> (to generate single-line strings; longer expressions may be abbreviated) or <code>quo_text()</code> (to generate non-abbreviated strings that may span multiple lines). If you do need to extract the value of a variable instead use <code><a href="https://rlang.r-lib.org/reference/eval_tidy.html" class="external-link">rlang::eval_tidy()</a></code>. You may want to condition on <code>(packageVersion("ggplot2") &lt;= "2.2.1")</code> so that your code can work with both released and development versions of ggplot2.</p>
+<p>We recognise that this is a big change and if you’re not already familiar with rlang, there’s a lot to learn. If you are stuck, or need any help, please reach out on <a href="https://community.rstudio.com" class="external-link uri">https://community.rstudio.com</a>.</p>
 </li>
 <li>
 <p>Error: Column <code>y</code> must be a 1d atomic vector or a list</p>
-<p>Internally, ggplot2 now uses <code><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame(tibble::as_tibble(x))</a></code> to convert a list into a data frame. This improves ggplot2’s support for list-columns (needed for sf support), at a small cost: you can no longer use matrix-columns. Note that unlike tibble we still allow column vectors such as returned by <code><a href="https://rdrr.io/r/base/scale.html">base::scale()</a></code> because of their widespread use.</p>
+<p>Internally, ggplot2 now uses <code><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame(tibble::as_tibble(x))</a></code> to convert a list into a data frame. This improves ggplot2’s support for list-columns (needed for sf support), at a small cost: you can no longer use matrix-columns. Note that unlike tibble we still allow column vectors such as returned by <code><a href="https://rdrr.io/r/base/scale.html" class="external-link">base::scale()</a></code> because of their widespread use.</p>
 </li>
 <li>
 <p>Error: More than one expression parsed</p>
@@ -548,7 +475,7 @@
 <ul>
 <li><p><code><a href="../reference/aes.html">aes()</a></code> now supports quasiquotation so that you can use <code>!!</code>, <code>!!!</code>, and <code>:=</code>. This replaces <code><a href="../reference/aes_.html">aes_()</a></code> and <code><a href="../reference/aes_.html">aes_string()</a></code> which are now soft-deprecated (but will remain around for a long time).</p></li>
 <li>
-<p><code><a href="../reference/facet_wrap.html">facet_wrap()</a></code> and <code><a href="../reference/facet_grid.html">facet_grid()</a></code> now support <code><a href="../reference/vars.html">vars()</a></code> inputs. Like <code><a href="https://dplyr.tidyverse.org/reference/vars.html">dplyr::vars()</a></code>, this helper quotes its inputs and supports quasiquotation. For instance, you can now supply faceting variables like this: <code><a href="../reference/facet_wrap.html">facet_wrap(vars(am, cyl))</a></code> instead of <code><a href="../reference/facet_wrap.html">facet_wrap(~am + cyl)</a></code>. Note that the formula interface is not going away and will not be deprecated. <code><a href="../reference/vars.html">vars()</a></code> is simply meant to make it easier to create functions around <code><a href="../reference/facet_wrap.html">facet_wrap()</a></code> and <code><a href="../reference/facet_grid.html">facet_grid()</a></code>.</p>
+<p><code><a href="../reference/facet_wrap.html">facet_wrap()</a></code> and <code><a href="../reference/facet_grid.html">facet_grid()</a></code> now support <code><a href="../reference/vars.html">vars()</a></code> inputs. Like <code><a href="https://dplyr.tidyverse.org/reference/vars.html" class="external-link">dplyr::vars()</a></code>, this helper quotes its inputs and supports quasiquotation. For instance, you can now supply faceting variables like this: <code><a href="../reference/facet_wrap.html">facet_wrap(vars(am, cyl))</a></code> instead of <code><a href="../reference/facet_wrap.html">facet_wrap(~am + cyl)</a></code>. Note that the formula interface is not going away and will not be deprecated. <code><a href="../reference/vars.html">vars()</a></code> is simply meant to make it easier to create functions around <code><a href="../reference/facet_wrap.html">facet_wrap()</a></code> and <code><a href="../reference/facet_grid.html">facet_grid()</a></code>.</p>
 <p>The first two arguments of <code><a href="../reference/facet_grid.html">facet_grid()</a></code> become <code>rows</code> and <code>cols</code> and now support <code><a href="../reference/vars.html">vars()</a></code> inputs. Note however that we took special care to ensure complete backward compatibility. With this change <code><a href="../reference/facet_grid.html">facet_grid(vars(cyl), vars(am, vs))</a></code> is equivalent to <code><a href="../reference/facet_grid.html">facet_grid(cyl ~ am + vs)</a></code>, and <code><a href="../reference/facet_grid.html">facet_grid(cols = vars(am, vs))</a></code> is equivalent to <code><a href="../reference/facet_grid.html">facet_grid(. ~ am + vs)</a></code>.</p>
 <p>One nice aspect of the new interface is that you can now easily supply names: <code><a href="../reference/facet_grid.html">facet_grid(vars(Cylinder = cyl), labeller = label_both)</a></code> will give nice label titles to the facets. Of course, those names can be unquoted with the usual tidy eval syntax.</p>
 </li>
@@ -573,8 +500,8 @@
 <h2 class="hasAnchor">
 <a href="#new-features-3" class="anchor"></a>New features</h2>
 <ul>
-<li><p>ggplot2 now works on R 3.1 onwards, and uses the <a href="https://github.com/r-lib/vdiffr">vdiffr</a> package for visual testing.</p></li>
-<li><p>In most cases, accidentally using <code>%&gt;%</code> instead of <code><a href="https://rdrr.io/r/base/Arithmetic.html">+</a></code> will generate an informative error (<a href='https://github.com/tidyverse/ggplot2/issues/2400'>#2400</a>).</p></li>
+<li><p>ggplot2 now works on R 3.1 onwards, and uses the <a href="https://github.com/r-lib/vdiffr" class="external-link">vdiffr</a> package for visual testing.</p></li>
+<li><p>In most cases, accidentally using <code>%&gt;%</code> instead of <code><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">+</a></code> will generate an informative error (<a href='https://github.com/tidyverse/ggplot2/issues/2400'>#2400</a>).</p></li>
 <li>
 <p>New syntax for calculated aesthetics. Instead of using <code><a href="../reference/aes.html">aes(y = ..count..)</a></code> you can (and should!) use <code><a href="../reference/aes.html">aes(y = stat(count))</a></code>. <code><a href="../reference/aes_eval.html">stat()</a></code> is a real function with documentation which hopefully will make this part of ggplot2 less confusing (<a href='https://github.com/tidyverse/ggplot2/issues/2059'>#2059</a>).</p>
 <p><code><a href="../reference/aes_eval.html">stat()</a></code> is particularly nice for more complex calculations because you only need to specify it once: <code><a href="../reference/aes.html">aes(y = stat(count / max(count)))</a></code>, rather than <code><a href="../reference/aes.html">aes(y = ..count.. / max(..count..))</a></code></p>
@@ -634,7 +561,7 @@ to determine which elements overlap, and spreads overlapping elements evenly wit
 <a href="#extension-points" class="anchor"></a>Extension points</h2>
 <ul>
 <li><p>New <code><a href="../reference/autolayer.html">autolayer()</a></code> S3 generic (<a href='https://github.com/mitchelloharawild'>@mitchelloharawild</a>, <a href='https://github.com/tidyverse/ggplot2/issues/1974'>#1974</a>). This is similar to <code><a href="../reference/autoplot.html">autoplot()</a></code> but produces layers rather than complete plots.</p></li>
-<li><p>Custom objects can now be added using <code><a href="https://rdrr.io/r/base/Arithmetic.html">+</a></code> if a <code>ggplot_add</code> method has been defined for the class of the object (<a href='https://github.com/thomasp85'>@thomasp85</a>).</p></li>
+<li><p>Custom objects can now be added using <code><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">+</a></code> if a <code>ggplot_add</code> method has been defined for the class of the object (<a href='https://github.com/thomasp85'>@thomasp85</a>).</p></li>
 <li><p>Theme elements can now be subclassed. Add a <code>merge_element</code> method to control how properties are inherited from the parent element. Add an <code>element_grob</code> method to define how elements are rendered into grobs (<a href='https://github.com/thomasp85'>@thomasp85</a>, <a href='https://github.com/tidyverse/ggplot2/issues/1981'>#1981</a>).</p></li>
 <li>
 <p>Coords have gained new extension mechanisms.</p>
@@ -682,7 +609,7 @@ to determine which elements overlap, and spreads overlapping elements evenly wit
 <li><p><code><a href="../reference/layer.html">layer()</a></code> gives considerably better error messages for incorrectly specified <code>geom</code>, <code>stat</code>, or <code>position</code> (<a href='https://github.com/tidyverse/ggplot2/issues/2401'>#2401</a>).</p></li>
 <li><p>In all layers that use it, <code>linemitre</code> now defaults to 10 (instead of 1) to better match base R.</p></li>
 <li><p><code><a href="../reference/geom_boxplot.html">geom_boxplot()</a></code> now supplies a default value if no <code>x</code> aesthetic is present (<a href='https://github.com/foo-bar-baz-qux'>@foo-bar-baz-qux</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2110'>#2110</a>).</p></li>
-<li><p><code><a href="../reference/geom_density.html">geom_density()</a></code> drops groups with fewer than two data points and throws a warning. For groups with two data points, density values are now calculated with <code><a href="https://rdrr.io/r/stats/density.html">stats::density</a></code> (<a href='https://github.com/karawoo'>@karawoo</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2127'>#2127</a>).</p></li>
+<li><p><code><a href="../reference/geom_density.html">geom_density()</a></code> drops groups with fewer than two data points and throws a warning. For groups with two data points, density values are now calculated with <code><a href="https://rdrr.io/r/stats/density.html" class="external-link">stats::density</a></code> (<a href='https://github.com/karawoo'>@karawoo</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2127'>#2127</a>).</p></li>
 <li><p><code><a href="../reference/geom_segment.html">geom_segment()</a></code> now also takes a <code>linejoin</code> parameter. This allows more control over the appearance of the segments, which is especially useful for plotting thick arrows (<a href='https://github.com/Ax3man'>@Ax3man</a>, <a href='https://github.com/tidyverse/ggplot2/issues/774'>#774</a>).</p></li>
 <li><p><code><a href="../reference/geom_smooth.html">geom_smooth()</a></code> now reports the formula used when <code>method = "auto"</code> (<a href='https://github.com/davharris'>@davharris</a> <a href='https://github.com/tidyverse/ggplot2/issues/1951'>#1951</a>). <code><a href="../reference/geom_smooth.html">geom_smooth()</a></code> now orders by the <code>x</code> aesthetic, making it easier to pass pre-computed values without manual ordering (<a href='https://github.com/izahn'>@izahn</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2028'>#2028</a>). It also now knows it has <code>ymin</code> and <code>ymax</code> aesthetics (<a href='https://github.com/tidyverse/ggplot2/issues/1939'>#1939</a>). The legend correctly reflects the status of the <code>se</code> argument when used with stats other than the default (<a href='https://github.com/clauswilke'>@clauswilke</a>, <a href='https://github.com/tidyverse/ggplot2/issues/1546'>#1546</a>).</p></li>
 <li><p><code><a href="../reference/geom_raster.html">geom_tile()</a></code> now once again interprets <code>width</code> and <code>height</code> correctly (<a href='https://github.com/malcolmbarrett'>@malcolmbarrett</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2510'>#2510</a>).</p></li>
@@ -738,7 +665,7 @@ to determine which elements overlap, and spreads overlapping elements evenly wit
 <ul>
 <li><p><code><a href="../reference/fortify.html">fortify()</a></code> gains a method for tbls (<a href='https://github.com/karawoo'>@karawoo</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2218'>#2218</a>).</p></li>
 <li><p><code>ggplot</code> gains a method for <code>grouped_df</code>s that adds a <code>.group</code> variable, which computes a unique value for each group. Use it with <code><a href="../reference/aes.html">aes(group = .group)</a></code> (<a href='https://github.com/tidyverse/ggplot2/issues/2351'>#2351</a>).</p></li>
-<li><p><code><a href="../reference/ggproto.html">ggproto()</a></code> produces objects with class <code><a href="https://rdrr.io/r/base/c.html">c("ggproto", "gg")</a></code>, allowing for a more informative error message when adding layers, scales, or other ggproto objects (<a href='https://github.com/jrnold'>@jrnold</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2056'>#2056</a>).</p></li>
+<li><p><code><a href="../reference/ggproto.html">ggproto()</a></code> produces objects with class <code><a href="https://rdrr.io/r/base/c.html" class="external-link">c("ggproto", "gg")</a></code>, allowing for a more informative error message when adding layers, scales, or other ggproto objects (<a href='https://github.com/jrnold'>@jrnold</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2056'>#2056</a>).</p></li>
 <li><p><code><a href="../reference/ggsave.html">ggsave()</a></code>’s DPI argument now supports 3 string options: “retina” (320 DPI), “print” (300 DPI), and “screen” (72 DPI) (<a href='https://github.com/foo-bar-baz-qux'>@foo-bar-baz-qux</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2156'>#2156</a>). <code><a href="../reference/ggsave.html">ggsave()</a></code> now uses full argument names to avoid partial match warnings (<a href='https://github.com/tidyverse/ggplot2/issues/2355'>#2355</a>), and correctly restores the previous graphics device when several graphics devices are open (<a href='https://github.com/tidyverse/ggplot2/issues/2363'>#2363</a>).</p></li>
 <li><p><code><a href="../reference/print.ggplot.html">print.ggplot()</a></code> now returns the original ggplot object, instead of the output from <code><a href="../reference/ggplot_build.html">ggplot_build()</a></code>. Also, the object returned from <code><a href="../reference/ggplot_build.html">ggplot_build()</a></code> now has the class <code>"ggplot_built"</code> (<a href='https://github.com/tidyverse/ggplot2/issues/2034'>#2034</a>).</p></li>
 <li><p><code><a href="../reference/map_data.html">map_data()</a></code> now works even when purrr is loaded (tidyverse<a href='https://github.com/tidyverse/ggplot2/issues/66'>#66</a>).</p></li>
@@ -753,7 +680,7 @@ to determine which elements overlap, and spreads overlapping elements evenly wit
 <a href="#ggplot2-221" class="anchor"></a>ggplot2 2.2.1<small> 2016-12-30 </small>
 </h1>
 <ul>
-<li>Fix usage of <code><a href="https://rdrr.io/r/base/structure.html">structure(NULL)</a></code> for R-devel compatibility (<a href='https://github.com/tidyverse/ggplot2/issues/1968'>#1968</a>).</li>
+<li>Fix usage of <code><a href="https://rdrr.io/r/base/structure.html" class="external-link">structure(NULL)</a></code> for R-devel compatibility (<a href='https://github.com/tidyverse/ggplot2/issues/1968'>#1968</a>).</li>
 </ul>
 </div>
     <div id="ggplot2-220" class="section level1">
@@ -835,7 +762,7 @@ to determine which elements overlap, and spreads overlapping elements evenly wit
 </ul>
 <p>And to all scales (both position and non-position.)</p>
 <p>Compared to the previous version of ggplot2, there are three main changes:</p>
-<ol>
+<ol style="list-style-type: decimal">
 <li><p><code><a href="../reference/scale_x_discrete.html">scale_x_discrete()</a></code> and <code><a href="../reference/scale_x_discrete.html">scale_y_discrete()</a></code> always show discrete NA, regardless of their source</p></li>
 <li><p>If present, <code>NA</code>s are shown in discete legends.</p></li>
 <li><p>All discrete scales gain a <code>na.translate</code> argument that allows you to control whether <code>NA</code>s are translated to something that can be visualised, or should be left as missing. Note that if you don’t translate (i.e.  <code>na.translate = FALSE)</code> the missing values will passed on to the layer, which will warning that it’s dropping missing values. To suppress the warnings, you’ll also need to add <code>na.rm = TRUE</code> to the layer call.</p></li>
@@ -890,13 +817,13 @@ to determine which elements overlap, and spreads overlapping elements evenly wit
 <li><p><code><a href="../reference/layer.html">layer()</a></code> gains new <code>check.aes</code> and <code>check.param</code> arguments. These allow geom/stat authors to optional suppress checks for known aesthetics/parameters. Currently this is used only in <code><a href="../reference/geom_blank.html">geom_blank()</a></code> which powers <code><a href="../reference/expand_limits.html">expand_limits()</a></code> (<a href='https://github.com/tidyverse/ggplot2/issues/1795'>#1795</a>).</p></li>
 <li><p>All <code>stat_*()</code> display a better error message when required aesthetics are missing.</p></li>
 <li><p><code><a href="../reference/geom_freqpoly.html">stat_bin()</a></code> and <code><a href="../reference/stat_summary_2d.html">stat_summary_hex()</a></code> now accept length 1 <code>binwidth</code> (<a href='https://github.com/tidyverse/ggplot2/issues/1610'>#1610</a>)</p></li>
-<li><p><code><a href="../reference/geom_density.html">stat_density()</a></code> gains new argument <code>n</code>, which is passed to underlying function <code><a href="https://rdrr.io/r/stats/density.html">stats::density</a></code> (“number of equally spaced points at which the density is to be estimated”). (<a href='https://github.com/hbuschme'>@hbuschme</a>)</p></li>
+<li><p><code><a href="../reference/geom_density.html">stat_density()</a></code> gains new argument <code>n</code>, which is passed to underlying function <code><a href="https://rdrr.io/r/stats/density.html" class="external-link">stats::density</a></code> (“number of equally spaced points at which the density is to be estimated”). (<a href='https://github.com/hbuschme'>@hbuschme</a>)</p></li>
 <li><p><code><a href="../reference/geom_hex.html">stat_binhex()</a></code> now again returns <code>count</code> rather than <code>value</code> (<a href='https://github.com/tidyverse/ggplot2/issues/1747'>#1747</a>)</p></li>
 <li><p><code><a href="../reference/stat_ecdf.html">stat_ecdf()</a></code> respects <code>pad</code> argument (<a href='https://github.com/tidyverse/ggplot2/issues/1646'>#1646</a>).</p></li>
 <li><p><code><a href="../reference/geom_smooth.html">stat_smooth()</a></code> once again informs you about the method it has chosen. It also correctly calculates the size of the largest group within facets.</p></li>
 <li><p><code>x</code> and <code>y</code> scales are now symmetric regarding the list of aesthetics they accept: <code>xmin_final</code>, <code>xmax_final</code>, <code>xlower</code>, <code>xmiddle</code> and <code>xupper</code> are now valid <code>x</code> aesthetics.</p></li>
 <li><p><code>Scale</code> extensions can now override the <code>make_title</code> and <code>make_sec_title</code> methods to let the scale modify the axis/legend titles.</p></li>
-<li><p>The random stream is now reset after calling <code><a href="https://rdrr.io/r/base/ns-hooks.html">.onAttach()</a></code> (<a href='https://github.com/tidyverse/ggplot2/issues/2409'>#2409</a>).</p></li>
+<li><p>The random stream is now reset after calling <code><a href="https://rdrr.io/r/base/ns-hooks.html" class="external-link">.onAttach()</a></code> (<a href='https://github.com/tidyverse/ggplot2/issues/2409'>#2409</a>).</p></li>
 </ul>
 </div>
 </div>
@@ -910,7 +837,7 @@ to determine which elements overlap, and spreads overlapping elements evenly wit
 <ul>
 <li><p>When mapping an aesthetic to a constant (e.g.  <code>geom_smooth(aes(colour = "loess")))</code>), the default guide title is the name of the aesthetic (i.e. “colour”), not the value (i.e. “loess”) (<a href='https://github.com/tidyverse/ggplot2/issues/1431'>#1431</a>).</p></li>
 <li><p><code><a href="../reference/layer.html">layer()</a></code> now accepts a function as the data argument. The function will be applied to the data passed to the <code><a href="../reference/ggplot.html">ggplot()</a></code> function and must return a data.frame (<a href='https://github.com/tidyverse/ggplot2/issues/1527'>#1527</a>, <a href='https://github.com/thomasp85'>@thomasp85</a>). This is a more general version of the deprecated <code>subset</code> argument.</p></li>
-<li><p><code><a href="../reference/theme_get.html">theme_update()</a></code> now uses the <code><a href="https://rdrr.io/r/base/Arithmetic.html">+</a></code> operator instead of <code><a href="../reference/theme_get.html">%+replace%</a></code>, so that unspecified values will no longer be <code>NULL</code>ed out. <code><a href="../reference/theme_get.html">theme_replace()</a></code> preserves the old behaviour if desired (<a href='https://github.com/oneillkza'>@oneillkza</a>, <a href='https://github.com/tidyverse/ggplot2/issues/1519'>#1519</a>).</p></li>
+<li><p><code><a href="../reference/theme_get.html">theme_update()</a></code> now uses the <code><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">+</a></code> operator instead of <code><a href="../reference/theme_get.html">%+replace%</a></code>, so that unspecified values will no longer be <code>NULL</code>ed out. <code><a href="../reference/theme_get.html">theme_replace()</a></code> preserves the old behaviour if desired (<a href='https://github.com/oneillkza'>@oneillkza</a>, <a href='https://github.com/tidyverse/ggplot2/issues/1519'>#1519</a>).</p></li>
 <li>
 <p><code><a href="../reference/geom_freqpoly.html">stat_bin()</a></code> has been overhauled to use the same algorithm as ggvis, which has been considerably improved thanks to the advice of Randy Prium (<a href='https://github.com/rpruim'>@rpruim</a>). This includes:</p>
 <ul>
@@ -972,7 +899,7 @@ to determine which elements overlap, and spreads overlapping elements evenly wit
 <li><p>New <code><a href="../reference/cut_interval.html">cut_width()</a></code> is a convenient replacement for the verbose <code>plyr::round_any()</code>, with the additional benefit of offering finer control.</p></li>
 <li><p>New <code><a href="../reference/geom_count.html">geom_count()</a></code> is a convenient alias to <code><a href="../reference/geom_count.html">stat_sum()</a></code>. Use it when you have overlapping points on a scatterplot. <code><a href="../reference/geom_count.html">stat_sum()</a></code> now defaults to using counts instead of proportions.</p></li>
 <li><p>New <code><a href="../reference/geom_segment.html">geom_curve()</a></code> adds curved lines, with a similar specification to <code><a href="../reference/geom_segment.html">geom_segment()</a></code> (<a href='https://github.com/veraanadi'>@veraanadi</a>, <a href='https://github.com/tidyverse/ggplot2/issues/1088'>#1088</a>).</p></li>
-<li><p>Date and datetime scales now have <code>date_breaks</code>, <code>date_minor_breaks</code> and <code>date_labels</code> arguments so that you never need to use the long <code><a href="https://scales.r-lib.org//reference/date_breaks.html">scales::date_breaks()</a></code> or <code><a href="https://scales.r-lib.org//reference/label_date.html">scales::date_format()</a></code>.</p></li>
+<li><p>Date and datetime scales now have <code>date_breaks</code>, <code>date_minor_breaks</code> and <code>date_labels</code> arguments so that you never need to use the long <code><a href="https://scales.r-lib.org//reference/date_breaks.html" class="external-link">scales::date_breaks()</a></code> or <code><a href="https://scales.r-lib.org//reference/label_date.html" class="external-link">scales::date_format()</a></code>.</p></li>
 <li><p><code><a href="../reference/geom_bar.html">geom_bar()</a></code> now has it’s own stat, distinct from <code><a href="../reference/geom_freqpoly.html">stat_bin()</a></code> which was also used by <code><a href="../reference/geom_freqpoly.html">geom_histogram()</a></code>. <code><a href="../reference/geom_bar.html">geom_bar()</a></code> now uses <code><a href="../reference/geom_bar.html">stat_count()</a></code> which counts values at each distinct value of x (i.e. it does not bin the data first). This can be useful when you want to show exactly which values are used in a continuous variable.</p></li>
 <li><p><code><a href="../reference/geom_point.html">geom_point()</a></code> gains a <code>stroke</code> aesthetic which controls the border width of shapes 21-25 (<a href='https://github.com/tidyverse/ggplot2/issues/1133'>#1133</a>, <a href='https://github.com/SeySayux'>@SeySayux</a>). <code>size</code> and <code>stroke</code> are additive so a point with <code>size = 5</code> and <code>stroke = 5</code> will have a diameter of 10mm. (<a href='https://github.com/tidyverse/ggplot2/issues/1142'>#1142</a>)</p></li>
 <li><p>New <code><a href="../reference/position_nudge.html">position_nudge()</a></code> allows you to slightly offset labels (or other geoms) from their corresponding points (<a href='https://github.com/tidyverse/ggplot2/issues/1109'>#1109</a>).</p></li>
@@ -1052,7 +979,7 @@ to determine which elements overlap, and spreads overlapping elements evenly wit
 <li><p><code><a href="../reference/geom_bar.html">geom_bar()</a></code> and <code><a href="../reference/geom_raster.html">geom_rect()</a></code> use a slightly paler shade of grey so they aren’t so visually heavy.</p></li>
 <li><p><code><a href="../reference/geom_boxplot.html">geom_boxplot()</a></code> now colours outliers the same way as the boxes.</p></li>
 <li><p><code><a href="../reference/geom_point.html">geom_point()</a></code> now uses shape 19 instead of 16. This looks much better on the default Linux graphics device. (It’s very slightly smaller than the old point, but it shouldn’t affect any graphics significantly)</p></li>
-<li><p>Sizes in ggplot2 are measured in mm. Previously they were converted to pts (for use in grid) by multiplying by 72 / 25.4. However, grid uses printer’s points, not Adobe (big pts), so sizes are now correctly multiplied by 72.27 / 25.4. This is unlikely to noticeably affect display, but it’s technically correct (<a href="https://youtu.be/hou0lU8WMgo" class="uri">https://youtu.be/hou0lU8WMgo</a>).</p></li>
+<li><p>Sizes in ggplot2 are measured in mm. Previously they were converted to pts (for use in grid) by multiplying by 72 / 25.4. However, grid uses printer’s points, not Adobe (big pts), so sizes are now correctly multiplied by 72.27 / 25.4. This is unlikely to noticeably affect display, but it’s technically correct (<a href="https://youtu.be/hou0lU8WMgo" class="external-link uri">https://youtu.be/hou0lU8WMgo</a>).</p></li>
 <li>
 <p>The default legend will now allocate multiple rows (if vertical) or columns (if horizontal) in order to make a legend that is more likely to fit on the screen. You can override with the <code>nrow</code>/<code>ncol</code> arguments to <code><a href="../reference/guide_legend.html">guide_legend()</a></code></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -1128,16 +1055,16 @@ to determine which elements overlap, and spreads overlapping elements evenly wit
 <li><p><code>economics</code> has been brought up to date to 2015-04-01.</p></li>
 <li><p>New <code>economics_long</code> is the economics data in long form.</p></li>
 <li><p>New <code>txhousing</code> dataset containing information about the Texas housing market. Useful for examples that need multiple time series, and for demonstrating model+vis methods.</p></li>
-<li><p>New <code>luv_colours</code> dataset which contains the locations of all built-in <code><a href="https://rdrr.io/r/grDevices/colors.html">colors()</a></code> in Luv space.</p></li>
-<li><p><code>movies</code> has been moved into its own package, ggplot2movies, because it was large and not terribly useful. If you’ve used the movies dataset, you’ll now need to explicitly load the package with <code><a href="https://rdrr.io/r/base/library.html">library(ggplot2movies)</a></code>.</p></li>
+<li><p>New <code>luv_colours</code> dataset which contains the locations of all built-in <code><a href="https://rdrr.io/r/grDevices/colors.html" class="external-link">colors()</a></code> in Luv space.</p></li>
+<li><p><code>movies</code> has been moved into its own package, ggplot2movies, because it was large and not terribly useful. If you’ve used the movies dataset, you’ll now need to explicitly load the package with <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library(ggplot2movies)</a></code>.</p></li>
 </ul>
 </div>
 <div id="bug-fixes-and-minor-improvements-1" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bug-fixes-and-minor-improvements-1" class="anchor"></a>Bug fixes and minor improvements</h2>
 <ul>
-<li><p>All partially matched arguments and <code><a href="https://rdrr.io/r/base/Extract.html">$</a></code> have been been replaced with full matches (<a href='https://github.com/jimhester'>@jimhester</a>, <a href='https://github.com/tidyverse/ggplot2/issues/1134'>#1134</a>).</p></li>
-<li><p>ggplot2 now exports <code><a href="https://scales.r-lib.org//reference/alpha.html">alpha()</a></code> from the scales package (<a href='https://github.com/tidyverse/ggplot2/issues/1107'>#1107</a>), and <code><a href="https://rdrr.io/r/grid/arrow.html">arrow()</a></code> and <code><a href="https://rdrr.io/r/grid/unit.html">unit()</a></code> from grid (<a href='https://github.com/tidyverse/ggplot2/issues/1225'>#1225</a>). This means you don’t need attach scales/grid or do <code>scales::</code>/<code>grid::</code> for these commonly used functions.</p></li>
+<li><p>All partially matched arguments and <code><a href="https://rdrr.io/r/base/Extract.html" class="external-link">$</a></code> have been been replaced with full matches (<a href='https://github.com/jimhester'>@jimhester</a>, <a href='https://github.com/tidyverse/ggplot2/issues/1134'>#1134</a>).</p></li>
+<li><p>ggplot2 now exports <code><a href="https://scales.r-lib.org//reference/alpha.html" class="external-link">alpha()</a></code> from the scales package (<a href='https://github.com/tidyverse/ggplot2/issues/1107'>#1107</a>), and <code><a href="https://rdrr.io/r/grid/arrow.html" class="external-link">arrow()</a></code> and <code><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit()</a></code> from grid (<a href='https://github.com/tidyverse/ggplot2/issues/1225'>#1225</a>). This means you don’t need attach scales/grid or do <code>scales::</code>/<code>grid::</code> for these commonly used functions.</p></li>
 <li><p><code><a href="../reference/aes_.html">aes_string()</a></code> now only parses character inputs. This fixes bugs when using it with numbers and non default <code>OutDec</code> settings (<a href='https://github.com/tidyverse/ggplot2/issues/1045'>#1045</a>).</p></li>
 <li><p><code><a href="../reference/annotation_custom.html">annotation_custom()</a></code> automatically adds a unique id to each grob name, making it easier to plot multiple grobs with the same name (e.g. grobs of ggplot2 graphics) in the same plot (<a href='https://github.com/tidyverse/ggplot2/issues/1256'>#1256</a>).</p></li>
 <li><p><code><a href="../reference/borders.html">borders()</a></code> now accepts xlim and ylim arguments for specifying the geographical region of interest (<a href='https://github.com/markpayneatwork'>@markpayneatwork</a>, <a href='https://github.com/tidyverse/ggplot2/issues/1392'>#1392</a>).</p></li>
@@ -1181,7 +1108,7 @@ to determine which elements overlap, and spreads overlapping elements evenly wit
 <li><p><code>labels = NULL</code> now works with <code><a href="../reference/guide_legend.html">guide_legend()</a></code> and <code><a href="../reference/guide_colourbar.html">guide_colorbar()</a></code>. (<a href='https://github.com/tidyverse/ggplot2/issues/1175'>#1175</a>, <a href='https://github.com/tidyverse/ggplot2/issues/1183'>#1183</a>).</p></li>
 <li><p><code>override.aes</code> now works with American aesthetic spelling, e.g. color</p></li>
 <li><p>Scales no longer round data points to improve performance of colour palettes. Instead the scales package now uses a much faster colour interpolation algorithm (<a href='https://github.com/tidyverse/ggplot2/issues/1022'>#1022</a>).</p></li>
-<li><p><code>scale_*_brewer()</code> and <code>scale_*_distiller()</code> add new <code>direction</code> argument of <code><a href="https://scales.r-lib.org//reference/brewer_pal.html">scales::brewer_pal</a></code>, making it easier to change the order of colours (<a href='https://github.com/jiho'>@jiho</a>, <a href='https://github.com/tidyverse/ggplot2/issues/1139'>#1139</a>).</p></li>
+<li><p><code>scale_*_brewer()</code> and <code>scale_*_distiller()</code> add new <code>direction</code> argument of <code><a href="https://scales.r-lib.org//reference/brewer_pal.html" class="external-link">scales::brewer_pal</a></code>, making it easier to change the order of colours (<a href='https://github.com/jiho'>@jiho</a>, <a href='https://github.com/tidyverse/ggplot2/issues/1139'>#1139</a>).</p></li>
 <li><p><code><a href="../reference/scale_date.html">scale_x_date()</a></code> now clips dates outside the limits in the same way as <code><a href="../reference/scale_continuous.html">scale_x_continuous()</a></code> (<a href='https://github.com/tidyverse/ggplot2/issues/1090'>#1090</a>).</p></li>
 <li><p><code><a href="../reference/geom_freqpoly.html">stat_bin()</a></code> gains <code>bins</code> arguments, which denotes the number of bins. Now you can set <code>bins=100</code> instead of <code>binwidth=0.5</code>. Note that <code>breaks</code> or <code>binwidth</code> will override it (<a href='https://github.com/tmshn'>@tmshn</a>, <a href='https://github.com/tidyverse/ggplot2/issues/1158'>#1158</a>, <a href='https://github.com/tidyverse/ggplot2/issues/102'>#102</a>).</p></li>
 <li><p><code><a href="../reference/geom_boxplot.html">stat_boxplot()</a></code> warns if a continuous variable is used for the <code>x</code> aesthetic without also supplying a <code>group</code> aesthetic (<a href='https://github.com/tidyverse/ggplot2/issues/992'>#992</a>, <a href='https://github.com/krlmlr'>@krlmlr</a>).</p></li>
@@ -1208,12 +1135,12 @@ to determine which elements overlap, and spreads overlapping elements evenly wit
 
       <footer>
       <div class="tidyverse">
-  <p>ggplot2 is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
+  <p><p>Developed by <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://github.com/wch" class="external-link">Winston Chang</a>, <a href="https://github.com/lionel-" class="external-link">Lionel Henry</a>, <a href="https://data-imaginist.com" class="external-link">Thomas Lin Pedersen</a>, Kohske Takahashi, <a href="https://clauswilke.com" class="external-link">Claus Wilke</a>, <a href="https://karawoo.com" class="external-link">Kara Woo</a>, <a href="https://yutani.rbind.io" class="external-link">Hiroaki Yutani</a>, <a href="https://fishandwhistle.net" class="external-link">Dewey Dunnington</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.</p>,<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9000.</p></p>
 </div>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -1240,6 +1167,8 @@ to determine which elements overlap, and spreads overlapping elements evenly wit
 </script>
 
 
+
+  
 
   </body>
 </html>
