@@ -131,7 +131,7 @@ scale_color_continuous <- scale_colour_continuous
 scale_color_binned <- scale_colour_binned
 
 #' @export
-#' @rdname scale_hue
+#' @rdname scale_colour_discrete
 #' @usage NULL
 scale_color_discrete <- scale_colour_discrete
 
