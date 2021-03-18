@@ -245,8 +245,7 @@ NULL
 wrap_hmisc <- function(fun) {
 
   function(x, ...) {
-    if (!requireNamespace("Hmisc", quietly = TRUE))
-      abort("Hmisc package required for this function")
+    check_installed("Hmisc")
 
     fun <- getExportedValue("Hmisc", fun)
     result <- do.call(fun, list(x = quote(x), ...))

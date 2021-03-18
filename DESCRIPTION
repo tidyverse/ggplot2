@@ -35,7 +35,7 @@ Imports:
     isoband,
     MASS,
     mgcv,
-    rlang (>= 0.3.0),
+    rlang (>= 0.4.10),
     scales (>= 0.5.0),
     stats,
     tibble,

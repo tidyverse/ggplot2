@@ -318,6 +318,7 @@ CoordMap <- ggproto("CoordMap", Coord,
 
 
 mproject <- function(coord, x, y, orientation) {
+  check_installed("mapproj", reason = "for `coord_map()`")
   suppressWarnings(mapproj::mapproject(x, y,
     projection = coord$projection,
     parameters  = coord$params,
