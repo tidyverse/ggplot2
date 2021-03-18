@@ -1,5 +1,15 @@
 # ggplot2 (development version)
 
+* `coord_sf()` now has an argument `default_crs` that specifies the coordinate
+  reference system (CRS) for non-sf layers and scale/coord limits. This argument
+  defaults to the World Geodetic System 1984 (WGS84), which means x and y positions
+  are interpreted as longitude and latitude. This is a potentially breaking change
+  for users who use projected coordinates in non-sf layers or in limits. Setting
+  `default_crs = NULL` recovers the old behavior. Further, authors of extension
+  packages implementing `stat_sf()`-like functionality are encouraged to look at the
+  source code of `stat_sf()`'s `compute_group()` function to see how to provide
+  scale-limit hints to `coord_sf()` (@clauswilke, #3659).
+
 * `ggsave()` now sets the default background to match the fill value of the
   `plot.background` theme element (@karawoo, #4057)
 
@@ -42,16 +52,6 @@ This is a small release focusing on fixing regressions introduced in 3.3.1.
 
 * `annotation_raster()` adds support for native rasters. For large rasters,
   native rasters render significantly faster than arrays (@kent37, #3388)
-
-* `coord_sf()` now has an argument `default_crs` that specifies the coordinate
-  reference system (CRS) for non-sf layers and scale/coord limits. This argument
-  defaults to the World Geodetic System 1984 (WGS84), which means x and y positions
-  are interpreted as longitude and latitude. This is a potentially breaking change
-  for users who use projected coordinates in non-sf layers or in limits. Setting
-  `default_crs = NULL` recovers the old behavior. Further, authors of extension
-  packages implementing `stat_sf()`-like functionality are encouraged to look at the
-  source code of `stat_sf()`'s `compute_group()` function to see how to provide
-  scale-limit hints to `coord_sf()` (@clauswilke, #3659).
   
 * Facet strips now have dedicated position-dependent theme elements 
   (`strip.text.x.top`, `strip.text.x.bottom`, `strip.text.y.left`, 
