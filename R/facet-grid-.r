@@ -157,7 +157,14 @@ grid_as_facets_list <- function(rows, cols) {
   is_rows_vars <- is.null(rows) || is_quosures(rows)
   if (!is_rows_vars) {
     if (!is.null(cols)) {
-      abort("`rows` must be `NULL` or a `vars()` list if `cols` is a `vars()` list")
+      msg <- "`rows` must be `NULL` or a `vars()` list if `cols` is a `vars()` list"
+      if(inherits(rows, "ggplot")) {
+        msg <- paste0(
+          msg, "\n",
+          "Did you use %>% instead of +?"
+        )
+      }
+      abort(msg)
     }
     # For backward-compatibility
     facets_list <- as_facets_list(rows)

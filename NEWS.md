@@ -28,6 +28,9 @@
   installed, which will offer to install the package before continuing (#4375, 
   @malcolmbarrett)
 
+* Improved error with hint when piping a `ggplot` object into a facet function
+  (#4379, @mitchelloharawild).
+
 # ggplot2 3.3.3
 This is a small patch release mainly intended to address changes in R and CRAN.
 It further changes the licensing model of ggplot2 to an MIT license.
