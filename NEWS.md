@@ -22,6 +22,9 @@
 
 * `stat_bin()`'s computed variable `width` is now documented (#3522).
 
+* Fixed a bug in strip assembly when theme has `strip.text = element_blank()`
+  and plots are faceted with multi-layered strips (@teunbrand, #4384).
+
 * ggplot2 now requires R >= 3.3 (#4247).
 
 * ggplot2 now uses `rlang::check_installed()` to check if a suggested package is
