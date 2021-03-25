@@ -47,6 +47,9 @@ It further changes the licensing model of ggplot2 to an MIT license.
 
 * Update tests to work with the new `all.equal()` defaults in R >4.0.3
 
+* Fixed a bug that `guide_bins()` mistakenly ignore `override.aes` argument
+  (@yutannihilation, #4085).
+
 # ggplot2 3.3.2
 This is a small release focusing on fixing regressions introduced in 3.3.1.
 
