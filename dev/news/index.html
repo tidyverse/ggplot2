@@ -112,7 +112,68 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/extending-ggplot2.html">Extending ggplot2</a>
+    </li>
+    <li>
+      <a href="../articles/ggplot2-in-packages.html">Using ggplot2 in packages</a>
+    </li>
+    <li>
+      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+    </li>
+    <li>
+      <a href="../articles/profiling.html">Profiling Performance</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    News
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Releases</li>
+    <li>
+      <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
+    </li>
+    <li>
+      <a href="https://www.tidyverse.org/articles/2019/06/ggplot2-3-2-0/">Version 3.2.0</a>
+    </li>
+    <li>
+      <a href="https://www.tidyverse.org/articles/2018/10/ggplot2-3-1-0/">Version 3.1.0</a>
+    </li>
+    <li>
+      <a href="https://www.tidyverse.org/articles/2018/07/ggplot2-3-0-0/">Version 3.0.0</a>
+    </li>
+    <li>
+      <a href="https://blog.rstudio.com/2016/11/14/ggplot2-2-2-0/">Version 2.2.0</a>
+    </li>
+    <li>
+      <a href="https://blog.rstudio.com/2016/03/03/ggplot2-2-1-0/">Version 2.1.0</a>
+    </li>
+    <li>
+      <a href="https://blog.rstudio.com/2015/12/21/ggplot2-2-0-0/">Version 2.0.0</a>
+    </li>
+    <li>
+      <a href="https://blog.rstudio.com/2015/01/09/ggplot2-updates/">Version 1.0.0</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="../news/index.html">Changelog</a>
+    </li>
+  </ul>
+</li>
         <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -240,6 +301,7 @@
 <li><p>Update the ggplot2 licence to an MIT license (<a href='https://github.com/tidyverse/ggplot2/issues/4231'>#4231</a>, <a href='https://github.com/tidyverse/ggplot2/issues/4232'>#4232</a>, <a href='https://github.com/tidyverse/ggplot2/issues/4233'>#4233</a>, and <a href='https://github.com/tidyverse/ggplot2/issues/4281'>#4281</a>)</p></li>
 <li><p>Use vdiffr conditionally so ggplot2 can be tested on systems without vdiffr</p></li>
 <li><p>Update tests to work with the new <code><a href="https://rdrr.io/r/base/all.equal.html" class="external-link">all.equal()</a></code> defaults in R &gt;4.0.3</p></li>
+<li><p>Fixed a bug that <code><a href="../reference/guide_bins.html">guide_bins()</a></code> mistakenly ignore <code>override.aes</code> argument (<a href='https://github.com/yutannihilation'>@yutannihilation</a>, <a href='https://github.com/tidyverse/ggplot2/issues/4085'>#4085</a>).</p></li>
 </ul>
 </div>
     <div id="ggplot2-332" class="section level1">
