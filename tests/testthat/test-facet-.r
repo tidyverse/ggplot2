@@ -344,6 +344,32 @@ test_that("eval_facet() is tolerant for missing columns (#2963)", {
   )
 })
 
+
+test_that("facets work with columns named ROW, COL, PANEL, usw...", {
+  data(mtcars)
+
+  mtcars$ROW <- mtcars$cyl
+  mtcars$COL <- mtcars$cyl
+  mtcars$PANEL <- mtcars$cyl
+  mtcars$SCALE_X <- mtcars$cyl
+  mtcars$SCALE_Y <- mtcars$cyl
+
+
+  base <- ggplot(mtcars, aes(hp, mpg)) +
+    geom_point()
+
+  cols <- c("COL", "ROW", "PANEL", "SCALE_X", "SCALE_Y")
+
+  sink <- lapply(cols, function(col) {
+    expect_error(print(base + facet_wrap(as.formula(paste0(col, " ~  am")))), NA)
+  })
+
+  sink <- lapply(cols, function(col) {
+    expect_error(print(base + facet_grid(as.formula(paste0(col, " ~  am")))), NA)
+  })
+
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("facet labels respect both justification and margin arguments", {

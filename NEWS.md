@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `facet_grid()` and `facet_wrap()` now don't fail when faceting variables are named
+"COL", "ROW", "PANEL", "SCALE_X" or "SCALE_Y". (@eliocamp, #4138)
+
 * `ggsave()` now sets the default background to match the fill value of the
   `plot.background` theme element (@karawoo, #4057)
 
