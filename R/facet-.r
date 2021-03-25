@@ -329,8 +329,8 @@ validate_facets <- function(x) {
 # Flatten a list of quosures objects to a quosures object, and compact it
 compact_facets <- function(x) {
   x <- flatten_if(x, is_list)
-  null <- vapply(x, quo_is_null, logical(1))
-  new_quosures(x[!null])
+  null_or_missing <- vapply(x, function(x) quo_is_null(x) || quo_is_missing(x), logical(1))
+  new_quosures(x[!null_or_missing])
 }
 
 # Compatibility with plyr::as.quoted()
