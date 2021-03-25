@@ -78,7 +78,7 @@ jobs:
         if: runner.os == 'macOS'
         run: |
           # XQuartz is needed by vdiffr
-          brew cask install xquartz
+          brew install xquartz
 
           # Use only binary packages
           echo 'options(pkgType = "binary")' >> ~/.Rprofile

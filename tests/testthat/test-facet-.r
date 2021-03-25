@@ -125,10 +125,10 @@ test_that("facet_grid() accepts vars()", {
   expect_identical(grid$params$rows, quos(foo = foo))
   expect_identical(grid$params$cols, quos(bar = bar))
 
-  expect_equal(facet_grid(vars(am, vs)), facet_grid(am + vs ~ .))
-  expect_equal(facet_grid(vars(am, vs), vars(cyl)), facet_grid(am + vs ~ cyl))
-  expect_equal(facet_grid(NULL, vars(cyl)), facet_grid(. ~ cyl))
-  expect_equal(facet_grid(vars(am, vs), TRUE), facet_grid(am + vs ~ ., margins = TRUE))
+  expect_equal(facet_grid(vars(am, vs))$params, facet_grid(am + vs ~ .)$params)
+  expect_equal(facet_grid(vars(am, vs), vars(cyl))$params, facet_grid(am + vs ~ cyl)$params)
+  expect_equal(facet_grid(NULL, vars(cyl))$params, facet_grid(. ~ cyl)$params)
+  expect_equal(facet_grid(vars(am, vs), TRUE)$params, facet_grid(am + vs ~ ., margins = TRUE)$params)
 })
 
 test_that("facet_grid() fails if passed both a formula and a vars()", {
