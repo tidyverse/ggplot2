@@ -158,17 +158,33 @@ plot_dev <- function(device, filename = NULL, dpi = 300) {
   force(dpi)
 
   if (is.function(device)) {
-    if ("file" %in% names(formals(device))) {
-      dev <- function(filename, ...) device(file = filename, ...)
-      return(dev)
-    } else {
-      return(device)
+    args <- formals(device)
+    call_args <- list()
+    if ("file" %in% names(args)) {
+      call_args$file <- filename
     }
+    if ("res" %in% names(args)) {
+      call_args$res <- dpi
+    }
+    if ("units" %in% names(args)) {
+      call_args$units <- 'in'
+    }
+    dev <- function(...) do.call(device, modify_list(list(...), call_args))
+    return(dev)
   }
 
   eps <- function(filename, ...) {
     grDevices::postscript(file = filename, ..., onefile = FALSE, horizontal = FALSE,
       paper = "special")
+  }
+  if (requireNamespace('ragg', quietly = TRUE)) {
+    png_dev <- ragg::agg_png
+    jpeg_dev <- ragg::agg_jpeg
+    tiff_dev <- ragg::agg_tiff
+  } else {
+    png_dev <- grDevices::png
+    jpeg_dev <- grDevices::jpeg
+    tiff_dev <- grDevices::tiff
   }
   devices <- list(
     eps =  eps,
@@ -178,11 +194,11 @@ plot_dev <- function(device, filename = NULL, dpi = 300) {
     svg =  function(filename, ...) svglite::svglite(file = filename, ...),
     emf =  function(...) grDevices::win.metafile(...),
     wmf =  function(...) grDevices::win.metafile(...),
-    png =  function(...) grDevices::png(..., res = dpi, units = "in"),
-    jpg =  function(...) grDevices::jpeg(..., res = dpi, units = "in"),
-    jpeg = function(...) grDevices::jpeg(..., res = dpi, units = "in"),
+    png =  function(...) png_dev(..., res = dpi, units = "in"),
+    jpg =  function(...) jpeg_dev(..., res = dpi, units = "in"),
+    jpeg = function(...) jpeg_dev(..., res = dpi, units = "in"),
     bmp =  function(...) grDevices::bmp(..., res = dpi, units = "in"),
-    tiff = function(...) grDevices::tiff(..., res = dpi, units = "in")
+    tiff = function(...) tiff_dev(..., res = dpi, units = "in")
   )
 
   if (is.null(device)) {

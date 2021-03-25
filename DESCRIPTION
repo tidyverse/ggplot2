@@ -42,6 +42,7 @@ Imports:
     withr (>= 2.0.0)
 Suggests:
     covr,
+    ragg,
     dplyr,
     ggplot2movies,
     hexbin,
