@@ -25,7 +25,7 @@
 #' @param filename File name to create on disk.
 #' @param plot Plot to save, defaults to last plot displayed.
 #' @param device Device to use. Can either be a device function
-#'   (e.g. [png()]), or one of "eps", "ps", "tex" (pictex),
+#'   (e.g. [png]), or one of "eps", "ps", "tex" (pictex),
 #'   "pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only).
 #' @param path Path of the directory to save plot to: `path` and `filename`
 #'   are combined to create the fully qualified file name. Defaults to the
