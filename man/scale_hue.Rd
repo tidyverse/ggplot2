@@ -3,7 +3,6 @@
 \name{scale_colour_hue}
 \alias{scale_colour_hue}
 \alias{scale_fill_hue}
-\alias{scale_color_discrete}
 \alias{scale_color_hue}
 \title{Evenly spaced colours for discrete data}
 \usage{

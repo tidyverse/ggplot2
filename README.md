@@ -12,9 +12,10 @@ Status](https://img.shields.io/codecov/c/github/tidyverse/ggplot2/master.svg)](h
 ## Overview
 
 ggplot2 is a system for declaratively creating graphics, based on [The
-Grammar of Graphics](https://amzn.to/2ef1eWp). You provide the data,
-tell ggplot2 how to map variables to aesthetics, what graphical
-primitives to use, and it takes care of the details.
+Grammar of
+Graphics](https://www.amazon.com/Grammar-Graphics-Statistics-Computing/dp/0387245448/ref=as_li_ss_tl).
+You provide the data, tell ggplot2 how to map variables to aesthetics,
+what graphical primitives to use, and it takes care of the details.
 
 ## Installation
 
@@ -79,27 +80,24 @@ documentation pages. Currently, there are three good places to start:
     communication](https://r4ds.had.co.nz/graphics-for-communication.html)
     chapters in [R for Data Science](https://r4ds.had.co.nz). R for Data
     Science is designed to give you a comprehensive introduction to the
-    [tidyverse](https://tidyverse.org), and these two chapters will get
-    you up to speed with the essentials of ggplot2 as quickly as
+    [tidyverse](https://www.tidyverse.org), and these two chapters will
+    get you up to speed with the essentials of ggplot2 as quickly as
     possible.
 
-2.  If you’d like to take an online course, try [Data Visualization in R
-    With ggplot2](https://shop.oreilly.com/product/0636920052807.do) by
-    Kara Woo.
+2.  If you’d like to follow a webinar, try [Plotting Anything with
+    ggplot2](https://youtu.be/h29g21z0a68) by Thomas Lin Pedersen.
 
 3.  If you want to dive into making common graphics as quickly as
     possible, I recommend [The R Graphics
-    Cookbook](https://amzn.to/2TU78ip) by Winston Chang. It provides a
+    Cookbook](https://r-graphics.org) by Winston Chang. It provides a
     set of recipes to solve common graphics problems.
 
 If you’ve mastered the basics and want to learn more, read [ggplot2:
-Elegant Graphics for Data Analysis](https://amzn.to/2fncG50). It
+Elegant Graphics for Data Analysis](https://ggplot2-book.org). It
 describes the theoretical underpinnings of ggplot2 and shows you how all
 the pieces fit together. This book helps you understand the theory that
 underpins ggplot2, and will help you create new types of graphics
-specifically tailored to your needs. The book is not available for free,
-but you can find the complete source for the book at
-<https://github.com/hadley/ggplot2-book>.
+specifically tailored to your needs.
 
 ## Getting help
 

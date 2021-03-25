@@ -68,7 +68,8 @@ update_labels <- function(p, labels) {
 #'  labs(title = "title") +
 #'  labs(title = NULL)
 labs <- function(..., title = waiver(), subtitle = waiver(), caption = waiver(), tag = waiver()) {
-  args <- list2(..., title = title, subtitle = subtitle, caption = caption, tag = tag)
+  # .ignore_empty = "all" is needed to allow trailing commas, which is NOT a trailing comma for dots_list() as it's in ...
+  args <- dots_list(..., title = title, subtitle = subtitle, caption = caption, tag = tag, .ignore_empty = "all")
 
   is_waive <- vapply(args, is.waive, logical(1))
   args <- args[!is_waive]
