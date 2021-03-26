@@ -33,6 +33,8 @@
 
 * Improved error with hint when piping a `ggplot` object into a facet function
   (#4379, @mitchelloharawild).
+  
+* `ggsave()` now returns the saved file location invisibly (#3379, @eliocamp).
 
 # ggplot2 3.3.3
 This is a small patch release mainly intended to address changes in R and CRAN.
