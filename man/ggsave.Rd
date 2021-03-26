@@ -15,6 +15,7 @@ ggsave(
   units = c("in", "cm", "mm"),
   dpi = 300,
   limitsize = TRUE,
+  bg = NULL,
   ...
 )
 }
@@ -24,7 +25,7 @@ ggsave(
 \item{plot}{Plot to save, defaults to last plot displayed.}
 
 \item{device}{Device to use. Can either be a device function
-(e.g. \code{\link[=png]{png()}}), or one of "eps", "ps", "tex" (pictex),
+(e.g. \link{png}), or one of "eps", "ps", "tex" (pictex),
 "pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only).}
 
 \item{path}{Path of the directory to save plot to: \code{path} and \code{filename}
@@ -39,9 +40,12 @@ If not supplied, uses the size of current graphics device.}
 \item{dpi}{Plot resolution. Also accepts a string input: "retina" (320),
 "print" (300), or "screen" (72). Applies only to raster output types.}
 
-\item{limitsize}{When \code{TRUE} (the default), \code{ggsave} will not
+\item{limitsize}{When \code{TRUE} (the default), \code{ggsave()} will not
 save images larger than 50x50 inches, to prevent the common error of
 specifying dimensions in pixels.}
+
+\item{bg}{Background colour. If \code{NULL}, uses the \code{plot.background} fill value
+from the plot theme.}
 
 \item{...}{Other arguments passed on to the graphics device function,
 as specified by \code{device}.}
@@ -74,7 +78,8 @@ examples section.
 
 \examples{
 \dontrun{
-ggplot(mtcars, aes(mpg, wt)) + geom_point()
+ggplot(mtcars, aes(mpg, wt)) +
+  geom_point()
 
 ggsave("mtcars.pdf")
 ggsave("mtcars.png")
@@ -93,7 +98,9 @@ ggsave(file, device = "pdf")
 unlink(file)
 
 # save plot to file without using ggsave
-p <- ggplot(mtcars, aes(mpg, wt)) + geom_point()
+p <-
+  ggplot(mtcars, aes(mpg, wt)) +
+  geom_point()
 png("mtcars.png")
 print(p)
 dev.off()

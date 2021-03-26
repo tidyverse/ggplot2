@@ -1,22 +1,121 @@
 # ggplot2 (development version)
 
+* `coord_sf()` now has an argument `default_crs` that specifies the coordinate
+  reference system (CRS) for non-sf layers and scale/coord limits. This argument
+  defaults to the World Geodetic System 1984 (WGS84), which means x and y positions
+  are interpreted as longitude and latitude. This is a potentially breaking change
+  for users who use projected coordinates in non-sf layers or in limits. Setting
+  `default_crs = NULL` recovers the old behavior. Further, authors of extension
+  packages implementing `stat_sf()`-like functionality are encouraged to look at the
+  source code of `stat_sf()`'s `compute_group()` function to see how to provide
+  scale-limit hints to `coord_sf()` (@clauswilke, #3659).
+
+* `ggsave()` now sets the default background to match the fill value of the
+  `plot.background` theme element (@karawoo, #4057)
+
+* Extended `stat_ecdf()` to calculate the cdf from either x or y instead from y only (@jgjl, #4005).
+
+* Fixed a bug in `labeller()` so that `.default` is passed to `as_labeller()`
+  when labellers are specified by naming faceting variables. (@waltersom, #4031)
+  
+* Updated style for example code (@rjake, #4092)
+
+* Only drop groups in `stat_ydensity()` when there are fewer than two data points and throw a warning (@andrewwbutler, #4111).
+
+* It is now deprecated to specify `guides(<scale> = FALSE)` or
+  `scale_*(guide = FALSE)` to remove a guide. Please use 
+  `guides(<scale> = "none")` or `scale_*(guide = "none")` instead 
+  (@yutannihilation, #4094).
+  
+* Date and datetime position scales support out-of-bounds (oob) arguments to 
+  control how limits affect data outside those limits (@teunbrand, #4199).
+
+* `stat_bin()`'s computed variable `width` is now documented (#3522).
+
+* Fixed a bug in strip assembly when theme has `strip.text = element_blank()`
+  and plots are faceted with multi-layered strips (@teunbrand, #4384).
+
+* ggplot2 now requires R >= 3.3 (#4247).
+
+* ggplot2 now uses `rlang::check_installed()` to check if a suggested package is
+  installed, which will offer to install the package before continuing (#4375, 
+  @malcolmbarrett)
+
+* Improved error with hint when piping a `ggplot` object into a facet function
+  (#4379, @mitchelloharawild).
+
+* Fix a bug that `after_stat()` and `after_scale()` cannot refer to aesthetics
+  if it's specified in the plot-global mapping (@yutannihilation, #4260).
+
+# ggplot2 3.3.3
+This is a small patch release mainly intended to address changes in R and CRAN.
+It further changes the licensing model of ggplot2 to an MIT license.
+
+* Update the ggplot2 licence to an MIT license (#4231, #4232, #4233, and #4281)
+
+* Use vdiffr conditionally so ggplot2 can be tested on systems without vdiffr
+
+* Update tests to work with the new `all.equal()` defaults in R >4.0.3
+
+* Fixed a bug that `guide_bins()` mistakenly ignore `override.aes` argument
+  (@yutannihilation, #4085).
+
+# ggplot2 3.3.2
+This is a small release focusing on fixing regressions introduced in 3.3.1.
+
+* Added an `outside` option to `annotation_logticks()` that places tick marks
+  outside of the plot bounds. (#3783, @kbodwin)
+
 * `annotation_raster()` adds support for native rasters. For large rasters,
   native rasters render significantly faster than arrays (@kent37, #3388)
+  
+* Facet strips now have dedicated position-dependent theme elements 
+  (`strip.text.x.top`, `strip.text.x.bottom`, `strip.text.y.left`, 
+  `strip.text.y.right`) that inherit from `strip.text.x` and `strip.text.y`, 
+  respectively. As a consequence, some theme stylings now need to be applied to 
+  the position-dependent elements rather than to the parent elements. This 
+  change was already introduced in ggplot2 3.3.0 but not listed in the 
+  changelog. (@thomasp85, #3683)
+
+* Facets now handle layers containing no data (@yutannihilation, #3853).
   
 * A newly added geom `geom_density_2d_filled()` and associated stat 
   `stat_density_2d_filled()` can draw filled density contours
   (@clauswilke, #3846).
+
+* A newly added `geom_function()` is now recommended to use in conjunction
+  with/instead of `stat_function()`. In addition, `stat_function()` now
+  works with transformed y axes, e.g. `scale_y_log10()`, and in plots
+  containing no other data or layers (@clauswilke, #3611, #3905, #3983).
+
+* Fixed a bug in `geom_sf()` that caused problems with legend-type
+  autodetection (@clauswilke, #3963).
   
 * Support graphics devices that use the `file` argument instead of `fileneame` 
   in `ggsave()` (@bwiernik, #3810)
+  
+* Default discrete color scales are now configurable through the `options()` of 
+  `ggplot2.discrete.colour` and `ggplot2.discrete.fill`. When set to a character 
+  vector of colour codes (or list of character vectors)  with sufficient length, 
+  these colours are used for the default scale. See `help(scale_colour_discrete)` 
+  for more details and examples (@cpsievert, #3833).
 
-* Added an `outside` option to `annotation_logticks()` that places tick marks
-  outside of the plot bounds. (#3783, @kbodwin)
+* Default continuous colour scales (i.e., the `options()` 
+  `ggplot2.continuous.colour` and `ggplot2.continuous.fill`, which inform the 
+  `type` argument of `scale_fill_continuous()` and `scale_colour_continuous()`) 
+  now accept a function, which allows more control over these default 
+  `continuous_scale()`s (@cpsievert, #3827).
+
+* A bug was fixed in `stat_contour()` when calculating breaks based on 
+  the `bins` argument (@clauswilke, #3879, #4004).
   
 * Data columns can now contain `Vector` S4 objects, which are widely used in the 
   Bioconductor project. (@teunbrand, #3837)
 
-* Facets now handle layers containing no data (@yutannihilation, #3853).
+# ggplot2 3.3.1
+
+This is a small release with no code change. It removes all malicious links to a 
+site that got hijacked from the readme and pkgdown site.
 
 # ggplot2 3.3.0
 
@@ -638,7 +737,7 @@ accompanying issue #2890.
 ## New features
 
 * ggplot2 now works on R 3.1 onwards, and uses the 
-  [vdiffr](https://github.com/lionel-/vdiffr) package for visual testing.
+  [vdiffr](https://github.com/r-lib/vdiffr) package for visual testing.
 
 * In most cases, accidentally using `%>%` instead of `+` will generate an 
   informative error (#2400).

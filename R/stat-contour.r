@@ -151,19 +151,36 @@ contour_breaks <- function(z_range, bins = NULL, binwidth = NULL, breaks = NULL)
   # If no parameters set, use pretty bins
   if (is.null(bins) && is.null(binwidth)) {
     breaks <- pretty(z_range, 10)
+    return(breaks)
   }
 
   # If provided, use bins to calculate binwidth
   if (!is.null(bins)) {
+    # round lower limit down and upper limit up to make sure
+    # we generate bins that span the data range nicely
+    accuracy <- signif(diff(z_range), 1)/10
+    z_range[1] <- floor(z_range[1]/accuracy)*accuracy
+    z_range[2] <- ceiling(z_range[2]/accuracy)*accuracy
+
+    if (bins == 1) {
+      return(z_range)
+    }
+
     binwidth <- diff(z_range) / (bins - 1)
-  }
-
-  # If necessary, compute breaks from binwidth
-  if (is.null(breaks)) {
     breaks <- fullseq(z_range, binwidth)
+
+    # Sometimes the above sequence yields one bin too few.
+    # If this happens, try again.
+    if (length(breaks) < bins + 1) {
+      binwidth <- diff(z_range) / bins
+      breaks <- fullseq(z_range, binwidth)
+    }
+
+    return(breaks)
   }
 
-  breaks
+  # if we haven't returned yet, compute breaks from binwidth
+  fullseq(z_range, binwidth)
 }
 
 #' Compute isoband objects

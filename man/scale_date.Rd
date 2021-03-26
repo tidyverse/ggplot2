@@ -19,6 +19,7 @@ scale_x_date(
   date_minor_breaks = waiver(),
   limits = NULL,
   expand = waiver(),
+  oob = censor,
   guide = waiver(),
   position = "bottom",
   sec.axis = waiver()
@@ -34,6 +35,7 @@ scale_y_date(
   date_minor_breaks = waiver(),
   limits = NULL,
   expand = waiver(),
+  oob = censor,
   guide = waiver(),
   position = "left",
   sec.axis = waiver()
@@ -50,6 +52,7 @@ scale_x_datetime(
   timezone = NULL,
   limits = NULL,
   expand = waiver(),
+  oob = censor,
   guide = waiver(),
   position = "bottom",
   sec.axis = waiver()
@@ -66,6 +69,7 @@ scale_y_datetime(
   timezone = NULL,
   limits = NULL,
   expand = waiver(),
+  oob = censor,
   guide = waiver(),
   position = "left",
   sec.axis = waiver()
@@ -163,6 +167,16 @@ to generate the values for the \code{expand} argument. The defaults are to
 expand the scale by 5\% on each side for continuous variables, and by
 0.6 units on each side for discrete variables.}
 
+\item{oob}{One of:
+\itemize{
+\item Function that handles limits outside of the scale limits
+(out of bounds).
+\item The default (\code{\link[scales:oob]{scales::censor()}}) replaces out of
+bounds values with \code{NA}.
+\item \code{\link[scales:oob]{scales::squish()}} for squishing out of bounds values into range.
+\item \code{\link[scales:oob]{scales::squish_infinite()}} for squishing infinite values into range.
+}}
+
 \item{guide}{A function used to create a guide or its name. See
 \code{\link[=guides]{guides()}} for more information.}
 
@@ -173,16 +187,6 @@ expand the scale by 5\% on each side for continuous variables, and by
 
 \item{timezone}{The timezone to use for display on the axes. The default
 (\code{NULL}) uses the timezone encoded in the data.}
-
-\item{oob}{One of:
-\itemize{
-\item Function that handles limits outside of the scale limits
-(out of bounds).
-\item The default (\code{\link[scales:censor]{scales::censor()}}) replaces out of
-bounds values with \code{NA}.
-\item \code{\link[scales:squish]{scales::squish()}} for squishing out of bounds values into range.
-\item \code{\link[scales:squish_infinite]{scales::squish_infinite()}} for squishing infinite values into range.
-}}
 
 \item{na.value}{Missing values will be replaced with this value.}
 }

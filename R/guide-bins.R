@@ -116,6 +116,7 @@ guide_bins <- function(
 
     # general
     direction = direction,
+    override.aes = rename_aes(override.aes),
     default.unit = default.unit,
     reverse = reverse,
     order = order,
@@ -132,6 +133,7 @@ guide_bins <- function(
 #' @export
 guide_train.bins <- function(guide, scale, aesthetic = NULL) {
   breaks <- scale$get_breaks()
+  breaks <- breaks[!is.na(breaks)]
   if (length(breaks) == 0 || all(is.na(breaks))) {
     return()
   }

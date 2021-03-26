@@ -1,7 +1,7 @@
 #' Text
 #'
 #' Text geoms are useful for labeling plots. They can be used by themselves as
-#' scatterplots or in cobination with other geoms, for example, for labeling
+#' scatterplots or in combination with other geoms, for example, for labeling
 #' points or for annotating the height of bars. `geom_text()` adds only text
 #' to the plot. `geom_label()` draws a rectangle behind the text, making it
 #' easier to read.
@@ -43,7 +43,7 @@
 #'   displayed as described in `?plotmath`.
 #' @param nudge_x,nudge_y Horizontal and vertical adjustment to nudge labels by.
 #'   Useful for offsetting text from points, particularly on discrete scales.
-#'   Cannot be jointy specified with `position`.
+#'   Cannot be jointly specified with `position`.
 #' @param position Position adjustment, either as a string, or the result of
 #'  a call to a position adjustment function. Cannot be jointy specified with
 #'  `nudge_x` or `nudge_y`.
@@ -64,12 +64,19 @@
 #' p + geom_text(size = 10)
 #'
 #' # Set aesthetics to fixed value
-#' p + geom_point() + geom_text(hjust = 0, nudge_x = 0.05)
-#' p + geom_point() + geom_text(vjust = 0, nudge_y = 0.5)
-#' p + geom_point() + geom_text(angle = 45)
+#' p +
+#'   geom_point() +
+#'   geom_text(hjust = 0, nudge_x = 0.05)
+#' p +
+#'   geom_point() +
+#'   geom_text(vjust = 0, nudge_y = 0.5)
+#' p +
+#'   geom_point() +
+#'   geom_text(angle = 45)
 #' \dontrun{
 #' # Doesn't work on all systems
-#' p + geom_text(family = "Times New Roman")
+#' p +
+#'   geom_text(family = "Times New Roman")
 #' }
 #'
 #' # Add aesthetic mappings
@@ -80,18 +87,26 @@
 #'
 #' p + geom_text(aes(size = wt))
 #' # Scale height of text, rather than sqrt(height)
-#' p + geom_text(aes(size = wt)) + scale_radius(range = c(3,6))
+#' p +
+#'   geom_text(aes(size = wt)) +
+#'   scale_radius(range = c(3,6))
 #'
 #' # You can display expressions by setting parse = TRUE.  The
 #' # details of the display are described in ?plotmath, but note that
 #' # geom_text uses strings, not expressions.
-#' p + geom_text(aes(label = paste(wt, "^(", cyl, ")", sep = "")),
-#'   parse = TRUE)
+#' p +
+#'   geom_text(
+#'     aes(label = paste(wt, "^(", cyl, ")", sep = "")),
+#'     parse = TRUE
+#'   )
 #'
 #' # Add a text annotation
 #' p +
 #'   geom_text() +
-#'   annotate("text", label = "plot mpg vs. wt", x = 2, y = 15, size = 8, colour = "red")
+#'   annotate(
+#'     "text", label = "plot mpg vs. wt",
+#'     x = 2, y = 15, size = 8, colour = "red"
+#'   )
 #'
 #' \donttest{
 #' # Aligning labels and bars --------------------------------------------------

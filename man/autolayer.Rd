@@ -15,7 +15,7 @@ autolayer(object, ...)
 a ggplot layer
 }
 \description{
-\code{autolayer} uses ggplot2 to draw a particular layer for an object of a
+\code{autolayer()} uses ggplot2 to draw a particular layer for an object of a
 particular class in a single command. This defines the S3 generic that
 other classes and packages can extend.
 }

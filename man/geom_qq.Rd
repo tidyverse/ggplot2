@@ -120,8 +120,8 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 }
 \description{
-\code{geom_qq} and \code{stat_qq} produce quantile-quantile plots. \code{geom_qq_line} and
-\code{stat_qq_line} compute the slope and intercept of the line connecting the
+\code{geom_qq()} and \code{stat_qq()} produce quantile-quantile plots. \code{geom_qq_line()} and
+\code{stat_qq_line()} compute the slope and intercept of the line connecting the
 points at specified quartiles of the theoretical and sample distributions.
 }
 \section{Aesthetics}{
@@ -148,12 +148,12 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 
 \section{Computed variables}{
 
-Variables computed by \code{stat_qq}:
+Variables computed by \code{stat_qq()}:
 \describe{
 \item{sample}{sample quantiles}
 \item{theoretical}{theoretical quantiles}
 }
-Variables computed by \code{stat_qq_line}:
+Variables computed by \code{stat_qq_line()}:
 \describe{
 \item{x}{x-coordinates of the endpoints of the line segment connecting the
 points at the chosen quantiles of the theoretical and the sample

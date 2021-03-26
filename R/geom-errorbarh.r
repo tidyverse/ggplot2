@@ -17,9 +17,12 @@
 #' # Define the top and bottom of the errorbars
 #'
 #' p <- ggplot(df, aes(resp, trt, colour = group))
-#' p + geom_point() +
+#' p +
+#'   geom_point() +
 #'   geom_errorbarh(aes(xmax = resp + se, xmin = resp - se))
-#' p + geom_point() +
+#'
+#' p +
+#'   geom_point() +
 #'   geom_errorbarh(aes(xmax = resp + se, xmin = resp - se, height = .2))
 geom_errorbarh <- function(mapping = NULL, data = NULL,
                            stat = "identity", position = "identity",

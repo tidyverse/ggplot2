@@ -157,7 +157,14 @@ grid_as_facets_list <- function(rows, cols) {
   is_rows_vars <- is.null(rows) || is_quosures(rows)
   if (!is_rows_vars) {
     if (!is.null(cols)) {
-      abort("`rows` must be `NULL` or a `vars()` list if `cols` is a `vars()` list")
+      msg <- "`rows` must be `NULL` or a `vars()` list if `cols` is a `vars()` list"
+      if(inherits(rows, "ggplot")) {
+        msg <- paste0(
+          msg, "\n",
+          "Did you use %>% instead of +?"
+        )
+      }
+      abort(msg)
     }
     # For backward-compatibility
     facets_list <- as_facets_list(rows)
@@ -333,12 +340,12 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       heights <- vapply(ps, function(i) diff(ranges[[i]]$y.range), numeric(1))
       panel_heights <- unit(heights, "null")
     } else {
-      panel_heights <- rep(unit(1 * aspect_ratio, "null"), nrow)
+      panel_heights <- rep(unit(1 * abs(aspect_ratio), "null"), nrow)
     }
 
     panel_table <- gtable_matrix("layout", panel_table,
       panel_widths, panel_heights, respect = respect, clip = coord$clip, z = matrix(1, ncol = ncol, nrow = nrow))
-    panel_table$layout$name <- paste0('panel-', rep(seq_len(ncol), nrow), '-', rep(seq_len(nrow), each = ncol))
+    panel_table$layout$name <- paste0('panel-', rep(seq_len(nrow), ncol), '-', rep(seq_len(ncol), each = nrow))
 
     panel_table <- gtable_add_col_space(panel_table,
       theme$panel.spacing.x %||% theme$panel.spacing)

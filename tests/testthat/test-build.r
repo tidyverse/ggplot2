@@ -25,8 +25,8 @@ test_that("position aesthetics are coerced to correct type", {
   l2 <- ggplot(df, aes(x, z)) + geom_point() + scale_x_discrete()
   d2 <- layer_data(l2, 1)
 
-  expect_is(d2$x, "integer")
-  expect_is(d2$y, "integer")
+  expect_s3_class(d2$x, "mapped_discrete")
+  expect_s3_class(d2$y, "mapped_discrete")
 })
 
 test_that("non-position aesthetics are mapped", {
@@ -48,7 +48,7 @@ test_that("non-position aesthetics are mapped", {
 })
 
 test_that("strings are not converted to factors", {
-  df <- data_frame(x = 1:2, y = 2:1, label = c("alpha", "beta"), stringsAsFactors = FALSE)
+  df <- data_frame(x = 1:2, y = 2:1, label = c("alpha", "beta"))
   p <- ggplot(df, aes(x, y)) +
     geom_text(aes(label = label), parse = TRUE)
 

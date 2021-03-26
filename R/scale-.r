@@ -143,16 +143,20 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 #'   - A character vector of breaks
 #'   - A function that takes the limits as input and returns breaks
 #'     as output
-#' @param limits A character vector that defines possible values of the scale
-#'   and their order.
+#' @param limits One of:
+#'   - `NULL` to use the default scale values
+#'   - A character vector that defines possible values of the scale and their
+#'     order
+#'   - A function that accepts the existing (automatic) values and returns
+#'     new ones
 #' @param drop Should unused factor levels be omitted from the scale?
 #'    The default, `TRUE`, uses the levels that appear in the data;
 #'    `FALSE` uses all the levels in the factor.
 #' @param na.translate Unlike continuous scales, discrete scales can easily show
 #'   missing values, and do so by default. If you want to remove missing values
 #'   from a discrete scale, specify `na.translate = FALSE`.
-#' @param na.value If `na.translate = TRUE`, what value aesthetic
-#'   value should missing be displayed as? Does not apply to position scales
+#' @param na.value If `na.translate = TRUE`, what aesthetic value should the
+#'   missing values be displayed as? Does not apply to position scales
 #'   where `NA` is always placed at the far right.
 #' @keywords internal
 discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
@@ -163,6 +167,16 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
   aesthetics <- standardise_aes_names(aesthetics)
 
   check_breaks_labels(breaks, labels)
+
+  if (!is.function(limits) && (length(limits) > 0) && !is.discrete(limits)) {
+    warn(
+      glue(
+        "
+        Continuous limits supplied to discrete scale.
+        Did you mean `limits = factor(...)` or `scale_*_continuous()`?"
+      )
+    )
+  }
 
   position <- match.arg(position, c("left", "right", "top", "bottom"))
 
@@ -195,6 +209,7 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 
 #' Binning scale constructor
 #'
+#' @export
 #' @inheritParams continuous_scale
 #' @param n.breaks The number of break points to create if breaks are not given
 #'   directly.
@@ -791,7 +806,7 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
       self$n.breaks.cache <- n
     }
 
-    if (is_named(pal)) {
+    if (!is_null(names(pal))) {
       # if pal is named, limit the pal by the names first,
       # then limit the values by the pal
       idx_nomatch <- is.na(match(names(pal), limits))

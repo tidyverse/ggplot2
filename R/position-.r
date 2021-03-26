@@ -1,6 +1,6 @@
 #' @section Positions:
 #'
-#' All `position_*` functions (like `position_dodge`) return a
+#' All `position_*()` functions (like `position_dodge()`) return a
 #' `Position*` object (like `PositionDodge`). The `Position*`
 #' object is responsible for adjusting the position of overlapping geoms.
 #'

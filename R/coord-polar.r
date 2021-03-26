@@ -4,7 +4,8 @@
 #' are a stacked bar chart in polar coordinates.
 #'
 #' @param theta variable to map angle to (`x` or `y`)
-#' @param start offset of starting point from 12 o'clock in radians
+#' @param start Offset of starting point from 12 o'clock in radians. Offset
+#'   is applied clockwise or anticlockwise depending on value of `direction`.
 #' @param direction 1, clockwise; -1, anticlockwise
 #' @param clip Should drawing be clipped to the extent of the plot panel? A
 #'   setting of `"on"` (the default) means yes, and a setting of `"off"`
@@ -280,7 +281,7 @@ CoordPolar <- ggproto("CoordPolar", Coord,
     # Combine the two ends of the scale if they are close
     theta <- theta[!is.na(theta)]
     ends_apart <- (theta[length(theta)] - theta[1]) %% (2*pi)
-    if (length(theta) > 0 && ends_apart < 0.05) {
+    if (length(theta) > 0 && ends_apart < 0.05 && !is.null(labels)) {
       n <- length(labels)
       if (is.expression(labels)) {
         combined <- substitute(paste(a, "/", b),

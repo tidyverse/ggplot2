@@ -25,7 +25,7 @@
 #' @param filename File name to create on disk.
 #' @param plot Plot to save, defaults to last plot displayed.
 #' @param device Device to use. Can either be a device function
-#'   (e.g. [png()]), or one of "eps", "ps", "tex" (pictex),
+#'   (e.g. [png]), or one of "eps", "ps", "tex" (pictex),
 #'   "pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only).
 #' @param path Path of the directory to save plot to: `path` and `filename`
 #'   are combined to create the fully qualified file name. Defaults to the
@@ -35,15 +35,18 @@
 #'   If not supplied, uses the size of current graphics device.
 #' @param dpi Plot resolution. Also accepts a string input: "retina" (320),
 #'   "print" (300), or "screen" (72). Applies only to raster output types.
-#' @param limitsize When `TRUE` (the default), `ggsave` will not
+#' @param limitsize When `TRUE` (the default), `ggsave()` will not
 #'   save images larger than 50x50 inches, to prevent the common error of
 #'   specifying dimensions in pixels.
+#' @param bg Background colour. If `NULL`, uses the `plot.background` fill value
+#'   from the plot theme.
 #' @param ... Other arguments passed on to the graphics device function,
 #'   as specified by `device`.
 #' @export
 #' @examples
 #' \dontrun{
-#' ggplot(mtcars, aes(mpg, wt)) + geom_point()
+#' ggplot(mtcars, aes(mpg, wt)) +
+#'   geom_point()
 #'
 #' ggsave("mtcars.pdf")
 #' ggsave("mtcars.png")
@@ -62,7 +65,9 @@
 #' unlink(file)
 #'
 #' # save plot to file without using ggsave
-#' p <- ggplot(mtcars, aes(mpg, wt)) + geom_point()
+#' p <-
+#'   ggplot(mtcars, aes(mpg, wt)) +
+#'   geom_point()
 #' png("mtcars.png")
 #' print(p)
 #' dev.off()
@@ -71,7 +76,7 @@
 ggsave <- function(filename, plot = last_plot(),
                    device = NULL, path = NULL, scale = 1,
                    width = NA, height = NA, units = c("in", "cm", "mm"),
-                   dpi = 300, limitsize = TRUE, ...) {
+                   dpi = 300, limitsize = TRUE, bg = NULL, ...) {
 
   dpi <- parse_dpi(dpi)
   dev <- plot_dev(device, filename, dpi = dpi)
@@ -81,8 +86,11 @@ ggsave <- function(filename, plot = last_plot(),
   if (!is.null(path)) {
     filename <- file.path(path, filename)
   }
+  if (is_null(bg)) {
+    bg <- calc_element("plot.background", plot_theme(plot))$fill %||% "transparent"
+  }
   old_dev <- grDevices::dev.cur()
-  dev(filename = filename, width = dim[1], height = dim[2], ...)
+  dev(filename = filename, width = dim[1], height = dim[2], bg = bg, ...)
   on.exit(utils::capture.output({
     grDevices::dev.off()
     if (old_dev > 1) grDevices::dev.set(old_dev) # restore old device unless null device

@@ -100,7 +100,7 @@ ylim <- function(...) {
 
 #' Generate correct scale type for specified limits
 #'
-#' @param limits vector of limits
+#' @param lims vector of limits
 #' @param var name of variable
 #' @keywords internal
 #' @examples

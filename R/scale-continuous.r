@@ -81,7 +81,7 @@ scale_x_continuous <- function(name = waiver(), breaks = waiver(),
                                guide = waiver(), position = "bottom",
                                sec.axis = waiver()) {
   sc <- continuous_scale(
-    c("x", "xmin", "xmax", "xend", "xintercept", "xmin_final", "xmax_final", "xlower", "xmiddle", "xupper", "x0"),
+    ggplot_global$x_aes,
     "position_c", identity, name = name, breaks = breaks, n.breaks = n.breaks,
     minor_breaks = minor_breaks, labels = labels, limits = limits,
     expand = expand, oob = oob, na.value = na.value, trans = trans,
@@ -102,7 +102,7 @@ scale_y_continuous <- function(name = waiver(), breaks = waiver(),
                                guide = waiver(), position = "left",
                                sec.axis = waiver()) {
   sc <- continuous_scale(
-    c("y", "ymin", "ymax", "yend", "yintercept", "ymin_final", "ymax_final", "lower", "middle", "upper", "y0"),
+    ggplot_global$y_aes,
     "position_c", identity, name = name, breaks = breaks, n.breaks = n.breaks,
     minor_breaks = minor_breaks, labels = labels, limits = limits,
     expand = expand, oob = oob, na.value = na.value, trans = trans,

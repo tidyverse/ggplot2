@@ -10,7 +10,7 @@
 \alias{scale_color_brewer}
 \alias{scale_color_distiller}
 \alias{scale_color_fermenter}
-\title{Sequential, diverging and qualitative colour scales from colorbrewer.org}
+\title{Sequential, diverging and qualitative colour scales from ColorBrewer}
 \usage{
 scale_colour_brewer(
   ...,
@@ -84,7 +84,7 @@ the list of palettes of appropriate \code{type}. The list of available palettes 
 in the Palettes section.}
 
 \item{direction}{Sets the order of colours in the scale. If 1, the default,
-colours are as output by \code{\link[RColorBrewer:brewer.pal]{RColorBrewer::brewer.pal()}}. If -1, the
+colours are as output by \code{\link[RColorBrewer:ColorBrewer]{RColorBrewer::brewer.pal()}}. If -1, the
 order of colours is reversed.}
 
 \item{aesthetics}{Character string or vector of character strings listing the
@@ -106,9 +106,9 @@ other values are deprecated.}
 colour bar, or \code{"legend"} for discrete colour legend.}
 }
 \description{
-The \code{brewer} scales provides sequential, diverging and qualitative
+The \code{brewer} scales provide sequential, diverging and qualitative
 colour schemes from ColorBrewer. These are particularly well suited to
-display discrete values on a map. See \url{http://colorbrewer2.org} for
+display discrete values on a map. See \url{https://colorbrewer2.org} for
 more information.
 }
 \details{
@@ -117,9 +117,9 @@ They were not designed to be extended to continuous data, but results often
 look good. Your mileage may vary.
 }
 \note{
-The \code{distiller} scales extend brewer to continuous scales by smoothly
+The \code{distiller} scales extend \code{brewer} scales by smoothly
 interpolating 7 colours from any palette to a continuous scale. The \code{fermenter}
-scales provide binned versions of the brewer scales.
+scales provide binned versions of the \code{brewer} scales.
 }
 \section{Palettes}{
 
@@ -130,7 +130,7 @@ The following palettes are available for use with these scales:
 \item{Sequential}{Blues, BuGn, BuPu, GnBu, Greens, Greys, Oranges,
 OrRd, PuBu, PuBuGn, PuRd, Purples, RdPu, Reds, YlGn, YlGnBu, YlOrBr, YlOrRd}
 }
-Modify the palette through the \code{palette} arguement.
+Modify the palette through the \code{palette} argument.
 }
 
 \examples{
@@ -155,7 +155,9 @@ p + scale_fill_brewer()
 # the order of colour can be reversed
 p + scale_fill_brewer(direction = -1)
 # the brewer scales look better on a darker background
-p + scale_fill_brewer(direction = -1) + theme_dark()
+p +
+  scale_fill_brewer(direction = -1) +
+  theme_dark()
 }
 
 # Use distiller variant with continous data
@@ -165,7 +167,7 @@ v
 v + scale_fill_distiller()
 v + scale_fill_distiller(palette = "Spectral")
 
-# or use blender variants to discretize continuous data
+# or use blender variants to discretise continuous data
 v + scale_fill_fermenter()
 
 }

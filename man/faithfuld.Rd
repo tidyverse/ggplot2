@@ -4,12 +4,14 @@
 \name{faithfuld}
 \alias{faithfuld}
 \title{2d density estimate of Old Faithful data}
-\format{A data frame with 5,625 observations and 3 variables:
+\format{
+A data frame with 5,625 observations and 3 variables:
 \describe{
 \item{eruptions}{Eruption time in mins}
 \item{waiting}{Waiting time to next eruption in mins}
 \item{density}{2d density estimate}
-}}
+}
+}
 \usage{
 faithfuld
 }

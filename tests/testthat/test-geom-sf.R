@@ -52,6 +52,39 @@ test_that("geom_sf() determines the legend type automatically", {
   expect_identical(fun_geom_sf(mpol, "point")$plot$layers[[1]]$geom_params$legend, "point")
 })
 
+test_that("geom_sf() determines the legend type from mapped geometry column", {
+  skip_if_not_installed("sf")
+  if (packageVersion("sf") < "0.5.3") skip("Need sf 0.5.3")
+
+  p1 <- rbind(c(1,1), c(2,2), c(3,3))
+  s1 <- rbind(c(0,3), c(0,4), c(1,5), c(2,5))
+  s2 <- rbind(c(0.2,3), c(0.2,4), c(1,4.8), c(2,4.8))
+  s3 <- rbind(c(0,4.4), c(0.6,5))
+
+  d_sf <- sf::st_sf(
+    g_point = sf::st_sfc(sf::st_multipoint(p1)),
+    g_line = sf::st_sfc(sf::st_multilinestring(list(s1, s2, s3))),
+    v = "a"
+  )
+
+  p <- ggplot_build(
+    ggplot(d_sf) + geom_sf(aes(geometry = g_point, colour = "a"))
+  )
+  expect_identical(p$plot$layers[[1]]$geom_params$legend, "point")
+
+  p <- ggplot_build(
+    ggplot(d_sf) + geom_sf(aes(geometry = g_line, colour = "a"))
+  )
+  expect_identical(p$plot$layers[[1]]$geom_params$legend, "line")
+
+  # If `geometry` is not a symbol, `LayerSf$setup_layer()` gives up guessing
+  # the legend type, and falls back to "polygon"
+  p <- ggplot_build(
+    ggplot(d_sf) + geom_sf(aes(geometry = identity(g_point), colour = "a"))
+  )
+  expect_identical(p$plot$layers[[1]]$geom_params$legend, "polygon")
+})
+
 test_that("geom_sf() removes rows containing missing aes", {
   skip_if_not_installed("sf")
   if (packageVersion("sf") < "0.5.3") skip("Need sf 0.5.3")

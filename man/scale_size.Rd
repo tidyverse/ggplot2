@@ -62,7 +62,7 @@ omitted.}
 \link[scales:trans_new]{transformation object}
 \item A numeric vector of positions
 \item A function that takes the limits as input and returns breaks
-as output (e.g., a function returned by \code{\link[scales:extended_breaks]{scales::extended_breaks()}})
+as output (e.g., a function returned by \code{\link[scales:breaks_extended]{scales::extended_breaks()}})
 }}
 
 \item{labels}{One of:
@@ -131,10 +131,10 @@ each major break)
 \itemize{
 \item Function that handles limits outside of the scale limits
 (out of bounds).
-\item The default (\code{\link[scales:censor]{scales::censor()}}) replaces out of
+\item The default (\code{\link[scales:oob]{scales::censor()}}) replaces out of
 bounds values with \code{NA}.
-\item \code{\link[scales:squish]{scales::squish()}} for squishing out of bounds values into range.
-\item \code{\link[scales:squish_infinite]{scales::squish_infinite()}} for squishing infinite values into range.
+\item \code{\link[scales:oob]{scales::squish()}} for squishing out of bounds values into range.
+\item \code{\link[scales:oob]{scales::squish_infinite()}} for squishing infinite values into range.
 }}
     \item{\code{na.value}}{Missing values will be replaced with this value.}
     \item{\code{expand}}{For position scales, a vector of range expansion constants used to add some
@@ -151,13 +151,13 @@ expand the scale by 5\% on each side for continuous variables, and by
 \item{max_size}{Size of largest points.}
 }
 \description{
-\code{scale_size} scales area, \code{scale_radius} scales radius. The size
+\code{scale_size()} scales area, \code{scale_radius()} scales radius. The size
 aesthetic is most commonly used for points and text, and humans perceive
 the area of points (not their radius), so this provides for optimal
-perception. \code{scale_size_area} ensures that a value of 0 is mapped
-to a size of 0. \code{scale_size_binned} is a binned version of \code{scale_size} that
+perception. \code{scale_size_area()} ensures that a value of 0 is mapped
+to a size of 0. \code{scale_size_binned()} is a binned version of \code{scale_size()} that
 scales by area (but does not ensure 0 equals an area of zero). For a binned
-equivalent of \code{scale_size_area} use \code{scale_size_binned_area}.
+equivalent of \code{scale_size_area()} use \code{scale_size_binned_area()}.
 }
 \examples{
 p <- ggplot(mpg, aes(displ, hwy, size = hwy)) +

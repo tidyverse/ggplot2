@@ -23,22 +23,22 @@
 #' US economic time series
 #'
 #' This dataset was produced from US economic time series data available from
-#' \url{http://research.stlouisfed.org/fred2}. `economics` is in "wide"
+#' \url{https://fred.stlouisfed.org/}. `economics` is in "wide"
 #' format, `economics_long` is in "long" format.
 #'
 #' @format A data frame with 574 rows and 6 variables:
 #' \describe{
 #'   \item{date}{Month of data collection}
 #'   \item{pce}{personal consumption expenditures, in billions of dollars,
-#'     \url{http://research.stlouisfed.org/fred2/series/PCE}}
+#'     \url{https://fred.stlouisfed.org/series/PCE}}
 #'   \item{pop}{total population, in thousands,
-#'     \url{http://research.stlouisfed.org/fred2/series/POP}}
+#'     \url{https://fred.stlouisfed.org/series/POP}}
 #'   \item{psavert}{personal savings rate,
-#'     \url{http://research.stlouisfed.org/fred2/series/PSAVERT/}}
+#'     \url{https://fred.stlouisfed.org/series/PSAVERT/}}
 #'   \item{uempmed}{median duration of unemployment, in weeks,
-#'     \url{http://research.stlouisfed.org/fred2/series/UEMPMED}}
+#'     \url{https://fred.stlouisfed.org/series/UEMPMED}}
 #'   \item{unemploy}{number of unemployed in thousands,
-#'     \url{http://research.stlouisfed.org/fred2/series/UNEMPLOY}}
+#'     \url{https://fred.stlouisfed.org/series/UNEMPLOY}}
 #' }
 #'
 "economics"
@@ -48,16 +48,21 @@
 
 #' Midwest demographics
 #'
-#' Demographic information of midwest counties
+#' Demographic information of midwest counties from 2000 US census
+#'
+#' Note: this dataset is included for illustrative purposes. The original
+#' descriptions were not documented and the current descriptions here are based
+#' on speculation. For more accurate and up-to-date US census data, see the
+#' [`acs` package](https://cran.r-project.org/package=acs).
 #'
 #' @format A data frame with 437 rows and 28 variables:
 #' \describe{
-#'  \item{PID}{}
-#'  \item{county}{}
-#'  \item{state}{}
-#'  \item{area}{}
-#'  \item{poptotal}{Total population}
-#'  \item{popdensity}{Population density}
+#'  \item{PID}{Unique county identifier.}
+#'  \item{county}{County name.}
+#'  \item{state}{State to which county belongs to.}
+#'  \item{area}{Area of county (units unknown).}
+#'  \item{poptotal}{Total population.}
+#'  \item{popdensity}{Population density (person/unit area).}
 #'  \item{popwhite}{Number of whites.}
 #'  \item{popblack}{Number of blacks.}
 #'  \item{popamerindian}{Number of American Indians.}
@@ -69,17 +74,17 @@
 #'  \item{percasian}{Percent Asian.}
 #'  \item{percother}{Percent other races.}
 #'  \item{popadults}{Number of adults.}
-#'  \item{perchsd}{}
+#'  \item{perchsd}{Percent with high school diploma.}
 #'  \item{percollege}{Percent college educated.}
-#'  \item{percprof}{Percent profession.}
-#'  \item{poppovertyknown}{}
-#'  \item{percpovertyknown}{}
-#'  \item{percbelowpoverty}{}
-#'  \item{percchildbelowpovert}{}
-#'  \item{percadultpoverty}{}
-#'  \item{percelderlypoverty}{}
-#'  \item{inmetro}{In a metro area.}
-#'  \item{category}{}
+#'  \item{percprof}{Percent with professional degree.}
+#'  \item{poppovertyknown}{Population with known poverty status.}
+#'  \item{percpovertyknown}{Percent of population with known poverty status.}
+#'  \item{percbelowpoverty}{Percent of people below poverty line.}
+#'  \item{percchildbelowpovert}{Percent of children below poverty line.}
+#'  \item{percadultpoverty}{Percent of adults below poverty line.}
+#'  \item{percelderlypoverty}{Percent of elderly below poverty line.}
+#'  \item{inmetro}{County considered in a metro area.}
+#'  \item{category}{Miscellaneous.}
 #' }
 #'
 "midwest"
@@ -88,7 +93,7 @@
 #' Fuel economy data from 1999 to 2008 for 38 popular models of cars
 #'
 #' This dataset contains a subset of the fuel economy data that the EPA makes
-#' available on \url{http://fueleconomy.gov}. It contains only models which
+#' available on \url{https://fueleconomy.gov/}. It contains only models which
 #' had a new release every year between 1999 and 2008 - this was used as a
 #' proxy for the popularity of the car.
 #'
@@ -159,7 +164,7 @@
 #' Letters. December (2007).
 #'
 #' @format A data frame with 1155 rows and 4 variables
-#' @references \url{http://www.stat.berkeley.edu/~brill/Papers/jspifinal.pdf}
+#' @references \url{https://www.stat.berkeley.edu/~brill/Papers/jspifinal.pdf}
 "seals"
 
 #' 2d density estimate of Old Faithful data
@@ -189,7 +194,7 @@
 #' Housing sales in TX
 #'
 #' Information about the housing market in Texas provided by the TAMU
-#' real estate center, \url{http://recenter.tamu.edu/}.
+#' real estate center, \url{https://www.recenter.tamu.edu/}.
 #'
 #' @format A data frame with 8602 observations and 9 variables:
 #' \describe{

@@ -437,7 +437,7 @@ labeller <- function(..., .rows = NULL, .cols = NULL,
     }
 
     if (is.null(margin_labeller)) {
-      labellers <- lapply(dots, as_labeller)
+      labellers <- lapply(dots, as_labeller, default = .default)
     } else {
       margin_labeller <- as_labeller(margin_labeller, default = .default,
                                      multi_line = .multi_line)
@@ -553,7 +553,11 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
 #'
 #' @noRd
 assemble_strips <- function(grobs, theme, horizontal = TRUE, clip) {
-  if (length(grobs) == 0 || is.zero(grobs[[1]])) return(grobs)
+  if (length(grobs) == 0 || is.zero(grobs[[1]])) {
+    # Subsets matrix of zeroGrobs to correct length (#4050)
+    grobs <- grobs[seq_len(NROW(grobs))]
+    return(grobs)
+  }
 
   # Add margins to non-titleGrobs so they behave eqivalently
   grobs[] <- lapply(grobs, function(g) {

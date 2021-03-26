@@ -2,7 +2,7 @@
 #'
 #' Alpha-transparency scales are not tremendously useful, but can be a
 #' convenient way to visually down-weight less important observations.
-#' `scale_alpha` is an alias for `scale_alpha_continuous` since
+#' `scale_alpha()` is an alias for `scale_alpha_continuous()` since
 #' that is the most common use of alpha, and it saves a bit of typing.
 #'
 #' @param ... Other arguments passed on to [continuous_scale()], [binned_scale],
@@ -27,6 +27,7 @@ scale_alpha <- function(..., range = c(0.1, 1)) {
 scale_alpha_continuous <- scale_alpha
 
 #' @rdname scale_alpha
+#' @export
 scale_alpha_binned <- function(..., range = c(0.1, 1)) {
   binned_scale("alpha", "alpha_b", rescale_pal(range), ...)
 }

@@ -1,15 +1,15 @@
-#' Sequential, diverging and qualitative colour scales from colorbrewer.org
+#' Sequential, diverging and qualitative colour scales from ColorBrewer
 #'
 #' @description
-#' The `brewer` scales provides sequential, diverging and qualitative
+#' The `brewer` scales provide sequential, diverging and qualitative
 #' colour schemes from ColorBrewer. These are particularly well suited to
-#' display discrete values on a map. See \url{http://colorbrewer2.org} for
+#' display discrete values on a map. See \url{https://colorbrewer2.org} for
 #' more information.
 #'
 #' @note
-#' The `distiller` scales extend brewer to continuous scales by smoothly
+#' The `distiller` scales extend `brewer` scales by smoothly
 #' interpolating 7 colours from any palette to a continuous scale. The `fermenter`
-#' scales provide binned versions of the brewer scales.
+#' scales provide binned versions of the `brewer` scales.
 #'
 #' @details
 #' The `brewer` scales were carefully designed and tested on discrete data.
@@ -24,7 +24,7 @@
 #'   \item{Sequential}{Blues, BuGn, BuPu, GnBu, Greens, Greys, Oranges,
 #'      OrRd, PuBu, PuBuGn, PuRd, Purples, RdPu, Reds, YlGn, YlGnBu, YlOrBr, YlOrRd}
 #' }
-#' Modify the palette through the `palette` arguement.
+#' Modify the palette through the `palette` argument.
 #'
 #' @inheritParams scales::brewer_pal
 #' @inheritParams scale_colour_hue
@@ -61,7 +61,9 @@
 #' # the order of colour can be reversed
 #' p + scale_fill_brewer(direction = -1)
 #' # the brewer scales look better on a darker background
-#' p + scale_fill_brewer(direction = -1) + theme_dark()
+#' p +
+#'   scale_fill_brewer(direction = -1) +
+#'   theme_dark()
 #' }
 #'
 #' # Use distiller variant with continous data
@@ -71,7 +73,7 @@
 #' v + scale_fill_distiller()
 #' v + scale_fill_distiller(palette = "Spectral")
 #'
-#' # or use blender variants to discretize continuous data
+#' # or use blender variants to discretise continuous data
 #' v + scale_fill_fermenter()
 #'
 scale_colour_brewer <- function(..., type = "seq", palette = 1, direction = 1, aesthetics = "colour") {

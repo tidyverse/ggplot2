@@ -56,22 +56,6 @@ clist <- function(l) {
   paste(paste(names(l), l, sep = " = ", collapse = ", "), sep = "")
 }
 
-
-# Test whether package `package` is available. `fun` provides
-# the name of the ggplot2 function that uses this package, and is
-# used only to produce a meaningful error message if the
-# package is not available.
-try_require <- function(package, fun) {
-  if (requireNamespace(package, quietly = TRUE)) {
-    return(invisible())
-  }
-
-  abort(glue("
-    Package `{package}` required for `{fun}`.
-    Please install and try again.
-  "))
-}
-
 # Return unique columns
 # This is used for figuring out which columns are constant within a group
 #
@@ -435,11 +419,11 @@ switch_orientation <- function(aesthetics) {
   aesthetics
 }
 
-#' Utilities for working with bidirecitonal layers
+#' Utilities for working with bidirectional layers
 #'
 #' These functions are what underpins the ability of certain geoms to work
-#' automatically in both directions. See the *Extending ggplot2* for how they
-#' are used when implementing `Geom`, `Stat`, and `Position` classes.
+#' automatically in both directions. See the *Extending ggplot2* vignette for
+#' how they are used when implementing `Geom`, `Stat`, and `Position` classes.
 #'
 #' `has_flipped_aes()` is used to sniff out the orientation of the layer from
 #' the data. It has a range of arguments that can be used to finetune the
@@ -461,9 +445,7 @@ switch_orientation <- function(aesthetics) {
 #' - `range_is_orthogonal`: This argument controls whether the existance of
 #'   range-like aesthetics (e.g. `xmin` and `xmax`) represents the main or
 #'   secondary axis. If `TRUE` then the range is given for the secondary axis as
-#'   seen in e.g. [geom_ribbon()] and [geom_linerange()]. `FALSE` is less
-#'   prevalent but can be seen in [geom_bar()] where it may encode the span of
-#'   each bar.
+#'   seen in e.g. [geom_ribbon()] and [geom_linerange()].
 #' - `group_has_equal`: This argument controls whether to test for equality of
 #'   all `x` and `y` values inside each group and set the main axis to the one
 #'   where all is equal. This test is only performed if `TRUE`, and only after
@@ -564,10 +546,10 @@ has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA,
   }
 
   # Is there a single actual discrete position
-  y_is_int <- is.integer(y)
-  x_is_int <- is.integer(x)
-  if (xor(y_is_int, x_is_int)) {
-    return(y_is_int != main_is_continuous)
+  y_is_discrete <- is_mapped_discrete(y)
+  x_is_discrete <- is_mapped_discrete(x)
+  if (xor(y_is_discrete, x_is_discrete)) {
+    return(y_is_discrete != main_is_continuous)
   }
 
   # Does each group have a single x or y value
@@ -588,51 +570,6 @@ has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA,
     }
   }
 
-  # give up early
-  if (!has_x && !has_y) {
-    return(FALSE)
-  }
-
-  # Both true discrete. give up
-  if (y_is_int && x_is_int) {
-    return(FALSE)
-  }
-  # Is there a single discrete-like position
-  y_is_int <- if (has_y) isTRUE(all.equal(y, round(y))) else FALSE
-  x_is_int <- if (has_x) isTRUE(all.equal(x, round(x))) else FALSE
-  if (xor(y_is_int, x_is_int)) {
-    return(y_is_int != main_is_continuous)
-  }
-
-  if (main_is_optional) {
-    # Is one of the axes all 0
-    if (all(x == 0)) {
-      return(main_is_continuous)
-    }
-    if (all(y == 0)) {
-      return(!main_is_continuous)
-    }
-  }
-
-  y_diff <- diff(sort(y))
-  x_diff <- diff(sort(x))
-
-  # FIXME: If both are discrete like, give up. Probably, we can make a better
-  # guess, but it's not possible with the current implementation as very little
-  # information is available in Geom$setup_params().
-  if (y_is_int && x_is_int) {
-    return(FALSE)
-  }
-
-  y_diff <- y_diff[y_diff != 0]
-  x_diff <- x_diff[x_diff != 0]
-
-  # If none are discrete is either regularly spaced
-  y_is_regular <- if (has_y && length(y_diff) != 0) all((y_diff / min(y_diff)) %% 1 < .Machine$double.eps) else FALSE
-  x_is_regular <- if (has_x && length(x_diff) != 0) all((x_diff / min(x_diff)) %% 1 < .Machine$double.eps) else FALSE
-  if (xor(y_is_regular, x_is_regular)) {
-    return(y_is_regular != main_is_continuous)
-  }
   # default to no
   FALSE
 }

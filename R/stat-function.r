@@ -1,61 +1,21 @@
-#' Compute function for each x value
-#'
-#' This stat makes it easy to superimpose a function on top of an existing plot.
-#' The function is called with a grid of evenly spaced values along the x axis,
-#' and the results are drawn (by default) with a line.
-#'
-#'
 #' @param fun Function to use. Either 1) an anonymous function in the base or
 #'   rlang formula syntax (see [rlang::as_function()])
 #'   or 2) a quoted or character name referencing a function; see examples. Must
 #'   be vectorised.
-#' @param n Number of points to interpolate along
+#' @param n Number of points to interpolate along the x axis.
 #' @param args List of additional arguments passed on to the function defined by `fun`.
 #' @param xlim Optionally, restrict the range of the function to this range.
-#' @inheritParams layer
-#' @inheritParams geom_point
 #' @section Computed variables:
+#' `stat_function()` computes the following variables:
 #' \describe{
-#'   \item{x}{x's along a grid}
-#'   \item{y}{value of function evaluated at corresponding x}
+#'   \item{x}{x values along a grid}
+#'   \item{y}{value of the function evaluated at corresponding x}
 #' }
 #' @seealso [rlang::as_function()]
 #' @export
-#' @examples
-#'
-#' # stat_function is useful for overlaying functions
-#' set.seed(1492)
-#' ggplot(data.frame(x = rnorm(100)), aes(x)) +
-#'   geom_density() +
-#'   stat_function(fun = dnorm, colour = "red")
-#'
-#' # To plot functions without data, specify range of x-axis
-#' base <- ggplot(data.frame(x = c(-5, 5)), aes(x))
-#' base + stat_function(fun = dnorm)
-#' base + stat_function(fun = dnorm, args = list(mean = 2, sd = .5))
-#'
-#' # The underlying mechanics evaluate the function at discrete points
-#' # and connect the points with lines
-#' base <- ggplot(data.frame(x = c(-5, 5)), aes(x))
-#' base + stat_function(fun = dnorm, geom = "point")
-#' base + stat_function(fun = dnorm, geom = "point", n = 20)
-#' base + stat_function(fun = dnorm, n = 20)
-#'
-#' # Two functions on the same plot
-#' base +
-#'   stat_function(fun = dnorm, colour = "red") +
-#'   stat_function(fun = dt, colour = "blue", args = list(df = 1))
-#'
-#' # Using a custom anonymous function
-#' base + stat_function(fun = function(.x) .5*exp(-abs(.x)))
-#' base + stat_function(fun = ~ .5*exp(-abs(.x)))
-#'
-#' # Using a custom named function
-#' f <- function(.x) .5*exp(-abs(.x))
-#' base + stat_function(fun = f)
-#'
+#' @rdname geom_function
 stat_function <- function(mapping = NULL, data = NULL,
-                          geom = "path", position = "identity",
+                          geom = "function", position = "identity",
                           ...,
                           fun,
                           xlim = NULL,
@@ -64,13 +24,8 @@ stat_function <- function(mapping = NULL, data = NULL,
                           na.rm = FALSE,
                           show.legend = NA,
                           inherit.aes = TRUE) {
-
-  # Warn if supplied mapping and/or data is going to be overwritten
-  if (!is.null(mapping)) {
-    warn("`mapping` is not used by stat_function()")
-  }
-  if (!is.null(data)) {
-    warn("`data` is not used by stat_function()")
+  if (is.null(data)) {
+    data <- ensure_nonempty_data
   }
 
   layer(
@@ -97,25 +52,49 @@ stat_function <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 StatFunction <- ggproto("StatFunction", Stat,
-  default_aes = aes(y = after_stat(y)),
+  default_aes = aes(y = after_scale(y)),
 
   compute_group = function(data, scales, fun, xlim = NULL, n = 101, args = list()) {
-    range <- xlim %||% scales$x$dimension()
-    xseq <- seq(range[1], range[2], length.out = n)
-
-    if (scales$x$is_discrete()) {
+    if (is.null(scales$x)) {
+      range <- xlim %||% c(0, 1)
+      xseq <- seq(range[1], range[2], length.out = n)
       x_trans <- xseq
     } else {
-      # For continuous scales, need to back transform from transformed range
-      # to original values
-      x_trans <- scales$x$trans$inverse(xseq)
+      range <- xlim %||% scales$x$dimension()
+      xseq <- seq(range[1], range[2], length.out = n)
+
+      if (scales$x$is_discrete()) {
+        x_trans <- xseq
+      } else {
+        # For continuous scales, need to back transform from transformed range
+        # to original values
+        x_trans <- scales$x$trans$inverse(xseq)
+      }
     }
 
     if (is.formula(fun)) fun <- as_function(fun)
 
+    y_out <- do.call(fun, c(list(quote(x_trans)), args))
+    if (!is.null(scales$y) && !scales$y$is_discrete()) {
+      # For continuous scales, need to apply transform
+      y_out <- scales$y$trans$transform(y_out)
+    }
+
     new_data_frame(list(
       x = xseq,
-      y = do.call(fun, c(list(quote(x_trans)), args))
+      y = y_out
     ))
   }
 )
+
+# Convenience function used by `stat_function()` and
+# `geom_function()` to convert empty input data into
+# non-empty input data without touching any non-empty
+# input data that may have been provided.
+ensure_nonempty_data <- function(data) {
+  if (empty(data)) {
+    new_data_frame(list(group = 1), n = 1)
+  } else {
+    data
+  }
+}

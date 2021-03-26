@@ -3,9 +3,6 @@
 \name{scale_colour_hue}
 \alias{scale_colour_hue}
 \alias{scale_fill_hue}
-\alias{scale_colour_discrete}
-\alias{scale_fill_discrete}
-\alias{scale_color_discrete}
 \alias{scale_color_hue}
 \title{Evenly spaced colours for discrete data}
 \usage{
@@ -46,8 +43,14 @@ they should take (e.g., \code{\link[scales:hue_pal]{scales::hue_pal()}}).}
 \item A function that takes the limits as input and returns breaks
 as output
 }}
-    \item{\code{limits}}{A character vector that defines possible values of the scale
-and their order.}
+    \item{\code{limits}}{One of:
+\itemize{
+\item \code{NULL} to use the default scale values
+\item A character vector that defines possible values of the scale and their
+order
+\item A function that accepts the existing (automatic) values and returns
+new ones
+}}
     \item{\code{drop}}{Should unused factor levels be omitted from the scale?
 The default, \code{TRUE}, uses the levels that appear in the data;
 \code{FALSE} uses all the levels in the factor.}
@@ -102,9 +105,8 @@ example, to apply colour settings to the \code{colour} and \code{fill} aesthetic
 same time, via \code{aesthetics = c("colour", "fill")}.}
 }
 \description{
-This is the default colour scale for categorical variables. It maps each
-level to an evenly spaced hue on the colour wheel. It does not generate
-colour-blind safe palettes.
+Maps each level to an evenly spaced hue on the colour wheel.
+It does not generate colour-blind safe palettes.
 }
 \examples{
 \donttest{
@@ -137,7 +139,8 @@ d + geom_point(alpha = 0.2)
 
 # Colour of missing values is controlled with na.value:
 miss <- factor(sample(c(NA, 1:5), nrow(mtcars), replace = TRUE))
-ggplot(mtcars, aes(mpg, wt)) + geom_point(aes(colour = miss))
+ggplot(mtcars, aes(mpg, wt)) +
+  geom_point(aes(colour = miss))
 ggplot(mtcars, aes(mpg, wt)) +
   geom_point(aes(colour = miss)) +
   scale_colour_hue(na.value = "black")

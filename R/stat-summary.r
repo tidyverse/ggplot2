@@ -1,6 +1,6 @@
 #' Summarise y values at unique/binned x
 #'
-#' `stat_summary` operates on unique `x` or `y`; `stat_summary_bin`
+#' `stat_summary()` operates on unique `x` or `y`; `stat_summary_bin()`
 #' operates on binned `x` or `y`. They are more flexible versions of
 #' [stat_bin()]: instead of just counting, they can compute any
 #' aggregate.
@@ -31,7 +31,7 @@
 #' number, but is somewhat less flexible. If your summary function computes
 #' multiple values at once (e.g. min and max), use `fun.data`.
 #'
-#' `fun.data` will recieve data as if it was oriented along the x-axis and
+#' `fun.data` will receive data as if it was oriented along the x-axis and
 #' should return a data.frame that corresponds to that orientation. The layer
 #' will take care of flipping the input and output if it is oriented along the
 #' y-axis.
@@ -53,7 +53,7 @@
 #' d + stat_summary(fun.data = "mean_cl_boot", colour = "red", size = 2)
 #'
 #' # Orientation follows the discrete axis
-#' ggplot(mtcars, aes(mpg, cyl)) +
+#' ggplot(mtcars, aes(mpg, factor(cyl))) +
 #'   geom_point() +
 #'   stat_summary(fun.data = "mean_cl_boot", colour = "red", size = 2)
 #'
@@ -63,8 +63,7 @@
 #' d + stat_summary(fun = "mean", colour = "red", size = 2, geom = "point")
 #' d + aes(colour = factor(vs)) + stat_summary(fun = mean, geom="line")
 #'
-#' d + stat_summary(fun = mean, fun.min = min, fun.max = max,
-#'   colour = "red")
+#' d + stat_summary(fun = mean, fun.min = min, fun.max = max, colour = "red")
 #'
 #' d <- ggplot(diamonds, aes(cut))
 #' d + geom_bar()
@@ -100,9 +99,17 @@
 #' if (require("ggplot2movies")) {
 #' set.seed(596)
 #' mov <- movies[sample(nrow(movies), 1000), ]
-#'  m2 <- ggplot(mov, aes(x = factor(round(rating)), y = votes)) + geom_point()
-#'  m2 <- m2 + stat_summary(fun.data = "mean_cl_boot", geom = "crossbar",
-#'                          colour = "red", width = 0.3) + xlab("rating")
+#'  m2 <-
+#'    ggplot(mov, aes(x = factor(round(rating)), y = votes)) +
+#'    geom_point()
+#'  m2 <-
+#'    m2 +
+#'    stat_summary(
+#'      fun.data = "mean_cl_boot",
+#'      geom = "crossbar",
+#'      colour = "red", width = 0.3
+#'    ) +
+#'    xlab("rating")
 #' m2
 #' # Notice how the overplotting skews off visual perception of the mean
 #' # supplementing the raw data with summary statistics is _very_ important
@@ -238,8 +245,7 @@ NULL
 wrap_hmisc <- function(fun) {
 
   function(x, ...) {
-    if (!requireNamespace("Hmisc", quietly = TRUE))
-      abort("Hmisc package required for this function")
+    check_installed("Hmisc")
 
     fun <- getExportedValue("Hmisc", fun)
     result <- do.call(fun, list(x = quote(x), ...))
@@ -263,13 +269,18 @@ mean_sdl <- wrap_hmisc("smean.sdl")
 #' @rdname hmisc
 median_hilow <- wrap_hmisc("smedian.hilow")
 
-#' Calculate mean and standard error
+#' Calculate mean and standard error of the mean
 #'
 #' For use with [stat_summary()]
 #'
-#' @param x numeric vector
-#' @param mult number of multiples of standard error
-#' @return A data frame with columns `y`, `ymin`, and `ymax`.
+#' @param x numeric vector.
+#' @param mult number of multiples of standard error.
+#' @return A data frame with three columns:
+#' \describe{
+#'     \item{`y`}{ The mean.}
+#'     \item{`ymin`}{ The mean minus the multiples of the standard error.}
+#'     \item{`ymax`}{ The mean plus the multiples of the standard error.}
+#' }
 #' @export
 #' @examples
 #' x <- rnorm(100)
