@@ -297,7 +297,6 @@ resolve_labeller <- function(rows, cols, labels) {
 #' # your labeller to the right variable with labeller()
 #' p + facet_grid(cyl ~ am, labeller = labeller(am = to_string))
 as_labeller <- function(x, default = label_value, multi_line = TRUE) {
-  if(is.formula(x)) x <- as_function(x)
   force(x)
   fun <- function(labels) {
     labels <- lapply(labels, as.character)
@@ -312,6 +311,8 @@ as_labeller <- function(x, default = label_value, multi_line = TRUE) {
       x(labels)
     } else if (is.function(x)) {
       default(lapply(labels, x))
+    } else if (is.formula(x)) {
+      default(lapply(labels, as_function(x)))
     } else if (is.character(x)) {
       default(lapply(labels, function(label) x[label]))
     } else {
@@ -430,11 +431,6 @@ labeller <- function(..., .rows = NULL, .cols = NULL,
 
   dots <- list(...)
 
-  if (length(dots) == 1) {
-    if (is.formula(dots[[1]]) || is.function(dots[[1]]) && !is_labeller(dots[[1]])) {
-      return(as_labeller(dots[[1]]))
-    }
-  }
 
   .default <- as_labeller(.default)
 
@@ -562,7 +558,11 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
 #'
 #' @noRd
 assemble_strips <- function(grobs, theme, horizontal = TRUE, clip) {
-  if (length(grobs) == 0 || is.zero(grobs[[1]])) return(grobs)
+  if (length(grobs) == 0 || is.zero(grobs[[1]])) {
+    # Subsets matrix of zeroGrobs to correct length (#4050)
+    grobs <- grobs[seq_len(NROW(grobs))]
+    return(grobs)
+  }
 
   # Add margins to non-titleGrobs so they behave eqivalently
   grobs[] <- lapply(grobs, function(g) {
