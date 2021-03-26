@@ -26,13 +26,6 @@ data_frame <- function(...) {
   new_data_frame(list(...))
 }
 
-data.frame <- function(...) {
-  abort(glue("
-    Please use `data_frame()` or `new_data_frame()` instead of `data.frame()` for better performance.
-    See the vignette 'ggplot2 internal programming guidelines' for details.
-  "))
-}
-
 split_matrix <- function(x, col_names = colnames(x)) {
   force(col_names)
   x <- lapply(seq_len(ncol(x)), function(i) x[, i])
