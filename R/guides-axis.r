@@ -280,7 +280,7 @@ draw_axis <- function(break_positions, break_labels, axis_position, theme,
   non_position_sizes <- paste0(non_position_size, "s")
   label_dims <- do.call(unit.c, lapply(label_grobs, measure_labels_non_pos))
   grobs <- c(list(ticks_grob), label_grobs)
-  grob_dims <- unit.c(tick_length, label_dims)
+  grob_dims <- unit.c(max(tick_length, unit(0, "pt")), label_dims)
 
   if (labels_first_gtable) {
     grobs <- rev(grobs)
