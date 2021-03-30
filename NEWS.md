@@ -47,6 +47,9 @@
 * Fix a bug that `after_stat()` and `after_scale()` cannot refer to aesthetics
   if it's specified in the plot-global mapping (@yutannihilation, #4260).
 
+* `geom_hline()` and `geom_vline()` now have `position` argument
+  (@yutannihilation, #4285).
+
 # ggplot2 3.3.3
 This is a small patch release mainly intended to address changes in R and CRAN.
 It further changes the licensing model of ggplot2 to an MIT license.
