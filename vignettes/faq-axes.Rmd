@@ -337,7 +337,7 @@ ggplot(mpg, aes(x = cty^2, y = log(hwy, base = 10))) +
 
 ## Custom breaks
 
-### How do I increase / decrease the number of axis ticks?
+### How can I increase / decrease the number of axis ticks?
 
 Customise the `breaks` and `minor_breaks` in `scale_x_continuous()`, scale_y\_continuous()\`, etc.
 
@@ -376,10 +376,10 @@ ggplot(mpg, aes(x = cty, y = hwy)) +
 
 <br>
 
-### How do I control the number of major and minor grid lines shown on the plot?
+### How can I control the number of major and minor grid lines shown on the plot?
 
 Customise the `breaks` and `minor_breaks` in `scale_x_continuous()`, scale_y\_continuous()\`, etc.
-See [How do I increase / decrease the number of axis ticks?](#how-do-i-increase-decrease-the-number-of-axis-ticks-)
+See [How can I increase / decrease the number of axis ticks?](#how-can-i-increase-decrease-the-number-of-axis-ticks-)
 for more detail.
 
 <details>
@@ -397,7 +397,7 @@ This is because ggplot2 will place major grid lines at each break supplied to `b
 
 <br>
 
-### How do I remove the space between the plot and the axis?
+### How can I remove the space between the plot and the axis?
 
 Remove the padding around the data entirely using by setting `expand = c(0, 0)` within the `scale_x_continuous()`, `scale_y_discrete()`, etc. layers.
 
