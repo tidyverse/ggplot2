@@ -35,11 +35,7 @@ Set the angle of the text in the `axis.text.x` or `axis.text.y` components of th
 
 <details>
 
-<summary>
-
-See example
-
-</summary>
+<summary>See example</summary>
 
 In the following plot the labels on the x-axis are overlapping.
 
@@ -89,11 +85,7 @@ Add a `theme()` layer and set relevant arguments, e.g. `axis.title.x`, `axis.tex
 
 <details>
 
-<summary>
-
-See example
-
-</summary>
+<summary>See example</summary>
 
 Suppose we want to remove the axis labels entirely.
 
@@ -132,11 +124,7 @@ Add a `scale_*()` layer, e.g. `scale_x_continuous()`, `scale_y_discrete()`, etc.
 
 <details>
 
-<summary>
-
-See example
-
-</summary>
+<summary>See example</summary>
 
 Suppose you want to give more informative labels for the type of drive train.
 
@@ -180,11 +168,7 @@ You will first need to add a `scale_*()` layer (e.g. `scale_x_continuous()`, `sc
 
 <details>
 
-<summary>
-
-See example
-
-</summary>
+<summary>See example</summary>
 
 By default, large numbers on the axis labels in the following plot are shown in scientific notation.
 
@@ -215,11 +199,7 @@ You will first need to add a `scale_*()` layer (e.g. `scale_x_continuous()`, `sc
 
 <details>
 
-<summary>
-
-See example
-
-</summary>
+<summary>See example</summary>
 
 Suppose you want to increase/decrease the number of decimal spaces shown in the axis text in the following plot.
 
@@ -251,11 +231,7 @@ You will first need to add a `scale_*()` layer (e.g. `scale_x_continuous()`, `sc
 
 <details>
 
-<summary>
-
-See example
-
-</summary>
+<summary>See example</summary>
 
 The variable on the y-axis of the following line plot (`psavert`) indicates the personal savings rate, which is in percentages.
 
@@ -292,11 +268,7 @@ You can either use `bquote()` to parse mathematical expressions or use the [**gg
 
 <details>
 
-<summary>
-
-See example
-
-</summary>
+<summary>See example</summary>
 
 In the following plot `cty` is squared and `hwy` is log transformed.
 
@@ -343,11 +315,7 @@ Customise the `breaks` and `minor_breaks` in `scale_x_continuous()`, scale_y\_co
 
 <details>
 
-<summary>
-
-See example
-
-</summary>
+<summary>See example</summary>
 
 Suppose you want to customise the major and minor grid lines on both the x and the y axes of the following plot.
 
@@ -384,11 +352,7 @@ for more detail.
 
 <details>
 
-<summary>
-
-See example
-
-</summary>
+<summary>See example</summary>
 
 Note that the question was about grid lines but we answered it using breaks.
 This is because ggplot2 will place major grid lines at each break supplied to `breaks` and minor grid lines at each break supplied to `minor_breaks`.
@@ -403,11 +367,7 @@ Remove the padding around the data entirely using by setting `expand = c(0, 0)` 
 
 <details>
 
-<summary>
-
-See example
-
-</summary>
+<summary>See example</summary>
 
 -   Remove all padding: Suppose you want to remove the padding around the heat map so it's flush against the axes.
 
