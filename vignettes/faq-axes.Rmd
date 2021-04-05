@@ -37,7 +37,7 @@ Set the angle of the text in the `axis.text.x` or `axis.text.y` components of th
 
 <summary>
 
-More info
+See example
 
 </summary>
 
@@ -91,7 +91,7 @@ Add a `theme()` layer and set relevant arguments, e.g. `axis.title.x`, `axis.tex
 
 <summary>
 
-More info
+See example
 
 </summary>
 
@@ -134,7 +134,7 @@ Add a `scale_*()` layer, e.g. `scale_x_continuous()`, `scale_y_discrete()`, etc.
 
 <summary>
 
-More info
+See example
 
 </summary>
 
@@ -182,7 +182,7 @@ You will first need to add a `scale_*()` layer (e.g. `scale_x_continuous()`, `sc
 
 <summary>
 
-More info
+See example
 
 </summary>
 
@@ -217,7 +217,7 @@ You will first need to add a `scale_*()` layer (e.g. `scale_x_continuous()`, `sc
 
 <summary>
 
-More info
+See example
 
 </summary>
 
@@ -253,7 +253,7 @@ You will first need to add a `scale_*()` layer (e.g. `scale_x_continuous()`, `sc
 
 <summary>
 
-More info
+See example
 
 </summary>
 
@@ -294,7 +294,7 @@ You can either use `bquote()` to parse mathematical expressions or use the [**gg
 
 <summary>
 
-More info
+See example
 
 </summary>
 
@@ -345,7 +345,7 @@ Customise the `breaks` and `minor_breaks` in `scale_x_continuous()`, scale_y\_co
 
 <summary>
 
-More info
+See example
 
 </summary>
 
@@ -386,7 +386,7 @@ for more detail.
 
 <summary>
 
-More info
+See example
 
 </summary>
 
@@ -405,7 +405,7 @@ Remove the padding around the data entirely using by setting `expand = c(0, 0)` 
 
 <summary>
 
-More info
+See example
 
 </summary>
 
