@@ -9,6 +9,13 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+```{=html}
+<style>
+  .content h3 {
+    margin-top: -30px;
+  }
+</style>
+```
 ```{r, include = FALSE}
 library(ggplot2)
 knitr::opts_chunk$set(
@@ -20,9 +27,49 @@ knitr::opts_chunk$set(
   out.width = "80%")
 ```
 
-  - customaising axis labels
-  - vary axis label formatting by facet
-  - floating axis labels
-  - change pane order
-  - change facet labels
-  - wrap vs. grid
+## Axes
+
+### How can I set individual axis limits for facets?
+
+You can add a `geom_blank()` layer.
+
+## Panes
+
+### How can I control the order of panes created with `facet_wrap()` or `facet_grid()`?
+
+You can do this by releveling the factor variable you're faceting by.
+The forcats package offers a variety of options for doing this, such as `forcats::fct_relevel()`.
+
+<details>
+
+<summary>More info</summary>
+
+The order of the panes is determined by the order of the levels of the variable you're faceting by.
+If the faceting variable is character, this order is alphabetical by default.
+
+```{r}
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  facet_wrap(vars(drv))
+```
+
+Suppose you'd like the panes to be in the order `"r"`, `"f"` , `"4"`.
+You can use `forcats::fct_relevel()` to reorder the levels of `drv`.
+You can do this in a data transformation step prior to plotting (e.g. with `dplyr::mutate()`) or you can do it directly in the plotting code as shown below.
+
+```{r}
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  facet_wrap(vars(forcats::fct_relevel(drv, "r", "f", "4")))
+```
+
+Note that
+
+</details>
+
+-   customising axis labels
+-   vary axis label formatting by facet
+-   floating axis labels
+-   change pane order
+-   change facet labels
+-   wrap vs. grid
