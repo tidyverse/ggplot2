@@ -25,7 +25,7 @@ ggsave(
 \item{plot}{Plot to save, defaults to last plot displayed.}
 
 \item{device}{Device to use. Can either be a device function
-(e.g. \code{\link[=png]{png()}}), or one of "eps", "ps", "tex" (pictex),
+(e.g. \link{png}), or one of "eps", "ps", "tex" (pictex),
 "pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only).}
 
 \item{path}{Path of the directory to save plot to: \code{path} and \code{filename}

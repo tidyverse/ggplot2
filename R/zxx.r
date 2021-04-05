@@ -131,7 +131,7 @@ scale_color_continuous <- scale_colour_continuous
 scale_color_binned <- scale_colour_binned
 
 #' @export
-#' @rdname scale_hue
+#' @rdname scale_colour_discrete
 #' @usage NULL
 scale_color_discrete <- scale_colour_discrete
 
@@ -169,6 +169,16 @@ scale_color_stepsn <- scale_colour_stepsn
 #' @rdname scale_grey
 #' @usage NULL
 scale_color_grey <- scale_colour_grey
+
+#' @export
+#' @rdname scale_grey
+#' @usage NULL
+scale_color_gray <- scale_colour_grey
+
+#' @export
+#' @rdname scale_grey
+#' @usage NULL
+scale_fill_gray <- scale_fill_grey
 
 #' @export
 #' @rdname scale_hue

@@ -41,7 +41,7 @@ jobs:
       - name: Install system dependencies on macOS
         run: |
           # XQuartz is needed by vdiffr
-          brew cask install xquartz
+          brew install xquartz
 
       - name: Install dependencies
         run: |
