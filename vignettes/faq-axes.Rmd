@@ -12,7 +12,11 @@ vignette: >
 ```{=html}
 <style>
   .content h3 {
-    margin-top: -30px;
+    margin-top: -30px !important;
+  }
+  
+  details {
+    margin-bottom: 40px;
   }
 </style>
 ```
@@ -77,8 +81,6 @@ ggplot(msleep, aes(x = order, y = sleep_total)) +
 
 </details>
 
-<br>
-
 ### How can I remove axis labels in ggplot2?
 
 Add a `theme()` layer and set relevant arguments, e.g. `axis.title.x`, `axis.text.x`, etc. to `element_blank()`.
@@ -113,8 +115,6 @@ ggplot(msleep, aes(x = order, y = sleep_total)) +
 ```
 
 </details>
-
-<br>
 
 ## Label formatting and customization
 
@@ -159,8 +159,6 @@ ggplot(mpg, aes(y = drv)) +
 
 </details>
 
-<br>
-
 ### How can I stop R from using scientific notation on axis labels?
 
 Use `scales::label_number()` to force decimal display of numbers.
@@ -190,8 +188,6 @@ ggplot(txhousing, aes(x = median, y = volume)) +
 
 </details>
 
-<br>
-
 ### How can I change the number of decimal places on axis labels?
 
 Set the `accuracy` in `scales::label_number()` to the desired level of decimal places, e.g. 0.1 to show 1 decimal place, 0.0001 to show 4 decimal places, etc.
@@ -220,8 +216,6 @@ ggplot(seals, aes(x = delta_long, y = delta_lat)) +
 ```
 
 </details>
-
-<br>
 
 ### How can I add percentage symbols (%) to axis labels?
 
@@ -259,8 +253,6 @@ ggplot(seals, aes(x = delta_long, y = delta_lat)) +
 ```
 
 </details>
-
-<br>
 
 ### How can I add superscripts and subscripts to axis labels?
 
@@ -305,8 +297,6 @@ ggplot(mpg, aes(x = cty^2, y = log(hwy, base = 10))) +
 
 </details>
 
-<br>
-
 ## Custom breaks
 
 ### How can I increase / decrease the number of axis ticks?
@@ -342,8 +332,6 @@ ggplot(mpg, aes(x = cty, y = hwy)) +
 
 </details>
 
-<br>
-
 ### How can I control the number of major and minor grid lines shown on the plot?
 
 Customise the `breaks` and `minor_breaks` in `scale_x_continuous()`, scale_y\_continuous()\`, etc.
@@ -358,8 +346,6 @@ Note that the question was about grid lines but we answered it using breaks.
 This is because ggplot2 will place major grid lines at each break supplied to `breaks` and minor grid lines at each break supplied to `minor_breaks`.
 
 </details>
-
-<br>
 
 ### How can I remove the space between the plot and the axis?
 
@@ -413,3 +399,4 @@ ggplot(mpg, aes(drv)) +
 ```
 
 </details>
+
