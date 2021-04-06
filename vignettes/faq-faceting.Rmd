@@ -108,9 +108,8 @@ Use `label_wrap_gen()` in the `labeller` argument of your faceting function and 
 
 In the data frame below we have 100 observations, 50 of them come from one group and 50 from another.
 These groups have very long names, and so when you facet the ploy by group, the facet labels (strips) get cut off.
-You can control the maximum width of the facet label by setting the `width` in the `label_wrap_gen()` function, which is then passed to the `labeller` argument of your faceting function.
 
-```{r out.width = "50%"}
+```{r}
 df <- data.frame(
   x = rnorm(100),
   group = c(rep("A long group name for the first group", 50),
@@ -119,11 +118,15 @@ df <- data.frame(
 
 ggplot(df, aes(x = x)) +
   geom_histogram(binwidth = 0.5) +
-  facet_wrap(~ group, ncol = 1)
+  facet_wrap(~ group)
+```
 
+You can control the maximum width of the facet label by setting the `width` in the `label_wrap_gen()` function, which is then passed to the `labeller` argument of your faceting function.
+
+```{r}
 ggplot(df, aes(x = x)) +
   geom_histogram(binwidth = 0.5) +
-  facet_wrap(~ group, ncol = 1, labeller = labeller(group = label_wrap_gen(width = 25)))
+  facet_wrap(~ group, labeller = labeller(group = label_wrap_gen(width = 25)))
 ```
 
 </details>
