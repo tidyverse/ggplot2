@@ -77,7 +77,8 @@ Set the `strip.text` element in `theme()` to `element_blank()`.
 
 <details>
 
-<summary>See example</summary>\
+<summary>See example</summary>
+
 Setting `strip.text` to `element_blank()` will remove all facet labels.
 
 ```{r}
