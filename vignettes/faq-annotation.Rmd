@@ -4,7 +4,7 @@ output: rmarkdown::html_vignette
 description: |
   Annotating plots.
 vignette: >
-  %\VignetteIndexEntry{Annotation}
+  %\VignetteIndexEntry{FAQ: Annotation}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

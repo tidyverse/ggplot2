@@ -4,7 +4,7 @@ output: rmarkdown::html_vignette
 description: |
   Customising miscellanous aspects of your plots.
 vignette: >
-  %\VignetteIndexEntry{Customising}
+  %\VignetteIndexEntry{FAQ: Customising}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
