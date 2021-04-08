@@ -9,6 +9,17 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+```{=html}
+<style>
+  .content h3 {
+    margin-top: -30px !important;
+  }
+  
+  details {
+    margin-bottom: 40px;
+  }
+</style>
+```
 ```{r, include = FALSE}
 library(ggplot2)
 library(dplyr)
@@ -218,4 +229,3 @@ ggplot(mapping = aes(x = x, y = y, fill = fill, shape = shape)) +
 ```
 
 </details>
-
