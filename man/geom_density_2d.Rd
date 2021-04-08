@@ -99,9 +99,9 @@ a call to a position adjustment function.}
   \describe{
     \item{\code{bins}}{Number of contour bins. Overridden by \code{binwidth}.}
     \item{\code{binwidth}}{The width of the contour bins. Overridden by \code{breaks}.}
-    \item{\code{breaks}}{Numeric vector to set the contour breaks.
-Overrides \code{binwidth} and \code{bins}. By default, this is a vector of
-length ten with \code{\link[=pretty]{pretty()}} breaks.}
+    \item{\code{breaks}}{Numeric vector to set the contour breaks. Overrides \code{binwidth}
+and \code{bins}. By default, this is a vector of length ten with \code{\link[=pretty]{pretty()}}
+breaks.}
   }}
 
 \item{contour_var}{Character string identifying the variable to contour

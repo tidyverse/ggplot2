@@ -2,6 +2,16 @@
 
 * `ggsave()` now uses ragg to render raster output if ragg is available 
   (@thomasp85, #4388)
+  
+* `coord_sf()` now has an argument `default_crs` that specifies the coordinate
+  reference system (CRS) for non-sf layers and scale/coord limits. This argument
+  defaults to the World Geodetic System 1984 (WGS84), which means x and y positions
+  are interpreted as longitude and latitude. This is a potentially breaking change
+  for users who use projected coordinates in non-sf layers or in limits. Setting
+  `default_crs = NULL` recovers the old behavior. Further, authors of extension
+  packages implementing `stat_sf()`-like functionality are encouraged to look at the
+  source code of `stat_sf()`'s `compute_group()` function to see how to provide
+  scale-limit hints to `coord_sf()` (@clauswilke, #3659).
 
 * `ggsave()` now sets the default background to match the fill value of the
   `plot.background` theme element (@karawoo, #4057)
@@ -25,7 +35,22 @@
 
 * `stat_bin()`'s computed variable `width` is now documented (#3522).
 
+* Fixed a bug in strip assembly when theme has `strip.text = element_blank()`
+  and plots are faceted with multi-layered strips (@teunbrand, #4384).
+
 * ggplot2 now requires R >= 3.3 (#4247).
+
+* ggplot2 now uses `rlang::check_installed()` to check if a suggested package is
+  installed, which will offer to install the package before continuing (#4375, 
+  @malcolmbarrett)
+
+* Improved error with hint when piping a `ggplot` object into a facet function
+  (#4379, @mitchelloharawild).
+
+* Fix a bug that `after_stat()` and `after_scale()` cannot refer to aesthetics
+  if it's specified in the plot-global mapping (@yutannihilation, #4260).
+
+* `ggsave()` now returns the saved file location invisibly (#3379, @eliocamp).
 
 # ggplot2 3.3.3
 This is a small patch release mainly intended to address changes in R and CRAN.
@@ -37,6 +62,9 @@ It further changes the licensing model of ggplot2 to an MIT license.
 
 * Update tests to work with the new `all.equal()` defaults in R >4.0.3
 
+* Fixed a bug that `guide_bins()` mistakenly ignore `override.aes` argument
+  (@yutannihilation, #4085).
+
 # ggplot2 3.3.2
 This is a small release focusing on fixing regressions introduced in 3.3.1.
 
@@ -45,16 +73,6 @@ This is a small release focusing on fixing regressions introduced in 3.3.1.
 
 * `annotation_raster()` adds support for native rasters. For large rasters,
   native rasters render significantly faster than arrays (@kent37, #3388)
-
-* `coord_sf()` now has an argument `default_crs` that specifies the coordinate
-  reference system (CRS) for non-sf layers and scale/coord limits. This argument
-  defaults to the World Geodetic System 1984 (WGS84), which means x and y positions
-  are interpreted as longitude and latitude. This is a potentially breaking change
-  for users who use projected coordinates in non-sf layers or in limits. Setting
-  `default_crs = NULL` recovers the old behavior. Further, authors of extension
-  packages implementing `stat_sf()`-like functionality are encouraged to look at the
-  source code of `stat_sf()`'s `compute_group()` function to see how to provide
-  scale-limit hints to `coord_sf()` (@clauswilke, #3659).
   
 * Facet strips now have dedicated position-dependent theme elements 
   (`strip.text.x.top`, `strip.text.x.bottom`, `strip.text.y.left`, 

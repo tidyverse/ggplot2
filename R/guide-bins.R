@@ -116,6 +116,7 @@ guide_bins <- function(
 
     # general
     direction = direction,
+    override.aes = rename_aes(override.aes),
     default.unit = default.unit,
     reverse = reverse,
     order = order,

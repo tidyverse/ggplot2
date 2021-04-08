@@ -264,7 +264,7 @@ news:
 
 navbar:
   structure:
-    right: [extensions, github]
+    right: [reference, news, articles, extensions, github]
   components:
     home: ~
     extensions:
