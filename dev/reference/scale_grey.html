@@ -273,10 +273,10 @@ of scale_colour_gradient()." />
 
     <div class="ref-description">
     <p>Based on <code><a href='https://rdrr.io/r/grDevices/gray.colors.html'>gray.colors()</a></code>. This is black and white equivalent
-of <code><a href='scale_colour_gradient.html'>scale_colour_gradient()</a></code>.</p>
+of <code><a href='scale_gradient.html'>scale_colour_gradient()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>scale_colour_grey</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'><a href='scale_grey.html'>scale_colour_grey</a></span><span class='op'>(</span>
   <span class='va'>...</span>,
   start <span class='op'>=</span> <span class='fl'>0.2</span>,
   end <span class='op'>=</span> <span class='fl'>0.8</span>,
@@ -284,7 +284,7 @@ of <code><a href='scale_colour_gradient.html'>scale_colour_gradient()</a></code>
   aesthetics <span class='op'>=</span> <span class='st'>"colour"</span>
 <span class='op'>)</span>
 
-<span class='fu'>scale_fill_grey</span><span class='op'>(</span>
+<span class='fu'><a href='scale_grey.html'>scale_fill_grey</a></span><span class='op'>(</span>
   <span class='va'>...</span>,
   start <span class='op'>=</span> <span class='fl'>0.2</span>,
   end <span class='op'>=</span> <span class='fl'>0.8</span>,
@@ -300,7 +300,7 @@ of <code><a href='scale_colour_gradient.html'>scale_colour_gradient()</a></code>
       <td><p>Arguments passed on to <code><a href='discrete_scale.html'>discrete_scale</a></code></p><dl>
     <dt><code>palette</code></dt><dd><p>A palette function that when called with a single integer
 argument (the number of levels in the scale) returns the values that
-they should take (e.g., <code><a href='https://scales.r-lib.org//reference/hue_pal.html'>scales::hue_pal()</a></code>).</p></dd>
+they should take (e.g., <code><a href='https://scales.r-lib.org/reference/hue_pal.html'>scales::hue_pal()</a></code>).</p></dd>
     <dt><code>breaks</code></dt><dd><p>One of:
 <ul>
 <li><p><code>NULL</code> for no breaks</p></li>
@@ -377,28 +377,28 @@ same time, via <code>aesthetics = c("colour", "fill")</code>.</p></td>
 
     <div class='dont-index'><p>Other colour scales: 
 <code><a href='scale_alpha.html'>scale_alpha</a>()</code>,
-<code><a href='scale_colour_brewer.html'>scale_colour_brewer</a>()</code>,
-<code><a href='scale_colour_gradient.html'>scale_colour_gradient</a>()</code>,
-<code><a href='scale_colour_hue.html'>scale_colour_hue</a>()</code>,
-<code><a href='scale_colour_steps.html'>scale_colour_steps</a>()</code>,
-<code><a href='scale_colour_viridis_d.html'>scale_colour_viridis_d</a>()</code></p></div>
+<code><a href='scale_brewer.html'>scale_colour_brewer</a>()</code>,
+<code><a href='scale_gradient.html'>scale_colour_gradient</a>()</code>,
+<code><a href='scale_hue.html'>scale_colour_hue</a>()</code>,
+<code><a href='scale_steps.html'>scale_colour_steps</a>()</code>,
+<code><a href='scale_viridis.html'>scale_colour_viridis_d</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>wt</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>scale_colour_grey</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='img'><img src='scale_grey-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'>scale_colour_grey</span><span class='op'>(</span>end <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_grey.html'>scale_colour_grey</a></span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='scale_grey-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_grey.html'>scale_colour_grey</a></span><span class='op'>(</span>end <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
 </div><div class='img'><img src='scale_grey-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You may want to turn off the pale grey background with this scale</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>scale_colour_grey</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='ggtheme.html'>theme_bw</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_grey.html'>scale_colour_grey</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='ggtheme.html'>theme_bw</a></span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='img'><img src='scale_grey-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Colour of missing values is controlled with na.value:</span>
 <span class='va'>miss</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>NA</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span>, replace <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>wt</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='va'>miss</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>scale_colour_grey</span><span class='op'>(</span><span class='op'>)</span>
+  <span class='fu'><a href='scale_grey.html'>scale_colour_grey</a></span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='img'><img src='scale_grey-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>wt</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='va'>miss</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>scale_colour_grey</span><span class='op'>(</span>na.value <span class='op'>=</span> <span class='st'>"green"</span><span class='op'>)</span>
+  <span class='fu'><a href='scale_grey.html'>scale_colour_grey</a></span><span class='op'>(</span>na.value <span class='op'>=</span> <span class='st'>"green"</span><span class='op'>)</span>
 </div><div class='img'><img src='scale_grey-5.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

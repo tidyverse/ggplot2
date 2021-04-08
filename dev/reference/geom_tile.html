@@ -276,15 +276,15 @@ performance special case for when all the tiles are the same size." />
     </div>
 
     <div class="ref-description">
-    <p><code>geom_rect()</code> and <code>geom_tile()</code> do the same thing, but are
-parameterised differently: <code>geom_rect()</code> uses the locations of the four
+    <p><code><a href='geom_tile.html'>geom_rect()</a></code> and <code><a href='geom_tile.html'>geom_tile()</a></code> do the same thing, but are
+parameterised differently: <code><a href='geom_tile.html'>geom_rect()</a></code> uses the locations of the four
 corners (<code>xmin</code>, <code>xmax</code>, <code>ymin</code> and <code>ymax</code>), while
-<code>geom_tile()</code> uses the center of the tile and its size (<code>x</code>,
-<code>y</code>, <code>width</code>, <code>height</code>). <code>geom_raster()</code> is a high
+<code><a href='geom_tile.html'>geom_tile()</a></code> uses the center of the tile and its size (<code>x</code>,
+<code>y</code>, <code>width</code>, <code>height</code>). <code><a href='geom_tile.html'>geom_raster()</a></code> is a high
 performance special case for when all the tiles are the same size.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>geom_raster</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'><a href='geom_tile.html'>geom_raster</a></span><span class='op'>(</span>
   mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
   data <span class='op'>=</span> <span class='cn'>NULL</span>,
   stat <span class='op'>=</span> <span class='st'>"identity"</span>,
@@ -298,7 +298,7 @@ performance special case for when all the tiles are the same size.</p>
   inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span>
 
-<span class='fu'>geom_rect</span><span class='op'>(</span>
+<span class='fu'><a href='geom_tile.html'>geom_rect</a></span><span class='op'>(</span>
   mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
   data <span class='op'>=</span> <span class='cn'>NULL</span>,
   stat <span class='op'>=</span> <span class='st'>"identity"</span>,
@@ -310,7 +310,7 @@ performance special case for when all the tiles are the same size.</p>
   inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span>
 
-<span class='fu'>geom_tile</span><span class='op'>(</span>
+<span class='fu'><a href='geom_tile.html'>geom_tile</a></span><span class='op'>(</span>
   mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
   data <span class='op'>=</span> <span class='cn'>NULL</span>,
   stat <span class='op'>=</span> <span class='st'>"identity"</span>,
@@ -404,7 +404,7 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
 
     
 
-<p><code>geom_tile()</code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
+<p><code><a href='geom_tile.html'>geom_tile()</a></code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
 <li><p><strong><code>x</code></strong></p></li>
 <li><p><strong><code>y</code></strong></p></li>
 <li><p><code>alpha</code></p></li>
@@ -422,11 +422,11 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
 <span class='co'># to use geom_raster here because it's so much faster, and produces</span>
 <span class='co'># smaller output when saving to PDF</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>faithfuld</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>waiting</span>, <span class='va'>eruptions</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
- <span class='fu'>geom_raster</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>density</span><span class='op'>)</span><span class='op'>)</span>
+ <span class='fu'><a href='geom_tile.html'>geom_raster</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>density</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_tile-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Interpolation smooths the surface &amp; is most helpful when rendering images.</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>faithfuld</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>waiting</span>, <span class='va'>eruptions</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
- <span class='fu'>geom_raster</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>density</span><span class='op'>)</span>, interpolate <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+ <span class='fu'><a href='geom_tile.html'>geom_raster</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>density</span><span class='op'>)</span>, interpolate <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_tile-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># If you want to draw arbitrary rectangles, use geom_tile() or geom_rect()</span>
 <span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
@@ -436,11 +436,11 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
   w <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/diff.html'>diff</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>4</span>, <span class='fl'>6</span>, <span class='fl'>8</span>, <span class='fl'>10</span>, <span class='fl'>14</span><span class='op'>)</span><span class='op'>)</span>, <span class='fl'>2</span><span class='op'>)</span>
 <span class='op'>)</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_tile</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>z</span><span class='op'>)</span>, colour <span class='op'>=</span> <span class='st'>"grey50"</span><span class='op'>)</span>
+  <span class='fu'><a href='geom_tile.html'>geom_tile</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>z</span><span class='op'>)</span>, colour <span class='op'>=</span> <span class='st'>"grey50"</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_tile-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, width <span class='op'>=</span> <span class='va'>w</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_tile</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>z</span><span class='op'>)</span>, colour <span class='op'>=</span> <span class='st'>"grey50"</span><span class='op'>)</span>
+  <span class='fu'><a href='geom_tile.html'>geom_tile</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>z</span><span class='op'>)</span>, colour <span class='op'>=</span> <span class='st'>"grey50"</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_tile-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>xmin <span class='op'>=</span> <span class='va'>x</span> <span class='op'>-</span> <span class='va'>w</span> <span class='op'>/</span> <span class='fl'>2</span>, xmax <span class='op'>=</span> <span class='va'>x</span> <span class='op'>+</span> <span class='va'>w</span> <span class='op'>/</span> <span class='fl'>2</span>, ymin <span class='op'>=</span> <span class='va'>y</span>, ymax <span class='op'>=</span> <span class='va'>y</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_rect</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>z</span><span class='op'>)</span>, colour <span class='op'>=</span> <span class='st'>"grey50"</span><span class='op'>)</span>
+  <span class='fu'><a href='geom_tile.html'>geom_rect</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>z</span><span class='op'>)</span>, colour <span class='op'>=</span> <span class='st'>"grey50"</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_tile-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># \donttest{</span>
 <span class='co'># Justification controls where the cells are anchored</span>
@@ -448,10 +448,10 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
 <span class='va'>df</span><span class='op'>$</span><span class='va'>z</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>df</span><span class='op'>)</span><span class='op'>)</span>
 <span class='co'># default is compatible with geom_tile()</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, fill <span class='op'>=</span> <span class='va'>z</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_raster</span><span class='op'>(</span><span class='op'>)</span>
+  <span class='fu'><a href='geom_tile.html'>geom_raster</a></span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_tile-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># zero padding</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, fill <span class='op'>=</span> <span class='va'>z</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_raster</span><span class='op'>(</span>hjust <span class='op'>=</span> <span class='fl'>0</span>, vjust <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
+  <span class='fu'><a href='geom_tile.html'>geom_raster</a></span><span class='op'>(</span>hjust <span class='op'>=</span> <span class='fl'>0</span>, vjust <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_tile-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Inspired by the image-density plots of Ken Knoblauch</span>
 <span class='va'>cars</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>

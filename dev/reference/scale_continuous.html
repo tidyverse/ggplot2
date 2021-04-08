@@ -339,10 +339,10 @@ omitted.</p></td>
       <td><p>One of:</p><ul>
 <li><p><code>NULL</code> for no breaks</p></li>
 <li><p><code><a href='waiver.html'>waiver()</a></code> for the default breaks computed by the
-<a href='https://scales.r-lib.org//reference/trans_new.html'>transformation object</a></p></li>
+<a href='https://scales.r-lib.org/reference/trans_new.html'>transformation object</a></p></li>
 <li><p>A numeric vector of positions</p></li>
 <li><p>A function that takes the limits as input and returns breaks
-as output (e.g., a function returned by <code><a href='https://scales.r-lib.org//reference/breaks_extended.html'>scales::extended_breaks()</a></code>)</p></li>
+as output (e.g., a function returned by <code><a href='https://scales.r-lib.org/reference/breaks_extended.html'>scales::extended_breaks()</a></code>)</p></li>
 </ul></td>
     </tr>
     <tr>
@@ -400,10 +400,10 @@ expand the scale by 5% on each side for continuous variables, and by
       <td><p>One of:</p><ul>
 <li><p>Function that handles limits outside of the scale limits
 (out of bounds).</p></li>
-<li><p>The default (<code><a href='https://scales.r-lib.org//reference/oob.html'>scales::censor()</a></code>) replaces out of
+<li><p>The default (<code><a href='https://scales.r-lib.org/reference/oob.html'>scales::censor()</a></code>) replaces out of
 bounds values with <code>NA</code>.</p></li>
-<li><p><code><a href='https://scales.r-lib.org//reference/oob.html'>scales::squish()</a></code> for squishing out of bounds values into range.</p></li>
-<li><p><code><a href='https://scales.r-lib.org//reference/oob.html'>scales::squish_infinite()</a></code> for squishing infinite values into range.</p></li>
+<li><p><code><a href='https://scales.r-lib.org/reference/oob.html'>scales::squish()</a></code> for squishing out of bounds values into range.</p></li>
+<li><p><code><a href='https://scales.r-lib.org/reference/oob.html'>scales::squish_infinite()</a></code> for squishing infinite values into range.</p></li>
 </ul></td>
     </tr>
     <tr>
@@ -420,8 +420,8 @@ or the object itself. Built-in transformations include "asn", "atanh",
 <p>A transformation object bundles together a transform, its inverse,
 and methods for generating breaks and labels. Transformation objects
 are defined in the scales package, and are called <code>&lt;name&gt;_trans</code> (e.g.,
-<code><a href='https://scales.r-lib.org//reference/boxcox_trans.html'>scales::boxcox_trans()</a></code>). You can create your own
-transformation with <code><a href='https://scales.r-lib.org//reference/trans_new.html'>scales::trans_new()</a></code>.</p></td>
+<code><a href='https://scales.r-lib.org/reference/boxcox_trans.html'>scales::boxcox_trans()</a></code>). You can create your own
+transformation with <code><a href='https://scales.r-lib.org/reference/trans_new.html'>scales::trans_new()</a></code>.</p></td>
     </tr>
     <tr>
       <th>guide</th>
@@ -452,7 +452,7 @@ transformation with <code><a href='https://scales.r-lib.org//reference/trans_new
     <div class='dont-index'><p>Other position scales: 
 <code><a href='scale_binned.html'>scale_x_binned</a>()</code>,
 <code><a href='scale_date.html'>scale_x_date</a>()</code>,
-<code><a href='scale_x_discrete.html'>scale_x_discrete</a>()</code></p></div>
+<code><a href='scale_discrete.html'>scale_x_discrete</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>displ</span>, <span class='va'>hwy</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
@@ -492,9 +492,9 @@ transformation with <code><a href='https://scales.r-lib.org//reference/trans_new
   y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, length.out <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
 <span class='op'>)</span>
 <span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='va'>p2</span> <span class='op'>+</span> <span class='fu'>scale_y_continuous</span><span class='op'>(</span>labels <span class='op'>=</span> <span class='fu'>scales</span><span class='fu'>::</span><span class='va'><a href='https://scales.r-lib.org//reference/label_percent.html'>percent</a></span><span class='op'>)</span>
-</div><div class='img'><img src='scale_continuous-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p2</span> <span class='op'>+</span> <span class='fu'>scale_y_continuous</span><span class='op'>(</span>labels <span class='op'>=</span> <span class='fu'>scales</span><span class='fu'>::</span><span class='va'><a href='https://scales.r-lib.org//reference/label_dollar.html'>dollar</a></span><span class='op'>)</span>
-</div><div class='img'><img src='scale_continuous-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p2</span> <span class='op'>+</span> <span class='fu'>scale_x_continuous</span><span class='op'>(</span>labels <span class='op'>=</span> <span class='fu'>scales</span><span class='fu'>::</span><span class='va'><a href='https://scales.r-lib.org//reference/label_number.html'>comma</a></span><span class='op'>)</span>
+<span class='va'>p2</span> <span class='op'>+</span> <span class='fu'>scale_y_continuous</span><span class='op'>(</span>labels <span class='op'>=</span> <span class='fu'>scales</span><span class='fu'>::</span><span class='va'><a href='https://scales.r-lib.org/reference/label_percent.html'>percent</a></span><span class='op'>)</span>
+</div><div class='img'><img src='scale_continuous-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p2</span> <span class='op'>+</span> <span class='fu'>scale_y_continuous</span><span class='op'>(</span>labels <span class='op'>=</span> <span class='fu'>scales</span><span class='fu'>::</span><span class='va'><a href='https://scales.r-lib.org/reference/label_dollar.html'>dollar</a></span><span class='op'>)</span>
+</div><div class='img'><img src='scale_continuous-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p2</span> <span class='op'>+</span> <span class='fu'>scale_x_continuous</span><span class='op'>(</span>labels <span class='op'>=</span> <span class='fu'>scales</span><span class='fu'>::</span><span class='va'><a href='https://scales.r-lib.org/reference/label_number.html'>comma</a></span><span class='op'>)</span>
 </div><div class='img'><img src='scale_continuous-11.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can also override the default linear mapping by using a</span>
 <span class='co'># transformation. There are three shortcuts:</span>
@@ -503,7 +503,7 @@ transformation with <code><a href='https://scales.r-lib.org//reference/trans_new
 </div><div class='img'><img src='scale_continuous-13.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p1</span> <span class='op'>+</span> <span class='fu'>scale_y_reverse</span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='img'><img src='scale_continuous-14.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Or you can supply a transformation in the `trans` argument:</span>
-<span class='va'>p1</span> <span class='op'>+</span> <span class='fu'>scale_y_continuous</span><span class='op'>(</span>trans <span class='op'>=</span> <span class='fu'>scales</span><span class='fu'>::</span><span class='fu'><a href='https://scales.r-lib.org//reference/reciprocal_trans.html'>reciprocal_trans</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>p1</span> <span class='op'>+</span> <span class='fu'>scale_y_continuous</span><span class='op'>(</span>trans <span class='op'>=</span> <span class='fu'>scales</span><span class='fu'>::</span><span class='fu'><a href='https://scales.r-lib.org/reference/reciprocal_trans.html'>reciprocal_trans</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='scale_continuous-15.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can also create your own. See ?scales::trans_new</span>
 

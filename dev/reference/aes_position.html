@@ -290,9 +290,9 @@ annotations and to represent rectangular areas.</p>
 
     <div class='dont-index'>
 <ul>
-<li><p>Geoms that commonly use these aesthetics: <code><a href='geom_crossbar.html'>geom_crossbar()</a></code>,
-<code><a href='geom_segment.html'>geom_curve()</a></code>, <code><a href='geom_crossbar.html'>geom_errorbar()</a></code>, <code><a href='geom_path.html'>geom_line()</a></code>, <code><a href='geom_crossbar.html'>geom_linerange()</a></code>,
-<code><a href='geom_path.html'>geom_path()</a></code>, <code><a href='geom_point.html'>geom_point()</a></code>, <code><a href='geom_crossbar.html'>geom_pointrange()</a></code>, <code><a href='geom_raster.html'>geom_rect()</a></code>,
+<li><p>Geoms that commonly use these aesthetics: <code><a href='geom_linerange.html'>geom_crossbar()</a></code>,
+<code><a href='geom_segment.html'>geom_curve()</a></code>, <code><a href='geom_linerange.html'>geom_errorbar()</a></code>, <code><a href='geom_path.html'>geom_line()</a></code>, <code><a href='geom_linerange.html'>geom_linerange()</a></code>,
+<code><a href='geom_path.html'>geom_path()</a></code>, <code><a href='geom_point.html'>geom_point()</a></code>, <code><a href='geom_linerange.html'>geom_pointrange()</a></code>, <code><a href='geom_tile.html'>geom_rect()</a></code>,
 <code><a href='geom_segment.html'>geom_segment()</a></code></p></li>
 <li><p>See also <code><a href='annotate.html'>annotate()</a></code> for placing annotations.</p></li>
 </ul>
@@ -316,7 +316,7 @@ annotations and to represent rectangular areas.</p>
    ymax <span class='op'>=</span> <span class='va'>fit</span> <span class='op'>+</span> <span class='va'>se.fit</span>,
    colour <span class='op'>=</span> <span class='va'>cut</span>
   <span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_crossbar.html'>geom_pointrange</a></span><span class='op'>(</span><span class='op'>)</span>
+  <span class='fu'><a href='geom_linerange.html'>geom_pointrange</a></span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='img'><img src='aes_position-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Using annotate</span>
 <span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>wt</span>, y <span class='op'>=</span> <span class='va'>mpg</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span>

@@ -273,12 +273,12 @@ points at specified quartiles of the theoretical and sample distributions." />
     </div>
 
     <div class="ref-description">
-    <p><code>geom_qq()</code> and <code>stat_qq()</code> produce quantile-quantile plots. <code>geom_qq_line()</code> and
-<code>stat_qq_line()</code> compute the slope and intercept of the line connecting the
+    <p><code><a href='geom_qq.html'>geom_qq()</a></code> and <code><a href='geom_qq.html'>stat_qq()</a></code> produce quantile-quantile plots. <code><a href='geom_qq.html'>geom_qq_line()</a></code> and
+<code><a href='geom_qq.html'>stat_qq_line()</a></code> compute the slope and intercept of the line connecting the
 points at specified quartiles of the theoretical and sample distributions.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>geom_qq_line</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'><a href='geom_qq.html'>geom_qq_line</a></span><span class='op'>(</span>
   mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
   data <span class='op'>=</span> <span class='cn'>NULL</span>,
   geom <span class='op'>=</span> <span class='st'>"path"</span>,
@@ -293,7 +293,7 @@ points at specified quartiles of the theoretical and sample distributions.</p>
   inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span>
 
-<span class='fu'>stat_qq_line</span><span class='op'>(</span>
+<span class='fu'><a href='geom_qq.html'>stat_qq_line</a></span><span class='op'>(</span>
   mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
   data <span class='op'>=</span> <span class='cn'>NULL</span>,
   geom <span class='op'>=</span> <span class='st'>"path"</span>,
@@ -308,7 +308,7 @@ points at specified quartiles of the theoretical and sample distributions.</p>
   inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span>
 
-<span class='fu'>geom_qq</span><span class='op'>(</span>
+<span class='fu'><a href='geom_qq.html'>geom_qq</a></span><span class='op'>(</span>
   mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
   data <span class='op'>=</span> <span class='cn'>NULL</span>,
   geom <span class='op'>=</span> <span class='st'>"point"</span>,
@@ -321,7 +321,7 @@ points at specified quartiles of the theoretical and sample distributions.</p>
   inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span>
 
-<span class='fu'>stat_qq</span><span class='op'>(</span>
+<span class='fu'><a href='geom_qq.html'>stat_qq</a></span><span class='op'>(</span>
   mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
   data <span class='op'>=</span> <span class='cn'>NULL</span>,
   geom <span class='op'>=</span> <span class='st'>"point"</span>,
@@ -419,14 +419,14 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
 
     
 
-<p><code>stat_qq()</code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
+<p><code><a href='geom_qq.html'>stat_qq()</a></code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
 <li><p><strong><code>sample</code></strong></p></li>
 <li><p><code>group</code></p></li>
 <li><p><code>x</code></p></li>
 <li><p><code>y</code></p></li>
 </ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
 
-<p><code>stat_qq_line()</code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
+<p><code><a href='geom_qq.html'>stat_qq_line()</a></code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
 <li><p><strong><code>sample</code></strong></p></li>
 <li><p><code>group</code></p></li>
 <li><p><code>x</code></p></li>
@@ -436,11 +436,11 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
 
     
 
-<p>Variables computed by <code>stat_qq()</code>:</p><dl>
+<p>Variables computed by <code><a href='geom_qq.html'>stat_qq()</a></code>:</p><dl>
 <dt>sample</dt><dd><p>sample quantiles</p></dd>
 <dt>theoretical</dt><dd><p>theoretical quantiles</p></dd>
 
-</dl><p>Variables computed by <code>stat_qq_line()</code>:</p><dl>
+</dl><p>Variables computed by <code><a href='geom_qq.html'>stat_qq_line()</a></code>:</p><dl>
 <dt>x</dt><dd><p>x-coordinates of the endpoints of the line segment connecting the
 points at the chosen quantiles of the theoretical and the sample
 distributions</p></dd>
@@ -453,21 +453,21 @@ distributions</p></dd>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
 <span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/TDist.html'>rt</a></span><span class='op'>(</span><span class='fl'>200</span>, df <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>sample <span class='op'>=</span> <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>stat_qq</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>stat_qq_line</span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_qq.html'>stat_qq</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_qq.html'>stat_qq_line</a></span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_qq-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Use fitdistr from MASS to estimate distribution params</span>
 <span class='va'>params</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>as.list</a></span><span class='op'>(</span><span class='fu'>MASS</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/MASS/man/fitdistr.html'>fitdistr</a></span><span class='op'>(</span><span class='va'>df</span><span class='op'>$</span><span class='va'>y</span>, <span class='st'>"t"</span><span class='op'>)</span><span class='op'>$</span><span class='va'>estimate</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>sample <span class='op'>=</span> <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>stat_qq</span><span class='op'>(</span>distribution <span class='op'>=</span> <span class='va'>qt</span>, dparams <span class='op'>=</span> <span class='va'>params</span><span class='op'>[</span><span class='st'>"df"</span><span class='op'>]</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>stat_qq_line</span><span class='op'>(</span>distribution <span class='op'>=</span> <span class='va'>qt</span>, dparams <span class='op'>=</span> <span class='va'>params</span><span class='op'>[</span><span class='st'>"df"</span><span class='op'>]</span><span class='op'>)</span>
+  <span class='fu'><a href='geom_qq.html'>stat_qq</a></span><span class='op'>(</span>distribution <span class='op'>=</span> <span class='va'>qt</span>, dparams <span class='op'>=</span> <span class='va'>params</span><span class='op'>[</span><span class='st'>"df"</span><span class='op'>]</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_qq.html'>stat_qq_line</a></span><span class='op'>(</span>distribution <span class='op'>=</span> <span class='va'>qt</span>, dparams <span class='op'>=</span> <span class='va'>params</span><span class='op'>[</span><span class='st'>"df"</span><span class='op'>]</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_qq-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Using to explore the distribution of a variable</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>sample <span class='op'>=</span> <span class='va'>mpg</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>stat_qq</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>stat_qq_line</span><span class='op'>(</span><span class='op'>)</span>
+  <span class='fu'><a href='geom_qq.html'>stat_qq</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_qq.html'>stat_qq_line</a></span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_qq-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>sample <span class='op'>=</span> <span class='va'>mpg</span>, colour <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>stat_qq</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>stat_qq_line</span><span class='op'>(</span><span class='op'>)</span>
+  <span class='fu'><a href='geom_qq.html'>stat_qq</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_qq.html'>stat_qq_line</a></span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_qq-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 </div></pre>
   </div>

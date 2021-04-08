@@ -278,7 +278,7 @@ scale_*_gradientn creates a n-colour gradient." />
 <code>scale_*_gradientn</code> creates a n-colour gradient.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>scale_colour_gradient</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'><a href='scale_gradient.html'>scale_colour_gradient</a></span><span class='op'>(</span>
   <span class='va'>...</span>,
   low <span class='op'>=</span> <span class='st'>"#132B43"</span>,
   high <span class='op'>=</span> <span class='st'>"#56B1F7"</span>,
@@ -288,7 +288,7 @@ scale_*_gradientn creates a n-colour gradient." />
   aesthetics <span class='op'>=</span> <span class='st'>"colour"</span>
 <span class='op'>)</span>
 
-<span class='fu'>scale_fill_gradient</span><span class='op'>(</span>
+<span class='fu'><a href='scale_gradient.html'>scale_fill_gradient</a></span><span class='op'>(</span>
   <span class='va'>...</span>,
   low <span class='op'>=</span> <span class='st'>"#132B43"</span>,
   high <span class='op'>=</span> <span class='st'>"#56B1F7"</span>,
@@ -298,7 +298,7 @@ scale_*_gradientn creates a n-colour gradient." />
   aesthetics <span class='op'>=</span> <span class='st'>"fill"</span>
 <span class='op'>)</span>
 
-<span class='fu'>scale_colour_gradient2</span><span class='op'>(</span>
+<span class='fu'><a href='scale_gradient.html'>scale_colour_gradient2</a></span><span class='op'>(</span>
   <span class='va'>...</span>,
   low <span class='op'>=</span> <span class='fu'>muted</span><span class='op'>(</span><span class='st'>"red"</span><span class='op'>)</span>,
   mid <span class='op'>=</span> <span class='st'>"white"</span>,
@@ -310,7 +310,7 @@ scale_*_gradientn creates a n-colour gradient." />
   aesthetics <span class='op'>=</span> <span class='st'>"colour"</span>
 <span class='op'>)</span>
 
-<span class='fu'>scale_fill_gradient2</span><span class='op'>(</span>
+<span class='fu'><a href='scale_gradient.html'>scale_fill_gradient2</a></span><span class='op'>(</span>
   <span class='va'>...</span>,
   low <span class='op'>=</span> <span class='fu'>muted</span><span class='op'>(</span><span class='st'>"red"</span><span class='op'>)</span>,
   mid <span class='op'>=</span> <span class='st'>"white"</span>,
@@ -322,7 +322,7 @@ scale_*_gradientn creates a n-colour gradient." />
   aesthetics <span class='op'>=</span> <span class='st'>"fill"</span>
 <span class='op'>)</span>
 
-<span class='fu'>scale_colour_gradientn</span><span class='op'>(</span>
+<span class='fu'><a href='scale_gradient.html'>scale_colour_gradientn</a></span><span class='op'>(</span>
   <span class='va'>...</span>,
   <span class='va'>colours</span>,
   values <span class='op'>=</span> <span class='cn'>NULL</span>,
@@ -333,7 +333,7 @@ scale_*_gradientn creates a n-colour gradient." />
   <span class='va'>colors</span>
 <span class='op'>)</span>
 
-<span class='fu'>scale_fill_gradientn</span><span class='op'>(</span>
+<span class='fu'><a href='scale_gradient.html'>scale_fill_gradientn</a></span><span class='op'>(</span>
   <span class='va'>...</span>,
   <span class='va'>colours</span>,
   values <span class='op'>=</span> <span class='cn'>NULL</span>,
@@ -354,7 +354,7 @@ scale_*_gradientn creates a n-colour gradient." />
 associated with this scale.</p></dd>
     <dt><code>palette</code></dt><dd><p>A palette function that when called with a numeric vector with
 values between 0 and 1 returns the corresponding output values
-(e.g., <code><a href='https://scales.r-lib.org//reference/area_pal.html'>scales::area_pal()</a></code>).</p></dd>
+(e.g., <code><a href='https://scales.r-lib.org/reference/area_pal.html'>scales::area_pal()</a></code>).</p></dd>
     <dt><code>name</code></dt><dd><p>The name of the scale. Used as the axis or legend title. If
 <code><a href='waiver.html'>waiver()</a></code>, the default, the name of the scale is taken from the first
 mapping used for that aesthetic. If <code>NULL</code>, the legend title will be
@@ -363,10 +363,10 @@ omitted.</p></dd>
 <ul>
 <li><p><code>NULL</code> for no breaks</p></li>
 <li><p><code><a href='waiver.html'>waiver()</a></code> for the default breaks computed by the
-<a href='https://scales.r-lib.org//reference/trans_new.html'>transformation object</a></p></li>
+<a href='https://scales.r-lib.org/reference/trans_new.html'>transformation object</a></p></li>
 <li><p>A numeric vector of positions</p></li>
 <li><p>A function that takes the limits as input and returns breaks
-as output (e.g., a function returned by <code><a href='https://scales.r-lib.org//reference/breaks_extended.html'>scales::extended_breaks()</a></code>)</p></li>
+as output (e.g., a function returned by <code><a href='https://scales.r-lib.org/reference/breaks_extended.html'>scales::extended_breaks()</a></code>)</p></li>
 </ul></p></dd>
     <dt><code>minor_breaks</code></dt><dd><p>One of:
 <ul>
@@ -401,18 +401,18 @@ If the purpose is to zoom, use the limit argument in the coordinate system
 (see <code><a href='coord_cartesian.html'>coord_cartesian()</a></code>).</p></li>
 </ul></p></dd>
     <dt><code>rescaler</code></dt><dd><p>A function used to scale the input values to the
-range [0, 1]. This is always <code><a href='https://scales.r-lib.org//reference/rescale.html'>scales::rescale()</a></code>, except for
-diverging and n colour gradients (i.e., <code>scale_colour_gradient2()</code>,
-<code>scale_colour_gradientn()</code>). The <code>rescaler</code> is ignored by position
-scales, which always use <code><a href='https://scales.r-lib.org//reference/rescale.html'>scales::rescale()</a></code>.</p></dd>
+range [0, 1]. This is always <code><a href='https://scales.r-lib.org/reference/rescale.html'>scales::rescale()</a></code>, except for
+diverging and n colour gradients (i.e., <code><a href='scale_gradient.html'>scale_colour_gradient2()</a></code>,
+<code><a href='scale_gradient.html'>scale_colour_gradientn()</a></code>). The <code>rescaler</code> is ignored by position
+scales, which always use <code><a href='https://scales.r-lib.org/reference/rescale.html'>scales::rescale()</a></code>.</p></dd>
     <dt><code>oob</code></dt><dd><p>One of:
 <ul>
 <li><p>Function that handles limits outside of the scale limits
 (out of bounds).</p></li>
-<li><p>The default (<code><a href='https://scales.r-lib.org//reference/oob.html'>scales::censor()</a></code>) replaces out of
+<li><p>The default (<code><a href='https://scales.r-lib.org/reference/oob.html'>scales::censor()</a></code>) replaces out of
 bounds values with <code>NA</code>.</p></li>
-<li><p><code><a href='https://scales.r-lib.org//reference/oob.html'>scales::squish()</a></code> for squishing out of bounds values into range.</p></li>
-<li><p><code><a href='https://scales.r-lib.org//reference/oob.html'>scales::squish_infinite()</a></code> for squishing infinite values into range.</p></li>
+<li><p><code><a href='https://scales.r-lib.org/reference/oob.html'>scales::squish()</a></code> for squishing out of bounds values into range.</p></li>
+<li><p><code><a href='https://scales.r-lib.org/reference/oob.html'>scales::squish_infinite()</a></code> for squishing infinite values into range.</p></li>
 </ul></p></dd>
     <dt><code>trans</code></dt><dd><p>For continuous scales, the name of a transformation object
 or the object itself. Built-in transformations include "asn", "atanh",
@@ -421,8 +421,8 @@ or the object itself. Built-in transformations include "asn", "atanh",
 "reverse", "sqrt" and "time".A transformation object bundles together a transform, its inverse,
 and methods for generating breaks and labels. Transformation objects
 are defined in the scales package, and are called <code>&lt;name&gt;_trans</code> (e.g.,
-<code><a href='https://scales.r-lib.org//reference/boxcox_trans.html'>scales::boxcox_trans()</a></code>). You can create your own
-transformation with <code><a href='https://scales.r-lib.org//reference/trans_new.html'>scales::trans_new()</a></code>.</p></dd>
+<code><a href='https://scales.r-lib.org/reference/boxcox_trans.html'>scales::boxcox_trans()</a></code>). You can create your own
+transformation with <code><a href='https://scales.r-lib.org/reference/trans_new.html'>scales::trans_new()</a></code>.</p></dd>
     <dt><code>expand</code></dt><dd><p>For position scales, a vector of range expansion constants used to add some
 padding around the data to ensure that they are placed some distance
 away from the axes. Use the convenience function <code><a href='expansion.html'>expansion()</a></code>
@@ -477,7 +477,7 @@ Defaults to 0.</p></td>
       <th>values</th>
       <td><p>if colours should not be evenly positioned along the gradient
 this vector gives the position (between 0 and 1) for each colour in the
-<code>colours</code> vector. See <code><a href='https://scales.r-lib.org//reference/rescale.html'>rescale()</a></code> for a convenience function
+<code>colours</code> vector. See <code><a href='https://scales.r-lib.org/reference/rescale.html'>rescale()</a></code> for a convenience function
 to map an arbitrary range to between 0 and 1.</p></td>
     </tr>
     </table>
@@ -491,15 +491,15 @@ luminance. The <span class="pkg">munsell</span> package makes this easy to do us
 Munsell colour system.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://scales.r-lib.org//reference/seq_gradient_pal.html'>scales::seq_gradient_pal()</a></code> for details on underlying
+    <div class='dont-index'><p><code><a href='https://scales.r-lib.org/reference/seq_gradient_pal.html'>scales::seq_gradient_pal()</a></code> for details on underlying
 palette</p>
 <p>Other colour scales: 
 <code><a href='scale_alpha.html'>scale_alpha</a>()</code>,
-<code><a href='scale_colour_brewer.html'>scale_colour_brewer</a>()</code>,
-<code><a href='scale_colour_grey.html'>scale_colour_grey</a>()</code>,
-<code><a href='scale_colour_hue.html'>scale_colour_hue</a>()</code>,
-<code><a href='scale_colour_steps.html'>scale_colour_steps</a>()</code>,
-<code><a href='scale_colour_viridis_d.html'>scale_colour_viridis_d</a>()</code></p></div>
+<code><a href='scale_brewer.html'>scale_colour_brewer</a>()</code>,
+<code><a href='scale_grey.html'>scale_colour_grey</a>()</code>,
+<code><a href='scale_hue.html'>scale_colour_hue</a>()</code>,
+<code><a href='scale_steps.html'>scale_colour_steps</a>()</code>,
+<code><a href='scale_viridis.html'>scale_colour_viridis_d</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
@@ -523,33 +523,33 @@ palette</p>
 <span class='co'># For diverging colour scales use gradient2</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='va'>z1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>scale_colour_gradient2</span><span class='op'>(</span><span class='op'>)</span>
+  <span class='fu'><a href='scale_gradient.html'>scale_colour_gradient2</a></span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='img'><img src='scale_gradient-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Use your own colour scale with gradientn</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='va'>z1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>scale_colour_gradientn</span><span class='op'>(</span>colours <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>terrain.colors</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='fu'><a href='scale_gradient.html'>scale_colour_gradientn</a></span><span class='op'>(</span>colours <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>terrain.colors</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='scale_gradient-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Equivalent fill scales do the same job for the fill aesthetic</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>faithfuld</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>waiting</span>, <span class='va'>eruptions</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_raster.html'>geom_raster</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>density</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>scale_fill_gradientn</span><span class='op'>(</span>colours <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>terrain.colors</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='fu'><a href='geom_tile.html'>geom_raster</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>density</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='scale_gradient.html'>scale_fill_gradientn</a></span><span class='op'>(</span>colours <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>terrain.colors</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='scale_gradient-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Adjust colour choices with low and high</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='va'>z2</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>scale_colour_gradient</span><span class='op'>(</span>low <span class='op'>=</span> <span class='st'>"white"</span>, high <span class='op'>=</span> <span class='st'>"black"</span><span class='op'>)</span>
+  <span class='fu'><a href='scale_gradient.html'>scale_colour_gradient</a></span><span class='op'>(</span>low <span class='op'>=</span> <span class='st'>"white"</span>, high <span class='op'>=</span> <span class='st'>"black"</span><span class='op'>)</span>
 </div><div class='img'><img src='scale_gradient-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Avoid red-green colour contrasts because ~10% of men have difficulty</span>
 <span class='co'># seeing them</span>
 
 <span class='co'># Use `na.value = NA` to hide missing values but keep the original axis range</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df_na</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>value</span>, <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'><a href='geom_bar.html'>geom_bar</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>z1</span><span class='op'>)</span>, stat <span class='op'>=</span> <span class='st'>"identity"</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>scale_fill_gradient</span><span class='op'>(</span>low <span class='op'>=</span> <span class='st'>"yellow"</span>, high <span class='op'>=</span> <span class='st'>"red"</span>, na.value <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span>
+  <span class='fu'><a href='scale_gradient.html'>scale_fill_gradient</a></span><span class='op'>(</span>low <span class='op'>=</span> <span class='st'>"yellow"</span>, high <span class='op'>=</span> <span class='st'>"red"</span>, na.value <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span>
 </div><div class='img'><img src='scale_gradient-6.png' alt='' width='700' height='433' /></div><div class='input'>
  <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df_na</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
    <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='va'>z1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-   <span class='fu'>scale_colour_gradient</span><span class='op'>(</span>low <span class='op'>=</span> <span class='st'>"yellow"</span>, high <span class='op'>=</span> <span class='st'>"red"</span>, na.value <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span>
+   <span class='fu'><a href='scale_gradient.html'>scale_colour_gradient</a></span><span class='op'>(</span>low <span class='op'>=</span> <span class='st'>"yellow"</span>, high <span class='op'>=</span> <span class='st'>"red"</span>, na.value <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 10 rows containing missing values (geom_point).</span></div><div class='img'><img src='scale_gradient-7.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>

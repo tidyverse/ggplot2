@@ -273,14 +273,14 @@ and limits, you may wish to use labs() and lims() instead." />
     </div>
 
     <div class="ref-description">
-    <p><code>scale_x_discrete()</code> and <code>scale_y_discrete()</code> are used to set the values for
+    <p><code><a href='scale_discrete.html'>scale_x_discrete()</a></code> and <code><a href='scale_discrete.html'>scale_y_discrete()</a></code> are used to set the values for
 discrete x and y scale aesthetics. For simple manipulation of scale labels
 and limits, you may wish to use <code><a href='labs.html'>labs()</a></code> and <code><a href='lims.html'>lims()</a></code> instead.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>scale_x_discrete</span><span class='op'>(</span><span class='va'>...</span>, expand <span class='op'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span><span class='op'>(</span><span class='op'>)</span>, guide <span class='op'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span><span class='op'>(</span><span class='op'>)</span>, position <span class='op'>=</span> <span class='st'>"bottom"</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'><a href='scale_discrete.html'>scale_x_discrete</a></span><span class='op'>(</span><span class='va'>...</span>, expand <span class='op'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span><span class='op'>(</span><span class='op'>)</span>, guide <span class='op'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span><span class='op'>(</span><span class='op'>)</span>, position <span class='op'>=</span> <span class='st'>"bottom"</span><span class='op'>)</span>
 
-<span class='fu'>scale_y_discrete</span><span class='op'>(</span><span class='va'>...</span>, expand <span class='op'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span><span class='op'>(</span><span class='op'>)</span>, guide <span class='op'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span><span class='op'>(</span><span class='op'>)</span>, position <span class='op'>=</span> <span class='st'>"left"</span><span class='op'>)</span></pre>
+<span class='fu'><a href='scale_discrete.html'>scale_y_discrete</a></span><span class='op'>(</span><span class='va'>...</span>, expand <span class='op'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span><span class='op'>(</span><span class='op'>)</span>, guide <span class='op'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span><span class='op'>(</span><span class='op'>)</span>, position <span class='op'>=</span> <span class='st'>"left"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -290,7 +290,7 @@ and limits, you may wish to use <code><a href='labs.html'>labs()</a></code> and 
       <td><p>Arguments passed on to <code><a href='discrete_scale.html'>discrete_scale</a></code></p><dl>
     <dt><code>palette</code></dt><dd><p>A palette function that when called with a single integer
 argument (the number of levels in the scale) returns the values that
-they should take (e.g., <code><a href='https://scales.r-lib.org//reference/hue_pal.html'>scales::hue_pal()</a></code>).</p></dd>
+they should take (e.g., <code><a href='https://scales.r-lib.org/reference/hue_pal.html'>scales::hue_pal()</a></code>).</p></dd>
     <dt><code>breaks</code></dt><dd><p>One of:
 <ul>
 <li><p><code>NULL</code> for no breaks</p></li>
@@ -381,9 +381,9 @@ at integer positions).  This is what allows jittering to work.</p>
 <span class='op'>(</span><span class='va'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='va'>carat</span> <span class='op'>&gt;</span> <span class='fl'>1</span><span class='op'>)</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>cut</span>, <span class='va'>clarity</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
       <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='scale_discrete-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='va'>d</span> <span class='op'>+</span> <span class='fu'>scale_x_discrete</span><span class='op'>(</span><span class='st'>"Cut"</span><span class='op'>)</span>
+<span class='va'>d</span> <span class='op'>+</span> <span class='fu'><a href='scale_discrete.html'>scale_x_discrete</a></span><span class='op'>(</span><span class='st'>"Cut"</span><span class='op'>)</span>
 </div><div class='img'><img src='scale_discrete-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>d</span> <span class='op'>+</span>
-  <span class='fu'>scale_x_discrete</span><span class='op'>(</span>
+  <span class='fu'><a href='scale_discrete.html'>scale_x_discrete</a></span><span class='op'>(</span>
     <span class='st'>"Cut"</span>,
     labels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
       <span class='st'>"Fair"</span> <span class='op'>=</span> <span class='st'>"F"</span>,
@@ -396,7 +396,7 @@ at integer positions).  This is what allows jittering to work.</p>
 </div><div class='img'><img src='scale_discrete-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Use limits to adjust the which levels (and in what order)</span>
 <span class='co'># are displayed</span>
-<span class='va'>d</span> <span class='op'>+</span> <span class='fu'>scale_x_discrete</span><span class='op'>(</span>limits <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Fair"</span>,<span class='st'>"Ideal"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>d</span> <span class='op'>+</span> <span class='fu'><a href='scale_discrete.html'>scale_x_discrete</a></span><span class='op'>(</span>limits <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Fair"</span>,<span class='st'>"Ideal"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 11189 rows containing missing values (geom_point).</span></div><div class='img'><img src='scale_discrete-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># you can also use the short hand functions xlim and ylim</span>
 <span class='va'>d</span> <span class='op'>+</span> <span class='fu'><a href='lims.html'>xlim</a></span><span class='op'>(</span><span class='st'>"Fair"</span>,<span class='st'>"Ideal"</span>, <span class='st'>"Good"</span><span class='op'>)</span>
@@ -413,7 +413,7 @@ at integer positions).  This is what allows jittering to work.</p>
 <span class='co'># Use abbreviate as a formatter to reduce long names</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/reorder.factor.html'>reorder</a></span><span class='op'>(</span><span class='va'>manufacturer</span>, <span class='va'>displ</span><span class='op'>)</span>, <span class='va'>cty</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>scale_x_discrete</span><span class='op'>(</span>labels <span class='op'>=</span> <span class='va'>abbreviate</span><span class='op'>)</span>
+  <span class='fu'><a href='scale_discrete.html'>scale_x_discrete</a></span><span class='op'>(</span>labels <span class='op'>=</span> <span class='va'>abbreviate</span><span class='op'>)</span>
 </div><div class='img'><img src='scale_discrete-11.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 </div></pre>
   </div>

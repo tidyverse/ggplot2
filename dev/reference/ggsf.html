@@ -278,15 +278,15 @@ For text and labels, you can use geom_sf_text() and geom_sf_label()." />
 
     <div class="ref-description">
     <p>This set of geom, stat, and coord are used to visualise simple feature (sf)
-objects. For simple plots, you will only need <code>geom_sf()</code> as it
-uses <code>stat_sf()</code> and adds <code>coord_sf()</code> for you. <code>geom_sf()</code> is
+objects. For simple plots, you will only need <code><a href='ggsf.html'>geom_sf()</a></code> as it
+uses <code><a href='ggsf.html'>stat_sf()</a></code> and adds <code><a href='ggsf.html'>coord_sf()</a></code> for you. <code><a href='ggsf.html'>geom_sf()</a></code> is
 an unusual geom because it will draw different geometric objects depending
 on what simple features are present in the data: you can get points, lines,
 or polygons.
-For text and labels, you can use <code>geom_sf_text()</code> and <code>geom_sf_label()</code>.</p>
+For text and labels, you can use <code><a href='ggsf.html'>geom_sf_text()</a></code> and <code><a href='ggsf.html'>geom_sf_label()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>coord_sf</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'><a href='ggsf.html'>coord_sf</a></span><span class='op'>(</span>
   xlim <span class='op'>=</span> <span class='cn'>NULL</span>,
   ylim <span class='op'>=</span> <span class='cn'>NULL</span>,
   expand <span class='op'>=</span> <span class='cn'>TRUE</span>,
@@ -301,7 +301,7 @@ For text and labels, you can use <code>geom_sf_text()</code> and <code>geom_sf_l
   clip <span class='op'>=</span> <span class='st'>"on"</span>
 <span class='op'>)</span>
 
-<span class='fu'>geom_sf</span><span class='op'>(</span>
+<span class='fu'><a href='ggsf.html'>geom_sf</a></span><span class='op'>(</span>
   mapping <span class='op'>=</span> <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='op'>)</span>,
   data <span class='op'>=</span> <span class='cn'>NULL</span>,
   stat <span class='op'>=</span> <span class='st'>"sf"</span>,
@@ -312,7 +312,7 @@ For text and labels, you can use <code>geom_sf_text()</code> and <code>geom_sf_l
   <span class='va'>...</span>
 <span class='op'>)</span>
 
-<span class='fu'>geom_sf_label</span><span class='op'>(</span>
+<span class='fu'><a href='ggsf.html'>geom_sf_label</a></span><span class='op'>(</span>
   mapping <span class='op'>=</span> <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='op'>)</span>,
   data <span class='op'>=</span> <span class='cn'>NULL</span>,
   stat <span class='op'>=</span> <span class='st'>"sf_coordinates"</span>,
@@ -330,7 +330,7 @@ For text and labels, you can use <code>geom_sf_text()</code> and <code>geom_sf_l
   fun.geometry <span class='op'>=</span> <span class='cn'>NULL</span>
 <span class='op'>)</span>
 
-<span class='fu'>geom_sf_text</span><span class='op'>(</span>
+<span class='fu'><a href='ggsf.html'>geom_sf_text</a></span><span class='op'>(</span>
   mapping <span class='op'>=</span> <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='op'>)</span>,
   data <span class='op'>=</span> <span class='cn'>NULL</span>,
   stat <span class='op'>=</span> <span class='st'>"sf_coordinates"</span>,
@@ -346,7 +346,7 @@ For text and labels, you can use <code>geom_sf_text()</code> and <code>geom_sf_l
   fun.geometry <span class='op'>=</span> <span class='cn'>NULL</span>
 <span class='op'>)</span>
 
-<span class='fu'>stat_sf</span><span class='op'>(</span>
+<span class='fu'><a href='ggsf.html'>stat_sf</a></span><span class='op'>(</span>
   mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
   data <span class='op'>=</span> <span class='cn'>NULL</span>,
   geom <span class='op'>=</span> <span class='st'>"rect"</span>,
@@ -573,7 +573,7 @@ when you really care about the exact locations.</p></td>
       <td><p>If <code>TRUE</code>, text that overlaps previous text in the
 same layer will not be plotted. <code>check_overlap</code> happens at draw time and in
 the order of the data. Therefore data should be arranged by the label
-column before calling <code><a href='geom_label.html'>geom_label()</a></code> or <code><a href='geom_label.html'>geom_text()</a></code>.</p></td>
+column before calling <code><a href='geom_text.html'>geom_label()</a></code> or <code><a href='geom_text.html'>geom_text()</a></code>.</p></td>
     </tr>
     <tr>
       <th>geom</th>
@@ -585,10 +585,10 @@ column before calling <code><a href='geom_label.html'>geom_label()</a></code> or
 
     
 
-<p><code>geom_sf()</code> uses a unique aesthetic: <code>geometry</code>, giving an
+<p><code><a href='ggsf.html'>geom_sf()</a></code> uses a unique aesthetic: <code>geometry</code>, giving an
 column of class <code>sfc</code> containing simple features data. There
 are three ways to supply the <code>geometry</code> aesthetic:</p><ul>
-<li><p>Do nothing: by default <code>geom_sf()</code> assumes it is stored in
+<li><p>Do nothing: by default <code><a href='ggsf.html'>geom_sf()</a></code> assumes it is stored in
 the <code>geometry</code> column.</p></li>
 <li><p>Explicitly pass an <code>sf</code> object to the <code>data</code> argument.
 This will use the primary geometry column, no matter what it's called.</p></li>
@@ -601,15 +601,15 @@ the plot.</p>
 
     
 
-<p><code>coord_sf()</code> ensures that all layers use a common CRS. You can
-either specify it using the <code>CRS</code> param, or <code>coord_sf()</code> will
+<p><code><a href='ggsf.html'>coord_sf()</a></code> ensures that all layers use a common CRS. You can
+either specify it using the <code>CRS</code> param, or <code><a href='ggsf.html'>coord_sf()</a></code> will
 take it from the first layer that defines a CRS.</p>
     <h2 class="hasAnchor" id="combining-sf-layers-and-regular-geoms"><a class="anchor" href="#combining-sf-layers-and-regular-geoms"></a>Combining sf layers and regular geoms</h2>
 
     
 
 <p>Most regular geoms, such as <code><a href='geom_point.html'>geom_point()</a></code>, <code><a href='geom_path.html'>geom_path()</a></code>,
-<code><a href='geom_label.html'>geom_text()</a></code>, <code><a href='geom_polygon.html'>geom_polygon()</a></code> etc. will work fine with <code>coord_sf()</code>. However
+<code><a href='geom_text.html'>geom_text()</a></code>, <code><a href='geom_polygon.html'>geom_polygon()</a></code> etc. will work fine with <code><a href='ggsf.html'>coord_sf()</a></code>. However
 when using these geoms, two problems arise. First, what CRS should be used
 for the x and y coordinates used by these non-sf geoms? The CRS applied to
 non-sf geoms is set by the <code>default_crs</code> parameter, and it defaults to
@@ -620,7 +620,7 @@ if you set <code>default_crs = NULL</code>, then positions for non-sf geoms are
 interpreted as projected coordinates. This setting allows you complete control
 over where exactly items are placed on the plot canvas.</p>
 <p>The second problem that arises for non-sf geoms is how straight lines
-should be interpreted in projected space. The approach <code>coord_sf()</code> takes is
+should be interpreted in projected space. The approach <code><a href='ggsf.html'>coord_sf()</a></code> takes is
 to break straight lines into small pieces (i.e., segmentize them) and
 then transform the pieces into projected coordinates. For the default setting
 where x and y are interpreted as longitude and latitude, this approach means
@@ -636,45 +636,45 @@ in projected coordinates.</p>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"sf"</span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='va'>nc</span> <span class='op'>&lt;-</span> <span class='fu'>sf</span><span class='fu'>::</span><span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_read.html'>st_read</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"shape/nc.shp"</span>, package <span class='op'>=</span> <span class='st'>"sf"</span><span class='op'>)</span>, quiet <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>nc</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_sf</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>AREA</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='fu'><a href='ggsf.html'>geom_sf</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>AREA</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># If not supplied, coord_sf() will take the CRS from the first layer</span>
 <span class='co'># and automatically transform all other layers to use that CRS. This</span>
 <span class='co'># ensures that all data will correctly line up</span>
 <span class='va'>nc_3857</span> <span class='op'>&lt;-</span> <span class='fu'>sf</span><span class='fu'>::</span><span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_transform.html'>st_transform</a></span><span class='op'>(</span><span class='va'>nc</span>, <span class='fl'>3857</span><span class='op'>)</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_sf</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>nc</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_sf</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>nc_3857</span>, colour <span class='op'>=</span> <span class='st'>"red"</span>, fill <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span>
+  <span class='fu'><a href='ggsf.html'>geom_sf</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>nc</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='ggsf.html'>geom_sf</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>nc_3857</span>, colour <span class='op'>=</span> <span class='st'>"red"</span>, fill <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span>
 
 <span class='co'># Unfortunately if you plot other types of feature you'll need to use</span>
 <span class='co'># show.legend to tell ggplot2 what type of legend to use</span>
 <span class='va'>nc_3857</span><span class='op'>$</span><span class='va'>mid</span> <span class='op'>&lt;-</span> <span class='fu'>sf</span><span class='fu'>::</span><span class='fu'><a href='https://r-spatial.github.io/sf/reference/geos_unary.html'>st_centroid</a></span><span class='op'>(</span><span class='va'>nc_3857</span><span class='op'>$</span><span class='va'>geometry</span><span class='op'>)</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>nc_3857</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_sf</span><span class='op'>(</span>colour <span class='op'>=</span> <span class='st'>"white"</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_sf</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>geometry <span class='op'>=</span> <span class='va'>mid</span>, size <span class='op'>=</span> <span class='va'>AREA</span><span class='op'>)</span>, show.legend <span class='op'>=</span> <span class='st'>"point"</span><span class='op'>)</span>
+  <span class='fu'><a href='ggsf.html'>geom_sf</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='st'>"white"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='ggsf.html'>geom_sf</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>geometry <span class='op'>=</span> <span class='va'>mid</span>, size <span class='op'>=</span> <span class='va'>AREA</span><span class='op'>)</span>, show.legend <span class='op'>=</span> <span class='st'>"point"</span><span class='op'>)</span>
 
 <span class='co'># You can also use layers with x and y aesthetics: these are</span>
 <span class='co'># assumed to already be in the common CRS.</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>nc</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_sf</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='ggsf.html'>geom_sf</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'><a href='annotate.html'>annotate</a></span><span class='op'>(</span><span class='st'>"point"</span>, x <span class='op'>=</span> <span class='op'>-</span><span class='fl'>80</span>, y <span class='op'>=</span> <span class='fl'>35</span>, colour <span class='op'>=</span> <span class='st'>"red"</span>, size <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span>
 
 <span class='co'># Thanks to the power of sf, a geom_sf nicely handles varying projections</span>
 <span class='co'># setting the aspect ratio correctly.</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>maps</span><span class='op'>)</span>
 <span class='va'>world1</span> <span class='op'>&lt;-</span> <span class='fu'>sf</span><span class='fu'>::</span><span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_as_sf.html'>st_as_sf</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/maps/man/map.html'>map</a></span><span class='op'>(</span><span class='st'>'world'</span>, plot <span class='op'>=</span> <span class='cn'>FALSE</span>, fill <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>geom_sf</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>world1</span><span class='op'>)</span>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='ggsf.html'>geom_sf</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>world1</span><span class='op'>)</span>
 
 <span class='va'>world2</span> <span class='op'>&lt;-</span> <span class='fu'>sf</span><span class='fu'>::</span><span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_transform.html'>st_transform</a></span><span class='op'>(</span>
   <span class='va'>world1</span>,
   <span class='st'>"+proj=laea +y_0=0 +lon_0=155 +lat_0=-90 +ellps=WGS84 +no_defs"</span>
 <span class='op'>)</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>geom_sf</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>world2</span><span class='op'>)</span>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='ggsf.html'>geom_sf</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>world2</span><span class='op'>)</span>
 
 <span class='co'># To add labels, use geom_sf_label().</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>nc_3857</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, <span class='op'>]</span><span class='op'>)</span> <span class='op'>+</span>
-   <span class='fu'>geom_sf</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>AREA</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-   <span class='fu'>geom_sf_label</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>label <span class='op'>=</span> <span class='va'>NAME</span><span class='op'>)</span><span class='op'>)</span>
+   <span class='fu'><a href='ggsf.html'>geom_sf</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>AREA</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+   <span class='fu'><a href='ggsf.html'>geom_sf_label</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>label <span class='op'>=</span> <span class='va'>NAME</span><span class='op'>)</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div><div class='img'><img src='ggsf-1.png' alt='' width='700' height='433' /></div></pre>
   </div>

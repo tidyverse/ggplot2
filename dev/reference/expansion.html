@@ -276,7 +276,7 @@ add some space between the data and the axes." />
     <div class="ref-description">
     <p>This is a convenience function for generating scale expansion vectors
 for the <code>expand</code> argument of <a href='scale_continuous.html'>scale_(x|y)_continuous</a>
-and <a href='scale_x_discrete.html'>scale_(x|y)_discrete</a>. The expansion vectors are used to
+and <a href='scale_discrete.html'>scale_(x|y)_discrete</a>. The expansion vectors are used to
 add some space between the data and the axes.</p>
     </div>
 
@@ -314,13 +314,13 @@ limit by <code>add[2]</code>.</p></td>
 <span class='co'># Add 2 units of space on the left and right of the data</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='va'>carat</span> <span class='op'>&gt;</span> <span class='fl'>2</span><span class='op'>)</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>cut</span>, <span class='va'>clarity</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='scale_x_discrete.html'>scale_x_discrete</a></span><span class='op'>(</span>expand <span class='op'>=</span> <span class='fu'>expansion</span><span class='op'>(</span>add <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='fu'><a href='scale_discrete.html'>scale_x_discrete</a></span><span class='op'>(</span>expand <span class='op'>=</span> <span class='fu'>expansion</span><span class='op'>(</span>add <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='expansion-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Reproduce the default range expansion used</span>
 <span class='co'># when the 'expand' argument is not specified</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='va'>carat</span> <span class='op'>&gt;</span> <span class='fl'>2</span><span class='op'>)</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>cut</span>, <span class='va'>price</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='scale_x_discrete.html'>scale_x_discrete</a></span><span class='op'>(</span>expand <span class='op'>=</span> <span class='fu'>expansion</span><span class='op'>(</span>add <span class='op'>=</span> <span class='fl'>.6</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='scale_discrete.html'>scale_x_discrete</a></span><span class='op'>(</span>expand <span class='op'>=</span> <span class='fu'>expansion</span><span class='op'>(</span>add <span class='op'>=</span> <span class='fl'>.6</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'><a href='scale_continuous.html'>scale_y_continuous</a></span><span class='op'>(</span>expand <span class='op'>=</span> <span class='fu'>expansion</span><span class='op'>(</span>mult <span class='op'>=</span> <span class='fl'>.05</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='expansion-3.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>

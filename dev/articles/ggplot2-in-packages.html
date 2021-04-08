@@ -356,9 +356,9 @@
 <span class="va">theme_custom</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">...</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu"><a href="../reference/ggtheme.html">theme_grey</a></span><span class="op">(</span><span class="va">...</span><span class="op">)</span> <span class="op">%+replace%</span> 
     <span class="fu"><a href="../reference/theme.html">theme</a></span><span class="op">(</span>
-      panel.border <span class="op">=</span> <span class="fu"><a href="../reference/margin.html">element_rect</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">1</span>, fill <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>,
-      panel.background <span class="op">=</span> <span class="fu"><a href="../reference/margin.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,
-      panel.grid <span class="op">=</span> <span class="fu"><a href="../reference/margin.html">element_line</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"grey80"</span><span class="op">)</span>
+      panel.border <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_rect</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">1</span>, fill <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>,
+      panel.background <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,
+      panel.grid <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_line</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"grey80"</span><span class="op">)</span>
     <span class="op">)</span>
 <span class="op">}</span>
 
@@ -392,7 +392,7 @@
   <span class="va">`%+replace%`</span> <span class="op">&lt;-</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="va">`%+replace%`</span>
   
   <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="../reference/ggtheme.html">theme_grey</a></span><span class="op">(</span><span class="va">...</span><span class="op">)</span> <span class="op">%+replace%</span> 
-    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="../reference/theme.html">theme</a></span><span class="op">(</span>panel.background <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="../reference/margin.html">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
+    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="../reference/theme.html">theme</a></span><span class="op">(</span>panel.background <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="../reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <p>Generally, if you add a method for a ggplot2 generic like <code><a href="../reference/autoplot.html">autoplot()</a></code>, ggplot2 should be in <code>Imports</code>. If for some reason you would like to keep ggplot2 in <code>Suggests</code>, it is possible to register your generics only if ggplot2 is installed using <code><a href="https://vctrs.r-lib.org/reference/s3_register.html" class="external-link">vctrs::s3_register()</a></code>. If you do this, you should copy and paste the source of <code><a href="https://vctrs.r-lib.org/reference/s3_register.html" class="external-link">vctrs::s3_register()</a></code> into your own package to avoid adding a <a href="https://vctrs.r-lib.org/" class="external-link">vctrs</a> dependency.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">

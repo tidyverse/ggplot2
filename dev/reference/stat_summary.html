@@ -274,13 +274,13 @@ aggregate." />
     </div>
 
     <div class="ref-description">
-    <p><code>stat_summary()</code> operates on unique <code>x</code> or <code>y</code>; <code>stat_summary_bin()</code>
+    <p><code><a href='stat_summary.html'>stat_summary()</a></code> operates on unique <code>x</code> or <code>y</code>; <code><a href='stat_summary.html'>stat_summary_bin()</a></code>
 operates on binned <code>x</code> or <code>y</code>. They are more flexible versions of
-<code><a href='geom_freqpoly.html'>stat_bin()</a></code>: instead of just counting, they can compute any
+<code><a href='geom_histogram.html'>stat_bin()</a></code>: instead of just counting, they can compute any
 aggregate.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>stat_summary_bin</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'><a href='stat_summary.html'>stat_summary_bin</a></span><span class='op'>(</span>
   mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
   data <span class='op'>=</span> <span class='cn'>NULL</span>,
   geom <span class='op'>=</span> <span class='st'>"pointrange"</span>,
@@ -303,7 +303,7 @@ aggregate.</p>
   <span class='va'>fun.ymax</span>
 <span class='op'>)</span>
 
-<span class='fu'>stat_summary</span><span class='op'>(</span>
+<span class='fu'><a href='stat_summary.html'>stat_summary</a></span><span class='op'>(</span>
   mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
   data <span class='op'>=</span> <span class='cn'>NULL</span>,
   geom <span class='op'>=</span> <span class='st'>"pointrange"</span>,
@@ -350,7 +350,7 @@ from a <code>formula</code> (e.g. <code>~ head(.x, 10)</code>).</p></td>
     <tr>
       <th>geom</th>
       <td><p>Use to override the default connection between
-<code><a href='geom_freqpoly.html'>geom_histogram()</a></code>/<code><a href='geom_freqpoly.html'>geom_freqpoly()</a></code> and <code><a href='geom_freqpoly.html'>stat_bin()</a></code>.</p></td>
+<code><a href='geom_histogram.html'>geom_histogram()</a></code>/<code><a href='geom_histogram.html'>geom_freqpoly()</a></code> and <code><a href='geom_histogram.html'>stat_bin()</a></code>.</p></td>
     </tr>
     <tr>
       <th>position</th>
@@ -446,7 +446,7 @@ instead.</p></td>
 
     
 
-<p><code>stat_summary()</code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
+<p><code><a href='stat_summary.html'>stat_summary()</a></code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
 <li><p><strong><code>x</code></strong></p></li>
 <li><p><strong><code>y</code></strong></p></li>
 <li><p><code>group</code></p></li>
@@ -480,40 +480,40 @@ y-axis.</p>
 <code><a href='mean_se.html'>mean_se()</a></code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='geom_crossbar.html'>geom_errorbar()</a></code>, <code><a href='geom_crossbar.html'>geom_pointrange()</a></code>,
-<code><a href='geom_crossbar.html'>geom_linerange()</a></code>, <code><a href='geom_crossbar.html'>geom_crossbar()</a></code> for geoms to
+    <div class='dont-index'><p><code><a href='geom_linerange.html'>geom_errorbar()</a></code>, <code><a href='geom_linerange.html'>geom_pointrange()</a></code>,
+<code><a href='geom_linerange.html'>geom_linerange()</a></code>, <code><a href='geom_linerange.html'>geom_crossbar()</a></code> for geoms to
 display summarised data</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>cyl</span>, <span class='va'>mpg</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='va'>d</span> <span class='op'>+</span> <span class='fu'>stat_summary</span><span class='op'>(</span>fun.data <span class='op'>=</span> <span class='st'>"mean_cl_boot"</span>, colour <span class='op'>=</span> <span class='st'>"red"</span>, size <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+<span class='va'>d</span> <span class='op'>+</span> <span class='fu'><a href='stat_summary.html'>stat_summary</a></span><span class='op'>(</span>fun.data <span class='op'>=</span> <span class='st'>"mean_cl_boot"</span>, colour <span class='op'>=</span> <span class='st'>"red"</span>, size <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
 </div><div class='img'><img src='stat_summary-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Orientation follows the discrete axis</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>stat_summary</span><span class='op'>(</span>fun.data <span class='op'>=</span> <span class='st'>"mean_cl_boot"</span>, colour <span class='op'>=</span> <span class='st'>"red"</span>, size <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+  <span class='fu'><a href='stat_summary.html'>stat_summary</a></span><span class='op'>(</span>fun.data <span class='op'>=</span> <span class='st'>"mean_cl_boot"</span>, colour <span class='op'>=</span> <span class='st'>"red"</span>, size <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
 </div><div class='img'><img src='stat_summary-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can supply individual functions to summarise the value at</span>
 <span class='co'># each x:</span>
-<span class='va'>d</span> <span class='op'>+</span> <span class='fu'>stat_summary</span><span class='op'>(</span>fun <span class='op'>=</span> <span class='st'>"median"</span>, colour <span class='op'>=</span> <span class='st'>"red"</span>, size <span class='op'>=</span> <span class='fl'>2</span>, geom <span class='op'>=</span> <span class='st'>"point"</span><span class='op'>)</span>
-</div><div class='img'><img src='stat_summary-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'>stat_summary</span><span class='op'>(</span>fun <span class='op'>=</span> <span class='st'>"mean"</span>, colour <span class='op'>=</span> <span class='st'>"red"</span>, size <span class='op'>=</span> <span class='fl'>2</span>, geom <span class='op'>=</span> <span class='st'>"point"</span><span class='op'>)</span>
-</div><div class='img'><img src='stat_summary-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>vs</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>stat_summary</span><span class='op'>(</span>fun <span class='op'>=</span> <span class='va'>mean</span>, geom<span class='op'>=</span><span class='st'>"line"</span><span class='op'>)</span>
+<span class='va'>d</span> <span class='op'>+</span> <span class='fu'><a href='stat_summary.html'>stat_summary</a></span><span class='op'>(</span>fun <span class='op'>=</span> <span class='st'>"median"</span>, colour <span class='op'>=</span> <span class='st'>"red"</span>, size <span class='op'>=</span> <span class='fl'>2</span>, geom <span class='op'>=</span> <span class='st'>"point"</span><span class='op'>)</span>
+</div><div class='img'><img src='stat_summary-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'><a href='stat_summary.html'>stat_summary</a></span><span class='op'>(</span>fun <span class='op'>=</span> <span class='st'>"mean"</span>, colour <span class='op'>=</span> <span class='st'>"red"</span>, size <span class='op'>=</span> <span class='fl'>2</span>, geom <span class='op'>=</span> <span class='st'>"point"</span><span class='op'>)</span>
+</div><div class='img'><img src='stat_summary-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>vs</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='stat_summary.html'>stat_summary</a></span><span class='op'>(</span>fun <span class='op'>=</span> <span class='va'>mean</span>, geom<span class='op'>=</span><span class='st'>"line"</span><span class='op'>)</span>
 </div><div class='img'><img src='stat_summary-5.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='va'>d</span> <span class='op'>+</span> <span class='fu'>stat_summary</span><span class='op'>(</span>fun <span class='op'>=</span> <span class='va'>mean</span>, fun.min <span class='op'>=</span> <span class='va'>min</span>, fun.max <span class='op'>=</span> <span class='va'>max</span>, colour <span class='op'>=</span> <span class='st'>"red"</span><span class='op'>)</span>
+<span class='va'>d</span> <span class='op'>+</span> <span class='fu'><a href='stat_summary.html'>stat_summary</a></span><span class='op'>(</span>fun <span class='op'>=</span> <span class='va'>mean</span>, fun.min <span class='op'>=</span> <span class='va'>min</span>, fun.max <span class='op'>=</span> <span class='va'>max</span>, colour <span class='op'>=</span> <span class='st'>"red"</span><span class='op'>)</span>
 </div><div class='img'><img src='stat_summary-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='va'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>cut</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>d</span> <span class='op'>+</span> <span class='fu'><a href='geom_bar.html'>geom_bar</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='img'><img src='stat_summary-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'>stat_summary</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>price</span><span class='op'>)</span>, fun <span class='op'>=</span> <span class='st'>"mean"</span>, geom <span class='op'>=</span> <span class='st'>"bar"</span><span class='op'>)</span>
+</div><div class='img'><img src='stat_summary-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'><a href='stat_summary.html'>stat_summary</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>price</span><span class='op'>)</span>, fun <span class='op'>=</span> <span class='st'>"mean"</span>, geom <span class='op'>=</span> <span class='st'>"bar"</span><span class='op'>)</span>
 </div><div class='img'><img src='stat_summary-8.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Orientation of stat_summary_bin is ambiguous and must be specified directly</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>carat</span>, <span class='va'>price</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>stat_summary_bin</span><span class='op'>(</span>fun <span class='op'>=</span> <span class='st'>"mean"</span>, geom <span class='op'>=</span> <span class='st'>"bar"</span>, orientation <span class='op'>=</span> <span class='st'>'y'</span><span class='op'>)</span>
+  <span class='fu'><a href='stat_summary.html'>stat_summary_bin</a></span><span class='op'>(</span>fun <span class='op'>=</span> <span class='st'>"mean"</span>, geom <span class='op'>=</span> <span class='st'>"bar"</span>, orientation <span class='op'>=</span> <span class='st'>'y'</span><span class='op'>)</span>
 </div><div class='img'><img src='stat_summary-9.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># \donttest{</span>
 <span class='co'># Don't use ylim to zoom into a summary plot - this throws the</span>
 <span class='co'># data away</span>
 <span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>cyl</span>, <span class='va'>mpg</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>stat_summary</span><span class='op'>(</span>fun <span class='op'>=</span> <span class='st'>"mean"</span>, geom <span class='op'>=</span> <span class='st'>"point"</span><span class='op'>)</span>
+  <span class='fu'><a href='stat_summary.html'>stat_summary</a></span><span class='op'>(</span>fun <span class='op'>=</span> <span class='st'>"mean"</span>, geom <span class='op'>=</span> <span class='st'>"point"</span><span class='op'>)</span>
 <span class='va'>p</span>
 </div><div class='img'><img src='stat_summary-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='lims.html'>ylim</a></span><span class='op'>(</span><span class='fl'>15</span>, <span class='fl'>30</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 9 rows containing non-finite values (stat_summary).</span></div><div class='img'><img src='stat_summary-11.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Instead use coord_cartesian</span>
@@ -521,7 +521,7 @@ display summarised data</p></div>
 </div><div class='img'><img src='stat_summary-12.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># A set of useful summary functions is provided from the Hmisc package:</span>
 <span class='va'>stat_sum_df</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>fun</span>, <span class='va'>geom</span><span class='op'>=</span><span class='st'>"crossbar"</span>, <span class='va'>...</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='fu'>stat_summary</span><span class='op'>(</span>fun.data <span class='op'>=</span> <span class='va'>fun</span>, colour <span class='op'>=</span> <span class='st'>"red"</span>, geom <span class='op'>=</span> <span class='va'>geom</span>, width <span class='op'>=</span> <span class='fl'>0.2</span>, <span class='va'>...</span><span class='op'>)</span>
+  <span class='fu'><a href='stat_summary.html'>stat_summary</a></span><span class='op'>(</span>fun.data <span class='op'>=</span> <span class='va'>fun</span>, colour <span class='op'>=</span> <span class='st'>"red"</span>, geom <span class='op'>=</span> <span class='va'>geom</span>, width <span class='op'>=</span> <span class='fl'>0.2</span>, <span class='va'>...</span><span class='op'>)</span>
 <span class='op'>}</span>
 <span class='va'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>cyl</span>, <span class='va'>mpg</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='co'># The crossbar geom needs grouping to be specified when used with</span>
@@ -540,7 +540,7 @@ display summarised data</p></div>
    <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span>
  <span class='va'>m2</span> <span class='op'>&lt;-</span>
    <span class='va'>m2</span> <span class='op'>+</span>
-   <span class='fu'>stat_summary</span><span class='op'>(</span>
+   <span class='fu'><a href='stat_summary.html'>stat_summary</a></span><span class='op'>(</span>
      fun.data <span class='op'>=</span> <span class='st'>"mean_cl_boot"</span>,
      geom <span class='op'>=</span> <span class='st'>"crossbar"</span>,
      colour <span class='op'>=</span> <span class='st'>"red"</span>, width <span class='op'>=</span> <span class='fl'>0.3</span>

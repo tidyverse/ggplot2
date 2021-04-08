@@ -335,7 +335,7 @@ specified in <code><a href='labs.html'>labs()</a></code> is used for the title.<
 title. One of "top" (default for a vertical guide), "bottom", "left"
 (default for a horizontal guide), or "right."</p></dd>
     <dt><code>title.theme</code></dt><dd><p>A theme object for rendering the title text. Usually the
-object of <code><a href='margin.html'>element_text()</a></code> is expected. By default, the theme is
+object of <code><a href='element.html'>element_text()</a></code> is expected. By default, the theme is
 specified by <code>legend.title</code> in <code><a href='theme.html'>theme()</a></code> or theme.</p></dd>
     <dt><code>title.hjust</code></dt><dd><p>A number specifying horizontal justification of the
 title text.</p></dd>
@@ -347,7 +347,7 @@ text.</p></dd>
 label. One of "top", "bottom" (default for horizontal guide), "left", or
 "right" (default for vertical guide).</p></dd>
     <dt><code>label.theme</code></dt><dd><p>A theme object for rendering the label text. Usually the
-object of <code><a href='margin.html'>element_text()</a></code> is expected. By default, the theme is
+object of <code><a href='element.html'>element_text()</a></code> is expected. By default, the theme is
 specified by <code>legend.text</code> in <code><a href='theme.html'>theme()</a></code>.</p></dd>
     <dt><code>label.hjust</code></dt><dd><p>A numeric specifying horizontal justification of the
 label text.</p></dd>
@@ -391,7 +391,7 @@ may be needed.</p>
     <pre class="examples"><div class='input'><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid</a></span><span class='op'>(</span>X1 <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, X2 <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span>
 <span class='va'>df</span><span class='op'>$</span><span class='va'>value</span> <span class='op'>&lt;-</span> <span class='va'>df</span><span class='op'>$</span><span class='va'>X1</span> <span class='op'>*</span> <span class='va'>df</span><span class='op'>$</span><span class='va'>X2</span>
 
-<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>X1</span>, <span class='va'>X2</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_raster.html'>geom_tile</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>value</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>X1</span>, <span class='va'>X2</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_tile.html'>geom_tile</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>value</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># Coloursteps guide is the default for binned colour scales</span>
 <span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_binned</a></span><span class='op'>(</span><span class='op'>)</span>

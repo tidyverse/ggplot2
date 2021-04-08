@@ -461,13 +461,13 @@ bars and then standardising each bar to have the same height.</p>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='geom_freqpoly.html'>geom_histogram()</a></code> for continuous data,
+    <div class='dont-index'><p><code><a href='geom_histogram.html'>geom_histogram()</a></code> for continuous data,
 <code><a href='position_dodge.html'>position_dodge()</a></code> and <code><a href='position_dodge.html'>position_dodge2()</a></code> for creating side-by-side
 bar charts.</p>
-<p><code><a href='geom_freqpoly.html'>stat_bin()</a></code>, which bins data in ranges and counts the
+<p><code><a href='geom_histogram.html'>stat_bin()</a></code>, which bins data in ranges and counts the
 cases in each range. It differs from <code>stat_count()</code>, which counts the
 number of cases at each <code>x</code> position (without binning into ranges).
-<code><a href='geom_freqpoly.html'>stat_bin()</a></code> requires continuous <code>x</code> data, whereas
+<code><a href='geom_histogram.html'>stat_bin()</a></code> requires continuous <code>x</code> data, whereas
 <code>stat_count()</code> can be used for both discrete and continuous <code>x</code> data.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -506,7 +506,7 @@ number of cases at each <code>x</code> position (without binning into ranges).
 <span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2.9</span>, <span class='fl'>3.1</span>, <span class='fl'>4.5</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>, <span class='fl'>10</span>, <span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>geom_bar</span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_bar-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># cf. a histogram of the same data</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_freqpoly.html'>geom_histogram</a></span><span class='op'>(</span>binwidth <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_histogram.html'>geom_histogram</a></span><span class='op'>(</span>binwidth <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_bar-9.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

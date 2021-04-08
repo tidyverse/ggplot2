@@ -371,11 +371,11 @@ features in the data correspond to:</p><ul>
 or <code>y</code> aesthetic is understood. If <code>TRUE</code> then the exisiting aesthetic
 would be then secondary axis. This behaviour is present in <code><a href='geom_violin.html'>stat_ydensity()</a></code>
 and <code><a href='geom_boxplot.html'>stat_boxplot()</a></code>. If <code>FALSE</code> then the exisiting aesthetic is the main
-axis as seen in e.g. <code><a href='geom_freqpoly.html'>stat_bin()</a></code>, <code><a href='geom_count.html'>geom_count()</a></code>, and <code><a href='geom_density.html'>stat_density()</a></code>.</p></li>
+axis as seen in e.g. <code><a href='geom_histogram.html'>stat_bin()</a></code>, <code><a href='geom_count.html'>geom_count()</a></code>, and <code><a href='geom_density.html'>stat_density()</a></code>.</p></li>
 <li><p><code>range_is_orthogonal</code>: This argument controls whether the existance of
 range-like aesthetics (e.g. <code>xmin</code> and <code>xmax</code>) represents the main or
 secondary axis. If <code>TRUE</code> then the range is given for the secondary axis as
-seen in e.g. <code><a href='geom_ribbon.html'>geom_ribbon()</a></code> and <code><a href='geom_crossbar.html'>geom_linerange()</a></code>.</p></li>
+seen in e.g. <code><a href='geom_ribbon.html'>geom_ribbon()</a></code> and <code><a href='geom_linerange.html'>geom_linerange()</a></code>.</p></li>
 <li><p><code>group_has_equal</code>: This argument controls whether to test for equality of
 all <code>x</code> and <code>y</code> values inside each group and set the main axis to the one
 where all is equal. This test is only performed if <code>TRUE</code>, and only after
@@ -390,7 +390,7 @@ data based guessing and only take hint from the <code>orientation</code> element
 in the scales should be interpreted. If <code>TRUE</code> then the main axis will be
 the one which is not discrete-like. Conversely, if <code>FALSE</code> the main axis
 will be the discrete-like one. Examples of <code>TRUE</code> is <code><a href='geom_density.html'>stat_density()</a></code> and
-<code><a href='geom_freqpoly.html'>stat_bin()</a></code>, while examples of <code>FALSE</code> is <code><a href='geom_violin.html'>stat_ydensity()</a></code> and
+<code><a href='geom_histogram.html'>stat_bin()</a></code>, while examples of <code>FALSE</code> is <code><a href='geom_violin.html'>stat_ydensity()</a></code> and
 <code><a href='geom_boxplot.html'>stat_boxplot()</a></code></p></li>
 <li><p><code>main_is_optional</code>: This argument controls the rare case of layers were the
 main direction is an optional aesthetic. This is only seen in

@@ -276,7 +276,7 @@ It does not generate colour-blind safe palettes." />
 It does not generate colour-blind safe palettes.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>scale_colour_hue</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'><a href='scale_hue.html'>scale_colour_hue</a></span><span class='op'>(</span>
   <span class='va'>...</span>,
   h <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>360</span><span class='op'>)</span> <span class='op'>+</span> <span class='fl'>15</span>,
   c <span class='op'>=</span> <span class='fl'>100</span>,
@@ -287,7 +287,7 @@ It does not generate colour-blind safe palettes.</p>
   aesthetics <span class='op'>=</span> <span class='st'>"colour"</span>
 <span class='op'>)</span>
 
-<span class='fu'>scale_fill_hue</span><span class='op'>(</span>
+<span class='fu'><a href='scale_hue.html'>scale_fill_hue</a></span><span class='op'>(</span>
   <span class='va'>...</span>,
   h <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>360</span><span class='op'>)</span> <span class='op'>+</span> <span class='fl'>15</span>,
   c <span class='op'>=</span> <span class='fl'>100</span>,
@@ -306,7 +306,7 @@ It does not generate colour-blind safe palettes.</p>
       <td><p>Arguments passed on to <code><a href='discrete_scale.html'>discrete_scale</a></code></p><dl>
     <dt><code>palette</code></dt><dd><p>A palette function that when called with a single integer
 argument (the number of levels in the scale) returns the values that
-they should take (e.g., <code><a href='https://scales.r-lib.org//reference/hue_pal.html'>scales::hue_pal()</a></code>).</p></dd>
+they should take (e.g., <code><a href='https://scales.r-lib.org/reference/hue_pal.html'>scales::hue_pal()</a></code>).</p></dd>
     <dt><code>breaks</code></dt><dd><p>One of:
 <ul>
 <li><p><code>NULL</code> for no breaks</p></li>
@@ -397,11 +397,11 @@ same time, via <code>aesthetics = c("colour", "fill")</code>.</p></td>
 
     <div class='dont-index'><p>Other colour scales: 
 <code><a href='scale_alpha.html'>scale_alpha</a>()</code>,
-<code><a href='scale_colour_brewer.html'>scale_colour_brewer</a>()</code>,
-<code><a href='scale_colour_gradient.html'>scale_colour_gradient</a>()</code>,
-<code><a href='scale_colour_grey.html'>scale_colour_grey</a>()</code>,
-<code><a href='scale_colour_steps.html'>scale_colour_steps</a>()</code>,
-<code><a href='scale_colour_viridis_d.html'>scale_colour_viridis_d</a>()</code></p></div>
+<code><a href='scale_brewer.html'>scale_colour_brewer</a>()</code>,
+<code><a href='scale_gradient.html'>scale_colour_gradient</a>()</code>,
+<code><a href='scale_grey.html'>scale_colour_grey</a>()</code>,
+<code><a href='scale_steps.html'>scale_colour_steps</a>()</code>,
+<code><a href='scale_viridis.html'>scale_colour_viridis_d</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
@@ -409,21 +409,21 @@ same time, via <code>aesthetics = c("colour", "fill")</code>.</p></td>
 <span class='op'>(</span><span class='va'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>dsamp</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>carat</span>, <span class='va'>price</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='va'>clarity</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='scale_hue-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Change scale label</span>
-<span class='va'>d</span> <span class='op'>+</span> <span class='fu'>scale_colour_hue</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='img'><img src='scale_hue-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'>scale_colour_hue</span><span class='op'>(</span><span class='st'>"clarity"</span><span class='op'>)</span>
-</div><div class='img'><img src='scale_hue-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'>scale_colour_hue</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='va'>clarity</span><span class='op'>[</span><span class='va'>beta</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>d</span> <span class='op'>+</span> <span class='fu'><a href='scale_hue.html'>scale_colour_hue</a></span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='scale_hue-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'><a href='scale_hue.html'>scale_colour_hue</a></span><span class='op'>(</span><span class='st'>"clarity"</span><span class='op'>)</span>
+</div><div class='img'><img src='scale_hue-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'><a href='scale_hue.html'>scale_colour_hue</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='va'>clarity</span><span class='op'>[</span><span class='va'>beta</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='scale_hue-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Adjust luminosity and chroma</span>
-<span class='va'>d</span> <span class='op'>+</span> <span class='fu'>scale_colour_hue</span><span class='op'>(</span>l <span class='op'>=</span> <span class='fl'>40</span>, c <span class='op'>=</span> <span class='fl'>30</span><span class='op'>)</span>
-</div><div class='img'><img src='scale_hue-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'>scale_colour_hue</span><span class='op'>(</span>l <span class='op'>=</span> <span class='fl'>70</span>, c <span class='op'>=</span> <span class='fl'>30</span><span class='op'>)</span>
-</div><div class='img'><img src='scale_hue-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'>scale_colour_hue</span><span class='op'>(</span>l <span class='op'>=</span> <span class='fl'>70</span>, c <span class='op'>=</span> <span class='fl'>150</span><span class='op'>)</span>
-</div><div class='img'><img src='scale_hue-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'>scale_colour_hue</span><span class='op'>(</span>l <span class='op'>=</span> <span class='fl'>80</span>, c <span class='op'>=</span> <span class='fl'>150</span><span class='op'>)</span>
+<span class='va'>d</span> <span class='op'>+</span> <span class='fu'><a href='scale_hue.html'>scale_colour_hue</a></span><span class='op'>(</span>l <span class='op'>=</span> <span class='fl'>40</span>, c <span class='op'>=</span> <span class='fl'>30</span><span class='op'>)</span>
+</div><div class='img'><img src='scale_hue-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'><a href='scale_hue.html'>scale_colour_hue</a></span><span class='op'>(</span>l <span class='op'>=</span> <span class='fl'>70</span>, c <span class='op'>=</span> <span class='fl'>30</span><span class='op'>)</span>
+</div><div class='img'><img src='scale_hue-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'><a href='scale_hue.html'>scale_colour_hue</a></span><span class='op'>(</span>l <span class='op'>=</span> <span class='fl'>70</span>, c <span class='op'>=</span> <span class='fl'>150</span><span class='op'>)</span>
+</div><div class='img'><img src='scale_hue-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'><a href='scale_hue.html'>scale_colour_hue</a></span><span class='op'>(</span>l <span class='op'>=</span> <span class='fl'>80</span>, c <span class='op'>=</span> <span class='fl'>150</span><span class='op'>)</span>
 </div><div class='img'><img src='scale_hue-8.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Change range of hues used</span>
-<span class='va'>d</span> <span class='op'>+</span> <span class='fu'>scale_colour_hue</span><span class='op'>(</span>h <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>90</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='scale_hue-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'>scale_colour_hue</span><span class='op'>(</span>h <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>90</span>, <span class='fl'>180</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='scale_hue-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'>scale_colour_hue</span><span class='op'>(</span>h <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>180</span>, <span class='fl'>270</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='scale_hue-11.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'>scale_colour_hue</span><span class='op'>(</span>h <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>270</span>, <span class='fl'>360</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>d</span> <span class='op'>+</span> <span class='fu'><a href='scale_hue.html'>scale_colour_hue</a></span><span class='op'>(</span>h <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>90</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='scale_hue-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'><a href='scale_hue.html'>scale_colour_hue</a></span><span class='op'>(</span>h <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>90</span>, <span class='fl'>180</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='scale_hue-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'><a href='scale_hue.html'>scale_colour_hue</a></span><span class='op'>(</span>h <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>180</span>, <span class='fl'>270</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='scale_hue-11.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'><a href='scale_hue.html'>scale_colour_hue</a></span><span class='op'>(</span>h <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>270</span>, <span class='fl'>360</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='scale_hue-12.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Vary opacity</span>
 <span class='co'># (only works with pdf, quartz and cairo devices)</span>
@@ -438,7 +438,7 @@ same time, via <code>aesthetics = c("colour", "fill")</code>.</p></td>
   <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='va'>miss</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='scale_hue-16.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>wt</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='va'>miss</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>scale_colour_hue</span><span class='op'>(</span>na.value <span class='op'>=</span> <span class='st'>"black"</span><span class='op'>)</span>
+  <span class='fu'><a href='scale_hue.html'>scale_colour_hue</a></span><span class='op'>(</span>na.value <span class='op'>=</span> <span class='st'>"black"</span><span class='op'>)</span>
 </div><div class='img'><img src='scale_hue-17.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 </div></pre>
   </div>

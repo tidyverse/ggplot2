@@ -314,15 +314,15 @@ if either aesthetic provides color values using an rgb specification
     <div class='dont-index'>
 <ul>
 <li><p>Other options for modifying colour:
-<code><a href='scale_colour_brewer.html'>scale_colour_brewer()</a></code>,
-<code><a href='scale_colour_gradient.html'>scale_colour_gradient()</a></code>, <code><a href='scale_colour_grey.html'>scale_colour_grey()</a></code>,
-<code><a href='scale_colour_hue.html'>scale_colour_hue()</a></code>, <code><a href='scale_identity.html'>scale_colour_identity()</a></code>,
-<code><a href='scale_manual.html'>scale_colour_manual()</a></code>, <code><a href='scale_colour_viridis_d.html'>scale_colour_viridis_d()</a></code></p></li>
+<code><a href='scale_brewer.html'>scale_colour_brewer()</a></code>,
+<code><a href='scale_gradient.html'>scale_colour_gradient()</a></code>, <code><a href='scale_grey.html'>scale_colour_grey()</a></code>,
+<code><a href='scale_hue.html'>scale_colour_hue()</a></code>, <code><a href='scale_identity.html'>scale_colour_identity()</a></code>,
+<code><a href='scale_manual.html'>scale_colour_manual()</a></code>, <code><a href='scale_viridis.html'>scale_colour_viridis_d()</a></code></p></li>
 <li><p>Other options for modifying fill:
-<code><a href='scale_colour_brewer.html'>scale_fill_brewer()</a></code>,
-<code><a href='scale_colour_gradient.html'>scale_fill_gradient()</a></code>, <code><a href='scale_colour_grey.html'>scale_fill_grey()</a></code>,
-<code><a href='scale_colour_hue.html'>scale_fill_hue()</a></code>, <code><a href='scale_identity.html'>scale_fill_identity()</a></code>,
-<code><a href='scale_manual.html'>scale_fill_manual()</a></code>, <code><a href='scale_colour_viridis_d.html'>scale_fill_viridis_d()</a></code></p></li>
+<code><a href='scale_brewer.html'>scale_fill_brewer()</a></code>,
+<code><a href='scale_gradient.html'>scale_fill_gradient()</a></code>, <code><a href='scale_grey.html'>scale_fill_grey()</a></code>,
+<code><a href='scale_hue.html'>scale_fill_hue()</a></code>, <code><a href='scale_identity.html'>scale_fill_identity()</a></code>,
+<code><a href='scale_manual.html'>scale_fill_manual()</a></code>, <code><a href='scale_viridis.html'>scale_fill_viridis_d()</a></code></p></li>
 <li><p>Other options for modifying alpha: <code><a href='scale_alpha.html'>scale_alpha()</a></code></p></li>
 <li><p>Run <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code> to see an overview of other aesthestics that
 can be modified.</p></li>
@@ -355,7 +355,7 @@ can be modified.</p></li>
 <span class='co'># When mapping fill to continuous variable a continuous colour</span>
 <span class='co'># scale is used.</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>faithfuld</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>waiting</span>, <span class='va'>eruptions</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_raster.html'>geom_raster</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>density</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='fu'><a href='geom_tile.html'>geom_raster</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>density</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='aes_colour_fill_alpha-8.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Some geoms only use the colour aesthetic but not the fill</span>
 <span class='co'># aesthetic (e.g. geom_point() or geom_line()).</span>
@@ -378,12 +378,12 @@ can be modified.</p></li>
 <span class='va'>p</span>
 </div><div class='img'><img src='aes_colour_fill_alpha-16.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>yrng</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/range.html'>range</a></span><span class='op'>(</span><span class='va'>economics</span><span class='op'>$</span><span class='va'>unemploy</span><span class='op'>)</span>
 <span class='va'>p</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_raster.html'>geom_rect</a></span><span class='op'>(</span>
+  <span class='fu'><a href='geom_tile.html'>geom_rect</a></span><span class='op'>(</span>
     <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='cn'>NULL</span>, <span class='cn'>NULL</span>, xmin <span class='op'>=</span> <span class='va'>start</span>, xmax <span class='op'>=</span> <span class='va'>end</span>, fill <span class='op'>=</span> <span class='va'>party</span><span class='op'>)</span>,
     ymin <span class='op'>=</span> <span class='va'>yrng</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>, ymax <span class='op'>=</span> <span class='va'>yrng</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span>, data <span class='op'>=</span> <span class='va'>presidential</span>
   <span class='op'>)</span>
 <span class='va'>p</span>
-</div><div class='img'><img src='aes_colour_fill_alpha-17.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_manual.html'>scale_fill_manual</a></span><span class='op'>(</span>values <span class='op'>=</span> <span class='fu'><a href='https://scales.r-lib.org//reference/alpha.html'>alpha</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"blue"</span>, <span class='st'>"red"</span><span class='op'>)</span>, <span class='fl'>.3</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='aes_colour_fill_alpha-17.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_manual.html'>scale_fill_manual</a></span><span class='op'>(</span>values <span class='op'>=</span> <span class='fu'><a href='https://scales.r-lib.org/reference/alpha.html'>alpha</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"blue"</span>, <span class='st'>"red"</span><span class='op'>)</span>, <span class='fl'>.3</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='aes_colour_fill_alpha-18.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 </div></pre>
   </div>

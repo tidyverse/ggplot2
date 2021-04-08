@@ -312,7 +312,7 @@ associated with this scale.</p></td>
       <th>palette</th>
       <td><p>A palette function that when called with a numeric vector with
 values between 0 and 1 returns the corresponding output values
-(e.g., <code><a href='https://scales.r-lib.org//reference/area_pal.html'>scales::area_pal()</a></code>).</p></td>
+(e.g., <code><a href='https://scales.r-lib.org/reference/area_pal.html'>scales::area_pal()</a></code>).</p></td>
     </tr>
     <tr>
       <th>name</th>
@@ -326,10 +326,10 @@ omitted.</p></td>
       <td><p>One of:</p><ul>
 <li><p><code>NULL</code> for no breaks</p></li>
 <li><p><code><a href='waiver.html'>waiver()</a></code> for the default breaks computed by the
-<a href='https://scales.r-lib.org//reference/trans_new.html'>transformation object</a></p></li>
+<a href='https://scales.r-lib.org/reference/trans_new.html'>transformation object</a></p></li>
 <li><p>A numeric vector of positions</p></li>
 <li><p>A function that takes the limits as input and returns breaks
-as output (e.g., a function returned by <code><a href='https://scales.r-lib.org//reference/breaks_extended.html'>scales::extended_breaks()</a></code>)</p></li>
+as output (e.g., a function returned by <code><a href='https://scales.r-lib.org/reference/breaks_extended.html'>scales::extended_breaks()</a></code>)</p></li>
 </ul></td>
     </tr>
     <tr>
@@ -359,20 +359,20 @@ If the purpose is to zoom, use the limit argument in the coordinate system
     <tr>
       <th>rescaler</th>
       <td><p>A function used to scale the input values to the
-range [0, 1]. This is always <code><a href='https://scales.r-lib.org//reference/rescale.html'>scales::rescale()</a></code>, except for
-diverging and n colour gradients (i.e., <code><a href='scale_colour_gradient.html'>scale_colour_gradient2()</a></code>,
-<code><a href='scale_colour_gradient.html'>scale_colour_gradientn()</a></code>). The <code>rescaler</code> is ignored by position
-scales, which always use <code><a href='https://scales.r-lib.org//reference/rescale.html'>scales::rescale()</a></code>.</p></td>
+range [0, 1]. This is always <code><a href='https://scales.r-lib.org/reference/rescale.html'>scales::rescale()</a></code>, except for
+diverging and n colour gradients (i.e., <code><a href='scale_gradient.html'>scale_colour_gradient2()</a></code>,
+<code><a href='scale_gradient.html'>scale_colour_gradientn()</a></code>). The <code>rescaler</code> is ignored by position
+scales, which always use <code><a href='https://scales.r-lib.org/reference/rescale.html'>scales::rescale()</a></code>.</p></td>
     </tr>
     <tr>
       <th>oob</th>
       <td><p>One of:</p><ul>
 <li><p>Function that handles limits outside of the scale limits
 (out of bounds).</p></li>
-<li><p>The default (<code><a href='https://scales.r-lib.org//reference/oob.html'>scales::censor()</a></code>) replaces out of
+<li><p>The default (<code><a href='https://scales.r-lib.org/reference/oob.html'>scales::censor()</a></code>) replaces out of
 bounds values with <code>NA</code>.</p></li>
-<li><p><code><a href='https://scales.r-lib.org//reference/oob.html'>scales::squish()</a></code> for squishing out of bounds values into range.</p></li>
-<li><p><code><a href='https://scales.r-lib.org//reference/oob.html'>scales::squish_infinite()</a></code> for squishing infinite values into range.</p></li>
+<li><p><code><a href='https://scales.r-lib.org/reference/oob.html'>scales::squish()</a></code> for squishing out of bounds values into range.</p></li>
+<li><p><code><a href='https://scales.r-lib.org/reference/oob.html'>scales::squish_infinite()</a></code> for squishing infinite values into range.</p></li>
 </ul></td>
     </tr>
     <tr>
@@ -416,8 +416,8 @@ or the object itself. Built-in transformations include "asn", "atanh",
 <p>A transformation object bundles together a transform, its inverse,
 and methods for generating breaks and labels. Transformation objects
 are defined in the scales package, and are called <code>&lt;name&gt;_trans</code> (e.g.,
-<code><a href='https://scales.r-lib.org//reference/boxcox_trans.html'>scales::boxcox_trans()</a></code>). You can create your own
-transformation with <code><a href='https://scales.r-lib.org//reference/trans_new.html'>scales::trans_new()</a></code>.</p></td>
+<code><a href='https://scales.r-lib.org/reference/boxcox_trans.html'>scales::boxcox_trans()</a></code>). You can create your own
+transformation with <code><a href='https://scales.r-lib.org/reference/trans_new.html'>scales::trans_new()</a></code>.</p></td>
     </tr>
     <tr>
       <th>show.limits</th>

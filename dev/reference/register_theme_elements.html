@@ -316,7 +316,7 @@ reset to the default theme.</p></td>
 "element_text" or "unit", or one of the two reserved keywords "character" or
 "margin". The reserved keyword "character" implies a character
 or numeric vector, not a class called "character". The keyword
-"margin" implies a unit vector of length 4, as created by <code><a href='margin.html'>margin()</a></code>.</p></td>
+"margin" implies a unit vector of length 4, as created by <code><a href='element.html'>margin()</a></code>.</p></td>
     </tr>
     <tr>
       <th>inherit</th>
@@ -358,7 +358,7 @@ element inheritance relationships for the element tree.</p>
     <pre class="examples"><div class='input'><span class='co'># Let's assume a package `ggxyz` wants to provide an easy way to add annotations to</span>
 <span class='co'># plot panels. To do so, it registers a new theme element `ggxyz.panel.annotation`</span>
 <span class='fu'>register_theme_elements</span><span class='op'>(</span>
-  ggxyz.panel.annotation <span class='op'>=</span> <span class='fu'><a href='margin.html'>element_text</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"blue"</span>, hjust <span class='op'>=</span> <span class='fl'>0.95</span>, vjust <span class='op'>=</span> <span class='fl'>0.05</span><span class='op'>)</span>,
+  ggxyz.panel.annotation <span class='op'>=</span> <span class='fu'><a href='element.html'>element_text</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"blue"</span>, hjust <span class='op'>=</span> <span class='fl'>0.95</span>, vjust <span class='op'>=</span> <span class='fl'>0.05</span><span class='op'>)</span>,
   element_tree <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>ggxyz.panel.annotation <span class='op'>=</span> <span class='fu'>el_def</span><span class='op'>(</span><span class='st'>"element_text"</span>, <span class='st'>"text"</span><span class='op'>)</span><span class='op'>)</span>
 <span class='op'>)</span>
 

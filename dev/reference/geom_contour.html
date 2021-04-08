@@ -282,7 +282,7 @@ using the interp::interp() function from the interp package
 
     <div class="ref-description">
     <p>ggplot2 can not draw true 3D surfaces, but you can use <code>geom_contour()</code>,
-<code>geom_contour_filled()</code>, and <code><a href='geom_raster.html'>geom_tile()</a></code> to visualise 3D surfaces in 2D. To
+<code>geom_contour_filled()</code>, and <code><a href='geom_tile.html'>geom_tile()</a></code> to visualise 3D surfaces in 2D. To
 specify a valid surface, the data must contain <code>x</code>, <code>y</code>, and <code>z</code> coordinates,
 and each unique combination of <code>x</code> and <code>y</code> can appear at most once.
 Contouring requires that the points can be rearranged so that the <code>z</code> values
@@ -537,7 +537,7 @@ bin boundaries for each band, as well the mid point between the boundaries.</p><
 <span class='co'># Other parameters</span>
 <span class='va'>v</span> <span class='op'>+</span> <span class='fu'>geom_contour</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='fu'><a href='aes_eval.html'>after_stat</a></span><span class='op'>(</span><span class='va'>level</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_contour-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>v</span> <span class='op'>+</span> <span class='fu'>geom_contour</span><span class='op'>(</span>colour <span class='op'>=</span> <span class='st'>"red"</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_contour-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>v</span> <span class='op'>+</span> <span class='fu'><a href='geom_raster.html'>geom_raster</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>density</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+</div><div class='img'><img src='geom_contour-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>v</span> <span class='op'>+</span> <span class='fu'><a href='geom_tile.html'>geom_raster</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>density</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'>geom_contour</span><span class='op'>(</span>colour <span class='op'>=</span> <span class='st'>"white"</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_contour-10.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Irregular data</span>

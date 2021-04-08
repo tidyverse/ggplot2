@@ -278,11 +278,11 @@ works in the same way." />
     <p><code>scale_*_steps</code> creates a two colour binned gradient (low-high),
 <code>scale_*_steps2</code> creates a diverging binned colour gradient (low-mid-high),
 and <code>scale_*_stepsn</code> creates a n-colour binned gradient. These scales are
-binned variants of the <a href='scale_colour_gradient.html'>gradient scale</a> family and
+binned variants of the <a href='scale_gradient.html'>gradient scale</a> family and
 works in the same way.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>scale_colour_steps</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'><a href='scale_steps.html'>scale_colour_steps</a></span><span class='op'>(</span>
   <span class='va'>...</span>,
   low <span class='op'>=</span> <span class='st'>"#132B43"</span>,
   high <span class='op'>=</span> <span class='st'>"#56B1F7"</span>,
@@ -292,7 +292,7 @@ works in the same way.</p>
   aesthetics <span class='op'>=</span> <span class='st'>"colour"</span>
 <span class='op'>)</span>
 
-<span class='fu'>scale_colour_steps2</span><span class='op'>(</span>
+<span class='fu'><a href='scale_steps.html'>scale_colour_steps2</a></span><span class='op'>(</span>
   <span class='va'>...</span>,
   low <span class='op'>=</span> <span class='fu'>muted</span><span class='op'>(</span><span class='st'>"red"</span><span class='op'>)</span>,
   mid <span class='op'>=</span> <span class='st'>"white"</span>,
@@ -304,7 +304,7 @@ works in the same way.</p>
   aesthetics <span class='op'>=</span> <span class='st'>"colour"</span>
 <span class='op'>)</span>
 
-<span class='fu'>scale_colour_stepsn</span><span class='op'>(</span>
+<span class='fu'><a href='scale_steps.html'>scale_colour_stepsn</a></span><span class='op'>(</span>
   <span class='va'>...</span>,
   <span class='va'>colours</span>,
   values <span class='op'>=</span> <span class='cn'>NULL</span>,
@@ -315,7 +315,7 @@ works in the same way.</p>
   <span class='va'>colors</span>
 <span class='op'>)</span>
 
-<span class='fu'>scale_fill_steps</span><span class='op'>(</span>
+<span class='fu'><a href='scale_steps.html'>scale_fill_steps</a></span><span class='op'>(</span>
   <span class='va'>...</span>,
   low <span class='op'>=</span> <span class='st'>"#132B43"</span>,
   high <span class='op'>=</span> <span class='st'>"#56B1F7"</span>,
@@ -325,7 +325,7 @@ works in the same way.</p>
   aesthetics <span class='op'>=</span> <span class='st'>"fill"</span>
 <span class='op'>)</span>
 
-<span class='fu'>scale_fill_steps2</span><span class='op'>(</span>
+<span class='fu'><a href='scale_steps.html'>scale_fill_steps2</a></span><span class='op'>(</span>
   <span class='va'>...</span>,
   low <span class='op'>=</span> <span class='fu'>muted</span><span class='op'>(</span><span class='st'>"red"</span><span class='op'>)</span>,
   mid <span class='op'>=</span> <span class='st'>"white"</span>,
@@ -337,7 +337,7 @@ works in the same way.</p>
   aesthetics <span class='op'>=</span> <span class='st'>"fill"</span>
 <span class='op'>)</span>
 
-<span class='fu'>scale_fill_stepsn</span><span class='op'>(</span>
+<span class='fu'><a href='scale_steps.html'>scale_fill_stepsn</a></span><span class='op'>(</span>
   <span class='va'>...</span>,
   <span class='va'>colours</span>,
   values <span class='op'>=</span> <span class='cn'>NULL</span>,
@@ -372,10 +372,10 @@ omitted.</p></dd>
 <ul>
 <li><p><code>NULL</code> for no breaks</p></li>
 <li><p><code><a href='waiver.html'>waiver()</a></code> for the default breaks computed by the
-<a href='https://scales.r-lib.org//reference/trans_new.html'>transformation object</a></p></li>
+<a href='https://scales.r-lib.org/reference/trans_new.html'>transformation object</a></p></li>
 <li><p>A numeric vector of positions</p></li>
 <li><p>A function that takes the limits as input and returns breaks
-as output (e.g., a function returned by <code><a href='https://scales.r-lib.org//reference/breaks_extended.html'>scales::extended_breaks()</a></code>)</p></li>
+as output (e.g., a function returned by <code><a href='https://scales.r-lib.org/reference/breaks_extended.html'>scales::extended_breaks()</a></code>)</p></li>
 </ul></p></dd>
     <dt><code>labels</code></dt><dd><p>One of:
 <ul>
@@ -401,10 +401,10 @@ If the purpose is to zoom, use the limit argument in the coordinate system
 <ul>
 <li><p>Function that handles limits outside of the scale limits
 (out of bounds).</p></li>
-<li><p>The default (<code><a href='https://scales.r-lib.org//reference/oob.html'>scales::censor()</a></code>) replaces out of
+<li><p>The default (<code><a href='https://scales.r-lib.org/reference/oob.html'>scales::censor()</a></code>) replaces out of
 bounds values with <code>NA</code>.</p></li>
-<li><p><code><a href='https://scales.r-lib.org//reference/oob.html'>scales::squish()</a></code> for squishing out of bounds values into range.</p></li>
-<li><p><code><a href='https://scales.r-lib.org//reference/oob.html'>scales::squish_infinite()</a></code> for squishing infinite values into range.</p></li>
+<li><p><code><a href='https://scales.r-lib.org/reference/oob.html'>scales::squish()</a></code> for squishing out of bounds values into range.</p></li>
+<li><p><code><a href='https://scales.r-lib.org/reference/oob.html'>scales::squish_infinite()</a></code> for squishing infinite values into range.</p></li>
 </ul></p></dd>
     <dt><code>expand</code></dt><dd><p>For position scales, a vector of range expansion constants used to add some
 padding around the data to ensure that they are placed some distance
@@ -419,8 +419,8 @@ or the object itself. Built-in transformations include "asn", "atanh",
 "reverse", "sqrt" and "time".A transformation object bundles together a transform, its inverse,
 and methods for generating breaks and labels. Transformation objects
 are defined in the scales package, and are called <code>&lt;name&gt;_trans</code> (e.g.,
-<code><a href='https://scales.r-lib.org//reference/boxcox_trans.html'>scales::boxcox_trans()</a></code>). You can create your own
-transformation with <code><a href='https://scales.r-lib.org//reference/trans_new.html'>scales::trans_new()</a></code>.</p></dd>
+<code><a href='https://scales.r-lib.org/reference/boxcox_trans.html'>scales::boxcox_trans()</a></code>). You can create your own
+transformation with <code><a href='https://scales.r-lib.org/reference/trans_new.html'>scales::trans_new()</a></code>.</p></dd>
     <dt><code>position</code></dt><dd><p>For position scales, The position of the axis.
 <code>left</code> or <code>right</code> for y axes, <code>top</code> or <code>bottom</code> for x axes.</p></dd>
     <dt><code>super</code></dt><dd><p>The super class to use for the constructed scale</p></dd>
@@ -473,7 +473,7 @@ Defaults to 0.</p></td>
       <th>values</th>
       <td><p>if colours should not be evenly positioned along the gradient
 this vector gives the position (between 0 and 1) for each colour in the
-<code>colours</code> vector. See <code><a href='https://scales.r-lib.org//reference/rescale.html'>rescale()</a></code> for a convenience function
+<code>colours</code> vector. See <code><a href='https://scales.r-lib.org/reference/rescale.html'>rescale()</a></code> for a convenience function
 to map an arbitrary range to between 0 and 1.</p></td>
     </tr>
     <tr>
@@ -491,15 +491,15 @@ luminance. The <span class="pkg">munsell</span> package makes this easy to do us
 Munsell colour system.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://scales.r-lib.org//reference/seq_gradient_pal.html'>scales::seq_gradient_pal()</a></code> for details on underlying
+    <div class='dont-index'><p><code><a href='https://scales.r-lib.org/reference/seq_gradient_pal.html'>scales::seq_gradient_pal()</a></code> for details on underlying
 palette</p>
 <p>Other colour scales: 
 <code><a href='scale_alpha.html'>scale_alpha</a>()</code>,
-<code><a href='scale_colour_brewer.html'>scale_colour_brewer</a>()</code>,
-<code><a href='scale_colour_gradient.html'>scale_colour_gradient</a>()</code>,
-<code><a href='scale_colour_grey.html'>scale_colour_grey</a>()</code>,
-<code><a href='scale_colour_hue.html'>scale_colour_hue</a>()</code>,
-<code><a href='scale_colour_viridis_d.html'>scale_colour_viridis_d</a>()</code></p></div>
+<code><a href='scale_brewer.html'>scale_colour_brewer</a>()</code>,
+<code><a href='scale_gradient.html'>scale_colour_gradient</a>()</code>,
+<code><a href='scale_grey.html'>scale_colour_grey</a>()</code>,
+<code><a href='scale_hue.html'>scale_colour_hue</a>()</code>,
+<code><a href='scale_viridis.html'>scale_colour_viridis_d</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
@@ -511,17 +511,17 @@ palette</p>
 <span class='co'># Use scale_colour_steps for a standard binned gradient</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='va'>z1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>scale_colour_steps</span><span class='op'>(</span><span class='op'>)</span>
+  <span class='fu'><a href='scale_steps.html'>scale_colour_steps</a></span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='img'><img src='scale_steps-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Get a divergent binned scale with the *2 variant</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='va'>z1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>scale_colour_steps2</span><span class='op'>(</span><span class='op'>)</span>
+  <span class='fu'><a href='scale_steps.html'>scale_colour_steps2</a></span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='img'><img src='scale_steps-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Define your own colour ramp to extract binned colours from</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='va'>z1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>scale_colour_stepsn</span><span class='op'>(</span>colours <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>terrain.colors</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='fu'><a href='scale_steps.html'>scale_colour_stepsn</a></span><span class='op'>(</span>colours <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>terrain.colors</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='scale_steps-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
