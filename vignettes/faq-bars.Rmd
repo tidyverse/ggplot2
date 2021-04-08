@@ -1,10 +1,10 @@
 ---
-title: "FAQ: Barplots and boxplots"
+title: "FAQ: Barplots"
 output: rmarkdown::html_vignette
 description: |
-  Moving beyond the defaults for bar plots and boxplots.
+  Moving beyond the defaults for bar plots.
 vignette: >
-  %\VignetteIndexEntry{Barplots and boxplots}
+  %\VignetteIndexEntry{Barplots}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -22,13 +22,17 @@ vignette: >
 ```
 ```{r, include = FALSE}
 library(ggplot2)
+library(dplyr)
+library(tidyr)
+
 knitr::opts_chunk$set(
   fig.dpi = 300, 
   collapse = TRUE, 
   comment = "#>",
   fig.asp = 0.618,
   fig.width = 6,
-  out.width = "80%")
+  out.width = "80%"
+  )
 ```
 
 ## Colors
@@ -277,7 +281,7 @@ Then, pass the resulting longer data frame to `ggplot()` group responses for eac
 ```{r}
 survey %>%
   tidyr::pivot_longer(
-    cols = -id,
+    cols = -respondent,
     names_to = "question",
     values_to = "response"
   ) %>%
@@ -317,7 +321,7 @@ ggplot(mpg, aes(x = drv, y = hwy)) +
 
 ## Annotation
 
-### How can I annotate my bar plot to display counts for each bar? 
+### How can I annotate my bar plot to display counts for each bar?
 
 Either calculate the counts ahead of time and place them on bars using `geom_text()` or let `ggplot()` calculate them for you and then add them to the plot using `stat_coun()` with `geom = "text"`.
 
