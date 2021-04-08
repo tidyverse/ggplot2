@@ -40,7 +40,7 @@ knitr::opts_chunk$set(
 ### How can I reorder the bars in a bar plot by their value?
 
 Change the order of the levels of the factor variable you're creating the bar plot for in the `aes`thetic `mapping`.
-The forcats package offers a variety of options for doing this, such as `forcats::fct_reorder()`.
+The forcats package offers a variety of options for doing this, such as `forcats::fct_infreq()` for ordering by the number of observations within each level.
 
 <details>
 
@@ -55,23 +55,19 @@ ggplot(mpg, aes(y = class)) +
   geom_bar()
 ```
 
-To do this, you should first calculate the number of cars that fall into each `class` category.
-One option for doing this is `dplyr::count()`.
-Note that this results in a data frame with two columns: one for `class` and one for the number of cars in that category, `n`.
+To do this, you can use `forcats::fct_infreq()`.
 
 ```{r}
-mpg %>%
-  dplyr::count(class)
+ggplot(mpg, aes(y = forcats::fct_infreq(class))) +
+  geom_bar()
 ```
 
-You can pass the result directly into `ggplot()` and reorder the levels of `class` based on the value of `n`.
-Then, use `geom_col()` instead of `geom_bar()` since you've already counted and mapped the counts (`n`) to the `x` axis on `aes()`.
+If you'd like to plot the highest value first, you can also reverse the order with `forcats::fct_rev()`. You might also want to simplify the axis label.
 
 ```{r}
-mpg %>%
-  count(class) %>%
-  ggplot(aes(y = forcats::fct_reorder(class, n), x = n)) +
-  geom_col()
+ggplot(mpg, aes(y = forcats::fct_rev(forcats::fct_infreq(class)))) +
+  geom_bar() +
+  labs(y = "class")
 ```
 
 </details>
