@@ -12,7 +12,7 @@ ggsave(
   scale = 1,
   width = NA,
   height = NA,
-  units = c("in", "cm", "mm"),
+  units = c("in", "cm", "mm", "px"),
   dpi = 300,
   limitsize = TRUE,
   bg = NULL,
@@ -34,7 +34,7 @@ working directory.}
 
 \item{scale}{Multiplicative scaling factor.}
 
-\item{width, height, units}{Plot size in \code{units} ("in", "cm", or "mm").
+\item{width, height, units}{Plot size in \code{units} ("in", "cm", "mm", or "px").
 If not supplied, uses the size of current graphics device.}
 
 \item{dpi}{Plot resolution. Also accepts a string input: "retina" (320),

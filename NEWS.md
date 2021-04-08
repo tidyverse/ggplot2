@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `ggsave()` now uses ragg to render raster output if ragg is available 
+  (@thomasp85, #4388)
+
 * `ggsave()` now sets the default background to match the fill value of the
   `plot.background` theme element (@karawoo, #4057)
 

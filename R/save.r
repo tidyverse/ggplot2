@@ -31,7 +31,7 @@
 #'   are combined to create the fully qualified file name. Defaults to the
 #'   working directory.
 #' @param scale Multiplicative scaling factor.
-#' @param width,height,units Plot size in `units` ("in", "cm", or "mm").
+#' @param width,height,units Plot size in `units` ("in", "cm", "mm", or "px").
 #'   If not supplied, uses the size of current graphics device.
 #' @param dpi Plot resolution. Also accepts a string input: "retina" (320),
 #'   "print" (300), or "screen" (72). Applies only to raster output types.
@@ -75,13 +75,13 @@
 #' }
 ggsave <- function(filename, plot = last_plot(),
                    device = NULL, path = NULL, scale = 1,
-                   width = NA, height = NA, units = c("in", "cm", "mm"),
+                   width = NA, height = NA, units = c("in", "cm", "mm", "px"),
                    dpi = 300, limitsize = TRUE, bg = NULL, ...) {
 
   dpi <- parse_dpi(dpi)
   dev <- plot_dev(device, filename, dpi = dpi)
   dim <- plot_dim(c(width, height), scale = scale, units = units,
-    limitsize = limitsize)
+    limitsize = limitsize, dpi = dpi)
 
   if (!is.null(path)) {
     filename <- file.path(path, filename)
@@ -122,12 +122,12 @@ parse_dpi <- function(dpi) {
   }
 }
 
-plot_dim <- function(dim = c(NA, NA), scale = 1, units = c("in", "cm", "mm"),
-                     limitsize = TRUE) {
+plot_dim <- function(dim = c(NA, NA), scale = 1, units = c("in", "cm", "mm", "px"),
+                     limitsize = TRUE, dpi = 300) {
 
   units <- match.arg(units)
-  to_inches <- function(x) x / c(`in` = 1, cm = 2.54, mm = 2.54 * 10)[units]
-  from_inches <- function(x) x * c(`in` = 1, cm = 2.54, mm = 2.54 * 10)[units]
+  to_inches <- function(x) x / c(`in` = 1, cm = 2.54, mm = 2.54 * 10, px = dpi)[units]
+  from_inches <- function(x) x * c(`in` = 1, cm = 2.54, mm = 2.54 * 10, px = dpi)[units]
 
   dim <- to_inches(dim) * scale
 
