@@ -31,6 +31,101 @@ knitr::opts_chunk$set(
   out.width = "80%")
 ```
 
+## Panes
+
+### What is the difference between `facet_wrap()` and `facet_grid()`?
+
+The simplest answer is that you should use `facet_wrap()` when faceting by a single variable and `facet_grid()` when faceting by two variables and want to create a grid of panes.
+
+<details>
+
+<summary>See example</summary>
+
+`facet_wrap()` is most commonly used to facet by a plot by a single categorical variable.
+
+```{r}
+ggplot(mpg, aes(x = cty)) +
+  geom_histogram() +
+  facet_wrap(~ drv)
+```
+
+And `facet_grid()` is commonly used to facet by a plot by two categorical variables.
+
+```{r}
+ggplot(mpg, aes(x = cty)) +
+  geom_histogram() +
+  facet_grid(cyl ~ drv)
+```
+
+Notice that this results in some empty panes (e.g. 4-wheel drive and 5 cylinders) as there are no cars in the `mpg` dataset that fall into such categories.
+
+You can also use `facet_wrap()` with to facet by two categorical variables.
+This will only create facets for combinations of the levels of variables for which data exists.
+
+```{r}
+ggplot(mpg, aes(x = cty)) +
+  geom_histogram() +
+  facet_wrap(cyl ~ drv)
+```
+
+In `facet_wrap()` you can control the number of rows and/or columns of the resulting plot layout using the `nrow` and `ncol` arguments, respectively.
+In `facet_grid()` these values are determined by the number of levels of the variables you're faceting by.
+
+Similarly, you can also use `facet_grid()` to facet by a single categorical variable as well.
+In the formula notation, you use a `.` to indicate that no faceting should be done along that axis, i.e. `cyl ~ .` facets across the y-axis (within a column) while `. ~ cyl` facets across the x-axis (within a row).
+
+```{r out.width = "50%"}
+ggplot(mpg, aes(x = cty)) +
+  geom_histogram() +
+  facet_grid(cyl ~ .)
+
+ggplot(mpg, aes(x = cty)) +
+  geom_histogram() +
+  facet_grid(. ~ cyl)
+```
+
+</details>
+
+### How can I place a vertical lines (`geom_vline()`) in each pane of a faceted plot?
+
+First, calculate where the lines should be placed and save this information in a separate data frame.
+Then, add a `geom_vline()` layer to your plot that uses the summarized data.
+
+<details>
+
+<summary>See example</summary>
+
+Suppose you have the following plot, and you want to add a vertical line at the mean value of `hwy` (highway mileage) for each pane.
+
+```{r}
+ggplot(mpg, aes(x = hwy)) +
+  geom_histogram(binwidth = 5) +
+  facet_wrap(~ drv)
+```
+
+First, calculate these means and save them in a new data frame.
+
+```{r}
+library(dplyr)
+
+mpg_summary <- mpg %>%
+  group_by(drv) %>%
+  summarise(hwy_mean = mean(hwy))
+
+mpg_summary
+```
+
+Then, add a `geom_vline()` layer to your plot that uses the summary data.
+
+```{r}
+ggplot(mpg, aes(x = hwy)) +
+  geom_histogram(binwidth = 5) +
+  facet_wrap(~ drv) +
+  geom_vline(data = mpg_summary, aes(xintercept = hwy_mean))
+```
+
+</details>
+
 ## Axes
 
 ### How can I set individual axis limits for facets?
@@ -175,131 +270,6 @@ ggplot(df, aes(x = year, y = price)) +
   scale_x_continuous(breaks = 2011:2020) +
   labs(y = NULL) +
   theme(strip.background = element_blank(), strip.placement = "outside")
-```
-
-</details>
-
-## Panes
-
-### What is the difference between `facet_wrap()` and `facet_grid()`?
-
-The simplest answer is that you should use `facet_wrap()` when faceting by a single variable and `facet_grid()` when faceting by two variables and want to create a grid of panes.
-
-<details>
-
-<summary>See example</summary>
-
-`facet_wrap()` is most commonly used to facet by a plot by a single categorical variable.
-
-```{r}
-ggplot(mpg, aes(x = cty)) +
-  geom_histogram() +
-  facet_wrap(~ drv)
-```
-
-And `facet_grid()` is commonly used to facet by a plot by two categorical variables.
-
-```{r}
-ggplot(mpg, aes(x = cty)) +
-  geom_histogram() +
-  facet_grid(cyl ~ drv)
-```
-
-Notice that this results in some empty panes (e.g. 4-wheel drive and 5 cylinders) as there are no cars in the `mpg` dataset that fall into such categories.
-
-You can also use `facet_wrap()` with to facet by two categorical variables.
-This will only create facets for combinations of the levels of variables for which data exists.
-
-```{r}
-ggplot(mpg, aes(x = cty)) +
-  geom_histogram() +
-  facet_wrap(cyl ~ drv)
-```
-
-In `facet_wrap()` you can control the number of rows and/or columns of the resulting plot layout using the `nrow` and `ncol` arguments, respectively.
-In `facet_grid()` these values are determined by the number of levels of the variables you're faceting by.
-
-Similarly, you can also use `facet_grid()` to facet by a single categorical variable as well.
-In the formula notation, you use a `.` to indicate that no faceting should be done along that axis, i.e. `cyl ~ .` facets across the y-axis (within a column) while `. ~ cyl` facets across the x-axis (within a row).
-
-```{r out.width = "50%"}
-ggplot(mpg, aes(x = cty)) +
-  geom_histogram() +
-  facet_grid(cyl ~ .)
-
-ggplot(mpg, aes(x = cty)) +
-  geom_histogram() +
-  facet_grid(. ~ cyl)
-```
-
-</details>
-
-### How can I control the order of panes created with `facet_wrap()` or `facet_grid()`?
-
-Change the order of the levels of the factor variable you're faceting by.
-The forcats package offers a variety of options for doing this, such as `forcats::fct_relevel()`.
-
-<details>
-
-<summary>See example</summary>
-
-The order of the panes is determined by the order of the levels of the variable you're faceting by.
-If the faceting variable is character, this order is alphabetical by default.
-
-```{r}
-ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point() +
-  facet_wrap(~drv)
-```
-
-Suppose you'd like the panes to be in the order `"r"`, `"f"` , `"4"`.
-You can use `forcats::fct_relevel()` to reorder the levels of `drv`.
-You can do this in a data transformation step prior to plotting (e.g. with `dplyr::mutate()`) or you can do it directly in the plotting code as shown below.
-
-```{r}
-ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point() +
-  facet_wrap(~forcats::fct_relevel(drv, "r", "f", "4"))
-```
-
-</details>
-
-### How can I place a vertical lines (`geom_vline()`) in each pane of a faceted plot?
-
-First, calculate where the lines should be placed and save this information in a separate data frame.
-Then, add a `geom_vline()` layer to your plot that uses the summarized data.
-
-<details>
-
-<summary>See example</summary>
-
-Suppose you have the following plot, and you want to add a vertical line at the mean value of `hwy` (highway mileage) for each pane.
-
-```{r}
-ggplot(mpg, aes(x = hwy)) +
-  geom_histogram(binwidth = 5) +
-  facet_wrap(~ drv)
-```
-
-First, calculate these means and save them in a new data frame.
-
-```{r}
-library(dplyr)
-
-mpg_summary <- mpg %>%
-  group_by(drv) %>%
-  summarise(hwy_mean = mean(hwy))
-
-mpg_summary
-```
-
-Then, add a `geom_vline()` layer to your plot that uses the summary data.
-
-```{r}
-ggplot(mpg, aes(x = hwy)) +
-  geom_histogram(binwidth = 5) +
-  facet_wrap(~ drv) +
-  geom_vline(data = mpg_summary, aes(xintercept = hwy_mean))
 ```
 
 </details>
