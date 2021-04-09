@@ -77,9 +77,9 @@ PositionJitter <- ggproto("PositionJitter", Position,
     trans_y <- if (params$height > 0) function(x) jitter(x, amount = params$height)
 
     # Make sure x and y jitter is only calculated once for all position aesthetics
-    x_aes <- intersect(names(data), ggplot_global$x_aes)
+    x_aes <- intersect(ggplot_global$x_aes, names(data))
     x <- if (length(x_aes) == 0) 0 else data[[x_aes[1]]]
-    y_aes <- intersect(names(data), ggplot_global$y_aes)
+    y_aes <- intersect(ggplot_global$y_aes, names(data))
     y <- if (length(y_aes) == 0) 0 else data[[y_aes[1]]]
     dummy_data <- new_data_frame(list(x = x, y = y), nrow(data))
     fixed_jitter <- with_seed_null(params$seed, transform_position(dummy_data, trans_x, trans_y))
