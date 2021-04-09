@@ -10,7 +10,7 @@ name: R-CMD-check
 
 # Increment this version when we want to clear cache
 env:
-  cache-version: v4
+  cache-version: v6
 
 jobs:
   R-CMD-check:
@@ -24,12 +24,12 @@ jobs:
         config:
           - {os: windows-latest, r: '4.0',   vdiffr: true,  xref: true}
           - {os: macOS-latest,   r: '4.0',   vdiffr: true,  xref: true}
-          - {os: ubuntu-16.04,   r: 'devel', vdiffr: false, xref: true}
-          - {os: ubuntu-16.04,   r: '4.0',   vdiffr: true,  xref: true,   rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
-          - {os: ubuntu-16.04,   r: '3.6',   vdiffr: false, xref: true,   rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
-          - {os: ubuntu-16.04,   r: '3.5',   vdiffr: false, xref: true,   rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
-          - {os: ubuntu-16.04,   r: '3.4',   vdiffr: false, xref: true,   rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
-          - {os: ubuntu-16.04,   r: '3.3',   vdiffr: false, xref: true,   rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
+          - {os: ubuntu-18.04,   r: 'devel', vdiffr: false, xref: true}
+          - {os: ubuntu-18.04,   r: '4.0',   vdiffr: true,  xref: true,   rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest"}
+          - {os: ubuntu-18.04,   r: '3.6',   vdiffr: false, xref: true,   rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest"}
+          - {os: ubuntu-18.04,   r: '3.5',   vdiffr: false, xref: true,   rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest"}
+          - {os: ubuntu-18.04,   r: '3.4',   vdiffr: false, xref: true,   rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest"}
+          - {os: ubuntu-18.04,   r: '3.3',   vdiffr: false, xref: true,   rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest"}
 
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
@@ -72,7 +72,7 @@ jobs:
           while read -r cmd
           do
             eval sudo $cmd
-          done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "16.04"))')
+          done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "18.04"))')
 
       - name: Install system dependencies on macOS
         if: runner.os == 'macOS'
