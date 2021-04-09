@@ -3,6 +3,9 @@
 * Fix a bug in `position_jitter()` where different jitters would be applied to 
   different position aesthetics of the same axis (@thomasp85, #2941)
 
+* `ggsave()` now uses ragg to render raster output if ragg is available 
+  (@thomasp85, #4388)
+  
 * `coord_sf()` now has an argument `default_crs` that specifies the coordinate
   reference system (CRS) for non-sf layers and scale/coord limits. This argument
   defaults to the World Geodetic System 1984 (WGS84), which means x and y positions
