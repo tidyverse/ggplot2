@@ -404,7 +404,8 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
       <td><p>If <code>TRUE</code>, text that overlaps previous text in the
 same layer will not be plotted. <code>check_overlap</code> happens at draw time and in
 the order of the data. Therefore data should be arranged by the label
-column before calling <code><a href='geom_text.html'>geom_label()</a></code> or <code><a href='geom_text.html'>geom_text()</a></code>.</p></td>
+column before calling <code><a href='geom_text.html'>geom_text()</a></code>. Note that this argument is not
+supported by <code><a href='geom_text.html'>geom_label()</a></code>.</p></td>
     </tr>
     </table>
 
@@ -447,9 +448,9 @@ package.</p>
 
     
 
-<p>Currently <code><a href='geom_text.html'>geom_label()</a></code> does not support the <code>angle</code> aesthetic and
-is considerably slower than <code><a href='geom_text.html'>geom_text()</a></code>. The <code>fill</code> aesthetic
-controls the background colour of the label.</p>
+<p>Currently <code><a href='geom_text.html'>geom_label()</a></code> does not support the <code>check_overlap</code> argument
+or the <code>angle</code> aesthetic. Also, it is considerably slower than <code><a href='geom_text.html'>geom_text()</a></code>.
+The <code>fill</code> aesthetic controls the background colour of the label.</p>
     <h2 class="hasAnchor" id="alignment"><a class="anchor" href="#alignment"></a>Alignment</h2>
 
     
