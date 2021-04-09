@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `ggsave()` now uses ragg to render raster output if ragg is available 
+  (@thomasp85, #4388)
+  
 * `coord_sf()` now has an argument `default_crs` that specifies the coordinate
   reference system (CRS) for non-sf layers and scale/coord limits. This argument
   defaults to the World Geodetic System 1984 (WGS84), which means x and y positions
