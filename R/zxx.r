@@ -200,6 +200,11 @@ scale_color_gray <- scale_colour_grey
 #' @export
 #' @rdname scale_grey
 #' @usage NULL
+scale_colour_gray <- scale_colour_grey
+
+#' @export
+#' @rdname scale_grey
+#' @usage NULL
 scale_fill_gray <- scale_fill_grey
 
 #' @export
