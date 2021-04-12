@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Make sure that default labels from default mappings doesn't overwrite default
+  labels from explicit mappings (@thomasp85, #2406)
+
 * Fix a bug in `position_dodge2()` where `NA` values in thee data would cause an
   error (@thomasp85, #2905)
 
