@@ -273,6 +273,7 @@
 <a href="#ggplot2-development-version" class="anchor"></a>ggplot2 (development version)<small> Unreleased </small>
 </h1>
 <ul>
+<li><p>Fix a bug in <code><a href="../reference/position_dodge.html">position_dodge2()</a></code> where <code>NA</code> values in thee data would cause an error (<a href='https://github.com/thomasp85'>@thomasp85</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2905'>#2905</a>)</p></li>
 <li><p>Fix a bug in <code><a href="../reference/position_jitter.html">position_jitter()</a></code> where different jitters would be applied to different position aesthetics of the same axis (<a href='https://github.com/thomasp85'>@thomasp85</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2941'>#2941</a>)</p></li>
 <li><p><code><a href="../reference/ggsave.html">ggsave()</a></code> now uses ragg to render raster output if ragg is available (<a href='https://github.com/thomasp85'>@thomasp85</a>, <a href='https://github.com/tidyverse/ggplot2/issues/4388'>#4388</a>)</p></li>
 <li><p><code><a href="../reference/ggsf.html">coord_sf()</a></code> now has an argument <code>default_crs</code> that specifies the coordinate reference system (CRS) for non-sf layers and scale/coord limits. This argument defaults to the World Geodetic System 1984 (WGS84), which means x and y positions are interpreted as longitude and latitude. This is a potentially breaking change for users who use projected coordinates in non-sf layers or in limits. Setting <code>default_crs = NULL</code> recovers the old behavior. Further, authors of extension packages implementing <code><a href="../reference/ggsf.html">stat_sf()</a></code>-like functionality are encouraged to look at the source code of <code><a href="../reference/ggsf.html">stat_sf()</a></code>’s <code>compute_group()</code> function to see how to provide scale-limit hints to <code><a href="../reference/ggsf.html">coord_sf()</a></code> (<a href='https://github.com/clauswilke'>@clauswilke</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3659'>#3659</a>).</p></li>
@@ -1270,7 +1271,7 @@ to determine which elements overlap, and spreads overlapping elements evenly wit
 
       <footer>
       <div class="tidyverse">
-  <p><p>Developed by <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://github.com/wch" class="external-link">Winston Chang</a>, <a href="https://github.com/lionel-" class="external-link">Lionel Henry</a>, <a href="https://data-imaginist.com" class="external-link">Thomas Lin Pedersen</a>, Kohske Takahashi, <a href="https://clauswilke.com" class="external-link">Claus Wilke</a>, <a href="https://karawoo.com" class="external-link">Kara Woo</a>, <a href="https://yutani.rbind.io" class="external-link">Hiroaki Yutani</a>, <a href="https://fishandwhistle.net" class="external-link">Dewey Dunnington</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.</p>,<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p></p>
+  <p>ggplot2 is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
 </div>
 
 <div class="author">
