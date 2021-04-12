@@ -408,3 +408,50 @@ ggplot(mpg, aes(x = hwy, y = cty)) +
 ```
 
 </details>
+
+### What is the default size of `geom_text()` and how can I change the font size of `geom_text()`?
+
+The default font size of `geom_text()` is 3.88.
+
+```{r}
+GeomLabel$default_aes$size
+```
+
+You can change the size using the `size` argument in `geom_text()` for a single plot. If you want to use the same updated size, you can set this with `update_geom_defaults()`, e.g. `update_geom_defaults("text", list(size = 6))`.
+
+<details>
+
+<summary>See example</summary>
+
+Suppose you have the following data frame and visualization.
+
+```{r}
+df <- tibble::tribble(
+  ~x, ~y, ~name,
+  2,  2,  "two",
+  3,  3,  "three",
+  4,  4,  "four"
+)
+
+ggplot(df, aes(x = x, y = y, label = name)) +
+  geom_text()
+```
+
+You can set the size of the text with the following.
+
+```{r}
+ggplot(df, aes(x = x, y = y, label = name)) +
+  geom_text(size = 6)
+```
+
+Or you can map it to the `size` `aes`thetic. In the following size is determined by the `x` value with `scale_size_identity()`.
+
+```{r}
+ggplot(df, aes(x = x, y = y, label = name)) +
+  geom_text(aes(size = x)) +
+  scale_size_identity()
+```
+
+If you want to use the same updated size for `geom_text()` in a series of plots in a session/R Markdown document, you can set use `update_geom_defaults()` to update the default size, e.g. if you want the size for all `geom_text()` to be 6, use `update_geom_defaults("text", list(size = 6))`.
+
+</details>
