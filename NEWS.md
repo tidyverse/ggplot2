@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Fix a bug in `position_dodge2()` where `NA` values in thee data would cause an
+  error (@thomasp85, #2905)
+
 * Fix a bug in `position_jitter()` where different jitters would be applied to 
   different position aesthetics of the same axis (@thomasp85, #2941)
 
