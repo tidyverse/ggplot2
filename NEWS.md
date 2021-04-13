@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `stat_count()` now computes width based on the full dataset instead of per 
+  group (@thomasp85, #2047)
+
 * Make sure position_jitter creates the same jittering independent of whether it
   is called by name or with constructor (@thomasp85, #2507)
 
