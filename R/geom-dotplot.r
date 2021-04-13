@@ -223,7 +223,9 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
     if (is.null(params$stackgroups) || !params$stackgroups)
       plyvars <- c(plyvars, "group")
 
-    plyvars <- c(plyvars, stackaxis)
+    if (stackaxis == "x") {
+      plyvars <- c(plyvars, "x")
+    }
 
     # Within each x, or x+group, set countidx=1,2,3, and set stackpos according to stack function
     data <- dapply(data, plyvars, function(xx) {
