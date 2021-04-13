@@ -33,36 +33,53 @@ knitr::opts_chunk$set(
   )
 ```
 
-  - color
-  - where solution is ggrepel (selective labeling)
 
-### Why is annotation created with `geom_text()` pixellated?
+
+### Why is annotation created with `geom_text()` pixellated? How can I make it more crisp?
+
+You should use `annotate(geom = "text")` instead of `geom_text()` for annotation.
+
+<details>
+
+<summary>See example</summary>
+
+In the following visualisation we have annotated a histogram with a red line and red text to mark the mean. Note that both the line and the text appears pixellated/fuzzy.
 
 ```{r}
 mean_hwy <- round(mean(mpg$hwy), 2)
 
 ggplot(mpg, aes(x = hwy)) +
   geom_histogram(binwidth = 2) +
-  geom_segment(x = mean_hwy, xend = mean_hwy,
-               y = 0, yend = 35,
-               color = "red") +
-  geom_text(x = mean_hwy, y = 40, 
-            label = paste("mean =", mean_hwy), 
-            color = "red")
-
-ggplot(mpg, aes(x = hwy)) +
-  geom_histogram(binwidth = 2) +
-  annotate("segment", 
-           x = mean_hwy, xend = mean_hwy, y = 0, yend = 35,
-           color = "red") +
-  annotate("text", 
-           x = mean_hwy, y = 40, 
-           label = paste("mean =", mean_hwy), 
-           color = "red")
+  geom_segment(
+    x = mean_hwy, xend = mean_hwy,
+    y = 0, yend = 35,
+    color = "red"
+  ) +
+  geom_text(
+    x = mean_hwy, y = 40,
+    label = paste("mean\n", mean_hwy),
+    color = "red"
+  )
 ```
 
+This is because `geom_text()` draws the geom once per each row of the data frame, and plotting these on top of each other. For annotation (as opposed to plotting the data using text as geometric objects to represent each observation) use `annotate()` instead.
 
-### How can I avoid overlapping text labels on a scatterplot?
+
+```{r}
+ggplot(mpg, aes(x = hwy)) +
+  geom_histogram(binwidth = 2) +
+  annotate("segment",
+    x = mean_hwy, xend = mean_hwy, y = 0, yend = 35,
+    color = "red"
+  ) +
+  annotate("text",
+    x = mean_hwy, y = 40,
+    label = paste("mean =", mean_hwy),
+    color = "red"
+  )
+```
+
+</details>
 
 ### How can I make sure all annotation created with `geom_text()` fits in the bounds of the plot?
 
@@ -92,6 +109,8 @@ You could manually extend axis limits to avoid this, but a more straightforward 
 ggplot(df, aes(x = x, y = y, label = name)) +
   geom_text(size = 10, vjust = "inward", hjust = "inward")
 ```
+
+</details>
 
 ### How can I annotate my bar plot to display counts for each bar?
 
