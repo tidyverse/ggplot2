@@ -149,6 +149,7 @@ geom_dotplot <- function(mapping = NULL, data = NULL,
   if (stackgroups && method == "dotdensity" && binpositions == "bygroup")
     message('geom_dotplot called with stackgroups=TRUE and method="dotdensity". You probably want to set binpositions="all"')
 
+  stackdir <- arg_match0(stackdir, c("up", "down", "center", "centerwhole"), "stackdir")
   layer(
     data = data,
     mapping = mapping,
@@ -208,8 +209,6 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
       stackdots <- function(a)  a - 1 - floor(max(a - 1) / 2)
       stackaxismin <- -.5
       stackaxismax <- .5
-    } else {
-      abort(glue('{params$stackdir} is not a recognized value for `stackdir`. Use "up", "down", "center", or "centerwhole"'))
     }
 
     # Fill the bins: at a given x (or y), if count=3, make 3 entries at that x
