@@ -3,6 +3,15 @@
 * `stat_count()` now computes width based on the full dataset instead of per 
   group (@thomasp85, #2047)
 
+* Fix bug in `labeller()` where parsing was turned off if `.multiline = FALSE`
+  (@thomasp85, #4084)
+  
+* Fix a bug in `qplot()` when supplying `c(NA, NA)` as axis limits 
+  (@thomasp85, #4027)
+
+* Fix bug in `geom_dotplot()` where dots would be positioned wrong with 
+  `stackgroups = TRUE` (@thomasp85, #1745)
+
 * Make sure position_jitter creates the same jittering independent of whether it
   is called by name or with constructor (@thomasp85, #2507)
 
