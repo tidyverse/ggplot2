@@ -1,12 +1,5 @@
 ---
 title: "FAQ: Barplots"
-output: rmarkdown::html_vignette
-description: |
-  Moving beyond the defaults for bar plots.
-vignette: >
-  %\VignetteIndexEntry{FAQ: Barplots}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
 ---
 
 ```{=html}

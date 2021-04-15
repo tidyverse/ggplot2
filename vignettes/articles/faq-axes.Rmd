@@ -1,12 +1,5 @@
 ---
 title: "FAQ: Axes"
-output: rmarkdown::html_vignette
-description: |
-  Customising axes and grid lines.
-vignette: >
-  %\VignetteIndexEntry{FAQ: Axes}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
 ---
 
 ```{=html}
@@ -394,7 +387,7 @@ ggplot(mpg, aes(x = cty^2, y = log(hwy, base = 10))) +
 
 ### How can I increase / decrease the number of axis ticks?
 
-Customise the `breaks` and `minor_breaks` in `scale_x_continuous()`, scale_y\_continuous()\`, etc.
+Customise the `breaks` and `minor_breaks` in `scale_x_continuous()`, `scale_y_continuous()`, etc.
 
 <details>
 

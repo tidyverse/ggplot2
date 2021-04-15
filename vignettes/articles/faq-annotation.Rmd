@@ -1,12 +1,5 @@
 ---
 title: "FAQ: Annotation"
-output: rmarkdown::html_vignette
-description: |
-  Annotating plots.
-vignette: >
-  %\VignetteIndexEntry{FAQ: Annotation}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
 ---
 
 ```{=html}

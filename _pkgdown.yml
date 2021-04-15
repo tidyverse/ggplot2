@@ -250,22 +250,22 @@ articles:
   contents:
   - ggplot2-specs
 
-- title: FAQ
-  navbar: FAQ
-  contents:
-  - faq-axes
-  - faq-faceting
-  - faq-customising
-  - faq-annotation
-  - faq-reordering
-  - faq-bars
-
 - title: Developer
   navbar: Developer
   contents:
   - extending-ggplot2
   - ggplot2-in-packages
   - profiling
+
+- title: FAQ
+  navbar: FAQ
+  contents:
+  - articles/faq-axes
+  - articles/faq-faceting
+  - articles/faq-customising
+  - articles/faq-annotation
+  - articles/faq-reordering
+  - articles/faq-bars
 
 
 news:

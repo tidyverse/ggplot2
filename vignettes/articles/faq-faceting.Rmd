@@ -1,12 +1,5 @@
 ---
 title: "FAQ: Faceting"
-output: rmarkdown::html_vignette
-description: |                     
-  Faceting and customising facets.
-vignette: >
-  %\VignetteIndexEntry{FAQ: Faceting}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
 ---
 
 ```{=html}
