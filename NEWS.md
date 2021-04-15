@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* `stat_count()` now computes width based on the full dataset instead of per 
+  group (@thomasp85, #2047)
 
 * Fix bug in `labeller()` where parsing was turned off if `.multiline = FALSE`
   (@thomasp85, #4084)
