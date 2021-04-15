@@ -167,8 +167,16 @@ ggplot_add.Layer <- function(object, plot, object_name) {
 
   # Add any new labels
   mapping <- make_labels(object$mapping)
-  default <- make_labels(object$stat$default_aes)
+  default <- lapply(make_labels(object$stat$default_aes), function(l) {
+    attr(l, "fallback") <- TRUE
+    l
+  })
   new_labels <- defaults(mapping, default)
-  plot$labels <- defaults(plot$labels, new_labels)
+  current_labels <- plot$labels
+  current_fallbacks <- vapply(current_labels, function(l) isTRUE(attr(l, "fallback")), logical(1))
+  plot$labels <- defaults(current_labels[!current_fallbacks], new_labels)
+  if (any(current_fallbacks)) {
+    plot$labels <- defaults(plot$labels, current_labels)
+  }
   plot
 }
