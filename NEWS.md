@@ -1,7 +1,11 @@
 # ggplot2 (development version)
 
+
 * Fix bug in `labeller()` where parsing was turned off if `.multiline = FALSE`
   (@thomasp85, #4084)
+  
+* Fix a bug in `qplot()` when supplying `c(NA, NA)` as axis limits 
+  (@thomasp85, #4027)
 
 * Fix bug in `geom_dotplot()` where dots would be positioned wrong with 
   `stackgroups = TRUE` (@thomasp85, #1745)
