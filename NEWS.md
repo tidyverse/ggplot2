@@ -1,5 +1,9 @@
 # ggplot2 (development version)
 
+
+* Make sure that default labels from default mappings doesn't overwrite default
+  labels from explicit mappings (@thomasp85, #2406)
+  
 * `stat_count()` now computes width based on the full dataset instead of per 
   group (@thomasp85, #2047)
 
