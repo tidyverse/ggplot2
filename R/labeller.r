@@ -88,8 +88,13 @@
 NULL
 
 collapse_labels_lines <- function(labels) {
+  is_exp <- vapply(labels, function(l) length(l) > 0 && is.expression(l[[1]]), logical(1))
   out <- do.call("Map", c(list(paste, sep = ", "), labels))
-  list(unname(unlist(out)))
+  label <- list(unname(unlist(out)))
+  if (all(is_exp)) {
+    label <- lapply(label, function(l) list(parse(text = paste0("list(", l, ")"))))
+  }
+  label
 }
 
 #' @rdname labellers
