@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Extent the range of the line created by `geom_abline()` so that line ending
+  is not visible for large linewidths (@thomasp85, #4024)
 
 * Make sure that default labels from default mappings doesn't overwrite default
   labels from explicit mappings (@thomasp85, #2406)
