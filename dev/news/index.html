@@ -273,6 +273,7 @@
 <a href="#ggplot2-development-version" class="anchor"></a>ggplot2 (development version)<small> Unreleased </small>
 </h1>
 <ul>
+<li><p><code><a href="../reference/geom_bar.html">stat_count()</a></code> now computes width based on the full dataset instead of per group (<a href='https://github.com/thomasp85'>@thomasp85</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2047'>#2047</a>)</p></li>
 <li><p>Fix bug in <code><a href="../reference/labeller.html">labeller()</a></code> where parsing was turned off if <code>.multiline = FALSE</code> (<a href='https://github.com/thomasp85'>@thomasp85</a>, <a href='https://github.com/tidyverse/ggplot2/issues/4084'>#4084</a>)</p></li>
 <li><p>Fix a bug in <code><a href="../reference/qplot.html">qplot()</a></code> when supplying <code><a href="https://rdrr.io/r/base/c.html" class="external-link">c(NA, NA)</a></code> as axis limits (<a href='https://github.com/thomasp85'>@thomasp85</a>, <a href='https://github.com/tidyverse/ggplot2/issues/4027'>#4027</a>)</p></li>
 <li><p>Fix bug in <code><a href="../reference/geom_dotplot.html">geom_dotplot()</a></code> where dots would be positioned wrong with <code>stackgroups = TRUE</code> (<a href='https://github.com/thomasp85'>@thomasp85</a>, <a href='https://github.com/tidyverse/ggplot2/issues/1745'>#1745</a>)</p></li>
