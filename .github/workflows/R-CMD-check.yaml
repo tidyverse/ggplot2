@@ -56,6 +56,11 @@ jobs:
 
       - name: Install pak and query dependencies
         run: |
+          # For older versions, the dependencies seems not available on https://r-lib.github.io/p/pak/dev/,
+          # so install it from CRAN frist.
+          if (as.integer(version$major) < 4) {
+            install.packages("pak")
+          }
           install.packages("pak", repos = "https://r-lib.github.io/p/pak/dev/")
           saveRDS(pak::pkg_deps("local::.", dependencies = TRUE), ".github/r-depends.rds")
         shell: Rscript {0}
