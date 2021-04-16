@@ -243,6 +243,31 @@ reference:
   - fortify
   - map_data
 
+
+articles:
+- title: Building plots
+  navbar: ~
+  contents:
+  - ggplot2-specs
+
+- title: Developer
+  navbar: Developer
+  contents:
+  - extending-ggplot2
+  - ggplot2-in-packages
+  - profiling
+
+- title: FAQ
+  navbar: FAQ
+  contents:
+  - articles/faq-axes
+  - articles/faq-faceting
+  - articles/faq-customising
+  - articles/faq-annotation
+  - articles/faq-reordering
+  - articles/faq-bars
+
+
 news:
   releases:
   - text: "Version 3.3.0"
