@@ -22,22 +22,20 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: windows-latest, r: '4.0',   vdiffr: true,  xref: true}
-          - {os: macOS-latest,   r: '4.0',   vdiffr: true,  xref: true}
-          - {os: ubuntu-18.04,   r: 'devel', vdiffr: false, xref: true}
-          - {os: ubuntu-18.04,   r: '4.0',   vdiffr: true,  xref: true,   rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest"}
-          - {os: ubuntu-18.04,   r: '3.6',   vdiffr: false, xref: true,   rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest"}
-          - {os: ubuntu-18.04,   r: '3.5',   vdiffr: false, xref: true,   rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest"}
-          - {os: ubuntu-18.04,   r: '3.4',   vdiffr: false, xref: true,   rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest"}
-          - {os: ubuntu-18.04,   r: '3.3',   vdiffr: false, xref: true,   rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest"}
+          - {os: windows-latest, r: '4.0',   vdiffr: true }
+          - {os: macOS-latest,   r: '4.0',   vdiffr: true }
+          - {os: ubuntu-18.04,   r: 'devel', vdiffr: false}
+          - {os: ubuntu-18.04,   r: '4.0',   vdiffr: true,    rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest"}
+          - {os: ubuntu-18.04,   r: '3.6',   vdiffr: false,   rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest"}
+          - {os: ubuntu-18.04,   r: '3.5',   vdiffr: false,   rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest"}
+          - {os: ubuntu-18.04,   r: '3.4',   vdiffr: false,   rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest"}
+          - {os: ubuntu-18.04,   r: '3.3',   vdiffr: false,   rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest"}
 
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
       RSPM: ${{ matrix.config.rspm }}
       # don't treat missing suggested packages as error
       _R_CHECK_FORCE_SUGGESTS_: false
-      # Some packages might unavailable on the older versions, so let's ignore xref warnings
-      _R_CHECK_RD_XREFS_: ${{ matrix.config.xref }}
       # Runs vdiffr test only on the latest version of R
       VDIFFR_RUN_TESTS: ${{ matrix.config.vdiffr }}
       VDIFFR_LOG_PATH: "../vdiffr.Rout.fail"
@@ -56,11 +54,6 @@ jobs:
 
       - name: Install pak and query dependencies
         run: |
-          # For older versions, the dependencies seems not available on https://r-lib.github.io/p/pak/dev/,
-          # so install it from CRAN frist.
-          if (as.integer(version$major) < 4) {
-            install.packages("pak")
-          }
           install.packages("pak", repos = "https://r-lib.github.io/p/pak/dev/")
           saveRDS(pak::pkg_deps("local::.", dependencies = TRUE), ".github/r-depends.rds")
         shell: Rscript {0}
