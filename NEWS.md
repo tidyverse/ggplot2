@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Fix bug in `guide_coloursteps()` that would repeat the terminal bins if the
+  breaks coincided with the limits of the scale (@thomasp85, #4019)
 
 * Make sure that default labels from default mappings doesn't overwrite default
   labels from explicit mappings (@thomasp85, #2406)
