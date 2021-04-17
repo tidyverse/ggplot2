@@ -18,13 +18,15 @@
 #'     [transformation object][scales::trans_new()]
 #'   - A numeric vector of positions
 #'   - A function that takes the limits as input and returns breaks
-#'     as output (e.g., a function returned by [scales::extended_breaks()])
+#'     as output (e.g., a function returned by [scales::extended_breaks()]).
+#'     Also accepts rlang [lambda][rlang::as_function()] function notation.
 #' @param minor_breaks One of:
 #'   - `NULL` for no minor breaks
 #'   - `waiver()` for the default breaks (one minor break between
 #'     each major break)
 #'   - A numeric vector of positions
-#'   - A function that given the limits returns a vector of minor breaks.
+#'   - A function that given the limits returns a vector of minor breaks. Also
+#'     accepts rlang [lambda][rlang::as_function()] function notation.
 #' @param n.breaks An integer guiding the number of major breaks. The algorithm
 #'   may choose a slightly different number to ensure nice break labels. Will
 #'   only have an effect if `breaks = waiver()`. Use `NULL` to use the default
@@ -35,13 +37,15 @@
 #'     transformation object
 #'   - A character vector giving labels (must be same length as `breaks`)
 #'   - A function that takes the breaks as input and returns labels
-#'     as output
+#'     as output. Also accepts rlang [lambda][rlang::as_function()] function
+#'     notation.
 #' @param limits One of:
 #'   - `NULL` to use the default scale range
 #'   - A numeric vector of length two providing limits of the scale.
 #'     Use `NA` to refer to the existing minimum or maximum
 #'   - A function that accepts the existing (automatic) limits and returns
-#'     new limits
+#'     new limits. Also accepts rlang [lambda][rlang::as_function()] function
+#'     notation.
 #'   Note that setting limits on positional scales will **remove** data outside of the limits.
 #'   If the purpose is to zoom, use the limit argument in the coordinate system
 #'   (see [coord_cartesian()]).
@@ -49,10 +53,12 @@
 #'   range \[0, 1]. This is always [scales::rescale()], except for
 #'   diverging and n colour gradients (i.e., [scale_colour_gradient2()],
 #'   [scale_colour_gradientn()]). The `rescaler` is ignored by position
-#'   scales, which always use [scales::rescale()].
+#'   scales, which always use [scales::rescale()]. Also accepts rlang
+#'   [lambda][rlang::as_function()] function notation.
 #' @param oob One of:
 #'   - Function that handles limits outside of the scale limits
-#'   (out of bounds).
+#'   (out of bounds). Also accepts rlang [lambda][rlang::as_function()]
+#'   function notation.
 #'   - The default ([scales::censor()]) replaces out of
 #'   bounds values with `NA`.
 #'   - [scales::squish()] for squishing out of bounds values into range.
@@ -150,13 +156,15 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 #'   - `waiver()` for the default breaks (the scale limits)
 #'   - A character vector of breaks
 #'   - A function that takes the limits as input and returns breaks
-#'     as output
+#'     as output. Also accepts rlang [lambda][rlang::as_function()] function
+#'     notation.
 #' @param limits One of:
 #'   - `NULL` to use the default scale values
 #'   - A character vector that defines possible values of the scale and their
 #'     order
 #'   - A function that accepts the existing (automatic) values and returns
-#'     new ones
+#'     new ones. Also accepts rlang [lambda][rlang::as_function()] function
+#'     notation.
 #' @param drop Should unused factor levels be omitted from the scale?
 #'    The default, `TRUE`, uses the levels that appear in the data;
 #'    `FALSE` uses all the levels in the factor.
