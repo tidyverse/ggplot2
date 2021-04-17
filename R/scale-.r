@@ -238,7 +238,7 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 #'   instead of exactly evenly spaced between the limits. If `TRUE` (default)
 #'   the scale will ask the transformation object to create breaks, and this
 #'   may result in a different number of breaks than requested. Ignored if
-#'   breaks are given explicetly.
+#'   breaks are given explicitly.
 #' @param right Should values on the border between bins be part of the right
 #'   (upper) bin?
 #' @param show.limits should the limits of the scale appear as ticks
