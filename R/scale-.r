@@ -104,6 +104,14 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
     limits <- trans$transform(limits)
   }
 
+  # Convert formula to function if appropriate
+  limits   <- allow_lambda(limits)
+  breaks   <- allow_lambda(breaks)
+  labels   <- allow_lambda(labels)
+  rescaler <- allow_lambda(rescaler)
+  oob      <- allow_lambda(oob)
+  minor_breaks <- allow_lambda(minor_breaks)
+
   ggproto(NULL, super,
     call = match.call(),
 
@@ -167,6 +175,11 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
   aesthetics <- standardise_aes_names(aesthetics)
 
   check_breaks_labels(breaks, labels)
+
+  # Convert formula input to function if appropriate
+  limits <- allow_lambda(limits)
+  breaks <- allow_lambda(breaks)
+  labels <- allow_lambda(labels)
 
   if (!is.function(limits) && (length(limits) > 0) && !is.discrete(limits)) {
     warn(
@@ -243,6 +256,13 @@ binned_scale <- function(aesthetics, scale_name, palette, name = waiver(),
   if (!is.null(limits)) {
     limits <- trans$transform(limits)
   }
+
+  # Convert formula input to function if appropriate
+  limits   <- allow_lambda(limits)
+  breaks   <- allow_lambda(breaks)
+  labels   <- allow_lambda(labels)
+  rescaler <- allow_lambda(rescaler)
+  oob      <- allow_lambda(oob)
 
   ggproto(NULL, super,
     call = match.call(),
