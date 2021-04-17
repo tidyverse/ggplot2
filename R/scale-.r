@@ -1167,3 +1167,7 @@ check_transformation <- function(x, transformed, name, axis) {
 trans_support_nbreaks <- function(trans) {
   "n" %in% names(formals(trans$breaks))
 }
+
+allow_lambda <- function(x) {
+  if (is_formula(x)) as_function(x) else x
+}
