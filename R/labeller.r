@@ -88,8 +88,13 @@
 NULL
 
 collapse_labels_lines <- function(labels) {
+  is_exp <- vapply(labels, function(l) length(l) > 0 && is.expression(l[[1]]), logical(1))
   out <- do.call("Map", c(list(paste, sep = ", "), labels))
-  list(unname(unlist(out)))
+  label <- list(unname(unlist(out)))
+  if (all(is_exp)) {
+    label <- lapply(label, function(l) list(parse(text = paste0("list(", l, ")"))))
+  }
+  label
 }
 
 #' @rdname labellers
@@ -553,7 +558,11 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
 #'
 #' @noRd
 assemble_strips <- function(grobs, theme, horizontal = TRUE, clip) {
-  if (length(grobs) == 0 || is.zero(grobs[[1]])) return(grobs)
+  if (length(grobs) == 0 || is.zero(grobs[[1]])) {
+    # Subsets matrix of zeroGrobs to correct length (#4050)
+    grobs <- grobs[seq_len(NROW(grobs))]
+    return(grobs)
+  }
 
   # Add margins to non-titleGrobs so they behave eqivalently
   grobs[] <- lapply(grobs, function(g) {
