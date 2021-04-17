@@ -290,6 +290,7 @@ news:
 navbar:
   structure:
     right: [reference, news, articles, extensions, github]
+    left: []
   components:
     home: ~
     extensions:
