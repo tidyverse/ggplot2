@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Fix a bug in `stat_summary_bin()` where one more than the requested number of
+  bins would be created (@thomasp85, #3824)
+
 * Fix bug in `guide_coloursteps()` that would repeat the terminal bins if the
   breaks coincided with the limits of the scale (@thomasp85, #4019)
   
