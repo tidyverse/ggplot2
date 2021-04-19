@@ -382,6 +382,11 @@ ScaleContinuousDate <- ggproto("ScaleContinuousDate", ScaleContinuous,
   map = function(self, x, limits = self$get_limits()) {
     self$oob(x, limits)
   },
+  get_breaks = function(self, limits = self$get_limits()) {
+    breaks <- ggproto_parent(ScaleContinuous, self)$get_breaks(limits)
+    breaks <- floor(breaks)
+    breaks[breaks >= limits[1] & breaks <= limits[2]]
+  },
   break_info = function(self, range = NULL) {
     breaks <- ggproto_parent(ScaleContinuous, self)$break_info(range)
     if (!(is.waive(self$secondary.axis) || self$secondary.axis$empty())) {

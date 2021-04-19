@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Fix bug in `scale_[x|y]_date()` where custom breaks functions that resulted in
+  fracional dates would get misaligned (@thomasp85, #3965)
+
 * Fix bug in `guide_coloursteps()` that would repeat the terminal bins if the
   breaks coincided with the limits of the scale (@thomasp85, #4019)
   
