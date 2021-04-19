@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Fix bug in `guide_coloursteps()` that would repeat the terminal bins if the
+  breaks coincided with the limits of the scale (@thomasp85, #4019)
+  
 * Extent the range of the line created by `geom_abline()` so that line ending
   is not visible for large linewidths (@thomasp85, #4024)
 
