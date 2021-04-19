@@ -22,50 +22,57 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: windows-latest, r: '4.0',   vdiffr: true }
-          - {os: macOS-latest,   r: '4.0',   vdiffr: true }
-          - {os: ubuntu-18.04,   r: 'devel', vdiffr: false}
-          - {os: ubuntu-18.04,   r: '4.0',   vdiffr: true,    rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest"}
-          - {os: ubuntu-18.04,   r: '3.6',   vdiffr: false,   rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest"}
-          - {os: ubuntu-18.04,   r: '3.5',   vdiffr: false,   rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest"}
-          - {os: ubuntu-18.04,   r: '3.4',   vdiffr: false,   rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest"}
-          - {os: ubuntu-18.04,   r: '3.3',   vdiffr: false,   rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest"}
+          - {os: windows-latest, r: '4.0',   vdiffr: true,  xref: true}
+          - {os: macOS-latest,   r: '4.0',   vdiffr: true,  xref: true}
+          - {os: ubuntu-18.04,   r: 'devel', vdiffr: false, xref: true}
+          - {os: ubuntu-18.04,   r: '4.0',   vdiffr: true,  xref: true,   rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest"}
+          - {os: ubuntu-18.04,   r: '3.6',   vdiffr: false, xref: true,   rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest"}
+          - {os: ubuntu-18.04,   r: '3.5',   vdiffr: false, xref: true,   rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest"}
+          - {os: ubuntu-18.04,   r: '3.4',   vdiffr: false, xref: true,   rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest"}
+          - {os: ubuntu-18.04,   r: '3.3',   vdiffr: false, xref: true,   rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest"}
 
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
       RSPM: ${{ matrix.config.rspm }}
       # don't treat missing suggested packages as error
       _R_CHECK_FORCE_SUGGESTS_: false
+      # Some packages might unavailable on the older versions, so let's ignore xref warnings
+      _R_CHECK_RD_XREFS_: ${{ matrix.config.xref }}
       # Runs vdiffr test only on the latest version of R
       VDIFFR_RUN_TESTS: ${{ matrix.config.vdiffr }}
       VDIFFR_LOG_PATH: "../vdiffr.Rout.fail"
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
       - uses: actions/checkout@v2
 
-      - uses: r-lib/actions/setup-r@v1
-        id: install-r
+      - uses: r-lib/actions/setup-r@master
         with:
           r-version: ${{ matrix.config.r }}
           http-user-agent: ${{ matrix.config.http-user-agent }}
 
-      - uses: r-lib/actions/setup-pandoc@v1
+      - uses: r-lib/actions/setup-pandoc@master
 
-      - name: Install pak and query dependencies
+      - name: Query dependencies
         run: |
-          install.packages("pak", repos = "https://r-lib.github.io/p/pak/dev/")
-          saveRDS(pak::pkg_deps("local::.", dependencies = TRUE), ".github/r-depends.rds")
+          install.packages('remotes')
+          saveRDS(remotes::dev_package_deps(dependencies = TRUE), "depends.Rds", version = 2)
         shell: Rscript {0}
 
-      - name: Restore R package cache
-        uses: actions/cache@v2
+      - name: Cache R packages
+        if: runner.os != 'Windows'
+        uses: actions/cache@v1
         with:
-          path: |
-            ${{ env.R_LIBS_USER }}/*
-            !${{ env.R_LIBS_USER }}/pak
-          key: ${{ matrix.config.os }}-${{ steps.install-r.outputs.installed-r-version }}-${{ env.cache-version }}-${{ hashFiles('.github/r-depends.rds') }}
-          restore-keys: ${{ matrix.config.os }}-${{ steps.install-r.outputs.installed-r-version }}-${{ env.cache-version }}-
+          path: ${{ env.R_LIBS_USER }}
+          key: ${{ env.cache-version }}-${{ runner.os }}-r-${{ matrix.config.r }}-${{ hashFiles('depends.Rds') }}
+          restore-keys: ${{ env.cache-version }}-${{ runner.os }}-r-${{ matrix.config.r }}-
+
+      - name: Install system dependencies on Linux
+        if: runner.os == 'Linux'
+        run: |
+          while read -r cmd
+          do
+            eval sudo $cmd
+          done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "18.04"))')
 
       - name: Install system dependencies on macOS
         if: runner.os == 'macOS'
@@ -73,42 +80,22 @@ jobs:
           # XQuartz is needed by vdiffr
           brew install xquartz
 
-      - name: Install system dependencies
-        if: runner.os == 'Linux'
-        run: |
-          pak::local_system_requirements(execute = TRUE)
-          pak::pkg_system_requirements("rcmdcheck", execute = TRUE)
-        shell: Rscript {0}
+          # Use only binary packages
+          echo 'options(pkgType = "binary")' >> ~/.Rprofile
 
       - name: Install dependencies
         run: |
-          pak::local_install_dev_deps(upgrade = TRUE)
-          pak::pkg_install("rcmdcheck")
-        shell: Rscript {0}
-
-      - name: Session info
-        run: |
-          options(width = 100)
-          pkgs <- installed.packages()[, "Package"]
-          sessioninfo::session_info(pkgs, include_base = TRUE)
+          remotes::install_deps(dependencies = TRUE)
+          remotes::install_cran("rcmdcheck")
         shell: Rscript {0}
 
       - name: Check
-        env:
-          _R_CHECK_CRAN_INCOMING_: false
-        run: |
-          options(crayon.enabled = TRUE)
-          rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
+        run: rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "warning", check_dir = "check")
         shell: Rscript {0}
-
-      - name: Show testthat output
-        if: always()
-        run: find check -name 'testthat.Rout*' -exec cat '{}' \; || true
-        shell: bash
 
       - name: Upload check results
         if: failure()
-        uses: actions/upload-artifact@main
+        uses: actions/upload-artifact@master
         with:
-          name: ${{ matrix.config.os }}-r${{ matrix.config.r }}-results
+          name: ${{ runner.os }}-r${{ matrix.config.r }}-results
           path: check
