@@ -342,13 +342,13 @@ datetime_scale <- function(aesthetics, trans, palette,
 ScaleContinuousDatetime <- ggproto("ScaleContinuousDatetime", ScaleContinuous,
   secondary.axis = waiver(),
   timezone = NULL,
-  train = function(self, x) {
+  transform = function(self, x) {
     tz <- attr(x, "tzone")
     if (is.null(self$timezone) && !is.null(tz)) {
       self$timezone <- tz
       self$trans <- time_trans(self$timezone)
     }
-    ggproto_parent(ScaleContinuous, self)$train(x)
+    ggproto_parent(ScaleContinuous, self)$transform(x)
   },
   map = function(self, x, limits = self$get_limits()) {
     self$oob(x, limits)
