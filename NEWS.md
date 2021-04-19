@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Fix bug in `scale_[x|y]_datetime()` where a specified timezone would be 
+  ignored by the scale (@thomasp85, #4007)
+
 * Fix bug in `guide_coloursteps()` that would repeat the terminal bins if the
   breaks coincided with the limits of the scale (@thomasp85, #4019)
   

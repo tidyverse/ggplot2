@@ -314,6 +314,11 @@ datetime_scale <- function(aesthetics, trans, palette,
     scale_class <- ScaleContinuous
   }
 
+  trans <- switch(trans,
+    date = date_trans(),
+    time = time_trans(timezone)
+  )
+
   sc <- continuous_scale(
     aesthetics,
     name,
@@ -337,13 +342,13 @@ datetime_scale <- function(aesthetics, trans, palette,
 ScaleContinuousDatetime <- ggproto("ScaleContinuousDatetime", ScaleContinuous,
   secondary.axis = waiver(),
   timezone = NULL,
-  transform = function(self, x) {
+  train = function(self, x) {
     tz <- attr(x, "tzone")
     if (is.null(self$timezone) && !is.null(tz)) {
       self$timezone <- tz
       self$trans <- time_trans(self$timezone)
     }
-    ggproto_parent(ScaleContinuous, self)$transform(x)
+    ggproto_parent(ScaleContinuous, self)$train(x)
   },
   map = function(self, x, limits = self$get_limits()) {
     self$oob(x, limits)
