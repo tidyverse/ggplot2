@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Using `theme(aspect.ratio = ...)` together with free space in `facet_grid()`
+  now crrectly throws an error (@thomasp85, #3834)
+  
 * Fix bug in `guide_coloursteps()` that would repeat the terminal bins if the
   breaks coincided with the limits of the scale (@thomasp85, #4019)
   
