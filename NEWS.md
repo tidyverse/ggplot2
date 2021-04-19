@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Fix bug in `annotate_logticks()` that would cause an error when used together
+  with `coord_flip()` (@thomasp85, #3954)
+
 * Fix bug in `guide_coloursteps()` that would repeat the terminal bins if the
   breaks coincided with the limits of the scale (@thomasp85, #4019)
   
