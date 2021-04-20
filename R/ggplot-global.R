@@ -20,7 +20,8 @@ ggplot_global$element_tree <- list()
   "colour", "fg", "fill", "group", "hjust", "label", "linetype", "lower",
   "lty", "lwd", "max", "middle", "min", "pch", "radius", "sample", "shape",
   "size", "srt", "upper", "vjust", "weight", "width", "x", "xend", "xmax",
-  "xmin", "xintercept", "y", "yend", "ymax", "ymin", "yintercept", "z"
+  "xmin", "xintercept", "y", "yend", "ymax", "ymin", "yintercept", "z",
+  "intercept"
 )
 
 ggplot_global$all_aesthetics <- .all_aesthetics
@@ -49,4 +50,4 @@ ggplot_global$x_aes <- c("x", "xmin", "xmax", "xend", "xintercept",
   "xmin_final", "xmax_final", "xlower", "xmiddle", "xupper", "x0")
 
 ggplot_global$y_aes <- c("y", "ymin", "ymax", "yend", "yintercept", "ymin_final",
-  "ymax_final", "lower", "middle", "upper", "y0")
+  "ymax_final", "lower", "middle", "upper", "y0", "intercept")
