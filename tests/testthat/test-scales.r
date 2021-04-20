@@ -387,7 +387,7 @@ test_that("scales accept lambda notation for function input", {
   check_lambda <- function(items, ggproto) {
     vapply(items, function(x) {
       f <- environment(ggproto[[x]])$f
-      rlang::is_lambda(f)
+      is_lambda(f)
     }, logical(1))
   }
 
