@@ -1,5 +1,10 @@
 # ggplot2 (development version)
 
+* Fix a bug in legend justification where justification was lost of the legend
+  dimensions exceeded the available size (@thomasp85, #3635)
+
+* Fix calculation of confidence interval for locfit smoothing (@topepo, #3806)
+
 * Fix a bug in `geom_abline()` that resulted in `intercept` not being subjected
   to the transformation of the y scale (@thomasp85, #3741)
 

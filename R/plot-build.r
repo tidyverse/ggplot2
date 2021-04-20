@@ -205,7 +205,8 @@ ggplot_gtable.ggplot_built <- function(data) {
     } else {
       # x and y are adjusted using justification of legend box (i.e., theme$legend.justification)
       legend_box <- editGrob(legend_box,
-        vp = viewport(x = xjust, y = yjust, just = c(xjust, yjust)))
+        vp = viewport(x = xjust, y = yjust, just = c(xjust, yjust),
+          height = legend_height, width = legend_width))
       legend_box <- gtable_add_rows(legend_box, unit(yjust, 'null'))
       legend_box <- gtable_add_rows(legend_box, unit(1 - yjust, 'null'), 0)
       legend_box <- gtable_add_cols(legend_box, unit(xjust, 'null'), 0)
