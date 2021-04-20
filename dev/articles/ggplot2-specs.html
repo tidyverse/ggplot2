@@ -22,7 +22,8 @@
 <!-- docsearch --><script src="../docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
 <link href="../docsearch.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="Aesthetic specifications">
-<meta property="og:description" content="ggplot2">
+<meta property="og:description" content="Customising how aesthetic specifications are represented on your plot.
+">
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png">
 <meta name="twitter:card" content="summary">
 <meta name="robots" content="noindex">
@@ -38,8 +39,6 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
-    
-
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -54,7 +53,7 @@
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
-          <span class="partof">part of the <a href="https://tidyverse.org" class="external-link">tidyverse</a></span>
+          <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
           <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.3.9000</span>
         </div>
       </div>
@@ -66,27 +65,6 @@
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="../articles/extending-ggplot2.html">Extending ggplot2</a>
-    </li>
-    <li>
-      <a href="../articles/ggplot2-in-packages.html">Using ggplot2 in packages</a>
-    </li>
-    <li>
-      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
-    </li>
-    <li>
-      <a href="../articles/profiling.html">Profiling Performance</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     News
      
     <span class="caret"></span>
@@ -94,69 +72,28 @@
   <ul class="dropdown-menu" role="menu">
 <li class="dropdown-header">Releases</li>
     <li>
-      <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/" class="external-link">Version 3.3.0</a>
+      <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
     </li>
     <li>
-      <a href="https://www.tidyverse.org/articles/2019/06/ggplot2-3-2-0/" class="external-link">Version 3.2.0</a>
+      <a href="https://www.tidyverse.org/articles/2019/06/ggplot2-3-2-0/">Version 3.2.0</a>
     </li>
     <li>
-      <a href="https://www.tidyverse.org/articles/2018/10/ggplot2-3-1-0/" class="external-link">Version 3.1.0</a>
+      <a href="https://www.tidyverse.org/articles/2018/10/ggplot2-3-1-0/">Version 3.1.0</a>
     </li>
     <li>
-      <a href="https://www.tidyverse.org/articles/2018/07/ggplot2-3-0-0/" class="external-link">Version 3.0.0</a>
+      <a href="https://www.tidyverse.org/articles/2018/07/ggplot2-3-0-0/">Version 3.0.0</a>
     </li>
     <li>
-      <a href="https://blog.rstudio.com/2016/11/14/ggplot2-2-2-0/" class="external-link">Version 2.2.0</a>
+      <a href="https://blog.rstudio.com/2016/11/14/ggplot2-2-2-0/">Version 2.2.0</a>
     </li>
     <li>
-      <a href="https://blog.rstudio.com/2016/03/03/ggplot2-2-1-0/" class="external-link">Version 2.1.0</a>
+      <a href="https://blog.rstudio.com/2016/03/03/ggplot2-2-1-0/">Version 2.1.0</a>
     </li>
     <li>
-      <a href="https://blog.rstudio.com/2015/12/21/ggplot2-2-0-0/" class="external-link">Version 2.0.0</a>
+      <a href="https://blog.rstudio.com/2015/12/21/ggplot2-2-0-0/">Version 2.0.0</a>
     </li>
     <li>
-      <a href="https://blog.rstudio.com/2015/01/09/ggplot2-updates/" class="external-link">Version 1.0.0</a>
-    </li>
-    <li class="divider">
-    <li>
-      <a href="../news/index.html">Changelog</a>
-    </li>
-  </ul>
-</li>
-        <li>
-  <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    News
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li class="dropdown-header">Releases</li>
-    <li>
-      <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/" class="external-link">Version 3.3.0</a>
-    </li>
-    <li>
-      <a href="https://www.tidyverse.org/articles/2019/06/ggplot2-3-2-0/" class="external-link">Version 3.2.0</a>
-    </li>
-    <li>
-      <a href="https://www.tidyverse.org/articles/2018/10/ggplot2-3-1-0/" class="external-link">Version 3.1.0</a>
-    </li>
-    <li>
-      <a href="https://www.tidyverse.org/articles/2018/07/ggplot2-3-0-0/" class="external-link">Version 3.0.0</a>
-    </li>
-    <li>
-      <a href="https://blog.rstudio.com/2016/11/14/ggplot2-2-2-0/" class="external-link">Version 2.2.0</a>
-    </li>
-    <li>
-      <a href="https://blog.rstudio.com/2016/03/03/ggplot2-2-1-0/" class="external-link">Version 2.1.0</a>
-    </li>
-    <li>
-      <a href="https://blog.rstudio.com/2015/12/21/ggplot2-2-0-0/" class="external-link">Version 2.0.0</a>
-    </li>
-    <li>
-      <a href="https://blog.rstudio.com/2015/01/09/ggplot2-updates/" class="external-link">Version 1.0.0</a>
+      <a href="https://blog.rstudio.com/2015/01/09/ggplot2-updates/">Version 1.0.0</a>
     </li>
     <li class="divider">
     <li>
@@ -172,24 +109,46 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
+      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+    </li>
+    <li class="divider">
+    <li class="dropdown-header">Developer</li>
+    <li>
       <a href="../articles/extending-ggplot2.html">Extending ggplot2</a>
     </li>
     <li>
       <a href="../articles/ggplot2-in-packages.html">Using ggplot2 in packages</a>
     </li>
     <li>
-      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+      <a href="../articles/profiling.html">Profiling Performance</a>
+    </li>
+    <li class="divider">
+    <li class="dropdown-header">FAQ</li>
+    <li>
+      <a href="../articles/articles/faq-axes.html">FAQ: Axes</a>
     </li>
     <li>
-      <a href="../articles/profiling.html">Profiling Performance</a>
+      <a href="../articles/articles/faq-faceting.html">FAQ: Faceting</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-customising.html">FAQ: Customising</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-annotation.html">FAQ: Annotation</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-reordering.html">FAQ: Reordering</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-bars.html">FAQ: Barplots</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="https://exts.ggplot2.tidyverse.org/gallery/" class="external-link">Extensions</a>
+  <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
 </li>
 <li>
-  <a href="https://github.com/tidyverse/ggplot2/" class="external-link">
+  <a href="https://github.com/tidyverse/ggplot2/">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -216,7 +175,7 @@
       <h1 data-toc-skip>Aesthetic specifications</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/master/vignettes/ggplot2-specs.Rmd" class="external-link"><code>vignettes/ggplot2-specs.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/master/vignettes/ggplot2-specs.Rmd"><code>vignettes/ggplot2-specs.Rmd</code></a></small>
       <div class="hidden name"><code>ggplot2-specs.Rmd</code></div>
 
     </div>
@@ -229,16 +188,16 @@
 <a href="#colour-and-fill" class="anchor"></a>Colour and fill</h2>
 <p>Almost every geom has either colour, fill, or both. Colours and fills can be specified in the following ways:</p>
 <ul>
-<li><p>A <strong>name</strong>, e.g., <code>"red"</code>. R has 657 built-in named colours, which can be listed with <code><a href="https://rdrr.io/r/grDevices/colors.html" class="external-link">colours()</a></code>.</p></li>
+<li><p>A <strong>name</strong>, e.g., <code>"red"</code>. R has 657 built-in named colours, which can be listed with <code><a href="https://rdrr.io/r/grDevices/colors.html">colours()</a></code>.</p></li>
 <li>
 <p>An <strong>rgb specification</strong>, with a string of the form <code>"#RRGGBB"</code> where each of the pairs <code>RR</code>, <code>GG</code>, <code>BB</code> consists of two hexadecimal digits giving a value in the range <code>00</code> to <code>FF</code></p>
 <p>You can optionally make the colour transparent by using the form <code>"#RRGGBBAA"</code>.</p>
 </li>
 <li><p>An <strong>NA</strong>, for a completely transparent colour.</p></li>
 <li>
-<p>The <a href="https://github.com/cwickham/munsell" class="external-link">munsell</a> package, by Charlotte Wickham, makes it easy to choose specific colours using a system designed by Albert H. Munsell. If you invest a little in learning the system, it provides a convenient way of specifying aesthetically pleasing colours.</p>
+<p>The <a href="https://github.com/cwickham/munsell">munsell</a> package, by Charlotte Wickham, makes it easy to choose specific colours using a system designed by Albert H. Munsell. If you invest a little in learning the system, it provides a convenient way of specifying aesthetically pleasing colours.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">munsell</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/munsell/man/mnsl.html" class="external-link">mnsl</a></span><span class="op">(</span><span class="st">"5PB 5/10"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu">munsell</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/munsell/man/mnsl.html">mnsl</a></span><span class="op">(</span><span class="st">"5PB 5/10"</span><span class="op">)</span>
 <span class="co">#&gt; [1] "#447DBF"</span></code></pre></div>
 </li>
 </ul>
@@ -255,15 +214,15 @@
 <li>
 <p>An <strong>integer</strong> or <strong>name</strong>: 0 = blank, 1 = solid, 2 = dashed, 3 = dotted, 4 = dotdash, 5 = longdash, 6 = twodash, as shown below:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">lty</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"solid"</span>, <span class="st">"dashed"</span>, <span class="st">"dotted"</span>, <span class="st">"dotdash"</span>, <span class="st">"longdash"</span>, <span class="st">"twodash"</span><span class="op">)</span>
-<span class="va">linetypes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>
-  y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">lty</span><span class="op">)</span>,
+<code class="sourceCode R"><span class="va">lty</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"solid"</span>, <span class="st">"dashed"</span>, <span class="st">"dotted"</span>, <span class="st">"dotdash"</span>, <span class="st">"longdash"</span>, <span class="st">"twodash"</span><span class="op">)</span>
+<span class="va">linetypes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
+  y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span><span class="op">(</span><span class="va">lty</span><span class="op">)</span>,
   lty <span class="op">=</span> <span class="va">lty</span>
 <span class="op">)</span> 
 <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">linetypes</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="../reference/geom_segment.html">geom_segment</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>xend <span class="op">=</span> <span class="fl">5</span>, yend <span class="op">=</span> <span class="va">y</span>, linetype <span class="op">=</span> <span class="va">lty</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="../reference/scale_identity.html">scale_linetype_identity</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="../reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">lty</span><span class="op">)</span>, hjust <span class="op">=</span> <span class="fl">0</span>, nudge_y <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="../reference/geom_label.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">lty</span><span class="op">)</span>, hjust <span class="op">=</span> <span class="fl">0</span>, nudge_y <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span><span class="cn">NULL</span>, breaks <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="../reference/scale_continuous.html">scale_y_reverse</a></span><span class="op">(</span><span class="cn">NULL</span>, breaks <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
 <p><img src="ggplot2-specs_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
@@ -271,15 +230,15 @@
 <li>
 <p>The lengths of on/off stretches of line. This is done with a string containing 2, 4, 6, or 8 hexadecimal digits which give the lengths of consecutive lengths. For example, the string <code>"33"</code> specifies three units on followed by three off and <code>"3313"</code> specifies three units on followed by three off followed by one on and finally three off.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">lty</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"11"</span>, <span class="st">"18"</span>, <span class="st">"1f"</span>, <span class="st">"81"</span>, <span class="st">"88"</span>, <span class="st">"8f"</span>, <span class="st">"f1"</span>, <span class="st">"f8"</span>, <span class="st">"ff"</span><span class="op">)</span>
-<span class="va">linetypes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>
-  y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">lty</span><span class="op">)</span>,
+<code class="sourceCode R"><span class="va">lty</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"11"</span>, <span class="st">"18"</span>, <span class="st">"1f"</span>, <span class="st">"81"</span>, <span class="st">"88"</span>, <span class="st">"8f"</span>, <span class="st">"f1"</span>, <span class="st">"f8"</span>, <span class="st">"ff"</span><span class="op">)</span>
+<span class="va">linetypes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
+  y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span><span class="op">(</span><span class="va">lty</span><span class="op">)</span>,
   lty <span class="op">=</span> <span class="va">lty</span>
 <span class="op">)</span> 
 <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">linetypes</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="../reference/geom_segment.html">geom_segment</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>xend <span class="op">=</span> <span class="fl">5</span>, yend <span class="op">=</span> <span class="va">y</span>, linetype <span class="op">=</span> <span class="va">lty</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="../reference/scale_identity.html">scale_linetype_identity</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="../reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">lty</span><span class="op">)</span>, hjust <span class="op">=</span> <span class="fl">0</span>, nudge_y <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="../reference/geom_label.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">lty</span><span class="op">)</span>, hjust <span class="op">=</span> <span class="fl">0</span>, nudge_y <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span><span class="cn">NULL</span>, breaks <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="../reference/scale_continuous.html">scale_y_reverse</a></span><span class="op">(</span><span class="cn">NULL</span>, breaks <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
 <p><img src="ggplot2-specs_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
@@ -299,7 +258,7 @@
 <li>
 <p>The appearance of the line end is controlled by the <code>lineend</code> paramter, and can be one of “round”, “butt” (the default), or “square”.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">1</span>, <span class="fl">9</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">1</span>, <span class="fl">9</span><span class="op">)</span><span class="op">)</span>
 <span class="va">base</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/lims.html">xlim</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">3.5</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/lims.html">ylim</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span>
 <span class="va">base</span> <span class="op">+</span> 
   <span class="fu"><a href="../reference/geom_path.html">geom_path</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">+</span> 
@@ -317,7 +276,7 @@
 <li>
 <p>The appearance of line joins is controlled by <code>linejoin</code> and can be one of “round” (the default), “mitre”, or “bevel”.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">9</span>, <span class="fl">1</span>, <span class="fl">9</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">9</span>, <span class="fl">1</span>, <span class="fl">9</span><span class="op">)</span><span class="op">)</span>
 <span class="va">base</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/lims.html">ylim</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span>
 <span class="va">base</span> <span class="op">+</span> 
   <span class="fu"><a href="../reference/geom_path.html">geom_path</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">+</span> 
@@ -352,14 +311,14 @@
 <li>
 <p>An <strong>integer</strong> in <span class="math inline">\([0, 25]\)</span>:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">shapes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>
-  shape <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">19</span>, <span class="fl">22</span>, <span class="fl">21</span>, <span class="fl">24</span>, <span class="fl">23</span>, <span class="fl">20</span><span class="op">)</span>,
+<code class="sourceCode R"><span class="va">shapes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
+  shape <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">19</span>, <span class="fl">22</span>, <span class="fl">21</span>, <span class="fl">24</span>, <span class="fl">23</span>, <span class="fl">20</span><span class="op">)</span>,
   x <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">24</span> <span class="op">%/%</span> <span class="fl">5</span>,
   y <span class="op">=</span> <span class="op">-</span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">24</span> <span class="op">%%</span> <span class="fl">5</span><span class="op">)</span>
 <span class="op">)</span>
 <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">shapes</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="va">shape</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">5</span>, fill <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">shape</span><span class="op">)</span>, hjust <span class="op">=</span> <span class="fl">0</span>, nudge_x <span class="op">=</span> <span class="fl">0.15</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="../reference/geom_label.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">shape</span><span class="op">)</span>, hjust <span class="op">=</span> <span class="fl">0</span>, nudge_x <span class="op">=</span> <span class="fl">0.15</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../reference/scale_identity.html">scale_shape_identity</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../reference/expand_limits.html">expand_limits</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">4.1</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../reference/ggtheme.html">theme_void</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
@@ -368,24 +327,24 @@
 <li>
 <p>The <strong>name</strong> of the shape:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">shape_names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>
-  <span class="st">"circle"</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"circle"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"filled"</span>, <span class="st">"cross"</span>, <span class="st">"plus"</span>, <span class="st">"small"</span><span class="op">)</span><span class="op">)</span>, <span class="st">"bullet"</span>,
-  <span class="st">"square"</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"square"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"filled"</span>, <span class="st">"cross"</span>, <span class="st">"plus"</span>, <span class="st">"triangle"</span><span class="op">)</span><span class="op">)</span>,
-  <span class="st">"diamond"</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"diamond"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"filled"</span>, <span class="st">"plus"</span><span class="op">)</span><span class="op">)</span>,
-  <span class="st">"triangle"</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"triangle"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"filled"</span>, <span class="st">"square"</span><span class="op">)</span><span class="op">)</span>,
-  <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"triangle down"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"filled"</span><span class="op">)</span><span class="op">)</span>,
+<code class="sourceCode R"><span class="va">shape_names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
+  <span class="st">"circle"</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"circle"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"filled"</span>, <span class="st">"cross"</span>, <span class="st">"plus"</span>, <span class="st">"small"</span><span class="op">)</span><span class="op">)</span>, <span class="st">"bullet"</span>,
+  <span class="st">"square"</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"square"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"filled"</span>, <span class="st">"cross"</span>, <span class="st">"plus"</span>, <span class="st">"triangle"</span><span class="op">)</span><span class="op">)</span>,
+  <span class="st">"diamond"</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"diamond"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"filled"</span>, <span class="st">"plus"</span><span class="op">)</span><span class="op">)</span>,
+  <span class="st">"triangle"</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"triangle"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"filled"</span>, <span class="st">"square"</span><span class="op">)</span><span class="op">)</span>,
+  <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"triangle down"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"filled"</span><span class="op">)</span><span class="op">)</span>,
   <span class="st">"plus"</span>, <span class="st">"cross"</span>, <span class="st">"asterisk"</span>
 <span class="op">)</span>
 
-<span class="va">shapes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>
+<span class="va">shapes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
   shape_names <span class="op">=</span> <span class="va">shape_names</span>,
-  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">7</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">5</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">6</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>,
-  y <span class="op">=</span> <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">7</span>, <span class="fl">6</span>, <span class="fl">4</span>, <span class="fl">4</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>
+  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">7</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">5</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">6</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>,
+  y <span class="op">=</span> <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">7</span>, <span class="fl">6</span>, <span class="fl">4</span>, <span class="fl">4</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>
 <span class="op">)</span>
 
 <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">shapes</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="va">shape_names</span><span class="op">)</span>, fill <span class="op">=</span> <span class="st">"red"</span>, size <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">shape_names</span><span class="op">)</span>, nudge_y <span class="op">=</span> <span class="op">-</span><span class="fl">0.3</span>, size <span class="op">=</span> <span class="fl">3.5</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="../reference/geom_label.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">shape_names</span><span class="op">)</span>, nudge_y <span class="op">=</span> <span class="op">-</span><span class="fl">0.3</span>, size <span class="op">=</span> <span class="fl">3.5</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../reference/scale_identity.html">scale_shape_identity</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../reference/ggtheme.html">theme_void</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="ggplot2-specs_files/figure-html/unnamed-chunk-8-1.png" width="90%"></p>
@@ -400,7 +359,7 @@
 <a href="#colour-and-fill-1" class="anchor"></a>Colour and fill</h3>
 <p>Note that shapes 21-24 have both stroke <code>colour</code> and a <code>fill</code>. The size of the filled part is controlled by <code>size</code>, the size of the stroke is controlled by <code>stroke</code>. Each is measured in mm, and the total size of the point is the sum of the two. Note that the size is constant along the diagonal in the following figure.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">sizes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span>size <span class="op">=</span> <span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span> <span class="op">*</span> <span class="fl">2</span>, stroke <span class="op">=</span> <span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span> <span class="op">*</span> <span class="fl">2</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">sizes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid</a></span><span class="op">(</span>size <span class="op">=</span> <span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span> <span class="op">*</span> <span class="fl">2</span>, stroke <span class="op">=</span> <span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span> <span class="op">*</span> <span class="fl">2</span><span class="op">)</span>
 <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">sizes</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">size</span>, <span class="va">stroke</span>, size <span class="op">=</span> <span class="va">size</span>, stroke <span class="op">=</span> <span class="va">stroke</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="../reference/geom_abline.html">geom_abline</a></span><span class="op">(</span>slope <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, intercept <span class="op">=</span> <span class="fl">6</span>, colour <span class="op">=</span> <span class="st">"white"</span>, size <span class="op">=</span> <span class="fl">6</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="fl">21</span>, fill <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span>
@@ -416,11 +375,11 @@
 <a href="#font-face" class="anchor"></a>Font face</h3>
 <p>There are only three fonts that are guaranteed to work everywhere: “sans” (the default), “serif”, or “mono”:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span>, y <span class="op">=</span> <span class="fl">3</span><span class="op">:</span><span class="fl">1</span>, family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sans"</span>, <span class="st">"serif"</span>, <span class="st">"mono"</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span>, y <span class="op">=</span> <span class="fl">3</span><span class="op">:</span><span class="fl">1</span>, family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"sans"</span>, <span class="st">"serif"</span>, <span class="st">"mono"</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="../reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">family</span>, family <span class="op">=</span> <span class="va">family</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+  <span class="fu"><a href="../reference/geom_label.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">family</span>, family <span class="op">=</span> <span class="va">family</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="ggplot2-specs_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
-<p>It’s trickier to include a system font on a plot because text drawing is done differently by each graphics device (GD). There are five GDs in common use (<code><a href="https://rdrr.io/r/grDevices/png.html" class="external-link">png()</a></code>, <code><a href="https://rdrr.io/r/grDevices/pdf.html" class="external-link">pdf()</a></code>, on screen devices for Windows, Mac and Linux), so to have a font work everywhere you need to configure five devices in five different ways. Two packages simplify the quandary a bit:</p>
+<p>It’s trickier to include a system font on a plot because text drawing is done differently by each graphics device (GD). There are five GDs in common use (<code><a href="https://rdrr.io/r/grDevices/png.html">png()</a></code>, <code><a href="https://rdrr.io/r/grDevices/pdf.html">pdf()</a></code>, on screen devices for Windows, Mac and Linux), so to have a font work everywhere you need to configure five devices in five different ways. Two packages simplify the quandary a bit:</p>
 <ul>
 <li><p><code>showtext</code> makes GD-independent plots by rendering all text as polygons.</p></li>
 <li><p><code>extrafont</code> converts fonts to a standard format that all devices can use.</p></li>
@@ -431,9 +390,9 @@
 <h3 class="hasAnchor">
 <a href="#font-face-1" class="anchor"></a>Font face</h3>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, fontface <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"plain"</span>, <span class="st">"bold"</span>, <span class="st">"italic"</span>, <span class="st">"bold.italic"</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, fontface <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"plain"</span>, <span class="st">"bold"</span>, <span class="st">"italic"</span>, <span class="st">"bold.italic"</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="../reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">fontface</span>, fontface <span class="op">=</span> <span class="va">fontface</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+  <span class="fu"><a href="../reference/geom_label.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">fontface</span>, fontface <span class="op">=</span> <span class="va">fontface</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="ggplot2-specs_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
 </div>
 <div id="font-size" class="section level3">
@@ -450,12 +409,12 @@
 <li>left = 0, center = 0.5, right = 1</li>
 </ul>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">just</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span>hjust <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">1</span><span class="op">)</span>, vjust <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
-<span class="va">just</span><span class="op">$</span><span class="va">label</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">just</span><span class="op">$</span><span class="va">hjust</span>, <span class="st">", "</span>, <span class="va">just</span><span class="op">$</span><span class="va">vjust</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">just</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid</a></span><span class="op">(</span>hjust <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">1</span><span class="op">)</span>, vjust <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
+<span class="va">just</span><span class="op">$</span><span class="va">label</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">just</span><span class="op">$</span><span class="va">hjust</span>, <span class="st">", "</span>, <span class="va">just</span><span class="op">$</span><span class="va">vjust</span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">just</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">hjust</span>, <span class="va">vjust</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"grey70"</span>, size <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="../reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">label</span>, hjust <span class="op">=</span> <span class="va">hjust</span>, vjust <span class="op">=</span> <span class="va">vjust</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+  <span class="fu"><a href="../reference/geom_label.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">label</span>, hjust <span class="op">=</span> <span class="va">hjust</span>, vjust <span class="op">=</span> <span class="va">vjust</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="ggplot2-specs_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
 <p>Note that you can use numbers outside the range (0, 1), but it’s not recommended.</p>
 </div>
@@ -473,13 +432,13 @@
 
 
       <footer><div class="tidyverse">
-  <p>ggplot2 is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org" class="external-link">tidyverse.org</a>.</p>
+  <p>ggplot2 is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
 </div>
 
 <div class="author">
   <p>
-    Developed by <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://github.com/wch" class="external-link">Winston Chang</a>, <a href="https://github.com/lionel-" class="external-link">Lionel Henry</a>, <a href="https://data-imaginist.com" class="external-link">Thomas Lin Pedersen</a>, Kohske Takahashi, <a href="https://clauswilke.com" class="external-link">Claus Wilke</a>, <a href="https://karawoo.com" class="external-link">Kara Woo</a>, <a href="https://yutani.rbind.io" class="external-link">Hiroaki Yutani</a>, <a href="https://fishandwhistle.net" class="external-link">Dewey Dunnington</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
-    Site built by <a href="https://pkgdown.r-lib.org" class="external-link">pkgdown</a>.
+    Developed by <a href="http://hadley.nz">Hadley Wickham</a>, <a href="https://github.com/wch">Winston Chang</a>, <a href="https://github.com/lionel-">Lionel Henry</a>, <a href="https://data-imaginist.com">Thomas Lin Pedersen</a>, Kohske Takahashi, <a href="https://clauswilke.com">Claus Wilke</a>, <a href="https://karawoo.com">Kara Woo</a>, <a href="https://yutani.rbind.io">Hiroaki Yutani</a>, <a href="https://fishandwhistle.net">Dewey Dunnington</a>, <a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
+    Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
 

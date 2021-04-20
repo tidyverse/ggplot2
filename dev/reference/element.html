@@ -91,15 +91,9 @@ margin() is used to specify the margins of elements." />
   gtag('config', 'UA-115082821-1');
 </script>
 
-  
-
-  
-
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    
-
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -122,68 +116,7 @@ margin() is used to specify the margins of elements." />
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/extending-ggplot2.html">Extending ggplot2</a>
-    </li>
-    <li>
-      <a href="../articles/ggplot2-in-packages.html">Using ggplot2 in packages</a>
-    </li>
-    <li>
-      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
-    </li>
-    <li>
-      <a href="../articles/profiling.html">Profiling Performance</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    News
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Releases</li>
-    <li>
-      <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
-    </li>
-    <li>
-      <a href="https://www.tidyverse.org/articles/2019/06/ggplot2-3-2-0/">Version 3.2.0</a>
-    </li>
-    <li>
-      <a href="https://www.tidyverse.org/articles/2018/10/ggplot2-3-1-0/">Version 3.1.0</a>
-    </li>
-    <li>
-      <a href="https://www.tidyverse.org/articles/2018/07/ggplot2-3-0-0/">Version 3.0.0</a>
-    </li>
-    <li>
-      <a href="https://blog.rstudio.com/2016/11/14/ggplot2-2-2-0/">Version 2.2.0</a>
-    </li>
-    <li>
-      <a href="https://blog.rstudio.com/2016/03/03/ggplot2-2-1-0/">Version 2.1.0</a>
-    </li>
-    <li>
-      <a href="https://blog.rstudio.com/2015/12/21/ggplot2-2-0-0/">Version 2.0.0</a>
-    </li>
-    <li>
-      <a href="https://blog.rstudio.com/2015/01/09/ggplot2-updates/">Version 1.0.0</a>
-    </li>
-    <li class="divider"></li>
-    <li>
-      <a href="../news/index.html">Changelog</a>
-    </li>
-  </ul>
-</li>
+        
         <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -233,16 +166,38 @@ margin() is used to specify the margins of elements." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Developer</li>
+    <li>
       <a href="../articles/extending-ggplot2.html">Extending ggplot2</a>
     </li>
     <li>
       <a href="../articles/ggplot2-in-packages.html">Using ggplot2 in packages</a>
     </li>
     <li>
-      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+      <a href="../articles/profiling.html">Profiling Performance</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">FAQ</li>
+    <li>
+      <a href="../articles/articles/faq-axes.html">FAQ: Axes</a>
     </li>
     <li>
-      <a href="../articles/profiling.html">Profiling Performance</a>
+      <a href="../articles/articles/faq-faceting.html">FAQ: Faceting</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-customising.html">FAQ: Customising</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-annotation.html">FAQ: Annotation</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-reordering.html">FAQ: Reordering</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-bars.html">FAQ: Barplots</a>
     </li>
   </ul>
 </li>
@@ -282,21 +237,21 @@ margin() is used to specify the margins of elements." />
     <div class="ref-description">
     <p>In conjunction with the <a href='theme.html'>theme</a> system, the <code>element_</code> functions
 specify the display of how non-data components of the plot are drawn.</p><ul>
-<li><p><code><a href='element.html'>element_blank()</a></code>: draws nothing, and assigns no space.</p></li>
-<li><p><code><a href='element.html'>element_rect()</a></code>: borders and backgrounds.</p></li>
-<li><p><code><a href='element.html'>element_line()</a></code>: lines.</p></li>
-<li><p><code><a href='element.html'>element_text()</a></code>: text.</p></li>
+<li><p><code>element_blank()</code>: draws nothing, and assigns no space.</p></li>
+<li><p><code>element_rect()</code>: borders and backgrounds.</p></li>
+<li><p><code>element_line()</code>: lines.</p></li>
+<li><p><code>element_text()</code>: text.</p></li>
 </ul>
 
-<p><code><a href='element.html'>rel()</a></code> is used to specify sizes relative to the parent,
-<code><a href='element.html'>margin()</a></code> is used to specify the margins of elements.</p>
+<p><code>rel()</code> is used to specify sizes relative to the parent,
+<code>margin()</code> is used to specify the margins of elements.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='element.html'>margin</a></span><span class='op'>(</span>t <span class='op'>=</span> <span class='fl'>0</span>, r <span class='op'>=</span> <span class='fl'>0</span>, b <span class='op'>=</span> <span class='fl'>0</span>, l <span class='op'>=</span> <span class='fl'>0</span>, unit <span class='op'>=</span> <span class='st'>"pt"</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>margin</span><span class='op'>(</span>t <span class='op'>=</span> <span class='fl'>0</span>, r <span class='op'>=</span> <span class='fl'>0</span>, b <span class='op'>=</span> <span class='fl'>0</span>, l <span class='op'>=</span> <span class='fl'>0</span>, unit <span class='op'>=</span> <span class='st'>"pt"</span><span class='op'>)</span>
 
-<span class='fu'><a href='element.html'>element_blank</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='fu'>element_blank</span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'><a href='element.html'>element_rect</a></span><span class='op'>(</span>
+<span class='fu'>element_rect</span><span class='op'>(</span>
   fill <span class='op'>=</span> <span class='cn'>NULL</span>,
   colour <span class='op'>=</span> <span class='cn'>NULL</span>,
   size <span class='op'>=</span> <span class='cn'>NULL</span>,
@@ -305,7 +260,7 @@ specify the display of how non-data components of the plot are drawn.</p><ul>
   inherit.blank <span class='op'>=</span> <span class='cn'>FALSE</span>
 <span class='op'>)</span>
 
-<span class='fu'><a href='element.html'>element_line</a></span><span class='op'>(</span>
+<span class='fu'>element_line</span><span class='op'>(</span>
   colour <span class='op'>=</span> <span class='cn'>NULL</span>,
   size <span class='op'>=</span> <span class='cn'>NULL</span>,
   linetype <span class='op'>=</span> <span class='cn'>NULL</span>,
@@ -315,7 +270,7 @@ specify the display of how non-data components of the plot are drawn.</p><ul>
   inherit.blank <span class='op'>=</span> <span class='cn'>FALSE</span>
 <span class='op'>)</span>
 
-<span class='fu'><a href='element.html'>element_text</a></span><span class='op'>(</span>
+<span class='fu'>element_text</span><span class='op'>(</span>
   family <span class='op'>=</span> <span class='cn'>NULL</span>,
   face <span class='op'>=</span> <span class='cn'>NULL</span>,
   colour <span class='op'>=</span> <span class='cn'>NULL</span>,
@@ -330,7 +285,7 @@ specify the display of how non-data components of the plot are drawn.</p><ul>
   inherit.blank <span class='op'>=</span> <span class='cn'>FALSE</span>
 <span class='op'>)</span>
 
-<span class='fu'><a href='element.html'>rel</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
+<span class='fu'>rel</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -405,7 +360,7 @@ calculating final element state.</p></td>
     </tr>
     <tr>
       <th>margin</th>
-      <td><p>Margins around the text. See <code><a href='element.html'>margin()</a></code> for more
+      <td><p>Margins around the text. See <code>margin()</code> for more
 details. When creating a theme, the margins should be placed on the
 side of the text facing towards the center of the plot.</p></td>
     </tr>
@@ -429,22 +384,22 @@ is anchored.</p></td>
     <pre class="examples"><div class='input'><span class='va'>plot</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>displ</span>, <span class='va'>hwy</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='va'>plot</span> <span class='op'>+</span> <span class='fu'><a href='theme.html'>theme</a></span><span class='op'>(</span>
-  panel.background <span class='op'>=</span> <span class='fu'><a href='element.html'>element_blank</a></span><span class='op'>(</span><span class='op'>)</span>,
-  axis.text <span class='op'>=</span> <span class='fu'><a href='element.html'>element_blank</a></span><span class='op'>(</span><span class='op'>)</span>
+  panel.background <span class='op'>=</span> <span class='fu'>element_blank</span><span class='op'>(</span><span class='op'>)</span>,
+  axis.text <span class='op'>=</span> <span class='fu'>element_blank</span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>)</span>
 </div><div class='img'><img src='element-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='va'>plot</span> <span class='op'>+</span> <span class='fu'><a href='theme.html'>theme</a></span><span class='op'>(</span>
-  axis.text <span class='op'>=</span> <span class='fu'><a href='element.html'>element_text</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='st'>"red"</span>, size <span class='op'>=</span> <span class='fu'><a href='element.html'>rel</a></span><span class='op'>(</span><span class='fl'>1.5</span><span class='op'>)</span><span class='op'>)</span>
+  axis.text <span class='op'>=</span> <span class='fu'>element_text</span><span class='op'>(</span>colour <span class='op'>=</span> <span class='st'>"red"</span>, size <span class='op'>=</span> <span class='fu'>rel</span><span class='op'>(</span><span class='fl'>1.5</span><span class='op'>)</span><span class='op'>)</span>
 <span class='op'>)</span>
 </div><div class='img'><img src='element-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='va'>plot</span> <span class='op'>+</span> <span class='fu'><a href='theme.html'>theme</a></span><span class='op'>(</span>
-  axis.line <span class='op'>=</span> <span class='fu'><a href='element.html'>element_line</a></span><span class='op'>(</span>arrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/arrow.html'>arrow</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+  axis.line <span class='op'>=</span> <span class='fu'>element_line</span><span class='op'>(</span>arrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/arrow.html'>arrow</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 <span class='op'>)</span>
 </div><div class='img'><img src='element-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='va'>plot</span> <span class='op'>+</span> <span class='fu'><a href='theme.html'>theme</a></span><span class='op'>(</span>
-  panel.background <span class='op'>=</span> <span class='fu'><a href='element.html'>element_rect</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='st'>"white"</span><span class='op'>)</span>,
-  plot.margin <span class='op'>=</span> <span class='fu'><a href='element.html'>margin</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='st'>"cm"</span><span class='op'>)</span>,
-  plot.background <span class='op'>=</span> <span class='fu'><a href='element.html'>element_rect</a></span><span class='op'>(</span>
+  panel.background <span class='op'>=</span> <span class='fu'>element_rect</span><span class='op'>(</span>fill <span class='op'>=</span> <span class='st'>"white"</span><span class='op'>)</span>,
+  plot.margin <span class='op'>=</span> <span class='fu'>margin</span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='st'>"cm"</span><span class='op'>)</span>,
+  plot.background <span class='op'>=</span> <span class='fu'>element_rect</span><span class='op'>(</span>
     fill <span class='op'>=</span> <span class='st'>"grey90"</span>,
     colour <span class='op'>=</span> <span class='st'>"black"</span>,
     size <span class='op'>=</span> <span class='fl'>1</span>
@@ -467,7 +422,7 @@ is anchored.</p></td>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -494,8 +449,6 @@ is anchored.</p></td>
 </script>
 
 
-
-  
 
   </body>
 </html>

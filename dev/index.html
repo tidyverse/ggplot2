@@ -41,8 +41,6 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
-    
-
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -69,68 +67,6 @@
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="articles/extending-ggplot2.html">Extending ggplot2</a>
-    </li>
-    <li>
-      <a href="articles/ggplot2-in-packages.html">Using ggplot2 in packages</a>
-    </li>
-    <li>
-      <a href="articles/ggplot2-specs.html">Aesthetic specifications</a>
-    </li>
-    <li>
-      <a href="articles/profiling.html">Profiling Performance</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    News
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li class="dropdown-header">Releases</li>
-    <li>
-      <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
-    </li>
-    <li>
-      <a href="https://www.tidyverse.org/articles/2019/06/ggplot2-3-2-0/">Version 3.2.0</a>
-    </li>
-    <li>
-      <a href="https://www.tidyverse.org/articles/2018/10/ggplot2-3-1-0/">Version 3.1.0</a>
-    </li>
-    <li>
-      <a href="https://www.tidyverse.org/articles/2018/07/ggplot2-3-0-0/">Version 3.0.0</a>
-    </li>
-    <li>
-      <a href="https://blog.rstudio.com/2016/11/14/ggplot2-2-2-0/">Version 2.2.0</a>
-    </li>
-    <li>
-      <a href="https://blog.rstudio.com/2016/03/03/ggplot2-2-1-0/">Version 2.1.0</a>
-    </li>
-    <li>
-      <a href="https://blog.rstudio.com/2015/12/21/ggplot2-2-0-0/">Version 2.0.0</a>
-    </li>
-    <li>
-      <a href="https://blog.rstudio.com/2015/01/09/ggplot2-updates/">Version 1.0.0</a>
-    </li>
-    <li class="divider">
-    <li>
-      <a href="news/index.html">Changelog</a>
-    </li>
-  </ul>
-</li>
-        <li>
-  <a href="reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     News
      
     <span class="caret"></span>
@@ -175,16 +111,38 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
+      <a href="articles/ggplot2-specs.html">Aesthetic specifications</a>
+    </li>
+    <li class="divider">
+    <li class="dropdown-header">Developer</li>
+    <li>
       <a href="articles/extending-ggplot2.html">Extending ggplot2</a>
     </li>
     <li>
       <a href="articles/ggplot2-in-packages.html">Using ggplot2 in packages</a>
     </li>
     <li>
-      <a href="articles/ggplot2-specs.html">Aesthetic specifications</a>
+      <a href="articles/profiling.html">Profiling Performance</a>
+    </li>
+    <li class="divider">
+    <li class="dropdown-header">FAQ</li>
+    <li>
+      <a href="articles/articles/faq-axes.html">FAQ: Axes</a>
     </li>
     <li>
-      <a href="articles/profiling.html">Profiling Performance</a>
+      <a href="articles/articles/faq-faceting.html">FAQ: Faceting</a>
+    </li>
+    <li>
+      <a href="articles/articles/faq-customising.html">FAQ: Customising</a>
+    </li>
+    <li>
+      <a href="articles/articles/faq-annotation.html">FAQ: Annotation</a>
+    </li>
+    <li>
+      <a href="articles/articles/faq-reordering.html">FAQ: Reordering</a>
+    </li>
+    <li>
+      <a href="articles/articles/faq-bars.html">FAQ: Barplots</a>
     </li>
   </ul>
 </li>
@@ -221,33 +179,33 @@
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h2>
-<p>ggplot2 is a system for declaratively creating graphics, based on <a href="https://www.amazon.com/Grammar-Graphics-Statistics-Computing/dp/0387245448/ref=as_li_ss_tl" class="external-link">The Grammar of Graphics</a>. You provide the data, tell ggplot2 how to map variables to aesthetics, what graphical primitives to use, and it takes care of the details.</p>
+<p>ggplot2 is a system for declaratively creating graphics, based on <a href="https://www.amazon.com/Grammar-Graphics-Statistics-Computing/dp/0387245448/ref=as_li_ss_tl">The Grammar of Graphics</a>. You provide the data, tell ggplot2 how to map variables to aesthetics, what graphical primitives to use, and it takes care of the details.</p>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># The easiest way to get ggplot2 is to install the whole tidyverse:</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"tidyverse"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"tidyverse"</span><span class="op">)</span>
 
 <span class="co"># Alternatively, install just ggplot2:</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"ggplot2"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"ggplot2"</span><span class="op">)</span>
 
 <span class="co"># Or the development version from GitHub:</span>
 <span class="co"># install.packages("devtools")</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"tidyverse/ggplot2"</span><span class="op">)</span></code></pre></div>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"tidyverse/ggplot2"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="cheatsheet" class="section level2">
 <h2 class="hasAnchor">
 <a href="#cheatsheet" class="anchor"></a>Cheatsheet</h2>
-<p><a href="https://github.com/rstudio/cheatsheets/blob/master/data-visualization-2.1.pdf" class="external-link"><img src="https://raw.githubusercontent.com/rstudio/cheatsheets/master/pngs/thumbnails/data-visualization-cheatsheet-thumbs.png" width="630" height="252"></a></p>
+<p><a href="https://github.com/rstudio/cheatsheets/blob/master/data-visualization-2.1.pdf"><img src="https://raw.githubusercontent.com/rstudio/cheatsheets/master/pngs/thumbnails/data-visualization-cheatsheet-thumbs.png" width="630" height="252"></a></p>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
-<p>It’s hard to succinctly describe how ggplot2 works because it embodies a deep philosophy of visualisation. However, in most cases you start with <code><a href="reference/ggplot.html">ggplot()</a></code>, supply a dataset and aesthetic mapping (with <code><a href="reference/aes.html">aes()</a></code>). You then add on layers (like <code><a href="reference/geom_point.html">geom_point()</a></code> or <code><a href="reference/geom_histogram.html">geom_histogram()</a></code>), scales (like <code><a href="reference/scale_brewer.html">scale_colour_brewer()</a></code>), faceting specifications (like <code><a href="reference/facet_wrap.html">facet_wrap()</a></code>) and coordinate systems (like <code><a href="reference/coord_flip.html">coord_flip()</a></code>).</p>
+<p>It’s hard to succinctly describe how ggplot2 works because it embodies a deep philosophy of visualisation. However, in most cases you start with <code><a href="reference/ggplot.html">ggplot()</a></code>, supply a dataset and aesthetic mapping (with <code><a href="reference/aes.html">aes()</a></code>). You then add on layers (like <code><a href="reference/geom_point.html">geom_point()</a></code> or <code><a href="reference/geom_freqpoly.html">geom_histogram()</a></code>), scales (like <code><a href="reference/scale_colour_brewer.html">scale_colour_brewer()</a></code>), faceting specifications (like <code><a href="reference/facet_wrap.html">facet_wrap()</a></code>) and coordinate systems (like <code><a href="reference/coord_flip.html">coord_flip()</a></code>).</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
 
 <span class="fu"><a href="reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span>, colour <span class="op">=</span> <span class="va">class</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
@@ -256,28 +214,28 @@
 <div id="lifecycle" class="section level2">
 <h2 class="hasAnchor">
 <a href="#lifecycle" class="anchor"></a>Lifecycle</h2>
-<p><a href="https://www.tidyverse.org/lifecycle/#stable" class="external-link"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="lifecycle"></a></p>
+<p><a href="https://www.tidyverse.org/lifecycle/#stable"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="lifecycle"></a></p>
 <p>ggplot2 is now over 10 years old and is used by hundreds of thousands of people to make millions of plots. That means, by-and-large, ggplot2 itself changes relatively little. When we do make changes, they will be generally to add new functions or arguments rather than changing the behaviour of existing functions, and if we do make changes to existing behaviour we will do them for compelling reasons.</p>
-<p>If you are looking for innovation, look to ggplot2’s rich ecosystem of extensions. See a community maintained list at <a href="https://exts.ggplot2.tidyverse.org/gallery/" class="external-link uri">https://exts.ggplot2.tidyverse.org/gallery/</a>.</p>
+<p>If you are looking for innovation, look to ggplot2’s rich ecosystem of extensions. See a community maintained list at <a href="https://exts.ggplot2.tidyverse.org/gallery/" class="uri">https://exts.ggplot2.tidyverse.org/gallery/</a>.</p>
 </div>
 <div id="learning-ggplot2" class="section level2">
 <h2 class="hasAnchor">
 <a href="#learning-ggplot2" class="anchor"></a>Learning ggplot2</h2>
 <p>If you are new to ggplot2 you are better off starting with a systematic introduction, rather than trying to learn from reading individual documentation pages. Currently, there are three good places to start:</p>
-<ol style="list-style-type: decimal">
-<li><p>The <a href="https://r4ds.had.co.nz/data-visualisation.html" class="external-link">Data Visualisation</a> and <a href="https://r4ds.had.co.nz/graphics-for-communication.html" class="external-link">Graphics for communication</a> chapters in <a href="https://r4ds.had.co.nz" class="external-link">R for Data Science</a>. R for Data Science is designed to give you a comprehensive introduction to the <a href="https://www.tidyverse.org" class="external-link">tidyverse</a>, and these two chapters will get you up to speed with the essentials of ggplot2 as quickly as possible.</p></li>
-<li><p>If you’d like to follow a webinar, try <a href="https://youtu.be/h29g21z0a68" class="external-link">Plotting Anything with ggplot2</a> by Thomas Lin Pedersen.</p></li>
-<li><p>If you want to dive into making common graphics as quickly as possible, I recommend <a href="https://r-graphics.org" class="external-link">The R Graphics Cookbook</a> by Winston Chang. It provides a set of recipes to solve common graphics problems.</p></li>
+<ol>
+<li><p>The <a href="https://r4ds.had.co.nz/data-visualisation.html">Data Visualisation</a> and <a href="https://r4ds.had.co.nz/graphics-for-communication.html">Graphics for communication</a> chapters in <a href="https://r4ds.had.co.nz">R for Data Science</a>. R for Data Science is designed to give you a comprehensive introduction to the <a href="https://www.tidyverse.org">tidyverse</a>, and these two chapters will get you up to speed with the essentials of ggplot2 as quickly as possible.</p></li>
+<li><p>If you’d like to follow a webinar, try <a href="https://youtu.be/h29g21z0a68">Plotting Anything with ggplot2</a> by Thomas Lin Pedersen.</p></li>
+<li><p>If you want to dive into making common graphics as quickly as possible, I recommend <a href="https://r-graphics.org">The R Graphics Cookbook</a> by Winston Chang. It provides a set of recipes to solve common graphics problems.</p></li>
 </ol>
-<p>If you’ve mastered the basics and want to learn more, read <a href="https://ggplot2-book.org" class="external-link">ggplot2: Elegant Graphics for Data Analysis</a>. It describes the theoretical underpinnings of ggplot2 and shows you how all the pieces fit together. This book helps you understand the theory that underpins ggplot2, and will help you create new types of graphics specifically tailored to your needs.</p>
+<p>If you’ve mastered the basics and want to learn more, read <a href="https://ggplot2-book.org">ggplot2: Elegant Graphics for Data Analysis</a>. It describes the theoretical underpinnings of ggplot2 and shows you how all the pieces fit together. This book helps you understand the theory that underpins ggplot2, and will help you create new types of graphics specifically tailored to your needs.</p>
 </div>
 <div id="getting-help" class="section level2">
 <h2 class="hasAnchor">
 <a href="#getting-help" class="anchor"></a>Getting help</h2>
 <p>There are two main places to get help with ggplot2:</p>
-<ol style="list-style-type: decimal">
-<li><p>The <a href="https://community.rstudio.com/" class="external-link">RStudio community</a> is a friendly place to ask any questions about ggplot2.</p></li>
-<li><p><a href="https://stackoverflow.com/questions/tagged/ggplot2?sort=frequent&amp;pageSize=50" class="external-link">Stack Overflow</a> is a great source of answers to common ggplot2 questions. It is also a great place to get help, once you have created a reproducible example that illustrates your problem.</p></li>
+<ol>
+<li><p>The <a href="https://community.rstudio.com/">RStudio community</a> is a friendly place to ask any questions about ggplot2.</p></li>
+<li><p><a href="https://stackoverflow.com/questions/tagged/ggplot2?sort=frequent&amp;pageSize=50">Stack Overflow</a> is a great source of answers to common ggplot2 questions. It is also a great place to get help, once you have created a reproducible example that illustrates your problem.</p></li>
 </ol>
 </div>
 </div>
@@ -285,7 +243,7 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2 data-toc-skip>Links</h2>
+<h2>Links</h2>
 <ul class="list-unstyled">
 <li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=ggplot2">https://​cloud.r-project.org/​package=ggplot2</a>
 </li>
@@ -299,32 +257,28 @@
 </li>
 </ul>
 </div>
-
 <div class="license">
-<h2 data-toc-skip>License</h2>
+<h2>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
 <li><small><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
 </ul>
 </div>
-
 <div class="community">
-<h2 data-toc-skip>Community</h2>
+<h2>Community</h2>
 <ul class="list-unstyled">
 <li><a href="CONTRIBUTING.html">Contributing guide</a></li>
 <li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
 </ul>
 </div>
-
 <div class="citation">
-<h2 data-toc-skip>Citation</h2>
+<h2>Citation</h2>
 <ul class="list-unstyled">
 <li><a href="authors.html">Citing ggplot2</a></li>
 </ul>
 </div>
-
 <div class="developers">
-<h2 data-toc-skip>Developers</h2>
+<h2>Developers</h2>
 <ul class="list-unstyled">
 <li>
 <a href="http://hadley.nz">Hadley Wickham</a> <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-4757-117X" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
@@ -348,16 +302,15 @@
 </ul>
 </div>
 
-<div class="dev-status">
-<h2 data-toc-skip>Dev status</h2>
+  <div class="dev-status">
+<h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/tidyverse/ggplot2/actions" class="external-link"><img src="https://github.com/tidyverse/ggplot2/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
-<li><a href="https://codecov.io/github/tidyverse/ggplot2?branch=master" class="external-link"><img src="https://img.shields.io/codecov/c/github/tidyverse/ggplot2/master.svg" alt="Coverage Status"></a></li>
-<li><a href="https://cran.r-project.org/package=ggplot2" class="external-link"><img src="https://www.r-pkg.org/badges/version/ggplot2" alt="CRAN_Status_Badge"></a></li>
+<li><a href="https://github.com/tidyverse/ggplot2/actions"><img src="https://github.com/tidyverse/ggplot2/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
+<li><a href="https://codecov.io/github/tidyverse/ggplot2?branch=master"><img src="https://img.shields.io/codecov/c/github/tidyverse/ggplot2/master.svg" alt="Coverage Status"></a></li>
+<li><a href="https://cran.r-project.org/package=ggplot2"><img src="https://www.r-pkg.org/badges/version/ggplot2" alt="CRAN_Status_Badge"></a></li>
 </ul>
 </div>
-
-  </div>
+</div>
 </div>
 
 

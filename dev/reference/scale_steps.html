@@ -86,15 +86,9 @@ works in the same way." />
   gtag('config', 'UA-115082821-1');
 </script>
 
-  
-
-  
-
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    
-
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -117,68 +111,7 @@ works in the same way." />
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/extending-ggplot2.html">Extending ggplot2</a>
-    </li>
-    <li>
-      <a href="../articles/ggplot2-in-packages.html">Using ggplot2 in packages</a>
-    </li>
-    <li>
-      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
-    </li>
-    <li>
-      <a href="../articles/profiling.html">Profiling Performance</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    News
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Releases</li>
-    <li>
-      <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
-    </li>
-    <li>
-      <a href="https://www.tidyverse.org/articles/2019/06/ggplot2-3-2-0/">Version 3.2.0</a>
-    </li>
-    <li>
-      <a href="https://www.tidyverse.org/articles/2018/10/ggplot2-3-1-0/">Version 3.1.0</a>
-    </li>
-    <li>
-      <a href="https://www.tidyverse.org/articles/2018/07/ggplot2-3-0-0/">Version 3.0.0</a>
-    </li>
-    <li>
-      <a href="https://blog.rstudio.com/2016/11/14/ggplot2-2-2-0/">Version 2.2.0</a>
-    </li>
-    <li>
-      <a href="https://blog.rstudio.com/2016/03/03/ggplot2-2-1-0/">Version 2.1.0</a>
-    </li>
-    <li>
-      <a href="https://blog.rstudio.com/2015/12/21/ggplot2-2-0-0/">Version 2.0.0</a>
-    </li>
-    <li>
-      <a href="https://blog.rstudio.com/2015/01/09/ggplot2-updates/">Version 1.0.0</a>
-    </li>
-    <li class="divider"></li>
-    <li>
-      <a href="../news/index.html">Changelog</a>
-    </li>
-  </ul>
-</li>
+        
         <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -228,16 +161,38 @@ works in the same way." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Developer</li>
+    <li>
       <a href="../articles/extending-ggplot2.html">Extending ggplot2</a>
     </li>
     <li>
       <a href="../articles/ggplot2-in-packages.html">Using ggplot2 in packages</a>
     </li>
     <li>
-      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+      <a href="../articles/profiling.html">Profiling Performance</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">FAQ</li>
+    <li>
+      <a href="../articles/articles/faq-axes.html">FAQ: Axes</a>
     </li>
     <li>
-      <a href="../articles/profiling.html">Profiling Performance</a>
+      <a href="../articles/articles/faq-faceting.html">FAQ: Faceting</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-customising.html">FAQ: Customising</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-annotation.html">FAQ: Annotation</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-reordering.html">FAQ: Reordering</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-bars.html">FAQ: Barplots</a>
     </li>
   </ul>
 </li>
@@ -278,11 +233,11 @@ works in the same way." />
     <p><code>scale_*_steps</code> creates a two colour binned gradient (low-high),
 <code>scale_*_steps2</code> creates a diverging binned colour gradient (low-mid-high),
 and <code>scale_*_stepsn</code> creates a n-colour binned gradient. These scales are
-binned variants of the <a href='scale_gradient.html'>gradient scale</a> family and
+binned variants of the <a href='scale_colour_gradient.html'>gradient scale</a> family and
 works in the same way.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='scale_steps.html'>scale_colour_steps</a></span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>scale_colour_steps</span><span class='op'>(</span>
   <span class='va'>...</span>,
   low <span class='op'>=</span> <span class='st'>"#132B43"</span>,
   high <span class='op'>=</span> <span class='st'>"#56B1F7"</span>,
@@ -292,7 +247,7 @@ works in the same way.</p>
   aesthetics <span class='op'>=</span> <span class='st'>"colour"</span>
 <span class='op'>)</span>
 
-<span class='fu'><a href='scale_steps.html'>scale_colour_steps2</a></span><span class='op'>(</span>
+<span class='fu'>scale_colour_steps2</span><span class='op'>(</span>
   <span class='va'>...</span>,
   low <span class='op'>=</span> <span class='fu'>muted</span><span class='op'>(</span><span class='st'>"red"</span><span class='op'>)</span>,
   mid <span class='op'>=</span> <span class='st'>"white"</span>,
@@ -304,7 +259,7 @@ works in the same way.</p>
   aesthetics <span class='op'>=</span> <span class='st'>"colour"</span>
 <span class='op'>)</span>
 
-<span class='fu'><a href='scale_steps.html'>scale_colour_stepsn</a></span><span class='op'>(</span>
+<span class='fu'>scale_colour_stepsn</span><span class='op'>(</span>
   <span class='va'>...</span>,
   <span class='va'>colours</span>,
   values <span class='op'>=</span> <span class='cn'>NULL</span>,
@@ -315,7 +270,7 @@ works in the same way.</p>
   <span class='va'>colors</span>
 <span class='op'>)</span>
 
-<span class='fu'><a href='scale_steps.html'>scale_fill_steps</a></span><span class='op'>(</span>
+<span class='fu'>scale_fill_steps</span><span class='op'>(</span>
   <span class='va'>...</span>,
   low <span class='op'>=</span> <span class='st'>"#132B43"</span>,
   high <span class='op'>=</span> <span class='st'>"#56B1F7"</span>,
@@ -325,7 +280,7 @@ works in the same way.</p>
   aesthetics <span class='op'>=</span> <span class='st'>"fill"</span>
 <span class='op'>)</span>
 
-<span class='fu'><a href='scale_steps.html'>scale_fill_steps2</a></span><span class='op'>(</span>
+<span class='fu'>scale_fill_steps2</span><span class='op'>(</span>
   <span class='va'>...</span>,
   low <span class='op'>=</span> <span class='fu'>muted</span><span class='op'>(</span><span class='st'>"red"</span><span class='op'>)</span>,
   mid <span class='op'>=</span> <span class='st'>"white"</span>,
@@ -337,7 +292,7 @@ works in the same way.</p>
   aesthetics <span class='op'>=</span> <span class='st'>"fill"</span>
 <span class='op'>)</span>
 
-<span class='fu'><a href='scale_steps.html'>scale_fill_stepsn</a></span><span class='op'>(</span>
+<span class='fu'>scale_fill_stepsn</span><span class='op'>(</span>
   <span class='va'>...</span>,
   <span class='va'>colours</span>,
   values <span class='op'>=</span> <span class='cn'>NULL</span>,
@@ -495,11 +450,11 @@ Munsell colour system.</p>
 palette</p>
 <p>Other colour scales: 
 <code><a href='scale_alpha.html'>scale_alpha</a>()</code>,
-<code><a href='scale_brewer.html'>scale_colour_brewer</a>()</code>,
-<code><a href='scale_gradient.html'>scale_colour_gradient</a>()</code>,
-<code><a href='scale_grey.html'>scale_colour_grey</a>()</code>,
-<code><a href='scale_hue.html'>scale_colour_hue</a>()</code>,
-<code><a href='scale_viridis.html'>scale_colour_viridis_d</a>()</code></p></div>
+<code><a href='scale_colour_brewer.html'>scale_colour_brewer</a>()</code>,
+<code><a href='scale_colour_gradient.html'>scale_colour_gradient</a>()</code>,
+<code><a href='scale_colour_grey.html'>scale_colour_grey</a>()</code>,
+<code><a href='scale_colour_hue.html'>scale_colour_hue</a>()</code>,
+<code><a href='scale_colour_viridis_d.html'>scale_colour_viridis_d</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
@@ -511,17 +466,17 @@ palette</p>
 <span class='co'># Use scale_colour_steps for a standard binned gradient</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='va'>z1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='scale_steps.html'>scale_colour_steps</a></span><span class='op'>(</span><span class='op'>)</span>
+  <span class='fu'>scale_colour_steps</span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='img'><img src='scale_steps-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Get a divergent binned scale with the *2 variant</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='va'>z1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='scale_steps.html'>scale_colour_steps2</a></span><span class='op'>(</span><span class='op'>)</span>
+  <span class='fu'>scale_colour_steps2</span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='img'><img src='scale_steps-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Define your own colour ramp to extract binned colours from</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='va'>z1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='scale_steps.html'>scale_colour_stepsn</a></span><span class='op'>(</span>colours <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>terrain.colors</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='fu'>scale_colour_stepsn</span><span class='op'>(</span>colours <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>terrain.colors</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='scale_steps-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -539,7 +494,7 @@ palette</p>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -566,8 +521,6 @@ palette</p>
 </script>
 
 
-
-  
 
   </body>
 </html>
