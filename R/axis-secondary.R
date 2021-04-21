@@ -226,6 +226,8 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
           ),
           digits = 3
         )
+      } else {
+        old_val_trans <- NULL
       }
 
       if (!is.null(range_info$minor_source)) {
