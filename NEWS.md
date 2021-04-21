@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Fix bug in `scale_[x|y]_datetime()` where a specified timezone would be 
+  ignored by the scale (@thomasp85, #4007)
+  
 * Using `theme(aspect.ratio = ...)` together with free space in `facet_grid()`
   now crrectly throws an error (@thomasp85, #3834)
   
