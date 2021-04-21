@@ -12,6 +12,9 @@
 * Fix a bug in `stat_summary_bin()` where one more than the requested number of
   bins would be created (@thomasp85, #3824)
   
+* Fix issue in `sec_axis()` that would throw warnings in the absence of any 
+  secondary breaks (@thomasp85, #4368)
+  
 * Fix a bug in `geom_abline()` that resulted in `intercept` not being subjected
   to the transformation of the y scale (@thomasp85, #3741)
   
