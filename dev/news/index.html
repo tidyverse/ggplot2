@@ -228,6 +228,7 @@
 <a href="#ggplot2-development-version" class="anchor"></a>ggplot2 (development version)<small> Unreleased </small>
 </h1>
 <ul>
+<li><p>Fix bug in <code>scale_[x|y]_date()</code> where custom breaks functions that resulted in fracional dates would get misaligned (<a href='https://github.com/thomasp85'>@thomasp85</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3965'>#3965</a>)</p></li>
 <li><p>Fix bug in <code>scale_[x|y]_datetime()</code> where a specified timezone would be ignored by the scale (<a href='https://github.com/thomasp85'>@thomasp85</a>, <a href='https://github.com/tidyverse/ggplot2/issues/4007'>#4007</a>)</p></li>
 <li><p>Using <code><a href="../reference/theme.html">theme(aspect.ratio = ...)</a></code> together with free space in <code><a href="../reference/facet_grid.html">facet_grid()</a></code> now crrectly throws an error (<a href='https://github.com/thomasp85'>@thomasp85</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3834'>#3834</a>)</p></li>
 <li><p>Fix a bug in <code><a href="../reference/stat_summary_bin.html">stat_summary_bin()</a></code> where one more than the requested number of bins would be created (<a href='https://github.com/thomasp85'>@thomasp85</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3824'>#3824</a>)</p></li>
