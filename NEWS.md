@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Fix bug in `scale_[x|y]_date()` where custom breaks functions that resulted in
+  fracional dates would get misaligned (@thomasp85, #3965)
+  
 * Fix bug in `scale_[x|y]_datetime()` where a specified timezone would be 
   ignored by the scale (@thomasp85, #4007)
   
