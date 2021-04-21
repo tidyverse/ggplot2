@@ -11,49 +11,48 @@ name: test-coverage
 # Increment this version when we want to clear cache
 env:
   cache-version: v1
-  r-version: 4.0
 
 jobs:
   test-coverage:
-    runs-on: macOS-latest
+    runs-on: ubuntu-18.04
+    env:
+      RSPM: https://packagemanager.rstudio.com/cran/__linux__/bionic/latest
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+
     steps:
       - uses: actions/checkout@v2
-        with:
-          r-version: ${{ env.r-version }}
 
-      - uses: r-lib/actions/setup-r@master
+      - uses: r-lib/actions/setup-r@v1
+        id: install-r
 
-      - uses: r-lib/actions/setup-pandoc@master
-
-      - name: Query dependencies
+      - name: Install pak and query dependencies
         run: |
-          install.packages('remotes')
-          saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
+          install.packages("pak", repos = "https://r-lib.github.io/p/pak/dev/")
+          saveRDS(pak::pkg_deps("local::.", dependencies = TRUE), ".github/r-depends.rds")
         shell: Rscript {0}
 
-      - name: Cache R packages
-        uses: actions/cache@v1
+      - name: Restore R package cache
+        uses: actions/cache@v2
         with:
-          path: ${{ env.R_LIBS_USER }}
-          key: ${{ env.cache-version }}-macOS-r-${{ env.r-version }}-${{ hashFiles('.github/depends.Rds') }}
-          restore-keys: ${{ env.cache-version }}-macOS-r-${{ env.r-version }}-
+          path: |
+            ${{ env.R_LIBS_USER }}/*
+            !${{ env.R_LIBS_USER }}/pak
+          key: ubuntu-18.04-${{ steps.install-r.outputs.installed-r-version }}-${{ env.cache-version }}-${{ hashFiles('.github/r-depends.rds') }}
+          restore-keys: ubuntu-18.04-${{ steps.install-r.outputs.installed-r-version }}-${{ env.cache-version }}-
 
-      - name: Install system dependencies on macOS
+      - name: Install system dependencies
+        if: runner.os == 'Linux'
         run: |
-          # XQuartz is needed by vdiffr
-          brew install xquartz
+          pak::local_system_requirements(execute = TRUE)
+          pak::pkg_system_requirements("covr", execute = TRUE)
+        shell: Rscript {0}
 
       - name: Install dependencies
         run: |
-          install.packages(c("remotes"))
-          remotes::install_deps(dependencies = TRUE, type = "binary")
-          remotes::install_cran("covr")
+          pak::local_install_dev_deps(upgrade = TRUE)
+          pak::pkg_install("covr")
         shell: Rscript {0}
 
-      # TODO: Remove remotes::install_github() after covr > 3.5.0 is released
-      #       c.f. https://github.com/r-lib/covr/commit/cc710804aeff6f337777465bf902914197c0b713
       - name: Test coverage
-        run: |
-          remotes::install_github("r-lib/covr")
-          covr::codecov()
+        run: covr::codecov()
         shell: Rscript {0}
