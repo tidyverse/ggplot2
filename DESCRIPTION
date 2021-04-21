@@ -272,4 +272,6 @@ Encoding: UTF-8
 Config/Needs/website:
     ggtext,
     tidyr,
-    forcats
+    forcats,
+    tidyverse/tidytemplate
+
