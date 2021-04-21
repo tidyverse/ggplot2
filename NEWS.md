@@ -5,9 +5,18 @@
 
 * Fix calculation of confidence interval for locfit smoothing (@topepo, #3806)
 
+* Fix bug in `scale_[x|y]_datetime()` where a specified timezone would be 
+  ignored by the scale (@thomasp85, #4007)
+  
+* Using `theme(aspect.ratio = ...)` together with free space in `facet_grid()`
+  now crrectly throws an error (@thomasp85, #3834)
+  
+* Fix a bug in `stat_summary_bin()` where one more than the requested number of
+  bins would be created (@thomasp85, #3824)
+  
 * Fix a bug in `geom_abline()` that resulted in `intercept` not being subjected
   to the transformation of the y scale (@thomasp85, #3741)
-
+  
 * Fix bug in `guide_coloursteps()` that would repeat the terminal bins if the
   breaks coincided with the limits of the scale (@thomasp85, #4019)
   

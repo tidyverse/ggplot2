@@ -314,6 +314,11 @@ datetime_scale <- function(aesthetics, trans, palette,
     scale_class <- ScaleContinuous
   }
 
+  trans <- switch(trans,
+    date = date_trans(),
+    time = time_trans(timezone)
+  )
+
   sc <- continuous_scale(
     aesthetics,
     name,
