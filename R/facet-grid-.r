@@ -309,7 +309,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     strips <- render_strips(col_vars, row_vars, params$labeller, theme)
 
     aspect_ratio <- theme$aspect.ratio
-    if (!is.null(aspect_ratio) && (params$space$x || params$space$y)) {
+    if (!is.null(aspect_ratio) && (params$space_free$x || params$space_free$y)) {
       abort("Free scales cannot be mixed with a fixed aspect ratio")
     }
     if (is.null(aspect_ratio) && !params$free$x && !params$free$y) {
