@@ -1,5 +1,10 @@
 # ggplot2 (development version)
 
+* Fix a bug in legend justification where justification was lost of the legend
+  dimensions exceeded the available size (@thomasp85, #3635)
+
+* Fix calculation of confidence interval for locfit smoothing (@topepo, #3806)
+
 * Fix bug in `scale_[x|y]_date()` where custom breaks functions that resulted in
   fracional dates would get misaligned (@thomasp85, #3965)
   
