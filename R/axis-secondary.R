@@ -213,30 +213,38 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
       range_info <- temp_scale$break_info()
 
       # Map the break values back to their correct position on the primary scale
-      old_val <- lapply(range_info$major_source, function(x) which.min(abs(full_range - x)))
-      old_val <- old_range[unlist(old_val)]
-      old_val_trans <- scale$trans$transform(old_val)
+      if (!is.null(range_info$major_source)) {
+        old_val <- lapply(range_info$major_source, function(x) which.min(abs(full_range - x)))
+        old_val <- old_range[unlist(old_val)]
+        old_val_trans <- scale$trans$transform(old_val)
 
-      old_val_minor <- lapply(range_info$minor_source, function(x) which.min(abs(full_range - x)))
-      old_val_minor <- old_range[unlist(old_val_minor)]
-      old_val_minor_trans <- scale$trans$transform(old_val_minor)
+        # rescale values from 0 to 1
+        range_info$major[] <- round(
+          rescale(
+            scale$map(old_val_trans, range(old_val_trans)),
+            from = range
+          ),
+          digits = 3
+        )
+      } else {
+        old_val_trans <- NULL
+      }
 
-      # rescale values from 0 to 1
-      range_info$major[] <- round(
-        rescale(
-          scale$map(old_val_trans, range(old_val_trans)),
-          from = range
-        ),
-        digits = 3
-      )
+      if (!is.null(range_info$minor_source)) {
+        old_val_minor <- lapply(range_info$minor_source, function(x) which.min(abs(full_range - x)))
+        old_val_minor <- old_range[unlist(old_val_minor)]
+        old_val_minor_trans <- scale$trans$transform(old_val_minor)
 
-      range_info$minor[] <- round(
-        rescale(
-          scale$map(old_val_minor_trans, range(old_val_minor_trans)),
-          from = range
-        ),
-        digits = 3
-      )
+        range_info$minor[] <- round(
+          rescale(
+            scale$map(old_val_minor_trans, range(old_val_minor_trans)),
+            from = range
+          ),
+          digits = 3
+        )
+      } else {
+        old_val_minor_trans <- NULL
+      }
     }
 
     # The _source values should be in (primary) scale_transformed space,
