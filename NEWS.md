@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Fix a bug in `guide_bins()` where keys would disappear if the guide was 
+  reversed (@thomasp85, #4210)
+
 * Fix a bug in legend justification where justification was lost of the legend
   dimensions exceeded the available size (@thomasp85, #3635)
 
