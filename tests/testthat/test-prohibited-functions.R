@@ -42,6 +42,10 @@ test_that("`get_n_*() detects number of calls properly", {
 # Pattern is needed filter out files such as ggplot2.rdb, which is created when running covr::package_coverage()
 R_files <- list.files("../../R", pattern = ".*\\.(R|r)$", full.names = TRUE)
 
+test_that("list up R files properly", {
+  expect_true(length(R_files) > 0)
+})
+
 test_that("do not use stop()", {
   stops <- vapply(R_files, get_n_stop, integer(1))
   expect_equal(sum(stops), 0)
