@@ -40,7 +40,11 @@ test_that("`get_n_*() detects number of calls properly", {
 })
 
 # Pattern is needed filter out files such as ggplot2.rdb, which is created when running covr::package_coverage()
-R_files <- list.files("../../R", pattern = ".*\\.(R|r)$", full.names = TRUE)
+R_paths <- c(
+  "../../R",                     # in the case of devtools::test()
+  "../../00_pkg_src/ggplot2/R"   # in the case of R CMD check
+)
+R_files <- list.files(R_paths, pattern = ".*\\.(R|r)$", full.names = TRUE)
 
 test_that("list up R files properly", {
   expect_true(length(R_files) > 0)
