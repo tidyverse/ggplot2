@@ -12,7 +12,14 @@ get_n_warning <- function(f) {
 
 get_n_data.frame <- function(f) {
   d <- getParseData(parse(f, keep.source = TRUE))
-  sum(d$token == "SYMBOL_FUNCTION_CALL" & d$text == "data.frame")
+
+  idx_base <- d$token == "SYMBOL_PACKAGE" & d$text == "base"
+  idx_colons <- d$token == "NS_GET" & d$text == "::"
+  # exclude the case when the `data.frame` is prefixed with `base::`
+  idx_base_prefixed <- c(FALSE, FALSE, idx_base[1:(nrow(d) - 2)]) & c(FALSE, idx_colons[1:(nrow(d) - 1)])
+
+  idx_data.frame <- d$token == "SYMBOL_FUNCTION_CALL" & d$text == "data.frame"
+  sum(idx_data.frame & !idx_base_prefixed)
 }
 
 test_that("`get_n_*() detects number of calls properly", {
@@ -21,7 +28,8 @@ test_that("`get_n_*() detects number of calls properly", {
     c(
       'stop("foo!")',
       'warning("bar!")',
-      "data.frame(x = 1)"
+      "data.frame(x = 1)",
+      "base::data.frame(x = 1)"  # this is not counted
     ),
     "tmp.R"
   )
@@ -44,7 +52,7 @@ test_that("do not use warning()", {
   expect_equal(sum(warnings), 0)
 })
 
-test_that("do not use data.frame(), use `data_frame()` or `new_data_frame()`", {
+test_that("do not use data.frame(), use `data_frame()` or `new_data_frame()`, or add `base::` prefix", {
   data.frames <- vapply(R_files, get_n_data.frame, integer(1))
   expect_equal(sum(data.frames), 0)
 })
