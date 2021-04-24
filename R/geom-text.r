@@ -210,24 +210,24 @@ GeomText <- ggproto("GeomText", Geom,
     data <- coord$transform(data, panel_params)
     # Convert hjust and vjust to numeric if character
     #  As justification direction is relative to the text, not the plotting area
-    #  we need to swap x and y if text direction is rotated so that the
-    #  hjust is applied along y and vjust along x. The value of angle can differ
-    #  among rows in data.
+    #  we need to swap x and y if text direction is rotated so that hjust is
+    #  applied along y and vjust along x. The value of angle can differ among
+    #  rows in data.
     if (is.character(data$vjust)) {
       reference_data <- data$y
       if (exists("angle", data) &&
           any(grepl("inward|outward", data$vjust))) {
-        axis_selector <- (abs(data$angle) %% 90) > 45
-        reference_data[axis_selector] <- data$x[axis_selector]
+        selector <- abs(data$angle) > 45 & abs(data$angle) < 135
+        reference_data[selector] <- data$x[selector]
       }
       data$vjust <- compute_just(data$vjust, reference_data)
     }
     if (is.character(data$hjust)) {
       reference_data <- data$x
       if (exists("angle", data) &&
-          any(grepl("inward|outward", data$vjust))) {
-        axis_selector <- (abs(data$angle) %% 90) > 45
-        reference_data[axis_selector] <- data$y[axis_selector]
+          any(grepl("inward|outward", data$hjust))) {
+        selector <- abs(data$angle) > 45 & abs(data$angle) < 135
+        reference_data[selector] <- data$y[selector]
       }
       data$hjust <- compute_just(data$hjust, reference_data)
     }
