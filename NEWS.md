@@ -1,5 +1,9 @@
 # ggplot2 (development version)
 
+* Fix a bug in the layer implementation that introduced a new state after the 
+  first render which could lead to a different look when rendered the second 
+  time (@thomasp85, #4204)
+
 * Fix a bug in legend justification where justification was lost of the legend
   dimensions exceeded the available size (@thomasp85, #3635)
 
