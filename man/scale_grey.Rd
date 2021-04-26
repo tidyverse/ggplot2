@@ -4,8 +4,6 @@
 \alias{scale_colour_grey}
 \alias{scale_fill_grey}
 \alias{scale_color_grey}
-\alias{scale_color_gray}
-\alias{scale_fill_gray}
 \title{Sequential grey colour scales}
 \usage{
 scale_colour_grey(
@@ -117,6 +115,7 @@ ggplot(mtcars, aes(mpg, wt)) +
 Other colour scales: 
 \code{\link{scale_alpha}()},
 \code{\link{scale_colour_brewer}()},
+\code{\link{scale_colour_continuous}()},
 \code{\link{scale_colour_gradient}()},
 \code{\link{scale_colour_hue}()},
 \code{\link{scale_colour_steps}()},

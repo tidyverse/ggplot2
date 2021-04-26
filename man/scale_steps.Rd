@@ -225,11 +225,12 @@ ggplot(df, aes(x, y)) +
 }
 \seealso{
 \code{\link[scales:seq_gradient_pal]{scales::seq_gradient_pal()}} for details on underlying
-palette
+palette, \code{\link[=scale_colour_gradient]{scale_colour_gradient()}} for continuous scales without binning.
 
 Other colour scales: 
 \code{\link{scale_alpha}()},
 \code{\link{scale_colour_brewer}()},
+\code{\link{scale_colour_continuous}()},
 \code{\link{scale_colour_gradient}()},
 \code{\link{scale_colour_grey}()},
 \code{\link{scale_colour_hue}()},

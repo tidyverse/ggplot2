@@ -18,6 +18,18 @@ scale_fill_continuous(
   ...,
   type = getOption("ggplot2.continuous.fill", default = "gradient")
 )
+
+scale_colour_binned(
+  ...,
+  type = getOption("ggplot2.binned.colour", default =
+    getOption("ggplot2.continuous.colour", default = "gradient"))
+)
+
+scale_fill_binned(
+  ...,
+  type = getOption("ggplot2.binned.fill", default =
+    getOption("ggplot2.continuous.fill", default = "gradient"))
+)
 }
 \arguments{
 \item{...}{Additional parameters passed on to the scale type}
@@ -33,7 +45,12 @@ scale_fill_continuous(
 Colour scales for continuous data default to the values of the
 \code{ggplot2.continuous.colour} and \code{ggplot2.continuous.fill} options. These
 \code{\link[=options]{options()}} default to \code{"gradient"} (i.e., \code{\link[=scale_colour_gradient]{scale_colour_gradient()}} and
-\code{\link[=scale_fill_gradient]{scale_fill_gradient()}})
+\code{\link[=scale_fill_gradient]{scale_fill_gradient()}}). Note that both continuous and binned scales
+are configured with the same options values. In other words,
+the option \code{ggplot2.continuous.colour} controls the behavior of both
+\code{scale_colour_continuous()} and \code{scale_colour_binned()}. To manually set
+the colors of the scale, consider using \code{\link[=scale_colour_gradient]{scale_colour_gradient()}} or
+\code{\link[=scale_colour_steps]{scale_colour_steps()}}.
 }
 \section{Color Blindness}{
 
@@ -65,9 +82,22 @@ v + scale_fill_continuous(type = "viridis")
 # The above are equivalent to
 v + scale_fill_gradient()
 v + scale_fill_viridis_c()
+
+# To make a binned version of this plot
+v + scale_fill_binned(type = "viridis")
 }
 \seealso{
 \code{\link[=scale_colour_gradient]{scale_colour_gradient()}}, \code{\link[=scale_colour_viridis_c]{scale_colour_viridis_c()}},
 \code{\link[=scale_colour_steps]{scale_colour_steps()}}, \code{\link[=scale_colour_viridis_b]{scale_colour_viridis_b()}}, \code{\link[=scale_fill_gradient]{scale_fill_gradient()}},
 \code{\link[=scale_fill_viridis_c]{scale_fill_viridis_c()}}, \code{\link[=scale_fill_steps]{scale_fill_steps()}}, and \code{\link[=scale_fill_viridis_b]{scale_fill_viridis_b()}}
+
+Other colour scales: 
+\code{\link{scale_alpha}()},
+\code{\link{scale_colour_brewer}()},
+\code{\link{scale_colour_gradient}()},
+\code{\link{scale_colour_grey}()},
+\code{\link{scale_colour_hue}()},
+\code{\link{scale_colour_steps}()},
+\code{\link{scale_colour_viridis_d}()}
 }
+\concept{colour scales}
