@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Make sure `label_bquote()` has access to the calling environment when 
+  evaluating the labels (@thomasp85, #4141)
 
 * Fix bug in `annotate_logticks()` that would cause an error when used together
   with `coord_flip()` (@thomasp85, #3954)
