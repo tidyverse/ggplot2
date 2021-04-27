@@ -144,6 +144,7 @@ guide_train.bins <- function(guide, scale, aesthetic = NULL) {
 
   if (is.numeric(breaks)) {
     limits <- scale$get_limits()
+    breaks <- breaks[!breaks %in% limits]
     all_breaks <- c(limits[1], breaks, limits[2])
     bin_at <- all_breaks[-1] - diff(all_breaks) / 2
   } else {
@@ -163,7 +164,12 @@ guide_train.bins <- function(guide, scale, aesthetic = NULL) {
   key$.label <- scale$get_labels(all_breaks)
   guide$show.limits <- guide$show.limits %||% scale$show_limits %||% FALSE
 
-  if (guide$reverse) key <- key[nrow(key):1, ]
+  if (guide$reverse) {
+    key <- key[rev(seq_len(nrow(key))), ]
+    # Move last row back to last
+    aesthetics <- setdiff(names(key), ".label")
+    key[, aesthetics] <- key[c(seq_len(nrow(key))[-1], 1), aesthetics]
+  }
 
   guide$key <- key
   guide$hash <- with(
