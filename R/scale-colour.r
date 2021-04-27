@@ -18,10 +18,10 @@
 #' Alternative option values are `"viridis"` or a different scale function.
 #' See description of the `type` argument for details.
 #'
-#' Note that the binned
-#' colour scales will use the settings of `ggplot2.continuous.colour` and
-#' `ggplot2.continuous.fill` as fallback, respectively, if
-#' `ggplot2.binned.colour` or `ggplot2.binned.fill` are not set.
+#' Note that the binned colour scales will use the settings of
+#' `ggplot2.continuous.colour` and `ggplot2.continuous.fill` as fallback,
+#' respectively, if `ggplot2.binned.colour` or `ggplot2.binned.fill` are
+#' not set.
 #'
 #' These scale functions are meant to provide simple defaults. If
 #' you want to manually set the colors of a scale, consider using

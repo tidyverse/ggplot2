@@ -61,10 +61,10 @@ and \code{ggplot2.binned.fill} options. These option values default to
 Alternative option values are \code{"viridis"} or a different scale function.
 See description of the \code{type} argument for details.
 
-Note that the binned
-colour scales will use the settings of \code{ggplot2.continuous.colour} and
-\code{ggplot2.continuous.fill} as fallback, respectively, if
-\code{ggplot2.binned.colour} or \code{ggplot2.binned.fill} are not set.
+Note that the binned colour scales will use the settings of
+\code{ggplot2.continuous.colour} and \code{ggplot2.continuous.fill} as fallback,
+respectively, if \code{ggplot2.binned.colour} or \code{ggplot2.binned.fill} are
+not set.
 
 These scale functions are meant to provide simple defaults. If
 you want to manually set the colors of a scale, consider using
