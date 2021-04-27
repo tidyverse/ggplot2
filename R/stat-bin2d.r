@@ -4,7 +4,7 @@
 #'   horizontal directions. Overrides `bins` if both set.
 #' @param drop if `TRUE` removes all cells with 0 counts.
 #' @export
-#' @rdname geom_bin2d
+#' @rdname geom_bin_2d
 #' @section Computed variables:
 #' \describe{
 #'   \item{count}{number of points in bin}
@@ -41,7 +41,7 @@ stat_bin_2d <- function(mapping = NULL, data = NULL,
 
 
 #' @export
-#' @rdname geom_bin2d
+#' @rdname geom_bin_2d
 #' @usage NULL
 stat_bin2d <- stat_bin_2d
 
