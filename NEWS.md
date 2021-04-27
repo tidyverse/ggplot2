@@ -1,5 +1,9 @@
 # ggplot2 (development version)
 
+
+* Fix bug in `annotate_logticks()` that would cause an error when used together
+  with `coord_flip()` (@thomasp85, #3954)
+  
 * Fix a bug in `guide_bins()` where keys would disappear if the guide was 
   reversed (@thomasp85, #4210)
 
