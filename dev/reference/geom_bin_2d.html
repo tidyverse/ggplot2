@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Cartesian coordinates — coord_cartesian • ggplot2</title>
+<title>Heatmap of 2d bin counts — geom_bin_2d • ggplot2</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -55,11 +55,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Cartesian coordinates — coord_cartesian" />
-<meta property="og:description" content="The Cartesian coordinate system is the most familiar, and common, type of
-coordinate system. Setting limits on the coordinate system will zoom the
-plot (like you're looking at it with a magnifying glass), and will not
-change the underlying data like setting limits on a scale will." />
+<meta property="og:title" content="Heatmap of 2d bin counts — geom_bin_2d" />
+<meta property="og:description" content="Divides the plane into rectangles, counts the number of cases in
+each rectangle, and then (by default) maps the number of cases to the
+rectangle's fill. This is a useful alternative to geom_point()
+in the presence of overplotting." />
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -223,98 +223,158 @@ change the underlying data like setting limits on a scale will." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Cartesian coordinates</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidyverse/ggplot2/blob/master/R/coord-cartesian-.r'><code>R/coord-cartesian-.r</code></a></small>
-    <div class="hidden name"><code>coord_cartesian.Rd</code></div>
+    <h1>Heatmap of 2d bin counts</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidyverse/ggplot2/blob/master/R/geom-bin2d.r'><code>R/geom-bin2d.r</code></a>, <a href='https://github.com/tidyverse/ggplot2/blob/master/R/stat-bin2d.r'><code>R/stat-bin2d.r</code></a></small>
+    <div class="hidden name"><code>geom_bin_2d.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The Cartesian coordinate system is the most familiar, and common, type of
-coordinate system. Setting limits on the coordinate system will zoom the
-plot (like you're looking at it with a magnifying glass), and will not
-change the underlying data like setting limits on a scale will.</p>
+    <p>Divides the plane into rectangles, counts the number of cases in
+each rectangle, and then (by default) maps the number of cases to the
+rectangle's fill. This is a useful alternative to <code><a href='geom_point.html'>geom_point()</a></code>
+in the presence of overplotting.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>coord_cartesian</span><span class='op'>(</span>
-  xlim <span class='op'>=</span> <span class='cn'>NULL</span>,
-  ylim <span class='op'>=</span> <span class='cn'>NULL</span>,
-  expand <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  default <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  clip <span class='op'>=</span> <span class='st'>"on"</span>
+    <pre class="usage"><span class='fu'>geom_bin_2d</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  stat <span class='op'>=</span> <span class='st'>"bin2d"</span>,
+  position <span class='op'>=</span> <span class='st'>"identity"</span>,
+  <span class='va'>...</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
+  inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span>
+
+<span class='fu'>stat_bin_2d</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  geom <span class='op'>=</span> <span class='st'>"tile"</span>,
+  position <span class='op'>=</span> <span class='st'>"identity"</span>,
+  <span class='va'>...</span>,
+  bins <span class='op'>=</span> <span class='fl'>30</span>,
+  binwidth <span class='op'>=</span> <span class='cn'>NULL</span>,
+  drop <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
+  inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>xlim, ylim</th>
-      <td><p>Limits for the x and y axes.</p></td>
+      <th>mapping</th>
+      <td><p>Set of aesthetic mappings created by <code><a href='aes.html'>aes()</a></code> or
+<code><a href='aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
+default), it is combined with the default mapping at the top level of the
+plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
     </tr>
     <tr>
-      <th>expand</th>
-      <td><p>If <code>TRUE</code>, the default, adds a small expansion factor to
-the limits to ensure that data and axes don't overlap. If <code>FALSE</code>,
-limits are taken exactly from the data or <code>xlim</code>/<code>ylim</code>.</p></td>
+      <th>data</th>
+      <td><p>The data to be displayed in this layer. There are three
+options:</p>
+<p>If <code>NULL</code>, the default, the data is inherited from the plot
+data as specified in the call to <code><a href='ggplot.html'>ggplot()</a></code>.</p>
+<p>A <code>data.frame</code>, or other object, will override the plot
+data. All objects will be fortified to produce a data frame. See
+<code><a href='fortify.html'>fortify()</a></code> for which variables will be created.</p>
+<p>A <code>function</code> will be called with a single argument,
+the plot data. The return value must be a <code>data.frame</code>, and
+will be used as the layer data. A <code>function</code> can be created
+from a <code>formula</code> (e.g. <code>~ head(.x, 10)</code>).</p></td>
     </tr>
     <tr>
-      <th>default</th>
-      <td><p>Is this the default coordinate system? If <code>FALSE</code> (the default),
-then replacing this coordinate system with another one creates a message alerting
-the user that the coordinate system is being replaced. If <code>TRUE</code>, that warning
-is suppressed.</p></td>
+      <th>position</th>
+      <td><p>Position adjustment, either as a string, or the result of
+a call to a position adjustment function.</p></td>
     </tr>
     <tr>
-      <th>clip</th>
-      <td><p>Should drawing be clipped to the extent of the plot panel? A
-setting of <code>"on"</code> (the default) means yes, and a setting of <code>"off"</code>
-means no. In most cases, the default of <code>"on"</code> should not be changed,
-as setting <code>clip = "off"</code> can cause unexpected results. It allows
-drawing of data points anywhere on the plot, including in the plot margins. If
-limits are set via <code>xlim</code> and <code>ylim</code> and some data points fall outside those
-limits, then those data points may show up in places such as the axes, the
-legend, the plot title, or the plot margins.</p></td>
+      <th>...</th>
+      <td><p>Other arguments passed on to <code><a href='layer.html'>layer()</a></code>. These are
+often aesthetics, used to set an aesthetic to a fixed value, like
+<code>colour = "red"</code> or <code>size = 3</code>. They may also be parameters
+to the paired geom/stat.</p></td>
+    </tr>
+    <tr>
+      <th>na.rm</th>
+      <td><p>If <code>FALSE</code>, the default, missing values are removed with
+a warning. If <code>TRUE</code>, missing values are silently removed.</p></td>
+    </tr>
+    <tr>
+      <th>show.legend</th>
+      <td><p>logical. Should this layer be included in the legends?
+<code>NA</code>, the default, includes if any aesthetics are mapped.
+<code>FALSE</code> never includes, and <code>TRUE</code> always includes.
+It can also be a named logical vector to finely select the aesthetics to
+display.</p></td>
+    </tr>
+    <tr>
+      <th>inherit.aes</th>
+      <td><p>If <code>FALSE</code>, overrides the default aesthetics,
+rather than combining with them. This is most useful for helper functions
+that define both data and aesthetics and shouldn't inherit behaviour from
+the default plot specification, e.g. <code><a href='borders.html'>borders()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>geom, stat</th>
+      <td><p>Use to override the default connection between
+<code>geom_bin_2d()</code> and <code>stat_bin_2d()</code>.</p></td>
+    </tr>
+    <tr>
+      <th>bins</th>
+      <td><p>numeric vector giving number of bins in both vertical and
+horizontal directions. Set to 30 by default.</p></td>
+    </tr>
+    <tr>
+      <th>binwidth</th>
+      <td><p>Numeric vector giving bin width in both vertical and
+horizontal directions. Overrides <code>bins</code> if both set.</p></td>
+    </tr>
+    <tr>
+      <th>drop</th>
+      <td><p>if <code>TRUE</code> removes all cells with 0 counts.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="aesthetics"><a class="anchor" href="#aesthetics"></a>Aesthetics</h2>
+
+    
+
+<p><code>stat_bin2d()</code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
+<li><p><strong><code>x</code></strong></p></li>
+<li><p><strong><code>y</code></strong></p></li>
+<li><p><code>fill</code></p></li>
+<li><p><code>group</code></p></li>
+</ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
+    <h2 class="hasAnchor" id="computed-variables"><a class="anchor" href="#computed-variables"></a>Computed variables</h2>
+
+    
+
+<dl>
+<dt>count</dt><dd><p>number of points in bin</p></dd>
+<dt>density</dt><dd><p>density of points in bin, scaled to integrate to 1</p></dd>
+<dt>ncount</dt><dd><p>count, scaled to maximum of 1</p></dd>
+<dt>ndensity</dt><dd><p>density, scaled to maximum of 1</p></dd>
+
+</dl>
+
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='geom_hex.html'>stat_binhex()</a></code> for hexagonal binning</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># There are two ways of zooming the plot display: with scales or</span>
-<span class='co'># with coordinate systems.  They work in two rather different ways.</span>
-
-<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>disp</span>, <span class='va'>wt</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='va'>p</span>
-</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='coord_cartesian-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Setting the limits on a scale converts all values outside the range to NA.</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_continuous.html'>scale_x_continuous</a></span><span class='op'>(</span>limits <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>325</span>, <span class='fl'>500</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 24 rows containing non-finite values (stat_smooth).</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 24 rows containing missing values (geom_point).</span></div><div class='img'><img src='coord_cartesian-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Setting the limits on the coordinate system performs a visual zoom.</span>
-<span class='co'># The data is unchanged, and we just view a small portion of the original</span>
-<span class='co'># plot. Note how smooth continues past the points visible on this plot.</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>coord_cartesian</span><span class='op'>(</span>xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>325</span>, <span class='fl'>500</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='coord_cartesian-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># By default, the same expansion factor is applied as when setting scale</span>
-<span class='co'># limits. You can set the limits precisely by setting expand = FALSE</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>coord_cartesian</span><span class='op'>(</span>xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>325</span>, <span class='fl'>500</span><span class='op'>)</span>, expand <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='coord_cartesian-4.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Simiarly, we can use expand = FALSE to turn off expansion with the</span>
-<span class='co'># default limits</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>coord_cartesian</span><span class='op'>(</span>expand <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='coord_cartesian-5.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># You can see the same thing with this 2d histogram</span>
-<span class='va'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>carat</span>, <span class='va'>price</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_bin_2d.html'>stat_bin2d</a></span><span class='op'>(</span>bins <span class='op'>=</span> <span class='fl'>25</span>, colour <span class='op'>=</span> <span class='st'>"white"</span><span class='op'>)</span>
-<span class='va'>d</span>
-</div><div class='img'><img src='coord_cartesian-6.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># When zooming the scale, the we get 25 new bins that are the same</span>
-<span class='co'># size on the plot, but represent smaller regions of the data space</span>
-<span class='va'>d</span> <span class='op'>+</span> <span class='fu'><a href='scale_continuous.html'>scale_x_continuous</a></span><span class='op'>(</span>limits <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 17502 rows containing non-finite values (stat_bin2d).</span></div><div class='img'><img src='coord_cartesian-7.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># When zooming the coordinate system, we see a subset of original 50 bins,</span>
-<span class='co'># displayed bigger</span>
-<span class='va'>d</span> <span class='op'>+</span> <span class='fu'>coord_cartesian</span><span class='op'>(</span>xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='coord_cartesian-8.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><div class='input'><span class='va'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='lims.html'>xlim</a></span><span class='op'>(</span><span class='fl'>4</span>, <span class='fl'>10</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='lims.html'>ylim</a></span><span class='op'>(</span><span class='fl'>4</span>, <span class='fl'>10</span><span class='op'>)</span>
+<span class='va'>d</span> <span class='op'>+</span> <span class='fu'>geom_bin_2d</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 478 rows containing non-finite values (stat_bin2d).</span></div><div class='img'><img src='geom_bin_2d-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># You can control the size of the bins by specifying the number of</span>
+<span class='co'># bins in each direction:</span>
+<span class='va'>d</span> <span class='op'>+</span> <span class='fu'>geom_bin_2d</span><span class='op'>(</span>bins <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 478 rows containing non-finite values (stat_bin2d).</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 4 rows containing missing values (geom_tile).</span></div><div class='img'><img src='geom_bin_2d-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'>geom_bin_2d</span><span class='op'>(</span>bins <span class='op'>=</span> <span class='fl'>30</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 478 rows containing non-finite values (stat_bin2d).</span></div><div class='img'><img src='geom_bin_2d-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Or by specifying the width of the bins</span>
+<span class='va'>d</span> <span class='op'>+</span> <span class='fu'>geom_bin_2d</span><span class='op'>(</span>binwidth <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.1</span>, <span class='fl'>0.1</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 478 rows containing non-finite values (stat_bin2d).</span></div><div class='img'><img src='geom_bin_2d-4.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
