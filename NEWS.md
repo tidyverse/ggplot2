@@ -1,5 +1,12 @@
 # ggplot2 (development version)
 
+
+* Fix bug in `annotate_logticks()` that would cause an error when used together
+  with `coord_flip()` (@thomasp85, #3954)
+  
+* Fix a bug in `guide_bins()` where keys would disappear if the guide was 
+  reversed (@thomasp85, #4210)
+
 * Fix a bug in legend justification where justification was lost of the legend
   dimensions exceeded the available size (@thomasp85, #3635)
 
