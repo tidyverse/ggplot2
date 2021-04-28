@@ -364,7 +364,8 @@ specified, <code>date_breaks</code> wins.</p></td>
 transformation object</p></li>
 <li><p>A character vector giving labels (must be same length as <code>breaks</code>)</p></li>
 <li><p>A function that takes the breaks as input and returns labels
-as output</p></li>
+as output. Also accepts rlang <a href='https://rlang.r-lib.org/reference/as_function.html'>lambda</a> function
+notation.</p></li>
 </ul></td>
     </tr>
     <tr>
@@ -396,7 +397,8 @@ like "2 weeks", or "10 years". If both <code>minor_breaks</code> and
 <li><p>A numeric vector of length two providing limits of the scale.
 Use <code>NA</code> to refer to the existing minimum or maximum</p></li>
 <li><p>A function that accepts the existing (automatic) limits and returns
-new limits
+new limits. Also accepts rlang <a href='https://rlang.r-lib.org/reference/as_function.html'>lambda</a> function
+notation.
 Note that setting limits on positional scales will <strong>remove</strong> data outside of the limits.
 If the purpose is to zoom, use the limit argument in the coordinate system
 (see <code><a href='coord_cartesian.html'>coord_cartesian()</a></code>).</p></li>
@@ -415,7 +417,8 @@ expand the scale by 5% on each side for continuous variables, and by
       <th>oob</th>
       <td><p>One of:</p><ul>
 <li><p>Function that handles limits outside of the scale limits
-(out of bounds).</p></li>
+(out of bounds). Also accepts rlang <a href='https://rlang.r-lib.org/reference/as_function.html'>lambda</a>
+function notation.</p></li>
 <li><p>The default (<code><a href='https://scales.r-lib.org/reference/oob.html'>scales::censor()</a></code>) replaces out of
 bounds values with <code>NA</code>.</p></li>
 <li><p><code><a href='https://scales.r-lib.org/reference/oob.html'>scales::squish()</a></code> for squishing out of bounds values into range.</p></li>

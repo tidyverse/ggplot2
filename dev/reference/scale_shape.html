@@ -258,7 +258,8 @@ they should take (e.g., <code><a href='https://scales.r-lib.org/reference/hue_pa
 <li><p><code><a href='waiver.html'>waiver()</a></code> for the default breaks (the scale limits)</p></li>
 <li><p>A character vector of breaks</p></li>
 <li><p>A function that takes the limits as input and returns breaks
-as output</p></li>
+as output. Also accepts rlang <a href='https://rlang.r-lib.org/reference/as_function.html'>lambda</a> function
+notation.</p></li>
 </ul></p></dd>
     <dt><code>limits</code></dt><dd><p>One of:
 <ul>
@@ -266,7 +267,8 @@ as output</p></li>
 <li><p>A character vector that defines possible values of the scale and their
 order</p></li>
 <li><p>A function that accepts the existing (automatic) values and returns
-new ones</p></li>
+new ones. Also accepts rlang <a href='https://rlang.r-lib.org/reference/as_function.html'>lambda</a> function
+notation.</p></li>
 </ul></p></dd>
     <dt><code>drop</code></dt><dd><p>Should unused factor levels be omitted from the scale?
 The default, <code>TRUE</code>, uses the levels that appear in the data;
@@ -291,7 +293,8 @@ omitted.</p></dd>
 transformation object</p></li>
 <li><p>A character vector giving labels (must be same length as <code>breaks</code>)</p></li>
 <li><p>A function that takes the breaks as input and returns labels
-as output</p></li>
+as output. Also accepts rlang <a href='https://rlang.r-lib.org/reference/as_function.html'>lambda</a> function
+notation.</p></li>
 </ul></p></dd>
     <dt><code>guide</code></dt><dd><p>A function used to create a guide or its name. See
 <code><a href='guides.html'>guides()</a></code> for more information.</p></dd>
