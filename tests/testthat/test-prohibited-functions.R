@@ -47,6 +47,9 @@ R_paths <- c(
 R_files <- list.files(R_paths, pattern = ".*\\.(R|r)$", full.names = TRUE)
 
 test_that("list up R files properly", {
+  skip_on_covr()
+  skip_on_cran()
+
   expect_true(length(R_files) > 0)
 })
 
