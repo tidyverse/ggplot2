@@ -112,6 +112,9 @@
 
 * `ggsave()` now returns the saved file location invisibly (#3379, @eliocamp).
 
+* The scale arguments `limits`, `breaks`, `minor_breaks`, `labels`, `rescaler`
+  and `oob` now accept purrr style lambda notation (@teunbrand, #4427).
+
 # ggplot2 3.3.3
 This is a small patch release mainly intended to address changes in R and CRAN.
 It further changes the licensing model of ggplot2 to an MIT license.
