@@ -167,10 +167,14 @@ validate_mapping <- function(mapping) {
 Layer <- ggproto("Layer", NULL,
   geom = NULL,
   geom_params = NULL,
-  geom_params_computed = NULL,
   stat = NULL,
   stat_params = NULL,
-  stat_params_computed = NULL,
+
+  # These two fields carry state throughout rendering but will always be
+  # calculated before use
+  computed_geom_params = NULL,
+  computed_stat_params = NULL,
+
   data = NULL,
   aes_params = NULL,
   mapping = NULL,
@@ -278,9 +282,9 @@ Layer <- ggproto("Layer", NULL,
     if (empty(data))
       return(new_data_frame())
 
-    self$stat_params_computed <- self$stat$setup_params(data, self$stat_params)
-    data <- self$stat$setup_data(data, self$stat_params_computed)
-    self$stat$compute_layer(data, self$stat_params_computed, layout)
+    self$computed_stat_params <- self$stat$setup_params(data, self$stat_params)
+    data <- self$stat$setup_data(data, self$computed_stat_params)
+    self$stat$compute_layer(data, self$computed_stat_params, layout)
   },
 
   map_statistic = function(self, data, plot) {
@@ -341,8 +345,8 @@ Layer <- ggproto("Layer", NULL,
       c(names(data), names(self$aes_params)),
       snake_class(self$geom)
     )
-    self$geom_params_computed <- self$geom$setup_params(data, c(self$geom_params, self$aes_params))
-    self$geom$setup_data(data, self$geom_params_computed)
+    self$computed_geom_params <- self$geom$setup_params(data, c(self$geom_params, self$aes_params))
+    self$geom$setup_data(data, self$computed_geom_params)
   },
 
   compute_position = function(self, data, layout) {
@@ -365,9 +369,7 @@ Layer <- ggproto("Layer", NULL,
   },
 
   finish_statistics = function(self, data) {
-    params <- self$stat_params_computed
-    self$stat_params_computed <- NULL
-    self$stat$finish_layer(data, params)
+    self$stat$finish_layer(data, self$computed_stat_params)
   },
 
   draw_geom = function(self, data, layout) {
@@ -376,10 +378,8 @@ Layer <- ggproto("Layer", NULL,
       return(rep(list(zeroGrob()), n))
     }
 
-    params <- self$geom_params_computed
-    self$geom_params_computed <- NULL
-    data <- self$geom$handle_na(data, params)
-    self$geom$draw_layer(data, params, layout, layout$coord)
+    data <- self$geom$handle_na(data, self$computed_geom_params)
+    self$geom$draw_layer(data, self$computed_geom_params, layout, layout$coord)
   }
 )
 
