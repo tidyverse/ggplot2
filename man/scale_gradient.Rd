@@ -210,7 +210,8 @@ to map an arbitrary range to between 0 and 1.}
 \description{
 \verb{scale_*_gradient} creates a two colour gradient (low-high),
 \verb{scale_*_gradient2} creates a diverging colour gradient (low-mid-high),
-\verb{scale_*_gradientn} creates a n-colour gradient.
+\verb{scale_*_gradientn} creates a n-colour gradient. For binned variants of
+these scales, see the \link[=scale_colour_steps]{color steps} scales.
 }
 \details{
 Default colours are generated with \pkg{munsell} and
@@ -272,11 +273,12 @@ ggplot(df_na, aes(x = value, y)) +
 }
 \seealso{
 \code{\link[scales:seq_gradient_pal]{scales::seq_gradient_pal()}} for details on underlying
-palette
+palette, \code{\link[=scale_colour_steps]{scale_colour_steps()}} for binned variants of these scales.
 
 Other colour scales: 
 \code{\link{scale_alpha}()},
 \code{\link{scale_colour_brewer}()},
+\code{\link{scale_colour_continuous}()},
 \code{\link{scale_colour_grey}()},
 \code{\link{scale_colour_hue}()},
 \code{\link{scale_colour_steps}()},

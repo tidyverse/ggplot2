@@ -18,6 +18,18 @@ scale_fill_continuous(
   ...,
   type = getOption("ggplot2.continuous.fill", default = "gradient")
 )
+
+scale_colour_binned(
+  ...,
+  type = getOption("ggplot2.binned.colour", default =
+    getOption("ggplot2.continuous.colour", default = "gradient"))
+)
+
+scale_fill_binned(
+  ...,
+  type = getOption("ggplot2.binned.fill", default =
+    getOption("ggplot2.continuous.fill", default = "gradient"))
+)
 }
 \arguments{
 \item{...}{Additional parameters passed on to the scale type}
@@ -30,10 +42,33 @@ scale_fill_continuous(
 }}
 }
 \description{
-Colour scales for continuous data default to the values of the
-\code{ggplot2.continuous.colour} and \code{ggplot2.continuous.fill} options. These
-\code{\link[=options]{options()}} default to \code{"gradient"} (i.e., \code{\link[=scale_colour_gradient]{scale_colour_gradient()}} and
-\code{\link[=scale_fill_gradient]{scale_fill_gradient()}})
+The scales \code{scale_colour_continuous()} and \code{scale_fill_continuous()} are
+the default colour scales ggplot2 uses when continuous data values are
+mapped onto the \code{colour} or \code{fill} aesthetics, respectively. The scales
+\code{scale_colour_binned()} and \code{scale_fill_binned()} are equivalent scale
+functions that assign discrete color bins to the continuous values
+instead of using a continuous color spectrum.
+}
+\details{
+All these colour scales use the \code{\link[=options]{options()}} mechanism to determine
+default settings. Continuous colour scales default to the values of the
+\code{ggplot2.continuous.colour} and \code{ggplot2.continuous.fill} options, and
+binned colour scales default to the values of the \code{ggplot2.binned.colour}
+and \code{ggplot2.binned.fill} options. These option values default to
+\code{"gradient"}, which means that the scale functions actually used are
+\code{\link[=scale_colour_gradient]{scale_colour_gradient()}}/\code{\link[=scale_fill_gradient]{scale_fill_gradient()}} for continuous scales and
+\code{\link[=scale_colour_steps]{scale_colour_steps()}}/\code{\link[=scale_fill_steps]{scale_fill_steps()}} for binned scales.
+Alternative option values are \code{"viridis"} or a different scale function.
+See description of the \code{type} argument for details.
+
+Note that the binned colour scales will use the settings of
+\code{ggplot2.continuous.colour} and \code{ggplot2.continuous.fill} as fallback,
+respectively, if \code{ggplot2.binned.colour} or \code{ggplot2.binned.fill} are
+not set.
+
+These scale functions are meant to provide simple defaults. If
+you want to manually set the colors of a scale, consider using
+\code{\link[=scale_colour_gradient]{scale_colour_gradient()}} or \code{\link[=scale_colour_steps]{scale_colour_steps()}}.
 }
 \section{Color Blindness}{
 
@@ -65,9 +100,29 @@ v + scale_fill_continuous(type = "viridis")
 # The above are equivalent to
 v + scale_fill_gradient()
 v + scale_fill_viridis_c()
+
+# To make a binned version of this plot
+v + scale_fill_binned(type = "viridis")
+
+# Set a different default scale using the options
+# mechanism
+tmp <- getOption("ggplot2.continuous.fill") # store current setting
+options(ggplot2.continuous.fill = scale_fill_distiller)
+v
+options(ggplot2.continuous.fill = tmp) # restore previous setting
 }
 \seealso{
 \code{\link[=scale_colour_gradient]{scale_colour_gradient()}}, \code{\link[=scale_colour_viridis_c]{scale_colour_viridis_c()}},
 \code{\link[=scale_colour_steps]{scale_colour_steps()}}, \code{\link[=scale_colour_viridis_b]{scale_colour_viridis_b()}}, \code{\link[=scale_fill_gradient]{scale_fill_gradient()}},
 \code{\link[=scale_fill_viridis_c]{scale_fill_viridis_c()}}, \code{\link[=scale_fill_steps]{scale_fill_steps()}}, and \code{\link[=scale_fill_viridis_b]{scale_fill_viridis_b()}}
+
+Other colour scales: 
+\code{\link{scale_alpha}()},
+\code{\link{scale_colour_brewer}()},
+\code{\link{scale_colour_gradient}()},
+\code{\link{scale_colour_grey}()},
+\code{\link{scale_colour_hue}()},
+\code{\link{scale_colour_steps}()},
+\code{\link{scale_colour_viridis_d}()}
 }
+\concept{colour scales}
