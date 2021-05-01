@@ -208,28 +208,12 @@ GeomText <- ggproto("GeomText", Geom,
     }
 
     data <- coord$transform(data, panel_params)
-    # Convert hjust and vjust to numeric if character
-    #  As justification direction is relative to the text, not the plotting area
-    #  we need to swap x and y if text direction is rotated so that hjust is
-    #  applied along y and vjust along x. The value of angle can differ among
-    #  rows in data.
+
     if (is.character(data$vjust)) {
-      reference_data <- data$y
-      if (exists("angle", data) &&
-          any(grepl("inward|outward", data$vjust))) {
-        selector <- abs(data$angle) > 45 & abs(data$angle) < 135
-        reference_data[selector] <- data$x[selector]
-      }
-      data$vjust <- compute_just(data$vjust, reference_data)
+      data$vjust <- compute_just(data, just_dir = "v")
     }
     if (is.character(data$hjust)) {
-      reference_data <- data$x
-      if (exists("angle", data) &&
-          any(grepl("inward|outward", data$hjust))) {
-        selector <- abs(data$angle) > 45 & abs(data$angle) < 135
-        reference_data[selector] <- data$y[selector]
-      }
-      data$hjust <- compute_just(data$hjust, reference_data)
+      data$hjust <- compute_just(data, just_dir = "h")
     }
 
     textGrob(
@@ -251,14 +235,45 @@ GeomText <- ggproto("GeomText", Geom,
   draw_key = draw_key_text
 )
 
-compute_just <- function(just, x) {
-  inward <- just == "inward"
-  just[inward] <- c("left", "middle", "right")[just_dir(x[inward])]
-  outward <- just == "outward"
-  just[outward] <- c("right", "middle", "left")[just_dir(x[outward])]
+compute_just <- function(data, just_dir) {
+  if (just_dir == "h") {
+    just <- data$hjust
+    i <- "x"
+    j <- "y"
+  } else if (just_dir == "v") {
+    just <- data$vjust
+    i <- "y"
+    j <- "x"
+  } else {
+    stop("'just_dir' is not \"v\" or \"h\": ", just_dir)
+  }
+  #  As justification direction is relative to the text, not the plotting area
+  #  we need to swap x and y if text direction is rotated so that hjust is
+  #  applied along y and vjust along x. The value of angle can differ among
+  #  rows in data.
+  if (any(grepl("outward|inward", just))) {
+    if (exists("angle", data) &&
+        any(grepl("inward|outward", just))) {
+      selector <- abs(data$angle) > 45 & abs(data$angle) < 135
+    } else {
+      selector <- rep(FALSE, nrow(data))
+    }
+    if (all(selector)) {
+      obs <- data[[j]]
+    } else {
+      obs <- data[[i]]
+      if (any(selector)) {
+        obs[selector] <- data[[j]][selector]
+      }
+    }
+    inward <- just == "inward"
+    just[inward] <- c("left", "middle", "right")[just_dir(obs[inward])]
+    outward <- just == "outward"
+    just[outward] <- c("right", "middle", "left")[just_dir(obs[outward])]
+  }
 
   unname(c(left = 0, center = 0.5, right = 1,
-    bottom = 0, middle = 0.5, top = 1)[just])
+           bottom = 0, middle = 0.5, top = 1)[just])
 }
 
 just_dir <- function(x, tol = 0.001) {

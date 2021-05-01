@@ -4,8 +4,6 @@
 \alias{scale_colour_grey}
 \alias{scale_fill_grey}
 \alias{scale_color_grey}
-\alias{scale_color_gray}
-\alias{scale_fill_gray}
 \title{Sequential grey colour scales}
 \usage{
 scale_colour_grey(
