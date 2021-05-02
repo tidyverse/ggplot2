@@ -210,10 +210,10 @@ GeomText <- ggproto("GeomText", Geom,
     data <- coord$transform(data, panel_params)
 
     if (is.character(data$vjust)) {
-      data$vjust <- compute_just(data, just_dir = "v")
+      data$vjust <- compute_just(data$vjust, data$y, data$x, data$angle)
     }
     if (is.character(data$hjust)) {
-      data$hjust <- compute_just(data, just_dir = "h")
+      data$hjust <- compute_just(data$hjust, data$x, data$y, data$angle)
     }
 
     textGrob(
@@ -235,40 +235,20 @@ GeomText <- ggproto("GeomText", Geom,
   draw_key = draw_key_text
 )
 
-compute_just <- function(data, just_dir) {
-  if (just_dir == "h") {
-    just <- data$hjust
-    i <- "x"
-    j <- "y"
-  } else if (just_dir == "v") {
-    just <- data$vjust
-    i <- "y"
-    j <- "x"
-  } else {
-    stop("'just_dir' is not \"v\" or \"h\": ", just_dir)
-  }
+compute_just <- function(just, a, b = a, angle = 0) {
   #  As justification direction is relative to the text, not the plotting area
   #  we need to swap x and y if text direction is rotated so that hjust is
   #  applied along y and vjust along x.
   if (any(grepl("outward|inward", just))) {
-    if (exists("angle", data)) {
-      selector <- grepl("outward|inward", just) &
-                     abs(data$angle) > 45 & abs(data$angle) < 135
-    } else {
-      selector <- rep(FALSE, nrow(data))
-    }
-    if (all(selector)) {
-      obs <- data[[j]]
-    } else {
-      obs <- data[[i]]
-      if (any(selector)) {
-        obs[selector] <- data[[j]][selector]
-      }
-    }
+    selector <-
+      grepl("outward|inward", just) & abs(angle) > 45 & abs(angle) < 135
+    ab <- a
+    ab[selector] <- b[selector]
+
     inward <- just == "inward"
-    just[inward] <- c("left", "middle", "right")[just_dir(obs[inward])]
+    just[inward] <- c("left", "middle", "right")[just_dir(ab[inward])]
     outward <- just == "outward"
-    just[outward] <- c("right", "middle", "left")[just_dir(obs[outward])]
+    just[outward] <- c("right", "middle", "left")[just_dir(ab[outward])]
   }
 
   unname(c(left = 0, center = 0.5, right = 1,

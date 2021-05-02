@@ -67,11 +67,12 @@ GeomLabel <- ggproto("GeomLabel", Geom,
     }
 
     data <- coord$transform(data, panel_params)
+
     if (is.character(data$vjust)) {
-      data$vjust <- compute_just(data, just_dir = "v")
+      data$vjust <- compute_just(data$vjust, data$y)
     }
     if (is.character(data$hjust)) {
-      data$hjust <- compute_just(data, just_dir = "h")
+      data$hjust <- compute_just(data$hjust, data$x)
     }
 
     grobs <- lapply(1:nrow(data), function(i) {
