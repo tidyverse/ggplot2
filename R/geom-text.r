@@ -249,12 +249,11 @@ compute_just <- function(data, just_dir) {
   }
   #  As justification direction is relative to the text, not the plotting area
   #  we need to swap x and y if text direction is rotated so that hjust is
-  #  applied along y and vjust along x. The value of angle can differ among
-  #  rows in data.
+  #  applied along y and vjust along x.
   if (any(grepl("outward|inward", just))) {
-    if (exists("angle", data) &&
-        any(grepl("inward|outward", just))) {
-      selector <- abs(data$angle) > 45 & abs(data$angle) < 135
+    if (exists("angle", data)) {
+      selector <- grepl("outward|inward", just) &
+                     abs(data$angle) > 45 & abs(data$angle) < 135
     } else {
       selector <- rep(FALSE, nrow(data))
     }
