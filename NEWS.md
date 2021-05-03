@@ -1,7 +1,7 @@
 # ggplot2 (development version)
 
 * Fix bug in `geom_text()` where `"outward"` and `"inward"` justification for 
-  `angle` values between 45 and 135 degrees were reversed (@aphalo, #4169)
+  `angle` values between 45 and 135 degrees were reversed (@aphalo, #4447)
 
 * Fix a bug in legend justification where justification was lost of the legend
   dimensions exceeded the available size (@thomasp85, #3635)
