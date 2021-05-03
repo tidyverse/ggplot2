@@ -161,6 +161,9 @@ scale_fill_binned <- function(...,
 # helper function to make sure that the provided scale is of the correct
 # type (i.e., is continuous and works with the provided aesthetic)
 check_scale_type <- function(scale, name, aesthetic) {
+  if (!is.ggproto(scale) || !inherits(scale, "Scale")) {
+    abort(glue("The `type` argument of `{name}()` must return a continuous scale for the {aesthetic} aesthetic. The provided object is not a scale function."))
+  }
   if (!isTRUE(aesthetic %in% scale$aesthetics)) {
     abort(glue("The `type` argument of `{name}()` must return a continuous scale for the {aesthetic} aesthetic. The provided scale works with the following aesthetics: {glue_collapse(scale$aesthetics, sep = ', ')}"))
   }
