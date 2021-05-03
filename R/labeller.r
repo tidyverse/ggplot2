@@ -205,6 +205,8 @@ label_bquote <- function(rows = NULL, cols = NULL,
   rows_quoted <- substitute(rows)
   has_warned <- FALSE
 
+  call_env <- env_parent()
+
   fun <- function(labels) {
     quoted <- resolve_labeller(rows_quoted, cols_quoted, labels)
     if (is.null(quoted)) {
@@ -225,7 +227,7 @@ label_bquote <- function(rows = NULL, cols = NULL,
         }
         params$x <- params[[1]]
       }
-
+      params <- as_environment(params, call_env)
       eval(substitute(bquote(expr, params), list(expr = quoted)))
     }
     list(do.call("Map", c(list(f = evaluate), labels)))
