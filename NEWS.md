@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Add support for the BrailleR package for creating descriptions of the plot
+  when rendered (@thomasp85, #4459)
+
 * Fix a bug in the layer implementation that introduced a new state after the 
   first render which could lead to a different look when rendered the second 
   time (@thomasp85, #4204)
