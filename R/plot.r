@@ -179,6 +179,10 @@ print.ggplot <- function(x, newpage = is.null(vp), vp = NULL, ...) {
     upViewport()
   }
 
+  if (isTRUE(getOption("BrailleR.VI")) && rlang::is_installed("BrailleR")) {
+    print(asNamespace("BrailleR")$VI(x))
+  }
+
   invisible(x)
 }
 #' @rdname print.ggplot

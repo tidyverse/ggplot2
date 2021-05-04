@@ -63,6 +63,16 @@ test_that("if an aes is mapped to a function that returns NULL, it is removed", 
   expect_identical(names(p[[1]]), c("x", "PANEL", "group"))
 })
 
+test_that("layers are stateless except for the computed params", {
+  df <- data.frame(x = 1:10, y = 1:10)
+  p <- ggplot(df) +
+    geom_col(aes(x = x, y = y), width = 0.8, fill = "red")
+  col_layer <- as.list(p$layers[[1]])
+  stateless_names <- setdiff(names(col_layer), c("computed_geom_params", "computed_stat_params"))
+  invisible(ggplotGrob(p))
+  expect_identical(as.list(p$layers[[1]])[stateless_names], col_layer[stateless_names])
+})
+
 # Data extraction ---------------------------------------------------------
 
 test_that("layer_data returns a data.frame", {

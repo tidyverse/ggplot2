@@ -382,3 +382,50 @@ test_that("All scale_colour_*() have their American versions", {
     sub("color", "colour", color_scale_exports)
   )
 })
+
+test_that("scales accept lambda notation for function input", {
+  check_lambda <- function(items, ggproto) {
+    vapply(items, function(x) {
+      f <- environment(ggproto[[x]])$f
+      is_lambda(f)
+    }, logical(1))
+  }
+
+  # Test continuous scale
+  scale <- scale_fill_gradient(
+    limits = ~ .x + c(-1, 1),
+    breaks = ~ seq(.x[1], .x[2], by = 2),
+    minor_breaks = ~ seq(.x[1], .x[2], by = 1),
+    labels = ~ toupper(.x),
+    rescaler = ~ rescale_mid(.x, mid = 0),
+    oob = ~ oob_squish(.x, .y, only.finite = FALSE)
+  )
+  check <- check_lambda(
+    c("limits", "breaks", "minor_breaks", "labels", "rescaler"),
+    scale
+  )
+  expect_true(all(check))
+
+  # Test discrete scale
+  scale <- scale_x_discrete(
+    limits = ~ rev(.x),
+    breaks = ~ .x[-1],
+    labels = ~ toupper(.x)
+  )
+  check <- check_lambda(c("limits", "breaks", "labels"), scale)
+  expect_true(all(check))
+
+  # Test binned scale
+  scale <- scale_fill_steps(
+    limits = ~ .x + c(-1, 1),
+    breaks = ~ seq(.x[1], .x[2], by = 2),
+    labels = ~ toupper(.x),
+    rescaler = ~ rescale_mid(.x, mid = 0),
+    oob = ~ oob_squish(.x, .y, only.finite = FALSE)
+  )
+  check <- check_lambda(
+    c("limits", "breaks", "labels", "rescaler"),
+    scale
+  )
+  expect_true(all(check))
+})

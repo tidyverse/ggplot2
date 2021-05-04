@@ -1,5 +1,21 @@
 # ggplot2 (development version)
 
+* Add support for the BrailleR package for creating descriptions of the plot
+  when rendered (@thomasp85, #4459)
+
+* Fix a bug in the layer implementation that introduced a new state after the 
+  first render which could lead to a different look when rendered the second 
+  time (@thomasp85, #4204)
+  
+* Make sure `label_bquote()` has access to the calling environment when 
+  evaluating the labels (@thomasp85, #4141)
+  
+* Fix bug in `annotate_logticks()` that would cause an error when used together
+  with `coord_flip()` (@thomasp85, #3954)
+  
+* Fix a bug in `guide_bins()` where keys would disappear if the guide was 
+  reversed (@thomasp85, #4210)
+  
 * Fix bug in `geom_text()` where `"outward"` and `"inward"` justification for 
   `angle` values between 45 and 135 degrees were reversed (@aphalo, #4169, 
   #4447)
@@ -108,6 +124,9 @@
   if it's specified in the plot-global mapping (@yutannihilation, #4260).
 
 * `ggsave()` now returns the saved file location invisibly (#3379, @eliocamp).
+
+* The scale arguments `limits`, `breaks`, `minor_breaks`, `labels`, `rescaler`
+  and `oob` now accept purrr style lambda notation (@teunbrand, #4427).
 
 # ggplot2 3.3.3
 This is a small patch release mainly intended to address changes in R and CRAN.
