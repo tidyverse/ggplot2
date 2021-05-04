@@ -240,15 +240,23 @@ compute_just <- function(just, a, b = a, angle = 0) {
   #  we need to swap x and y if text direction is rotated so that hjust is
   #  applied along y and vjust along x.
   if (any(grepl("outward|inward", just))) {
-    selector <-
-      grepl("outward|inward", just) & abs(angle) > 45 & abs(angle) < 135
-    ab <- a
-    ab[selector] <- b[selector]
+    # ensure correct behaviour for angle in -360...+360
+    angle <- ifelse(angle > 180, angle - 360, angle)
+    angle <- ifelse(angle < -180, angle + 360, angle)
+    rotated_forward <-
+      grepl("outward|inward", just) & (angle > 45 & angle < 135)
+    rotated_backwards <-
+      grepl("outward|inward", just) & (angle < -45 & angle > -135)
 
-    inward <- just == "inward"
+    ab <- ifelse(rotated_forward | rotated_backwards, b, a)
+    just_swap <- rotated_backwards | abs(angle) > 135
+    inward <-
+      (just == "inward" & !just_swap | just == "outward" & just_swap)
     just[inward] <- c("left", "middle", "right")[just_dir(ab[inward])]
-    outward <- just == "outward"
+    outward <-
+      (just == "outward" & !just_swap) | (just == "inward" & just_swap)
     just[outward] <- c("right", "middle", "left")[just_dir(ab[outward])]
+
   }
 
   unname(c(left = 0, center = 0.5, right = 1,
