@@ -1,0 +1,268 @@
+---
+title: "FAQ: Faceting"
+---
+
+```{=html}
+<style>
+  .content h3 {
+    margin-top: -30px !important;
+  }
+  
+  details {
+    margin-bottom: 40px;
+  }
+</style>
+```
+```{r, include = FALSE}
+library(ggplot2)
+knitr::opts_chunk$set(
+  fig.dpi = 300, 
+  collapse = TRUE, 
+  comment = "#>",
+  fig.asp = 0.618,
+  fig.width = 6,
+  out.width = "80%")
+```
+
+## Panes
+
+### What is the difference between `facet_wrap()` and `facet_grid()`?
+
+The simplest answer is that you should use `facet_wrap()` when faceting by a single variable and `facet_grid()` when faceting by two variables and want to create a grid of panes.
+
+<details>
+
+<summary>See example</summary>
+
+`facet_wrap()` is most commonly used to facet by a plot by a single categorical variable.
+
+```{r}
+ggplot(mpg, aes(x = cty)) +
+  geom_histogram() +
+  facet_wrap(~ drv)
+```
+
+And `facet_grid()` is commonly used to facet by a plot by two categorical variables.
+
+```{r}
+ggplot(mpg, aes(x = cty)) +
+  geom_histogram() +
+  facet_grid(cyl ~ drv)
+```
+
+Notice that this results in some empty panes (e.g. 4-wheel drive and 5 cylinders) as there are no cars in the `mpg` dataset that fall into such categories.
+
+You can also use `facet_wrap()` with to facet by two categorical variables.
+This will only create facets for combinations of the levels of variables for which data exists.
+
+```{r}
+ggplot(mpg, aes(x = cty)) +
+  geom_histogram() +
+  facet_wrap(cyl ~ drv)
+```
+
+In `facet_wrap()` you can control the number of rows and/or columns of the resulting plot layout using the `nrow` and `ncol` arguments, respectively.
+In `facet_grid()` these values are determined by the number of levels of the variables you're faceting by.
+
+Similarly, you can also use `facet_grid()` to facet by a single categorical variable as well.
+In the formula notation, you use a `.` to indicate that no faceting should be done along that axis, i.e. `cyl ~ .` facets across the y-axis (within a column) while `. ~ cyl` facets across the x-axis (within a row).
+
+```{r out.width = "50%"}
+ggplot(mpg, aes(x = cty)) +
+  geom_histogram() +
+  facet_grid(cyl ~ .)
+
+ggplot(mpg, aes(x = cty)) +
+  geom_histogram() +
+  facet_grid(. ~ cyl)
+```
+
+</details>
+
+### How can I place a vertical lines (`geom_vline()`) in each pane of a faceted plot?
+
+First, calculate where the lines should be placed and save this information in a separate data frame.
+Then, add a `geom_vline()` layer to your plot that uses the summarized data.
+
+<details>
+
+<summary>See example</summary>
+
+Suppose you have the following plot, and you want to add a vertical line at the mean value of `hwy` (highway mileage) for each pane.
+
+```{r}
+ggplot(mpg, aes(x = hwy)) +
+  geom_histogram(binwidth = 5) +
+  facet_wrap(~ drv)
+```
+
+First, calculate these means and save them in a new data frame.
+
+```{r}
+library(dplyr)
+
+mpg_summary <- mpg %>%
+  group_by(drv) %>%
+  summarise(hwy_mean = mean(hwy))
+
+mpg_summary
+```
+
+Then, add a `geom_vline()` layer to your plot that uses the summary data.
+
+```{r}
+ggplot(mpg, aes(x = hwy)) +
+  geom_histogram(binwidth = 5) +
+  facet_wrap(~ drv) +
+  geom_vline(data = mpg_summary, aes(xintercept = hwy_mean))
+```
+
+</details>
+
+## Axes
+
+### How can I set individual axis limits for facets?
+
+Either let ggplot2 determine custom axis limits for the facets based on the range of the data you're plotting using the `scales` argument in `facet_wrap()` or `facet_grid()` or, if that is not sufficient, use `expand_limits()` to ensure limits include a single value or a range of values.
+
+<details>
+
+<summary>See example</summary>
+
+Suppose you have the following faceted plot.
+By default, both x and y scales are shared across the facets.
+
+```{r}
+ggplot(mpg, aes(x = cty, y = hwy)) +
+  geom_point() +
+  facet_grid(cyl ~ drv)
+```
+
+You can control this behaviour with the `scales` argument of faceting functions: varying scales across rows (`"free_x"`), columns (`"free_y"`), or both rows and columns (`"free"`), e.g.
+
+```{r}
+ggplot(mpg, aes(x = cty, y = hwy)) +
+  geom_point() +
+  facet_grid(cyl ~ drv, scales = "free") 
+```
+
+If you also want to make sure that a particular value or range is included in each of the facets, you can set this with `expand_limits()`, e.g. ensure that 10 is included in the x-axis and values between 20 to 25 are included in the y-axis:
+
+```{r}
+ggplot(mpg, aes(x = cty, y = hwy)) +
+  geom_point() +
+  facet_grid(cyl ~ drv, scales = "free") +
+  expand_limits(x = 10, y = c(20, 25))
+```
+
+</details>
+
+## Facet labels
+
+### How can I remove the facet labels entirely?
+
+Set the `strip.text` element in `theme()` to `element_blank()`.
+
+<details>
+
+<summary>See example</summary>
+
+Setting `strip.text` to `element_blank()` will remove all facet labels.
+
+```{r}
+ggplot(mpg, aes(x = cty, y = hwy)) +
+  geom_point() +
+  facet_grid(cyl ~ drv) +
+  theme(strip.text = element_blank())
+```
+
+You can also remove the labels across rows only with `strip.x.text` or across columns only with `strip.y.text`.
+
+```{r}
+ggplot(mpg, aes(x = cty, y = hwy)) +
+  geom_point() +
+  facet_grid(cyl ~ drv) +
+  theme(strip.text.x = element_blank())
+```
+
+</details>
+
+### The facet labels in my plot are too long so they get cut off. How can I wrap facet label text so that long labels are spread across two rows?
+
+Use `label_wrap_gen()` in the `labeller` argument of your faceting function and set a `width` (number of characters) for the maximum number of characters before wrapping the strip.
+
+<details>
+
+<summary>See example</summary>
+
+In the data frame below we have 100 observations, 50 of them come from one group and 50 from another.
+These groups have very long names, and so when you facet the ploy by group, the facet labels (strips) get cut off.
+
+```{r}
+df <- data.frame(
+  x = rnorm(100),
+  group = c(rep("A long group name for the first group", 50),
+            rep("A muuuuuuuuuuuuuch longer group name for the second group", 50))
+)
+
+ggplot(df, aes(x = x)) +
+  geom_histogram(binwidth = 0.5) +
+  facet_wrap(~ group)
+```
+
+You can control the maximum width of the facet label by setting the `width` in the `label_wrap_gen()` function, which is then passed to the `labeller` argument of your faceting function.
+
+```{r}
+ggplot(df, aes(x = x)) +
+  geom_histogram(binwidth = 0.5) +
+  facet_wrap(~ group, labeller = labeller(group = label_wrap_gen(width = 25)))
+```
+
+</details>
+
+### How can I set different axis labels for facets?
+
+Use `as_labeller()` in the `labeller` argument of your faceting function and then set `strip.background` and `strip.placement` elements in the `theme()` to place the facet labels where axis labels would go.
+This is a particularly useful solution for plotting data on different scales without the use of double y-axes.
+
+<details>
+
+<summary>See example</summary>
+
+Suppose you have data price data on a given item over a few years from two countries with very different currency scales.
+
+```{r}
+df <- data.frame(
+  year = rep(2016:2021, 2),
+  price = c(10, 10, 13, 12, 14, 15, 1000, 1010, 1200, 1050, 1105, 1300),
+  country = c(rep("US", 6), rep("Japan", 6))
+)
+
+df
+```
+
+You can plot `price` versus `time` and facet by `country`, but the resulting plot can be a bit difficult to read due to the shared y-axis label.
+
+```{r warning = FALSE}
+ggplot(df, aes(x = year, y = price)) +
+  geom_smooth() +
+  facet_wrap(~ country, ncol = 1, scales = "free_y") +
+  scale_x_continuous(breaks = 2011:2020)
+```
+
+With the following you can customize the facet labels first with `as_labeller()`, turn off the default y-axis label, and then place the facet labels where the y-axis label goes (`"outside"` and on the `"left"`).
+
+```{r}
+ggplot(df, aes(x = year, y = price)) +
+  geom_smooth() +
+  facet_wrap(~ country, ncol = 1, scales = "free_y", 
+             labeller = as_labeller(
+               c(US = "US Dollars (USD)", Japan = "Japanese Yens (JPY)")), 
+             strip.position = "left"
+             ) +
+  scale_x_continuous(breaks = 2011:2020) +
+  labs(y = NULL) +
+  theme(strip.background = element_blank(), strip.placement = "outside")
+```
+
+</details>

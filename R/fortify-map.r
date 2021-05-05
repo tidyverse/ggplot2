@@ -75,7 +75,7 @@ fortify.map <- function(model, data, ...) {
 #'   coord_map("albers",  lat0 = 45.5, lat1 = 29.5)
 #' }
 map_data <- function(map, region = ".", exact = FALSE, ...) {
-  try_require("maps", "map_data")
+  check_installed("maps", reason = "for `map_data()`")
   map_obj <- maps::map(map, region, exact = exact, plot = FALSE, fill = TRUE, ...)
   fortify(map_obj)
 }

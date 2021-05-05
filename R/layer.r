@@ -169,6 +169,12 @@ Layer <- ggproto("Layer", NULL,
   geom_params = NULL,
   stat = NULL,
   stat_params = NULL,
+
+  # These two fields carry state throughout rendering but will always be
+  # calculated before use
+  computed_geom_params = NULL,
+  computed_stat_params = NULL,
+
   data = NULL,
   aes_params = NULL,
   mapping = NULL,
@@ -203,16 +209,18 @@ Layer <- ggproto("Layer", NULL,
   # hook to allow a layer access to the final layer data
   # in input form and to global plot info
   setup_layer = function(self, data, plot) {
+    # For annotation geoms, it is useful to be able to ignore the default aes
+    if (isTRUE(self$inherit.aes)) {
+      self$mapping <- defaults(self$mapping, plot$mapping)
+      # defaults() strips class, but it needs to be preserved for now
+      class(self$mapping) <- "uneval"
+    }
+
     data
   },
 
   compute_aesthetics = function(self, data, plot) {
-    # For annotation geoms, it is useful to be able to ignore the default aes
-    if (self$inherit.aes) {
-      aesthetics <- defaults(self$mapping, plot$mapping)
-    } else {
-      aesthetics <- self$mapping
-    }
+    aesthetics <- self$mapping
 
     # Drop aesthetics that are set or calculated
     set <- names(aesthetics) %in% names(self$aes_params)
@@ -274,9 +282,9 @@ Layer <- ggproto("Layer", NULL,
     if (empty(data))
       return(new_data_frame())
 
-    params <- self$stat$setup_params(data, self$stat_params)
-    data <- self$stat$setup_data(data, params)
-    self$stat$compute_layer(data, params, layout)
+    self$computed_stat_params <- self$stat$setup_params(data, self$stat_params)
+    data <- self$stat$setup_data(data, self$computed_stat_params)
+    self$stat$compute_layer(data, self$computed_stat_params, layout)
   },
 
   map_statistic = function(self, data, plot) {
@@ -289,9 +297,6 @@ Layer <- ggproto("Layer", NULL,
 
     # Assemble aesthetics from layer, plot and stat mappings
     aesthetics <- self$mapping
-    if (self$inherit.aes) {
-      aesthetics <- defaults(aesthetics, plot$mapping)
-    }
     aesthetics <- defaults(aesthetics, self$stat$default_aes)
     aesthetics <- compact(aesthetics)
 
@@ -340,8 +345,8 @@ Layer <- ggproto("Layer", NULL,
       c(names(data), names(self$aes_params)),
       snake_class(self$geom)
     )
-    self$geom_params <- self$geom$setup_params(data, c(self$geom_params, self$aes_params))
-    self$geom$setup_data(data, self$geom_params)
+    self$computed_geom_params <- self$geom$setup_params(data, c(self$geom_params, self$aes_params))
+    self$geom$setup_data(data, self$computed_geom_params)
   },
 
   compute_position = function(self, data, layout) {
@@ -364,7 +369,7 @@ Layer <- ggproto("Layer", NULL,
   },
 
   finish_statistics = function(self, data) {
-    self$stat$finish_layer(data, self$stat_params)
+    self$stat$finish_layer(data, self$computed_stat_params)
   },
 
   draw_geom = function(self, data, layout) {
@@ -373,8 +378,8 @@ Layer <- ggproto("Layer", NULL,
       return(rep(list(zeroGrob()), n))
     }
 
-    data <- self$geom$handle_na(data, self$geom_params)
-    self$geom$draw_layer(data, self$geom_params, layout, layout$coord)
+    data <- self$geom$handle_na(data, self$computed_geom_params)
+    self$geom$draw_layer(data, self$computed_geom_params, layout, layout$coord)
   }
 )
 

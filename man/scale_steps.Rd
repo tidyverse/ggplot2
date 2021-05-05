@@ -88,7 +88,7 @@ directly.}
 instead of exactly evenly spaced between the limits. If \code{TRUE} (default)
 the scale will ask the transformation object to create breaks, and this
 may result in a different number of breaks than requested. Ignored if
-breaks are given explicetly.}
+breaks are given explicitly.}
     \item{\code{right}}{Should values on the border between bins be part of the right
 (upper) bin?}
     \item{\code{show.limits}}{should the limits of the scale appear as ticks}
@@ -103,7 +103,8 @@ omitted.}
 \link[scales:trans_new]{transformation object}
 \item A numeric vector of positions
 \item A function that takes the limits as input and returns breaks
-as output (e.g., a function returned by \code{\link[scales:breaks_extended]{scales::extended_breaks()}})
+as output (e.g., a function returned by \code{\link[scales:breaks_extended]{scales::extended_breaks()}}).
+Also accepts rlang \link[rlang:as_function]{lambda} function notation.
 }}
     \item{\code{labels}}{One of:
 \itemize{
@@ -112,7 +113,8 @@ as output (e.g., a function returned by \code{\link[scales:breaks_extended]{scal
 transformation object
 \item A character vector giving labels (must be same length as \code{breaks})
 \item A function that takes the breaks as input and returns labels
-as output
+as output. Also accepts rlang \link[rlang:as_function]{lambda} function
+notation.
 }}
     \item{\code{limits}}{One of:
 \itemize{
@@ -120,7 +122,8 @@ as output
 \item A numeric vector of length two providing limits of the scale.
 Use \code{NA} to refer to the existing minimum or maximum
 \item A function that accepts the existing (automatic) limits and returns
-new limits
+new limits. Also accepts rlang \link[rlang:as_function]{lambda} function
+notation.
 Note that setting limits on positional scales will \strong{remove} data outside of the limits.
 If the purpose is to zoom, use the limit argument in the coordinate system
 (see \code{\link[=coord_cartesian]{coord_cartesian()}}).
@@ -128,7 +131,8 @@ If the purpose is to zoom, use the limit argument in the coordinate system
     \item{\code{oob}}{One of:
 \itemize{
 \item Function that handles limits outside of the scale limits
-(out of bounds).
+(out of bounds). Also accepts rlang \link[rlang:as_function]{lambda}
+function notation.
 \item The default (\code{\link[scales:oob]{scales::censor()}}) replaces out of
 bounds values with \code{NA}.
 \item \code{\link[scales:oob]{scales::squish()}} for squishing out of bounds values into range.
@@ -225,11 +229,12 @@ ggplot(df, aes(x, y)) +
 }
 \seealso{
 \code{\link[scales:seq_gradient_pal]{scales::seq_gradient_pal()}} for details on underlying
-palette
+palette, \code{\link[=scale_colour_gradient]{scale_colour_gradient()}} for continuous scales without binning.
 
 Other colour scales: 
 \code{\link{scale_alpha}()},
 \code{\link{scale_colour_brewer}()},
+\code{\link{scale_colour_continuous}()},
 \code{\link{scale_colour_gradient}()},
 \code{\link{scale_colour_grey}()},
 \code{\link{scale_colour_hue}()},

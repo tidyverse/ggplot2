@@ -66,7 +66,7 @@ expand_scale <- function(mult = 0, add = 0) {
 #'
 expand_range4 <- function(limits, expand) {
   if (!(is.numeric(expand) && length(expand) %in% c(2,4))) {
-    abort("`expand` must be a numeric vector with 1 or 2 elements")
+    abort("`expand` must be a numeric vector with 2 or 4 elements")
   }
 
   if (all(!is.finite(limits))) {

@@ -91,11 +91,19 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
     x = any(scales %in% c("free_x", "free")),
     y = any(scales %in% c("free_y", "free"))
   )
+
   draw.axes <- match.arg(draw.axes, c("margins", "all_x", "all_y", "all"))
   draw.axes <- list(
     x = any(draw.axes %in% c("all_x", "all")),
     y = any(draw.axes %in% c("all_y", "all"))
   )
+
+  # Check for deprecated labellers
+  labeller <- check_labeller(labeller)
+
+  # Flatten all facets dimensions into a single one
+  facets <- wrap_as_facets_list(facets)
+
   if (!is.null(switch)) {
     .Deprecated("strip.position", old = "switch")
     strip.position <- if (switch == "x") "bottom" else "left"
@@ -111,12 +119,6 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
     nrow <- sanitise_dim(nrow)
     ncol <- sanitise_dim(ncol)
   }
-
-  # Check for deprecated labellers
-  labeller <- check_labeller(labeller)
-
-  # Flatten all facets dimensions into a single one
-  facets <- wrap_as_facets_list(facets)
 
   ggproto(NULL, FacetWrap,
     shrink = shrink,
