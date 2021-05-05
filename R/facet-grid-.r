@@ -112,7 +112,7 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
                        space = "fixed", shrink = TRUE,
                        labeller = "label_value", as.table = TRUE,
                        switch = NULL, drop = TRUE, margins = FALSE,
-                       facets = NULL) {
+                       facets = NULL, draw.axes = "margins") {
   # `facets` is soft-deprecated and renamed to `rows`
   if (!is.null(facets)) {
     rows <- facets
@@ -135,6 +135,12 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
     y = any(space %in% c("free_y", "free"))
   )
 
+  draw.axes <- match.arg(draw.axes, c("margins", "all_x", "all_y", "all"))
+  draw.axes <- list(
+    x = any(draw.axes %in% c("all_x", "all")),
+    y = any(draw.axes %in% c("all_y", "all"))
+  )
+
   if (!is.null(switch) && !switch %in% c("both", "x", "y")) {
     abort("switch must be either 'both', 'x', or 'y'")
   }
@@ -148,7 +154,7 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
     shrink = shrink,
     params = list(rows = facets_list$rows, cols = facets_list$cols, margins = margins,
       free = free, space_free = space_free, labeller = labeller,
-      as.table = as.table, switch = switch, drop = drop)
+      as.table = as.table, switch = switch, drop = drop, draw.axes = draw.axes)
   )
 }
 
