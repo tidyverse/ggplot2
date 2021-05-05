@@ -17,8 +17,7 @@
   reversed (@thomasp85, #4210)
   
 * Fix bug in `geom_text()` where `"outward"` and `"inward"` justification for 
-  `angle` values between 45 and 135 degrees were reversed (@aphalo, #4169, 
-  #4447)
+  some `angle` values was reversed (@aphalo, #4169, #4447)
 
 * Fix a bug in legend justification where justification was lost of the legend
   dimensions exceeded the available size (@thomasp85, #3635)
