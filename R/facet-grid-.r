@@ -59,6 +59,10 @@ NULL
 #'   variables for which margins are to be created.
 #' @param facets This argument is soft-deprecated, please use `rows`
 #'   and `cols` instead.
+#' @param draw.axes Determines which axes will be drawn. When `"margins"`
+#'   (default), axes will be drawn at the exterior margins. `"all_x"` and
+#'   `"all_y"` will draw the respective axes at the interior panels too, whereas
+#'   `"all"` will draw all axes at all panels.
 #' @export
 #' @examples
 #' p <- ggplot(mpg, aes(displ, cty)) + geom_point()

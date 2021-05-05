@@ -24,6 +24,10 @@ NULL
 #'   "bottom", "left", "right")}
 #' @param dir Direction: either `"h"` for horizontal, the default, or `"v"`,
 #'   for vertical.
+#' @param draw.axes Determines which axes will be drawn in case of fixed scales.
+#'   When `"margins"` (default), axes will be drawn at the exterior margins.
+#'   `"all_x"` and `"all_y"` will draw the respective axes at the interior
+#'   panels too, whereas `"all"` will draw all axes at all panels.
 #' @inheritParams facet_grid
 #' @export
 #' @examples
