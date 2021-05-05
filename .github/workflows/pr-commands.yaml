@@ -11,12 +11,12 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v2
-      - uses: r-lib/actions/pr-fetch@master
+      - uses: r-lib/actions/pr-fetch@v1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: r-lib/actions/setup-r@master
+      - uses: r-lib/actions/setup-r@v1
       - name: Install dependencies
-        run: Rscript -e 'install.packages(c("remotes", "roxygen2"))' -e 'remotes::install_deps(dependencies = TRUE, type = "binary")'
+        run: Rscript -e 'install.packages(c("remotes", "roxygen2"))' -e 'remotes::install_deps(dependencies = TRUE)'
       - name: Document
         run: Rscript -e 'roxygen2::roxygenise()'
       - name: commit
@@ -25,7 +25,7 @@ jobs:
           git config --local user.name "GitHub Actions"
           git add man/\* NAMESPACE
           git commit -m 'Document'
-      - uses: r-lib/actions/pr-push@master
+      - uses: r-lib/actions/pr-push@v1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
   style:
@@ -36,10 +36,10 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v2
-      - uses: r-lib/actions/pr-fetch@master
+      - uses: r-lib/actions/pr-fetch@v1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: r-lib/actions/setup-r@master
+      - uses: r-lib/actions/setup-r@v1
       - name: Install dependencies
         run: Rscript -e 'install.packages("styler")'
       - name: Style
@@ -50,6 +50,6 @@ jobs:
           git config --local user.name "GitHub Actions"
           git add \*.R
           git commit -m 'Style'
-      - uses: r-lib/actions/pr-push@master
+      - uses: r-lib/actions/pr-push@v1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}

@@ -25,9 +25,9 @@
 #'
 #' @eval rd_aesthetics("geom", "text")
 #' @section `geom_label()`:
-#' Currently `geom_label()` does not support the `angle` aesthetic and
-#' is considerably slower than `geom_text()`. The `fill` aesthetic
-#' controls the background colour of the label.
+#' Currently `geom_label()` does not support the `check_overlap` argument
+#' or the `angle` aesthetic. Also, it is considerably slower than `geom_text()`.
+#' The `fill` aesthetic controls the background colour of the label.
 #'
 #' @section Alignment:
 #' You can modify text alignment with the `vjust` and `hjust`
@@ -50,7 +50,8 @@
 #' @param check_overlap If `TRUE`, text that overlaps previous text in the
 #'   same layer will not be plotted. `check_overlap` happens at draw time and in
 #'   the order of the data. Therefore data should be arranged by the label
-#'   column before calling `geom_label()` or `geom_text()`.
+#'   column before calling `geom_text()`. Note that this argument is not
+#'   supported by `geom_label()`.
 #' @export
 #' @examples
 #' p <- ggplot(mtcars, aes(wt, mpg, label = rownames(mtcars)))

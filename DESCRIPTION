@@ -35,17 +35,19 @@ Imports:
     isoband,
     MASS,
     mgcv,
-    rlang (>= 0.3.0),
+    rlang (>= 0.4.10),
     scales (>= 0.5.0),
     stats,
     tibble,
     withr (>= 2.0.0)
 Suggests:
     covr,
+    ragg,
     dplyr,
     ggplot2movies,
     hexbin,
     Hmisc,
+    interp,
     knitr,
     lattice,
     mapproj,
@@ -267,3 +269,9 @@ VignetteBuilder: knitr
 RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
+Config/Needs/website:
+    ggtext,
+    tidyr,
+    forcats,
+    tidyverse/tidytemplate
+

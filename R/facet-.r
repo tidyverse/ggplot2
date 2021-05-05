@@ -276,9 +276,7 @@ df.grid <- function(a, b) {
 # facetting variables.
 
 as_facets_list <- function(x) {
-  if (inherits(x, "uneval")) {
-    abort("Please use `vars()` to supply facet variables")
-  }
+  x <- validate_facets(x)
   if (is_quosures(x)) {
     x <- quos_auto_name(x)
     return(list(x))
@@ -315,11 +313,24 @@ as_facets_list <- function(x) {
   x
 }
 
+validate_facets <- function(x) {
+  if (inherits(x, "uneval")) {
+    abort("Please use `vars()` to supply facet variables")
+  }
+  if (inherits(x, "ggplot")) {
+    abort(
+      "Please use `vars()` to supply facet variables\nDid you use %>% instead of +?"
+    )
+  }
+  x
+}
+
+
 # Flatten a list of quosures objects to a quosures object, and compact it
 compact_facets <- function(x) {
   x <- flatten_if(x, is_list)
-  null <- vapply(x, quo_is_null, logical(1))
-  new_quosures(x[!null])
+  null_or_missing <- vapply(x, function(x) quo_is_null(x) || quo_is_missing(x), logical(1))
+  new_quosures(x[!null_or_missing])
 }
 
 # Compatibility with plyr::as.quoted()

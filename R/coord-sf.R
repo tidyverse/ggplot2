@@ -62,7 +62,9 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
         return(layer_data)
       }
 
-      sf::st_transform(layer_data, params$crs)
+      idx <- vapply(layer_data, inherits, what = "sfc", FUN.VALUE = logical(1L))
+      layer_data[idx] <- lapply(layer_data[idx], sf::st_transform, crs = params$crs)
+      layer_data
     })
   },
 

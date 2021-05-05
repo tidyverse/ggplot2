@@ -28,7 +28,8 @@ they should take (e.g., \code{\link[scales:hue_pal]{scales::hue_pal()}}).}
 \item \code{waiver()} for the default breaks (the scale limits)
 \item A character vector of breaks
 \item A function that takes the limits as input and returns breaks
-as output
+as output. Also accepts rlang \link[rlang:as_function]{lambda} function
+notation.
 }}
     \item{\code{limits}}{One of:
 \itemize{
@@ -36,7 +37,8 @@ as output
 \item A character vector that defines possible values of the scale and their
 order
 \item A function that accepts the existing (automatic) values and returns
-new ones
+new ones. Also accepts rlang \link[rlang:as_function]{lambda} function
+notation.
 }}
     \item{\code{drop}}{Should unused factor levels be omitted from the scale?
 The default, \code{TRUE}, uses the levels that appear in the data;
@@ -58,7 +60,8 @@ omitted.}
 transformation object
 \item A character vector giving labels (must be same length as \code{breaks})
 \item A function that takes the breaks as input and returns labels
-as output
+as output. Also accepts rlang \link[rlang:as_function]{lambda} function
+notation.
 }}
     \item{\code{guide}}{A function used to create a guide or its name. See
 \code{\link[=guides]{guides()}} for more information.}

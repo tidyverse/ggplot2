@@ -128,7 +128,8 @@ specified, \code{date_breaks} wins.}
 transformation object
 \item A character vector giving labels (must be same length as \code{breaks})
 \item A function that takes the breaks as input and returns labels
-as output
+as output. Also accepts rlang \link[rlang:as_function]{lambda} function
+notation.
 }}
 
 \item{date_labels}{A string giving the formatting specification for the
@@ -154,7 +155,8 @@ like "2 weeks", or "10 years". If both \code{minor_breaks} and
 \item A numeric vector of length two providing limits of the scale.
 Use \code{NA} to refer to the existing minimum or maximum
 \item A function that accepts the existing (automatic) limits and returns
-new limits
+new limits. Also accepts rlang \link[rlang:as_function]{lambda} function
+notation.
 Note that setting limits on positional scales will \strong{remove} data outside of the limits.
 If the purpose is to zoom, use the limit argument in the coordinate system
 (see \code{\link[=coord_cartesian]{coord_cartesian()}}).
@@ -170,7 +172,8 @@ expand the scale by 5\% on each side for continuous variables, and by
 \item{oob}{One of:
 \itemize{
 \item Function that handles limits outside of the scale limits
-(out of bounds).
+(out of bounds). Also accepts rlang \link[rlang:as_function]{lambda}
+function notation.
 \item The default (\code{\link[scales:oob]{scales::censor()}}) replaces out of
 bounds values with \code{NA}.
 \item \code{\link[scales:oob]{scales::squish()}} for squishing out of bounds values into range.

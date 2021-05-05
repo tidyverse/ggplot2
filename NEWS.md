@@ -1,5 +1,87 @@
 # ggplot2 (development version)
 
+* Add support for the BrailleR package for creating descriptions of the plot
+  when rendered (@thomasp85, #4459)
+
+* Fix a bug in the layer implementation that introduced a new state after the 
+  first render which could lead to a different look when rendered the second 
+  time (@thomasp85, #4204)
+  
+* Make sure `label_bquote()` has access to the calling environment when 
+  evaluating the labels (@thomasp85, #4141)
+  
+* Fix bug in `annotate_logticks()` that would cause an error when used together
+  with `coord_flip()` (@thomasp85, #3954)
+  
+* Fix a bug in `guide_bins()` where keys would disappear if the guide was 
+  reversed (@thomasp85, #4210)
+  
+* Fix a bug in legend justification where justification was lost of the legend
+  dimensions exceeded the available size (@thomasp85, #3635)
+
+* Fix calculation of confidence interval for locfit smoothing (@topepo, #3806)
+
+* Fix bug in `scale_[x|y]_date()` where custom breaks functions that resulted in
+  fracional dates would get misaligned (@thomasp85, #3965)
+  
+* Fix bug in `scale_[x|y]_datetime()` where a specified timezone would be 
+  ignored by the scale (@thomasp85, #4007)
+  
+* Using `theme(aspect.ratio = ...)` together with free space in `facet_grid()`
+  now crrectly throws an error (@thomasp85, #3834)
+  
+* Fix a bug in `stat_summary_bin()` where one more than the requested number of
+  bins would be created (@thomasp85, #3824)
+  
+* Fix issue in `sec_axis()` that would throw warnings in the absence of any 
+  secondary breaks (@thomasp85, #4368)
+  
+* Fix a bug in `geom_abline()` that resulted in `intercept` not being subjected
+  to the transformation of the y scale (@thomasp85, #3741)
+  
+* Fix bug in `guide_coloursteps()` that would repeat the terminal bins if the
+  breaks coincided with the limits of the scale (@thomasp85, #4019)
+  
+* Extent the range of the line created by `geom_abline()` so that line ending
+  is not visible for large linewidths (@thomasp85, #4024)
+
+* Make sure that default labels from default mappings doesn't overwrite default
+  labels from explicit mappings (@thomasp85, #2406)
+  
+* `stat_count()` now computes width based on the full dataset instead of per 
+  group (@thomasp85, #2047)
+
+* Fix bug in `labeller()` where parsing was turned off if `.multiline = FALSE`
+  (@thomasp85, #4084)
+  
+* Fix a bug in `qplot()` when supplying `c(NA, NA)` as axis limits 
+  (@thomasp85, #4027)
+
+* Fix bug in `geom_dotplot()` where dots would be positioned wrong with 
+  `stackgroups = TRUE` (@thomasp85, #1745)
+
+* Make sure position_jitter creates the same jittering independent of whether it
+  is called by name or with constructor (@thomasp85, #2507)
+
+* Fix a bug in `position_dodge2()` where `NA` values in thee data would cause an
+  error (@thomasp85, #2905)
+
+* Fix a bug in `position_jitter()` where different jitters would be applied to 
+  different position aesthetics of the same axis (@thomasp85, #2941)
+
+* `ggsave()` now uses ragg to render raster output if ragg is available 
+  (@thomasp85, #4388)
+  
+* `coord_sf()` now has an argument `default_crs` that specifies the coordinate
+  reference system (CRS) for non-sf layers and scale/coord limits. This argument
+  defaults to the World Geodetic System 1984 (WGS84), which means x and y positions
+  are interpreted as longitude and latitude. This is a potentially breaking change
+  for users who use projected coordinates in non-sf layers or in limits. Setting
+  `default_crs = NULL` recovers the old behavior. Further, authors of extension
+  packages implementing `stat_sf()`-like functionality are encouraged to look at the
+  source code of `stat_sf()`'s `compute_group()` function to see how to provide
+  scale-limit hints to `coord_sf()` (@clauswilke, #3659).
+
 * `ggsave()` now sets the default background to match the fill value of the
   `plot.background` theme element (@karawoo, #4057)
 
@@ -22,7 +104,25 @@
 
 * `stat_bin()`'s computed variable `width` is now documented (#3522).
 
+* Fixed a bug in strip assembly when theme has `strip.text = element_blank()`
+  and plots are faceted with multi-layered strips (@teunbrand, #4384).
+
 * ggplot2 now requires R >= 3.3 (#4247).
+
+* ggplot2 now uses `rlang::check_installed()` to check if a suggested package is
+  installed, which will offer to install the package before continuing (#4375, 
+  @malcolmbarrett)
+
+* Improved error with hint when piping a `ggplot` object into a facet function
+  (#4379, @mitchelloharawild).
+
+* Fix a bug that `after_stat()` and `after_scale()` cannot refer to aesthetics
+  if it's specified in the plot-global mapping (@yutannihilation, #4260).
+
+* `ggsave()` now returns the saved file location invisibly (#3379, @eliocamp).
+
+* The scale arguments `limits`, `breaks`, `minor_breaks`, `labels`, `rescaler`
+  and `oob` now accept purrr style lambda notation (@teunbrand, #4427).
 
 # ggplot2 3.3.3
 This is a small patch release mainly intended to address changes in R and CRAN.
@@ -34,6 +134,9 @@ It further changes the licensing model of ggplot2 to an MIT license.
 
 * Update tests to work with the new `all.equal()` defaults in R >4.0.3
 
+* Fixed a bug that `guide_bins()` mistakenly ignore `override.aes` argument
+  (@yutannihilation, #4085).
+
 # ggplot2 3.3.2
 This is a small release focusing on fixing regressions introduced in 3.3.1.
 
@@ -42,16 +145,6 @@ This is a small release focusing on fixing regressions introduced in 3.3.1.
 
 * `annotation_raster()` adds support for native rasters. For large rasters,
   native rasters render significantly faster than arrays (@kent37, #3388)
-
-* `coord_sf()` now has an argument `default_crs` that specifies the coordinate
-  reference system (CRS) for non-sf layers and scale/coord limits. This argument
-  defaults to the World Geodetic System 1984 (WGS84), which means x and y positions
-  are interpreted as longitude and latitude. This is a potentially breaking change
-  for users who use projected coordinates in non-sf layers or in limits. Setting
-  `default_crs = NULL` recovers the old behavior. Further, authors of extension
-  packages implementing `stat_sf()`-like functionality are encouraged to look at the
-  source code of `stat_sf()`'s `compute_group()` function to see how to provide
-  scale-limit hints to `coord_sf()` (@clauswilke, #3659).
   
 * Facet strips now have dedicated position-dependent theme elements 
   (`strip.text.x.top`, `strip.text.x.bottom`, `strip.text.y.left`, 

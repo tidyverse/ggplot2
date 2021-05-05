@@ -149,6 +149,7 @@ geom_dotplot <- function(mapping = NULL, data = NULL,
   if (stackgroups && method == "dotdensity" && binpositions == "bygroup")
     message('geom_dotplot called with stackgroups=TRUE and method="dotdensity". You probably want to set binpositions="all"')
 
+  stackdir <- arg_match0(stackdir, c("up", "down", "center", "centerwhole"), "stackdir")
   layer(
     data = data,
     mapping = mapping,
@@ -210,23 +211,27 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
       stackaxismax <- .5
     }
 
-
     # Fill the bins: at a given x (or y), if count=3, make 3 entries at that x
     data <- data[rep(1:nrow(data), data$count), ]
 
     # Next part will set the position of each dot within each stack
     # If stackgroups=TRUE, split only on x (or y) and panel; if not stacking, also split by group
     plyvars <- params$binaxis %||% "x"
+    stackaxis <- setdiff(c("x", "y"), plyvars)
     plyvars <- c(plyvars, "PANEL")
     if (is.null(params$stackgroups) || !params$stackgroups)
       plyvars <- c(plyvars, "group")
 
+    if (stackaxis == "x") {
+      plyvars <- c(plyvars, "x")
+    }
+
     # Within each x, or x+group, set countidx=1,2,3, and set stackpos according to stack function
     data <- dapply(data, plyvars, function(xx) {
-            xx$countidx <- 1:nrow(xx)
-            xx$stackpos <- stackdots(xx$countidx)
-            xx
-          })
+      xx$countidx <- 1:nrow(xx)
+      xx$stackpos <- stackdots(xx$countidx)
+      xx
+    })
 
 
     # Set the bounding boxes for the dots
