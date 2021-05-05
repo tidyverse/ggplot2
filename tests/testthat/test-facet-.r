@@ -225,6 +225,55 @@ test_that("facet gives clear error if ", {
   )
 })
 
+test_that("facet_grid draw.axes can draw inner axes.", {
+  df <- data_frame(
+    x = 1:4, y = 1:4,
+    fx = c("A", "A", "B", "B"),
+    fy = c("c", "d", "c", "d")
+  )
+  p <- ggplot(df, aes(x, y)) + geom_point()
+
+  case <- ggplotGrob(p + facet_grid(vars(fy), vars(fx), draw.axes = "all"))
+  ctrl <- ggplotGrob(p + facet_grid(vars(fy), vars(fx), draw.axes = "margins"))
+
+  # 4 x-axes if all axes should be drawn
+  bottom <- case$grobs[grepl("axis-b", case$layout$name)]
+  expect_equal(sum(vapply(bottom, inherits, logical(1), "absoluteGrob")), 4)
+  # 2 x-axes if drawing at the margins
+  bottom <- ctrl$grobs[grepl("axis-b", ctrl$layout$name)]
+  expect_equal(sum(vapply(bottom, inherits, logical(1), "absoluteGrob")), 2)
+
+  # Ditto for y-axes
+  left <- case$grobs[grepl("axis-l", case$layout$name)]
+  expect_equal(sum(vapply(left, inherits, logical(1), "absoluteGrob")), 4)
+  left <- ctrl$grobs[grepl("axis-l", ctrl$layout$name)]
+  expect_equal(sum(vapply(left, inherits, logical(1), "absoluteGrob")), 2)
+})
+
+test_that("facet_wrap draw.axes can draw inner axes.", {
+  df <- data_frame(
+    x = 1, y = 1, facet = LETTERS[1:4]
+  )
+
+  p <- ggplot(df, aes(x, y)) + geom_point()
+
+  case <- ggplotGrob(p + facet_wrap(vars(facet), draw.axes = "all"))
+  ctrl <- ggplotGrob(p + facet_wrap(vars(facet), draw.axes = "margins"))
+
+  # 4 x-axes if all axes should be drawn
+  bottom <- case$grobs[grepl("axis-b", case$layout$name)]
+  expect_equal(sum(vapply(bottom, inherits, logical(1), "absoluteGrob")), 4)
+  # 2 x-axes if drawing at the margins
+  bottom <- ctrl$grobs[grepl("axis-b", ctrl$layout$name)]
+  expect_equal(sum(vapply(bottom, inherits, logical(1), "absoluteGrob")), 2)
+
+  # Ditto for y-axes
+  left <- case$grobs[grepl("axis-l", case$layout$name)]
+  expect_equal(sum(vapply(left, inherits, logical(1), "absoluteGrob")), 4)
+  left <- ctrl$grobs[grepl("axis-l", ctrl$layout$name)]
+  expect_equal(sum(vapply(left, inherits, logical(1), "absoluteGrob")), 2)
+})
+
 # Variable combinations ---------------------------------------------------
 
 test_that("zero-length vars in combine_vars() generates zero combinations", {
@@ -343,6 +392,8 @@ test_that("eval_facet() is tolerant for missing columns (#2963)", {
     "object 'no_such_variable' not found"
   )
 })
+
+
 
 # Visual tests ------------------------------------------------------------
 
