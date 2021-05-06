@@ -67,7 +67,6 @@ GeomLabel <- ggproto("GeomLabel", Geom,
     }
 
     data <- coord$transform(data, panel_params)
-
     if (is.character(data$vjust)) {
       data$vjust <- compute_just(data$vjust, data$y)
     }

@@ -262,7 +262,7 @@ compute_just <- function(just, a, b = a, angle = 0) {
   }
 
   unname(c(left = 0, center = 0.5, right = 1,
-           bottom = 0, middle = 0.5, top = 1)[just])
+    bottom = 0, middle = 0.5, top = 1)[just])
 }
 
 just_dir <- function(x, tol = 0.001) {
