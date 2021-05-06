@@ -126,6 +126,9 @@
 
 * The scale arguments `limits`, `breaks`, `minor_breaks`, `labels`, `rescaler`
   and `oob` now accept purrr style lambda notation (@teunbrand, #4427).
+  
+* `as_labeller()` (and therefore also `labeller()`) now handles functions in
+  purrr-style lambda notation (@netique, #4188).
 
 # ggplot2 3.3.3
 This is a small patch release mainly intended to address changes in R and CRAN.
