@@ -157,7 +157,14 @@ grid_as_facets_list <- function(rows, cols) {
   is_rows_vars <- is.null(rows) || is_quosures(rows)
   if (!is_rows_vars) {
     if (!is.null(cols)) {
-      abort("`rows` must be `NULL` or a `vars()` list if `cols` is a `vars()` list")
+      msg <- "`rows` must be `NULL` or a `vars()` list if `cols` is a `vars()` list"
+      if(inherits(rows, "ggplot")) {
+        msg <- paste0(
+          msg, "\n",
+          "Did you use %>% instead of +?"
+        )
+      }
+      abort(msg)
     }
     # For backward-compatibility
     facets_list <- as_facets_list(rows)
@@ -302,6 +309,9 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     strips <- render_strips(col_vars, row_vars, params$labeller, theme)
 
     aspect_ratio <- theme$aspect.ratio
+    if (!is.null(aspect_ratio) && (params$space_free$x || params$space_free$y)) {
+      abort("Free scales cannot be mixed with a fixed aspect ratio")
+    }
     if (is.null(aspect_ratio) && !params$free$x && !params$free$y) {
       aspect_ratio <- coord$aspect(ranges[[1]])
     }

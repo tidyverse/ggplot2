@@ -52,13 +52,25 @@ test_that("facets reject aes()", {
 test_that("wrap_as_facets_list() returns a quosures object with compacted", {
   expect_identical(wrap_as_facets_list(vars(foo)), quos(foo = foo))
   expect_identical(wrap_as_facets_list(~foo + bar), quos(foo = foo, bar = bar))
-  expect_identical(wrap_as_facets_list(vars(foo, NULL, bar)), quos(foo = foo, bar = bar))
+
+  f <- function(x) {
+    expect_identical(wrap_as_facets_list(vars(foo, {{ x }}, bar)), quos(foo = foo, bar = bar))
+  }
+
+  f(NULL)
+  f()
 })
 
 test_that("grid_as_facets_list() returns a list of quosures objects with compacted", {
   expect_identical(grid_as_facets_list(vars(foo), NULL), list(rows = quos(foo = foo), cols = quos()))
   expect_identical(grid_as_facets_list(~foo, NULL), list(rows = quos(), cols = quos(foo = foo)))
-  expect_identical(grid_as_facets_list(vars(foo, NULL, bar), NULL), list(rows = quos(foo = foo, bar = bar), cols = quos()))
+
+  f <- function(x) {
+    expect_identical(grid_as_facets_list(vars(foo, {{ x }}, bar), NULL), list(rows = quos(foo = foo, bar = bar), cols = quos()))
+  }
+
+  f(NULL)
+  f()
 })
 
 test_that("wrap_as_facets_list() and grid_as_facets_list() accept empty specs", {
@@ -125,10 +137,10 @@ test_that("facet_grid() accepts vars()", {
   expect_identical(grid$params$rows, quos(foo = foo))
   expect_identical(grid$params$cols, quos(bar = bar))
 
-  expect_equal(facet_grid(vars(am, vs)), facet_grid(am + vs ~ .))
-  expect_equal(facet_grid(vars(am, vs), vars(cyl)), facet_grid(am + vs ~ cyl))
-  expect_equal(facet_grid(NULL, vars(cyl)), facet_grid(. ~ cyl))
-  expect_equal(facet_grid(vars(am, vs), TRUE), facet_grid(am + vs ~ ., margins = TRUE))
+  expect_equal(facet_grid(vars(am, vs))$params, facet_grid(am + vs ~ .)$params)
+  expect_equal(facet_grid(vars(am, vs), vars(cyl))$params, facet_grid(am + vs ~ cyl)$params)
+  expect_equal(facet_grid(NULL, vars(cyl))$params, facet_grid(. ~ cyl)$params)
+  expect_equal(facet_grid(vars(am, vs), TRUE)$params, facet_grid(am + vs ~ ., margins = TRUE)$params)
 })
 
 test_that("facet_grid() fails if passed both a formula and a vars()", {

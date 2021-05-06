@@ -16,7 +16,7 @@ A system for 'declaratively' creating graphics,
 \seealso{
 Useful links:
 \itemize{
-  \item \url{http://ggplot2.tidyverse.org}
+  \item \url{https://ggplot2.tidyverse.org}
   \item \url{https://github.com/tidyverse/ggplot2}
   \item Report bugs at \url{https://github.com/tidyverse/ggplot2/issues}
 }

@@ -108,7 +108,7 @@ colour bar, or \code{"legend"} for discrete colour legend.}
 \description{
 The \code{brewer} scales provide sequential, diverging and qualitative
 colour schemes from ColorBrewer. These are particularly well suited to
-display discrete values on a map. See \url{http://colorbrewer2.org} for
+display discrete values on a map. See \url{https://colorbrewer2.org} for
 more information.
 }
 \details{
@@ -174,6 +174,7 @@ v + scale_fill_fermenter()
 \seealso{
 Other colour scales: 
 \code{\link{scale_alpha}()},
+\code{\link{scale_colour_continuous}()},
 \code{\link{scale_colour_gradient}()},
 \code{\link{scale_colour_grey}()},
 \code{\link{scale_colour_hue}()},

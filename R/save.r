@@ -25,13 +25,13 @@
 #' @param filename File name to create on disk.
 #' @param plot Plot to save, defaults to last plot displayed.
 #' @param device Device to use. Can either be a device function
-#'   (e.g. [png()]), or one of "eps", "ps", "tex" (pictex),
+#'   (e.g. [png]), or one of "eps", "ps", "tex" (pictex),
 #'   "pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only).
 #' @param path Path of the directory to save plot to: `path` and `filename`
 #'   are combined to create the fully qualified file name. Defaults to the
 #'   working directory.
 #' @param scale Multiplicative scaling factor.
-#' @param width,height,units Plot size in `units` ("in", "cm", or "mm").
+#' @param width,height,units Plot size in `units` ("in", "cm", "mm", or "px").
 #'   If not supplied, uses the size of current graphics device.
 #' @param dpi Plot resolution. Also accepts a string input: "retina" (320),
 #'   "print" (300), or "screen" (72). Applies only to raster output types.
@@ -75,19 +75,19 @@
 #' }
 ggsave <- function(filename, plot = last_plot(),
                    device = NULL, path = NULL, scale = 1,
-                   width = NA, height = NA, units = c("in", "cm", "mm"),
+                   width = NA, height = NA, units = c("in", "cm", "mm", "px"),
                    dpi = 300, limitsize = TRUE, bg = NULL, ...) {
 
   dpi <- parse_dpi(dpi)
   dev <- plot_dev(device, filename, dpi = dpi)
   dim <- plot_dim(c(width, height), scale = scale, units = units,
-    limitsize = limitsize)
+    limitsize = limitsize, dpi = dpi)
 
   if (!is.null(path)) {
     filename <- file.path(path, filename)
   }
   if (is_null(bg)) {
-    bg <- calc_element("plot.background", plot_theme(plot))$fill
+    bg <- calc_element("plot.background", plot_theme(plot))$fill %||% "transparent"
   }
   old_dev <- grDevices::dev.cur()
   dev(filename = filename, width = dim[1], height = dim[2], bg = bg, ...)
@@ -97,7 +97,7 @@ ggsave <- function(filename, plot = last_plot(),
   }))
   grid.draw(plot)
 
-  invisible()
+  invisible(filename)
 }
 
 #' Parse a DPI input from the user
@@ -122,12 +122,12 @@ parse_dpi <- function(dpi) {
   }
 }
 
-plot_dim <- function(dim = c(NA, NA), scale = 1, units = c("in", "cm", "mm"),
-                     limitsize = TRUE) {
+plot_dim <- function(dim = c(NA, NA), scale = 1, units = c("in", "cm", "mm", "px"),
+                     limitsize = TRUE, dpi = 300) {
 
   units <- match.arg(units)
-  to_inches <- function(x) x / c(`in` = 1, cm = 2.54, mm = 2.54 * 10)[units]
-  from_inches <- function(x) x * c(`in` = 1, cm = 2.54, mm = 2.54 * 10)[units]
+  to_inches <- function(x) x / c(`in` = 1, cm = 2.54, mm = 2.54 * 10, px = dpi)[units]
+  from_inches <- function(x) x * c(`in` = 1, cm = 2.54, mm = 2.54 * 10, px = dpi)[units]
 
   dim <- to_inches(dim) * scale
 
@@ -158,17 +158,33 @@ plot_dev <- function(device, filename = NULL, dpi = 300) {
   force(dpi)
 
   if (is.function(device)) {
-    if ("file" %in% names(formals(device))) {
-      dev <- function(filename, ...) device(file = filename, ...)
-      return(dev)
-    } else {
-      return(device)
+    args <- formals(device)
+    call_args <- list()
+    if ("file" %in% names(args)) {
+      call_args$file <- filename
     }
+    if ("res" %in% names(args)) {
+      call_args$res <- dpi
+    }
+    if ("units" %in% names(args)) {
+      call_args$units <- 'in'
+    }
+    dev <- function(...) do.call(device, modify_list(list(...), call_args))
+    return(dev)
   }
 
   eps <- function(filename, ...) {
     grDevices::postscript(file = filename, ..., onefile = FALSE, horizontal = FALSE,
       paper = "special")
+  }
+  if (requireNamespace('ragg', quietly = TRUE)) {
+    png_dev <- ragg::agg_png
+    jpeg_dev <- ragg::agg_jpeg
+    tiff_dev <- ragg::agg_tiff
+  } else {
+    png_dev <- grDevices::png
+    jpeg_dev <- grDevices::jpeg
+    tiff_dev <- grDevices::tiff
   }
   devices <- list(
     eps =  eps,
@@ -178,11 +194,11 @@ plot_dev <- function(device, filename = NULL, dpi = 300) {
     svg =  function(filename, ...) svglite::svglite(file = filename, ...),
     emf =  function(...) grDevices::win.metafile(...),
     wmf =  function(...) grDevices::win.metafile(...),
-    png =  function(...) grDevices::png(..., res = dpi, units = "in"),
-    jpg =  function(...) grDevices::jpeg(..., res = dpi, units = "in"),
-    jpeg = function(...) grDevices::jpeg(..., res = dpi, units = "in"),
+    png =  function(...) png_dev(..., res = dpi, units = "in"),
+    jpg =  function(...) jpeg_dev(..., res = dpi, units = "in"),
+    jpeg = function(...) jpeg_dev(..., res = dpi, units = "in"),
     bmp =  function(...) grDevices::bmp(..., res = dpi, units = "in"),
-    tiff = function(...) grDevices::tiff(..., res = dpi, units = "in")
+    tiff = function(...) tiff_dev(..., res = dpi, units = "in")
   )
 
   if (is.null(device)) {
