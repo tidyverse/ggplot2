@@ -184,7 +184,6 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 
   check_breaks_labels(breaks, labels)
 
-  if (is.formula(labels)) labels <- as_function(labels)
   # Convert formula input to function if appropriate
   limits <- allow_lambda(limits)
   breaks <- allow_lambda(breaks)
