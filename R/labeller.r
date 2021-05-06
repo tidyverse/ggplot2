@@ -435,10 +435,7 @@ labeller <- function(..., .rows = NULL, .cols = NULL,
   if (!is.null(keep.as.numeric)) {
     .Deprecated(old = "keep.as.numeric")
   }
-
   dots <- list(...)
-
-
   .default <- as_labeller(.default)
 
   function(labels) {
