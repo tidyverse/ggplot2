@@ -150,5 +150,5 @@ manual_scale <- function(aesthetic, values = NULL, breaks = waiver(), limits = N
     }
     values
   }
-  discrete_scale(aesthetic, "manual", pal, breaks = breaks, ...)
+  discrete_scale(aesthetic, "manual", pal, breaks = breaks, limits = limits, ...)
 }
