@@ -1,5 +1,9 @@
 # ggplot2 (development version)
 
+* Manual scales now allow named vectors passed to `values` to contain fewer 
+  elements than existing in the data. Elements not present in values will be set
+  to `NA` (@thomasp85, #3451)
+
 * Add support for the BrailleR package for creating descriptions of the plot
   when rendered (@thomasp85, #4459)
 
