@@ -121,13 +121,17 @@ scale_discrete_manual <- function(aesthetics, ..., values, breaks = waiver()) {
 }
 
 
-manual_scale <- function(aesthetic, values = NULL, breaks = waiver(), ...) {
+manual_scale <- function(aesthetic, values = NULL, breaks = waiver(), limits = NULL, ...) {
   # check for missing `values` parameter, in lieu of providing
   # a default to all the different scale_*_manual() functions
   if (is_missing(values)) {
     values <- NULL
   } else {
     force(values)
+  }
+
+  if (is.null(limits)) {
+    limits <- names(values)
   }
 
   # order values according to breaks
@@ -141,7 +145,7 @@ manual_scale <- function(aesthetic, values = NULL, breaks = waiver(), ...) {
   }
 
   pal <- function(n) {
-    if (is.null(names(values)) && n > length(values)) {
+    if (n > length(values)) {
       abort(glue("Insufficient values in manual scale. {n} needed but only {length(values)} provided."))
     }
     values
