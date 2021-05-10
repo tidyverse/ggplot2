@@ -160,15 +160,19 @@ scale_fill_binned <- function(...,
 
 # helper function to make sure that the provided scale is of the correct
 # type (i.e., is continuous and works with the provided aesthetic)
-check_scale_type <- function(scale, name, aesthetic) {
+check_scale_type <- function(scale, name, aesthetic, scale_is_discrete = FALSE) {
   if (!is.ggproto(scale) || !inherits(scale, "Scale")) {
     abort(glue("The `type` argument of `{name}()` must return a continuous scale for the {aesthetic} aesthetic. The provided object is not a scale function."))
   }
   if (!isTRUE(aesthetic %in% scale$aesthetics)) {
     abort(glue("The `type` argument of `{name}()` must return a continuous scale for the {aesthetic} aesthetic. The provided scale works with the following aesthetics: {glue_collapse(scale$aesthetics, sep = ', ')}"))
   }
-  if (isTRUE(scale$is_discrete())) {
-    abort(glue("The `type` argument of `{name}()` must return a continuous scale for the {aesthetic} aesthetic, but the provided scale is discrete."))
+  if (isTRUE(scale$is_discrete()) != scale_is_discrete) {
+    scale_types <- c("continuous", "discrete")
+    if (scale_is_discrete) {
+      scale_types <- rev(scale_types)
+    }
+    abort(glue("The `type` argument of `{name}()` must return a {scale_types[1]} scale for the {aesthetic} aesthetic, but the provided scale is {scale_types[2]}."))
   }
 
   scale
