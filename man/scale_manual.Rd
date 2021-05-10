@@ -11,17 +11,29 @@
 \alias{scale_color_manual}
 \title{Create your own discrete scale}
 \usage{
-scale_colour_manual(..., values, aesthetics = "colour", breaks = waiver())
+scale_colour_manual(
+  ...,
+  values,
+  aesthetics = "colour",
+  breaks = waiver(),
+  na.value = "grey50"
+)
 
-scale_fill_manual(..., values, aesthetics = "fill", breaks = waiver())
+scale_fill_manual(
+  ...,
+  values,
+  aesthetics = "fill",
+  breaks = waiver(),
+  na.value = "grey50"
+)
 
-scale_size_manual(..., values, breaks = waiver())
+scale_size_manual(..., values, breaks = waiver(), na.value = NA)
 
-scale_shape_manual(..., values, breaks = waiver())
+scale_shape_manual(..., values, breaks = waiver(), na.value = NA)
 
-scale_linetype_manual(..., values, breaks = waiver())
+scale_linetype_manual(..., values, breaks = waiver(), na.value = "blank")
 
-scale_alpha_manual(..., values, breaks = waiver())
+scale_alpha_manual(..., values, breaks = waiver(), na.value = NA)
 
 scale_discrete_manual(aesthetics, ..., values, breaks = waiver())
 }
@@ -47,9 +59,6 @@ The default, \code{TRUE}, uses the levels that appear in the data;
     \item{\code{na.translate}}{Unlike continuous scales, discrete scales can easily show
 missing values, and do so by default. If you want to remove missing values
 from a discrete scale, specify \code{na.translate = FALSE}.}
-    \item{\code{na.value}}{If \code{na.translate = TRUE}, what aesthetic value should the
-missing values be displayed as? Does not apply to position scales
-where \code{NA} is always placed at the far right.}
     \item{\code{scale_name}}{The name of the scale that should be used for error messages
 associated with this scale.}
     \item{\code{name}}{The name of the scale. Used as the axis or legend title. If
@@ -90,6 +99,8 @@ same time, via \code{aesthetics = c("colour", "fill")}.}
 \item A function that takes the limits as input and returns breaks
 as output
 }}
+
+\item{na.value}{The aesthetic value to use for missing (\code{NA}) values}
 }
 \description{
 These functions allow you to specify your own set of mappings from levels in the

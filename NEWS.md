@@ -1,5 +1,9 @@
 # ggplot2 (development version)
 
+* Manual scales now allow named vectors passed to `values` to contain fewer 
+  elements than existing in the data. Elements not present in values will be set
+  to `NA` (@thomasp85, #3451)
+  
 * Remove cross-inheritance of default discrete colour/fill scales and check the
   type and aesthetic of function output if `type` is a function 
   (@thomasp85, #4149)
