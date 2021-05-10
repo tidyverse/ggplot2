@@ -228,6 +228,7 @@
 <a href="#ggplot2-development-version" class="anchor"></a>ggplot2 (development version)<small> Unreleased </small>
 </h1>
 <ul>
+<li><p>Remove cross-inheritance of default discrete colour/fill scales and check the type and aesthetic of function output if <code>type</code> is a function (<a href='https://github.com/thomasp85'>@thomasp85</a>, <a href='https://github.com/tidyverse/ggplot2/issues/4149'>#4149</a>)</p></li>
 <li><p>Add support for the BrailleR package for creating descriptions of the plot when rendered (<a href='https://github.com/thomasp85'>@thomasp85</a>, <a href='https://github.com/tidyverse/ggplot2/issues/4459'>#4459</a>)</p></li>
 <li><p>Fix a bug in the layer implementation that introduced a new state after the first render which could lead to a different look when rendered the second time (<a href='https://github.com/thomasp85'>@thomasp85</a>, <a href='https://github.com/tidyverse/ggplot2/issues/4204'>#4204</a>)</p></li>
 <li><p>Make sure <code><a href="../reference/label_bquote.html">label_bquote()</a></code> has access to the calling environment when evaluating the labels (<a href='https://github.com/thomasp85'>@thomasp85</a>, <a href='https://github.com/tidyverse/ggplot2/issues/4141'>#4141</a>)</p></li>
