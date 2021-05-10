@@ -11,17 +11,29 @@
 \alias{scale_color_manual}
 \title{Create your own discrete scale}
 \usage{
-scale_colour_manual(..., values, aesthetics = "colour", breaks = waiver())
+scale_colour_manual(
+  ...,
+  values,
+  aesthetics = "colour",
+  breaks = waiver(),
+  na.value = "grey50"
+)
 
-scale_fill_manual(..., values, aesthetics = "fill", breaks = waiver())
+scale_fill_manual(
+  ...,
+  values,
+  aesthetics = "fill",
+  breaks = waiver(),
+  na.value = "grey50"
+)
 
-scale_size_manual(..., values, breaks = waiver())
+scale_size_manual(..., values, breaks = waiver(), na.value = NA)
 
-scale_shape_manual(..., values, breaks = waiver())
+scale_shape_manual(..., values, breaks = waiver(), na.value = NA)
 
-scale_linetype_manual(..., values, breaks = waiver())
+scale_linetype_manual(..., values, breaks = waiver(), na.value = "blank")
 
-scale_alpha_manual(..., values, breaks = waiver())
+scale_alpha_manual(..., values, breaks = waiver(), na.value = NA)
 
 scale_discrete_manual(aesthetics, ..., values, breaks = waiver())
 }
