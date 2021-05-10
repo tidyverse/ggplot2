@@ -28,6 +28,8 @@
 #'   - A character vector of breaks
 #'   - A function that takes the limits as input and returns breaks
 #'     as output
+#' @param na.value The aesthetic value to use for missing (`NA`) values
+#'
 #' @section Color Blindness:
 #' Many color palettes derived from RGB combinations (like the "rainbow" color
 #' palette) are not suitable to support all viewers, especially those with
