@@ -96,7 +96,8 @@ test_that("discrete scale defaults can be set globally", {
   )
 
   withr::with_options(
-    list(ggplot2.discrete.fill = c("#FFFFFF", "#000000")), {
+    list(ggplot2.discrete.fill = c("#FFFFFF", "#000000"),
+         ggplot2.discrete.colour = c("#FFFFFF", "#000000")), {
       # nlevels == ncodes
       two <- ggplot(df, aes(x, y, colour = two, fill = two)) + geom_point()
       expect_equal(layer_data(two)$colour, rep(c("#FFFFFF", "#000000"), 2))
@@ -107,11 +108,16 @@ test_that("discrete scale defaults can be set globally", {
         geom_point()
       four_hue <- four_default + scale_fill_hue()
       expect_equal(layer_data(four_default)$colour, layer_data(four_hue)$colour)
-  })
+    }
+  )
 
   withr::with_options(
     list(
       ggplot2.discrete.fill = list(
+        c("#FFFFFF", "#000000"),
+        c("#FF0000", "#00FF00", "#0000FF", "#FF00FF")
+      ),
+      ggplot2.discrete.colour = list(
         c("#FFFFFF", "#000000"),
         c("#FF0000", "#00FF00", "#0000FF", "#FF00FF")
       )
@@ -125,7 +131,18 @@ test_that("discrete scale defaults can be set globally", {
       four <- ggplot(df, aes(x, y, colour = four, fill = four)) + geom_point()
       expect_equal(layer_data(four)$colour, c("#FF0000", "#00FF00", "#0000FF", "#FF00FF"))
       expect_equal(layer_data(four)$fill, c("#FF0000", "#00FF00", "#0000FF", "#FF00FF"))
-    })
+    }
+  )
+})
+
+test_that("Scale is checked in default colour scale", {
+  # Check scale type
+  expect_error(scale_colour_discrete(type = scale_colour_gradient))
+  expect_error(scale_fill_discrete(type = scale_fill_gradient))
+
+  # Check aesthetic
+  expect_error(scale_colour_discrete(type = scale_fill_hue))
+  expect_error(scale_fill_discrete(type = scale_colour_hue))
 })
 
 # mapped_discrete ---------------------------------------------------------

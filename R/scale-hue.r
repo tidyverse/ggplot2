@@ -118,11 +118,16 @@ scale_fill_hue <- function(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0
 #'   print(cty_by_var(fl))
 #' })
 #'
-scale_colour_discrete <- function(..., type = getOption("ggplot2.discrete.colour", getOption("ggplot2.discrete.fill"))) {
+scale_colour_discrete <- function(..., type = getOption("ggplot2.discrete.colour")) {
   # TODO: eventually `type` should default to a set of colour-blind safe color codes (e.g. Okabe-Ito)
   type <- type %||% scale_colour_hue
   if (is.function(type)) {
-    type(...)
+    check_scale_type(
+      type(...),
+      "scale_colour_discrete",
+      "colour",
+      scale_is_discrete = TRUE
+    )
   } else {
     scale_colour_qualitative(..., type = type)
   }
@@ -130,11 +135,16 @@ scale_colour_discrete <- function(..., type = getOption("ggplot2.discrete.colour
 
 #' @rdname scale_colour_discrete
 #' @export
-scale_fill_discrete <- function(..., type = getOption("ggplot2.discrete.fill", getOption("ggplot2.discrete.colour"))) {
+scale_fill_discrete <- function(..., type = getOption("ggplot2.discrete.fill")) {
   # TODO: eventually `type` should default to a set of colour-blind safe color codes (e.g. Okabe-Ito)
   type <- type %||% scale_fill_hue
   if (is.function(type)) {
-    type(...)
+    check_scale_type(
+      type(...),
+      "scale_fill_discrete",
+      "fill",
+      scale_is_discrete = TRUE
+    )
   } else {
     scale_fill_qualitative(..., type = type)
   }
