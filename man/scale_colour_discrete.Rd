@@ -6,15 +6,9 @@
 \alias{scale_color_discrete}
 \title{Discrete colour scales}
 \usage{
-scale_colour_discrete(
-  ...,
-  type = getOption("ggplot2.discrete.colour", getOption("ggplot2.discrete.fill"))
-)
+scale_colour_discrete(..., type = getOption("ggplot2.discrete.colour"))
 
-scale_fill_discrete(
-  ...,
-  type = getOption("ggplot2.discrete.fill", getOption("ggplot2.discrete.colour"))
-)
+scale_fill_discrete(..., type = getOption("ggplot2.discrete.fill"))
 }
 \arguments{
 \item{...}{Additional parameters passed on to the scale type,}
