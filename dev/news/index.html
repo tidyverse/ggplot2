@@ -228,6 +228,7 @@
 <a href="#ggplot2-development-version" class="anchor"></a>ggplot2 (development version)<small> Unreleased </small>
 </h1>
 <ul>
+<li><p>Manual scales now allow named vectors passed to <code>values</code> to contain fewer elements than existing in the data. Elements not present in values will be set to <code>NA</code> (<a href='https://github.com/thomasp85'>@thomasp85</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3451'>#3451</a>)</p></li>
 <li><p>Remove cross-inheritance of default discrete colour/fill scales and check the type and aesthetic of function output if <code>type</code> is a function (<a href='https://github.com/thomasp85'>@thomasp85</a>, <a href='https://github.com/tidyverse/ggplot2/issues/4149'>#4149</a>)</p></li>
 <li><p>Add support for the BrailleR package for creating descriptions of the plot when rendered (<a href='https://github.com/thomasp85'>@thomasp85</a>, <a href='https://github.com/tidyverse/ggplot2/issues/4459'>#4459</a>)</p></li>
 <li><p>Fix a bug in the layer implementation that introduced a new state after the first render which could lead to a different look when rendered the second time (<a href='https://github.com/thomasp85'>@thomasp85</a>, <a href='https://github.com/tidyverse/ggplot2/issues/4204'>#4204</a>)</p></li>
