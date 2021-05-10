@@ -80,38 +80,38 @@ NULL
 
 #' @rdname scale_manual
 #' @export
-scale_colour_manual <- function(..., values, aesthetics = "colour", breaks = waiver()) {
-  manual_scale(aesthetics, values, breaks, ...)
+scale_colour_manual <- function(..., values, aesthetics = "colour", breaks = waiver(), na.value = "grey50") {
+  manual_scale(aesthetics, values, breaks, ..., na.value = na.value)
 }
 
 #' @rdname scale_manual
 #' @export
-scale_fill_manual <- function(..., values, aesthetics = "fill", breaks = waiver()) {
-  manual_scale(aesthetics, values, breaks, ...)
+scale_fill_manual <- function(..., values, aesthetics = "fill", breaks = waiver(), na.value = "grey50") {
+  manual_scale(aesthetics, values, breaks, ..., na.value = na.value)
 }
 
 #' @rdname scale_manual
 #' @export
-scale_size_manual <- function(..., values, breaks = waiver()) {
-  manual_scale("size", values, breaks, ...)
+scale_size_manual <- function(..., values, breaks = waiver(), na.value = NA) {
+  manual_scale("size", values, breaks, ..., na.value = na.value)
 }
 
 #' @rdname scale_manual
 #' @export
-scale_shape_manual <- function(..., values, breaks = waiver()) {
-  manual_scale("shape", values, breaks, ...)
+scale_shape_manual <- function(..., values, breaks = waiver(), na.value = NA) {
+  manual_scale("shape", values, breaks, ..., na.value = na.value)
 }
 
 #' @rdname scale_manual
 #' @export
-scale_linetype_manual <- function(..., values, breaks = waiver()) {
-  manual_scale("linetype", values, breaks, ...)
+scale_linetype_manual <- function(..., values, breaks = waiver(), na.value = "blank") {
+  manual_scale("linetype", values, breaks, ..., na.value = na.value)
 }
 
 #' @rdname scale_manual
 #' @export
-scale_alpha_manual <- function(..., values, breaks = waiver()) {
-  manual_scale("alpha", values, breaks, ...)
+scale_alpha_manual <- function(..., values, breaks = waiver(), na.value = NA) {
+  manual_scale("alpha", values, breaks, ..., na.value = na.value)
 }
 
 #' @rdname scale_manual
