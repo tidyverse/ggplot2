@@ -68,7 +68,7 @@ test_that("layers are stateless except for the computed params", {
   p <- ggplot(df) +
     geom_col(aes(x = x, y = y), width = 0.8, fill = "red")
   col_layer <- as.list(p$layers[[1]])
-  stateless_names <- setdiff(names(col_layer), c("computed_geom_params", "computed_stat_params"))
+  stateless_names <- setdiff(names(col_layer), c("computed_geom_params", "computed_stat_params", "computed_mapping"))
   invisible(ggplotGrob(p))
   expect_identical(as.list(p$layers[[1]])[stateless_names], col_layer[stateless_names])
 })
