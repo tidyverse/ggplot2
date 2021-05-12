@@ -73,6 +73,17 @@ test_that("layers are stateless except for the computed params", {
   expect_identical(as.list(p$layers[[1]])[stateless_names], col_layer[stateless_names])
 })
 
+test_that("inherit.aes works", {
+  df <- data.frame(x = 1:10, y = 1:10)
+  p1 <- ggplot(df, aes(y = y)) +
+    geom_col(aes(x = x), inherit.aes = TRUE)
+  p2 <- ggplot(df, aes(colour = y)) +
+    geom_col(aes(x = x, y = y), inherit.aes = FALSE)
+  invisible(ggplotGrob(p1))
+  invisible(ggplotGrob(p2))
+  expect_identical(p1$layers[[1]]$computed_mapping, p2$layers[[1]]$computed_mapping)
+})
+
 # Data extraction ---------------------------------------------------------
 
 test_that("layer_data returns a data.frame", {
