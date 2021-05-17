@@ -38,11 +38,12 @@ LayerSf <- ggproto("LayerSf", Layer,
 
     # automatically determine the name of the geometry column
     # and add the mapping if it doesn't exist
-    if ((isTRUE(self$inherit.aes) && is.null(self$mapping$geometry) && is.null(plot$mapping$geometry)) ||
-        (!isTRUE(self$inherit.aes) && is.null(self$mapping$geometry))) {
+    if ((isTRUE(self$inherit.aes) && is.null(self$computed_mapping$geometry) &&
+         is.null(plot$computed_mapping$geometry)) ||
+        (!isTRUE(self$inherit.aes) && is.null(self$computed_mapping$geometry))) {
       if (is_sf(data)) {
         geometry_col <- attr(data, "sf_column")
-        self$mapping$geometry <- sym(geometry_col)
+        self$computed_mapping$geometry <- sym(geometry_col)
       }
     }
 
@@ -52,8 +53,8 @@ LayerSf <- ggproto("LayerSf", Layer,
       self$geom_params$legend <- "polygon"
 
       # now check if the type should not be polygon
-      if (!is.null(self$mapping$geometry) && quo_is_symbol(self$mapping$geometry)) {
-        geometry_column <- as_name(self$mapping$geometry)
+      if (!is.null(self$computed_mapping$geometry) && quo_is_symbol(self$computed_mapping$geometry)) {
+        geometry_column <- as_name(self$computed_mapping$geometry)
         if (inherits(data[[geometry_column]], "sfc")) {
           sf_type <- detect_sf_type(data[[geometry_column]])
           if (sf_type == "point") {

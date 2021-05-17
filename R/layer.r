@@ -174,6 +174,7 @@ Layer <- ggproto("Layer", NULL,
   # calculated before use
   computed_geom_params = NULL,
   computed_stat_params = NULL,
+  computed_mapping = NULL,
 
   data = NULL,
   aes_params = NULL,
@@ -211,16 +212,18 @@ Layer <- ggproto("Layer", NULL,
   setup_layer = function(self, data, plot) {
     # For annotation geoms, it is useful to be able to ignore the default aes
     if (isTRUE(self$inherit.aes)) {
-      self$mapping <- defaults(self$mapping, plot$mapping)
+      self$computed_mapping <- defaults(self$mapping, plot$mapping)
       # defaults() strips class, but it needs to be preserved for now
-      class(self$mapping) <- "uneval"
+      class(self$computed_mapping) <- "uneval"
+    } else {
+      self$computed_mapping <- self$mapping
     }
 
     data
   },
 
   compute_aesthetics = function(self, data, plot) {
-    aesthetics <- self$mapping
+    aesthetics <- self$computed_mapping
 
     # Drop aesthetics that are set or calculated
     set <- names(aesthetics) %in% names(self$aes_params)
@@ -296,7 +299,7 @@ Layer <- ggproto("Layer", NULL,
     data <- rename_aes(data)
 
     # Assemble aesthetics from layer, plot and stat mappings
-    aesthetics <- self$mapping
+    aesthetics <- self$computed_mapping
     aesthetics <- defaults(aesthetics, self$stat$default_aes)
     aesthetics <- compact(aesthetics)
 
@@ -362,7 +365,7 @@ Layer <- ggproto("Layer", NULL,
     # Combine aesthetics, defaults, & params
     if (empty(data)) return(data)
 
-    aesthetics <- self$mapping
+    aesthetics <- self$computed_mapping
     modifiers <- aesthetics[is_scaled_aes(aesthetics) | is_staged_aes(aesthetics)]
 
     self$geom$use_defaults(data, self$aes_params, modifiers)
