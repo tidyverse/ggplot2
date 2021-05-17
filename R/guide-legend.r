@@ -281,7 +281,7 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
     list(
       draw_key = layer$geom$draw_key,
       data = data,
-      params = c(layer$geom_params, layer$stat_params)
+      params = c(layer$computed_geom_params, layer$computed_stat_params)
     )
   })
 
