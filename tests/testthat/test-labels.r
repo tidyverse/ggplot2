@@ -62,6 +62,22 @@ test_that("Labels from default stat mapping are overwritten by default labels", 
   expect_equal(p$labels$colour, "drv")
 })
 
+test_that("alt text is returned", {
+  p <- ggplot(mtcars, aes(mpg, disp)) +
+    geom_point()
+  expect_equal(get_alt_text(p), "A ggplot using a point layer")
+  p1 <- p + geom_smooth() + geom_point()
+  expect_equal(get_alt_text(p1), "A ggplot using point and smooth layers")
+  p1 <- p + labs(title = "A plot title")
+  expect_equal(get_alt_text(p1), "A ggplot titled 'A plot title' using a point layer")
+  p1 <- p + labs(subtitle = "A plot subtitle")
+  expect_equal(get_alt_text(p1), "A ggplot subtitled 'A plot subtitle' using a point layer")
+  p1 <- p + labs(title = "A plot title", subtitle = "A plot subtitle")
+  expect_equal(get_alt_text(p1), "A ggplot titled 'A plot title' and  subtitled 'A plot subtitle' using a point layer")
+  p1 <- p + labs(alt = "An alt text")
+  expect_equal(get_alt_text(p1), "An alt text")
+})
+
 
 # Visual tests ------------------------------------------------------------
 

@@ -97,3 +97,42 @@ ylab <- function(label) {
 ggtitle <- function(label, subtitle = waiver()) {
   labs(title = label, subtitle = subtitle)
 }
+
+#' Extract an alt text from a plot
+#'
+#' This function returns a text that can be used as alt-text in webpages etc.
+#' It will either uses the `alt` label, added with `+ labs(alt = <...>)`, or
+#' synthesize one from the information in the plot itself.
+#'
+#' @param p a ggplot object
+#'
+#' @return A text string
+#'
+#' @export
+#' @keywords internal
+#'
+get_alt_text <- function(p) {
+  if (!is.null(p$labels$alt)) {
+    p$labels$alt
+  } else {
+    lab <- "A ggplot"
+    title <- character()
+    if (!is.null(p$labels$title)) {
+      title <- c(title, glue(" titled '{p$labels$title}'"))
+    }
+    if (!is.null(p$labels$subtitle)) {
+      title <- c(title, glue(" subtitled '{p$labels$subtitle}'"))
+    }
+    title <- if (length(title) == 0) "" else glue_collapse(title, last = " and ")
+    layers <- vapply(p$layers, function(l) snake_class(l$geom), character(1))
+    layers <- sub("_", " ", sub("^geom_", "", unique(layers)))
+    layers <- glue(
+      " using ",
+      if (length(layers) == 1) "a " else "",
+      glue_collapse(layers, sep = ", ", last = " and "),
+      " layer",
+      if (length(layers) == 1) "" else "s",
+    )
+    as.character(glue(lab, title, layers))
+  }
+}
