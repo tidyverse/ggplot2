@@ -43,6 +43,8 @@ update_labels <- function(p, labels) {
 #'        bottom-right of the plot by default.
 #' @param tag The text for the tag label which will be displayed at the
 #'        top-left of the plot by default.
+#' @param alt,alt_insight Text used for the generation of alt-text for the plot.
+#'        See [get_alt_text] for examples.
 #' @param ... A list of new name-value pairs. The name should be an aesthetic.
 #' @export
 #' @examples
@@ -67,9 +69,11 @@ update_labels <- function(p, labels) {
 #' p +
 #'  labs(title = "title") +
 #'  labs(title = NULL)
-labs <- function(..., title = waiver(), subtitle = waiver(), caption = waiver(), tag = waiver()) {
+labs <- function(..., title = waiver(), subtitle = waiver(), caption = waiver(),
+                 tag = waiver(), alt = waiver(), alt_insight = waiver()) {
   # .ignore_empty = "all" is needed to allow trailing commas, which is NOT a trailing comma for dots_list() as it's in ...
-  args <- dots_list(..., title = title, subtitle = subtitle, caption = caption, tag = tag, .ignore_empty = "all")
+  args <- dots_list(..., title = title, subtitle = subtitle, caption = caption,
+    tag = tag, alt = alt, alt_insight = alt_insight, .ignore_empty = "all")
 
   is_waive <- vapply(args, is.waive, logical(1))
   args <- args[!is_waive]
@@ -102,29 +106,72 @@ ggtitle <- function(label, subtitle = waiver()) {
 #'
 #' This function returns a text that can be used as alt-text in webpages etc.
 #' It will either uses the `alt` label, added with `+ labs(alt = <...>)`, or
-#' synthesize one from the information in the plot itself.
+#' synthesize one from the information in the plot itself. You can add a
+#' conclusion to the synthesized text using `+ labs(alt_insight = <...>)`.
+#'
+#' There is no way an automatically generated description can compete with one
+#' written by a human with knowledge of what the plot shows and in which
+#' context. We urge users to write their own alt text if at all possible.
+#' Guidance to how an effective alt-text is written can be found in
+#' [Writing Alt Text for Data Visualization](https://medium.com/nightingale/writing-alt-text-for-data-visualization-2a218ef43f81)
+#' and [Effective Practices for Description of Science Content within Digital Talking Books](https://www.wgbh.org/foundation/ncam/guidelines/effective-practices-for-description-of-science-content-within-digital-talking-books)
 #'
 #' @param p a ggplot object
+#' @param ... Currently ignored
 #'
 #' @return A text string
 #'
 #' @export
-#' @keywords internal
+#' @aliases alt_text
 #'
-get_alt_text <- function(p) {
-  if (!is.null(p$labels$alt)) {
+#' @examples
+#' p <- ggplot(mpg, aes(displ, hwy)) +
+#'   geom_point()
+#'
+#' get_alt_text(p)
+#'
+#' p <- p + ggtitle("The relationship between displacement and yield in cars")
+#' get_alt_text(p)
+#'
+#' # It will use scale information if available
+#' p <- p + scale_x_continuous("highway miles per gallon")
+#' get_alt_text(p)
+#'
+#' # Add a short description of the main conclusion of the plot
+#' p <- p + labs(alt_insight = "The higher the yield, the lower the displacement")
+#' get_alt_text(p)
+#'
+#' # A user provided alt text takes precedence
+#' p <- p + labs(
+#'   alt = paste("A scatterplot showing the negative correlation between engine",
+#'               "displacement as a function of highway miles per gallon")
+#' )
+#'
+#' get_alt_text(p)
+#'
+get_alt_text <- function(p, ...) {
+  UseMethod("get_alt_text")
+}
+#' @export
+get_alt_text.ggplot <- function(p, ...) {
+  if (!is.null(p$labels[["alt"]])) {
     return(p$labels$alt)
   }
+  # Combine titles
+  title <- glue(glue_collapse(
+    sub("\\.?$", "", c(p$labels$title, p$labels$subtitle)),
+    last = ": "
+  ), ". ")
+  title <- safe_string(title)
 
-  lab <- "A ggplot"
-  title <- character()
-  if (!is.null(p$labels$title)) {
-    title <- c(title, glue(" titled '{p$labels$title}'"))
-  }
-  if (!is.null(p$labels$subtitle)) {
-    title <- c(title, glue(" subtitled '{p$labels$subtitle}'"))
-  }
-  title <- if (length(title) == 0) "" else glue_collapse(title, last = " and ")
+  # Get axes descriptions
+  axes <- glue(" showing ", glue_collapse(
+    c(scale_description(p, "x"), scale_description(p, "y")),
+    last = " and "
+  ))
+  axes <- safe_string(axes)
+
+  # Get layer types
   layers <- vapply(p$layers, function(l) snake_class(l$geom), character(1))
   layers <- sub("_", " ", sub("^geom_", "", unique(layers)))
   layers <- glue(
@@ -134,5 +181,31 @@ get_alt_text <- function(p) {
     " layer",
     if (length(layers) == 1) "" else "s",
   )
-  as.character(glue(lab, title, layers))
+  layers <- safe_string(layers)
+
+  # Combine
+  alt <- glue_collapse(
+    c(glue("{title}A plot{axes}{layers}"), p$labels$alt_insight),
+    last = ". "
+  )
+  as.character(alt)
+}
+safe_string <- function(string) {
+  if (length(string) == 0) "" else string
+}
+scale_description <- function(p, name) {
+  scale <- p$scales$get_scales(name)
+  if (is.null(scale)) {
+    lab <- p$labels[[name]]
+    type <- "the"
+  } else {
+    lab <- scale$make_title(scale$name %|W|% p$labels[[name]])
+    type <- "a continuous"
+    if (scale$is_discrete()) type <- "a discrete"
+    if (inherits(scale, "ScaleBinned")) type <- "a binned"
+  }
+  if (is.null(lab)) {
+    return(NULL)
+  }
+  glue("{lab} on {type} {name}-axis")
 }

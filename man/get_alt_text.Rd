@@ -2,19 +2,56 @@
 % Please edit documentation in R/labels.r
 \name{get_alt_text}
 \alias{get_alt_text}
+\alias{alt_text}
 \title{Extract an alt text from a plot}
 \usage{
-get_alt_text(p)
+get_alt_text(p, ...)
 }
 \arguments{
 \item{p}{a ggplot object}
+
+\item{...}{Currently ignored}
 }
 \value{
 A text string
 }
 \description{
 This function returns a text that can be used as alt-text in webpages etc.
-It will either uses the \code{alt} label, added with \verb{+ labels(alt = <...>)}, or
-synthesize one from the information in the plot itself.
+It will either uses the \code{alt} label, added with \verb{+ labs(alt = <...>)}, or
+synthesize one from the information in the plot itself. You can add a
+conclusion to the synthesized text using \verb{+ labs(alt_insight = <...>)}.
 }
-\keyword{internal}
+\details{
+There is no way an automatically generated description can compete with one
+written by a human with knowledge of what the plot shows and in which
+context. We urge users to write their own alt text if at all possible.
+Guidance to how an effective alt-text is written can be found in
+\href{https://medium.com/nightingale/writing-alt-text-for-data-visualization-2a218ef43f81}{Writing Alt Text for Data Visualization}
+and \href{https://www.wgbh.org/foundation/ncam/guidelines/effective-practices-for-description-of-science-content-within-digital-talking-books}{Effective Practices for Description of Science Content within Digital Talking Books}
+}
+\examples{
+p <- ggplot(mpg, aes(displ, hwy)) +
+  geom_point()
+
+get_alt_text(p)
+
+p <- p + ggtitle("The relationship between displacement and yield in cars")
+get_alt_text(p)
+
+# It will use scale information if available
+p <- p + scale_x_continuous("highway miles per gallon")
+get_alt_text(p)
+
+# Add a short description of the main conclusion of the plot
+p <- p + labs(alt_insight = "The higher the yield, the lower the displacement")
+get_alt_text(p)
+
+# A user provided alt text takes precedence
+p <- p + labs(
+  alt = paste("A scatterplot showing the negative correlation between engine",
+              "displacement as a function of highway miles per gallon")
+)
+
+get_alt_text(p)
+
+}
