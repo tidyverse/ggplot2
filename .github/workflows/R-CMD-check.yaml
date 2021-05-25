@@ -26,7 +26,7 @@ jobs:
           - {os: macOS-latest,   r: '4.1',   vdiffr: true,  xref: true}
           - {os: ubuntu-18.04,   r: 'devel', vdiffr: false, xref: true}
           - {os: ubuntu-18.04,   r: '4.1',   vdiffr: true,  xref: true, rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest"}
-          - {os: ubuntu-18.04,   r: '4.0',   vdiffr: true,  xref: true, rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest"}
+          - {os: ubuntu-18.04,   r: '4.0',   vdiffr: false, xref: true, rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest"}
           - {os: ubuntu-18.04,   r: '3.6',   vdiffr: false, xref: true, rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest"}
           - {os: ubuntu-18.04,   r: '3.5',   vdiffr: false, xref: true, rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest"}
           - {os: ubuntu-18.04,   r: '3.4',   vdiffr: false, xref: true, rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest"}
