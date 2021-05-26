@@ -65,19 +65,9 @@ test_that("Labels from default stat mapping are overwritten by default labels", 
 test_that("alt text is returned", {
   p <- ggplot(mtcars, aes(mpg, disp)) +
     geom_point()
-  expect_equal(get_alt_text(p), "A plot showing mpg on the x-axis and disp on the y-axis using a point layer")
-  p1 <- p + geom_smooth() + geom_point()
-  expect_equal(get_alt_text(p1), "A plot showing mpg on the x-axis and disp on the y-axis using point and smooth layers")
-  p1 <- p + scale_x_continuous('x title')
-  expect_equal(get_alt_text(p1), "A plot showing x title on a continuous x-axis and disp on the y-axis using a point layer")
-  p1 <- p + labs(title = "A plot title")
-  expect_equal(get_alt_text(p1), "A plot title. A plot showing mpg on the x-axis and disp on the y-axis using a point layer")
-  p1 <- p + labs(subtitle = "A plot subtitle")
-  expect_equal(get_alt_text(p1), "A plot subtitle. A plot showing mpg on the x-axis and disp on the y-axis using a point layer")
-  p1 <- p + labs(title = "A plot title", subtitle = "A plot subtitle")
-  expect_equal(get_alt_text(p1), "A plot title: A plot subtitle. A plot showing mpg on the x-axis and disp on the y-axis using a point layer")
-  p1 <- p + labs(alt = "An alt text")
-  expect_equal(get_alt_text(p1), "An alt text")
+  expect_equal(get_alt_text(p), "")
+  p <- p + labs(alt = "An alt text")
+  expect_equal(get_alt_text(p), "An alt text")
 })
 
 

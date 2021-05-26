@@ -102,12 +102,57 @@ ggtitle <- function(label, subtitle = waiver()) {
   labs(title = label, subtitle = subtitle)
 }
 
-#' Extract an alt text from a plot
+#' Extract alt text from a plot
 #'
 #' This function returns a text that can be used as alt-text in webpages etc.
-#' It will either uses the `alt` label, added with `+ labs(alt = <...>)`, or
-#' synthesize one from the information in the plot itself. You can add a
-#' conclusion to the synthesized text using `+ labs(alt_insight = <...>)`.
+#' Currently tt will uses the `alt` label, added with `+ labs(alt = <...>)`, or
+#' a return an empty string, but in the future it might try to generate an alt
+#' text from the information stored in the plot.
+#'
+#' @param p a ggplot object
+#' @param ... Currently ignored
+#'
+#' @return A text string
+#'
+#' @export
+#' @aliases alt_text
+#'
+#' @examples
+#' p <- ggplot(mpg, aes(displ, hwy)) +
+#'   geom_point()
+#'
+#' # Returns an empty string
+#' get_alt_text(p)
+#'
+#' # A user provided alt text
+#' p <- p + labs(
+#'   alt = paste("A scatterplot showing the negative correlation between engine",
+#'               "displacement as a function of highway miles per gallon")
+#' )
+#'
+#' get_alt_text(p)
+#'
+get_alt_text <- function(p, ...) {
+  UseMethod("get_alt_text")
+}
+#' @export
+get_alt_text.ggplot <- function(p, ...) {
+  p$labels[["alt"]] %||% ""
+}
+#' @export
+get_alt_text.ggplot_built <- function(p, ...) {
+  p$plot$labels[["alt"]] %||% ""
+}
+#' @export
+get_alt_text.gtable <- function(p, ...) {
+  attr(p, "alt-label") %||% ""
+}
+
+#' Generate an alt text from a plot
+#'
+#' This function returns a text that can be used as alt-text in webpages etc.
+#' It will synthesize one from the information in the plot itself, but you can
+#' add a conclusion to the synthesized text using `+ labs(alt_insight = <...>)`.
 #'
 #' There is no way an automatically generated description can compete with one
 #' written by a human with knowledge of what the plot shows and in which
@@ -117,12 +162,10 @@ ggtitle <- function(label, subtitle = waiver()) {
 #' and [Effective Practices for Description of Science Content within Digital Talking Books](https://www.wgbh.org/foundation/ncam/guidelines/effective-practices-for-description-of-science-content-within-digital-talking-books)
 #'
 #' @param p a ggplot object
-#' @param ... Currently ignored
 #'
 #' @return A text string
 #'
-#' @export
-#' @aliases alt_text
+#' @noRd
 #'
 #' @examples
 #' p <- ggplot(mpg, aes(displ, hwy)) +
@@ -149,14 +192,7 @@ ggtitle <- function(label, subtitle = waiver()) {
 #'
 #' get_alt_text(p)
 #'
-get_alt_text <- function(p, ...) {
-  UseMethod("get_alt_text")
-}
-#' @export
-get_alt_text.ggplot <- function(p, ...) {
-  if (!is.null(p$labels[["alt"]])) {
-    return(p$labels$alt)
-  }
+generate_alt_text <- function(p) {
   # Combine titles
   title <- glue(glue_collapse(
     sub("\\.?$", "", c(p$labels$title, p$labels$subtitle)),
