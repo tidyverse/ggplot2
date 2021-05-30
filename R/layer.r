@@ -295,6 +295,9 @@ Layer <- ggproto("Layer", NULL,
     # evaluation (since the evaluation symbols gets renamed)
     data <- rename_aes(data)
 
+    # data needs to be non-scaled
+    data_orig <- scales_backtransform_df(plot$scales, data)
+
     # Assemble aesthetics from layer, plot and stat mappings
     aesthetics <- self$mapping
     aesthetics <- defaults(aesthetics, self$stat$default_aes)
@@ -306,7 +309,7 @@ Layer <- ggproto("Layer", NULL,
     # Add map stat output to aesthetics
     env <- child_env(baseenv(), stat = stat, after_stat = after_stat)
     stage_mask <- child_env(emptyenv(), stage = stage_calculated)
-    mask <- new_data_mask(as_environment(data, stage_mask), stage_mask)
+    mask <- new_data_mask(as_environment(data_orig, stage_mask), stage_mask)
     mask$.data <- as_data_pronoun(mask)
 
     new <- substitute_aes(new)

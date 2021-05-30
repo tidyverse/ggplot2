@@ -86,6 +86,29 @@ scales_transform_df <- function(scales, df) {
   new_data_frame(c(transformed, df[setdiff(names(df), names(transformed))]))
 }
 
+scales_backtransform_df <- function(scales, df) {
+  backtransform_df <- function(scale) {
+    if (empty(df)) {
+      return()
+    }
+
+    aesthetics <- intersect(scale$aesthetics, names(df))
+    if (length(aesthetics) == 0) {
+      return()
+    }
+    # If the scale doesn't have trans, return df as it is
+    if (is.null(scale$trans)) {
+      return(df[aesthetics])
+    }
+
+    lapply(df[aesthetics], scale$trans$inverse)
+  }
+
+  if (empty(df) || length(scales$scales) == 0) return(df)
+  backtransformed <- unlist(lapply(scales$scales, backtransform_df), recursive = FALSE)
+  new_data_frame(c(backtransformed, df[setdiff(names(df), names(backtransformed))]))
+}
+
 # @param aesthetics A list of aesthetic-variable mappings. The name of each
 #   item is the aesthetic, and the value of each item is the variable in data.
 scales_add_defaults <- function(scales, data, aesthetics, env) {
