@@ -86,20 +86,16 @@ stat_sf(
 }
 \arguments{
 \item{xlim, ylim}{Limits for the x and y axes. These limits are specified
-in the units of the default CRS. To specify limits in projected coordinates,
-set \code{default_crs = NULL}. How limit specifications translate into the exact
+in the units of the default CRS. By default, this means projected coordinates
+(\code{default_crs = NULL}). How limit specifications translate into the exact
 region shown on the plot can be confusing when non-linear or rotated coordinate
-systems are used. First, different methods can be preferable under different
-conditions. See parameter \code{lims_method} for details. Second, specifying limits
-along only one direction can affect the automatically generated limits along the
-other direction. Therefore, it is best to always specify limits for both x and y.
-Third, specifying limits via position scales or \code{xlim()}/\code{ylim()} is strongly
-discouraged, as it can result in data points being dropped from the plot even
-though they would be visible in the final plot region. Finally, specifying limits
-that cross the international date boundary is not possible with WGS84 as the default
-crs. All these issues can be avoided by working in projected coordinates,
-via \code{default_crs = NULL}, but at the cost of having to provide less intuitive
-numeric values for the limit parameters.}
+systems are used as the default crs. First, different methods can be preferable
+under different conditions. See parameter \code{lims_method} for details. Second,
+specifying limits along only one direction can affect the automatically generated
+limits along the other direction. Therefore, it is best to always specify limits
+for both x and y. Third, specifying limits via position scales or \code{xlim()}/\code{ylim()}
+is strongly discouraged, as it can result in data points being dropped from the plot even
+though they would be visible in the final plot region.}
 
 \item{expand}{If \code{TRUE}, the default, adds a small expansion factor to
 the limits to ensure that data and axes don't overlap. If \code{FALSE},
@@ -146,7 +142,8 @@ specified with \code{list(bottom = "E", left = "N")}.
 This parameter can be used alone or in combination with \code{label_graticule}.}
 
 \item{lims_method}{Method specifying how scale limits are converted into
-limits on the plot region. For a very non-linear CRS (e.g., a perspective centered
+limits on the plot region. Has no effect when \code{default_crs = NULL}.
+For a very non-linear CRS (e.g., a perspective centered
 around the North pole), the available methods yield widely differing results, and
 you may want to try various options. Methods currently implemented include \code{"cross"}
 (the default), \code{"box"}, \code{"orthogonal"}, and \code{"geometry_bbox"}. For method \code{"cross"},

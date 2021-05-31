@@ -596,22 +596,19 @@ calc_limits_bbox <- function(method, xlim, ylim, crs, default_crs) {
 #'   which means x and y positions are interpreted as longitude and latitude,
 #'   respectively, in the World Geodetic System 1984 (WGS84).
 #' @param xlim,ylim Limits for the x and y axes. These limits are specified
-#'   in the units of the default CRS. To specify limits in projected coordinates,
-#'   set `default_crs = NULL`. How limit specifications translate into the exact
+#'   in the units of the default CRS. By default, this means projected coordinates
+#'   (`default_crs = NULL`). How limit specifications translate into the exact
 #'   region shown on the plot can be confusing when non-linear or rotated coordinate
-#'   systems are used. First, different methods can be preferable under different
-#'   conditions. See parameter `lims_method` for details. Second, specifying limits
-#'   along only one direction can affect the automatically generated limits along the
-#'   other direction. Therefore, it is best to always specify limits for both x and y.
-#'   Third, specifying limits via position scales or `xlim()`/`ylim()` is strongly
-#'   discouraged, as it can result in data points being dropped from the plot even
-#'   though they would be visible in the final plot region. Finally, specifying limits
-#'   that cross the international date boundary is not possible with WGS84 as the default
-#'   crs. All these issues can be avoided by working in projected coordinates,
-#'   via `default_crs = NULL`, but at the cost of having to provide less intuitive
-#'   numeric values for the limit parameters.
+#'   systems are used as the default crs. First, different methods can be preferable
+#'   under different conditions. See parameter `lims_method` for details. Second,
+#'   specifying limits along only one direction can affect the automatically generated
+#'   limits along the other direction. Therefore, it is best to always specify limits
+#'   for both x and y. Third, specifying limits via position scales or `xlim()`/`ylim()`
+#'   is strongly discouraged, as it can result in data points being dropped from the plot even
+#'   though they would be visible in the final plot region.
 #' @param lims_method Method specifying how scale limits are converted into
-#'   limits on the plot region. For a very non-linear CRS (e.g., a perspective centered
+#'   limits on the plot region. Has no effect when `default_crs = NULL`.
+#'   For a very non-linear CRS (e.g., a perspective centered
 #'   around the North pole), the available methods yield widely differing results, and
 #'   you may want to try various options. Methods currently implemented include `"cross"`
 #'   (the default), `"box"`, `"orthogonal"`, and `"geometry_bbox"`. For method `"cross"`,
