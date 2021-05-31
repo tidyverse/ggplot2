@@ -86,5 +86,5 @@
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8NTc2LjAwfDAuMDA=)'><text x='506.64' y='555.95' style='font-size: 8.80px; fill: #4D4D4D; font-family: Liberation Sans;' textLength='8.30px' lengthAdjust='spacingAndGlyphs'>W</text></g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8NTc2LjAwfDAuMDA=)'><text x='375.73' y='568.24' style='font-size: 11.00px; font-family: Liberation Sans;' textLength='5.50px' lengthAdjust='spacingAndGlyphs'>x</text></g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8NTc2LjAwfDAuMDA=)'><text transform='translate(152.52,286.62) rotate(-90)' style='font-size: 11.00px; font-family: Liberation Sans;' textLength='5.50px' lengthAdjust='spacingAndGlyphs'>y</text></g>
-<g clip-path='url(#cpMC4wMHw3MjAuMDB8NTc2LjAwfDAuMDA=)'><text x='181.92' y='14.56' style='font-size: 13.20px; font-family: Liberation Sans;' textLength='119.88px' lengthAdjust='spacingAndGlyphs'>default crs turned off</text></g>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8NTc2LjAwfDAuMDA=)'><text x='181.92' y='14.56' style='font-size: 13.20px; font-family: Liberation Sans;' textLength='216.11px' lengthAdjust='spacingAndGlyphs'>non-sf geoms using projected coords</text></g>
 </svg>

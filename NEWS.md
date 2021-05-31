@@ -9,14 +9,13 @@ small selection of feature refinements.
   
 * `coord_sf()` now has an argument `default_crs` that specifies the coordinate
   reference system (CRS) for non-sf layers and scale/coord limits. This argument
-  defaults to the World Geodetic System 1984 (WGS84), which means x and y 
-  positions are interpreted as longitude and latitude. This is a potentially 
-  breaking change for users who use projected coordinates in non-sf layers or in 
-  limits. Setting `default_crs = NULL` recovers the old behavior. Further, 
-  authors of extension packages implementing `stat_sf()`-like functionality are 
-  encouraged to look at the source code of `stat_sf()`'s `compute_group()` 
-  function to see how to provide scale-limit hints to `coord_sf()` 
-  (@clauswilke, #3659).
+  defaults to `NULL`, which means non-sf layers are assumed to be in projected
+  coordinates, as in prior ggplot2 versions. Setting `default_crs = sf::st_crs(4326)`
+  provides a simple way to interpret x and y positions as longitude and latitude,
+  regardless of the CRS used by `coord_sf()`. Authors of extension packages
+  implementing `stat_sf()`-like functionality are encouraged to look at the source
+  code of `stat_sf()`'s `compute_group()` function to see how to provide scale-limit
+  hints to `coord_sf()` (@clauswilke, #3659).
 
 * `ggsave()` now uses ragg to render raster output if ragg is available. It also
   handles custom devices that sets a default unit (e.g. `ragg::agg_png`) 

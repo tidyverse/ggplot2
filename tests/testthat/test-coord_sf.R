@@ -221,28 +221,28 @@ test_that("default crs works", {
 
   p <- ggplot(polygon) + geom_sf(fill = NA)
 
-  # projected sf objects can be mixed with regular geoms using non-projected data
-  expect_doppelganger(
-    "non-sf geoms use long-lat",
-    p + geom_point(data = points, aes(x, y))
-  )
-
-  # default crs can be turned off
+  # by default, regular geoms are interpreted to use projected data
   points_trans <- sf_transform_xy(points, 3347, 4326)
   expect_doppelganger(
-    "default crs turned off",
-    p + geom_point(data = points_trans, aes(x, y)) +
-    coord_sf(default_crs = NULL)
+    "non-sf geoms using projected coords",
+    p + geom_point(data = points_trans, aes(x, y))
   )
 
-  # by default, coord limits are specified in long-lat
+  # projected sf objects can be mixed with regular geoms using non-projected data
+  expect_doppelganger(
+    "non-sf geoms using long-lat",
+    p + geom_point(data = points, aes(x, y)) +
+      coord_sf(default_crs = 4326)
+  )
+
+  # coord limits can be specified in long-lat
   expect_doppelganger(
     "limits specified in long-lat",
     p + geom_point(data = points, aes(x, y)) +
-      coord_sf(xlim = c(-80.5, -76), ylim = c(36, 41))
+      coord_sf(xlim = c(-80.5, -76), ylim = c(36, 41), default_crs = 4326)
   )
 
-  # when default crs is off, limits are specified in projected coords
+  # by default limits are specified in projected coords
   lims <- sf_transform_xy(
     list(x = c(-80.5, -76, -78.25, -78.25), y = c(38.5, 38.5, 36, 41)),
     3347, 4326
@@ -250,7 +250,7 @@ test_that("default crs works", {
   expect_doppelganger(
     "limits specified in projected coords",
     p + geom_point(data = points_trans, aes(x, y)) +
-      coord_sf(xlim = lims$x[1:2], ylim = lims$y[3:4], default_crs = NULL)
+      coord_sf(xlim = lims$x[1:2], ylim = lims$y[3:4])
   )
 })
 
