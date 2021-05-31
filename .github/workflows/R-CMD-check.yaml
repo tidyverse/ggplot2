@@ -1,10 +1,12 @@
-on:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
+#on:
+#  push:
+#    branches:
+#      - master
+#  pull_request:
+#    branches:
+#      - master
+
+on: [push, pull_request]
 
 name: R-CMD-check
 
