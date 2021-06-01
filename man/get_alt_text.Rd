@@ -17,7 +17,7 @@ A text string
 }
 \description{
 This function returns a text that can be used as alt-text in webpages etc.
-Currently tt will uses the \code{alt} label, added with \verb{+ labs(alt = <...>)}, or
+Currently it will use the \code{alt} label, added with \verb{+ labs(alt = <...>)}, or
 a return an empty string, but in the future it might try to generate an alt
 text from the information stored in the plot.
 }

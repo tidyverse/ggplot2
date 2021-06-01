@@ -36,7 +36,7 @@ R names to ggplot names (e.g., \code{pch} to \code{shape} and \code{cex} to \cod
 its inputs are quoted to be evaluated in the context of the
 data. This makes it easy to work with variables from the data frame
 because you can name those directly. The flip side is that you have
-to use \link[rlang:bang-bang]{quasiquotation} to program with
+to use \link[rlang:nse-force]{quasiquotation} to program with
 \code{aes()}. See a tidy evaluation tutorial such as the \href{https://dplyr.tidyverse.org/articles/programming.html}{dplyr programming vignette}
 to learn more about these techniques.
 }
