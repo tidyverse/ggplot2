@@ -24,7 +24,7 @@
 #'
 #' @section CRS:
 #' `coord_sf()` ensures that all layers use a common CRS. You can
-#' either specify it using the `CRS` param, or `coord_sf()` will
+#' either specify it using the `crs` param, or `coord_sf()` will
 #' take it from the first layer that defines a CRS.
 #'
 #' @section Combining sf layers and regular geoms:
@@ -33,21 +33,24 @@
 #' when using these geoms, two problems arise. First, what CRS should be used
 #' for the x and y coordinates used by these non-sf geoms? The CRS applied to
 #' non-sf geoms is set by the `default_crs` parameter, and it defaults to
-#' the World Geodetic System 1984 (WGS84). This means that x and y
-#' positions are interpreted as longitude and latitude, respectively. You can
-#' also specify any other valid CRS as the default CRS for non-sf geoms. Moreover,
-#' if you set `default_crs = NULL`, then positions for non-sf geoms are
-#' interpreted as projected coordinates. This setting allows you complete control
-#' over where exactly items are placed on the plot canvas.
+#' `NULL`, which means positions for non-sf geoms are interpreted as projected
+#' coordinates in the coordinate system set by the `crs` parameter. This setting
+#' allows you complete control over where exactly items are placed on the plot
+#' canvas, but it may require some understanding of how projections work and how
+#' to generate data in projected coordinates. As an alternative, you can set
+#' `default_crs = sf::st_crs(4326)`, the World Geodetic System 1984 (WGS84).
+#' This means that x and y positions are interpreted as longitude and latitude,
+#' respectively. You can also specify any other valid CRS as the default CRS for
+#' non-sf geoms.
 #'
 #' The second problem that arises for non-sf geoms is how straight lines
-#' should be interpreted in projected space. The approach `coord_sf()` takes is
-#' to break straight lines into small pieces (i.e., segmentize them) and
-#' then transform the pieces into projected coordinates. For the default setting
-#' where x and y are interpreted as longitude and latitude, this approach means
-#' that horizontal lines follow the parallels and vertical lines follow the
-#' meridians. If you need a different approach to handling straight lines, then
-#' you should manually segmentize and project coordinates and generate the plot
+#' should be interpreted in projected space when `default_crs` is not set to `NULL`.
+#' The approach `coord_sf()` takes is to break straight lines into small pieces
+#' (i.e., segmentize them) and then transform the pieces into projected coordinates.
+#' For the default setting where x and y are interpreted as longitude and latitude,
+#' this approach means that horizontal lines follow the parallels and vertical lines
+#' follow the meridians. If you need a different approach to handling straight lines,
+#' then you should manually segmentize and project coordinates and generate the plot
 #' in projected coordinates.
 #'
 #' @param show.legend logical. Should this layer be included in the legends?
@@ -78,11 +81,12 @@
 #'   geom_sf(colour = "white") +
 #'   geom_sf(aes(geometry = mid, size = AREA), show.legend = "point")
 #'
-#' # You can also use layers with x and y aesthetics: these are
-#' # assumed to already be in the common CRS.
-#' ggplot(nc) +
+#' # You can also use layers with x and y aesthetics. To have these interpreted
+#' # as longitude/latitude you need to set the default CRS in coord_sf()
+#' ggplot(nc_3857) +
 #'   geom_sf() +
-#'   annotate("point", x = -80, y = 35, colour = "red", size = 4)
+#'   annotate("point", x = -80, y = 35, colour = "red", size = 4) +
+#'   coord_sf(default_crs = sf::st_crs(4326))
 #'
 #' # Thanks to the power of sf, a geom_sf nicely handles varying projections
 #' # setting the aspect ratio correctly.

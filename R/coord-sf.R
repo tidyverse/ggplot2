@@ -268,7 +268,8 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
   is_free = function() FALSE,
 
   # for regular geoms (such as geom_path, geom_polygon, etc.), CoordSf is non-linear
-  is_linear = function() FALSE,
+  # if the default_crs option is being used, i.e., not set to NULL
+  is_linear = function(self) is.null(self$get_default_crs()),
 
   distance = function(self, x, y, panel_params) {
     d <- self$backtransform_range(panel_params)
@@ -588,29 +589,26 @@ calc_limits_bbox <- function(method, xlim, ylim, crs, default_crs) {
 #'   be projected before plotting. If not specified, will use the CRS defined
 #'   in the first sf layer of the plot.
 #' @param default_crs The default CRS to be used for non-sf layers (which
-#'   don't carry any CRS information) and scale limits. If not specified, this
-#'   defaults to the World Geodetic System 1984 (WGS84), which means x and y
-#'   positions are interpreted as longitude and latitude, respectively. If
-#'   set to `NULL`, uses the setting for `crs`, which means that then all
+#'   don't carry any CRS information) and scale limits. The default value of
+#'   `NULL` means that the setting for `crs` is used. This implies that all
 #'   non-sf layers and scale limits are assumed to be specified in projected
-#'   coordinates.
+#'   coordinates. A useful alternative setting is `default_crs = sf::st_crs(4326)`,
+#'   which means x and y positions are interpreted as longitude and latitude,
+#'   respectively, in the World Geodetic System 1984 (WGS84).
 #' @param xlim,ylim Limits for the x and y axes. These limits are specified
-#'   in the units of the default CRS. To specify limits in projected coordinates,
-#'   set `default_crs = NULL`. How limit specifications translate into the exact
+#'   in the units of the default CRS. By default, this means projected coordinates
+#'   (`default_crs = NULL`). How limit specifications translate into the exact
 #'   region shown on the plot can be confusing when non-linear or rotated coordinate
-#'   systems are used. First, different methods can be preferable under different
-#'   conditions. See parameter `lims_method` for details. Second, specifying limits
-#'   along only one direction can affect the automatically generated limits along the
-#'   other direction. Therefore, it is best to always specify limits for both x and y.
-#'   Third, specifying limits via position scales or `xlim()`/`ylim()` is strongly
-#'   discouraged, as it can result in data points being dropped from the plot even
-#'   though they would be visible in the final plot region. Finally, specifying limits
-#'   that cross the international date boundary is not possible with WGS84 as the default
-#'   crs. All these issues can be avoided by working in projected coordinates,
-#'   via `default_crs = NULL`, but at the cost of having to provide less intuitive
-#'   numeric values for the limit parameters.
+#'   systems are used as the default crs. First, different methods can be preferable
+#'   under different conditions. See parameter `lims_method` for details. Second,
+#'   specifying limits along only one direction can affect the automatically generated
+#'   limits along the other direction. Therefore, it is best to always specify limits
+#'   for both x and y. Third, specifying limits via position scales or `xlim()`/`ylim()`
+#'   is strongly discouraged, as it can result in data points being dropped from the plot even
+#'   though they would be visible in the final plot region.
 #' @param lims_method Method specifying how scale limits are converted into
-#'   limits on the plot region. For a very non-linear CRS (e.g., a perspective centered
+#'   limits on the plot region. Has no effect when `default_crs = NULL`.
+#'   For a very non-linear CRS (e.g., a perspective centered
 #'   around the North pole), the available methods yield widely differing results, and
 #'   you may want to try various options. Methods currently implemented include `"cross"`
 #'   (the default), `"box"`, `"orthogonal"`, and `"geometry_bbox"`. For method `"cross"`,
@@ -655,7 +653,7 @@ calc_limits_bbox <- function(method, xlim, ylim, crs, default_crs) {
 #' @export
 #' @rdname ggsf
 coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
-                     crs = NULL, default_crs = sf::st_crs(4326),
+                     crs = NULL, default_crs = NULL,
                      datum = sf::st_crs(4326),
                      label_graticule = waiver(),
                      label_axes = waiver(), lims_method = c("cross", "box", "orthogonal", "geometry_bbox"),
