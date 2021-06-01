@@ -105,7 +105,7 @@ ggtitle <- function(label, subtitle = waiver()) {
 #' Extract alt text from a plot
 #'
 #' This function returns a text that can be used as alt-text in webpages etc.
-#' Currently tt will uses the `alt` label, added with `+ labs(alt = <...>)`, or
+#' Currently it will use the `alt` label, added with `+ labs(alt = <...>)`, or
 #' a return an empty string, but in the future it might try to generate an alt
 #' text from the information stored in the plot.
 #'
