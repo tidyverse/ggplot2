@@ -105,6 +105,9 @@ ggplot_build.ggplot <- function(plot) {
   # Let Layout modify data before rendering
   data <- layout$finish_data(data)
 
+  # Consolidate alt-text
+  plot$labels$alt <- get_alt_text(plot)
+
   structure(
     list(data = data, layout = layout, plot = plot),
     class = "ggplot_built"
@@ -402,6 +405,10 @@ ggplot_gtable.ggplot_built <- function(data) {
     plot_table$layout <- plot_table$layout[c(nrow(plot_table$layout), 1:(nrow(plot_table$layout) - 1)),]
     plot_table$grobs <- plot_table$grobs[c(nrow(plot_table$layout), 1:(nrow(plot_table$layout) - 1))]
   }
+
+  # add alt-text as attribute
+  attr(plot_table, "alt-label") <- plot$labels$alt
+
   plot_table
 }
 

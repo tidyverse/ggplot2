@@ -4,6 +4,11 @@ small selection of feature refinements.
 
 ## Features
 
+* Alt-text can now be added to a plot using the `alt` label, i.e 
+  `+ labs(alt = ...)`. Currently this alt text is not automatically propagated, 
+  but we plan to integrate into Shiny, RMarkdown, and other tools in the future. 
+  (@thomasp85, #4477)
+
 * Add support for the BrailleR package for creating descriptions of the plot
   when rendered (@thomasp85, #4459)
   
