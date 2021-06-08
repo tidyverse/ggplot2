@@ -83,7 +83,7 @@ test_that("geom_violin draws correctly", {
   expect_doppelganger("dodging and coord_flip",
     ggplot(dat, aes(x = "foo", y = y, fill = x)) + geom_violin() + coord_flip()
   )
-  expect_doppelganger("continuous x axis, multiple groups (center should be at 2.0)",
+  expect_doppelganger("continuous x axis, many groups (center should be at 2.0)",
     ggplot(dat, aes(x = as.numeric(x), y = y)) + geom_violin()
   )
   expect_doppelganger("continuous x axis, single group (center should be at 1.0)",

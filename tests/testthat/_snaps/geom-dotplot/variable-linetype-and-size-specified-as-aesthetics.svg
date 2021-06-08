@@ -97,6 +97,6 @@
 <text x='553.81' y='325.07' style='font-size: 8.80px; font-family: sans;' textLength='17.13px' lengthAdjust='spacingAndGlyphs'>1.50</text>
 <text x='553.81' y='342.35' style='font-size: 8.80px; font-family: sans;' textLength='17.13px' lengthAdjust='spacingAndGlyphs'>1.75</text>
 <text x='553.81' y='359.63' style='font-size: 8.80px; font-family: sans;' textLength='17.13px' lengthAdjust='spacingAndGlyphs'>2.00</text>
-<text x='40.13' y='14.56' style='font-size: 13.20px; font-family: sans;' textLength='351.51px' lengthAdjust='spacingAndGlyphs'>variable linetype and size work when specified as aesthetics</text>
+<text x='40.13' y='14.56' style='font-size: 13.20px; font-family: sans;' textLength='284.74px' lengthAdjust='spacingAndGlyphs'>variable linetype and size specified as aesthetics</text>
 </g>
 </svg>

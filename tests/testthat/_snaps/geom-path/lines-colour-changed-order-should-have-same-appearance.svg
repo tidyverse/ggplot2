@@ -82,6 +82,6 @@
 <text x='687.61' y='303.28' style='font-size: 8.80px; font-family: sans;' textLength='26.91px' lengthAdjust='spacingAndGlyphs'>Item#4</text>
 <text x='687.61' y='320.56' style='font-size: 8.80px; font-family: sans;' textLength='26.91px' lengthAdjust='spacingAndGlyphs'>Item#5</text>
 <text x='687.61' y='337.84' style='font-size: 8.80px; font-family: sans;' textLength='26.91px' lengthAdjust='spacingAndGlyphs'>Item#6</text>
-<text x='29.36' y='14.56' style='font-size: 13.20px; font-family: sans;' textLength='407.31px' lengthAdjust='spacingAndGlyphs'>lines, colour, with changed data order, should have same appearance</text>
+<text x='29.36' y='14.56' style='font-size: 13.20px; font-family: sans;' textLength='350.81px' lengthAdjust='spacingAndGlyphs'>lines, colour, changed order, should have same appearance</text>
 </g>
 </svg>

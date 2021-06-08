@@ -73,6 +73,6 @@
 <line x1='693.35' y1='291.61' x2='696.81' y2='291.61' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
 <line x1='693.35' y1='270.09' x2='696.81' y2='270.09' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
 <line x1='693.35' y1='248.56' x2='696.81' y2='248.56' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
-<text x='35.24' y='14.56' style='font-size: 13.20px; font-family: sans;' textLength='333.10px' lengthAdjust='spacingAndGlyphs'>white-to-red gradient colorbar, white tick marks, no frame</text>
+<text x='35.24' y='14.56' style='font-size: 13.20px; font-family: sans;' textLength='248.72px' lengthAdjust='spacingAndGlyphs'>white-to-red colorbar, white ticks, no frame</text>
 </g>
 </svg>
