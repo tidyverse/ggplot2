@@ -58,13 +58,13 @@ test_that("geom_path draws correctly", {
   expect_doppelganger("lines",
     ggplot(df) + geom_path(aes(x = value, y = category, group = item))
   )
-  expect_doppelganger("lines with changed data order, should have same appearance",
+  expect_doppelganger("lines, changed order, should have same appearance",
     ggplot(df2) + geom_path(aes(x = value, y = category, group = item))
   )
   expect_doppelganger("lines, colour",
     ggplot(df) + geom_path(aes(x = value, y = category, group = item, colour = item))
   )
-  expect_doppelganger("lines, colour, with changed data order, should have same appearance",
+  expect_doppelganger("lines, colour, changed order, should have same appearance",
     ggplot(df2) + geom_path(aes(x = value, y = category, group = item, colour = item))
   )
 })
