@@ -119,12 +119,13 @@ you can use the stage() function to collect multiple mappings." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.4</span>
         </div>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
+        
         <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -174,25 +175,47 @@ you can use the stage() function to collect multiple mappings." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Developer</li>
+    <li>
       <a href="../articles/extending-ggplot2.html">Extending ggplot2</a>
     </li>
     <li>
       <a href="../articles/ggplot2-in-packages.html">Using ggplot2 in packages</a>
     </li>
     <li>
-      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+      <a href="../articles/profiling.html">Profiling Performance</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">FAQ</li>
+    <li>
+      <a href="../articles/articles/faq-axes.html">FAQ: Axes</a>
     </li>
     <li>
-      <a href="../articles/profiling.html">Profiling Performance</a>
+      <a href="../articles/articles/faq-faceting.html">FAQ: Faceting</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-customising.html">FAQ: Customising</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-annotation.html">FAQ: Annotation</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-reordering.html">FAQ: Reordering</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-bars.html">FAQ: Barplots</a>
     </li>
   </ul>
 </li>
-        <li>
+<li>
   <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -228,25 +251,25 @@ default is to map at the beginning, using the layer data provided by the
 user. The second stage is after the data has been transformed by the layer
 stat. The third and last stage is after the data has been transformed and
 mapped by the plot scales. The most common example of mapping from stat
-transformed data is the height of bars in <code><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram()</a></code>:
+transformed data is the height of bars in <code><a href='geom_freqpoly.html'>geom_histogram()</a></code>:
 the height does not come from a variable in the underlying data, but
-is instead mapped to the <code>count</code> computed by <code><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>stat_bin()</a></code>. An example of
+is instead mapped to the <code>count</code> computed by <code><a href='geom_freqpoly.html'>stat_bin()</a></code>. An example of
 mapping from scaled data could be to use a desaturated version of the stroke
 colour for fill. If you want to map directly from the layer data you should
 not do anything special. In order to map from stat transformed data you
-should use the <code><a href='https://ggplot2.tidyverse.org/reference/aes_eval.html'>after_stat()</a></code> function to flag that evaluation of the
+should use the <code>after_stat()</code> function to flag that evaluation of the
 aesthetic mapping should be postponed until after stat transformation.
-Similarly, you should use <code><a href='https://ggplot2.tidyverse.org/reference/aes_eval.html'>after_scale()</a></code> to flag evaluation of mapping for
+Similarly, you should use <code>after_scale()</code> to flag evaluation of mapping for
 after data has been scaled. If you want to map the same aesthetic multiple
 times, e.g. map <code>x</code> to a data column for the stat, but remap it for the geom,
-you can use the <code><a href='https://ggplot2.tidyverse.org/reference/aes_eval.html'>stage()</a></code> function to collect multiple mappings.</p>
+you can use the <code>stage()</code> function to collect multiple mappings.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes_eval.html'>after_stat</a></span>(<span class='kw'>x</span>)
+    <pre class="usage"><span class='fu'>after_stat</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes_eval.html'>after_scale</a></span>(<span class='kw'>x</span>)
+<span class='fu'>after_scale</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes_eval.html'>stage</a></span>(start = <span class='kw'>NULL</span>, after_stat = <span class='kw'>NULL</span>, after_scale = <span class='kw'>NULL</span>)</pre>
+<span class='fu'>stage</span><span class='op'>(</span>start <span class='op'>=</span> <span class='cn'>NULL</span>, after_stat <span class='op'>=</span> <span class='cn'>NULL</span>, after_scale <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -254,7 +277,7 @@ you can use the <code><a href='https://ggplot2.tidyverse.org/reference/aes_eval.
     <tr>
       <th>x</th>
       <td><p>An aesthetic expression using variables calculated by the stat
-(<code><a href='https://ggplot2.tidyverse.org/reference/aes_eval.html'>after_stat()</a></code>) or layer aesthetics (<code><a href='https://ggplot2.tidyverse.org/reference/aes_eval.html'>after_scale()</a></code>).</p></td>
+(<code>after_stat()</code>) or layer aesthetics (<code>after_scale()</code>).</p></td>
     </tr>
     <tr>
       <th>start</th>
@@ -273,7 +296,7 @@ stat.</p></td>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code><a href='https://ggplot2.tidyverse.org/reference/aes_eval.html'>after_stat()</a></code> replaces the old approaches of using either <code><a href='https://ggplot2.tidyverse.org/reference/aes_eval.html'>stat()</a></code> or
+    <p><code>after_stat()</code> replaces the old approaches of using either <code>stat()</code> or
 surrounding the variable names with <code>..</code>.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
@@ -284,17 +307,21 @@ aesthetics). The original layer data can only be accessed at the first stage.</p
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Default histogram display</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>displ</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(y = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes_eval.html'>after_stat</a></span>(<span class='kw'>count</span>)))</div><div class='output co'>#&gt; <span class='message'>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></div><div class='img'><img src='aes_eval-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>displ</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_freqpoly.html'>geom_histogram</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='fu'>after_stat</span><span class='op'>(</span><span class='va'>count</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></div><div class='img'><img src='aes_eval-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Scale tallest bin to 1</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>displ</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(y = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes_eval.html'>after_stat</a></span>(<span class='kw'>count</span> <span class='op'>/</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='kw'>count</span>))))</div><div class='output co'>#&gt; <span class='message'>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></div><div class='img'><img src='aes_eval-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>displ</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_freqpoly.html'>geom_histogram</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='fu'>after_stat</span><span class='op'>(</span><span class='va'>count</span> <span class='op'>/</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='va'>count</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></div><div class='img'><img src='aes_eval-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Use a transparent version of colour for fill</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>class</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>geom_boxplot</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(colour = <span class='kw'>class</span>, fill = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes_eval.html'>after_scale</a></span>(<span class='fu'><a href='https://scales.r-lib.org//reference/alpha.html'>alpha</a></span>(<span class='kw'>colour</span>, <span class='fl'>0.4</span>))))</div><div class='img'><img src='aes_eval-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>class</span>, <span class='va'>hwy</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_boxplot.html'>geom_boxplot</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='va'>class</span>, fill <span class='op'>=</span> <span class='fu'>after_scale</span><span class='op'>(</span><span class='fu'><a href='https://scales.r-lib.org/reference/alpha.html'>alpha</a></span><span class='op'>(</span><span class='va'>colour</span>, <span class='fl'>0.4</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='aes_eval-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Use stage to modify the scaled fill</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>class</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>geom_boxplot</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(fill = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes_eval.html'>stage</a></span>(<span class='kw'>class</span>, after_scale = <span class='fu'><a href='https://scales.r-lib.org//reference/alpha.html'>alpha</a></span>(<span class='kw'>fill</span>, <span class='fl'>0.4</span>))))</div><div class='img'><img src='aes_eval-4.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>class</span>, <span class='va'>hwy</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_boxplot.html'>geom_boxplot</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='fu'>stage</span><span class='op'>(</span><span class='va'>class</span>, after_scale <span class='op'>=</span> <span class='fu'><a href='https://scales.r-lib.org/reference/alpha.html'>alpha</a></span><span class='op'>(</span><span class='va'>fill</span>, <span class='fl'>0.4</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='aes_eval-4.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

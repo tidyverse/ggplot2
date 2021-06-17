@@ -103,12 +103,13 @@ constant height." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.4</span>
         </div>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
+        
         <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -158,25 +159,47 @@ constant height." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Developer</li>
+    <li>
       <a href="../articles/extending-ggplot2.html">Extending ggplot2</a>
     </li>
     <li>
       <a href="../articles/ggplot2-in-packages.html">Using ggplot2 in packages</a>
     </li>
     <li>
-      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+      <a href="../articles/profiling.html">Profiling Performance</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">FAQ</li>
+    <li>
+      <a href="../articles/articles/faq-axes.html">FAQ: Axes</a>
     </li>
     <li>
-      <a href="../articles/profiling.html">Profiling Performance</a>
+      <a href="../articles/articles/faq-faceting.html">FAQ: Faceting</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-customising.html">FAQ: Customising</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-annotation.html">FAQ: Annotation</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-reordering.html">FAQ: Reordering</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-bars.html">FAQ: Barplots</a>
     </li>
   </ul>
 </li>
-        <li>
+<li>
   <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -205,14 +228,14 @@ constant height." />
     </div>
 
     <div class="ref-description">
-    <p><code><a href='https://ggplot2.tidyverse.org/reference/position_stack.html'>position_stack()</a></code> stacks bars on top of each other;
-<code><a href='https://ggplot2.tidyverse.org/reference/position_stack.html'>position_fill()</a></code> stacks bars and standardises each stack to have
+    <p><code>position_stack()</code> stacks bars on top of each other;
+<code>position_fill()</code> stacks bars and standardises each stack to have
 constant height.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/position_stack.html'>position_stack</a></span>(vjust = <span class='fl'>1</span>, reverse = <span class='fl'>FALSE</span>)
+    <pre class="usage"><span class='fu'>position_stack</span><span class='op'>(</span>vjust <span class='op'>=</span> <span class='fl'>1</span>, reverse <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/position_stack.html'>position_fill</a></span>(vjust = <span class='fl'>1</span>, reverse = <span class='fl'>FALSE</span>)</pre>
+<span class='fu'>position_fill</span><span class='op'>(</span>vjust <span class='op'>=</span> <span class='fl'>1</span>, reverse <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -233,7 +256,7 @@ This is useful if you're rotating both the plot and legend.</p></td>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code><a href='https://ggplot2.tidyverse.org/reference/position_stack.html'>position_fill()</a></code> and <code><a href='https://ggplot2.tidyverse.org/reference/position_stack.html'>position_stack()</a></code> automatically stack
+    <p><code>position_fill()</code> and <code>position_stack()</code> automatically stack
 values in reverse order of the group aesthetic, which for bar charts is
 usually defined by the fill aesthetic (the default group aesthetic is formed
 by the combination of all discrete aesthetics except for x and y). This
@@ -253,90 +276,104 @@ positive values stack upwards from the x-axis and negative values stack
 downward.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>See <code><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar()</a></code> and <code><a href='https://ggplot2.tidyverse.org/reference/geom_ribbon.html'>geom_area()</a></code> for
+    <div class='dont-index'><p>See <code><a href='geom_bar.html'>geom_bar()</a></code> and <code><a href='geom_ribbon.html'>geom_area()</a></code> for
 more examples.</p>
 <p>Other position adjustments: 
-<code><a href='https://ggplot2.tidyverse.org/reference/position_dodge.html'>position_dodge</a>()</code>,
-<code><a href='https://ggplot2.tidyverse.org/reference/position_identity.html'>position_identity</a>()</code>,
-<code><a href='https://ggplot2.tidyverse.org/reference/position_jitterdodge.html'>position_jitterdodge</a>()</code>,
-<code><a href='https://ggplot2.tidyverse.org/reference/position_jitter.html'>position_jitter</a>()</code>,
-<code><a href='https://ggplot2.tidyverse.org/reference/position_nudge.html'>position_nudge</a>()</code></p></div>
+<code><a href='position_dodge.html'>position_dodge</a>()</code>,
+<code><a href='position_identity.html'>position_identity</a>()</code>,
+<code><a href='position_jitterdodge.html'>position_jitterdodge</a>()</code>,
+<code><a href='position_jitter.html'>position_jitter</a>()</code>,
+<code><a href='position_nudge.html'>position_nudge</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Stacking and filling ------------------------------------------------------</span>
 
 <span class='co'># Stacking is the default behaviour for most area plots.</span>
 <span class='co'># Fill makes it easier to compare proportions</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>), fill = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>vs</span>))) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span>()</div><div class='img'><img src='position_stack-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>), fill = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>vs</span>))) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span>(position = <span class='st'>"fill"</span>)</div><div class='img'><img src='position_stack-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>price</span>, fill = <span class='kw'>cut</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span>(binwidth = <span class='fl'>500</span>)</div><div class='img'><img src='position_stack-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>price</span>, fill = <span class='kw'>cut</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span>(binwidth = <span class='fl'>500</span>, position = <span class='st'>"fill"</span>)</div><div class='img'><img src='position_stack-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span>, fill <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>vs</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_bar.html'>geom_bar</a></span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='position_stack-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span>, fill <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>vs</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_bar.html'>geom_bar</a></span><span class='op'>(</span>position <span class='op'>=</span> <span class='st'>"fill"</span><span class='op'>)</span>
+</div><div class='img'><img src='position_stack-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>price</span>, fill <span class='op'>=</span> <span class='va'>cut</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_freqpoly.html'>geom_histogram</a></span><span class='op'>(</span>binwidth <span class='op'>=</span> <span class='fl'>500</span><span class='op'>)</span>
+</div><div class='img'><img src='position_stack-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>price</span>, fill <span class='op'>=</span> <span class='va'>cut</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_freqpoly.html'>geom_histogram</a></span><span class='op'>(</span>binwidth <span class='op'>=</span> <span class='fl'>500</span>, position <span class='op'>=</span> <span class='st'>"fill"</span><span class='op'>)</span>
+</div><div class='img'><img src='position_stack-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Stacking is also useful for time series</span>
-<span class='kw'>series</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  time = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>, <span class='fl'>4</span>),<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>2</span>, <span class='fl'>4</span>), <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>3</span>, <span class='fl'>4</span>), <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>4</span>, <span class='fl'>4</span>)),
-  type = <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'a'</span>, <span class='st'>'b'</span>, <span class='st'>'c'</span>, <span class='st'>'d'</span>), <span class='fl'>4</span>),
-  value = <span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>rpois</a></span>(<span class='fl'>16</span>, <span class='fl'>10</span>)
-)
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>series</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>time</span>, <span class='kw'>value</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_ribbon.html'>geom_area</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(fill = <span class='kw'>type</span>))</div><div class='img'><img src='position_stack-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>series</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
+  time <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>4</span><span class='op'>)</span>,<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>4</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>4</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>4</span>, <span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span>,
+  type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'a'</span>, <span class='st'>'b'</span>, <span class='st'>'c'</span>, <span class='st'>'d'</span><span class='op'>)</span>, <span class='fl'>4</span><span class='op'>)</span>,
+  value <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>rpois</a></span><span class='op'>(</span><span class='fl'>16</span>, <span class='fl'>10</span><span class='op'>)</span>
+<span class='op'>)</span>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>series</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>time</span>, <span class='va'>value</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_ribbon.html'>geom_area</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>type</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='position_stack-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Stacking order ------------------------------------------------------------</span>
 <span class='co'># The stacking order is carefully designed so that the plot matches</span>
 <span class='co'># the legend.</span>
 
 <span class='co'># You control the stacking order by setting the levels of the underlying</span>
 <span class='co'># factor. See the forcats package for convenient helpers.</span>
-<span class='kw'>series</span><span class='op'>$</span><span class='kw'>type2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>series</span><span class='op'>$</span><span class='kw'>type</span>, levels = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'c'</span>, <span class='st'>'b'</span>, <span class='st'>'d'</span>, <span class='st'>'a'</span>))
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>series</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>time</span>, <span class='kw'>value</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_ribbon.html'>geom_area</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(fill = <span class='kw'>type2</span>))</div><div class='img'><img src='position_stack-6.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>series</span><span class='op'>$</span><span class='va'>type2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>series</span><span class='op'>$</span><span class='va'>type</span>, levels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'c'</span>, <span class='st'>'b'</span>, <span class='st'>'d'</span>, <span class='st'>'a'</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>series</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>time</span>, <span class='va'>value</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_ribbon.html'>geom_area</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>type2</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='position_stack-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can change the order of the levels in the legend using the scale</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>series</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>time</span>, <span class='kw'>value</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_ribbon.html'>geom_area</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(fill = <span class='kw'>type</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_colour_discrete.html'>scale_fill_discrete</a></span>(breaks = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'a'</span>, <span class='st'>'b'</span>, <span class='st'>'c'</span>, <span class='st'>'d'</span>))</div><div class='img'><img src='position_stack-7.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>series</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>time</span>, <span class='va'>value</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_ribbon.html'>geom_area</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>type</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='scale_colour_discrete.html'>scale_fill_discrete</a></span><span class='op'>(</span>breaks <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'a'</span>, <span class='st'>'b'</span>, <span class='st'>'c'</span>, <span class='st'>'d'</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='position_stack-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># If you've flipped the plot, use reverse = TRUE so the levels</span>
 <span class='co'># continue to match</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>series</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>time</span>, <span class='kw'>value</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_ribbon.html'>geom_area</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(fill = <span class='kw'>type2</span>), position = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/position_stack.html'>position_stack</a></span>(reverse = <span class='fl'>TRUE</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_flip.html'>coord_flip</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span>(legend.position = <span class='st'>"top"</span>)</div><div class='img'><img src='position_stack-8.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>series</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>time</span>, <span class='va'>value</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_ribbon.html'>geom_area</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>type2</span><span class='op'>)</span>, position <span class='op'>=</span> <span class='fu'>position_stack</span><span class='op'>(</span>reverse <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='coord_flip.html'>coord_flip</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='theme.html'>theme</a></span><span class='op'>(</span>legend.position <span class='op'>=</span> <span class='st'>"top"</span><span class='op'>)</span>
+</div><div class='img'><img src='position_stack-8.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Non-area plots ------------------------------------------------------------</span>
 
 <span class='co'># When stacking across multiple layers it's a good idea to always set</span>
 <span class='co'># the `group` aesthetic in the ggplot() call. This ensures that all layers</span>
 <span class='co'># are stacked in the same way.</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>series</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>time</span>, <span class='kw'>value</span>, group = <span class='kw'>type</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(colour = <span class='kw'>type</span>), position = <span class='st'>"stack"</span>) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(colour = <span class='kw'>type</span>), position = <span class='st'>"stack"</span>)</div><div class='img'><img src='position_stack-9.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>series</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>time</span>, <span class='kw'>value</span>, group = <span class='kw'>type</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_ribbon.html'>geom_area</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(fill = <span class='kw'>type</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(group = <span class='kw'>type</span>), position = <span class='st'>"stack"</span>)</div><div class='img'><img src='position_stack-10.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>series</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>time</span>, <span class='va'>value</span>, group <span class='op'>=</span> <span class='va'>type</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='va'>type</span><span class='op'>)</span>, position <span class='op'>=</span> <span class='st'>"stack"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='va'>type</span><span class='op'>)</span>, position <span class='op'>=</span> <span class='st'>"stack"</span><span class='op'>)</span>
+</div><div class='img'><img src='position_stack-9.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>series</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>time</span>, <span class='va'>value</span>, group <span class='op'>=</span> <span class='va'>type</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_ribbon.html'>geom_area</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>type</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>group <span class='op'>=</span> <span class='va'>type</span><span class='op'>)</span>, position <span class='op'>=</span> <span class='st'>"stack"</span><span class='op'>)</span>
+</div><div class='img'><img src='position_stack-10.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can also stack labels, but the default position is suboptimal.</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>series</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>time</span>, <span class='kw'>value</span>, group = <span class='kw'>type</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_ribbon.html'>geom_area</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(fill = <span class='kw'>type</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_text</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(label = <span class='kw'>type</span>), position = <span class='st'>"stack"</span>)</div><div class='img'><img src='position_stack-11.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>series</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>time</span>, <span class='va'>value</span>, group <span class='op'>=</span> <span class='va'>type</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_ribbon.html'>geom_area</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>type</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_label.html'>geom_text</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>label <span class='op'>=</span> <span class='va'>type</span><span class='op'>)</span>, position <span class='op'>=</span> <span class='st'>"stack"</span><span class='op'>)</span>
+</div><div class='img'><img src='position_stack-11.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can override this with the vjust parameter. A vjust of 0.5</span>
 <span class='co'># will center the labels inside the corresponding area</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>series</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>time</span>, <span class='kw'>value</span>, group = <span class='kw'>type</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_ribbon.html'>geom_area</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(fill = <span class='kw'>type</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_text</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(label = <span class='kw'>type</span>), position = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/position_stack.html'>position_stack</a></span>(vjust = <span class='fl'>0.5</span>))</div><div class='img'><img src='position_stack-12.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>series</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>time</span>, <span class='va'>value</span>, group <span class='op'>=</span> <span class='va'>type</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_ribbon.html'>geom_area</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>type</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_label.html'>geom_text</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>label <span class='op'>=</span> <span class='va'>type</span><span class='op'>)</span>, position <span class='op'>=</span> <span class='fu'>position_stack</span><span class='op'>(</span>vjust <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='position_stack-12.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Negative values -----------------------------------------------------------</span>
 
-<span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='kw'>tibble</span>::<span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span>(
-  <span class='op'>~</span><span class='kw'>x</span>, <span class='op'>~</span><span class='kw'>y</span>, <span class='op'>~</span><span class='kw'>grp</span>,
+<span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='fu'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span><span class='op'>(</span>
+  <span class='op'>~</span><span class='va'>x</span>, <span class='op'>~</span><span class='va'>y</span>, <span class='op'>~</span><span class='va'>grp</span>,
   <span class='st'>"a"</span>, <span class='fl'>1</span>,  <span class='st'>"x"</span>,
   <span class='st'>"a"</span>, <span class='fl'>2</span>,  <span class='st'>"y"</span>,
   <span class='st'>"b"</span>, <span class='fl'>1</span>,  <span class='st'>"x"</span>,
   <span class='st'>"b"</span>, <span class='fl'>3</span>,  <span class='st'>"y"</span>,
   <span class='st'>"b"</span>, <span class='op'>-</span><span class='fl'>1</span>, <span class='st'>"y"</span>
-)
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(data = <span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>, group = <span class='kw'>grp</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_col</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(fill = <span class='kw'>grp</span>), position = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/position_stack.html'>position_stack</a></span>(reverse = <span class='fl'>TRUE</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_abline.html'>geom_hline</a></span>(yintercept = <span class='fl'>0</span>)</div><div class='img'><img src='position_stack-13.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(data = <span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>, group = <span class='kw'>grp</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_col</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(fill = <span class='kw'>grp</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_abline.html'>geom_hline</a></span>(yintercept = <span class='fl'>0</span>) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_text</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(label = <span class='kw'>grp</span>), position = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/position_stack.html'>position_stack</a></span>(vjust = <span class='fl'>0.5</span>))</div><div class='img'><img src='position_stack-14.png' alt='' width='700' height='433' /></div></pre>
+<span class='op'>)</span>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, group <span class='op'>=</span> <span class='va'>grp</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_bar.html'>geom_col</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>grp</span><span class='op'>)</span>, position <span class='op'>=</span> <span class='fu'>position_stack</span><span class='op'>(</span>reverse <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_abline.html'>geom_hline</a></span><span class='op'>(</span>yintercept <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
+</div><div class='img'><img src='position_stack-13.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, group <span class='op'>=</span> <span class='va'>grp</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_bar.html'>geom_col</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>grp</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_abline.html'>geom_hline</a></span><span class='op'>(</span>yintercept <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_label.html'>geom_text</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>label <span class='op'>=</span> <span class='va'>grp</span><span class='op'>)</span>, position <span class='op'>=</span> <span class='fu'>position_stack</span><span class='op'>(</span>vjust <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='position_stack-14.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

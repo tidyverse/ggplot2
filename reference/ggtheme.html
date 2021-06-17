@@ -103,12 +103,13 @@ theme." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.4</span>
         </div>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
+        
         <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -158,25 +159,47 @@ theme." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Developer</li>
+    <li>
       <a href="../articles/extending-ggplot2.html">Extending ggplot2</a>
     </li>
     <li>
       <a href="../articles/ggplot2-in-packages.html">Using ggplot2 in packages</a>
     </li>
     <li>
-      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+      <a href="../articles/profiling.html">Profiling Performance</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">FAQ</li>
+    <li>
+      <a href="../articles/articles/faq-axes.html">FAQ: Axes</a>
     </li>
     <li>
-      <a href="../articles/profiling.html">Profiling Performance</a>
+      <a href="../articles/articles/faq-faceting.html">FAQ: Faceting</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-customising.html">FAQ: Customising</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-annotation.html">FAQ: Annotation</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-reordering.html">FAQ: Reordering</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-bars.html">FAQ: Barplots</a>
     </li>
   </ul>
 </li>
-        <li>
+<li>
   <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -206,79 +229,79 @@ theme." />
 
     <div class="ref-description">
     <p>These are complete themes which control all non-data display. Use
-<code><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme()</a></code> if you just need to tweak the display of an existing
+<code><a href='theme.html'>theme()</a></code> if you just need to tweak the display of an existing
 theme.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_grey</a></span>(
-  base_size = <span class='fl'>11</span>,
-  base_family = <span class='st'>""</span>,
-  base_line_size = <span class='kw'>base_size</span><span class='op'>/</span><span class='fl'>22</span>,
-  base_rect_size = <span class='kw'>base_size</span><span class='op'>/</span><span class='fl'>22</span>
-)
+    <pre class="usage"><span class='fu'>theme_grey</span><span class='op'>(</span>
+  base_size <span class='op'>=</span> <span class='fl'>11</span>,
+  base_family <span class='op'>=</span> <span class='st'>""</span>,
+  base_line_size <span class='op'>=</span> <span class='va'>base_size</span><span class='op'>/</span><span class='fl'>22</span>,
+  base_rect_size <span class='op'>=</span> <span class='va'>base_size</span><span class='op'>/</span><span class='fl'>22</span>
+<span class='op'>)</span>
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_gray</a></span>(
-  base_size = <span class='fl'>11</span>,
-  base_family = <span class='st'>""</span>,
-  base_line_size = <span class='kw'>base_size</span><span class='op'>/</span><span class='fl'>22</span>,
-  base_rect_size = <span class='kw'>base_size</span><span class='op'>/</span><span class='fl'>22</span>
-)
+<span class='fu'>theme_gray</span><span class='op'>(</span>
+  base_size <span class='op'>=</span> <span class='fl'>11</span>,
+  base_family <span class='op'>=</span> <span class='st'>""</span>,
+  base_line_size <span class='op'>=</span> <span class='va'>base_size</span><span class='op'>/</span><span class='fl'>22</span>,
+  base_rect_size <span class='op'>=</span> <span class='va'>base_size</span><span class='op'>/</span><span class='fl'>22</span>
+<span class='op'>)</span>
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_bw</a></span>(
-  base_size = <span class='fl'>11</span>,
-  base_family = <span class='st'>""</span>,
-  base_line_size = <span class='kw'>base_size</span><span class='op'>/</span><span class='fl'>22</span>,
-  base_rect_size = <span class='kw'>base_size</span><span class='op'>/</span><span class='fl'>22</span>
-)
+<span class='fu'>theme_bw</span><span class='op'>(</span>
+  base_size <span class='op'>=</span> <span class='fl'>11</span>,
+  base_family <span class='op'>=</span> <span class='st'>""</span>,
+  base_line_size <span class='op'>=</span> <span class='va'>base_size</span><span class='op'>/</span><span class='fl'>22</span>,
+  base_rect_size <span class='op'>=</span> <span class='va'>base_size</span><span class='op'>/</span><span class='fl'>22</span>
+<span class='op'>)</span>
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_linedraw</a></span>(
-  base_size = <span class='fl'>11</span>,
-  base_family = <span class='st'>""</span>,
-  base_line_size = <span class='kw'>base_size</span><span class='op'>/</span><span class='fl'>22</span>,
-  base_rect_size = <span class='kw'>base_size</span><span class='op'>/</span><span class='fl'>22</span>
-)
+<span class='fu'>theme_linedraw</span><span class='op'>(</span>
+  base_size <span class='op'>=</span> <span class='fl'>11</span>,
+  base_family <span class='op'>=</span> <span class='st'>""</span>,
+  base_line_size <span class='op'>=</span> <span class='va'>base_size</span><span class='op'>/</span><span class='fl'>22</span>,
+  base_rect_size <span class='op'>=</span> <span class='va'>base_size</span><span class='op'>/</span><span class='fl'>22</span>
+<span class='op'>)</span>
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_light</a></span>(
-  base_size = <span class='fl'>11</span>,
-  base_family = <span class='st'>""</span>,
-  base_line_size = <span class='kw'>base_size</span><span class='op'>/</span><span class='fl'>22</span>,
-  base_rect_size = <span class='kw'>base_size</span><span class='op'>/</span><span class='fl'>22</span>
-)
+<span class='fu'>theme_light</span><span class='op'>(</span>
+  base_size <span class='op'>=</span> <span class='fl'>11</span>,
+  base_family <span class='op'>=</span> <span class='st'>""</span>,
+  base_line_size <span class='op'>=</span> <span class='va'>base_size</span><span class='op'>/</span><span class='fl'>22</span>,
+  base_rect_size <span class='op'>=</span> <span class='va'>base_size</span><span class='op'>/</span><span class='fl'>22</span>
+<span class='op'>)</span>
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_dark</a></span>(
-  base_size = <span class='fl'>11</span>,
-  base_family = <span class='st'>""</span>,
-  base_line_size = <span class='kw'>base_size</span><span class='op'>/</span><span class='fl'>22</span>,
-  base_rect_size = <span class='kw'>base_size</span><span class='op'>/</span><span class='fl'>22</span>
-)
+<span class='fu'>theme_dark</span><span class='op'>(</span>
+  base_size <span class='op'>=</span> <span class='fl'>11</span>,
+  base_family <span class='op'>=</span> <span class='st'>""</span>,
+  base_line_size <span class='op'>=</span> <span class='va'>base_size</span><span class='op'>/</span><span class='fl'>22</span>,
+  base_rect_size <span class='op'>=</span> <span class='va'>base_size</span><span class='op'>/</span><span class='fl'>22</span>
+<span class='op'>)</span>
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span>(
-  base_size = <span class='fl'>11</span>,
-  base_family = <span class='st'>""</span>,
-  base_line_size = <span class='kw'>base_size</span><span class='op'>/</span><span class='fl'>22</span>,
-  base_rect_size = <span class='kw'>base_size</span><span class='op'>/</span><span class='fl'>22</span>
-)
+<span class='fu'>theme_minimal</span><span class='op'>(</span>
+  base_size <span class='op'>=</span> <span class='fl'>11</span>,
+  base_family <span class='op'>=</span> <span class='st'>""</span>,
+  base_line_size <span class='op'>=</span> <span class='va'>base_size</span><span class='op'>/</span><span class='fl'>22</span>,
+  base_rect_size <span class='op'>=</span> <span class='va'>base_size</span><span class='op'>/</span><span class='fl'>22</span>
+<span class='op'>)</span>
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_classic</a></span>(
-  base_size = <span class='fl'>11</span>,
-  base_family = <span class='st'>""</span>,
-  base_line_size = <span class='kw'>base_size</span><span class='op'>/</span><span class='fl'>22</span>,
-  base_rect_size = <span class='kw'>base_size</span><span class='op'>/</span><span class='fl'>22</span>
-)
+<span class='fu'>theme_classic</span><span class='op'>(</span>
+  base_size <span class='op'>=</span> <span class='fl'>11</span>,
+  base_family <span class='op'>=</span> <span class='st'>""</span>,
+  base_line_size <span class='op'>=</span> <span class='va'>base_size</span><span class='op'>/</span><span class='fl'>22</span>,
+  base_rect_size <span class='op'>=</span> <span class='va'>base_size</span><span class='op'>/</span><span class='fl'>22</span>
+<span class='op'>)</span>
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_void</a></span>(
-  base_size = <span class='fl'>11</span>,
-  base_family = <span class='st'>""</span>,
-  base_line_size = <span class='kw'>base_size</span><span class='op'>/</span><span class='fl'>22</span>,
-  base_rect_size = <span class='kw'>base_size</span><span class='op'>/</span><span class='fl'>22</span>
-)
+<span class='fu'>theme_void</span><span class='op'>(</span>
+  base_size <span class='op'>=</span> <span class='fl'>11</span>,
+  base_family <span class='op'>=</span> <span class='st'>""</span>,
+  base_line_size <span class='op'>=</span> <span class='va'>base_size</span><span class='op'>/</span><span class='fl'>22</span>,
+  base_rect_size <span class='op'>=</span> <span class='va'>base_size</span><span class='op'>/</span><span class='fl'>22</span>
+<span class='op'>)</span>
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_test</a></span>(
-  base_size = <span class='fl'>11</span>,
-  base_family = <span class='st'>""</span>,
-  base_line_size = <span class='kw'>base_size</span><span class='op'>/</span><span class='fl'>22</span>,
-  base_rect_size = <span class='kw'>base_size</span><span class='op'>/</span><span class='fl'>22</span>
-)</pre>
+<span class='fu'>theme_test</span><span class='op'>(</span>
+  base_size <span class='op'>=</span> <span class='fl'>11</span>,
+  base_family <span class='op'>=</span> <span class='st'>""</span>,
+  base_line_size <span class='op'>=</span> <span class='va'>base_size</span><span class='op'>/</span><span class='fl'>22</span>,
+  base_rect_size <span class='op'>=</span> <span class='va'>base_size</span><span class='op'>/</span><span class='fl'>22</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -306,29 +329,29 @@ theme.</p>
     
 <dl>
 
-<dt><code>theme_gray</code></dt><dd><p>The signature ggplot2 theme with a grey background and white gridlines,
+<dt><code>theme_gray()</code></dt><dd><p>The signature ggplot2 theme with a grey background and white gridlines,
 designed to put the data forward yet make comparisons easy.</p></dd>
 
-<dt><code>theme_bw</code></dt><dd><p>The classic dark-on-light ggplot2 theme. May work better for presentations
+<dt><code>theme_bw()</code></dt><dd><p>The classic dark-on-light ggplot2 theme. May work better for presentations
 displayed with a projector.</p></dd>
 
-<dt><code>theme_linedraw</code></dt><dd><p>A theme with only black lines of various widths on white backgrounds,
-reminiscent of a line drawing. Serves a purpose similar to <code>theme_bw</code>.
+<dt><code>theme_linedraw()</code></dt><dd><p>A theme with only black lines of various widths on white backgrounds,
+reminiscent of a line drawing. Serves a purpose similar to <code>theme_bw()</code>.
 Note that this theme has some very thin lines (&lt;&lt; 1 pt) which some journals
 may refuse.</p></dd>
 
-<dt><code>theme_light</code></dt><dd><p>A theme similar to <code>theme_linedraw</code> but with light grey lines and axes,
+<dt><code>theme_light()</code></dt><dd><p>A theme similar to <code>theme_linedraw()</code> but with light grey lines and axes,
 to direct more attention towards the data.</p></dd>
 
-<dt><code>theme_dark</code></dt><dd><p>The dark cousin of <code>theme_light</code>, with similar line sizes but a dark background. Useful to make thin coloured lines pop out.</p></dd>
+<dt><code>theme_dark()</code></dt><dd><p>The dark cousin of <code>theme_light()</code>, with similar line sizes but a dark background. Useful to make thin coloured lines pop out.</p></dd>
 
-<dt><code>theme_minimal</code></dt><dd><p>A minimalistic theme with no background annotations.</p></dd>
+<dt><code>theme_minimal()</code></dt><dd><p>A minimalistic theme with no background annotations.</p></dd>
 
-<dt><code>theme_classic</code></dt><dd><p>A classic-looking theme, with x and y axis lines and no gridlines.</p></dd>
+<dt><code>theme_classic()</code></dt><dd><p>A classic-looking theme, with x and y axis lines and no gridlines.</p></dd>
 
-<dt><code>theme_void</code></dt><dd><p>A completely empty theme.</p></dd>
+<dt><code>theme_void()</code></dt><dd><p>A completely empty theme.</p></dd>
 
-<dt><code>theme_test</code></dt><dd><p>A theme for visual unit tests. It should ideally never change except
+<dt><code>theme_test()</code></dt><dd><p>A theme for visual unit tests. It should ideally never change except
 for new features.</p></dd>
 
 
@@ -336,29 +359,48 @@ for new features.</p></dd>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>mtcars2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/with.html'>within</a></span>(<span class='kw'>mtcars</span>, {
-  <span class='kw'>vs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>vs</span>, labels = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"V-shaped"</span>, <span class='st'>"Straight"</span>))
-  <span class='kw'>am</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>am</span>, labels = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Automatic"</span>, <span class='st'>"Manual"</span>))
-  <span class='kw'>cyl</span>  <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>)
-  <span class='kw'>gear</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>gear</span>)
-})
+    <pre class="examples"><div class='input'><span class='va'>mtcars2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/with.html'>within</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='op'>{</span>
+  <span class='va'>vs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>vs</span>, labels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"V-shaped"</span>, <span class='st'>"Straight"</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='va'>am</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>am</span>, labels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Automatic"</span>, <span class='st'>"Manual"</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='va'>cyl</span>  <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span>
+  <span class='va'>gear</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>gear</span><span class='op'>)</span>
+<span class='op'>}</span><span class='op'>)</span>
 
-<span class='kw'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars2</span>) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(x = <span class='kw'>wt</span>, y = <span class='kw'>mpg</span>, colour = <span class='kw'>gear</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span>(title = <span class='st'>"Fuel economy declines as weight increases"</span>,
-       subtitle = <span class='st'>"(1973-74)"</span>,
-       caption = <span class='st'>"Data from the 1974 Motor Trend US magazine."</span>,
-       tag = <span class='st'>"Figure 1"</span>,
-       x = <span class='st'>"Weight (1000 lbs)"</span>,
-       y = <span class='st'>"Fuel economy (mpg)"</span>,
-       colour = <span class='st'>"Gears"</span>)
+<span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars2</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>wt</span>, y <span class='op'>=</span> <span class='va'>mpg</span>, colour <span class='op'>=</span> <span class='va'>gear</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='labs.html'>labs</a></span><span class='op'>(</span>
+    title <span class='op'>=</span> <span class='st'>"Fuel economy declines as weight increases"</span>,
+    subtitle <span class='op'>=</span> <span class='st'>"(1973-74)"</span>,
+    caption <span class='op'>=</span> <span class='st'>"Data from the 1974 Motor Trend US magazine."</span>,
+    tag <span class='op'>=</span> <span class='st'>"Figure 1"</span>,
+    x <span class='op'>=</span> <span class='st'>"Weight (1000 lbs)"</span>,
+    y <span class='op'>=</span> <span class='st'>"Fuel economy (mpg)"</span>,
+    colour <span class='op'>=</span> <span class='st'>"Gears"</span>
+  <span class='op'>)</span>
 
-<span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_gray</a></span>() <span class='co'># the default</span></div><div class='img'><img src='ggtheme-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_bw</a></span>()</div><div class='img'><img src='ggtheme-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_linedraw</a></span>()</div><div class='img'><img src='ggtheme-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_light</a></span>()</div><div class='img'><img src='ggtheme-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_dark</a></span>()</div><div class='img'><img src='ggtheme-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span>()</div><div class='img'><img src='ggtheme-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_classic</a></span>()</div><div class='img'><img src='ggtheme-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_void</a></span>()</div><div class='img'><img src='ggtheme-8.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>p1</span> <span class='op'>+</span> <span class='fu'>theme_gray</span><span class='op'>(</span><span class='op'>)</span> <span class='co'># the default</span>
+</div><div class='img'><img src='ggtheme-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p1</span> <span class='op'>+</span> <span class='fu'>theme_bw</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='ggtheme-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p1</span> <span class='op'>+</span> <span class='fu'>theme_linedraw</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='ggtheme-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p1</span> <span class='op'>+</span> <span class='fu'>theme_light</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='ggtheme-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p1</span> <span class='op'>+</span> <span class='fu'>theme_dark</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='ggtheme-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p1</span> <span class='op'>+</span> <span class='fu'>theme_minimal</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='ggtheme-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p1</span> <span class='op'>+</span> <span class='fu'>theme_classic</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='ggtheme-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p1</span> <span class='op'>+</span> <span class='fu'>theme_void</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='ggtheme-8.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Theme examples with panels</span>
 <span class='co'># \donttest{</span>
-<span class='kw'>p2</span> <span class='op'>&lt;-</span> <span class='kw'>p1</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span>(<span class='kw'>vs</span> <span class='op'>~</span> <span class='kw'>am</span>)
+<span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='va'>p1</span> <span class='op'>+</span> <span class='fu'><a href='facet_grid.html'>facet_grid</a></span><span class='op'>(</span><span class='va'>vs</span> <span class='op'>~</span> <span class='va'>am</span><span class='op'>)</span>
 
-<span class='kw'>p2</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_gray</a></span>() <span class='co'># the default</span></div><div class='img'><img src='ggtheme-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p2</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_bw</a></span>()</div><div class='img'><img src='ggtheme-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p2</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_linedraw</a></span>()</div><div class='img'><img src='ggtheme-11.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p2</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_light</a></span>()</div><div class='img'><img src='ggtheme-12.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p2</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_dark</a></span>()</div><div class='img'><img src='ggtheme-13.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p2</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span>()</div><div class='img'><img src='ggtheme-14.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p2</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_classic</a></span>()</div><div class='img'><img src='ggtheme-15.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p2</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_void</a></span>()</div><div class='img'><img src='ggtheme-16.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span></div></pre>
+<span class='va'>p2</span> <span class='op'>+</span> <span class='fu'>theme_gray</span><span class='op'>(</span><span class='op'>)</span> <span class='co'># the default</span>
+</div><div class='img'><img src='ggtheme-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p2</span> <span class='op'>+</span> <span class='fu'>theme_bw</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='ggtheme-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p2</span> <span class='op'>+</span> <span class='fu'>theme_linedraw</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='ggtheme-11.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p2</span> <span class='op'>+</span> <span class='fu'>theme_light</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='ggtheme-12.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p2</span> <span class='op'>+</span> <span class='fu'>theme_dark</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='ggtheme-13.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p2</span> <span class='op'>+</span> <span class='fu'>theme_minimal</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='ggtheme-14.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p2</span> <span class='op'>+</span> <span class='fu'>theme_classic</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='ggtheme-15.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p2</span> <span class='op'>+</span> <span class='fu'>theme_void</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='ggtheme-16.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -70,6 +70,19 @@ expr() quotes a new expression locally. It
 is mostly useful to build new expressions around arguments
 captured with enquo() or enquos():
 expr(mean(!!enquo(arg), na.rm = TRUE)).
+as_name() transforms a quoted variable name
+into a string. Supplying something else than a quoted variable
+name is an error.
+That's unlike as_label() which also returns
+a single string but supports any kind of R object as input,
+including quoted function calls and vectors. Its purpose is to
+summarise that object into a single label. That label is often
+suitable as a default name.
+If you don't know what a quoted expression contains (for instance
+expressions captured with enquo() could be a variable
+name, a call to a function, or an unquoted constant), then use
+as_label(). If you know you have quoted a simple variable
+name, or would like to enforce this, use as_name().
 
 
 To learn more about tidy eval and how to use these tools, visit
@@ -120,12 +133,13 @@ section of Advanced R." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.4</span>
         </div>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
+        
         <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -175,25 +189,47 @@ section of Advanced R." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Developer</li>
+    <li>
       <a href="../articles/extending-ggplot2.html">Extending ggplot2</a>
     </li>
     <li>
       <a href="../articles/ggplot2-in-packages.html">Using ggplot2 in packages</a>
     </li>
     <li>
-      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+      <a href="../articles/profiling.html">Profiling Performance</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">FAQ</li>
+    <li>
+      <a href="../articles/articles/faq-axes.html">FAQ: Axes</a>
     </li>
     <li>
-      <a href="../articles/profiling.html">Profiling Performance</a>
+      <a href="../articles/articles/faq-faceting.html">FAQ: Faceting</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-customising.html">FAQ: Customising</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-annotation.html">FAQ: Annotation</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-reordering.html">FAQ: Reordering</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-bars.html">FAQ: Barplots</a>
     </li>
   </ul>
 </li>
-        <li>
+<li>
   <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -229,13 +265,26 @@ section of Advanced R." />
 character vector.</p></li>
 <li><p><code><a href='https://rlang.r-lib.org/reference/nse-defuse.html'>enquo</a>()</code> and
 <code><a href='https://rlang.r-lib.org/reference/nse-defuse.html'>enquos</a>()</code> delay the execution of one or
-several function arguments. <code><a href='https://ggplot2.tidyverse.org/reference/tidyeval.html'>enquo()</a></code> returns a single quoted
+several function arguments. <code>enquo()</code> returns a single quoted
 expression, which is like a blueprint for the delayed computation.
-<code><a href='https://ggplot2.tidyverse.org/reference/tidyeval.html'>enquos()</a></code> returns a list of such quoted expressions.</p></li>
+<code>enquos()</code> returns a list of such quoted expressions.</p></li>
 <li><p><code><a href='https://rlang.r-lib.org/reference/nse-defuse.html'>expr</a>()</code> quotes a new expression <em>locally</em>. It
 is mostly useful to build new expressions around arguments
-captured with <code><a href='https://ggplot2.tidyverse.org/reference/tidyeval.html'>enquo()</a></code> or <code><a href='https://ggplot2.tidyverse.org/reference/tidyeval.html'>enquos()</a></code>:
-<code><a href='https://ggplot2.tidyverse.org/reference/tidyeval.html'>expr(mean(!!enquo(arg), na.rm = TRUE))</a></code>.</p></li>
+captured with <code>enquo()</code> or <code>enquos()</code>:
+<code>expr(mean(!!enquo(arg), na.rm = TRUE))</code>.</p></li>
+<li><p><code><a href='https://rlang.r-lib.org/reference/as_name.html'>as_name</a>()</code> transforms a quoted variable name
+into a string. Supplying something else than a quoted variable
+name is an error.</p>
+<p>That's unlike <code><a href='https://rlang.r-lib.org/reference/as_label.html'>as_label</a>()</code> which also returns
+a single string but supports any kind of R object as input,
+including quoted function calls and vectors. Its purpose is to
+summarise that object into a single label. That label is often
+suitable as a default name.</p>
+<p>If you don't know what a quoted expression contains (for instance
+expressions captured with <code>enquo()</code> could be a variable
+name, a call to a function, or an unquoted constant), then use
+<code>as_label()</code>. If you know you have quoted a simple variable
+name, or would like to enforce this, use <code>as_name()</code>.</p></li>
 </ul>
 
 <p>To learn more about tidy eval and how to use these tools, visit

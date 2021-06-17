@@ -100,12 +100,13 @@
         <a class="navbar-brand" href="index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.4</span>
         </div>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
+        
         <li>
   <a href="reference/index.html">Reference</a>
 </li>
@@ -155,25 +156,47 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="articles/ggplot2-specs.html">Aesthetic specifications</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Developer</li>
+    <li>
       <a href="articles/extending-ggplot2.html">Extending ggplot2</a>
     </li>
     <li>
       <a href="articles/ggplot2-in-packages.html">Using ggplot2 in packages</a>
     </li>
     <li>
-      <a href="articles/ggplot2-specs.html">Aesthetic specifications</a>
+      <a href="articles/profiling.html">Profiling Performance</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">FAQ</li>
+    <li>
+      <a href="articles/articles/faq-axes.html">FAQ: Axes</a>
     </li>
     <li>
-      <a href="articles/profiling.html">Profiling Performance</a>
+      <a href="articles/articles/faq-faceting.html">FAQ: Faceting</a>
+    </li>
+    <li>
+      <a href="articles/articles/faq-customising.html">FAQ: Customising</a>
+    </li>
+    <li>
+      <a href="articles/articles/faq-annotation.html">FAQ: Annotation</a>
+    </li>
+    <li>
+      <a href="articles/articles/faq-reordering.html">FAQ: Reordering</a>
+    </li>
+    <li>
+      <a href="articles/articles/faq-bars.html">FAQ: Barplots</a>
     </li>
   </ul>
 </li>
-        <li>
+<li>
   <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -272,7 +295,7 @@ See http://docs.ggplot2.org/dev/vignettes/development.html for more details.
 </li>
 <li><p><strong>Use ggplot2 coding style</strong>. Please follow the <a href="http://style.tidyverse.org">official tidyverse style</a>. Maintaining a consistent style across the whole code base makes it much easier to jump into the code. If you’re modifying existing ggplot2 code that doesn’t follow the style guide, a separate pull request to fix the style would be greatly appreciated.</p></li>
 <li>
-<p>If you’re adding new parameters or a new function, you’ll also need to document them with <a href="https://github.com/klutometis/roxygen">roxygen</a>. Make sure to re-run <code><a href="https://devtools.r-lib.org//reference/document.html">devtools::document()</a></code> on the code before submitting.</p>
+<p>If you’re adding new parameters or a new function, you’ll also need to document them with <a href="https://github.com/klutometis/roxygen">roxygen</a>. Make sure to re-run <code>devtools::document()</code> on the code before submitting.</p>
 <p>Currently, ggplot2 uses the development version of roxygen2, which you can get with <code>install_github("klutometis/roxygen")</code>. This will be available on CRAN in the near future.</p>
 </li>
 <li><p>If fixing a bug or adding a new feature to a non-graphical function, please add a <a href="https://github.com/r-lib/testthat">testthat</a> unit test.</p></li>

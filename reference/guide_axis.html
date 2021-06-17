@@ -103,12 +103,13 @@ scale_(x|y)_discrete()." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.4</span>
         </div>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
+        
         <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -158,25 +159,47 @@ scale_(x|y)_discrete()." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Developer</li>
+    <li>
       <a href="../articles/extending-ggplot2.html">Extending ggplot2</a>
     </li>
     <li>
       <a href="../articles/ggplot2-in-packages.html">Using ggplot2 in packages</a>
     </li>
     <li>
-      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+      <a href="../articles/profiling.html">Profiling Performance</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">FAQ</li>
+    <li>
+      <a href="../articles/articles/faq-axes.html">FAQ: Axes</a>
     </li>
     <li>
-      <a href="../articles/profiling.html">Profiling Performance</a>
+      <a href="../articles/articles/faq-faceting.html">FAQ: Faceting</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-customising.html">FAQ: Customising</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-annotation.html">FAQ: Annotation</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-reordering.html">FAQ: Reordering</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-bars.html">FAQ: Barplots</a>
     </li>
   </ul>
 </li>
-        <li>
+<li>
   <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -206,18 +229,18 @@ scale_(x|y)_discrete()." />
 
     <div class="ref-description">
     <p>Axis guides are the visual representation of position scales like those
-created with <a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_(x|y)_continuous()</a> and
-<a href='https://ggplot2.tidyverse.org/reference/scale_discrete.html'>scale_(x|y)_discrete()</a>.</p>
+created with <a href='scale_continuous.html'>scale_(x|y)_continuous()</a> and
+<a href='scale_x_discrete.html'>scale_(x|y)_discrete()</a>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_axis.html'>guide_axis</a></span>(
-  title = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(),
-  check.overlap = <span class='fl'>FALSE</span>,
-  angle = <span class='kw'>NULL</span>,
-  n.dodge = <span class='fl'>1</span>,
-  order = <span class='fl'>0</span>,
-  position = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>()
-)</pre>
+    <pre class="usage"><span class='fu'>guide_axis</span><span class='op'>(</span>
+  title <span class='op'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span><span class='op'>(</span><span class='op'>)</span>,
+  check.overlap <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  angle <span class='op'>=</span> <span class='cn'>NULL</span>,
+  n.dodge <span class='op'>=</span> <span class='fl'>1</span>,
+  order <span class='op'>=</span> <span class='fl'>0</span>,
+  position <span class='op'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -226,8 +249,8 @@ created with <a href='https://ggplot2.tidyverse.org/reference/scale_continuous.h
       <th>title</th>
       <td><p>A character string or expression indicating a title of guide.
 If <code>NULL</code>, the title is not shown. By default
-(<code><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver()</a></code>), the name of the scale object or the name
-specified in <code><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs()</a></code> is used for the title.</p></td>
+(<code><a href='waiver.html'>waiver()</a></code>), the name of the scale object or the name
+specified in <code><a href='labs.html'>labs()</a></code> is used for the title.</p></td>
     </tr>
     <tr>
       <th>check.overlap</th>
@@ -236,7 +259,7 @@ specified in <code><a href='https://ggplot2.tidyverse.org/reference/labs.html'>l
     </tr>
     <tr>
       <th>angle</th>
-      <td><p>Compared to setting the angle in <code><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme()</a></code> / <code><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text()</a></code>,
+      <td><p>Compared to setting the angle in <code><a href='theme.html'>theme()</a></code> / <code><a href='margin.html'>element_text()</a></code>,
 this also uses some heuristics to automatically pick the <code>hjust</code> and <code>vjust</code> that
 you probably want.</p></td>
     </tr>
@@ -261,15 +284,19 @@ left, or right.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># plot with overlapping text</span>
-<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>cty</span> <span class='op'>*</span> <span class='fl'>100</span>, <span class='kw'>hwy</span> <span class='op'>*</span> <span class='fl'>100</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/vars.html'>vars</a></span>(<span class='kw'>class</span>))
+<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>cty</span> <span class='op'>*</span> <span class='fl'>100</span>, <span class='va'>hwy</span> <span class='op'>*</span> <span class='fl'>100</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='fu'><a href='vars.html'>vars</a></span><span class='op'>(</span><span class='va'>class</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># axis guides can be customized in the scale_* functions or</span>
 <span class='co'># using guides()</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_x_continuous</a></span>(guide = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_axis.html'>guide_axis</a></span>(n.dodge = <span class='fl'>2</span>))</div><div class='img'><img src='guide_axis-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides</a></span>(x = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_axis.html'>guide_axis</a></span>(angle = <span class='fl'>90</span>))</div><div class='img'><img src='guide_axis-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_continuous.html'>scale_x_continuous</a></span><span class='op'>(</span>guide <span class='op'>=</span> <span class='fu'>guide_axis</span><span class='op'>(</span>n.dodge <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='guide_axis-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'>guide_axis</span><span class='op'>(</span>angle <span class='op'>=</span> <span class='fl'>90</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='guide_axis-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># can also be used to add a duplicate guide</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides</a></span>(x = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_axis.html'>guide_axis</a></span>(n.dodge = <span class='fl'>2</span>), y.sec = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_axis.html'>guide_axis</a></span>())</div><div class='img'><img src='guide_axis-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'>guide_axis</span><span class='op'>(</span>n.dodge <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>, y.sec <span class='op'>=</span> <span class='fu'>guide_axis</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='guide_axis-3.png' alt='' width='700' height='433' /></div><div class='input'>
+
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

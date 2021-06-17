@@ -107,12 +107,13 @@ can have variable widths." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.4</span>
         </div>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
+        
         <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -162,25 +163,47 @@ can have variable widths." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Developer</li>
+    <li>
       <a href="../articles/extending-ggplot2.html">Extending ggplot2</a>
     </li>
     <li>
       <a href="../articles/ggplot2-in-packages.html">Using ggplot2 in packages</a>
     </li>
     <li>
-      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+      <a href="../articles/profiling.html">Profiling Performance</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">FAQ</li>
+    <li>
+      <a href="../articles/articles/faq-axes.html">FAQ: Axes</a>
     </li>
     <li>
-      <a href="../articles/profiling.html">Profiling Performance</a>
+      <a href="../articles/articles/faq-faceting.html">FAQ: Faceting</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-customising.html">FAQ: Customising</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-annotation.html">FAQ: Annotation</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-reordering.html">FAQ: Reordering</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-bars.html">FAQ: Barplots</a>
     </li>
   </ul>
 </li>
-        <li>
+<li>
   <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -210,22 +233,22 @@ can have variable widths." />
 
     <div class="ref-description">
     <p>Dodging preserves the vertical position of an geom while adjusting the
-horizontal position. <code><a href='https://ggplot2.tidyverse.org/reference/position_dodge.html'>position_dodge()</a></code> requires the grouping variable to be
-be specified in the global or <code>geom_*</code> layer. Unlike <code><a href='https://ggplot2.tidyverse.org/reference/position_dodge.html'>position_dodge()</a></code>,
-<code><a href='https://ggplot2.tidyverse.org/reference/position_dodge.html'>position_dodge2()</a></code> works without a grouping variable in a layer.
-<code><a href='https://ggplot2.tidyverse.org/reference/position_dodge.html'>position_dodge2()</a></code> works with bars and rectangles, but is
+horizontal position. <code>position_dodge()</code> requires the grouping variable to be
+be specified in the global or <code>geom_*</code> layer. Unlike <code>position_dodge()</code>,
+<code>position_dodge2()</code> works without a grouping variable in a layer.
+<code>position_dodge2()</code> works with bars and rectangles, but is
 particulary useful for arranging box plots, which
 can have variable widths.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/position_dodge.html'>position_dodge</a></span>(width = <span class='kw'>NULL</span>, preserve = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"total"</span>, <span class='st'>"single"</span>))
+    <pre class="usage"><span class='fu'>position_dodge</span><span class='op'>(</span>width <span class='op'>=</span> <span class='cn'>NULL</span>, preserve <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"total"</span>, <span class='st'>"single"</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/position_dodge.html'>position_dodge2</a></span>(
-  width = <span class='kw'>NULL</span>,
-  preserve = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"total"</span>, <span class='st'>"single"</span>),
-  padding = <span class='fl'>0.1</span>,
-  reverse = <span class='fl'>FALSE</span>
-)</pre>
+<span class='fu'>position_dodge2</span><span class='op'>(</span>
+  width <span class='op'>=</span> <span class='cn'>NULL</span>,
+  preserve <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"total"</span>, <span class='st'>"single"</span><span class='op'>)</span>,
+  padding <span class='op'>=</span> <span class='fl'>0.1</span>,
+  reverse <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -256,60 +279,77 @@ This is useful if you're rotating both the plot and legend.</p></td>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other position adjustments: 
-<code><a href='https://ggplot2.tidyverse.org/reference/position_identity.html'>position_identity</a>()</code>,
-<code><a href='https://ggplot2.tidyverse.org/reference/position_jitterdodge.html'>position_jitterdodge</a>()</code>,
-<code><a href='https://ggplot2.tidyverse.org/reference/position_jitter.html'>position_jitter</a>()</code>,
-<code><a href='https://ggplot2.tidyverse.org/reference/position_nudge.html'>position_nudge</a>()</code>,
-<code><a href='https://ggplot2.tidyverse.org/reference/position_stack.html'>position_stack</a>()</code></p></div>
+<code><a href='position_identity.html'>position_identity</a>()</code>,
+<code><a href='position_jitterdodge.html'>position_jitterdodge</a>()</code>,
+<code><a href='position_jitter.html'>position_jitter</a>()</code>,
+<code><a href='position_nudge.html'>position_nudge</a>()</code>,
+<code><a href='position_stack.html'>position_stack</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>), fill = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>vs</span>))) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span>(position = <span class='st'>"dodge2"</span>)</div><div class='img'><img src='position_dodge-1.png' alt='' width='700' height='433' /></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span>, fill <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>vs</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_bar.html'>geom_bar</a></span><span class='op'>(</span>position <span class='op'>=</span> <span class='st'>"dodge2"</span><span class='op'>)</span>
+</div><div class='img'><img src='position_dodge-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># By default, dodging with `position_dodge2()` preserves the total width of</span>
 <span class='co'># the elements. You can choose to preserve the width of each element with:</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>), fill = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>vs</span>))) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span>(position = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/position_dodge.html'>position_dodge2</a></span>(preserve = <span class='st'>"single"</span>))</div><div class='img'><img src='position_dodge-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span>, fill <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>vs</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_bar.html'>geom_bar</a></span><span class='op'>(</span>position <span class='op'>=</span> <span class='fu'>position_dodge2</span><span class='op'>(</span>preserve <span class='op'>=</span> <span class='st'>"single"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='position_dodge-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># \donttest{</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>price</span>, fill = <span class='kw'>cut</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span>(position=<span class='st'>"dodge2"</span>)</div><div class='output co'>#&gt; <span class='message'>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></div><div class='img'><img src='position_dodge-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># see ?geom_bar for more examples</span>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>price</span>, fill <span class='op'>=</span> <span class='va'>cut</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_freqpoly.html'>geom_histogram</a></span><span class='op'>(</span>position<span class='op'>=</span><span class='st'>"dodge2"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></div><div class='img'><img src='position_dodge-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># see ?geom_bar for more examples</span>
 
 <span class='co'># In this case a frequency polygon is probably a better choice</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>price</span>, colour = <span class='kw'>cut</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_freqpoly</a></span>()</div><div class='output co'>#&gt; <span class='message'>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></div><div class='img'><img src='position_dodge-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>price</span>, colour <span class='op'>=</span> <span class='va'>cut</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_freqpoly.html'>geom_freqpoly</a></span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></div><div class='img'><img src='position_dodge-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 
 <span class='co'># Dodging with various widths -------------------------------------</span>
 <span class='co'># To dodge items with different widths, you need to be explicit</span>
-<span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(x = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>,<span class='st'>"a"</span>,<span class='st'>"b"</span>,<span class='st'>"b"</span>), y = <span class='fl'>2</span><span class='op'>:</span><span class='fl'>5</span>, g = <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>, <span class='fl'>2</span>))
-<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>, group = <span class='kw'>g</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_col</a></span>(position = <span class='st'>"dodge"</span>, fill = <span class='st'>"grey50"</span>, colour = <span class='st'>"black"</span>)
-<span class='kw'>p</span></div><div class='img'><img src='position_dodge-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
+  x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span>,<span class='st'>"a"</span>,<span class='st'>"b"</span>,<span class='st'>"b"</span><span class='op'>)</span>,
+  y <span class='op'>=</span> <span class='fl'>2</span><span class='op'>:</span><span class='fl'>5</span>,
+  g <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>, <span class='fl'>2</span><span class='op'>)</span>
+<span class='op'>)</span>
+<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, group <span class='op'>=</span> <span class='va'>g</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_bar.html'>geom_col</a></span><span class='op'>(</span>position <span class='op'>=</span> <span class='st'>"dodge"</span>, fill <span class='op'>=</span> <span class='st'>"grey50"</span>, colour <span class='op'>=</span> <span class='st'>"black"</span><span class='op'>)</span>
+<span class='va'>p</span>
+</div><div class='img'><img src='position_dodge-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># A line range has no width:</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_linerange.html'>geom_linerange</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(ymin = <span class='kw'>y</span> <span class='op'>-</span> <span class='fl'>1</span>, ymax = <span class='kw'>y</span> <span class='op'>+</span> <span class='fl'>1</span>), position = <span class='st'>"dodge"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Width not defined. Set with `position_dodge(width = ?)`</span></div><div class='img'><img src='position_dodge-6.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_crossbar.html'>geom_linerange</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>ymin <span class='op'>=</span> <span class='va'>y</span> <span class='op'>-</span> <span class='fl'>1</span>, ymax <span class='op'>=</span> <span class='va'>y</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>)</span>, position <span class='op'>=</span> <span class='st'>"dodge"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Width not defined. Set with `position_dodge(width = ?)`</span></div><div class='img'><img src='position_dodge-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># So you must explicitly specify the width</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_linerange.html'>geom_linerange</a></span>(
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(ymin = <span class='kw'>y</span> <span class='op'>-</span> <span class='fl'>1</span>, ymax = <span class='kw'>y</span> <span class='op'>+</span> <span class='fl'>1</span>),
-  position = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/position_dodge.html'>position_dodge</a></span>(width = <span class='fl'>0.9</span>)
-)</div><div class='img'><img src='position_dodge-7.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_crossbar.html'>geom_linerange</a></span><span class='op'>(</span>
+  <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>ymin <span class='op'>=</span> <span class='va'>y</span> <span class='op'>-</span> <span class='fl'>1</span>, ymax <span class='op'>=</span> <span class='va'>y</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>)</span>,
+  position <span class='op'>=</span> <span class='fu'>position_dodge</span><span class='op'>(</span>width <span class='op'>=</span> <span class='fl'>0.9</span><span class='op'>)</span>
+<span class='op'>)</span>
+</div><div class='img'><img src='position_dodge-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># The same principle applies to error bars, which are usually</span>
 <span class='co'># narrower than the bars</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_linerange.html'>geom_errorbar</a></span>(
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(ymin = <span class='kw'>y</span> <span class='op'>-</span> <span class='fl'>1</span>, ymax = <span class='kw'>y</span> <span class='op'>+</span> <span class='fl'>1</span>),
-  width = <span class='fl'>0.2</span>,
-  position = <span class='st'>"dodge"</span>
-)</div><div class='img'><img src='position_dodge-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_linerange.html'>geom_errorbar</a></span>(
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(ymin = <span class='kw'>y</span> <span class='op'>-</span> <span class='fl'>1</span>, ymax = <span class='kw'>y</span> <span class='op'>+</span> <span class='fl'>1</span>),
-  width = <span class='fl'>0.2</span>,
-  position = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/position_dodge.html'>position_dodge</a></span>(width = <span class='fl'>0.9</span>)
-)</div><div class='img'><img src='position_dodge-9.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_crossbar.html'>geom_errorbar</a></span><span class='op'>(</span>
+  <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>ymin <span class='op'>=</span> <span class='va'>y</span> <span class='op'>-</span> <span class='fl'>1</span>, ymax <span class='op'>=</span> <span class='va'>y</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>)</span>,
+  width <span class='op'>=</span> <span class='fl'>0.2</span>,
+  position <span class='op'>=</span> <span class='st'>"dodge"</span>
+<span class='op'>)</span>
+</div><div class='img'><img src='position_dodge-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_crossbar.html'>geom_errorbar</a></span><span class='op'>(</span>
+  <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>ymin <span class='op'>=</span> <span class='va'>y</span> <span class='op'>-</span> <span class='fl'>1</span>, ymax <span class='op'>=</span> <span class='va'>y</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>)</span>,
+  width <span class='op'>=</span> <span class='fl'>0.2</span>,
+  position <span class='op'>=</span> <span class='fu'>position_dodge</span><span class='op'>(</span>width <span class='op'>=</span> <span class='fl'>0.9</span><span class='op'>)</span>
+<span class='op'>)</span>
+</div><div class='img'><img src='position_dodge-9.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Box plots use position_dodge2 by default, and bars can use it too</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(data = <span class='kw'>iris</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>Species</span>, <span class='kw'>Sepal.Length</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>geom_boxplot</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(colour = <span class='kw'>Sepal.Width</span> <span class='op'>&lt;</span> <span class='fl'>3.2</span>))</div><div class='img'><img src='position_dodge-10.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(data = <span class='kw'>iris</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>Species</span>, <span class='kw'>Sepal.Length</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>geom_boxplot</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(colour = <span class='kw'>Sepal.Width</span> <span class='op'>&lt;</span> <span class='fl'>3.2</span>), varwidth = <span class='fl'>TRUE</span>)</div><div class='img'><img src='position_dodge-11.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>), fill = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>vs</span>))) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span>(position = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/position_dodge.html'>position_dodge2</a></span>(preserve = <span class='st'>"single"</span>))</div><div class='img'><img src='position_dodge-12.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>), fill = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>vs</span>))) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span>(position = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/position_dodge.html'>position_dodge2</a></span>(preserve = <span class='st'>"total"</span>))</div><div class='img'><img src='position_dodge-13.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>year</span><span class='op'>)</span>, <span class='va'>displ</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_boxplot.html'>geom_boxplot</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='va'>hwy</span> <span class='op'>&lt;</span> <span class='fl'>30</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='position_dodge-10.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>year</span><span class='op'>)</span>, <span class='va'>displ</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_boxplot.html'>geom_boxplot</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='va'>hwy</span> <span class='op'>&lt;</span> <span class='fl'>30</span><span class='op'>)</span>, varwidth <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='img'><img src='position_dodge-11.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span>, fill <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>vs</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_bar.html'>geom_bar</a></span><span class='op'>(</span>position <span class='op'>=</span> <span class='fu'>position_dodge2</span><span class='op'>(</span>preserve <span class='op'>=</span> <span class='st'>"single"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='position_dodge-12.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span>, fill <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>vs</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_bar.html'>geom_bar</a></span><span class='op'>(</span>position <span class='op'>=</span> <span class='fu'>position_dodge2</span><span class='op'>(</span>preserve <span class='op'>=</span> <span class='st'>"total"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='position_dodge-13.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

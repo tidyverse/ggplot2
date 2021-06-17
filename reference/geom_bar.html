@@ -107,12 +107,13 @@ uses stat_identity(): it leaves the data as is." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.4</span>
         </div>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
+        
         <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -162,25 +163,47 @@ uses stat_identity(): it leaves the data as is." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Developer</li>
+    <li>
       <a href="../articles/extending-ggplot2.html">Extending ggplot2</a>
     </li>
     <li>
       <a href="../articles/ggplot2-in-packages.html">Using ggplot2 in packages</a>
     </li>
     <li>
-      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+      <a href="../articles/profiling.html">Profiling Performance</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">FAQ</li>
+    <li>
+      <a href="../articles/articles/faq-axes.html">FAQ: Axes</a>
     </li>
     <li>
-      <a href="../articles/profiling.html">Profiling Performance</a>
+      <a href="../articles/articles/faq-faceting.html">FAQ: Faceting</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-customising.html">FAQ: Customising</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-annotation.html">FAQ: Annotation</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-reordering.html">FAQ: Reordering</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-bars.html">FAQ: Barplots</a>
     </li>
   </ul>
 </li>
-        <li>
+<li>
   <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -209,59 +232,59 @@ uses stat_identity(): it leaves the data as is." />
     </div>
 
     <div class="ref-description">
-    <p>There are two types of bar charts: <code><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar()</a></code> and <code><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_col()</a></code>.
-<code><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar()</a></code> makes the height of the bar proportional to the number of
+    <p>There are two types of bar charts: <code>geom_bar()</code> and <code>geom_col()</code>.
+<code>geom_bar()</code> makes the height of the bar proportional to the number of
 cases in each group (or if the <code>weight</code> aesthetic is supplied, the sum
 of the weights). If you want the heights of the bars to represent values
-in the data, use <code><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_col()</a></code> instead. <code><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar()</a></code> uses <code><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>stat_count()</a></code> by
-default: it counts the number of cases at each x position. <code><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_col()</a></code>
-uses <code><a href='https://ggplot2.tidyverse.org/reference/stat_identity.html'>stat_identity()</a></code>: it leaves the data as is.</p>
+in the data, use <code>geom_col()</code> instead. <code>geom_bar()</code> uses <code>stat_count()</code> by
+default: it counts the number of cases at each x position. <code>geom_col()</code>
+uses <code><a href='stat_identity.html'>stat_identity()</a></code>: it leaves the data as is.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span>(
-  mapping = <span class='kw'>NULL</span>,
-  data = <span class='kw'>NULL</span>,
-  stat = <span class='st'>"count"</span>,
-  position = <span class='st'>"stack"</span>,
-  <span class='kw'>...</span>,
-  width = <span class='kw'>NULL</span>,
-  na.rm = <span class='fl'>FALSE</span>,
-  orientation = <span class='fl'>NA</span>,
-  show.legend = <span class='fl'>NA</span>,
-  inherit.aes = <span class='fl'>TRUE</span>
-)
+    <pre class="usage"><span class='fu'>geom_bar</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  stat <span class='op'>=</span> <span class='st'>"count"</span>,
+  position <span class='op'>=</span> <span class='st'>"stack"</span>,
+  <span class='va'>...</span>,
+  width <span class='op'>=</span> <span class='cn'>NULL</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  orientation <span class='op'>=</span> <span class='cn'>NA</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
+  inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span>
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_col</a></span>(
-  mapping = <span class='kw'>NULL</span>,
-  data = <span class='kw'>NULL</span>,
-  position = <span class='st'>"stack"</span>,
-  <span class='kw'>...</span>,
-  width = <span class='kw'>NULL</span>,
-  na.rm = <span class='fl'>FALSE</span>,
-  show.legend = <span class='fl'>NA</span>,
-  inherit.aes = <span class='fl'>TRUE</span>
-)
+<span class='fu'>geom_col</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  position <span class='op'>=</span> <span class='st'>"stack"</span>,
+  <span class='va'>...</span>,
+  width <span class='op'>=</span> <span class='cn'>NULL</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
+  inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span>
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>stat_count</a></span>(
-  mapping = <span class='kw'>NULL</span>,
-  data = <span class='kw'>NULL</span>,
-  geom = <span class='st'>"bar"</span>,
-  position = <span class='st'>"stack"</span>,
-  <span class='kw'>...</span>,
-  width = <span class='kw'>NULL</span>,
-  na.rm = <span class='fl'>FALSE</span>,
-  orientation = <span class='fl'>NA</span>,
-  show.legend = <span class='fl'>NA</span>,
-  inherit.aes = <span class='fl'>TRUE</span>
-)</pre>
+<span class='fu'>stat_count</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  geom <span class='op'>=</span> <span class='st'>"bar"</span>,
+  position <span class='op'>=</span> <span class='st'>"stack"</span>,
+  <span class='va'>...</span>,
+  width <span class='op'>=</span> <span class='cn'>NULL</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  orientation <span class='op'>=</span> <span class='cn'>NA</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
+  inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>mapping</th>
-      <td><p>Set of aesthetic mappings created by <code><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes()</a></code> or
-<code><a href='https://ggplot2.tidyverse.org/reference/aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
+      <td><p>Set of aesthetic mappings created by <code><a href='aes.html'>aes()</a></code> or
+<code><a href='aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
     </tr>
@@ -270,10 +293,10 @@ plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
       <td><p>The data to be displayed in this layer. There are three
 options:</p>
 <p>If <code>NULL</code>, the default, the data is inherited from the plot
-data as specified in the call to <code><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot()</a></code>.</p>
+data as specified in the call to <code><a href='ggplot.html'>ggplot()</a></code>.</p>
 <p>A <code>data.frame</code>, or other object, will override the plot
 data. All objects will be fortified to produce a data frame. See
-<code><a href='https://ggplot2.tidyverse.org/reference/fortify.html'>fortify()</a></code> for which variables will be created.</p>
+<code><a href='fortify.html'>fortify()</a></code> for which variables will be created.</p>
 <p>A <code>function</code> will be called with a single argument,
 the plot data. The return value must be a <code>data.frame</code>, and
 will be used as the layer data. A <code>function</code> can be created
@@ -286,7 +309,7 @@ a call to a position adjustment function.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Other arguments passed on to <code><a href='https://ggplot2.tidyverse.org/reference/layer.html'>layer()</a></code>. These are
+      <td><p>Other arguments passed on to <code><a href='layer.html'>layer()</a></code>. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 <code>colour = "red"</code> or <code>size = 3</code>. They may also be parameters
 to the paired geom/stat.</p></td>
@@ -320,12 +343,12 @@ display.</p></td>
       <td><p>If <code>FALSE</code>, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. <code><a href='https://ggplot2.tidyverse.org/reference/borders.html'>borders()</a></code>.</p></td>
+the default plot specification, e.g. <code><a href='borders.html'>borders()</a></code>.</p></td>
     </tr>
     <tr>
       <th>geom, stat</th>
-      <td><p>Override the default connection between <code><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar()</a></code> and
-<code><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>stat_count()</a></code>.</p></td>
+      <td><p>Override the default connection between <code>geom_bar()</code> and
+<code>stat_count()</code>.</p></td>
     </tr>
     </table>
 
@@ -336,14 +359,14 @@ bar must always be shown to produce a valid visual comparison.
 Proceed with caution when using transformed scales with a bar chart.
 It's important to always use a meaningful reference point for the base of the bar.
 For example, for log transformations the reference point is 1. In fact, when
-using a log scale, <code><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar()</a></code> automatically places the base of the bar at 1.
+using a log scale, <code>geom_bar()</code> automatically places the base of the bar at 1.
 Furthermore, never use stacked bars with a transformed scale, because scaling
 happens before stacking. As a consequence, the height of bars will be wrong
 when stacking occurs with a transformed scale.</p>
 <p>By default, multiple bars occupying the same <code>x</code> position will be stacked
-atop one another by <code><a href='https://ggplot2.tidyverse.org/reference/position_stack.html'>position_stack()</a></code>. If you want them to be dodged
-side-to-side, use <code><a href='https://ggplot2.tidyverse.org/reference/position_dodge.html'>position_dodge()</a></code> or <code><a href='https://ggplot2.tidyverse.org/reference/position_dodge.html'>position_dodge2()</a></code>. Finally,
-<code><a href='https://ggplot2.tidyverse.org/reference/position_stack.html'>position_fill()</a></code> shows relative proportions at each <code>x</code> by stacking the
+atop one another by <code><a href='position_stack.html'>position_stack()</a></code>. If you want them to be dodged
+side-to-side, use <code><a href='position_dodge.html'>position_dodge()</a></code> or <code><a href='position_dodge.html'>position_dodge2()</a></code>. Finally,
+<code><a href='position_stack.html'>position_fill()</a></code> shows relative proportions at each <code>x</code> by stacking the
 bars and then standardising each bar to have the same height.</p>
     <h2 class="hasAnchor" id="orientation"><a class="anchor" href="#orientation"></a>Orientation</h2>
 
@@ -354,7 +377,7 @@ bars and then standardising each bar to have the same height.</p>
 
     
 
-<p><code><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar()</a></code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
+<p><code>geom_bar()</code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
 <li><p><strong><code>x</code></strong></p></li>
 <li><p><strong><code>y</code></strong></p></li>
 <li><p><code>alpha</code></p></li>
@@ -363,9 +386,9 @@ bars and then standardising each bar to have the same height.</p>
 <li><p><code>group</code></p></li>
 <li><p><code>linetype</code></p></li>
 <li><p><code>size</code></p></li>
-</ul><p>Learn more about setting these aesthetics in <code>vignette("ggplot2-specs")</code>.</p>
+</ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
 
-<p><code><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_col()</a></code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
+<p><code>geom_col()</code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
 <li><p><strong><code>x</code></strong></p></li>
 <li><p><strong><code>y</code></strong></p></li>
 <li><p><code>alpha</code></p></li>
@@ -374,13 +397,13 @@ bars and then standardising each bar to have the same height.</p>
 <li><p><code>group</code></p></li>
 <li><p><code>linetype</code></p></li>
 <li><p><code>size</code></p></li>
-</ul><p>Learn more about setting these aesthetics in <code>vignette("ggplot2-specs")</code>.</p>
+</ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
 
-<p><code><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>stat_count()</a></code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
+<p><code>stat_count()</code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
 <li><p><strong><code>x</code> <em>or</em> <code>y</code></strong></p></li>
 <li><p><code>group</code></p></li>
 <li><p><code>weight</code></p></li>
-</ul><p>Learn more about setting these aesthetics in <code>vignette("ggplot2-specs")</code>.</p>
+</ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
     <h2 class="hasAnchor" id="computed-variables"><a class="anchor" href="#computed-variables"></a>Computed variables</h2>
 
     
@@ -393,44 +416,53 @@ bars and then standardising each bar to have the same height.</p>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram()</a></code> for continuous data,
-<code><a href='https://ggplot2.tidyverse.org/reference/position_dodge.html'>position_dodge()</a></code> and <code><a href='https://ggplot2.tidyverse.org/reference/position_dodge.html'>position_dodge2()</a></code> for creating side-by-side
+    <div class='dont-index'><p><code><a href='geom_freqpoly.html'>geom_histogram()</a></code> for continuous data,
+<code><a href='position_dodge.html'>position_dodge()</a></code> and <code><a href='position_dodge.html'>position_dodge2()</a></code> for creating side-by-side
 bar charts.</p>
-<p><code><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>stat_bin()</a></code>, which bins data in ranges and counts the
-cases in each range. It differs from <code>stat_count</code>, which counts the
+<p><code><a href='geom_freqpoly.html'>stat_bin()</a></code>, which bins data in ranges and counts the
+cases in each range. It differs from <code>stat_count()</code>, which counts the
 number of cases at each <code>x</code> position (without binning into ranges).
-<code><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>stat_bin()</a></code> requires continuous <code>x</code> data, whereas
-<code>stat_count</code> can be used for both discrete and continuous <code>x</code> data.</p></div>
+<code><a href='geom_freqpoly.html'>stat_bin()</a></code> requires continuous <code>x</code> data, whereas
+<code>stat_count()</code> can be used for both discrete and continuous <code>x</code> data.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># geom_bar is designed to make it easy to create bar charts that show</span>
 <span class='co'># counts (or sums of weights)</span>
-<span class='kw'>g</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>class</span>))
+<span class='va'>g</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>class</span><span class='op'>)</span><span class='op'>)</span>
 <span class='co'># Number of cars in each class:</span>
-<span class='kw'>g</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span>()</div><div class='img'><img src='geom_bar-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Total engine displacement of each class</span>
-<span class='kw'>g</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(weight = <span class='kw'>displ</span>))</div><div class='img'><img src='geom_bar-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Map class to y instead to flip the orientation</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(y = <span class='kw'>class</span>))</div><div class='img'><img src='geom_bar-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>g</span> <span class='op'>+</span> <span class='fu'>geom_bar</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='geom_bar-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Total engine displacement of each class</span>
+<span class='va'>g</span> <span class='op'>+</span> <span class='fu'>geom_bar</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>displ</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='geom_bar-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Map class to y instead to flip the orientation</span>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>geom_bar</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>class</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='geom_bar-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Bar charts are automatically stacked when multiple bars are placed</span>
 <span class='co'># at the same location. The order of the fill is designed to match</span>
 <span class='co'># the legend</span>
-<span class='kw'>g</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(fill = <span class='kw'>drv</span>))</div><div class='img'><img src='geom_bar-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>g</span> <span class='op'>+</span> <span class='fu'>geom_bar</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>drv</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='geom_bar-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># If you need to flip the order (because you've flipped the orientation)</span>
 <span class='co'># call position_stack() explicitly:</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(y = <span class='kw'>class</span>)) <span class='op'>+</span>
- <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(fill = <span class='kw'>drv</span>), position = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/position_stack.html'>position_stack</a></span>(reverse = <span class='fl'>TRUE</span>)) <span class='op'>+</span>
- <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span>(legend.position = <span class='st'>"top"</span>)</div><div class='img'><img src='geom_bar-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>class</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+ <span class='fu'>geom_bar</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>drv</span><span class='op'>)</span>, position <span class='op'>=</span> <span class='fu'><a href='position_stack.html'>position_stack</a></span><span class='op'>(</span>reverse <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+ <span class='fu'><a href='theme.html'>theme</a></span><span class='op'>(</span>legend.position <span class='op'>=</span> <span class='st'>"top"</span><span class='op'>)</span>
+</div><div class='img'><img src='geom_bar-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># To show (e.g.) means, you need geom_col()</span>
-<span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(trt = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"c"</span>), outcome = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2.3</span>, <span class='fl'>1.9</span>, <span class='fl'>3.2</span>))
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>trt</span>, <span class='kw'>outcome</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_col</a></span>()</div><div class='img'><img src='geom_bar-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># But geom_point() displays exactly the same information and doesn't</span>
+<span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>trt <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"c"</span><span class='op'>)</span>, outcome <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2.3</span>, <span class='fl'>1.9</span>, <span class='fl'>3.2</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>trt</span>, <span class='va'>outcome</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_col</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='geom_bar-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># But geom_point() displays exactly the same information and doesn't</span>
 <span class='co'># require the y-axis to touch zero.</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>trt</span>, <span class='kw'>outcome</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>()</div><div class='img'><img src='geom_bar-7.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>trt</span>, <span class='va'>outcome</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='geom_bar-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can also use geom_bar() with continuous data, in which case</span>
 <span class='co'># it will show counts at unique locations</span>
-<span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(x = <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2.9</span>, <span class='fl'>3.1</span>, <span class='fl'>4.5</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>, <span class='fl'>10</span>, <span class='fl'>4</span>)))
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span>()</div><div class='img'><img src='geom_bar-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># cf. a histogram of the same data</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span>(binwidth = <span class='fl'>0.5</span>)</div><div class='img'><img src='geom_bar-9.png' alt='' width='700' height='433' /></div></pre>
+<span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2.9</span>, <span class='fl'>3.1</span>, <span class='fl'>4.5</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>, <span class='fl'>10</span>, <span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>geom_bar</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='geom_bar-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># cf. a histogram of the same data</span>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_freqpoly.html'>geom_histogram</a></span><span class='op'>(</span>binwidth <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span>
+</div><div class='img'><img src='geom_bar-9.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

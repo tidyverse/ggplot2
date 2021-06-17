@@ -103,12 +103,13 @@ statistics which display y conditional on x, to x conditional on y." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.4</span>
         </div>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
+        
         <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -158,25 +159,47 @@ statistics which display y conditional on x, to x conditional on y." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Developer</li>
+    <li>
       <a href="../articles/extending-ggplot2.html">Extending ggplot2</a>
     </li>
     <li>
       <a href="../articles/ggplot2-in-packages.html">Using ggplot2 in packages</a>
     </li>
     <li>
-      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+      <a href="../articles/profiling.html">Profiling Performance</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">FAQ</li>
+    <li>
+      <a href="../articles/articles/faq-axes.html">FAQ: Axes</a>
     </li>
     <li>
-      <a href="../articles/profiling.html">Profiling Performance</a>
+      <a href="../articles/articles/faq-faceting.html">FAQ: Faceting</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-customising.html">FAQ: Customising</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-annotation.html">FAQ: Annotation</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-reordering.html">FAQ: Reordering</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-bars.html">FAQ: Barplots</a>
     </li>
   </ul>
 </li>
-        <li>
+<li>
   <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -210,7 +233,7 @@ vertical, horizontal. This is primarily useful for converting geoms and
 statistics which display y conditional on x, to x conditional on y.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_flip.html'>coord_flip</a></span>(xlim = <span class='kw'>NULL</span>, ylim = <span class='kw'>NULL</span>, expand = <span class='fl'>TRUE</span>, clip = <span class='st'>"on"</span>)</pre>
+    <pre class="usage"><span class='fu'>coord_flip</span><span class='op'>(</span>xlim <span class='op'>=</span> <span class='cn'>NULL</span>, ylim <span class='op'>=</span> <span class='cn'>NULL</span>, expand <span class='op'>=</span> <span class='cn'>TRUE</span>, clip <span class='op'>=</span> <span class='st'>"on"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -247,16 +270,22 @@ legend, the plot title, or the plot margins.</p></td>
     <pre class="examples"><div class='input'><span class='co'># Very useful for creating boxplots, and other interval</span>
 <span class='co'># geoms in the horizontal instead of vertical position.</span>
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>cut</span>, <span class='kw'>price</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>geom_boxplot</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_flip.html'>coord_flip</a></span>()</div><div class='img'><img src='coord_flip-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>h</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>carat</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span>()
-<span class='kw'>h</span></div><div class='output co'>#&gt; <span class='message'>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></div><div class='img'><img src='coord_flip-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>h</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_flip.html'>coord_flip</a></span>()</div><div class='output co'>#&gt; <span class='message'>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></div><div class='img'><img src='coord_flip-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>h</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_flip.html'>coord_flip</a></span>() <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_x_reverse</a></span>()</div><div class='output co'>#&gt; <span class='message'>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></div><div class='img'><img src='coord_flip-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>cut</span>, <span class='va'>price</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_boxplot.html'>geom_boxplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>coord_flip</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='coord_flip-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>h</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>carat</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_freqpoly.html'>geom_histogram</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>h</span>
+</div><div class='output co'>#&gt; <span class='message'>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></div><div class='img'><img src='coord_flip-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>h</span> <span class='op'>+</span> <span class='fu'>coord_flip</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></div><div class='img'><img src='coord_flip-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>h</span> <span class='op'>+</span> <span class='fu'>coord_flip</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='scale_continuous.html'>scale_x_reverse</a></span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></div><div class='img'><img src='coord_flip-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can also use it to flip line and area plots:</span>
-<span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(x = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, y = (<span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>) <span class='op'>^</span> <span class='fl'>2</span>)
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_ribbon.html'>geom_area</a></span>()</div><div class='img'><img src='coord_flip-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/last_plot.html'>last_plot</a></span>() <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_flip.html'>coord_flip</a></span>()</div><div class='img'><img src='coord_flip-6.png' alt='' width='700' height='433' /></div></pre>
+<span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, y <span class='op'>=</span> <span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span> <span class='op'>^</span> <span class='fl'>2</span><span class='op'>)</span>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_ribbon.html'>geom_area</a></span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='coord_flip-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='last_plot.html'>last_plot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>coord_flip</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='coord_flip-6.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

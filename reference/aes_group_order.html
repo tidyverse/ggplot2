@@ -105,12 +105,13 @@ for each group." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.4</span>
         </div>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
+        
         <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -160,25 +161,47 @@ for each group." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Developer</li>
+    <li>
       <a href="../articles/extending-ggplot2.html">Extending ggplot2</a>
     </li>
     <li>
       <a href="../articles/ggplot2-in-packages.html">Using ggplot2 in packages</a>
     </li>
     <li>
-      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+      <a href="../articles/profiling.html">Profiling Performance</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">FAQ</li>
+    <li>
+      <a href="../articles/articles/faq-axes.html">FAQ: Axes</a>
     </li>
     <li>
-      <a href="../articles/profiling.html">Profiling Performance</a>
+      <a href="../articles/articles/faq-faceting.html">FAQ: Faceting</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-customising.html">FAQ: Customising</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-annotation.html">FAQ: Annotation</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-reordering.html">FAQ: Reordering</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-bars.html">FAQ: Barplots</a>
     </li>
   </ul>
 </li>
-        <li>
+<li>
   <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -229,8 +252,8 @@ measured on nine occasions (Occasion).</p>
 
     <div class='dont-index'>
 <ul>
-<li><p>Geoms commonly used with groups: <code><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar()</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram()</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line()</a></code></p></li>
-<li><p>Run <code>vignette("ggplot2-specs")</code> to see an overview of other aesthestics that
+<li><p>Geoms commonly used with groups: <code><a href='geom_bar.html'>geom_bar()</a></code>, <code><a href='geom_freqpoly.html'>geom_histogram()</a></code>, <code><a href='geom_path.html'>geom_line()</a></code></p></li>
+<li><p>Run <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code> to see an overview of other aesthestics that
 can be modified.</p></li>
 </ul>
 </div>
@@ -238,42 +261,56 @@ can be modified.</p></li>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
 
-<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>wt</span>, <span class='kw'>mpg</span>))
+<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>wt</span>, <span class='va'>mpg</span><span class='op'>)</span><span class='op'>)</span>
 <span class='co'># A basic scatter plot</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(size = <span class='fl'>4</span>)</div><div class='img'><img src='aes_group_order-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Using the colour aesthetic</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(colour = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>)), size = <span class='fl'>4</span>)</div><div class='img'><img src='aes_group_order-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Using the shape aesthetic</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(shape = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>)), size = <span class='fl'>4</span>)</div><div class='img'><img src='aes_group_order-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span>
+</div><div class='img'><img src='aes_group_order-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Using the colour aesthetic</span>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span><span class='op'>)</span>, size <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span>
+</div><div class='img'><img src='aes_group_order-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Using the shape aesthetic</span>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>shape <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span><span class='op'>)</span>, size <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span>
+</div><div class='img'><img src='aes_group_order-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Using fill</span>
-<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>)))
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span>()</div><div class='img'><img src='aes_group_order-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(fill = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>)))</div><div class='img'><img src='aes_group_order-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(fill = <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>vs</span>)))</div><div class='img'><img src='aes_group_order-6.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_bar.html'>geom_bar</a></span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='aes_group_order-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_bar.html'>geom_bar</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='aes_group_order-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_bar.html'>geom_bar</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>vs</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='aes_group_order-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Using linetypes</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>economics_long</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>date</span>, <span class='kw'>value01</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(linetype = <span class='kw'>variable</span>))</div><div class='img'><img src='aes_group_order-7.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>economics_long</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>value01</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>linetype <span class='op'>=</span> <span class='va'>variable</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='aes_group_order-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Multiple groups with one aesthetic</span>
-<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>nlme</span>::<span class='kw'><a href='https://rdrr.io/pkg/nlme/man/Oxboys.html'>Oxboys</a></span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>age</span>, <span class='kw'>height</span>))
+<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'>nlme</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/nlme/man/Oxboys.html'>Oxboys</a></span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>age</span>, <span class='va'>height</span><span class='op'>)</span><span class='op'>)</span>
 <span class='co'># The default is not sufficient here. A single line tries to connect all</span>
 <span class='co'># the observations.</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span>()</div><div class='img'><img src='aes_group_order-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># To fix this, use the group aesthetic to map a different line for each</span>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='aes_group_order-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># To fix this, use the group aesthetic to map a different line for each</span>
 <span class='co'># subject.</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(group = <span class='kw'>Subject</span>))</div><div class='img'><img src='aes_group_order-9.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>group <span class='op'>=</span> <span class='va'>Subject</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='aes_group_order-9.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Different groups on different layers</span>
-<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(group = <span class='kw'>Subject</span>))
+<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>group <span class='op'>=</span> <span class='va'>Subject</span><span class='op'>)</span><span class='op'>)</span>
 <span class='co'># Using the group aesthetic with both geom_line() and geom_smooth()</span>
 <span class='co'># groups the data the same way for both layers</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(group = <span class='kw'>Subject</span>), method = <span class='st'>"lm"</span>, se = <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using formula 'y ~ x'</span></div><div class='img'><img src='aes_group_order-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Changing the group aesthetic for the smoother layer</span>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>group <span class='op'>=</span> <span class='va'>Subject</span><span class='op'>)</span>, method <span class='op'>=</span> <span class='st'>"lm"</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using formula 'y ~ x'</span></div><div class='img'><img src='aes_group_order-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Changing the group aesthetic for the smoother layer</span>
 <span class='co'># fits a single line of best fit across all boys</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(group = <span class='fl'>1</span>), size = <span class='fl'>2</span>, method = <span class='st'>"lm"</span>, se = <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using formula 'y ~ x'</span></div><div class='img'><img src='aes_group_order-11.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>group <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>, size <span class='op'>=</span> <span class='fl'>2</span>, method <span class='op'>=</span> <span class='st'>"lm"</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using formula 'y ~ x'</span></div><div class='img'><img src='aes_group_order-11.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Overriding the default grouping</span>
 <span class='co'># Sometimes the plot has a discrete scale but you want to draw lines</span>
 <span class='co'># that connect across groups. This is the strategy used in interaction</span>
 <span class='co'># plots, profile plots, and parallel coordinate plots, among others.</span>
 <span class='co'># For example, we draw boxplots of height at each measurement occasion.</span>
-<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>nlme</span>::<span class='kw'><a href='https://rdrr.io/pkg/nlme/man/Oxboys.html'>Oxboys</a></span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>Occasion</span>, <span class='kw'>height</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>geom_boxplot</a></span>()
-<span class='kw'>p</span></div><div class='img'><img src='aes_group_order-12.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># There is no need to specify the group aesthetic here; the default grouping</span>
+<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'>nlme</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/nlme/man/Oxboys.html'>Oxboys</a></span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>Occasion</span>, <span class='va'>height</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_boxplot.html'>geom_boxplot</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>p</span>
+</div><div class='img'><img src='aes_group_order-12.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># There is no need to specify the group aesthetic here; the default grouping</span>
 <span class='co'># works because occasion is a discrete variable. To overlay individual</span>
 <span class='co'># trajectories, we again need to override the default grouping for that layer</span>
 <span class='co'># with aes(group = Subject)</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(group = <span class='kw'>Subject</span>), colour = <span class='st'>"blue"</span>)</div><div class='img'><img src='aes_group_order-13.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span></div></pre>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>group <span class='op'>=</span> <span class='va'>Subject</span><span class='op'>)</span>, colour <span class='op'>=</span> <span class='st'>"blue"</span><span class='op'>)</span>
+</div><div class='img'><img src='aes_group_order-13.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

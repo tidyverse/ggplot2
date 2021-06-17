@@ -104,12 +104,13 @@ change the underlying data like setting limits on a scale will." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.4</span>
         </div>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
+        
         <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -159,25 +160,47 @@ change the underlying data like setting limits on a scale will." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Developer</li>
+    <li>
       <a href="../articles/extending-ggplot2.html">Extending ggplot2</a>
     </li>
     <li>
       <a href="../articles/ggplot2-in-packages.html">Using ggplot2 in packages</a>
     </li>
     <li>
-      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+      <a href="../articles/profiling.html">Profiling Performance</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">FAQ</li>
+    <li>
+      <a href="../articles/articles/faq-axes.html">FAQ: Axes</a>
     </li>
     <li>
-      <a href="../articles/profiling.html">Profiling Performance</a>
+      <a href="../articles/articles/faq-faceting.html">FAQ: Faceting</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-customising.html">FAQ: Customising</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-annotation.html">FAQ: Annotation</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-reordering.html">FAQ: Reordering</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-bars.html">FAQ: Barplots</a>
     </li>
   </ul>
 </li>
-        <li>
+<li>
   <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -212,13 +235,13 @@ plot (like you're looking at it with a magnifying glass), and will not
 change the underlying data like setting limits on a scale will.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_cartesian.html'>coord_cartesian</a></span>(
-  xlim = <span class='kw'>NULL</span>,
-  ylim = <span class='kw'>NULL</span>,
-  expand = <span class='fl'>TRUE</span>,
-  default = <span class='fl'>FALSE</span>,
-  clip = <span class='st'>"on"</span>
-)</pre>
+    <pre class="usage"><span class='fu'>coord_cartesian</span><span class='op'>(</span>
+  xlim <span class='op'>=</span> <span class='cn'>NULL</span>,
+  ylim <span class='op'>=</span> <span class='cn'>NULL</span>,
+  expand <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  default <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  clip <span class='op'>=</span> <span class='st'>"on"</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -258,32 +281,40 @@ legend, the plot title, or the plot margins.</p></td>
     <pre class="examples"><div class='input'><span class='co'># There are two ways of zooming the plot display: with scales or</span>
 <span class='co'># with coordinate systems.  They work in two rather different ways.</span>
 
-<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>disp</span>, <span class='kw'>wt</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span>()
-<span class='kw'>p</span></div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='coord_cartesian-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>disp</span>, <span class='va'>wt</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>p</span>
+</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='coord_cartesian-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Setting the limits on a scale converts all values outside the range to NA.</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_x_continuous</a></span>(limits = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>325</span>, <span class='fl'>500</span>))</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 24 rows containing non-finite values (stat_smooth).</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 24 rows containing missing values (geom_point).</span></div><div class='img'><img src='coord_cartesian-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_continuous.html'>scale_x_continuous</a></span><span class='op'>(</span>limits <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>325</span>, <span class='fl'>500</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 24 rows containing non-finite values (stat_smooth).</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 24 rows containing missing values (geom_point).</span></div><div class='img'><img src='coord_cartesian-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Setting the limits on the coordinate system performs a visual zoom.</span>
 <span class='co'># The data is unchanged, and we just view a small portion of the original</span>
 <span class='co'># plot. Note how smooth continues past the points visible on this plot.</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_cartesian.html'>coord_cartesian</a></span>(xlim = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>325</span>, <span class='fl'>500</span>))</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='coord_cartesian-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>coord_cartesian</span><span class='op'>(</span>xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>325</span>, <span class='fl'>500</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='coord_cartesian-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># By default, the same expansion factor is applied as when setting scale</span>
 <span class='co'># limits. You can set the limits precisely by setting expand = FALSE</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_cartesian.html'>coord_cartesian</a></span>(xlim = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>325</span>, <span class='fl'>500</span>), expand = <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='coord_cartesian-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>coord_cartesian</span><span class='op'>(</span>xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>325</span>, <span class='fl'>500</span><span class='op'>)</span>, expand <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='coord_cartesian-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Simiarly, we can use expand = FALSE to turn off expansion with the</span>
 <span class='co'># default limits</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_cartesian.html'>coord_cartesian</a></span>(expand = <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='coord_cartesian-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>coord_cartesian</span><span class='op'>(</span>expand <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='coord_cartesian-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can see the same thing with this 2d histogram</span>
-<span class='kw'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>carat</span>, <span class='kw'>price</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bin2d.html'>stat_bin2d</a></span>(bins = <span class='fl'>25</span>, colour = <span class='st'>"white"</span>)
-<span class='kw'>d</span></div><div class='img'><img src='coord_cartesian-6.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>carat</span>, <span class='va'>price</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_bin_2d.html'>stat_bin2d</a></span><span class='op'>(</span>bins <span class='op'>=</span> <span class='fl'>25</span>, colour <span class='op'>=</span> <span class='st'>"white"</span><span class='op'>)</span>
+<span class='va'>d</span>
+</div><div class='img'><img src='coord_cartesian-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># When zooming the scale, the we get 25 new bins that are the same</span>
 <span class='co'># size on the plot, but represent smaller regions of the data space</span>
-<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_x_continuous</a></span>(limits = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 17502 rows containing non-finite values (stat_bin2d).</span></div><div class='img'><img src='coord_cartesian-7.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>d</span> <span class='op'>+</span> <span class='fu'><a href='scale_continuous.html'>scale_x_continuous</a></span><span class='op'>(</span>limits <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 17502 rows containing non-finite values (stat_bin2d).</span></div><div class='img'><img src='coord_cartesian-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># When zooming the coordinate system, we see a subset of original 50 bins,</span>
 <span class='co'># displayed bigger</span>
-<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_cartesian.html'>coord_cartesian</a></span>(xlim = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>))</div><div class='img'><img src='coord_cartesian-8.png' alt='' width='700' height='433' /></div></pre>
+<span class='va'>d</span> <span class='op'>+</span> <span class='fu'>coord_cartesian</span><span class='op'>(</span>xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='coord_cartesian-8.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

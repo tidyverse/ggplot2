@@ -102,12 +102,13 @@ with lines. This is as a continuous analogue to geom_boxplot()." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.4</span>
         </div>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
+        
         <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -157,25 +158,47 @@ with lines. This is as a continuous analogue to geom_boxplot()." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Developer</li>
+    <li>
       <a href="../articles/extending-ggplot2.html">Extending ggplot2</a>
     </li>
     <li>
       <a href="../articles/ggplot2-in-packages.html">Using ggplot2 in packages</a>
     </li>
     <li>
-      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+      <a href="../articles/profiling.html">Profiling Performance</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">FAQ</li>
+    <li>
+      <a href="../articles/articles/faq-axes.html">FAQ: Axes</a>
     </li>
     <li>
-      <a href="../articles/profiling.html">Profiling Performance</a>
+      <a href="../articles/articles/faq-faceting.html">FAQ: Faceting</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-customising.html">FAQ: Customising</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-annotation.html">FAQ: Annotation</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-reordering.html">FAQ: Reordering</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-bars.html">FAQ: Barplots</a>
     </li>
   </ul>
 </li>
-        <li>
+<li>
   <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -205,45 +228,45 @@ with lines. This is as a continuous analogue to geom_boxplot()." />
 
     <div class="ref-description">
     <p>This fits a quantile regression to the data and draws the fitted quantiles
-with lines. This is as a continuous analogue to <code><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>geom_boxplot()</a></code>.</p>
+with lines. This is as a continuous analogue to <code><a href='geom_boxplot.html'>geom_boxplot()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_quantile.html'>geom_quantile</a></span>(
-  mapping = <span class='kw'>NULL</span>,
-  data = <span class='kw'>NULL</span>,
-  stat = <span class='st'>"quantile"</span>,
-  position = <span class='st'>"identity"</span>,
-  <span class='kw'>...</span>,
-  lineend = <span class='st'>"butt"</span>,
-  linejoin = <span class='st'>"round"</span>,
-  linemitre = <span class='fl'>10</span>,
-  na.rm = <span class='fl'>FALSE</span>,
-  show.legend = <span class='fl'>NA</span>,
-  inherit.aes = <span class='fl'>TRUE</span>
-)
+    <pre class="usage"><span class='fu'>geom_quantile</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  stat <span class='op'>=</span> <span class='st'>"quantile"</span>,
+  position <span class='op'>=</span> <span class='st'>"identity"</span>,
+  <span class='va'>...</span>,
+  lineend <span class='op'>=</span> <span class='st'>"butt"</span>,
+  linejoin <span class='op'>=</span> <span class='st'>"round"</span>,
+  linemitre <span class='op'>=</span> <span class='fl'>10</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
+  inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span>
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_quantile.html'>stat_quantile</a></span>(
-  mapping = <span class='kw'>NULL</span>,
-  data = <span class='kw'>NULL</span>,
-  geom = <span class='st'>"quantile"</span>,
-  position = <span class='st'>"identity"</span>,
-  <span class='kw'>...</span>,
-  quantiles = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.25</span>, <span class='fl'>0.5</span>, <span class='fl'>0.75</span>),
-  formula = <span class='kw'>NULL</span>,
-  method = <span class='st'>"rq"</span>,
-  method.args = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
-  na.rm = <span class='fl'>FALSE</span>,
-  show.legend = <span class='fl'>NA</span>,
-  inherit.aes = <span class='fl'>TRUE</span>
-)</pre>
+<span class='fu'>stat_quantile</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  geom <span class='op'>=</span> <span class='st'>"quantile"</span>,
+  position <span class='op'>=</span> <span class='st'>"identity"</span>,
+  <span class='va'>...</span>,
+  quantiles <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.25</span>, <span class='fl'>0.5</span>, <span class='fl'>0.75</span><span class='op'>)</span>,
+  formula <span class='op'>=</span> <span class='cn'>NULL</span>,
+  method <span class='op'>=</span> <span class='st'>"rq"</span>,
+  method.args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
+  inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>mapping</th>
-      <td><p>Set of aesthetic mappings created by <code><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes()</a></code> or
-<code><a href='https://ggplot2.tidyverse.org/reference/aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
+      <td><p>Set of aesthetic mappings created by <code><a href='aes.html'>aes()</a></code> or
+<code><a href='aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
     </tr>
@@ -252,10 +275,10 @@ plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
       <td><p>The data to be displayed in this layer. There are three
 options:</p>
 <p>If <code>NULL</code>, the default, the data is inherited from the plot
-data as specified in the call to <code><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot()</a></code>.</p>
+data as specified in the call to <code><a href='ggplot.html'>ggplot()</a></code>.</p>
 <p>A <code>data.frame</code>, or other object, will override the plot
 data. All objects will be fortified to produce a data frame. See
-<code><a href='https://ggplot2.tidyverse.org/reference/fortify.html'>fortify()</a></code> for which variables will be created.</p>
+<code><a href='fortify.html'>fortify()</a></code> for which variables will be created.</p>
 <p>A <code>function</code> will be called with a single argument,
 the plot data. The return value must be a <code>data.frame</code>, and
 will be used as the layer data. A <code>function</code> can be created
@@ -268,7 +291,7 @@ a call to a position adjustment function.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Other arguments passed on to <code><a href='https://ggplot2.tidyverse.org/reference/layer.html'>layer()</a></code>. These are
+      <td><p>Other arguments passed on to <code><a href='layer.html'>layer()</a></code>. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 <code>colour = "red"</code> or <code>size = 3</code>. They may also be parameters
 to the paired geom/stat.</p></td>
@@ -303,12 +326,12 @@ display.</p></td>
       <td><p>If <code>FALSE</code>, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. <code><a href='https://ggplot2.tidyverse.org/reference/borders.html'>borders()</a></code>.</p></td>
+the default plot specification, e.g. <code><a href='borders.html'>borders()</a></code>.</p></td>
     </tr>
     <tr>
       <th>geom, stat</th>
       <td><p>Use to override the default connection between
-<code>geom_quantile</code> and <code>stat_quantile</code>.</p></td>
+<code>geom_quantile()</code> and <code>stat_quantile()</code>.</p></td>
     </tr>
     <tr>
       <th>quantiles</th>
@@ -334,7 +357,7 @@ function defined by <code>method</code>.</p></td>
 
     
 
-<p><code><a href='https://ggplot2.tidyverse.org/reference/geom_quantile.html'>geom_quantile()</a></code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
+<p><code>geom_quantile()</code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
 <li><p><strong><code>x</code></strong></p></li>
 <li><p><strong><code>y</code></strong></p></li>
 <li><p><code>alpha</code></p></li>
@@ -343,7 +366,7 @@ function defined by <code>method</code>.</p></td>
 <li><p><code>linetype</code></p></li>
 <li><p><code>size</code></p></li>
 <li><p><code>weight</code></p></li>
-</ul><p>Learn more about setting these aesthetics in <code>vignette("ggplot2-specs")</code>.</p>
+</ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
     <h2 class="hasAnchor" id="computed-variables"><a class="anchor" href="#computed-variables"></a>Computed variables</h2>
 
     
@@ -355,15 +378,23 @@ function defined by <code>method</code>.</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='fl'>1</span> <span class='op'>/</span> <span class='kw'>hwy</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>()
-<span class='kw'>m</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_quantile.html'>geom_quantile</a></span>()</div><div class='output co'>#&gt; <span class='message'>Smoothing formula not specified. Using: y ~ x</span></div><div class='img'><img src='geom_quantile-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>m</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_quantile.html'>geom_quantile</a></span>(quantiles = <span class='fl'>0.5</span>)</div><div class='output co'>#&gt; <span class='message'>Smoothing formula not specified. Using: y ~ x</span></div><div class='img'><img src='geom_quantile-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>q10</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0.05</span>, <span class='fl'>0.95</span>, by = <span class='fl'>0.05</span>)
-<span class='kw'>m</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_quantile.html'>geom_quantile</a></span>(quantiles = <span class='kw'>q10</span>)</div><div class='output co'>#&gt; <span class='message'>Smoothing formula not specified. Using: y ~ x</span></div><div class='img'><img src='geom_quantile-3.png' alt='' width='700' height='433' /></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='va'>m</span> <span class='op'>&lt;-</span>
+  <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>displ</span>, <span class='fl'>1</span> <span class='op'>/</span> <span class='va'>hwy</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>m</span> <span class='op'>+</span> <span class='fu'>geom_quantile</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Smoothing formula not specified. Using: y ~ x</span></div><div class='img'><img src='geom_quantile-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>m</span> <span class='op'>+</span> <span class='fu'>geom_quantile</span><span class='op'>(</span>quantiles <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Smoothing formula not specified. Using: y ~ x</span></div><div class='img'><img src='geom_quantile-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>q10</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0.05</span>, <span class='fl'>0.95</span>, by <span class='op'>=</span> <span class='fl'>0.05</span><span class='op'>)</span>
+<span class='va'>m</span> <span class='op'>+</span> <span class='fu'>geom_quantile</span><span class='op'>(</span>quantiles <span class='op'>=</span> <span class='va'>q10</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Smoothing formula not specified. Using: y ~ x</span></div><div class='img'><img src='geom_quantile-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can also use rqss to fit smooth quantiles</span>
-<span class='kw'>m</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_quantile.html'>geom_quantile</a></span>(method = <span class='st'>"rqss"</span>)</div><div class='output co'>#&gt; <span class='message'>Smoothing formula not specified. Using: y ~ qss(x, lambda = 1)</span></div><div class='img'><img src='geom_quantile-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Note that rqss doesn't pick a smoothing constant automatically, so</span>
+<span class='va'>m</span> <span class='op'>+</span> <span class='fu'>geom_quantile</span><span class='op'>(</span>method <span class='op'>=</span> <span class='st'>"rqss"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Smoothing formula not specified. Using: y ~ qss(x, lambda = 1)</span></div><div class='img'><img src='geom_quantile-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Note that rqss doesn't pick a smoothing constant automatically, so</span>
 <span class='co'># you'll need to tweak lambda yourself</span>
-<span class='kw'>m</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_quantile.html'>geom_quantile</a></span>(method = <span class='st'>"rqss"</span>, lambda = <span class='fl'>0.1</span>)</div><div class='output co'>#&gt; <span class='message'>Smoothing formula not specified. Using: y ~ qss(x, lambda = 0.1)</span></div><div class='img'><img src='geom_quantile-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>m</span> <span class='op'>+</span> <span class='fu'>geom_quantile</span><span class='op'>(</span>method <span class='op'>=</span> <span class='st'>"rqss"</span>, lambda <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Smoothing formula not specified. Using: y ~ qss(x, lambda = 0.1)</span></div><div class='img'><img src='geom_quantile-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Set aesthetics to fixed value</span>
-<span class='kw'>m</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_quantile.html'>geom_quantile</a></span>(colour = <span class='st'>"red"</span>, size = <span class='fl'>2</span>, alpha = <span class='fl'>0.5</span>)</div><div class='output co'>#&gt; <span class='message'>Smoothing formula not specified. Using: y ~ x</span></div><div class='img'><img src='geom_quantile-6.png' alt='' width='700' height='433' /></div></pre>
+<span class='va'>m</span> <span class='op'>+</span> <span class='fu'>geom_quantile</span><span class='op'>(</span>colour <span class='op'>=</span> <span class='st'>"red"</span>, size <span class='op'>=</span> <span class='fl'>2</span>, alpha <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Smoothing formula not specified. Using: y ~ x</span></div><div class='img'><img src='geom_quantile-6.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

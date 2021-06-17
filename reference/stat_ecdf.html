@@ -106,12 +106,13 @@ and the underlying visual tasks are somewhat more challenging." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.4</span>
         </div>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
+        
         <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -161,25 +162,47 @@ and the underlying visual tasks are somewhat more challenging." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Developer</li>
+    <li>
       <a href="../articles/extending-ggplot2.html">Extending ggplot2</a>
     </li>
     <li>
       <a href="../articles/ggplot2-in-packages.html">Using ggplot2 in packages</a>
     </li>
     <li>
-      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+      <a href="../articles/profiling.html">Profiling Performance</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">FAQ</li>
+    <li>
+      <a href="../articles/articles/faq-axes.html">FAQ: Axes</a>
     </li>
     <li>
-      <a href="../articles/profiling.html">Profiling Performance</a>
+      <a href="../articles/articles/faq-faceting.html">FAQ: Faceting</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-customising.html">FAQ: Customising</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-annotation.html">FAQ: Annotation</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-reordering.html">FAQ: Reordering</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-bars.html">FAQ: Barplots</a>
     </li>
   </ul>
 </li>
-        <li>
+<li>
   <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -210,32 +233,32 @@ and the underlying visual tasks are somewhat more challenging." />
     <div class="ref-description">
     <p>The empirical cumulative distribution function (ECDF) provides an alternative
 visualisation of distribution. Compared to other visualisations that rely on
-density (like <code><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram()</a></code>), the ECDF doesn't require any
+density (like <code><a href='geom_freqpoly.html'>geom_histogram()</a></code>), the ECDF doesn't require any
 tuning parameters and handles both continuous and categorical variables.
 The downside is that it requires more training to accurately interpret,
 and the underlying visual tasks are somewhat more challenging.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/stat_ecdf.html'>stat_ecdf</a></span>(
-  mapping = <span class='kw'>NULL</span>,
-  data = <span class='kw'>NULL</span>,
-  geom = <span class='st'>"step"</span>,
-  position = <span class='st'>"identity"</span>,
-  <span class='kw'>...</span>,
-  n = <span class='kw'>NULL</span>,
-  pad = <span class='fl'>TRUE</span>,
-  na.rm = <span class='fl'>FALSE</span>,
-  show.legend = <span class='fl'>NA</span>,
-  inherit.aes = <span class='fl'>TRUE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>stat_ecdf</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  geom <span class='op'>=</span> <span class='st'>"step"</span>,
+  position <span class='op'>=</span> <span class='st'>"identity"</span>,
+  <span class='va'>...</span>,
+  n <span class='op'>=</span> <span class='cn'>NULL</span>,
+  pad <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
+  inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>mapping</th>
-      <td><p>Set of aesthetic mappings created by <code><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes()</a></code> or
-<code><a href='https://ggplot2.tidyverse.org/reference/aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
+      <td><p>Set of aesthetic mappings created by <code><a href='aes.html'>aes()</a></code> or
+<code><a href='aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
     </tr>
@@ -244,10 +267,10 @@ plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
       <td><p>The data to be displayed in this layer. There are three
 options:</p>
 <p>If <code>NULL</code>, the default, the data is inherited from the plot
-data as specified in the call to <code><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot()</a></code>.</p>
+data as specified in the call to <code><a href='ggplot.html'>ggplot()</a></code>.</p>
 <p>A <code>data.frame</code>, or other object, will override the plot
 data. All objects will be fortified to produce a data frame. See
-<code><a href='https://ggplot2.tidyverse.org/reference/fortify.html'>fortify()</a></code> for which variables will be created.</p>
+<code><a href='fortify.html'>fortify()</a></code> for which variables will be created.</p>
 <p>A <code>function</code> will be called with a single argument,
 the plot data. The return value must be a <code>data.frame</code>, and
 will be used as the layer data. A <code>function</code> can be created
@@ -264,7 +287,7 @@ a call to a position adjustment function.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Other arguments passed on to <code><a href='https://ggplot2.tidyverse.org/reference/layer.html'>layer()</a></code>. These are
+      <td><p>Other arguments passed on to <code><a href='layer.html'>layer()</a></code>. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 <code>colour = "red"</code> or <code>size = 3</code>. They may also be parameters
 to the paired geom/stat.</p></td>
@@ -297,31 +320,42 @@ display.</p></td>
       <td><p>If <code>FALSE</code>, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. <code><a href='https://ggplot2.tidyverse.org/reference/borders.html'>borders()</a></code>.</p></td>
+the default plot specification, e.g. <code><a href='borders.html'>borders()</a></code>.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The statistic relies on the aesthetics assignment to guess which variable to
+use as the input and which to use as the output. Either x or y must be provided
+and one of them must be unused. The ECDF will be calculated on the given aesthetic
+and will be output on the unused one.</p>
     <h2 class="hasAnchor" id="computed-variables"><a class="anchor" href="#computed-variables"></a>Computed variables</h2>
 
     
 
 <dl>
-<dt>x</dt><dd><p>x in data</p></dd>
 <dt>y</dt><dd><p>cumulative density corresponding x</p></dd>
 
 </dl>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  x = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>100</span>, <span class='fl'>0</span>, <span class='fl'>3</span>), <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>100</span>, <span class='fl'>0</span>, <span class='fl'>10</span>)),
-  g = <span class='fu'><a href='https://rdrr.io/r/base/gl.html'>gl</a></span>(<span class='fl'>2</span>, <span class='fl'>100</span>)
-)
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/stat_ecdf.html'>stat_ecdf</a></span>(geom = <span class='st'>"step"</span>)</div><div class='img'><img src='stat_ecdf-1.png' alt='' width='700' height='433' /></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
+  x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100</span>, <span class='fl'>0</span>, <span class='fl'>3</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100</span>, <span class='fl'>0</span>, <span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>,
+  g <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/gl.html'>gl</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>100</span><span class='op'>)</span>
+<span class='op'>)</span>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>stat_ecdf</span><span class='op'>(</span>geom <span class='op'>=</span> <span class='st'>"step"</span><span class='op'>)</span>
+</div><div class='img'><img src='stat_ecdf-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Don't go to positive/negative infinity</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/stat_ecdf.html'>stat_ecdf</a></span>(geom = <span class='st'>"step"</span>, pad = <span class='fl'>FALSE</span>)</div><div class='img'><img src='stat_ecdf-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>stat_ecdf</span><span class='op'>(</span>geom <span class='op'>=</span> <span class='st'>"step"</span>, pad <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='img'><img src='stat_ecdf-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Multiple ECDFs</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span>, colour = <span class='kw'>g</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/stat_ecdf.html'>stat_ecdf</a></span>()</div><div class='img'><img src='stat_ecdf-3.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span>, colour <span class='op'>=</span> <span class='va'>g</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>stat_ecdf</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='stat_ecdf-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

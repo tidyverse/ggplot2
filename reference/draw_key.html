@@ -105,12 +105,13 @@ argument (see layer() or examples below.)" />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.4</span>
         </div>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
+        
         <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -160,25 +161,47 @@ argument (see layer() or examples below.)" />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Developer</li>
+    <li>
       <a href="../articles/extending-ggplot2.html">Extending ggplot2</a>
     </li>
     <li>
       <a href="../articles/ggplot2-in-packages.html">Using ggplot2 in packages</a>
     </li>
     <li>
-      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+      <a href="../articles/profiling.html">Profiling Performance</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">FAQ</li>
+    <li>
+      <a href="../articles/articles/faq-axes.html">FAQ: Axes</a>
     </li>
     <li>
-      <a href="../articles/profiling.html">Profiling Performance</a>
+      <a href="../articles/articles/faq-faceting.html">FAQ: Faceting</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-customising.html">FAQ: Customising</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-annotation.html">FAQ: Annotation</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-reordering.html">FAQ: Reordering</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-bars.html">FAQ: Barplots</a>
     </li>
   </ul>
 </li>
-        <li>
+<li>
   <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -211,40 +234,40 @@ argument (see layer() or examples below.)" />
 to be displayed in a legend. These functions are called <code>draw_key_*()</code>, where
 <code><a href='https://rdrr.io/r/base/Arithmetic.html'>*</a></code> stands for the name of the respective key glyph. The key glyphs can be
 customized for individual geoms by providing a geom with the <code>key_glyph</code>
-argument (see <code><a href='https://ggplot2.tidyverse.org/reference/layer.html'>layer()</a></code> or examples below.)</p>
+argument (see <code><a href='layer.html'>layer()</a></code> or examples below.)</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/draw_key.html'>draw_key_point</a></span>(<span class='kw'>data</span>, <span class='kw'>params</span>, <span class='kw'>size</span>)
+    <pre class="usage"><span class='fu'>draw_key_point</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>params</span>, <span class='va'>size</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/draw_key.html'>draw_key_abline</a></span>(<span class='kw'>data</span>, <span class='kw'>params</span>, <span class='kw'>size</span>)
+<span class='fu'>draw_key_abline</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>params</span>, <span class='va'>size</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/draw_key.html'>draw_key_rect</a></span>(<span class='kw'>data</span>, <span class='kw'>params</span>, <span class='kw'>size</span>)
+<span class='fu'>draw_key_rect</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>params</span>, <span class='va'>size</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/draw_key.html'>draw_key_polygon</a></span>(<span class='kw'>data</span>, <span class='kw'>params</span>, <span class='kw'>size</span>)
+<span class='fu'>draw_key_polygon</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>params</span>, <span class='va'>size</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/draw_key.html'>draw_key_blank</a></span>(<span class='kw'>data</span>, <span class='kw'>params</span>, <span class='kw'>size</span>)
+<span class='fu'>draw_key_blank</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>params</span>, <span class='va'>size</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/draw_key.html'>draw_key_boxplot</a></span>(<span class='kw'>data</span>, <span class='kw'>params</span>, <span class='kw'>size</span>)
+<span class='fu'>draw_key_boxplot</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>params</span>, <span class='va'>size</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/draw_key.html'>draw_key_crossbar</a></span>(<span class='kw'>data</span>, <span class='kw'>params</span>, <span class='kw'>size</span>)
+<span class='fu'>draw_key_crossbar</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>params</span>, <span class='va'>size</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/draw_key.html'>draw_key_path</a></span>(<span class='kw'>data</span>, <span class='kw'>params</span>, <span class='kw'>size</span>)
+<span class='fu'>draw_key_path</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>params</span>, <span class='va'>size</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/draw_key.html'>draw_key_vpath</a></span>(<span class='kw'>data</span>, <span class='kw'>params</span>, <span class='kw'>size</span>)
+<span class='fu'>draw_key_vpath</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>params</span>, <span class='va'>size</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/draw_key.html'>draw_key_dotplot</a></span>(<span class='kw'>data</span>, <span class='kw'>params</span>, <span class='kw'>size</span>)
+<span class='fu'>draw_key_dotplot</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>params</span>, <span class='va'>size</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/draw_key.html'>draw_key_pointrange</a></span>(<span class='kw'>data</span>, <span class='kw'>params</span>, <span class='kw'>size</span>)
+<span class='fu'>draw_key_pointrange</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>params</span>, <span class='va'>size</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/draw_key.html'>draw_key_smooth</a></span>(<span class='kw'>data</span>, <span class='kw'>params</span>, <span class='kw'>size</span>)
+<span class='fu'>draw_key_smooth</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>params</span>, <span class='va'>size</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/draw_key.html'>draw_key_text</a></span>(<span class='kw'>data</span>, <span class='kw'>params</span>, <span class='kw'>size</span>)
+<span class='fu'>draw_key_text</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>params</span>, <span class='va'>size</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/draw_key.html'>draw_key_label</a></span>(<span class='kw'>data</span>, <span class='kw'>params</span>, <span class='kw'>size</span>)
+<span class='fu'>draw_key_label</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>params</span>, <span class='va'>size</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/draw_key.html'>draw_key_vline</a></span>(<span class='kw'>data</span>, <span class='kw'>params</span>, <span class='kw'>size</span>)
+<span class='fu'>draw_key_vline</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>params</span>, <span class='va'>size</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/draw_key.html'>draw_key_timeseries</a></span>(<span class='kw'>data</span>, <span class='kw'>params</span>, <span class='kw'>size</span>)</pre>
+<span class='fu'>draw_key_timeseries</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>params</span>, <span class='va'>size</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -269,11 +292,13 @@ display in this key</p></td>
     <p>A grid grob.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>economics</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>date</span>, <span class='kw'>psavert</span>, color = <span class='st'>"savings rate"</span>))
+    <pre class="examples"><div class='input'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>economics</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>psavert</span>, color <span class='op'>=</span> <span class='st'>"savings rate"</span><span class='op'>)</span><span class='op'>)</span>
 <span class='co'># key glyphs can be specified by their name</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span>(key_glyph = <span class='st'>"timeseries"</span>)</div><div class='img'><img src='draw_key-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_path.html'>geom_line</a></span><span class='op'>(</span>key_glyph <span class='op'>=</span> <span class='st'>"timeseries"</span><span class='op'>)</span>
+</div><div class='img'><img src='draw_key-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># key glyphs can be specified via their drawing function</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span>(key_glyph = <span class='kw'>draw_key_rect</span>)</div><div class='img'><img src='draw_key-2.png' alt='' width='700' height='433' /></div></pre>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_path.html'>geom_line</a></span><span class='op'>(</span>key_glyph <span class='op'>=</span> <span class='va'>draw_key_rect</span><span class='op'>)</span>
+</div><div class='img'><img src='draw_key-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

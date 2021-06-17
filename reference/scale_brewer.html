@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Sequential, diverging and qualitative colour scales from colorbrewer.org — scale_colour_brewer • ggplot2</title>
+<title>Sequential, diverging and qualitative colour scales from ColorBrewer — scale_colour_brewer • ggplot2</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -55,10 +55,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Sequential, diverging and qualitative colour scales from colorbrewer.org — scale_colour_brewer" />
-<meta property="og:description" content="The brewer scales provides sequential, diverging and qualitative
+<meta property="og:title" content="Sequential, diverging and qualitative colour scales from ColorBrewer — scale_colour_brewer" />
+<meta property="og:description" content="The brewer scales provide sequential, diverging and qualitative
 colour schemes from ColorBrewer. These are particularly well suited to
-display discrete values on a map. See http://colorbrewer2.org for
+display discrete values on a map. See https://colorbrewer2.org for
 more information." />
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -104,12 +104,13 @@ more information." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.4</span>
         </div>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
+        
         <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -159,25 +160,47 @@ more information." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Developer</li>
+    <li>
       <a href="../articles/extending-ggplot2.html">Extending ggplot2</a>
     </li>
     <li>
       <a href="../articles/ggplot2-in-packages.html">Using ggplot2 in packages</a>
     </li>
     <li>
-      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+      <a href="../articles/profiling.html">Profiling Performance</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">FAQ</li>
+    <li>
+      <a href="../articles/articles/faq-axes.html">FAQ: Axes</a>
     </li>
     <li>
-      <a href="../articles/profiling.html">Profiling Performance</a>
+      <a href="../articles/articles/faq-faceting.html">FAQ: Faceting</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-customising.html">FAQ: Customising</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-annotation.html">FAQ: Annotation</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-reordering.html">FAQ: Reordering</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-bars.html">FAQ: Barplots</a>
     </li>
   </ul>
 </li>
-        <li>
+<li>
   <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -200,85 +223,85 @@ more information." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Sequential, diverging and qualitative colour scales from colorbrewer.org</h1>
+    <h1>Sequential, diverging and qualitative colour scales from ColorBrewer</h1>
     <small class="dont-index">Source: <a href='https://github.com/tidyverse/ggplot2/blob/master/R/scale-brewer.r'><code>R/scale-brewer.r</code></a>, <a href='https://github.com/tidyverse/ggplot2/blob/master/R/zxx.r'><code>R/zxx.r</code></a></small>
     <div class="hidden name"><code>scale_brewer.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The <code>brewer</code> scales provides sequential, diverging and qualitative
+    <p>The <code>brewer</code> scales provide sequential, diverging and qualitative
 colour schemes from ColorBrewer. These are particularly well suited to
-display discrete values on a map. See <a href='http://colorbrewer2.org'>http://colorbrewer2.org</a> for
+display discrete values on a map. See <a href='https://colorbrewer2.org'>https://colorbrewer2.org</a> for
 more information.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_brewer.html'>scale_colour_brewer</a></span>(
-  <span class='kw'>...</span>,
-  type = <span class='st'>"seq"</span>,
-  palette = <span class='fl'>1</span>,
-  direction = <span class='fl'>1</span>,
-  aesthetics = <span class='st'>"colour"</span>
-)
+    <pre class="usage"><span class='fu'>scale_colour_brewer</span><span class='op'>(</span>
+  <span class='va'>...</span>,
+  type <span class='op'>=</span> <span class='st'>"seq"</span>,
+  palette <span class='op'>=</span> <span class='fl'>1</span>,
+  direction <span class='op'>=</span> <span class='fl'>1</span>,
+  aesthetics <span class='op'>=</span> <span class='st'>"colour"</span>
+<span class='op'>)</span>
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_brewer.html'>scale_fill_brewer</a></span>(
-  <span class='kw'>...</span>,
-  type = <span class='st'>"seq"</span>,
-  palette = <span class='fl'>1</span>,
-  direction = <span class='fl'>1</span>,
-  aesthetics = <span class='st'>"fill"</span>
-)
+<span class='fu'>scale_fill_brewer</span><span class='op'>(</span>
+  <span class='va'>...</span>,
+  type <span class='op'>=</span> <span class='st'>"seq"</span>,
+  palette <span class='op'>=</span> <span class='fl'>1</span>,
+  direction <span class='op'>=</span> <span class='fl'>1</span>,
+  aesthetics <span class='op'>=</span> <span class='st'>"fill"</span>
+<span class='op'>)</span>
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_brewer.html'>scale_colour_distiller</a></span>(
-  <span class='kw'>...</span>,
-  type = <span class='st'>"seq"</span>,
-  palette = <span class='fl'>1</span>,
-  direction = <span class='op'>-</span><span class='fl'>1</span>,
-  values = <span class='kw'>NULL</span>,
-  space = <span class='st'>"Lab"</span>,
-  na.value = <span class='st'>"grey50"</span>,
-  guide = <span class='st'>"colourbar"</span>,
-  aesthetics = <span class='st'>"colour"</span>
-)
+<span class='fu'>scale_colour_distiller</span><span class='op'>(</span>
+  <span class='va'>...</span>,
+  type <span class='op'>=</span> <span class='st'>"seq"</span>,
+  palette <span class='op'>=</span> <span class='fl'>1</span>,
+  direction <span class='op'>=</span> <span class='op'>-</span><span class='fl'>1</span>,
+  values <span class='op'>=</span> <span class='cn'>NULL</span>,
+  space <span class='op'>=</span> <span class='st'>"Lab"</span>,
+  na.value <span class='op'>=</span> <span class='st'>"grey50"</span>,
+  guide <span class='op'>=</span> <span class='st'>"colourbar"</span>,
+  aesthetics <span class='op'>=</span> <span class='st'>"colour"</span>
+<span class='op'>)</span>
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_brewer.html'>scale_fill_distiller</a></span>(
-  <span class='kw'>...</span>,
-  type = <span class='st'>"seq"</span>,
-  palette = <span class='fl'>1</span>,
-  direction = <span class='op'>-</span><span class='fl'>1</span>,
-  values = <span class='kw'>NULL</span>,
-  space = <span class='st'>"Lab"</span>,
-  na.value = <span class='st'>"grey50"</span>,
-  guide = <span class='st'>"colourbar"</span>,
-  aesthetics = <span class='st'>"fill"</span>
-)
+<span class='fu'>scale_fill_distiller</span><span class='op'>(</span>
+  <span class='va'>...</span>,
+  type <span class='op'>=</span> <span class='st'>"seq"</span>,
+  palette <span class='op'>=</span> <span class='fl'>1</span>,
+  direction <span class='op'>=</span> <span class='op'>-</span><span class='fl'>1</span>,
+  values <span class='op'>=</span> <span class='cn'>NULL</span>,
+  space <span class='op'>=</span> <span class='st'>"Lab"</span>,
+  na.value <span class='op'>=</span> <span class='st'>"grey50"</span>,
+  guide <span class='op'>=</span> <span class='st'>"colourbar"</span>,
+  aesthetics <span class='op'>=</span> <span class='st'>"fill"</span>
+<span class='op'>)</span>
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_brewer.html'>scale_colour_fermenter</a></span>(
-  <span class='kw'>...</span>,
-  type = <span class='st'>"seq"</span>,
-  palette = <span class='fl'>1</span>,
-  direction = <span class='op'>-</span><span class='fl'>1</span>,
-  na.value = <span class='st'>"grey50"</span>,
-  guide = <span class='st'>"coloursteps"</span>,
-  aesthetics = <span class='st'>"colour"</span>
-)
+<span class='fu'>scale_colour_fermenter</span><span class='op'>(</span>
+  <span class='va'>...</span>,
+  type <span class='op'>=</span> <span class='st'>"seq"</span>,
+  palette <span class='op'>=</span> <span class='fl'>1</span>,
+  direction <span class='op'>=</span> <span class='op'>-</span><span class='fl'>1</span>,
+  na.value <span class='op'>=</span> <span class='st'>"grey50"</span>,
+  guide <span class='op'>=</span> <span class='st'>"coloursteps"</span>,
+  aesthetics <span class='op'>=</span> <span class='st'>"colour"</span>
+<span class='op'>)</span>
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_brewer.html'>scale_fill_fermenter</a></span>(
-  <span class='kw'>...</span>,
-  type = <span class='st'>"seq"</span>,
-  palette = <span class='fl'>1</span>,
-  direction = <span class='op'>-</span><span class='fl'>1</span>,
-  na.value = <span class='st'>"grey50"</span>,
-  guide = <span class='st'>"coloursteps"</span>,
-  aesthetics = <span class='st'>"fill"</span>
-)</pre>
+<span class='fu'>scale_fill_fermenter</span><span class='op'>(</span>
+  <span class='va'>...</span>,
+  type <span class='op'>=</span> <span class='st'>"seq"</span>,
+  palette <span class='op'>=</span> <span class='fl'>1</span>,
+  direction <span class='op'>=</span> <span class='op'>-</span><span class='fl'>1</span>,
+  na.value <span class='op'>=</span> <span class='st'>"grey50"</span>,
+  guide <span class='op'>=</span> <span class='st'>"coloursteps"</span>,
+  aesthetics <span class='op'>=</span> <span class='st'>"fill"</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>...</th>
-      <td><p>Other arguments passed on to <code><a href='https://ggplot2.tidyverse.org/reference/discrete_scale.html'>discrete_scale()</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/continuous_scale.html'>continuous_scale()</a></code>,
-or <code><a href='https://ggplot2.tidyverse.org/reference/binned_scale.html'>binned_scale()</a></code>, for <code>brewer</code>, <code>distiller</code>, and <code>fermenter</code> variants
+      <td><p>Other arguments passed on to <code><a href='discrete_scale.html'>discrete_scale()</a></code>, <code><a href='continuous_scale.html'>continuous_scale()</a></code>,
+or <code><a href='binned_scale.html'>binned_scale()</a></code>, for <code>brewer</code>, <code>distiller</code>, and <code>fermenter</code> variants
 respectively, to control name, limits, breaks, labels and so forth.</p></td>
     </tr>
     <tr>
@@ -308,7 +331,7 @@ same time, via <code>aesthetics = c("colour", "fill")</code>.</p></td>
       <th>values</th>
       <td><p>if colours should not be evenly positioned along the gradient
 this vector gives the position (between 0 and 1) for each colour in the
-<code>colours</code> vector. See <code><a href='https://scales.r-lib.org//reference/rescale.html'>rescale()</a></code> for a convenience function
+<code>colours</code> vector. See <code><a href='https://scales.r-lib.org/reference/rescale.html'>rescale()</a></code> for a convenience function
 to map an arbitrary range to between 0 and 1.</p></td>
     </tr>
     <tr>
@@ -334,9 +357,9 @@ They were not designed to be extended to continuous data, but results often
 look good. Your mileage may vary.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>The <code>distiller</code> scales extend brewer to continuous scales by smoothly
+    <p>The <code>distiller</code> scales extend <code>brewer</code> scales by smoothly
 interpolating 7 colours from any palette to a continuous scale. The <code>fermenter</code>
-scales provide binned versions of the brewer scales.</p>
+scales provide binned versions of the <code>brewer</code> scales.</p>
     <h2 class="hasAnchor" id="palettes"><a class="anchor" href="#palettes"></a>Palettes</h2>
 
     
@@ -347,40 +370,56 @@ scales provide binned versions of the brewer scales.</p>
 <dt>Sequential</dt><dd><p>Blues, BuGn, BuPu, GnBu, Greens, Greys, Oranges,
 OrRd, PuBu, PuBuGn, PuRd, Purples, RdPu, Reds, YlGn, YlGnBu, YlOrBr, YlOrRd</p></dd>
 
-</dl><p>Modify the palette through the <code>palette</code> arguement.</p>
+</dl><p>Modify the palette through the <code>palette</code> argument.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other colour scales: 
-<code><a href='https://ggplot2.tidyverse.org/reference/scale_alpha.html'>scale_alpha</a>()</code>,
-<code><a href='https://ggplot2.tidyverse.org/reference/scale_gradient.html'>scale_colour_gradient</a>()</code>,
-<code><a href='https://ggplot2.tidyverse.org/reference/scale_grey.html'>scale_colour_grey</a>()</code>,
-<code><a href='https://ggplot2.tidyverse.org/reference/scale_hue.html'>scale_colour_hue</a>()</code>,
-<code><a href='https://ggplot2.tidyverse.org/reference/scale_steps.html'>scale_colour_steps</a>()</code>,
-<code><a href='https://ggplot2.tidyverse.org/reference/scale_viridis.html'>scale_colour_viridis_d</a>()</code></p></div>
+<code><a href='scale_alpha.html'>scale_alpha</a>()</code>,
+<code><a href='scale_colour_continuous.html'>scale_colour_continuous</a>()</code>,
+<code><a href='scale_colour_gradient.html'>scale_colour_gradient</a>()</code>,
+<code><a href='scale_colour_grey.html'>scale_colour_grey</a>()</code>,
+<code><a href='scale_colour_hue.html'>scale_colour_hue</a>()</code>,
+<code><a href='scale_colour_steps.html'>scale_colour_steps</a>()</code>,
+<code><a href='scale_colour_viridis_d.html'>scale_colour_viridis_d</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>dsamp</span> <span class='op'>&lt;-</span> <span class='kw'>diamonds</span>[<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='kw'>diamonds</span>), <span class='fl'>1000</span>), ]
-(<span class='kw'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>dsamp</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>carat</span>, <span class='kw'>price</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(colour = <span class='kw'>clarity</span>)))</div><div class='img'><img src='scale_brewer-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_brewer.html'>scale_colour_brewer</a></span>()</div><div class='img'><img src='scale_brewer-2.png' alt='' width='700' height='433' /></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='va'>dsamp</span> <span class='op'>&lt;-</span> <span class='va'>diamonds</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>diamonds</span><span class='op'>)</span>, <span class='fl'>1000</span><span class='op'>)</span>, <span class='op'>]</span>
+<span class='op'>(</span><span class='va'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>dsamp</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>carat</span>, <span class='va'>price</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='va'>clarity</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='scale_brewer-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'>scale_colour_brewer</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='scale_brewer-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Change scale label</span>
-<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_brewer.html'>scale_colour_brewer</a></span>(<span class='st'>"Diamond\nclarity"</span>)</div><div class='img'><img src='scale_brewer-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>d</span> <span class='op'>+</span> <span class='fu'>scale_colour_brewer</span><span class='op'>(</span><span class='st'>"Diamond\nclarity"</span><span class='op'>)</span>
+</div><div class='img'><img src='scale_brewer-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Select brewer palette to use, see ?scales::brewer_pal for more details</span>
-<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_brewer.html'>scale_colour_brewer</a></span>(palette = <span class='st'>"Greens"</span>)</div><div class='img'><img src='scale_brewer-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_brewer.html'>scale_colour_brewer</a></span>(palette = <span class='st'>"Set1"</span>)</div><div class='img'><img src='scale_brewer-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>d</span> <span class='op'>+</span> <span class='fu'>scale_colour_brewer</span><span class='op'>(</span>palette <span class='op'>=</span> <span class='st'>"Greens"</span><span class='op'>)</span>
+</div><div class='img'><img src='scale_brewer-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'>scale_colour_brewer</span><span class='op'>(</span>palette <span class='op'>=</span> <span class='st'>"Set1"</span><span class='op'>)</span>
+</div><div class='img'><img src='scale_brewer-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># \donttest{</span>
 <span class='co'># scale_fill_brewer works just the same as</span>
 <span class='co'># scale_colour_brewer but for fill colours</span>
-<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(x = <span class='kw'>price</span>, fill = <span class='kw'>cut</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span>(position = <span class='st'>"dodge"</span>, binwidth = <span class='fl'>1000</span>)
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_brewer.html'>scale_fill_brewer</a></span>()</div><div class='img'><img src='scale_brewer-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># the order of colour can be reversed</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_brewer.html'>scale_fill_brewer</a></span>(direction = <span class='op'>-</span><span class='fl'>1</span>)</div><div class='img'><img src='scale_brewer-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># the brewer scales look better on a darker background</span>
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_brewer.html'>scale_fill_brewer</a></span>(direction = <span class='op'>-</span><span class='fl'>1</span>) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_dark</a></span>()</div><div class='img'><img src='scale_brewer-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>price</span>, fill <span class='op'>=</span> <span class='va'>cut</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_freqpoly.html'>geom_histogram</a></span><span class='op'>(</span>position <span class='op'>=</span> <span class='st'>"dodge"</span>, binwidth <span class='op'>=</span> <span class='fl'>1000</span><span class='op'>)</span>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>scale_fill_brewer</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='scale_brewer-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># the order of colour can be reversed</span>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>scale_fill_brewer</span><span class='op'>(</span>direction <span class='op'>=</span> <span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span>
+</div><div class='img'><img src='scale_brewer-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># the brewer scales look better on a darker background</span>
+<span class='va'>p</span> <span class='op'>+</span>
+  <span class='fu'>scale_fill_brewer</span><span class='op'>(</span>direction <span class='op'>=</span> <span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='ggtheme.html'>theme_dark</a></span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='scale_brewer-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 
 <span class='co'># Use distiller variant with continous data</span>
-<span class='kw'>v</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>faithfuld</span>) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_tile.html'>geom_tile</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>waiting</span>, <span class='kw'>eruptions</span>, fill = <span class='kw'>density</span>))
-<span class='kw'>v</span></div><div class='img'><img src='scale_brewer-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>v</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_brewer.html'>scale_fill_distiller</a></span>()</div><div class='img'><img src='scale_brewer-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>v</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_brewer.html'>scale_fill_distiller</a></span>(palette = <span class='st'>"Spectral"</span>)</div><div class='img'><img src='scale_brewer-11.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># or use blender variants to discretize continuous data</span>
-<span class='kw'>v</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_brewer.html'>scale_fill_fermenter</a></span>()</div><div class='img'><img src='scale_brewer-12.png' alt='' width='700' height='433' /></div><div class='input'></div></pre>
+<span class='va'>v</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>faithfuld</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_raster.html'>geom_tile</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>waiting</span>, <span class='va'>eruptions</span>, fill <span class='op'>=</span> <span class='va'>density</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>v</span>
+</div><div class='img'><img src='scale_brewer-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>v</span> <span class='op'>+</span> <span class='fu'>scale_fill_distiller</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='scale_brewer-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>v</span> <span class='op'>+</span> <span class='fu'>scale_fill_distiller</span><span class='op'>(</span>palette <span class='op'>=</span> <span class='st'>"Spectral"</span><span class='op'>)</span>
+</div><div class='img'><img src='scale_brewer-11.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># or use blender variants to discretise continuous data</span>
+<span class='va'>v</span> <span class='op'>+</span> <span class='fu'>scale_fill_fermenter</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='scale_brewer-12.png' alt='' width='700' height='433' /></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

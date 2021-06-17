@@ -103,12 +103,13 @@ and limits, you may wish to use labs() and lims() instead." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.4</span>
         </div>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
+        
         <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -158,25 +159,47 @@ and limits, you may wish to use labs() and lims() instead." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Developer</li>
+    <li>
       <a href="../articles/extending-ggplot2.html">Extending ggplot2</a>
     </li>
     <li>
       <a href="../articles/ggplot2-in-packages.html">Using ggplot2 in packages</a>
     </li>
     <li>
-      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+      <a href="../articles/profiling.html">Profiling Performance</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">FAQ</li>
+    <li>
+      <a href="../articles/articles/faq-axes.html">FAQ: Axes</a>
     </li>
     <li>
-      <a href="../articles/profiling.html">Profiling Performance</a>
+      <a href="../articles/articles/faq-faceting.html">FAQ: Faceting</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-customising.html">FAQ: Customising</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-annotation.html">FAQ: Annotation</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-reordering.html">FAQ: Reordering</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-bars.html">FAQ: Barplots</a>
     </li>
   </ul>
 </li>
-        <li>
+<li>
   <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -205,31 +228,32 @@ and limits, you may wish to use labs() and lims() instead." />
     </div>
 
     <div class="ref-description">
-    <p><code><a href='https://ggplot2.tidyverse.org/reference/scale_discrete.html'>scale_x_discrete()</a></code> and <code><a href='https://ggplot2.tidyverse.org/reference/scale_discrete.html'>scale_y_discrete()</a></code> are used to set the values for
+    <p><code>scale_x_discrete()</code> and <code>scale_y_discrete()</code> are used to set the values for
 discrete x and y scale aesthetics. For simple manipulation of scale labels
-and limits, you may wish to use <code><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs()</a></code> and <code><a href='https://ggplot2.tidyverse.org/reference/lims.html'>lims()</a></code> instead.</p>
+and limits, you may wish to use <code><a href='labs.html'>labs()</a></code> and <code><a href='lims.html'>lims()</a></code> instead.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_discrete.html'>scale_x_discrete</a></span>(<span class='kw'>...</span>, expand = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(), guide = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(), position = <span class='st'>"bottom"</span>)
+    <pre class="usage"><span class='fu'>scale_x_discrete</span><span class='op'>(</span><span class='va'>...</span>, expand <span class='op'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span><span class='op'>(</span><span class='op'>)</span>, guide <span class='op'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span><span class='op'>(</span><span class='op'>)</span>, position <span class='op'>=</span> <span class='st'>"bottom"</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_discrete.html'>scale_y_discrete</a></span>(<span class='kw'>...</span>, expand = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(), guide = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(), position = <span class='st'>"left"</span>)</pre>
+<span class='fu'>scale_y_discrete</span><span class='op'>(</span><span class='va'>...</span>, expand <span class='op'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span><span class='op'>(</span><span class='op'>)</span>, guide <span class='op'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span><span class='op'>(</span><span class='op'>)</span>, position <span class='op'>=</span> <span class='st'>"left"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>...</th>
-      <td><p>Arguments passed on to <code><a href='https://ggplot2.tidyverse.org/reference/discrete_scale.html'>discrete_scale</a></code></p><dl>
+      <td><p>Arguments passed on to <code><a href='discrete_scale.html'>discrete_scale</a></code></p><dl>
     <dt><code>palette</code></dt><dd><p>A palette function that when called with a single integer
 argument (the number of levels in the scale) returns the values that
-they should take (e.g., <code><a href='https://scales.r-lib.org//reference/hue_pal.html'>scales::hue_pal()</a></code>).</p></dd>
+they should take (e.g., <code><a href='https://scales.r-lib.org/reference/hue_pal.html'>scales::hue_pal()</a></code>).</p></dd>
     <dt><code>breaks</code></dt><dd><p>One of:
 <ul>
 <li><p><code>NULL</code> for no breaks</p></li>
-<li><p><code><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver()</a></code> for the default breaks (the scale limits)</p></li>
+<li><p><code><a href='waiver.html'>waiver()</a></code> for the default breaks (the scale limits)</p></li>
 <li><p>A character vector of breaks</p></li>
 <li><p>A function that takes the limits as input and returns breaks
-as output</p></li>
+as output. Also accepts rlang <a href='https://rlang.r-lib.org/reference/as_function.html'>lambda</a> function
+notation.</p></li>
 </ul></p></dd>
     <dt><code>limits</code></dt><dd><p>One of:
 <ul>
@@ -237,7 +261,8 @@ as output</p></li>
 <li><p>A character vector that defines possible values of the scale and their
 order</p></li>
 <li><p>A function that accepts the existing (automatic) values and returns
-new ones</p></li>
+new ones. Also accepts rlang <a href='https://rlang.r-lib.org/reference/as_function.html'>lambda</a> function
+notation.</p></li>
 </ul></p></dd>
     <dt><code>drop</code></dt><dd><p>Should unused factor levels be omitted from the scale?
 The default, <code>TRUE</code>, uses the levels that appear in the data;
@@ -252,17 +277,18 @@ where <code>NA</code> is always placed at the far right.</p></dd>
     <dt><code>scale_name</code></dt><dd><p>The name of the scale that should be used for error messages
 associated with this scale.</p></dd>
     <dt><code>name</code></dt><dd><p>The name of the scale. Used as the axis or legend title. If
-<code><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver()</a></code>, the default, the name of the scale is taken from the first
+<code><a href='waiver.html'>waiver()</a></code>, the default, the name of the scale is taken from the first
 mapping used for that aesthetic. If <code>NULL</code>, the legend title will be
 omitted.</p></dd>
     <dt><code>labels</code></dt><dd><p>One of:
 <ul>
 <li><p><code>NULL</code> for no labels</p></li>
-<li><p><code><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver()</a></code> for the default labels computed by the
+<li><p><code><a href='waiver.html'>waiver()</a></code> for the default labels computed by the
 transformation object</p></li>
 <li><p>A character vector giving labels (must be same length as <code>breaks</code>)</p></li>
 <li><p>A function that takes the breaks as input and returns labels
-as output</p></li>
+as output. Also accepts rlang <a href='https://rlang.r-lib.org/reference/as_function.html'>lambda</a> function
+notation.</p></li>
 </ul></p></dd>
     <dt><code>super</code></dt><dd><p>The super class to use for the constructed scale</p></dd>
   
@@ -272,7 +298,7 @@ as output</p></li>
       <th>expand</th>
       <td><p>For position scales, a vector of range expansion constants used to add some
 padding around the data to ensure that they are placed some distance
-away from the axes. Use the convenience function <code><a href='https://ggplot2.tidyverse.org/reference/expansion.html'>expansion()</a></code>
+away from the axes. Use the convenience function <code><a href='expansion.html'>expansion()</a></code>
 to generate the values for the <code>expand</code> argument. The defaults are to
 expand the scale by 5% on each side for continuous variables, and by
 0.6 units on each side for discrete variables.</p></td>
@@ -280,7 +306,7 @@ expand the scale by 5% on each side for continuous variables, and by
     <tr>
       <th>guide</th>
       <td><p>A function used to create a guide or its name. See
-<code><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides()</a></code> for more information.</p></td>
+<code><a href='guides.html'>guides()</a></code> for more information.</p></td>
     </tr>
     <tr>
       <th>position</th>
@@ -299,31 +325,55 @@ at integer positions).  This is what allows jittering to work.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other position scales: 
-<code><a href='https://ggplot2.tidyverse.org/reference/scale_binned.html'>scale_x_binned</a>()</code>,
-<code><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_x_continuous</a>()</code>,
-<code><a href='https://ggplot2.tidyverse.org/reference/scale_date.html'>scale_x_date</a>()</code></p></div>
+<code><a href='scale_binned.html'>scale_x_binned</a>()</code>,
+<code><a href='scale_continuous.html'>scale_x_continuous</a>()</code>,
+<code><a href='scale_date.html'>scale_x_date</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>diamonds</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>cut</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span>()</div><div class='img'><img src='scale_discrete-1.png' alt='' width='700' height='433' /></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>cut</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_bar.html'>geom_bar</a></span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='scale_discrete-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># \donttest{</span>
 <span class='co'># The discrete position scale is added automatically whenever you</span>
 <span class='co'># have a discrete position.</span>
 
-(<span class='kw'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='kw'>diamonds</span>, <span class='kw'>carat</span> <span class='op'>&gt;</span> <span class='fl'>1</span>), <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>cut</span>, <span class='kw'>clarity</span>)) <span class='op'>+</span>
-      <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_jitter.html'>geom_jitter</a></span>())</div><div class='img'><img src='scale_discrete-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_discrete.html'>scale_x_discrete</a></span>(<span class='st'>"Cut"</span>)</div><div class='img'><img src='scale_discrete-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_discrete.html'>scale_x_discrete</a></span>(<span class='st'>"Cut"</span>, labels = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Fair"</span> = <span class='st'>"F"</span>,<span class='st'>"Good"</span> = <span class='st'>"G"</span>,
-  <span class='st'>"Very Good"</span> = <span class='st'>"VG"</span>,<span class='st'>"Perfect"</span> = <span class='st'>"P"</span>,<span class='st'>"Ideal"</span> = <span class='st'>"I"</span>))</div><div class='img'><img src='scale_discrete-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='op'>(</span><span class='va'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='va'>carat</span> <span class='op'>&gt;</span> <span class='fl'>1</span><span class='op'>)</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>cut</span>, <span class='va'>clarity</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+      <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='scale_discrete-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>d</span> <span class='op'>+</span> <span class='fu'>scale_x_discrete</span><span class='op'>(</span><span class='st'>"Cut"</span><span class='op'>)</span>
+</div><div class='img'><img src='scale_discrete-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>d</span> <span class='op'>+</span>
+  <span class='fu'>scale_x_discrete</span><span class='op'>(</span>
+    <span class='st'>"Cut"</span>,
+    labels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
+      <span class='st'>"Fair"</span> <span class='op'>=</span> <span class='st'>"F"</span>,
+      <span class='st'>"Good"</span> <span class='op'>=</span> <span class='st'>"G"</span>,
+      <span class='st'>"Very Good"</span> <span class='op'>=</span> <span class='st'>"VG"</span>,
+      <span class='st'>"Perfect"</span> <span class='op'>=</span> <span class='st'>"P"</span>,
+      <span class='st'>"Ideal"</span> <span class='op'>=</span> <span class='st'>"I"</span>
+    <span class='op'>)</span>
+  <span class='op'>)</span>
+</div><div class='img'><img src='scale_discrete-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Use limits to adjust the which levels (and in what order)</span>
 <span class='co'># are displayed</span>
-<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_discrete.html'>scale_x_discrete</a></span>(limits = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Fair"</span>,<span class='st'>"Ideal"</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 11189 rows containing missing values (geom_point).</span></div><div class='img'><img src='scale_discrete-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>d</span> <span class='op'>+</span> <span class='fu'>scale_x_discrete</span><span class='op'>(</span>limits <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Fair"</span>,<span class='st'>"Ideal"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 11189 rows containing missing values (geom_point).</span></div><div class='img'><img src='scale_discrete-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># you can also use the short hand functions xlim and ylim</span>
-<span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>xlim</a></span>(<span class='st'>"Fair"</span>,<span class='st'>"Ideal"</span>, <span class='st'>"Good"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 9610 rows containing missing values (geom_point).</span></div><div class='img'><img src='scale_discrete-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>d</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>ylim</a></span>(<span class='st'>"I1"</span>, <span class='st'>"IF"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 16770 rows containing missing values (geom_point).</span></div><div class='img'><img src='scale_discrete-7.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>d</span> <span class='op'>+</span> <span class='fu'><a href='lims.html'>xlim</a></span><span class='op'>(</span><span class='st'>"Fair"</span>,<span class='st'>"Ideal"</span>, <span class='st'>"Good"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 9610 rows containing missing values (geom_point).</span></div><div class='img'><img src='scale_discrete-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'><a href='lims.html'>ylim</a></span><span class='op'>(</span><span class='st'>"I1"</span>, <span class='st'>"IF"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 16770 rows containing missing values (geom_point).</span></div><div class='img'><img src='scale_discrete-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># See ?reorder to reorder based on the values of another variable</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>manufacturer</span>, <span class='kw'>cty</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>()</div><div class='img'><img src='scale_discrete-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/reorder.factor.html'>reorder</a></span>(<span class='kw'>manufacturer</span>, <span class='kw'>cty</span>), <span class='kw'>cty</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>()</div><div class='img'><img src='scale_discrete-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/reorder.factor.html'>reorder</a></span>(<span class='kw'>manufacturer</span>, <span class='kw'>displ</span>), <span class='kw'>cty</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>()</div><div class='img'><img src='scale_discrete-10.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>manufacturer</span>, <span class='va'>cty</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='scale_discrete-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/reorder.factor.html'>reorder</a></span><span class='op'>(</span><span class='va'>manufacturer</span>, <span class='va'>cty</span><span class='op'>)</span>, <span class='va'>cty</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='scale_discrete-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/reorder.factor.html'>reorder</a></span><span class='op'>(</span><span class='va'>manufacturer</span>, <span class='va'>displ</span><span class='op'>)</span>, <span class='va'>cty</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='scale_discrete-10.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Use abbreviate as a formatter to reduce long names</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/reorder.factor.html'>reorder</a></span>(<span class='kw'>manufacturer</span>, <span class='kw'>displ</span>), <span class='kw'>cty</span>)) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_discrete.html'>scale_x_discrete</a></span>(labels = <span class='kw'>abbreviate</span>)</div><div class='img'><img src='scale_discrete-11.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span></div></pre>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/reorder.factor.html'>reorder</a></span><span class='op'>(</span><span class='va'>manufacturer</span>, <span class='va'>displ</span><span class='op'>)</span>, <span class='va'>cty</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>scale_x_discrete</span><span class='op'>(</span>labels <span class='op'>=</span> <span class='va'>abbreviate</span><span class='op'>)</span>
+</div><div class='img'><img src='scale_discrete-11.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

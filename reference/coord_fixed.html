@@ -107,12 +107,13 @@ MASS::eqscplot(), but it works for all types of graphics." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.4</span>
         </div>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
+        
         <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -162,25 +163,47 @@ MASS::eqscplot(), but it works for all types of graphics." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Developer</li>
+    <li>
       <a href="../articles/extending-ggplot2.html">Extending ggplot2</a>
     </li>
     <li>
       <a href="../articles/ggplot2-in-packages.html">Using ggplot2 in packages</a>
     </li>
     <li>
-      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+      <a href="../articles/profiling.html">Profiling Performance</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">FAQ</li>
+    <li>
+      <a href="../articles/articles/faq-axes.html">FAQ: Axes</a>
     </li>
     <li>
-      <a href="../articles/profiling.html">Profiling Performance</a>
+      <a href="../articles/articles/faq-faceting.html">FAQ: Faceting</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-customising.html">FAQ: Customising</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-annotation.html">FAQ: Annotation</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-reordering.html">FAQ: Reordering</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-bars.html">FAQ: Barplots</a>
     </li>
   </ul>
 </li>
-        <li>
+<li>
   <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -218,7 +241,7 @@ y axis longer than units on the x-axis, and vice versa. This is similar to
 <code><a href='https://rdrr.io/pkg/MASS/man/eqscplot.html'>MASS::eqscplot()</a></code>, but it works for all types of graphics.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_fixed.html'>coord_fixed</a></span>(ratio = <span class='fl'>1</span>, xlim = <span class='kw'>NULL</span>, ylim = <span class='kw'>NULL</span>, expand = <span class='fl'>TRUE</span>, clip = <span class='st'>"on"</span>)</pre>
+    <pre class="usage"><span class='fu'>coord_fixed</span><span class='op'>(</span>ratio <span class='op'>=</span> <span class='fl'>1</span>, xlim <span class='op'>=</span> <span class='cn'>NULL</span>, ylim <span class='op'>=</span> <span class='cn'>NULL</span>, expand <span class='op'>=</span> <span class='cn'>TRUE</span>, clip <span class='op'>=</span> <span class='st'>"on"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -259,9 +282,14 @@ legend, the plot title, or the plot margins.</p></td>
     <pre class="examples"><div class='input'><span class='co'># ensures that the ranges of axes are equal to the specified ratio by</span>
 <span class='co'># adjusting the plot aspect ratio</span>
 
-<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>mpg</span>, <span class='kw'>wt</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>()
-<span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_fixed.html'>coord_fixed</a></span>(ratio = <span class='fl'>1</span>)</div><div class='img'><img src='coord_fixed-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_fixed.html'>coord_fixed</a></span>(ratio = <span class='fl'>5</span>)</div><div class='img'><img src='coord_fixed-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_fixed.html'>coord_fixed</a></span>(ratio = <span class='fl'>1</span><span class='op'>/</span><span class='fl'>5</span>)</div><div class='img'><img src='coord_fixed-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_fixed.html'>coord_fixed</a></span>(xlim = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>15</span>, <span class='fl'>30</span>))</div><div class='img'><img src='coord_fixed-4.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Resize the plot to see that the specified aspect ratio is maintained</span></div></pre>
+<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>wt</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>coord_fixed</span><span class='op'>(</span>ratio <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+</div><div class='img'><img src='coord_fixed-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'>coord_fixed</span><span class='op'>(</span>ratio <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>
+</div><div class='img'><img src='coord_fixed-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'>coord_fixed</span><span class='op'>(</span>ratio <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>5</span><span class='op'>)</span>
+</div><div class='img'><img src='coord_fixed-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'>coord_fixed</span><span class='op'>(</span>xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>15</span>, <span class='fl'>30</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='coord_fixed-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Resize the plot to see that the specified aspect ratio is maintained</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

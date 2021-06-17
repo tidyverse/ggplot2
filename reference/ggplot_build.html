@@ -104,12 +104,13 @@ contain all information about axis limits, breaks etc." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.4</span>
         </div>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
+        
         <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -159,25 +160,47 @@ contain all information about axis limits, breaks etc." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Developer</li>
+    <li>
       <a href="../articles/extending-ggplot2.html">Extending ggplot2</a>
     </li>
     <li>
       <a href="../articles/ggplot2-in-packages.html">Using ggplot2 in packages</a>
     </li>
     <li>
-      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+      <a href="../articles/profiling.html">Profiling Performance</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">FAQ</li>
+    <li>
+      <a href="../articles/articles/faq-axes.html">FAQ: Axes</a>
     </li>
     <li>
-      <a href="../articles/profiling.html">Profiling Performance</a>
+      <a href="../articles/articles/faq-faceting.html">FAQ: Faceting</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-customising.html">FAQ: Customising</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-annotation.html">FAQ: Annotation</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-reordering.html">FAQ: Reordering</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-bars.html">FAQ: Barplots</a>
     </li>
   </ul>
 </li>
-        <li>
+<li>
   <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -206,19 +229,19 @@ contain all information about axis limits, breaks etc." />
     </div>
 
     <div class="ref-description">
-    <p><code><a href='https://ggplot2.tidyverse.org/reference/ggplot_build.html'>ggplot_build()</a></code> takes the plot object, and performs all steps necessary
+    <p><code>ggplot_build()</code> takes the plot object, and performs all steps necessary
 to produce an object that can be rendered.  This function outputs two pieces:
 a list of data frames (one for each layer), and a panel object, which
 contain all information about axis limits, breaks etc.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot_build.html'>ggplot_build</a></span>(<span class='kw'>plot</span>)
+    <pre class="usage"><span class='fu'>ggplot_build</span><span class='op'>(</span><span class='va'>plot</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot_build.html'>layer_data</a></span>(<span class='kw'>plot</span>, i = <span class='fl'>1L</span>)
+<span class='fu'>layer_data</span><span class='op'>(</span><span class='va'>plot</span>, i <span class='op'>=</span> <span class='fl'>1L</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot_build.html'>layer_scales</a></span>(<span class='kw'>plot</span>, i = <span class='fl'>1L</span>, j = <span class='fl'>1L</span>)
+<span class='fu'>layer_scales</span><span class='op'>(</span><span class='va'>plot</span>, i <span class='op'>=</span> <span class='fl'>1L</span>, j <span class='op'>=</span> <span class='fl'>1L</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot_build.html'>layer_grob</a></span>(<span class='kw'>plot</span>, i = <span class='fl'>1L</span>)</pre>
+<span class='fu'>layer_grob</span><span class='op'>(</span><span class='va'>plot</span>, i <span class='op'>=</span> <span class='fl'>1L</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -229,25 +252,25 @@ contain all information about axis limits, breaks etc.</p>
     </tr>
     <tr>
       <th>i</th>
-      <td><p>An integer. In <code><a href='https://ggplot2.tidyverse.org/reference/ggplot_build.html'>layer_data()</a></code>, the data to return (in the order added to the
-plot). In <code><a href='https://ggplot2.tidyverse.org/reference/ggplot_build.html'>layer_grob()</a></code>, the grob to return (in the order added to the
-plot). In <code><a href='https://ggplot2.tidyverse.org/reference/ggplot_build.html'>layer_scales()</a></code>, the row of a facet to return scales for.</p></td>
+      <td><p>An integer. In <code>layer_data()</code>, the data to return (in the order added to the
+plot). In <code>layer_grob()</code>, the grob to return (in the order added to the
+plot). In <code>layer_scales()</code>, the row of a facet to return scales for.</p></td>
     </tr>
     <tr>
       <th>j</th>
-      <td><p>An integer. In <code><a href='https://ggplot2.tidyverse.org/reference/ggplot_build.html'>layer_scales()</a></code>, the column of a facet to return
+      <td><p>An integer. In <code>layer_scales()</code>, the column of a facet to return
 scales for.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code><a href='https://ggplot2.tidyverse.org/reference/ggplot_build.html'>layer_data()</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/ggplot_build.html'>layer_grob()</a></code>, and <code><a href='https://ggplot2.tidyverse.org/reference/ggplot_build.html'>layer_scales()</a></code> are helper
+    <p><code>layer_data()</code>, <code>layer_grob()</code>, and <code>layer_scales()</code> are helper
 functions that return the data, grob, or scales associated with a given
 layer. These are useful for tests.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://ggplot2.tidyverse.org/reference/print.ggplot.html'>print.ggplot()</a></code> and <code><a href='https://ggplot2.tidyverse.org/reference/benchplot.html'>benchplot()</a></code> for
+    <div class='dont-index'><p><code><a href='print.ggplot.html'>print.ggplot()</a></code> and <code><a href='benchplot.html'>benchplot()</a></code> for
 functions that contain the complete set of steps for generating
 a ggplot2 plot.</p></div>
 

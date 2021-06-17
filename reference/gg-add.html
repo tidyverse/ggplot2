@@ -103,12 +103,13 @@ work at each step." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.4</span>
         </div>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
+        
         <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -158,25 +159,47 @@ work at each step." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Developer</li>
+    <li>
       <a href="../articles/extending-ggplot2.html">Extending ggplot2</a>
     </li>
     <li>
       <a href="../articles/ggplot2-in-packages.html">Using ggplot2 in packages</a>
     </li>
     <li>
-      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+      <a href="../articles/profiling.html">Profiling Performance</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">FAQ</li>
+    <li>
+      <a href="../articles/articles/faq-axes.html">FAQ: Axes</a>
     </li>
     <li>
-      <a href="../articles/profiling.html">Profiling Performance</a>
+      <a href="../articles/articles/faq-faceting.html">FAQ: Faceting</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-customising.html">FAQ: Customising</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-annotation.html">FAQ: Annotation</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-reordering.html">FAQ: Reordering</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-bars.html">FAQ: Barplots</a>
     </li>
   </ul>
 </li>
-        <li>
+<li>
   <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -220,7 +243,7 @@ e1 %+% e2</pre>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>e1</th>
-      <td><p>An object of class <code><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot()</a></code> or a <code><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme()</a></code>.</p></td>
+      <td><p>An object of class <code><a href='ggplot.html'>ggplot()</a></code> or a <code><a href='theme.html'>theme()</a></code>.</p></td>
     </tr>
     <tr>
       <th>e2</th>
@@ -233,11 +256,11 @@ e1 %+% e2</pre>
     
 
 <p>You can add any of the following types of objects:</p><ul>
-<li><p>An <code><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes()</a></code> object replaces the default aesthetics.</p></li>
+<li><p>An <code><a href='aes.html'>aes()</a></code> object replaces the default aesthetics.</p></li>
 <li><p>A layer created by a <code>geom_</code> or <code>stat_</code> function adds a
 new layer.</p></li>
 <li><p>A <code>scale</code> overrides the existing scale.</p></li>
-<li><p>A <code><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme()</a></code> modifies the current theme.</p></li>
+<li><p>A <code><a href='theme.html'>theme()</a></code> modifies the current theme.</p></li>
 <li><p>A <code>coord</code> overrides the current coordinate system.</p></li>
 <li><p>A <code>facet</code> specification overrides the current faceting.</p></li>
 </ul>
@@ -248,16 +271,21 @@ due to S3 method precedence issues.</p>
 be added in turn.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='theme.html'>theme()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>base</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>mpg</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>displ</span>, <span class='kw'>hwy</span>)) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>()
-<span class='kw'>base</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span>()</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='gg-add-1.png' alt='' width='700' height='433' /></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='va'>base</span> <span class='op'>&lt;-</span>
+ <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>displ</span>, <span class='va'>hwy</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+ <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>base</span> <span class='op'>+</span> <span class='fu'><a href='geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='gg-add-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># To override the data, you must use %+%</span>
-<span class='kw'>base</span> <span class='op'>%+%</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='kw'>mpg</span>, <span class='kw'>fl</span> <span class='op'>==</span> <span class='st'>"p"</span>)</div><div class='img'><img src='gg-add-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>base</span> <span class='op'>%+%</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>fl</span> <span class='op'>==</span> <span class='st'>"p"</span><span class='op'>)</span>
+</div><div class='img'><img src='gg-add-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Alternatively, you can add multiple components with a list.</span>
 <span class='co'># This can be useful to return from a function.</span>
-<span class='kw'>base</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='kw'>mpg</span>, <span class='kw'>fl</span> <span class='op'>==</span> <span class='st'>"p"</span>), <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span>())</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='gg-add-3.png' alt='' width='700' height='433' /></div></pre>
+<span class='va'>base</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>fl</span> <span class='op'>==</span> <span class='st'>"p"</span><span class='op'>)</span>, <span class='fu'><a href='geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='gg-add-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -101,12 +101,13 @@
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.4</span>
         </div>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
+        
         <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -156,25 +157,47 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Developer</li>
+    <li>
       <a href="../articles/extending-ggplot2.html">Extending ggplot2</a>
     </li>
     <li>
       <a href="../articles/ggplot2-in-packages.html">Using ggplot2 in packages</a>
     </li>
     <li>
-      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+      <a href="../articles/profiling.html">Profiling Performance</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">FAQ</li>
+    <li>
+      <a href="../articles/articles/faq-axes.html">FAQ: Axes</a>
     </li>
     <li>
-      <a href="../articles/profiling.html">Profiling Performance</a>
+      <a href="../articles/articles/faq-faceting.html">FAQ: Faceting</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-customising.html">FAQ: Customising</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-annotation.html">FAQ: Annotation</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-reordering.html">FAQ: Reordering</a>
+    </li>
+    <li>
+      <a href="../articles/articles/faq-bars.html">FAQ: Barplots</a>
     </li>
   </ul>
 </li>
-        <li>
+<li>
   <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -206,7 +229,7 @@
     <p>This guide draws nothing.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_none.html'>guide_none</a></span>(title = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(), position = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>())</pre>
+    <pre class="usage"><span class='fu'>guide_none</span><span class='op'>(</span>title <span class='op'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span><span class='op'>(</span><span class='op'>)</span>, position <span class='op'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -215,8 +238,8 @@
       <th>title</th>
       <td><p>A character string or expression indicating a title of guide.
 If <code>NULL</code>, the title is not shown. By default
-(<code><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver()</a></code>), the name of the scale object or the name
-specified in <code><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs()</a></code> is used for the title.</p></td>
+(<code><a href='waiver.html'>waiver()</a></code>), the name of the scale object or the name
+specified in <code><a href='labs.html'>labs()</a></code> is used for the title.</p></td>
     </tr>
     <tr>
       <th>position</th>
