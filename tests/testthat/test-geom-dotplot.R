@@ -181,7 +181,7 @@ test_that("geom_dotplot draws correctly", {
 
   # border width and size
   expect_doppelganger(
-    "variable linetype and size work when specified as aesthetics",
+    "variable linetype and size specified as aesthetics",
     ggplot(
       dat,
       aes(
@@ -195,13 +195,13 @@ test_that("geom_dotplot draws correctly", {
   )
 
   # Stacking groups
-  expect_doppelganger("stackgroups with 3 groups, dot-density with aligned bins",
+  expect_doppelganger("3 stackgroups, dot-density with aligned bins",
     ggplot(dat2, aes(y, fill = x)) + geom_dotplot(binwidth = .25, stackgroups = TRUE, binpositions = "all", alpha = 0.5)
   )
-  expect_doppelganger("stackgroups with 3 groups, histodot",
+  expect_doppelganger("3 stackgroups, histodot",
     ggplot(dat2, aes(y, fill = x)) + geom_dotplot(binwidth = .25, stackgroups = TRUE, method = "histodot", alpha = 0.5)
   )
-  expect_doppelganger("stackgroups with 3 groups, bin y, histodot",
+  expect_doppelganger("3 stackgroups, bin y, histodot",
     ggplot(dat2, aes(1, y, fill = x)) + geom_dotplot(binaxis = "y", binwidth = .25, stackgroups = TRUE, method = "histodot", alpha = 0.5)
   )
 

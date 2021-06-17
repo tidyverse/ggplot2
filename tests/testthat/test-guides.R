@@ -459,11 +459,11 @@ test_that("colorbar can be styled", {
   df <- data_frame(x = c(0, 1, 2))
   p <- ggplot(df, aes(x, x, color = x)) + geom_point()
 
-  expect_doppelganger("white-to-red gradient colorbar, white tick marks, no frame",
+  expect_doppelganger("white-to-red colorbar, white ticks, no frame",
     p + scale_color_gradient(low = 'white', high = 'red')
   )
 
-  expect_doppelganger("white-to-red gradient colorbar, thick black tick marks, green frame",
+  expect_doppelganger("white-to-red colorbar, thick black ticks, green frame",
     p + scale_color_gradient(
           low = 'white', high = 'red',
           guide = guide_colorbar(
