@@ -29,6 +29,8 @@ small selection of feature refinements.
   correctly (@thomasp85, #4388)
 
 * `ggsave()` now returns the saved file location invisibly (#3379, @eliocamp).
+  Note that, as a side effect, an unofficial hack `<ggplot object> + ggsave()`
+  no longer works (#4513).
 
 * The scale arguments `limits`, `breaks`, `minor_breaks`, `labels`, `rescaler`
   and `oob` now accept purrr style lambda notation (@teunbrand, #4427). The same 
