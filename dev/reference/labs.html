@@ -106,7 +106,7 @@ to differentiate between multiple plots." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.3.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.4.9000</span>
         </div>
       </div>
     </div>
@@ -244,7 +244,9 @@ to differentiate between multiple plots.</p>
   title <span class='op'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span><span class='op'>(</span><span class='op'>)</span>,
   subtitle <span class='op'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span><span class='op'>(</span><span class='op'>)</span>,
   caption <span class='op'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span><span class='op'>(</span><span class='op'>)</span>,
-  tag <span class='op'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span><span class='op'>(</span><span class='op'>)</span>
+  tag <span class='op'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span><span class='op'>(</span><span class='op'>)</span>,
+  alt <span class='op'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span><span class='op'>(</span><span class='op'>)</span>,
+  alt_insight <span class='op'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>)</span>
 
 <span class='fu'>xlab</span><span class='op'>(</span><span class='va'>label</span><span class='op'>)</span>
@@ -278,6 +280,11 @@ bottom-right of the plot by default.</p></td>
       <th>tag</th>
       <td><p>The text for the tag label which will be displayed at the
 top-left of the plot by default.</p></td>
+    </tr>
+    <tr>
+      <th>alt, alt_insight</th>
+      <td><p>Text used for the generation of alt-text for the plot.
+See <a href='get_alt_text.html'>get_alt_text</a> for examples.</p></td>
     </tr>
     <tr>
       <th>label</th>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>2d density estimate of Old Faithful data — faithfuld • ggplot2</title>
+<title>Extract alt text from a plot — get_alt_text • ggplot2</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -55,9 +55,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="2d density estimate of Old Faithful data — faithfuld" />
-<meta property="og:description" content="A 2d density estimate of the waiting and eruptions variables data
-faithful." />
+<meta property="og:title" content="Extract alt text from a plot — get_alt_text" />
+<meta property="og:description" content="This function returns a text that can be used as alt-text in webpages etc.
+Currently it will use the alt label, added with + labs(alt = &amp;lt;...&amp;gt;), or
+a return an empty string, but in the future it might try to generate an alt
+text from the information stored in the plot." />
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -221,29 +223,53 @@ faithful." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>2d density estimate of Old Faithful data</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidyverse/ggplot2/blob/master/R/data.R'><code>R/data.R</code></a></small>
-    <div class="hidden name"><code>faithfuld.Rd</code></div>
+    <h1>Extract alt text from a plot</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidyverse/ggplot2/blob/master/R/labels.r'><code>R/labels.r</code></a></small>
+    <div class="hidden name"><code>get_alt_text.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>A 2d density estimate of the waiting and eruptions variables data
-<a href='https://rdrr.io/r/datasets/faithful.html'>faithful</a>.</p>
+    <p>This function returns a text that can be used as alt-text in webpages etc.
+Currently it will use the <code>alt</code> label, added with <code>+ labs(alt = &lt;...&gt;)</code>, or
+a return an empty string, but in the future it might try to generate an alt
+text from the information stored in the plot.</p>
     </div>
 
-    <pre class="usage"><span class='va'>faithfuld</span></pre>
+    <pre class="usage"><span class='fu'>get_alt_text</span><span class='op'>(</span><span class='va'>p</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>p</th>
+      <td><p>a ggplot object</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Currently ignored</p></td>
+    </tr>
+    </table>
 
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A data frame with 5,625 observations and 3 variables:</p><dl>
-<dt>eruptions</dt><dd><p>Eruption time in mins</p></dd>
-<dt>waiting</dt><dd><p>Waiting time to next eruption in mins</p></dd>
-<dt>density</dt><dd><p>2d density estimate</p></dd>
+    <p>A text string</p>
 
-</dl>
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>displ</span>, <span class='va'>hwy</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span>
 
+<span class='co'># Returns an empty string</span>
+<span class='fu'>get_alt_text</span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] ""</div><div class='input'>
+<span class='co'># A user provided alt text</span>
+<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='labs.html'>labs</a></span><span class='op'>(</span>
+  alt <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"A scatterplot showing the negative correlation between engine"</span>,
+              <span class='st'>"displacement as a function of highway miles per gallon"</span><span class='op'>)</span>
+<span class='op'>)</span>
 
+<span class='fu'>get_alt_text</span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "A scatterplot showing the negative correlation between engine displacement as a function of highway miles per gallon"</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
