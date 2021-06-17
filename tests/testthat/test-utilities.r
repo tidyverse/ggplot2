@@ -87,3 +87,7 @@ test_that("parse_safe works with multi expressions", {
     expression(NA, 1, 2, a)
   )
 })
+
+test_that("x and y aesthetics have the same length", {
+  expect_equal(length(ggplot_global$x_aes), length(ggplot_global$y_aes))
+})

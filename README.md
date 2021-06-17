@@ -55,7 +55,7 @@ ggplot(mpg, aes(displ, hwy, colour = class)) +
 
 ## Lifecycle
 
-[![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
+[![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 
 ggplot2 is now over 10 years old and is used by hundreds of thousands of
 people to make millions of plots. That means, by-and-large, ggplot2

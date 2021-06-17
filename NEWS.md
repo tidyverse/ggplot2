@@ -1,36 +1,113 @@
-# ggplot2 (development version)
+# ggplot2 3.3.4
+This is a larger patch release fixing a huge number of bugs and introduces a 
+small selection of feature refinements.
+
+## Features
+
+* Alt-text can now be added to a plot using the `alt` label, i.e 
+  `+ labs(alt = ...)`. Currently this alt text is not automatically propagated, 
+  but we plan to integrate into Shiny, RMarkdown, and other tools in the future. 
+  (@thomasp85, #4477)
+
+* Add support for the BrailleR package for creating descriptions of the plot
+  when rendered (@thomasp85, #4459)
+  
+* `coord_sf()` now has an argument `default_crs` that specifies the coordinate
+  reference system (CRS) for non-sf layers and scale/coord limits. This argument
+  defaults to `NULL`, which means non-sf layers are assumed to be in projected
+  coordinates, as in prior ggplot2 versions. Setting `default_crs = sf::st_crs(4326)`
+  provides a simple way to interpret x and y positions as longitude and latitude,
+  regardless of the CRS used by `coord_sf()`. Authors of extension packages
+  implementing `stat_sf()`-like functionality are encouraged to look at the source
+  code of `stat_sf()`'s `compute_group()` function to see how to provide scale-limit
+  hints to `coord_sf()` (@clauswilke, #3659).
+
+* `ggsave()` now uses ragg to render raster output if ragg is available. It also
+  handles custom devices that sets a default unit (e.g. `ragg::agg_png`) 
+  correctly (@thomasp85, #4388)
+
+* `ggsave()` now returns the saved file location invisibly (#3379, @eliocamp).
+
+* The scale arguments `limits`, `breaks`, `minor_breaks`, `labels`, `rescaler`
+  and `oob` now accept purrr style lambda notation (@teunbrand, #4427). The same 
+  is true for `as_labeller()` (and therefore also `labeller()`) 
+  (@netique, #4188).
 
 * Manual scales now allow named vectors passed to `values` to contain fewer 
   elements than existing in the data. Elements not present in values will be set
   to `NA` (@thomasp85, #3451)
   
-* Remove cross-inheritance of default discrete colour/fill scales and check the
-  type and aesthetic of function output if `type` is a function 
-  (@thomasp85, #4149)
-
-* Add support for the BrailleR package for creating descriptions of the plot
-  when rendered (@thomasp85, #4459)
-
-* Fix a bug in the layer implementation that introduced a new state after the 
-  first render which could lead to a different look when rendered the second 
-  time (@thomasp85, #4204)
+* Date and datetime position scales support out-of-bounds (oob) arguments to 
+  control how limits affect data outside those limits (@teunbrand, #4199).
   
-* Make sure `label_bquote()` has access to the calling environment when 
-  evaluating the labels (@thomasp85, #4141)
+## Fixes
+
+* Fix a bug that `after_stat()` and `after_scale()` cannot refer to aesthetics
+  if it's specified in the plot-global mapping (@yutannihilation, #4260).
   
 * Fix bug in `annotate_logticks()` that would cause an error when used together
   with `coord_flip()` (@thomasp85, #3954)
   
-* Fix a bug in `guide_bins()` where keys would disappear if the guide was 
-  reversed (@thomasp85, #4210)
+* Fix a bug in `geom_abline()` that resulted in `intercept` not being subjected
+  to the transformation of the y scale (@thomasp85, #3741)
+  
+* Extent the range of the line created by `geom_abline()` so that line ending
+  is not visible for large linewidths (@thomasp85, #4024)
+
+* Fix bug in `geom_dotplot()` where dots would be positioned wrong with 
+  `stackgroups = TRUE` (@thomasp85, #1745)
+
+* Fix calculation of confidence interval for locfit smoothing in `geom_smooth()`
+  (@topepo, #3806)
   
 * Fix bug in `geom_text()` where `"outward"` and `"inward"` justification for 
   some `angle` values was reversed (@aphalo, #4169, #4447)
 
+* `ggsave()` now sets the default background to match the fill value of the
+  `plot.background` theme element (@karawoo, #4057)
+
+* It is now deprecated to specify `guides(<scale> = FALSE)` or
+  `scale_*(guide = FALSE)` to remove a guide. Please use 
+  `guides(<scale> = "none")` or `scale_*(guide = "none")` instead 
+  (@yutannihilation, #4094).
+  
+* Fix a bug in `guide_bins()` where keys would disappear if the guide was 
+  reversed (@thomasp85, #4210)
+  
+* Fix bug in `guide_coloursteps()` that would repeat the terminal bins if the
+  breaks coincided with the limits of the scale (@thomasp85, #4019)
+
+* Make sure that default labels from default mappings doesn't overwrite default
+  labels from explicit mappings (@thomasp85, #2406)
+
+* Fix bug in `labeller()` where parsing was turned off if `.multiline = FALSE`
+  (@thomasp85, #4084)
+  
+* Make sure `label_bquote()` has access to the calling environment when 
+  evaluating the labels (@thomasp85, #4141)
+
+* Fix a bug in the layer implementation that introduced a new state after the 
+  first render which could lead to a different look when rendered the second 
+  time (@thomasp85, #4204)
+
 * Fix a bug in legend justification where justification was lost of the legend
   dimensions exceeded the available size (@thomasp85, #3635)
 
-* Fix calculation of confidence interval for locfit smoothing (@topepo, #3806)
+* Fix a bug in `position_dodge2()` where `NA` values in thee data would cause an
+  error (@thomasp85, #2905)
+
+* Make sure `position_jitter()` creates the same jittering independent of 
+  whether it is called by name or with constructor (@thomasp85, #2507)
+
+* Fix a bug in `position_jitter()` where different jitters would be applied to 
+  different position aesthetics of the same axis (@thomasp85, #2941)
+  
+* Fix a bug in `qplot()` when supplying `c(NA, NA)` as axis limits 
+  (@thomasp85, #4027)
+  
+* Remove cross-inheritance of default discrete colour/fill scales and check the
+  type and aesthetic of function output if `type` is a function 
+  (@thomasp85, #4149)
 
 * Fix bug in `scale_[x|y]_date()` where custom breaks functions that resulted in
   fracional dates would get misaligned (@thomasp85, #3965)
@@ -38,85 +115,33 @@
 * Fix bug in `scale_[x|y]_datetime()` where a specified timezone would be 
   ignored by the scale (@thomasp85, #4007)
   
-* Using `theme(aspect.ratio = ...)` together with free space in `facet_grid()`
-  now crrectly throws an error (@thomasp85, #3834)
-  
-* Fix a bug in `stat_summary_bin()` where one more than the requested number of
-  bins would be created (@thomasp85, #3824)
-  
 * Fix issue in `sec_axis()` that would throw warnings in the absence of any 
   secondary breaks (@thomasp85, #4368)
-  
-* Fix a bug in `geom_abline()` that resulted in `intercept` not being subjected
-  to the transformation of the y scale (@thomasp85, #3741)
-  
-* Fix bug in `guide_coloursteps()` that would repeat the terminal bins if the
-  breaks coincided with the limits of the scale (@thomasp85, #4019)
-  
-* Extent the range of the line created by `geom_abline()` so that line ending
-  is not visible for large linewidths (@thomasp85, #4024)
 
-* Make sure that default labels from default mappings doesn't overwrite default
-  labels from explicit mappings (@thomasp85, #2406)
+* `stat_bin()`'s computed variable `width` is now documented (#3522).
   
 * `stat_count()` now computes width based on the full dataset instead of per 
   group (@thomasp85, #2047)
 
-* Fix bug in `labeller()` where parsing was turned off if `.multiline = FALSE`
-  (@thomasp85, #4084)
+* Extended `stat_ecdf()` to calculate the cdf from either x or y instead from y 
+  only (@jgjl, #4005)
   
-* Fix a bug in `qplot()` when supplying `c(NA, NA)` as axis limits 
-  (@thomasp85, #4027)
+* Fix a bug in `stat_summary_bin()` where one more than the requested number of
+  bins would be created (@thomasp85, #3824)
 
-* Fix bug in `geom_dotplot()` where dots would be positioned wrong with 
-  `stackgroups = TRUE` (@thomasp85, #1745)
+* Only drop groups in `stat_ydensity()` when there are fewer than two data 
+  points and throw a warning (@andrewwbutler, #4111).
 
-* Make sure position_jitter creates the same jittering independent of whether it
-  is called by name or with constructor (@thomasp85, #2507)
-
-* Fix a bug in `position_dodge2()` where `NA` values in thee data would cause an
-  error (@thomasp85, #2905)
-
-* Fix a bug in `position_jitter()` where different jitters would be applied to 
-  different position aesthetics of the same axis (@thomasp85, #2941)
-
-* `ggsave()` now uses ragg to render raster output if ragg is available 
-  (@thomasp85, #4388)
+* Fixed a bug in strip assembly when theme has `strip.text = element_blank()`
+  and plots are faceted with multi-layered strips (@teunbrand, #4384).
   
-* `coord_sf()` now has an argument `default_crs` that specifies the coordinate
-  reference system (CRS) for non-sf layers and scale/coord limits. This argument
-  defaults to the World Geodetic System 1984 (WGS84), which means x and y positions
-  are interpreted as longitude and latitude. This is a potentially breaking change
-  for users who use projected coordinates in non-sf layers or in limits. Setting
-  `default_crs = NULL` recovers the old behavior. Further, authors of extension
-  packages implementing `stat_sf()`-like functionality are encouraged to look at the
-  source code of `stat_sf()`'s `compute_group()` function to see how to provide
-  scale-limit hints to `coord_sf()` (@clauswilke, #3659).
-
-* `ggsave()` now sets the default background to match the fill value of the
-  `plot.background` theme element (@karawoo, #4057)
-
-* Extended `stat_ecdf()` to calculate the cdf from either x or y instead from y only (@jgjl, #4005).
+* Using `theme(aspect.ratio = ...)` together with free space in `facet_grid()`
+  now crrectly throws an error (@thomasp85, #3834)
 
 * Fixed a bug in `labeller()` so that `.default` is passed to `as_labeller()`
   when labellers are specified by naming faceting variables. (@waltersom, #4031)
   
 * Updated style for example code (@rjake, #4092)
-
-* Only drop groups in `stat_ydensity()` when there are fewer than two data points and throw a warning (@andrewwbutler, #4111).
-
-* It is now deprecated to specify `guides(<scale> = FALSE)` or
-  `scale_*(guide = FALSE)` to remove a guide. Please use 
-  `guides(<scale> = "none")` or `scale_*(guide = "none")` instead 
-  (@yutannihilation, #4094).
-  
-* Date and datetime position scales support out-of-bounds (oob) arguments to 
-  control how limits affect data outside those limits (@teunbrand, #4199).
-
-* `stat_bin()`'s computed variable `width` is now documented (#3522).
-
-* Fixed a bug in strip assembly when theme has `strip.text = element_blank()`
-  and plots are faceted with multi-layered strips (@teunbrand, #4384).
 
 * ggplot2 now requires R >= 3.3 (#4247).
 
@@ -126,17 +151,6 @@
 
 * Improved error with hint when piping a `ggplot` object into a facet function
   (#4379, @mitchelloharawild).
-
-* Fix a bug that `after_stat()` and `after_scale()` cannot refer to aesthetics
-  if it's specified in the plot-global mapping (@yutannihilation, #4260).
-
-* `ggsave()` now returns the saved file location invisibly (#3379, @eliocamp).
-
-* The scale arguments `limits`, `breaks`, `minor_breaks`, `labels`, `rescaler`
-  and `oob` now accept purrr style lambda notation (@teunbrand, #4427).
-  
-* `as_labeller()` (and therefore also `labeller()`) now handles functions in
-  purrr-style lambda notation (@netique, #4188).
 
 # ggplot2 3.3.3
 This is a small patch release mainly intended to address changes in R and CRAN.

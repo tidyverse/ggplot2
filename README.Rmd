@@ -54,7 +54,7 @@ ggplot(mpg, aes(displ, hwy, colour = class)) +
 
 ## Lifecycle
 
-[![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
+[![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 
 ggplot2 is now over 10 years old and is used by hundreds of thousands of people to make millions of plots. That means, by-and-large, ggplot2 itself changes relatively little. When we do make changes, they will be generally to add new functions or arguments rather than changing the behaviour of existing functions, and if we do make changes to existing behaviour we will do them for compelling reasons. 
 
@@ -71,6 +71,9 @@ If you are new to ggplot2 you are better off starting with a systematic introduc
     [tidyverse](https://www.tidyverse.org), and these two chapters will
     get you up to speed with the essentials of ggplot2 as quickly as 
     possible.
+    
+1.  If you'd like to take an online course, try
+    [Data Visualization in R With ggplot2][oreilly] by Kara Woo.
     
 1.  If you'd like to follow a webinar, try
     [Plotting Anything with ggplot2](https://youtu.be/h29g21z0a68) by Thomas Lin 
@@ -102,4 +105,4 @@ There are two main places to get help with ggplot2:
 [r4ds]: https://r4ds.had.co.nz
 [r4ds-vis]: https://r4ds.had.co.nz/data-visualisation.html
 [r4ds-comm]: https://r4ds.had.co.nz/graphics-for-communication.html
-[oreilly]: https://shop.oreilly.com/product/0636920052807.do
+[oreilly]: https://learning.oreilly.com/videos/data-visualization-in/9781491963661/

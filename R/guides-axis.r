@@ -415,12 +415,14 @@ axis_label_element_overrides <- function(axis_position, angle = NULL) {
 }
 
 warn_for_guide_position <- function(guide) {
-  if (empty(guide$key) || nrow(guide$key) == 1) {
+  # This is trying to catch when a user specifies a position perpendicular
+  # to the direction of the axis (e.g., a "y" axis on "top").
+  # The strategy is to check that two or more unique breaks are mapped
+  # to the same value along the axis.
+  breaks_are_unique <- !duplicated(guide$key$.value)
+  if (empty(guide$key) || sum(breaks_are_unique) == 1) {
     return()
   }
-
-  # this is trying to catch when a user specifies a position perpendicular
-  # to the direction of the axis (e.g., a "y" axis on "top")
 
   if (guide$position %in% c("top", "bottom")) {
     position_aes <- "x"
@@ -430,7 +432,7 @@ warn_for_guide_position <- function(guide) {
     return()
   }
 
-  if (length(unique(guide$key[[position_aes]])) == 1) {
+  if (length(unique(guide$key[[position_aes]][breaks_are_unique])) == 1) {
     warn("Position guide is perpendicular to the intended axis. Did you mean to specify a different guide `position`?")
   }
 }

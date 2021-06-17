@@ -33,23 +33,23 @@ test_that("geom_sf() determines the legend type automatically", {
 
   # test the automatic choice
   expect_identical(fun_geom_sf(mp, TRUE)$plot$layers[[1]]$show.legend, TRUE)
-  expect_identical(fun_geom_sf(mp, TRUE)$plot$layers[[1]]$geom_params$legend, "point")
+  expect_identical(fun_geom_sf(mp, TRUE)$plot$layers[[1]]$computed_geom_params$legend, "point")
 
   expect_identical(fun_geom_sf(mls, TRUE)$plot$layers[[1]]$show.legend, TRUE)
-  expect_identical(fun_geom_sf(mls, TRUE)$plot$layers[[1]]$geom_params$legend, "line")
+  expect_identical(fun_geom_sf(mls, TRUE)$plot$layers[[1]]$computed_geom_params$legend, "line")
 
   expect_identical(fun_geom_sf(mpol, TRUE)$plot$layers[[1]]$show.legend, TRUE)
-  expect_identical(fun_geom_sf(mpol, TRUE)$plot$layers[[1]]$geom_params$legend, "polygon")
+  expect_identical(fun_geom_sf(mpol, TRUE)$plot$layers[[1]]$computed_geom_params$legend, "polygon")
 
   # test that automatic choice can be overridden manually
   expect_identical(fun_geom_sf(mp, "point")$plot$layers[[1]]$show.legend, TRUE)
-  expect_identical(fun_geom_sf(mp, "point")$plot$layers[[1]]$geom_params$legend, "point")
+  expect_identical(fun_geom_sf(mp, "point")$plot$layers[[1]]$computed_geom_params$legend, "point")
 
   expect_identical(fun_geom_sf(mls, "point")$plot$layers[[1]]$show.legend, TRUE)
-  expect_identical(fun_geom_sf(mls, "point")$plot$layers[[1]]$geom_params$legend, "point")
+  expect_identical(fun_geom_sf(mls, "point")$plot$layers[[1]]$computed_geom_params$legend, "point")
 
   expect_identical(fun_geom_sf(mpol, "point")$plot$layers[[1]]$show.legend, TRUE)
-  expect_identical(fun_geom_sf(mpol, "point")$plot$layers[[1]]$geom_params$legend, "point")
+  expect_identical(fun_geom_sf(mpol, "point")$plot$layers[[1]]$computed_geom_params$legend, "point")
 })
 
 test_that("geom_sf() determines the legend type from mapped geometry column", {
@@ -70,19 +70,19 @@ test_that("geom_sf() determines the legend type from mapped geometry column", {
   p <- ggplot_build(
     ggplot(d_sf) + geom_sf(aes(geometry = g_point, colour = "a"))
   )
-  expect_identical(p$plot$layers[[1]]$geom_params$legend, "point")
+  expect_identical(p$plot$layers[[1]]$computed_geom_params$legend, "point")
 
   p <- ggplot_build(
     ggplot(d_sf) + geom_sf(aes(geometry = g_line, colour = "a"))
   )
-  expect_identical(p$plot$layers[[1]]$geom_params$legend, "line")
+  expect_identical(p$plot$layers[[1]]$computed_geom_params$legend, "line")
 
   # If `geometry` is not a symbol, `LayerSf$setup_layer()` gives up guessing
   # the legend type, and falls back to "polygon"
   p <- ggplot_build(
     ggplot(d_sf) + geom_sf(aes(geometry = identity(g_point), colour = "a"))
   )
-  expect_identical(p$plot$layers[[1]]$geom_params$legend, "polygon")
+  expect_identical(p$plot$layers[[1]]$computed_geom_params$legend, "polygon")
 })
 
 test_that("geom_sf() removes rows containing missing aes", {

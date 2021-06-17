@@ -73,6 +73,14 @@ test_that("a warning is generated when guides are drawn at a location that doesn
   expect_warning(ggplot_gtable(built), "Position guide is perpendicular")
 })
 
+test_that("a warning is not generated when a guide is specified with duplicate breaks", {
+  plot <- ggplot(mpg, aes(class, hwy)) +
+    geom_point() +
+    scale_y_continuous(breaks = c(20, 20))
+  built <- expect_silent(ggplot_build(plot))
+  expect_silent(ggplot_gtable(built))
+})
+
 test_that("a warning is generated when more than one position guide is drawn at a location", {
   plot <- ggplot(mpg, aes(class, hwy)) +
     geom_point() +

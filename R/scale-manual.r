@@ -123,7 +123,7 @@ scale_discrete_manual <- function(aesthetics, ..., values, breaks = waiver()) {
 }
 
 
-manual_scale <- function(aesthetic, values = NULL, breaks = waiver(), limits = NULL, ...) {
+manual_scale <- function(aesthetic, values = NULL, breaks = waiver(), ..., limits = NULL) {
   # check for missing `values` parameter, in lieu of providing
   # a default to all the different scale_*_manual() functions
   if (is_missing(values)) {

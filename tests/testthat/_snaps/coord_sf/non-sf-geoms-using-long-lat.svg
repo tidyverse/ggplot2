@@ -90,6 +90,6 @@
 <text x='506.63' y='555.93' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='8.31px' lengthAdjust='spacingAndGlyphs'>W</text>
 <text x='378.49' y='568.24' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='5.50px' lengthAdjust='spacingAndGlyphs'>x</text>
 <text transform='translate(152.53,283.86) rotate(-90)' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='5.50px' lengthAdjust='spacingAndGlyphs'>y</text>
-<text x='181.94' y='14.56' style='font-size: 13.20px; font-family: sans;' textLength='151.91px' lengthAdjust='spacingAndGlyphs'>non-sf geoms use long-lat</text>
+<text x='181.94' y='14.56' style='font-size: 13.20px; font-family: sans;' textLength='162.18px' lengthAdjust='spacingAndGlyphs'>non-sf geoms using long-lat</text>
 </g>
 </svg>
