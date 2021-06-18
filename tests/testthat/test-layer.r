@@ -21,7 +21,7 @@ test_that("column vectors are allowed (#2609)", {
   df <- data_frame(x = 1:10)
   df$y <- scale(1:10) # Returns a column vector
   p <- ggplot(df, aes(x, y))
-  expect_is(layer_data(p), "data.frame")
+  expect_s3_class(layer_data(p), "data.frame")
 })
 
 test_that("missing aesthetics trigger informative error", {
