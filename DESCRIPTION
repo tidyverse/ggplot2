@@ -64,7 +64,7 @@ Suggests:
     rpart,
     sf (>= 0.7-3),
     svglite (>= 1.2.0.9001),
-    testthat (>= 2.1.0),
+    testthat (>= 3.0.0),
     vdiffr (>= 1.0.0),
     xml2
 Enhances: sp
@@ -274,3 +274,4 @@ Config/Needs/website:
     tidyr,
     forcats,
     tidyverse/tidytemplate
+Config/testthat/edition: 3
