@@ -1,14 +1,21 @@
-
 test_that("a warning is issued when there is more than one z per x+y", {
   tbl <- data_frame(x = c(1, 1, 2), y = c(1, 1, 2), z = 3)
   p <- ggplot(tbl, aes(x, y, z = z)) + geom_contour()
-  expect_warning(ggplot_build(p), "Zero contours were generated")
+  # Ignore other warnings than the one stat_contour() issued
+  suppressWarnings(
+    expect_warning(ggplot_build(p), "Zero contours were generated")
+  )
 })
 
 test_that("contouring sparse data results in a warning", {
   tbl <- data_frame(x = c(1, 27, 32), y = c(1, 1, 30), z = c(1, 2, 3))
   p <- ggplot(tbl, aes(x, y, z = z)) + geom_contour()
-  expect_warning(ggplot_build(p), "Zero contours were generated")
+
+  # TODO: These multiple warnings should be summarized nicely. Until this gets
+  #       fixed, this test ignores all the following errors than the first one.
+  suppressWarnings(
+    expect_warning(ggplot_build(p), "Zero contours were generated")
+  )
 })
 
 test_that("contouring irregularly spaced data works", {

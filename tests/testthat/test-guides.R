@@ -87,7 +87,12 @@ test_that("a warning is generated when more than one position guide is drawn at 
       y.sec = guide_axis(position = "left")
     )
   built <- expect_silent(ggplot_build(plot))
-  expect_warning(ggplot_gtable(built), "Discarding guide")
+
+  # TODO: These multiple warnings should be summarized nicely. Until this gets
+  #       fixed, this test ignores all the following errors than the first one.
+  suppressWarnings(
+    expect_warning(ggplot_gtable(built), "Discarding guide")
+  )
 })
 
 test_that("a warning is not generated when properly changing the position of a guide_axis()", {
