@@ -1,5 +1,3 @@
-context("Layer")
-
 # Parameters --------------------------------------------------------------
 
 test_that("aesthetics go in aes_params", {

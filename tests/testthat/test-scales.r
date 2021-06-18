@@ -1,5 +1,3 @@
-context("Scales")
-
 test_that("building a plot does not affect its scales", {
   dat <- data_frame(x = rnorm(20), y = rnorm(20))
 

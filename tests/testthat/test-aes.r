@@ -1,5 +1,3 @@
-context("Creating aesthetic mappings")
-
 test_that("aes() captures input expressions", {
   out <- aes(mpg, wt + 1)
   expect_identical(out$x, quo(mpg))

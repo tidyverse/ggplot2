@@ -1,6 +1,4 @@
 # Test the complete path from plot specification to rendered data
-context("Plot building")
-
 df <- data_frame(x = 1:3, y = 3:1, z = letters[1:3])
 
 test_that("there is one data frame for each layer", {

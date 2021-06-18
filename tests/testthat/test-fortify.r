@@ -1,5 +1,3 @@
-context("Fortify")
-
 test_that("spatial polygons have correct ordering", {
   skip_if_not_installed("sp")
 

@@ -1,5 +1,3 @@
-context("sanitise_dim")
-
 test_that("sanitise_dim returns NULL for zero-length inputs, with appropriate warnings", {
   expect_identical(sanitise_dim(NULL), NULL)
   n <- integer()

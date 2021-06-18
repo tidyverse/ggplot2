@@ -1,5 +1,3 @@
-context("Data")
-
 test_that("stringsAsFactors doesn't affect results", {
     old <- getOption("stringsAsFactors")
     on.exit(options(stringsAsFactors = old), add = TRUE)

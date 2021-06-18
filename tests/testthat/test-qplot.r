@@ -1,5 +1,3 @@
-context("qplot")
-
 test_that("qplot works with variables in data frame and parent env", {
   df <- data_frame(x = 1:10, a = 1:10)
   y <- 1:10

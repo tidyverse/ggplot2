@@ -1,6 +1,4 @@
 
-context("stat-contour")
-
 test_that("a warning is issued when there is more than one z per x+y", {
   tbl <- data_frame(x = c(1, 1, 2), y = c(1, 1, 2), z = 3)
   p <- ggplot(tbl, aes(x, y, z = z)) + geom_contour()

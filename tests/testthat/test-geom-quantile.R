@@ -1,5 +1,3 @@
-context("geom-quantile")
-
 test_that("geom_quantile matches quantile regression", {
   skip_if_not_installed("quantreg")
 

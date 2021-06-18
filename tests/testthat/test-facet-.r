@@ -1,5 +1,3 @@
-context("Facetting")
-
 test_that("as_facets_list() coerces formulas", {
   expect_identical(as_facets_list(~foo), list(quos(), quos(foo = foo)))
   expect_identical(as_facets_list(~foo + bar), list(quos(), quos(foo = foo, bar = bar)))

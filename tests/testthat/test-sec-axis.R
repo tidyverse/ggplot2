@@ -1,5 +1,3 @@
-context("sec-axis")
-
 x <- exp(seq(log(0.001), log(1000), length.out = 100))
 foo <- data_frame(
   x = x,

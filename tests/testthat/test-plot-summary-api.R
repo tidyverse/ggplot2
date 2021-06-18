@@ -1,5 +1,3 @@
-context("plot summary API")
-
 # Note: the functions tested here are used by Shiny; please do not change
 # their behavior without checking with the Shiny team first.
 

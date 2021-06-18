@@ -1,5 +1,3 @@
-context("Facet Strips")
-
 strip_layout <- function(p) {
   data <- ggplot_build(p)
   plot <- data$plot

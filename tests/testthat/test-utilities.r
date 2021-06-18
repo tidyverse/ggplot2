@@ -1,5 +1,3 @@
-context("Utilities")
-
 test_that("finite_cases.data.frame", {
   finite_cases <- function(x) cases(x, is_finite)
 

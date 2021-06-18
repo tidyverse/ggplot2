@@ -1,5 +1,3 @@
-context("scale_gradient")
-
 # Limits ------------------------------------------------------------------
 
 test_that("points outside the limits are plotted as NA", {

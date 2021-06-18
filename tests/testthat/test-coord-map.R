@@ -1,5 +1,3 @@
-context("coord_map")
-
 us_map <- map_data("usa")
 p_us <- ggplot(us_map, aes(x = long, y = lat, group = group))
 

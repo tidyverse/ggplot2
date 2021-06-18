@@ -1,5 +1,3 @@
-context("Labels")
-
 test_that("setting guide labels works", {
 
     expect_identical(xlab("my label")$x, "my label")
