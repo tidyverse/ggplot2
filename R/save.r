@@ -178,9 +178,9 @@ plot_dev <- function(device, filename = NULL, dpi = 300) {
       paper = "special")
   }
   if (requireNamespace('ragg', quietly = TRUE)) {
-    png_dev <- ragg::agg_png
-    jpeg_dev <- ragg::agg_jpeg
-    tiff_dev <- ragg::agg_tiff
+    png_dev <- absorb_grdevice_args(ragg::agg_png)
+    jpeg_dev <- absorb_grdevice_args(ragg::agg_jpeg)
+    tiff_dev <- absorb_grdevice_args(ragg::agg_tiff)
   } else {
     png_dev <- grDevices::png
     jpeg_dev <- grDevices::jpeg
@@ -219,4 +219,13 @@ plot_dev <- function(device, filename = NULL, dpi = 300) {
 #' @export
 grid.draw.ggplot <- function(x, recording = TRUE) {
   print(x)
+}
+
+absorb_grdevice_args <- function(f) {
+  function(..., type, antialias) {
+    if (!missing(type) || !missing(antialias)) {
+      warn("Using ragg device as default. Ignoring `type` and `antialias` arguments")
+    }
+    f(...)
+  }
 }

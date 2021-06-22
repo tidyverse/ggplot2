@@ -1,7 +1,12 @@
 # ggplot2 (development version)
 
 * Revert changes made in #4434 (apply transform to intercept in `geom_abline()`) 
-  as it introduced undesirable issues far worse than the bug it fixed.
+  as it introduced undesirable issues far worse than the bug it fixed 
+  (@thomasp85, #4514)
+* Fixes an issue in `ggsave()` when producing emf/wmf files (@yutannihilation, 
+  #4521)
+* Warn when grDevices specific arguments are passed to ragg devices (@thomasp85, 
+  #4524)
 
 # ggplot2 3.3.4
 This is a larger patch release fixing a huge number of bugs and introduces a 
