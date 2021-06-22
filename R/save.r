@@ -192,8 +192,9 @@ plot_dev <- function(device, filename = NULL, dpi = 300) {
     tex =  function(filename, ...) grDevices::pictex(file = filename, ...),
     pdf =  function(filename, ..., version = "1.4") grDevices::pdf(file = filename, ..., version = version),
     svg =  function(filename, ...) svglite::svglite(file = filename, ...),
-    emf =  function(...) grDevices::win.metafile(...),
-    wmf =  function(...) grDevices::win.metafile(...),
+    # win.metafile() doesn't have `bg` arg so we need to absorb it before passing `...`
+    emf =  function(..., bg = NULL) grDevices::win.metafile(...),
+    wmf =  function(..., bg = NULL) grDevices::win.metafile(...),
     png =  function(...) png_dev(..., res = dpi, units = "in"),
     jpg =  function(...) jpeg_dev(..., res = dpi, units = "in"),
     jpeg = function(...) jpeg_dev(..., res = dpi, units = "in"),
