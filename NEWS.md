@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Revert changes made in #4434 (apply transform to intercept in `geom_abline()`) 
+  as it introduced undesirable issues far worse than the bug it fixed.
+
 # ggplot2 3.3.4
 This is a larger patch release fixing a huge number of bugs and introduces a 
 small selection of feature refinements.
