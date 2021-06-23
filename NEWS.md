@@ -7,6 +7,8 @@
   #4521)
 * Warn when grDevices specific arguments are passed to ragg devices (@thomasp85, 
   #4524)
+* Fix an issue where `coord_sf()` was reporting that it is non-linear
+  even when data is provided in projected coordinates (@clauswilke, #4527)
 
 # ggplot2 3.3.4
 This is a larger patch release fixing a huge number of bugs and introduces a 

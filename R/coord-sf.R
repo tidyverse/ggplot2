@@ -22,7 +22,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
 
     params <- list(
       crs = crs,
-      default_crs = self$default_crs %||% crs
+      default_crs = self$default_crs
     )
     self$params <- params
 
