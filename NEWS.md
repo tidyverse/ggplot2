@@ -1,4 +1,6 @@
 # ggplot2 (development version)
+This is a very small release focusing on fixing a couple of untenable issues 
+that surfaced with the 3.3.4 release
 
 * Revert changes made in #4434 (apply transform to intercept in `geom_abline()`) 
   as it introduced undesirable issues far worse than the bug it fixed 
