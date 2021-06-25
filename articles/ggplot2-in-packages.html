@@ -53,7 +53,7 @@
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.4</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.5</span>
         </div>
       </div>
     </div>
@@ -337,7 +337,7 @@
 <p>We suggest testing the output of ggplot2 in using the <a href="https://cran.r-project.org/package=vdiffr">vdiffr</a> package, which is a tool to manage visual test cases (this is one of the ways we test ggplot2). If changes in ggplot2 or your code introduce a change in the visual output of a ggplot, tests will fail when you run them locally or on Travis. To use vdiffr, make sure you are using <a href="https://testthat.r-lib.org/">testthat</a> (you can use <code>usethis::use_testthat()</code> to get started) and add vdiffr to <code>Suggests</code> in your <code>DESCRIPTION</code>. Then, use <code>vdiffr::expect_doppleganger(&lt;name of plot&gt;, &lt;ggplot object&gt;)</code> to make a test that fails if there are visual changes in <code>&lt;ggplot object&gt;</code>.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">test_that</span><span class="op">(</span><span class="st">"output of ggplot() is stable"</span>, <span class="op">{</span>
-  <span class="fu">vdiffr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/vdiffr/man/expect_doppelganger.html">expect_doppelganger</a></span><span class="op">(</span><span class="st">"A blank plot"</span>, <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
+  <span class="fu">vdiffr</span><span class="fu">::</span><span class="fu"><a href="https://vdiffr.r-lib.org/reference/expect_doppelganger.html">expect_doppelganger</a></span><span class="op">(</span><span class="st">"A blank plot"</span>, <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 <span class="op">}</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="ggplot2-in-suggests" class="section level3">

@@ -100,7 +100,7 @@
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.4</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.5</span>
         </div>
       </div>
     </div>
@@ -223,6 +223,20 @@
       <small>Source: <a href='https://github.com/tidyverse/ggplot2/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="ggplot2-335" class="section level1">
+<h1 class="page-header" data-toc-text="3.3.5">
+<a href="#ggplot2-335" class="anchor"></a>ggplot2 3.3.5<small> Unreleased </small>
+</h1>
+<p>This is a very small release focusing on fixing a couple of untenable issues that surfaced with the 3.3.4 release</p>
+<ul>
+<li>Revert changes made in <a href='https://github.com/tidyverse/ggplot2/issues/4434'>#4434</a> (apply transform to intercept in <code><a href="../reference/geom_abline.html">geom_abline()</a></code>) as it introduced undesirable issues far worse than the bug it fixed (<a href='https://github.com/thomasp85'>@thomasp85</a>, <a href='https://github.com/tidyverse/ggplot2/issues/4514'>#4514</a>)</li>
+<li>Fixes an issue in <code><a href="../reference/ggsave.html">ggsave()</a></code> when producing emf/wmf files (<a href='https://github.com/yutannihilation'>@yutannihilation</a>,
+<a href='https://github.com/tidyverse/ggplot2/issues/4521'>#4521</a>)</li>
+<li>Warn when grDevices specific arguments are passed to ragg devices (<a href='https://github.com/thomasp85'>@thomasp85</a>,
+<a href='https://github.com/tidyverse/ggplot2/issues/4524'>#4524</a>)</li>
+<li>Fix an issue where <code><a href="../reference/CoordSf.html">coord_sf()</a></code> was reporting that it is non-linear even when data is provided in projected coordinates (<a href='https://github.com/clauswilke'>@clauswilke</a>, <a href='https://github.com/tidyverse/ggplot2/issues/4527'>#4527</a>)</li>
+</ul>
+</div>
     <div id="ggplot2-334" class="section level1">
 <h1 class="page-header" data-toc-text="3.3.4">
 <a href="#ggplot2-334" class="anchor"></a>ggplot2 3.3.4<small> 2021-06-16 </small>
@@ -236,7 +250,7 @@
 <li><p>Add support for the BrailleR package for creating descriptions of the plot when rendered (<a href='https://github.com/thomasp85'>@thomasp85</a>, <a href='https://github.com/tidyverse/ggplot2/issues/4459'>#4459</a>)</p></li>
 <li><p><code><a href="../reference/CoordSf.html">coord_sf()</a></code> now has an argument <code>default_crs</code> that specifies the coordinate reference system (CRS) for non-sf layers and scale/coord limits. This argument defaults to <code>NULL</code>, which means non-sf layers are assumed to be in projected coordinates, as in prior ggplot2 versions. Setting <code>default_crs = sf::st_crs(4326)</code> provides a simple way to interpret x and y positions as longitude and latitude, regardless of the CRS used by <code><a href="../reference/CoordSf.html">coord_sf()</a></code>. Authors of extension packages implementing <code><a href="../reference/CoordSf.html">stat_sf()</a></code>-like functionality are encouraged to look at the source code of <code><a href="../reference/CoordSf.html">stat_sf()</a></code>’s <code>compute_group()</code> function to see how to provide scale-limit hints to <code><a href="../reference/CoordSf.html">coord_sf()</a></code> (<a href='https://github.com/clauswilke'>@clauswilke</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3659'>#3659</a>).</p></li>
 <li><p><code><a href="../reference/ggsave.html">ggsave()</a></code> now uses ragg to render raster output if ragg is available. It also handles custom devices that sets a default unit (e.g. <code><a href="https://ragg.r-lib.org/reference/agg_png.html">ragg::agg_png</a></code>) correctly (<a href='https://github.com/thomasp85'>@thomasp85</a>, <a href='https://github.com/tidyverse/ggplot2/issues/4388'>#4388</a>)</p></li>
-<li><p><code><a href="../reference/ggsave.html">ggsave()</a></code> now returns the saved file location invisibly (<a href='https://github.com/tidyverse/ggplot2/issues/3379'>#3379</a>, <a href='https://github.com/eliocamp'>@eliocamp</a>).</p></li>
+<li><p><code><a href="../reference/ggsave.html">ggsave()</a></code> now returns the saved file location invisibly (<a href='https://github.com/tidyverse/ggplot2/issues/3379'>#3379</a>, <a href='https://github.com/eliocamp'>@eliocamp</a>). Note that, as a side effect, an unofficial hack <code>&lt;ggplot object&gt; + ggsave()</code> no longer works (<a href='https://github.com/tidyverse/ggplot2/issues/4513'>#4513</a>).</p></li>
 <li><p>The scale arguments <code>limits</code>, <code>breaks</code>, <code>minor_breaks</code>, <code>labels</code>, <code>rescaler</code> and <code>oob</code> now accept purrr style lambda notation (<a href='https://github.com/teunbrand'>@teunbrand</a>, <a href='https://github.com/tidyverse/ggplot2/issues/4427'>#4427</a>). The same is true for <code><a href="../reference/as_labeller.html">as_labeller()</a></code> (and therefore also <code><a href="../reference/labeller.html">labeller()</a></code>) (<a href='https://github.com/netique'>@netique</a>, <a href='https://github.com/tidyverse/ggplot2/issues/4188'>#4188</a>).</p></li>
 <li><p>Manual scales now allow named vectors passed to <code>values</code> to contain fewer elements than existing in the data. Elements not present in values will be set to <code>NA</code> (<a href='https://github.com/thomasp85'>@thomasp85</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3451'>#3451</a>)</p></li>
 <li><p>Date and datetime position scales support out-of-bounds (oob) arguments to control how limits affect data outside those limits (<a href='https://github.com/teunbrand'>@teunbrand</a>, <a href='https://github.com/tidyverse/ggplot2/issues/4199'>#4199</a>).</p></li>
