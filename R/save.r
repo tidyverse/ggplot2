@@ -178,9 +178,9 @@ plot_dev <- function(device, filename = NULL, dpi = 300) {
       paper = "special")
   }
   if (requireNamespace('ragg', quietly = TRUE)) {
-    png_dev <- ragg::agg_png
-    jpeg_dev <- ragg::agg_jpeg
-    tiff_dev <- ragg::agg_tiff
+    png_dev <- absorb_grdevice_args(ragg::agg_png)
+    jpeg_dev <- absorb_grdevice_args(ragg::agg_jpeg)
+    tiff_dev <- absorb_grdevice_args(ragg::agg_tiff)
   } else {
     png_dev <- grDevices::png
     jpeg_dev <- grDevices::jpeg
@@ -192,8 +192,9 @@ plot_dev <- function(device, filename = NULL, dpi = 300) {
     tex =  function(filename, ...) grDevices::pictex(file = filename, ...),
     pdf =  function(filename, ..., version = "1.4") grDevices::pdf(file = filename, ..., version = version),
     svg =  function(filename, ...) svglite::svglite(file = filename, ...),
-    emf =  function(...) grDevices::win.metafile(...),
-    wmf =  function(...) grDevices::win.metafile(...),
+    # win.metafile() doesn't have `bg` arg so we need to absorb it before passing `...`
+    emf =  function(..., bg = NULL) grDevices::win.metafile(...),
+    wmf =  function(..., bg = NULL) grDevices::win.metafile(...),
     png =  function(...) png_dev(..., res = dpi, units = "in"),
     jpg =  function(...) jpeg_dev(..., res = dpi, units = "in"),
     jpeg = function(...) jpeg_dev(..., res = dpi, units = "in"),
@@ -219,4 +220,13 @@ plot_dev <- function(device, filename = NULL, dpi = 300) {
 #' @export
 grid.draw.ggplot <- function(x, recording = TRUE) {
   print(x)
+}
+
+absorb_grdevice_args <- function(f) {
+  function(..., type, antialias) {
+    if (!missing(type) || !missing(antialias)) {
+      warn("Using ragg device as default. Ignoring `type` and `antialias` arguments")
+    }
+    f(...)
+  }
 }

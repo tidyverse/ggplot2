@@ -84,10 +84,15 @@ documentation pages. Currently, there are three good places to start:
     get you up to speed with the essentials of ggplot2 as quickly as
     possible.
 
-2.  If you’d like to follow a webinar, try [Plotting Anything with
+2.  If you’d like to take an online course, try [Data Visualization in R
+    With
+    ggplot2](https://learning.oreilly.com/videos/data-visualization-in/9781491963661/)
+    by Kara Woo.
+
+3.  If you’d like to follow a webinar, try [Plotting Anything with
     ggplot2](https://youtu.be/h29g21z0a68) by Thomas Lin Pedersen.
 
-3.  If you want to dive into making common graphics as quickly as
+4.  If you want to dive into making common graphics as quickly as
     possible, I recommend [The R Graphics
     Cookbook](https://r-graphics.org) by Winston Chang. It provides a
     set of recipes to solve common graphics problems.

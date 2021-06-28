@@ -1,5 +1,19 @@
 # ggplot2 (development version)
 
+# ggplot2 3.3.5
+This is a very small release focusing on fixing a couple of untenable issues 
+that surfaced with the 3.3.4 release
+
+* Revert changes made in #4434 (apply transform to intercept in `geom_abline()`) 
+  as it introduced undesirable issues far worse than the bug it fixed 
+  (@thomasp85, #4514)
+* Fixes an issue in `ggsave()` when producing emf/wmf files (@yutannihilation, 
+  #4521)
+* Warn when grDevices specific arguments are passed to ragg devices (@thomasp85, 
+  #4524)
+* Fix an issue where `coord_sf()` was reporting that it is non-linear
+  even when data is provided in projected coordinates (@clauswilke, #4527)
+
 # ggplot2 3.3.4
 This is a larger patch release fixing a huge number of bugs and introduces a 
 small selection of feature refinements.
