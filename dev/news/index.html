@@ -100,7 +100,7 @@
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.4.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.5.9000</span>
         </div>
       </div>
     </div>
@@ -227,6 +227,20 @@
 <h1 class="page-header" data-toc-text="development version">
 <a href="#ggplot2-development-version" class="anchor"></a>ggplot2 (development version)<small> Unreleased </small>
 </h1>
+</div>
+    <div id="ggplot2-335" class="section level1">
+<h1 class="page-header" data-toc-text="3.3.5">
+<a href="#ggplot2-335" class="anchor"></a>ggplot2 3.3.5<small> 2021-06-25 </small>
+</h1>
+<p>This is a very small release focusing on fixing a couple of untenable issues that surfaced with the 3.3.4 release</p>
+<ul>
+<li>Revert changes made in <a href='https://github.com/tidyverse/ggplot2/issues/4434'>#4434</a> (apply transform to intercept in <code><a href="../reference/geom_abline.html">geom_abline()</a></code>) as it introduced undesirable issues far worse than the bug it fixed (<a href='https://github.com/thomasp85'>@thomasp85</a>, <a href='https://github.com/tidyverse/ggplot2/issues/4514'>#4514</a>)</li>
+<li>Fixes an issue in <code><a href="../reference/ggsave.html">ggsave()</a></code> when producing emf/wmf files (<a href='https://github.com/yutannihilation'>@yutannihilation</a>,
+<a href='https://github.com/tidyverse/ggplot2/issues/4521'>#4521</a>)</li>
+<li>Warn when grDevices specific arguments are passed to ragg devices (<a href='https://github.com/thomasp85'>@thomasp85</a>,
+<a href='https://github.com/tidyverse/ggplot2/issues/4524'>#4524</a>)</li>
+<li>Fix an issue where <code><a href="../reference/CoordSf.html">coord_sf()</a></code> was reporting that it is non-linear even when data is provided in projected coordinates (<a href='https://github.com/clauswilke'>@clauswilke</a>, <a href='https://github.com/tidyverse/ggplot2/issues/4527'>#4527</a>)</li>
+</ul>
 </div>
     <div id="ggplot2-334" class="section level1">
 <h1 class="page-header" data-toc-text="3.3.4">
