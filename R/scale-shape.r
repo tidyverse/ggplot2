@@ -14,6 +14,7 @@
 #' @rdname scale_shape
 #' @export
 #' @examples
+#' set.seed(596)
 #' dsmall <- diamonds[sample(nrow(diamonds), 100), ]
 #'
 #' (d <- ggplot(dsmall, aes(carat, price)) + geom_point(aes(shape = cut)))

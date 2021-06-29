@@ -35,6 +35,7 @@ This is primarily used for aligning points generated through
 a fill aesthetic supplied).
 }
 \examples{
+set.seed(596)
 dsub <- diamonds[sample(nrow(diamonds), 1000), ]
 ggplot(dsub, aes(x = cut, y = carat, fill = clarity)) +
   geom_boxplot(outlier.size = 0) +
