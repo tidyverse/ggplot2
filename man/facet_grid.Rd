@@ -15,7 +15,8 @@ facet_grid(
   switch = NULL,
   drop = TRUE,
   margins = FALSE,
-  facets = NULL
+  facets = NULL,
+  draw.axes = "margins"
 )
 }
 \arguments{
@@ -79,6 +80,11 @@ variables for which margins are to be created.}
 
 \item{facets}{This argument is soft-deprecated, please use \code{rows}
 and \code{cols} instead.}
+
+\item{draw.axes}{Determines which axes will be drawn. When \code{"margins"}
+(default), axes will be drawn at the exterior margins. \code{"all_x"} and
+\code{"all_y"} will draw the respective axes at the interior panels too, whereas
+\code{"all"} will draw all axes at all panels.}
 }
 \description{
 \code{facet_grid()} forms a matrix of panels defined by row and column

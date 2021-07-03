@@ -24,6 +24,10 @@ NULL
 #'   "bottom", "left", "right")}
 #' @param dir Direction: either `"h"` for horizontal, the default, or `"v"`,
 #'   for vertical.
+#' @param draw.axes Determines which axes will be drawn in case of fixed scales.
+#'   When `"margins"` (default), axes will be drawn at the exterior margins.
+#'   `"all_x"` and `"all_y"` will draw the respective axes at the interior
+#'   panels too, whereas `"all"` will draw all axes at all panels.
 #' @inheritParams facet_grid
 #' @export
 #' @examples
@@ -79,12 +83,19 @@ NULL
 #' }
 facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
                        shrink = TRUE, labeller = "label_value", as.table = TRUE,
-                       switch = NULL, drop = TRUE, dir = "h", strip.position = 'top') {
+                       switch = NULL, drop = TRUE, dir = "h",
+                       strip.position = 'top', draw.axes = "margins") {
   scales <- match.arg(scales, c("fixed", "free_x", "free_y", "free"))
   dir <- match.arg(dir, c("h", "v"))
   free <- list(
     x = any(scales %in% c("free_x", "free")),
     y = any(scales %in% c("free_y", "free"))
+  )
+
+  draw.axes <- match.arg(draw.axes, c("margins", "all_x", "all_y", "all"))
+  draw.axes <- list(
+    x = any(draw.axes %in% c("all_x", "all")),
+    y = any(draw.axes %in% c("all_y", "all"))
   )
 
   # Check for deprecated labellers
@@ -120,7 +131,8 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
       ncol = ncol,
       nrow = nrow,
       labeller = labeller,
-      dir = dir
+      dir = dir,
+      draw.axes = draw.axes
     )
   )
 }
@@ -287,11 +299,11 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     axis_mat_y_left[panel_pos] <- axes$y$left[layout$SCALE_Y]
     axis_mat_y_right <- empty_table
     axis_mat_y_right[panel_pos] <- axes$y$right[layout$SCALE_Y]
-    if (!params$free$x) {
+    if (!(params$free$x || params$draw.axes$x)) {
       axis_mat_x_top[-1,]<- list(zeroGrob())
       axis_mat_x_bottom[-nrow,]<- list(zeroGrob())
     }
-    if (!params$free$y) {
+    if (!(params$free$y || params$draw.axes$y)) {
       axis_mat_y_left[, -1] <- list(zeroGrob())
       axis_mat_y_right[, -ncol] <- list(zeroGrob())
     }
