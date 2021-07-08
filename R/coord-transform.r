@@ -124,8 +124,18 @@ CoordTrans <- ggproto("CoordTrans", Coord,
   },
 
   transform = function(self, data, panel_params) {
-    trans_x <- function(data) transform_value(self$trans$x, data, panel_params$x.range)
-    trans_y <- function(data) transform_value(self$trans$y, data, panel_params$y.range)
+    # trans_x() and trans_y() needs to keep Inf values because this can be called
+    # in guide_transform.axis()
+    trans_x <- function(data) {
+      idx <- !is.infinite(data)
+      data[idx] <- transform_value(self$trans$x, data[idx], panel_params$x.range)
+      data
+    }
+    trans_y <- function(data) {
+      idx <- !is.infinite(data)
+      data[idx] <- transform_value(self$trans$y, data[idx], panel_params$y.range)
+      data
+    }
 
     new_data <- transform_position(data, trans_x, trans_y)
 
@@ -181,10 +191,11 @@ train_trans <- function(scale, coord_limits, trans, name, expand = TRUE) {
   expansion <- default_expansion(scale, expand = expand)
   scale_trans <- scale$trans %||% identity_trans()
   coord_limits <- coord_limits %||% scale_trans$inverse(c(NA, NA))
+  scale_limits <- scale$get_limits()
 
   if (scale$is_discrete()) {
     continuous_ranges <- expand_limits_discrete_trans(
-      scale$get_limits(),
+      scale_limits,
       expansion,
       coord_limits,
       trans,
@@ -194,7 +205,7 @@ train_trans <- function(scale, coord_limits, trans, name, expand = TRUE) {
     # transform user-specified limits to scale transformed space
     coord_limits <- scale$trans$transform(coord_limits)
     continuous_ranges <- expand_limits_continuous_trans(
-      scale$get_limits(),
+      scale_limits,
       expansion,
       coord_limits,
       trans
@@ -215,6 +226,9 @@ train_trans <- function(scale, coord_limits, trans, name, expand = TRUE) {
   out$sec.minor_source <- transform_value(trans, out$sec.minor_source, out$range)
 
   out <- list(
+    view_scale_primary(scale, scale_limits, continuous_ranges$continuous_range_coord),
+    # TODO: Can I add here? This seems cause cryptic warning "In min(x) : no non-missing arguments to min; returning Inf"
+    # sec = view_scale_secondary(scale, scale_limits, continuous_ranges$continuous_range_coord),
     range = out$range,
     labels = out$labels,
     major = out$major_source,
@@ -223,7 +237,7 @@ train_trans <- function(scale, coord_limits, trans, name, expand = TRUE) {
     sec.major = out$sec.major_source,
     sec.minor = out$sec.minor_source
   )
-  names(out) <- paste(name, names(out), sep = ".")
+  names(out) <- c(name, paste(name, names(out)[-1], sep = "."))
   out
 }
 
