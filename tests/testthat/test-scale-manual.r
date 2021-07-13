@@ -1,9 +1,13 @@
 context("scale_manual")
 
 test_that("names of values used in manual scales", {
-   s <- scale_colour_manual(values = c("8" = "c","4" = "a","6" = "b"))
-   s$train(c("4", "6", "8"))
-   expect_equal(s$map(c("4", "6", "8")), c("a", "b", "c"))
+   s1 <- scale_colour_manual(values = c("8" = "c", "4" = "a", "6" = "b"))
+   s1$train(c("4", "6", "8"))
+   expect_equal(s1$map(c("4", "6", "8")), c("a", "b", "c"))
+
+   s2 <- scale_colour_manual(values = c("8" = "c", "4" = "a", "6" = "b"), na.value = NA)
+   s2$train(c("4", "8"))
+   expect_equal(s2$map(c("4", "6", "8")), c("a", NA, "c"))
 })
 
 
@@ -87,13 +91,25 @@ test_that("unnamed values match breaks in manual scales", {
 })
 
 test_that("limits works (#3262)", {
-  # named charachter vector
+  # named character vector
   s1 <- scale_colour_manual(values = c("8" = "c", "4" = "a", "6" = "b"), limits = c("4", "8"), na.value = NA)
   s1$train(c("4", "6", "8"))
   expect_equal(s1$map(c("4", "6", "8")), c("a", NA, "c"))
 
-  # named charachter vector
+  # unnamed character vector
   s2 <- scale_colour_manual(values = c("c", "a", "b"), limits = c("4", "8"), na.value = NA)
   s2$train(c("4", "6", "8"))
   expect_equal(s2$map(c("4", "6", "8")), c("c", NA, "a"))
+})
+
+test_that("fewer values (#3451)", {
+  # named character vector
+  s1 <- scale_colour_manual(values = c("4" = "a", "8" = "c"), na.value = NA)
+  s1$train(c("4", "6", "8"))
+  expect_equal(s1$map(c("4", "6", "8")), c("a", NA, "c"))
+
+  # unnamed character vector
+  s2 <- scale_colour_manual(values = c("4", "8"), na.value = NA)
+  s2$train(c("4", "6", "8"))
+  expect_error(s2$map(c("4", "6", "8")), "Insufficient values")
 })

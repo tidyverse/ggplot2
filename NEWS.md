@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Fixes issue introduced in #4471 with extra values supplied to manual scale
+  showing up in legend (@banfai, #4511, #4534)
+
 # ggplot2 3.3.5
 This is a very small release focusing on fixing a couple of untenable issues 
 that surfaced with the 3.3.4 release
