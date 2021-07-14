@@ -1,5 +1,3 @@
-context("stat_bin/stat_count")
-
 test_that("stat_bin throws error when y aesthetic is present", {
   dat <- data_frame(x = c("a", "b", "c"), y = c(1, 5, 10))
 

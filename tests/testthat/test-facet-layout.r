@@ -1,5 +1,3 @@
-context("Facetting (layout)")
-
 a <- data_frame(a = c(1, 1, 2, 2), b = c(1, 2, 1, 1))
 b <- data_frame(a = 3)
 c <- data_frame(b = 3)

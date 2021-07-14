@@ -1,6 +1,4 @@
 # Setting of legend key glyphs has to be tested visually
-context("Legend key glyphs")
-
 
 test_that("alternative key glyphs work", {
   df <- data_frame(x = 1:3, y = 3:1, z = letters[1:3])

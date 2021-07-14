@@ -1,5 +1,3 @@
-context("Guides")
-
 skip_on_cran() # This test suite is long-running (on cran) and is skipped
 
 test_that("colourbar trains without labels", {
@@ -60,7 +58,7 @@ test_that("axis_label_overlap_priority always returns the correct number of elem
 })
 
 test_that("axis_label_element_overrides errors when angles are outside the range [0, 90]", {
-  expect_is(axis_label_element_overrides("bottom", 0), "element")
+  expect_s3_class(axis_label_element_overrides("bottom", 0), "element")
   expect_error(axis_label_element_overrides("bottom", 91), "`angle` must")
   expect_error(axis_label_element_overrides("bottom", -91), "`angle` must")
 })
@@ -89,7 +87,12 @@ test_that("a warning is generated when more than one position guide is drawn at 
       y.sec = guide_axis(position = "left")
     )
   built <- expect_silent(ggplot_build(plot))
-  expect_warning(ggplot_gtable(built), "Discarding guide")
+
+  # TODO: These multiple warnings should be summarized nicely. Until this gets
+  #       fixed, this test ignores all the following errors than the first one.
+  suppressWarnings(
+    expect_warning(ggplot_gtable(built), "Discarding guide")
+  )
 })
 
 test_that("a warning is not generated when properly changing the position of a guide_axis()", {

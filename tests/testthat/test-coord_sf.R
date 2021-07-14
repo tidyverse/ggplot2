@@ -1,5 +1,3 @@
-context("coord_sf")
-
 test_that("basic plot builds without error", {
   skip_if_not_installed("sf")
 

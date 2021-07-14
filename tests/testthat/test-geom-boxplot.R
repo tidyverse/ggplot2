@@ -1,5 +1,3 @@
-context("geom_boxplot")
-
 # thanks wch for providing the test code
 test_that("geom_boxplot range includes all outliers", {
   dat <- data_frame(x = 1, y = c(-(1:20) ^ 3, (1:20) ^ 3) )

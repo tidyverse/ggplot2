@@ -1,5 +1,3 @@
-context("test-scale-colour-continuous.R")
-
 test_that("type argument is checked for proper input", {
   expect_error(
     scale_colour_continuous(type = function() "abc"),

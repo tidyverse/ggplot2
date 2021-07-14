@@ -1,5 +1,3 @@
-context("error")
-
 test_that("various misuses of +.gg (#2638)", {
   expect_error(
     {

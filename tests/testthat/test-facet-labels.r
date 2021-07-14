@@ -1,5 +1,3 @@
-context("Facet Labels")
-
 get_labels_matrix <- function(plot, ...) {
   data <- ggplot_build(plot)
   layout <- data$layout

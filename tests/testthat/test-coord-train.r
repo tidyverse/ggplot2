@@ -1,5 +1,3 @@
-context("coord_train")
-
 test_that("NA's don't appear in breaks", {
 
   # Returns true if any major/minor breaks have an NA

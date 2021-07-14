@@ -1,5 +1,3 @@
-context("scale_brewer")
-
 test_that("mid-point in diverging brewer color scale", {
   d <- data_frame(x = -1:1)
 

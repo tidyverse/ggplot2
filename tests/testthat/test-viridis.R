@@ -1,5 +1,3 @@
-context("Viridis")
-
 df <- data_frame(x = 1, y = 1, z = "a", tier = factor("low", ordered = TRUE))
 
 test_that("viridis scale changes point color", {

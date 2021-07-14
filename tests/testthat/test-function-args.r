@@ -1,5 +1,3 @@
-context("function-args")
-
 filter_args <- function(x) {
   all_names <- names(x)
   all_names <- setdiff(all_names, c("self", "data", "scales", "coordinates", "..."))

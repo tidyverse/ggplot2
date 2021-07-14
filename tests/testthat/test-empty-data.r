@@ -1,5 +1,3 @@
-context('Empty data')
-
 df0 <- data_frame(mpg = numeric(0), wt = numeric(0), am = numeric(0), cyl = numeric(0))
 
 test_that("layers with empty data are silently omitted", {

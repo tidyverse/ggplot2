@@ -1,5 +1,3 @@
-context("geom-sf")
-
 test_that("geom_sf() determines the legend type automatically", {
   skip_if_not_installed("sf")
   if (packageVersion("sf") < "0.5.3") skip("Need sf 0.5.3")

@@ -1,5 +1,3 @@
-context("geom_text")
-
 # compute_just ------------------------------------------------------------
 
 test_that("vertical and horizontal positions are equivalent", {

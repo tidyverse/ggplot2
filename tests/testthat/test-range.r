@@ -1,5 +1,3 @@
-context("range")
-
 test_that("continuous ranges expand as expected", {
   r <- continuous_range()
 

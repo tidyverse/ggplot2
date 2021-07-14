@@ -1,5 +1,3 @@
-context("Munch")
-
 test_that("interp works", {
     single_interp_test <- function(start, end, n) {
         i <- interp(start, end, n)

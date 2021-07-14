@@ -1,16 +1,14 @@
-context("qplot")
-
 test_that("qplot works with variables in data frame and parent env", {
   df <- data_frame(x = 1:10, a = 1:10)
   y <- 1:10
   b <- 1:10
 
-  expect_is(qplot(x, y, data = df), "ggplot")
-  expect_is(qplot(x, y, data = df, colour = a), "ggplot")
-  expect_is(qplot(x, y, data = df, colour = b), "ggplot")
+  expect_s3_class(qplot(x, y, data = df), "ggplot")
+  expect_s3_class(qplot(x, y, data = df, colour = a), "ggplot")
+  expect_s3_class(qplot(x, y, data = df, colour = b), "ggplot")
 
   bin <- 1
-  expect_is(qplot(x, data = df, binwidth = bin), "ggplot")
+  expect_s3_class(qplot(x, data = df, binwidth = bin), "ggplot")
 })
 
 test_that("qplot works in non-standard environments", {
@@ -19,7 +17,7 @@ test_that("qplot works in non-standard environments", {
     x <- 1:10
     qplot(x, breaks = 0:`-1-`)
   })
-  expect_is(p, "ggplot")
+  expect_s3_class(p, "ggplot")
 })
 
 test_that("qplot() evaluates constants in the right place", {

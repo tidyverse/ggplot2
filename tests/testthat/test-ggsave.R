@@ -1,5 +1,3 @@
-context("ggsave")
-
 test_that("ggsave creates file", {
   path <- tempfile()
   on.exit(unlink(path))

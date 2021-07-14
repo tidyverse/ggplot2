@@ -1,5 +1,3 @@
-context("Creating aesthetic mappings")
-
 test_that("aes() captures input expressions", {
   out <- aes(mpg, wt + 1)
   expect_identical(out$x, quo(mpg))
@@ -36,7 +34,9 @@ test_that("aes_q() & aes_string() preserve explicit NULLs", {
 test_that("aes_all() converts strings into mappings", {
   expect_equal(
     aes_all(c("x", "y", "col", "pch")),
-    aes(x, y, colour = col, shape = pch)
+    aes(x, y, colour = col, shape = pch),
+    # ignore the environments of quosures
+    ignore_attr = TRUE
   )
 })
 

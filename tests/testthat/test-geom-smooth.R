@@ -1,5 +1,3 @@
-context("geom_smooth")
-
 test_that("data is ordered by x", {
   df <- data_frame(x = c(1, 5, 2, 3, 4), y = 1:5)
 

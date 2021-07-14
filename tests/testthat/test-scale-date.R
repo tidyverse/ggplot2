@@ -1,5 +1,3 @@
-context("scale_date")
-
 base_time <- function(tz = "") {
   as.POSIXct(strptime("2015-06-01", "%Y-%m-%d", tz = tz))
 }

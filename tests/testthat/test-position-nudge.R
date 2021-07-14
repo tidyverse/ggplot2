@@ -1,5 +1,3 @@
-context("position_nudge")
-
 test_that("nudging works in both dimensions simultaneously", {
   # individual nudge value
   df <- data_frame(x = 1:3)

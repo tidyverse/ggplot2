@@ -1,5 +1,3 @@
-context("geom_bar")
-
 test_that("geom_bar removes bars with parts outside the plot limits", {
   dat <- data_frame(x = c("a", "b", "b", "c", "c", "c"))
 

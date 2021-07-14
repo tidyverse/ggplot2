@@ -1,5 +1,3 @@
-context("scale_discrete")
-
 # Missing values ----------------------------------------------------------
 
 df <- tibble::tibble(

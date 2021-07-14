@@ -1,5 +1,3 @@
-context("Fortify")
-
 test_that("spatial polygons have correct ordering", {
   skip_if_not_installed("sp")
 
@@ -31,9 +29,17 @@ test_that("spatial polygons have correct ordering", {
   polys2 <- rev(polys)
   polys2_sp <- sp::SpatialPolygons(polys2)
   fake_sp2 <- sp::SpatialPolygonsDataFrame(polys2_sp, fake_data)
-  fake_sp2_fortified <- fortify(fake_sp2)
+  expected <- fortify(fake_sp2)
+  expected <- expected[order(expected$id, expected$order), ]
 
-  expect_equivalent(fortify(fake_sp), fake_sp2_fortified[order(fake_sp2_fortified$id, fake_sp2_fortified$order), ])
+  actual <- fortify(fake_sp)
+
+  # the levels are different, so these columns need to be converted to character to compare
+  expected$group <- as.character(expected$group)
+  actual$group <- as.character(actual$group)
+
+  # Use expect_equal(ignore_attr = TRUE) to ignore rownames
+  expect_equal(actual, expected, ignore_attr = TRUE)
 })
 
 test_that("fortify.default proves a helpful error with class uneval", {

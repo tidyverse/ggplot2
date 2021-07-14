@@ -1,5 +1,3 @@
-context("stat_ecdf")
-
 test_that("stat_ecdf works in both directions", {
   p <- ggplot(mpg, aes(hwy)) + stat_ecdf()
   x <- layer_data(p)

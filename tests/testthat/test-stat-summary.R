@@ -1,5 +1,3 @@
-context("stat_summary")
-
 test_that("stat_summary(_bin) work with lambda expressions", {
   # note: stat_summary and stat_summary_bin both use
   # make_summary_fun, so this tests both

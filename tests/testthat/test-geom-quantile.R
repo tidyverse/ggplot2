@@ -1,5 +1,3 @@
-context("geom-quantile")
-
 test_that("geom_quantile matches quantile regression", {
   skip_if_not_installed("quantreg")
 
@@ -35,25 +33,28 @@ test_that("geom_quantile matches quantile regression", {
   pred_rq_test_25 <- pred_rq[, c("x", "Q_25")]
   colnames(pred_rq_test_25) <- c("x", "y")
 
-  # Use expect_equivalent() to ignore rownames
-  expect_equivalent(
+  # Use expect_equal(ignore_attr = TRUE) to ignore rownames
+  expect_equal(
     ggplot_data[ggplot_data$quantile == 0.25, c("x", "y")],
-    pred_rq_test_25
+    pred_rq_test_25,
+    ignore_attr = TRUE
   )
 
   pred_rq_test_50 <- pred_rq[, c("x", "Q_50")]
   colnames(pred_rq_test_50) <- c("x", "y")
 
-  expect_equivalent(
+  expect_equal(
     ggplot_data[ggplot_data$quantile == 0.5, c("x", "y")],
-    pred_rq_test_50
+    pred_rq_test_50,
+    ignore_attr = TRUE
   )
 
   pred_rq_test_75 <- pred_rq[, c("x", "Q_75")]
   colnames(pred_rq_test_75) <- c("x", "y")
 
-  expect_equivalent(
+  expect_equal(
     ggplot_data[ggplot_data$quantile == 0.75, c("x", "y")],
-    pred_rq_test_75
+    pred_rq_test_75,
+    ignore_attr = TRUE
   )
 })

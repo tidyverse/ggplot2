@@ -1,5 +1,3 @@
-context("Labellers")
-
 test_that("label_bquote has access to functions in the calling environment", {
   labels <- data.frame(lab = letters[1:2])
   attr(labels, "facet") <- "wrap"

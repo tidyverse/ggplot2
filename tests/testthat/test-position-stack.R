@@ -1,5 +1,3 @@
-context("position_stack")
-
 test_that("data keeps its order after stacking", {
   df <- data_frame(
     x = rep(c(1:10), 3),

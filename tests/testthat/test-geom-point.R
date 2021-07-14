@@ -1,5 +1,3 @@
-context("geom-point")
-
 test_that("single strings translate to their corresponding integers", {
   expect_equal(translate_shape_string("square open"), 0)
 })

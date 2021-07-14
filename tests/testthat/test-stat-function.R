@@ -1,5 +1,3 @@
-context("stat_function")
-
 test_that("uses scale limits, not data limits", {
   dat <- data_frame(x = c(0.1, 1:100))
   dat$y <- dexp(dat$x)

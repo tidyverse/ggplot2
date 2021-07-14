@@ -1,5 +1,3 @@
-context("geom_dotplot")
-
 skip_on_cran() # This test suite is long-running (on cran) and is skipped
 
 set.seed(111)

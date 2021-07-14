@@ -1,5 +1,3 @@
-context("stat_density_2d")
-
 test_that("uses scale limits, not data limits", {
   base <- ggplot(mtcars, aes(wt, mpg)) +
     stat_density_2d() +

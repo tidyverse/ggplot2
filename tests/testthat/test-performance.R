@@ -1,5 +1,3 @@
-context("Performance related alternatives")
-
 # modify_list() -----------------------------------------------------------
 
 testlist <- list(

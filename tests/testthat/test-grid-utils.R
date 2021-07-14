@@ -1,5 +1,3 @@
-context("Grid utilites")
-
 test_that("width_cm and height_cm work with unit arithmetic", {
   x <- 2 * unit(1, "cm")
 

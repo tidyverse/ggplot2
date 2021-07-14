@@ -1,5 +1,3 @@
-context("stat_density") # and stat_ydensity
-
 test_that("compute_density succeeds when variance is zero", {
   dens <- compute_density(rep(0, 10), NULL, from = 0.5, to = 0.5)
   expect_equal(dens$n, rep(10, 512))

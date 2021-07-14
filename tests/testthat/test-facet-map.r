@@ -1,5 +1,3 @@
-context("Facetting (mapping)")
-
 df <- expand.grid(a = 1:2, b = 1:2)
 df_a <- unique(df["a"])
 df_b <- unique(df["b"])
