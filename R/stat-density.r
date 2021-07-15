@@ -15,6 +15,8 @@
 #'   not line-up, and hence you won't be able to stack density values.
 #'   This parameter only matters if you are displaying multiple densities in
 #'   one plot or if you are manually adjusting the scale limits.
+#' @param bounds Known lower and upper bounds for estimated data. Default
+#'   `c(-Inf, Inf)` means that there are no (finite) bounds.
 #' @section Computed variables:
 #' \describe{
 #'   \item{density}{density estimate}
@@ -35,6 +37,7 @@ stat_density <- function(mapping = NULL, data = NULL,
                          n = 512,
                          trim = FALSE,
                          na.rm = FALSE,
+                         bounds = c(-Inf, Inf),
                          orientation = NA,
                          show.legend = NA,
                          inherit.aes = TRUE) {
@@ -54,6 +57,7 @@ stat_density <- function(mapping = NULL, data = NULL,
       n = n,
       trim = trim,
       na.rm = na.rm,
+      bounds = bounds,
       orientation = orientation,
       ...
     )
@@ -84,7 +88,8 @@ StatDensity <- ggproto("StatDensity", Stat,
   extra_params = c("na.rm", "orientation"),
 
   compute_group = function(data, scales, bw = "nrd0", adjust = 1, kernel = "gaussian",
-                           n = 512, trim = FALSE, na.rm = FALSE, flipped_aes = FALSE) {
+                           n = 512, trim = FALSE, na.rm = FALSE, bounds = c(-Inf, Inf),
+                           flipped_aes = FALSE) {
     data <- flip_data(data, flipped_aes)
     if (trim) {
       range <- range(data$x, na.rm = TRUE)
@@ -93,7 +98,8 @@ StatDensity <- ggproto("StatDensity", Stat,
     }
 
     density <- compute_density(data$x, data$weight, from = range[1],
-      to = range[2], bw = bw, adjust = adjust, kernel = kernel, n = n)
+      to = range[2], bw = bw, adjust = adjust, kernel = kernel, n = n,
+      bounds = bounds)
     density$flipped_aes <- flipped_aes
     flip_data(density, flipped_aes)
   }
@@ -101,7 +107,8 @@ StatDensity <- ggproto("StatDensity", Stat,
 )
 
 compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
-                            kernel = "gaussian", n = 512) {
+                            kernel = "gaussian", n = 512,
+                            bounds = c(-Inf, Inf)) {
   nx <- length(x)
   if (is.null(w)) {
     w <- rep(1 / nx, nx)
@@ -122,8 +129,15 @@ compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
     ), n = 1))
   }
 
-  dens <- stats::density(x, weights = w, bw = bw, adjust = adjust,
-    kernel = kernel, n = n, from = from, to = to)
+  if (all(is.infinite(bounds))) {
+    dens <- stats::density(x, weights = w, bw = bw, adjust = adjust,
+                           kernel = kernel, n = n, from = from, to = to)
+  } else {
+    dens <- stats::density(x, weights = w, bw = bw, adjust = adjust,
+                           kernel = kernel, n = n)
+
+    dens <- reflect_density(dens = dens, bounds = bounds, from = from, to = to)
+  }
 
   new_data_frame(list(
     x = dens$x,
@@ -133,4 +147,27 @@ compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
     count =   dens$y * nx,
     n = nx
   ), n = length(dens$x))
+}
+
+reflect_density <- function(dens, bounds, from, to) {
+  if (all(is.infinite(bounds))) {
+    return(dens)
+  }
+
+  f_dens <- stats::approxfun(
+    x = dens$x, y = dens$y, method = "linear", yleft = 0, yright = 0
+  )
+
+  out_x <- intersection_grid(dens$x, bounds, from, to)
+  out_y <- f_dens(out_x) + f_dens(bounds[1] + (bounds[1] - out_x)) +
+    f_dens(bounds[2] + (bounds[2] - out_x))
+
+  list(x = out_x, y = out_y)
+}
+
+intersection_grid <- function(grid, bounds, from, to) {
+  left <- max(from, bounds[1])
+  right <- min(to, bounds[2])
+
+  seq(from = left, to = right, length.out = length(grid))
 }
