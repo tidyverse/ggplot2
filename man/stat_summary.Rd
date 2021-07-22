@@ -106,7 +106,13 @@ bin width of a time variable is the number of seconds.}
 
 \item{breaks}{Alternatively, you can supply a numeric vector giving
 the bin boundaries. Overrides \code{binwidth}, \code{bins}, \code{center},
-and \code{boundary}.}
+and \code{boundary}.
+
+Can also be a function that returns a numeric vector of bin boundaries
+calculated from unscaled x. Here, "unscaled x"
+refers to the original x values in the data, before application of any
+scale transformation. When specifying a function along with a grouping
+structure, the function will be called once per group.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}

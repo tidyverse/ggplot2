@@ -129,7 +129,13 @@ outside the range of the data.}
 
 \item{breaks}{Alternatively, you can supply a numeric vector giving
 the bin boundaries. Overrides \code{binwidth}, \code{bins}, \code{center},
-and \code{boundary}.}
+and \code{boundary}.
+
+Can also be a function that returns a numeric vector of bin boundaries
+calculated from unscaled x. Here, "unscaled x"
+refers to the original x values in the data, before application of any
+scale transformation. When specifying a function along with a grouping
+structure, the function will be called once per group.}
 
 \item{closed}{One of \code{"right"} or \code{"left"} indicating whether right
 or left edges of bins are included in the bin.}

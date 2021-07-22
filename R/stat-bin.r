@@ -23,6 +23,12 @@
 #' @param breaks Alternatively, you can supply a numeric vector giving
 #'    the bin boundaries. Overrides `binwidth`, `bins`, `center`,
 #'    and `boundary`.
+#'
+#'    Can also be a function that returns a numeric vector of bin boundaries
+#'    calculated from unscaled x. Here, "unscaled x"
+#'    refers to the original x values in the data, before application of any
+#'    scale transformation. When specifying a function along with a grouping
+#'    structure, the function will be called once per group.
 #' @param closed One of `"right"` or `"left"` indicating whether right
 #'   or left edges of bins are included in the bin.
 #' @param pad If `TRUE`, adds empty bins at either end of x. This ensures
@@ -143,6 +149,9 @@ StatBin <- ggproto("StatBin", Stat,
                            width = NULL) {
     x <- flipped_names(flipped_aes)$x
     if (!is.null(breaks)) {
+      if (is.function(breaks)) {
+        breaks <- breaks(data[[x]])
+      }
       if (!scales[[x]]$is_discrete()) {
          breaks <- scales[[x]]$transform(breaks)
       }
