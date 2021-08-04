@@ -634,7 +634,7 @@ guide_gengrob.legend <- function(guide, theme) {
   draw_key <- function(i) {
     bg <- element_render(theme, "legend.key")
     keys <- lapply(guide$geoms, function(g) {
-      g$draw_key(g$data[i, ], g$params, key_size)
+      g$draw_key(g$data[i, , drop = FALSE], g$params, key_size)
     })
     c(list(bg), keys)
   }
