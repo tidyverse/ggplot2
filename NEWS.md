@@ -87,7 +87,7 @@ small selection of feature refinements.
 * It is now deprecated to specify `guides(<scale> = FALSE)` or
   `scale_*(guide = FALSE)` to remove a guide. Please use 
   `guides(<scale> = "none")` or `scale_*(guide = "none")` instead 
-  (@yutannihilation, #4094).
+  (@yutannihilation, #4097)
   
 * Fix a bug in `guide_bins()` where keys would disappear if the guide was 
   reversed (@thomasp85, #4210)
