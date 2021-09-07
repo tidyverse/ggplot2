@@ -82,9 +82,15 @@
   gtag('config', 'UA-115082821-1');
 </script>
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -229,11 +235,11 @@
     <p>These functions provide summarised information about built ggplot objects.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>summarise_layout</span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>summarise_layout</span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span>
 
 <span class='fu'>summarise_coord</span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span>
 
-<span class='fu'>summarise_layers</span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span></pre>
+<span class='fu'>summarise_layers</span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -292,37 +298,40 @@ whether the coord has flipped the x and y axes.</p>
 contains information about aesthetic mapping for each layer.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>p</span> <span class='op'>&lt;-</span>
-  <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>displ</span>, <span class='va'>hwy</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>class</span><span class='op'>)</span>
-<span class='va'>b</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot_build.html'>ggplot_build</a></span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span>
-
-<span class='fu'>summarise_layout</span><span class='op'>(</span><span class='va'>b</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 7 × 10</span>
-#&gt;   panel   row   col vars              xmin  xmax  ymin  ymax xscale     yscale  
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>           <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>  
-#&gt; <span style='color: #BCBCBC;'>1</span> 1         1     1 <span style='color: #949494;'>&lt;named list [1]&gt;</span>  1.33  7.27  10.4  45.6 <span style='color: #949494;'>&lt;SclCntnP&gt;</span> <span style='color: #949494;'>&lt;SclCnt</span>…
-#&gt; <span style='color: #BCBCBC;'>2</span> 2         1     2 <span style='color: #949494;'>&lt;named list [1]&gt;</span>  1.33  7.27  10.4  45.6 <span style='color: #949494;'>&lt;SclCntnP&gt;</span> <span style='color: #949494;'>&lt;SclCnt</span>…
-#&gt; <span style='color: #BCBCBC;'>3</span> 3         1     3 <span style='color: #949494;'>&lt;named list [1]&gt;</span>  1.33  7.27  10.4  45.6 <span style='color: #949494;'>&lt;SclCntnP&gt;</span> <span style='color: #949494;'>&lt;SclCnt</span>…
-#&gt; <span style='color: #BCBCBC;'>4</span> 4         2     1 <span style='color: #949494;'>&lt;named list [1]&gt;</span>  1.33  7.27  10.4  45.6 <span style='color: #949494;'>&lt;SclCntnP&gt;</span> <span style='color: #949494;'>&lt;SclCnt</span>…
-#&gt; <span style='color: #BCBCBC;'>5</span> 5         2     2 <span style='color: #949494;'>&lt;named list [1]&gt;</span>  1.33  7.27  10.4  45.6 <span style='color: #949494;'>&lt;SclCntnP&gt;</span> <span style='color: #949494;'>&lt;SclCnt</span>…
-#&gt; <span style='color: #BCBCBC;'>6</span> 6         2     3 <span style='color: #949494;'>&lt;named list [1]&gt;</span>  1.33  7.27  10.4  45.6 <span style='color: #949494;'>&lt;SclCntnP&gt;</span> <span style='color: #949494;'>&lt;SclCnt</span>…
-#&gt; <span style='color: #BCBCBC;'>7</span> 7         3     1 <span style='color: #949494;'>&lt;named list [1]&gt;</span>  1.33  7.27  10.4  45.6 <span style='color: #949494;'>&lt;SclCntnP&gt;</span> <span style='color: #949494;'>&lt;SclCnt</span>…</div><div class='input'><span class='fu'>summarise_coord</span><span class='op'>(</span><span class='va'>b</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $xlog
-#&gt; [1] NA
-#&gt; 
-#&gt; $ylog
-#&gt; [1] NA
-#&gt; 
-#&gt; $flip
-#&gt; [1] FALSE
-#&gt; </div><div class='input'><span class='fu'>summarise_layers</span><span class='op'>(</span><span class='va'>b</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1 × 1</span>
-#&gt;   mapping         
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>          
-#&gt; <span style='color: #BCBCBC;'>1</span> <span style='color: #949494;'>&lt;named list [2]&gt;</span></div><div class='input'>
-</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='va'>p</span> <span class='op'>&lt;-</span></span>
+<span class='r-in'>  <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>displ</span>, <span class='va'>hwy</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>class</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>b</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot_build.html'>ggplot_build</a></span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>summarise_layout</span><span class='op'>(</span><span class='va'>b</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 7 × 10</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   panel   row   col vars              xmin  xmax  ymin  ymax xscale     yscale  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>           <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> 1         1     1 <span style='color: #949494;'>&lt;named list [1]&gt;</span>  1.33  7.27  10.4  45.6 <span style='color: #949494;'>&lt;SclCntnP&gt;</span> <span style='color: #949494;'>&lt;SclCnt</span>…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span> 2         1     2 <span style='color: #949494;'>&lt;named list [1]&gt;</span>  1.33  7.27  10.4  45.6 <span style='color: #949494;'>&lt;SclCntnP&gt;</span> <span style='color: #949494;'>&lt;SclCnt</span>…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span> 3         1     3 <span style='color: #949494;'>&lt;named list [1]&gt;</span>  1.33  7.27  10.4  45.6 <span style='color: #949494;'>&lt;SclCntnP&gt;</span> <span style='color: #949494;'>&lt;SclCnt</span>…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>4</span> 4         2     1 <span style='color: #949494;'>&lt;named list [1]&gt;</span>  1.33  7.27  10.4  45.6 <span style='color: #949494;'>&lt;SclCntnP&gt;</span> <span style='color: #949494;'>&lt;SclCnt</span>…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>5</span> 5         2     2 <span style='color: #949494;'>&lt;named list [1]&gt;</span>  1.33  7.27  10.4  45.6 <span style='color: #949494;'>&lt;SclCntnP&gt;</span> <span style='color: #949494;'>&lt;SclCnt</span>…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>6</span> 6         2     3 <span style='color: #949494;'>&lt;named list [1]&gt;</span>  1.33  7.27  10.4  45.6 <span style='color: #949494;'>&lt;SclCntnP&gt;</span> <span style='color: #949494;'>&lt;SclCnt</span>…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>7</span> 7         3     1 <span style='color: #949494;'>&lt;named list [1]&gt;</span>  1.33  7.27  10.4  45.6 <span style='color: #949494;'>&lt;SclCntnP&gt;</span> <span style='color: #949494;'>&lt;SclCnt</span>…</span>
+<span class='r-in'><span class='fu'>summarise_coord</span><span class='op'>(</span><span class='va'>b</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $xlog</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $ylog</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $flip</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='fu'>summarise_layers</span><span class='op'>(</span><span class='va'>b</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 1 × 1</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   mapping         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> <span style='color: #949494;'>&lt;named list [2]&gt;</span></span>
+<span class='r-in'></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -339,7 +348,7 @@ contains information about aesthetic mapping for each layer.</p>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -366,6 +375,8 @@ contains information about aesthetic mapping for each layer.</p>
 </script>
 
 
+
+  
 
   </body>
 </html>

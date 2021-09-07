@@ -82,9 +82,15 @@
   gtag('config', 'UA-115082821-1');
 </script>
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -229,7 +235,7 @@
     <p>This is pure annotation, so does not affect position scales.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>geom_map</span><span class='op'>(</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>geom_map</span><span class='op'>(</span>
   mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
   data <span class='op'>=</span> <span class='cn'>NULL</span>,
   stat <span class='op'>=</span> <span class='st'>"identity"</span>,
@@ -238,7 +244,7 @@
   na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
   show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
   inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>
-<span class='op'>)</span></pre>
+<span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -321,59 +327,63 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
 </ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># When using geom_polygon, you will typically need two data frames:</span>
-<span class='co'># one contains the coordinates of each polygon (positions),  and the</span>
-<span class='co'># other the values associated with each polygon (values).  An id</span>
-<span class='co'># variable links the two together</span>
-
-<span class='va'>ids</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"1.1"</span>, <span class='st'>"2.1"</span>, <span class='st'>"1.2"</span>, <span class='st'>"2.2"</span>, <span class='st'>"1.3"</span>, <span class='st'>"2.3"</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='va'>values</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
-  id <span class='op'>=</span> <span class='va'>ids</span>,
-  value <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>3.1</span>, <span class='fl'>3.1</span>, <span class='fl'>3.2</span>, <span class='fl'>3.15</span>, <span class='fl'>3.5</span><span class='op'>)</span>
-<span class='op'>)</span>
-
-<span class='va'>positions</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
-  id <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='va'>ids</span>, each <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span>,
-  x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>1</span>, <span class='fl'>1.1</span>, <span class='fl'>2.2</span>, <span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>0.3</span>, <span class='fl'>1.1</span>, <span class='fl'>2.2</span>, <span class='fl'>1.1</span>, <span class='fl'>1.2</span>, <span class='fl'>2.5</span>, <span class='fl'>1.1</span>, <span class='fl'>0.3</span>,
-  <span class='fl'>0.5</span>, <span class='fl'>1.2</span>, <span class='fl'>2.5</span>, <span class='fl'>1.2</span>, <span class='fl'>1.3</span>, <span class='fl'>2.7</span>, <span class='fl'>1.2</span>, <span class='fl'>0.5</span>, <span class='fl'>0.6</span>, <span class='fl'>1.3</span><span class='op'>)</span>,
-  y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>0.5</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>0.5</span>, <span class='fl'>0</span>, <span class='fl'>0.5</span>, <span class='fl'>1.5</span>, <span class='fl'>1</span>, <span class='fl'>0.5</span>, <span class='fl'>1</span>, <span class='fl'>2.1</span>, <span class='fl'>1.7</span>, <span class='fl'>1</span>, <span class='fl'>1.5</span>,
-  <span class='fl'>2.2</span>, <span class='fl'>2.1</span>, <span class='fl'>1.7</span>, <span class='fl'>2.1</span>, <span class='fl'>3.2</span>, <span class='fl'>2.8</span>, <span class='fl'>2.1</span>, <span class='fl'>2.2</span>, <span class='fl'>3.3</span>, <span class='fl'>3.2</span><span class='op'>)</span>
-<span class='op'>)</span>
-
-<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>values</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_map</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>map_id <span class='op'>=</span> <span class='va'>id</span><span class='op'>)</span>, map <span class='op'>=</span> <span class='va'>positions</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='expand_limits.html'>expand_limits</a></span><span class='op'>(</span><span class='va'>positions</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_map-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>values</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>value</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_map</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>map_id <span class='op'>=</span> <span class='va'>id</span><span class='op'>)</span>, map <span class='op'>=</span> <span class='va'>positions</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='expand_limits.html'>expand_limits</a></span><span class='op'>(</span><span class='va'>positions</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_map-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>values</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>value</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_map</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>map_id <span class='op'>=</span> <span class='va'>id</span><span class='op'>)</span>, map <span class='op'>=</span> <span class='va'>positions</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='expand_limits.html'>expand_limits</a></span><span class='op'>(</span><span class='va'>positions</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='lims.html'>ylim</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>3</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_map-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Better example</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'>maps</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-
-  <span class='va'>crimes</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>state <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/chartr.html'>tolower</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span><span class='op'>(</span><span class='va'>USArrests</span><span class='op'>)</span><span class='op'>)</span>, <span class='va'>USArrests</span><span class='op'>)</span>
-
-  <span class='co'># Equivalent to crimes %&gt;% tidyr::pivot_longer(Murder:Rape)</span>
-  <span class='va'>vars</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>crimes</span><span class='op'>)</span><span class='op'>[</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>j</span><span class='op'>)</span> <span class='op'>{</span>
-    <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>state <span class='op'>=</span> <span class='va'>crimes</span><span class='op'>$</span><span class='va'>state</span>, variable <span class='op'>=</span> <span class='va'>j</span>, value <span class='op'>=</span> <span class='va'>crimes</span><span class='op'>[[</span><span class='va'>j</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span>
-  <span class='op'>}</span><span class='op'>)</span>
-  <span class='va'>crimes_long</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span><span class='op'>(</span><span class='st'>"rbind"</span>, <span class='va'>vars</span><span class='op'>)</span>
-
-  <span class='va'>states_map</span> <span class='op'>&lt;-</span> <span class='fu'><a href='map_data.html'>map_data</a></span><span class='op'>(</span><span class='st'>"state"</span><span class='op'>)</span>
-  <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>crimes</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>map_id <span class='op'>=</span> <span class='va'>state</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-    <span class='fu'>geom_map</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>Murder</span><span class='op'>)</span>, map <span class='op'>=</span> <span class='va'>states_map</span><span class='op'>)</span> <span class='op'>+</span>
-    <span class='fu'><a href='expand_limits.html'>expand_limits</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>states_map</span><span class='op'>$</span><span class='va'>long</span>, y <span class='op'>=</span> <span class='va'>states_map</span><span class='op'>$</span><span class='va'>lat</span><span class='op'>)</span>
-
-  <span class='fu'><a href='last_plot.html'>last_plot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='coord_map.html'>coord_map</a></span><span class='op'>(</span><span class='op'>)</span>
-  <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>crimes_long</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>map_id <span class='op'>=</span> <span class='va'>state</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-    <span class='fu'>geom_map</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>value</span><span class='op'>)</span>, map <span class='op'>=</span> <span class='va'>states_map</span><span class='op'>)</span> <span class='op'>+</span>
-    <span class='fu'><a href='expand_limits.html'>expand_limits</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>states_map</span><span class='op'>$</span><span class='va'>long</span>, y <span class='op'>=</span> <span class='va'>states_map</span><span class='op'>$</span><span class='va'>lat</span><span class='op'>)</span> <span class='op'>+</span>
-    <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span> <span class='op'>~</span> <span class='va'>variable</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div><div class='img'><img src='geom_map-4.png' alt='' width='700' height='433' /></div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='co'># When using geom_polygon, you will typically need two data frames:</span></span>
+<span class='r-in'><span class='co'># one contains the coordinates of each polygon (positions),  and the</span></span>
+<span class='r-in'><span class='co'># other the values associated with each polygon (values).  An id</span></span>
+<span class='r-in'><span class='co'># variable links the two together</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>ids</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"1.1"</span>, <span class='st'>"2.1"</span>, <span class='st'>"1.2"</span>, <span class='st'>"2.2"</span>, <span class='st'>"1.3"</span>, <span class='st'>"2.3"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>values</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span></span>
+<span class='r-in'>  id <span class='op'>=</span> <span class='va'>ids</span>,</span>
+<span class='r-in'>  value <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>3.1</span>, <span class='fl'>3.1</span>, <span class='fl'>3.2</span>, <span class='fl'>3.15</span>, <span class='fl'>3.5</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>positions</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span></span>
+<span class='r-in'>  id <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='va'>ids</span>, each <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span>,</span>
+<span class='r-in'>  x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>1</span>, <span class='fl'>1.1</span>, <span class='fl'>2.2</span>, <span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>0.3</span>, <span class='fl'>1.1</span>, <span class='fl'>2.2</span>, <span class='fl'>1.1</span>, <span class='fl'>1.2</span>, <span class='fl'>2.5</span>, <span class='fl'>1.1</span>, <span class='fl'>0.3</span>,</span>
+<span class='r-in'>  <span class='fl'>0.5</span>, <span class='fl'>1.2</span>, <span class='fl'>2.5</span>, <span class='fl'>1.2</span>, <span class='fl'>1.3</span>, <span class='fl'>2.7</span>, <span class='fl'>1.2</span>, <span class='fl'>0.5</span>, <span class='fl'>0.6</span>, <span class='fl'>1.3</span><span class='op'>)</span>,</span>
+<span class='r-in'>  y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>0.5</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>0.5</span>, <span class='fl'>0</span>, <span class='fl'>0.5</span>, <span class='fl'>1.5</span>, <span class='fl'>1</span>, <span class='fl'>0.5</span>, <span class='fl'>1</span>, <span class='fl'>2.1</span>, <span class='fl'>1.7</span>, <span class='fl'>1</span>, <span class='fl'>1.5</span>,</span>
+<span class='r-in'>  <span class='fl'>2.2</span>, <span class='fl'>2.1</span>, <span class='fl'>1.7</span>, <span class='fl'>2.1</span>, <span class='fl'>3.2</span>, <span class='fl'>2.8</span>, <span class='fl'>2.1</span>, <span class='fl'>2.2</span>, <span class='fl'>3.3</span>, <span class='fl'>3.2</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>values</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>geom_map</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>map_id <span class='op'>=</span> <span class='va'>id</span><span class='op'>)</span>, map <span class='op'>=</span> <span class='va'>positions</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='expand_limits.html'>expand_limits</a></span><span class='op'>(</span><span class='va'>positions</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='geom_map-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>values</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>value</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>geom_map</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>map_id <span class='op'>=</span> <span class='va'>id</span><span class='op'>)</span>, map <span class='op'>=</span> <span class='va'>positions</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='expand_limits.html'>expand_limits</a></span><span class='op'>(</span><span class='va'>positions</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='geom_map-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>values</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>value</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>geom_map</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>map_id <span class='op'>=</span> <span class='va'>id</span><span class='op'>)</span>, map <span class='op'>=</span> <span class='va'>positions</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='expand_limits.html'>expand_limits</a></span><span class='op'>(</span><span class='va'>positions</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='lims.html'>ylim</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>3</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='geom_map-3.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Better example</span></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'>maps</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'></span>
+<span class='r-in'>  <span class='va'>crimes</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>state <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/chartr.html'>tolower</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span><span class='op'>(</span><span class='va'>USArrests</span><span class='op'>)</span><span class='op'>)</span>, <span class='va'>USArrests</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'>  <span class='co'># Equivalent to crimes %&gt;% tidyr::pivot_longer(Murder:Rape)</span></span>
+<span class='r-in'>  <span class='va'>vars</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>crimes</span><span class='op'>)</span><span class='op'>[</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>j</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'>    <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>state <span class='op'>=</span> <span class='va'>crimes</span><span class='op'>$</span><span class='va'>state</span>, variable <span class='op'>=</span> <span class='va'>j</span>, value <span class='op'>=</span> <span class='va'>crimes</span><span class='op'>[[</span><span class='va'>j</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='op'>}</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='va'>crimes_long</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span><span class='op'>(</span><span class='st'>"rbind"</span>, <span class='va'>vars</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'>  <span class='va'>states_map</span> <span class='op'>&lt;-</span> <span class='fu'><a href='map_data.html'>map_data</a></span><span class='op'>(</span><span class='st'>"state"</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>crimes</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>map_id <span class='op'>=</span> <span class='va'>state</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>    <span class='fu'>geom_map</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>Murder</span><span class='op'>)</span>, map <span class='op'>=</span> <span class='va'>states_map</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>    <span class='fu'><a href='expand_limits.html'>expand_limits</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>states_map</span><span class='op'>$</span><span class='va'>long</span>, y <span class='op'>=</span> <span class='va'>states_map</span><span class='op'>$</span><span class='va'>lat</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'>  <span class='fu'><a href='last_plot.html'>last_plot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='coord_map.html'>coord_map</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>crimes_long</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>map_id <span class='op'>=</span> <span class='va'>state</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>    <span class='fu'>geom_map</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>value</span><span class='op'>)</span>, map <span class='op'>=</span> <span class='va'>states_map</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>    <span class='fu'><a href='expand_limits.html'>expand_limits</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>states_map</span><span class='op'>$</span><span class='va'>long</span>, y <span class='op'>=</span> <span class='va'>states_map</span><span class='op'>$</span><span class='va'>lat</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>    <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span> <span class='op'>~</span> <span class='va'>variable</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-plt'><img src='geom_map-4.png' alt='' width='700' height='433' /></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -390,7 +400,7 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -417,6 +427,8 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
 </script>
 
 
+
+  
 
   </body>
 </html>

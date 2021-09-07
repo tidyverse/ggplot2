@@ -88,9 +88,15 @@ For text and labels, you can use geom_sf_text() and geom_sf_label()." />
   gtag('config', 'UA-115082821-1');
 </script>
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -241,7 +247,7 @@ or polygons.
 For text and labels, you can use <code>geom_sf_text()</code> and <code>geom_sf_label()</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>coord_sf</span><span class='op'>(</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>coord_sf</span><span class='op'>(</span>
   xlim <span class='op'>=</span> <span class='cn'>NULL</span>,
   ylim <span class='op'>=</span> <span class='cn'>NULL</span>,
   expand <span class='op'>=</span> <span class='cn'>TRUE</span>,
@@ -310,7 +316,7 @@ For text and labels, you can use <code>geom_sf_text()</code> and <code>geom_sf_l
   show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
   inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>,
   <span class='va'>...</span>
-<span class='op'>)</span></pre>
+<span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -380,7 +386,7 @@ which side of the plot. Meridians are indicated by <code>"E"</code> (for East) a
 parallels by <code>"N"</code> (for North). Default is <code>"--EN"</code>, which specifies
 (clockwise from the top) no labels on the top, none on the right, meridians
 on the bottom, and parallels on the left. Alternatively, this setting could have been
-specified with <code><a href='https://rdrr.io/r/base/list.html'>list(bottom = "E", left = "N")</a></code>.</p>
+specified with <code>list(bottom = "E", left = "N")</code>.</p>
 <p>This parameter can be used alone or in combination with <code>label_graticule</code>.</p></td>
     </tr>
     <tr>
@@ -525,8 +531,8 @@ when you really care about the exact locations.</p></td>
       <td><p>If <code>TRUE</code>, text that overlaps previous text in the
 same layer will not be plotted. <code>check_overlap</code> happens at draw time and in
 the order of the data. Therefore data should be arranged by the label
-column before calling <code><a href='geom_label.html'>geom_text()</a></code>. Note that this argument is not
-supported by <code><a href='geom_label.html'>geom_label()</a></code>.</p></td>
+column before calling <code><a href='geom_text.html'>geom_text()</a></code>. Note that this argument is not
+supported by <code><a href='geom_text.html'>geom_label()</a></code>.</p></td>
     </tr>
     <tr>
       <th>geom</th>
@@ -545,7 +551,7 @@ are three ways to supply the <code>geometry</code> aesthetic:</p><ul>
 the <code>geometry</code> column.</p></li>
 <li><p>Explicitly pass an <code>sf</code> object to the <code>data</code> argument.
 This will use the primary geometry column, no matter what it's called.</p></li>
-<li><p>Supply your own using <code><a href='aes.html'>aes(geometry = my_column)</a></code></p></li>
+<li><p>Supply your own using <code>aes(geometry = my_column)</code></p></li>
 </ul>
 
 <p>Unlike other aesthetics, <code>geometry</code> will never be inherited from
@@ -562,7 +568,7 @@ take it from the first layer that defines a CRS.</p>
     
 
 <p>Most regular geoms, such as <code><a href='geom_point.html'>geom_point()</a></code>, <code><a href='geom_path.html'>geom_path()</a></code>,
-<code><a href='geom_label.html'>geom_text()</a></code>, <code><a href='geom_polygon.html'>geom_polygon()</a></code> etc. will work fine with <code>coord_sf()</code>. However
+<code><a href='geom_text.html'>geom_text()</a></code>, <code><a href='geom_polygon.html'>geom_polygon()</a></code> etc. will work fine with <code>coord_sf()</code>. However
 when using these geoms, two problems arise. First, what CRS should be used
 for the x and y coordinates used by these non-sf geoms? The CRS applied to
 non-sf geoms is set by the <code>default_crs</code> parameter, and it defaults to
@@ -589,51 +595,52 @@ in projected coordinates.</p>
     <div class='dont-index'><p><code><a href='stat_sf_coordinates.html'>stat_sf_coordinates()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"sf"</span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='va'>nc</span> <span class='op'>&lt;-</span> <span class='fu'>sf</span><span class='fu'>::</span><span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_read.html'>st_read</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"shape/nc.shp"</span>, package <span class='op'>=</span> <span class='st'>"sf"</span><span class='op'>)</span>, quiet <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>nc</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_sf</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>AREA</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'># If not supplied, coord_sf() will take the CRS from the first layer</span>
-<span class='co'># and automatically transform all other layers to use that CRS. This</span>
-<span class='co'># ensures that all data will correctly line up</span>
-<span class='va'>nc_3857</span> <span class='op'>&lt;-</span> <span class='fu'>sf</span><span class='fu'>::</span><span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_transform.html'>st_transform</a></span><span class='op'>(</span><span class='va'>nc</span>, <span class='fl'>3857</span><span class='op'>)</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_sf</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>nc</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_sf</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>nc_3857</span>, colour <span class='op'>=</span> <span class='st'>"red"</span>, fill <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span>
-
-<span class='co'># Unfortunately if you plot other types of feature you'll need to use</span>
-<span class='co'># show.legend to tell ggplot2 what type of legend to use</span>
-<span class='va'>nc_3857</span><span class='op'>$</span><span class='va'>mid</span> <span class='op'>&lt;-</span> <span class='fu'>sf</span><span class='fu'>::</span><span class='fu'><a href='https://r-spatial.github.io/sf/reference/geos_unary.html'>st_centroid</a></span><span class='op'>(</span><span class='va'>nc_3857</span><span class='op'>$</span><span class='va'>geometry</span><span class='op'>)</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>nc_3857</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_sf</span><span class='op'>(</span>colour <span class='op'>=</span> <span class='st'>"white"</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_sf</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>geometry <span class='op'>=</span> <span class='va'>mid</span>, size <span class='op'>=</span> <span class='va'>AREA</span><span class='op'>)</span>, show.legend <span class='op'>=</span> <span class='st'>"point"</span><span class='op'>)</span>
-
-<span class='co'># You can also use layers with x and y aesthetics. To have these interpreted</span>
-<span class='co'># as longitude/latitude you need to set the default CRS in coord_sf()</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>nc_3857</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_sf</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='annotate.html'>annotate</a></span><span class='op'>(</span><span class='st'>"point"</span>, x <span class='op'>=</span> <span class='op'>-</span><span class='fl'>80</span>, y <span class='op'>=</span> <span class='fl'>35</span>, colour <span class='op'>=</span> <span class='st'>"red"</span>, size <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>coord_sf</span><span class='op'>(</span>default_crs <span class='op'>=</span> <span class='fu'>sf</span><span class='fu'>::</span><span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_crs.html'>st_crs</a></span><span class='op'>(</span><span class='fl'>4326</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'># Thanks to the power of sf, a geom_sf nicely handles varying projections</span>
-<span class='co'># setting the aspect ratio correctly.</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>maps</span><span class='op'>)</span>
-<span class='va'>world1</span> <span class='op'>&lt;-</span> <span class='fu'>sf</span><span class='fu'>::</span><span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_as_sf.html'>st_as_sf</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/maps/man/map.html'>map</a></span><span class='op'>(</span><span class='st'>'world'</span>, plot <span class='op'>=</span> <span class='cn'>FALSE</span>, fill <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>geom_sf</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>world1</span><span class='op'>)</span>
-
-<span class='va'>world2</span> <span class='op'>&lt;-</span> <span class='fu'>sf</span><span class='fu'>::</span><span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_transform.html'>st_transform</a></span><span class='op'>(</span>
-  <span class='va'>world1</span>,
-  <span class='st'>"+proj=laea +y_0=0 +lon_0=155 +lat_0=-90 +ellps=WGS84 +no_defs"</span>
-<span class='op'>)</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>geom_sf</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>world2</span><span class='op'>)</span>
-
-<span class='co'># To add labels, use geom_sf_label().</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>nc_3857</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, <span class='op'>]</span><span class='op'>)</span> <span class='op'>+</span>
-   <span class='fu'>geom_sf</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>AREA</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-   <span class='fu'>geom_sf_label</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>label <span class='op'>=</span> <span class='va'>NAME</span><span class='op'>)</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div><div class='img'><img src='ggsf-1.png' alt='' width='700' height='433' /></div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"sf"</span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='va'>nc</span> <span class='op'>&lt;-</span> <span class='fu'>sf</span><span class='fu'>::</span><span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_read.html'>st_read</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"shape/nc.shp"</span>, package <span class='op'>=</span> <span class='st'>"sf"</span><span class='op'>)</span>, quiet <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>nc</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>geom_sf</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>AREA</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># If not supplied, coord_sf() will take the CRS from the first layer</span></span>
+<span class='r-in'><span class='co'># and automatically transform all other layers to use that CRS. This</span></span>
+<span class='r-in'><span class='co'># ensures that all data will correctly line up</span></span>
+<span class='r-in'><span class='va'>nc_3857</span> <span class='op'>&lt;-</span> <span class='fu'>sf</span><span class='fu'>::</span><span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_transform.html'>st_transform</a></span><span class='op'>(</span><span class='va'>nc</span>, <span class='fl'>3857</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>geom_sf</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>nc</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>geom_sf</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>nc_3857</span>, colour <span class='op'>=</span> <span class='st'>"red"</span>, fill <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Unfortunately if you plot other types of feature you'll need to use</span></span>
+<span class='r-in'><span class='co'># show.legend to tell ggplot2 what type of legend to use</span></span>
+<span class='r-in'><span class='va'>nc_3857</span><span class='op'>$</span><span class='va'>mid</span> <span class='op'>&lt;-</span> <span class='fu'>sf</span><span class='fu'>::</span><span class='fu'><a href='https://r-spatial.github.io/sf/reference/geos_unary.html'>st_centroid</a></span><span class='op'>(</span><span class='va'>nc_3857</span><span class='op'>$</span><span class='va'>geometry</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>nc_3857</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>geom_sf</span><span class='op'>(</span>colour <span class='op'>=</span> <span class='st'>"white"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>geom_sf</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>geometry <span class='op'>=</span> <span class='va'>mid</span>, size <span class='op'>=</span> <span class='va'>AREA</span><span class='op'>)</span>, show.legend <span class='op'>=</span> <span class='st'>"point"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># You can also use layers with x and y aesthetics. To have these interpreted</span></span>
+<span class='r-in'><span class='co'># as longitude/latitude you need to set the default CRS in coord_sf()</span></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>nc_3857</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>geom_sf</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='annotate.html'>annotate</a></span><span class='op'>(</span><span class='st'>"point"</span>, x <span class='op'>=</span> <span class='op'>-</span><span class='fl'>80</span>, y <span class='op'>=</span> <span class='fl'>35</span>, colour <span class='op'>=</span> <span class='st'>"red"</span>, size <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>coord_sf</span><span class='op'>(</span>default_crs <span class='op'>=</span> <span class='fu'>sf</span><span class='fu'>::</span><span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_crs.html'>st_crs</a></span><span class='op'>(</span><span class='fl'>4326</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Thanks to the power of sf, a geom_sf nicely handles varying projections</span></span>
+<span class='r-in'><span class='co'># setting the aspect ratio correctly.</span></span>
+<span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>maps</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>world1</span> <span class='op'>&lt;-</span> <span class='fu'>sf</span><span class='fu'>::</span><span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_as_sf.html'>st_as_sf</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/maps/man/map.html'>map</a></span><span class='op'>(</span><span class='st'>'world'</span>, plot <span class='op'>=</span> <span class='cn'>FALSE</span>, fill <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>geom_sf</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>world1</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>world2</span> <span class='op'>&lt;-</span> <span class='fu'>sf</span><span class='fu'>::</span><span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_transform.html'>st_transform</a></span><span class='op'>(</span></span>
+<span class='r-in'>  <span class='va'>world1</span>,</span>
+<span class='r-in'>  <span class='st'>"+proj=laea +y_0=0 +lon_0=155 +lat_0=-90 +ellps=WGS84 +no_defs"</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>geom_sf</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>world2</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># To add labels, use geom_sf_label().</span></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>nc_3857</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, <span class='op'>]</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>   <span class='fu'>geom_sf</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>AREA</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>   <span class='fu'>geom_sf_label</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>label <span class='op'>=</span> <span class='va'>NAME</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-plt'><img src='ggsf-1.png' alt='' width='700' height='433' /></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -650,7 +657,7 @@ in projected coordinates.</p>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -677,6 +684,8 @@ in projected coordinates.</p>
 </script>
 
 
+
+  
 
   </body>
 </html>

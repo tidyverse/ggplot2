@@ -84,9 +84,15 @@ ggplot2::Position, or ggplot2::Scale." />
   gtag('config', 'UA-115082821-1');
 </script>
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -303,7 +309,7 @@ coordinates differs from the range in the untransformed coordinates. Returns
 a list of two ranges, <code>x</code> and <code>y</code>, and these correspond to the variables
 mapped to the <code>x</code> and <code>y</code> aesthetics, even for coords such as <code><a href='coord_flip.html'>coord_flip()</a></code>
 where the <code>x</code> aesthetic is shown along the y direction and vice versa.</p></li>
-<li><p><code><a href='https://rdrr.io/r/base/range.html'>range(panel_params)</a></code>: Extracts the panel range provided
+<li><p><code>range(panel_params)</code>: Extracts the panel range provided
 in <code>panel_params</code> (created by <code>setup_panel_params()</code>, see below) and
 returns it. Unlike <code>backtransform_range()</code>, this function does not perform
 any back-transformation and instead returns final transformed coordinates. Returns
@@ -397,7 +403,7 @@ transformations has been applied.</p>
     
 
 
-<p>All <code>stat_*()</code> functions (like <code><a href='geom_freqpoly.html'>stat_bin()</a></code>) return a layer that
+<p>All <code>stat_*()</code> functions (like <code><a href='geom_histogram.html'>stat_bin()</a></code>) return a layer that
 contains a <code>Stat*</code> object (like <code>StatBin</code>). The <code>Stat*</code>
 object is responsible for rendering the data in the plot.</p>
 <p>Each of the <code>Stat*</code> objects is a <code><a href='ggproto.html'>ggproto()</a></code> object, descended
@@ -544,12 +550,12 @@ to transform values in transformed data space. Axis and grid guides also use
 these values to draw guides. This is called with
 a (usually expanded) continuous range, such as that returned by <code>self$dimension()</code>
 (even for discrete scales). The list has components <code>major_source</code>
-(<code>self$get_breaks()</code> for continuous scales, or <code><a href='https://rdrr.io/r/base/seq.html'>seq_along(self$get_breaks())</a></code>
+(<code>self$get_breaks()</code> for continuous scales, or <code>seq_along(self$get_breaks())</code>
 for discrete scales), <code>major</code> (the rescaled value of <code>major_source</code>, ignoring
 <code>self$rescaler</code>), <code>minor</code> (the rescaled value of <code>minor_source</code>, ignoring
 <code>self$rescaler</code>), <code>range</code> (the range that was passed in to <code>break_info()</code>),
 <code>labels</code> (the label values, one for each element in <code>breaks</code>).</p></li>
-<li><p><code>axis_order()</code> One of <code><a href='https://rdrr.io/r/base/c.html'>c("primary", "secondary")</a></code> or <code><a href='https://rdrr.io/r/base/c.html'>c("secondary", "primary")</a></code></p></li>
+<li><p><code>axis_order()</code> One of <code>c("primary", "secondary")</code> or <code>c("secondary", "primary")</code></p></li>
 <li><p><code>make_sec_title()</code> Hook to modify the title for the second axis that is calculated
 when the <code>Layout</code> calculates the x and y labels.</p></li>
 </ul>
@@ -574,7 +580,7 @@ when the <code>Layout</code> calculates the x and y labels.</p></li>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -601,6 +607,8 @@ when the <code>Layout</code> calculates the x and y labels.</p></li>
 </script>
 
 
+
+  
 
   </body>
 </html>

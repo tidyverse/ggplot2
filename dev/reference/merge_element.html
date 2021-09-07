@@ -83,9 +83,15 @@ method" />
   gtag('config', 'UA-115082821-1');
 </script>
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -231,7 +237,7 @@ method" />
 method</p>
     </div>
 
-    <pre class="usage"><span class='fu'>merge_element</span><span class='op'>(</span><span class='va'>new</span>, <span class='va'>old</span><span class='op'>)</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>merge_element</span><span class='op'>(</span><span class='va'>new</span>, <span class='va'>old</span><span class='op'>)</span>
 
 <span class='co'># S3 method for default</span>
 <span class='fu'>merge_element</span><span class='op'>(</span><span class='va'>new</span>, <span class='va'>old</span><span class='op'>)</span>
@@ -240,7 +246,7 @@ method</p>
 <span class='fu'>merge_element</span><span class='op'>(</span><span class='va'>new</span>, <span class='va'>old</span><span class='op'>)</span>
 
 <span class='co'># S3 method for element</span>
-<span class='fu'>merge_element</span><span class='op'>(</span><span class='va'>new</span>, <span class='va'>old</span><span class='op'>)</span></pre>
+<span class='fu'>merge_element</span><span class='op'>(</span><span class='va'>new</span>, <span class='va'>old</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -261,25 +267,26 @@ method</p>
 <code>old</code></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>new</span> <span class='op'>&lt;-</span> <span class='fu'><a href='margin.html'>element_text</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='st'>"red"</span><span class='op'>)</span>
-<span class='va'>old</span> <span class='op'>&lt;-</span> <span class='fu'><a href='margin.html'>element_text</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='st'>"blue"</span>, size <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
-
-<span class='co'># Adopt size but ignore colour</span>
-<span class='fu'>merge_element</span><span class='op'>(</span><span class='va'>new</span>, <span class='va'>old</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; List of 11
-#&gt;  $ family       : NULL
-#&gt;  $ face         : NULL
-#&gt;  $ colour       : chr "red"
-#&gt;  $ size         : num 10
-#&gt;  $ hjust        : NULL
-#&gt;  $ vjust        : NULL
-#&gt;  $ angle        : NULL
-#&gt;  $ lineheight   : NULL
-#&gt;  $ margin       : NULL
-#&gt;  $ debug        : NULL
-#&gt;  $ inherit.blank: logi FALSE
-#&gt;  - attr(*, "class")= chr [1:2] "element_text" "element"</div><div class='input'>
-</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='va'>new</span> <span class='op'>&lt;-</span> <span class='fu'><a href='element.html'>element_text</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='st'>"red"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>old</span> <span class='op'>&lt;-</span> <span class='fu'><a href='element.html'>element_text</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='st'>"blue"</span>, size <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Adopt size but ignore colour</span></span>
+<span class='r-in'><span class='fu'>merge_element</span><span class='op'>(</span><span class='va'>new</span>, <span class='va'>old</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> List of 11</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ family       : NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ face         : NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ colour       : chr "red"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ size         : num 10</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ hjust        : NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ vjust        : NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ angle        : NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ lineheight   : NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ margin       : NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ debug        : NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ inherit.blank: logi FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  - attr(*, "class")= chr [1:2] "element_text" "element"</span>
+<span class='r-in'></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -296,7 +303,7 @@ method</p>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -323,6 +330,8 @@ method</p>
 </script>
 
 
+
+  
 
   </body>
 </html>

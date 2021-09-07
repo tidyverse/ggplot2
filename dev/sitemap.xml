@@ -1,7 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://ggplot2.tidyverse.org/CODE_OF_CONDUCT.html</loc>
+  </url>
+  <url>
+    <loc>https://ggplot2.tidyverse.org/CONTRIBUTING.html</loc>
+  </url>
+  <url>
+    <loc>https://ggplot2.tidyverse.org/GOVERNANCE.html</loc>
+  </url>
+  <url>
+    <loc>https://ggplot2.tidyverse.org/ISSUE_TEMPLATE.html</loc>
+  </url>
+  <url>
+    <loc>https://ggplot2.tidyverse.org/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>https://ggplot2.tidyverse.org/LICENSE.html</loc>
+  </url>
+  <url>
+    <loc>https://ggplot2.tidyverse.org/articles/articles/faq-annotation.html</loc>
+  </url>
+  <url>
+    <loc>https://ggplot2.tidyverse.org/articles/articles/faq-axes.html</loc>
+  </url>
+  <url>
+    <loc>https://ggplot2.tidyverse.org/articles/articles/faq-bars.html</loc>
+  </url>
+  <url>
+    <loc>https://ggplot2.tidyverse.org/articles/articles/faq-customising.html</loc>
+  </url>
+  <url>
+    <loc>https://ggplot2.tidyverse.org/articles/articles/faq-faceting.html</loc>
+  </url>
+  <url>
+    <loc>https://ggplot2.tidyverse.org/articles/articles/faq-reordering.html</loc>
+  </url>
+  <url>
+    <loc>https://ggplot2.tidyverse.org/articles/extending-ggplot2.html</loc>
+  </url>
+  <url>
+    <loc>https://ggplot2.tidyverse.org/articles/ggplot2-in-packages.html</loc>
+  </url>
+  <url>
+    <loc>https://ggplot2.tidyverse.org/articles/ggplot2-specs.html</loc>
+  </url>
+  <url>
+    <loc>https://ggplot2.tidyverse.org/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://ggplot2.tidyverse.org/articles/profiling.html</loc>
+  </url>
+  <url>
+    <loc>https://ggplot2.tidyverse.org/authors.html</loc>
+  </url>
+  <url>
     <loc>https://ggplot2.tidyverse.org/index.html</loc>
+  </url>
+  <url>
+    <loc>https://ggplot2.tidyverse.org/news/index.html</loc>
   </url>
   <url>
     <loc>https://ggplot2.tidyverse.org/reference/absoluteGrob.html</loc>
@@ -328,6 +385,9 @@
     <loc>https://ggplot2.tidyverse.org/reference/hmisc.html</loc>
   </url>
   <url>
+    <loc>https://ggplot2.tidyverse.org/reference/index.html</loc>
+  </url>
+  <url>
     <loc>https://ggplot2.tidyverse.org/reference/is.Coord.html</loc>
   </url>
   <url>
@@ -581,35 +641,5 @@
   </url>
   <url>
     <loc>https://ggplot2.tidyverse.org/reference/zeroGrob.html</loc>
-  </url>
-  <url>
-    <loc>https://ggplot2.tidyverse.org/articles/articles/faq-annotation.html</loc>
-  </url>
-  <url>
-    <loc>https://ggplot2.tidyverse.org/articles/articles/faq-axes.html</loc>
-  </url>
-  <url>
-    <loc>https://ggplot2.tidyverse.org/articles/articles/faq-bars.html</loc>
-  </url>
-  <url>
-    <loc>https://ggplot2.tidyverse.org/articles/articles/faq-customising.html</loc>
-  </url>
-  <url>
-    <loc>https://ggplot2.tidyverse.org/articles/articles/faq-faceting.html</loc>
-  </url>
-  <url>
-    <loc>https://ggplot2.tidyverse.org/articles/articles/faq-reordering.html</loc>
-  </url>
-  <url>
-    <loc>https://ggplot2.tidyverse.org/articles/extending-ggplot2.html</loc>
-  </url>
-  <url>
-    <loc>https://ggplot2.tidyverse.org/articles/ggplot2-in-packages.html</loc>
-  </url>
-  <url>
-    <loc>https://ggplot2.tidyverse.org/articles/ggplot2-specs.html</loc>
-  </url>
-  <url>
-    <loc>https://ggplot2.tidyverse.org/articles/profiling.html</loc>
   </url>
 </urlset>

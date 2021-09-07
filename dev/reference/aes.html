@@ -84,9 +84,15 @@ ggplot() and in individual layers." />
   gtag('config', 'UA-115082821-1');
 </script>
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -233,7 +239,7 @@ properties (aesthetics) of geoms. Aesthetic mappings can be set in
 <code><a href='ggplot.html'>ggplot()</a></code> and in individual layers.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>aes</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>aes</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>...</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -244,8 +250,8 @@ properties (aesthetics) of geoms. Aesthetic mappings can be set in
 describing which variables in the layer data should be mapped to which
 aesthetics used by the paired geom/stat. The expression <code>variable</code> is
 evaluated within the layer data, so there is no need to refer to
-the original dataset (i.e., use <code><a href='ggplot.html'>ggplot(df, aes(variable))</a></code>
-instead of <code><a href='ggplot.html'>ggplot(df, aes(df$variable))</a></code>). The names for x and y aesthetics
+the original dataset (i.e., use <code>ggplot(df, aes(variable))</code>
+instead of <code>ggplot(df, aes(df$variable))</code>). The names for x and y aesthetics
 are typically omitted because they are so common; all other aesthetics must be named.</p></td>
     </tr>
     </table>
@@ -277,62 +283,75 @@ to learn more about these techniques.</p>
 faceting specifications.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>mpg</span>, y <span class='op'>=</span> <span class='va'>wt</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Aesthetic mapping: 
-#&gt; * `x` -&gt; `mpg`
-#&gt; * `y` -&gt; `wt`</div><div class='input'><span class='fu'>aes</span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>wt</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Aesthetic mapping: 
-#&gt; * `x` -&gt; `mpg`
-#&gt; * `y` -&gt; `wt`</div><div class='input'>
-<span class='co'># You can also map aesthetics to functions of variables</span>
-<span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>mpg</span> <span class='op'>^</span> <span class='fl'>2</span>, y <span class='op'>=</span> <span class='va'>wt</span> <span class='op'>/</span> <span class='va'>cyl</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Aesthetic mapping: 
-#&gt; * `x` -&gt; `mpg^2`
-#&gt; * `y` -&gt; `wt/cyl`</div><div class='input'>
-<span class='co'># Or to constants</span>
-<span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='fl'>1</span>, colour <span class='op'>=</span> <span class='st'>"smooth"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Aesthetic mapping: 
-#&gt; * `x`      -&gt; 1
-#&gt; * `colour` -&gt; "smooth"</div><div class='input'>
-<span class='co'># Aesthetic names are automatically standardised</span>
-<span class='fu'>aes</span><span class='op'>(</span>col <span class='op'>=</span> <span class='va'>x</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Aesthetic mapping: 
-#&gt; * `colour` -&gt; `x`</div><div class='input'><span class='fu'>aes</span><span class='op'>(</span>fg <span class='op'>=</span> <span class='va'>x</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Aesthetic mapping: 
-#&gt; * `colour` -&gt; `x`</div><div class='input'><span class='fu'>aes</span><span class='op'>(</span>color <span class='op'>=</span> <span class='va'>x</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Aesthetic mapping: 
-#&gt; * `colour` -&gt; `x`</div><div class='input'><span class='fu'>aes</span><span class='op'>(</span>colour <span class='op'>=</span> <span class='va'>x</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Aesthetic mapping: 
-#&gt; * `colour` -&gt; `x`</div><div class='input'>
-<span class='co'># aes() is passed to either ggplot() or specific layer. Aesthetics supplied</span>
-<span class='co'># to ggplot() are used as defaults for every layer.</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'>aes</span><span class='op'>(</span><span class='va'>displ</span>, <span class='va'>hwy</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='img'><img src='aes-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span><span class='va'>displ</span>, <span class='va'>hwy</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='aes-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Tidy evaluation ----------------------------------------------------</span>
-<span class='co'># aes() automatically quotes all its arguments, so you need to use tidy</span>
-<span class='co'># evaluation to create wrappers around ggplot2 pipelines. The</span>
-<span class='co'># simplest case occurs when your wrapper takes dots:</span>
-<span class='va'>scatter_by</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>...</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span><span class='op'>)</span>
-<span class='op'>}</span>
-<span class='fu'>scatter_by</span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='va'>disp</span>, <span class='va'>drat</span><span class='op'>)</span>
-</div><div class='img'><img src='aes-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># If your wrapper has a more specific interface with named arguments,</span>
-<span class='co'># you need "enquote and unquote":</span>
-<span class='va'>scatter_by</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='tidyeval.html'>enquo</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-  <span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='tidyeval.html'>enquo</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span>
-
-  <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span><span class='op'>!</span><span class='op'>!</span><span class='va'>x</span>, <span class='op'>!</span><span class='op'>!</span><span class='va'>y</span><span class='op'>)</span><span class='op'>)</span>
-<span class='op'>}</span>
-<span class='fu'>scatter_by</span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='va'>disp</span>, <span class='va'>drat</span><span class='op'>)</span>
-</div><div class='img'><img src='aes-4.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Note that users of your wrapper can use their own functions in the</span>
-<span class='co'># quoted expressions and all will resolve as it should!</span>
-<span class='va'>cut3</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='cut_interval.html'>cut_number</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='fl'>3</span><span class='op'>)</span>
-<span class='fu'>scatter_by</span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'>cut3</span><span class='op'>(</span><span class='va'>disp</span><span class='op'>)</span>, <span class='va'>drat</span><span class='op'>)</span>
-</div><div class='img'><img src='aes-5.png' alt='' width='700' height='433' /></div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>mpg</span>, y <span class='op'>=</span> <span class='va'>wt</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Aesthetic mapping: </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> * `x` -&gt; `mpg`</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> * `y` -&gt; `wt`</span>
+<span class='r-in'><span class='fu'>aes</span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>wt</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Aesthetic mapping: </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> * `x` -&gt; `mpg`</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> * `y` -&gt; `wt`</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># You can also map aesthetics to functions of variables</span></span>
+<span class='r-in'><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>mpg</span> <span class='op'>^</span> <span class='fl'>2</span>, y <span class='op'>=</span> <span class='va'>wt</span> <span class='op'>/</span> <span class='va'>cyl</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Aesthetic mapping: </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> * `x` -&gt; `mpg^2`</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> * `y` -&gt; `wt/cyl`</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Or to constants</span></span>
+<span class='r-in'><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='fl'>1</span>, colour <span class='op'>=</span> <span class='st'>"smooth"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Aesthetic mapping: </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> * `x`      -&gt; 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> * `colour` -&gt; "smooth"</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Aesthetic names are automatically standardised</span></span>
+<span class='r-in'><span class='fu'>aes</span><span class='op'>(</span>col <span class='op'>=</span> <span class='va'>x</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Aesthetic mapping: </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> * `colour` -&gt; `x`</span>
+<span class='r-in'><span class='fu'>aes</span><span class='op'>(</span>fg <span class='op'>=</span> <span class='va'>x</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Aesthetic mapping: </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> * `colour` -&gt; `x`</span>
+<span class='r-in'><span class='fu'>aes</span><span class='op'>(</span>color <span class='op'>=</span> <span class='va'>x</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Aesthetic mapping: </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> * `colour` -&gt; `x`</span>
+<span class='r-in'><span class='fu'>aes</span><span class='op'>(</span>colour <span class='op'>=</span> <span class='va'>x</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Aesthetic mapping: </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> * `colour` -&gt; `x`</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># aes() is passed to either ggplot() or specific layer. Aesthetics supplied</span></span>
+<span class='r-in'><span class='co'># to ggplot() are used as defaults for every layer.</span></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'>aes</span><span class='op'>(</span><span class='va'>displ</span>, <span class='va'>hwy</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='aes-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span><span class='va'>displ</span>, <span class='va'>hwy</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='aes-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Tidy evaluation ----------------------------------------------------</span></span>
+<span class='r-in'><span class='co'># aes() automatically quotes all its arguments, so you need to use tidy</span></span>
+<span class='r-in'><span class='co'># evaluation to create wrappers around ggplot2 pipelines. The</span></span>
+<span class='r-in'><span class='co'># simplest case occurs when your wrapper takes dots:</span></span>
+<span class='r-in'><span class='va'>scatter_by</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>...</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'>  <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-in'><span class='fu'>scatter_by</span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='va'>disp</span>, <span class='va'>drat</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='aes-3.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># If your wrapper has a more specific interface with named arguments,</span></span>
+<span class='r-in'><span class='co'># you need "enquote and unquote":</span></span>
+<span class='r-in'><span class='va'>scatter_by</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'>  <span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='tidyeval.html'>enquo</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='tidyeval.html'>enquo</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'>  <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span><span class='op'>!</span><span class='op'>!</span><span class='va'>x</span>, <span class='op'>!</span><span class='op'>!</span><span class='va'>y</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-in'><span class='fu'>scatter_by</span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='va'>disp</span>, <span class='va'>drat</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='aes-4.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Note that users of your wrapper can use their own functions in the</span></span>
+<span class='r-in'><span class='co'># quoted expressions and all will resolve as it should!</span></span>
+<span class='r-in'><span class='va'>cut3</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='cut_interval.html'>cut_number</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='fl'>3</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>scatter_by</span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'>cut3</span><span class='op'>(</span><span class='va'>disp</span><span class='op'>)</span>, <span class='va'>drat</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='aes-5.png' alt='' width='700' height='433' /></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -349,7 +368,7 @@ faceting specifications.</p></div>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -376,6 +395,8 @@ faceting specifications.</p></div>
 </script>
 
 
+
+  
 
   </body>
 </html>

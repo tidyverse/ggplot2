@@ -87,9 +87,15 @@ guide if they are mapped in the same way." />
   gtag('config', 'UA-115082821-1');
 </script>
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -239,7 +245,7 @@ for all non-position aesthetics though colour and fill defaults to
 guide if they are mapped in the same way.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>guide_bins</span><span class='op'>(</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>guide_bins</span><span class='op'>(</span>
   title <span class='op'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span><span class='op'>(</span><span class='op'>)</span>,
   title.position <span class='op'>=</span> <span class='cn'>NULL</span>,
   title.theme <span class='op'>=</span> <span class='cn'>NULL</span>,
@@ -263,7 +269,7 @@ guide if they are mapped in the same way.</p>
   order <span class='op'>=</span> <span class='fl'>0</span>,
   show.limits <span class='op'>=</span> <span class='cn'>NULL</span>,
   <span class='va'>...</span>
-<span class='op'>)</span></pre>
+<span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -284,7 +290,7 @@ title. One of "top" (default for a vertical guide), "bottom", "left"
     <tr>
       <th>title.theme</th>
       <td><p>A theme object for rendering the title text. Usually the
-object of <code><a href='margin.html'>element_text()</a></code> is expected. By default, the theme is
+object of <code><a href='element.html'>element_text()</a></code> is expected. By default, the theme is
 specified by <code>legend.title</code> in <code><a href='theme.html'>theme()</a></code> or theme.</p></td>
     </tr>
     <tr>
@@ -311,7 +317,7 @@ label. One of "top", "bottom" (default for horizontal guide), "left", or
     <tr>
       <th>label.theme</th>
       <td><p>A theme object for rendering the label text. Usually the
-object of <code><a href='margin.html'>element_text()</a></code> is expected. By default, the theme is
+object of <code><a href='element.html'>element_text()</a></code> is expected. By default, the theme is
 specified by <code>legend.text</code> in <code><a href='theme.html'>theme()</a></code>.</p></td>
     </tr>
     <tr>
@@ -413,29 +419,34 @@ may be needed.</p>
 <code><a href='guides.html'>guides</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>disp</span>, <span class='va'>mpg</span>, size <span class='op'>=</span> <span class='va'>hp</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='scale_size.html'>scale_size_binned</a></span><span class='op'>(</span><span class='op'>)</span>
-
-<span class='co'># Standard look</span>
-<span class='va'>p</span>
-</div><div class='img'><img src='guide_bins-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Remove the axis or style it</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fu'>guide_bins</span><span class='op'>(</span>axis <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='guide_bins-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fu'>guide_bins</span><span class='op'>(</span>show.limits <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='guide_bins-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fu'>guide_bins</span><span class='op'>(</span>
-  axis.arrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/arrow.html'>arrow</a></span><span class='op'>(</span>length <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span><span class='op'>(</span><span class='fl'>1.5</span>, <span class='st'>'mm'</span><span class='op'>)</span>, ends <span class='op'>=</span> <span class='st'>'both'</span><span class='op'>)</span>
-<span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='guide_bins-4.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Guides are merged together if possible</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>disp</span>, <span class='va'>mpg</span>, size <span class='op'>=</span> <span class='va'>hp</span>, colour <span class='op'>=</span> <span class='va'>hp</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='scale_size.html'>scale_size_binned</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='scale_colour_continuous.html'>scale_colour_binned</a></span><span class='op'>(</span>guide <span class='op'>=</span> <span class='st'>"bins"</span><span class='op'>)</span>
-</div><div class='img'><img src='guide_bins-5.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>disp</span>, <span class='va'>mpg</span>, size <span class='op'>=</span> <span class='va'>hp</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='scale_size.html'>scale_size_binned</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Standard look</span></span>
+<span class='r-in'><span class='va'>p</span></span>
+<span class='r-plt'><img src='guide_bins-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Remove the axis or style it</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fu'>guide_bins</span><span class='op'>(</span>axis <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='guide_bins-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fu'>guide_bins</span><span class='op'>(</span>show.limits <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='guide_bins-3.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fu'>guide_bins</span><span class='op'>(</span></span>
+<span class='r-in'>  axis.arrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/arrow.html'>arrow</a></span><span class='op'>(</span>length <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span><span class='op'>(</span><span class='fl'>1.5</span>, <span class='st'>'mm'</span><span class='op'>)</span>, ends <span class='op'>=</span> <span class='st'>'both'</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='guide_bins-4.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Guides are merged together if possible</span></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>disp</span>, <span class='va'>mpg</span>, size <span class='op'>=</span> <span class='va'>hp</span>, colour <span class='op'>=</span> <span class='va'>hp</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='scale_size.html'>scale_size_binned</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='scale_colour_continuous.html'>scale_colour_binned</a></span><span class='op'>(</span>guide <span class='op'>=</span> <span class='st'>"bins"</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='guide_bins-5.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -452,7 +463,7 @@ may be needed.</p>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -479,6 +490,8 @@ may be needed.</p>
 </script>
 
 
+
+  
 
   </body>
 </html>

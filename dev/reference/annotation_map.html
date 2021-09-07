@@ -85,9 +85,15 @@ coord_sf() (see examples)." />
   gtag('config', 'UA-115082821-1');
 </script>
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -229,13 +235,13 @@ coord_sf() (see examples)." />
     </div>
 
     <div class="ref-description">
-    <p>Display a fixed map on a plot. This function predates the <code><a href='CoordSf.html'>geom_sf()</a></code>
+    <p>Display a fixed map on a plot. This function predates the <code><a href='ggsf.html'>geom_sf()</a></code>
 framework and does not work with sf geometry columns as input. However,
-it can be used in conjunction with <code><a href='CoordSf.html'>geom_sf()</a></code> layers and/or
-<code><a href='CoordSf.html'>coord_sf()</a></code> (see examples).</p>
+it can be used in conjunction with <code><a href='ggsf.html'>geom_sf()</a></code> layers and/or
+<code><a href='ggsf.html'>coord_sf()</a></code> (see examples).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>annotation_map</span><span class='op'>(</span><span class='va'>map</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>annotation_map</span><span class='op'>(</span><span class='va'>map</span>, <span class='va'>...</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -254,49 +260,49 @@ details.</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"maps"</span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'># location of cities in North Carolina</span>
-<span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
-  name <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Charlotte"</span>, <span class='st'>"Raleigh"</span>, <span class='st'>"Greensboro"</span><span class='op'>)</span>,
-  lat <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>35.227</span>, <span class='fl'>35.772</span>, <span class='fl'>36.073</span><span class='op'>)</span>,
-  long <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>80.843</span>, <span class='op'>-</span><span class='fl'>78.639</span>, <span class='op'>-</span><span class='fl'>79.792</span><span class='op'>)</span>
-<span class='op'>)</span>
-
-<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>long</span>, y <span class='op'>=</span> <span class='va'>lat</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>annotation_map</span><span class='op'>(</span>
-    <span class='fu'><a href='map_data.html'>map_data</a></span><span class='op'>(</span><span class='st'>"state"</span><span class='op'>)</span>,
-    fill <span class='op'>=</span> <span class='st'>"antiquewhite"</span>, colour <span class='op'>=</span> <span class='st'>"darkgrey"</span>
-  <span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"blue"</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_label.html'>geom_text</a></span><span class='op'>(</span>
-    <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>label <span class='op'>=</span> <span class='va'>name</span><span class='op'>)</span>,
-    hjust <span class='op'>=</span> <span class='fl'>1.105</span>, vjust <span class='op'>=</span> <span class='fl'>1.05</span>, color <span class='op'>=</span> <span class='st'>"blue"</span>
-  <span class='op'>)</span>
-
-<span class='co'># use without coord_sf() is possible but not recommended</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='lims.html'>xlim</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>84</span>, <span class='op'>-</span><span class='fl'>76</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='lims.html'>ylim</a></span><span class='op'>(</span><span class='fl'>34</span>, <span class='fl'>37.2</span><span class='op'>)</span>
-
-<span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"sf"</span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'># use with coord_sf() for appropriate projection</span>
-<span class='va'>p</span> <span class='op'>+</span>
-  <span class='fu'><a href='CoordSf.html'>coord_sf</a></span><span class='op'>(</span>
-    crs <span class='op'>=</span> <span class='fu'>st_crs</span><span class='op'>(</span><span class='fl'>3347</span><span class='op'>)</span>,
-    default_crs <span class='op'>=</span> <span class='fu'>st_crs</span><span class='op'>(</span><span class='fl'>4326</span><span class='op'>)</span>,  <span class='co'># data is provided as long-lat</span>
-    xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>84</span>, <span class='op'>-</span><span class='fl'>76</span><span class='op'>)</span>,
-    ylim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>34</span>, <span class='fl'>37.2</span><span class='op'>)</span>
-  <span class='op'>)</span>
-
-<span class='co'># you can mix annotation_map() and geom_sf()</span>
-<span class='va'>nc</span> <span class='op'>&lt;-</span> <span class='fu'>sf</span><span class='fu'>::</span><span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_read.html'>st_read</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"shape/nc.shp"</span>, package <span class='op'>=</span> <span class='st'>"sf"</span><span class='op'>)</span>, quiet <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-<span class='va'>p</span> <span class='op'>+</span>
-  <span class='fu'><a href='CoordSf.html'>geom_sf</a></span><span class='op'>(</span>
-    data <span class='op'>=</span> <span class='va'>nc</span>, inherit.aes <span class='op'>=</span> <span class='cn'>FALSE</span>,
-    fill <span class='op'>=</span> <span class='cn'>NA</span>, color <span class='op'>=</span> <span class='st'>"black"</span>, size <span class='op'>=</span> <span class='fl'>0.1</span>
-  <span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='CoordSf.html'>coord_sf</a></span><span class='op'>(</span>crs <span class='op'>=</span> <span class='fu'>st_crs</span><span class='op'>(</span><span class='fl'>3347</span><span class='op'>)</span>, default_crs <span class='op'>=</span> <span class='fu'>st_crs</span><span class='op'>(</span><span class='fl'>4326</span><span class='op'>)</span><span class='op'>)</span>
-<span class='op'>}</span><span class='op'>}</span><span class='op'>}</span>
-</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"maps"</span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='co'># location of cities in North Carolina</span></span>
+<span class='r-in'><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span></span>
+<span class='r-in'>  name <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Charlotte"</span>, <span class='st'>"Raleigh"</span>, <span class='st'>"Greensboro"</span><span class='op'>)</span>,</span>
+<span class='r-in'>  lat <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>35.227</span>, <span class='fl'>35.772</span>, <span class='fl'>36.073</span><span class='op'>)</span>,</span>
+<span class='r-in'>  long <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>80.843</span>, <span class='op'>-</span><span class='fl'>78.639</span>, <span class='op'>-</span><span class='fl'>79.792</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>long</span>, y <span class='op'>=</span> <span class='va'>lat</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>annotation_map</span><span class='op'>(</span></span>
+<span class='r-in'>    <span class='fu'><a href='map_data.html'>map_data</a></span><span class='op'>(</span><span class='st'>"state"</span><span class='op'>)</span>,</span>
+<span class='r-in'>    fill <span class='op'>=</span> <span class='st'>"antiquewhite"</span>, colour <span class='op'>=</span> <span class='st'>"darkgrey"</span></span>
+<span class='r-in'>  <span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"blue"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='geom_text.html'>geom_text</a></span><span class='op'>(</span></span>
+<span class='r-in'>    <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>label <span class='op'>=</span> <span class='va'>name</span><span class='op'>)</span>,</span>
+<span class='r-in'>    hjust <span class='op'>=</span> <span class='fl'>1.105</span>, vjust <span class='op'>=</span> <span class='fl'>1.05</span>, color <span class='op'>=</span> <span class='st'>"blue"</span></span>
+<span class='r-in'>  <span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># use without coord_sf() is possible but not recommended</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='lims.html'>xlim</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>84</span>, <span class='op'>-</span><span class='fl'>76</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='lims.html'>ylim</a></span><span class='op'>(</span><span class='fl'>34</span>, <span class='fl'>37.2</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"sf"</span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='co'># use with coord_sf() for appropriate projection</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='ggsf.html'>coord_sf</a></span><span class='op'>(</span></span>
+<span class='r-in'>    crs <span class='op'>=</span> <span class='fu'>st_crs</span><span class='op'>(</span><span class='fl'>3347</span><span class='op'>)</span>,</span>
+<span class='r-in'>    default_crs <span class='op'>=</span> <span class='fu'>st_crs</span><span class='op'>(</span><span class='fl'>4326</span><span class='op'>)</span>,  <span class='co'># data is provided as long-lat</span></span>
+<span class='r-in'>    xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>84</span>, <span class='op'>-</span><span class='fl'>76</span><span class='op'>)</span>,</span>
+<span class='r-in'>    ylim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>34</span>, <span class='fl'>37.2</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># you can mix annotation_map() and geom_sf()</span></span>
+<span class='r-in'><span class='va'>nc</span> <span class='op'>&lt;-</span> <span class='fu'>sf</span><span class='fu'>::</span><span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_read.html'>st_read</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"shape/nc.shp"</span>, package <span class='op'>=</span> <span class='st'>"sf"</span><span class='op'>)</span>, quiet <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='ggsf.html'>geom_sf</a></span><span class='op'>(</span></span>
+<span class='r-in'>    data <span class='op'>=</span> <span class='va'>nc</span>, inherit.aes <span class='op'>=</span> <span class='cn'>FALSE</span>,</span>
+<span class='r-in'>    fill <span class='op'>=</span> <span class='cn'>NA</span>, color <span class='op'>=</span> <span class='st'>"black"</span>, size <span class='op'>=</span> <span class='fl'>0.1</span></span>
+<span class='r-in'>  <span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='ggsf.html'>coord_sf</a></span><span class='op'>(</span>crs <span class='op'>=</span> <span class='fu'>st_crs</span><span class='op'>(</span><span class='fl'>3347</span><span class='op'>)</span>, default_crs <span class='op'>=</span> <span class='fu'>st_crs</span><span class='op'>(</span><span class='fl'>4326</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span><span class='op'>}</span><span class='op'>}</span></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -313,7 +319,7 @@ details.</p></td>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -340,6 +346,8 @@ details.</p></td>
 </script>
 
 
+
+  
 
   </body>
 </html>

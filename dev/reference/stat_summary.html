@@ -85,9 +85,15 @@ aggregate." />
   gtag('config', 'UA-115082821-1');
 </script>
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -231,11 +237,11 @@ aggregate." />
     <div class="ref-description">
     <p><code>stat_summary()</code> operates on unique <code>x</code> or <code>y</code>; <code>stat_summary_bin()</code>
 operates on binned <code>x</code> or <code>y</code>. They are more flexible versions of
-<code><a href='geom_freqpoly.html'>stat_bin()</a></code>: instead of just counting, they can compute any
+<code><a href='geom_histogram.html'>stat_bin()</a></code>: instead of just counting, they can compute any
 aggregate.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>stat_summary_bin</span><span class='op'>(</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>stat_summary_bin</span><span class='op'>(</span>
   mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
   data <span class='op'>=</span> <span class='cn'>NULL</span>,
   geom <span class='op'>=</span> <span class='st'>"pointrange"</span>,
@@ -276,7 +282,7 @@ aggregate.</p>
   <span class='va'>fun.y</span>,
   <span class='va'>fun.ymin</span>,
   <span class='va'>fun.ymax</span>
-<span class='op'>)</span></pre>
+<span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -305,7 +311,7 @@ from a <code>formula</code> (e.g. <code>~ head(.x, 10)</code>).</p></td>
     <tr>
       <th>geom</th>
       <td><p>Use to override the default connection between
-<code><a href='geom_freqpoly.html'>geom_histogram()</a></code>/<code><a href='geom_freqpoly.html'>geom_freqpoly()</a></code> and <code><a href='geom_freqpoly.html'>stat_bin()</a></code>.</p></td>
+<code><a href='geom_histogram.html'>geom_histogram()</a></code>/<code><a href='geom_histogram.html'>geom_freqpoly()</a></code> and <code><a href='geom_histogram.html'>stat_bin()</a></code>.</p></td>
     </tr>
     <tr>
       <th>position</th>
@@ -435,89 +441,107 @@ y-axis.</p>
 <code><a href='mean_se.html'>mean_se()</a></code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='geom_crossbar.html'>geom_errorbar()</a></code>, <code><a href='geom_crossbar.html'>geom_pointrange()</a></code>,
-<code><a href='geom_crossbar.html'>geom_linerange()</a></code>, <code><a href='geom_crossbar.html'>geom_crossbar()</a></code> for geoms to
+    <div class='dont-index'><p><code><a href='geom_linerange.html'>geom_errorbar()</a></code>, <code><a href='geom_linerange.html'>geom_pointrange()</a></code>,
+<code><a href='geom_linerange.html'>geom_linerange()</a></code>, <code><a href='geom_linerange.html'>geom_crossbar()</a></code> for geoms to
 display summarised data</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>cyl</span>, <span class='va'>mpg</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='va'>d</span> <span class='op'>+</span> <span class='fu'>stat_summary</span><span class='op'>(</span>fun.data <span class='op'>=</span> <span class='st'>"mean_cl_boot"</span>, colour <span class='op'>=</span> <span class='st'>"red"</span>, size <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
-</div><div class='img'><img src='stat_summary-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Orientation follows the discrete axis</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>stat_summary</span><span class='op'>(</span>fun.data <span class='op'>=</span> <span class='st'>"mean_cl_boot"</span>, colour <span class='op'>=</span> <span class='st'>"red"</span>, size <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
-</div><div class='img'><img src='stat_summary-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># You can supply individual functions to summarise the value at</span>
-<span class='co'># each x:</span>
-<span class='va'>d</span> <span class='op'>+</span> <span class='fu'>stat_summary</span><span class='op'>(</span>fun <span class='op'>=</span> <span class='st'>"median"</span>, colour <span class='op'>=</span> <span class='st'>"red"</span>, size <span class='op'>=</span> <span class='fl'>2</span>, geom <span class='op'>=</span> <span class='st'>"point"</span><span class='op'>)</span>
-</div><div class='img'><img src='stat_summary-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'>stat_summary</span><span class='op'>(</span>fun <span class='op'>=</span> <span class='st'>"mean"</span>, colour <span class='op'>=</span> <span class='st'>"red"</span>, size <span class='op'>=</span> <span class='fl'>2</span>, geom <span class='op'>=</span> <span class='st'>"point"</span><span class='op'>)</span>
-</div><div class='img'><img src='stat_summary-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>vs</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>stat_summary</span><span class='op'>(</span>fun <span class='op'>=</span> <span class='va'>mean</span>, geom<span class='op'>=</span><span class='st'>"line"</span><span class='op'>)</span>
-</div><div class='img'><img src='stat_summary-5.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='va'>d</span> <span class='op'>+</span> <span class='fu'>stat_summary</span><span class='op'>(</span>fun <span class='op'>=</span> <span class='va'>mean</span>, fun.min <span class='op'>=</span> <span class='va'>min</span>, fun.max <span class='op'>=</span> <span class='va'>max</span>, colour <span class='op'>=</span> <span class='st'>"red"</span><span class='op'>)</span>
-</div><div class='img'><img src='stat_summary-6.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='va'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>cut</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>d</span> <span class='op'>+</span> <span class='fu'><a href='geom_bar.html'>geom_bar</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='img'><img src='stat_summary-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'>stat_summary</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>price</span><span class='op'>)</span>, fun <span class='op'>=</span> <span class='st'>"mean"</span>, geom <span class='op'>=</span> <span class='st'>"bar"</span><span class='op'>)</span>
-</div><div class='img'><img src='stat_summary-8.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Orientation of stat_summary_bin is ambiguous and must be specified directly</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>carat</span>, <span class='va'>price</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>stat_summary_bin</span><span class='op'>(</span>fun <span class='op'>=</span> <span class='st'>"mean"</span>, geom <span class='op'>=</span> <span class='st'>"bar"</span>, orientation <span class='op'>=</span> <span class='st'>'y'</span><span class='op'>)</span>
-</div><div class='img'><img src='stat_summary-9.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># \donttest{</span>
-<span class='co'># Don't use ylim to zoom into a summary plot - this throws the</span>
-<span class='co'># data away</span>
-<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>cyl</span>, <span class='va'>mpg</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>stat_summary</span><span class='op'>(</span>fun <span class='op'>=</span> <span class='st'>"mean"</span>, geom <span class='op'>=</span> <span class='st'>"point"</span><span class='op'>)</span>
-<span class='va'>p</span>
-</div><div class='img'><img src='stat_summary-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='lims.html'>ylim</a></span><span class='op'>(</span><span class='fl'>15</span>, <span class='fl'>30</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 9 rows containing non-finite values (stat_summary).</span></div><div class='img'><img src='stat_summary-11.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Instead use coord_cartesian</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='coord_cartesian.html'>coord_cartesian</a></span><span class='op'>(</span>ylim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>15</span>, <span class='fl'>30</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='stat_summary-12.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># A set of useful summary functions is provided from the Hmisc package:</span>
-<span class='va'>stat_sum_df</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>fun</span>, <span class='va'>geom</span><span class='op'>=</span><span class='st'>"crossbar"</span>, <span class='va'>...</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='fu'>stat_summary</span><span class='op'>(</span>fun.data <span class='op'>=</span> <span class='va'>fun</span>, colour <span class='op'>=</span> <span class='st'>"red"</span>, geom <span class='op'>=</span> <span class='va'>geom</span>, width <span class='op'>=</span> <span class='fl'>0.2</span>, <span class='va'>...</span><span class='op'>)</span>
-<span class='op'>}</span>
-<span class='va'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>cyl</span>, <span class='va'>mpg</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='co'># The crossbar geom needs grouping to be specified when used with</span>
-<span class='co'># a continuous x axis.</span>
-<span class='va'>d</span> <span class='op'>+</span> <span class='fu'>stat_sum_df</span><span class='op'>(</span><span class='st'>"mean_cl_boot"</span>, mapping <span class='op'>=</span> <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>group <span class='op'>=</span> <span class='va'>cyl</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='stat_summary-13.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'>stat_sum_df</span><span class='op'>(</span><span class='st'>"mean_sdl"</span>, mapping <span class='op'>=</span> <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>group <span class='op'>=</span> <span class='va'>cyl</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='stat_summary-14.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'>stat_sum_df</span><span class='op'>(</span><span class='st'>"mean_sdl"</span>, fun.args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mult <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>, mapping <span class='op'>=</span> <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>group <span class='op'>=</span> <span class='va'>cyl</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='stat_summary-15.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'>stat_sum_df</span><span class='op'>(</span><span class='st'>"median_hilow"</span>, mapping <span class='op'>=</span> <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>group <span class='op'>=</span> <span class='va'>cyl</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='stat_summary-16.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># An example with highly skewed distributions:</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'>"ggplot2movies"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>596</span><span class='op'>)</span>
-<span class='va'>mov</span> <span class='op'>&lt;-</span> <span class='va'>movies</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>movies</span><span class='op'>)</span>, <span class='fl'>1000</span><span class='op'>)</span>, <span class='op'>]</span>
- <span class='va'>m2</span> <span class='op'>&lt;-</span>
-   <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mov</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='va'>rating</span><span class='op'>)</span><span class='op'>)</span>, y <span class='op'>=</span> <span class='va'>votes</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-   <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span>
- <span class='va'>m2</span> <span class='op'>&lt;-</span>
-   <span class='va'>m2</span> <span class='op'>+</span>
-   <span class='fu'>stat_summary</span><span class='op'>(</span>
-     fun.data <span class='op'>=</span> <span class='st'>"mean_cl_boot"</span>,
-     geom <span class='op'>=</span> <span class='st'>"crossbar"</span>,
-     colour <span class='op'>=</span> <span class='st'>"red"</span>, width <span class='op'>=</span> <span class='fl'>0.3</span>
-   <span class='op'>)</span> <span class='op'>+</span>
-   <span class='fu'><a href='labs.html'>xlab</a></span><span class='op'>(</span><span class='st'>"rating"</span><span class='op'>)</span>
-<span class='va'>m2</span>
-<span class='co'># Notice how the overplotting skews off visual perception of the mean</span>
-<span class='co'># supplementing the raw data with summary statistics is _very_ important</span>
-
-<span class='co'># Next, we'll look at votes on a log scale.</span>
-
-<span class='co'># Transforming the scale means the data are transformed</span>
-<span class='co'># first, after which statistics are computed:</span>
-<span class='va'>m2</span> <span class='op'>+</span> <span class='fu'><a href='scale_continuous.html'>scale_y_log10</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='co'># Transforming the coordinate system occurs after the</span>
-<span class='co'># statistic has been computed. This means we're calculating the summary on the raw data</span>
-<span class='co'># and stretching the geoms onto the log scale.  Compare the widths of the</span>
-<span class='co'># standard errors.</span>
-<span class='va'>m2</span> <span class='op'>+</span> <span class='fu'><a href='coord_trans.html'>coord_trans</a></span><span class='op'>(</span>y<span class='op'>=</span><span class='st'>"log10"</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div><div class='img'><img src='stat_summary-17.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
-</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='va'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>cyl</span>, <span class='va'>mpg</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'>stat_summary</span><span class='op'>(</span>fun.data <span class='op'>=</span> <span class='st'>"mean_cl_boot"</span>, colour <span class='op'>=</span> <span class='st'>"red"</span>, size <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='stat_summary-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Orientation follows the discrete axis</span></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>stat_summary</span><span class='op'>(</span>fun.data <span class='op'>=</span> <span class='st'>"mean_cl_boot"</span>, colour <span class='op'>=</span> <span class='st'>"red"</span>, size <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='stat_summary-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># You can supply individual functions to summarise the value at</span></span>
+<span class='r-in'><span class='co'># each x:</span></span>
+<span class='r-in'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'>stat_summary</span><span class='op'>(</span>fun <span class='op'>=</span> <span class='st'>"median"</span>, colour <span class='op'>=</span> <span class='st'>"red"</span>, size <span class='op'>=</span> <span class='fl'>2</span>, geom <span class='op'>=</span> <span class='st'>"point"</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='stat_summary-3.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'>stat_summary</span><span class='op'>(</span>fun <span class='op'>=</span> <span class='st'>"mean"</span>, colour <span class='op'>=</span> <span class='st'>"red"</span>, size <span class='op'>=</span> <span class='fl'>2</span>, geom <span class='op'>=</span> <span class='st'>"point"</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='stat_summary-4.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>vs</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>stat_summary</span><span class='op'>(</span>fun <span class='op'>=</span> <span class='va'>mean</span>, geom<span class='op'>=</span><span class='st'>"line"</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='stat_summary-5.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'>stat_summary</span><span class='op'>(</span>fun <span class='op'>=</span> <span class='va'>mean</span>, fun.min <span class='op'>=</span> <span class='va'>min</span>, fun.max <span class='op'>=</span> <span class='va'>max</span>, colour <span class='op'>=</span> <span class='st'>"red"</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='stat_summary-6.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>cut</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'><a href='geom_bar.html'>geom_bar</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='stat_summary-7.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'>stat_summary</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>price</span><span class='op'>)</span>, fun <span class='op'>=</span> <span class='st'>"mean"</span>, geom <span class='op'>=</span> <span class='st'>"bar"</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='stat_summary-8.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Orientation of stat_summary_bin is ambiguous and must be specified directly</span></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>carat</span>, <span class='va'>price</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>stat_summary_bin</span><span class='op'>(</span>fun <span class='op'>=</span> <span class='st'>"mean"</span>, geom <span class='op'>=</span> <span class='st'>"bar"</span>, orientation <span class='op'>=</span> <span class='st'>'y'</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='stat_summary-9.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># \donttest{</span></span>
+<span class='r-in'><span class='co'># Don't use ylim to zoom into a summary plot - this throws the</span></span>
+<span class='r-in'><span class='co'># data away</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>cyl</span>, <span class='va'>mpg</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>stat_summary</span><span class='op'>(</span>fun <span class='op'>=</span> <span class='st'>"mean"</span>, geom <span class='op'>=</span> <span class='st'>"point"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>p</span></span>
+<span class='r-plt'><img src='stat_summary-10.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='lims.html'>ylim</a></span><span class='op'>(</span><span class='fl'>15</span>, <span class='fl'>30</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>Removed 9 rows containing non-finite values (stat_summary).</span>
+<span class='r-plt'><img src='stat_summary-11.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='co'># Instead use coord_cartesian</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='coord_cartesian.html'>coord_cartesian</a></span><span class='op'>(</span>ylim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>15</span>, <span class='fl'>30</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='stat_summary-12.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># A set of useful summary functions is provided from the Hmisc package:</span></span>
+<span class='r-in'><span class='va'>stat_sum_df</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>fun</span>, <span class='va'>geom</span><span class='op'>=</span><span class='st'>"crossbar"</span>, <span class='va'>...</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'>  <span class='fu'>stat_summary</span><span class='op'>(</span>fun.data <span class='op'>=</span> <span class='va'>fun</span>, colour <span class='op'>=</span> <span class='st'>"red"</span>, geom <span class='op'>=</span> <span class='va'>geom</span>, width <span class='op'>=</span> <span class='fl'>0.2</span>, <span class='va'>...</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-in'><span class='va'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>cyl</span>, <span class='va'>mpg</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># The crossbar geom needs grouping to be specified when used with</span></span>
+<span class='r-in'><span class='co'># a continuous x axis.</span></span>
+<span class='r-in'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'>stat_sum_df</span><span class='op'>(</span><span class='st'>"mean_cl_boot"</span>, mapping <span class='op'>=</span> <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>group <span class='op'>=</span> <span class='va'>cyl</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='stat_summary-13.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'>stat_sum_df</span><span class='op'>(</span><span class='st'>"mean_sdl"</span>, mapping <span class='op'>=</span> <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>group <span class='op'>=</span> <span class='va'>cyl</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='stat_summary-14.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'>stat_sum_df</span><span class='op'>(</span><span class='st'>"mean_sdl"</span>, fun.args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mult <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>, mapping <span class='op'>=</span> <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>group <span class='op'>=</span> <span class='va'>cyl</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='stat_summary-15.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'>stat_sum_df</span><span class='op'>(</span><span class='st'>"median_hilow"</span>, mapping <span class='op'>=</span> <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>group <span class='op'>=</span> <span class='va'>cyl</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='stat_summary-16.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># An example with highly skewed distributions:</span></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'>"ggplot2movies"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>596</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>mov</span> <span class='op'>&lt;-</span> <span class='va'>movies</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>movies</span><span class='op'>)</span>, <span class='fl'>1000</span><span class='op'>)</span>, <span class='op'>]</span></span>
+<span class='r-in'> <span class='va'>m2</span> <span class='op'>&lt;-</span></span>
+<span class='r-in'>   <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mov</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='va'>rating</span><span class='op'>)</span><span class='op'>)</span>, y <span class='op'>=</span> <span class='va'>votes</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>   <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'> <span class='va'>m2</span> <span class='op'>&lt;-</span></span>
+<span class='r-in'>   <span class='va'>m2</span> <span class='op'>+</span></span>
+<span class='r-in'>   <span class='fu'>stat_summary</span><span class='op'>(</span></span>
+<span class='r-in'>     fun.data <span class='op'>=</span> <span class='st'>"mean_cl_boot"</span>,</span>
+<span class='r-in'>     geom <span class='op'>=</span> <span class='st'>"crossbar"</span>,</span>
+<span class='r-in'>     colour <span class='op'>=</span> <span class='st'>"red"</span>, width <span class='op'>=</span> <span class='fl'>0.3</span></span>
+<span class='r-in'>   <span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>   <span class='fu'><a href='labs.html'>xlab</a></span><span class='op'>(</span><span class='st'>"rating"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>m2</span></span>
+<span class='r-in'><span class='co'># Notice how the overplotting skews off visual perception of the mean</span></span>
+<span class='r-in'><span class='co'># supplementing the raw data with summary statistics is _very_ important</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Next, we'll look at votes on a log scale.</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Transforming the scale means the data are transformed</span></span>
+<span class='r-in'><span class='co'># first, after which statistics are computed:</span></span>
+<span class='r-in'><span class='va'>m2</span> <span class='op'>+</span> <span class='fu'><a href='scale_continuous.html'>scale_y_log10</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># Transforming the coordinate system occurs after the</span></span>
+<span class='r-in'><span class='co'># statistic has been computed. This means we're calculating the summary on the raw data</span></span>
+<span class='r-in'><span class='co'># and stretching the geoms onto the log scale.  Compare the widths of the</span></span>
+<span class='r-in'><span class='co'># standard errors.</span></span>
+<span class='r-in'><span class='va'>m2</span> <span class='op'>+</span> <span class='fu'><a href='coord_trans.html'>coord_trans</a></span><span class='op'>(</span>y<span class='op'>=</span><span class='st'>"log10"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-plt'><img src='stat_summary-17.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='co'># }</span></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -534,7 +558,7 @@ display summarised data</p></div>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -561,6 +585,8 @@ display summarised data</p></div>
 </script>
 
 
+
+  
 
   </body>
 </html>

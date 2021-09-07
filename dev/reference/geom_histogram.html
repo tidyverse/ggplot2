@@ -87,9 +87,15 @@ across the levels of a categorical variable." />
   gtag('config', 'UA-115082821-1');
 </script>
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -239,7 +245,7 @@ polygons are more suitable when you want to compare the distribution
 across the levels of a categorical variable.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>geom_freqpoly</span><span class='op'>(</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>geom_freqpoly</span><span class='op'>(</span>
   mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
   data <span class='op'>=</span> <span class='cn'>NULL</span>,
   stat <span class='op'>=</span> <span class='st'>"bin"</span>,
@@ -281,7 +287,7 @@ across the levels of a categorical variable.</p>
   orientation <span class='op'>=</span> <span class='cn'>NA</span>,
   show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
   inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>
-<span class='op'>)</span></pre>
+<span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -443,87 +449,99 @@ position, without binning. It is suitable for both discrete and continuous
 x data, whereas <code>stat_bin()</code> is suitable only for continuous x data.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>carat</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_histogram</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></div><div class='img'><img src='geom_histogram-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>carat</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_histogram</span><span class='op'>(</span>binwidth <span class='op'>=</span> <span class='fl'>0.01</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_histogram-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>carat</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_histogram</span><span class='op'>(</span>bins <span class='op'>=</span> <span class='fl'>200</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_histogram-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Map values to y to flip the orientation</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>carat</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_histogram</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></div><div class='img'><img src='geom_histogram-4.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># For histograms with tick marks between each bin, use `geom_bar()` with</span>
-<span class='co'># `scale_x_binned()`.</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>carat</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_bar.html'>geom_bar</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='scale_binned.html'>scale_x_binned</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_histogram-5.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Rather than stacking histograms, it's easier to compare frequency</span>
-<span class='co'># polygons</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>price</span>, fill <span class='op'>=</span> <span class='va'>cut</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_histogram</span><span class='op'>(</span>binwidth <span class='op'>=</span> <span class='fl'>500</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_histogram-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>price</span>, colour <span class='op'>=</span> <span class='va'>cut</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_freqpoly</span><span class='op'>(</span>binwidth <span class='op'>=</span> <span class='fl'>500</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_histogram-7.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># To make it easier to compare distributions with very different counts,</span>
-<span class='co'># put density on the y axis instead of the default count</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>price</span>, <span class='fu'><a href='aes_eval.html'>after_stat</a></span><span class='op'>(</span><span class='va'>density</span><span class='op'>)</span>, colour <span class='op'>=</span> <span class='va'>cut</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_freqpoly</span><span class='op'>(</span>binwidth <span class='op'>=</span> <span class='fl'>500</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_histogram-8.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'>"ggplot2movies"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'># Often we don't want the height of the bar to represent the</span>
-<span class='co'># count of observations, but the sum of some other variable.</span>
-<span class='co'># For example, the following plot shows the number of movies</span>
-<span class='co'># in each rating.</span>
-<span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>movies</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>rating</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>m</span> <span class='op'>+</span> <span class='fu'>geom_histogram</span><span class='op'>(</span>binwidth <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span>
-
-<span class='co'># If, however, we want to see the number of votes cast in each</span>
-<span class='co'># category, we need to weight by the votes variable</span>
-<span class='va'>m</span> <span class='op'>+</span>
-  <span class='fu'>geom_histogram</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>votes</span><span class='op'>)</span>, binwidth <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='labs.html'>ylab</a></span><span class='op'>(</span><span class='st'>"votes"</span><span class='op'>)</span>
-
-<span class='co'># For transformed scales, binwidth applies to the transformed data.</span>
-<span class='co'># The bins have constant width on the transformed scale.</span>
-<span class='va'>m</span> <span class='op'>+</span>
- <span class='fu'>geom_histogram</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
- <span class='fu'><a href='scale_continuous.html'>scale_x_log10</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='va'>m</span> <span class='op'>+</span>
-  <span class='fu'>geom_histogram</span><span class='op'>(</span>binwidth <span class='op'>=</span> <span class='fl'>0.05</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='scale_continuous.html'>scale_x_log10</a></span><span class='op'>(</span><span class='op'>)</span>
-
-<span class='co'># For transformed coordinate systems, the binwidth applies to the</span>
-<span class='co'># raw data. The bins have constant width on the original scale.</span>
-
-<span class='co'># Using log scales does not work here, because the first</span>
-<span class='co'># bar is anchored at zero, and so when transformed becomes negative</span>
-<span class='co'># infinity. This is not a problem when transforming the scales, because</span>
-<span class='co'># no observations have 0 ratings.</span>
-<span class='va'>m</span> <span class='op'>+</span>
-  <span class='fu'>geom_histogram</span><span class='op'>(</span>boundary <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='coord_trans.html'>coord_trans</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>"log10"</span><span class='op'>)</span>
-<span class='co'># Use boundary = 0, to make sure we don't take sqrt of negative values</span>
-<span class='va'>m</span> <span class='op'>+</span>
-  <span class='fu'>geom_histogram</span><span class='op'>(</span>boundary <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='coord_trans.html'>coord_trans</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>"sqrt"</span><span class='op'>)</span>
-
-<span class='co'># You can also transform the y axis.  Remember that the base of the bars</span>
-<span class='co'># has value 0, so log transformations are not appropriate</span>
-<span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>movies</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>rating</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>m</span> <span class='op'>+</span>
-  <span class='fu'>geom_histogram</span><span class='op'>(</span>binwidth <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='scale_continuous.html'>scale_y_sqrt</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div><div class='img'><img src='geom_histogram-9.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># You can specify a function for calculating binwidth, which is</span>
-<span class='co'># particularly useful when faceting along variables with</span>
-<span class='co'># different ranges because the function will be called once per facet</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>economics_long</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>variable</span>, scales <span class='op'>=</span> <span class='st'>'free_x'</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_histogram</span><span class='op'>(</span>binwidth <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fl'>2</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/stats/IQR.html'>IQR</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>/</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>^</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>/</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_histogram-10.png' alt='' width='700' height='433' /></div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>carat</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>geom_histogram</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span>
+<span class='r-plt'><img src='geom_histogram-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>carat</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>geom_histogram</span><span class='op'>(</span>binwidth <span class='op'>=</span> <span class='fl'>0.01</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='geom_histogram-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>carat</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>geom_histogram</span><span class='op'>(</span>bins <span class='op'>=</span> <span class='fl'>200</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='geom_histogram-3.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='co'># Map values to y to flip the orientation</span></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>carat</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>geom_histogram</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span>
+<span class='r-plt'><img src='geom_histogram-4.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># For histograms with tick marks between each bin, use `geom_bar()` with</span></span>
+<span class='r-in'><span class='co'># `scale_x_binned()`.</span></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>carat</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='geom_bar.html'>geom_bar</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='scale_binned.html'>scale_x_binned</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='geom_histogram-5.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Rather than stacking histograms, it's easier to compare frequency</span></span>
+<span class='r-in'><span class='co'># polygons</span></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>price</span>, fill <span class='op'>=</span> <span class='va'>cut</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>geom_histogram</span><span class='op'>(</span>binwidth <span class='op'>=</span> <span class='fl'>500</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='geom_histogram-6.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>price</span>, colour <span class='op'>=</span> <span class='va'>cut</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>geom_freqpoly</span><span class='op'>(</span>binwidth <span class='op'>=</span> <span class='fl'>500</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='geom_histogram-7.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># To make it easier to compare distributions with very different counts,</span></span>
+<span class='r-in'><span class='co'># put density on the y axis instead of the default count</span></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>price</span>, <span class='fu'><a href='aes_eval.html'>after_stat</a></span><span class='op'>(</span><span class='va'>density</span><span class='op'>)</span>, colour <span class='op'>=</span> <span class='va'>cut</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>geom_freqpoly</span><span class='op'>(</span>binwidth <span class='op'>=</span> <span class='fl'>500</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='geom_histogram-8.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'>"ggplot2movies"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='co'># Often we don't want the height of the bar to represent the</span></span>
+<span class='r-in'><span class='co'># count of observations, but the sum of some other variable.</span></span>
+<span class='r-in'><span class='co'># For example, the following plot shows the number of movies</span></span>
+<span class='r-in'><span class='co'># in each rating.</span></span>
+<span class='r-in'><span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>movies</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>rating</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>m</span> <span class='op'>+</span> <span class='fu'>geom_histogram</span><span class='op'>(</span>binwidth <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># If, however, we want to see the number of votes cast in each</span></span>
+<span class='r-in'><span class='co'># category, we need to weight by the votes variable</span></span>
+<span class='r-in'><span class='va'>m</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>geom_histogram</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>votes</span><span class='op'>)</span>, binwidth <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='labs.html'>ylab</a></span><span class='op'>(</span><span class='st'>"votes"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># For transformed scales, binwidth applies to the transformed data.</span></span>
+<span class='r-in'><span class='co'># The bins have constant width on the transformed scale.</span></span>
+<span class='r-in'><span class='va'>m</span> <span class='op'>+</span></span>
+<span class='r-in'> <span class='fu'>geom_histogram</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'> <span class='fu'><a href='scale_continuous.html'>scale_x_log10</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>m</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>geom_histogram</span><span class='op'>(</span>binwidth <span class='op'>=</span> <span class='fl'>0.05</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='scale_continuous.html'>scale_x_log10</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># For transformed coordinate systems, the binwidth applies to the</span></span>
+<span class='r-in'><span class='co'># raw data. The bins have constant width on the original scale.</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Using log scales does not work here, because the first</span></span>
+<span class='r-in'><span class='co'># bar is anchored at zero, and so when transformed becomes negative</span></span>
+<span class='r-in'><span class='co'># infinity. This is not a problem when transforming the scales, because</span></span>
+<span class='r-in'><span class='co'># no observations have 0 ratings.</span></span>
+<span class='r-in'><span class='va'>m</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>geom_histogram</span><span class='op'>(</span>boundary <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='coord_trans.html'>coord_trans</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>"log10"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># Use boundary = 0, to make sure we don't take sqrt of negative values</span></span>
+<span class='r-in'><span class='va'>m</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>geom_histogram</span><span class='op'>(</span>boundary <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='coord_trans.html'>coord_trans</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>"sqrt"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># You can also transform the y axis.  Remember that the base of the bars</span></span>
+<span class='r-in'><span class='co'># has value 0, so log transformations are not appropriate</span></span>
+<span class='r-in'><span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>movies</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>rating</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>m</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>geom_histogram</span><span class='op'>(</span>binwidth <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='scale_continuous.html'>scale_y_sqrt</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-plt'><img src='geom_histogram-9.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># You can specify a function for calculating binwidth, which is</span></span>
+<span class='r-in'><span class='co'># particularly useful when faceting along variables with</span></span>
+<span class='r-in'><span class='co'># different ranges because the function will be called once per facet</span></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>economics_long</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>variable</span>, scales <span class='op'>=</span> <span class='st'>'free_x'</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>geom_histogram</span><span class='op'>(</span>binwidth <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fl'>2</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/stats/IQR.html'>IQR</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>/</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>^</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>/</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='geom_histogram-10.png' alt='' width='700' height='433' /></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -540,7 +558,7 @@ x data, whereas <code>stat_bin()</code> is suitable only for continuous x data.<
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -567,6 +585,8 @@ x data, whereas <code>stat_bin()</code> is suitable only for continuous x data.<
 </script>
 
 
+
+  
 
   </body>
 </html>

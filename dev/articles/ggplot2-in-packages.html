@@ -39,6 +39,8 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -53,7 +55,7 @@
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
-          <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
+          <span class="partof">part of the <a href="https://tidyverse.org" class="external-link">tidyverse</a></span>
           <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.5.9000</span>
         </div>
       </div>
@@ -72,28 +74,28 @@
   <ul class="dropdown-menu" role="menu">
 <li class="dropdown-header">Releases</li>
     <li>
-      <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
+      <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/" class="external-link">Version 3.3.0</a>
     </li>
     <li>
-      <a href="https://www.tidyverse.org/articles/2019/06/ggplot2-3-2-0/">Version 3.2.0</a>
+      <a href="https://www.tidyverse.org/articles/2019/06/ggplot2-3-2-0/" class="external-link">Version 3.2.0</a>
     </li>
     <li>
-      <a href="https://www.tidyverse.org/articles/2018/10/ggplot2-3-1-0/">Version 3.1.0</a>
+      <a href="https://www.tidyverse.org/articles/2018/10/ggplot2-3-1-0/" class="external-link">Version 3.1.0</a>
     </li>
     <li>
-      <a href="https://www.tidyverse.org/articles/2018/07/ggplot2-3-0-0/">Version 3.0.0</a>
+      <a href="https://www.tidyverse.org/articles/2018/07/ggplot2-3-0-0/" class="external-link">Version 3.0.0</a>
     </li>
     <li>
-      <a href="https://blog.rstudio.com/2016/11/14/ggplot2-2-2-0/">Version 2.2.0</a>
+      <a href="https://blog.rstudio.com/2016/11/14/ggplot2-2-2-0/" class="external-link">Version 2.2.0</a>
     </li>
     <li>
-      <a href="https://blog.rstudio.com/2016/03/03/ggplot2-2-1-0/">Version 2.1.0</a>
+      <a href="https://blog.rstudio.com/2016/03/03/ggplot2-2-1-0/" class="external-link">Version 2.1.0</a>
     </li>
     <li>
-      <a href="https://blog.rstudio.com/2015/12/21/ggplot2-2-0-0/">Version 2.0.0</a>
+      <a href="https://blog.rstudio.com/2015/12/21/ggplot2-2-0-0/" class="external-link">Version 2.0.0</a>
     </li>
     <li>
-      <a href="https://blog.rstudio.com/2015/01/09/ggplot2-updates/">Version 1.0.0</a>
+      <a href="https://blog.rstudio.com/2015/01/09/ggplot2-updates/" class="external-link">Version 1.0.0</a>
     </li>
     <li class="divider">
     <li>
@@ -145,10 +147,10 @@
   </ul>
 </li>
 <li>
-  <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
+  <a href="https://exts.ggplot2.tidyverse.org/gallery/" class="external-link">Extensions</a>
 </li>
 <li>
-  <a href="https://github.com/tidyverse/ggplot2/">
+  <a href="https://github.com/tidyverse/ggplot2/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -175,7 +177,7 @@
       <h1 data-toc-skip>Using ggplot2 in packages</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/master/vignettes/ggplot2-in-packages.Rmd"><code>vignettes/ggplot2-in-packages.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/master/vignettes/ggplot2-in-packages.Rmd" class="external-link"><code>vignettes/ggplot2-in-packages.Rmd</code></a></small>
       <div class="hidden name"><code>ggplot2-in-packages.Rmd</code></div>
 
     </div>
@@ -185,15 +187,15 @@
 <p>This vignette is intended for package developers who use ggplot2 within their package code. As of this writing, this includes over 2,000 packages on CRAN and many more elsewhere! Programming with ggplot2 within a package adds several constraints, particularly if you would like to submit the package to CRAN. In particular, programming within an R package changes the way you refer to functions from ggplot2 and how you use ggplot2’s non-standard evaluation within <code><a href="../reference/aes.html">aes()</a></code> and <code><a href="../reference/vars.html">vars()</a></code>.</p>
 <div id="referring-to-ggplot2-functions" class="section level2">
 <h2 class="hasAnchor">
-<a href="#referring-to-ggplot2-functions" class="anchor"></a>Referring to ggplot2 functions</h2>
-<p>As with any function from another package, you will have to list ggplot2 in your <code>DESCRIPTION</code> under <code>Imports</code> and refer to its functions using <code><a href="https://rdrr.io/r/base/ns-dblcolon.html">::</a></code> (e.g., <code>ggplot2::function_name</code>):</p>
+<a href="#referring-to-ggplot2-functions" class="anchor" aria-hidden="true"></a>Referring to ggplot2 functions</h2>
+<p>As with any function from another package, you will have to list ggplot2 in your <code>DESCRIPTION</code> under <code>Imports</code> and refer to its functions using <code>::</code> (e.g., <code>ggplot2::function_name</code>):</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mpg_drv_summary</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="../reference/mpg.html">mpg</a></span><span class="op">)</span> <span class="op">+</span> 
     <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">.data</span><span class="op">$</span><span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
     <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="../reference/coord_flip.html">coord_flip</a></span><span class="op">(</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
-<p>If you use ggplot2 functions frequently, you may wish to import one or more functions from ggplot2 into your <code>NAMESPACE</code>. If you use <a href="https://cran.r-project.org/package=roxygen2">roxygen2</a>, you can include <code>#' @importFrom ggplot2 &lt;one or more object names&gt;</code> in any roxygen comment block (this will not work for datasets like <code>mpg</code>).</p>
+<p>If you use ggplot2 functions frequently, you may wish to import one or more functions from ggplot2 into your <code>NAMESPACE</code>. If you use <a href="https://cran.r-project.org/package=roxygen2" class="external-link">roxygen2</a>, you can include <code>#' @importFrom ggplot2 &lt;one or more object names&gt;</code> in any roxygen comment block (this will not work for datasets like <code>mpg</code>).</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#' @importFrom ggplot2 ggplot aes geom_bar coord_flip</span>
 <span class="va">mpg_drv_summary</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
@@ -201,11 +203,11 @@
     <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
     <span class="fu"><a href="../reference/coord_flip.html">coord_flip</a></span><span class="op">(</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
-<p>Even if you use many ggplot2 functions in your package, it is unwise to use ggplot2 in <code>Depends</code> or import the entire package into your <code>NAMESPACE</code> (e.g. with <code>#' @import ggplot2</code>). Using ggplot2 in <code>Depends</code> will attach ggplot2 when your package is attached, which includes when your package is tested. This makes it difficult to ensure that others can use the functions in your package without attaching it (i.e., using <code><a href="https://rdrr.io/r/base/ns-dblcolon.html">::</a></code>). Similarly, importing all 450 of ggplot2’s exported objects into your namespace makes it difficult to separate the responsibility of your package and the responsibility of ggplot2, in addition to making it difficult for readers of your code to figure out where functions are coming from!</p>
+<p>Even if you use many ggplot2 functions in your package, it is unwise to use ggplot2 in <code>Depends</code> or import the entire package into your <code>NAMESPACE</code> (e.g. with <code>#' @import ggplot2</code>). Using ggplot2 in <code>Depends</code> will attach ggplot2 when your package is attached, which includes when your package is tested. This makes it difficult to ensure that others can use the functions in your package without attaching it (i.e., using <code>::</code>). Similarly, importing all 450 of ggplot2’s exported objects into your namespace makes it difficult to separate the responsibility of your package and the responsibility of ggplot2, in addition to making it difficult for readers of your code to figure out where functions are coming from!</p>
 </div>
 <div id="using-aes-and-vars-in-a-package-function" class="section level2">
 <h2 class="hasAnchor">
-<a href="#using-aes-and-vars-in-a-package-function" class="anchor"></a>Using <code>aes()</code> and <code>vars()</code> in a package function</h2>
+<a href="#using-aes-and-vars-in-a-package-function" class="anchor" aria-hidden="true"></a>Using <code>aes()</code> and <code>vars()</code> in a package function</h2>
 <p>To create any graphic using ggplot2 you will probably need to use <code><a href="../reference/aes.html">aes()</a></code> at least once. If your graphic uses facets, you might be using <code><a href="../reference/vars.html">vars()</a></code> to refer to columns in the plot/layer data. Both of these functions use non-standard evaluation, so if you try to use them in a function within a package they will result in a CMD check note:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mpg_drv_summary</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
@@ -223,7 +225,7 @@
 <li>You have the column name as a character vector.</li>
 <li>The user specifies the column name or expression, and you want your function to use the same kind of non-standard evaluation used by <code><a href="../reference/aes.html">aes()</a></code> and <code><a href="../reference/vars.html">vars()</a></code>.</li>
 </ul>
-<p>If you already know the mapping in advance (like the above example) you should use the <code>.data</code> pronoun from <a href="https://rlang.r-lib.org/">rlang</a> to make it explicit that you are referring to the <code>drv</code> in the layer data and not some other variable named <code>drv</code> (which may or may not exist elsewhere). To avoid a similar note from the CMD check about <code>.data</code>, use <code>#' @importFrom rlang .data</code> in any roxygen code block (typically this should be in the package documentation as generated by <code>usethis::use_package_doc()</code>).</p>
+<p>If you already know the mapping in advance (like the above example) you should use the <code>.data</code> pronoun from <a href="https://rlang.r-lib.org/" class="external-link">rlang</a> to make it explicit that you are referring to the <code>drv</code> in the layer data and not some other variable named <code>drv</code> (which may or may not exist elsewhere). To avoid a similar note from the CMD check about <code>.data</code>, use <code>#' @importFrom rlang .data</code> in any roxygen code block (typically this should be in the package documentation as generated by <code>usethis::use_package_doc()</code>).</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mpg_drv_summary</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="../reference/mpg.html">mpg</a></span><span class="op">)</span> <span class="op">+</span> 
@@ -250,34 +252,34 @@
 <span class="fu">col_summary</span><span class="op">(</span><span class="va">mpg</span>, <span class="va">drv</span><span class="op">)</span></code></pre></div>
 <p>To summarise:</p>
 <ul>
-<li>If you know the mapping or facet specification is <code>col</code> in advance, use <code><a href="../reference/aes.html">aes(.data$col)</a></code> or <code><a href="../reference/vars.html">vars(.data$col)</a></code>.</li>
-<li>If <code>col</code> is a variable that contains the column name as a character vector, use <code>aes(.data[[col]]</code> or <code><a href="../reference/vars.html">vars(.data[[col]])</a></code>.</li>
-<li>If you would like the behaviour of <code>col</code> to look and feel like it would within <code><a href="../reference/aes.html">aes()</a></code> and <code><a href="../reference/vars.html">vars()</a></code>, use <code><a href="../reference/aes.html">aes({{ col }})</a></code> or <code><a href="../reference/vars.html">vars({{ col }})</a></code>.</li>
+<li>If you know the mapping or facet specification is <code>col</code> in advance, use <code>aes(.data$col)</code> or <code>vars(.data$col)</code>.</li>
+<li>If <code>col</code> is a variable that contains the column name as a character vector, use <code>aes(.data[[col]]</code> or <code>vars(.data[[col]])</code>.</li>
+<li>If you would like the behaviour of <code>col</code> to look and feel like it would within <code><a href="../reference/aes.html">aes()</a></code> and <code><a href="../reference/vars.html">vars()</a></code>, use <code>aes({{ col }})</code> or <code>vars({{ col }})</code>.</li>
 </ul>
 <p>You will see a lot of other ways to do this in the wild, but the syntax we use here is the only one we can guarantee will work in the future! In particular, don’t use <code><a href="../reference/aes_.html">aes_()</a></code> or <code><a href="../reference/aes_.html">aes_string()</a></code>, as they are deprecated and may be removed in a future version. Finally, don’t skip the step of creating a data frame and a mapping to pass in to <code><a href="../reference/ggplot.html">ggplot()</a></code> or its layers! You will see other ways of doing this, but these may rely on undocumented behaviour and can fail in unexpected ways.</p>
 </div>
 <div id="best-practices-for-common-tasks" class="section level2">
 <h2 class="hasAnchor">
-<a href="#best-practices-for-common-tasks" class="anchor"></a>Best practices for common tasks</h2>
+<a href="#best-practices-for-common-tasks" class="anchor" aria-hidden="true"></a>Best practices for common tasks</h2>
 <div id="using-ggplot2-to-visualize-an-object" class="section level3">
 <h3 class="hasAnchor">
-<a href="#using-ggplot2-to-visualize-an-object" class="anchor"></a>Using ggplot2 to visualize an object</h3>
-<p>ggplot2 is commonly used in packages to visualize objects (e.g., in a <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code>-style function). For example, a package might define an S3 class that represents the probability of various discrete values:</p>
+<a href="#using-ggplot2-to-visualize-an-object" class="anchor" aria-hidden="true"></a>Using ggplot2 to visualize an object</h3>
+<p>ggplot2 is commonly used in packages to visualize objects (e.g., in a <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code>-style function). For example, a package might define an S3 class that represents the probability of various discrete values:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mpg_drv_dist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/structure.html">structure</a></span><span class="op">(</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
+<code class="sourceCode R"><span class="va">mpg_drv_dist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/structure.html" class="external-link">structure</a></span><span class="op">(</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>
     <span class="st">"4"</span> <span class="op">=</span> <span class="fl">103</span> <span class="op">/</span> <span class="fl">234</span>,
     <span class="st">"f"</span> <span class="op">=</span> <span class="fl">106</span> <span class="op">/</span> <span class="fl">234</span>,
     <span class="st">"r"</span> <span class="op">=</span> <span class="fl">25</span> <span class="op">/</span> <span class="fl">234</span>
   <span class="op">)</span>,
   class <span class="op">=</span> <span class="st">"discrete_distr"</span>
 <span class="op">)</span></code></pre></div>
-<p>Many S3 classes in R have a <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> method, but it is unrealistic to expect that a single <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> method can provide the visualization every one of your users is looking for. It is useful, however, to provide a <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> method as a visual summary that users can call to understand the essence of an object. To satisfy all your users, we suggest writing a function that transforms the object into a data frame (or a <code><a href="https://rdrr.io/r/base/list.html">list()</a></code> of data frames if your object is more complicated). A good example of this approach is <a href="https://cran.r-project.org/package=ggdendro">ggdendro</a>, which creates dendrograms using ggplot2 but also computes the data necessary for users to make their own. For the above example, the function might look like this:</p>
+<p>Many S3 classes in R have a <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> method, but it is unrealistic to expect that a single <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> method can provide the visualization every one of your users is looking for. It is useful, however, to provide a <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> method as a visual summary that users can call to understand the essence of an object. To satisfy all your users, we suggest writing a function that transforms the object into a data frame (or a <code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code> of data frames if your object is more complicated). A good example of this approach is <a href="https://cran.r-project.org/package=ggdendro" class="external-link">ggdendro</a>, which creates dendrograms using ggplot2 but also computes the data necessary for users to make their own. For the above example, the function might look like this:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">discrete_distr_data</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>
-    value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,
-    probability <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+  <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>
+    value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,
+    probability <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
   <span class="op">)</span>
 <span class="op">}</span>
 
@@ -288,7 +290,7 @@
 <span class="co">#&gt; 1 4           0.440</span>
 <span class="co">#&gt; 2 f           0.453</span>
 <span class="co">#&gt; 3 r           0.107</span></code></pre></div>
-<p>In general, users of <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> call it for its side-effects: it results in a graphic being displayed. This is different than the behaviour of a <code><a href="../reference/ggplot.html">ggplot()</a></code>, which is not displayed unless it is explicitly <code><a href="https://rdrr.io/r/base/print.html">print()</a></code>ed. Because of this, ggplot2 defines its own generic <code><a href="../reference/autoplot.html">autoplot()</a></code>, a call to which is expected to return a <code><a href="../reference/ggplot.html">ggplot()</a></code> (with no side effects).</p>
+<p>In general, users of <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> call it for its side-effects: it results in a graphic being displayed. This is different than the behaviour of a <code><a href="../reference/ggplot.html">ggplot()</a></code>, which is not displayed unless it is explicitly <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code>ed. Because of this, ggplot2 defines its own generic <code><a href="../reference/autoplot.html">autoplot()</a></code>, a call to which is expected to return a <code><a href="../reference/ggplot.html">ggplot()</a></code> (with no side effects).</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#' @importFrom ggplot2 autoplot</span>
 <span class="va">autoplot.discrete_distr</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span>
@@ -298,26 +300,26 @@
     <span class="fu"><a href="../reference/coord_flip.html">coord_flip</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
     <span class="fu"><a href="../reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Value"</span>, y <span class="op">=</span> <span class="st">"Probability"</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
-<p>Once an <code><a href="../reference/autoplot.html">autoplot()</a></code> method has been defined, a <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> method can then consist of <code><a href="https://rdrr.io/r/base/print.html">print()</a></code>ing the result of <code><a href="../reference/autoplot.html">autoplot()</a></code>:</p>
+<p>Once an <code><a href="../reference/autoplot.html">autoplot()</a></code> method has been defined, a <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> method can then consist of <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code>ing the result of <code><a href="../reference/autoplot.html">autoplot()</a></code>:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#' @importFrom graphics plot</span>
 <span class="va">plot.discrete_distr</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="../reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="../reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
-<p>It is considered bad practice to implement an S3 generic like <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code>, or <code><a href="../reference/autoplot.html">autoplot()</a></code> if you don’t own the S3 class, as it makes it hard for the package developer who does have control over the S3 to implement the method themselves. This shouldn’t stop you from creating your own functions to visualize these objects!</p>
+<p>It is considered bad practice to implement an S3 generic like <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code>, or <code><a href="../reference/autoplot.html">autoplot()</a></code> if you don’t own the S3 class, as it makes it hard for the package developer who does have control over the S3 to implement the method themselves. This shouldn’t stop you from creating your own functions to visualize these objects!</p>
 </div>
 <div id="creating-a-new-theme" class="section level3">
 <h3 class="hasAnchor">
-<a href="#creating-a-new-theme" class="anchor"></a>Creating a new theme</h3>
-<p>When creating a new theme, it’s always good practice to start with an existing theme (e.g. <code><a href="../reference/ggtheme.html">theme_grey()</a></code>) and then <code><a href="../reference/theme_get.html">%+replace%</a></code> the elements that should be changed. This is the right strategy even if seemingly all elements are replaced, as not doing so makes it difficult for us to improve themes by adding new elements. There are many excellent examples of themes in the <a href="https://cran.r-project.org/package=ggthemes">ggthemes</a> package.</p>
+<a href="#creating-a-new-theme" class="anchor" aria-hidden="true"></a>Creating a new theme</h3>
+<p>When creating a new theme, it’s always good practice to start with an existing theme (e.g. <code><a href="../reference/ggtheme.html">theme_grey()</a></code>) and then <code>%+replace%</code> the elements that should be changed. This is the right strategy even if seemingly all elements are replaced, as not doing so makes it difficult for us to improve themes by adding new elements. There are many excellent examples of themes in the <a href="https://cran.r-project.org/package=ggthemes" class="external-link">ggthemes</a> package.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#' @importFrom ggplot2 %+replace%</span>
 <span class="va">theme_custom</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">...</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu"><a href="../reference/ggtheme.html">theme_grey</a></span><span class="op">(</span><span class="va">...</span><span class="op">)</span> <span class="op">%+replace%</span> 
+  <span class="fu"><a href="../reference/ggtheme.html">theme_grey</a></span><span class="op">(</span><span class="va">...</span><span class="op">)</span> <span class="op"><a href="../reference/theme_get.html">%+replace%</a></span> 
     <span class="fu"><a href="../reference/theme.html">theme</a></span><span class="op">(</span>
-      panel.border <span class="op">=</span> <span class="fu"><a href="../reference/margin.html">element_rect</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">1</span>, fill <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>,
-      panel.background <span class="op">=</span> <span class="fu"><a href="../reference/margin.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,
-      panel.grid <span class="op">=</span> <span class="fu"><a href="../reference/margin.html">element_line</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"grey80"</span><span class="op">)</span>
+      panel.border <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_rect</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">1</span>, fill <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>,
+      panel.background <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,
+      panel.grid <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_line</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"grey80"</span><span class="op">)</span>
     <span class="op">)</span>
 <span class="op">}</span>
 
@@ -334,30 +336,30 @@
 </div>
 <div id="testing-ggplot2-output" class="section level3">
 <h3 class="hasAnchor">
-<a href="#testing-ggplot2-output" class="anchor"></a>Testing ggplot2 output</h3>
-<p>We suggest testing the output of ggplot2 in using the <a href="https://cran.r-project.org/package=vdiffr">vdiffr</a> package, which is a tool to manage visual test cases (this is one of the ways we test ggplot2). If changes in ggplot2 or your code introduce a change in the visual output of a ggplot, tests will fail when you run them locally or on Travis. To use vdiffr, make sure you are using <a href="https://testthat.r-lib.org/">testthat</a> (you can use <code>usethis::use_testthat()</code> to get started) and add vdiffr to <code>Suggests</code> in your <code>DESCRIPTION</code>. Then, use <code>vdiffr::expect_doppleganger(&lt;name of plot&gt;, &lt;ggplot object&gt;)</code> to make a test that fails if there are visual changes in <code>&lt;ggplot object&gt;</code>.</p>
+<a href="#testing-ggplot2-output" class="anchor" aria-hidden="true"></a>Testing ggplot2 output</h3>
+<p>We suggest testing the output of ggplot2 in using the <a href="https://cran.r-project.org/package=vdiffr" class="external-link">vdiffr</a> package, which is a tool to manage visual test cases (this is one of the ways we test ggplot2). If changes in ggplot2 or your code introduce a change in the visual output of a ggplot, tests will fail when you run them locally or on Travis. To use vdiffr, make sure you are using <a href="https://testthat.r-lib.org/" class="external-link">testthat</a> (you can use <code>usethis::use_testthat()</code> to get started) and add vdiffr to <code>Suggests</code> in your <code>DESCRIPTION</code>. Then, use <code>vdiffr::expect_doppleganger(&lt;name of plot&gt;, &lt;ggplot object&gt;)</code> to make a test that fails if there are visual changes in <code>&lt;ggplot object&gt;</code>.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">test_that</span><span class="op">(</span><span class="st">"output of ggplot() is stable"</span>, <span class="op">{</span>
-  <span class="fu">vdiffr</span><span class="fu">::</span><span class="fu"><a href="https://vdiffr.r-lib.org/reference/expect_doppelganger.html">expect_doppelganger</a></span><span class="op">(</span><span class="st">"A blank plot"</span>, <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
+  <span class="fu">vdiffr</span><span class="fu">::</span><span class="fu"><a href="https://vdiffr.r-lib.org/reference/expect_doppelganger.html" class="external-link">expect_doppelganger</a></span><span class="op">(</span><span class="st">"A blank plot"</span>, <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 <span class="op">}</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="ggplot2-in-suggests" class="section level3">
 <h3 class="hasAnchor">
-<a href="#ggplot2-in-suggests" class="anchor"></a>ggplot2 in <code>Suggests</code>
+<a href="#ggplot2-in-suggests" class="anchor" aria-hidden="true"></a>ggplot2 in <code>Suggests</code>
 </h3>
-<p>If you use ggplot2 in your package, most likely you will want to list it under <code>Imports</code>. If you would like to list ggplot2 in <code>Suggests</code> instead, you will not be able to <code>#' @importFrom ggplot2 ...</code> (i.e., you must refer to ggplot2 objects using <code><a href="https://rdrr.io/r/base/ns-dblcolon.html">::</a></code>). If you use infix operators from ggplot2 like <code><a href="../reference/theme_get.html">%+replace%</a></code> and you want to keep ggplot2 in <code>Suggests</code>, you can assign the operator within the function before it is used:</p>
+<p>If you use ggplot2 in your package, most likely you will want to list it under <code>Imports</code>. If you would like to list ggplot2 in <code>Suggests</code> instead, you will not be able to <code>#' @importFrom ggplot2 ...</code> (i.e., you must refer to ggplot2 objects using <code>::</code>). If you use infix operators from ggplot2 like <code>%+replace%</code> and you want to keep ggplot2 in <code>Suggests</code>, you can assign the operator within the function before it is used:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">theme_custom</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">...</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">`%+replace%`</span> <span class="op">&lt;-</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="va">`%+replace%`</span>
   
-  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="../reference/ggtheme.html">theme_grey</a></span><span class="op">(</span><span class="va">...</span><span class="op">)</span> <span class="op">%+replace%</span> 
-    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="../reference/theme.html">theme</a></span><span class="op">(</span>panel.background <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="../reference/margin.html">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="../reference/ggtheme.html">theme_grey</a></span><span class="op">(</span><span class="va">...</span><span class="op">)</span> <span class="op"><a href="../reference/theme_get.html">%+replace%</a></span> 
+    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="../reference/theme.html">theme</a></span><span class="op">(</span>panel.background <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="../reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
-<p>Generally, if you add a method for a ggplot2 generic like <code><a href="../reference/autoplot.html">autoplot()</a></code>, ggplot2 should be in <code>Imports</code>. If for some reason you would like to keep ggplot2 in <code>Suggests</code>, it is possible to register your generics only if ggplot2 is installed using <code><a href="https://vctrs.r-lib.org/reference/s3_register.html">vctrs::s3_register()</a></code>. If you do this, you should copy and paste the source of <code><a href="https://vctrs.r-lib.org/reference/s3_register.html">vctrs::s3_register()</a></code> into your own package to avoid adding a <a href="https://vctrs.r-lib.org/">vctrs</a> dependency.</p>
+<p>Generally, if you add a method for a ggplot2 generic like <code><a href="../reference/autoplot.html">autoplot()</a></code>, ggplot2 should be in <code>Imports</code>. If for some reason you would like to keep ggplot2 in <code>Suggests</code>, it is possible to register your generics only if ggplot2 is installed using <code><a href="https://vctrs.r-lib.org/reference/s3_register.html" class="external-link">vctrs::s3_register()</a></code>. If you do this, you should copy and paste the source of <code><a href="https://vctrs.r-lib.org/reference/s3_register.html" class="external-link">vctrs::s3_register()</a></code> into your own package to avoid adding a <a href="https://vctrs.r-lib.org/" class="external-link">vctrs</a> dependency.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">.onLoad</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">...</span><span class="op">)</span> <span class="op">{</span>
-  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span><span class="op">(</span><span class="st">"ggplot2"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-    <span class="fu">vctrs</span><span class="fu">::</span><span class="fu"><a href="https://vctrs.r-lib.org/reference/s3_register.html">s3_register</a></span><span class="op">(</span><span class="st">"ggplot2::autoplot"</span>, <span class="st">"discrete_distr"</span><span class="op">)</span>
+  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"ggplot2"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+    <span class="fu">vctrs</span><span class="fu">::</span><span class="fu"><a href="https://vctrs.r-lib.org/reference/s3_register.html" class="external-link">s3_register</a></span><span class="op">(</span><span class="st">"ggplot2::autoplot"</span>, <span class="st">"discrete_distr"</span><span class="op">)</span>
   <span class="op">}</span>
 <span class="op">}</span></code></pre></div>
 </div>
@@ -375,13 +377,13 @@
 
 
       <footer><div class="tidyverse">
-  <p>ggplot2 is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
+  <p>ggplot2 is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org" class="external-link">tidyverse.org</a>.</p>
 </div>
 
 <div class="author">
   <p>
-    Developed by <a href="http://hadley.nz">Hadley Wickham</a>, <a href="https://github.com/wch">Winston Chang</a>, <a href="https://github.com/lionel-">Lionel Henry</a>, <a href="https://data-imaginist.com">Thomas Lin Pedersen</a>, Kohske Takahashi, <a href="https://clauswilke.com">Claus Wilke</a>, <a href="https://karawoo.com">Kara Woo</a>, <a href="https://yutani.rbind.io">Hiroaki Yutani</a>, <a href="https://fishandwhistle.net">Dewey Dunnington</a>, <a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
-    Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
+    Developed by <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://github.com/wch" class="external-link">Winston Chang</a>, <a href="https://github.com/lionel-" class="external-link">Lionel Henry</a>, <a href="https://data-imaginist.com" class="external-link">Thomas Lin Pedersen</a>, Kohske Takahashi, <a href="https://clauswilke.com" class="external-link">Claus Wilke</a>, <a href="https://karawoo.com" class="external-link">Kara Woo</a>, <a href="https://yutani.rbind.io" class="external-link">Hiroaki Yutani</a>, <a href="https://fishandwhistle.net" class="external-link">Dewey Dunnington</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
+    Site built by <a href="https://pkgdown.r-lib.org" class="external-link">pkgdown</a>.
   </p>
 </div>
 

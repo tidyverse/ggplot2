@@ -84,9 +84,15 @@ the gradient known from the colourbar counterpart." />
   gtag('config', 'UA-115082821-1');
 </script>
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -233,9 +239,9 @@ scales. It shows areas between breaks as a single constant colour instead of
 the gradient known from the colourbar counterpart.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>guide_coloursteps</span><span class='op'>(</span>even.steps <span class='op'>=</span> <span class='cn'>TRUE</span>, show.limits <span class='op'>=</span> <span class='cn'>NULL</span>, ticks <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>guide_coloursteps</span><span class='op'>(</span>even.steps <span class='op'>=</span> <span class='cn'>TRUE</span>, show.limits <span class='op'>=</span> <span class='cn'>NULL</span>, ticks <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>guide_colorsteps</span><span class='op'>(</span>even.steps <span class='op'>=</span> <span class='cn'>TRUE</span>, show.limits <span class='op'>=</span> <span class='cn'>NULL</span>, ticks <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'>guide_colorsteps</span><span class='op'>(</span>even.steps <span class='op'>=</span> <span class='cn'>TRUE</span>, show.limits <span class='op'>=</span> <span class='cn'>NULL</span>, ticks <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -290,7 +296,7 @@ specified in <code><a href='labs.html'>labs()</a></code> is used for the title.<
 title. One of "top" (default for a vertical guide), "bottom", "left"
 (default for a horizontal guide), or "right."</p></dd>
     <dt><code>title.theme</code></dt><dd><p>A theme object for rendering the title text. Usually the
-object of <code><a href='margin.html'>element_text()</a></code> is expected. By default, the theme is
+object of <code><a href='element.html'>element_text()</a></code> is expected. By default, the theme is
 specified by <code>legend.title</code> in <code><a href='theme.html'>theme()</a></code> or theme.</p></dd>
     <dt><code>title.hjust</code></dt><dd><p>A number specifying horizontal justification of the
 title text.</p></dd>
@@ -302,7 +308,7 @@ text.</p></dd>
 label. One of "top", "bottom" (default for horizontal guide), "left", or
 "right" (default for vertical guide).</p></dd>
     <dt><code>label.theme</code></dt><dd><p>A theme object for rendering the label text. Usually the
-object of <code><a href='margin.html'>element_text()</a></code> is expected. By default, the theme is
+object of <code><a href='element.html'>element_text()</a></code> is expected. By default, the theme is
 specified by <code>legend.text</code> in <code><a href='theme.html'>theme()</a></code>.</p></dd>
     <dt><code>label.hjust</code></dt><dd><p>A numeric specifying horizontal justification of the
 label text.</p></dd>
@@ -343,31 +349,36 @@ may be needed.</p>
 <code><a href='guides.html'>guides</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid</a></span><span class='op'>(</span>X1 <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, X2 <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span>
-<span class='va'>df</span><span class='op'>$</span><span class='va'>value</span> <span class='op'>&lt;-</span> <span class='va'>df</span><span class='op'>$</span><span class='va'>X1</span> <span class='op'>*</span> <span class='va'>df</span><span class='op'>$</span><span class='va'>X2</span>
-
-<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>X1</span>, <span class='va'>X2</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_raster.html'>geom_tile</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>value</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'># Coloursteps guide is the default for binned colour scales</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_binned</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='img'><img src='guide_coloursteps-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># By default each bin in the guide is the same size irrespectively of how</span>
-<span class='co'># their sizes relate in data space</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_binned</a></span><span class='op'>(</span>breaks <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>25</span>, <span class='fl'>50</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='guide_coloursteps-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># This can be changed with the `even.steps` argument</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_binned</a></span><span class='op'>(</span>
-  breaks <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>25</span>, <span class='fl'>50</span><span class='op'>)</span>,
-  guide <span class='op'>=</span> <span class='fu'>guide_coloursteps</span><span class='op'>(</span>even.steps <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-<span class='op'>)</span>
-</div><div class='img'><img src='guide_coloursteps-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># By default the limits is not shown, but this can be changed</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_binned</a></span><span class='op'>(</span>guide <span class='op'>=</span> <span class='fu'>guide_coloursteps</span><span class='op'>(</span>show.limits <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='guide_coloursteps-4.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># (can also be set in the scale)</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_binned</a></span><span class='op'>(</span>show.limits <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='img'><img src='guide_coloursteps-5.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid</a></span><span class='op'>(</span>X1 <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, X2 <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>df</span><span class='op'>$</span><span class='va'>value</span> <span class='op'>&lt;-</span> <span class='va'>df</span><span class='op'>$</span><span class='va'>X1</span> <span class='op'>*</span> <span class='va'>df</span><span class='op'>$</span><span class='va'>X2</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>X1</span>, <span class='va'>X2</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_tile.html'>geom_tile</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>value</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Coloursteps guide is the default for binned colour scales</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_binned</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='guide_coloursteps-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># By default each bin in the guide is the same size irrespectively of how</span></span>
+<span class='r-in'><span class='co'># their sizes relate in data space</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_binned</a></span><span class='op'>(</span>breaks <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>25</span>, <span class='fl'>50</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='guide_coloursteps-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># This can be changed with the `even.steps` argument</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_binned</a></span><span class='op'>(</span></span>
+<span class='r-in'>  breaks <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>25</span>, <span class='fl'>50</span><span class='op'>)</span>,</span>
+<span class='r-in'>  guide <span class='op'>=</span> <span class='fu'>guide_coloursteps</span><span class='op'>(</span>even.steps <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-plt'><img src='guide_coloursteps-3.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># By default the limits is not shown, but this can be changed</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_binned</a></span><span class='op'>(</span>guide <span class='op'>=</span> <span class='fu'>guide_coloursteps</span><span class='op'>(</span>show.limits <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='guide_coloursteps-4.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># (can also be set in the scale)</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_binned</a></span><span class='op'>(</span>show.limits <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='guide_coloursteps-5.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -384,7 +395,7 @@ may be needed.</p>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -411,6 +422,8 @@ may be needed.</p>
 </script>
 
 
+
+  
 
   </body>
 </html>

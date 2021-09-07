@@ -85,9 +85,15 @@ element tree and provide default settings for newly defined theme elements." />
   gtag('config', 'UA-115082821-1');
 </script>
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -235,13 +241,13 @@ a parent element. In some use cases, it may be necessary to modify or extend thi
 element tree and provide default settings for newly defined theme elements.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>register_theme_elements</span><span class='op'>(</span><span class='va'>...</span>, element_tree <span class='op'>=</span> <span class='cn'>NULL</span>, complete <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>register_theme_elements</span><span class='op'>(</span><span class='va'>...</span>, element_tree <span class='op'>=</span> <span class='cn'>NULL</span>, complete <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
 <span class='fu'>reset_theme_settings</span><span class='op'>(</span>reset_current <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
 <span class='fu'>get_element_tree</span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'>el_def</span><span class='op'>(</span>class <span class='op'>=</span> <span class='cn'>NULL</span>, inherit <span class='op'>=</span> <span class='cn'>NULL</span>, description <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+<span class='fu'>el_def</span><span class='op'>(</span>class <span class='op'>=</span> <span class='cn'>NULL</span>, inherit <span class='op'>=</span> <span class='cn'>NULL</span>, description <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -271,7 +277,7 @@ reset to the default theme.</p></td>
 "element_text" or "unit", or one of the two reserved keywords "character" or
 "margin". The reserved keyword "character" implies a character
 or numeric vector, not a class called "character". The keyword
-"margin" implies a unit vector of length 4, as created by <code><a href='margin.html'>margin()</a></code>.</p></td>
+"margin" implies a unit vector of length 4, as created by <code><a href='element.html'>margin()</a></code>.</p></td>
     </tr>
     <tr>
       <th>inherit</th>
@@ -310,35 +316,36 @@ theme to the default.</p>
 element inheritance relationships for the element tree.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Let's assume a package `ggxyz` wants to provide an easy way to add annotations to</span>
-<span class='co'># plot panels. To do so, it registers a new theme element `ggxyz.panel.annotation`</span>
-<span class='fu'>register_theme_elements</span><span class='op'>(</span>
-  ggxyz.panel.annotation <span class='op'>=</span> <span class='fu'><a href='margin.html'>element_text</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"blue"</span>, hjust <span class='op'>=</span> <span class='fl'>0.95</span>, vjust <span class='op'>=</span> <span class='fl'>0.05</span><span class='op'>)</span>,
-  element_tree <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>ggxyz.panel.annotation <span class='op'>=</span> <span class='fu'>el_def</span><span class='op'>(</span><span class='st'>"element_text"</span>, <span class='st'>"text"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='op'>)</span>
-
-<span class='co'># Now the package can define a new coord that includes a panel annotation</span>
-<span class='va'>coord_annotate</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>label</span> <span class='op'>=</span> <span class='st'>"panel annotation"</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='fu'><a href='ggproto.html'>ggproto</a></span><span class='op'>(</span><span class='cn'>NULL</span>, <span class='va'>CoordCartesian</span>,
-    limits <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='cn'>NULL</span>, y <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>,
-    expand <span class='op'>=</span> <span class='cn'>TRUE</span>,
-    default <span class='op'>=</span> <span class='cn'>FALSE</span>,
-    clip <span class='op'>=</span> <span class='st'>"on"</span>,
-    render_fg <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>panel_params</span>, <span class='va'>theme</span><span class='op'>)</span> <span class='op'>{</span>
-      <span class='fu'><a href='element_render.html'>element_render</a></span><span class='op'>(</span><span class='va'>theme</span>, <span class='st'>"ggxyz.panel.annotation"</span>, label <span class='op'>=</span> <span class='va'>label</span><span class='op'>)</span>
-    <span class='op'>}</span>
-  <span class='op'>)</span>
-<span class='op'>}</span>
-
-<span class='co'># Example plot with this new coord</span>
-<span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, y <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>coord_annotate</span><span class='op'>(</span><span class='st'>"annotation in blue"</span><span class='op'>)</span>
-</div><div class='img'><img src='register_theme_elements-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Revert to the original ggplot2 settings</span>
-<span class='fu'>reset_theme_settings</span><span class='op'>(</span><span class='op'>)</span>
-</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='co'># Let's assume a package `ggxyz` wants to provide an easy way to add annotations to</span></span>
+<span class='r-in'><span class='co'># plot panels. To do so, it registers a new theme element `ggxyz.panel.annotation`</span></span>
+<span class='r-in'><span class='fu'>register_theme_elements</span><span class='op'>(</span></span>
+<span class='r-in'>  ggxyz.panel.annotation <span class='op'>=</span> <span class='fu'><a href='element.html'>element_text</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"blue"</span>, hjust <span class='op'>=</span> <span class='fl'>0.95</span>, vjust <span class='op'>=</span> <span class='fl'>0.05</span><span class='op'>)</span>,</span>
+<span class='r-in'>  element_tree <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>ggxyz.panel.annotation <span class='op'>=</span> <span class='fu'>el_def</span><span class='op'>(</span><span class='st'>"element_text"</span>, <span class='st'>"text"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Now the package can define a new coord that includes a panel annotation</span></span>
+<span class='r-in'><span class='va'>coord_annotate</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>label</span> <span class='op'>=</span> <span class='st'>"panel annotation"</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'>  <span class='fu'><a href='ggproto.html'>ggproto</a></span><span class='op'>(</span><span class='cn'>NULL</span>, <span class='va'>CoordCartesian</span>,</span>
+<span class='r-in'>    limits <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='cn'>NULL</span>, y <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>,</span>
+<span class='r-in'>    expand <span class='op'>=</span> <span class='cn'>TRUE</span>,</span>
+<span class='r-in'>    default <span class='op'>=</span> <span class='cn'>FALSE</span>,</span>
+<span class='r-in'>    clip <span class='op'>=</span> <span class='st'>"on"</span>,</span>
+<span class='r-in'>    render_fg <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>panel_params</span>, <span class='va'>theme</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'>      <span class='fu'><a href='element_render.html'>element_render</a></span><span class='op'>(</span><span class='va'>theme</span>, <span class='st'>"ggxyz.panel.annotation"</span>, label <span class='op'>=</span> <span class='va'>label</span><span class='op'>)</span></span>
+<span class='r-in'>    <span class='op'>}</span></span>
+<span class='r-in'>  <span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Example plot with this new coord</span></span>
+<span class='r-in'><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, y <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>coord_annotate</span><span class='op'>(</span><span class='st'>"annotation in blue"</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='register_theme_elements-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Revert to the original ggplot2 settings</span></span>
+<span class='r-in'><span class='fu'>reset_theme_settings</span><span class='op'>(</span><span class='op'>)</span></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -355,7 +362,7 @@ element inheritance relationships for the element tree.</p>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -382,6 +389,8 @@ element inheritance relationships for the element tree.</p>
 </script>
 
 
+
+  
 
   </body>
 </html>

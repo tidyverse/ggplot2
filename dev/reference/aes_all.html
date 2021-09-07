@@ -82,9 +82,15 @@
   gtag('config', 'UA-115082821-1');
 </script>
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -229,7 +235,7 @@
     <p>Given a character vector, create a set of identity mappings</p>
     </div>
 
-    <pre class="usage"><span class='fu'>aes_all</span><span class='op'>(</span><span class='va'>vars</span><span class='op'>)</span></pre>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>aes_all</span><span class='op'>(</span><span class='va'>vars</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -242,24 +248,26 @@
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>aes_all</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Aesthetic mapping: 
-#&gt; * `mpg`  -&gt; `mpg`
-#&gt; * `cyl`  -&gt; `cyl`
-#&gt; * `disp` -&gt; `disp`
-#&gt; * `hp`   -&gt; `hp`
-#&gt; * `drat` -&gt; `drat`
-#&gt; * `wt`   -&gt; `wt`
-#&gt; * `qsec` -&gt; `qsec`
-#&gt; * `vs`   -&gt; `vs`
-#&gt; * `am`   -&gt; `am`
-#&gt; * `gear` -&gt; `gear`
-#&gt; * `carb` -&gt; `carb`</div><div class='input'><span class='fu'>aes_all</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"col"</span>, <span class='st'>"pch"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Aesthetic mapping: 
-#&gt; * `x`      -&gt; `x`
-#&gt; * `y`      -&gt; `y`
-#&gt; * `colour` -&gt; `col`
-#&gt; * `shape`  -&gt; `pch`</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='fu'>aes_all</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Aesthetic mapping: </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> * `mpg`  -&gt; `mpg`</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> * `cyl`  -&gt; `cyl`</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> * `disp` -&gt; `disp`</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> * `hp`   -&gt; `hp`</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> * `drat` -&gt; `drat`</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> * `wt`   -&gt; `wt`</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> * `qsec` -&gt; `qsec`</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> * `vs`   -&gt; `vs`</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> * `am`   -&gt; `am`</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> * `gear` -&gt; `gear`</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> * `carb` -&gt; `carb`</span>
+<span class='r-in'><span class='fu'>aes_all</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"col"</span>, <span class='st'>"pch"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Aesthetic mapping: </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> * `x`      -&gt; `x`</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> * `y`      -&gt; `y`</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> * `colour` -&gt; `col`</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> * `shape`  -&gt; `pch`</span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -276,7 +284,7 @@
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -303,6 +311,8 @@
 </script>
 
 
+
+  
 
   </body>
 </html>

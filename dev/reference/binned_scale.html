@@ -82,9 +82,15 @@
   gtag('config', 'UA-115082821-1');
 </script>
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -229,7 +235,7 @@
     <p>Binning scale constructor</p>
     </div>
 
-    <pre class="usage"><span class='fu'>binned_scale</span><span class='op'>(</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>binned_scale</span><span class='op'>(</span>
   <span class='va'>aesthetics</span>,
   <span class='va'>scale_name</span>,
   <span class='va'>palette</span>,
@@ -249,7 +255,7 @@
   guide <span class='op'>=</span> <span class='st'>"bins"</span>,
   position <span class='op'>=</span> <span class='st'>"left"</span>,
   super <span class='op'>=</span> <span class='va'>ScaleBinned</span>
-<span class='op'>)</span></pre>
+<span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -318,8 +324,8 @@ If the purpose is to zoom, use the limit argument in the coordinate system
       <th>rescaler</th>
       <td><p>A function used to scale the input values to the
 range [0, 1]. This is always <code><a href='https://scales.r-lib.org/reference/rescale.html'>scales::rescale()</a></code>, except for
-diverging and n colour gradients (i.e., <code><a href='scale_colour_gradient.html'>scale_colour_gradient2()</a></code>,
-<code><a href='scale_colour_gradient.html'>scale_colour_gradientn()</a></code>). The <code>rescaler</code> is ignored by position
+diverging and n colour gradients (i.e., <code><a href='scale_gradient.html'>scale_colour_gradient2()</a></code>,
+<code><a href='scale_gradient.html'>scale_colour_gradientn()</a></code>). The <code>rescaler</code> is ignored by position
 scales, which always use <code><a href='https://scales.r-lib.org/reference/rescale.html'>scales::rescale()</a></code>. Also accepts rlang
 <a href='https://rlang.r-lib.org/reference/as_function.html'>lambda</a> function notation.</p></td>
     </tr>
@@ -416,7 +422,7 @@ transformation with <code><a href='https://scales.r-lib.org/reference/trans_new.
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -443,6 +449,8 @@ transformation with <code><a href='https://scales.r-lib.org/reference/trans_new.
 </script>
 
 
+
+  
 
   </body>
 </html>

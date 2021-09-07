@@ -83,9 +83,15 @@ x, y, xmin, xmax, ymin, ymax, xend, yend." />
   gtag('config', 'UA-115082821-1');
 </script>
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -245,65 +251,73 @@ annotations and to represent rectangular areas.</p>
 
     <div class='dont-index'>
 <ul>
-<li><p>Geoms that commonly use these aesthetics: <code><a href='geom_crossbar.html'>geom_crossbar()</a></code>,
-<code><a href='geom_segment.html'>geom_curve()</a></code>, <code><a href='geom_crossbar.html'>geom_errorbar()</a></code>, <code><a href='geom_path.html'>geom_line()</a></code>, <code><a href='geom_crossbar.html'>geom_linerange()</a></code>,
-<code><a href='geom_path.html'>geom_path()</a></code>, <code><a href='geom_point.html'>geom_point()</a></code>, <code><a href='geom_crossbar.html'>geom_pointrange()</a></code>, <code><a href='geom_raster.html'>geom_rect()</a></code>,
+<li><p>Geoms that commonly use these aesthetics: <code><a href='geom_linerange.html'>geom_crossbar()</a></code>,
+<code><a href='geom_segment.html'>geom_curve()</a></code>, <code><a href='geom_linerange.html'>geom_errorbar()</a></code>, <code><a href='geom_path.html'>geom_line()</a></code>, <code><a href='geom_linerange.html'>geom_linerange()</a></code>,
+<code><a href='geom_path.html'>geom_path()</a></code>, <code><a href='geom_point.html'>geom_point()</a></code>, <code><a href='geom_linerange.html'>geom_pointrange()</a></code>, <code><a href='geom_tile.html'>geom_rect()</a></code>,
 <code><a href='geom_segment.html'>geom_segment()</a></code></p></li>
 <li><p>See also <code><a href='annotate.html'>annotate()</a></code> for placing annotations.</p></li>
 </ul>
 </div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'># Generate data: means and standard errors of means for prices</span>
-<span class='co'># for each type of cut</span>
-<span class='va'>dmod</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>price</span> <span class='op'>~</span> <span class='va'>cut</span>, data <span class='op'>=</span> <span class='va'>diamonds</span><span class='op'>)</span>
-<span class='va'>cut</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>diamonds</span><span class='op'>$</span><span class='va'>cut</span><span class='op'>)</span>
-<span class='va'>cuts_df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
-  <span class='va'>cut</span>,
-  <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>dmod</span>, <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='va'>cut</span><span class='op'>)</span>, se <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"fit"</span>, <span class='st'>"se.fit"</span><span class='op'>)</span><span class='op'>]</span>
-<span class='op'>)</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>cuts_df</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>
-   x <span class='op'>=</span> <span class='va'>cut</span>,
-   y <span class='op'>=</span> <span class='va'>fit</span>,
-   ymin <span class='op'>=</span> <span class='va'>fit</span> <span class='op'>-</span> <span class='va'>se.fit</span>,
-   ymax <span class='op'>=</span> <span class='va'>fit</span> <span class='op'>+</span> <span class='va'>se.fit</span>,
-   colour <span class='op'>=</span> <span class='va'>cut</span>
-  <span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_crossbar.html'>geom_pointrange</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='img'><img src='aes_position-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Using annotate</span>
-<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>wt</span>, y <span class='op'>=</span> <span class='va'>mpg</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='va'>p</span>
-</div><div class='img'><img src='aes_position-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='annotate.html'>annotate</a></span><span class='op'>(</span>
-  <span class='st'>"rect"</span>, xmin <span class='op'>=</span> <span class='fl'>2</span>, xmax <span class='op'>=</span> <span class='fl'>3.5</span>, ymin <span class='op'>=</span> <span class='fl'>2</span>, ymax <span class='op'>=</span> <span class='fl'>25</span>,
-  fill <span class='op'>=</span> <span class='st'>"dark grey"</span>, alpha <span class='op'>=</span> <span class='fl'>.5</span>
-<span class='op'>)</span>
-</div><div class='img'><img src='aes_position-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Geom_segment examples</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_segment.html'>geom_segment</a></span><span class='op'>(</span>
-  <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fl'>2</span>, y <span class='op'>=</span> <span class='fl'>15</span>, xend <span class='op'>=</span> <span class='fl'>2</span>, yend <span class='op'>=</span> <span class='fl'>25</span><span class='op'>)</span>,
-  arrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/arrow.html'>arrow</a></span><span class='op'>(</span>length <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span><span class='op'>(</span><span class='fl'>0.5</span>, <span class='st'>"cm"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='op'>)</span>
-</div><div class='img'><img src='aes_position-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_segment.html'>geom_segment</a></span><span class='op'>(</span>
-  <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fl'>2</span>, y <span class='op'>=</span> <span class='fl'>15</span>, xend <span class='op'>=</span> <span class='fl'>3</span>, yend <span class='op'>=</span> <span class='fl'>15</span><span class='op'>)</span>,
-  arrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/arrow.html'>arrow</a></span><span class='op'>(</span>length <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span><span class='op'>(</span><span class='fl'>0.5</span>, <span class='st'>"cm"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='op'>)</span>
-</div><div class='img'><img src='aes_position-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_segment.html'>geom_segment</a></span><span class='op'>(</span>
-  <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fl'>5</span>, y <span class='op'>=</span> <span class='fl'>30</span>, xend <span class='op'>=</span> <span class='fl'>3.5</span>, yend <span class='op'>=</span> <span class='fl'>25</span><span class='op'>)</span>,
-  arrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/arrow.html'>arrow</a></span><span class='op'>(</span>length <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span><span class='op'>(</span><span class='fl'>0.5</span>, <span class='st'>"cm"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='op'>)</span>
-</div><div class='img'><img src='aes_position-6.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># You can also use geom_segment() to recreate plot(type = "h")</span>
-<span class='co'># from base R:</span>
-<span class='va'>counts</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>rpois</a></span><span class='op'>(</span><span class='fl'>100</span>, <span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>counts</span><span class='op'>$</span><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span><span class='op'>(</span><span class='va'>counts</span><span class='op'>$</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span><span class='op'>(</span><span class='va'>counts</span>, <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>Freq</span>, type <span class='op'>=</span> <span class='st'>"h"</span>, lwd <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='aes_position-7.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>counts</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>x</span>, y <span class='op'>=</span> <span class='va'>Freq</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_segment.html'>geom_segment</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>yend <span class='op'>=</span> <span class='fl'>0</span>, xend <span class='op'>=</span> <span class='va'>x</span><span class='op'>)</span>, size <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
-</div><div class='img'><img src='aes_position-8.png' alt='' width='700' height='433' /></div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'></span>
+<span class='r-in'><span class='co'># Generate data: means and standard errors of means for prices</span></span>
+<span class='r-in'><span class='co'># for each type of cut</span></span>
+<span class='r-in'><span class='va'>dmod</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>price</span> <span class='op'>~</span> <span class='va'>cut</span>, data <span class='op'>=</span> <span class='va'>diamonds</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>cut</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>diamonds</span><span class='op'>$</span><span class='va'>cut</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>cuts_df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span></span>
+<span class='r-in'>  <span class='va'>cut</span>,</span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>dmod</span>, <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='va'>cut</span><span class='op'>)</span>, se <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"fit"</span>, <span class='st'>"se.fit"</span><span class='op'>)</span><span class='op'>]</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>cuts_df</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span></span>
+<span class='r-in'>   x <span class='op'>=</span> <span class='va'>cut</span>,</span>
+<span class='r-in'>   y <span class='op'>=</span> <span class='va'>fit</span>,</span>
+<span class='r-in'>   ymin <span class='op'>=</span> <span class='va'>fit</span> <span class='op'>-</span> <span class='va'>se.fit</span>,</span>
+<span class='r-in'>   ymax <span class='op'>=</span> <span class='va'>fit</span> <span class='op'>+</span> <span class='va'>se.fit</span>,</span>
+<span class='r-in'>   colour <span class='op'>=</span> <span class='va'>cut</span></span>
+<span class='r-in'>  <span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='geom_linerange.html'>geom_pointrange</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='aes_position-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Using annotate</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>wt</span>, y <span class='op'>=</span> <span class='va'>mpg</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>p</span></span>
+<span class='r-plt'><img src='aes_position-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='annotate.html'>annotate</a></span><span class='op'>(</span></span>
+<span class='r-in'>  <span class='st'>"rect"</span>, xmin <span class='op'>=</span> <span class='fl'>2</span>, xmax <span class='op'>=</span> <span class='fl'>3.5</span>, ymin <span class='op'>=</span> <span class='fl'>2</span>, ymax <span class='op'>=</span> <span class='fl'>25</span>,</span>
+<span class='r-in'>  fill <span class='op'>=</span> <span class='st'>"dark grey"</span>, alpha <span class='op'>=</span> <span class='fl'>.5</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-plt'><img src='aes_position-3.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Geom_segment examples</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_segment.html'>geom_segment</a></span><span class='op'>(</span></span>
+<span class='r-in'>  <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fl'>2</span>, y <span class='op'>=</span> <span class='fl'>15</span>, xend <span class='op'>=</span> <span class='fl'>2</span>, yend <span class='op'>=</span> <span class='fl'>25</span><span class='op'>)</span>,</span>
+<span class='r-in'>  arrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/arrow.html'>arrow</a></span><span class='op'>(</span>length <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span><span class='op'>(</span><span class='fl'>0.5</span>, <span class='st'>"cm"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-plt'><img src='aes_position-4.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_segment.html'>geom_segment</a></span><span class='op'>(</span></span>
+<span class='r-in'>  <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fl'>2</span>, y <span class='op'>=</span> <span class='fl'>15</span>, xend <span class='op'>=</span> <span class='fl'>3</span>, yend <span class='op'>=</span> <span class='fl'>15</span><span class='op'>)</span>,</span>
+<span class='r-in'>  arrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/arrow.html'>arrow</a></span><span class='op'>(</span>length <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span><span class='op'>(</span><span class='fl'>0.5</span>, <span class='st'>"cm"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-plt'><img src='aes_position-5.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_segment.html'>geom_segment</a></span><span class='op'>(</span></span>
+<span class='r-in'>  <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fl'>5</span>, y <span class='op'>=</span> <span class='fl'>30</span>, xend <span class='op'>=</span> <span class='fl'>3.5</span>, yend <span class='op'>=</span> <span class='fl'>25</span><span class='op'>)</span>,</span>
+<span class='r-in'>  arrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/arrow.html'>arrow</a></span><span class='op'>(</span>length <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span><span class='op'>(</span><span class='fl'>0.5</span>, <span class='st'>"cm"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-plt'><img src='aes_position-6.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># You can also use geom_segment() to recreate plot(type = "h")</span></span>
+<span class='r-in'><span class='co'># from base R:</span></span>
+<span class='r-in'><span class='va'>counts</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>rpois</a></span><span class='op'>(</span><span class='fl'>100</span>, <span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>counts</span><span class='op'>$</span><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span><span class='op'>(</span><span class='va'>counts</span><span class='op'>$</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span><span class='op'>(</span><span class='va'>counts</span>, <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>Freq</span>, type <span class='op'>=</span> <span class='st'>"h"</span>, lwd <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='aes_position-7.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>counts</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>x</span>, y <span class='op'>=</span> <span class='va'>Freq</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='geom_segment.html'>geom_segment</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>yend <span class='op'>=</span> <span class='fl'>0</span>, xend <span class='op'>=</span> <span class='va'>x</span><span class='op'>)</span>, size <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='aes_position-8.png' alt='' width='700' height='433' /></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -320,7 +334,7 @@ annotations and to represent rectangular areas.</p>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -347,6 +361,8 @@ annotations and to represent rectangular areas.</p>
 </script>
 
 
+
+  
 
   </body>
 </html>

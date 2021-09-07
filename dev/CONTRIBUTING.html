@@ -81,9 +81,15 @@
   gtag('config', 'UA-115082821-1');
 </script>
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-title-body">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -225,25 +231,25 @@
 <div id="contributing-to-ggplot2-development" class="section level1">
 
 <p>The goal of this guide is to help you get up and contributing to ggplot2 as quickly as possible. The guide is divided into two main pieces:</p>
-<ol>
+<ol style="list-style-type: decimal">
 <li>Filing a bug report or feature request in an issue.</li>
 <li>Suggesting a change via a pull request.</li>
 </ol>
 <p>Please note that ggplot2 is released with a <a href="CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
 <div id="issues" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues" class="anchor"></a>Issues</h2>
+<a href="#issues" class="anchor" aria-hidden="true"></a>Issues</h2>
 <p>When filing an issue, the most important thing is to include a minimal reproducible example so that we can quickly verify the problem, and then figure out how to fix it. There are three things you need to include to make your example reproducible: required packages, data, code.</p>
-<ol>
+<ol style="list-style-type: decimal">
 <li><p><strong>Packages</strong> should be loaded at the top of the script, so it’s easy to see which ones the example needs.</p></li>
 <li>
-<p>The easiest way to include <strong>data</strong> is to use <code><a href="https://rdrr.io/r/base/dput.html">dput()</a></code> to generate the R code to recreate it. For example, to recreate the <code>mtcars</code> dataset in R, I’d perform the following steps:</p>
-<ol>
-<li>Run <code><a href="https://rdrr.io/r/base/dput.html">dput(mtcars)</a></code> in R</li>
+<p>The easiest way to include <strong>data</strong> is to use <code><a href="https://rdrr.io/r/base/dput.html" class="external-link">dput()</a></code> to generate the R code to recreate it. For example, to recreate the <code>mtcars</code> dataset in R, I’d perform the following steps:</p>
+<ol style="list-style-type: decimal">
+<li>Run <code>dput(mtcars)</code> in R</li>
 <li>Copy the output</li>
 <li>In my reproducible script, type <code>mtcars &lt;-</code> then paste.</li>
 </ol>
-<p>But even better is if you can create a <code><a href="https://rdrr.io/r/base/data.frame.html">data.frame()</a></code> with just a handful of rows and columns that still illustrates the problem.</p>
+<p>But even better is if you can create a <code><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame()</a></code> with just a handful of rows and columns that still illustrates the problem.</p>
 </li>
 <li>
 <p>Spend a little bit of time ensuring that your <strong>code</strong> is easy for others to read:</p>
@@ -256,20 +262,20 @@ The shorter your code is, the easier it is to understand.</p></li>
 </li>
 </ol>
 <p>You can check you have actually made a reproducible example by starting up a fresh R session and pasting your script in.</p>
-<p>(Unless you’ve been specifically asked for it, please don’t include the output of <code><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo()</a></code>.)</p>
+<p>(Unless you’ve been specifically asked for it, please don’t include the output of <code><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo()</a></code>.)</p>
 </div>
 <div id="pull-requests" class="section level2">
 <h2 class="hasAnchor">
-<a href="#pull-requests" class="anchor"></a>Pull requests</h2>
+<a href="#pull-requests" class="anchor" aria-hidden="true"></a>Pull requests</h2>
 <p>To contribute a change to ggplot2, you follow these steps:</p>
-<ol>
+<ol style="list-style-type: decimal">
 <li>Create a branch in git and make your changes.</li>
 <li>Push branch to github and issue pull request (PR).</li>
 <li>Discuss the pull request.</li>
 <li>Iterate until either we accept the PR or decide that it’s not a good fit for ggplot2.</li>
 </ol>
-<p>Each of these steps are described in more detail below. This might feel overwhelming the first time you get set up, but it gets easier with practice. If you get stuck at any point, please reach out for help on the <a href="https://groups.google.com/forum/#!forum/ggplot2-dev">ggplot2-dev</a> mailing list.</p>
-<p>If you’re not familiar with git or github, please start by reading <a href="http://r-pkgs.had.co.nz/git.html" class="uri">http://r-pkgs.had.co.nz/git.html</a></p>
+<p>Each of these steps are described in more detail below. This might feel overwhelming the first time you get set up, but it gets easier with practice. If you get stuck at any point, please reach out for help on the <a href="https://groups.google.com/forum/#!forum/ggplot2-dev" class="external-link">ggplot2-dev</a> mailing list.</p>
+<p>If you’re not familiar with git or github, please start by reading <a href="http://r-pkgs.had.co.nz/git.html" class="external-link uri">http://r-pkgs.had.co.nz/git.html</a></p>
 <!--
 * [ ] Motivate the change in one paragraph, and include it in NEWS.
       In parentheses, reference your github user name and this issue:
@@ -284,7 +290,7 @@ The shorter your code is, the easier it is to understand.</p></li>
 See http://docs.ggplot2.org/dev/vignettes/development.html for more details.
 --->
 <p>Pull requests will be evaluated against a seven point checklist:</p>
-<ol>
+<ol style="list-style-type: decimal">
 <li>
 <p><strong>Motivation</strong>. Your pull request should clearly and concisely motivate the need for change. Unfortunately neither Winston nor I have much time to work on ggplot2 these days, so you need to describe the problem and show how your pull request solves it as concisely as possible.</p>
 <p>Also include this motivation in <code>NEWS</code> so that when a new release of ggplot2 comes out it’s easy for users to see what’s changed. Add your item at the top of the file and use markdown for formatting. The news item should end with <code>(@yourGithubUsername, #the_issue_number)</code>.</p>
@@ -293,12 +299,12 @@ See http://docs.ggplot2.org/dev/vignettes/development.html for more details.
 <p><strong>Only related changes</strong>. Before you submit your pull request, please check to make sure that you haven’t accidentally included any unrelated changes. These make it harder to see exactly what’s changed, and to evaluate any unexpected side effects.</p>
 <p>Each PR corresponds to a git branch, so if you expect to submit multiple changes make sure to create multiple branches. If you have multiple changes that depend on each other, start with the first one and don’t submit any others until the first one has been processed.</p>
 </li>
-<li><p><strong>Use ggplot2 coding style</strong>. Please follow the <a href="http://style.tidyverse.org">official tidyverse style</a>. Maintaining a consistent style across the whole code base makes it much easier to jump into the code. If you’re modifying existing ggplot2 code that doesn’t follow the style guide, a separate pull request to fix the style would be greatly appreciated.</p></li>
+<li><p><strong>Use ggplot2 coding style</strong>. Please follow the <a href="http://style.tidyverse.org" class="external-link">official tidyverse style</a>. Maintaining a consistent style across the whole code base makes it much easier to jump into the code. If you’re modifying existing ggplot2 code that doesn’t follow the style guide, a separate pull request to fix the style would be greatly appreciated.</p></li>
 <li>
-<p>If you’re adding new parameters or a new function, you’ll also need to document them with <a href="https://github.com/klutometis/roxygen">roxygen</a>. Make sure to re-run <code>devtools::document()</code> on the code before submitting.</p>
+<p>If you’re adding new parameters or a new function, you’ll also need to document them with <a href="https://github.com/klutometis/roxygen" class="external-link">roxygen</a>. Make sure to re-run <code>devtools::document()</code> on the code before submitting.</p>
 <p>Currently, ggplot2 uses the development version of roxygen2, which you can get with <code>install_github("klutometis/roxygen")</code>. This will be available on CRAN in the near future.</p>
 </li>
-<li><p>If fixing a bug or adding a new feature to a non-graphical function, please add a <a href="https://github.com/r-lib/testthat">testthat</a> unit test.</p></li>
+<li><p>If fixing a bug or adding a new feature to a non-graphical function, please add a <a href="https://github.com/r-lib/testthat" class="external-link">testthat</a> unit test.</p></li>
 <li><p>If fixing a bug in the visual output, please add a visual test. (Instructions to follow soon)</p></li>
 <li><p>If you’re adding a new graphical feature, please add a short example to the appropriate function.</p></li>
 </ol>
@@ -326,7 +332,7 @@ See http://docs.ggplot2.org/dev/vignettes/development.html for more details.
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -353,6 +359,8 @@ See http://docs.ggplot2.org/dev/vignettes/development.html for more details.
 </script>
 
 
+
+  
 
   </body>
 </html>

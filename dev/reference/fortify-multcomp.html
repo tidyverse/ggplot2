@@ -82,9 +82,15 @@
   gtag('config', 'UA-115082821-1');
 </script>
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -229,7 +235,7 @@
     <p>Fortify methods for objects produced by <span class="pkg">multcomp</span></p>
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for glht</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='co'># S3 method for glht</span>
 <span class='fu'><a href='fortify.html'>fortify</a></span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>data</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for confint.glht</span>
@@ -239,7 +245,7 @@
 <span class='fu'><a href='fortify.html'>fortify</a></span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>data</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for cld</span>
-<span class='fu'><a href='fortify.html'>fortify</a></span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>data</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'><a href='fortify.html'>fortify</a></span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>data</span>, <span class='va'>...</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -257,34 +263,42 @@
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'><a href='http://multcomp.R-forge.R-project.org'>"multcomp"</a></span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='va'>amod</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span><span class='op'>(</span><span class='va'>breaks</span> <span class='op'>~</span> <span class='va'>wool</span> <span class='op'>+</span> <span class='va'>tension</span>, data <span class='op'>=</span> <span class='va'>warpbreaks</span><span class='op'>)</span>
-<span class='va'>wht</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/multcomp/man/glht.html'>glht</a></span><span class='op'>(</span><span class='va'>amod</span>, linfct <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/multcomp/man/glht.html'>mcp</a></span><span class='op'>(</span>tension <span class='op'>=</span> <span class='st'>"Tukey"</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='fu'><a href='fortify.html'>fortify</a></span><span class='op'>(</span><span class='va'>wht</span><span class='op'>)</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>wht</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>lhs</span>, <span class='va'>estimate</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span>
-
-<span class='va'>CI</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span><span class='va'>wht</span><span class='op'>)</span>
-<span class='fu'><a href='fortify.html'>fortify</a></span><span class='op'>(</span><span class='va'>CI</span><span class='op'>)</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>CI</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>lhs</span>, <span class='va'>estimate</span>, ymin <span class='op'>=</span> <span class='va'>lwr</span>, ymax <span class='op'>=</span> <span class='va'>upr</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-   <span class='fu'><a href='geom_crossbar.html'>geom_pointrange</a></span><span class='op'>(</span><span class='op'>)</span>
-
-<span class='fu'><a href='fortify.html'>fortify</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>wht</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span>mapping <span class='op'>=</span> <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>lhs</span>, <span class='va'>estimate</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-   <span class='fu'><a href='geom_crossbar.html'>geom_linerange</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>ymin <span class='op'>=</span> <span class='va'>lwr</span>, ymax <span class='op'>=</span> <span class='va'>upr</span><span class='op'>)</span>, data <span class='op'>=</span> <span class='va'>CI</span><span class='op'>)</span> <span class='op'>+</span>
-   <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='va'>p</span><span class='op'>)</span>, data <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>wht</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-   <span class='fu'><a href='scale_size.html'>scale_size</a></span><span class='op'>(</span>trans <span class='op'>=</span> <span class='st'>"reverse"</span><span class='op'>)</span>
-
-<span class='va'>cld</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/multcomp/man/cld.html'>cld</a></span><span class='op'>(</span><span class='va'>wht</span><span class='op'>)</span>
-<span class='fu'><a href='fortify.html'>fortify</a></span><span class='op'>(</span><span class='va'>cld</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div><div class='output co'>#&gt; <span class='message'>Loading required package: multcomp</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: mvtnorm</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: survival</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: TH.data</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: MASS</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘TH.data’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:MASS’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    geyser</span></div><div class='output co'>#&gt;   lhs letters
-#&gt; 1   L       b
-#&gt; 2   M       a
-#&gt; 3   H       a</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'><a href='http://multcomp.R-forge.R-project.org'>"multcomp"</a></span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='va'>amod</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span><span class='op'>(</span><span class='va'>breaks</span> <span class='op'>~</span> <span class='va'>wool</span> <span class='op'>+</span> <span class='va'>tension</span>, data <span class='op'>=</span> <span class='va'>warpbreaks</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>wht</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/multcomp/man/glht.html'>glht</a></span><span class='op'>(</span><span class='va'>amod</span>, linfct <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/multcomp/man/glht.html'>mcp</a></span><span class='op'>(</span>tension <span class='op'>=</span> <span class='st'>"Tukey"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='fortify.html'>fortify</a></span><span class='op'>(</span><span class='va'>wht</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>wht</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>lhs</span>, <span class='va'>estimate</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>CI</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span><span class='va'>wht</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='fortify.html'>fortify</a></span><span class='op'>(</span><span class='va'>CI</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>CI</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>lhs</span>, <span class='va'>estimate</span>, ymin <span class='op'>=</span> <span class='va'>lwr</span>, ymax <span class='op'>=</span> <span class='va'>upr</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>   <span class='fu'><a href='geom_linerange.html'>geom_pointrange</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='fortify.html'>fortify</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>wht</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span>mapping <span class='op'>=</span> <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>lhs</span>, <span class='va'>estimate</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>   <span class='fu'><a href='geom_linerange.html'>geom_linerange</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>ymin <span class='op'>=</span> <span class='va'>lwr</span>, ymax <span class='op'>=</span> <span class='va'>upr</span><span class='op'>)</span>, data <span class='op'>=</span> <span class='va'>CI</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>   <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='va'>p</span><span class='op'>)</span>, data <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>wht</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>   <span class='fu'><a href='scale_size.html'>scale_size</a></span><span class='op'>(</span>trans <span class='op'>=</span> <span class='st'>"reverse"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>cld</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/multcomp/man/cld.html'>cld</a></span><span class='op'>(</span><span class='va'>wht</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='fortify.html'>fortify</a></span><span class='op'>(</span><span class='va'>cld</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Loading required package: multcomp</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Loading required package: mvtnorm</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Loading required package: survival</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Loading required package: TH.data</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Loading required package: MASS</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Attaching package: ‘TH.data’</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> The following object is masked from ‘package:MASS’:</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span>     geyser</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   lhs letters</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1   L       b</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2   M       a</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3   H       a</span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -301,7 +315,7 @@
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -328,6 +342,8 @@
 </script>
 
 
+
+  
 
   </body>
 </html>

@@ -82,9 +82,15 @@
   gtag('config', 'UA-115082821-1');
 </script>
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -229,7 +235,7 @@
     <p>Generate correct scale type for specified limits</p>
     </div>
 
-    <pre class="usage"><span class='fu'>limits</span><span class='op'>(</span><span class='va'>lims</span>, <span class='va'>var</span><span class='op'>)</span></pre>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>limits</span><span class='op'>(</span><span class='va'>lims</span>, <span class='va'>var</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -246,109 +252,114 @@
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>ggplot2</span><span class='fu'>:::</span><span class='fu'>limits</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>5</span><span class='op'>)</span>, <span class='st'>"x"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;ScaleContinuousPosition&gt;
-#&gt;  Range:  
-#&gt;  Limits:    1 --    5</div><div class='input'><span class='fu'>ggplot2</span><span class='fu'>:::</span><span class='fu'>limits</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>, <span class='fl'>1</span><span class='op'>)</span>, <span class='st'>"x"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;ScaleContinuousPosition&gt;
-#&gt;  Range:  
-#&gt;  Limits:   -5 --   -1</div><div class='input'><span class='fu'>ggplot2</span><span class='fu'>:::</span><span class='fu'>limits</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A"</span>, <span class='st'>"b"</span>, <span class='st'>"c"</span><span class='op'>)</span>, <span class='st'>"x"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;ggproto object: Class ScaleDiscretePosition, ScaleDiscrete, Scale, gg&gt;
-#&gt;     aesthetics: x xmin xmax xend
-#&gt;     axis_order: function
-#&gt;     break_info: function
-#&gt;     break_positions: function
-#&gt;     breaks: waiver
-#&gt;     call: call
-#&gt;     clone: function
-#&gt;     dimension: function
-#&gt;     drop: TRUE
-#&gt;     expand: waiver
-#&gt;     get_breaks: function
-#&gt;     get_breaks_minor: function
-#&gt;     get_labels: function
-#&gt;     get_limits: function
-#&gt;     guide: waiver
-#&gt;     is_discrete: function
-#&gt;     is_empty: function
-#&gt;     labels: waiver
-#&gt;     limits: A b c
-#&gt;     make_sec_title: function
-#&gt;     make_title: function
-#&gt;     map: function
-#&gt;     map_df: function
-#&gt;     n.breaks.cache: NULL
-#&gt;     na.translate: TRUE
-#&gt;     na.value: NA
-#&gt;     name: waiver
-#&gt;     palette: function
-#&gt;     palette.cache: NULL
-#&gt;     position: bottom
-#&gt;     range: &lt;ggproto object: Class RangeDiscrete, Range, gg&gt;
-#&gt;         range: NULL
-#&gt;         reset: function
-#&gt;         train: function
-#&gt;         super:  &lt;ggproto object: Class RangeDiscrete, Range, gg&gt;
-#&gt;     range_c: &lt;ggproto object: Class RangeContinuous, Range, gg&gt;
-#&gt;         range: NULL
-#&gt;         reset: function
-#&gt;         train: function
-#&gt;         super:  &lt;ggproto object: Class RangeContinuous, Range, gg&gt;
-#&gt;     rescale: function
-#&gt;     reset: function
-#&gt;     scale_name: position_d
-#&gt;     train: function
-#&gt;     train_df: function
-#&gt;     transform: function
-#&gt;     transform_df: function
-#&gt;     super:  &lt;ggproto object: Class ScaleDiscretePosition, ScaleDiscrete, Scale, gg&gt;</div><div class='input'><span class='fu'>ggplot2</span><span class='fu'>:::</span><span class='fu'>limits</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A"</span>, <span class='st'>"b"</span>, <span class='st'>"c"</span><span class='op'>)</span>, <span class='st'>"fill"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;ggproto object: Class ScaleDiscrete, Scale, gg&gt;
-#&gt;     aesthetics: fill
-#&gt;     axis_order: function
-#&gt;     break_info: function
-#&gt;     break_positions: function
-#&gt;     breaks: waiver
-#&gt;     call: call
-#&gt;     clone: function
-#&gt;     dimension: function
-#&gt;     drop: TRUE
-#&gt;     expand: waiver
-#&gt;     get_breaks: function
-#&gt;     get_breaks_minor: function
-#&gt;     get_labels: function
-#&gt;     get_limits: function
-#&gt;     guide: legend
-#&gt;     is_discrete: function
-#&gt;     is_empty: function
-#&gt;     labels: waiver
-#&gt;     limits: A b c
-#&gt;     make_sec_title: function
-#&gt;     make_title: function
-#&gt;     map: function
-#&gt;     map_df: function
-#&gt;     n.breaks.cache: NULL
-#&gt;     na.translate: TRUE
-#&gt;     na.value: grey50
-#&gt;     name: waiver
-#&gt;     palette: function
-#&gt;     palette.cache: NULL
-#&gt;     position: left
-#&gt;     range: &lt;ggproto object: Class RangeDiscrete, Range, gg&gt;
-#&gt;         range: NULL
-#&gt;         reset: function
-#&gt;         train: function
-#&gt;         super:  &lt;ggproto object: Class RangeDiscrete, Range, gg&gt;
-#&gt;     rescale: function
-#&gt;     reset: function
-#&gt;     scale_name: hue
-#&gt;     train: function
-#&gt;     train_df: function
-#&gt;     transform: function
-#&gt;     transform_df: function
-#&gt;     super:  &lt;ggproto object: Class ScaleDiscrete, Scale, gg&gt;</div><div class='input'><span class='fu'>ggplot2</span><span class='fu'>:::</span><span class='fu'>limits</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2008-01-01"</span>, <span class='st'>"2009-01-01"</span><span class='op'>)</span><span class='op'>)</span>, <span class='st'>"x"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;ScaleContinuousDate&gt;
-#&gt;  Range:  
-#&gt;  Limits: 1.39e+04 -- 1.42e+04</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='fu'>ggplot2</span><span class='fu'>:::</span><span class='fu'>limits</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>5</span><span class='op'>)</span>, <span class='st'>"x"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;ScaleContinuousPosition&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Range:  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Limits:    1 --    5</span>
+<span class='r-in'><span class='fu'>ggplot2</span><span class='fu'>:::</span><span class='fu'>limits</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>, <span class='fl'>1</span><span class='op'>)</span>, <span class='st'>"x"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;ScaleContinuousPosition&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Range:  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Limits:   -5 --   -1</span>
+<span class='r-in'><span class='fu'>ggplot2</span><span class='fu'>:::</span><span class='fu'>limits</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A"</span>, <span class='st'>"b"</span>, <span class='st'>"c"</span><span class='op'>)</span>, <span class='st'>"x"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;ggproto object: Class ScaleDiscretePosition, ScaleDiscrete, Scale, gg&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     aesthetics: x xmin xmax xend</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     axis_order: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     break_info: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     break_positions: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     breaks: waiver</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     call: call</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     clone: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     dimension: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     drop: TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     expand: waiver</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     get_breaks: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     get_breaks_minor: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     get_labels: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     get_limits: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     guide: waiver</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     is_discrete: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     is_empty: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     labels: waiver</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     limits: A b c</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     make_sec_title: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     make_title: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     map: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     map_df: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     n.breaks.cache: NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     na.translate: TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     na.value: NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     name: waiver</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     palette: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     palette.cache: NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     position: bottom</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     range: &lt;ggproto object: Class RangeDiscrete, Range, gg&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         range: NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         reset: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         train: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         super:  &lt;ggproto object: Class RangeDiscrete, Range, gg&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     range_c: &lt;ggproto object: Class RangeContinuous, Range, gg&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         range: NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         reset: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         train: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         super:  &lt;ggproto object: Class RangeContinuous, Range, gg&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     rescale: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     reset: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     scale_name: position_d</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     train: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     train_df: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     transform: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     transform_df: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     super:  &lt;ggproto object: Class ScaleDiscretePosition, ScaleDiscrete, Scale, gg&gt;</span>
+<span class='r-in'><span class='fu'>ggplot2</span><span class='fu'>:::</span><span class='fu'>limits</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A"</span>, <span class='st'>"b"</span>, <span class='st'>"c"</span><span class='op'>)</span>, <span class='st'>"fill"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;ggproto object: Class ScaleDiscrete, Scale, gg&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     aesthetics: fill</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     axis_order: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     break_info: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     break_positions: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     breaks: waiver</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     call: call</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     clone: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     dimension: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     drop: TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     expand: waiver</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     get_breaks: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     get_breaks_minor: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     get_labels: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     get_limits: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     guide: legend</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     is_discrete: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     is_empty: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     labels: waiver</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     limits: A b c</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     make_sec_title: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     make_title: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     map: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     map_df: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     n.breaks.cache: NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     na.translate: TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     na.value: grey50</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     name: waiver</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     palette: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     palette.cache: NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     position: left</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     range: &lt;ggproto object: Class RangeDiscrete, Range, gg&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         range: NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         reset: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         train: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         super:  &lt;ggproto object: Class RangeDiscrete, Range, gg&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     rescale: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     reset: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     scale_name: hue</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     train: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     train_df: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     transform: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     transform_df: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     super:  &lt;ggproto object: Class ScaleDiscrete, Scale, gg&gt;</span>
+<span class='r-in'><span class='fu'>ggplot2</span><span class='fu'>:::</span><span class='fu'>limits</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2008-01-01"</span>, <span class='st'>"2009-01-01"</span><span class='op'>)</span><span class='op'>)</span>, <span class='st'>"x"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;ScaleContinuousDate&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Range:  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Limits: 1.39e+04 -- 1.42e+04</span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -365,7 +376,7 @@
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -392,6 +403,8 @@
 </script>
 
 
+
+  
 
   </body>
 </html>

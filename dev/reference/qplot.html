@@ -87,9 +87,15 @@ complex graphics." />
   gtag('config', 'UA-115082821-1');
 </script>
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -239,7 +245,7 @@ learning <code><a href='ggplot.html'>ggplot()</a></code> as it makes it easier t
 complex graphics.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>qplot</span><span class='op'>(</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>qplot</span><span class='op'>(</span>
   <span class='va'>x</span>,
   <span class='va'>y</span>,
   <span class='va'>...</span>,
@@ -275,7 +281,7 @@ complex graphics.</p>
   asp <span class='op'>=</span> <span class='cn'>NA</span>,
   stat <span class='op'>=</span> <span class='cn'>NULL</span>,
   position <span class='op'>=</span> <span class='cn'>NULL</span>
-<span class='op'>)</span></pre>
+<span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -329,42 +335,59 @@ x axis label, and y axis label respectively.</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Use data from data.frame</span>
-<span class='fu'>qplot</span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>wt</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
-</div><div class='img'><img src='qplot-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>qplot</span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>wt</span>, data <span class='op'>=</span> <span class='va'>mtcars</span>, colour <span class='op'>=</span> <span class='va'>cyl</span><span class='op'>)</span>
-</div><div class='img'><img src='qplot-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>qplot</span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>wt</span>, data <span class='op'>=</span> <span class='va'>mtcars</span>, size <span class='op'>=</span> <span class='va'>cyl</span><span class='op'>)</span>
-</div><div class='img'><img src='qplot-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>qplot</span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>wt</span>, data <span class='op'>=</span> <span class='va'>mtcars</span>, facets <span class='op'>=</span> <span class='va'>vs</span> <span class='op'>~</span> <span class='va'>am</span><span class='op'>)</span>
-</div><div class='img'><img src='qplot-4.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># \donttest{</span>
-<span class='fu'>qplot</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span>, colour <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='qplot-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>qplot</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, <span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>]</span><span class='op'>)</span>
-</div><div class='img'><img src='qplot-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>mod</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>wt</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
-<span class='fu'>qplot</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/residuals.html'>resid</a></span><span class='op'>(</span><span class='va'>mod</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/stats/fitted.values.html'>fitted</a></span><span class='op'>(</span><span class='va'>mod</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='qplot-7.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='va'>f</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>{</span>
-   <span class='va'>a</span> <span class='op'>&lt;-</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>
-   <span class='va'>b</span> <span class='op'>&lt;-</span> <span class='va'>a</span> <span class='op'>^</span> <span class='fl'>2</span>
-   <span class='fu'>qplot</span><span class='op'>(</span><span class='va'>a</span>, <span class='va'>b</span><span class='op'>)</span>
-<span class='op'>}</span>
-<span class='fu'>f</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='img'><img src='qplot-8.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># To set aesthetics, wrap in I()</span>
-<span class='fu'>qplot</span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>wt</span>, data <span class='op'>=</span> <span class='va'>mtcars</span>, colour <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/AsIs.html'>I</a></span><span class='op'>(</span><span class='st'>"red"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='qplot-9.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># qplot will attempt to guess what geom you want depending on the input</span>
-<span class='co'># both x and y supplied = scatterplot</span>
-<span class='fu'>qplot</span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>wt</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
-</div><div class='img'><img src='qplot-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># just x supplied = histogram</span>
-<span class='fu'>qplot</span><span class='op'>(</span><span class='va'>mpg</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></div><div class='img'><img src='qplot-11.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># just y supplied = scatterplot, with x = seq_along(y)</span>
-<span class='fu'>qplot</span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>mpg</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
-</div><div class='img'><img src='qplot-12.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Use different geoms</span>
-<span class='fu'>qplot</span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>wt</span>, data <span class='op'>=</span> <span class='va'>mtcars</span>, geom <span class='op'>=</span> <span class='st'>"path"</span><span class='op'>)</span>
-</div><div class='img'><img src='qplot-13.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>qplot</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span>, <span class='va'>wt</span>, data <span class='op'>=</span> <span class='va'>mtcars</span>, geom <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"boxplot"</span>, <span class='st'>"jitter"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='qplot-14.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>qplot</span><span class='op'>(</span><span class='va'>mpg</span>, data <span class='op'>=</span> <span class='va'>mtcars</span>, geom <span class='op'>=</span> <span class='st'>"dotplot"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Bin width defaults to 1/30 of the range of the data. Pick better value with `binwidth`.</span></div><div class='img'><img src='qplot-15.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
-</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='co'># Use data from data.frame</span></span>
+<span class='r-in'><span class='fu'>qplot</span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>wt</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='qplot-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='fu'>qplot</span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>wt</span>, data <span class='op'>=</span> <span class='va'>mtcars</span>, colour <span class='op'>=</span> <span class='va'>cyl</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='qplot-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='fu'>qplot</span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>wt</span>, data <span class='op'>=</span> <span class='va'>mtcars</span>, size <span class='op'>=</span> <span class='va'>cyl</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='qplot-3.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='fu'>qplot</span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>wt</span>, data <span class='op'>=</span> <span class='va'>mtcars</span>, facets <span class='op'>=</span> <span class='va'>vs</span> <span class='op'>~</span> <span class='va'>am</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='qplot-4.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># \donttest{</span></span>
+<span class='r-in'><span class='fu'>qplot</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span>, colour <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='qplot-5.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='fu'>qplot</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, <span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>]</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='qplot-6.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>mod</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>wt</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>qplot</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/residuals.html'>resid</a></span><span class='op'>(</span><span class='va'>mod</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/stats/fitted.values.html'>fitted</a></span><span class='op'>(</span><span class='va'>mod</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='qplot-7.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>f</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'>   <span class='va'>a</span> <span class='op'>&lt;-</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span></span>
+<span class='r-in'>   <span class='va'>b</span> <span class='op'>&lt;-</span> <span class='va'>a</span> <span class='op'>^</span> <span class='fl'>2</span></span>
+<span class='r-in'>   <span class='fu'>qplot</span><span class='op'>(</span><span class='va'>a</span>, <span class='va'>b</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-in'><span class='fu'>f</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='qplot-8.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># To set aesthetics, wrap in I()</span></span>
+<span class='r-in'><span class='fu'>qplot</span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>wt</span>, data <span class='op'>=</span> <span class='va'>mtcars</span>, colour <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/AsIs.html'>I</a></span><span class='op'>(</span><span class='st'>"red"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='qplot-9.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># qplot will attempt to guess what geom you want depending on the input</span></span>
+<span class='r-in'><span class='co'># both x and y supplied = scatterplot</span></span>
+<span class='r-in'><span class='fu'>qplot</span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>wt</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='qplot-10.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='co'># just x supplied = histogram</span></span>
+<span class='r-in'><span class='fu'>qplot</span><span class='op'>(</span><span class='va'>mpg</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span>
+<span class='r-plt'><img src='qplot-11.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='co'># just y supplied = scatterplot, with x = seq_along(y)</span></span>
+<span class='r-in'><span class='fu'>qplot</span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>mpg</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='qplot-12.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Use different geoms</span></span>
+<span class='r-in'><span class='fu'>qplot</span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>wt</span>, data <span class='op'>=</span> <span class='va'>mtcars</span>, geom <span class='op'>=</span> <span class='st'>"path"</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='qplot-13.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='fu'>qplot</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span>, <span class='va'>wt</span>, data <span class='op'>=</span> <span class='va'>mtcars</span>, geom <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"boxplot"</span>, <span class='st'>"jitter"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='qplot-14.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='fu'>qplot</span><span class='op'>(</span><span class='va'>mpg</span>, data <span class='op'>=</span> <span class='va'>mtcars</span>, geom <span class='op'>=</span> <span class='st'>"dotplot"</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Bin width defaults to 1/30 of the range of the data. Pick better value with `binwidth`.</span>
+<span class='r-plt'><img src='qplot-15.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='co'># }</span></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -381,7 +404,7 @@ x axis label, and y axis label respectively.</p></td>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -408,6 +431,8 @@ x axis label, and y axis label respectively.</p></td>
 </script>
 
 
+
+  
 
   </body>
 </html>

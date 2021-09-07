@@ -38,6 +38,8 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -52,7 +54,7 @@
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../../index.html">ggplot2</a>
         <div class="info hidden-xs hidden-sm">
-          <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
+          <span class="partof">part of the <a href="https://tidyverse.org" class="external-link">tidyverse</a></span>
           <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.5.9000</span>
         </div>
       </div>
@@ -71,28 +73,28 @@
   <ul class="dropdown-menu" role="menu">
 <li class="dropdown-header">Releases</li>
     <li>
-      <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
+      <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/" class="external-link">Version 3.3.0</a>
     </li>
     <li>
-      <a href="https://www.tidyverse.org/articles/2019/06/ggplot2-3-2-0/">Version 3.2.0</a>
+      <a href="https://www.tidyverse.org/articles/2019/06/ggplot2-3-2-0/" class="external-link">Version 3.2.0</a>
     </li>
     <li>
-      <a href="https://www.tidyverse.org/articles/2018/10/ggplot2-3-1-0/">Version 3.1.0</a>
+      <a href="https://www.tidyverse.org/articles/2018/10/ggplot2-3-1-0/" class="external-link">Version 3.1.0</a>
     </li>
     <li>
-      <a href="https://www.tidyverse.org/articles/2018/07/ggplot2-3-0-0/">Version 3.0.0</a>
+      <a href="https://www.tidyverse.org/articles/2018/07/ggplot2-3-0-0/" class="external-link">Version 3.0.0</a>
     </li>
     <li>
-      <a href="https://blog.rstudio.com/2016/11/14/ggplot2-2-2-0/">Version 2.2.0</a>
+      <a href="https://blog.rstudio.com/2016/11/14/ggplot2-2-2-0/" class="external-link">Version 2.2.0</a>
     </li>
     <li>
-      <a href="https://blog.rstudio.com/2016/03/03/ggplot2-2-1-0/">Version 2.1.0</a>
+      <a href="https://blog.rstudio.com/2016/03/03/ggplot2-2-1-0/" class="external-link">Version 2.1.0</a>
     </li>
     <li>
-      <a href="https://blog.rstudio.com/2015/12/21/ggplot2-2-0-0/">Version 2.0.0</a>
+      <a href="https://blog.rstudio.com/2015/12/21/ggplot2-2-0-0/" class="external-link">Version 2.0.0</a>
     </li>
     <li>
-      <a href="https://blog.rstudio.com/2015/01/09/ggplot2-updates/">Version 1.0.0</a>
+      <a href="https://blog.rstudio.com/2015/01/09/ggplot2-updates/" class="external-link">Version 1.0.0</a>
     </li>
     <li class="divider">
     <li>
@@ -144,10 +146,10 @@
   </ul>
 </li>
 <li>
-  <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
+  <a href="https://exts.ggplot2.tidyverse.org/gallery/" class="external-link">Extensions</a>
 </li>
 <li>
-  <a href="https://github.com/tidyverse/ggplot2/">
+  <a href="https://github.com/tidyverse/ggplot2/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -174,7 +176,7 @@
       <h1 data-toc-skip>FAQ: Faceting</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/master/vignettes/articles/faq-faceting.Rmd"><code>vignettes/articles/faq-faceting.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/master/vignettes/articles/faq-faceting.Rmd" class="external-link"><code>vignettes/articles/faq-faceting.Rmd</code></a></small>
       <div class="hidden name"><code>faq-faceting.Rmd</code></div>
 
     </div>
@@ -192,23 +194,23 @@
 </style>
 <div id="panes" class="section level2">
 <h2 class="hasAnchor">
-<a href="#panes" class="anchor"></a>Panes</h2>
+<a href="#panes" class="anchor" aria-hidden="true"></a>Panes</h2>
 <div id="what-is-the-difference-between-facet_wrap-and-facet_grid" class="section level3">
 <h3 class="hasAnchor">
-<a href="#what-is-the-difference-between-facet_wrap-and-facet_grid" class="anchor"></a>What is the difference between <code>facet_wrap()</code> and <code>facet_grid()</code>?</h3>
+<a href="#what-is-the-difference-between-facet_wrap-and-facet_grid" class="anchor" aria-hidden="true"></a>What is the difference between <code>facet_wrap()</code> and <code>facet_grid()</code>?</h3>
 <p>The simplest answer is that you should use <code><a href="../../reference/facet_wrap.html">facet_wrap()</a></code> when faceting by a single variable and <code><a href="../../reference/facet_grid.html">facet_grid()</a></code> when faceting by two variables and want to create a grid of panes.</p>
 <details><p><summary>See example</summary></p>
 <p><code><a href="../../reference/facet_wrap.html">facet_wrap()</a></code> is most commonly used to facet by a plot by a single categorical variable.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cty</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../../reference/geom_freqpoly.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="../../reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../../reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">drv</span><span class="op">)</span>
 <span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></code></pre></div>
 <p><img src="faq-faceting_files/figure-html/unnamed-chunk-2-1.png" width="80%"></p>
 <p>And <code><a href="../../reference/facet_grid.html">facet_grid()</a></code> is commonly used to facet by a plot by two categorical variables.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cty</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../../reference/geom_freqpoly.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="../../reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../../reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">cyl</span> <span class="op">~</span> <span class="va">drv</span><span class="op">)</span>
 <span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></code></pre></div>
 <p><img src="faq-faceting_files/figure-html/unnamed-chunk-3-1.png" width="80%"></p>
@@ -216,7 +218,7 @@
 <p>You can also use <code><a href="../../reference/facet_wrap.html">facet_wrap()</a></code> with to facet by two categorical variables. This will only create facets for combinations of the levels of variables for which data exists.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cty</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../../reference/geom_freqpoly.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="../../reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../../reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="va">cyl</span> <span class="op">~</span> <span class="va">drv</span><span class="op">)</span>
 <span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></code></pre></div>
 <p><img src="faq-faceting_files/figure-html/unnamed-chunk-4-1.png" width="80%"></p>
@@ -224,14 +226,14 @@
 <p>Similarly, you can also use <code><a href="../../reference/facet_grid.html">facet_grid()</a></code> to facet by a single categorical variable as well. In the formula notation, you use a <code>.</code> to indicate that no faceting should be done along that axis, i.e. <code>cyl ~ .</code> facets across the y-axis (within a column) while <code>. ~ cyl</code> facets across the x-axis (within a row).</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cty</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../../reference/geom_freqpoly.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="../../reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../../reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">cyl</span> <span class="op">~</span> <span class="va">.</span><span class="op">)</span>
 <span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></code></pre></div>
 <p><img src="faq-faceting_files/figure-html/unnamed-chunk-5-1.png" width="50%"></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="fu"><a href="../../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cty</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../../reference/geom_freqpoly.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="../../reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../../reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">.</span> <span class="op">~</span> <span class="va">cyl</span><span class="op">)</span>
 <span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></code></pre></div>
 <p><img src="faq-faceting_files/figure-html/unnamed-chunk-5-2.png" width="50%"></p>
@@ -239,18 +241,18 @@
 </div>
 <div id="how-can-i-place-a-vertical-lines-geom_vline-in-each-pane-of-a-faceted-plot" class="section level3">
 <h3 class="hasAnchor">
-<a href="#how-can-i-place-a-vertical-lines-geom_vline-in-each-pane-of-a-faceted-plot" class="anchor"></a>How can I place a vertical lines (<code>geom_vline()</code>) in each pane of a faceted plot?</h3>
+<a href="#how-can-i-place-a-vertical-lines-geom_vline-in-each-pane-of-a-faceted-plot" class="anchor" aria-hidden="true"></a>How can I place a vertical lines (<code>geom_vline()</code>) in each pane of a faceted plot?</h3>
 <p>First, calculate where the lines should be placed and save this information in a separate data frame. Then, add a <code><a href="../../reference/geom_abline.html">geom_vline()</a></code> layer to your plot that uses the summarized data.</p>
 <details><p><summary>See example</summary></p>
 <p>Suppose you have the following plot, and you want to add a vertical line at the mean value of <code>hwy</code> (highway mileage) for each pane.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../../reference/geom_freqpoly.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="../../reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../../reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">drv</span><span class="op">)</span></code></pre></div>
 <p><img src="faq-faceting_files/figure-html/unnamed-chunk-6-1.png" width="80%"></p>
 <p>First, calculate these means and save them in a new data frame.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Attaching package: 'dplyr'</span>
 <span class="co">#&gt; The following objects are masked from 'package:stats':</span>
@@ -260,9 +262,9 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt;     intersect, setdiff, setequal, union</span>
 
-<span class="va">mpg_summary</span> <span class="op">&lt;-</span> <span class="va">mpg</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">drv</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>hwy_mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">hwy</span><span class="op">)</span><span class="op">)</span>
+<span class="va">mpg_summary</span> <span class="op">&lt;-</span> <span class="va">mpg</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">drv</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>hwy_mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">hwy</span><span class="op">)</span><span class="op">)</span>
 
 <span class="va">mpg_summary</span>
 <span class="co">#&gt; # A tibble: 3 × 2</span>
@@ -274,7 +276,7 @@
 <p>Then, add a <code><a href="../../reference/geom_abline.html">geom_vline()</a></code> layer to your plot that uses the summary data.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../../reference/geom_freqpoly.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="../../reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../../reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">drv</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../../reference/geom_abline.html">geom_vline</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg_summary</span>, <span class="fu"><a href="../../reference/aes.html">aes</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="va">hwy_mean</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="faq-faceting_files/figure-html/unnamed-chunk-8-1.png" width="80%"></p>
@@ -283,10 +285,10 @@
 </div>
 <div id="axes" class="section level2">
 <h2 class="hasAnchor">
-<a href="#axes" class="anchor"></a>Axes</h2>
+<a href="#axes" class="anchor" aria-hidden="true"></a>Axes</h2>
 <div id="how-can-i-set-individual-axis-limits-for-facets" class="section level3">
 <h3 class="hasAnchor">
-<a href="#how-can-i-set-individual-axis-limits-for-facets" class="anchor"></a>How can I set individual axis limits for facets?</h3>
+<a href="#how-can-i-set-individual-axis-limits-for-facets" class="anchor" aria-hidden="true"></a>How can I set individual axis limits for facets?</h3>
 <p>Either let ggplot2 determine custom axis limits for the facets based on the range of the data you’re plotting using the <code>scales</code> argument in <code><a href="../../reference/facet_wrap.html">facet_wrap()</a></code> or <code><a href="../../reference/facet_grid.html">facet_grid()</a></code> or, if that is not sufficient, use <code><a href="../../reference/expand_limits.html">expand_limits()</a></code> to ensure limits include a single value or a range of values.</p>
 <details><p><summary>See example</summary></p>
 <p>Suppose you have the following faceted plot. By default, both x and y scales are shared across the facets.</p>
@@ -306,71 +308,71 @@
 <code class="sourceCode R"><span class="fu"><a href="../../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cty</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../../reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">cyl</span> <span class="op">~</span> <span class="va">drv</span>, scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../../reference/expand_limits.html">expand_limits</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">10</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">25</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+  <span class="fu"><a href="../../reference/expand_limits.html">expand_limits</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">10</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">25</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="faq-faceting_files/figure-html/unnamed-chunk-11-1.png" width="80%"></p>
 </details>
 </div>
 </div>
 <div id="facet-labels" class="section level2">
 <h2 class="hasAnchor">
-<a href="#facet-labels" class="anchor"></a>Facet labels</h2>
+<a href="#facet-labels" class="anchor" aria-hidden="true"></a>Facet labels</h2>
 <div id="how-can-i-remove-the-facet-labels-entirely" class="section level3">
 <h3 class="hasAnchor">
-<a href="#how-can-i-remove-the-facet-labels-entirely" class="anchor"></a>How can I remove the facet labels entirely?</h3>
-<p>Set the <code>strip.text</code> element in <code><a href="../../reference/theme.html">theme()</a></code> to <code><a href="../../reference/margin.html">element_blank()</a></code>.</p>
+<a href="#how-can-i-remove-the-facet-labels-entirely" class="anchor" aria-hidden="true"></a>How can I remove the facet labels entirely?</h3>
+<p>Set the <code>strip.text</code> element in <code><a href="../../reference/theme.html">theme()</a></code> to <code><a href="../../reference/element.html">element_blank()</a></code>.</p>
 <details><p><summary>See example</summary></p>
-<p>Setting <code>strip.text</code> to <code><a href="../../reference/margin.html">element_blank()</a></code> will remove all facet labels.</p>
+<p>Setting <code>strip.text</code> to <code><a href="../../reference/element.html">element_blank()</a></code> will remove all facet labels.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cty</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../../reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">cyl</span> <span class="op">~</span> <span class="va">drv</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../../reference/theme.html">theme</a></span><span class="op">(</span>strip.text <span class="op">=</span> <span class="fu"><a href="../../reference/margin.html">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+  <span class="fu"><a href="../../reference/theme.html">theme</a></span><span class="op">(</span>strip.text <span class="op">=</span> <span class="fu"><a href="../../reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="faq-faceting_files/figure-html/unnamed-chunk-12-1.png" width="80%"></p>
 <p>You can also remove the labels across rows only with <code>strip.x.text</code> or across columns only with <code>strip.y.text</code>.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cty</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../../reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">cyl</span> <span class="op">~</span> <span class="va">drv</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../../reference/theme.html">theme</a></span><span class="op">(</span>strip.text.x <span class="op">=</span> <span class="fu"><a href="../../reference/margin.html">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+  <span class="fu"><a href="../../reference/theme.html">theme</a></span><span class="op">(</span>strip.text.x <span class="op">=</span> <span class="fu"><a href="../../reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="faq-faceting_files/figure-html/unnamed-chunk-13-1.png" width="80%"></p>
 </details>
 </div>
 <div id="the-facet-labels-in-my-plot-are-too-long-so-they-get-cut-off--how-can-i-wrap-facet-label-text-so-that-long-labels-are-spread-across-two-rows" class="section level3">
 <h3 class="hasAnchor">
-<a href="#the-facet-labels-in-my-plot-are-too-long-so-they-get-cut-off--how-can-i-wrap-facet-label-text-so-that-long-labels-are-spread-across-two-rows" class="anchor"></a>The facet labels in my plot are too long so they get cut off. How can I wrap facet label text so that long labels are spread across two rows?</h3>
+<a href="#the-facet-labels-in-my-plot-are-too-long-so-they-get-cut-off--how-can-i-wrap-facet-label-text-so-that-long-labels-are-spread-across-two-rows" class="anchor" aria-hidden="true"></a>The facet labels in my plot are too long so they get cut off. How can I wrap facet label text so that long labels are spread across two rows?</h3>
 <p>Use <code><a href="../../reference/labellers.html">label_wrap_gen()</a></code> in the <code>labeller</code> argument of your faceting function and set a <code>width</code> (number of characters) for the maximum number of characters before wrapping the strip.</p>
 <details><p><summary>See example</summary></p>
 <p>In the data frame below we have 100 observations, 50 of them come from one group and 50 from another. These groups have very long names, and so when you facet the ploy by group, the facet labels (strips) get cut off.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
-  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>,
-  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"A long group name for the first group"</span>, <span class="fl">50</span><span class="op">)</span>,
-            <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"A muuuuuuuuuuuuuch longer group name for the second group"</span>, <span class="fl">50</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>
+  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>,
+  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"A long group name for the first group"</span>, <span class="fl">50</span><span class="op">)</span>,
+            <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"A muuuuuuuuuuuuuch longer group name for the second group"</span>, <span class="fl">50</span><span class="op">)</span><span class="op">)</span>
 <span class="op">)</span>
 
 <span class="fu"><a href="../../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="../../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../../reference/geom_freqpoly.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="../../reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../../reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">group</span><span class="op">)</span></code></pre></div>
 <p><img src="faq-faceting_files/figure-html/unnamed-chunk-14-1.png" width="80%"></p>
 <p>You can control the maximum width of the facet label by setting the <code>width</code> in the <code><a href="../../reference/labellers.html">label_wrap_gen()</a></code> function, which is then passed to the <code>labeller</code> argument of your faceting function.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="../../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../../reference/geom_freqpoly.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="../../reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../../reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">group</span>, labeller <span class="op">=</span> <span class="fu"><a href="../../reference/labeller.html">labeller</a></span><span class="op">(</span>group <span class="op">=</span> <span class="fu"><a href="../../reference/labellers.html">label_wrap_gen</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">25</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="faq-faceting_files/figure-html/unnamed-chunk-15-1.png" width="80%"></p>
 </details>
 </div>
 <div id="how-can-i-set-different-axis-labels-for-facets" class="section level3">
 <h3 class="hasAnchor">
-<a href="#how-can-i-set-different-axis-labels-for-facets" class="anchor"></a>How can I set different axis labels for facets?</h3>
+<a href="#how-can-i-set-different-axis-labels-for-facets" class="anchor" aria-hidden="true"></a>How can I set different axis labels for facets?</h3>
 <p>Use <code><a href="../../reference/as_labeller.html">as_labeller()</a></code> in the <code>labeller</code> argument of your faceting function and then set <code>strip.background</code> and <code>strip.placement</code> elements in the <code><a href="../../reference/theme.html">theme()</a></code> to place the facet labels where axis labels would go. This is a particularly useful solution for plotting data on different scales without the use of double y-axes.</p>
 <details><p><summary>See example</summary></p>
 <p>Suppose you have data price data on a given item over a few years from two countries with very different currency scales.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
-  year <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">2016</span><span class="op">:</span><span class="fl">2021</span>, <span class="fl">2</span><span class="op">)</span>,
-  price <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">10</span>, <span class="fl">13</span>, <span class="fl">12</span>, <span class="fl">14</span>, <span class="fl">15</span>, <span class="fl">1000</span>, <span class="fl">1010</span>, <span class="fl">1200</span>, <span class="fl">1050</span>, <span class="fl">1105</span>, <span class="fl">1300</span><span class="op">)</span>,
-  country <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"US"</span>, <span class="fl">6</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"Japan"</span>, <span class="fl">6</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>
+  year <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2016</span><span class="op">:</span><span class="fl">2021</span>, <span class="fl">2</span><span class="op">)</span>,
+  price <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">10</span>, <span class="fl">13</span>, <span class="fl">12</span>, <span class="fl">14</span>, <span class="fl">15</span>, <span class="fl">1000</span>, <span class="fl">1010</span>, <span class="fl">1200</span>, <span class="fl">1050</span>, <span class="fl">1105</span>, <span class="fl">1300</span><span class="op">)</span>,
+  country <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"US"</span>, <span class="fl">6</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"Japan"</span>, <span class="fl">6</span><span class="op">)</span><span class="op">)</span>
 <span class="op">)</span>
 
 <span class="va">df</span>
@@ -401,12 +403,12 @@
   <span class="fu"><a href="../../reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../../reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">country</span>, ncol <span class="op">=</span> <span class="fl">1</span>, scales <span class="op">=</span> <span class="st">"free_y"</span>, 
              labeller <span class="op">=</span> <span class="fu"><a href="../../reference/as_labeller.html">as_labeller</a></span><span class="op">(</span>
-               <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>US <span class="op">=</span> <span class="st">"US Dollars (USD)"</span>, Japan <span class="op">=</span> <span class="st">"Japanese Yens (JPY)"</span><span class="op">)</span><span class="op">)</span>, 
+               <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>US <span class="op">=</span> <span class="st">"US Dollars (USD)"</span>, Japan <span class="op">=</span> <span class="st">"Japanese Yens (JPY)"</span><span class="op">)</span><span class="op">)</span>, 
              strip.position <span class="op">=</span> <span class="st">"left"</span>
              <span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../../reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fl">2011</span><span class="op">:</span><span class="fl">2020</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../../reference/labs.html">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../../reference/theme.html">theme</a></span><span class="op">(</span>strip.background <span class="op">=</span> <span class="fu"><a href="../../reference/margin.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>, strip.placement <span class="op">=</span> <span class="st">"outside"</span><span class="op">)</span>
+  <span class="fu"><a href="../../reference/theme.html">theme</a></span><span class="op">(</span>strip.background <span class="op">=</span> <span class="fu"><a href="../../reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>, strip.placement <span class="op">=</span> <span class="st">"outside"</span><span class="op">)</span>
 <span class="co">#&gt; `geom_smooth()` using method = 'loess' and formula 'y ~ x'</span>
 <span class="co">#&gt; Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning -</span>
 <span class="co">#&gt; Inf</span>
@@ -430,13 +432,13 @@
 
 
       <footer><div class="tidyverse">
-  <p>ggplot2 is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
+  <p>ggplot2 is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org" class="external-link">tidyverse.org</a>.</p>
 </div>
 
 <div class="author">
   <p>
-    Developed by <a href="http://hadley.nz">Hadley Wickham</a>, <a href="https://github.com/wch">Winston Chang</a>, <a href="https://github.com/lionel-">Lionel Henry</a>, <a href="https://data-imaginist.com">Thomas Lin Pedersen</a>, Kohske Takahashi, <a href="https://clauswilke.com">Claus Wilke</a>, <a href="https://karawoo.com">Kara Woo</a>, <a href="https://yutani.rbind.io">Hiroaki Yutani</a>, <a href="https://fishandwhistle.net">Dewey Dunnington</a>, <a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
-    Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
+    Developed by <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://github.com/wch" class="external-link">Winston Chang</a>, <a href="https://github.com/lionel-" class="external-link">Lionel Henry</a>, <a href="https://data-imaginist.com" class="external-link">Thomas Lin Pedersen</a>, Kohske Takahashi, <a href="https://clauswilke.com" class="external-link">Claus Wilke</a>, <a href="https://karawoo.com" class="external-link">Kara Woo</a>, <a href="https://yutani.rbind.io" class="external-link">Hiroaki Yutani</a>, <a href="https://fishandwhistle.net" class="external-link">Dewey Dunnington</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
+    Site built by <a href="https://pkgdown.r-lib.org" class="external-link">pkgdown</a>.
   </p>
 </div>
 

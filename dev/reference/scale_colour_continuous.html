@@ -87,9 +87,15 @@ instead of using a continuous color spectrum." />
   gtag('config', 'UA-115082821-1');
 </script>
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -239,13 +245,13 @@ functions that assign discrete color bins to the continuous values
 instead of using a continuous color spectrum.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>scale_colour_continuous</span><span class='op'>(</span><span class='va'>...</span>, type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"ggplot2.continuous.colour"</span><span class='op'>)</span><span class='op'>)</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>scale_colour_continuous</span><span class='op'>(</span><span class='va'>...</span>, type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"ggplot2.continuous.colour"</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='fu'>scale_fill_continuous</span><span class='op'>(</span><span class='va'>...</span>, type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"ggplot2.continuous.fill"</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='fu'>scale_colour_binned</span><span class='op'>(</span><span class='va'>...</span>, type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"ggplot2.binned.colour"</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='fu'>scale_fill_binned</span><span class='op'>(</span><span class='va'>...</span>, type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"ggplot2.binned.fill"</span><span class='op'>)</span><span class='op'>)</span></pre>
+<span class='fu'>scale_fill_binned</span><span class='op'>(</span><span class='va'>...</span>, type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"ggplot2.binned.fill"</span><span class='op'>)</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -272,8 +278,8 @@ default settings. Continuous colour scales default to the values of the
 binned colour scales default to the values of the <code>ggplot2.binned.colour</code>
 and <code>ggplot2.binned.fill</code> options. These option values default to
 <code>"gradient"</code>, which means that the scale functions actually used are
-<code><a href='scale_colour_gradient.html'>scale_colour_gradient()</a></code>/<code><a href='scale_colour_gradient.html'>scale_fill_gradient()</a></code> for continuous scales and
-<code><a href='scale_colour_steps.html'>scale_colour_steps()</a></code>/<code><a href='scale_colour_steps.html'>scale_fill_steps()</a></code> for binned scales.
+<code><a href='scale_gradient.html'>scale_colour_gradient()</a></code>/<code><a href='scale_gradient.html'>scale_fill_gradient()</a></code> for continuous scales and
+<code><a href='scale_steps.html'>scale_colour_steps()</a></code>/<code><a href='scale_steps.html'>scale_fill_steps()</a></code> for binned scales.
 Alternative option values are <code>"viridis"</code> or a different scale function.
 See description of the <code>type</code> argument for details.</p>
 <p>Note that the binned colour scales will use the settings of
@@ -282,7 +288,7 @@ respectively, if <code>ggplot2.binned.colour</code> or <code>ggplot2.binned.fill
 not set.</p>
 <p>These scale functions are meant to provide simple defaults. If
 you want to manually set the colors of a scale, consider using
-<code><a href='scale_colour_gradient.html'>scale_colour_gradient()</a></code> or <code><a href='scale_colour_steps.html'>scale_colour_steps()</a></code>.</p>
+<code><a href='scale_gradient.html'>scale_colour_gradient()</a></code> or <code><a href='scale_steps.html'>scale_colour_steps()</a></code>.</p>
     <h2 class="hasAnchor" id="color-blindness"><a class="anchor" href="#color-blindness"></a>Color Blindness</h2>
 
     
@@ -303,40 +309,47 @@ see the <a href='https://arxiv.org/abs/1903.06490'>paper on the colorspace packa
 and references therein.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='scale_colour_gradient.html'>scale_colour_gradient()</a></code>, <code><a href='scale_colour_viridis_d.html'>scale_colour_viridis_c()</a></code>,
-<code><a href='scale_colour_steps.html'>scale_colour_steps()</a></code>, <code><a href='scale_colour_viridis_d.html'>scale_colour_viridis_b()</a></code>, <code><a href='scale_colour_gradient.html'>scale_fill_gradient()</a></code>,
-<code><a href='scale_colour_viridis_d.html'>scale_fill_viridis_c()</a></code>, <code><a href='scale_colour_steps.html'>scale_fill_steps()</a></code>, and <code><a href='scale_colour_viridis_d.html'>scale_fill_viridis_b()</a></code></p>
+    <div class='dont-index'><p><code><a href='scale_gradient.html'>scale_colour_gradient()</a></code>, <code><a href='scale_viridis.html'>scale_colour_viridis_c()</a></code>,
+<code><a href='scale_steps.html'>scale_colour_steps()</a></code>, <code><a href='scale_viridis.html'>scale_colour_viridis_b()</a></code>, <code><a href='scale_gradient.html'>scale_fill_gradient()</a></code>,
+<code><a href='scale_viridis.html'>scale_fill_viridis_c()</a></code>, <code><a href='scale_steps.html'>scale_fill_steps()</a></code>, and <code><a href='scale_viridis.html'>scale_fill_viridis_b()</a></code></p>
 <p>Other colour scales: 
 <code><a href='scale_alpha.html'>scale_alpha</a>()</code>,
-<code><a href='scale_colour_brewer.html'>scale_colour_brewer</a>()</code>,
-<code><a href='scale_colour_gradient.html'>scale_colour_gradient</a>()</code>,
-<code><a href='scale_colour_grey.html'>scale_colour_grey</a>()</code>,
-<code><a href='scale_colour_hue.html'>scale_colour_hue</a>()</code>,
-<code><a href='scale_colour_steps.html'>scale_colour_steps</a>()</code>,
-<code><a href='scale_colour_viridis_d.html'>scale_colour_viridis_d</a>()</code></p></div>
+<code><a href='scale_brewer.html'>scale_colour_brewer</a>()</code>,
+<code><a href='scale_gradient.html'>scale_colour_gradient</a>()</code>,
+<code><a href='scale_grey.html'>scale_colour_grey</a>()</code>,
+<code><a href='scale_hue.html'>scale_colour_hue</a>()</code>,
+<code><a href='scale_steps.html'>scale_colour_steps</a>()</code>,
+<code><a href='scale_viridis.html'>scale_colour_viridis_d</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>v</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>faithfuld</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>waiting</span>, <span class='va'>eruptions</span>, fill <span class='op'>=</span> <span class='va'>density</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-<span class='fu'><a href='geom_raster.html'>geom_tile</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='va'>v</span>
-</div><div class='img'><img src='scale_colour_continuous-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='va'>v</span> <span class='op'>+</span> <span class='fu'>scale_fill_continuous</span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"gradient"</span><span class='op'>)</span>
-</div><div class='img'><img src='scale_colour_continuous-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>v</span> <span class='op'>+</span> <span class='fu'>scale_fill_continuous</span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"viridis"</span><span class='op'>)</span>
-</div><div class='img'><img src='scale_colour_continuous-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># The above are equivalent to</span>
-<span class='va'>v</span> <span class='op'>+</span> <span class='fu'><a href='scale_colour_gradient.html'>scale_fill_gradient</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='img'><img src='scale_colour_continuous-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>v</span> <span class='op'>+</span> <span class='fu'><a href='scale_colour_viridis_d.html'>scale_fill_viridis_c</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='img'><img src='scale_colour_continuous-5.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># To make a binned version of this plot</span>
-<span class='va'>v</span> <span class='op'>+</span> <span class='fu'>scale_fill_binned</span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"viridis"</span><span class='op'>)</span>
-</div><div class='img'><img src='scale_colour_continuous-6.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Set a different default scale using the options</span>
-<span class='co'># mechanism</span>
-<span class='va'>tmp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"ggplot2.continuous.fill"</span><span class='op'>)</span> <span class='co'># store current setting</span>
-<span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>ggplot2.continuous.fill <span class='op'>=</span> <span class='va'>scale_fill_distiller</span><span class='op'>)</span>
-<span class='va'>v</span>
-</div><div class='img'><img src='scale_colour_continuous-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>ggplot2.continuous.fill <span class='op'>=</span> <span class='va'>tmp</span><span class='op'>)</span> <span class='co'># restore previous setting</span>
-</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='va'>v</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>faithfuld</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>waiting</span>, <span class='va'>eruptions</span>, fill <span class='op'>=</span> <span class='va'>density</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'><span class='fu'><a href='geom_tile.html'>geom_tile</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>v</span></span>
+<span class='r-plt'><img src='scale_colour_continuous-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>v</span> <span class='op'>+</span> <span class='fu'>scale_fill_continuous</span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"gradient"</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='scale_colour_continuous-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>v</span> <span class='op'>+</span> <span class='fu'>scale_fill_continuous</span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"viridis"</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='scale_colour_continuous-3.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># The above are equivalent to</span></span>
+<span class='r-in'><span class='va'>v</span> <span class='op'>+</span> <span class='fu'><a href='scale_gradient.html'>scale_fill_gradient</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='scale_colour_continuous-4.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>v</span> <span class='op'>+</span> <span class='fu'><a href='scale_viridis.html'>scale_fill_viridis_c</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='scale_colour_continuous-5.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># To make a binned version of this plot</span></span>
+<span class='r-in'><span class='va'>v</span> <span class='op'>+</span> <span class='fu'>scale_fill_binned</span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"viridis"</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='scale_colour_continuous-6.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Set a different default scale using the options</span></span>
+<span class='r-in'><span class='co'># mechanism</span></span>
+<span class='r-in'><span class='va'>tmp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"ggplot2.continuous.fill"</span><span class='op'>)</span> <span class='co'># store current setting</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>ggplot2.continuous.fill <span class='op'>=</span> <span class='va'>scale_fill_distiller</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>v</span></span>
+<span class='r-plt'><img src='scale_colour_continuous-7.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>ggplot2.continuous.fill <span class='op'>=</span> <span class='va'>tmp</span><span class='op'>)</span> <span class='co'># restore previous setting</span></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -353,7 +366,7 @@ and references therein.</p>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -380,6 +393,8 @@ and references therein.</p>
 </script>
 
 
+
+  
 
   </body>
 </html>

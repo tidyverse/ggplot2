@@ -84,9 +84,15 @@ theme." />
   gtag('config', 'UA-115082821-1');
 </script>
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -233,7 +239,7 @@ theme." />
 theme.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>theme_grey</span><span class='op'>(</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>theme_grey</span><span class='op'>(</span>
   base_size <span class='op'>=</span> <span class='fl'>11</span>,
   base_family <span class='op'>=</span> <span class='st'>""</span>,
   base_line_size <span class='op'>=</span> <span class='va'>base_size</span><span class='op'>/</span><span class='fl'>22</span>,
@@ -301,7 +307,7 @@ theme.</p>
   base_family <span class='op'>=</span> <span class='st'>""</span>,
   base_line_size <span class='op'>=</span> <span class='va'>base_size</span><span class='op'>/</span><span class='fl'>22</span>,
   base_rect_size <span class='op'>=</span> <span class='va'>base_size</span><span class='op'>/</span><span class='fl'>22</span>
-<span class='op'>)</span></pre>
+<span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -359,48 +365,64 @@ for new features.</p></dd>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>mtcars2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/with.html'>within</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='op'>{</span>
-  <span class='va'>vs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>vs</span>, labels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"V-shaped"</span>, <span class='st'>"Straight"</span><span class='op'>)</span><span class='op'>)</span>
-  <span class='va'>am</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>am</span>, labels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Automatic"</span>, <span class='st'>"Manual"</span><span class='op'>)</span><span class='op'>)</span>
-  <span class='va'>cyl</span>  <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span>
-  <span class='va'>gear</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>gear</span><span class='op'>)</span>
-<span class='op'>}</span><span class='op'>)</span>
-
-<span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars2</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>wt</span>, y <span class='op'>=</span> <span class='va'>mpg</span>, colour <span class='op'>=</span> <span class='va'>gear</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='labs.html'>labs</a></span><span class='op'>(</span>
-    title <span class='op'>=</span> <span class='st'>"Fuel economy declines as weight increases"</span>,
-    subtitle <span class='op'>=</span> <span class='st'>"(1973-74)"</span>,
-    caption <span class='op'>=</span> <span class='st'>"Data from the 1974 Motor Trend US magazine."</span>,
-    tag <span class='op'>=</span> <span class='st'>"Figure 1"</span>,
-    x <span class='op'>=</span> <span class='st'>"Weight (1000 lbs)"</span>,
-    y <span class='op'>=</span> <span class='st'>"Fuel economy (mpg)"</span>,
-    colour <span class='op'>=</span> <span class='st'>"Gears"</span>
-  <span class='op'>)</span>
-
-<span class='va'>p1</span> <span class='op'>+</span> <span class='fu'>theme_gray</span><span class='op'>(</span><span class='op'>)</span> <span class='co'># the default</span>
-</div><div class='img'><img src='ggtheme-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p1</span> <span class='op'>+</span> <span class='fu'>theme_bw</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='img'><img src='ggtheme-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p1</span> <span class='op'>+</span> <span class='fu'>theme_linedraw</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='img'><img src='ggtheme-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p1</span> <span class='op'>+</span> <span class='fu'>theme_light</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='img'><img src='ggtheme-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p1</span> <span class='op'>+</span> <span class='fu'>theme_dark</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='img'><img src='ggtheme-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p1</span> <span class='op'>+</span> <span class='fu'>theme_minimal</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='img'><img src='ggtheme-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p1</span> <span class='op'>+</span> <span class='fu'>theme_classic</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='img'><img src='ggtheme-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p1</span> <span class='op'>+</span> <span class='fu'>theme_void</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='img'><img src='ggtheme-8.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Theme examples with panels</span>
-<span class='co'># \donttest{</span>
-<span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='va'>p1</span> <span class='op'>+</span> <span class='fu'><a href='facet_grid.html'>facet_grid</a></span><span class='op'>(</span><span class='va'>vs</span> <span class='op'>~</span> <span class='va'>am</span><span class='op'>)</span>
-
-<span class='va'>p2</span> <span class='op'>+</span> <span class='fu'>theme_gray</span><span class='op'>(</span><span class='op'>)</span> <span class='co'># the default</span>
-</div><div class='img'><img src='ggtheme-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p2</span> <span class='op'>+</span> <span class='fu'>theme_bw</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='img'><img src='ggtheme-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p2</span> <span class='op'>+</span> <span class='fu'>theme_linedraw</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='img'><img src='ggtheme-11.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p2</span> <span class='op'>+</span> <span class='fu'>theme_light</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='img'><img src='ggtheme-12.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p2</span> <span class='op'>+</span> <span class='fu'>theme_dark</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='img'><img src='ggtheme-13.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p2</span> <span class='op'>+</span> <span class='fu'>theme_minimal</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='img'><img src='ggtheme-14.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p2</span> <span class='op'>+</span> <span class='fu'>theme_classic</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='img'><img src='ggtheme-15.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p2</span> <span class='op'>+</span> <span class='fu'>theme_void</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='img'><img src='ggtheme-16.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
-</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='va'>mtcars2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/with.html'>within</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='op'>{</span></span>
+<span class='r-in'>  <span class='va'>vs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>vs</span>, labels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"V-shaped"</span>, <span class='st'>"Straight"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='va'>am</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>am</span>, labels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Automatic"</span>, <span class='st'>"Manual"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='va'>cyl</span>  <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='va'>gear</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>gear</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars2</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>wt</span>, y <span class='op'>=</span> <span class='va'>mpg</span>, colour <span class='op'>=</span> <span class='va'>gear</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='labs.html'>labs</a></span><span class='op'>(</span></span>
+<span class='r-in'>    title <span class='op'>=</span> <span class='st'>"Fuel economy declines as weight increases"</span>,</span>
+<span class='r-in'>    subtitle <span class='op'>=</span> <span class='st'>"(1973-74)"</span>,</span>
+<span class='r-in'>    caption <span class='op'>=</span> <span class='st'>"Data from the 1974 Motor Trend US magazine."</span>,</span>
+<span class='r-in'>    tag <span class='op'>=</span> <span class='st'>"Figure 1"</span>,</span>
+<span class='r-in'>    x <span class='op'>=</span> <span class='st'>"Weight (1000 lbs)"</span>,</span>
+<span class='r-in'>    y <span class='op'>=</span> <span class='st'>"Fuel economy (mpg)"</span>,</span>
+<span class='r-in'>    colour <span class='op'>=</span> <span class='st'>"Gears"</span></span>
+<span class='r-in'>  <span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>p1</span> <span class='op'>+</span> <span class='fu'>theme_gray</span><span class='op'>(</span><span class='op'>)</span> <span class='co'># the default</span></span>
+<span class='r-plt'><img src='ggtheme-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>p1</span> <span class='op'>+</span> <span class='fu'>theme_bw</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='ggtheme-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>p1</span> <span class='op'>+</span> <span class='fu'>theme_linedraw</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='ggtheme-3.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>p1</span> <span class='op'>+</span> <span class='fu'>theme_light</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='ggtheme-4.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>p1</span> <span class='op'>+</span> <span class='fu'>theme_dark</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='ggtheme-5.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>p1</span> <span class='op'>+</span> <span class='fu'>theme_minimal</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='ggtheme-6.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>p1</span> <span class='op'>+</span> <span class='fu'>theme_classic</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='ggtheme-7.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>p1</span> <span class='op'>+</span> <span class='fu'>theme_void</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='ggtheme-8.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Theme examples with panels</span></span>
+<span class='r-in'><span class='co'># \donttest{</span></span>
+<span class='r-in'><span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='va'>p1</span> <span class='op'>+</span> <span class='fu'><a href='facet_grid.html'>facet_grid</a></span><span class='op'>(</span><span class='va'>vs</span> <span class='op'>~</span> <span class='va'>am</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>p2</span> <span class='op'>+</span> <span class='fu'>theme_gray</span><span class='op'>(</span><span class='op'>)</span> <span class='co'># the default</span></span>
+<span class='r-plt'><img src='ggtheme-9.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>p2</span> <span class='op'>+</span> <span class='fu'>theme_bw</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='ggtheme-10.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>p2</span> <span class='op'>+</span> <span class='fu'>theme_linedraw</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='ggtheme-11.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>p2</span> <span class='op'>+</span> <span class='fu'>theme_light</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='ggtheme-12.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>p2</span> <span class='op'>+</span> <span class='fu'>theme_dark</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='ggtheme-13.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>p2</span> <span class='op'>+</span> <span class='fu'>theme_minimal</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='ggtheme-14.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>p2</span> <span class='op'>+</span> <span class='fu'>theme_classic</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='ggtheme-15.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>p2</span> <span class='op'>+</span> <span class='fu'>theme_void</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='ggtheme-16.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='co'># }</span></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -417,7 +439,7 @@ for new features.</p></dd>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -444,6 +466,8 @@ for new features.</p></dd>
 </script>
 
 
+
+  
 
   </body>
 </html>

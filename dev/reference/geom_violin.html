@@ -85,9 +85,15 @@ boxplot." />
   gtag('config', 'UA-115082821-1');
 </script>
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -235,7 +241,7 @@ violin plot is a mirrored density plot displayed in the same way as a
 boxplot.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>geom_violin</span><span class='op'>(</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>geom_violin</span><span class='op'>(</span>
   mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
   data <span class='op'>=</span> <span class='cn'>NULL</span>,
   stat <span class='op'>=</span> <span class='st'>"ydensity"</span>,
@@ -265,7 +271,7 @@ boxplot.</p>
   orientation <span class='op'>=</span> <span class='cn'>NA</span>,
   show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
   inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>
-<span class='op'>)</span></pre>
+<span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -415,68 +421,85 @@ Plot-Density Trace Synergism. The American Statistician 52, 181-184.</p>
 for examples with data along the x axis.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span>, <span class='va'>mpg</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_violin</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_violin-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Orientation follows the discrete axis</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_violin</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_violin-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># \donttest{</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_violin</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span><span class='op'>(</span>height <span class='op'>=</span> <span class='fl'>0</span>, width <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_violin-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Scale maximum width proportional to sample size:</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_violin</span><span class='op'>(</span>scale <span class='op'>=</span> <span class='st'>"count"</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_violin-4.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Scale maximum width to 1 for all violins:</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_violin</span><span class='op'>(</span>scale <span class='op'>=</span> <span class='st'>"width"</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_violin-5.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Default is to trim violins to the range of the data. To disable:</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_violin</span><span class='op'>(</span>trim <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_violin-6.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Use a smaller bandwidth for closer density fit (default is 1).</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_violin</span><span class='op'>(</span>adjust <span class='op'>=</span> <span class='fl'>.5</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_violin-7.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Add aesthetic mappings</span>
-<span class='co'># Note that violins are automatically dodged when any aesthetic is</span>
-<span class='co'># a factor</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_violin</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>cyl</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_violin-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_violin</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_violin-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_violin</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>vs</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: Groups with fewer than two data points have been dropped.</span></div><div class='img'><img src='geom_violin-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_violin</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>am</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_violin-11.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Set aesthetics to fixed value</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_violin</span><span class='op'>(</span>fill <span class='op'>=</span> <span class='st'>"grey80"</span>, colour <span class='op'>=</span> <span class='st'>"#3366FF"</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_violin-12.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Show quartiles</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_violin</span><span class='op'>(</span>draw_quantiles <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.25</span>, <span class='fl'>0.5</span>, <span class='fl'>0.75</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_violin-13.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Scales vs. coordinate transforms -------</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'>"ggplot2movies"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'># Scale transformations occur before the density statistics are computed.</span>
-<span class='co'># Coordinate transformations occur afterwards.  Observe the effect on the</span>
-<span class='co'># number of outliers.</span>
-<span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>movies</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>votes</span>, x <span class='op'>=</span> <span class='va'>rating</span>, group <span class='op'>=</span> <span class='fu'><a href='cut_interval.html'>cut_width</a></span><span class='op'>(</span><span class='va'>rating</span>, <span class='fl'>0.5</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>m</span> <span class='op'>+</span> <span class='fu'>geom_violin</span><span class='op'>(</span><span class='op'>)</span>
-<span class='va'>m</span> <span class='op'>+</span>
-  <span class='fu'>geom_violin</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='scale_continuous.html'>scale_y_log10</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='va'>m</span> <span class='op'>+</span>
-  <span class='fu'>geom_violin</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='coord_trans.html'>coord_trans</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='st'>"log10"</span><span class='op'>)</span>
-<span class='va'>m</span> <span class='op'>+</span>
-  <span class='fu'>geom_violin</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='scale_continuous.html'>scale_y_log10</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='coord_trans.html'>coord_trans</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='st'>"log10"</span><span class='op'>)</span>
-
-<span class='co'># Violin plots with continuous x:</span>
-<span class='co'># Use the group aesthetic to group observations in violins</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>movies</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>year</span>, <span class='va'>budget</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_violin</span><span class='op'>(</span><span class='op'>)</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>movies</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>year</span>, <span class='va'>budget</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_violin</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>group <span class='op'>=</span> <span class='fu'><a href='cut_interval.html'>cut_width</a></span><span class='op'>(</span><span class='va'>year</span>, <span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>, scale <span class='op'>=</span> <span class='st'>"width"</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 53573 rows containing non-finite values (stat_ydensity).</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Groups with fewer than two data points have been dropped.</span></div><div class='img'><img src='geom_violin-14.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
-</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span>, <span class='va'>mpg</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_violin</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='geom_violin-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Orientation follows the discrete axis</span></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>geom_violin</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='geom_violin-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># \donttest{</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_violin</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span><span class='op'>(</span>height <span class='op'>=</span> <span class='fl'>0</span>, width <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='geom_violin-3.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Scale maximum width proportional to sample size:</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_violin</span><span class='op'>(</span>scale <span class='op'>=</span> <span class='st'>"count"</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='geom_violin-4.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Scale maximum width to 1 for all violins:</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_violin</span><span class='op'>(</span>scale <span class='op'>=</span> <span class='st'>"width"</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='geom_violin-5.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Default is to trim violins to the range of the data. To disable:</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_violin</span><span class='op'>(</span>trim <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='geom_violin-6.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Use a smaller bandwidth for closer density fit (default is 1).</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_violin</span><span class='op'>(</span>adjust <span class='op'>=</span> <span class='fl'>.5</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='geom_violin-7.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Add aesthetic mappings</span></span>
+<span class='r-in'><span class='co'># Note that violins are automatically dodged when any aesthetic is</span></span>
+<span class='r-in'><span class='co'># a factor</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_violin</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>cyl</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='geom_violin-8.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_violin</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='geom_violin-9.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_violin</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>vs</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>Groups with fewer than two data points have been dropped.</span>
+<span class='r-plt'><img src='geom_violin-10.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_violin</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>am</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='geom_violin-11.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Set aesthetics to fixed value</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_violin</span><span class='op'>(</span>fill <span class='op'>=</span> <span class='st'>"grey80"</span>, colour <span class='op'>=</span> <span class='st'>"#3366FF"</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='geom_violin-12.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Show quartiles</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_violin</span><span class='op'>(</span>draw_quantiles <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.25</span>, <span class='fl'>0.5</span>, <span class='fl'>0.75</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='geom_violin-13.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Scales vs. coordinate transforms -------</span></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'>"ggplot2movies"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='co'># Scale transformations occur before the density statistics are computed.</span></span>
+<span class='r-in'><span class='co'># Coordinate transformations occur afterwards.  Observe the effect on the</span></span>
+<span class='r-in'><span class='co'># number of outliers.</span></span>
+<span class='r-in'><span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>movies</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>votes</span>, x <span class='op'>=</span> <span class='va'>rating</span>, group <span class='op'>=</span> <span class='fu'><a href='cut_interval.html'>cut_width</a></span><span class='op'>(</span><span class='va'>rating</span>, <span class='fl'>0.5</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>m</span> <span class='op'>+</span> <span class='fu'>geom_violin</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>m</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>geom_violin</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='scale_continuous.html'>scale_y_log10</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>m</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>geom_violin</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='coord_trans.html'>coord_trans</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='st'>"log10"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>m</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>geom_violin</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='scale_continuous.html'>scale_y_log10</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='coord_trans.html'>coord_trans</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='st'>"log10"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Violin plots with continuous x:</span></span>
+<span class='r-in'><span class='co'># Use the group aesthetic to group observations in violins</span></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>movies</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>year</span>, <span class='va'>budget</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>geom_violin</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>movies</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>year</span>, <span class='va'>budget</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>geom_violin</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>group <span class='op'>=</span> <span class='fu'><a href='cut_interval.html'>cut_width</a></span><span class='op'>(</span><span class='va'>year</span>, <span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>, scale <span class='op'>=</span> <span class='st'>"width"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>Removed 53573 rows containing non-finite values (stat_ydensity).</span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>Groups with fewer than two data points have been dropped.</span>
+<span class='r-plt'><img src='geom_violin-14.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='co'># }</span></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -493,7 +516,7 @@ for examples with data along the x axis.</p></div>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -520,6 +543,8 @@ for examples with data along the x axis.</p></div>
 </script>
 
 
+
+  
 
   </body>
 </html>
