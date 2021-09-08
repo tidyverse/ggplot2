@@ -86,9 +86,15 @@ often especially when a plot graphs more than two variables." />
   gtag('config', 'UA-115082821-1');
 </script>
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -269,15 +275,15 @@ if either aesthetic provides color values using an rgb specification
     <div class='dont-index'>
 <ul>
 <li><p>Other options for modifying colour:
-<code><a href='scale_colour_brewer.html'>scale_colour_brewer()</a></code>,
-<code><a href='scale_colour_gradient.html'>scale_colour_gradient()</a></code>, <code><a href='scale_colour_grey.html'>scale_colour_grey()</a></code>,
-<code><a href='scale_colour_hue.html'>scale_colour_hue()</a></code>, <code><a href='scale_identity.html'>scale_colour_identity()</a></code>,
-<code><a href='scale_manual.html'>scale_colour_manual()</a></code>, <code><a href='scale_colour_viridis_d.html'>scale_colour_viridis_d()</a></code></p></li>
+<code><a href='scale_brewer.html'>scale_colour_brewer()</a></code>,
+<code><a href='scale_gradient.html'>scale_colour_gradient()</a></code>, <code><a href='scale_grey.html'>scale_colour_grey()</a></code>,
+<code><a href='scale_hue.html'>scale_colour_hue()</a></code>, <code><a href='scale_identity.html'>scale_colour_identity()</a></code>,
+<code><a href='scale_manual.html'>scale_colour_manual()</a></code>, <code><a href='scale_viridis.html'>scale_colour_viridis_d()</a></code></p></li>
 <li><p>Other options for modifying fill:
-<code><a href='scale_colour_brewer.html'>scale_fill_brewer()</a></code>,
-<code><a href='scale_colour_gradient.html'>scale_fill_gradient()</a></code>, <code><a href='scale_colour_grey.html'>scale_fill_grey()</a></code>,
-<code><a href='scale_colour_hue.html'>scale_fill_hue()</a></code>, <code><a href='scale_identity.html'>scale_fill_identity()</a></code>,
-<code><a href='scale_manual.html'>scale_fill_manual()</a></code>, <code><a href='scale_colour_viridis_d.html'>scale_fill_viridis_d()</a></code></p></li>
+<code><a href='scale_brewer.html'>scale_fill_brewer()</a></code>,
+<code><a href='scale_gradient.html'>scale_fill_gradient()</a></code>, <code><a href='scale_grey.html'>scale_fill_grey()</a></code>,
+<code><a href='scale_hue.html'>scale_fill_hue()</a></code>, <code><a href='scale_identity.html'>scale_fill_identity()</a></code>,
+<code><a href='scale_manual.html'>scale_fill_manual()</a></code>, <code><a href='scale_viridis.html'>scale_fill_viridis_d()</a></code></p></li>
 <li><p>Other options for modifying alpha: <code><a href='scale_alpha.html'>scale_alpha()</a></code></p></li>
 <li><p>Run <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code> to see an overview of other aesthestics that
 can be modified.</p></li>
@@ -285,62 +291,80 @@ can be modified.</p></li>
 </div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
-
-<span class='co'># Bar chart example</span>
-<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-<span class='co'># Default plotting</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_bar.html'>geom_bar</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='img'><img src='aes_colour_fill_alpha-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># To change the interior colouring use fill aesthetic</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_bar.html'>geom_bar</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='st'>"red"</span><span class='op'>)</span>
-</div><div class='img'><img src='aes_colour_fill_alpha-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Compare with the colour aesthetic which changes just the bar outline</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_bar.html'>geom_bar</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='st'>"red"</span><span class='op'>)</span>
-</div><div class='img'><img src='aes_colour_fill_alpha-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Combining both, you can see the changes more clearly</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_bar.html'>geom_bar</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='st'>"white"</span>, colour <span class='op'>=</span> <span class='st'>"red"</span><span class='op'>)</span>
-</div><div class='img'><img src='aes_colour_fill_alpha-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Both colour and fill can take an rgb specification.</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_bar.html'>geom_bar</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='st'>"#00abff"</span><span class='op'>)</span>
-</div><div class='img'><img src='aes_colour_fill_alpha-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Use NA for a completely transparent colour.</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_bar.html'>geom_bar</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='cn'>NA</span>, colour <span class='op'>=</span> <span class='st'>"#00abff"</span><span class='op'>)</span>
-</div><div class='img'><img src='aes_colour_fill_alpha-6.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Colouring scales differ depending on whether a discrete or</span>
-<span class='co'># continuous variable is being mapped. For example, when mapping</span>
-<span class='co'># fill to a factor variable, a discrete colour scale is used.</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span>, fill <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>vs</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_bar.html'>geom_bar</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='img'><img src='aes_colour_fill_alpha-7.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># When mapping fill to continuous variable a continuous colour</span>
-<span class='co'># scale is used.</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>faithfuld</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>waiting</span>, <span class='va'>eruptions</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_raster.html'>geom_raster</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>density</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='aes_colour_fill_alpha-8.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Some geoms only use the colour aesthetic but not the fill</span>
-<span class='co'># aesthetic (e.g. geom_point() or geom_line()).</span>
-<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>economics</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>date</span>, y <span class='op'>=</span> <span class='va'>unemploy</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='img'><img src='aes_colour_fill_alpha-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_path.html'>geom_line</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='st'>"green"</span><span class='op'>)</span>
-</div><div class='img'><img src='aes_colour_fill_alpha-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='img'><img src='aes_colour_fill_alpha-11.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='st'>"red"</span><span class='op'>)</span>
-</div><div class='img'><img src='aes_colour_fill_alpha-12.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># For large datasets with overplotting the alpha</span>
-<span class='co'># aesthetic will make the points more transparent.</span>
-<span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>5000</span><span class='op'>)</span>, y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>5000</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>p</span>  <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span>,<span class='va'>y</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='img'><img src='aes_colour_fill_alpha-13.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span>alpha <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span>
-</div><div class='img'><img src='aes_colour_fill_alpha-14.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span>alpha <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>10</span><span class='op'>)</span>
-</div><div class='img'><img src='aes_colour_fill_alpha-15.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Alpha can also be used to add shading.</span>
-<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>economics</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>date</span>, y <span class='op'>=</span> <span class='va'>unemploy</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='va'>p</span>
-</div><div class='img'><img src='aes_colour_fill_alpha-16.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>yrng</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/range.html'>range</a></span><span class='op'>(</span><span class='va'>economics</span><span class='op'>$</span><span class='va'>unemploy</span><span class='op'>)</span>
-<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_raster.html'>geom_rect</a></span><span class='op'>(</span>
-    <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='cn'>NULL</span>, <span class='cn'>NULL</span>, xmin <span class='op'>=</span> <span class='va'>start</span>, xmax <span class='op'>=</span> <span class='va'>end</span>, fill <span class='op'>=</span> <span class='va'>party</span><span class='op'>)</span>,
-    ymin <span class='op'>=</span> <span class='va'>yrng</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>, ymax <span class='op'>=</span> <span class='va'>yrng</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span>, data <span class='op'>=</span> <span class='va'>presidential</span>
-  <span class='op'>)</span>
-<span class='va'>p</span>
-</div><div class='img'><img src='aes_colour_fill_alpha-17.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_manual.html'>scale_fill_manual</a></span><span class='op'>(</span>values <span class='op'>=</span> <span class='fu'><a href='https://scales.r-lib.org/reference/alpha.html'>alpha</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"blue"</span>, <span class='st'>"red"</span><span class='op'>)</span>, <span class='fl'>.3</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='aes_colour_fill_alpha-18.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
-</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='co'># \donttest{</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Bar chart example</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># Default plotting</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_bar.html'>geom_bar</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='aes_colour_fill_alpha-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='co'># To change the interior colouring use fill aesthetic</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_bar.html'>geom_bar</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='st'>"red"</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='aes_colour_fill_alpha-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='co'># Compare with the colour aesthetic which changes just the bar outline</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_bar.html'>geom_bar</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='st'>"red"</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='aes_colour_fill_alpha-3.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='co'># Combining both, you can see the changes more clearly</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_bar.html'>geom_bar</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='st'>"white"</span>, colour <span class='op'>=</span> <span class='st'>"red"</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='aes_colour_fill_alpha-4.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='co'># Both colour and fill can take an rgb specification.</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_bar.html'>geom_bar</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='st'>"#00abff"</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='aes_colour_fill_alpha-5.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='co'># Use NA for a completely transparent colour.</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_bar.html'>geom_bar</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='cn'>NA</span>, colour <span class='op'>=</span> <span class='st'>"#00abff"</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='aes_colour_fill_alpha-6.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Colouring scales differ depending on whether a discrete or</span></span>
+<span class='r-in'><span class='co'># continuous variable is being mapped. For example, when mapping</span></span>
+<span class='r-in'><span class='co'># fill to a factor variable, a discrete colour scale is used.</span></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span>, fill <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>vs</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_bar.html'>geom_bar</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='aes_colour_fill_alpha-7.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># When mapping fill to continuous variable a continuous colour</span></span>
+<span class='r-in'><span class='co'># scale is used.</span></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>faithfuld</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>waiting</span>, <span class='va'>eruptions</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='geom_tile.html'>geom_raster</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>density</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='aes_colour_fill_alpha-8.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Some geoms only use the colour aesthetic but not the fill</span></span>
+<span class='r-in'><span class='co'># aesthetic (e.g. geom_point() or geom_line()).</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>economics</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>date</span>, y <span class='op'>=</span> <span class='va'>unemploy</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='aes_colour_fill_alpha-9.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_path.html'>geom_line</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='st'>"green"</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='aes_colour_fill_alpha-10.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='aes_colour_fill_alpha-11.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='st'>"red"</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='aes_colour_fill_alpha-12.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># For large datasets with overplotting the alpha</span></span>
+<span class='r-in'><span class='co'># aesthetic will make the points more transparent.</span></span>
+<span class='r-in'><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>5000</span><span class='op'>)</span>, y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>5000</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>p</span>  <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span>,<span class='va'>y</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='aes_colour_fill_alpha-13.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span>alpha <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='aes_colour_fill_alpha-14.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span>alpha <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>10</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='aes_colour_fill_alpha-15.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Alpha can also be used to add shading.</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>economics</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>date</span>, y <span class='op'>=</span> <span class='va'>unemploy</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>p</span></span>
+<span class='r-plt'><img src='aes_colour_fill_alpha-16.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>yrng</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/range.html'>range</a></span><span class='op'>(</span><span class='va'>economics</span><span class='op'>$</span><span class='va'>unemploy</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='geom_tile.html'>geom_rect</a></span><span class='op'>(</span></span>
+<span class='r-in'>    <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='cn'>NULL</span>, <span class='cn'>NULL</span>, xmin <span class='op'>=</span> <span class='va'>start</span>, xmax <span class='op'>=</span> <span class='va'>end</span>, fill <span class='op'>=</span> <span class='va'>party</span><span class='op'>)</span>,</span>
+<span class='r-in'>    ymin <span class='op'>=</span> <span class='va'>yrng</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>, ymax <span class='op'>=</span> <span class='va'>yrng</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span>, data <span class='op'>=</span> <span class='va'>presidential</span></span>
+<span class='r-in'>  <span class='op'>)</span></span>
+<span class='r-in'><span class='va'>p</span></span>
+<span class='r-plt'><img src='aes_colour_fill_alpha-17.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_manual.html'>scale_fill_manual</a></span><span class='op'>(</span>values <span class='op'>=</span> <span class='fu'><a href='https://scales.r-lib.org/reference/alpha.html'>alpha</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"blue"</span>, <span class='st'>"red"</span><span class='op'>)</span>, <span class='fl'>.3</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='aes_colour_fill_alpha-18.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='co'># }</span></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -357,7 +381,7 @@ can be modified.</p></li>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -384,6 +408,8 @@ can be modified.</p></li>
 </script>
 
 
+
+  
 
   </body>
 </html>

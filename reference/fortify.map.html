@@ -83,9 +83,15 @@ plotted with ggplot2." />
   gtag('config', 'UA-115082821-1');
 </script>
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -231,8 +237,8 @@ plotted with ggplot2." />
 plotted with ggplot2.</p>
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for map</span>
-<span class='fu'><a href='fortify.html'>fortify</a></span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>data</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='co'># S3 method for map</span>
+<span class='fu'><a href='fortify.html'>fortify</a></span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>data</span>, <span class='va'>...</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -256,20 +262,22 @@ plotted with ggplot2.</p>
     <div class='dont-index'><p><code><a href='map_data.html'>map_data()</a></code> and <code><a href='borders.html'>borders()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'>"maps"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='va'>ca</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/maps/man/map.html'>map</a></span><span class='op'>(</span><span class='st'>"county"</span>, <span class='st'>"ca"</span>, plot <span class='op'>=</span> <span class='cn'>FALSE</span>, fill <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fu'><a href='fortify.html'>fortify</a></span><span class='op'>(</span><span class='va'>ca</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>ca</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>long</span>, <span class='va'>lat</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_polygon.html'>geom_polygon</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>group <span class='op'>=</span> <span class='va'>group</span><span class='op'>)</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div><div class='img'><img src='fortify.map-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'>"maps"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='va'>tx</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/maps/man/map.html'>map</a></span><span class='op'>(</span><span class='st'>"county"</span>, <span class='st'>"texas"</span>, plot <span class='op'>=</span> <span class='cn'>FALSE</span>, fill <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fu'><a href='fortify.html'>fortify</a></span><span class='op'>(</span><span class='va'>tx</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>tx</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>long</span>, <span class='va'>lat</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_polygon.html'>geom_polygon</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>group <span class='op'>=</span> <span class='va'>group</span><span class='op'>)</span>, colour <span class='op'>=</span> <span class='st'>"white"</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div><div class='img'><img src='fortify.map-2.png' alt='' width='700' height='433' /></div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'>"maps"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='va'>ca</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/maps/man/map.html'>map</a></span><span class='op'>(</span><span class='st'>"county"</span>, <span class='st'>"ca"</span>, plot <span class='op'>=</span> <span class='cn'>FALSE</span>, fill <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fu'><a href='fortify.html'>fortify</a></span><span class='op'>(</span><span class='va'>ca</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>ca</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>long</span>, <span class='va'>lat</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='geom_polygon.html'>geom_polygon</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>group <span class='op'>=</span> <span class='va'>group</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-plt'><img src='fortify.map-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'>"maps"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='va'>tx</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/maps/man/map.html'>map</a></span><span class='op'>(</span><span class='st'>"county"</span>, <span class='st'>"texas"</span>, plot <span class='op'>=</span> <span class='cn'>FALSE</span>, fill <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fu'><a href='fortify.html'>fortify</a></span><span class='op'>(</span><span class='va'>tx</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>tx</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>long</span>, <span class='va'>lat</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='geom_polygon.html'>geom_polygon</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>group <span class='op'>=</span> <span class='va'>group</span><span class='op'>)</span>, colour <span class='op'>=</span> <span class='st'>"white"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-plt'><img src='fortify.map-2.png' alt='' width='700' height='433' /></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -286,7 +294,7 @@ plotted with ggplot2.</p>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -313,6 +321,8 @@ plotted with ggplot2.</p>
 </script>
 
 
+
+  
 
   </body>
 </html>

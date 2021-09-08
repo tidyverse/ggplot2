@@ -84,9 +84,15 @@ around sf::sf_project()." />
   gtag('config', 'UA-115082821-1');
 </script>
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -233,7 +239,7 @@ values) among coordinate systems. This is implemented as a thin wrapper
 around <code><a href='https://r-spatial.github.io/sf/reference/sf_project.html'>sf::sf_project()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sf_transform_xy</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>target_crs</span>, <span class='va'>source_crs</span>, authority_compliant <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>sf_transform_xy</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>target_crs</span>, <span class='va'>source_crs</span>, authority_compliant <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -260,25 +266,26 @@ visualisation order (i.e. always <code>x = lon</code>, <code>y = lat</code>). De
     <p>A copy of the input data with <code>x</code> and <code>y</code> replaced by transformed values.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"sf"</span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'># location of cities in NC by long (x) and lat (y)</span>
-<span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
-  city <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Charlotte"</span>, <span class='st'>"Raleigh"</span>, <span class='st'>"Greensboro"</span><span class='op'>)</span>,
-  x <span class='op'>=</span>  <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>80.843</span>, <span class='op'>-</span><span class='fl'>78.639</span>, <span class='op'>-</span><span class='fl'>79.792</span><span class='op'>)</span>,
-  y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>35.227</span>, <span class='fl'>35.772</span>, <span class='fl'>36.073</span><span class='op'>)</span>
-<span class='op'>)</span>
-
-<span class='co'># transform to projected coordinates</span>
-<span class='va'>data_proj</span> <span class='op'>&lt;-</span> <span class='fu'>sf_transform_xy</span><span class='op'>(</span><span class='va'>data</span>, <span class='fl'>3347</span>, <span class='fl'>4326</span><span class='op'>)</span>
-<span class='va'>data_proj</span>
-
-<span class='co'># transform back</span>
-<span class='fu'>sf_transform_xy</span><span class='op'>(</span><span class='va'>data_proj</span>, <span class='fl'>4326</span>, <span class='fl'>3347</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div><div class='output co'>#&gt;         city       x      y
-#&gt; 1  Charlotte -80.843 35.227
-#&gt; 2    Raleigh -78.639 35.772
-#&gt; 3 Greensboro -79.792 36.073</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"sf"</span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='co'># location of cities in NC by long (x) and lat (y)</span></span>
+<span class='r-in'><span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span></span>
+<span class='r-in'>  city <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Charlotte"</span>, <span class='st'>"Raleigh"</span>, <span class='st'>"Greensboro"</span><span class='op'>)</span>,</span>
+<span class='r-in'>  x <span class='op'>=</span>  <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>80.843</span>, <span class='op'>-</span><span class='fl'>78.639</span>, <span class='op'>-</span><span class='fl'>79.792</span><span class='op'>)</span>,</span>
+<span class='r-in'>  y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>35.227</span>, <span class='fl'>35.772</span>, <span class='fl'>36.073</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># transform to projected coordinates</span></span>
+<span class='r-in'><span class='va'>data_proj</span> <span class='op'>&lt;-</span> <span class='fu'>sf_transform_xy</span><span class='op'>(</span><span class='va'>data</span>, <span class='fl'>3347</span>, <span class='fl'>4326</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>data_proj</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># transform back</span></span>
+<span class='r-in'><span class='fu'>sf_transform_xy</span><span class='op'>(</span><span class='va'>data_proj</span>, <span class='fl'>4326</span>, <span class='fl'>3347</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         city       x      y</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  Charlotte -80.843 35.227</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2    Raleigh -78.639 35.772</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 Greensboro -79.792 36.073</span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -295,7 +302,7 @@ visualisation order (i.e. always <code>x = lon</code>, <code>y = lat</code>). De
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -322,6 +329,8 @@ visualisation order (i.e. always <code>x = lon</code>, <code>y = lat</code>). De
 </script>
 
 
+
+  
 
   </body>
 </html>

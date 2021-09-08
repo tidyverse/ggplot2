@@ -84,9 +84,15 @@ scale_(x|y)_discrete()." />
   gtag('config', 'UA-115082821-1');
 </script>
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -230,17 +236,17 @@ scale_(x|y)_discrete()." />
     <div class="ref-description">
     <p>Axis guides are the visual representation of position scales like those
 created with <a href='scale_continuous.html'>scale_(x|y)_continuous()</a> and
-<a href='scale_x_discrete.html'>scale_(x|y)_discrete()</a>.</p>
+<a href='scale_discrete.html'>scale_(x|y)_discrete()</a>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>guide_axis</span><span class='op'>(</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>guide_axis</span><span class='op'>(</span>
   title <span class='op'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span><span class='op'>(</span><span class='op'>)</span>,
   check.overlap <span class='op'>=</span> <span class='cn'>FALSE</span>,
   angle <span class='op'>=</span> <span class='cn'>NULL</span>,
   n.dodge <span class='op'>=</span> <span class='fl'>1</span>,
   order <span class='op'>=</span> <span class='fl'>0</span>,
   position <span class='op'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='op'>)</span></pre>
+<span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -259,7 +265,7 @@ specified in <code><a href='labs.html'>labs()</a></code> is used for the title.<
     </tr>
     <tr>
       <th>angle</th>
-      <td><p>Compared to setting the angle in <code><a href='theme.html'>theme()</a></code> / <code><a href='margin.html'>element_text()</a></code>,
+      <td><p>Compared to setting the angle in <code><a href='theme.html'>theme()</a></code> / <code><a href='element.html'>element_text()</a></code>,
 this also uses some heuristics to automatically pick the <code>hjust</code> and <code>vjust</code> that
 you probably want.</p></td>
     </tr>
@@ -283,21 +289,24 @@ left, or right.</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># plot with overlapping text</span>
-<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>cty</span> <span class='op'>*</span> <span class='fl'>100</span>, <span class='va'>hwy</span> <span class='op'>*</span> <span class='fl'>100</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='fu'><a href='vars.html'>vars</a></span><span class='op'>(</span><span class='va'>class</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'># axis guides can be customized in the scale_* functions or</span>
-<span class='co'># using guides()</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_continuous.html'>scale_x_continuous</a></span><span class='op'>(</span>guide <span class='op'>=</span> <span class='fu'>guide_axis</span><span class='op'>(</span>n.dodge <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='guide_axis-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'>guide_axis</span><span class='op'>(</span>angle <span class='op'>=</span> <span class='fl'>90</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='guide_axis-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># can also be used to add a duplicate guide</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'>guide_axis</span><span class='op'>(</span>n.dodge <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>, y.sec <span class='op'>=</span> <span class='fu'>guide_axis</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='guide_axis-3.png' alt='' width='700' height='433' /></div><div class='input'>
-
-</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='co'># plot with overlapping text</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>cty</span> <span class='op'>*</span> <span class='fl'>100</span>, <span class='va'>hwy</span> <span class='op'>*</span> <span class='fl'>100</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='fu'><a href='vars.html'>vars</a></span><span class='op'>(</span><span class='va'>class</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># axis guides can be customized in the scale_* functions or</span></span>
+<span class='r-in'><span class='co'># using guides()</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_continuous.html'>scale_x_continuous</a></span><span class='op'>(</span>guide <span class='op'>=</span> <span class='fu'>guide_axis</span><span class='op'>(</span>n.dodge <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='guide_axis-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'>guide_axis</span><span class='op'>(</span>angle <span class='op'>=</span> <span class='fl'>90</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='guide_axis-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># can also be used to add a duplicate guide</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='guides.html'>guides</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'>guide_axis</span><span class='op'>(</span>n.dodge <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>, y.sec <span class='op'>=</span> <span class='fu'>guide_axis</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='guide_axis-3.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -314,7 +323,7 @@ left, or right.</p></td>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -341,6 +350,8 @@ left, or right.</p></td>
 </script>
 
 
+
+  
 
   </body>
 </html>

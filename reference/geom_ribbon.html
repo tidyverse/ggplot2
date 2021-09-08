@@ -85,9 +85,15 @@ of ymax." />
   gtag('config', 'UA-115082821-1');
 </script>
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -235,7 +241,7 @@ by <code>ymin</code> and <code>ymax</code>. <code>geom_area()</code> is a specia
 of <code>ymax</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>geom_ribbon</span><span class='op'>(</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>geom_ribbon</span><span class='op'>(</span>
   mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
   data <span class='op'>=</span> <span class='cn'>NULL</span>,
   stat <span class='op'>=</span> <span class='st'>"identity"</span>,
@@ -259,7 +265,7 @@ of <code>ymax</code>.</p>
   inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>,
   <span class='va'>...</span>,
   outline.type <span class='op'>=</span> <span class='st'>"upper"</span>
-<span class='op'>)</span></pre>
+<span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -368,26 +374,30 @@ see the individual pattern as you move up the stack. See
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='geom_bar.html'>geom_bar()</a></code> for discrete intervals (bars),
-<code><a href='geom_crossbar.html'>geom_linerange()</a></code> for discrete intervals (lines),
+<code><a href='geom_linerange.html'>geom_linerange()</a></code> for discrete intervals (lines),
 <code><a href='geom_polygon.html'>geom_polygon()</a></code> for general polygons</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Generate data</span>
-<span class='va'>huron</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>year <span class='op'>=</span> <span class='fl'>1875</span><span class='op'>:</span><span class='fl'>1972</span>, level <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/vector.html'>as.vector</a></span><span class='op'>(</span><span class='va'>LakeHuron</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>h</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>huron</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>year</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='va'>h</span> <span class='op'>+</span> <span class='fu'>geom_ribbon</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>ymin<span class='op'>=</span><span class='fl'>0</span>, ymax<span class='op'>=</span><span class='va'>level</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_ribbon-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>h</span> <span class='op'>+</span> <span class='fu'>geom_area</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>level</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_ribbon-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Orientation cannot be deduced by mapping, so must be given explicitly for</span>
-<span class='co'># flipped orientation</span>
-<span class='va'>h</span> <span class='op'>+</span> <span class='fu'>geom_area</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>level</span>, y <span class='op'>=</span> <span class='va'>year</span><span class='op'>)</span>, orientation <span class='op'>=</span> <span class='st'>"y"</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_ribbon-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Add aesthetic mappings</span>
-<span class='va'>h</span> <span class='op'>+</span>
-  <span class='fu'>geom_ribbon</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>ymin <span class='op'>=</span> <span class='va'>level</span> <span class='op'>-</span> <span class='fl'>1</span>, ymax <span class='op'>=</span> <span class='va'>level</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>)</span>, fill <span class='op'>=</span> <span class='st'>"grey70"</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>level</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_ribbon-4.png' alt='' width='700' height='433' /></div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='co'># Generate data</span></span>
+<span class='r-in'><span class='va'>huron</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>year <span class='op'>=</span> <span class='fl'>1875</span><span class='op'>:</span><span class='fl'>1972</span>, level <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/vector.html'>as.vector</a></span><span class='op'>(</span><span class='va'>LakeHuron</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>h</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>huron</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>year</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>h</span> <span class='op'>+</span> <span class='fu'>geom_ribbon</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>ymin<span class='op'>=</span><span class='fl'>0</span>, ymax<span class='op'>=</span><span class='va'>level</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='geom_ribbon-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>h</span> <span class='op'>+</span> <span class='fu'>geom_area</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>level</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='geom_ribbon-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Orientation cannot be deduced by mapping, so must be given explicitly for</span></span>
+<span class='r-in'><span class='co'># flipped orientation</span></span>
+<span class='r-in'><span class='va'>h</span> <span class='op'>+</span> <span class='fu'>geom_area</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>level</span>, y <span class='op'>=</span> <span class='va'>year</span><span class='op'>)</span>, orientation <span class='op'>=</span> <span class='st'>"y"</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='geom_ribbon-3.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Add aesthetic mappings</span></span>
+<span class='r-in'><span class='va'>h</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>geom_ribbon</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>ymin <span class='op'>=</span> <span class='va'>level</span> <span class='op'>-</span> <span class='fl'>1</span>, ymax <span class='op'>=</span> <span class='va'>level</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>)</span>, fill <span class='op'>=</span> <span class='st'>"grey70"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>level</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='geom_ribbon-4.png' alt='' width='700' height='433' /></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -404,7 +414,7 @@ see the individual pattern as you move up the stack. See
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -431,6 +441,8 @@ see the individual pattern as you move up the stack. See
 </script>
 
 
+
+  
 
   </body>
 </html>

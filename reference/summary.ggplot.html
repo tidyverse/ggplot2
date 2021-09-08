@@ -82,9 +82,15 @@
   gtag('config', 'UA-115082821-1');
 </script>
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -229,8 +235,8 @@
     <p>Displays a useful description of a ggplot object</p>
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for ggplot</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='co'># S3 method for ggplot</span>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -247,32 +253,33 @@
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>wt</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; data: mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb [32x11]
-#&gt; mapping:  x = ~mpg, y = ~wt
-#&gt; faceting: &lt;ggproto object: Class FacetNull, Facet, gg&gt;
-#&gt;     compute_layout: function
-#&gt;     draw_back: function
-#&gt;     draw_front: function
-#&gt;     draw_labels: function
-#&gt;     draw_panels: function
-#&gt;     finish_data: function
-#&gt;     init_scales: function
-#&gt;     map_data: function
-#&gt;     params: list
-#&gt;     setup_data: function
-#&gt;     setup_params: function
-#&gt;     shrink: TRUE
-#&gt;     train_scales: function
-#&gt;     vars: function
-#&gt;     super:  &lt;ggproto object: Class FacetNull, Facet, gg&gt;
-#&gt; -----------------------------------
-#&gt; geom_point: na.rm = FALSE
-#&gt; stat_identity: na.rm = FALSE
-#&gt; position_identity 
-#&gt; </div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>wt</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> data: mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb [32x11]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> mapping:  x = ~mpg, y = ~wt</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> faceting: &lt;ggproto object: Class FacetNull, Facet, gg&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     compute_layout: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     draw_back: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     draw_front: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     draw_labels: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     draw_panels: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     finish_data: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     init_scales: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     map_data: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     params: list</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     setup_data: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     setup_params: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     shrink: TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     train_scales: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     vars: function</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     super:  &lt;ggproto object: Class FacetNull, Facet, gg&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> -----------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> geom_point: na.rm = FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> stat_identity: na.rm = FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> position_identity </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -289,7 +296,7 @@
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -316,6 +323,8 @@
 </script>
 
 
+
+  
 
   </body>
 </html>

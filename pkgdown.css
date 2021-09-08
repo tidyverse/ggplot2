@@ -264,21 +264,16 @@ table {
 
 /* Syntax highlighting ---------------------------------------------------- */
 
-pre {
-  word-wrap: normal;
-  word-break: normal;
-  border: 1px solid #eee;
-}
-
-pre, code {
+pre, pre code {
   background-color: #f8f8f8;
   color: #333;
+  white-space: pre-wrap;
+  word-break: break-all;
+  overflow-wrap: break-word;
 }
 
-pre code {
-  overflow: auto;
-  word-wrap: normal;
-  white-space: pre;
+pre {
+  border: 1px solid #eee;
 }
 
 pre .img {
@@ -305,9 +300,8 @@ a.sourceLine:hover {
 .kw      {color: #264D66;} /* keyword */
 .co      {color: #888888;} /* comment */
 
-.message { color: black;   font-weight: bolder;}
-.error   { color: orange;  font-weight: bolder;}
-.warning { color: #6A0366; font-weight: bolder;}
+.error   {font-weight: bolder;}
+.warning {font-weight: bolder;}
 
 /* Clipboard --------------------------*/
 

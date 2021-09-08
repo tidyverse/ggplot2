@@ -87,9 +87,15 @@ smaller areas closer to the equator." />
   gtag('config', 'UA-115082821-1');
 </script>
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -239,7 +245,7 @@ quick approximation that does preserve straight lines. It works best for
 smaller areas closer to the equator.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>coord_map</span><span class='op'>(</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>coord_map</span><span class='op'>(</span>
   projection <span class='op'>=</span> <span class='st'>"mercator"</span>,
   <span class='va'>...</span>,
   parameters <span class='op'>=</span> <span class='cn'>NULL</span>,
@@ -249,7 +255,7 @@ smaller areas closer to the equator.</p>
   clip <span class='op'>=</span> <span class='st'>"on"</span>
 <span class='op'>)</span>
 
-<span class='fu'>coord_quickmap</span><span class='op'>(</span>xlim <span class='op'>=</span> <span class='cn'>NULL</span>, ylim <span class='op'>=</span> <span class='cn'>NULL</span>, expand <span class='op'>=</span> <span class='cn'>TRUE</span>, clip <span class='op'>=</span> <span class='st'>"on"</span><span class='op'>)</span></pre>
+<span class='fu'>coord_quickmap</span><span class='op'>(</span>xlim <span class='op'>=</span> <span class='cn'>NULL</span>, ylim <span class='op'>=</span> <span class='cn'>NULL</span>, expand <span class='op'>=</span> <span class='cn'>TRUE</span>, clip <span class='op'>=</span> <span class='st'>"on"</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -269,7 +275,7 @@ the projection, and <code>parameters</code> for unnamed parameters.
     <tr>
       <th>orientation</th>
       <td><p>projection orientation, which defaults to
-<code><a href='https://rdrr.io/r/base/c.html'>c(90, 0, mean(range(x)))</a></code>.  This is not optimal for many
+<code>c(90, 0, mean(range(x)))</code>.  This is not optimal for many
 projections, so you will have to supply your own. See
 <code><a href='https://rdrr.io/pkg/mapproj/man/mapproject.html'>mapproj::mapproject()</a></code> for more information.</p></td>
     </tr>
@@ -303,92 +309,102 @@ towards infinity because the length of one degree of longitude tends towards
 poles, setting the aspect ratio of the plot to the appropriate lat/lon ratio
 approximates the usual mercator projection. This is what
 <code>coord_quickmap()</code> does, and is much faster (particularly for complex
-plots like <code><a href='geom_raster.html'>geom_tile()</a></code>) at the expense of correctness.</p>
+plots like <code><a href='geom_tile.html'>geom_tile()</a></code>) at the expense of correctness.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'>"maps"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='va'>nz</span> <span class='op'>&lt;-</span> <span class='fu'><a href='map_data.html'>map_data</a></span><span class='op'>(</span><span class='st'>"nz"</span><span class='op'>)</span>
-<span class='co'># Prepare a map of NZ</span>
-<span class='va'>nzmap</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>nz</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>long</span>, y <span class='op'>=</span> <span class='va'>lat</span>, group <span class='op'>=</span> <span class='va'>group</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_polygon.html'>geom_polygon</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='st'>"white"</span>, colour <span class='op'>=</span> <span class='st'>"black"</span><span class='op'>)</span>
-
-<span class='co'># Plot it in cartesian coordinates</span>
-<span class='va'>nzmap</span>
-<span class='op'>}</span>
-</div><div class='img'><img src='coord_map-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'>"maps"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'># With correct mercator projection</span>
-<span class='va'>nzmap</span> <span class='op'>+</span> <span class='fu'>coord_map</span><span class='op'>(</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div><div class='img'><img src='coord_map-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'>"maps"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'># With the aspect ratio approximation</span>
-<span class='va'>nzmap</span> <span class='op'>+</span> <span class='fu'>coord_quickmap</span><span class='op'>(</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div><div class='img'><img src='coord_map-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'>"maps"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'># Other projections</span>
-<span class='va'>nzmap</span> <span class='op'>+</span> <span class='fu'>coord_map</span><span class='op'>(</span><span class='st'>"azequalarea"</span>, orientation <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>36.92</span>, <span class='fl'>174.6</span>, <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div><div class='img'><img src='coord_map-4.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'>"maps"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='va'>states</span> <span class='op'>&lt;-</span> <span class='fu'><a href='map_data.html'>map_data</a></span><span class='op'>(</span><span class='st'>"state"</span><span class='op'>)</span>
-<span class='va'>usamap</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>states</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>long</span>, <span class='va'>lat</span>, group <span class='op'>=</span> <span class='va'>group</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_polygon.html'>geom_polygon</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='st'>"white"</span>, colour <span class='op'>=</span> <span class='st'>"black"</span><span class='op'>)</span>
-
-<span class='co'># Use cartesian coordinates</span>
-<span class='va'>usamap</span>
-<span class='op'>}</span>
-</div><div class='img'><img src='coord_map-5.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'>"maps"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'># With mercator projection</span>
-<span class='va'>usamap</span> <span class='op'>+</span> <span class='fu'>coord_map</span><span class='op'>(</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div><div class='img'><img src='coord_map-6.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'>"maps"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'># See ?mapproject for coordinate systems and their parameters</span>
-<span class='va'>usamap</span> <span class='op'>+</span> <span class='fu'>coord_map</span><span class='op'>(</span><span class='st'>"gilbert"</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div><div class='img'><img src='coord_map-7.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'>"maps"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'># For most projections, you'll need to set the orientation yourself</span>
-<span class='co'># as the automatic selection done by mapproject is not available to</span>
-<span class='co'># ggplot</span>
-<span class='va'>usamap</span> <span class='op'>+</span> <span class='fu'>coord_map</span><span class='op'>(</span><span class='st'>"orthographic"</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div><div class='img'><img src='coord_map-8.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'>"maps"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='va'>usamap</span> <span class='op'>+</span> <span class='fu'>coord_map</span><span class='op'>(</span><span class='st'>"conic"</span>, lat0 <span class='op'>=</span> <span class='fl'>30</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div><div class='img'><img src='coord_map-9.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'>"maps"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='va'>usamap</span> <span class='op'>+</span> <span class='fu'>coord_map</span><span class='op'>(</span><span class='st'>"bonne"</span>, lat0 <span class='op'>=</span> <span class='fl'>50</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div><div class='img'><img src='coord_map-10.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'>"maps"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'># World map, using geom_path instead of geom_polygon</span>
-<span class='va'>world</span> <span class='op'>&lt;-</span> <span class='fu'><a href='map_data.html'>map_data</a></span><span class='op'>(</span><span class='st'>"world"</span><span class='op'>)</span>
-<span class='va'>worldmap</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>world</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>long</span>, y <span class='op'>=</span> <span class='va'>lat</span>, group <span class='op'>=</span> <span class='va'>group</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_path.html'>geom_path</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='scale_continuous.html'>scale_y_continuous</a></span><span class='op'>(</span>breaks <span class='op'>=</span> <span class='op'>(</span><span class='op'>-</span><span class='fl'>2</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>)</span> <span class='op'>*</span> <span class='fl'>30</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='scale_continuous.html'>scale_x_continuous</a></span><span class='op'>(</span>breaks <span class='op'>=</span> <span class='op'>(</span><span class='op'>-</span><span class='fl'>4</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>)</span> <span class='op'>*</span> <span class='fl'>45</span><span class='op'>)</span>
-
-<span class='co'># Orthographic projection with default orientation (looking down at North pole)</span>
-<span class='va'>worldmap</span> <span class='op'>+</span> <span class='fu'>coord_map</span><span class='op'>(</span><span class='st'>"ortho"</span><span class='op'>)</span>
-<span class='op'>}</span>
-
-<span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'>"maps"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'># Looking up up at South Pole</span>
-<span class='va'>worldmap</span> <span class='op'>+</span> <span class='fu'>coord_map</span><span class='op'>(</span><span class='st'>"ortho"</span>, orientation <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>90</span>, <span class='fl'>0</span>, <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
-<span class='op'>}</span>
-
-<span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'>"maps"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'># Centered on New York (currently has issues with closing polygons)</span>
-<span class='va'>worldmap</span> <span class='op'>+</span> <span class='fu'>coord_map</span><span class='op'>(</span><span class='st'>"ortho"</span>, orientation <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>41</span>, <span class='op'>-</span><span class='fl'>74</span>, <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
-<span class='op'>}</span>
-<span class='op'>}</span>
-</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'>"maps"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='va'>nz</span> <span class='op'>&lt;-</span> <span class='fu'><a href='map_data.html'>map_data</a></span><span class='op'>(</span><span class='st'>"nz"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># Prepare a map of NZ</span></span>
+<span class='r-in'><span class='va'>nzmap</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>nz</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>long</span>, y <span class='op'>=</span> <span class='va'>lat</span>, group <span class='op'>=</span> <span class='va'>group</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='geom_polygon.html'>geom_polygon</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='st'>"white"</span>, colour <span class='op'>=</span> <span class='st'>"black"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Plot it in cartesian coordinates</span></span>
+<span class='r-in'><span class='va'>nzmap</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-plt'><img src='coord_map-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'>"maps"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='co'># With correct mercator projection</span></span>
+<span class='r-in'><span class='va'>nzmap</span> <span class='op'>+</span> <span class='fu'>coord_map</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-plt'><img src='coord_map-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'>"maps"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='co'># With the aspect ratio approximation</span></span>
+<span class='r-in'><span class='va'>nzmap</span> <span class='op'>+</span> <span class='fu'>coord_quickmap</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-plt'><img src='coord_map-3.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'>"maps"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='co'># Other projections</span></span>
+<span class='r-in'><span class='va'>nzmap</span> <span class='op'>+</span> <span class='fu'>coord_map</span><span class='op'>(</span><span class='st'>"azequalarea"</span>, orientation <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>36.92</span>, <span class='fl'>174.6</span>, <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-plt'><img src='coord_map-4.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'>"maps"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='va'>states</span> <span class='op'>&lt;-</span> <span class='fu'><a href='map_data.html'>map_data</a></span><span class='op'>(</span><span class='st'>"state"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>usamap</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>states</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>long</span>, <span class='va'>lat</span>, group <span class='op'>=</span> <span class='va'>group</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='geom_polygon.html'>geom_polygon</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='st'>"white"</span>, colour <span class='op'>=</span> <span class='st'>"black"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Use cartesian coordinates</span></span>
+<span class='r-in'><span class='va'>usamap</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-plt'><img src='coord_map-5.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'>"maps"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='co'># With mercator projection</span></span>
+<span class='r-in'><span class='va'>usamap</span> <span class='op'>+</span> <span class='fu'>coord_map</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-plt'><img src='coord_map-6.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'>"maps"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='co'># See ?mapproject for coordinate systems and their parameters</span></span>
+<span class='r-in'><span class='va'>usamap</span> <span class='op'>+</span> <span class='fu'>coord_map</span><span class='op'>(</span><span class='st'>"gilbert"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-plt'><img src='coord_map-7.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'>"maps"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='co'># For most projections, you'll need to set the orientation yourself</span></span>
+<span class='r-in'><span class='co'># as the automatic selection done by mapproject is not available to</span></span>
+<span class='r-in'><span class='co'># ggplot</span></span>
+<span class='r-in'><span class='va'>usamap</span> <span class='op'>+</span> <span class='fu'>coord_map</span><span class='op'>(</span><span class='st'>"orthographic"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-plt'><img src='coord_map-8.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'>"maps"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='va'>usamap</span> <span class='op'>+</span> <span class='fu'>coord_map</span><span class='op'>(</span><span class='st'>"conic"</span>, lat0 <span class='op'>=</span> <span class='fl'>30</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-plt'><img src='coord_map-9.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'>"maps"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='va'>usamap</span> <span class='op'>+</span> <span class='fu'>coord_map</span><span class='op'>(</span><span class='st'>"bonne"</span>, lat0 <span class='op'>=</span> <span class='fl'>50</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-plt'><img src='coord_map-10.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'>"maps"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='co'># World map, using geom_path instead of geom_polygon</span></span>
+<span class='r-in'><span class='va'>world</span> <span class='op'>&lt;-</span> <span class='fu'><a href='map_data.html'>map_data</a></span><span class='op'>(</span><span class='st'>"world"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>worldmap</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>world</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>long</span>, y <span class='op'>=</span> <span class='va'>lat</span>, group <span class='op'>=</span> <span class='va'>group</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='geom_path.html'>geom_path</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='scale_continuous.html'>scale_y_continuous</a></span><span class='op'>(</span>breaks <span class='op'>=</span> <span class='op'>(</span><span class='op'>-</span><span class='fl'>2</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>)</span> <span class='op'>*</span> <span class='fl'>30</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='scale_continuous.html'>scale_x_continuous</a></span><span class='op'>(</span>breaks <span class='op'>=</span> <span class='op'>(</span><span class='op'>-</span><span class='fl'>4</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>)</span> <span class='op'>*</span> <span class='fl'>45</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Orthographic projection with default orientation (looking down at North pole)</span></span>
+<span class='r-in'><span class='va'>worldmap</span> <span class='op'>+</span> <span class='fu'>coord_map</span><span class='op'>(</span><span class='st'>"ortho"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'>"maps"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='co'># Looking up up at South Pole</span></span>
+<span class='r-in'><span class='va'>worldmap</span> <span class='op'>+</span> <span class='fu'>coord_map</span><span class='op'>(</span><span class='st'>"ortho"</span>, orientation <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>90</span>, <span class='fl'>0</span>, <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'>"maps"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='co'># Centered on New York (currently has issues with closing polygons)</span></span>
+<span class='r-in'><span class='va'>worldmap</span> <span class='op'>+</span> <span class='fu'>coord_map</span><span class='op'>(</span><span class='st'>"ortho"</span>, orientation <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>41</span>, <span class='op'>-</span><span class='fl'>74</span>, <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -405,7 +421,7 @@ plots like <code><a href='geom_raster.html'>geom_tile()</a></code>) at the expen
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -432,6 +448,8 @@ plots like <code><a href='geom_raster.html'>geom_tile()</a></code>) at the expen
 </script>
 
 
+
+  
 
   </body>
 </html>

@@ -84,9 +84,15 @@ work at each step." />
   gtag('config', 'UA-115082821-1');
 </script>
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -228,15 +234,15 @@ work at each step." />
     </div>
 
     <div class="ref-description">
-    <p><code><a href='https://rdrr.io/r/base/Arithmetic.html'>+</a></code> is the key to constructing sophisticated ggplot2 graphics. It
+    <p><code>+</code> is the key to constructing sophisticated ggplot2 graphics. It
 allows you to start simple, then get more and more complex, checking your
 work at each step.</p>
     </div>
 
-    <pre class="usage"># S3 method for gg
+    <div class="ref-usage sourceCode"><pre><code># S3 method for gg
 +(e1, e2)
 
-e1 %+% e2</pre>
+e1 %+% e2</code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -274,18 +280,23 @@ be added in turn.</p>
     <div class='dont-index'><p><code><a href='theme.html'>theme()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>base</span> <span class='op'>&lt;-</span>
- <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>displ</span>, <span class='va'>hwy</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
- <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='va'>base</span> <span class='op'>+</span> <span class='fu'><a href='geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='gg-add-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># To override the data, you must use %+%</span>
-<span class='va'>base</span> <span class='op'>%+%</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>fl</span> <span class='op'>==</span> <span class='st'>"p"</span><span class='op'>)</span>
-</div><div class='img'><img src='gg-add-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Alternatively, you can add multiple components with a list.</span>
-<span class='co'># This can be useful to return from a function.</span>
-<span class='va'>base</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>fl</span> <span class='op'>==</span> <span class='st'>"p"</span><span class='op'>)</span>, <span class='fu'><a href='geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='gg-add-3.png' alt='' width='700' height='433' /></div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='va'>base</span> <span class='op'>&lt;-</span></span>
+<span class='r-in'> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>displ</span>, <span class='va'>hwy</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>base</span> <span class='op'>+</span> <span class='fu'><a href='geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> `geom_smooth()` using method = 'loess' and formula 'y ~ x'</span>
+<span class='r-plt'><img src='gg-add-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># To override the data, you must use %+%</span></span>
+<span class='r-in'><span class='va'>base</span> <span class='op'>%+%</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>fl</span> <span class='op'>==</span> <span class='st'>"p"</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='gg-add-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Alternatively, you can add multiple components with a list.</span></span>
+<span class='r-in'><span class='co'># This can be useful to return from a function.</span></span>
+<span class='r-in'><span class='va'>base</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>fl</span> <span class='op'>==</span> <span class='st'>"p"</span><span class='op'>)</span>, <span class='fu'><a href='geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> `geom_smooth()` using method = 'loess' and formula 'y ~ x'</span>
+<span class='r-plt'><img src='gg-add-3.png' alt='' width='700' height='433' /></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -302,7 +313,7 @@ be added in turn.</p>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -329,6 +340,8 @@ be added in turn.</p>
 </script>
 
 
+
+  
 
   </body>
 </html>

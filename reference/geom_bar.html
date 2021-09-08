@@ -88,9 +88,15 @@ uses stat_identity(): it leaves the data as is." />
   gtag('config', 'UA-115082821-1');
 </script>
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -241,7 +247,7 @@ default: it counts the number of cases at each x position. <code>geom_col()</cod
 uses <code><a href='stat_identity.html'>stat_identity()</a></code>: it leaves the data as is.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>geom_bar</span><span class='op'>(</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>geom_bar</span><span class='op'>(</span>
   mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
   data <span class='op'>=</span> <span class='cn'>NULL</span>,
   stat <span class='op'>=</span> <span class='st'>"count"</span>,
@@ -276,7 +282,7 @@ uses <code><a href='stat_identity.html'>stat_identity()</a></code>: it leaves th
   orientation <span class='op'>=</span> <span class='cn'>NA</span>,
   show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
   inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>
-<span class='op'>)</span></pre>
+<span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -416,53 +422,62 @@ bars and then standardising each bar to have the same height.</p>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='geom_freqpoly.html'>geom_histogram()</a></code> for continuous data,
+    <div class='dont-index'><p><code><a href='geom_histogram.html'>geom_histogram()</a></code> for continuous data,
 <code><a href='position_dodge.html'>position_dodge()</a></code> and <code><a href='position_dodge.html'>position_dodge2()</a></code> for creating side-by-side
 bar charts.</p>
-<p><code><a href='geom_freqpoly.html'>stat_bin()</a></code>, which bins data in ranges and counts the
+<p><code><a href='geom_histogram.html'>stat_bin()</a></code>, which bins data in ranges and counts the
 cases in each range. It differs from <code>stat_count()</code>, which counts the
 number of cases at each <code>x</code> position (without binning into ranges).
-<code><a href='geom_freqpoly.html'>stat_bin()</a></code> requires continuous <code>x</code> data, whereas
+<code><a href='geom_histogram.html'>stat_bin()</a></code> requires continuous <code>x</code> data, whereas
 <code>stat_count()</code> can be used for both discrete and continuous <code>x</code> data.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># geom_bar is designed to make it easy to create bar charts that show</span>
-<span class='co'># counts (or sums of weights)</span>
-<span class='va'>g</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>class</span><span class='op'>)</span><span class='op'>)</span>
-<span class='co'># Number of cars in each class:</span>
-<span class='va'>g</span> <span class='op'>+</span> <span class='fu'>geom_bar</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_bar-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Total engine displacement of each class</span>
-<span class='va'>g</span> <span class='op'>+</span> <span class='fu'>geom_bar</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>displ</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_bar-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Map class to y instead to flip the orientation</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>geom_bar</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>class</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_bar-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Bar charts are automatically stacked when multiple bars are placed</span>
-<span class='co'># at the same location. The order of the fill is designed to match</span>
-<span class='co'># the legend</span>
-<span class='va'>g</span> <span class='op'>+</span> <span class='fu'>geom_bar</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>drv</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_bar-4.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># If you need to flip the order (because you've flipped the orientation)</span>
-<span class='co'># call position_stack() explicitly:</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>class</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
- <span class='fu'>geom_bar</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>drv</span><span class='op'>)</span>, position <span class='op'>=</span> <span class='fu'><a href='position_stack.html'>position_stack</a></span><span class='op'>(</span>reverse <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
- <span class='fu'><a href='theme.html'>theme</a></span><span class='op'>(</span>legend.position <span class='op'>=</span> <span class='st'>"top"</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_bar-5.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># To show (e.g.) means, you need geom_col()</span>
-<span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>trt <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"c"</span><span class='op'>)</span>, outcome <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2.3</span>, <span class='fl'>1.9</span>, <span class='fl'>3.2</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>trt</span>, <span class='va'>outcome</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_col</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_bar-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># But geom_point() displays exactly the same information and doesn't</span>
-<span class='co'># require the y-axis to touch zero.</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>trt</span>, <span class='va'>outcome</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_bar-7.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># You can also use geom_bar() with continuous data, in which case</span>
-<span class='co'># it will show counts at unique locations</span>
-<span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2.9</span>, <span class='fl'>3.1</span>, <span class='fl'>4.5</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>, <span class='fl'>10</span>, <span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>geom_bar</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_bar-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># cf. a histogram of the same data</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_freqpoly.html'>geom_histogram</a></span><span class='op'>(</span>binwidth <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_bar-9.png' alt='' width='700' height='433' /></div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='co'># geom_bar is designed to make it easy to create bar charts that show</span></span>
+<span class='r-in'><span class='co'># counts (or sums of weights)</span></span>
+<span class='r-in'><span class='va'>g</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>class</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># Number of cars in each class:</span></span>
+<span class='r-in'><span class='va'>g</span> <span class='op'>+</span> <span class='fu'>geom_bar</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='geom_bar-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='co'># Total engine displacement of each class</span></span>
+<span class='r-in'><span class='va'>g</span> <span class='op'>+</span> <span class='fu'>geom_bar</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>displ</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='geom_bar-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='co'># Map class to y instead to flip the orientation</span></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>geom_bar</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>class</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='geom_bar-3.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Bar charts are automatically stacked when multiple bars are placed</span></span>
+<span class='r-in'><span class='co'># at the same location. The order of the fill is designed to match</span></span>
+<span class='r-in'><span class='co'># the legend</span></span>
+<span class='r-in'><span class='va'>g</span> <span class='op'>+</span> <span class='fu'>geom_bar</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>drv</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='geom_bar-4.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># If you need to flip the order (because you've flipped the orientation)</span></span>
+<span class='r-in'><span class='co'># call position_stack() explicitly:</span></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>class</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'> <span class='fu'>geom_bar</span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>drv</span><span class='op'>)</span>, position <span class='op'>=</span> <span class='fu'><a href='position_stack.html'>position_stack</a></span><span class='op'>(</span>reverse <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'> <span class='fu'><a href='theme.html'>theme</a></span><span class='op'>(</span>legend.position <span class='op'>=</span> <span class='st'>"top"</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='geom_bar-5.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># To show (e.g.) means, you need geom_col()</span></span>
+<span class='r-in'><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>trt <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"c"</span><span class='op'>)</span>, outcome <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2.3</span>, <span class='fl'>1.9</span>, <span class='fl'>3.2</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>trt</span>, <span class='va'>outcome</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>geom_col</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='geom_bar-6.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='co'># But geom_point() displays exactly the same information and doesn't</span></span>
+<span class='r-in'><span class='co'># require the y-axis to touch zero.</span></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>trt</span>, <span class='va'>outcome</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='geom_bar-7.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># You can also use geom_bar() with continuous data, in which case</span></span>
+<span class='r-in'><span class='co'># it will show counts at unique locations</span></span>
+<span class='r-in'><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2.9</span>, <span class='fl'>3.1</span>, <span class='fl'>4.5</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>, <span class='fl'>10</span>, <span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>geom_bar</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='geom_bar-8.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='co'># cf. a histogram of the same data</span></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_histogram.html'>geom_histogram</a></span><span class='op'>(</span>binwidth <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='geom_bar-9.png' alt='' width='700' height='433' /></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -479,7 +494,7 @@ number of cases at each <code>x</code> position (without binning into ranges).
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -506,6 +521,8 @@ number of cases at each <code>x</code> position (without binning into ranges).
 </script>
 
 
+
+  
 
   </body>
 </html>

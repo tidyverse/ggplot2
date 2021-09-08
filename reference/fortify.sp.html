@@ -83,9 +83,15 @@ as.data.frame(model)." />
   gtag('config', 'UA-115082821-1');
 </script>
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -228,10 +234,10 @@ as.data.frame(model)." />
 
     <div class="ref-description">
     <p>To figure out the correct variable name for region, inspect
-<code><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame(model)</a></code>.</p>
+<code>as.data.frame(model)</code>.</p>
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for SpatialPolygonsDataFrame</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='co'># S3 method for SpatialPolygonsDataFrame</span>
 <span class='fu'><a href='fortify.html'>fortify</a></span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>data</span>, region <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for SpatialPolygons</span>
@@ -250,7 +256,7 @@ as.data.frame(model)." />
 <span class='fu'><a href='fortify.html'>fortify</a></span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>data</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for Line</span>
-<span class='fu'><a href='fortify.html'>fortify</a></span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>data</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'><a href='fortify.html'>fortify</a></span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>data</span>, <span class='va'>...</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -275,13 +281,21 @@ as.data.frame(model)." />
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'><a href='http://maptools.r-forge.r-project.org/'>"maptools"</a></span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
- <span class='va'>sids</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"shapes/sids.shp"</span>, package<span class='op'>=</span><span class='st'>"maptools"</span><span class='op'>)</span>
- <span class='va'>nc1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='http://maptools.r-forge.r-project.org/reference/readShapePoly.html'>readShapePoly</a></span><span class='op'>(</span><span class='va'>sids</span>,
-   proj4string <span class='op'>=</span> <span class='fu'>CRS</span><span class='op'>(</span><span class='st'>"+proj=longlat +datum=NAD27"</span><span class='op'>)</span><span class='op'>)</span>
- <span class='va'>nc1_df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fortify.html'>fortify</a></span><span class='op'>(</span><span class='va'>nc1</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div><div class='output co'>#&gt; <span class='message'>Loading required package: maptools</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: sp</span></div><div class='output co'>#&gt; <span class='message'>Checking rgeos availability: TRUE</span></div><div class='output co'>#&gt; <span class='warning'>Warning: readShapePoly is deprecated; use rgdal::readOGR or sf::st_read</span></div><div class='output co'>#&gt; <span class='message'>Regions defined for each Polygons</span></div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'><a href='http://maptools.r-forge.r-project.org/'>"maptools"</a></span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'> <span class='va'>sids</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"shapes/sids.shp"</span>, package<span class='op'>=</span><span class='st'>"maptools"</span><span class='op'>)</span></span>
+<span class='r-in'> <span class='va'>nc1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='http://maptools.r-forge.r-project.org/reference/readShapePoly.html'>readShapePoly</a></span><span class='op'>(</span><span class='va'>sids</span>,</span>
+<span class='r-in'>   proj4string <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/sp/man/CRS-class.html'>CRS</a></span><span class='op'>(</span><span class='st'>"+proj=longlat +datum=NAD27"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'> <span class='va'>nc1_df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fortify.html'>fortify</a></span><span class='op'>(</span><span class='va'>nc1</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Loading required package: maptools</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Loading required package: sp</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Checking rgeos availability: TRUE</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Please note that 'maptools' will be retired by the end of 2023,</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> plan transition at your earliest convenience;</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> some functionality will be moved to 'sp'.</span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>readShapePoly is deprecated; use rgdal::readOGR or sf::st_read</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Regions defined for each Polygons</span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -298,7 +312,7 @@ as.data.frame(model)." />
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -325,6 +339,8 @@ as.data.frame(model)." />
 </script>
 
 
+
+  
 
   </body>
 </html>

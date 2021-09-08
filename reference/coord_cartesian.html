@@ -85,9 +85,15 @@ change the underlying data like setting limits on a scale will." />
   gtag('config', 'UA-115082821-1');
 </script>
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -235,13 +241,13 @@ plot (like you're looking at it with a magnifying glass), and will not
 change the underlying data like setting limits on a scale will.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>coord_cartesian</span><span class='op'>(</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>coord_cartesian</span><span class='op'>(</span>
   xlim <span class='op'>=</span> <span class='cn'>NULL</span>,
   ylim <span class='op'>=</span> <span class='cn'>NULL</span>,
   expand <span class='op'>=</span> <span class='cn'>TRUE</span>,
   default <span class='op'>=</span> <span class='cn'>FALSE</span>,
   clip <span class='op'>=</span> <span class='st'>"on"</span>
-<span class='op'>)</span></pre>
+<span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -278,43 +284,59 @@ legend, the plot title, or the plot margins.</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># There are two ways of zooming the plot display: with scales or</span>
-<span class='co'># with coordinate systems.  They work in two rather different ways.</span>
-
-<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>disp</span>, <span class='va'>wt</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='va'>p</span>
-</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='coord_cartesian-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Setting the limits on a scale converts all values outside the range to NA.</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_continuous.html'>scale_x_continuous</a></span><span class='op'>(</span>limits <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>325</span>, <span class='fl'>500</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 24 rows containing non-finite values (stat_smooth).</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 24 rows containing missing values (geom_point).</span></div><div class='img'><img src='coord_cartesian-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Setting the limits on the coordinate system performs a visual zoom.</span>
-<span class='co'># The data is unchanged, and we just view a small portion of the original</span>
-<span class='co'># plot. Note how smooth continues past the points visible on this plot.</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>coord_cartesian</span><span class='op'>(</span>xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>325</span>, <span class='fl'>500</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='coord_cartesian-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># By default, the same expansion factor is applied as when setting scale</span>
-<span class='co'># limits. You can set the limits precisely by setting expand = FALSE</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>coord_cartesian</span><span class='op'>(</span>xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>325</span>, <span class='fl'>500</span><span class='op'>)</span>, expand <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='coord_cartesian-4.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Simiarly, we can use expand = FALSE to turn off expansion with the</span>
-<span class='co'># default limits</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>coord_cartesian</span><span class='op'>(</span>expand <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='coord_cartesian-5.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># You can see the same thing with this 2d histogram</span>
-<span class='va'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>carat</span>, <span class='va'>price</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_bin_2d.html'>stat_bin2d</a></span><span class='op'>(</span>bins <span class='op'>=</span> <span class='fl'>25</span>, colour <span class='op'>=</span> <span class='st'>"white"</span><span class='op'>)</span>
-<span class='va'>d</span>
-</div><div class='img'><img src='coord_cartesian-6.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># When zooming the scale, the we get 25 new bins that are the same</span>
-<span class='co'># size on the plot, but represent smaller regions of the data space</span>
-<span class='va'>d</span> <span class='op'>+</span> <span class='fu'><a href='scale_continuous.html'>scale_x_continuous</a></span><span class='op'>(</span>limits <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 17502 rows containing non-finite values (stat_bin2d).</span></div><div class='img'><img src='coord_cartesian-7.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># When zooming the coordinate system, we see a subset of original 50 bins,</span>
-<span class='co'># displayed bigger</span>
-<span class='va'>d</span> <span class='op'>+</span> <span class='fu'>coord_cartesian</span><span class='op'>(</span>xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='coord_cartesian-8.png' alt='' width='700' height='433' /></div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='co'># There are two ways of zooming the plot display: with scales or</span></span>
+<span class='r-in'><span class='co'># with coordinate systems.  They work in two rather different ways.</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>disp</span>, <span class='va'>wt</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>p</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> `geom_smooth()` using method = 'loess' and formula 'y ~ x'</span>
+<span class='r-plt'><img src='coord_cartesian-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Setting the limits on a scale converts all values outside the range to NA.</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='scale_continuous.html'>scale_x_continuous</a></span><span class='op'>(</span>limits <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>325</span>, <span class='fl'>500</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> `geom_smooth()` using method = 'loess' and formula 'y ~ x'</span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>Removed 24 rows containing non-finite values (stat_smooth).</span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>Removed 24 rows containing missing values (geom_point).</span>
+<span class='r-plt'><img src='coord_cartesian-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Setting the limits on the coordinate system performs a visual zoom.</span></span>
+<span class='r-in'><span class='co'># The data is unchanged, and we just view a small portion of the original</span></span>
+<span class='r-in'><span class='co'># plot. Note how smooth continues past the points visible on this plot.</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'>coord_cartesian</span><span class='op'>(</span>xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>325</span>, <span class='fl'>500</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> `geom_smooth()` using method = 'loess' and formula 'y ~ x'</span>
+<span class='r-plt'><img src='coord_cartesian-3.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># By default, the same expansion factor is applied as when setting scale</span></span>
+<span class='r-in'><span class='co'># limits. You can set the limits precisely by setting expand = FALSE</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'>coord_cartesian</span><span class='op'>(</span>xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>325</span>, <span class='fl'>500</span><span class='op'>)</span>, expand <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> `geom_smooth()` using method = 'loess' and formula 'y ~ x'</span>
+<span class='r-plt'><img src='coord_cartesian-4.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Simiarly, we can use expand = FALSE to turn off expansion with the</span></span>
+<span class='r-in'><span class='co'># default limits</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'>coord_cartesian</span><span class='op'>(</span>expand <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> `geom_smooth()` using method = 'loess' and formula 'y ~ x'</span>
+<span class='r-plt'><img src='coord_cartesian-5.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># You can see the same thing with this 2d histogram</span></span>
+<span class='r-in'><span class='va'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>carat</span>, <span class='va'>price</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='geom_bin_2d.html'>stat_bin2d</a></span><span class='op'>(</span>bins <span class='op'>=</span> <span class='fl'>25</span>, colour <span class='op'>=</span> <span class='st'>"white"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>d</span></span>
+<span class='r-plt'><img src='coord_cartesian-6.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># When zooming the scale, the we get 25 new bins that are the same</span></span>
+<span class='r-in'><span class='co'># size on the plot, but represent smaller regions of the data space</span></span>
+<span class='r-in'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'><a href='scale_continuous.html'>scale_x_continuous</a></span><span class='op'>(</span>limits <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>Removed 17502 rows containing non-finite values (stat_bin2d).</span>
+<span class='r-plt'><img src='coord_cartesian-7.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># When zooming the coordinate system, we see a subset of original 50 bins,</span></span>
+<span class='r-in'><span class='co'># displayed bigger</span></span>
+<span class='r-in'><span class='va'>d</span> <span class='op'>+</span> <span class='fu'>coord_cartesian</span><span class='op'>(</span>xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='coord_cartesian-8.png' alt='' width='700' height='433' /></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -331,7 +353,7 @@ legend, the plot title, or the plot margins.</p></td>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -358,6 +380,8 @@ legend, the plot title, or the plot margins.</p></td>
 </script>
 
 
+
+  
 
   </body>
 </html>

@@ -84,9 +84,15 @@ data that comes from an underlying smooth distribution." />
   gtag('config', 'UA-115082821-1');
 </script>
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -233,7 +239,7 @@ the histogram. This is a useful alternative to the histogram for continuous
 data that comes from an underlying smooth distribution.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>geom_density</span><span class='op'>(</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>geom_density</span><span class='op'>(</span>
   mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
   data <span class='op'>=</span> <span class='cn'>NULL</span>,
   stat <span class='op'>=</span> <span class='st'>"density"</span>,
@@ -261,7 +267,7 @@ data that comes from an underlying smooth distribution.</p>
   orientation <span class='op'>=</span> <span class='cn'>NA</span>,
   show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
   inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>
-<span class='op'>)</span></pre>
+<span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -401,52 +407,63 @@ one plot or if you are manually adjusting the scale limits.</p></td>
 plots</p></dd>
 <dt>scaled</dt><dd><p>density estimate, scaled to maximum of 1</p></dd>
 <dt>ndensity</dt><dd><p>alias for <code>scaled</code>, to mirror the syntax of
-<code><a href='geom_freqpoly.html'>stat_bin()</a></code></p></dd>
+<code><a href='geom_histogram.html'>stat_bin()</a></code></p></dd>
 
 </dl>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>See <code><a href='geom_freqpoly.html'>geom_histogram()</a></code>, <code><a href='geom_freqpoly.html'>geom_freqpoly()</a></code> for
+    <div class='dont-index'><p>See <code><a href='geom_histogram.html'>geom_histogram()</a></code>, <code><a href='geom_histogram.html'>geom_freqpoly()</a></code> for
 other methods of displaying continuous distribution.
 See <code><a href='geom_violin.html'>geom_violin()</a></code> for a compact density display.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>carat</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_density</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_density-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Map the values to y to flip the orientation</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>carat</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_density</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_density-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>carat</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_density</span><span class='op'>(</span>adjust <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>5</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_density-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>carat</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_density</span><span class='op'>(</span>adjust <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_density-4.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>depth</span>, colour <span class='op'>=</span> <span class='va'>cut</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_density</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='lims.html'>xlim</a></span><span class='op'>(</span><span class='fl'>55</span>, <span class='fl'>70</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 45 rows containing non-finite values (stat_density).</span></div><div class='img'><img src='geom_density-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>depth</span>, fill <span class='op'>=</span> <span class='va'>cut</span>, colour <span class='op'>=</span> <span class='va'>cut</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_density</span><span class='op'>(</span>alpha <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='lims.html'>xlim</a></span><span class='op'>(</span><span class='fl'>55</span>, <span class='fl'>70</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 45 rows containing non-finite values (stat_density).</span></div><div class='img'><img src='geom_density-6.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># \donttest{</span>
-<span class='co'># Stacked density plots: if you want to create a stacked density plot, you</span>
-<span class='co'># probably want to 'count' (density * n) variable instead of the default</span>
-<span class='co'># density</span>
-
-<span class='co'># Loses marginal densities</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>carat</span>, fill <span class='op'>=</span> <span class='va'>cut</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_density</span><span class='op'>(</span>position <span class='op'>=</span> <span class='st'>"stack"</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_density-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Preserves marginal densities</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>carat</span>, <span class='fu'><a href='aes_eval.html'>after_stat</a></span><span class='op'>(</span><span class='va'>count</span><span class='op'>)</span>, fill <span class='op'>=</span> <span class='va'>cut</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_density</span><span class='op'>(</span>position <span class='op'>=</span> <span class='st'>"stack"</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_density-8.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># You can use position="fill" to produce a conditional density estimate</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>carat</span>, <span class='fu'><a href='aes_eval.html'>after_stat</a></span><span class='op'>(</span><span class='va'>count</span><span class='op'>)</span>, fill <span class='op'>=</span> <span class='va'>cut</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_density</span><span class='op'>(</span>position <span class='op'>=</span> <span class='st'>"fill"</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_density-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
-</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>carat</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>geom_density</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='geom_density-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='co'># Map the values to y to flip the orientation</span></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>carat</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>geom_density</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='geom_density-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>carat</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>geom_density</span><span class='op'>(</span>adjust <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>5</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='geom_density-3.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>carat</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>geom_density</span><span class='op'>(</span>adjust <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='geom_density-4.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>depth</span>, colour <span class='op'>=</span> <span class='va'>cut</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>geom_density</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='lims.html'>xlim</a></span><span class='op'>(</span><span class='fl'>55</span>, <span class='fl'>70</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>Removed 45 rows containing non-finite values (stat_density).</span>
+<span class='r-plt'><img src='geom_density-5.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>depth</span>, fill <span class='op'>=</span> <span class='va'>cut</span>, colour <span class='op'>=</span> <span class='va'>cut</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>geom_density</span><span class='op'>(</span>alpha <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='lims.html'>xlim</a></span><span class='op'>(</span><span class='fl'>55</span>, <span class='fl'>70</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>Removed 45 rows containing non-finite values (stat_density).</span>
+<span class='r-plt'><img src='geom_density-6.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># \donttest{</span></span>
+<span class='r-in'><span class='co'># Stacked density plots: if you want to create a stacked density plot, you</span></span>
+<span class='r-in'><span class='co'># probably want to 'count' (density * n) variable instead of the default</span></span>
+<span class='r-in'><span class='co'># density</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Loses marginal densities</span></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>carat</span>, fill <span class='op'>=</span> <span class='va'>cut</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>geom_density</span><span class='op'>(</span>position <span class='op'>=</span> <span class='st'>"stack"</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='geom_density-7.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='co'># Preserves marginal densities</span></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>carat</span>, <span class='fu'><a href='aes_eval.html'>after_stat</a></span><span class='op'>(</span><span class='va'>count</span><span class='op'>)</span>, fill <span class='op'>=</span> <span class='va'>cut</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>geom_density</span><span class='op'>(</span>position <span class='op'>=</span> <span class='st'>"stack"</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='geom_density-8.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># You can use position="fill" to produce a conditional density estimate</span></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>carat</span>, <span class='fu'><a href='aes_eval.html'>after_stat</a></span><span class='op'>(</span><span class='va'>count</span><span class='op'>)</span>, fill <span class='op'>=</span> <span class='va'>cut</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>geom_density</span><span class='op'>(</span>position <span class='op'>=</span> <span class='st'>"fill"</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='geom_density-9.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='co'># }</span></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -463,7 +480,7 @@ See <code><a href='geom_violin.html'>geom_violin()</a></code> for a compact dens
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -490,6 +507,8 @@ See <code><a href='geom_violin.html'>geom_violin()</a></code> for a compact dens
 </script>
 
 
+
+  
 
   </body>
 </html>

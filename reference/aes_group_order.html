@@ -86,9 +86,15 @@ for each group." />
   gtag('config', 'UA-115082821-1');
 </script>
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -252,65 +258,80 @@ measured on nine occasions (Occasion).</p>
 
     <div class='dont-index'>
 <ul>
-<li><p>Geoms commonly used with groups: <code><a href='geom_bar.html'>geom_bar()</a></code>, <code><a href='geom_freqpoly.html'>geom_histogram()</a></code>, <code><a href='geom_path.html'>geom_line()</a></code></p></li>
+<li><p>Geoms commonly used with groups: <code><a href='geom_bar.html'>geom_bar()</a></code>, <code><a href='geom_histogram.html'>geom_histogram()</a></code>, <code><a href='geom_path.html'>geom_line()</a></code></p></li>
 <li><p>Run <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code> to see an overview of other aesthestics that
 can be modified.</p></li>
 </ul>
 </div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
-
-<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>wt</span>, <span class='va'>mpg</span><span class='op'>)</span><span class='op'>)</span>
-<span class='co'># A basic scatter plot</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span>
-</div><div class='img'><img src='aes_group_order-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Using the colour aesthetic</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span><span class='op'>)</span>, size <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span>
-</div><div class='img'><img src='aes_group_order-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Using the shape aesthetic</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>shape <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span><span class='op'>)</span>, size <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span>
-</div><div class='img'><img src='aes_group_order-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Using fill</span>
-<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_bar.html'>geom_bar</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='img'><img src='aes_group_order-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_bar.html'>geom_bar</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='aes_group_order-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_bar.html'>geom_bar</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>vs</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='aes_group_order-6.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Using linetypes</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>economics_long</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>value01</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>linetype <span class='op'>=</span> <span class='va'>variable</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='aes_group_order-7.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Multiple groups with one aesthetic</span>
-<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'>nlme</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/nlme/man/Oxboys.html'>Oxboys</a></span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>age</span>, <span class='va'>height</span><span class='op'>)</span><span class='op'>)</span>
-<span class='co'># The default is not sufficient here. A single line tries to connect all</span>
-<span class='co'># the observations.</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='img'><img src='aes_group_order-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># To fix this, use the group aesthetic to map a different line for each</span>
-<span class='co'># subject.</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>group <span class='op'>=</span> <span class='va'>Subject</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='aes_group_order-9.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Different groups on different layers</span>
-<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>group <span class='op'>=</span> <span class='va'>Subject</span><span class='op'>)</span><span class='op'>)</span>
-<span class='co'># Using the group aesthetic with both geom_line() and geom_smooth()</span>
-<span class='co'># groups the data the same way for both layers</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>group <span class='op'>=</span> <span class='va'>Subject</span><span class='op'>)</span>, method <span class='op'>=</span> <span class='st'>"lm"</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using formula 'y ~ x'</span></div><div class='img'><img src='aes_group_order-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Changing the group aesthetic for the smoother layer</span>
-<span class='co'># fits a single line of best fit across all boys</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>group <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>, size <span class='op'>=</span> <span class='fl'>2</span>, method <span class='op'>=</span> <span class='st'>"lm"</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using formula 'y ~ x'</span></div><div class='img'><img src='aes_group_order-11.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Overriding the default grouping</span>
-<span class='co'># Sometimes the plot has a discrete scale but you want to draw lines</span>
-<span class='co'># that connect across groups. This is the strategy used in interaction</span>
-<span class='co'># plots, profile plots, and parallel coordinate plots, among others.</span>
-<span class='co'># For example, we draw boxplots of height at each measurement occasion.</span>
-<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'>nlme</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/nlme/man/Oxboys.html'>Oxboys</a></span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>Occasion</span>, <span class='va'>height</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_boxplot.html'>geom_boxplot</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='va'>p</span>
-</div><div class='img'><img src='aes_group_order-12.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># There is no need to specify the group aesthetic here; the default grouping</span>
-<span class='co'># works because occasion is a discrete variable. To overlay individual</span>
-<span class='co'># trajectories, we again need to override the default grouping for that layer</span>
-<span class='co'># with aes(group = Subject)</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>group <span class='op'>=</span> <span class='va'>Subject</span><span class='op'>)</span>, colour <span class='op'>=</span> <span class='st'>"blue"</span><span class='op'>)</span>
-</div><div class='img'><img src='aes_group_order-13.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
-</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='co'># \donttest{</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>wt</span>, <span class='va'>mpg</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># A basic scatter plot</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='aes_group_order-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='co'># Using the colour aesthetic</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span><span class='op'>)</span>, size <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='aes_group_order-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='co'># Using the shape aesthetic</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>shape <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span><span class='op'>)</span>, size <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='aes_group_order-3.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Using fill</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_bar.html'>geom_bar</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='aes_group_order-4.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_bar.html'>geom_bar</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='aes_group_order-5.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_bar.html'>geom_bar</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>vs</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='aes_group_order-6.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Using linetypes</span></span>
+<span class='r-in'><span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>economics_long</span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>value01</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>linetype <span class='op'>=</span> <span class='va'>variable</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='aes_group_order-7.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Multiple groups with one aesthetic</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'>nlme</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/nlme/man/Oxboys.html'>Oxboys</a></span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>age</span>, <span class='va'>height</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># The default is not sufficient here. A single line tries to connect all</span></span>
+<span class='r-in'><span class='co'># the observations.</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='aes_group_order-8.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='co'># To fix this, use the group aesthetic to map a different line for each</span></span>
+<span class='r-in'><span class='co'># subject.</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>group <span class='op'>=</span> <span class='va'>Subject</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='aes_group_order-9.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Different groups on different layers</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>group <span class='op'>=</span> <span class='va'>Subject</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># Using the group aesthetic with both geom_line() and geom_smooth()</span></span>
+<span class='r-in'><span class='co'># groups the data the same way for both layers</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>group <span class='op'>=</span> <span class='va'>Subject</span><span class='op'>)</span>, method <span class='op'>=</span> <span class='st'>"lm"</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> `geom_smooth()` using formula 'y ~ x'</span>
+<span class='r-plt'><img src='aes_group_order-10.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='co'># Changing the group aesthetic for the smoother layer</span></span>
+<span class='r-in'><span class='co'># fits a single line of best fit across all boys</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>group <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>, size <span class='op'>=</span> <span class='fl'>2</span>, method <span class='op'>=</span> <span class='st'>"lm"</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> `geom_smooth()` using formula 'y ~ x'</span>
+<span class='r-plt'><img src='aes_group_order-11.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Overriding the default grouping</span></span>
+<span class='r-in'><span class='co'># Sometimes the plot has a discrete scale but you want to draw lines</span></span>
+<span class='r-in'><span class='co'># that connect across groups. This is the strategy used in interaction</span></span>
+<span class='r-in'><span class='co'># plots, profile plots, and parallel coordinate plots, among others.</span></span>
+<span class='r-in'><span class='co'># For example, we draw boxplots of height at each measurement occasion.</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'>nlme</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/nlme/man/Oxboys.html'>Oxboys</a></span>, <span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>Occasion</span>, <span class='va'>height</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_boxplot.html'>geom_boxplot</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>p</span></span>
+<span class='r-plt'><img src='aes_group_order-12.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='co'># There is no need to specify the group aesthetic here; the default grouping</span></span>
+<span class='r-in'><span class='co'># works because occasion is a discrete variable. To overlay individual</span></span>
+<span class='r-in'><span class='co'># trajectories, we again need to override the default grouping for that layer</span></span>
+<span class='r-in'><span class='co'># with aes(group = Subject)</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>group <span class='op'>=</span> <span class='va'>Subject</span><span class='op'>)</span>, colour <span class='op'>=</span> <span class='st'>"blue"</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='aes_group_order-13.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='co'># }</span></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -327,7 +348,7 @@ can be modified.</p></li>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -354,6 +375,8 @@ can be modified.</p></li>
 </script>
 
 
+
+  
 
   </body>
 </html>

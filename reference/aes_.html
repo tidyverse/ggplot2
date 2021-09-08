@@ -88,9 +88,15 @@ aes_string() easy to program with." />
   gtag('config', 'UA-115082821-1');
 </script>
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -236,16 +242,16 @@ aes_string() easy to program with." />
 properties (aesthetics) of geoms. <code><a href='aes.html'>aes()</a></code> uses non-standard
 evaluation to capture the variable names. <code>aes_()</code> and <code>aes_string()</code>
 require you to explicitly quote the inputs either with <code>""</code> for
-<code>aes_string()</code>, or with <code>quote</code> or <code><a href='https://rdrr.io/r/base/tilde.html'>~</a></code> for <code>aes_()</code>.
+<code>aes_string()</code>, or with <code>quote</code> or <code>~</code> for <code>aes_()</code>.
 (<code>aes_q()</code> is an alias to <code>aes_()</code>). This makes <code>aes_()</code> and
 <code>aes_string()</code> easy to program with.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>aes_</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>...</span><span class='op'>)</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>aes_</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='fu'>aes_string</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>aes_q</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'>aes_q</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>...</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -264,7 +270,7 @@ functions that create plots because you can use strings or quoted
 names/calls to define the aesthetic mappings, rather than having to use
 <code><a href='https://rdrr.io/r/base/substitute.html'>substitute()</a></code> to generate a call to <code><a href='aes.html'>aes()</a></code>.</p>
 <p>I recommend using <code>aes_()</code>, because creating the equivalents of
-<code><a href='aes.html'>aes(colour = "my colour")</a></code> or <code><a href='aes.html'>aes(x = `X$1`)</a></code>
+<code>aes(colour = "my colour")</code> or <code>aes(x = `X$1`)</code>
 with <code>aes_string()</code> is quite clunky.</p>
     <h2 class="hasAnchor" id="life-cycle"><a class="anchor" href="#life-cycle"></a>Life cycle</h2>
 
@@ -279,43 +285,52 @@ idioms instead (see the quasiquotation section in
     <div class='dont-index'><p><code><a href='aes.html'>aes()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Three ways of generating the same aesthetics</span>
-<span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>wt</span>, col <span class='op'>=</span> <span class='va'>cyl</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Aesthetic mapping: 
-#&gt; * `x`      -&gt; `mpg`
-#&gt; * `y`      -&gt; `wt`
-#&gt; * `colour` -&gt; `cyl`</div><div class='input'><span class='fu'>aes_</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/substitute.html'>quote</a></span><span class='op'>(</span><span class='va'>mpg</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/substitute.html'>quote</a></span><span class='op'>(</span><span class='va'>wt</span><span class='op'>)</span>, col <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/substitute.html'>quote</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Aesthetic mapping: 
-#&gt; * `colour` -&gt; `cyl`
-#&gt; * `x`      -&gt; `mpg`
-#&gt; * `y`      -&gt; `wt`</div><div class='input'><span class='fu'>aes_</span><span class='op'>(</span><span class='op'>~</span><span class='va'>mpg</span>, <span class='op'>~</span><span class='va'>wt</span>, col <span class='op'>=</span> <span class='op'>~</span><span class='va'>cyl</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Aesthetic mapping: 
-#&gt; * `colour` -&gt; `cyl`
-#&gt; * `x`      -&gt; `mpg`
-#&gt; * `y`      -&gt; `wt`</div><div class='input'><span class='fu'>aes_string</span><span class='op'>(</span><span class='st'>"mpg"</span>, <span class='st'>"wt"</span>, col <span class='op'>=</span> <span class='st'>"cyl"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Aesthetic mapping: 
-#&gt; * `colour` -&gt; `cyl`
-#&gt; * `x`      -&gt; `mpg`
-#&gt; * `y`      -&gt; `wt`</div><div class='input'>
-<span class='co'># You can't easily mimic these calls with aes_string</span>
-<span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>`$100`</span>, colour <span class='op'>=</span> <span class='st'>"smooth"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Aesthetic mapping: 
-#&gt; * `x`      -&gt; `$100`
-#&gt; * `colour` -&gt; "smooth"</div><div class='input'><span class='fu'>aes_</span><span class='op'>(</span><span class='op'>~</span> <span class='va'>`$100`</span>, colour <span class='op'>=</span> <span class='st'>"smooth"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Aesthetic mapping: 
-#&gt; * `colour` -&gt; "smooth"
-#&gt; * `x`      -&gt; `$100`</div><div class='input'><span class='co'># Ok, you can, but it requires a _lot_ of quotes</span>
-<span class='fu'>aes_string</span><span class='op'>(</span><span class='st'>"`$100`"</span>, colour <span class='op'>=</span> <span class='st'>'"smooth"'</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Aesthetic mapping: 
-#&gt; * `colour` -&gt; "smooth"
-#&gt; * `x`      -&gt; `$100`</div><div class='input'>
-<span class='co'># Convert strings to names with as.name</span>
-<span class='va'>var</span> <span class='op'>&lt;-</span> <span class='st'>"cyl"</span>
-<span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>col <span class='op'>=</span> <span class='va'>x</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Aesthetic mapping: 
-#&gt; * `colour` -&gt; `x`</div><div class='input'><span class='fu'>aes_</span><span class='op'>(</span>col <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/name.html'>as.name</a></span><span class='op'>(</span><span class='va'>var</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Aesthetic mapping: 
-#&gt; * `colour` -&gt; `cyl`</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='co'># Three ways of generating the same aesthetics</span></span>
+<span class='r-in'><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>wt</span>, col <span class='op'>=</span> <span class='va'>cyl</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Aesthetic mapping: </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> * `x`      -&gt; `mpg`</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> * `y`      -&gt; `wt`</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> * `colour` -&gt; `cyl`</span>
+<span class='r-in'><span class='fu'>aes_</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/substitute.html'>quote</a></span><span class='op'>(</span><span class='va'>mpg</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/substitute.html'>quote</a></span><span class='op'>(</span><span class='va'>wt</span><span class='op'>)</span>, col <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/substitute.html'>quote</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Aesthetic mapping: </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> * `colour` -&gt; `cyl`</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> * `x`      -&gt; `mpg`</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> * `y`      -&gt; `wt`</span>
+<span class='r-in'><span class='fu'>aes_</span><span class='op'>(</span><span class='op'>~</span><span class='va'>mpg</span>, <span class='op'>~</span><span class='va'>wt</span>, col <span class='op'>=</span> <span class='op'>~</span><span class='va'>cyl</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Aesthetic mapping: </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> * `colour` -&gt; `cyl`</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> * `x`      -&gt; `mpg`</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> * `y`      -&gt; `wt`</span>
+<span class='r-in'><span class='fu'>aes_string</span><span class='op'>(</span><span class='st'>"mpg"</span>, <span class='st'>"wt"</span>, col <span class='op'>=</span> <span class='st'>"cyl"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Aesthetic mapping: </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> * `colour` -&gt; `cyl`</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> * `x`      -&gt; `mpg`</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> * `y`      -&gt; `wt`</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># You can't easily mimic these calls with aes_string</span></span>
+<span class='r-in'><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span><span class='va'>`$100`</span>, colour <span class='op'>=</span> <span class='st'>"smooth"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Aesthetic mapping: </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> * `x`      -&gt; `$100`</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> * `colour` -&gt; "smooth"</span>
+<span class='r-in'><span class='fu'>aes_</span><span class='op'>(</span><span class='op'>~</span> <span class='va'>`$100`</span>, colour <span class='op'>=</span> <span class='st'>"smooth"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Aesthetic mapping: </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> * `colour` -&gt; "smooth"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> * `x`      -&gt; `$100`</span>
+<span class='r-in'><span class='co'># Ok, you can, but it requires a _lot_ of quotes</span></span>
+<span class='r-in'><span class='fu'>aes_string</span><span class='op'>(</span><span class='st'>"`$100`"</span>, colour <span class='op'>=</span> <span class='st'>'"smooth"'</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Aesthetic mapping: </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> * `colour` -&gt; "smooth"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> * `x`      -&gt; `$100`</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Convert strings to names with as.name</span></span>
+<span class='r-in'><span class='va'>var</span> <span class='op'>&lt;-</span> <span class='st'>"cyl"</span></span>
+<span class='r-in'><span class='fu'><a href='aes.html'>aes</a></span><span class='op'>(</span>col <span class='op'>=</span> <span class='va'>x</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Aesthetic mapping: </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> * `colour` -&gt; `x`</span>
+<span class='r-in'><span class='fu'>aes_</span><span class='op'>(</span>col <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/name.html'>as.name</a></span><span class='op'>(</span><span class='va'>var</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Aesthetic mapping: </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> * `colour` -&gt; `cyl`</span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -332,7 +347,7 @@ idioms instead (see the quasiquotation section in
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -359,6 +374,8 @@ idioms instead (see the quasiquotation section in
 </script>
 
 
+
+  
 
   </body>
 </html>

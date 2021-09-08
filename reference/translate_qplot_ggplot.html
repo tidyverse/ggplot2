@@ -87,9 +87,15 @@ syntax." />
   gtag('config', 'UA-115082821-1');
 </script>
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -243,77 +249,78 @@ syntax.</p>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'># By default, qplot() assumes that you want a scatterplot,</span>
-<span class='co'># i.e., you want to use geom_point()</span>
-<span class='co'># qplot(x, y, data = data)</span>
-<span class='co'># ggplot(data, aes(x, y)) + geom_point()</span>
-
-<span class='co'># Using Aesthetics</span>
-
-<span class='co'># If you map additional aesthetics, these will be added to the defaults. With</span>
-<span class='co'># qplot() there is no way to use different aesthetic mappings (or data) in</span>
-<span class='co'># different layers</span>
-<span class='co'># qplot(x, y, data = data, shape = shape, colour = colour)</span>
-<span class='co'># ggplot(data, aes(x, y, shape = shape, colour = colour)) + geom_point()</span>
-<span class='co'>#</span>
-<span class='co'># Aesthetic parameters in qplot() always try to map the aesthetic to a</span>
-<span class='co'># variable. If the argument is not a variable but a value, effectively a new column</span>
-<span class='co'># is added to the original dataset with that value. To set an aesthetic to a</span>
-<span class='co'># value and override the default appearance, you surround the value with I() in</span>
-<span class='co'># qplot(), or pass it as a parameter to the layer.</span>
-<span class='co'># qplot(x, y, data = data, colour = I("red"))</span>
-<span class='co'># ggplot(data, aes(x, y)) + geom_point(colour = "red")</span>
-
-<span class='co'># Changing the geom parameter changes the geom added to the plot</span>
-<span class='co'># qplot(x, y, data = data, geom = "line")</span>
-<span class='co'># ggplot(data, aes(x, y)) + geom_line()</span>
-
-<span class='co'># Not all geoms require both x and y, e.g., geom_bar() and geom_histogram().</span>
-<span class='co'># For these two geoms, if the y aesthetic is not supplied, both qplot and</span>
-<span class='co'># ggplot commands default to "count" on the y-axis</span>
-<span class='co'># ggplot(data, aes(x)) + geom_bar()</span>
-<span class='co'># qplot(x, data = data, geom = "bar")</span>
-
-<span class='co'># If a vector of multiple geom names is supplied to the geom argument, each</span>
-<span class='co'># geom will be added in turn</span>
-<span class='co'># qplot(x, y, data = data, geom = c("point", "smooth"))</span>
-<span class='co'># ggplot(data, aes(x, y)) + geom_point() + geom_smooth()</span>
-
-<span class='co'># Unlike the rest of ggplot2, stats and geoms are independent</span>
-<span class='co'># qplot(x, y, data = data, stat = "bin")</span>
-<span class='co'># ggplot(data, aes(x, y)) + geom_point(stat = "bin")</span>
-<span class='co'>#</span>
-<span class='co'># Any layer parameters will be passed on to all layers. Most layers will ignore</span>
-<span class='co'># parameters that they don't need</span>
-<span class='co'># qplot(x, y, data = data, geom = c("point", "smooth"), method = "lm")</span>
-<span class='co'># ggplot(data, aes(x, y)) + geom_point(method = "lm") + geom_smooth(method = "lm")</span>
-
-<span class='co'># Scales and axes</span>
-
-<span class='co'># You can control basic properties of the x and y scales with the xlim, ylim,</span>
-<span class='co'># xlab and ylab arguments</span>
-<span class='co'># qplot(x, y, data = data, xlim = c(1, 5), xlab = "my label")</span>
-<span class='co'># ggplot(data, aes(x, y)) + geom_point() +</span>
-<span class='co'># scale_x_continuous("my label", limits = c(1, 5))</span>
-
-<span class='co'># qplot(x, y, data = data, xlim = c(1, 5), ylim = c(10, 20))</span>
-<span class='co'># ggplot(data, aes(x, y)) + geom_point() +</span>
-<span class='co'># scale_x_continuous(limits = c(1, 5)) + scale_y_continuous(limits = c(10, 20))</span>
-
-<span class='co'># Like plot(), qplot() has a convenient way of log transforming the axes.</span>
-<span class='co'># qplot(x, y, data = data, log = "xy")</span>
-<span class='co'># ggplot(data, aes(x, y)) + geom_point() + scale_x_log10() + scale_y_log10()</span>
-<span class='co'># There are many other possible transformations, but not all are</span>
-<span class='co'># accessible from within qplot(), see ?scale_continuous for more</span>
-
-<span class='co'># Plot options</span>
-
-<span class='co'># qplot() recognises the same options as plot does, and converts them to their</span>
-<span class='co'># ggplot2 equivalents. See ?theme for more on ggplot options</span>
-<span class='co'># qplot(x, y, data = data, main="title", asp = 1)</span>
-<span class='co'># ggplot(data, aes(x, y)) + geom_point() + labs(title = "title") + theme(aspect.ratio = 1)</span>
-</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'></span>
+<span class='r-in'><span class='co'># By default, qplot() assumes that you want a scatterplot,</span></span>
+<span class='r-in'><span class='co'># i.e., you want to use geom_point()</span></span>
+<span class='r-in'><span class='co'># qplot(x, y, data = data)</span></span>
+<span class='r-in'><span class='co'># ggplot(data, aes(x, y)) + geom_point()</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Using Aesthetics</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># If you map additional aesthetics, these will be added to the defaults. With</span></span>
+<span class='r-in'><span class='co'># qplot() there is no way to use different aesthetic mappings (or data) in</span></span>
+<span class='r-in'><span class='co'># different layers</span></span>
+<span class='r-in'><span class='co'># qplot(x, y, data = data, shape = shape, colour = colour)</span></span>
+<span class='r-in'><span class='co'># ggplot(data, aes(x, y, shape = shape, colour = colour)) + geom_point()</span></span>
+<span class='r-in'><span class='co'>#</span></span>
+<span class='r-in'><span class='co'># Aesthetic parameters in qplot() always try to map the aesthetic to a</span></span>
+<span class='r-in'><span class='co'># variable. If the argument is not a variable but a value, effectively a new column</span></span>
+<span class='r-in'><span class='co'># is added to the original dataset with that value. To set an aesthetic to a</span></span>
+<span class='r-in'><span class='co'># value and override the default appearance, you surround the value with I() in</span></span>
+<span class='r-in'><span class='co'># qplot(), or pass it as a parameter to the layer.</span></span>
+<span class='r-in'><span class='co'># qplot(x, y, data = data, colour = I("red"))</span></span>
+<span class='r-in'><span class='co'># ggplot(data, aes(x, y)) + geom_point(colour = "red")</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Changing the geom parameter changes the geom added to the plot</span></span>
+<span class='r-in'><span class='co'># qplot(x, y, data = data, geom = "line")</span></span>
+<span class='r-in'><span class='co'># ggplot(data, aes(x, y)) + geom_line()</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Not all geoms require both x and y, e.g., geom_bar() and geom_histogram().</span></span>
+<span class='r-in'><span class='co'># For these two geoms, if the y aesthetic is not supplied, both qplot and</span></span>
+<span class='r-in'><span class='co'># ggplot commands default to "count" on the y-axis</span></span>
+<span class='r-in'><span class='co'># ggplot(data, aes(x)) + geom_bar()</span></span>
+<span class='r-in'><span class='co'># qplot(x, data = data, geom = "bar")</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># If a vector of multiple geom names is supplied to the geom argument, each</span></span>
+<span class='r-in'><span class='co'># geom will be added in turn</span></span>
+<span class='r-in'><span class='co'># qplot(x, y, data = data, geom = c("point", "smooth"))</span></span>
+<span class='r-in'><span class='co'># ggplot(data, aes(x, y)) + geom_point() + geom_smooth()</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Unlike the rest of ggplot2, stats and geoms are independent</span></span>
+<span class='r-in'><span class='co'># qplot(x, y, data = data, stat = "bin")</span></span>
+<span class='r-in'><span class='co'># ggplot(data, aes(x, y)) + geom_point(stat = "bin")</span></span>
+<span class='r-in'><span class='co'>#</span></span>
+<span class='r-in'><span class='co'># Any layer parameters will be passed on to all layers. Most layers will ignore</span></span>
+<span class='r-in'><span class='co'># parameters that they don't need</span></span>
+<span class='r-in'><span class='co'># qplot(x, y, data = data, geom = c("point", "smooth"), method = "lm")</span></span>
+<span class='r-in'><span class='co'># ggplot(data, aes(x, y)) + geom_point(method = "lm") + geom_smooth(method = "lm")</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Scales and axes</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># You can control basic properties of the x and y scales with the xlim, ylim,</span></span>
+<span class='r-in'><span class='co'># xlab and ylab arguments</span></span>
+<span class='r-in'><span class='co'># qplot(x, y, data = data, xlim = c(1, 5), xlab = "my label")</span></span>
+<span class='r-in'><span class='co'># ggplot(data, aes(x, y)) + geom_point() +</span></span>
+<span class='r-in'><span class='co'># scale_x_continuous("my label", limits = c(1, 5))</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># qplot(x, y, data = data, xlim = c(1, 5), ylim = c(10, 20))</span></span>
+<span class='r-in'><span class='co'># ggplot(data, aes(x, y)) + geom_point() +</span></span>
+<span class='r-in'><span class='co'># scale_x_continuous(limits = c(1, 5)) + scale_y_continuous(limits = c(10, 20))</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Like plot(), qplot() has a convenient way of log transforming the axes.</span></span>
+<span class='r-in'><span class='co'># qplot(x, y, data = data, log = "xy")</span></span>
+<span class='r-in'><span class='co'># ggplot(data, aes(x, y)) + geom_point() + scale_x_log10() + scale_y_log10()</span></span>
+<span class='r-in'><span class='co'># There are many other possible transformations, but not all are</span></span>
+<span class='r-in'><span class='co'># accessible from within qplot(), see ?scale_continuous for more</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Plot options</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># qplot() recognises the same options as plot does, and converts them to their</span></span>
+<span class='r-in'><span class='co'># ggplot2 equivalents. See ?theme for more on ggplot options</span></span>
+<span class='r-in'><span class='co'># qplot(x, y, data = data, main="title", asp = 1)</span></span>
+<span class='r-in'><span class='co'># ggplot(data, aes(x, y)) + geom_point() + labs(title = "title") + theme(aspect.ratio = 1)</span></span>
+<span class='r-in'></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -330,7 +337,7 @@ syntax.</p>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://github.com/wch'>Winston Chang</a>, <a href='https://github.com/lionel-'>Lionel Henry</a>, <a href='https://data-imaginist.com'>Thomas Lin Pedersen</a>, Kohske Takahashi, <a href='https://clauswilke.com'>Claus Wilke</a>, <a href='https://karawoo.com'>Kara Woo</a>, <a href='https://yutani.rbind.io'>Hiroaki Yutani</a>, <a href='https://fishandwhistle.net'>Dewey Dunnington</a>, <a href='https://www.rstudio.com'><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -357,6 +364,8 @@ syntax.</p>
 </script>
 
 
+
+  
 
   </body>
 </html>
