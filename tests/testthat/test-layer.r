@@ -63,6 +63,27 @@ test_that("if an aes is mapped to a function that returns NULL, it is removed", 
   expect_identical(names(p[[1]]), c("x", "PANEL", "group"))
 })
 
+test_that("layers are stateless except for the computed params", {
+  df <- data.frame(x = 1:10, y = 1:10)
+  p <- ggplot(df) +
+    geom_col(aes(x = x, y = y), width = 0.8, fill = "red")
+  col_layer <- as.list(p$layers[[1]])
+  stateless_names <- setdiff(names(col_layer), c("computed_geom_params", "computed_stat_params", "computed_mapping"))
+  invisible(ggplotGrob(p))
+  expect_identical(as.list(p$layers[[1]])[stateless_names], col_layer[stateless_names])
+})
+
+test_that("inherit.aes works", {
+  df <- data.frame(x = 1:10, y = 1:10)
+  p1 <- ggplot(df, aes(y = y)) +
+    geom_col(aes(x = x), inherit.aes = TRUE)
+  p2 <- ggplot(df, aes(colour = y)) +
+    geom_col(aes(x = x, y = y), inherit.aes = FALSE)
+  invisible(ggplotGrob(p1))
+  invisible(ggplotGrob(p2))
+  expect_identical(p1$layers[[1]]$computed_mapping, p2$layers[[1]]$computed_mapping)
+})
+
 # Data extraction ---------------------------------------------------------
 
 test_that("layer_data returns a data.frame", {

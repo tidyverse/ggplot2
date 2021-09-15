@@ -42,6 +42,7 @@ NULL
 #' p +
 #'   coord_sf(
 #'     crs = st_crs(3347),
+#'     default_crs = st_crs(4326),  # data is provided as long-lat
 #'     xlim = c(-84, -76),
 #'     ylim = c(34, 37.2)
 #'   )
@@ -53,7 +54,7 @@ NULL
 #'     data = nc, inherit.aes = FALSE,
 #'     fill = NA, color = "black", size = 0.1
 #'   ) +
-#'   coord_sf(crs = st_crs(3347))
+#'   coord_sf(crs = st_crs(3347), default_crs = st_crs(4326))
 #' }}}
 annotation_map <- function(map, ...) {
   # Get map input into correct form

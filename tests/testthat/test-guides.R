@@ -73,6 +73,14 @@ test_that("a warning is generated when guides are drawn at a location that doesn
   expect_warning(ggplot_gtable(built), "Position guide is perpendicular")
 })
 
+test_that("a warning is not generated when a guide is specified with duplicate breaks", {
+  plot <- ggplot(mpg, aes(class, hwy)) +
+    geom_point() +
+    scale_y_continuous(breaks = c(20, 20))
+  built <- expect_silent(ggplot_build(plot))
+  expect_silent(ggplot_gtable(built))
+})
+
 test_that("a warning is generated when more than one position guide is drawn at a location", {
   plot <- ggplot(mpg, aes(class, hwy)) +
     geom_point() +
@@ -451,11 +459,11 @@ test_that("colorbar can be styled", {
   df <- data_frame(x = c(0, 1, 2))
   p <- ggplot(df, aes(x, x, color = x)) + geom_point()
 
-  expect_doppelganger("white-to-red gradient colorbar, white tick marks, no frame",
+  expect_doppelganger("white-to-red colorbar, white ticks, no frame",
     p + scale_color_gradient(low = 'white', high = 'red')
   )
 
-  expect_doppelganger("white-to-red gradient colorbar, thick black tick marks, green frame",
+  expect_doppelganger("white-to-red colorbar, thick black ticks, green frame",
     p + scale_color_gradient(
           low = 'white', high = 'red',
           guide = guide_colorbar(

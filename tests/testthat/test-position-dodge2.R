@@ -107,3 +107,11 @@ test_that("width of groups is computed per facet", {
 
   expect_true(all(width == (0.9 / 3) * 0.9))
 })
+
+test_that("NA values are given their own group", {
+  df <- data.frame(
+    xmin = c(1, 2, NA, NA),
+    xmax = c(1, 2, NA, NA)
+  )
+  expect_equal(find_x_overlaps(df), seq_len(4))
+})

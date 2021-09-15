@@ -244,6 +244,7 @@ guides_merge <- function(gdefs) {
 }
 
 # process layer information
+# TODO: `default_mapping` is unused internally but kept for backwards compitability until guide rewrite
 guides_geom <- function(gdefs, layers, default_mapping) {
   compact(lapply(gdefs, guide_geom, layers, default_mapping))
 }
@@ -372,11 +373,11 @@ guide_gengrob <- function(guide, theme) UseMethod("guide_gengrob")
 
 # Helpers -----------------------------------------------------------------
 
-matched_aes <- function(layer, guide, defaults) {
-  all <- names(c(layer$mapping, if (layer$inherit.aes) defaults, layer$stat$default_aes))
+matched_aes <- function(layer, guide) {
+  all <- names(c(layer$computed_mapping, layer$stat$default_aes))
   geom <- c(layer$geom$required_aes, names(layer$geom$default_aes))
   matched <- intersect(intersect(all, geom), names(guide$key))
-  matched <- setdiff(matched, names(layer$geom_params))
+  matched <- setdiff(matched, names(layer$computed_geom_params))
   setdiff(matched, names(layer$aes_params))
 }
 

@@ -454,6 +454,9 @@ plot_theme <- function(x, default = theme_get()) {
 #'   informative error messages.
 #' @keywords internal
 add_theme <- function(t1, t2, t2name) {
+  if (is.null(t2)) {
+    return(t1)
+  }
   if (!is.list(t2)) { # in various places in the code base, simple lists are used as themes
     abort(glue("Can't add `{t2name}` to a theme object."))
   }

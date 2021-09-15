@@ -1,5 +1,5 @@
 Package: ggplot2
-Version: 3.3.3.9000
+Version: 3.3.5.9000
 Title: Create Elegant Data Visualisations Using the Grammar of Graphics
 Description: A system for 'declaratively' creating graphics,
     based on "The Grammar of Graphics". You provide the data, tell 'ggplot2'
@@ -35,17 +35,19 @@ Imports:
     isoband,
     MASS,
     mgcv,
-    rlang (>= 0.3.0),
+    rlang (>= 0.4.10),
     scales (>= 0.5.0),
     stats,
     tibble,
     withr (>= 2.0.0)
 Suggests:
     covr,
+    ragg,
     dplyr,
     ggplot2movies,
     hexbin,
     Hmisc,
+    interp,
     knitr,
     lattice,
     mapproj,
@@ -63,7 +65,7 @@ Suggests:
     sf (>= 0.7-3),
     svglite (>= 1.2.0.9001),
     testthat (>= 2.1.0),
-    vdiffr (>= 0.3.0),
+    vdiffr (>= 1.0.0),
     xml2
 Enhances: sp
 License: MIT + file LICENSE
@@ -267,3 +269,8 @@ VignetteBuilder: knitr
 RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
+Config/Needs/website:
+    ggtext,
+    tidyr,
+    forcats,
+    tidyverse/tidytemplate

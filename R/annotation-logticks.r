@@ -126,12 +126,14 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
                         mid = unit(0.2, "cm"), long = unit(0.3, "cm"))
   {
     ticks <- list()
+    flipped <- inherits(coord, "CoordFlip")
+    x_name <- if (flipped) "y" else "x"
+    y_name <- if (flipped) "x" else "y"
 
     # Convert these units to numbers so that they can be put in data frames
     short <- convertUnit(short, "cm", valueOnly = TRUE)
     mid   <- convertUnit(mid,   "cm", valueOnly = TRUE)
     long  <- convertUnit(long,  "cm", valueOnly = TRUE)
-
 
     if (grepl("[b|t]", sides)) {
 
@@ -149,7 +151,7 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
       if (scaled)
         xticks$value <- log(xticks$value, base)
 
-      names(xticks)[names(xticks) == "value"] <- "x"   # Rename to 'x' for coordinates$transform
+      names(xticks)[names(xticks) == "value"] <- x_name   # Rename to 'x' for coordinates$transform
       xticks <- coord$transform(xticks, panel_params)
       xticks = xticks[xticks$x <= 1 & xticks$x >= 0,]
 
@@ -173,7 +175,6 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
       }
     }
 
-
     if (grepl("[l|r]", sides)) {
       yticks <- calc_logticks(
         base = base,
@@ -188,7 +189,7 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
       if (scaled)
         yticks$value <- log(yticks$value, base)
 
-      names(yticks)[names(yticks) == "value"] <- "y"   # Rename to 'y' for coordinates$transform
+      names(yticks)[names(yticks) == "value"] <- y_name   # Rename to 'y' for coordinates$transform
       yticks <- coord$transform(yticks, panel_params)
       yticks = yticks[yticks$y <= 1 & yticks$y >= 0,]
 

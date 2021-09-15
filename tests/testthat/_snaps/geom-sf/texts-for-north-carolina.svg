@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' data-engine-version='2.0' width='720.00pt' height='576.00pt' viewBox='0 0 720.00 576.00'>
+<defs>
+  <style type='text/css'><![CDATA[
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<defs>
+  <clipPath id='cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA='>
+    <rect x='0.00' y='0.00' width='720.00' height='576.00' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
+<rect x='0.00' y='0.00' width='720.00' height='576.00' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
+</g>
+<defs>
+  <clipPath id='cpNTcuMjd8NzE0LjUyfDIyLjc4fDU0NS4xMQ=='>
+    <rect x='57.27' y='22.78' width='657.25' height='522.33' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNTcuMjd8NzE0LjUyfDIyLjc4fDU0NS4xMQ==)'>
+<rect x='57.27' y='22.78' width='657.25' height='522.33' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
+<text x='385.89' y='287.75' text-anchor='middle' style='font-size: 11.04px; font-family: sans;' textLength='23.95px' lengthAdjust='spacingAndGlyphs'>ashe</text>
+<rect x='57.27' y='22.78' width='657.25' height='522.33' style='stroke-width: 1.07; stroke: #333333;' />
+</g>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
+<text x='52.33' y='423.57' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='34.26px' lengthAdjust='spacingAndGlyphs'>4357807</text>
+<text x='52.33' y='292.99' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='34.26px' lengthAdjust='spacingAndGlyphs'>4357807</text>
+<text x='52.33' y='162.41' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='34.26px' lengthAdjust='spacingAndGlyphs'>4357807</text>
+<polyline points='54.53,420.54 57.27,420.54 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
+<polyline points='54.53,289.96 57.27,289.96 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
+<polyline points='54.53,159.38 57.27,159.38 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
+<polyline points='215.51,547.85 215.51,545.11 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
+<polyline points='379.83,547.85 379.83,545.11 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
+<polyline points='544.14,547.85 544.14,545.11 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
+<text x='215.51' y='556.10' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='37.19px' lengthAdjust='spacingAndGlyphs'>-9072027</text>
+<text x='379.83' y='556.10' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='37.19px' lengthAdjust='spacingAndGlyphs'>-9072027</text>
+<text x='544.14' y='556.10' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='37.19px' lengthAdjust='spacingAndGlyphs'>-9072027</text>
+<text x='385.89' y='568.24' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='5.50px' lengthAdjust='spacingAndGlyphs'>x</text>
+<text transform='translate(13.05,283.95) rotate(-90)' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='5.50px' lengthAdjust='spacingAndGlyphs'>y</text>
+<text x='57.27' y='14.56' style='font-size: 13.20px; font-family: sans;' textLength='140.13px' lengthAdjust='spacingAndGlyphs'>Texts for North Carolina</text>
+</g>
+</svg>

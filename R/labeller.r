@@ -88,8 +88,13 @@
 NULL
 
 collapse_labels_lines <- function(labels) {
+  is_exp <- vapply(labels, function(l) length(l) > 0 && is.expression(l[[1]]), logical(1))
   out <- do.call("Map", c(list(paste, sep = ", "), labels))
-  list(unname(unlist(out)))
+  label <- list(unname(unlist(out)))
+  if (all(is_exp)) {
+    label <- lapply(label, function(l) list(parse(text = paste0("list(", l, ")"))))
+  }
+  label
 }
 
 #' @rdname labellers
@@ -200,6 +205,8 @@ label_bquote <- function(rows = NULL, cols = NULL,
   rows_quoted <- substitute(rows)
   has_warned <- FALSE
 
+  call_env <- env_parent()
+
   fun <- function(labels) {
     quoted <- resolve_labeller(rows_quoted, cols_quoted, labels)
     if (is.null(quoted)) {
@@ -220,7 +227,7 @@ label_bquote <- function(rows = NULL, cols = NULL,
         }
         params$x <- params[[1]]
       }
-
+      params <- as_environment(params, call_env)
       eval(substitute(bquote(expr, params), list(expr = quoted)))
     }
     list(do.call("Map", c(list(f = evaluate), labels)))
@@ -311,6 +318,8 @@ as_labeller <- function(x, default = label_value, multi_line = TRUE) {
       x(labels)
     } else if (is.function(x)) {
       default(lapply(labels, x))
+    } else if (is.formula(x)) {
+      default(lapply(labels, as_function(x)))
     } else if (is.character(x)) {
       default(lapply(labels, function(label) x[label]))
     } else {
@@ -553,7 +562,11 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
 #'
 #' @noRd
 assemble_strips <- function(grobs, theme, horizontal = TRUE, clip) {
-  if (length(grobs) == 0 || is.zero(grobs[[1]])) return(grobs)
+  if (length(grobs) == 0 || is.zero(grobs[[1]])) {
+    # Subsets matrix of zeroGrobs to correct length (#4050)
+    grobs <- grobs[seq_len(NROW(grobs))]
+    return(grobs)
+  }
 
   # Add margins to non-titleGrobs so they behave eqivalently
   grobs[] <- lapply(grobs, function(g) {
