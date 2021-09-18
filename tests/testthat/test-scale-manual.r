@@ -113,3 +113,31 @@ test_that("fewer values (#3451)", {
   s2$train(c("4", "6", "8"))
   expect_error(s2$map(c("4", "6", "8")), "Insufficient values")
 })
+
+test_that("limits and breaks (#4619)", {
+  # values don't change legend order
+  s1 <- scale_colour_manual(
+    values = c("8" = "c", "4" = "a", "6" = "b"),
+  )
+  s1$train(c("8", "6", "4"))
+  expect_equal(s1$map(c("8", "6", "4")), c("c", "b", "a"))
+  expect_equal(s1$break_positions(), c("a", "b", "c"))
+
+  # limits change legend order
+  s2 <- scale_colour_manual(
+    values = c("8" = "c", "4" = "a", "6" = "b", "0" = "x"),
+    limits = c("0", "4", "6", "8")
+  )
+  s2$train(c("8", "6", "4"))
+  expect_equal(s2$map(c("4", "6", "8")), c("a", "b", "c"))
+  expect_equal(s2$break_positions(), c("x", "a", "b", "c"))
+
+  # breaks work
+  s3 <- scale_colour_manual(
+    values = c("8" = "c", "4" = "a", "6" = "b"),
+    breaks = c("4", "8")
+  )
+  s3$train(c("4", "6", "8"))
+  expect_equal(s3$map(c("4", "6", "8")), c("a", "b", "c"))
+  expect_equal(s3$break_positions(), c("a", "c"))
+})
