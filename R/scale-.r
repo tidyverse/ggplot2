@@ -496,11 +496,7 @@ Scale <- ggproto("Scale", NULL,
     } else if (is.function(self$limits)) {
       self$limits(self$range$range)
     } else {
-      if (!is.null(self$drop) && self$drop && !is.null(self$range$range)) {
-        intersect(self$range$range, self$limits)
-      } else {
-        self$limits
-      }
+      self$limits
     }
   },
 
