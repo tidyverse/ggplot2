@@ -133,6 +133,7 @@ manual_scale <- function(aesthetic, values = NULL, breaks = waiver(), ..., limit
   }
 
   if (is.null(limits) && !is.null(names(values))) {
+    # Limits as function to access `values` names later on (#4619)
     limits <- function(x) intersect(x, names(values))
   }
 
