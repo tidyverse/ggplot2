@@ -4,7 +4,7 @@
   order, when a named `values` argument has more items than the data. The 
   previous behaviour can be replicated by using 
   `scale_*_manual(values = vals, limits = names(vals))`. (@teunbrand, @banfai, 
-  #4511, #4534, #4556, #4545, #4616)
+  #4511, #4534)
 
 # ggplot2 3.3.5
 This is a very small release focusing on fixing a couple of untenable issues 
