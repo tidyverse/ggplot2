@@ -117,7 +117,7 @@ test_that("fewer values (#3451)", {
 test_that("limits and breaks (#4619)", {
   # values don't change legend order
   s1 <- scale_colour_manual(
-    values = c("8" = "c", "4" = "a", "6" = "b"),
+    values = c("8" = "c", "4" = "a", "6" = "b")
   )
   s1$train(c("8", "6", "4"))
   expect_equal(s1$map(c("8", "6", "4")), c("c", "b", "a"))
