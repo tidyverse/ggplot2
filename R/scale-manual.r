@@ -132,8 +132,9 @@ manual_scale <- function(aesthetic, values = NULL, breaks = waiver(), ..., limit
     force(values)
   }
 
-  if (is.null(limits)) {
-    limits <- names(values)
+  if (is.null(limits) && !is.null(names(values))) {
+    # Limits as function to access `values` names later on (#4619)
+    limits <- function(x) intersect(x, names(values))
   }
 
   # order values according to breaks
