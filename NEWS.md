@@ -1,8 +1,8 @@
 # ggplot2 (development version)
 
 * `scale_*_manual()` no longer displays extra legend keys, or changes their 
-  order, when a named `values` argument has more items than the data. The 
-  previous behaviour can be replicated by using 
+  order, when a named `values` argument has more items than the data. To display
+  all `values` on the legend instead, use
   `scale_*_manual(values = vals, limits = names(vals))`. (@teunbrand, @banfai, 
   #4511, #4534)
 
