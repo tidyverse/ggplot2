@@ -232,7 +232,9 @@
     <div id="ggplot2-development-version" class="section level1">
 <h1 class="page-header" data-toc-text="development version">
 <a href="#ggplot2-development-version" class="anchor" aria-hidden="true"></a>ggplot2 (development version)<small> Unreleased </small></h1>
-</div>
+<ul><li>
+<code>scale_*_manual()</code> no longer displays extra legend keys, or changes their order, when a named <code>values</code> argument has more items than the data. To display all <code>values</code> on the legend instead, use <code>scale_*_manual(values = vals, limits = names(vals))</code>. (<a href='https://github.com/teunbrand'>@teunbrand</a>, <a href='https://github.com/banfai'>@banfai</a>, <a href='https://github.com/tidyverse/ggplot2/issues/4511'>#4511</a>, <a href='https://github.com/tidyverse/ggplot2/issues/4534'>#4534</a>)</li>
+</ul></div>
     <div id="ggplot2-335" class="section level1">
 <h1 class="page-header" data-toc-text="3.3.5">
 <a href="#ggplot2-335" class="anchor" aria-hidden="true"></a>ggplot2 3.3.5<small> 2021-06-25 </small></h1>
