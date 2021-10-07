@@ -9,6 +9,7 @@ annotation_logticks(
   sides = "bl",
   outside = FALSE,
   scaled = TRUE,
+  trans = ~.,
   short = unit(0.1, "cm"),
   mid = unit(0.2, "cm"),
   long = unit(0.3, "cm"),
@@ -35,6 +36,8 @@ of the plot area. Default is off (\code{FALSE}). You will also need to use
 (default) when the data is already transformed with \code{log10()} or when
 using \code{scale_y_log10()}. It should be \code{FALSE} when using
 \code{coord_trans(y = "log10")}.}
+
+\item{trans}{A function (or formula in rlang lambda notation).}
 
 \item{short}{a \code{\link[grid:unit]{grid::unit()}} object specifying the length of the
 short tick marks}

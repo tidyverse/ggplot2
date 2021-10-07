@@ -20,6 +20,7 @@
 #'   (default) when the data is already transformed with `log10()` or when
 #'   using `scale_y_log10()`. It should be `FALSE` when using
 #'   `coord_trans(y = "log10")`.
+#' @param trans A function (or formula in rlang lambda notation).
 #' @param colour Colour of the tick marks.
 #' @param size Thickness of tick marks, in mm.
 #' @param linetype Linetype of tick marks (`solid`, `dashed`, etc.)
@@ -79,7 +80,7 @@
 #'   mid = unit(3,"mm"),
 #'   long = unit(4,"mm")
 #' )
-annotation_logticks <- function(base = 10, sides = "bl", outside = FALSE, scaled = TRUE,
+annotation_logticks <- function(base = 10, sides = "bl", outside = FALSE, scaled = TRUE, trans = ~.,
     short = unit(0.1, "cm"), mid = unit(0.2, "cm"), long = unit(0.3, "cm"),
     colour = "black", size = 0.5, linetype = 1, alpha = 1, color = NULL, ...)
 {
@@ -99,6 +100,7 @@ annotation_logticks <- function(base = 10, sides = "bl", outside = FALSE, scaled
       sides = sides,
       outside = outside,
       scaled = scaled,
+      trans = trans,
       short = short,
       mid = mid,
       long = long,
@@ -122,7 +124,7 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
   },
 
   draw_panel = function(data, panel_params, coord, base = 10, sides = "bl",
-                        outside = FALSE, scaled = TRUE, short = unit(0.1, "cm"),
+                        outside = FALSE, scaled = TRUE, trans = ~., short = unit(0.1, "cm"),
                         mid = unit(0.2, "cm"), long = unit(0.3, "cm"))
   {
     ticks <- list()
@@ -150,6 +152,9 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
 
       if (scaled)
         xticks$value <- log(xticks$value, base)
+
+      trans <- as_function(trans)
+      xticks$value <- trans(xticks$value)
 
       names(xticks)[names(xticks) == "value"] <- x_name   # Rename to 'x' for coordinates$transform
       xticks <- coord$transform(xticks, panel_params)
@@ -188,6 +193,9 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
 
       if (scaled)
         yticks$value <- log(yticks$value, base)
+
+      trans <- as_function(trans)
+      yticks$value <- trans(yticks$value)
 
       names(yticks)[names(yticks) == "value"] <- y_name   # Rename to 'y' for coordinates$transform
       yticks <- coord$transform(yticks, panel_params)

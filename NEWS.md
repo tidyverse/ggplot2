@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Allow transformations inside `annotate_logticks()`, which is useful for
+  secondary axes (@benjaminrich, #4636)
+
 * `scale_*_manual()` no longer displays extra legend keys, or changes their 
   order, when a named `values` argument has more items than the data. To display
   all `values` on the legend instead, use
