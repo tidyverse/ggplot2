@@ -1,9 +1,9 @@
 context("coord_map")
 
-us_map <- map_data("usa")
-p_us <- ggplot(us_map, aes(x = long, y = lat, group = group))
-
 test_that("USA state map drawn", {
+  skip_if(packageVersion("base") < "3.5.0")
+  us_map <- map_data("usa")
+  p_us <- ggplot(us_map, aes(x = long, y = lat, group = group))
   expect_doppelganger(
     "USA mercator",
     p_us +
@@ -13,6 +13,9 @@ test_that("USA state map drawn", {
 })
 
 test_that("coord_map scale position can be switched", {
+  skip_if(packageVersion("base") < "3.5.0")
+  us_map <- map_data("usa")
+  p_us <- ggplot(us_map, aes(x = long, y = lat, group = group))
   expect_doppelganger(
     "coord_map switched scale position",
     p_us +
