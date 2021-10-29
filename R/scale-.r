@@ -36,6 +36,7 @@
 #'   - `waiver()` for the default labels computed by the
 #'     transformation object
 #'   - A character vector giving labels (must be same length as `breaks`)
+#'   - An expression vector (must be the same length as breaks). See ?plotmath for details.
 #'   - A function that takes the breaks as input and returns labels
 #'     as output. Also accepts rlang [lambda][rlang::as_function()] function
 #'     notation.
