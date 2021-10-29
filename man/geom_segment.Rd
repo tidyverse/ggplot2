@@ -149,10 +149,12 @@ b + geom_curve(
   arrow = arrow(length = unit(0.03, "npc"))
 )
 
+if (requireNamespace('maps', quietly = TRUE)) {
 ggplot(seals, aes(long, lat)) +
   geom_segment(aes(xend = long + delta_long, yend = lat + delta_lat),
     arrow = arrow(length = unit(0.1,"cm"))) +
   borders("state")
+}
 
 # Use lineend and linejoin to change the style of the segments
 df2 <- expand.grid(
