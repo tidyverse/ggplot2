@@ -19,9 +19,7 @@
 \item{...}{other arguments not used by this method}
 }
 \value{
-Invisibly returns the result of \code{\link[=ggplot_build]{ggplot_build()}}, which
-is a list with components that contain the plot itself, the data,
-information about the scales, panels etc.
+Invisibly returns the original plot.
 }
 \description{
 Generally, you do not need to print or plot a ggplot2 plot explicitly: the
