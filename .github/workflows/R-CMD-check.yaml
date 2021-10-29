@@ -12,8 +12,6 @@ on:
 
 name: R-CMD-check
 
-name: R-CMD-check
-
 # Increment this version when we want to clear cache
 env:
   cache-version: v6
