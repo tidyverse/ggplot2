@@ -103,10 +103,12 @@ a call to a position adjustment function.}
 \itemize{
 \item Numeric vector to set the contour breaks
 \item A function that takes the range of the data and binwidth as input
-and returns breaks as output.
+and returns breaks as output. A function can be created from a formula
+(e.g. ~ fullseq(.x, .y)).
+}
+
 Overrides \code{binwidth} and \code{bins}. By default, this is a vector of length
-ten with \code{\link[=pretty]{pretty()}} breaks.
-}}
+ten with \code{\link[=pretty]{pretty()}} breaks.}
   }}
 
 \item{contour_var}{Character string identifying the variable to contour

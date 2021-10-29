@@ -41,6 +41,7 @@ test_that("contour breaks can be set manually and by bins and binwidth and a fun
   expect_length(contour_breaks(range + 0.2, bins = 5), 6)
   expect_equal(resolution(contour_breaks(range, binwidth = 0.3)), 0.3)
   expect_equal(contour_breaks(range), contour_breaks(range, breaks = fullseq))
+  expect_equal(contour_breaks(range), contour_breaks(range, breaks = ~fullseq(.x, .y)))
 })
 
 test_that("geom_contour_filled() and stat_contour_filled() result in identical layer data", {

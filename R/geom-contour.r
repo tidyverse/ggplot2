@@ -22,7 +22,9 @@
 #' @param breaks One of:
 #'   - Numeric vector to set the contour breaks
 #'   - A function that takes the range of the data and binwidth as input
-#'   and returns breaks as output.
+#'   and returns breaks as output. A function can be created from a formula
+#'   (e.g. ~ fullseq(.x, .y)).
+#'
 #'   Overrides `binwidth` and `bins`. By default, this is a vector of length
 #'   ten with [pretty()] breaks.
 #' @seealso [geom_density_2d()]: 2d density contours

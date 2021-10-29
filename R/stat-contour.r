@@ -144,6 +144,8 @@ StatContourFilled <- ggproto("StatContourFilled", Stat,
 #' @noRd
 #'
 contour_breaks <- function(z_range, bins = NULL, binwidth = NULL, breaks = NULL) {
+  breaks <- allow_lambda(breaks)
+
   if (is.numeric(breaks)) {
     return(breaks)
   }
