@@ -27,6 +27,7 @@ test_that("coord_map scale position can be switched", {
 })
 
 test_that("Inf is squished to range", {
+  skip_if(packageVersion("base") < "3.5.0")
   d <- cdata(
     ggplot(data_frame(x = 0, y = 0)) +
       geom_point(aes(x,y)) +
