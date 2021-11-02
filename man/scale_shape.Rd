@@ -81,6 +81,7 @@ a continuous variable to shape unless \code{scale_shape_binned()} is used. Still
 as shape has no inherent order, this use is not advised.
 }
 \examples{
+set.seed(596)
 dsmall <- diamonds[sample(nrow(diamonds), 100), ]
 
 (d <- ggplot(dsmall, aes(carat, price)) + geom_point(aes(shape = cut)))
