@@ -137,9 +137,7 @@ is.ggplot <- function(x) inherits(x, "ggplot")
 #' @param vp viewport to draw plot in
 #' @param ... other arguments not used by this method
 #' @keywords hplot
-#' @return Invisibly returns the result of [ggplot_build()], which
-#'   is a list with components that contain the plot itself, the data,
-#'   information about the scales, panels etc.
+#' @return Invisibly returns the original plot.
 #' @export
 #' @method print ggplot
 #' @examples

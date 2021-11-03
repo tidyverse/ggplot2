@@ -341,8 +341,15 @@ ggplot(nc_3857) +
   annotate("point", x = -80, y = 35, colour = "red", size = 4) +
   coord_sf(default_crs = sf::st_crs(4326))
 
+# To add labels, use geom_sf_label().
+ggplot(nc_3857[1:3, ]) +
+   geom_sf(aes(fill = AREA)) +
+   geom_sf_label(aes(label = NAME))
+}
+
 # Thanks to the power of sf, a geom_sf nicely handles varying projections
 # setting the aspect ratio correctly.
+if (requireNamespace('maps', quietly = TRUE)) {
 library(maps)
 world1 <- sf::st_as_sf(map('world', plot = FALSE, fill = TRUE))
 ggplot() + geom_sf(data = world1)
@@ -352,11 +359,6 @@ world2 <- sf::st_transform(
   "+proj=laea +y_0=0 +lon_0=155 +lat_0=-90 +ellps=WGS84 +no_defs"
 )
 ggplot() + geom_sf(data = world2)
-
-# To add labels, use geom_sf_label().
-ggplot(nc_3857[1:3, ]) +
-   geom_sf(aes(fill = AREA)) +
-   geom_sf_label(aes(label = NAME))
 }
 }
 \seealso{

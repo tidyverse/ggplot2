@@ -1,5 +1,28 @@
 # ggplot2 (development version)
 
+* Updated documentation for `print.ggplot` to reflect that it returns
+  the original plot, not the result of `ggplot_build()`. (@r2evans, #4390)
+
+* `scale_*_manual()` no longer displays extra legend keys, or changes their 
+  order, when a named `values` argument has more items than the data. To display
+  all `values` on the legend instead, use
+  `scale_*_manual(values = vals, limits = names(vals))`. (@teunbrand, @banfai, 
+  #4511, #4534)
+
+# ggplot2 3.3.5
+This is a very small release focusing on fixing a couple of untenable issues 
+that surfaced with the 3.3.4 release
+
+* Revert changes made in #4434 (apply transform to intercept in `geom_abline()`) 
+  as it introduced undesirable issues far worse than the bug it fixed 
+  (@thomasp85, #4514)
+* Fixes an issue in `ggsave()` when producing emf/wmf files (@yutannihilation, 
+  #4521)
+* Warn when grDevices specific arguments are passed to ragg devices (@thomasp85, 
+  #4524)
+* Fix an issue where `coord_sf()` was reporting that it is non-linear
+  even when data is provided in projected coordinates (@clauswilke, #4527)
+
 # ggplot2 3.3.4
 This is a larger patch release fixing a huge number of bugs and introduces a 
 small selection of feature refinements.
@@ -73,7 +96,7 @@ small selection of feature refinements.
 * It is now deprecated to specify `guides(<scale> = FALSE)` or
   `scale_*(guide = FALSE)` to remove a guide. Please use 
   `guides(<scale> = "none")` or `scale_*(guide = "none")` instead 
-  (@yutannihilation, #4094).
+  (@yutannihilation, #4097)
   
 * Fix a bug in `guide_bins()` where keys would disappear if the guide was 
   reversed (@thomasp85, #4210)
