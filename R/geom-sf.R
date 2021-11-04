@@ -210,10 +210,9 @@ sf_grob <- function(x, lineend = "butt", linejoin = "round", linemitre = 10,
   lty <- x$linetype %||% defaults$linetype[type_ind]
   gp <- gpar(
     col = col, fill = fill, fontsize = fontsize, lwd = lwd, lty = lty,
-    lineend = lineend, linejoin = linejoin, linemitre = linemitre,
-    arrow = arrow
+    lineend = lineend, linejoin = linejoin, linemitre = linemitre
   )
-  sf::st_as_grob(x$geometry, pch = pch, gp = gp)
+  sf::st_as_grob(x$geometry, pch = pch, gp = gp, arrow = arrow)
 }
 
 #' @export
