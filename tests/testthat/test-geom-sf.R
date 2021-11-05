@@ -219,10 +219,10 @@ test_that("geom_sf draws arrows correctly", {
   nc2 <- sf::st_cast(
     sf::st_sfc(
       sf::st_multilinestring(lapply(
-        1:(length(st_coordinates(nc)[, 1]) - 1),
+        1:(length(sf::st_coordinates(nc)[, 1]) - 1),
           function(x) rbind(
-            as.numeric(st_coordinates(nc)[x, 1:2]),
-            as.numeric(st_coordinates(nc)[x + 1, 1:2])
+            as.numeric(sf::st_coordinates(nc)[x, 1:2]),
+            as.numeric(sf::st_coordinates(nc)[x + 1, 1:2])
             )
         )
       ), sf::st_crs(nc)
