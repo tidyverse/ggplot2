@@ -207,7 +207,7 @@ test_that("geom_sf draws arrows correctly", {
   skip_if_not_installed("sf")
   if (packageVersion("sf") < "0.5.3") skip("Need sf 0.5.3")
 
-  nc_tiny_coords <- data_frame(
+  nc_tiny_coords <- tibble::data_frame(
     x = c(-81.473, -81.741, -81.67, -81.345, -81.266, -81.24, -81.473),
     y = c(36.234, 36.392, 36.59, 36.573, 36.437, 36.365, 36.234)
   )
