@@ -59,12 +59,12 @@
 <circle cx='373.66' cy='333.45' r='1.95' style='stroke-width: 0.71; fill: #000000;' />
 <circle cx='668.78' cy='428.42' r='1.95' style='stroke-width: 0.71; fill: #000000;' />
 <circle cx='78.54' cy='299.10' r='1.95' style='stroke-width: 0.71; fill: #000000;' />
-<polygon points='63.78,165.27 63.78,220.22 93.29,220.22 93.29,165.27 63.78,165.27 ' style='stroke-width: 1.07; stroke: #FF0000; fill: none;' />
-<polygon points='358.90,321.49 358.90,343.69 388.41,343.69 388.41,321.49 358.90,321.49 ' style='stroke-width: 1.07; stroke: #FF0000; fill: none;' />
-<polygon points='654.02,412.58 654.02,440.23 683.53,440.23 683.53,412.58 654.02,412.58 ' style='stroke-width: 1.07; stroke: #FF0000; fill: none;' />
-<line x1='63.78' y1='192.74' x2='93.29' y2='192.74' style='stroke-width: 2.67; stroke: #FF0000; stroke-linecap: butt;' />
-<line x1='358.90' y1='332.59' x2='388.41' y2='332.59' style='stroke-width: 2.67; stroke: #FF0000; stroke-linecap: butt;' />
-<line x1='654.02' y1='426.40' x2='683.53' y2='426.40' style='stroke-width: 2.67; stroke: #FF0000; stroke-linecap: butt;' />
+<polygon points='63.78,165.27 63.78,220.22 93.29,220.22 93.29,165.27 63.78,165.27 ' style='stroke-width: 1.07; stroke: #FF0000; stroke-linecap: butt; stroke-linejoin: miter; fill: none;' />
+<polygon points='358.90,321.49 358.90,343.69 388.41,343.69 388.41,321.49 358.90,321.49 ' style='stroke-width: 1.07; stroke: #FF0000; stroke-linecap: butt; stroke-linejoin: miter; fill: none;' />
+<polygon points='654.02,412.58 654.02,440.23 683.53,440.23 683.53,412.58 654.02,412.58 ' style='stroke-width: 1.07; stroke: #FF0000; stroke-linecap: butt; stroke-linejoin: miter; fill: none;' />
+<line x1='63.78' y1='192.74' x2='93.29' y2='192.74' style='stroke-width: 2.67; stroke: #FF0000; stroke-linecap: butt; stroke-linejoin: miter;' />
+<line x1='358.90' y1='332.59' x2='388.41' y2='332.59' style='stroke-width: 2.67; stroke: #FF0000; stroke-linecap: butt; stroke-linejoin: miter;' />
+<line x1='654.02' y1='426.40' x2='683.53' y2='426.40' style='stroke-width: 2.67; stroke: #FF0000; stroke-linecap: butt; stroke-linejoin: miter;' />
 <rect x='32.79' y='22.78' width='681.73' height='522.33' style='stroke-width: 1.07; stroke: #333333;' />
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>

@@ -106,7 +106,8 @@ geom_polygon <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomPolygon <- ggproto("GeomPolygon", Geom,
-  draw_panel = function(data, panel_params, coord, rule = "evenodd") {
+  draw_panel = function(data, panel_params, coord, rule = "evenodd", lineend = "butt",
+                        linejoin = "round", linemitre = 10) {
     n <- nrow(data)
     if (n == 1) return(zeroGrob())
 
@@ -131,7 +132,10 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
             col = first_rows$colour,
             fill = alpha(first_rows$fill, first_rows$alpha),
             lwd = first_rows$size * .pt,
-            lty = first_rows$linetype
+            lty = first_rows$linetype,
+            lineend = lineend,
+            linejoin = linejoin,
+            linemitre = linemitre
           )
         )
       )
@@ -159,7 +163,10 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
             col = first_rows$colour,
             fill = alpha(first_rows$fill, first_rows$alpha),
             lwd = first_rows$size * .pt,
-            lty = first_rows$linetype
+            lty = first_rows$linetype,
+            lineend = lineend,
+            linejoin = linejoin,
+            linemitre = linemitre
           )
         )
       )

@@ -27,26 +27,26 @@
 </defs>
 <g clip-path='url(#cpNDAuMTN8NTIwLjA5fDIyLjc4fDU0NS4xMQ==)'>
 <rect x='40.13' y='22.78' width='479.96' height='522.33' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<circle cx='150.32' cy='502.25' r='19.12' style='stroke-width: 0.75; stroke: #0000FF; fill: #FF0000;' />
-<circle cx='150.32' cy='464.01' r='19.12' style='stroke-width: 0.75; stroke: #0000FF; fill: #FF0000;' />
-<circle cx='190.66' cy='502.25' r='19.12' style='stroke-width: 0.75; stroke: #0000FF; fill: #FF0000;' />
-<circle cx='190.66' cy='464.01' r='19.12' style='stroke-width: 0.75; stroke: #0000FF; fill: #FF0000;' />
-<circle cx='225.95' cy='502.25' r='19.12' style='stroke-width: 0.75; stroke: #0000FF; fill: #FF0000;' />
-<circle cx='225.95' cy='464.01' r='19.12' style='stroke-width: 0.75; stroke: #0000FF; fill: #FF0000;' />
-<circle cx='225.95' cy='425.77' r='19.12' style='stroke-width: 0.75; stroke: #0000FF; fill: #FF0000;' />
-<circle cx='263.94' cy='502.25' r='19.12' style='stroke-width: 0.75; stroke: #0000FF; fill: #FF0000;' />
-<circle cx='367.14' cy='502.25' r='19.12' style='stroke-width: 0.75; stroke: #0000FF; fill: #FF0000;' />
-<circle cx='367.14' cy='464.01' r='19.12' style='stroke-width: 0.75; stroke: #0000FF; fill: #FF0000;' />
-<circle cx='81.07' cy='502.25' r='19.12' style='stroke-width: 4.50; stroke: #0000FF; stroke-dasharray: 12.00,12.00; fill: #FF0000;' />
-<circle cx='163.79' cy='502.25' r='19.12' style='stroke-width: 4.50; stroke: #0000FF; stroke-dasharray: 12.00,12.00; fill: #FF0000;' />
-<circle cx='163.79' cy='464.01' r='19.12' style='stroke-width: 4.50; stroke: #0000FF; stroke-dasharray: 12.00,12.00; fill: #FF0000;' />
-<circle cx='234.59' cy='502.25' r='19.12' style='stroke-width: 4.50; stroke: #0000FF; stroke-dasharray: 12.00,12.00; fill: #FF0000;' />
-<circle cx='302.22' cy='502.25' r='19.12' style='stroke-width: 4.50; stroke: #0000FF; stroke-dasharray: 12.00,12.00; fill: #FF0000;' />
-<circle cx='302.22' cy='464.01' r='19.12' style='stroke-width: 4.50; stroke: #0000FF; stroke-dasharray: 12.00,12.00; fill: #FF0000;' />
-<circle cx='302.22' cy='425.77' r='19.12' style='stroke-width: 4.50; stroke: #0000FF; stroke-dasharray: 12.00,12.00; fill: #FF0000;' />
-<circle cx='386.95' cy='502.25' r='19.12' style='stroke-width: 4.50; stroke: #0000FF; stroke-dasharray: 12.00,12.00; fill: #FF0000;' />
-<circle cx='428.36' cy='502.25' r='19.12' style='stroke-width: 4.50; stroke: #0000FF; stroke-dasharray: 12.00,12.00; fill: #FF0000;' />
-<circle cx='479.16' cy='502.25' r='19.12' style='stroke-width: 4.50; stroke: #0000FF; stroke-dasharray: 12.00,12.00; fill: #FF0000;' />
+<circle cx='150.32' cy='502.25' r='19.12' style='stroke-width: 0.75; stroke: #0000FF; stroke-linecap: butt; fill: #FF0000;' />
+<circle cx='150.32' cy='464.01' r='19.12' style='stroke-width: 0.75; stroke: #0000FF; stroke-linecap: butt; fill: #FF0000;' />
+<circle cx='190.66' cy='502.25' r='19.12' style='stroke-width: 0.75; stroke: #0000FF; stroke-linecap: butt; fill: #FF0000;' />
+<circle cx='190.66' cy='464.01' r='19.12' style='stroke-width: 0.75; stroke: #0000FF; stroke-linecap: butt; fill: #FF0000;' />
+<circle cx='225.95' cy='502.25' r='19.12' style='stroke-width: 0.75; stroke: #0000FF; stroke-linecap: butt; fill: #FF0000;' />
+<circle cx='225.95' cy='464.01' r='19.12' style='stroke-width: 0.75; stroke: #0000FF; stroke-linecap: butt; fill: #FF0000;' />
+<circle cx='225.95' cy='425.77' r='19.12' style='stroke-width: 0.75; stroke: #0000FF; stroke-linecap: butt; fill: #FF0000;' />
+<circle cx='263.94' cy='502.25' r='19.12' style='stroke-width: 0.75; stroke: #0000FF; stroke-linecap: butt; fill: #FF0000;' />
+<circle cx='367.14' cy='502.25' r='19.12' style='stroke-width: 0.75; stroke: #0000FF; stroke-linecap: butt; fill: #FF0000;' />
+<circle cx='367.14' cy='464.01' r='19.12' style='stroke-width: 0.75; stroke: #0000FF; stroke-linecap: butt; fill: #FF0000;' />
+<circle cx='81.07' cy='502.25' r='19.12' style='stroke-width: 4.50; stroke: #0000FF; stroke-dasharray: 12.00,12.00; stroke-linecap: butt; fill: #FF0000;' />
+<circle cx='163.79' cy='502.25' r='19.12' style='stroke-width: 4.50; stroke: #0000FF; stroke-dasharray: 12.00,12.00; stroke-linecap: butt; fill: #FF0000;' />
+<circle cx='163.79' cy='464.01' r='19.12' style='stroke-width: 4.50; stroke: #0000FF; stroke-dasharray: 12.00,12.00; stroke-linecap: butt; fill: #FF0000;' />
+<circle cx='234.59' cy='502.25' r='19.12' style='stroke-width: 4.50; stroke: #0000FF; stroke-dasharray: 12.00,12.00; stroke-linecap: butt; fill: #FF0000;' />
+<circle cx='302.22' cy='502.25' r='19.12' style='stroke-width: 4.50; stroke: #0000FF; stroke-dasharray: 12.00,12.00; stroke-linecap: butt; fill: #FF0000;' />
+<circle cx='302.22' cy='464.01' r='19.12' style='stroke-width: 4.50; stroke: #0000FF; stroke-dasharray: 12.00,12.00; stroke-linecap: butt; fill: #FF0000;' />
+<circle cx='302.22' cy='425.77' r='19.12' style='stroke-width: 4.50; stroke: #0000FF; stroke-dasharray: 12.00,12.00; stroke-linecap: butt; fill: #FF0000;' />
+<circle cx='386.95' cy='502.25' r='19.12' style='stroke-width: 4.50; stroke: #0000FF; stroke-dasharray: 12.00,12.00; stroke-linecap: butt; fill: #FF0000;' />
+<circle cx='428.36' cy='502.25' r='19.12' style='stroke-width: 4.50; stroke: #0000FF; stroke-dasharray: 12.00,12.00; stroke-linecap: butt; fill: #FF0000;' />
+<circle cx='479.16' cy='502.25' r='19.12' style='stroke-width: 4.50; stroke: #0000FF; stroke-dasharray: 12.00,12.00; stroke-linecap: butt; fill: #FF0000;' />
 <rect x='40.13' y='22.78' width='479.96' height='522.33' style='stroke-width: 1.07; stroke: #333333;' />
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>

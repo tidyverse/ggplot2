@@ -264,7 +264,7 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
   },
 
 
-  draw_group = function(data, panel_params, coord, na.rm = FALSE,
+  draw_group = function(data, panel_params, coord, lineend = "butt", na.rm = FALSE,
                         binaxis = "x", stackdir = "up", stackratio = 1,
                         dotsize = 1, stackgroups = FALSE) {
     if (!coord$is_linear()) {
@@ -292,7 +292,8 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
                   default.units = "npc",
                   gp = gpar(col = alpha(tdata$colour, tdata$alpha),
                             fill = alpha(tdata$fill, tdata$alpha),
-                            lwd = tdata$stroke, lty = tdata$linetype))
+                            lwd = tdata$stroke, lty = tdata$linetype,
+                            lineend = lineend))
     )
   },
 
