@@ -8,6 +8,8 @@
   all `values` on the legend instead, use
   `scale_*_manual(values = vals, limits = names(vals))`. (@teunbrand, @banfai, 
   #4511, #4534)
+  
+* `geom_contour()` now accepts a function in the `breaks` argument (@eliocamp, #4652).
 
 # ggplot2 3.3.5
 This is a very small release focusing on fixing a couple of untenable issues 

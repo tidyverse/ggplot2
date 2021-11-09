@@ -19,9 +19,14 @@
 #' @inheritParams geom_path
 #' @param bins Number of contour bins. Overridden by `binwidth`.
 #' @param binwidth The width of the contour bins. Overridden by `breaks`.
-#' @param breaks Numeric vector to set the contour breaks. Overrides `binwidth`
-#'   and `bins`. By default, this is a vector of length ten with [pretty()]
-#'   breaks.
+#' @param breaks One of:
+#'   - Numeric vector to set the contour breaks
+#'   - A function that takes the range of the data and binwidth as input
+#'   and returns breaks as output. A function can be created from a formula
+#'   (e.g. ~ fullseq(.x, .y)).
+#'
+#'   Overrides `binwidth` and `bins`. By default, this is a vector of length
+#'   ten with [pretty()] breaks.
 #' @seealso [geom_density_2d()]: 2d density contours
 #' @export
 #' @examples

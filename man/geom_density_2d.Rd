@@ -99,9 +99,16 @@ a call to a position adjustment function.}
   \describe{
     \item{\code{bins}}{Number of contour bins. Overridden by \code{binwidth}.}
     \item{\code{binwidth}}{The width of the contour bins. Overridden by \code{breaks}.}
-    \item{\code{breaks}}{Numeric vector to set the contour breaks. Overrides \code{binwidth}
-and \code{bins}. By default, this is a vector of length ten with \code{\link[=pretty]{pretty()}}
-breaks.}
+    \item{\code{breaks}}{One of:
+\itemize{
+\item Numeric vector to set the contour breaks
+\item A function that takes the range of the data and binwidth as input
+and returns breaks as output. A function can be created from a formula
+(e.g. ~ fullseq(.x, .y)).
+}
+
+Overrides \code{binwidth} and \code{bins}. By default, this is a vector of length
+ten with \code{\link[=pretty]{pretty()}} breaks.}
   }}
 
 \item{contour_var}{Character string identifying the variable to contour
