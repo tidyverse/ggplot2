@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* `geom_sf()` now respects `arrow` parameter for lines (@jakeruss, #4659)
+
 * Updated documentation for `print.ggplot` to reflect that it returns
   the original plot, not the result of `ggplot_build()`. (@r2evans, #4390)
 
