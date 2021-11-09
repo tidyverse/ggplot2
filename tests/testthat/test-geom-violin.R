@@ -1,5 +1,3 @@
-context("geom_violin")
-
 test_that("range is expanded", {
   df <- rbind(
     data_frame(x = "a", y = c(0, runif(10), 1)),

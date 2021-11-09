@@ -1,5 +1,3 @@
-context("position_dodge2")
-
 test_that("find_x_overlaps identifies overlapping groups", {
 
   df1 <- data_frame(

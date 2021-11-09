@@ -1,5 +1,3 @@
-context("Facetting")
-
 test_that("as_facets_list() coerces formulas", {
   expect_identical(as_facets_list(~foo), list(quos(), quos(foo = foo)))
   expect_identical(as_facets_list(~foo + bar), list(quos(), quos(foo = foo, bar = bar)))
@@ -277,15 +275,16 @@ test_that("combine_vars() generates the correct combinations", {
     factor = factor(c("level1", "level2")),
     stringsAsFactors = FALSE
   )
+  attr(df_all, "out.attrs") <- NULL
 
   vars_all <- vars(letter = letter, number =  number, boolean = boolean, factor = factor)
 
-  expect_equivalent(
+  expect_equal(
     combine_vars(list(df_one), vars = vars_all),
     df_one
   )
 
-  expect_equivalent(
+  expect_equal(
     combine_vars(list(df_all), vars = vars_all),
     df_all
   )
@@ -295,21 +294,22 @@ test_that("combine_vars() generates the correct combinations", {
   # NAs are kept with with drop = TRUE
   # drop keeps all combinations of data, regardless of the combinations in which
   # they appear in the data (in addition to keeping unused factor levels)
-  expect_equivalent(
+  expect_equal(
     combine_vars(list(df_one), vars = vars_all, drop = FALSE),
-    df_all[order(df_all$letter, df_all$number, df_all$boolean, df_all$factor), ]
+    df_all[order(df_all$letter, df_all$number, df_all$boolean, df_all$factor), ],
+    ignore_attr = TRUE   # do not compare `row.names`
   )
 })
 
 test_that("drop = FALSE in combine_vars() keeps unused factor levels", {
   df <- data_frame(x = factor("a", levels = c("a", "b")))
-  expect_equivalent(
+  expect_equal(
     combine_vars(list(df), vars = vars(x = x), drop = TRUE),
-    data_frame(x = factor("a"))
+    data_frame(x = factor("a", levels = c("a", "b")))
   )
-  expect_equivalent(
+  expect_equal(
     combine_vars(list(df), vars = vars(x = x), drop = FALSE),
-    data_frame(x = factor(c("a", "b")))
+    data_frame(x = factor(c("a", "b"), levels = c("a", "b")))
   )
 })
 

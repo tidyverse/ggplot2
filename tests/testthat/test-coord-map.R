@@ -1,5 +1,3 @@
-context("coord_map")
-
 test_that("USA state map drawn", {
   skip_if(packageVersion("base") < "3.5.0")
   us_map <- map_data("usa")

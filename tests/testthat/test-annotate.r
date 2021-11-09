@@ -1,5 +1,3 @@
-context("annotate")
-
 test_that("dates in segment annotation work", {
   dt <- structure(list(month = structure(c(1364774400, 1377993600),
       class = c("POSIXct", "POSIXt"), tzone = "UTC"), total = c(-10.3,

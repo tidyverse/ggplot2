@@ -1,5 +1,3 @@
-context("geom-hline-vline-abline")
-
 
 # Visual tests ------------------------------------------------------------
 
