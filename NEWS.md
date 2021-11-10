@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* All geoms now have consistent exposure of linejoin and lineend parameters, and
+  the guide keys will now respect these settings (@thomasp85, #4653)
+
 * `geom_sf()` now respects `arrow` parameter for lines (@jakeruss, #4659)
 
 * Updated documentation for `print.ggplot` to reflect that it returns

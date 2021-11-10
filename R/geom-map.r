@@ -105,7 +105,8 @@ geom_map <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomMap <- ggproto("GeomMap", GeomPolygon,
-  draw_panel = function(data, panel_params, coord, map) {
+  draw_panel = function(data, panel_params, coord, lineend = "butt",
+                        linejoin = "round", linemitre = 10, map) {
     # Only use matching data and map ids
     common <- intersect(data$map_id, map$id)
     data <- data[data$map_id %in% common, , drop = FALSE]
@@ -123,8 +124,12 @@ GeomMap <- ggproto("GeomMap", GeomPolygon,
 
     polygonGrob(coords$x, coords$y, default.units = "native", id = grob_id,
       gp = gpar(
-        col = data$colour, fill = alpha(data$fill, data$alpha),
-        lwd = data$size * .pt
+        col = data$colour,
+        fill = alpha(data$fill, data$alpha),
+        lwd = data$size * .pt,
+        lineend = lineend,
+        linejoin = linejoin,
+        linemitre = linemitre
       )
     )
   },

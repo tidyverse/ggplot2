@@ -205,12 +205,12 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
     flip_data(data, params$flipped_aes)
   },
 
-  draw_group = function(data, panel_params, coord, fatten = 2,
-                        outlier.colour = NULL, outlier.fill = NULL,
-                        outlier.shape = 19,
+  draw_group = function(data, panel_params, coord, lineend = "butt",
+                        linejoin = "mitre", fatten = 2, outlier.colour = NULL,
+                        outlier.fill = NULL, outlier.shape = 19,
                         outlier.size = 1.5, outlier.stroke = 0.5,
-                        outlier.alpha = NULL,
-                        notch = FALSE, notchwidth = 0.5, varwidth = FALSE, flipped_aes = FALSE) {
+                        outlier.alpha = NULL, notch = FALSE, notchwidth = 0.5,
+                        varwidth = FALSE, flipped_aes = FALSE) {
     data <- flip_data(data, flipped_aes)
     # this may occur when using geom_boxplot(stat = "identity")
     if (nrow(data) != 1) {
@@ -274,8 +274,16 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
 
     ggname("geom_boxplot", grobTree(
       outliers_grob,
-      GeomSegment$draw_panel(whiskers, panel_params, coord),
-      GeomCrossbar$draw_panel(box, fatten = fatten, panel_params, coord, flipped_aes = flipped_aes)
+      GeomSegment$draw_panel(whiskers, panel_params, coord, lineend = lineend),
+      GeomCrossbar$draw_panel(
+        box,
+        fatten = fatten,
+        panel_params,
+        coord,
+        lineend = lineend,
+        linejoin = linejoin,
+        flipped_aes = flipped_aes
+      )
     ))
   },
 
