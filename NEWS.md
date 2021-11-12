@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Strip padding in `facet_grid()` is now only in effect if `strip.placement = "outside"`
+  _and_ an axis is present between the strip and the panel (@thomasp85, #4610)
+
 * Setting `stroke` to `NA` in `geom_point()` will no longer impair the sizing of
   the points (@thomasp85, #4624)
 
