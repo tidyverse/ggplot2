@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Setting `stroke` to `NA` in `geom_point()` will no longer impair the sizing of
+  the points (@thomasp85, #4624)
+
 * `stat_bin_2d()` now correctly recognises the `weight` aesthetic 
   (@thomasp85, #4646)
   
