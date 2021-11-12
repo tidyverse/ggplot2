@@ -3,6 +3,9 @@
 * Setting `stroke` to `NA` in `geom_point()` will no longer impair the sizing of
   the points (@thomasp85, #4624)
 
+* `stat_bin_2d()` now correctly recognises the `weight` aesthetic 
+  (@thomasp85, #4646)
+  
 * All geoms now have consistent exposure of linejoin and lineend parameters, and
   the guide keys will now respect these settings (@thomasp85, #4653)
 
