@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Aesthetics of length 1 are now recycled to 0 if the length of the data is 0 
+  (@thomasp85, #4588)
+
 * Setting `stroke` to `NA` in `geom_point()` will no longer impair the sizing of
   the points (@thomasp85, #4624)
 
