@@ -3,6 +3,12 @@
 * Strip padding in `facet_grid()` is now only in effect if `strip.placement = "outside"`
   _and_ an axis is present between the strip and the panel (@thomasp85, #4610)
 
+* Aesthetics of length 1 are now recycled to 0 if the length of the data is 0 
+  (@thomasp85, #4588)
+
+* Setting `size = NA` will no longer cause `guide_legend()` to error 
+  (@thomasp85, #4559)
+
 * Setting `stroke` to `NA` in `geom_point()` will no longer impair the sizing of
   the points (@thomasp85, #4624)
 
