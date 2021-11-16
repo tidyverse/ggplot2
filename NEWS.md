@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Aesthetics of length 1 are now recycled to 0 if the length of the data is 0 
+  (@thomasp85, #4588)
+
 * Setting `size = NA` will no longer cause `guide_legend()` to error 
   (@thomasp85, #4559)
 
