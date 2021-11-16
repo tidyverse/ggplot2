@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `geom_hex()` will now use the binwidth from `stat_bin_hex()` if present, 
+  instead of deriving it (@thomasp85, #4580)
+
 * Setting `stroke` to `NA` in `geom_point()` will no longer impair the sizing of
   the points (@thomasp85, #4624)
 
