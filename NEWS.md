@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Strip padding in `facet_grid()` is now only in effect if `strip.placement = "outside"`
+  _and_ an axis is present between the strip and the panel (@thomasp85, #4610)
+
 * Aesthetics of length 1 are now recycled to 0 if the length of the data is 0 
   (@thomasp85, #4588)
 
