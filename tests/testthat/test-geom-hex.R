@@ -18,3 +18,11 @@ test_that("size and linetype are applied", {
   expect_equal(gpar$lwd, c(4, 4) * .pt, tolerance = 1e-7)
   expect_equal(gpar$lty, c(2, 2), tolerance = 1e-7)
 })
+
+test_that("bin size are picked up from stat", {
+  expect_doppelganger("single hex bin with width and height of 0.1",
+    ggplot(data.frame(x = 0, y = 0)) +
+      geom_hex(aes(x = x, y = y), binwidth = c(0.1, 0.1)) +
+      coord_cartesian(xlim = c(-1, 1), ylim = c(-1, 1))
+  )
+})
