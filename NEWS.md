@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Axes are now added correctly in `facet_wrap()` when `as.table = TRUE`
+  (@thomasp85, #4553)
+
 * Strip padding in `facet_grid()` is now only in effect if `strip.placement = "outside"`
   _and_ an axis is present between the strip and the panel (@thomasp85, #4610)
 
