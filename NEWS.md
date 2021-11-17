@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Better compatibility of custom device functions in `ggsave()` 
+  (@thomasp85, #4539)
+
 * Strip padding in `facet_grid()` is now only in effect if `strip.placement = "outside"`
   _and_ an axis is present between the strip and the panel (@thomasp85, #4610)
 
