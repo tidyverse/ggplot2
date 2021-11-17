@@ -80,6 +80,14 @@ test_that("wrap: as.table reverses rows", {
   expect_equal(two$ROW, c(1, 1))
 })
 
+test_that("wrap: as.table gets axes", {
+  p <- ggplot(mpg, aes(displ, hwy)) +
+    geom_point() +
+    scale_y_continuous(position = 'right') +
+    facet_wrap(vars(class), dir = "v", as.table = TRUE)
+  expect_doppelganger("Axes are positioned correctly in table layout", p)
+})
+
 test_that("grid: as.table reverses rows", {
   one <- panel_layout(facet_grid(a~., as.table = FALSE), list(a))
   expect_equal(as.character(one$a), c("2", "1"))
