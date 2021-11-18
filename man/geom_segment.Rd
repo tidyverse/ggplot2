@@ -69,7 +69,7 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 \code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
-\item{arrow}{specification for arrow heads, as created by arrow().}
+\item{arrow}{specification for arrow heads, as created by \code{\link[grid:arrow]{grid::arrow()}}.}
 
 \item{arrow.fill}{fill colour to use for the arrow head (if closed). \code{NULL}
 means use \code{colour} aesthetic.}

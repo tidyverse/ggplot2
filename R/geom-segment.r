@@ -11,7 +11,7 @@
 #' @eval rd_aesthetics("geom", "segment")
 #' @inheritParams layer
 #' @inheritParams geom_point
-#' @param arrow specification for arrow heads, as created by arrow().
+#' @param arrow specification for arrow heads, as created by [grid::arrow()].
 #' @param arrow.fill fill colour to use for the arrow head (if closed). `NULL`
 #'        means use `colour` aesthetic.
 #' @param lineend Line end style (round, butt, square).
