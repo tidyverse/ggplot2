@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Fixed a bug throwing errors when trying to render an empty plot with secondary
+  axes (@thomasp85, #4509)
+
 * Axes are now added correctly in `facet_wrap()` when `as.table = FALSE`
   (@thomasp85, #4553)
 
