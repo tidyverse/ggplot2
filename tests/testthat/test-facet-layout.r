@@ -83,8 +83,8 @@ test_that("wrap: as.table reverses rows", {
 test_that("wrap: as.table gets axes", {
   p <- ggplot(mpg, aes(displ, hwy)) +
     geom_point() +
-    scale_y_continuous(position = 'right') +
-    facet_wrap(vars(class), dir = "v", as.table = TRUE)
+    scale_y_continuous(position = "right") +
+    facet_wrap(vars(class), dir = "v", as.table = FALSE)
   expect_doppelganger("Axes are positioned correctly in table layout", p)
 })
 
