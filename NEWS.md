@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Axes are now added correctly in `facet_wrap()` when `as.table = FALSE`
+  (@thomasp85, #4553)
+
 * Better compatibility of custom device functions in `ggsave()` 
   (@thomasp85, #4539)
 

@@ -313,30 +313,70 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     )
     # Add back missing axes
     if (any(empties)) {
-      first_row <- which(apply(empties, 1, any))[1] - 1
-      first_col <- which(apply(empties, 2, any))[1] - 1
-      row_panels <- which(layout$ROW == first_row & layout$COL > first_col)
-      row_pos <- convertInd(layout$ROW[row_panels], layout$COL[row_panels], nrow)
-      row_axes <- axes$x$bottom[layout$SCALE_X[row_panels]]
-      col_panels <- which(layout$ROW > first_row & layout$COL == first_col)
-      col_pos <- convertInd(layout$ROW[col_panels], layout$COL[col_panels], nrow)
-      col_axes <- axes$y$right[layout$SCALE_Y[col_panels]]
+      row_ind <- row(empties)
+      col_ind <- col(empties)
       inside <- (theme$strip.placement %||% "inside") == "inside"
-      if (params$strip.position == "bottom" &&
-          !inside &&
-          any(!vapply(row_axes, is.zero, logical(1))) &&
-          !params$free$x) {
-        warn("Suppressing axis rendering when strip.position = 'bottom' and strip.placement == 'outside'")
-      } else {
-        axis_mat_x_bottom[row_pos] <- row_axes
+      empty_bottom <- apply(empties, 2, function(x) c(diff(x) == 1, FALSE))
+      if (any(empty_bottom)) {
+        pos <- which(empty_bottom)
+        panel_loc <- data_frame(ROW = row_ind[pos], COL = col_ind[pos])
+        # Substitute with vctrs::vec_match(panel_loc, layout[, c("ROW", "COL")])
+        # Once we switch to vctrs wholesale
+        panels <- merge(panel_loc, cbind(layout, .index = seq_len(nrow(layout))))$.index
+        x_axes <- axes$x$bottom[layout$SCALE_X[panels]]
+        if (params$strip.position == "bottom" &&
+            !inside &&
+            any(!vapply(x_axes, is.zero, logical(1))) &&
+            !params$free$x) {
+          warn("Suppressing axis rendering when strip.position = 'bottom' and strip.placement == 'outside'")
+        } else {
+          axis_mat_x_bottom[pos] <- x_axes
+        }
       }
-      if (params$strip.position == "right" &&
-          !inside &&
-          any(!vapply(col_axes, is.zero, logical(1))) &&
-          !params$free$y) {
-        warn("Suppressing axis rendering when strip.position = 'right' and strip.placement == 'outside'")
-      } else {
-        axis_mat_y_right[col_pos] <- col_axes
+      empty_top <- apply(empties, 2, function(x) c(FALSE, diff(x) == -1))
+      if (any(empty_top)) {
+        pos <- which(empty_top)
+        panel_loc <- data_frame(ROW = row_ind[pos], COL = col_ind[pos])
+        panels <- merge(panel_loc, cbind(layout, .index = seq_len(nrow(layout))))$.index
+        x_axes <- axes$x$top[layout$SCALE_X[panels]]
+        if (params$strip.position == "top" &&
+            !inside &&
+            any(!vapply(x_axes, is.zero, logical(1))) &&
+            !params$free$x) {
+          warn("Suppressing axis rendering when strip.position = 'top' and strip.placement == 'outside'")
+        } else {
+          axis_mat_x_top[pos] <- x_axes
+        }
+      }
+      empty_right <- t(apply(empties, 1, function(x) c(diff(x) == 1, FALSE)))
+      if (any(empty_right)) {
+        pos <- which(empty_right)
+        panel_loc <- data_frame(ROW = row_ind[pos], COL = col_ind[pos])
+        panels <- merge(panel_loc, cbind(layout, .index = seq_len(nrow(layout))))$.index
+        y_axes <- axes$y$right[layout$SCALE_Y[panels]]
+        if (params$strip.position == "right" &&
+            !inside &&
+            any(!vapply(y_axes, is.zero, logical(1))) &&
+            !params$free$y) {
+          warn("Suppressing axis rendering when strip.position = 'right' and strip.placement == 'outside'")
+        } else {
+          axis_mat_y_right[pos] <- y_axes
+        }
+      }
+      empty_left <- t(apply(empties, 1, function(x) c(FALSE, diff(x) == -1)))
+      if (any(empty_left)) {
+        pos <- which(empty_left)
+        panel_loc <- data_frame(ROW = row_ind[pos], COL = col_ind[pos])
+        panels <- merge(panel_loc, cbind(layout, .index = seq_len(nrow(layout))))$.index
+        y_axes <- axes$y$left[layout$SCALE_Y[panels]]
+        if (params$strip.position == "left" &&
+            !inside &&
+            any(!vapply(y_axes, is.zero, logical(1))) &&
+            !params$free$y) {
+          warn("Suppressing axis rendering when strip.position = 'left' and strip.placement == 'outside'")
+        } else {
+          axis_mat_y_left[pos] <- y_axes
+        }
       }
     }
     panel_table <- weave_tables_row(panel_table, axis_mat_x_top, -1, axis_height_top, "axis-t", 3)
