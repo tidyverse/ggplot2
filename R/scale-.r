@@ -1083,11 +1083,12 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
             new_limits[1] <- breaks[1]
             breaks <- breaks[-1]
           }
-          limits <- new_limits
         } else {
           bin_size <- max(breaks[1] - limits[1], limits[2] - breaks[1])
-          limits <- c(breaks[1] - bin_size, breaks[1] + bin_size)
+          new_limits <- c(breaks[1] - bin_size, breaks[1] + bin_size)
         }
+        new_limits_trans <- suppressWarnings(self$trans$transform(new_limits))
+        limits[is.finite(new_limits_trans)] <- new_limits[is.finite(new_limits_trans)]
         self$limits <- self$trans$transform(limits)
       }
     } else if (is.function(self$breaks)) {

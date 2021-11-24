@@ -264,7 +264,8 @@ Layer <- ggproto("Layer", NULL,
       if (length(evaled) == 0) {
         n <- 0
       } else {
-        n <- max(vapply(evaled, length, integer(1)))
+        aes_n <- vapply(evaled, length, integer(1))
+        n <- if (min(aes_n) == 0) 0L else max(aes_n)
       }
     }
     check_aesthetics(evaled, n)

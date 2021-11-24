@@ -182,6 +182,17 @@ test_that("guide merging for guide_legend() works as expected", {
   expect_equal(repeated_identical_labels[[1]]$key$.label, c("label1", "label1", "label2"))
 })
 
+test_that("size = NA doesn't throw rendering errors", {
+  df = data.frame(
+    x = c(1, 2),
+    group = c("a","b")
+  )
+  p <- ggplot(df, aes(x = x, y = 0, colour = group)) +
+    geom_point(size = NA, na.rm = TRUE)
+
+  expect_silent(plot(p))
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("axis guides are drawn correctly", {
