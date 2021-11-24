@@ -2,6 +2,8 @@
 
 * `geom_hex()` will now use the binwidth from `stat_bin_hex()` if present, 
   instead of deriving it (@thomasp85, #4580)
+  
+* `geom_hex()` now works on non-linear coordinate systems (@thomasp85)
 
 * Setting `stroke` to `NA` in `geom_point()` will no longer impair the sizing of
   the points (@thomasp85, #4624)

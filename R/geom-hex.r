@@ -59,28 +59,31 @@ GeomHex <- ggproto("GeomHex", Geom,
     if (empty(data)) {
       return(zeroGrob())
     }
-    if (!inherits(coord, "CoordCartesian")) {
-      abort("geom_hex() only works with Cartesian coordinates")
-    }
-    # Extract binwidth and height from data if possible
+
+    # Get hex sizes
     if (!is.null(data$width)) {
-      data$xend <- data$x + data$width
+      dx <- data$width[1] / 2
+    } else {
+      dx <- resolution(data$x, FALSE)
     }
     if (!is.null(data$height)) {
-      data$yend <- data$y + data$height
+      dy <- data$height[1] /  sqrt(3) / 2
+    } else {
+      dy <- resolution(data$y, FALSE) / sqrt(3) / 2 * 1.15
     }
+
+    hexC <- hexbin::hexcoords(dx, dy, n = 1)
+
+    n <- nrow(data)
+
+    data <- data[rep(seq_len(n), each = 6), ]
+    data$x <- rep.int(hexC$x, n) + data$x
+    data$y <- rep.int(hexC$y, n) + data$y
 
     coords <- coord$transform(data, panel_params)
 
-    binwidth <- c(NA, NA)
-    if (!is.null(data$width)) {
-      binwidth[1] <- coords$xend[1] - coords$x[1]
-    }
-    if (!is.null(data$height)) {
-      binwidth[2] <- coords$yend[1] - coords$y[1]
-    }
-    ggname("geom_hex", hexGrob(
-      coords$x, coords$y, binwidth,
+    ggname("geom_hex", polygonGrob(
+      coords$x, coords$y,
       gp = gpar(
         col = coords$colour,
         fill = alpha(coords$fill, coords$alpha),
@@ -89,7 +92,9 @@ GeomHex <- ggproto("GeomHex", Geom,
         lineend = lineend,
         linejoin = linejoin,
         linemitre = linemitre
-      )
+      ),
+      default.units = "native",
+      id.lengths = rep.int(6, n)
     ))
   },
 
@@ -115,11 +120,13 @@ GeomHex <- ggproto("GeomHex", Geom,
 # @param size vector of hex sizes
 # @param gp graphical parameters
 # @keyword internal
-hexGrob <- function(x, y, binwidth, size = rep(1, length(x)), gp = gpar()) {
+#
+# THIS IS NO LONGER USED BUT LEFT IF CODE SOMEWHERE ELSE RELIES ON IT
+hexGrob <- function(x, y, size = rep(1, length(x)), gp = gpar()) {
   if (length(y) != length(x)) abort("`x` and `y` must have the same length")
 
-  dx <- if (is.na(binwidth[1])) resolution(x, FALSE) else binwidth[1]/2
-  dy <- if (is.na(binwidth[2])) resolution(y, FALSE) / sqrt(3) / 2 * 1.15 else binwidth[2]/ sqrt(3) / 2
+  dx <- resolution(x, FALSE)
+  dy <- resolution(y, FALSE) / sqrt(3) / 2 * 1.15
 
   hexC <- hexbin::hexcoords(dx, dy, n = 1)
 
