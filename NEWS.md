@@ -3,6 +3,9 @@
 * Better compatibility of custom device functions in `ggsave()` 
   (@thomasp85, #4539)
 
+* Binning scales are now more resilient to calculated limits that ends up being
+  `NaN` after transformations (@thomasp85, #4510)
+
 * Strip padding in `facet_grid()` is now only in effect if `strip.placement = "outside"`
   _and_ an axis is present between the strip and the panel (@thomasp85, #4610)
 
