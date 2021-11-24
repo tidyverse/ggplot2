@@ -162,6 +162,7 @@ plot_dev <- function(device, filename = NULL, dpi = 300) {
     call_args <- list()
     if ("file" %in% names(args)) {
       call_args$file <- filename
+      call_args["filename"] <- list(NULL)
     }
     if ("res" %in% names(args)) {
       call_args$res <- dpi
