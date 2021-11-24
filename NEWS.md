@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `geom_tile()` now correctly recognises missing data in `xmin`, `xmax`, `ymin`,
+  and `ymax` (@thomasp85, #4495)
+
 * Axes are now added correctly in `facet_wrap()` when `as.table = FALSE`
   (@thomasp85, #4553)
 
