@@ -113,5 +113,10 @@ GeomTile <- ggproto("GeomTile", GeomRect,
 
   required_aes = c("x", "y"),
 
+  # These aes columns are created by setup_data(). They need to be listed here so
+  # that GeomRect$handle_na() properly removes any bars that fall outside the defined
+  # limits, not just those for which x and y are outside the limits
+  non_missing_aes = c("xmin", "xmax", "ymin", "ymax"),
+
   draw_key = draw_key_polygon
 )

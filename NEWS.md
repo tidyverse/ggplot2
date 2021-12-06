@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `geom_tile()` now correctly recognises missing data in `xmin`, `xmax`, `ymin`,
+  and `ymax` (@thomasp85 and @sigmapi, #4495)
+
 * `geom_hex()` will now use the binwidth from `stat_bin_hex()` if present, 
   instead of deriving it (@thomasp85, #4580)
   
