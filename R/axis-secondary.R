@@ -174,6 +174,12 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
 
   mono_test = function(self, scale){
     range <- scale$range$range
+
+    # Check if plot is empty
+    if (is.null(range)) {
+      return()
+    }
+
     along_range <- seq(range[1], range[2], length.out = self$detail)
     old_range <- scale$trans$inverse(along_range)
 
