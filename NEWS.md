@@ -1,5 +1,10 @@
 # ggplot2 (development version)
 
+* `geom_hex()` will now use the binwidth from `stat_bin_hex()` if present, 
+  instead of deriving it (@thomasp85, #4580)
+  
+* `geom_hex()` now works on non-linear coordinate systems (@thomasp85)
+
 * Fixed a bug throwing errors when trying to render an empty plot with secondary
   axes (@thomasp85, #4509)
 
