@@ -3,6 +3,14 @@
 * `geom_tile()` now correctly recognises missing data in `xmin`, `xmax`, `ymin`,
   and `ymax` (@thomasp85 and @sigmapi, #4495)
 
+* `geom_hex()` will now use the binwidth from `stat_bin_hex()` if present, 
+  instead of deriving it (@thomasp85, #4580)
+  
+* `geom_hex()` now works on non-linear coordinate systems (@thomasp85)
+
+* Fixed a bug throwing errors when trying to render an empty plot with secondary
+  axes (@thomasp85, #4509)
+
 * Axes are now added correctly in `facet_wrap()` when `as.table = FALSE`
   (@thomasp85, #4553)
 
