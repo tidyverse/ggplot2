@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* `position_stack()` now works fully with `geom_text()` (@thomasp85, #4367)
+
 * `geom_tile()` now correctly recognises missing data in `xmin`, `xmax`, `ymin`,
   and `ymax` (@thomasp85 and @sigmapi, #4495)
 
