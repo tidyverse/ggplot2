@@ -35,7 +35,7 @@ jobs:
     env:
       # R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
       # don't treat missing suggested packages as error
-      # _R_CHECK_FORCE_SUGGESTS_: false
+      _R_CHECK_FORCE_SUGGESTS_: false
       # Some packages might unavailable on the older versions, so let's ignore xref warnings
       _R_CHECK_RD_XREFS_: ${{ matrix.config.xref }}
       # Runs vdiffr test only on the latest version of R
