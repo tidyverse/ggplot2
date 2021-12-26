@@ -84,12 +84,36 @@ stat_sf_coordinates <- function(mapping = aes(), data = NULL, geom = "point",
 #' @export
 StatSfCoordinates <- ggproto(
   "StatSfCoordinates", Stat,
-  compute_group = function(data, scales, fun.geometry = NULL) {
+
+  compute_layer = function(self, data, params, layout) {
+    # add coord to the params, so it can be forwarded to compute_group()
+    params$coord <- layout$coord
+    ggproto_parent(Stat, self)$compute_layer(data, params, layout)
+  },
+
+  compute_group = function(self, data, scales, coord, fun.geometry = NULL) {
     if (is.null(fun.geometry)) {
       fun.geometry <- function(x) sf::st_point_on_surface(sf::st_zm(x))
     }
 
     points_sfc <- fun.geometry(data$geometry)
+
+    if (inherits(coord, "CoordSf")) {
+      # register bounding box if the coord derives from CoordSf
+      bbox <- sf::st_bbox(points_sfc)
+
+      coord$record_bbox(
+        xmin = bbox[["xmin"]], xmax = bbox[["xmax"]],
+        ymin = bbox[["ymin"]], ymax = bbox[["ymax"]]
+      )
+
+      # transform to the coord's default crs if possible
+      default_crs <- coord$get_default_crs()
+      if (!(is.null(default_crs) || is.na(default_crs) ||
+            is.na(sf::st_crs(points_sfc)))) {
+        points_sfc <- sf::st_transform(points_sfc, default_crs)
+      }
+    }
     coordinates <- sf::st_coordinates(points_sfc)
     data$x <- coordinates[, "X"]
     data$y <- coordinates[, "Y"]

@@ -104,7 +104,9 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     data
   },
 
-  draw_group = function(data, panel_params, coord, na.rm = FALSE, flipped_aes = FALSE, outline.type = "both") {
+  draw_group = function(data, panel_params, coord, lineend = "butt",
+                        linejoin = "round", linemitre = 10, na.rm = FALSE,
+                        flipped_aes = FALSE, outline.type = "both") {
     data <- flip_data(data, flipped_aes)
     if (na.rm) data <- data[stats::complete.cases(data[c("x", "ymin", "ymax")]), ]
     data <- data[order(data$group), ]
@@ -158,7 +160,10 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
         fill = alpha(aes$fill, aes$alpha),
         col = if (is_full_outline) aes$colour else NA,
         lwd = if (is_full_outline) aes$size * .pt else 0,
-        lty = if (is_full_outline) aes$linetype else 1
+        lty = if (is_full_outline) aes$linetype else 1,
+        lineend = lineend,
+        linejoin = linejoin,
+        linemitre = linemitre
       )
     )
 
@@ -181,7 +186,11 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
       gp = gpar(
         col = aes$colour,
         lwd = aes$size * .pt,
-        lty = aes$linetype)
+        lty = aes$linetype,
+        lineend = lineend,
+        linejoin = linejoin,
+        linemitre = linemitre
+      )
     )
 
     ggname("geom_ribbon", grobTree(g_poly, g_lines))

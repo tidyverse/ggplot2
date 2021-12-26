@@ -120,7 +120,9 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
 \item{span}{Controls the amount of smoothing for the default loess smoother.
 Smaller numbers produce wigglier lines, larger numbers produce smoother
-lines.}
+lines. Only used with loess, i.e. when \code{method = "loess"},
+or when \code{method = NULL} (the default) and there are fewer than 1,000
+observations.}
 
 \item{fullrange}{Should the fit span the full range of the plot, or just
 the data?}
@@ -170,10 +172,11 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 
 \section{Computed variables}{
 
+\code{stat_smooth()} provides the following variables, some of which depend on the orientation:
 \describe{
-\item{y}{predicted value}
-\item{ymin}{lower pointwise confidence interval around the mean}
-\item{ymax}{upper pointwise confidence interval around the mean}
+\item{y \emph{or} x}{predicted value}
+\item{ymin \emph{or} xmin}{lower pointwise confidence interval around the mean}
+\item{ymax \emph{or} xmax}{upper pointwise confidence interval around the mean}
 \item{se}{standard error}
 }
 }

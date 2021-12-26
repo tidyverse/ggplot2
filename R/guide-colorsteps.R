@@ -64,6 +64,7 @@ guide_train.colorsteps <- function(guide, scale, aesthetic = NULL) {
     }
     if (is.numeric(breaks)) {
       limits <- scale$get_limits()
+      breaks <- breaks[!breaks %in% limits]
       all_breaks <- c(limits[1], breaks, limits[2])
       bin_at <- all_breaks[-1] - diff(all_breaks) / 2
     } else {

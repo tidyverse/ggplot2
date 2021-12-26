@@ -118,6 +118,7 @@ reference:
   - expand_limits
   - expansion
   - starts_with("scale_")
+  - get_alt_text
 
 - title: "Guides: axes and legends"
   desc: >
@@ -243,6 +244,31 @@ reference:
   - fortify
   - map_data
 
+
+articles:
+- title: Building plots
+  navbar: ~
+  contents:
+  - ggplot2-specs
+
+- title: Developer
+  navbar: Developer
+  contents:
+  - extending-ggplot2
+  - ggplot2-in-packages
+  - profiling
+
+- title: FAQ
+  navbar: FAQ
+  contents:
+  - articles/faq-axes
+  - articles/faq-faceting
+  - articles/faq-customising
+  - articles/faq-annotation
+  - articles/faq-reordering
+  - articles/faq-bars
+
+
 news:
   releases:
   - text: "Version 3.3.0"
@@ -264,7 +290,8 @@ news:
 
 navbar:
   structure:
-    right: [extensions, github]
+    right: [reference, news, articles, extensions, github]
+    left: []
   components:
     home: ~
     extensions:

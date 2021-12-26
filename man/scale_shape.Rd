@@ -25,7 +25,8 @@ they should take (e.g., \code{\link[scales:hue_pal]{scales::hue_pal()}}).}
 \item \code{waiver()} for the default breaks (the scale limits)
 \item A character vector of breaks
 \item A function that takes the limits as input and returns breaks
-as output
+as output. Also accepts rlang \link[rlang:as_function]{lambda} function
+notation.
 }}
     \item{\code{limits}}{One of:
 \itemize{
@@ -33,7 +34,8 @@ as output
 \item A character vector that defines possible values of the scale and their
 order
 \item A function that accepts the existing (automatic) values and returns
-new ones
+new ones. Also accepts rlang \link[rlang:as_function]{lambda} function
+notation.
 }}
     \item{\code{drop}}{Should unused factor levels be omitted from the scale?
 The default, \code{TRUE}, uses the levels that appear in the data;
@@ -57,8 +59,10 @@ omitted.}
 \item \code{waiver()} for the default labels computed by the
 transformation object
 \item A character vector giving labels (must be same length as \code{breaks})
+\item An expression vector (must be the same length as breaks). See ?plotmath for details.
 \item A function that takes the breaks as input and returns labels
-as output
+as output. Also accepts rlang \link[rlang:as_function]{lambda} function
+notation.
 }}
     \item{\code{guide}}{A function used to create a guide or its name. See
 \code{\link[=guides]{guides()}} for more information.}
@@ -71,12 +75,13 @@ as output
 \description{
 \code{scale_shape()} maps discrete variables to six easily discernible shapes.
 If you have more than six levels, you will get a warning message, and the
-seventh and subsequence levels will not appear on the plot. Use
+seventh and subsequent levels will not appear on the plot. Use
 \code{\link[=scale_shape_manual]{scale_shape_manual()}} to supply your own values. You can not map
 a continuous variable to shape unless \code{scale_shape_binned()} is used. Still,
 as shape has no inherent order, this use is not advised.
 }
 \examples{
+set.seed(596)
 dsmall <- diamonds[sample(nrow(diamonds), 100), ]
 
 (d <- ggplot(dsmall, aes(carat, price)) + geom_point(aes(shape = cut)))

@@ -1,5 +1,3 @@
-context("annotate")
-
 test_that("dates in segment annotation work", {
   dt <- structure(list(month = structure(c(1364774400, 1377993600),
       class = c("POSIXct", "POSIXt"), tzone = "UTC"), total = c(-10.3,
@@ -31,6 +29,7 @@ test_that("segment annotations transform with scales", {
 })
 
 test_that("annotation_* has dummy data assigned and don't inherit aes", {
+  skip_if(packageVersion("base") < "3.5.0")
   custom <- annotation_custom(zeroGrob())
   logtick <- annotation_logticks()
   library(maps)

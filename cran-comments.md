@@ -1,11 +1,6 @@
-This is a very minor patch release that simply fix the URL that got hijacked.
-There will be a bigger release in 2 weeks. Since no code has changed, there is
-no user facing or breaking changes in this release.
-
-## Test environments
-* local R installation, R 4.0.0
-* ubuntu 16.04 (on travis-ci), R 4.0.0
-* win-builder (devel)
+This is a very quick patch release addressing some unforeseen issues with the 
+latest release. It does not contain any breaking changes and no changes to worse
+in the reverse dependencies was detected.
 
 ## R CMD check results
 

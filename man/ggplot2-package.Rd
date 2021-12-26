@@ -8,28 +8,25 @@
 \description{
 \if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
-A system for 'declaratively' creating graphics,
-    based on "The Grammar of Graphics". You provide the data, tell 'ggplot2'
-    how to map variables to aesthetics, what graphical primitives to use,
-    and it takes care of the details.
+A system for 'declaratively' creating graphics, based on "The Grammar of Graphics". You provide the data, tell 'ggplot2' how to map variables to aesthetics, what graphical primitives to use, and it takes care of the details.
 }
 \seealso{
 Useful links:
 \itemize{
-  \item \url{http://ggplot2.tidyverse.org}
+  \item \url{https://ggplot2.tidyverse.org}
   \item \url{https://github.com/tidyverse/ggplot2}
   \item Report bugs at \url{https://github.com/tidyverse/ggplot2/issues}
 }
 
 }
 \author{
-\strong{Maintainer}: Hadley Wickham \email{hadley@rstudio.com} (\href{https://orcid.org/0000-0003-4757-117X}{ORCID})
+\strong{Maintainer}: Thomas Lin Pedersen \email{thomas.pedersen@rstudio.com} (\href{https://orcid.org/0000-0002-5147-4711}{ORCID})
 
 Authors:
 \itemize{
+  \item Hadley Wickham \email{hadley@rstudio.com} (\href{https://orcid.org/0000-0003-4757-117X}{ORCID})
   \item Winston Chang (\href{https://orcid.org/0000-0002-1576-2126}{ORCID})
   \item Lionel Henry
-  \item Thomas Lin Pedersen (\href{https://orcid.org/0000-0002-5147-4711}{ORCID})
   \item Kohske Takahashi
   \item Claus Wilke (\href{https://orcid.org/0000-0002-7470-9261}{ORCID})
   \item Kara Woo (\href{https://orcid.org/0000-0002-5125-4188}{ORCID})

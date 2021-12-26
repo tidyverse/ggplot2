@@ -20,6 +20,7 @@
 #' @export
 #' @examples
 #' # viridis is the default colour/fill scale for ordered factors
+#' set.seed(596)
 #' dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
 #' ggplot(dsamp, aes(carat, price)) +
 #'   geom_point(aes(colour = clarity))

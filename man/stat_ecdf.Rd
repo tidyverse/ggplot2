@@ -76,10 +76,15 @@ tuning parameters and handles both continuous and categorical variables.
 The downside is that it requires more training to accurately interpret,
 and the underlying visual tasks are somewhat more challenging.
 }
+\details{
+The statistic relies on the aesthetics assignment to guess which variable to
+use as the input and which to use as the output. Either x or y must be provided
+and one of them must be unused. The ECDF will be calculated on the given aesthetic
+and will be output on the unused one.
+}
 \section{Computed variables}{
 
 \describe{
-\item{x}{x in data}
 \item{y}{cumulative density corresponding x}
 }
 }
@@ -89,11 +94,14 @@ df <- data.frame(
   x = c(rnorm(100, 0, 3), rnorm(100, 0, 10)),
   g = gl(2, 100)
 )
-ggplot(df, aes(x)) + stat_ecdf(geom = "step")
+ggplot(df, aes(x)) +
+  stat_ecdf(geom = "step")
 
 # Don't go to positive/negative infinity
-ggplot(df, aes(x)) + stat_ecdf(geom = "step", pad = FALSE)
+ggplot(df, aes(x)) +
+  stat_ecdf(geom = "step", pad = FALSE)
 
 # Multiple ECDFs
-ggplot(df, aes(x, colour = g)) + stat_ecdf()
+ggplot(df, aes(x, colour = g)) +
+  stat_ecdf()
 }
