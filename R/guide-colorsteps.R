@@ -10,6 +10,12 @@
 #'   Default is `NULL` which makes the guide use the setting from the scale
 #' @param ticks A logical specifying if tick marks on the colourbar should be
 #'   visible.
+#' @param nbin A numeric specifying the number of bins for drawing the
+#'   colourbar. A smoother colourbar results from a larger value.
+#' @param raster A logical. If `TRUE` then the colourbar is rendered as a
+#'   raster object. If `FALSE` then the colourbar is rendered as a set of
+#'   rectangles. Note that not all graphics devices are capable of rendering
+#'   raster image.
 #' @inheritDotParams guide_colourbar -nbin -raster -ticks -available_aes
 #'
 #' @inheritSection guide_bins Use with discrete scale
@@ -43,8 +49,8 @@
 #' # (can also be set in the scale)
 #' p + scale_fill_binned(show.limits = TRUE)
 #'
-guide_coloursteps <- function(even.steps = TRUE, show.limits = NULL, ticks = FALSE, ...) {
-  guide <- guide_colourbar(raster = FALSE, ticks = ticks, nbin = 100, ...)
+guide_coloursteps <- function(even.steps = TRUE, raster= FALSE, nbin = 100, show.limits = NULL, ticks = FALSE, ...) {
+  guide <- guide_colourbar(raster = raster, ticks = ticks, nbin = , ...)
   guide$even.steps <- even.steps
   guide$show.limits <- show.limits
   class(guide) <- c('colorsteps', class(guide))

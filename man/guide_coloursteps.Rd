@@ -5,13 +5,35 @@
 \alias{guide_colorsteps}
 \title{Discretized colourbar guide}
 \usage{
-guide_coloursteps(even.steps = TRUE, show.limits = NULL, ticks = FALSE, ...)
+guide_coloursteps(
+  even.steps = TRUE,
+  raster = FALSE,
+  nbin = 100,
+  show.limits = NULL,
+  ticks = FALSE,
+  ...
+)
 
-guide_colorsteps(even.steps = TRUE, show.limits = NULL, ticks = FALSE, ...)
+guide_colorsteps(
+  even.steps = TRUE,
+  raster = FALSE,
+  nbin = 100,
+  show.limits = NULL,
+  ticks = FALSE,
+  ...
+)
 }
 \arguments{
 \item{even.steps}{Should the rendered size of the bins be equal, or should
 they be proportional to their length in the data space? Defaults to \code{TRUE}}
+
+\item{raster}{A logical. If \code{TRUE} then the colourbar is rendered as a
+raster object. If \code{FALSE} then the colourbar is rendered as a set of
+rectangles. Note that not all graphics devices are capable of rendering
+raster image.}
+
+\item{nbin}{A numeric specifying the number of bins for drawing the
+colourbar. A smoother colourbar results from a larger value.}
 
 \item{show.limits}{Should labels for the outer limits of the bins be printed?
 Default is \code{NULL} which makes the guide use the setting from the scale}
