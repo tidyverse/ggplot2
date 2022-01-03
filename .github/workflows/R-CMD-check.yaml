@@ -49,14 +49,6 @@ jobs:
           r-version: ${{ matrix.config.r }}
           use-public-rspm: true
 
-      - name: Install system dependencies on macOS
-        if: runner.os == 'macOS'
-        run: |
-          # XQuartz is needed by vdiffr
-          brew install xquartz
-          # Use only binary packages
-          echo 'options(pkgType = "binary")' >> ~/.Rprofile
-
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           cache-version: 7
