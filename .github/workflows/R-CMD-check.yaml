@@ -30,7 +30,6 @@ jobs:
           - {os: ubuntu-18.04,   r: '3.6',   vdiffr: false, xref: true}
           - {os: ubuntu-18.04,   r: '3.5',   vdiffr: false, xref: true}
           - {os: ubuntu-18.04,   r: '3.4',   vdiffr: false, xref: false}
-          - {os: ubuntu-18.04,   r: '3.3',   vdiffr: false, xref: false}
 
     env:
       # Some packages might unavailable on the older versions, so let's ignore xref warnings
@@ -60,7 +59,6 @@ jobs:
             multcomp=?ignore-before-r=3.5.0
             quantreg=?ignore-before-r=3.5.0
             interp=?ignore-before-r=3.5.0
-            sf=?ignore-before-r=3.4.0
 
       - uses: r-lib/actions/check-r-package@v2
         env:
