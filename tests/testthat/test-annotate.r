@@ -48,3 +48,9 @@ test_that("annotation_* has dummy data assigned and don't inherit aes", {
   expect_false(map$inherit.aes)
   expect_false(raster$inherit.aes)
 })
+
+test_that("unsupported geoms signal a warning (#4719)", {
+  expect_warning(annotate("abline", slope = 1), "not support")
+  expect_warning(annotate("hline", yintercept = 0), "not support")
+  expect_warning(annotate("vline", xintercept = 0), "not support")
+})

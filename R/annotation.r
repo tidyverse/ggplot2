@@ -11,6 +11,12 @@
 #' set. This means that layers created with this function will never
 #' affect the legend.
 #'
+#' @section Unsupported geoms:
+#' Due to their special nature, reference line geoms [geom_abline()],
+#' [geom_hline()] and [geom_vline()] can't be used with [annotate()].
+#' For annotating reference lines, they should be used directly, instead.
+#'
+#' @seealso [geom_abline()] for annotating reference lines.
 #' @param geom name of geom to use for annotation
 #' @param x,y,xmin,ymin,xmax,ymax,xend,yend positioning aesthetics -
 #'   you must specify at least one of these.
@@ -37,6 +43,10 @@
 annotate <- function(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
                      ymin = NULL, ymax = NULL, xend = NULL, yend = NULL, ...,
                      na.rm = FALSE) {
+
+  if (geom %in% c("abline", "hline", "vline")) {
+    warn(glue("`annotate()` does not support `geom = \"{geom}\"`. Please use `geom_{geom}()` directly, instead."))
+  }
 
   position <- compact(list(
     x = x, xmin = xmin, xmax = xmax, xend = xend,

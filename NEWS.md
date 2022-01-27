@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `annotate()` now documents unsupported geoms (`geom_abline()`, `geom_hline()`
+  and `geom_vline()`), and warns when they are requested (@mikmart, #4719)
+
 * `position_stack()` now works fully with `geom_text()` (@thomasp85, #4367)
 
 * `geom_tile()` now correctly recognises missing data in `xmin`, `xmax`, `ymin`,
