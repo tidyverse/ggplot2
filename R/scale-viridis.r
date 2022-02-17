@@ -9,7 +9,7 @@
 #' @inheritParams scales::gradient_n_pal
 #' @inheritParams continuous_scale
 #' @param ... Other arguments passed on to [discrete_scale()],
-#' [continuous_scale()], or [binned_scale] to control name, limits, breaks,
+#' [continuous_scale()], or [binned_scale()] to control name, limits, breaks,
 #'   labels and so forth.
 #' @param aesthetics Character string or vector of character strings listing the
 #'   name(s) of the aesthetic(s) that this scale works with. This can be useful, for
