@@ -74,7 +74,8 @@ scale_colour_viridis_b(
   space = "Lab",
   na.value = "grey50",
   guide = "coloursteps",
-  aesthetics = "colour"
+  aesthetics = "colour",
+  pal_full_range = FALSE
 )
 
 scale_fill_viridis_b(
@@ -88,7 +89,8 @@ scale_fill_viridis_b(
   space = "Lab",
   na.value = "grey50",
   guide = "coloursteps",
-  aesthetics = "fill"
+  aesthetics = "fill",
+  pal_full_range = FALSE
 )
 }
 \arguments{
@@ -127,6 +129,8 @@ other values are deprecated.}
 
 \item{guide}{A function used to create a guide or its name. See
 \code{\link[=guides]{guides()}} for more information.}
+
+\item{pal_full_range}{For the binned versions, use the full range of the palette}
 }
 \description{
 The \code{viridis} scales provide colour maps that are perceptually uniform in both
