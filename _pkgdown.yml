@@ -2,21 +2,16 @@ url: https://ggplot2.tidyverse.org
 
 template:
   package: tidytemplate
-  params:
-      docsearch:
-        api_key: e1261f3df95d2d4704c626ff11a4b536
-        index_name: tidyverse_ggplot2
+  bootstrap: 5
+
+  includes:
+    in_header: |
+      <script defer data-domain="ggplot2.tidyverse.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script>
 
 development:
   mode: auto
 
 authors:
-  Winston Chang:
-    href: https://github.com/wch
-  Lionel Henry:
-    href: https://github.com/lionel-
-  Thomas Lin Pedersen:
-    href: https://data-imaginist.com
   Claus Wilke:
     href: https://clauswilke.com
   Kara Woo:
@@ -27,7 +22,6 @@ authors:
     href: https://fishandwhistle.net
 
 home:
-  strip_header: true
   links:
   - text: Learn more
     href: https://r4ds.had.co.nz/data-visualisation.html
@@ -268,7 +262,6 @@ articles:
   - articles/faq-reordering
   - articles/faq-bars
 
-
 news:
   releases:
   - text: "Version 3.3.0"
@@ -290,10 +283,8 @@ news:
 
 navbar:
   structure:
-    right: [reference, news, articles, extensions, github]
-    left: []
+    left: [reference, news, articles, extensions]
   components:
-    home: ~
     extensions:
       text: Extensions
       href: https://exts.ggplot2.tidyverse.org/gallery/
