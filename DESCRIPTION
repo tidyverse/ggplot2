@@ -169,7 +169,7 @@ Collate:
     'geom-tile.r'
     'geom-violin.r'
     'geom-vline.r'
-    'ggplot2.r'
+    'ggplot2-package.R'
     'grob-absolute.r'
     'grob-dotstack.r'
     'grob-null.r'
