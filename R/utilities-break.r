@@ -47,11 +47,11 @@ cut_number <- function(x, n = NULL, ...) {
 #'   `boundary = 0.5`.
 #' @param closed One of `"right"` or `"left"` indicating whether right
 #'   or left edges of bins are included in the bin.
-cut_width <- function(x, width, center = NULL, boundary = NULL, closed = c("right", "left"), ...) {
+cut_width <- function(x, width, center = NULL, boundary = NULL, closed = "right", ...) {
   x <- as.numeric(x)
   width <- as.numeric(width)
 
-  closed <- match.arg(closed)
+  closed <- arg_match0(closed, c("right", "left"))
 
   x_range <- range(x, na.rm = TRUE, finite = TRUE)
   if (length(x_range) == 0) {
@@ -91,7 +91,7 @@ find_origin <- function(x_range, width, boundary) {
 }
 
 breaks <- function(x, equal, nbins = NULL, binwidth = NULL) {
-  equal <- match.arg(equal, c("numbers", "width"))
+  equal <- arg_match0(equal, c("numbers", "width"))
   if ((!is.null(nbins) && !is.null(binwidth)) || (is.null(nbins) && is.null(binwidth))) {
     abort("Specify exactly one of n and width")
   }
