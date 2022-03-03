@@ -212,6 +212,9 @@ is_position_aes <- function(vars) {
 
 #' Define aesthetic mappings programmatically
 #'
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
 #' Aesthetic mappings describe how variables in the data are mapped to visual
 #' properties (aesthetics) of geoms. [aes()] uses non-standard
 #' evaluation to capture the variable names. `aes_()` and `aes_string()`
@@ -239,6 +242,9 @@ is_position_aes <- function(vars) {
 #' @param x,y,... List of name value pairs. Elements must be either
 #'   quoted calls, strings, one-sided formulas or constants.
 #' @seealso [aes()]
+#'
+#' @keywords internal
+#'
 #' @export
 #' @examples
 #' # Three ways of generating the same aesthetics
@@ -258,6 +264,11 @@ is_position_aes <- function(vars) {
 #' aes(col = x)
 #' aes_(col = as.name(var))
 aes_ <- function(x, y, ...) {
+  lifecycle::deprecate_soft(
+    "3.0.0",
+    "aes_()",
+    details = "Please use tidy evaluation ideoms with `aes()`"
+  )
   mapping <- list(...)
   if (!missing(x)) mapping["x"] <- list(x)
   if (!missing(y)) mapping["y"] <- list(y)
@@ -280,6 +291,11 @@ aes_ <- function(x, y, ...) {
 #' @rdname aes_
 #' @export
 aes_string <- function(x, y, ...) {
+  lifecycle::deprecate_soft(
+    "3.0.0",
+    "aes_string()",
+    details = "Please use tidy evaluation ideoms with `aes()`"
+  )
   mapping <- list(...)
   if (!missing(x)) mapping["x"] <- list(x)
   if (!missing(y)) mapping["y"] <- list(y)
@@ -321,12 +337,15 @@ aes_all <- function(vars) {
 
 #' Automatic aesthetic mapping
 #'
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
 #' @param data data.frame or names of variables
 #' @param ... aesthetics that need to be explicitly mapped.
 #' @keywords internal
 #' @export
 aes_auto <- function(data = NULL, ...) {
-  warn("aes_auto() is deprecated")
+  lifecycle::deprecate_warn("2.0.0", "aes_auto()")
 
   # detect names of data
   if (is.null(data)) {

@@ -35,6 +35,7 @@ Imports:
     grDevices,
     grid,
     gtable (>= 0.1.1),
+    lifecycle,
     isoband,
     MASS,
     mgcv,
@@ -79,7 +80,7 @@ Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Collate: 
     'ggproto.r'
     'ggplot-global.R'
