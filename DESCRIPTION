@@ -74,7 +74,11 @@ Enhances:
     sp
 VignetteBuilder: 
     knitr
-Config/Needs/website:ggtext, tidyr, forcats, tidyverse/tidytemplate
+Config/Needs/check: maps=?ignore-before-r=3.5.0,
+    Hmisc=?ignore-before-r=3.6.0, mapproj=?ignore-before-r=3.5.0,
+    multcomp=?ignore-before-r=3.5.0, quantreg=?ignore-before-r=3.5.0,
+    interp=?ignore-before-r=3.5
+Config/Needs/website: ggtext, tidyr, forcats, tidyverse/tidytemplate
 Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
