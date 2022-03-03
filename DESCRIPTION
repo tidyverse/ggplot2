@@ -30,13 +30,14 @@ BugReports: https://github.com/tidyverse/ggplot2/issues
 Depends:
     R (>= 3.3)
 Imports: 
+    cli,
     digest,
     glue,
     grDevices,
     grid,
     gtable (>= 0.1.1),
-    lifecycle,
     isoband,
+    lifecycle,
     MASS,
     mgcv,
     rlang (>= 0.4.10),
