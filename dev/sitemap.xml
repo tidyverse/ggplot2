@@ -1,645 +1,645 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://ggplot2.tidyverse.org/CODE_OF_CONDUCT.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/CODE_OF_CONDUCT.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/CONTRIBUTING.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/CONTRIBUTING.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/GOVERNANCE.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/GOVERNANCE.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/ISSUE_TEMPLATE.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/ISSUE_TEMPLATE.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/LICENSE-text.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/LICENSE.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/LICENSE.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/articles/articles/faq-annotation.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/articles/extending-ggplot2.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/articles/articles/faq-axes.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/articles/faq-annotation.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/articles/articles/faq-bars.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/articles/faq-axes.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/articles/articles/faq-customising.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/articles/faq-bars.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/articles/articles/faq-faceting.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/articles/faq-customising.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/articles/articles/faq-reordering.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/articles/faq-faceting.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/articles/extending-ggplot2.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/articles/faq-reordering.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/articles/ggplot2-in-packages.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/articles/ggplot2-in-packages.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/articles/ggplot2-specs.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/articles/ggplot2-specs.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/articles/index.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/articles/profiling.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/articles/profiling.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/authors.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/authors.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/index.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/index.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/news/index.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/news/index.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/absoluteGrob.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/absoluteGrob.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/add_theme.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/add_theme.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/aes.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/aes.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/aes_.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/aes_.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/aes_all.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/aes_all.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/aes_auto.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/aes_auto.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/aes_colour_fill_alpha.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/aes_colour_fill_alpha.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/aes_eval.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/aes_eval.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/aes_group_order.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/aes_group_order.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/aes_linetype_size_shape.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/aes_linetype_size_shape.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/aes_position.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/aes_position.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/annotate.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/annotate.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/annotation_custom.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/annotation_custom.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/annotation_logticks.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/annotation_logticks.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/annotation_map.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/annotation_map.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/annotation_raster.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/annotation_raster.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/as.list.ggproto.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/as.list.ggproto.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/as_labeller.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/as_labeller.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/autolayer.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/autolayer.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/autoplot.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/autoplot.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/benchplot.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/benchplot.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/bidirection.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/bidirection.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/binned_scale.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/binned_scale.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/borders.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/borders.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/calc_element.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/calc_element.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/combine_vars.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/combine_vars.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/continuous_scale.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/continuous_scale.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/coord_cartesian.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/coord_cartesian.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/coord_fixed.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/coord_fixed.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/coord_flip.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/coord_flip.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/coord_map.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/coord_map.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/coord_munch.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/coord_munch.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/coord_polar.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/coord_polar.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/coord_trans.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/coord_trans.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/cut_interval.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/cut_interval.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/diamonds.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/diamonds.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/discrete_scale.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/discrete_scale.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/draw_key.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/draw_key.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/economics.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/economics.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/element.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/element.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/element_grob.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/element_grob.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/element_render.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/element_render.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/expand_limits.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/expand_limits.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/expansion.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/expansion.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/facet_grid.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/facet_grid.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/facet_null.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/facet_null.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/facet_wrap.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/facet_wrap.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/faithfuld.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/faithfuld.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/find_panel.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/find_panel.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/fortify-multcomp.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/fortify-multcomp.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/fortify.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/fortify.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/fortify.lm.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/fortify.lm.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/fortify.map.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/fortify.map.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/fortify.sp.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/fortify.sp.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/geom_abline.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/geom_abline.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/geom_bar.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/geom_bar.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/geom_bin_2d.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/geom_bin_2d.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/geom_blank.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/geom_blank.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/geom_boxplot.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/geom_boxplot.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/geom_contour.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/geom_contour.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/geom_count.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/geom_count.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/geom_density.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/geom_density.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/geom_density_2d.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/geom_density_2d.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/geom_dotplot.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/geom_dotplot.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/geom_errorbarh.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/geom_errorbarh.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/geom_function.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/geom_function.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/geom_hex.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/geom_hex.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/geom_histogram.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/geom_histogram.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/geom_jitter.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/geom_jitter.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/geom_linerange.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/geom_linerange.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/geom_map.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/geom_map.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/geom_path.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/geom_path.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/geom_point.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/geom_point.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/geom_polygon.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/geom_polygon.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/geom_qq.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/geom_qq.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/geom_quantile.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/geom_quantile.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/geom_ribbon.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/geom_ribbon.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/geom_rug.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/geom_rug.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/geom_segment.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/geom_segment.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/geom_smooth.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/geom_smooth.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/geom_spoke.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/geom_spoke.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/geom_text.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/geom_text.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/geom_tile.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/geom_tile.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/geom_violin.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/geom_violin.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/get_alt_text.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/get_alt_text.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/gg-add.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/gg-add.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/gg_dep.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/gg_dep.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/ggplot.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/ggplot.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/ggplot2-ggproto.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/ggplot2-ggproto.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/ggplot2-package.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/ggplot2-package.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/ggplotGrob.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/ggplotGrob.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/ggplot_add.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/ggplot_add.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/ggplot_build.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/ggplot_build.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/ggplot_gtable.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/ggplot_gtable.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/ggproto.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/ggproto.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/ggsave.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/ggsave.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/ggsf.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/ggsf.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/ggtheme.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/ggtheme.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/graphical-units.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/graphical-units.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/guide-exts.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/guide-exts.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/guide_axis.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/guide_axis.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/guide_bins.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/guide_bins.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/guide_colourbar.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/guide_colourbar.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/guide_coloursteps.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/guide_coloursteps.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/guide_legend.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/guide_legend.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/guide_none.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/guide_none.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/guides.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/guides.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/hmisc.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/hmisc.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/index.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/is.Coord.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/is.Coord.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/is.facet.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/is.facet.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/is.ggplot.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/is.ggplot.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/is.rel.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/is.rel.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/is.theme.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/is.theme.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/label_bquote.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/label_bquote.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/labeller.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/labeller.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/labellers.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/labellers.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/labs.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/labs.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/last_plot.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/last_plot.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/layer.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/layer.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/layer_sf.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/layer_sf.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/limits.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/limits.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/lims.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/lims.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/luv_colours.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/luv_colours.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/map_data.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/map_data.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/max_height.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/max_height.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/mean_se.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/mean_se.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/merge_element.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/merge_element.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/midwest.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/midwest.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/mpg.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/mpg.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/msleep.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/msleep.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/position_dodge.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/position_dodge.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/position_identity.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/position_identity.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/position_jitter.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/position_jitter.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/position_jitterdodge.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/position_jitterdodge.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/position_nudge.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/position_nudge.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/position_stack.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/position_stack.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/presidential.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/presidential.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/print.ggplot.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/print.ggplot.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/print.ggproto.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/print.ggproto.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/qplot.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/qplot.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/reexports.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/reexports.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/register_theme_elements.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/register_theme_elements.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/remove_missing.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/remove_missing.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/render_axes.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/render_axes.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/render_strips.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/render_strips.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/resolution.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/resolution.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/scale_alpha.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/scale_alpha.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/scale_binned.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/scale_binned.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/scale_brewer.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/scale_brewer.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/scale_colour_continuous.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/scale_colour_continuous.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/scale_colour_discrete.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/scale_colour_discrete.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/scale_continuous.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/scale_continuous.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/scale_date.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/scale_date.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/scale_discrete.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/scale_discrete.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/scale_gradient.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/scale_gradient.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/scale_grey.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/scale_grey.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/scale_hue.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/scale_hue.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/scale_identity.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/scale_identity.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/scale_linetype.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/scale_linetype.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/scale_manual.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/scale_manual.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/scale_shape.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/scale_shape.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/scale_size.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/scale_size.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/scale_steps.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/scale_steps.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/scale_type.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/scale_type.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/scale_viridis.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/scale_viridis.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/seals.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/seals.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/sec_axis.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/sec_axis.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/set_last_plot.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/set_last_plot.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/sf_transform_xy.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/sf_transform_xy.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/should_stop.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/should_stop.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/standardise_aes_names.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/standardise_aes_names.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/stat_ecdf.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/stat_ecdf.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/stat_ellipse.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/stat_ellipse.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/stat_identity.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/stat_identity.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/stat_sf_coordinates.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/stat_sf_coordinates.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/stat_summary.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/stat_summary.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/stat_summary_2d.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/stat_summary_2d.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/stat_unique.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/stat_unique.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/summarise_plot.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/summarise_plot.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/summary.ggplot.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/summary.ggplot.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/theme.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/theme.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/theme_get.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/theme_get.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/tidyeval.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/tidyeval.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/transform_position.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/transform_position.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/translate_qplot_ggplot.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/translate_qplot_ggplot.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/translate_qplot_lattice.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/translate_qplot_lattice.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/txhousing.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/txhousing.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/update_defaults.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/update_defaults.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/update_labels.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/update_labels.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/vars.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/vars.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/waiver.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/waiver.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/wrap_dims.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/wrap_dims.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/zeroGrob.html</loc>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/zeroGrob.html</loc>
   </url>
 </urlset>
