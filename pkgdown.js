@@ -2,70 +2,30 @@
 (function($) {
   $(function() {
 
-    $('.navbar-fixed-top').headroom();
+    $('nav.navbar').headroom();
 
-    $('body').css('padding-top', $('.navbar').height() + 10);
-    $(window).resize(function(){
-      $('body').css('padding-top', $('.navbar').height() + 10);
+    Toc.init({
+      $nav: $("#toc"),
+      $scope: $("main h2, main h3, main h4, main h5, main h6")
     });
 
-    $('[data-toggle="tooltip"]').tooltip();
-
-    var cur_path = paths(location.pathname);
-    var links = $("#navbar ul li a");
-    var max_length = -1;
-    var pos = -1;
-    for (var i = 0; i < links.length; i++) {
-      if (links[i].getAttribute("href") === "#")
-        continue;
-      // Ignore external links
-      if (links[i].host !== location.host)
-        continue;
-
-      var nav_path = paths(links[i].pathname);
-
-      var length = prefix_length(nav_path, cur_path);
-      if (length > max_length) {
-        max_length = length;
-        pos = i;
-      }
+    if ($('#toc').length) {
+      $('body').scrollspy({
+        target: '#toc',
+        offset: $("nav.navbar").outerHeight() + 1
+      });
     }
 
-    // Add class to parent <li>, and enclosing <li> if in dropdown
-    if (pos >= 0) {
-      var menu_anchor = $(links[pos]);
-      menu_anchor.parent().addClass("active");
-      menu_anchor.closest("li.dropdown").addClass("active");
-    }
-  });
+    // Activate popovers
+    $('[data-bs-toggle="popover"]').popover({
+      container: 'body',
+      html: true,
+      trigger: 'focus',
+      placement: "top",
+      sanitize: false,
+    });
 
-  function paths(pathname) {
-    var pieces = pathname.split("/");
-    pieces.shift(); // always starts with /
-
-    var end = pieces[pieces.length - 1];
-    if (end === "index.html" || end === "")
-      pieces.pop();
-    return(pieces);
-  }
-
-  // Returns -1 if not found
-  function prefix_length(needle, haystack) {
-    if (needle.length > haystack.length)
-      return(-1);
-
-    // Special case for length-0 haystack, since for loop won't run
-    if (haystack.length === 0) {
-      return(needle.length === 0 ? 0 : -1);
-    }
-
-    for (var i = 0; i < haystack.length; i++) {
-      if (needle[i] != haystack[i])
-        return(i);
-    }
-
-    return(haystack.length);
-  }
+    $('[data-bs-toggle="tooltip"]').tooltip();
 
   /* Clipboard --------------------------*/
 
@@ -78,7 +38,7 @@
 
   if(ClipboardJS.isSupported()) {
     $(document).ready(function() {
-      var copyButton = "<button type='button' class='btn btn-primary btn-copy-ex' type = 'submit' title='Copy to clipboard' aria-label='Copy to clipboard' data-toggle='tooltip' data-placement='left auto' data-trigger='hover' data-clipboard-copy><i class='fa fa-copy'></i></button>";
+      var copyButton = "<button type='button' class='btn btn-primary btn-copy-ex' title='Copy to clipboard' aria-label='Copy to clipboard' data-toggle='tooltip' data-placement='left' data-trigger='hover' data-clipboard-copy><i class='fa fa-copy'></i></button>";
 
       $("div.sourceCode").addClass("hasCopyButton");
 
@@ -89,20 +49,108 @@
       $('.btn-copy-ex').tooltip({container: 'body'});
 
       // Initialize clipboard:
-      var clipboardBtnCopies = new ClipboardJS('[data-clipboard-copy]', {
+      var clipboard = new ClipboardJS('[data-clipboard-copy]', {
         text: function(trigger) {
-          return trigger.parentNode.textContent;
+          return trigger.parentNode.textContent.replace(/\n#>[^\n]*/g, "");
         }
       });
 
-      clipboardBtnCopies.on('success', function(e) {
+      clipboard.on('success', function(e) {
         changeTooltipMessage(e.trigger, 'Copied!');
         e.clearSelection();
       });
 
-      clipboardBtnCopies.on('error', function() {
+      clipboard.on('error', function() {
         changeTooltipMessage(e.trigger,'Press Ctrl+C or Command+C to copy');
       });
+
     });
   }
+
+    /* Search marking --------------------------*/
+    var url = new URL(window.location.href);
+    var toMark = url.searchParams.get("q");
+    var mark = new Mark("div.col-md-9");
+    if (toMark) {
+      mark.mark(toMark, {
+        accuracy: {
+          value: "complementary",
+          limiters: [",", ".", ":", "/"],
+        }
+      });
+    }
+
+  /* Search --------------------------*/
+  /* Adapted from https://github.com/rstudio/bookdown/blob/2d692ba4b61f1e466c92e78fd712b0ab08c11d31/inst/resources/bs4_book/bs4_book.js#L25 */
+    // Initialise search index on focus
+  var fuse;
+  $("#search-input").focus(async function(e) {
+    if (fuse) {
+      return;
+    }
+
+    $(e.target).addClass("loading");
+    var response = await fetch($("#search-input").data("search-index"));
+    var data = await response.json();
+
+    var options = {
+      keys: ["what", "text", "code"],
+      ignoreLocation: true,
+      threshold: 0.1,
+      includeMatches: true,
+      includeScore: true,
+    };
+    fuse = new Fuse(data, options);
+
+    $(e.target).removeClass("loading");
+  });
+
+  // Use algolia autocomplete
+  var options = {
+    autoselect: true,
+    debug: true,
+    hint: false,
+    minLength: 2,
+  };
+  var q;
+async function searchFuse(query, callback) {
+  await fuse;
+
+  var items;
+  if (!fuse) {
+    items = [];
+  } else {
+    q = query;
+    var results = fuse.search(query, { limit: 20 });
+    items = results
+      .filter((x) => x.score <= 0.75)
+      .map((x) => x.item);
+    if (items.length === 0) {
+      items = [{dir:"Sorry 😿",previous_headings:"",title:"No results found.",what:"No results found.",path:window.location.href}];
+    }
+  }
+  callback(items);
+}
+  $("#search-input").autocomplete(options, [
+    {
+      name: "content",
+      source: searchFuse,
+      templates: {
+        suggestion: (s) => {
+          if (s.title == s.what) {
+            return `${s.dir} >	<div class="search-details"> ${s.title}</div>`;
+          } else if (s.previous_headings == "") {
+            return `${s.dir} >	<div class="search-details"> ${s.title}</div> > ${s.what}`;
+          } else {
+            return `${s.dir} >	<div class="search-details"> ${s.title}</div> > ${s.previous_headings} > ${s.what}`;
+          }
+        },
+      },
+    },
+  ]).on('autocomplete:selected', function(event, s) {
+    window.location.href = s.path + "?q=" + q + "#" + s.id;
+  });
+  });
 })(window.jQuery || window.$)
+
+

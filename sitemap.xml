@@ -22,25 +22,25 @@
     <loc>https://ggplot2.tidyverse.org/LICENSE.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/articles/articles/faq-annotation.html</loc>
-  </url>
-  <url>
-    <loc>https://ggplot2.tidyverse.org/articles/articles/faq-axes.html</loc>
-  </url>
-  <url>
-    <loc>https://ggplot2.tidyverse.org/articles/articles/faq-bars.html</loc>
-  </url>
-  <url>
-    <loc>https://ggplot2.tidyverse.org/articles/articles/faq-customising.html</loc>
-  </url>
-  <url>
-    <loc>https://ggplot2.tidyverse.org/articles/articles/faq-faceting.html</loc>
-  </url>
-  <url>
-    <loc>https://ggplot2.tidyverse.org/articles/articles/faq-reordering.html</loc>
-  </url>
-  <url>
     <loc>https://ggplot2.tidyverse.org/articles/extending-ggplot2.html</loc>
+  </url>
+  <url>
+    <loc>https://ggplot2.tidyverse.org/articles/faq-annotation.html</loc>
+  </url>
+  <url>
+    <loc>https://ggplot2.tidyverse.org/articles/faq-axes.html</loc>
+  </url>
+  <url>
+    <loc>https://ggplot2.tidyverse.org/articles/faq-bars.html</loc>
+  </url>
+  <url>
+    <loc>https://ggplot2.tidyverse.org/articles/faq-customising.html</loc>
+  </url>
+  <url>
+    <loc>https://ggplot2.tidyverse.org/articles/faq-faceting.html</loc>
+  </url>
+  <url>
+    <loc>https://ggplot2.tidyverse.org/articles/faq-reordering.html</loc>
   </url>
   <url>
     <loc>https://ggplot2.tidyverse.org/articles/ggplot2-in-packages.html</loc>
