@@ -96,7 +96,7 @@ named character vectors that will serve as a lookup table.</p>
   <span class="va">...</span>,
   .rows <span class="op">=</span> <span class="cn">NULL</span>,
   .cols <span class="op">=</span> <span class="cn">NULL</span>,
-  keep.as.numeric <span class="op">=</span> <span class="cn">NULL</span>,
+  keep.as.numeric <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Deprecated.html" class="external-link">deprecated</a></span><span class="op">(</span><span class="op">)</span>,
   .multi_line <span class="op">=</span> <span class="cn">TRUE</span>,
   .default <span class="op">=</span> <span class="va">label_value</span>
 <span class="op">)</span></code></pre></div>
@@ -115,8 +115,8 @@ the columns). It is passed to <code><a href="as_labeller.html">as_labeller()</a>
 margin-wide labeller is set, make sure you don't mention in
 <code>...</code> any variable belonging to the margin.</p></dd>
 <dt>keep.as.numeric</dt>
-<dd><p>Deprecated. All supplied labellers and
-on-labeller functions should be able to work with character
+<dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a> All supplied
+labellers and on-labeller functions should be able to work with character
 labels.</p></dd>
 <dt>.multi_line</dt>
 <dd><p>Whether to display the labels of multiple
