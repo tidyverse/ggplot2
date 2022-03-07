@@ -122,10 +122,10 @@ parse_dpi <- function(dpi) {
   }
 }
 
-plot_dim <- function(dim = c(NA, NA), scale = 1, units = c("in", "cm", "mm", "px"),
+plot_dim <- function(dim = c(NA, NA), scale = 1, units = "in",
                      limitsize = TRUE, dpi = 300) {
 
-  units <- match.arg(units)
+  units <- arg_match0(units, c("in", "cm", "mm", "px"))
   to_inches <- function(x) x / c(`in` = 1, cm = 2.54, mm = 2.54 * 10, px = dpi)[units]
   from_inches <- function(x) x * c(`in` = 1, cm = 2.54, mm = 2.54 * 10, px = dpi)[units]
 

@@ -123,13 +123,13 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
     cols <- NULL
   }
 
-  scales <- match.arg(scales, c("fixed", "free_x", "free_y", "free"))
+  scales <- arg_match0(scales, c("fixed", "free_x", "free_y", "free"))
   free <- list(
     x = any(scales %in% c("free_x", "free")),
     y = any(scales %in% c("free_y", "free"))
   )
 
-  space <- match.arg(space, c("fixed", "free_x", "free_y", "free"))
+  space <- arg_match0(space, c("fixed", "free_x", "free_y", "free"))
   space_free <- list(
     x = any(space %in% c("free_x", "free")),
     y = any(space %in% c("free_y", "free"))

@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* referring to `x` in backquoted expressions with `label_bquote()` is no longer
+  possible.
+
 * `position_stack()` now works fully with `geom_text()` (@thomasp85, #4367)
 
 * `geom_tile()` now correctly recognises missing data in `xmin`, `xmax`, `ymin`,

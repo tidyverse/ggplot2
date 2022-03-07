@@ -22,7 +22,7 @@ coord_sf(
   datum = sf::st_crs(4326),
   label_graticule = waiver(),
   label_axes = waiver(),
-  lims_method = c("cross", "box", "orthogonal", "geometry_bbox"),
+  lims_method = "cross",
   ndiscr = 100,
   default = FALSE,
   clip = "on"

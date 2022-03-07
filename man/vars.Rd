@@ -12,7 +12,7 @@ evaluated in the context of the data to form faceting groups. Can
 be named (the names are passed to a \link[=labellers]{labeller}).}
 }
 \description{
-Just like \code{\link[=aes]{aes()}}, \code{vars()} is a \link[rlang:nse-defuse]{quoting function}
+Just like \code{\link[=aes]{aes()}}, \code{vars()} is a \link[rlang:topic-defuse]{quoting function}
 that takes inputs to be evaluated in the context of a dataset.
 These inputs can be:
 \itemize{

@@ -552,7 +552,7 @@ test_that("a warning is generated when guides(<scale> = FALSE) is specified", {
                    y = c(6, 5, 7))
 
   # warn on guide(<scale> = FALSE)
-  expect_warning(g <- guides(colour = FALSE), "`guides(<scale> = FALSE)` is deprecated.", fixed = TRUE)
+  expect_warning(g <- guides(colour = FALSE), "The `<scale>` argument of `guides()` cannot be `FALSE`. Use \"none\" instead as of ggplot2 3.3.4.", fixed = TRUE)
   expect_equal(g[["colour"]], "none")
 
   # warn on scale_*(guide = FALSE)

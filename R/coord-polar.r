@@ -59,7 +59,7 @@
 #' }
 #' }
 coord_polar <- function(theta = "x", start = 0, direction = 1, clip = "on") {
-  theta <- match.arg(theta, c("x", "y"))
+  theta <- arg_match0(theta, c("x", "y"))
   r <- if (theta == "x") "y" else "x"
 
   ggproto(NULL, CoordPolar,
