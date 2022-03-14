@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* `presidential` dataset now includes Trump's presidency (@bkmgit, #4703).
+
 * referring to `x` in backquoted expressions with `label_bquote()` is no longer
   possible.
 
