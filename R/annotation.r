@@ -43,7 +43,10 @@ annotate <- function(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
                      na.rm = FALSE) {
 
   if (geom %in% c("abline", "hline", "vline")) {
-    warn(glue("`annotate()` does not support `geom = \"{geom}\"`. Please use `geom_{geom}()` directly, instead."))
+    warn(c(
+      glue("`annotate()` does not support `geom = \"{geom}\"`."),
+      i = glue("Please use `geom_{geom}()` directly, instead.")
+    ))
   }
 
   position <- compact(list(
