@@ -59,6 +59,10 @@
   
 * `geom_contour()` now accepts a function in the `breaks` argument (@eliocamp, #4652).
 
+* Updated documentation for `geom_contour()` to correctly reflect argument 
+precedence between `bins` and `binwidth`. (@eliocamp, #4651)
+
+
 # ggplot2 3.3.5
 This is a very small release focusing on fixing a couple of untenable issues 
 that surfaced with the 3.3.4 release
