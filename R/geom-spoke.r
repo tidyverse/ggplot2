@@ -45,7 +45,7 @@ geom_spoke <- function(mapping = NULL, data = NULL,
 #' @rdname geom_spoke
 #' @usage NULL
 stat_spoke <- function(...) {
-  message("stat_spoke is deprecated, please use geom_spoke")
+  lifecycle::deprecate_warn("2.0.0", "stat_spoke()", "geom_spoke()")
   geom_spoke(...)
 }
 
