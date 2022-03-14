@@ -50,5 +50,5 @@ test_that("annotation_* has dummy data assigned and don't inherit aes", {
 })
 
 test_that("unsupported geoms signal a warning (#4719)", {
-  expect_snapshot_error(annotate("hline", yintercept = 0), class = "warning")
+  expect_snapshot_warning(annotate("hline", yintercept = 0))
 })
