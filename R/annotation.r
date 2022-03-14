@@ -45,7 +45,7 @@ annotate <- function(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
   if (geom %in% c("abline", "hline", "vline")) {
     warn(c(
       glue("`annotate()` does not support `geom = \"{geom}\"`."),
-      i = glue("Please use `geom_{geom}()` directly, instead.")
+      i = glue("Please use `geom_{geom}()` directly instead.")
     ))
   }
 
