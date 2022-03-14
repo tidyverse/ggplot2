@@ -3,6 +3,8 @@
 * `annotate()` now documents unsupported geoms (`geom_abline()`, `geom_hline()`
   and `geom_vline()`), and warns when they are requested (@mikmart, #4719)
 
+* `presidential` dataset now includes Trump's presidency (@bkmgit, #4703).
+
 * referring to `x` in backquoted expressions with `label_bquote()` is no longer
   possible.
 
