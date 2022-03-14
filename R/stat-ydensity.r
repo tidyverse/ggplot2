@@ -30,7 +30,7 @@ stat_ydensity <- function(mapping = NULL, data = NULL,
                           orientation = NA,
                           show.legend = NA,
                           inherit.aes = TRUE) {
-  scale <- match.arg(scale, c("area", "count", "width"))
+  scale <- arg_match0(scale, c("area", "count", "width"))
 
   layer(
     data = data,

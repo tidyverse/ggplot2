@@ -186,3 +186,15 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
   draw_key = draw_key_polygon
 )
 
+# Assigning pathGrob in .onLoad ensures that packages that subclass GeomPolygon
+# do not install with error `possible error in 'pathGrob(munched$x, munched$y, ':
+# unused argument (pathId = munched$group)` despite the fact that this is correct
+# usage
+pathGrob <- NULL
+on_load(
+  if (getRversion() < as.numeric_version("3.6")) {
+    pathGrob <- function(..., pathId.lengths) {
+      grid::pathGrob(...)
+    }
+  }
+)
