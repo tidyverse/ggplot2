@@ -12,6 +12,6 @@ aes_auto(data = NULL, ...)
 \item{...}{aesthetics that need to be explicitly mapped.}
 }
 \description{
-Automatic aesthetic mapping
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 }
 \keyword{internal}

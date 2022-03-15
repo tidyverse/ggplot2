@@ -338,6 +338,15 @@ rbind_dfs <- function(dfs) {
   )
   out
 }
+
+# Info needed for rbind_dfs date/time handling
+on_load({
+  date <- Sys.Date()
+  ggplot_global$date_origin <- date - unclass(date)
+  time <- Sys.time()
+  ggplot_global$time_origin <- time - unclass(time)
+})
+
 #' Apply function to unique subsets of a data.frame
 #'
 #' This function is akin to `plyr::ddply`. It takes a single data.frame,

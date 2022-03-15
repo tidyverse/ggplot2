@@ -32,7 +32,8 @@
 #' @param mapping Default list of aesthetic mappings to use for plot.
 #'   If not specified, must be supplied in each layer added to the plot.
 #' @param ... Other arguments passed on to methods. Not currently used.
-#' @param environment DEPRECATED. Used prior to tidy evaluation.
+#' @param environment `r lifecycle::badge("deprecated")` Used prior to tidy
+#'   evaluation.
 #' @export
 #' @examples
 #' # Generate some sample data, then compute mean and standard deviation

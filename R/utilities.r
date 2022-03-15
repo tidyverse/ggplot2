@@ -185,7 +185,8 @@ binned_pal <- function(palette) {
 
 #' Give a deprecation error, warning, or message, depending on version number.
 #'
-#' This function is deprecated.
+#' @description
+#' `r lifecycle::badge("deprecated")`
 #'
 #' @param version The last version of ggplot2 where this function was good
 #'   (in other words, the last version where it was not deprecated).
@@ -193,6 +194,7 @@ binned_pal <- function(palette) {
 #' @keywords internal
 #' @export
 gg_dep <- function(version, msg) {
+  lifecycle::deprecate_warn("3.3.0", "gg_dep()")
   .Deprecated()
   v <- as.package_version(version)
   cv <- utils::packageVersion("ggplot2")
