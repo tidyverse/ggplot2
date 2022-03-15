@@ -21,7 +21,7 @@
 #' @param frame.colour A string specifying the colour of the frame
 #'   drawn around the bar. If `NULL` (the default), no frame is drawn.
 #' @param frame.linewidth A numeric specifying the width of the frame
-#'   drawn around the bar.
+#'   drawn around the bar in millimetres.
 #' @param frame.linetype A numeric specifying the linetype of the frame
 #'   drawn around the bar.
 #' @param nbin A numeric specifying the number of bins for drawing the
@@ -33,7 +33,8 @@
 #' @param ticks A logical specifying if tick marks on the colourbar should be
 #'   visible.
 #' @param ticks.colour A string specifying the colour of the tick marks.
-#' @param ticks.linewidth A numeric specifying the width of the tick marks.
+#' @param ticks.linewidth A numeric specifying the width of the tick marks in
+#'   millimetres.
 #' @param draw.ulim A logical specifying if the upper limit tick marks should
 #'   be visible.
 #' @param draw.llim A logical specifying if the lower limit tick marks should
