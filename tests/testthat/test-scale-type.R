@@ -1,5 +1,3 @@
-context("test-scale-type.R")
-
 test_that("no scale for NULL aesthetic", {
   expect_equal(find_scale("colour", NULL), NULL)
 })

@@ -5,7 +5,7 @@
 #'
 #' @format A data frame with 53940 rows and 10 variables:
 #' \describe{
-#'   \item{price}{price in US dollars (\$326--\$18,823)}
+#'   \item{price}{price in US dollars ($326--$18,823)}
 #'   \item{carat}{weight of the diamond (0.2--5.01)}
 #'   \item{cut}{quality of the cut (Fair, Good, Very Good, Premium, Ideal)}
 #'   \item{color}{diamond colour, from D (best) to J (worst)}
@@ -140,12 +140,13 @@
 #' }
 "msleep"
 
-#' Terms of 11 presidents from Eisenhower to Obama
+#' Terms of 12 presidents from Eisenhower to Trump
 #'
 #' The names of each president, the start and end date of their term, and
-#' their party of 11 US presidents from Eisenhower to Obama.
+#' their party of 12 US presidents from Eisenhower to Trump.  This data is
+#' in the public domain.
 #'
-#' @format A data frame with 11 rows and 4 variables:
+#' @format A data frame with 12 rows and 4 variables:
 #' \describe{
 #'   \item{name}{Last name of president}
 #'   \item{start}{Presidency start date}

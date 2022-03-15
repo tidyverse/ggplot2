@@ -44,8 +44,8 @@
 #' @param fun.min,fun,fun.max Alternatively, supply three individual
 #'   functions that are each passed a vector of values and should return a
 #'   single number.
-#' @param fun.ymin,fun.y,fun.ymax Deprecated, use the versions specified above
-#'   instead.
+#' @param fun.ymin,fun.y,fun.ymax `r lifecycle::badge("deprecated")` Use the
+#'   versions specified above instead.
 #' @param fun.args Optional additional arguments passed on to the functions.
 #' @export
 #' @examples
@@ -138,17 +138,19 @@ stat_summary <- function(mapping = NULL, data = NULL,
                          orientation = NA,
                          show.legend = NA,
                          inherit.aes = TRUE,
-                         fun.y, fun.ymin, fun.ymax) {
-  if (!missing(fun.y)) {
-    warn("`fun.y` is deprecated. Use `fun` instead.")
+                         fun.y = deprecated(),
+                         fun.ymin = deprecated(),
+                         fun.ymax = deprecated()) {
+  if (lifecycle::is_present(fun.y)) {
+    lifecycle::deprecate_warn("3.3.0", "stat_summary(fun.y)", "stat_summary(fun)")
     fun = fun %||% fun.y
   }
-  if (!missing(fun.ymin)) {
-    warn("`fun.ymin` is deprecated. Use `fun.min` instead.")
+  if (lifecycle::is_present(fun.ymin)) {
+    lifecycle::deprecate_warn("3.3.0", "stat_summary(fun.ymin)", "stat_summary(fun.min)")
     fun.min = fun.min %||% fun.ymin
   }
-  if (!missing(fun.ymax)) {
-    warn("`fun.ymax` is deprecated. Use `fun.max` instead.")
+  if (lifecycle::is_present(fun.ymax)) {
+    lifecycle::deprecate_warn("3.3.0", "stat_summary(fun.ymax)", "stat_summary(fun.max)")
     fun.max = fun.max %||% fun.ymax
   }
   layer(

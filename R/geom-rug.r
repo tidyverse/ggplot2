@@ -88,7 +88,8 @@ geom_rug <- function(mapping = NULL, data = NULL,
 GeomRug <- ggproto("GeomRug", Geom,
   optional_aes = c("x", "y"),
 
-  draw_panel = function(data, panel_params, coord, sides = "bl", outside = FALSE, length = unit(0.03, "npc")) {
+  draw_panel = function(data, panel_params, coord, lineend = "butt", sides = "bl",
+                        outside = FALSE, length = unit(0.03, "npc")) {
     if (!inherits(length, "unit")) {
       abort("'length' must be a 'unit' object.")
     }
@@ -108,7 +109,12 @@ GeomRug <- ggproto("GeomRug", Geom,
       list(min = -1 * length, max = unit(1, "npc") + length)
     }
 
-    gp <- gpar(col = alpha(data$colour, data$alpha), lty = data$linetype, lwd = data$size * .pt)
+    gp <- gpar(
+      col = alpha(data$colour, data$alpha),
+      lty = data$linetype,
+      lwd = data$size * .pt,
+      lineend = lineend
+    )
     if (!is.null(data$x)) {
       if (grepl("b", sides)) {
         rugs$x_b <- segmentsGrob(

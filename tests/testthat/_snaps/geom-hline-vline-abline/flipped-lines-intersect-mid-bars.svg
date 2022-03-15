@@ -27,11 +27,11 @@
 </defs>
 <g clip-path='url(#cpMTYuNzd8NzE0LjUyfDIyLjc4fDU1Ny43MQ==)'>
 <rect x='16.77' y='22.78' width='697.75' height='534.92' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<rect x='48.48' y='444.55' width='126.86' height='102.87' style='stroke-width: 1.07; stroke: none; stroke-linecap: square; stroke-linejoin: miter; fill: #595959;' />
-<rect x='48.48' y='341.68' width='253.73' height='102.87' style='stroke-width: 1.07; stroke: none; stroke-linecap: square; stroke-linejoin: miter; fill: #595959;' />
-<rect x='48.48' y='238.81' width='380.59' height='102.87' style='stroke-width: 1.07; stroke: none; stroke-linecap: square; stroke-linejoin: miter; fill: #595959;' />
-<rect x='48.48' y='135.94' width='507.46' height='102.87' style='stroke-width: 1.07; stroke: none; stroke-linecap: square; stroke-linejoin: miter; fill: #595959;' />
-<rect x='48.48' y='33.07' width='634.32' height='102.87' style='stroke-width: 1.07; stroke: none; stroke-linecap: square; stroke-linejoin: miter; fill: #595959;' />
+<rect x='48.48' y='444.55' width='126.86' height='102.87' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #595959;' />
+<rect x='48.48' y='341.68' width='253.73' height='102.87' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #595959;' />
+<rect x='48.48' y='238.81' width='380.59' height='102.87' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #595959;' />
+<rect x='48.48' y='135.94' width='507.46' height='102.87' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #595959;' />
+<rect x='48.48' y='33.07' width='634.32' height='102.87' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #595959;' />
 <circle cx='175.35' cy='495.98' r='1.95' style='stroke-width: 0.71; fill: #000000;' />
 <circle cx='302.21' cy='393.11' r='1.95' style='stroke-width: 0.71; fill: #000000;' />
 <circle cx='429.08' cy='290.24' r='1.95' style='stroke-width: 0.71; fill: #000000;' />

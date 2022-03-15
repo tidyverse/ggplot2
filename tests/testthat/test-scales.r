@@ -1,5 +1,3 @@
-context("Scales")
-
 test_that("building a plot does not affect its scales", {
   dat <- data_frame(x = rnorm(20), y = rnorm(20))
 
@@ -354,8 +352,8 @@ test_that("scale_apply preserves class and attributes", {
   )[[1]], `c.baz` = `c.baz`, `[.baz` = `[.baz`, .env = global_env())
 
   # Check class preservation
-  expect_is(out, "baz")
-  expect_is(out, "numeric")
+  expect_s3_class(out, "baz")
+  expect_s3_class(out, "numeric")
 
   # Check attribute preservation
   expect_identical(attr(out, "foo"), "bar")

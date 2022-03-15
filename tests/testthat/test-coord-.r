@@ -1,5 +1,3 @@
-context("test-coord-.r")
-
 test_that("clipping is on by default", {
   p <- ggplot()
   coord <- ggplot_build(p)$layout$coord
