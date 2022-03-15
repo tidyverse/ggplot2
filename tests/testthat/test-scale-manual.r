@@ -1,5 +1,3 @@
-context("scale_manual")
-
 test_that("names of values used in manual scales", {
    s1 <- scale_colour_manual(values = c("8" = "c", "4" = "a", "6" = "b"))
    s1$train(c("4", "6", "8"))

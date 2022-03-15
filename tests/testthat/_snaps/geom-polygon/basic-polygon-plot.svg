@@ -27,8 +27,8 @@
 </defs>
 <g clip-path='url(#cpMzIuNzl8NzE0LjUyfDIyLjc4fDU0NS4xMQ==)'>
 <rect x='32.79' y='22.78' width='681.73' height='522.33' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<path d='M 63.78 521.37 L 270.37 521.37 L 270.37 363.09 L 63.78 363.09 Z' style='fill-rule: evenodd; fill: #333333; stroke-width: 1.07; stroke: none;' />
-<path d='M 476.95 204.81 L 683.53 204.81 L 683.53 46.53 L 476.95 46.53 ZM 518.27 173.15 L 642.22 173.15 L 642.22 78.18 L 518.27 78.18 Z' style='fill-rule: evenodd; fill: #333333; stroke-width: 1.07; stroke: none;' />
+<path d='M 63.78 521.37 L 270.37 521.37 L 270.37 363.09 L 63.78 363.09 Z' style='fill-rule: evenodd; fill: #333333; stroke-width: 1.07; stroke: none; stroke-linecap: butt;' />
+<path d='M 476.95 204.81 L 683.53 204.81 L 683.53 46.53 L 476.95 46.53 ZM 518.27 173.15 L 642.22 173.15 L 642.22 78.18 L 518.27 78.18 Z' style='fill-rule: evenodd; fill: #333333; stroke-width: 1.07; stroke: none; stroke-linecap: butt;' />
 <rect x='32.79' y='22.78' width='681.73' height='522.33' style='stroke-width: 1.07; stroke: #333333;' />
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>

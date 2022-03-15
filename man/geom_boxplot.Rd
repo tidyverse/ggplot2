@@ -133,7 +133,7 @@ This geom treats each axis differently and, thus, can thus have two orientations
 The lower and upper hinges correspond to the first and third quartiles
 (the 25th and 75th percentiles). This differs slightly from the method used
 by the \code{\link[=boxplot]{boxplot()}} function, and may be apparent with small samples.
-See \code{\link[=boxplot.stats]{boxplot.stats()}} for for more information on how hinge
+See \code{\link[=boxplot.stats]{boxplot.stats()}} for more information on how hinge
 positions are calculated for \code{\link[=boxplot]{boxplot()}}.
 
 The upper whisker extends from the hinge to the largest value no further than

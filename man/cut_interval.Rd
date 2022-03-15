@@ -10,14 +10,7 @@ cut_interval(x, n = NULL, length = NULL, ...)
 
 cut_number(x, n = NULL, ...)
 
-cut_width(
-  x,
-  width,
-  center = NULL,
-  boundary = NULL,
-  closed = c("right", "left"),
-  ...
-)
+cut_width(x, width, center = NULL, boundary = NULL, closed = "right", ...)
 }
 \arguments{
 \item{x}{numeric vector}

@@ -278,6 +278,10 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
     # override.aes in guide_legend manually changes the geom
     data <- modify_list(data, guide$override.aes)
 
+    if (!is.null(data$size)) {
+      data$size[is.na(data$size)] <- 0
+    }
+
     list(
       draw_key = layer$geom$draw_key,
       data = data,
@@ -383,6 +387,7 @@ guide_gengrob.legend <- function(guide, theme) {
   )
 
   key_size_mat <- do.call("cbind", lapply(guide$geoms, function(g) g$data$size / 10))
+
   if (nrow(key_size_mat) == 0 || ncol(key_size_mat) == 0) {
     key_size_mat <- matrix(0, ncol = 1, nrow = nbreak)
   }

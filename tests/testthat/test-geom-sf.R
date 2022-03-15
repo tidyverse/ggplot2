@@ -1,5 +1,3 @@
-context("geom-sf")
-
 test_that("geom_sf() determines the legend type automatically", {
   skip_if_not_installed("sf")
   if (packageVersion("sf") < "0.5.3") skip("Need sf 0.5.3")
@@ -200,5 +198,40 @@ test_that("geom_sf_text() and geom_sf_label() draws correctly", {
 
   expect_doppelganger("Labels for North Carolina",
     ggplot() + geom_sf_label(data = nc_3857, aes(label = NAME))
+  )
+})
+
+test_that("geom_sf draws arrows correctly", {
+  skip_if_not_installed("sf")
+  if (packageVersion("sf") < "0.5.3") skip("Need sf 0.5.3")
+
+  nc_tiny_coords <- data_frame(
+    x = c(-81.473, -81.741, -81.67, -81.345, -81.266, -81.24, -81.473),
+    y = c(36.234, 36.392, 36.59, 36.573, 36.437, 36.365, 36.234)
+  )
+
+  nc <- sf::st_linestring(
+      sf::st_coordinates(sf::st_as_sf(nc_tiny_coords, coords = c("x", "y"), crs = 4326))
+    )
+
+  nc2 <- sf::st_cast(
+    sf::st_sfc(
+      sf::st_multilinestring(lapply(
+        1:(length(sf::st_coordinates(nc)[, 1]) - 1),
+          function(x) rbind(
+            as.numeric(sf::st_coordinates(nc)[x, 1:2]),
+            as.numeric(sf::st_coordinates(nc)[x + 1, 1:2])
+            )
+        )
+      ), sf::st_crs(nc)
+    ), "LINESTRING"
+  )
+
+  expect_doppelganger("North Carolina county boundaries with arrow",
+    ggplot() + geom_sf(data = nc, arrow = arrow()) + coord_sf(datum = 4326)
+  )
+
+  expect_doppelganger("North Carolina county boundaries with more than one arrow",
+    ggplot() + geom_sf(data = nc2, arrow = arrow()) + coord_sf(datum = 4326)
   )
 })

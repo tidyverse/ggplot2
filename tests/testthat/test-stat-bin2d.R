@@ -1,5 +1,3 @@
-context("stat_bin2d")
-
 test_that("binwidth is respected", {
   df <- data_frame(x = c(1, 1, 1, 2), y = c(1, 1, 1, 2))
   base <- ggplot(df, aes(x, y)) +

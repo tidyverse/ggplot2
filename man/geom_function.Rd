@@ -130,6 +130,8 @@ base + stat_function(fun = dnorm, geom = "point")
 
 base + stat_function(fun = dnorm, geom = "point", n = 20)
 
+base + stat_function(fun = dnorm, geom = "polygon", color = "blue", fill = "blue", alpha = 0.5)
+
 base + geom_function(fun = dnorm, n = 20)
 
 # Two functions on the same plot
