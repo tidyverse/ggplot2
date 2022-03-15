@@ -64,6 +64,8 @@
 * Updated documentation for `geom_contour()` to correctly reflect argument 
 precedence between `bins` and `binwidth`. (@eliocamp, #4651)
 
+* Key glyphs for `geom_boxplot()`, `geom_crossbar()`, `geom_pointrange()`, and
+  `geom_linerange()` are now orientation-aware (@mjskay, #4732)
 
 # ggplot2 3.3.5
 This is a very small release focusing on fixing a couple of untenable issues 
