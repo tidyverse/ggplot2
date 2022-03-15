@@ -337,7 +337,7 @@ See example
   <span class="fu"><a href="../reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">country</span>, ncol <span class="op">=</span> <span class="fl">1</span>, scales <span class="op">=</span> <span class="st">"free_y"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fl">2011</span><span class="op">:</span><span class="fl">2020</span><span class="op">)</span>
-<span class="co">#&gt; `geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></code></pre></div>
+<span class="co">#&gt; `geom_smooth()` using method = 'loess' and formula = 'y ~ x'</span></code></pre></div>
 <p><img src="faq-faceting_files/figure-html/unnamed-chunk-17-1.png" width="80%"></p>
 <p>With the following you can customize the facet labels first with <code><a href="../reference/as_labeller.html">as_labeller()</a></code>, turn off the default y-axis label, and then place the facet labels where the y-axis label goes (<code>"outside"</code> and on the <code>"left"</code>).</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
@@ -351,7 +351,7 @@ See example
   <span class="fu"><a href="../reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fl">2011</span><span class="op">:</span><span class="fl">2020</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../reference/labs.html">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../reference/theme.html">theme</a></span><span class="op">(</span>strip.background <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>, strip.placement <span class="op">=</span> <span class="st">"outside"</span><span class="op">)</span>
-<span class="co">#&gt; `geom_smooth()` using method = 'loess' and formula 'y ~ x'</span>
+<span class="co">#&gt; `geom_smooth()` using method = 'loess' and formula = 'y ~ x'</span>
 <span class="co">#&gt; Warning in simpleLoess(y, x, w, span, degree = degree, parametric =</span>
 <span class="co">#&gt; parametric, : Chernobyl! trL&gt;n 6</span>
 

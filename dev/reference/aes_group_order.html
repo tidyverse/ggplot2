@@ -161,12 +161,12 @@ can be modified.</p></li>
 <span class="r-in"><span class="co"># Using the group aesthetic with both geom_line() and geom_smooth()</span></span>
 <span class="r-in"><span class="co"># groups the data the same way for both layers</span></span>
 <span class="r-in"><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="geom_smooth.html">geom_smooth</a></span><span class="op">(</span><span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>group <span class="op">=</span> <span class="va">Subject</span><span class="op">)</span>, method <span class="op">=</span> <span class="st">"lm"</span>, se <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> `geom_smooth()` using formula 'y ~ x'</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> `geom_smooth()` using formula = 'y ~ x'</span>
 <span class="r-plt img"><img src="aes_group_order-10.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span class="co"># Changing the group aesthetic for the smoother layer</span></span>
 <span class="r-in"><span class="co"># fits a single line of best fit across all boys</span></span>
 <span class="r-in"><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="geom_smooth.html">geom_smooth</a></span><span class="op">(</span><span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>group <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">2</span>, method <span class="op">=</span> <span class="st">"lm"</span>, se <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> `geom_smooth()` using formula 'y ~ x'</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> `geom_smooth()` using formula = 'y ~ x'</span>
 <span class="r-plt img"><img src="aes_group_order-11.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Overriding the default grouping</span></span>
