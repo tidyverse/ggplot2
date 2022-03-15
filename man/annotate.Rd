@@ -45,6 +45,13 @@ limits of the plot so they are visible), but all other aesthetics are
 set. This means that layers created with this function will never
 affect the legend.
 }
+\section{Unsupported geoms}{
+
+Due to their special nature, reference line geoms \code{\link[=geom_abline]{geom_abline()}},
+\code{\link[=geom_hline]{geom_hline()}} and \code{\link[=geom_vline]{geom_vline()}} can't be used with \code{\link[=annotate]{annotate()}}.
+For annotating reference lines, they should be used directly, instead.
+}
+
 \examples{
 p <- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()
 p + annotate("text", x = 4, y = 25, label = "Some text")
@@ -62,4 +69,7 @@ p + annotate("text", x = 4, y = 25, label = "italic(R) ^ 2 == 0.75",
   parse = TRUE)
 p + annotate("text", x = 4, y = 25,
   label = "paste(italic(R) ^ 2, \" = .75\")", parse = TRUE)
+}
+\seealso{
+\code{\link[=geom_abline]{geom_abline()}} for annotating reference lines.
 }
