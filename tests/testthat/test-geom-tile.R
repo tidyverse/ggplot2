@@ -1,5 +1,3 @@
-context("geom_tile")
-
 test_that("accepts width and height params", {
   df <- data_frame(x = c("a", "b"), y = c("a", "b"))
 

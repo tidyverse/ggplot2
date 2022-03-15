@@ -1,5 +1,3 @@
-context("test-aes-calculated.r")
-
 test_that("constants aren't calculated", {
   expect_equal(is_calculated_aes(aes(1, "a", TRUE)), c(FALSE, FALSE, FALSE))
 })

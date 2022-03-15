@@ -69,8 +69,8 @@ a warning. If \code{TRUE}, missing values are silently removed.}
   }}
 }
 \description{
-This is a quick and dirty way to get map data (from the maps package)
-on to your plot. This is a good place to start if you need some crude
+This is a quick and dirty way to get map data (from the \pkg{maps} package)
+onto your plot. This is a good place to start if you need some crude
 reference lines, but you'll typically want something more sophisticated
 for communication graphics.
 }

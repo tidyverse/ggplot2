@@ -1,6 +1,8 @@
 ---
 title: "Extending ggplot2"
 output: rmarkdown::html_vignette
+description: |
+  Official extension mechanism provided in ggplot2.
 vignette: >
   %\VignetteIndexEntry{Extending ggplot2}
   %\VignetteEngine{knitr::rmarkdown}

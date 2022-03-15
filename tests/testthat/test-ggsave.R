@@ -1,5 +1,3 @@
-context("ggsave")
-
 test_that("ggsave creates file", {
   path <- tempfile()
   on.exit(unlink(path))
@@ -85,10 +83,6 @@ test_that("scale multiplies height & width", {
 
 # plot_dev ---------------------------------------------------------------------
 
-test_that("function is passed back unchanged", {
-  expect_equal(plot_dev(png), png)
-})
-
 test_that("unknown device triggers error", {
   expect_error(plot_dev("xyz"), "Unknown graphics device")
   expect_error(plot_dev(NULL, "test.xyz"), "Unknown graphics device")
@@ -96,12 +90,12 @@ test_that("unknown device triggers error", {
 
 
 test_that("text converted to function", {
-  expect_identical(body(plot_dev("png"))[[1]], quote(grDevices::png))
+  expect_identical(body(plot_dev("png"))[[1]], quote(png_dev))
   expect_identical(body(plot_dev("pdf"))[[1]], quote(grDevices::pdf))
 })
 
 test_that("if device is NULL, guess from extension", {
-  expect_identical(body(plot_dev(NULL, "test.png"))[[1]], quote(grDevices::png))
+  expect_identical(body(plot_dev(NULL, "test.png"))[[1]], quote(png_dev))
 })
 
 # parse_dpi ---------------------------------------------------------------

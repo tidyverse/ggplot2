@@ -1,5 +1,3 @@
-context("stat_ellipsis")
-
 test_that("stat_ellipsis returns correct data format", {
   n_seg <- 40
   d <- data_frame(x = c(1, 1, 4, 4, 4, 3, 3, 1), y = c(1:4, 1:4), id = rep(1:2, each = 4))

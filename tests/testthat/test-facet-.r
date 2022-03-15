@@ -1,5 +1,3 @@
-context("Facetting")
-
 test_that("as_facets_list() coerces formulas", {
   expect_identical(as_facets_list(~foo), list(quos(), quos(foo = foo)))
   expect_identical(as_facets_list(~foo + bar), list(quos(), quos(foo = foo, bar = bar)))
@@ -52,13 +50,25 @@ test_that("facets reject aes()", {
 test_that("wrap_as_facets_list() returns a quosures object with compacted", {
   expect_identical(wrap_as_facets_list(vars(foo)), quos(foo = foo))
   expect_identical(wrap_as_facets_list(~foo + bar), quos(foo = foo, bar = bar))
-  expect_identical(wrap_as_facets_list(vars(foo, NULL, bar)), quos(foo = foo, bar = bar))
+
+  f <- function(x) {
+    expect_identical(wrap_as_facets_list(vars(foo, {{ x }}, bar)), quos(foo = foo, bar = bar))
+  }
+
+  f(NULL)
+  f()
 })
 
 test_that("grid_as_facets_list() returns a list of quosures objects with compacted", {
   expect_identical(grid_as_facets_list(vars(foo), NULL), list(rows = quos(foo = foo), cols = quos()))
   expect_identical(grid_as_facets_list(~foo, NULL), list(rows = quos(), cols = quos(foo = foo)))
-  expect_identical(grid_as_facets_list(vars(foo, NULL, bar), NULL), list(rows = quos(foo = foo, bar = bar), cols = quos()))
+
+  f <- function(x) {
+    expect_identical(grid_as_facets_list(vars(foo, {{ x }}, bar), NULL), list(rows = quos(foo = foo, bar = bar), cols = quos()))
+  }
+
+  f(NULL)
+  f()
 })
 
 test_that("wrap_as_facets_list() and grid_as_facets_list() accept empty specs", {
@@ -265,15 +275,16 @@ test_that("combine_vars() generates the correct combinations", {
     factor = factor(c("level1", "level2")),
     stringsAsFactors = FALSE
   )
+  attr(df_all, "out.attrs") <- NULL
 
   vars_all <- vars(letter = letter, number =  number, boolean = boolean, factor = factor)
 
-  expect_equivalent(
+  expect_equal(
     combine_vars(list(df_one), vars = vars_all),
     df_one
   )
 
-  expect_equivalent(
+  expect_equal(
     combine_vars(list(df_all), vars = vars_all),
     df_all
   )
@@ -283,21 +294,22 @@ test_that("combine_vars() generates the correct combinations", {
   # NAs are kept with with drop = TRUE
   # drop keeps all combinations of data, regardless of the combinations in which
   # they appear in the data (in addition to keeping unused factor levels)
-  expect_equivalent(
+  expect_equal(
     combine_vars(list(df_one), vars = vars_all, drop = FALSE),
-    df_all[order(df_all$letter, df_all$number, df_all$boolean, df_all$factor), ]
+    df_all[order(df_all$letter, df_all$number, df_all$boolean, df_all$factor), ],
+    ignore_attr = TRUE   # do not compare `row.names`
   )
 })
 
 test_that("drop = FALSE in combine_vars() keeps unused factor levels", {
   df <- data_frame(x = factor("a", levels = c("a", "b")))
-  expect_equivalent(
+  expect_equal(
     combine_vars(list(df), vars = vars(x = x), drop = TRUE),
-    data_frame(x = factor("a"))
+    data_frame(x = factor("a", levels = c("a", "b")))
   )
-  expect_equivalent(
+  expect_equal(
     combine_vars(list(df), vars = vars(x = x), drop = FALSE),
-    data_frame(x = factor(c("a", "b")))
+    data_frame(x = factor(c("a", "b"), levels = c("a", "b")))
   )
 })
 

@@ -41,8 +41,8 @@
 #' @md
 #' @name tidyeval
 #' @keywords internal
-#' @aliases expr enquo enquos sym syms .data := as_name as_label
-#' @export expr enquo enquos sym syms .data := as_name as_label
+#' @aliases expr enquo enquos sym syms .data as_label
+#' @export expr enquo enquos sym syms .data as_label
 NULL
 
 # For backward-compatibility, keep exporting the old ones

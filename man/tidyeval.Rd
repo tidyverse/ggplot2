@@ -8,8 +8,6 @@
 \alias{sym}
 \alias{syms}
 \alias{.data}
-\alias{:=}
-\alias{as_name}
 \alias{as_label}
 \alias{quo_name}
 \alias{quo}

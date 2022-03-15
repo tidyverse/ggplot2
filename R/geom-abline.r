@@ -124,15 +124,21 @@ geom_abline <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomAbline <- ggproto("GeomAbline", Geom,
-  draw_panel = function(data, panel_params, coord) {
+  draw_panel = function(data, panel_params, coord, lineend = "butt") {
     ranges <- coord$backtransform_range(panel_params)
+
+    if (coord$clip == "on" && coord$is_linear()) {
+      # Ensure the line extends well outside the panel to avoid visible line
+      # ending for thick lines
+      ranges$x <- ranges$x + c(-1, 1) * diff(ranges$x)
+    }
 
     data$x    <- ranges$x[1]
     data$xend <- ranges$x[2]
     data$y    <- ranges$x[1] * data$slope + data$intercept
     data$yend <- ranges$x[2] * data$slope + data$intercept
 
-    GeomSegment$draw_panel(unique(data), panel_params, coord)
+    GeomSegment$draw_panel(unique(data), panel_params, coord, lineend = lineend)
   },
 
   default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),

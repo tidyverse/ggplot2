@@ -314,6 +314,11 @@ datetime_scale <- function(aesthetics, trans, palette,
     scale_class <- ScaleContinuous
   }
 
+  trans <- switch(trans,
+    date = date_trans(),
+    time = time_trans(timezone)
+  )
+
   sc <- continuous_scale(
     aesthetics,
     name,
@@ -381,6 +386,14 @@ ScaleContinuousDate <- ggproto("ScaleContinuousDate", ScaleContinuous,
   secondary.axis = waiver(),
   map = function(self, x, limits = self$get_limits()) {
     self$oob(x, limits)
+  },
+  get_breaks = function(self, limits = self$get_limits()) {
+    breaks <- ggproto_parent(ScaleContinuous, self)$get_breaks(limits)
+    if (is.null(breaks)) {
+      return(NULL)
+    }
+    breaks <- floor(breaks)
+    breaks[breaks >= limits[1] & breaks <= limits[2]]
   },
   break_info = function(self, range = NULL) {
     breaks <- ggproto_parent(ScaleContinuous, self)$break_info(range)

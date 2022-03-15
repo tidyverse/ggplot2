@@ -56,22 +56,6 @@ clist <- function(l) {
   paste(paste(names(l), l, sep = " = ", collapse = ", "), sep = "")
 }
 
-
-# Test whether package `package` is available. `fun` provides
-# the name of the ggplot2 function that uses this package, and is
-# used only to produce a meaningful error message if the
-# package is not available.
-try_require <- function(package, fun) {
-  if (requireNamespace(package, quietly = TRUE)) {
-    return(invisible())
-  }
-
-  abort(glue("
-    Package `{package}` required for `{fun}`.
-    Please install and try again.
-  "))
-}
-
 # Return unique columns
 # This is used for figuring out which columns are constant within a group
 #
@@ -201,7 +185,8 @@ binned_pal <- function(palette) {
 
 #' Give a deprecation error, warning, or message, depending on version number.
 #'
-#' This function is deprecated.
+#' @description
+#' `r lifecycle::badge("deprecated")`
 #'
 #' @param version The last version of ggplot2 where this function was good
 #'   (in other words, the last version where it was not deprecated).
@@ -209,6 +194,7 @@ binned_pal <- function(palette) {
 #' @keywords internal
 #' @export
 gg_dep <- function(version, msg) {
+  lifecycle::deprecate_warn("3.3.0", "gg_dep()")
   .Deprecated()
   v <- as.package_version(version)
   cv <- utils::packageVersion("ggplot2")
