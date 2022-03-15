@@ -97,8 +97,8 @@ a call to a position adjustment function.}
 \item{...}{
   Arguments passed on to \code{\link[=geom_contour]{geom_contour}}
   \describe{
-    \item{\code{bins}}{Number of contour bins. Overridden by \code{binwidth}.}
-    \item{\code{binwidth}}{The width of the contour bins. Overridden by \code{breaks}.}
+    \item{\code{binwidth}}{The width of the contour bins. Overridden by \code{bins}.}
+    \item{\code{bins}}{Number of contour bins. Overridden by \code{breaks}.}
     \item{\code{breaks}}{One of:
 \itemize{
 \item Numeric vector to set the contour breaks

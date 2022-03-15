@@ -17,8 +17,8 @@
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @inheritParams geom_path
-#' @param bins Number of contour bins. Overridden by `binwidth`.
-#' @param binwidth The width of the contour bins. Overridden by `breaks`.
+#' @param binwidth The width of the contour bins. Overridden by `bins`.
+#' @param bins Number of contour bins. Overridden by `breaks`.
 #' @param breaks One of:
 #'   - Numeric vector to set the contour breaks
 #'   - A function that takes the range of the data and binwidth as input

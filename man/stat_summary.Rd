@@ -23,9 +23,9 @@ stat_summary_bin(
   orientation = NA,
   show.legend = NA,
   inherit.aes = TRUE,
-  fun.y,
-  fun.ymin,
-  fun.ymax
+  fun.y = deprecated(),
+  fun.ymin = deprecated(),
+  fun.ymax = deprecated()
 )
 
 stat_summary(
@@ -43,9 +43,9 @@ stat_summary(
   orientation = NA,
   show.legend = NA,
   inherit.aes = TRUE,
-  fun.y,
-  fun.ymin,
-  fun.ymax
+  fun.y = deprecated(),
+  fun.ymin = deprecated(),
+  fun.ymax = deprecated()
 )
 }
 \arguments{
@@ -127,8 +127,8 @@ rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
-\item{fun.ymin, fun.y, fun.ymax}{Deprecated, use the versions specified above
-instead.}
+\item{fun.ymin, fun.y, fun.ymax}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Use the
+versions specified above instead.}
 }
 \description{
 \code{stat_summary()} operates on unique \code{x} or \code{y}; \code{stat_summary_bin()}

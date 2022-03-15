@@ -79,9 +79,10 @@ NULL
 #' }
 facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
                        shrink = TRUE, labeller = "label_value", as.table = TRUE,
-                       switch = NULL, drop = TRUE, dir = "h", strip.position = 'top') {
-  scales <- match.arg(scales, c("fixed", "free_x", "free_y", "free"))
-  dir <- match.arg(dir, c("h", "v"))
+                       switch = deprecated(), drop = TRUE, dir = "h",
+                       strip.position = 'top') {
+  scales <- arg_match0(scales, c("fixed", "free_x", "free_y", "free"))
+  dir <- arg_match0(dir, c("h", "v"))
   free <- list(
     x = any(scales %in% c("free_x", "free")),
     y = any(scales %in% c("free_y", "free"))
@@ -93,11 +94,11 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
   # Flatten all facets dimensions into a single one
   facets <- wrap_as_facets_list(facets)
 
-  if (!is.null(switch)) {
-    .Deprecated("strip.position", old = "switch")
+  if (lifecycle::is_present(switch)) {
+    lifecycle::deprecate_warn("2.2.0", "facet_wrap(switch)", "facet_wrap(strip.position)")
     strip.position <- if (switch == "x") "bottom" else "left"
   }
-  strip.position <- match.arg(strip.position, c("top", "bottom", "left", "right"))
+  strip.position <- arg_match0(strip.position, c("top", "bottom", "left", "right"))
   if (identical(dir, "v")) {
     # swap
     nrow_swap <- ncol

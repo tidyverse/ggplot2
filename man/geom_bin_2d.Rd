@@ -100,6 +100,7 @@ in the presence of overplotting.
 \item \strong{\code{y}}
 \item \code{fill}
 \item \code{group}
+\item \code{weight}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
