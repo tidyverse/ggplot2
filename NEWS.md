@@ -64,6 +64,10 @@
 * Updated documentation for `geom_contour()` to correctly reflect argument 
 precedence between `bins` and `binwidth`. (@eliocamp, #4651)
 
+* The `ticks.linewidth` and `frame.linewidth` parameters of `guide_colourbar()`
+  are now multiplied with `.pt` like elsewhere in ggplot2. It can cause visual
+  changes when these arguments are not the defaults and these changes can be 
+  restored to their previous behaviour by adding `/ .pt` (@teunbrand #4314).
 
 # ggplot2 3.3.5
 This is a very small release focusing on fixing a couple of untenable issues 
@@ -227,11 +231,6 @@ small selection of feature refinements.
 * Updated style for example code (@rjake, #4092)
 
 * ggplot2 now requires R >= 3.3 (#4247).
-
-* The `ticks.linewidth` and `frame.linewidth` parameters of `guide_colourbar()`
-  are now multiplied with `.pt` like elsewhere in ggplot2. It can cause visual
-  changes when these arguments are not the defaults and these changes can be 
-  restored to their previous behaviour by adding `/ .pt` (@teunbrand #4314).
 
 * ggplot2 now uses `rlang::check_installed()` to check if a suggested package is
   installed, which will offer to install the package before continuing (#4375, 
