@@ -49,3 +49,19 @@ test_that("make_labels() deprases mappings properly", {
   expect_identical(make_labels(aes(x = 1)), list(x = "x"))
   expect_identical(make_labels(aes(x = NULL)), list(x = "x"))
 })
+
+test_that("staged aesthetics warn appropriately for duplicated names", {
+  # Test should *not* report `NA` as the duplicated aes (#4707)
+  df <- data.frame(x = 1, y = 1, lab = "test")
+  expr <- substitute(
+    ggplot(df, aes(x, y, label = lab)) +
+      geom_label(
+        aes(colour = stage(lab, after_scale = colour),
+            color  = after_scale(color))
+      )
+  )
+  # One warning in plot code due to evaluation of `aes()`
+  expect_snapshot_warning(p <- eval(expr))
+  # Two warnings in building due to `stage()`/`after_scale()`
+  expect_snapshot_warning(ggplot_build(p))
+})
