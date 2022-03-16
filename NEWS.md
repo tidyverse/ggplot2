@@ -53,6 +53,9 @@
   
 * `geom_contour()` now accepts a function in the `breaks` argument (@eliocamp, #4652).
 
+* Dots in `geom_dotplot()` are now correctly aligned to the baseline when
+  `stackratio != 1` and `stackdir != "up"` (@mjskay, #4614)
+
 # ggplot2 3.3.5
 This is a very small release focusing on fixing a couple of untenable issues 
 that surfaced with the 3.3.4 release

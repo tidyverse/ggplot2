@@ -125,34 +125,6 @@ test_that("geom_dotplot draws correctly", {
     ggplot(dat, aes(x)) + geom_dotplot(binwidth = .4, stackdir = "centerwhole") + coord_flip()
   )
 
-  # Stacking methods with stackratio < 1
-  expect_doppelganger("stack up, stackratio = 0.5",
-    ggplot(dat, aes(x)) + geom_dotplot(binwidth = .4, stackdir = "up", stackratio = 0.5)
-  )
-  expect_doppelganger("stack down, stackratio = 0.5",
-    ggplot(dat, aes(x)) + geom_dotplot(binwidth = .4, stackdir = "down", stackratio = 0.5)
-  )
-  expect_doppelganger("stack center, stackratio = 0.5",
-    ggplot(dat, aes(x)) + geom_dotplot(binwidth = .4, stackdir = "center", stackratio = 0.5)
-  )
-  expect_doppelganger("stack centerwhole, stackratio = 0.5",
-    ggplot(dat, aes(x)) + geom_dotplot(binwidth = .4, stackdir = "centerwhole", stackratio = 0.5)
-  )
-
-  # Stacking methods with stackratio > 1
-  expect_doppelganger("stack up, stackratio = 1.5",
-    ggplot(dat, aes(x)) + geom_dotplot(binwidth = .4, stackdir = "up", stackratio = 1.5)
-  )
-  expect_doppelganger("stack down, stackratio = 1.5",
-    ggplot(dat, aes(x)) + geom_dotplot(binwidth = .4, stackdir = "down", stackratio = 1.5)
-  )
-  expect_doppelganger("stack center, stackratio = 1.5",
-    ggplot(dat, aes(x)) + geom_dotplot(binwidth = .4, stackdir = "center", stackratio = 1.5)
-  )
-  expect_doppelganger("stack centerwhole, stackratio = 1.5",
-    ggplot(dat, aes(x)) + geom_dotplot(binwidth = .4, stackdir = "centerwhole", stackratio = 1.5)
-  )
-
   # Binning along x, with groups
   expect_doppelganger("multiple groups, bins not aligned",
     ggplot(dat, aes(x, fill = g)) + geom_dotplot(binwidth = .4, alpha = .4)
@@ -253,4 +225,17 @@ test_that("geom_dotplot draws correctly", {
   expect_warning(expect_doppelganger("2 NA values, bin along y, stack center",
     ggplot(dat2, aes(0, x)) + geom_dotplot(binwidth = .4, binaxis = "y", stackdir = "center")
   ))
+})
+
+test_that("stackratio != 1 works", {
+  df <- data.frame(x = c(rep(1, 3), rep(2, 2)))
+
+  expect_doppelganger("stackratio = 1.5",
+    ggplot(df) +
+      geom_hline(yintercept = 0) +
+      geom_dotplot(aes(x), binwidth = 0.5, stackdir = "down", stackratio = 1.5, fill = NA) +
+      geom_dotplot(aes(x + 3), binwidth = 0.5, stackdir = "up", stackratio = 1.5, fill = NA) +
+      geom_dotplot(aes(x + 6), binwidth = 0.5, stackdir = "center", stackratio = 1.5, fill = NA) +
+      geom_dotplot(aes(x + 9), binwidth = 0.5, stackdir = "centerwhole", stackratio = 1.5, fill = NA)
+  )
 })
