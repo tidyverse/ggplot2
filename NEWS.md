@@ -64,6 +64,8 @@
 * Updated documentation for `geom_contour()` to correctly reflect argument 
 precedence between `bins` and `binwidth`. (@eliocamp, #4651)
 
+* Dots in `geom_dotplot()` are now correctly aligned to the baseline when
+  `stackratio != 1` and `stackdir != "up"` (@mjskay, #4614)
 
 # ggplot2 3.3.5
 This is a very small release focusing on fixing a couple of untenable issues 
