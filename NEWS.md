@@ -69,6 +69,10 @@ precedence between `bins` and `binwidth`. (@eliocamp, #4651)
   changes when these arguments are not the defaults and these changes can be 
   restored to their previous behaviour by adding `/ .pt` (@teunbrand #4314).
 
+* Dots in `geom_dotplot()` are now correctly aligned to the baseline when
+  `stackratio != 1` and `stackdir != "up"` (@mjskay, #4614)
+
+
 # ggplot2 3.3.5
 This is a very small release focusing on fixing a couple of untenable issues 
 that surfaced with the 3.3.4 release
