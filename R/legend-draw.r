@@ -107,7 +107,7 @@ draw_key_boxplot <- function(data, params, size) {
       lineend = params$lineend %||% "butt",
       linejoin = params$linejoin %||% "mitre"
     ),
-    vp = if (isTRUE(params$flipped_aes)) viewport(angle = 90)
+    vp = if (isTRUE(params$flipped_aes)) viewport(angle = -90)
   )
 }
 
@@ -125,7 +125,7 @@ draw_key_crossbar <- function(data, params, size) {
       lineend = params$lineend %||% "butt",
       linejoin = params$linejoin %||% "mitre"
     ),
-    vp = if (isTRUE(params$flipped_aes)) viewport(angle = 90)
+    vp = if (isTRUE(params$flipped_aes)) viewport(angle = -90)
   )
 }
 
