@@ -1,18 +1,14 @@
 Package: ggplot2
-Version: 3.3.5.9000
 Title: Create Elegant Data Visualisations Using the Grammar of Graphics
-Description: A system for 'declaratively' creating graphics,
-    based on "The Grammar of Graphics". You provide the data, tell 'ggplot2'
-    how to map variables to aesthetics, what graphical primitives to use,
-    and it takes care of the details.
+Version: 3.3.5.9000
 Authors@R: c(
-    person("Hadley", "Wickham", , "hadley@rstudio.com", "aut",
+    person("Hadley", "Wickham", , "hadley@rstudio.com", role = "aut",
            comment = c(ORCID = "0000-0003-4757-117X")),
-    person("Winston", "Chang", , role = "aut",
+    person("Winston", "Chang", role = "aut",
            comment = c(ORCID = "0000-0002-1576-2126")),
-    person("Lionel", "Henry", , role = "aut"),
-    person("Thomas Lin", "Pedersen", , "thomas.pedersen@rstudio.com", 
-           role = c("aut", "cre"), comment = c(ORCID = "0000-0002-5147-4711")),
+    person("Lionel", "Henry", role = "aut"),
+    person("Thomas Lin", "Pedersen", , "thomas.pedersen@rstudio.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-5147-4711")),
     person("Kohske", "Takahashi", role = "aut"),
     person("Claus", "Wilke", role = "aut",
            comment = c(ORCID = "0000-0002-7470-9261")),
@@ -23,16 +19,25 @@ Authors@R: c(
     person("Dewey", "Dunnington", role = "aut",
            comment = c(ORCID = "0000-0002-9415-4582")),
     person("RStudio", role = c("cph", "fnd"))
-    )
+  )
+Description: A system for 'declaratively' creating graphics, based on "The
+    Grammar of Graphics". You provide the data, tell 'ggplot2' how to map
+    variables to aesthetics, what graphical primitives to use, and it
+    takes care of the details.
+License: MIT + file LICENSE
+URL: https://ggplot2.tidyverse.org, https://github.com/tidyverse/ggplot2
+BugReports: https://github.com/tidyverse/ggplot2/issues
 Depends:
     R (>= 3.3)
 Imports: 
+    cli,
     digest,
     glue,
     grDevices,
     grid,
     gtable (>= 0.1.1),
     isoband,
+    lifecycle,
     MASS,
     mgcv,
     rlang (>= 0.4.10),
@@ -42,7 +47,6 @@ Imports:
     withr (>= 2.0.0)
 Suggests:
     covr,
-    ragg,
     dplyr,
     ggplot2movies,
     hexbin,
@@ -58,6 +62,7 @@ Suggests:
     nlme,
     profvis,
     quantreg,
+    ragg,
     RColorBrewer,
     rgeos,
     rmarkdown,
@@ -67,11 +72,16 @@ Suggests:
     testthat (>= 3.0.0),
     vdiffr (>= 1.0.0),
     xml2
-Enhances: sp
-License: MIT + file LICENSE
-URL: https://ggplot2.tidyverse.org, https://github.com/tidyverse/ggplot2
-BugReports: https://github.com/tidyverse/ggplot2/issues
+Enhances: 
+    sp
+VignetteBuilder: 
+    knitr
+Config/Needs/website: ggtext, tidyr, forcats, tidyverse/tidytemplate
+Config/testthat/edition: 3
+Encoding: UTF-8
 LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
 Collate: 
     'ggproto.r'
     'ggplot-global.R'
@@ -160,7 +170,7 @@ Collate:
     'geom-tile.r'
     'geom-violin.r'
     'geom-vline.r'
-    'ggplot2.r'
+    'ggplot2-package.R'
     'grob-absolute.r'
     'grob-dotstack.r'
     'grob-null.r'
@@ -265,13 +275,3 @@ Collate:
     'utilities-tidy-eval.R'
     'zxx.r'
     'zzz.r'
-VignetteBuilder: knitr
-RoxygenNote: 7.1.1
-Roxygen: list(markdown = TRUE)
-Encoding: UTF-8
-Config/Needs/website:
-    ggtext,
-    tidyr,
-    forcats,
-    tidyverse/tidytemplate
-Config/testthat/edition: 3

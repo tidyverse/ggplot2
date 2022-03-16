@@ -167,8 +167,7 @@ guide_gengrob.axis <- function(guide, theme) {
 #'
 draw_axis <- function(break_positions, break_labels, axis_position, theme,
                       check.overlap = FALSE, angle = NULL, n.dodge = 1) {
-
-  axis_position <- match.arg(axis_position, c("top", "bottom", "right", "left"))
+  axis_position <- arg_match0(axis_position, c("top", "bottom", "right", "left"))
   aesthetic <- if (axis_position %in% c("top", "bottom")) "x" else "y"
 
   # resolve elements

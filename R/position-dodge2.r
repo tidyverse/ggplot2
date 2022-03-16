@@ -4,11 +4,11 @@
 #'   shrunk by this proportion to allow space between them. Defaults to 0.1.
 #' @param reverse If `TRUE`, will reverse the default stacking order.
 #'   This is useful if you're rotating both the plot and legend.
-position_dodge2 <- function(width = NULL, preserve = c("total", "single"),
+position_dodge2 <- function(width = NULL, preserve = "total",
                             padding = 0.1, reverse = FALSE) {
   ggproto(NULL, PositionDodge2,
     width = width,
-    preserve = match.arg(preserve),
+    preserve = arg_match0(preserve, c("total", "single")),
     padding = padding,
     reverse = reverse
   )
