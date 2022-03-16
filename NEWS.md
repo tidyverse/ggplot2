@@ -1,5 +1,9 @@
 # ggplot2 (development version)
 
+* Using multiple modified aesthetics correctly will no longer trigger warnings. 
+  If used incorrectly, the warning will now report the duplicated aesthetic 
+  instead of `NA` (@teunbrand, #4707).
+
 * `annotate()` now documents unsupported geoms (`geom_abline()`, `geom_hline()`
   and `geom_vline()`), and warns when they are requested (@mikmart, #4719)
 
