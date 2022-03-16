@@ -64,6 +64,9 @@
 * Updated documentation for `geom_contour()` to correctly reflect argument 
 precedence between `bins` and `binwidth`. (@eliocamp, #4651)
 
+* Dots in `geom_dotplot()` are now correctly aligned to the baseline when
+  `stackratio != 1` and `stackdir != "up"` (@mjskay, #4614)
+
 * Key glyphs for `geom_boxplot()`, `geom_crossbar()`, `geom_pointrange()`, and
   `geom_linerange()` are now orientation-aware (@mjskay, #4732)
 
