@@ -66,6 +66,9 @@ precedence between `bins` and `binwidth`. (@eliocamp, #4651)
 
 * Dots in `geom_dotplot()` are now correctly aligned to the baseline when
   `stackratio != 1` and `stackdir != "up"` (@mjskay, #4614)
+  
+* `geom_point()` now accepts the aesthetic `fontface` which allows to use point 
+  shapes in the symbol font. (@mrcaseb, #4762)
 
 # ggplot2 3.3.5
 This is a very small release focusing on fixing a couple of untenable issues 
