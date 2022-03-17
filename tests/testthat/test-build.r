@@ -34,7 +34,7 @@ test_that("non-position aesthetics are mapped", {
   expect_named(
     layer_data(l1, 1),
     c(
-      "x", "y", "fill", "group", "colour", "shape", "size", "PANEL",
+      "x", "y", "fill", "fontface", "group", "colour", "shape", "size", "PANEL",
       "alpha", "stroke"
     ),
     ignore.order = TRUE
