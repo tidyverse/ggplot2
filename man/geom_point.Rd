@@ -100,6 +100,7 @@ Another technique is to make the points transparent (e.g.
 \item \code{alpha}
 \item \code{colour}
 \item \code{fill}
+\item \code{fontface}
 \item \code{group}
 \item \code{shape}
 \item \code{size}

@@ -113,7 +113,7 @@ GeomPoint <- ggproto("GeomPoint", Geom,
   non_missing_aes = c("size", "shape", "colour"),
   default_aes = aes(
     shape = 19, colour = "black", size = 1.5, fill = NA,
-    alpha = NA, stroke = 0.5
+    alpha = NA, stroke = 0.5, fontface = 1
   ),
 
   draw_panel = function(data, panel_params, coord, na.rm = FALSE) {
@@ -133,7 +133,8 @@ GeomPoint <- ggproto("GeomPoint", Geom,
           fill = alpha(coords$fill, coords$alpha),
           # Stroke is added around the outside of the point
           fontsize = coords$size * .pt + stroke_size * .stroke / 2,
-          lwd = coords$stroke * .stroke / 2
+          lwd = coords$stroke * .stroke / 2,
+          fontface = coords$fontface
         )
       )
     )

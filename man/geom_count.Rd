@@ -87,6 +87,7 @@ useful when you have discrete data and overplotting.
 \item \code{alpha}
 \item \code{colour}
 \item \code{fill}
+\item \code{fontface}
 \item \code{group}
 \item \code{shape}
 \item \code{size}

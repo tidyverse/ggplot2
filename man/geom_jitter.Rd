@@ -96,6 +96,7 @@ overplotting caused by discreteness in smaller datasets.
 \item \code{alpha}
 \item \code{colour}
 \item \code{fill}
+\item \code{fontface}
 \item \code{group}
 \item \code{shape}
 \item \code{size}
