@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Errors converted to warnings now always report the original error message (@zeehio, #4765)
+
 * `annotate()` now documents unsupported geoms (`geom_abline()`, `geom_hline()`
   and `geom_vline()`), and warns when they are requested (@mikmart, #4719)
 

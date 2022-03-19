@@ -154,7 +154,7 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
     dapply(data, "PANEL", function(data) {
       scales <- layout$get_scales(data$PANEL[1])
       tryCatch(do.call(contour_stat$compute_panel, args), error = function(e) {
-        warn(glue("Computation failed in `{snake_class(self)}()`:\n{e$message}"))
+        warn(glue("Computation failed in `{snake_class(self)}()`:\n{conditionMessage(e)}"))
         new_data_frame()
       })
     })

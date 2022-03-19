@@ -98,7 +98,7 @@ Stat <- ggproto("Stat",
     dapply(data, "PANEL", function(data) {
       scales <- layout$get_scales(data$PANEL[1])
       tryCatch(do.call(self$compute_panel, args), error = function(e) {
-        warn(glue("Computation failed in `{snake_class(self)}()`:\n{e$message}"))
+        warn(glue("Computation failed in `{snake_class(self)}()`:\n{conditionMessage(e)}"))
         new_data_frame()
       })
     })
