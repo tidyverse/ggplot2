@@ -46,6 +46,17 @@ test_that("quantiles do not fail on zero-range data", {
   expect_equal(length(layer_grob(p)), 1)
 })
 
+test_that("quantiles are at expected positions at zero width", {
+  # Symmetric density with n components and zero middle:
+  # 50% quantile can be drawn anywhere as long as there is density 0
+  n <- 256
+  density <- c(rep(2, n / 4), rep(0, n / 2), rep(2, n / 4)) / n
+  density.data <- data_frame(y = (1:n) / n, density = density)
+  line <- create_quantile_segment_frame(density.data, 0.5)
+  y_idx <- which.min(abs(density.data$y - line$y[1]))
+  expect_equal(density[y_idx], 0)
+})
+
 
 # Visual tests ------------------------------------------------------------
 
