@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `geom_violin()` no longer issues "collapsing to unique 'x' values" warning
+  (@bersbersbers, #4455)
+
 * `annotate()` now documents unsupported geoms (`geom_abline()`, `geom_hline()`
   and `geom_vline()`), and warns when they are requested (@mikmart, #4719)
 
