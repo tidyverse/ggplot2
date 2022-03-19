@@ -57,6 +57,15 @@ test_that("quantiles are at expected positions at zero width", {
   expect_equal(density[y_idx], 0)
 })
 
+test_that("quantiles do not issue warning", {
+  data <- data_frame(x = 1, y = c(0, 0.25, 0.5, 0.75, 5))
+
+  p <- ggplot(data, aes(x = x, y = y)) +
+    geom_violin(draw_quantiles = 0.5)
+
+  expect_warning(plot(p), regexp = NA)
+})
+
 
 # Visual tests ------------------------------------------------------------
 
