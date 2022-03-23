@@ -2,7 +2,12 @@
 
 * `annotation_raster()` adds support for native rasters. For large rasters,
   native rasters render significantly faster than arrays (@kent37, #3388)
-  
+
+* Developers can now add their own `add_ggplot()` S3 method to have control over
+  how a left-hand-side object is added to a right-hand-side object. `add_ggplot()`
+  will be called inside `+.gg`, so the left-hand-side still needs
+  to inherit from `"gg"`. (@schloerke, #3818)
+
 # ggplot2 3.3.0
 
 * Fix a bug in `geom_raster()` that squeezed the image when it went outside 
