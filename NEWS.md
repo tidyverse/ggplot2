@@ -4,6 +4,9 @@
   If used incorrectly, the warning will now report the duplicated aesthetic 
   instead of `NA` (@teunbrand, #4707).
 
+* `geom_violin()` no longer issues "collapsing to unique 'x' values" warning
+  (@bersbersbers, #4455)
+
 * `annotate()` now documents unsupported geoms (`geom_abline()`, `geom_hline()`
   and `geom_vline()`), and warns when they are requested (@mikmart, #4719)
 
@@ -68,6 +71,11 @@
 * Updated documentation for `geom_contour()` to correctly reflect argument 
 precedence between `bins` and `binwidth`. (@eliocamp, #4651)
 
+* Dots in `geom_dotplot()` are now correctly aligned to the baseline when
+  `stackratio != 1` and `stackdir != "up"` (@mjskay, #4614)
+
+* Key glyphs for `geom_boxplot()`, `geom_crossbar()`, `geom_pointrange()`, and
+  `geom_linerange()` are now orientation-aware (@mjskay, #4732)
 
 # ggplot2 3.3.5
 This is a very small release focusing on fixing a couple of untenable issues 

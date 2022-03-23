@@ -4,6 +4,7 @@ dotstackGrob <- function(
     stackaxis = "y",
     dotdia = unit(1, "npc"),  # Dot diameter in the non-stack axis, should be in npc
     stackposition = 0,        # Position of each dot in the stack, relative to origin
+    stackdir = "up",          # Stacking direction ("up", "down", "center", or "centerwhole")
     stackratio = 1,           # Stacking height of dots (.75 means 25% dot overlap)
     default.units = "npc", name = NULL, gp = gpar(), vp = NULL)
 {
@@ -17,7 +18,7 @@ dotstackGrob <- function(
         warn("Unit type of dotdia should be 'npc'")
 
     grob(x = x, y = y, stackaxis = stackaxis, dotdia = dotdia,
-         stackposition = stackposition, stackratio = stackratio,
+         stackposition = stackposition, stackdir = stackdir, stackratio = stackratio,
          name = name, gp = gp, vp = vp, cl = "dotstackGrob")
 }
 # Only cross-version reliable way to check the unit of a unit object
@@ -31,14 +32,27 @@ makeContext.dotstackGrob <- function(x, recording = TRUE) {
   xmm <- convertX(x$x, "mm", valueOnly = TRUE)
   ymm <- convertY(x$y, "mm", valueOnly = TRUE)
 
+  # When stacking up (or down), stackratios != 1 will cause the bottom (top)
+  # edge of the first dot in a stack to no longer touch the origin, as
+  # stackpositions are expanded or contracted away from the dotstack's origin.
+  # The stackoffset corrects that misalignment so that the first dot just
+  # touches the dotstack's origin.
+  if (is.null(x$stackdir) || x$stackdir == "up") {
+    stackoffset <- (1 - x$stackratio) / 2
+  } else if (x$stackdir == "down") {
+    stackoffset <- -(1 - x$stackratio) / 2
+  } else {
+    stackoffset <- 0
+  }
+
   if (x$stackaxis == "x") {
     dotdiamm <- convertY(x$dotdia, "mm", valueOnly = TRUE)
-    xpos <- xmm + dotdiamm * (x$stackposition * x$stackratio + (1 - x$stackratio) / 2)
+    xpos <- xmm + dotdiamm * (x$stackposition * x$stackratio + stackoffset)
     ypos <- ymm
   } else if (x$stackaxis == "y") {
     dotdiamm <- convertX(x$dotdia, "mm", valueOnly = TRUE)
     xpos <- xmm
-    ypos <- ymm + dotdiamm * (x$stackposition * x$stackratio + (1 - x$stackratio) / 2)
+    ypos <- ymm + dotdiamm * (x$stackposition * x$stackratio + stackoffset)
   }
 
   circleGrob(
