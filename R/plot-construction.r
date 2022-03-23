@@ -21,9 +21,9 @@
 #' You can also supply a list, in which case each element of the list will
 #' be added in turn.
 #'
-#' @section Package development: To add a custom left-hand-side object (which
-#'   inherits from `"gg"`) to a `gg` object, add a `add_gg` S3 method for your
-#'   particular class.
+#' @section Package development: 
+#' To add a custom left-hand-side object (which inherits from `"gg"`) to a `gg` object, 
+# implement a `add_gg` S3 method for your class.
 #'
 #'   For example, let's say you have an object `super_plot` with the class
 #'   `c("foo", "gg")` and want to `+` it to [theme_bw()].  Add the method
@@ -47,7 +47,7 @@
 #' # This can be useful to return from a function.
 #' base + list(subset(mpg, fl == "p"), geom_smooth())
 "+.gg" <- function(e1, e2) {
-  UseMethod("add_gg")
+  add_gg(e1, e2)
 }
 
 #' @rdname gg-add
