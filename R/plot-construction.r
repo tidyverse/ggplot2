@@ -21,14 +21,15 @@
 #' You can also supply a list, in which case each element of the list will
 #' be added in turn.
 #'
-#' @section Package development: 
-#' To add a custom left-hand-side object (which inherits from `"gg"`) to a `gg` object, 
-# implement a `add_gg` S3 method for your class.
+#' @section Package development:
 #'
-#'   For example, let's say you have an object `super_plot` with the class
-#'   `c("foo", "gg")` and want to `+` it to [theme_bw()].  Add the method
-#'   `add_gg.foo(e1, e2)` to gain control over how `e1` is added to `e2`.  Now,
-#'   you'll be able to call `x + theme_bw()
+#' To add a custom left-hand-side object (which inherits from `"gg"`) to a
+#' `gg` object, add a `add_ggplot` S3 method for your particular class.
+#'
+#' For example, let's say you have an object `super_plot` with the class
+#' `c("foo", "gg")` and want to `+` it to [theme_bw()].  Add the method
+#' `add_ggplot.foo(e1, e2)` to gain control over how `e1` is added to `e2`.
+#' Now, you'll be able to call `super_plot + theme_bw()`.
 #'
 #' @param e1 An object of class [ggplot()] or a [theme()].
 #' @param e2 A plot component, as described below.
@@ -47,17 +48,17 @@
 #' # This can be useful to return from a function.
 #' base + list(subset(mpg, fl == "p"), geom_smooth())
 "+.gg" <- function(e1, e2) {
-  add_gg(e1, e2)
+  add_ggplot(e1, e2)
 }
 
 #' @rdname gg-add
 #' @export
-add_gg <- function(e1, e2) {
-  UseMethod("add_gg")
+add_ggplot <- function(e1, e2) {
+  UseMethod("add_ggplot")
 }
 #' @rdname gg-add
 #' @export
-add_gg.default <- function(e1, e2) {
+add_ggplot.default <- function(e1, e2) {
   if (missing(e2)) {
     abort("Cannot use `+.gg()` with a single argument. Did you accidentally put + on a new line?")
   }
@@ -67,7 +68,7 @@ add_gg.default <- function(e1, e2) {
   e2name <- deparse(substitute(e2))
 
   if      (is.theme(e1))  add_theme(e1, e2, e2name)
-  else if (is.ggplot(e1)) add_ggplot(e1, e2, e2name)
+  else if (is.ggplot(e1)) add_ggplot_internal(e1, e2, e2name)
   else if (is.ggproto(e1)) {
     abort("Cannot add ggproto objects together. Did you forget to add this object to a ggplot object?")
   }
@@ -78,7 +79,7 @@ add_gg.default <- function(e1, e2) {
 #' @export
 "%+%" <- `+.gg`
 
-add_ggplot <- function(p, object, objectname) {
+add_ggplot_internal <- function(p, object, objectname) {
   if (is.null(object)) return(p)
 
   p <- plot_clone(p)

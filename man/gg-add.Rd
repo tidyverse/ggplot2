@@ -2,16 +2,16 @@
 % Please edit documentation in R/plot-construction.r
 \name{+.gg}
 \alias{+.gg}
-\alias{add_gg}
-\alias{add_gg.default}
+\alias{add_ggplot}
+\alias{add_ggplot.default}
 \alias{\%+\%}
 \title{Add components to a plot}
 \usage{
 \method{+}{gg}(e1, e2)
 
-add_gg(e1, e2)
+add_ggplot(e1, e2)
 
-\method{add_gg}{default}(e1, e2)
+\method{add_ggplot}{default}(e1, e2)
 
 e1 \%+\% e2
 }
@@ -46,14 +46,15 @@ be added in turn.
 }
 
 \section{Package development}{
- To add a custom left-hand-side object (which
-inherits from \code{"gg"}) to a \code{gg} object, add a \code{add_gg} S3 method for your
-particular class.
+
+
+To add a custom left-hand-side object (which inherits from \code{"gg"}) to a
+\code{gg} object, add a \code{add_ggplot} S3 method for your particular class.
 
 For example, let's say you have an object \code{super_plot} with the class
 \code{c("foo", "gg")} and want to \code{+} it to \code{\link[=theme_bw]{theme_bw()}}.  Add the method
-\code{add_gg.foo(e1, e2)} to gain control over how \code{e1} is added to \code{e2}.  Now,
-you'll be able to call `x + theme_bw()
+\code{add_ggplot.foo(e1, e2)} to gain control over how \code{e1} is added to \code{e2}.
+Now, you'll be able to call \code{super_plot + theme_bw()}.
 }
 
 \examples{
