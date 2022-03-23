@@ -141,7 +141,7 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 
 \section{Missing value handling}{
 
-\code{geom_path()}, \code{geom_line()}, and \code{geom_step} handle \code{NA} as follows:
+\code{geom_path()}, \code{geom_line()}, and \code{geom_step()} handle \code{NA} as follows:
 \itemize{
 \item If an \code{NA} occurs in the middle of a line, it breaks the line. No warning
 is shown, regardless of whether \code{na.rm} is \code{TRUE} or \code{FALSE}.

@@ -1,5 +1,3 @@
-context("Guides")
-
 skip_on_cran() # This test suite is long-running (on cran) and is skipped
 
 test_that("colourbar trains without labels", {
@@ -60,7 +58,7 @@ test_that("axis_label_overlap_priority always returns the correct number of elem
 })
 
 test_that("axis_label_element_overrides errors when angles are outside the range [0, 90]", {
-  expect_is(axis_label_element_overrides("bottom", 0), "element")
+  expect_s3_class(axis_label_element_overrides("bottom", 0), "element")
   expect_error(axis_label_element_overrides("bottom", 91), "`angle` must")
   expect_error(axis_label_element_overrides("bottom", -91), "`angle` must")
 })
@@ -73,6 +71,14 @@ test_that("a warning is generated when guides are drawn at a location that doesn
   expect_warning(ggplot_gtable(built), "Position guide is perpendicular")
 })
 
+test_that("a warning is not generated when a guide is specified with duplicate breaks", {
+  plot <- ggplot(mpg, aes(class, hwy)) +
+    geom_point() +
+    scale_y_continuous(breaks = c(20, 20))
+  built <- expect_silent(ggplot_build(plot))
+  expect_silent(ggplot_gtable(built))
+})
+
 test_that("a warning is generated when more than one position guide is drawn at a location", {
   plot <- ggplot(mpg, aes(class, hwy)) +
     geom_point() +
@@ -81,7 +87,22 @@ test_that("a warning is generated when more than one position guide is drawn at 
       y.sec = guide_axis(position = "left")
     )
   built <- expect_silent(ggplot_build(plot))
-  expect_warning(ggplot_gtable(built), "Discarding guide")
+
+  # TODO: These multiple warnings should be summarized nicely. Until this gets
+  #       fixed, this test ignores all the following errors than the first one.
+  suppressWarnings(
+    expect_warning(ggplot_gtable(built), "Discarding guide")
+  )
+})
+
+test_that("a warning is not generated when properly changing the position of a guide_axis()", {
+  plot <- ggplot(mpg, aes(class, hwy)) +
+    geom_point() +
+    guides(
+      y = guide_axis(position = "right")
+    )
+  built <- expect_silent(ggplot_build(plot))
+  expect_silent(ggplot_gtable(built))
 })
 
 test_that("guide_none() can be used in non-position scales", {
@@ -159,6 +180,17 @@ test_that("guide merging for guide_legend() works as expected", {
   )
   expect_length(repeated_identical_labels, 1)
   expect_equal(repeated_identical_labels[[1]]$key$.label, c("label1", "label1", "label2"))
+})
+
+test_that("size = NA doesn't throw rendering errors", {
+  df = data.frame(
+    x = c(1, 2),
+    group = c("a","b")
+  )
+  p <- ggplot(df, aes(x = x, y = 0, colour = group)) +
+    geom_point(size = NA, na.rm = TRUE)
+
+  expect_silent(plot(p))
 })
 
 # Visual tests ------------------------------------------------------------
@@ -441,11 +473,11 @@ test_that("colorbar can be styled", {
   df <- data_frame(x = c(0, 1, 2))
   p <- ggplot(df, aes(x, x, color = x)) + geom_point()
 
-  expect_doppelganger("white-to-red gradient colorbar, white tick marks, no frame",
+  expect_doppelganger("white-to-red colorbar, white ticks, no frame",
     p + scale_color_gradient(low = 'white', high = 'red')
   )
 
-  expect_doppelganger("white-to-red gradient colorbar, thick black tick marks, green frame",
+  expect_doppelganger("white-to-red colorbar, thick black ticks, green frame",
     p + scale_color_gradient(
           low = 'white', high = 'red',
           guide = guide_colorbar(
@@ -513,4 +545,18 @@ test_that("coloursteps guide can be styled correctly", {
   expect_doppelganger("guide_bins can show ticks",
     p + guides(colour = guide_coloursteps(ticks = TRUE))
   )
+})
+
+test_that("a warning is generated when guides(<scale> = FALSE) is specified", {
+  df <- data_frame(x = c(1, 2, 4),
+                   y = c(6, 5, 7))
+
+  # warn on guide(<scale> = FALSE)
+  expect_warning(g <- guides(colour = FALSE), "The `<scale>` argument of `guides()` cannot be `FALSE`. Use \"none\" instead as of ggplot2 3.3.4.", fixed = TRUE)
+  expect_equal(g[["colour"]], "none")
+
+  # warn on scale_*(guide = FALSE)
+  p <- ggplot(df, aes(x, y, colour = x)) + scale_colour_continuous(guide = FALSE)
+  built <- expect_silent(ggplot_build(p))
+  expect_warning(ggplot_gtable(built), "It is deprecated to specify `guide = FALSE`")
 })

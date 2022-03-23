@@ -155,8 +155,11 @@ if method is "histodot"}
 }
 
 \examples{
-ggplot(mtcars, aes(x = mpg)) + geom_dotplot()
-ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5)
+ggplot(mtcars, aes(x = mpg)) +
+  geom_dotplot()
+
+ggplot(mtcars, aes(x = mpg)) +
+  geom_dotplot(binwidth = 1.5)
 
 # Use fixed-width bins
 ggplot(mtcars, aes(x = mpg)) +
@@ -165,6 +168,7 @@ ggplot(mtcars, aes(x = mpg)) +
 # Some other stacking methods
 ggplot(mtcars, aes(x = mpg)) +
   geom_dotplot(binwidth = 1.5, stackdir = "center")
+
 ggplot(mtcars, aes(x = mpg)) +
   geom_dotplot(binwidth = 1.5, stackdir = "centerwhole")
 
@@ -173,13 +177,16 @@ ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5) +
   scale_y_continuous(NULL, breaks = NULL)
 
 # Overlap dots vertically
-ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5, stackratio = .7)
+ggplot(mtcars, aes(x = mpg)) +
+  geom_dotplot(binwidth = 1.5, stackratio = .7)
 
 # Expand dot diameter
-ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5, dotsize = 1.25)
+ggplot(mtcars, aes(x = mpg)) +
+  geom_dotplot(binwidth = 1.5, dotsize = 1.25)
 
 # Change dot fill colour, stroke width
-ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5, fill = "white", stroke = 2)
+ggplot(mtcars, aes(x = mpg)) +
+  geom_dotplot(binwidth = 1.5, fill = "white", stroke = 2)
 
 \donttest{
 # Examples with stacking along y axis instead of x

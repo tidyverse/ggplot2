@@ -19,7 +19,7 @@ NULL
 #' because you can name those directly. The flip side is that you have
 #' to use [quasiquotation][rlang::quasiquotation] to program with
 #' `aes()`. See a tidy evaluation tutorial such as the [dplyr
-#' programming vignette](http://dplyr.tidyverse.org/articles/programming.html)
+#' programming vignette](https://dplyr.tidyverse.org/articles/programming.html)
 #' to learn more about these techniques.
 #'
 #' @param x,y,... List of name-value pairs in the form `aesthetic = variable`
@@ -212,15 +212,18 @@ is_position_aes <- function(vars) {
 
 #' Define aesthetic mappings programmatically
 #'
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
 #' Aesthetic mappings describe how variables in the data are mapped to visual
 #' properties (aesthetics) of geoms. [aes()] uses non-standard
-#' evaluation to capture the variable names. `aes_` and `aes_string`
+#' evaluation to capture the variable names. `aes_()` and `aes_string()`
 #' require you to explicitly quote the inputs either with `""` for
 #' `aes_string()`, or with `quote` or `~` for `aes_()`.
-#' (`aes_q` is an alias to `aes_`). This makes `aes_` and
-#' `aes_string` easy to program with.
+#' (`aes_q()` is an alias to `aes_()`). This makes `aes_()` and
+#' `aes_string()` easy to program with.
 #'
-#' `aes_string` and `aes_` are particularly useful when writing
+#' `aes_string()` and `aes_()` are particularly useful when writing
 #' functions that create plots because you can use strings or quoted
 #' names/calls to define the aesthetic mappings, rather than having to use
 #' [substitute()] to generate a call to `aes()`.
@@ -239,6 +242,9 @@ is_position_aes <- function(vars) {
 #' @param x,y,... List of name value pairs. Elements must be either
 #'   quoted calls, strings, one-sided formulas or constants.
 #' @seealso [aes()]
+#'
+#' @keywords internal
+#'
 #' @export
 #' @examples
 #' # Three ways of generating the same aesthetics
@@ -258,6 +264,11 @@ is_position_aes <- function(vars) {
 #' aes(col = x)
 #' aes_(col = as.name(var))
 aes_ <- function(x, y, ...) {
+  lifecycle::deprecate_soft(
+    "3.0.0",
+    "aes_()",
+    details = "Please use tidy evaluation ideoms with `aes()`"
+  )
   mapping <- list(...)
   if (!missing(x)) mapping["x"] <- list(x)
   if (!missing(y)) mapping["y"] <- list(y)
@@ -280,6 +291,11 @@ aes_ <- function(x, y, ...) {
 #' @rdname aes_
 #' @export
 aes_string <- function(x, y, ...) {
+  lifecycle::deprecate_soft(
+    "3.0.0",
+    "aes_string()",
+    details = "Please use tidy evaluation ideoms with `aes()`"
+  )
   mapping <- list(...)
   if (!missing(x)) mapping["x"] <- list(x)
   if (!missing(y)) mapping["y"] <- list(y)
@@ -321,12 +337,15 @@ aes_all <- function(vars) {
 
 #' Automatic aesthetic mapping
 #'
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
 #' @param data data.frame or names of variables
 #' @param ... aesthetics that need to be explicitly mapped.
 #' @keywords internal
 #' @export
 aes_auto <- function(data = NULL, ...) {
-  warn("aes_auto() is deprecated")
+  lifecycle::deprecate_warn("2.0.0", "aes_auto()")
 
   # detect names of data
   if (is.null(data)) {

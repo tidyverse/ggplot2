@@ -1,5 +1,3 @@
-context("coord_trans")
-
 test_that("warnings are generated when cord_trans() results in new infinite values", {
   p  <- ggplot(head(diamonds, 20)) +
     geom_bar(aes(x = cut)) +
@@ -9,8 +7,12 @@ test_that("warnings are generated when cord_trans() results in new infinite valu
     geom_point() +
     coord_trans(x = "log")
 
-  expect_warning(ggplot_gtable(ggplot_build(p)), "Transformation introduced infinite values in y-axis")
-  expect_warning(ggplot_gtable(ggplot_build(p2)), "Transformation introduced infinite values in x-axis")
+  # TODO: These multiple warnings should be summarized nicely. Until this gets
+  #       fixed, this test ignores all the following errors than the first one.
+  suppressWarnings({
+    expect_warning(ggplot_gtable(ggplot_build(p)), "Transformation introduced infinite values in y-axis")
+    expect_warning(ggplot_gtable(ggplot_build(p2)), "Transformation introduced infinite values in x-axis")
+  })
 })
 
 test_that("no warnings are generated when original data has Inf values, but no new Inf values created from the transformation", {

@@ -121,10 +121,10 @@ to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more 
 \code{boundary}, may be specified for a single plot. \code{center} specifies the
 center of one of the bins. \code{boundary} specifies the boundary between two
 bins. Note that if either is above or below the range of the data, things
-will be shifted by the appropriate integer multiple of \code{width}.
-For example, to center on integers use \code{width = 1} and \code{center = 0}, even
+will be shifted by the appropriate integer multiple of \code{binwidth}.
+For example, to center on integers use \code{binwidth = 1} and \code{center = 0}, even
 if \code{0} is outside the range of the data. Alternatively, this same alignment
-can be specified with \code{width = 1} and \code{boundary = 0.5}, even if \code{0.5} is
+can be specified with \code{binwidth = 1} and \code{boundary = 0.5}, even if \code{0.5} is
 outside the range of the data.}
 
 \item{breaks}{Alternatively, you can supply a numeric vector giving
@@ -156,9 +156,9 @@ different number of bins. You can also experiment modifying the \code{binwidth} 
 one change at a time. You may need to look at a few options to uncover
 the full story behind your data.
 
-In addition to \code{geom_histogram}, you can create a histogram plot by using
+In addition to \code{geom_histogram()}, you can create a histogram plot by using
 \code{scale_x_binned()} with \code{\link[=geom_bar]{geom_bar()}}. This method by default plots tick marks
-in between each bar.  .
+in between each bar.
 }
 \section{Orientation}{
 
@@ -178,6 +178,7 @@ This geom treats each axis differently and, thus, can thus have two orientations
 \item{density}{density of points in bin, scaled to integrate to 1}
 \item{ncount}{count, scaled to maximum of 1}
 \item{ndensity}{density, scaled to maximum of 1}
+\item{width}{widths of bins}
 }
 }
 
@@ -192,8 +193,8 @@ ggplot(diamonds, aes(carat)) +
 ggplot(diamonds, aes(y = carat)) +
   geom_histogram()
 
-# For histograms with tick marks between each bin, use `geom_bar` with
-# `scale_x_binned`.
+# For histograms with tick marks between each bin, use `geom_bar()` with
+# `scale_x_binned()`.
 ggplot(diamonds, aes(carat)) +
   geom_bar() +
   scale_x_binned()
@@ -220,12 +221,18 @@ m + geom_histogram(binwidth = 0.1)
 
 # If, however, we want to see the number of votes cast in each
 # category, we need to weight by the votes variable
-m + geom_histogram(aes(weight = votes), binwidth = 0.1) + ylab("votes")
+m +
+  geom_histogram(aes(weight = votes), binwidth = 0.1) +
+  ylab("votes")
 
 # For transformed scales, binwidth applies to the transformed data.
 # The bins have constant width on the transformed scale.
-m + geom_histogram() + scale_x_log10()
-m + geom_histogram(binwidth = 0.05) + scale_x_log10()
+m +
+ geom_histogram() +
+ scale_x_log10()
+m +
+  geom_histogram(binwidth = 0.05) +
+  scale_x_log10()
 
 # For transformed coordinate systems, the binwidth applies to the
 # raw data. The bins have constant width on the original scale.
@@ -234,14 +241,20 @@ m + geom_histogram(binwidth = 0.05) + scale_x_log10()
 # bar is anchored at zero, and so when transformed becomes negative
 # infinity. This is not a problem when transforming the scales, because
 # no observations have 0 ratings.
-m + geom_histogram(boundary = 0) + coord_trans(x = "log10")
+m +
+  geom_histogram(boundary = 0) +
+  coord_trans(x = "log10")
 # Use boundary = 0, to make sure we don't take sqrt of negative values
-m + geom_histogram(boundary = 0) + coord_trans(x = "sqrt")
+m +
+  geom_histogram(boundary = 0) +
+  coord_trans(x = "sqrt")
 
 # You can also transform the y axis.  Remember that the base of the bars
 # has value 0, so log transformations are not appropriate
 m <- ggplot(movies, aes(x = rating))
-m + geom_histogram(binwidth = 0.5) + scale_y_sqrt()
+m +
+  geom_histogram(binwidth = 0.5) +
+  scale_y_sqrt()
 }
 
 # You can specify a function for calculating binwidth, which is

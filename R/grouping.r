@@ -11,7 +11,7 @@ NO_GROUP <- -1L
 add_group <- function(data) {
   if (empty(data)) return(data)
 
-  if (is.null(data$group)) {
+  if (is.null(data[["group"]])) {
     disc <- vapply(data, is.discrete, logical(1))
     disc[names(disc) %in% c("label", "PANEL")] <- FALSE
 
@@ -19,6 +19,7 @@ add_group <- function(data) {
       data$group <- id(data[disc], drop = TRUE)
     } else {
       data$group <- NO_GROUP
+      attr(data$group, "n") <- 1L
     }
   } else {
     data$group <- id(data["group"], drop = TRUE)

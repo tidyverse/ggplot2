@@ -1,6 +1,6 @@
 #' Quick plot
 #'
-#' `qplot` is a shortcut designed to be familiar if you're used to base
+#' `qplot()` is a shortcut designed to be familiar if you're used to base
 #' [plot()]. It's a convenient wrapper for creating a number of
 #' different types of plots using a consistent calling scheme. It's great
 #' for allowing you to produce plots quickly, but I highly recommend
@@ -13,10 +13,10 @@
 #' @param facets faceting formula to use. Picks [facet_wrap()] or
 #'   [facet_grid()] depending on whether the formula is one-
 #'   or two-sided
-#' @param margins See `facet_grid`: display marginal facets?
+#' @param margins See `facet_grid()`: display marginal facets?
 #' @param geom Character vector specifying geom(s) to draw. Defaults to
 #'  "point" if x and y are specified, and "histogram" if only x is specified.
-#' @param stat,position DEPRECATED.
+#' @param stat,position `r lifecycle::badge("deprecated")`
 #' @param xlim,ylim X and y axis limits
 #' @param log Which variables to log transform ("x", "y", or "xy")
 #' @param main,xlab,ylab Character vector (or expression) giving plot title,
@@ -63,12 +63,12 @@ qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
                   geom = "auto", xlim = c(NA, NA),
                   ylim = c(NA, NA), log = "", main = NULL,
                   xlab = NULL, ylab = NULL,
-                  asp = NA, stat = NULL, position = NULL) {
+                  asp = NA, stat = deprecated(), position = deprecated()) {
 
   caller_env <- parent.frame()
 
-  if (!missing(stat)) warn("`stat` is deprecated")
-  if (!missing(position)) warn("`position` is deprecated")
+  if (lifecycle::is_present(stat)) lifecycle::deprecate_warn("2.0.0", "qplot(stat)")
+  if (lifecycle::is_present(position)) lifecycle::deprecate_warn("2.0.0", "qplot(position)")
   if (!is.character(geom)) {
     abort("`geom` must be a character vector")
   }
@@ -89,10 +89,19 @@ qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
 
 
   if (is.null(xlab)) {
-    xlab <- quo_name(exprs$x)
+    # Avoid <empty> label (#4170)
+    if (quo_is_missing(exprs$x)) {
+      xlab <- ""
+    } else {
+      xlab <- as_label(exprs$x)
+    }
   }
   if (is.null(ylab)) {
-    ylab <- quo_name(exprs$y)
+    if (quo_is_missing(exprs$y)) {
+      ylab <- ""
+    } else {
+      ylab <- as_label(exprs$y)
+    }
   }
 
   if (missing(data)) {
@@ -157,8 +166,8 @@ qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
   if (!missing(xlab)) p <- p + xlab(xlab)
   if (!missing(ylab)) p <- p + ylab(ylab)
 
-  if (!missing(xlim)) p <- p + xlim(xlim)
-  if (!missing(ylim)) p <- p + ylim(ylim)
+  if (!missing(xlim) && !all(is.na(xlim))) p <- p + xlim(xlim)
+  if (!missing(ylim) && !all(is.na(ylim))) p <- p + ylim(ylim)
 
   p
 }

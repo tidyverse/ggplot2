@@ -3,7 +3,7 @@ NULL
 
 #' Wrap a 1d ribbon of panels into 2d
 #'
-#' `facet_wrap` wraps a 1d sequence of panels into 2d. This is generally
+#' `facet_wrap()` wraps a 1d sequence of panels into 2d. This is generally
 #' a better use of screen space than [facet_grid()] because most
 #' displays are roughly rectangular.
 #'
@@ -79,18 +79,26 @@ NULL
 #' }
 facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
                        shrink = TRUE, labeller = "label_value", as.table = TRUE,
-                       switch = NULL, drop = TRUE, dir = "h", strip.position = 'top') {
-  scales <- match.arg(scales, c("fixed", "free_x", "free_y", "free"))
-  dir <- match.arg(dir, c("h", "v"))
+                       switch = deprecated(), drop = TRUE, dir = "h",
+                       strip.position = 'top') {
+  scales <- arg_match0(scales, c("fixed", "free_x", "free_y", "free"))
+  dir <- arg_match0(dir, c("h", "v"))
   free <- list(
     x = any(scales %in% c("free_x", "free")),
     y = any(scales %in% c("free_y", "free"))
   )
-  if (!is.null(switch)) {
-    .Deprecated("strip.position", old = "switch")
+
+  # Check for deprecated labellers
+  labeller <- check_labeller(labeller)
+
+  # Flatten all facets dimensions into a single one
+  facets <- wrap_as_facets_list(facets)
+
+  if (lifecycle::is_present(switch)) {
+    lifecycle::deprecate_warn("2.2.0", "facet_wrap(switch)", "facet_wrap(strip.position)")
     strip.position <- if (switch == "x") "bottom" else "left"
   }
-  strip.position <- match.arg(strip.position, c("top", "bottom", "left", "right"))
+  strip.position <- arg_match0(strip.position, c("top", "bottom", "left", "right"))
   if (identical(dir, "v")) {
     # swap
     nrow_swap <- ncol
@@ -101,12 +109,6 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
     nrow <- sanitise_dim(nrow)
     ncol <- sanitise_dim(ncol)
   }
-
-  # Check for deprecated labellers
-  labeller <- check_labeller(labeller)
-
-  # Flatten all facets dimensions into a single one
-  facets <- wrap_as_facets_list(facets)
 
   ggproto(NULL, FacetWrap,
     shrink = shrink,
@@ -183,11 +185,11 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     vars <- params$facets
 
     if (length(vars) == 0) {
-      data$PANEL <- 1L
+      data$PANEL <- layout$PANEL
       return(data)
     }
 
-    facet_vals <- eval_facets(vars, data, params$plot_env)
+    facet_vals <- eval_facets(vars, data, params$.possible_columns)
     facet_vals[] <- lapply(facet_vals[], as.factor)
 
     missing_facets <- setdiff(names(vars), names(facet_vals))
@@ -269,7 +271,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     empties <- apply(panel_table, c(1,2), function(x) is.zero(x[[1]]))
     panel_table <- gtable_matrix("layout", panel_table,
      widths = unit(rep(1, ncol), "null"),
-     heights = unit(rep(aspect_ratio, nrow), "null"), respect = respect, clip = coord$clip, z = matrix(1, ncol = ncol, nrow = nrow))
+     heights = unit(rep(abs(aspect_ratio), nrow), "null"), respect = respect, clip = coord$clip, z = matrix(1, ncol = ncol, nrow = nrow))
     panel_table$layout$name <- paste0('panel-', rep(seq_len(ncol), nrow), '-', rep(seq_len(nrow), each = ncol))
 
     panel_table <- gtable_add_col_space(panel_table,
@@ -312,30 +314,70 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     )
     # Add back missing axes
     if (any(empties)) {
-      first_row <- which(apply(empties, 1, any))[1] - 1
-      first_col <- which(apply(empties, 2, any))[1] - 1
-      row_panels <- which(layout$ROW == first_row & layout$COL > first_col)
-      row_pos <- convertInd(layout$ROW[row_panels], layout$COL[row_panels], nrow)
-      row_axes <- axes$x$bottom[layout$SCALE_X[row_panels]]
-      col_panels <- which(layout$ROW > first_row & layout$COL == first_col)
-      col_pos <- convertInd(layout$ROW[col_panels], layout$COL[col_panels], nrow)
-      col_axes <- axes$y$right[layout$SCALE_Y[col_panels]]
+      row_ind <- row(empties)
+      col_ind <- col(empties)
       inside <- (theme$strip.placement %||% "inside") == "inside"
-      if (params$strip.position == "bottom" &&
-          !inside &&
-          any(!vapply(row_axes, is.zero, logical(1))) &&
-          !params$free$x) {
-        warn("Suppressing axis rendering when strip.position = 'bottom' and strip.placement == 'outside'")
-      } else {
-        axis_mat_x_bottom[row_pos] <- row_axes
+      empty_bottom <- apply(empties, 2, function(x) c(diff(x) == 1, FALSE))
+      if (any(empty_bottom)) {
+        pos <- which(empty_bottom)
+        panel_loc <- data_frame(ROW = row_ind[pos], COL = col_ind[pos])
+        # Substitute with vctrs::vec_match(panel_loc, layout[, c("ROW", "COL")])
+        # Once we switch to vctrs wholesale
+        panels <- merge(panel_loc, cbind(layout, .index = seq_len(nrow(layout))))$.index
+        x_axes <- axes$x$bottom[layout$SCALE_X[panels]]
+        if (params$strip.position == "bottom" &&
+            !inside &&
+            any(!vapply(x_axes, is.zero, logical(1))) &&
+            !params$free$x) {
+          warn("Suppressing axis rendering when strip.position = 'bottom' and strip.placement == 'outside'")
+        } else {
+          axis_mat_x_bottom[pos] <- x_axes
+        }
       }
-      if (params$strip.position == "right" &&
-          !inside &&
-          any(!vapply(col_axes, is.zero, logical(1))) &&
-          !params$free$y) {
-        warn("Suppressing axis rendering when strip.position = 'right' and strip.placement == 'outside'")
-      } else {
-        axis_mat_y_right[col_pos] <- col_axes
+      empty_top <- apply(empties, 2, function(x) c(FALSE, diff(x) == -1))
+      if (any(empty_top)) {
+        pos <- which(empty_top)
+        panel_loc <- data_frame(ROW = row_ind[pos], COL = col_ind[pos])
+        panels <- merge(panel_loc, cbind(layout, .index = seq_len(nrow(layout))))$.index
+        x_axes <- axes$x$top[layout$SCALE_X[panels]]
+        if (params$strip.position == "top" &&
+            !inside &&
+            any(!vapply(x_axes, is.zero, logical(1))) &&
+            !params$free$x) {
+          warn("Suppressing axis rendering when strip.position = 'top' and strip.placement == 'outside'")
+        } else {
+          axis_mat_x_top[pos] <- x_axes
+        }
+      }
+      empty_right <- t(apply(empties, 1, function(x) c(diff(x) == 1, FALSE)))
+      if (any(empty_right)) {
+        pos <- which(empty_right)
+        panel_loc <- data_frame(ROW = row_ind[pos], COL = col_ind[pos])
+        panels <- merge(panel_loc, cbind(layout, .index = seq_len(nrow(layout))))$.index
+        y_axes <- axes$y$right[layout$SCALE_Y[panels]]
+        if (params$strip.position == "right" &&
+            !inside &&
+            any(!vapply(y_axes, is.zero, logical(1))) &&
+            !params$free$y) {
+          warn("Suppressing axis rendering when strip.position = 'right' and strip.placement == 'outside'")
+        } else {
+          axis_mat_y_right[pos] <- y_axes
+        }
+      }
+      empty_left <- t(apply(empties, 1, function(x) c(FALSE, diff(x) == -1)))
+      if (any(empty_left)) {
+        pos <- which(empty_left)
+        panel_loc <- data_frame(ROW = row_ind[pos], COL = col_ind[pos])
+        panels <- merge(panel_loc, cbind(layout, .index = seq_len(nrow(layout))))$.index
+        y_axes <- axes$y$left[layout$SCALE_Y[panels]]
+        if (params$strip.position == "left" &&
+            !inside &&
+            any(!vapply(y_axes, is.zero, logical(1))) &&
+            !params$free$y) {
+          warn("Suppressing axis rendering when strip.position = 'left' and strip.placement == 'outside'")
+        } else {
+          axis_mat_y_left[pos] <- y_axes
+        }
       }
     }
     panel_table <- weave_tables_row(panel_table, axis_mat_x_top, -1, axis_height_top, "axis-t", 3)
@@ -393,7 +435,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
 #'
 #' Cleans up the input to be an integer greater than or equal to one, or
 #' `NULL`. Intended to be used on the `nrow` and `ncol`
-#' arguments of `facet_wrap`.
+#' arguments of `facet_wrap()`.
 #' @param n Hopefully an integer greater than or equal to one, or `NULL`,
 #' though other inputs are handled.
 #' @return An integer greater than or equal to one, or `NULL`.

@@ -19,6 +19,7 @@ scale_x_date(
   date_minor_breaks = waiver(),
   limits = NULL,
   expand = waiver(),
+  oob = censor,
   guide = waiver(),
   position = "bottom",
   sec.axis = waiver()
@@ -34,6 +35,7 @@ scale_y_date(
   date_minor_breaks = waiver(),
   limits = NULL,
   expand = waiver(),
+  oob = censor,
   guide = waiver(),
   position = "left",
   sec.axis = waiver()
@@ -50,6 +52,7 @@ scale_x_datetime(
   timezone = NULL,
   limits = NULL,
   expand = waiver(),
+  oob = censor,
   guide = waiver(),
   position = "bottom",
   sec.axis = waiver()
@@ -66,6 +69,7 @@ scale_y_datetime(
   timezone = NULL,
   limits = NULL,
   expand = waiver(),
+  oob = censor,
   guide = waiver(),
   position = "left",
   sec.axis = waiver()
@@ -123,8 +127,10 @@ specified, \code{date_breaks} wins.}
 \item \code{waiver()} for the default labels computed by the
 transformation object
 \item A character vector giving labels (must be same length as \code{breaks})
+\item An expression vector (must be the same length as breaks). See ?plotmath for details.
 \item A function that takes the breaks as input and returns labels
-as output
+as output. Also accepts rlang \link[rlang:as_function]{lambda} function
+notation.
 }}
 
 \item{date_labels}{A string giving the formatting specification for the
@@ -150,7 +156,8 @@ like "2 weeks", or "10 years". If both \code{minor_breaks} and
 \item A numeric vector of length two providing limits of the scale.
 Use \code{NA} to refer to the existing minimum or maximum
 \item A function that accepts the existing (automatic) limits and returns
-new limits
+new limits. Also accepts rlang \link[rlang:as_function]{lambda} function
+notation.
 Note that setting limits on positional scales will \strong{remove} data outside of the limits.
 If the purpose is to zoom, use the limit argument in the coordinate system
 (see \code{\link[=coord_cartesian]{coord_cartesian()}}).
@@ -163,6 +170,17 @@ to generate the values for the \code{expand} argument. The defaults are to
 expand the scale by 5\% on each side for continuous variables, and by
 0.6 units on each side for discrete variables.}
 
+\item{oob}{One of:
+\itemize{
+\item Function that handles limits outside of the scale limits
+(out of bounds). Also accepts rlang \link[rlang:as_function]{lambda}
+function notation.
+\item The default (\code{\link[scales:oob]{scales::censor()}}) replaces out of
+bounds values with \code{NA}.
+\item \code{\link[scales:oob]{scales::squish()}} for squishing out of bounds values into range.
+\item \code{\link[scales:oob]{scales::squish_infinite()}} for squishing infinite values into range.
+}}
+
 \item{guide}{A function used to create a guide or its name. See
 \code{\link[=guides]{guides()}} for more information.}
 
@@ -173,16 +191,6 @@ expand the scale by 5\% on each side for continuous variables, and by
 
 \item{timezone}{The timezone to use for display on the axes. The default
 (\code{NULL}) uses the timezone encoded in the data.}
-
-\item{oob}{One of:
-\itemize{
-\item Function that handles limits outside of the scale limits
-(out of bounds).
-\item The default (\code{\link[scales:censor]{scales::censor()}}) replaces out of
-bounds values with \code{NA}.
-\item \code{\link[scales:squish]{scales::squish()}} for squishing out of bounds values into range.
-\item \code{\link[scales:squish_infinite]{scales::squish_infinite()}} for squishing infitite values into range.
-}}
 
 \item{na.value}{Missing values will be replaced with this value.}
 }

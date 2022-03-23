@@ -15,10 +15,10 @@
 #'   `boundary`, may be specified for a single plot. `center` specifies the
 #'   center of one of the bins. `boundary` specifies the boundary between two
 #'   bins. Note that if either is above or below the range of the data, things
-#'   will be shifted by the appropriate integer multiple of `width`.
-#'   For example, to center on integers use `width = 1` and `center = 0`, even
+#'   will be shifted by the appropriate integer multiple of `binwidth`.
+#'   For example, to center on integers use `binwidth = 1` and `center = 0`, even
 #'   if `0` is outside the range of the data. Alternatively, this same alignment
-#'   can be specified with `width = 1` and `boundary = 0.5`, even if `0.5` is
+#'   can be specified with `binwidth = 1` and `boundary = 0.5`, even if `0.5` is
 #'   outside the range of the data.
 #' @param breaks Alternatively, you can supply a numeric vector giving
 #'    the bin boundaries. Overrides `binwidth`, `bins`, `center`,
@@ -33,6 +33,7 @@
 #'   \item{density}{density of points in bin, scaled to integrate to 1}
 #'   \item{ncount}{count, scaled to maximum of 1}
 #'   \item{ndensity}{density, scaled to maximum of 1}
+#'   \item{width}{widths of bins}
 #' }
 #'
 #' @seealso [stat_count()], which counts the number of cases at each x
@@ -102,21 +103,21 @@ StatBin <- ggproto("StatBin", Stat,
     }
 
     if (!is.null(params$drop)) {
-      warn("`drop` is deprecated. Please use `pad` instead.")
+      lifecycle::deprecate_warn("2.1.0", "stat_bin(drop)", "stat_bin(pad)")
       params$drop <- NULL
     }
     if (!is.null(params$origin)) {
-      warn("`origin` is deprecated. Please use `boundary` instead.")
+      lifecycle::deprecate_warn("2.1.0", "stat_bin(origin)", "stat_bin(boundary)")
       params$boundary <- params$origin
       params$origin <- NULL
     }
     if (!is.null(params$right)) {
-      warn("`right` is deprecated. Please use `closed` instead.")
+      lifecycle::deprecate_warn("2.1.0", "stat_bin(right)", "stat_bin(closed)")
       params$closed <- if (params$right) "right" else "left"
       params$right <- NULL
     }
     if (!is.null(params$width)) {
-      abort("`width` is deprecated. Do you want `geom_bar()`?")
+      lifecycle::deprecate_warn("2.1.0", "stat_bin(width)", "geom_bar()")
     }
     if (!is.null(params$boundary) && !is.null(params$center)) {
       abort("Only one of `boundary` and `center` may be specified.")

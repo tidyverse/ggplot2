@@ -91,17 +91,19 @@
 #' p1 + guides(fill = guide_legend(label.position = "left", label.hjust = 1))
 #'
 #' # label styles
-#' p1 + scale_fill_continuous(breaks = c(5, 10, 15),
-#'   labels = paste("long", c(5, 10, 15)),
-#'   guide = guide_legend(
-#'     direction = "horizontal",
-#'     title.position = "top",
-#'     label.position = "bottom",
-#'     label.hjust = 0.5,
-#'     label.vjust = 1,
-#'     label.theme = element_text(angle = 90)
+#' p1 +
+#'   scale_fill_continuous(
+#'     breaks = c(5, 10, 15),
+#'     labels = paste("long", c(5, 10, 15)),
+#'     guide = guide_legend(
+#'       direction = "horizontal",
+#'       title.position = "top",
+#'       label.position = "bottom",
+#'       label.hjust = 0.5,
+#'       label.vjust = 1,
+#'       label.theme = element_text(angle = 90)
+#'     )
 #'   )
-#' )
 #'
 #' # Set aesthetic of legend key
 #' # very low alpha value make it difficult to see legend key
@@ -245,7 +247,7 @@ guide_merge.legend <- function(guide, new_guide) {
 guide_geom.legend <- function(guide, layers, default_mapping) {
   # arrange common data for vertical and horizontal guide
   guide$geoms <- lapply(layers, function(layer) {
-    matched <- matched_aes(layer, guide, default_mapping)
+    matched <- matched_aes(layer, guide)
 
     # check if this layer should be included
     include <- include_layer_in_guide(layer, matched)
@@ -259,10 +261,16 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
       n <- vapply(layer$aes_params, length, integer(1))
       params <- layer$aes_params[n == 1]
 
-      aesthetics <- layer$mapping
+      aesthetics <- layer$computed_mapping
       modifiers <- aesthetics[is_scaled_aes(aesthetics) | is_staged_aes(aesthetics)]
 
-      data <- layer$geom$use_defaults(guide$key[matched], params, modifiers)
+      data <- tryCatch(
+        layer$geom$use_defaults(guide$key[matched], params, modifiers),
+        error = function(...) {
+          warn("Failed to apply `after_scale()` modifications to legend")
+          layer$geom$use_defaults(guide$key[matched], params, list())
+        }
+      )
     } else {
       data <- layer$geom$use_defaults(NULL, layer$aes_params)[rep(1, nrow(guide$key)), ]
     }
@@ -270,10 +278,14 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
     # override.aes in guide_legend manually changes the geom
     data <- modify_list(data, guide$override.aes)
 
+    if (!is.null(data$size)) {
+      data$size[is.na(data$size)] <- 0
+    }
+
     list(
       draw_key = layer$geom$draw_key,
       data = data,
-      params = c(layer$geom_params, layer$stat_params)
+      params = c(layer$computed_geom_params, layer$computed_stat_params)
     )
   })
 
@@ -375,6 +387,7 @@ guide_gengrob.legend <- function(guide, theme) {
   )
 
   key_size_mat <- do.call("cbind", lapply(guide$geoms, function(g) g$data$size / 10))
+
   if (nrow(key_size_mat) == 0 || ncol(key_size_mat) == 0) {
     key_size_mat <- matrix(0, ncol = 1, nrow = nbreak)
   }
@@ -626,7 +639,7 @@ guide_gengrob.legend <- function(guide, theme) {
   draw_key <- function(i) {
     bg <- element_render(theme, "legend.key")
     keys <- lapply(guide$geoms, function(g) {
-      g$draw_key(g$data[i, ], g$params, key_size)
+      g$draw_key(g$data[i, , drop = FALSE], g$params, key_size)
     })
     c(list(bg), keys)
   }

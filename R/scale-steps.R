@@ -16,7 +16,7 @@
 #' @inheritDotParams binned_scale -aesthetics -scale_name -palette -na.value -guide -rescaler
 #'
 #' @seealso [scales::seq_gradient_pal()] for details on underlying
-#'   palette
+#'   palette, [scale_colour_gradient()] for continuous scales without binning.
 #' @family colour scales
 #' @export
 #' @examples

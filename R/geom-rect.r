@@ -33,7 +33,7 @@ GeomRect <- ggproto("GeomRect", Geom,
 
   required_aes = c("xmin", "xmax", "ymin", "ymax"),
 
-  draw_panel = function(self, data, panel_params, coord, linejoin = "mitre") {
+  draw_panel = function(self, data, panel_params, coord, lineend = "butt", linejoin = "mitre") {
     if (!coord$is_linear()) {
       aesthetics <- setdiff(
         names(data), c("x", "y", "xmin", "xmax", "ymin", "ymax")
@@ -43,7 +43,7 @@ GeomRect <- ggproto("GeomRect", Geom,
         poly <- rect_to_poly(row$xmin, row$xmax, row$ymin, row$ymax)
         aes <- new_data_frame(row[aesthetics])[rep(1,5), ]
 
-        GeomPolygon$draw_panel(cbind(poly, aes), panel_params, coord)
+        GeomPolygon$draw_panel(cbind(poly, aes), panel_params, coord, lineend = lineend, linejoin = linejoin)
       })
 
       ggname("bar", do.call("grobTree", polys))
@@ -61,9 +61,7 @@ GeomRect <- ggproto("GeomRect", Geom,
           lwd = coords$size * .pt,
           lty = coords$linetype,
           linejoin = linejoin,
-          # `lineend` is a workaround for Windows and intentionally kept unexposed
-          # as an argument. (c.f. https://github.com/tidyverse/ggplot2/issues/3037#issuecomment-457504667)
-          lineend = if (identical(linejoin, "round")) "round" else "square"
+          lineend = lineend
         )
       ))
     }

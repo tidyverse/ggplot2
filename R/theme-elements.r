@@ -4,10 +4,10 @@
 #' In conjunction with the \link{theme} system, the `element_` functions
 #' specify the display of how non-data components of the plot are drawn.
 #'
-#'   - `element_blank`: draws nothing, and assigns no space.
-#'   - `element_rect`: borders and backgrounds.
-#'   - `element_line`: lines.
-#'   - `element_text`: text.
+#'   - `element_blank()`: draws nothing, and assigns no space.
+#'   - `element_rect()`: borders and backgrounds.
+#'   - `element_line()`: lines.
+#'   - `element_text()`: text.
 #'
 #' `rel()` is used to specify sizes relative to the parent,
 #' `margin()` is used to specify the margins of elements.
@@ -354,6 +354,15 @@ reset_theme_settings <- function(reset_current = TRUE) {
     ggplot_global$theme_current <- ggplot_global$theme_default
   }
 }
+
+# create the global variables holding all the theme settings
+on_load({
+  ggplot_global$theme_all_null <- theme_all_null() # cache all null theme, required by theme_grey()
+  ggplot_global$theme_current <- NULL  # the current theme applied to plots if none is specified
+  ggplot_global$theme_default <- NULL  # the underlying fallback default theme
+  ggplot_global$element_tree <- NULL   # the current element tree for themes
+  reset_theme_settings() # sets the preceding three global variables to their actual defaults
+})
 
 #' @rdname register_theme_elements
 #' @details

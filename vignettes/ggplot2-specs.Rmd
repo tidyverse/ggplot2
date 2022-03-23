@@ -1,6 +1,8 @@
 ---
 title: "Aesthetic specifications"
 output: rmarkdown::html_vignette
+description: |
+  Customising how aesthetic specifications are represented on your plot.
 vignette: >
   %\VignetteIndexEntry{Aesthetic specifications}
   %\VignetteEngine{knitr::rmarkdown}
@@ -32,7 +34,7 @@ Almost every geom has either colour, fill, or both. Colours and fills can be spe
 
 *   The [munsell](https://github.com/cwickham/munsell) package, by Charlotte 
     Wickham, makes it easy to choose specific colours using a system designed by 
-    Alfred Munsell. If you invest a little in learning the system, it provides
+    Albert H. Munsell. If you invest a little in learning the system, it provides
     a convenient way of specifying aesthetically pleasing colours.
     
     ```{r}

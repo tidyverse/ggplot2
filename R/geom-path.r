@@ -22,7 +22,7 @@
 #'  [geom_polygon()]: Filled paths (polygons);
 #'  [geom_segment()]: Line segments
 #' @section Missing value handling:
-#' `geom_path()`, `geom_line()`, and `geom_step` handle `NA` as follows:
+#' `geom_path()`, `geom_line()`, and `geom_step()` handle `NA` as follows:
 #'
 #' * If an `NA` occurs in the middle of a line, it breaks the line. No warning
 #'   is shown, regardless of whether `na.rm` is `TRUE` or `FALSE`.
@@ -318,7 +318,7 @@ GeomStep <- ggproto("GeomStep", GeomPath,
 #'
 #' @noRd
 stairstep <- function(data, direction = "hv") {
-  direction <- match.arg(direction, c("hv", "vh", "mid"))
+  direction <- arg_match0(direction, c("hv", "vh", "mid"))
   data <- as.data.frame(data)[order(data$x), ]
   n <- nrow(data)
 

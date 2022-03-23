@@ -41,9 +41,6 @@
 #' rare event that this fails it can be given explicitly by setting `orientation`
 #' to either `"x"` or `"y"`. See the *Orientation* section for more detail.
 #' @param width Bar width. By default, set to 90% of the resolution of the data.
-#' @param binwidth `geom_bar()` no longer has a binwidth argument---if
-#'   you use it you'll get a warning telling to you use
-#'   [geom_histogram()] instead.
 #' @param geom,stat Override the default connection between `geom_bar()` and
 #'   `stat_count()`.
 #' @examples
@@ -87,19 +84,10 @@ geom_bar <- function(mapping = NULL, data = NULL,
                      stat = "count", position = "stack",
                      ...,
                      width = NULL,
-                     binwidth = NULL,
                      na.rm = FALSE,
                      orientation = NA,
                      show.legend = NA,
                      inherit.aes = TRUE) {
-
-  if (!is.null(binwidth)) {
-    warn("`geom_bar()` no longer has a `binwidth` parameter. Please use `geom_histogram()` instead.")
-    return(geom_histogram(mapping = mapping, data = data,
-      position = position, width = width, binwidth = binwidth, ...,
-      na.rm = na.rm, show.legend = show.legend, inherit.aes = inherit.aes))
-  }
-
   layer(
     data = data,
     mapping = mapping,
@@ -131,7 +119,7 @@ GeomBar <- ggproto("GeomBar", GeomRect,
   non_missing_aes = c("xmin", "xmax", "ymin", "ymax"),
 
   setup_params = function(data, params) {
-    params$flipped_aes <- has_flipped_aes(data, params, range_is_orthogonal = FALSE)
+    params$flipped_aes <- has_flipped_aes(data, params)
     params
   },
 
@@ -149,8 +137,15 @@ GeomBar <- ggproto("GeomBar", GeomRect,
     flip_data(data, params$flipped_aes)
   },
 
-  draw_panel = function(self, data, panel_params, coord, width = NULL, flipped_aes = FALSE) {
+  draw_panel = function(self, data, panel_params, coord, lineend = "butt",
+                        linejoin = "mitre", width = NULL, flipped_aes = FALSE) {
     # Hack to ensure that width is detected as a parameter
-    ggproto_parent(GeomRect, self)$draw_panel(data, panel_params, coord)
+    ggproto_parent(GeomRect, self)$draw_panel(
+      data,
+      panel_params,
+      coord,
+      lineend = lineend,
+      linejoin = linejoin
+    )
   }
 )

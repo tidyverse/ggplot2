@@ -31,7 +31,7 @@ polygons, see \code{\link[maps:map]{maps::map()}} for details.}
   \describe{
     \item{\code{rule}}{Either \code{"evenodd"} or \code{"winding"}. If polygons with holes are
 being drawn (using the \code{subgroup} aesthetic) this argument defines how the
-hole coordinates are interpreted. See the examples in \code{\link[grid:pathGrob]{grid::pathGrob()}} for
+hole coordinates are interpreted. See the examples in \code{\link[grid:grid.path]{grid::pathGrob()}} for
 an explanation.}
     \item{\code{mapping}}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
 \code{\link[=aes_]{aes_()}}. If specified and \code{inherit.aes = TRUE} (the
@@ -69,8 +69,8 @@ a warning. If \code{TRUE}, missing values are silently removed.}
   }}
 }
 \description{
-This is a quick and dirty way to get map data (from the maps package)
-on to your plot. This is a good place to start if you need some crude
+This is a quick and dirty way to get map data (from the \pkg{maps} package)
+onto your plot. This is a good place to start if you need some crude
 reference lines, but you'll typically want something more sophisticated
 for communication graphics.
 }

@@ -86,8 +86,11 @@
 #' p1 + guides(fill = guide_colourbar(nbin = 100))
 #'
 #' # make top- and bottom-most ticks invisible
-#' p1 + scale_fill_continuous(limits = c(0,20), breaks = c(0, 5, 10, 15, 20),
-#'  guide = guide_colourbar(nbin=100, draw.ulim = FALSE, draw.llim = FALSE))
+#' p1 +
+#'   scale_fill_continuous(
+#'     limits = c(0,20), breaks = c(0, 5, 10, 15, 20),
+#'     guide = guide_colourbar(nbin = 100, draw.ulim = FALSE, draw.llim = FALSE)
+#'    )
 #'
 #' # guides can be controlled independently
 #' p2 +
@@ -245,7 +248,7 @@ guide_merge.colorbar <- function(guide, new_guide) {
 guide_geom.colorbar <- function(guide, layers, default_mapping) {
   # Layers that use this guide
   guide_layers <- lapply(layers, function(layer) {
-    matched <- matched_aes(layer, guide, default_mapping)
+    matched <- matched_aes(layer, guide)
 
     if (length(matched) == 0) {
       # This layer does not use this guide

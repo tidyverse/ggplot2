@@ -12,7 +12,9 @@ labs(
   title = waiver(),
   subtitle = waiver(),
   caption = waiver(),
-  tag = waiver()
+  tag = waiver(),
+  alt = waiver(),
+  alt_insight = waiver()
 )
 
 xlab(label)
@@ -34,6 +36,9 @@ bottom-right of the plot by default.}
 
 \item{tag}{The text for the tag label which will be displayed at the
 top-left of the plot by default.}
+
+\item{alt, alt_insight}{Text used for the generation of alt-text for the plot.
+See \link{get_alt_text} for examples.}
 
 \item{label}{The title of the respective axis (for \code{xlab()} or \code{ylab()}) or
 of the plot (for \code{ggtitle()}).}
@@ -75,5 +80,7 @@ p + labs(caption = "(based on data from ...)")
 p + labs(title = "title", tag = "A")
 
 # If you want to remove a label, set it to NULL.
-p + labs(title = "title") + labs(title = NULL)
+p +
+ labs(title = "title") +
+ labs(title = NULL)
 }

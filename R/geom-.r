@@ -3,7 +3,7 @@ NULL
 
 #' @section Geoms:
 #'
-#' All `geom_*` functions (like `geom_point`) return a layer that
+#' All `geom_*()` functions (like `geom_point()`) return a layer that
 #' contains a `Geom*` object (like `GeomPoint`). The `Geom*`
 #' object is responsible for rendering the data in the plot.
 #'
@@ -14,9 +14,7 @@ NULL
 #' Compared to `Stat` and `Position`, `Geom` is a little
 #' different because the execution of the setup and compute functions is
 #' split up. `setup_data` runs before position adjustments, and
-#' `draw_layer` is not run until render time, much later. This
-#' means there is no `setup_params` because it's hard to communicate
-#' the changes.
+#' `draw_layer()` is not run until render time, much later.
 #'
 #' To create a new type of Geom object, you typically will want to
 #' override one or more of the following:
@@ -210,7 +208,7 @@ NULL
 .stroke <- 96 / 25.4
 
 check_aesthetics <- function(x, n) {
-  ns <- vapply(x, length, numeric(1))
+  ns <- vapply(x, length, integer(1))
   good <- ns == 1L | ns == n
 
   if (all(good)) {

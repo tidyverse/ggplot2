@@ -1,8 +1,10 @@
 #' Set scale limits
 #'
-#' This is a shortcut for supplying the `limits` argument to the
-#' individual scales. Note that, by default, any values outside the limits
-#' will be replaced with `NA`.
+#' This is a shortcut for supplying the `limits` argument to the individual
+#' scales. By default, any values outside the limits specified are replaced with
+#' `NA`. Be warned that this will remove data outside the limits and this can
+#' produce unintended results. For changing x or y axis limits \strong{without}
+#' dropping data observations, see [coord_cartesian()].
 #'
 #' @param ... For `xlim()` and `ylim()`: Two numeric values, specifying the left/lower
 #'  limit and the right/upper limit of the scale. If the larger value is given first,
@@ -17,10 +19,9 @@
 #'  A character or factor value will create a discrete scale.
 #'  A date-time value will create a continuous date/time scale.
 #'
-#' @seealso For changing x or y axis limits \strong{without} dropping data
-#'   observations, see [coord_cartesian()]. To expand the range of
-#'   a plot to always include certain values, see [expand_limits()]. For other
-#'   types of data, see [scale_x_discrete()], [scale_x_continuous()], [scale_x_date()].
+#' @seealso To expand the range of a plot to always include
+#'   certain values, see [expand_limits()]. For other types of data, see
+#'   [scale_x_discrete()], [scale_x_continuous()], [scale_x_date()].
 #'
 #' @export
 #' @examples
@@ -99,7 +100,7 @@ ylim <- function(...) {
 
 #' Generate correct scale type for specified limits
 #'
-#' @param limits vector of limits
+#' @param lims vector of limits
 #' @param var name of variable
 #' @keywords internal
 #' @examples

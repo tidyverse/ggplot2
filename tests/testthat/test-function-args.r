@@ -1,5 +1,3 @@
-context("function-args")
-
 filter_args <- function(x) {
   all_names <- names(x)
   all_names <- setdiff(all_names, c("self", "data", "scales", "coordinates", "..."))
@@ -14,8 +12,8 @@ test_that("geom_xxx and GeomXxx$draw arg defaults match", {
   geom_fun_names <- setdiff(
     geom_fun_names,
     c("geom_map", "geom_sf", "geom_smooth", "geom_column", "geom_area",
-      "annotation_custom", "annotation_map",
-      "annotation_raster", "annotation_id")
+      "geom_density", "annotation_custom", "annotation_map", "annotation_raster",
+      "annotation_id")
   )
 
   # For each geom_xxx function and the corresponding GeomXxx$draw and

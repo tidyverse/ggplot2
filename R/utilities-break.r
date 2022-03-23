@@ -1,11 +1,11 @@
 #' Discretise numeric data into categorical
 #'
-#' `cut_interval` makes `n` groups with equal range, `cut_number`
+#' `cut_interval()` makes `n` groups with equal range, `cut_number()`
 #' makes `n` groups with (approximately) equal numbers of observations;
-#' `cut_width` makes groups of width `width`.
+#' `cut_width()` makes groups of width `width`.
 #'
 #' @author Randall Prium contributed most of the implementation of
-#'    `cut_width`.
+#'    `cut_width()`.
 #' @param x numeric vector
 #' @param n number of intervals to create, OR
 #' @param length length of each interval
@@ -28,7 +28,7 @@ cut_interval <- function(x, n = NULL, length = NULL, ...) {
 #' @export
 #' @rdname cut_interval
 cut_number <- function(x, n = NULL, ...) {
-  brk <- breaks(x, "n", n)
+  brk <- breaks(x, "numbers", n)
   if (anyDuplicated(brk))
     abort(glue("Insufficient data values to produce {n} bins."))
   cut(x, brk , include.lowest = TRUE, ...)
@@ -47,11 +47,11 @@ cut_number <- function(x, n = NULL, ...) {
 #'   `boundary = 0.5`.
 #' @param closed One of `"right"` or `"left"` indicating whether right
 #'   or left edges of bins are included in the bin.
-cut_width <- function(x, width, center = NULL, boundary = NULL, closed = c("right", "left"), ...) {
+cut_width <- function(x, width, center = NULL, boundary = NULL, closed = "right", ...) {
   x <- as.numeric(x)
   width <- as.numeric(width)
 
-  closed <- match.arg(closed)
+  closed <- arg_match0(closed, c("right", "left"))
 
   x_range <- range(x, na.rm = TRUE, finite = TRUE)
   if (length(x_range) == 0) {
@@ -91,7 +91,7 @@ find_origin <- function(x_range, width, boundary) {
 }
 
 breaks <- function(x, equal, nbins = NULL, binwidth = NULL) {
-  equal <- match.arg(equal, c("numbers", "width"))
+  equal <- arg_match0(equal, c("numbers", "width"))
   if ((!is.null(nbins) && !is.null(binwidth)) || (is.null(nbins) && is.null(binwidth))) {
     abort("Specify exactly one of n and width")
   }

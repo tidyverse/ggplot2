@@ -1,6 +1,6 @@
 #' @section Stats:
 #'
-#' All `stat_*` functions (like `stat_bin`) return a layer that
+#' All `stat_*()` functions (like `stat_bin()`) return a layer that
 #' contains a `Stat*` object (like `StatBin`). The `Stat*`
 #' object is responsible for rendering the data in the plot.
 #'
@@ -60,6 +60,8 @@ Stat <- ggproto("Stat",
   required_aes = character(),
 
   non_missing_aes = character(),
+
+  optional_aes = character(),
 
   setup_params = function(data, params) {
     params
@@ -155,7 +157,7 @@ Stat <- ggproto("Stat",
     } else {
       required_aes <- unlist(strsplit(self$required_aes, '|', fixed = TRUE))
     }
-    c(union(required_aes, names(self$default_aes)), "group")
+    c(union(required_aes, names(self$default_aes)), self$optional_aes, "group")
   }
 
 )

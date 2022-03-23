@@ -49,7 +49,7 @@
 #'   `axis.ticks.*` which inherits from `axis.ticks`, which in turn inherits
 #'   from `line`
 #' @param axis.ticks.length,axis.ticks.length.x,axis.ticks.length.x.top,axis.ticks.length.x.bottom,axis.ticks.length.y,axis.ticks.length.y.left,axis.ticks.length.y.right
-#' length of tick marks (`unit`)
+#'   length of tick marks (`unit`)
 #' @param axis.line,axis.line.x,axis.line.x.top,axis.line.x.bottom,axis.line.y,axis.line.y.left,axis.line.y.right
 #'   lines along axes ([element_line()]). Specify lines along all axes (`axis.line`),
 #'   lines for each plane (using `axis.line.x` or `axis.line.y`), or individually
@@ -363,21 +363,30 @@ theme <- function(line,
   elements <- find_args(..., complete = NULL, validate = NULL)
 
   if (!is.null(elements$axis.ticks.margin)) {
-    warn("`axis.ticks.margin` is deprecated. Please set `margin` property of `axis.text` instead")
+    lifecycle::deprecate_warn(
+      "2.0.0", "theme(axis.ticks.margin)",
+      details = "Please set `margin` property of `axis.text` instead"
+    )
     elements$axis.ticks.margin <- NULL
   }
   if (!is.null(elements$panel.margin)) {
-    warn("`panel.margin` is deprecated. Please use `panel.spacing` property instead")
+    lifecycle::deprecate_warn(
+      "2.2.0", "theme(panel.margin)", "theme(panel.spacing)"
+    )
     elements$panel.spacing <- elements$panel.margin
     elements$panel.margin <- NULL
   }
   if (!is.null(elements$panel.margin.x)) {
-    warn("`panel.margin.x` is deprecated. Please use `panel.spacing.x` property instead")
+    lifecycle::deprecate_warn(
+      "2.2.0", "theme(panel.margin.x)", "theme(panel.spacing.x)"
+    )
     elements$panel.spacing.x <- elements$panel.margin.x
     elements$panel.margin.x <- NULL
   }
   if (!is.null(elements$panel.margin.y)) {
-    warn("`panel.margin` is deprecated. Please use `panel.spacing` property instead")
+    lifecycle::deprecate_warn(
+      "2.2.0", "theme(panel.margin.y)", "theme(panel.spacing.y)"
+    )
     elements$panel.spacing.y <- elements$panel.margin.y
     elements$panel.margin.y <- NULL
   }
@@ -454,6 +463,9 @@ plot_theme <- function(x, default = theme_get()) {
 #'   informative error messages.
 #' @keywords internal
 add_theme <- function(t1, t2, t2name) {
+  if (is.null(t2)) {
+    return(t1)
+  }
   if (!is.list(t2)) { # in various places in the code base, simple lists are used as themes
     abort(glue("Can't add `{t2name}` to a theme object."))
   }

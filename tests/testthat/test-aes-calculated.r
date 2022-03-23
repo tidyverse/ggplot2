@@ -1,5 +1,3 @@
-context("test-aes-calculated.r")
-
 test_that("constants aren't calculated", {
   expect_equal(is_calculated_aes(aes(1, "a", TRUE)), c(FALSE, FALSE, FALSE))
 })
@@ -22,6 +20,18 @@ test_that("strip_dots remove dots around calculated aesthetics", {
     strip_dots(aes(sapply(..density.., function(x) mean(x)))$x),
     quo(sapply(density, function(x) mean(x)))
   )
+})
+
+test_that("strip_dots handles tidy evaluation pronouns", {
+  expect_identical(strip_dots(aes(.data$x), strip_pronoun = TRUE)$x, quo(x))
+  expect_identical(strip_dots(aes(.data[["x"]]), strip_pronoun = TRUE)$x, quo(x))
+
+  var <- "y"
+  f <- function() {
+    var <- "x"
+    aes(.data[[var]])$x
+  }
+  expect_identical(quo_get_expr(strip_dots(f(), strip_pronoun = TRUE)), quote(x))
 })
 
 test_that("make_labels() deprases mappings properly", {

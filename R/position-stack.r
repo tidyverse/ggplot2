@@ -165,7 +165,7 @@ PositionStack <- ggproto("PositionStack", Position,
 
     data$ymax <- switch(params$var,
       y = data$y,
-      ymax = ifelse(data$ymax == 0, data$ymin, data$ymax)
+      ymax = as.numeric(ifelse(data$ymax == 0, data$ymin, data$ymax))
     )
 
     data <- remove_missing(
@@ -225,8 +225,8 @@ pos_stack <- function(df, width, vjust = 1, fill = FALSE) {
   ymin <- pmin(heights[-n], heights[-1])
   ymax <- pmax(heights[-n], heights[-1])
   df$y <- (1 - vjust) * ymin + vjust * ymax
-  df$ymin <- ifelse(max_is_lower, ymax, ymin)
-  df$ymax <- ifelse(max_is_lower, ymin, ymax)
+  df$ymin <- as.numeric(ifelse(max_is_lower, ymax, ymin))
+  df$ymax <- as.numeric(ifelse(max_is_lower, ymin, ymax))
   df
 }
 

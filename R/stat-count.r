@@ -4,10 +4,10 @@
 #'   \item{prop}{groupwise proportion}
 #' }
 #' @seealso [stat_bin()], which bins data in ranges and counts the
-#'   cases in each range. It differs from `stat_count`, which counts the
+#'   cases in each range. It differs from `stat_count()`, which counts the
 #'   number of cases at each `x` position (without binning into ranges).
 #'   [stat_bin()] requires continuous `x` data, whereas
-#'   `stat_count` can be used for both discrete and continuous `x` data.
+#'   `stat_count()` can be used for both discrete and continuous `x` data.
 #'
 #' @export
 #' @rdname geom_bar
@@ -64,6 +64,11 @@ StatCount <- ggproto("StatCount", Stat,
       abort("stat_count() can only have an x or y aesthetic.")
     }
 
+    if (is.null(params$width)) {
+      x <- if (params$flipped_aes) "y" else "x"
+      params$width <- resolution(data[[x]]) * 0.9
+    }
+
     params
   },
 
@@ -73,7 +78,6 @@ StatCount <- ggproto("StatCount", Stat,
     data <- flip_data(data, flipped_aes)
     x <- data$x
     weight <- data$weight %||% rep(1, length(x))
-    width <- width %||% (resolution(x) * 0.9)
 
     count <- as.numeric(tapply(weight, x, sum, na.rm = TRUE))
     count[is.na(count)] <- 0

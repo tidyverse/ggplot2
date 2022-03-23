@@ -31,7 +31,7 @@ NULL
 #'   turn and is expected to supply a `PANEL` column mapping each row to a
 #'   panel defined in the layout. Additionally this method can also add or
 #'   subtract data points as needed e.g. in the case of adding margins to
-#'   `facet_grid`.
+#'   `facet_grid()`.
 #'
 #'   - `draw_panels`: This is where the panels are assembled into a
 #'   `gtable` object. The method receives, among others, a list of grobs
@@ -155,6 +155,7 @@ Facet <- ggproto("Facet", NULL,
     panels
   },
   setup_params = function(data, params) {
+    params$.possible_columns <- unique(unlist(lapply(data, names)))
     params
   },
   setup_data = function(data, params) {
@@ -212,8 +213,8 @@ Facet <- ggproto("Facet", NULL,
 #'   # Let's enquote the named argument `var` to make it auto-quoting:
 #'   var <- enquo(var)
 #'
-#'   # `quo_name()` will create a nice default name:
-#'   nm <- quo_name(var)
+#'   # `as_label()` will create a nice default name:
+#'   nm <- as_label(var)
 #'
 #'   # Now let's unquote everything at the right place. Note that we also
 #'   # unquote `n` just in case the data frame has a column named
@@ -275,9 +276,7 @@ df.grid <- function(a, b) {
 # facetting variables.
 
 as_facets_list <- function(x) {
-  if (inherits(x, "uneval")) {
-    abort("Please use `vars()` to supply facet variables")
-  }
+  x <- validate_facets(x)
   if (is_quosures(x)) {
     x <- quos_auto_name(x)
     return(list(x))
@@ -314,11 +313,24 @@ as_facets_list <- function(x) {
   x
 }
 
+validate_facets <- function(x) {
+  if (inherits(x, "uneval")) {
+    abort("Please use `vars()` to supply facet variables")
+  }
+  if (inherits(x, "ggplot")) {
+    abort(
+      "Please use `vars()` to supply facet variables\nDid you use %>% instead of +?"
+    )
+  }
+  x
+}
+
+
 # Flatten a list of quosures objects to a quosures object, and compact it
 compact_facets <- function(x) {
   x <- flatten_if(x, is_list)
-  null <- vapply(x, quo_is_null, logical(1))
-  new_quosures(x[!null])
+  null_or_missing <- vapply(x, function(x) quo_is_null(x) || quo_is_missing(x), logical(1))
+  new_quosures(x[!null_or_missing])
 }
 
 # Compatibility with plyr::as.quoted()
@@ -417,11 +429,13 @@ is_facets <- function(x) {
 # when evaluating an expression, you want to see any errors. That does
 # mean you can't have background data when faceting by an expression,
 # but that seems like a reasonable tradeoff.
-eval_facets <- function(facets, data, env = globalenv()) {
-  vars <- compact(lapply(facets, eval_facet, data, env = env))
+eval_facets <- function(facets, data, possible_columns = NULL) {
+  vars <- compact(lapply(facets, eval_facet, data, possible_columns = possible_columns))
   new_data_frame(tibble::as_tibble(vars))
 }
-eval_facet <- function(facet, data, env = emptyenv()) {
+eval_facet <- function(facet, data, possible_columns = NULL) {
+  # Treat the case when `facet` is a quosure of a symbol specifically
+  # to issue a friendlier warning
   if (quo_is_symbol(facet)) {
     facet <- as.character(quo_get_expr(facet))
 
@@ -433,7 +447,22 @@ eval_facet <- function(facet, data, env = emptyenv()) {
     return(out)
   }
 
-  eval_tidy(facet, data, env)
+  # Key idea: use active bindings so that column names missing in this layer
+  # but present in others raise a custom error
+  env <- new_environment(data)
+  missing_columns <- setdiff(possible_columns, names(data))
+  undefined_error <- function(e) abort("", class = "ggplot2_missing_facet_var")
+  bindings <- rep_named(missing_columns, list(undefined_error))
+  env_bind_active(env, !!!bindings)
+
+  # Create a data mask and install a data pronoun manually (see ?new_data_mask)
+  mask <- new_data_mask(env)
+  mask$.data <- as_data_pronoun(mask)
+
+  tryCatch(
+    eval_tidy(facet, mask),
+    ggplot2_missing_facet_var = function(e) NULL
+  )
 }
 
 layout_null <- function() {
@@ -476,8 +505,8 @@ max_width <- function(grobs, value_only = FALSE) {
 #' Find panels in a gtable
 #'
 #' These functions help detect the placement of panels in a gtable, if they are
-#' named with "panel" in the beginning. `find_panel` returns the extend of
-#' the panel area, while `panel_cols` and `panel_rows` returns the
+#' named with "panel" in the beginning. `find_panel()` returns the extend of
+#' the panel area, while `panel_cols()` and `panel_rows()` returns the
 #' columns and rows that contains panels respectively.
 #'
 #' @param table A gtable
@@ -524,10 +553,11 @@ panel_rows <- function(table) {
 #' @keywords internal
 #' @export
 combine_vars <- function(data, env = emptyenv(), vars = NULL, drop = TRUE) {
+  possible_columns <- unique(unlist(lapply(data, names)))
   if (length(vars) == 0) return(new_data_frame())
 
   # For each layer, compute the facet values
-  values <- compact(lapply(data, eval_facets, facets = vars, env = env))
+  values <- compact(lapply(data, eval_facets, facets = vars, possible_columns = possible_columns))
 
   # Form the base data.frame which contains all combinations of faceting
   # variables that appear in the data

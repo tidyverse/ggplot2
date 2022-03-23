@@ -44,7 +44,7 @@ geom_vline <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomVline <- ggproto("GeomVline", Geom,
-  draw_panel = function(data, panel_params, coord) {
+  draw_panel = function(data, panel_params, coord, lineend = "butt") {
     ranges <- coord$backtransform_range(panel_params)
 
     data$x    <- data$xintercept
@@ -52,7 +52,7 @@ GeomVline <- ggproto("GeomVline", Geom,
     data$y    <- ranges$y[1]
     data$yend <- ranges$y[2]
 
-    GeomSegment$draw_panel(unique(data), panel_params, coord)
+    GeomSegment$draw_panel(unique(data), panel_params, coord, lineend = lineend)
   },
 
   default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),

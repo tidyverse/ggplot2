@@ -139,7 +139,8 @@ GeomSmooth <- ggproto("GeomSmooth", Geom,
   # ribbon won't be drawn either in that case, keeping the overall
   # behavior predictable and sensible. The user will realize that they
   # need to set `se = TRUE` to obtain the ribbon and the legend key.
-  draw_group = function(data, panel_params, coord, se = FALSE, flipped_aes = FALSE) {
+  draw_group = function(data, panel_params, coord, lineend = "butt", linejoin = "round",
+                        linemitre = 10, se = FALSE, flipped_aes = FALSE) {
     ribbon <- transform(data, colour = NA)
     path <- transform(data, alpha = NA)
 
@@ -149,7 +150,7 @@ GeomSmooth <- ggproto("GeomSmooth", Geom,
 
     gList(
       if (has_ribbon) GeomRibbon$draw_group(ribbon, panel_params, coord, flipped_aes = flipped_aes),
-      GeomLine$draw_panel(path, panel_params, coord)
+      GeomLine$draw_panel(path, panel_params, coord, lineend = lineend, linejoin = linejoin, linemitre = linemitre)
     )
   },
 

@@ -1,5 +1,3 @@
-context("coord_polar")
-
 test_that("polar distance is calculated correctly", {
   dat <- data_frame(
     theta = c(0, 2*pi,   2,   6, 6, 1,    1,  0),
@@ -76,9 +74,9 @@ test_that("Inf is squished to range", {
 
   # 0.4 is the upper limit of radius hardcoded in r_rescale()
   expect_equal(d[[2]]$r, 0.4)
-  expect_equal(d[[2]]$theta, 0)
+  expect_equal(d[[2]]$theta, new_mapped_discrete(0))
   expect_equal(d[[3]]$r, 0)
-  expect_equal(d[[3]]$theta, 0)
+  expect_equal(d[[3]]$theta, new_mapped_discrete(0))
 })
 
 

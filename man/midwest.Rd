@@ -4,14 +4,15 @@
 \name{midwest}
 \alias{midwest}
 \title{Midwest demographics}
-\format{A data frame with 437 rows and 28 variables:
+\format{
+A data frame with 437 rows and 28 variables:
 \describe{
-\item{PID}{}
-\item{county}{}
-\item{state}{}
-\item{area}{}
-\item{poptotal}{Total population}
-\item{popdensity}{Population density}
+\item{PID}{Unique county identifier.}
+\item{county}{County name.}
+\item{state}{State to which county belongs to.}
+\item{area}{Area of county (units unknown).}
+\item{poptotal}{Total population.}
+\item{popdensity}{Population density (person/unit area).}
 \item{popwhite}{Number of whites.}
 \item{popblack}{Number of blacks.}
 \item{popamerindian}{Number of American Indians.}
@@ -23,22 +24,29 @@
 \item{percasian}{Percent Asian.}
 \item{percother}{Percent other races.}
 \item{popadults}{Number of adults.}
-\item{perchsd}{}
+\item{perchsd}{Percent with high school diploma.}
 \item{percollege}{Percent college educated.}
-\item{percprof}{Percent profession.}
-\item{poppovertyknown}{}
-\item{percpovertyknown}{}
-\item{percbelowpoverty}{}
-\item{percchildbelowpovert}{}
-\item{percadultpoverty}{}
-\item{percelderlypoverty}{}
-\item{inmetro}{In a metro area.}
-\item{category}{}
-}}
+\item{percprof}{Percent with professional degree.}
+\item{poppovertyknown}{Population with known poverty status.}
+\item{percpovertyknown}{Percent of population with known poverty status.}
+\item{percbelowpoverty}{Percent of people below poverty line.}
+\item{percchildbelowpovert}{Percent of children below poverty line.}
+\item{percadultpoverty}{Percent of adults below poverty line.}
+\item{percelderlypoverty}{Percent of elderly below poverty line.}
+\item{inmetro}{County considered in a metro area.}
+\item{category}{Miscellaneous.}
+}
+}
 \usage{
 midwest
 }
 \description{
-Demographic information of midwest counties
+Demographic information of midwest counties from 2000 US census
+}
+\details{
+Note: this dataset is included for illustrative purposes. The original
+descriptions were not documented and the current descriptions here are based
+on speculation. For more accurate and up-to-date US census data, see the
+\href{https://cran.r-project.org/package=acs}{\code{acs} package}.
 }
 \keyword{datasets}

@@ -58,7 +58,9 @@ Now, you'll be able to call \code{super_plot + theme_bw()}.
 }
 
 \examples{
-base <- ggplot(mpg, aes(displ, hwy)) + geom_point()
+base <-
+ ggplot(mpg, aes(displ, hwy)) +
+ geom_point()
 base + geom_smooth()
 
 # To override the data, you must use \%+\%

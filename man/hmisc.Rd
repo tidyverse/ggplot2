@@ -29,16 +29,18 @@ These are wrappers around functions from \pkg{Hmisc} designed to make them
 easier to use with \code{\link[=stat_summary]{stat_summary()}}. See the Hmisc documentation
 for more details:
 \itemize{
-\item \code{\link[Hmisc:smean.cl.boot]{Hmisc::smean.cl.boot()}}
-\item \code{\link[Hmisc:smean.cl.normal]{Hmisc::smean.cl.normal()}}
-\item \code{\link[Hmisc:smean.sdl]{Hmisc::smean.sdl()}}
-\item \code{\link[Hmisc:smedian.hilow]{Hmisc::smedian.hilow()}}
+\item \code{\link[Hmisc:smean.sd]{Hmisc::smean.cl.boot()}}
+\item \code{\link[Hmisc:smean.sd]{Hmisc::smean.cl.normal()}}
+\item \code{\link[Hmisc:smean.sd]{Hmisc::smean.sdl()}}
+\item \code{\link[Hmisc:smean.sd]{Hmisc::smedian.hilow()}}
 }
 }
 \examples{
+if (requireNamespace("Hmisc", quietly = TRUE)) {
 x <- rnorm(100)
 mean_cl_boot(x)
 mean_cl_normal(x)
 mean_sdl(x)
 median_hilow(x)
+}
 }

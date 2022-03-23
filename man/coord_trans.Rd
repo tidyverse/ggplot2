@@ -9,8 +9,8 @@ coord_trans(
   y = "identity",
   xlim = NULL,
   ylim = NULL,
-  limx = "DEPRECATED",
-  limy = "DEPRECATED",
+  limx = deprecated(),
+  limy = deprecated(),
   clip = "on",
   expand = TRUE
 )
@@ -22,7 +22,7 @@ coord_trans(
 
 \item{ylim}{Limits for the x and y axes.}
 
-\item{limx, limy}{\strong{Deprecated}: use \code{xlim} and \code{ylim} instead.}
+\item{limx, limy}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} use \code{xlim} and \code{ylim} instead.}
 
 \item{clip}{Should drawing be clipped to the extent of the plot panel? A
 setting of \code{"on"} (the default) means yes, and a setting of \code{"off"}
@@ -38,7 +38,7 @@ the limits to ensure that data and axes don't overlap. If \code{FALSE},
 limits are taken exactly from the data or \code{xlim}/\code{ylim}.}
 }
 \description{
-\code{coord_trans} is different to scale transformations in that it occurs after
+\code{coord_trans()} is different to scale transformations in that it occurs after
 statistical transformation and will affect the visual appearance of geoms - there is
 no guarantee that straight lines will continue to be straight.
 }

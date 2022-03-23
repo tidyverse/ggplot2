@@ -1,7 +1,7 @@
 #' Fortify a model with data.
 #'
 #' Rather than using this function, I now recommend using the \pkg{broom}
-#' package, which implements a much wider range of methods. `fortify`
+#' package, which implements a much wider range of methods. `fortify()`
 #' may be deprecated in the future.
 #'
 #' @seealso [fortify.lm()]
@@ -17,9 +17,7 @@ fortify.data.frame <- function(model, data, ...) model
 fortify.tbl_df <- function(model, data, ...) model
 #' @export
 fortify.tbl <- function(model, data, ...) {
-  if (!requireNamespace("dplyr", quietly = TRUE)) {
-    abort("dplyr must be installed to work with tbl objects")
-  }
+  check_installed("dplyr", reason = "to work with `tbl` objects")
   dplyr::collect(model)
 }
 #' @export
@@ -31,9 +29,7 @@ fortify.function <- function(model, data, ...) model
 fortify.formula <- function(model, data, ...) as_function(model)
 #' @export
 fortify.grouped_df <- function(model, data, ...) {
-  if (!requireNamespace("dplyr", quietly = TRUE)) {
-    abort("dplyr must be installed to work with grouped_df objects")
-  }
+  check_installed("dplyr", reason = "to work with `grouped_df` objects")
   model$.group <- dplyr::group_indices(model)
   model
 }
@@ -41,7 +37,7 @@ fortify.grouped_df <- function(model, data, ...) {
 fortify.default <- function(model, data, ...) {
   msg <- paste0(
     "`data` must be a data frame, or other object coercible by `fortify()`, ",
-    "not ", obj_desc(model)
+    "not ", obj_desc(model), "."
   )
   if (inherits(model, "uneval")) {
     msg <- paste0(

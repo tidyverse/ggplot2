@@ -1,14 +1,17 @@
 # Default scales -------------------------------------------------------------
 
 #' @export
-#' @rdname scale_hue
-#' @usage NULL
-scale_colour_discrete <- scale_colour_hue
-
-#' @export
 #' @rdname scale_viridis
 #' @usage NULL
-scale_colour_ordinal <- scale_colour_viridis_d
+scale_colour_ordinal <- function(..., type = getOption("ggplot2.ordinal.colour", getOption("ggplot2.ordinal.fill"))) {
+  type <- type %||% scale_colour_viridis_d
+  if (is.function(type)) {
+    type(...)
+  } else {
+    discrete_scale("colour", "ordinal", ordinal_pal(type), ...)
+  }
+}
+
 
 #' @export
 #' @rdname scale_viridis
@@ -65,14 +68,23 @@ scale_colour_date <- function(...,
 scale_color_date <- scale_colour_date
 
 #' @export
-#' @rdname scale_hue
-#' @usage NULL
-scale_fill_discrete <- scale_fill_hue
-
-#' @export
 #' @rdname scale_viridis
 #' @usage NULL
-scale_fill_ordinal <- scale_fill_viridis_d
+scale_fill_ordinal <- function(..., type = getOption("ggplot2.ordinal.fill", getOption("ggplot2.ordinal.colour"))) {
+  type <- type %||% scale_fill_viridis_d
+  if (is.function(type)) {
+    type(...)
+  } else {
+    discrete_scale("fill", "ordinal", ordinal_pal(type), ...)
+  }
+}
+
+ordinal_pal <- function(colours, na.color = "grey50", alpha = TRUE) {
+  pal <- scales::colour_ramp(colours, na.color = na.color, alpha = alpha)
+  function(n) {
+    pal(seq(0, 1, length.out = n))
+  }
+}
 
 #' @export
 #' @rdname scale_gradient
@@ -141,9 +153,9 @@ scale_color_continuous <- scale_colour_continuous
 scale_color_binned <- scale_colour_binned
 
 #' @export
-#' @rdname scale_hue
+#' @rdname scale_colour_discrete
 #' @usage NULL
-scale_color_discrete <- scale_colour_hue
+scale_color_discrete <- scale_colour_discrete
 
 #' @export
 #' @rdname scale_gradient
@@ -204,3 +216,8 @@ scale_color_viridis_d <- scale_colour_viridis_d
 #' @rdname scale_viridis
 #' @usage NULL
 scale_color_viridis_c <- scale_colour_viridis_c
+
+#' @export
+#' @rdname scale_viridis
+#' @usage NULL
+scale_color_viridis_b <- scale_colour_viridis_b

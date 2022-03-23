@@ -100,11 +100,11 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 \item{linejoin}{Line join style (round, mitre, bevel).}
 }
 \description{
-\code{geom_rect} and \code{geom_tile} do the same thing, but are
-parameterised differently: \code{geom_rect} uses the locations of the four
+\code{geom_rect()} and \code{geom_tile()} do the same thing, but are
+parameterised differently: \code{geom_rect()} uses the locations of the four
 corners (\code{xmin}, \code{xmax}, \code{ymin} and \code{ymax}), while
-\code{geom_tile} uses the center of the tile and its size (\code{x},
-\code{y}, \code{width}, \code{height}). \code{geom_raster} is a high
+\code{geom_tile()} uses the center of the tile and its size (\code{x},
+\code{y}, \code{width}, \code{height}). \code{geom_raster()} is a high
 performance special case for when all the tiles are the same size.
 }
 \section{Aesthetics}{
@@ -155,9 +155,11 @@ ggplot(df, aes(xmin = x - w / 2, xmax = x + w / 2, ymin = y, ymax = y + 1)) +
 df <- expand.grid(x = 0:5, y = 0:5)
 df$z <- runif(nrow(df))
 # default is compatible with geom_tile()
-ggplot(df, aes(x, y, fill = z)) + geom_raster()
+ggplot(df, aes(x, y, fill = z)) +
+  geom_raster()
 # zero padding
-ggplot(df, aes(x, y, fill = z)) + geom_raster(hjust = 0, vjust = 0)
+ggplot(df, aes(x, y, fill = z)) +
+  geom_raster(hjust = 0, vjust = 0)
 
 # Inspired by the image-density plots of Ken Knoblauch
 cars <- ggplot(mtcars, aes(mpg, factor(cyl)))
@@ -165,7 +167,17 @@ cars + geom_point()
 cars + stat_bin2d(aes(fill = after_stat(count)), binwidth = c(3,1))
 cars + stat_bin2d(aes(fill = after_stat(density)), binwidth = c(3,1))
 
-cars + stat_density(aes(fill = after_stat(density)), geom = "raster", position = "identity")
-cars + stat_density(aes(fill = after_stat(count)), geom = "raster", position = "identity")
+cars +
+  stat_density(
+    aes(fill = after_stat(density)),
+    geom = "raster",
+    position = "identity"
+   )
+cars +
+  stat_density(
+    aes(fill = after_stat(count)),
+    geom = "raster",
+    position = "identity"
+  )
 }
 }

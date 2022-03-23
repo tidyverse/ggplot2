@@ -1,5 +1,3 @@
-context("geom_rug")
-
 n = 10
 df <- data_frame(x = 1:n, y = (1:n)^3)
 p <- ggplot(df, aes(x, y)) + geom_point() + geom_rug(sides = 'l')

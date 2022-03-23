@@ -3,20 +3,21 @@
 
 # ggplot2 <img src="man/figures/logo.png" align="right" width="120" />
 
-[![Travis Build
-Status](https://travis-ci.org/tidyverse/ggplot2.svg?branch=master)](https://travis-ci.org/tidyverse/ggplot2)
-[![AppVeyor Build
-Status](https://ci.appveyor.com/api/projects/status/github/tidyverse/ggplot2?branch=master&svg=true)](https://ci.appveyor.com/project/tidyverse/ggplot2)
-[![Coverage
-Status](https://img.shields.io/codecov/c/github/tidyverse/ggplot2/master.svg)](https://codecov.io/github/tidyverse/ggplot2?branch=master)
-[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/ggplot2)](https://cran.r-project.org/package=ggplot2)
+<!-- badges: start -->
+
+[![R-CMD-check](https://github.com/tidyverse/ggplot2/workflows/R-CMD-check/badge.svg)](https://github.com/tidyverse/ggplot2/actions)
+[![Codecov test
+coverage](https://codecov.io/gh/tidyverse/ggplot2/branch/main/graph/badge.svg)](https://app.codecov.io/gh/tidyverse/ggplot2?branch=main)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/ggplot2)](https://cran.r-project.org/package=ggplot2)
+<!-- badges: end -->
 
 ## Overview
 
 ggplot2 is a system for declaratively creating graphics, based on [The
-Grammar of Graphics](https://amzn.to/2ef1eWp). You provide the data,
-tell ggplot2 how to map variables to aesthetics, what graphical
-primitives to use, and it takes care of the details.
+Grammar of
+Graphics](https://www.amazon.com/Grammar-Graphics-Statistics-Computing/dp/0387245448/ref=as_li_ss_tl).
+You provide the data, tell ggplot2 how to map variables to aesthetics,
+what graphical primitives to use, and it takes care of the details.
 
 ## Installation
 
@@ -34,7 +35,7 @@ devtools::install_github("tidyverse/ggplot2")
 
 ## Cheatsheet
 
-<a href="https://github.com/rstudio/cheatsheets/blob/master/data-visualization-2.1.pdf"><img src="https://raw.githubusercontent.com/rstudio/cheatsheets/master/pngs/thumbnails/data-visualization-cheatsheet-thumbs.png" width="630" height="252"/></a>
+<a href="https://github.com/rstudio/cheatsheets/blob/master/data-visualization.pdf"><img src="https://raw.githubusercontent.com/rstudio/cheatsheets/master/pngs/thumbnails/data-visualization-cheatsheet-thumbs.png" width="630" height="252"/></a>
 
 ## Usage
 
@@ -56,7 +57,7 @@ ggplot(mpg, aes(displ, hwy, colour = class)) +
 
 ## Lifecycle
 
-[![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
+[![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 
 ggplot2 is now over 10 years old and is used by hundreds of thousands of
 people to make millions of plots. That means, by-and-large, ggplot2
@@ -67,7 +68,7 @@ behaviour we will do them for compelling reasons.
 
 If you are looking for innovation, look to ggplot2’s rich ecosystem of
 extensions. See a community maintained list at
-<https://www.ggplot2-exts.org/gallery/>.
+<https://exts.ggplot2.tidyverse.org/gallery/>.
 
 ## Learning ggplot2
 
@@ -81,27 +82,29 @@ documentation pages. Currently, there are three good places to start:
     communication](https://r4ds.had.co.nz/graphics-for-communication.html)
     chapters in [R for Data Science](https://r4ds.had.co.nz). R for Data
     Science is designed to give you a comprehensive introduction to the
-    [tidyverse](https://tidyverse.org), and these two chapters will get
-    you up to speed with the essentials of ggplot2 as quickly as
+    [tidyverse](https://www.tidyverse.org), and these two chapters will
+    get you up to speed with the essentials of ggplot2 as quickly as
     possible.
 
 2.  If you’d like to take an online course, try [Data Visualization in R
-    With ggplot2](https://shop.oreilly.com/product/0636920052807.do) by
-    Kara Woo.
+    With
+    ggplot2](https://learning.oreilly.com/videos/data-visualization-in/9781491963661/)
+    by Kara Woo.
 
-3.  If you want to dive into making common graphics as quickly as
+3.  If you’d like to follow a webinar, try [Plotting Anything with
+    ggplot2](https://youtu.be/h29g21z0a68) by Thomas Lin Pedersen.
+
+4.  If you want to dive into making common graphics as quickly as
     possible, I recommend [The R Graphics
-    Cookbook](https://amzn.to/2TU78ip) by Winston Chang. It provides a
+    Cookbook](https://r-graphics.org) by Winston Chang. It provides a
     set of recipes to solve common graphics problems.
 
 If you’ve mastered the basics and want to learn more, read [ggplot2:
-Elegant Graphics for Data Analysis](https://amzn.to/2fncG50). It
+Elegant Graphics for Data Analysis](https://ggplot2-book.org). It
 describes the theoretical underpinnings of ggplot2 and shows you how all
 the pieces fit together. This book helps you understand the theory that
 underpins ggplot2, and will help you create new types of graphics
-specifically tailored to your needs. The book is not available for free,
-but you can find the complete source for the book at
-<https://github.com/hadley/ggplot2-book>.
+specifically tailored to your needs.
 
 ## Getting help
 

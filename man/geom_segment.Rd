@@ -69,7 +69,7 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 \code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
-\item{arrow}{specification for arrow heads, as created by arrow().}
+\item{arrow}{specification for arrow heads, as created by \code{\link[grid:arrow]{grid::arrow()}}.}
 
 \item{arrow.fill}{fill colour to use for the arrow head (if closed). \code{NULL}
 means use \code{colour} aesthetic.}
@@ -106,13 +106,13 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
     More control points creates a smoother curve.}
 }
 \description{
-\code{geom_segment} draws a straight line between points (x, y) and
-(xend, yend). \code{geom_curve} draws a curved line. See the underlying
-drawing function \code{\link[grid:curveGrob]{grid::curveGrob()}} for the parameters that
+\code{geom_segment()} draws a straight line between points (x, y) and
+(xend, yend). \code{geom_curve()} draws a curved line. See the underlying
+drawing function \code{\link[grid:grid.curve]{grid::curveGrob()}} for the parameters that
 control the curve.
 }
 \details{
-Both geoms draw a single segment/curve per case. See \code{geom_path} if you
+Both geoms draw a single segment/curve per case. See \code{geom_path()} if you
 need to connect points across multiple cases.
 }
 \section{Aesthetics}{
@@ -149,10 +149,12 @@ b + geom_curve(
   arrow = arrow(length = unit(0.03, "npc"))
 )
 
+if (requireNamespace('maps', quietly = TRUE)) {
 ggplot(seals, aes(long, lat)) +
   geom_segment(aes(xend = long + delta_long, yend = lat + delta_lat),
     arrow = arrow(length = unit(0.1,"cm"))) +
   borders("state")
+}
 
 # Use lineend and linejoin to change the style of the segments
 df2 <- expand.grid(

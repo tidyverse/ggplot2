@@ -5,20 +5,24 @@
 \alias{economics}
 \alias{economics_long}
 \title{US economic time series}
-\format{A data frame with 574 rows and 6 variables:
+\format{
+A data frame with 574 rows and 6 variables:
 \describe{
 \item{date}{Month of data collection}
 \item{pce}{personal consumption expenditures, in billions of dollars,
-\url{http://research.stlouisfed.org/fred2/series/PCE}}
+\url{https://fred.stlouisfed.org/series/PCE}}
 \item{pop}{total population, in thousands,
-\url{http://research.stlouisfed.org/fred2/series/POP}}
+\url{https://fred.stlouisfed.org/series/POP}}
 \item{psavert}{personal savings rate,
-\url{http://research.stlouisfed.org/fred2/series/PSAVERT/}}
+\url{https://fred.stlouisfed.org/series/PSAVERT/}}
 \item{uempmed}{median duration of unemployment, in weeks,
-\url{http://research.stlouisfed.org/fred2/series/UEMPMED}}
+\url{https://fred.stlouisfed.org/series/UEMPMED}}
 \item{unemploy}{number of unemployed in thousands,
-\url{http://research.stlouisfed.org/fred2/series/UNEMPLOY}}
-}}
+\url{https://fred.stlouisfed.org/series/UNEMPLOY}}
+}
+
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 2870 rows and 4 columns.
+}
 \usage{
 economics
 
@@ -26,7 +30,7 @@ economics_long
 }
 \description{
 This dataset was produced from US economic time series data available from
-\url{http://research.stlouisfed.org/fred2}. \code{economics} is in "wide"
+\url{https://fred.stlouisfed.org/}. \code{economics} is in "wide"
 format, \code{economics_long} is in "long" format.
 }
 \keyword{datasets}

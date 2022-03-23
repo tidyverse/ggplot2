@@ -17,7 +17,7 @@ NULL
 #' @param ymin,ymax y location (in data coordinates) giving vertical
 #'   location of raster
 #' @export
-#' @note `annotation_custom` expects the grob to fill the entire viewport
+#' @note `annotation_custom()` expects the grob to fill the entire viewport
 #' defined by xmin, xmax, ymin, ymax. Grobs with a different (absolute) size
 #' will be center-justified in that region.
 #' Inf values can be used to fill the full plot panel (see examples).

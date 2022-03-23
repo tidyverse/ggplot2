@@ -13,7 +13,6 @@ geom_bar(
   position = "stack",
   ...,
   width = NULL,
-  binwidth = NULL,
   na.rm = FALSE,
   orientation = NA,
   show.legend = NA,
@@ -74,10 +73,6 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 to the paired geom/stat.}
 
 \item{width}{Bar width. By default, set to 90\% of the resolution of the data.}
-
-\item{binwidth}{\code{geom_bar()} no longer has a binwidth argument---if
-you use it you'll get a warning telling to you use
-\code{\link[=geom_histogram]{geom_histogram()}} instead.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
@@ -223,8 +218,8 @@ ggplot(df, aes(x)) + geom_histogram(binwidth = 0.5)
 bar charts.
 
 \code{\link[=stat_bin]{stat_bin()}}, which bins data in ranges and counts the
-cases in each range. It differs from \code{stat_count}, which counts the
+cases in each range. It differs from \code{stat_count()}, which counts the
 number of cases at each \code{x} position (without binning into ranges).
 \code{\link[=stat_bin]{stat_bin()}} requires continuous \code{x} data, whereas
-\code{stat_count} can be used for both discrete and continuous \code{x} data.
+\code{stat_count()} can be used for both discrete and continuous \code{x} data.
 }

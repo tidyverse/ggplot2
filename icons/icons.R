@@ -135,7 +135,7 @@ write_icon("geom_bar", {
 
 write_icon("geom_bin2d", {
   n <- 5
-  x <- seq(0, 1, length = n + 1)[-(n + 1)]
+  x <- seq(0, 1, length.out = n + 1)[-(n + 1)]
   out <- expand.grid(x = x, y = x)
   fill <- sqrt((out$x - 0.5) ^ 2 + (out$y - 0.5) ^ 2)
 
@@ -239,7 +239,7 @@ write_icon("geom_contour", {
 })
 
 write_icon("geom_hex", {
-  theta <- seq(0, 2 * pi, length = 7)[-1]
+  theta <- seq(0, 2 * pi, length.out = 7)[-1]
   polygonGrob(
     0.5 + 0.4 * sin(theta),
     0.5 + 0.4 * cos(theta),
@@ -343,8 +343,8 @@ write_icon("geom_ribbon", {
 })
 
 write_icon("geom_spoke", {
-  theta <- seq(0, 2 * pi, length = 10)[-1]
-  r <- seq(0.1, 0.45, length = length(theta))
+  theta <- seq(0, 2 * pi, length.out = 10)[-1]
+  r <- seq(0.1, 0.45, length.out = length(theta))
   segmentsGrob(
     0.5, 0.5,
     0.5 + sin(theta) * r,
@@ -367,7 +367,7 @@ write_icon("geom_density", {
 
 
 write_icon("geom_rug", {
-  x <- seq(0.15, 0.95, length = 8)
+  x <- seq(0.15, 0.95, length.out = 8)
   gList(
     segmentsGrob(x, 0, x, 0 + 0.1, gp = gpar(lwd = 2)),
     segmentsGrob(0, x, 0 + 0.1, x, gp = gpar(lwd = 2))
