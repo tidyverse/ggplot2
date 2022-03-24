@@ -39,16 +39,16 @@ fortify.map <- function(model, data, ...) {
 
 #' Create a data frame of map data
 #'
-#' Easily turn data from the \pkg{maps} package in to a data frame suitable
+#' Easily turn data from the \pkg{maps} package into a data frame suitable
 #' for plotting with ggplot2.
 #'
-#' @param map name of map provided by the \pkg{maps} package.  These
+#' @param map name of map provided by the \pkg{maps} package. These
 #'   include [maps::county()], [maps::france()],
 #'   [maps::italy()], [maps::nz()],
 #'   [maps::state()], [maps::usa()],
 #'   [maps::world()], [maps::world2()].
-#' @param region name of subregions to include.  Defaults to `.` which
-#'   includes all subregion.  See documentation for [maps::map()]
+#' @param region name(s) of subregion(s) to include. Defaults to `.` which
+#'   includes all subregions. See documentation for [maps::map()]
 #'   for more details.
 #' @param exact should the `region` be treated as a regular expression
 #'   (`FALSE`) or as a fixed string (`TRUE`).
@@ -66,24 +66,24 @@ fortify.map <- function(model, data, ...) {
 #' choro <- choro[order(choro$order), ]
 #' ggplot(choro, aes(long, lat)) +
 #'   geom_polygon(aes(group = group, fill = assault)) +
-#'   coord_map("albers",  at0 = 45.5, lat1 = 29.5)
+#'   coord_map("albers",  lat0 = 45.5, lat1 = 29.5)
 #' }
 #'
 #' if (require("maps")) {
 #' ggplot(choro, aes(long, lat)) +
 #'   geom_polygon(aes(group = group, fill = assault / murder)) +
-#'   coord_map("albers",  at0 = 45.5, lat1 = 29.5)
+#'   coord_map("albers",  lat0 = 45.5, lat1 = 29.5)
 #' }
 map_data <- function(map, region = ".", exact = FALSE, ...) {
-  try_require("maps", "map_data")
+  check_installed("maps", reason = "for `map_data()`")
   map_obj <- maps::map(map, region, exact = exact, plot = FALSE, fill = TRUE, ...)
   fortify(map_obj)
 }
 
 #' Create a layer of map borders
 #'
-#' This is a quick and dirty way to get map data (from the maps package)
-#' on to your plot. This is a good place to start if you need some crude
+#' This is a quick and dirty way to get map data (from the \pkg{maps} package)
+#' onto your plot. This is a good place to start if you need some crude
 #' reference lines, but you'll typically want something more sophisticated
 #' for communication graphics.
 #'

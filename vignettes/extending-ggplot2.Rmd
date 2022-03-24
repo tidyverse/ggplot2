@@ -1,6 +1,8 @@
 ---
 title: "Extending ggplot2"
 output: rmarkdown::html_vignette
+description: |
+  Official extension mechanism provided in ggplot2.
 vignette: >
   %\VignetteIndexEntry{Extending ggplot2}
   %\VignetteEngine{knitr::rmarkdown}
@@ -326,7 +328,7 @@ ggplot(mpg, aes(displ, drv, fill = stat(density))) +
 
 ## Creating a new geom
 
-It's harder to create a new geom than a new stat because you also need to know some grid. ggplot2 is built on top of grid, so you'll need to know the basics of drawing with grid. If you're serious about adding a new geom, I'd recommend buying [R graphics](http://amzn.com/B00I60M26G) by Paul Murrell. It tells you everything you need to know about drawing with grid.
+It's harder to create a new geom than a new stat because you also need to know some grid. ggplot2 is built on top of grid, so you'll need to know the basics of drawing with grid. If you're serious about adding a new geom, I'd recommend buying [R graphics](https://www.amazon.com/dp/B00I60M26G/ref=cm_sw_su_dp) by Paul Murrell. It tells you everything you need to know about drawing with grid.
 
 ### A simple geom
 

@@ -105,5 +105,5 @@ ggplot(faithful, aes(waiting, eruptions, fill = eruptions > 3)) +
 \references{
 John Fox and Sanford Weisberg (2011). An \R Companion to
 Applied Regression, Second Edition. Thousand Oaks CA: Sage. URL:
-\url{http://socserv.socsci.mcmaster.ca/jfox/Books/Companion}
+\url{https://socialsciences.mcmaster.ca/jfox/Books/Companion/}
 }

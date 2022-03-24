@@ -33,6 +33,7 @@
 #'   \item{density}{density of points in bin, scaled to integrate to 1}
 #'   \item{ncount}{count, scaled to maximum of 1}
 #'   \item{ndensity}{density, scaled to maximum of 1}
+#'   \item{width}{widths of bins}
 #' }
 #'
 #' @seealso [stat_count()], which counts the number of cases at each x
@@ -102,21 +103,21 @@ StatBin <- ggproto("StatBin", Stat,
     }
 
     if (!is.null(params$drop)) {
-      warn("`drop` is deprecated. Please use `pad` instead.")
+      lifecycle::deprecate_warn("2.1.0", "stat_bin(drop)", "stat_bin(pad)")
       params$drop <- NULL
     }
     if (!is.null(params$origin)) {
-      warn("`origin` is deprecated. Please use `boundary` instead.")
+      lifecycle::deprecate_warn("2.1.0", "stat_bin(origin)", "stat_bin(boundary)")
       params$boundary <- params$origin
       params$origin <- NULL
     }
     if (!is.null(params$right)) {
-      warn("`right` is deprecated. Please use `closed` instead.")
+      lifecycle::deprecate_warn("2.1.0", "stat_bin(right)", "stat_bin(closed)")
       params$closed <- if (params$right) "right" else "left"
       params$right <- NULL
     }
     if (!is.null(params$width)) {
-      abort("`width` is deprecated. Do you want `geom_bar()`?")
+      lifecycle::deprecate_warn("2.1.0", "stat_bin(width)", "geom_bar()")
     }
     if (!is.null(params$boundary) && !is.null(params$center)) {
       abort("Only one of `boundary` and `center` may be specified.")

@@ -1,5 +1,3 @@
-context("Facet Strips")
-
 strip_layout <- function(p) {
   data <- ggplot_build(p)
   plot <- data$plot
@@ -131,6 +129,32 @@ test_that("strips can be removed", {
   g_grobs <- ggplotGrob(g)
   strip_grobs <- g_grobs$grobs[grepl('strip-', g_grobs$layout$name)]
   expect_true(all(sapply(strip_grobs, inherits, 'zeroGrob')))
+})
+
+test_that("strips can be removed", {
+  dat <- data_frame(a = rep(LETTERS[1:10], 10), x = rnorm(100), y = rnorm(100))
+  g <- ggplot(dat, aes(x = x, y = y)) +
+    geom_point() +
+    facet_wrap(~a) +
+    theme(strip.background = element_blank(), strip.text = element_blank())
+  g_grobs <- ggplotGrob(g)
+  strip_grobs <- g_grobs$grobs[grepl('strip-', g_grobs$layout$name)]
+  expect_true(all(sapply(strip_grobs, inherits, 'zeroGrob')))
+})
+
+test_that("padding is only added if axis is present", {
+  p <- ggplot(data = mpg, aes(x = displ, y = hwy)) +
+    facet_grid(. ~ drv) +
+    theme(
+      strip.placement = "outside",
+      strip.switch.pad.grid = unit(10, "mm")
+    )
+  pg <- ggplotGrob(p)
+  expect_equal(length(pg$heights), 13)
+
+  pg <- ggplotGrob(p + scale_x_continuous(position = "top"))
+  expect_equal(length(pg$heights), 14)
+  expect_equal(as.character(pg$heights[7]), "1cm")
 })
 
 test_that("y strip labels are rotated when strips are switched", {

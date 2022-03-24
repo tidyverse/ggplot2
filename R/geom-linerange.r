@@ -93,7 +93,7 @@ geom_linerange <- function(mapping = NULL, data = NULL,
 GeomLinerange <- ggproto("GeomLinerange", Geom,
   default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
 
-  draw_key = draw_key_vpath,
+  draw_key = draw_key_linerange,
 
   required_aes = c("x|y", "ymin|xmin", "ymax|xmax"),
 
@@ -113,10 +113,10 @@ GeomLinerange <- ggproto("GeomLinerange", Geom,
     data
   },
 
-  draw_panel = function(data, panel_params, coord, flipped_aes = FALSE) {
+  draw_panel = function(data, panel_params, coord, lineend = "butt", flipped_aes = FALSE) {
     data <- flip_data(data, flipped_aes)
     data <- transform(data, xend = x, y = ymin, yend = ymax)
     data <- flip_data(data, flipped_aes)
-    ggname("geom_linerange", GeomSegment$draw_panel(data, panel_params, coord))
+    ggname("geom_linerange", GeomSegment$draw_panel(data, panel_params, coord, lineend = lineend))
   }
 )

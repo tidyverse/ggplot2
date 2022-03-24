@@ -1,6 +1,4 @@
 # Test the complete path from plot specification to rendered data
-context("Plot building")
-
 df <- data_frame(x = 1:3, y = 3:1, z = letters[1:3])
 
 test_that("there is one data frame for each layer", {
@@ -19,8 +17,8 @@ test_that("position aesthetics are coerced to correct type", {
   l1 <- ggplot(df, aes(x, y)) + geom_point()
   d1 <- layer_data(l1, 1)
 
-  expect_is(d1$x, "numeric")
-  expect_is(d1$y, "numeric")
+  expect_type(d1$x, "double")
+  expect_type(d1$y, "double")
 
   l2 <- ggplot(df, aes(x, z)) + geom_point() + scale_x_discrete()
   d2 <- layer_data(l2, 1)
@@ -52,5 +50,5 @@ test_that("strings are not converted to factors", {
   p <- ggplot(df, aes(x, y)) +
     geom_text(aes(label = label), parse = TRUE)
 
-  expect_is(layer_data(p)$label, "character")
+  expect_type(layer_data(p)$label, "character")
 })

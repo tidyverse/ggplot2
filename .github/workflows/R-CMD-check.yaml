@@ -1,16 +1,16 @@
+# Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
+# Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
+#
+# NOTE: This workflow is overkill for most R packages and
+# check-standard.yaml is likely a better choice.
+# usethis::use_github_action("check-standard") will install it.
 on:
   push:
-    branches:
-      - master
+    branches: [main, master]
   pull_request:
-    branches:
-      - master
+    branches: [main, master]
 
 name: R-CMD-check
-
-# Increment this version when we want to clear cache
-env:
-  cache-version: v3
 
 jobs:
   R-CMD-check:
@@ -22,94 +22,53 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: windows-latest, r: '4.0',   vdiffr: true,  xref: true}
-          - {os: macOS-latest,   r: '4.0',   vdiffr: true,  xref: true}
-          - {os: macOS-latest,   r: 'devel', vdiffr: false, xref: true}
-          - {os: ubuntu-16.04,   r: '4.0',   vdiffr: true,  xref: true,  cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
-          - {os: ubuntu-16.04,   r: '3.6',   vdiffr: false, xref: true,  cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
-          - {os: ubuntu-16.04,   r: '3.5',   vdiffr: false, xref: true,  cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
-          - {os: ubuntu-16.04,   r: '3.4',   vdiffr: false, xref: true,  cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
-          - {os: ubuntu-16.04,   r: '3.3',   vdiffr: false, xref: true,  cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
-          - {os: ubuntu-16.04,   r: '3.2',   vdiffr: false, xref: false, cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
+          - {os: macOS-latest,   r: 'release'}
+
+          - {os: windows-latest, r: 'release'}
+          # Use 3.6 to trigger usage of RTools35
+          - {os: windows-latest, r: '3.6'}
+
+          # Use latest ubuntu to make it easier to install sf dependencies
+          - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
+          - {os: ubuntu-latest,   r: 'release'}
+          - {os: ubuntu-latest,   r: 'oldrel-1'}
+          - {os: ubuntu-latest,   r: 'oldrel-2'}
+          - {os: ubuntu-latest,   r: 'oldrel-3'}
+          - {os: ubuntu-latest,   r: 'oldrel-4'}
 
     env:
-      R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
-      CRAN: ${{ matrix.config.cran }}
-      # don't treat missing suggested packages as error
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      R_KEEP_PKG_SOURCE: yes
       _R_CHECK_FORCE_SUGGESTS_: false
       # Some packages might unavailable on the older versions, so let's ignore xref warnings
-      _R_CHECK_RD_XREFS_: ${{ matrix.config.xref }}
+      _R_CHECK_RD_XREFS_: false
       # Runs vdiffr test only on the latest version of R
-      VDIFFR_RUN_TESTS: ${{ matrix.config.vdiffr }}
+      VDIFFR_RUN_TESTS: ${{ matrix.config.r == 'release' }}
       VDIFFR_LOG_PATH: "../vdiffr.Rout.fail"
 
     steps:
       - uses: actions/checkout@v2
 
-      - uses: r-lib/actions/setup-r@master
+      - uses: r-lib/actions/setup-pandoc@v2
+
+      - uses: r-lib/actions/setup-r@v2
         with:
           r-version: ${{ matrix.config.r }}
+          http-user-agent: ${{ matrix.config.http-user-agent }}
+          use-public-rspm: true
 
-      - uses: r-lib/actions/setup-pandoc@master
-
-      - name: Query dependencies
-        run: |
-          install.packages('remotes')
-          saveRDS(remotes::dev_package_deps(dependencies = TRUE), "depends.Rds", version = 2)
-        shell: Rscript {0}
-
-      - name: Cache R packages
-        if: runner.os != 'Windows'
-        uses: actions/cache@v1
+      - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          path: ${{ env.R_LIBS_USER }}
-          key: ${{ env.cache-version }}-${{ runner.os }}-r-${{ matrix.config.r }}-${{ hashFiles('depends.Rds') }}
-          restore-keys: ${{ env.cache-version }}-${{ runner.os }}-r-${{ matrix.config.r }}-
+          extra-packages: >
+            any::rcmdcheck,
+            maps=?ignore-before-r=3.5.0,
+            Hmisc=?ignore-before-r=3.6.0,
+            mapproj=?ignore-before-r=3.5.0,
+            multcomp=?ignore-before-r=3.5.0,
+            quantreg=?ignore-before-r=3.5.0,
+            interp=?ignore-before-r=3.5.0
+          needs: check
 
-      - name: Install system dependencies on Linux
-        if: runner.os == 'Linux'
-        env:
-          RHUB_PLATFORM: linux-x86_64-ubuntu-gcc
-        run: |
-          # Use cran:libgit2 PPA to avoid conflicts of libcurl4-gnutls-dev
-          # Remove this after https://github.com/r-lib/actions/pull/97 gets merged
-          sudo add-apt-repository ppa:cran/libgit2
-
-          Rscript -e "remotes::install_github('r-hub/sysreqs')"
-          sysreqs=$(Rscript -e "cat(sysreqs::sysreq_commands('DESCRIPTION'))")
-          sudo -s eval "$sysreqs"
-
-      - name: Install system dependencies on macOS
-        if: runner.os == 'macOS'
-        run: |
-          # XQuartz is needed by vdiffr
-          brew cask install xquartz
-
-          # To install vdiffr, these three libraries/tools are needed in addition to XQuartz
-          # - freetype (already installed, needed by systemfonts)
-          # - cairo (not installed, needed by gdtools)
-          # - pkg-config (not installed, needed to set proper build settings)
-          brew install pkg-config cairo
-
-          # Since sf dependencies are a bit heavy, install them only when they are needed
-          SF_NEEDS_UPDATED=$(Rscript -e 'if (!"sf" %in% installed.packages()[,"Package"] || "sf" %in% old.packages()[,"Package"]) cat("yes")')
-          if [ "${SF_NEEDS_UPDATED}" == "yes" ]; then
-            brew install udunits gdal
-          fi
-
-      - name: Install dependencies
-        run: |
-          remotes::install_deps(dependencies = TRUE)
-          remotes::install_cran("rcmdcheck")
-        shell: Rscript {0}
-
-      - name: Check
-        run: rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "warning", check_dir = "check")
-        shell: Rscript {0}
-
-      - name: Upload check results
-        if: failure()
-        uses: actions/upload-artifact@master
+      - uses: r-lib/actions/check-r-package@v2
         with:
-          name: ${{ runner.os }}-r${{ matrix.config.r }}-results
-          path: check
+          upload-snapshots: true

@@ -25,7 +25,7 @@ mpg
 }
 \description{
 This dataset contains a subset of the fuel economy data that the EPA makes
-available on \url{http://fueleconomy.gov}. It contains only models which
+available on \url{https://fueleconomy.gov/}. It contains only models which
 had a new release every year between 1999 and 2008 - this was used as a
 proxy for the popularity of the car.
 }

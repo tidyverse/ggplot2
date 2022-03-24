@@ -49,7 +49,7 @@ StatBinhex <- ggproto("StatBinhex", Stat,
 
   compute_group = function(data, scales, binwidth = NULL, bins = 30,
                            na.rm = FALSE) {
-    try_require("hexbin", "stat_binhex")
+    check_installed("hexbin", reason = "for `stat_binhex()`")
 
     binwidth <- binwidth %||% hex_binwidth(bins, scales)
     wt <- data$weight %||% rep(1L, nrow(data))

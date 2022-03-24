@@ -76,10 +76,15 @@ tuning parameters and handles both continuous and categorical variables.
 The downside is that it requires more training to accurately interpret,
 and the underlying visual tasks are somewhat more challenging.
 }
+\details{
+The statistic relies on the aesthetics assignment to guess which variable to
+use as the input and which to use as the output. Either x or y must be provided
+and one of them must be unused. The ECDF will be calculated on the given aesthetic
+and will be output on the unused one.
+}
 \section{Computed variables}{
 
 \describe{
-\item{x}{x in data}
 \item{y}{cumulative density corresponding x}
 }
 }

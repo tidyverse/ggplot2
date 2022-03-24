@@ -9,7 +9,7 @@ StatBindot <- ggproto("StatBindot", Stat,
 
   setup_params = function(data, params) {
     if (is.null(params$binwidth)) {
-      message("`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.")
+      message("Bin width defaults to 1/30 of the range of the data. Pick better value with `binwidth`.")
     }
     params
   },
