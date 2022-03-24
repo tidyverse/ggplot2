@@ -166,12 +166,18 @@ test_that("y strip labels are rotated when strips are switched", {
 test_that("strip clipping can be set from the theme", {
   labels <- data_frame(var1 = "a")
 
-  strip <- render_strips(labels, labeller = label_value,
-                         theme = theme_test() + theme(strip.clip = "on"))
+  strip <- render_strips(
+    labels,
+    labeller = label_value,
+    theme = theme_test() + theme(strip.clip = "on")
+  )
   expect_equal(strip$x$top[[1]]$layout$clip, "on")
 
-  strip <- render_strips(labels, labeller = label_value,
-                         theme = theme_test() + theme(strip.clip = "off"))
+  strip <- render_strips(
+    labels,
+    labeller = label_value,
+    theme = theme_test() + theme(strip.clip = "off")
+  )
   expect_equal(strip$x$top[[1]]$layout$clip, "off")
 })
 
