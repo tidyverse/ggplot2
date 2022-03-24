@@ -264,7 +264,7 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
   },
 
 
-  draw_group = function(data, panel_params, coord, na.rm = FALSE,
+  draw_group = function(data, panel_params, coord, lineend = "butt", na.rm = FALSE,
                         binaxis = "x", stackdir = "up", stackratio = 1,
                         dotsize = 1, stackgroups = FALSE) {
     if (!coord$is_linear()) {
@@ -288,11 +288,12 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
 
     ggname("geom_dotplot",
       dotstackGrob(stackaxis = stackaxis, x = tdata$x, y = tdata$y, dotdia = dotdianpc,
-                  stackposition = tdata$stackpos, stackratio = stackratio,
+                  stackposition = tdata$stackpos, stackdir = stackdir, stackratio = stackratio,
                   default.units = "npc",
                   gp = gpar(col = alpha(tdata$colour, tdata$alpha),
                             fill = alpha(tdata$fill, tdata$alpha),
-                            lwd = tdata$stroke, lty = tdata$linetype))
+                            lwd = tdata$stroke, lty = tdata$linetype,
+                            lineend = lineend))
     )
   },
 

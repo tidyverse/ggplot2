@@ -120,7 +120,7 @@ GeomViolin <- ggproto("GeomViolin", Geom,
     params
   },
 
-  extra_params = c("na.rm", "orientation"),
+  extra_params = c("na.rm", "orientation", "lineend", "linejoin", "linemitre"),
 
   setup_data = function(data, params) {
     data$flipped_aes <- params$flipped_aes
@@ -197,7 +197,7 @@ GeomViolin <- ggproto("GeomViolin", Geom,
 # Returns a data.frame with info needed to draw quantile segments.
 create_quantile_segment_frame <- function(data, draw_quantiles) {
   dens <- cumsum(data$density) / sum(data$density)
-  ecdf <- stats::approxfun(dens, data$y)
+  ecdf <- stats::approxfun(dens, data$y, ties = "ordered")
   ys <- ecdf(draw_quantiles) # these are all the y-values for quantiles
 
   # Get the violin bounds for the requested quantiles.

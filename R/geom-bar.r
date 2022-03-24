@@ -137,8 +137,15 @@ GeomBar <- ggproto("GeomBar", GeomRect,
     flip_data(data, params$flipped_aes)
   },
 
-  draw_panel = function(self, data, panel_params, coord, width = NULL, flipped_aes = FALSE) {
+  draw_panel = function(self, data, panel_params, coord, lineend = "butt",
+                        linejoin = "mitre", width = NULL, flipped_aes = FALSE) {
     # Hack to ensure that width is detected as a parameter
-    ggproto_parent(GeomRect, self)$draw_panel(data, panel_params, coord)
+    ggproto_parent(GeomRect, self)$draw_panel(
+      data,
+      panel_params,
+      coord,
+      lineend = lineend,
+      linejoin = linejoin
+    )
   }
 )

@@ -656,7 +656,7 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
                      crs = NULL, default_crs = NULL,
                      datum = sf::st_crs(4326),
                      label_graticule = waiver(),
-                     label_axes = waiver(), lims_method = c("cross", "box", "orthogonal", "geometry_bbox"),
+                     label_axes = waiver(), lims_method = "cross",
                      ndiscr = 100, default = FALSE, clip = "on") {
 
   if (is.waive(label_graticule) && is.waive(label_axes)) {
@@ -688,7 +688,7 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
   if (is.null(default_crs) && is_missing(lims_method)) {
     lims_method <- "orthogonal"
   } else {
-    lims_method <- match.arg(lims_method)
+    lims_method <- arg_match0(lims_method, c("cross", "box", "orthogonal", "geometry_bbox"))
   }
 
   ggproto(NULL, CoordSf,

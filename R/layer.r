@@ -77,7 +77,7 @@ layer <- function(geom = NULL, stat = NULL,
 
   # Handle show_guide/show.legend
   if (!is.null(params$show_guide)) {
-    warn("`show_guide` has been deprecated. Please use `show.legend` instead.")
+    lifecycle::deprecate_warn("2.0.0", "layer(show_guide)", "layer(show.legend)")
     show.legend <- params$show_guide
     params$show_guide <- NULL
   }
@@ -264,7 +264,8 @@ Layer <- ggproto("Layer", NULL,
       if (length(evaled) == 0) {
         n <- 0
       } else {
-        n <- max(vapply(evaled, length, integer(1)))
+        aes_n <- vapply(evaled, length, integer(1))
+        n <- if (min(aes_n) == 0) 0L else max(aes_n)
       }
     }
     check_aesthetics(evaled, n)

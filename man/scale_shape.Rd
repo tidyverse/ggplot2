@@ -59,6 +59,7 @@ omitted.}
 \item \code{waiver()} for the default labels computed by the
 transformation object
 \item A character vector giving labels (must be same length as \code{breaks})
+\item An expression vector (must be the same length as breaks). See ?plotmath for details.
 \item A function that takes the breaks as input and returns labels
 as output. Also accepts rlang \link[rlang:as_function]{lambda} function
 notation.
@@ -80,6 +81,7 @@ a continuous variable to shape unless \code{scale_shape_binned()} is used. Still
 as shape has no inherent order, this use is not advised.
 }
 \examples{
+set.seed(596)
 dsmall <- diamonds[sample(nrow(diamonds), 100), ]
 
 (d <- ggplot(dsmall, aes(carat, price)) + geom_point(aes(shape = cut)))

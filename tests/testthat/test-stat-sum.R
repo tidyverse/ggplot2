@@ -1,5 +1,3 @@
-context("stat_sum")
-
 test_that("handles grouping correctly", {
   d <- diamonds[1:1000, ]
   all_ones <- function(x) all.equal(mean(x), 1)

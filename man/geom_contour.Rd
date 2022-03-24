@@ -98,13 +98,20 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 \code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
-\item{bins}{Number of contour bins. Overridden by \code{binwidth}.}
+\item{bins}{Number of contour bins. Overridden by \code{breaks}.}
 
-\item{binwidth}{The width of the contour bins. Overridden by \code{breaks}.}
+\item{binwidth}{The width of the contour bins. Overridden by \code{bins}.}
 
-\item{breaks}{Numeric vector to set the contour breaks. Overrides \code{binwidth}
-and \code{bins}. By default, this is a vector of length ten with \code{\link[=pretty]{pretty()}}
-breaks.}
+\item{breaks}{One of:
+\itemize{
+\item Numeric vector to set the contour breaks
+\item A function that takes the range of the data and binwidth as input
+and returns breaks as output. A function can be created from a formula
+(e.g. ~ fullseq(.x, .y)).
+}
+
+Overrides \code{binwidth} and \code{bins}. By default, this is a vector of length
+ten with \code{\link[=pretty]{pretty()}} breaks.}
 
 \item{lineend}{Line end style (round, butt, square).}
 

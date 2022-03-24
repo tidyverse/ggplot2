@@ -1,5 +1,3 @@
-context("rlang conditions")
-
 get_n_stop <- function(f) {
   d <- getParseData(parse(f, keep.source = TRUE))
   sum(d$token == "SYMBOL_FUNCTION_CALL" & d$text == "stop")
