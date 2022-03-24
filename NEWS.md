@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `theme()` now has a `strip.clip` argument, that can be set to `"off"` to 
+  prevent the clipping of strip text and background borders (@teunbrand, #4118)
+
 * `geom_violin()` no longer issues "collapsing to unique 'x' values" warning
   (@bersbersbers, #4455)
 
