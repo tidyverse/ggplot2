@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* `...` supports `rlang::list2` dynamic dots in all public functions. (@mone27, #4764) 
+
 * `geom_violin()` no longer issues "collapsing to unique 'x' values" warning
   (@bersbersbers, #4455)
 
