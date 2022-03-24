@@ -1,5 +1,3 @@
-context("geom_dotplot")
-
 skip_on_cran() # This test suite is long-running (on cran) and is skipped
 
 set.seed(111)
@@ -181,7 +179,7 @@ test_that("geom_dotplot draws correctly", {
 
   # border width and size
   expect_doppelganger(
-    "variable linetype and size work when specified as aesthetics",
+    "variable linetype and size specified as aesthetics",
     ggplot(
       dat,
       aes(
@@ -195,13 +193,13 @@ test_that("geom_dotplot draws correctly", {
   )
 
   # Stacking groups
-  expect_doppelganger("stackgroups with 3 groups, dot-density with aligned bins",
+  expect_doppelganger("3 stackgroups, dot-density with aligned bins",
     ggplot(dat2, aes(y, fill = x)) + geom_dotplot(binwidth = .25, stackgroups = TRUE, binpositions = "all", alpha = 0.5)
   )
-  expect_doppelganger("stackgroups with 3 groups, histodot",
+  expect_doppelganger("3 stackgroups, histodot",
     ggplot(dat2, aes(y, fill = x)) + geom_dotplot(binwidth = .25, stackgroups = TRUE, method = "histodot", alpha = 0.5)
   )
-  expect_doppelganger("stackgroups with 3 groups, bin y, histodot",
+  expect_doppelganger("3 stackgroups, bin y, histodot",
     ggplot(dat2, aes(1, y, fill = x)) + geom_dotplot(binaxis = "y", binwidth = .25, stackgroups = TRUE, method = "histodot", alpha = 0.5)
   )
 
@@ -227,4 +225,17 @@ test_that("geom_dotplot draws correctly", {
   expect_warning(expect_doppelganger("2 NA values, bin along y, stack center",
     ggplot(dat2, aes(0, x)) + geom_dotplot(binwidth = .4, binaxis = "y", stackdir = "center")
   ))
+})
+
+test_that("stackratio != 1 works", {
+  df <- data.frame(x = c(rep(1, 3), rep(2, 2)))
+
+  expect_doppelganger("stackratio = 1.5",
+    ggplot(df) +
+      geom_hline(yintercept = 0) +
+      geom_dotplot(aes(x), binwidth = 0.5, stackdir = "down", stackratio = 1.5, fill = NA) +
+      geom_dotplot(aes(x + 3), binwidth = 0.5, stackdir = "up", stackratio = 1.5, fill = NA) +
+      geom_dotplot(aes(x + 6), binwidth = 0.5, stackdir = "center", stackratio = 1.5, fill = NA) +
+      geom_dotplot(aes(x + 9), binwidth = 0.5, stackdir = "centerwhole", stackratio = 1.5, fill = NA)
+  )
 })

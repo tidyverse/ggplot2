@@ -7,14 +7,14 @@
 map_data(map, region = ".", exact = FALSE, ...)
 }
 \arguments{
-\item{map}{name of map provided by the \pkg{maps} package.  These
+\item{map}{name of map provided by the \pkg{maps} package. These
 include \code{\link[maps:county]{maps::county()}}, \code{\link[maps:france]{maps::france()}},
 \code{\link[maps:italy]{maps::italy()}}, \code{\link[maps:nz]{maps::nz()}},
 \code{\link[maps:state]{maps::state()}}, \code{\link[maps:usa]{maps::usa()}},
 \code{\link[maps:world]{maps::world()}}, \code{\link[maps:world2]{maps::world2()}}.}
 
-\item{region}{name of subregions to include.  Defaults to \code{.} which
-includes all subregion.  See documentation for \code{\link[maps:map]{maps::map()}}
+\item{region}{name(s) of subregion(s) to include. Defaults to \code{.} which
+includes all subregions. See documentation for \code{\link[maps:map]{maps::map()}}
 for more details.}
 
 \item{exact}{should the \code{region} be treated as a regular expression
@@ -23,7 +23,7 @@ for more details.}
 \item{...}{all other arguments passed on to \code{\link[maps:map]{maps::map()}}}
 }
 \description{
-Easily turn data from the \pkg{maps} package in to a data frame suitable
+Easily turn data from the \pkg{maps} package into a data frame suitable
 for plotting with ggplot2.
 }
 \examples{

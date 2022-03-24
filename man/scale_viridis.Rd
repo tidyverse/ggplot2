@@ -93,7 +93,7 @@ scale_fill_viridis_b(
 }
 \arguments{
 \item{...}{Other arguments passed on to \code{\link[=discrete_scale]{discrete_scale()}},
-\code{\link[=continuous_scale]{continuous_scale()}}, or \link{binned_scale} to control name, limits, breaks,
+\code{\link[=continuous_scale]{continuous_scale()}}, or \code{\link[=binned_scale]{binned_scale()}} to control name, limits, breaks,
 labels and so forth.}
 
 \item{alpha}{The alpha transparency, a number in [0,1], see argument alpha in
@@ -136,6 +136,7 @@ with common forms of colour blindness. See also
 }
 \examples{
 # viridis is the default colour/fill scale for ordered factors
+set.seed(596)
 dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
 ggplot(dsamp, aes(carat, price)) +
   geom_point(aes(colour = clarity))

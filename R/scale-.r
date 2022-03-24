@@ -36,6 +36,7 @@
 #'   - `waiver()` for the default labels computed by the
 #'     transformation object
 #'   - A character vector giving labels (must be same length as `breaks`)
+#'   - An expression vector (must be the same length as breaks). See ?plotmath for details.
 #'   - A function that takes the breaks as input and returns labels
 #'     as output. Also accepts rlang [lambda][rlang::as_function()] function
 #'     notation.
@@ -98,7 +99,7 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 
   check_breaks_labels(breaks, labels)
 
-  position <- match.arg(position, c("left", "right", "top", "bottom"))
+  position <- arg_match0(position, c("left", "right", "top", "bottom"))
 
   # If the scale is non-positional, break = NULL means removing the guide
   if (is.null(breaks) && all(!is_position_aes(aesthetics))) {
@@ -199,7 +200,7 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
     )
   }
 
-  position <- match.arg(position, c("left", "right", "top", "bottom"))
+  position <- arg_match0(position, c("left", "right", "top", "bottom"))
 
   # If the scale is non-positional, break = NULL means removing the guide
   if (is.null(breaks) && all(!is_position_aes(aesthetics))) {
@@ -254,7 +255,7 @@ binned_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 
   check_breaks_labels(breaks, labels)
 
-  position <- match.arg(position, c("left", "right", "top", "bottom"))
+  position <- arg_match0(position, c("left", "right", "top", "bottom"))
 
   if (is.null(breaks) && !is_position_aes(aesthetics) && guide != "none") {
     guide <- "none"
@@ -1082,11 +1083,12 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
             new_limits[1] <- breaks[1]
             breaks <- breaks[-1]
           }
-          limits <- new_limits
         } else {
           bin_size <- max(breaks[1] - limits[1], limits[2] - breaks[1])
-          limits <- c(breaks[1] - bin_size, breaks[1] + bin_size)
+          new_limits <- c(breaks[1] - bin_size, breaks[1] + bin_size)
         }
+        new_limits_trans <- suppressWarnings(self$trans$transform(new_limits))
+        limits[is.finite(new_limits_trans)] <- new_limits[is.finite(new_limits_trans)]
         self$limits <- self$trans$transform(limits)
       }
     } else if (is.function(self$breaks)) {

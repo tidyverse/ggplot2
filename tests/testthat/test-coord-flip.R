@@ -1,5 +1,3 @@
-context("test-coord-flip.r")
-
 test_that("secondary labels are correctly turned off", {
   # Using a visual test because the labels are only generated during rendering
   expect_doppelganger("turning off secondary title with coord_flip",

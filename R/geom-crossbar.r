@@ -47,7 +47,9 @@ GeomCrossbar <- ggproto("GeomCrossbar", Geom,
 
   draw_key = draw_key_crossbar,
 
-  draw_panel = function(data, panel_params, coord, fatten = 2.5, width = NULL, flipped_aes = FALSE) {
+  draw_panel = function(data, panel_params, coord, lineend = "butt",
+                        linejoin = "mitre", fatten = 2.5, width = NULL,
+                        flipped_aes = FALSE) {
     data <- flip_data(data, flipped_aes)
 
     middle <- transform(data, x = xmin, xend = xmax, yend = y, size = size * fatten, alpha = NA)
@@ -99,8 +101,8 @@ GeomCrossbar <- ggproto("GeomCrossbar", Geom,
     middle <- flip_data(middle, flipped_aes)
 
     ggname("geom_crossbar", gTree(children = gList(
-      GeomPolygon$draw_panel(box, panel_params, coord),
-      GeomSegment$draw_panel(middle, panel_params, coord)
+      GeomPolygon$draw_panel(box, panel_params, coord, lineend = lineend, linejoin = linejoin),
+      GeomSegment$draw_panel(middle, panel_params, coord, lineend = lineend, linejoin = linejoin)
     )))
   }
 )

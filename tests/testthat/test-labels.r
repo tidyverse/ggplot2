@@ -1,5 +1,3 @@
-context("Labels")
-
 test_that("setting guide labels works", {
 
     expect_identical(xlab("my label")$x, "my label")
@@ -27,16 +25,16 @@ test_that("setting guide labels works", {
     expect_identical(labs(color = "my label")$colour, "my label")
 
     # No extra elements exists
-    expect_equivalent(labs(title = "my title"), list(title = "my title"))     # formal argument
-    expect_equivalent(labs(colour = "my label"), list(colour = "my label"))   # dot
-    expect_equivalent(labs(foo = "bar"), list(foo = "bar"))                   # non-existent param
+    expect_equal(labs(title = "my title"),  list(title = "my title"),  ignore_attr = TRUE)   # formal argument
+    expect_equal(labs(colour = "my label"), list(colour = "my label"), ignore_attr = TRUE)   # dot
+    expect_equal(labs(foo = "bar"),         list(foo = "bar"),         ignore_attr = TRUE)   # non-existent param
 
     # labs() has list-splicing semantics
     params <- list(title = "my title", tag = "A)")
     expect_identical(labs(!!!params)$tag, "A)")
 
     # NULL is preserved
-    expect_equivalent(labs(title = NULL), list(title = NULL))
+    expect_equal(labs(title = NULL), list(title = NULL), ignore_attr = TRUE)
 
     # ggtitle works in the same way as labs()
     expect_identical(ggtitle("my title")$title, "my title")
@@ -44,9 +42,10 @@ test_that("setting guide labels works", {
       ggtitle("my title", subtitle = "my subtitle")$subtitle,
       "my subtitle"
     )
-    expect_equivalent(
-      ggtitle("my title", subtitle = NULL),
-      list(title = "my title", subtitle = NULL)
+    expect_equal(
+      unclass(ggtitle("my title", subtitle = NULL)),
+      list(title = "my title", subtitle = NULL),
+      ignore_attr = TRUE
     )
 })
 
@@ -60,6 +59,14 @@ test_that("Labels from default stat mapping are overwritten by default labels", 
   p <- p + geom_smooth(aes(color = drv))
 
   expect_equal(p$labels$colour, "drv")
+})
+
+test_that("alt text is returned", {
+  p <- ggplot(mtcars, aes(mpg, disp)) +
+    geom_point()
+  expect_equal(get_alt_text(p), "")
+  p <- p + labs(alt = "An alt text")
+  expect_equal(get_alt_text(p), "An alt text")
 })
 
 

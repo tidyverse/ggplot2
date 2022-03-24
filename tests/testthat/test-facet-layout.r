@@ -1,5 +1,3 @@
-context("Facetting (layout)")
-
 a <- data_frame(a = c(1, 1, 2, 2), b = c(1, 2, 1, 1))
 b <- data_frame(a = 3)
 c <- data_frame(b = 3)
@@ -80,6 +78,14 @@ test_that("wrap: as.table reverses rows", {
 
   two <- panel_layout(facet_wrap(~a, nrow = 1, as.table = FALSE), list(a))
   expect_equal(two$ROW, c(1, 1))
+})
+
+test_that("wrap: as.table = FALSE gets axes", {
+  p <- ggplot(mpg, aes(displ, hwy)) +
+    geom_point() +
+    scale_y_continuous(position = "left") +
+    facet_wrap(vars(class), dir = "v", as.table = FALSE)
+  expect_doppelganger("Axes are positioned correctly in non-table layout", p)
 })
 
 test_that("grid: as.table reverses rows", {

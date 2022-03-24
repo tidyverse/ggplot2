@@ -1,5 +1,3 @@
-context("geom_smooth")
-
 test_that("data is ordered by x", {
   df <- data_frame(x = c(1, 5, 2, 3, 4), y = 1:5)
 
@@ -44,7 +42,7 @@ test_that("default smoothing methods for small and large data sets work", {
 
   expect_message(
     plot_data <- layer_data(p),
-    "method = 'loess' and formula 'y ~ x'"
+    "method = 'loess' and formula = 'y ~ x'"
   )
   expect_equal(plot_data$y, as.numeric(out))
 
@@ -63,7 +61,7 @@ test_that("default smoothing methods for small and large data sets work", {
 
   expect_message(
     plot_data <- layer_data(p),
-    "method = 'gam' and formula 'y ~ s\\(x, bs = \"cs\"\\)"
+    "method = 'gam' and formula = 'y ~ s\\(x, bs = \"cs\"\\)"
   )
   expect_equal(plot_data$y, as.numeric(out))
 
@@ -72,7 +70,7 @@ test_that("default smoothing methods for small and large data sets work", {
 
   expect_message(
     plot_data <- layer_data(p),
-    "method = 'gam' and formula 'y ~ s\\(x, bs = \"cs\"\\)"
+    "method = 'gam' and formula = 'y ~ s\\(x, bs = \"cs\"\\)"
   )
   expect_equal(plot_data$y, as.numeric(out))
 })
