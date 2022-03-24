@@ -16,7 +16,7 @@ facet_wrap(
   drop = TRUE,
   dir = "h",
   strip.position = "top",
-  draw.axes = "margins"
+  axes = "margins"
 )
 }
 \arguments{
@@ -71,7 +71,7 @@ the plot. Using \code{strip.position} it is possible to place the labels on
 either of the four sides by setting \code{strip.position = c("top",
   "bottom", "left", "right")}}
 
-\item{draw.axes}{Determines which axes will be drawn in case of fixed scales.
+\item{axes}{Determines which axes will be drawn in case of fixed scales.
 When \code{"margins"} (default), axes will be drawn at the exterior margins.
 \code{"all_x"} and \code{"all_y"} will draw the respective axes at the interior
 panels too, whereas \code{"all"} will draw all axes at all panels.}

@@ -59,7 +59,7 @@ NULL
 #'   variables for which margins are to be created.
 #' @param facets This argument is soft-deprecated, please use `rows`
 #'   and `cols` instead.
-#' @param draw.axes Determines which axes will be drawn. When `"margins"`
+#' @param axes Determines which axes will be drawn. When `"margins"`
 #'   (default), axes will be drawn at the exterior margins. `"all_x"` and
 #'   `"all_y"` will draw the respective axes at the interior panels too, whereas
 #'   `"all"` will draw all axes at all panels.
@@ -116,7 +116,7 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
                        space = "fixed", shrink = TRUE,
                        labeller = "label_value", as.table = TRUE,
                        switch = NULL, drop = TRUE, margins = FALSE,
-                       facets = NULL, draw.axes = "margins") {
+                       facets = NULL, axes = "margins") {
   # `facets` is soft-deprecated and renamed to `rows`
   if (!is.null(facets)) {
     rows <- facets
@@ -139,10 +139,10 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
     y = any(space %in% c("free_y", "free"))
   )
 
-  draw.axes <- match.arg(draw.axes, c("margins", "all_x", "all_y", "all"))
-  draw.axes <- list(
-    x = any(draw.axes %in% c("all_x", "all")),
-    y = any(draw.axes %in% c("all_y", "all"))
+  draw_axes <- arg_match0(axes, c("margins", "all_x", "all_y", "all"))
+  draw_axes <- list(
+    x = any(draw_axes %in% c("all_x", "all")),
+    y = any(draw_axes %in% c("all_y", "all"))
   )
 
   if (!is.null(switch) && !switch %in% c("both", "x", "y")) {
@@ -158,7 +158,7 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
     shrink = shrink,
     params = list(rows = facets_list$rows, cols = facets_list$cols, margins = margins,
       free = free, space_free = space_free, labeller = labeller,
-      as.table = as.table, switch = switch, drop = drop, draw.axes = draw.axes)
+      as.table = as.table, switch = switch, drop = drop, draw_axes = draw_axes)
   )
 }
 
@@ -371,7 +371,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     axis_width_left <- max_width(axes$y$left)
     axis_width_right <- max_width(axes$y$right)
 
-    if (params$draw.axes$x) {
+    if (params$draw_axes$x) {
       # Take facet_wrap approach to axis placement
       axes$x$top <- matrix(axes$x$top[layout$COL],
                            nrow = nrow, ncol = ncol, byrow = TRUE)
@@ -395,7 +395,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       panel_table <- gtable_add_grob(panel_table, axes$x$bottom, -1, panel_pos_col$l, clip = "off", name = paste0("axis-b-", seq_along(axes$x$bottom)), z = 3)
     }
 
-    if (params$draw.axes$y) {
+    if (params$draw_axes$y) {
       # Take facet_wrap approach to axis placement
       axes$y$left <- matrix(axes$y$left[layout$ROW],
                             nrow = nrow, ncol = ncol, byrow = TRUE)

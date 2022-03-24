@@ -235,7 +235,7 @@ test_that("facet gives clear error if ", {
   )
 })
 
-test_that("facet_grid draw.axes can draw inner axes.", {
+test_that("facet_grid `axes` can draw inner axes.", {
   df <- data_frame(
     x = 1:4, y = 1:4,
     fx = c("A", "A", "B", "B"),
@@ -243,8 +243,8 @@ test_that("facet_grid draw.axes can draw inner axes.", {
   )
   p <- ggplot(df, aes(x, y)) + geom_point()
 
-  case <- ggplotGrob(p + facet_grid(vars(fy), vars(fx), draw.axes = "all"))
-  ctrl <- ggplotGrob(p + facet_grid(vars(fy), vars(fx), draw.axes = "margins"))
+  case <- ggplotGrob(p + facet_grid(vars(fy), vars(fx), axes = "all"))
+  ctrl <- ggplotGrob(p + facet_grid(vars(fy), vars(fx), axes = "margins"))
 
   # 4 x-axes if all axes should be drawn
   bottom <- case$grobs[grepl("axis-b", case$layout$name)]
@@ -260,15 +260,15 @@ test_that("facet_grid draw.axes can draw inner axes.", {
   expect_equal(sum(vapply(left, inherits, logical(1), "absoluteGrob")), 2)
 })
 
-test_that("facet_wrap draw.axes can draw inner axes.", {
+test_that("facet_wrap `axes` can draw inner axes.", {
   df <- data_frame(
     x = 1, y = 1, facet = LETTERS[1:4]
   )
 
   p <- ggplot(df, aes(x, y)) + geom_point()
 
-  case <- ggplotGrob(p + facet_wrap(vars(facet), draw.axes = "all"))
-  ctrl <- ggplotGrob(p + facet_wrap(vars(facet), draw.axes = "margins"))
+  case <- ggplotGrob(p + facet_wrap(vars(facet), axes = "all"))
+  ctrl <- ggplotGrob(p + facet_wrap(vars(facet), axes = "margins"))
 
   # 4 x-axes if all axes should be drawn
   bottom <- case$grobs[grepl("axis-b", case$layout$name)]
