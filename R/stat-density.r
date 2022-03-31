@@ -92,15 +92,17 @@ StatDensity <- ggproto("StatDensity", Stat,
       range <- scales[[flipped_names(flipped_aes)$x]]$dimension()
     }
 
+    trans <- scales[[flipped_names(flipped_aes)$x]]$trans
+
     density <- compute_density(data$x, data$weight, from = range[1],
-      to = range[2], bw = bw, adjust = adjust, kernel = kernel, n = n)
+      to = range[2], trans = trans, bw = bw, adjust = adjust, kernel = kernel, n = n)
     density$flipped_aes <- flipped_aes
     flip_data(density, flipped_aes)
   }
 
 )
 
-compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
+compute_density <- function(x, w, from, to, trans, bw = "nrd0", adjust = 1,
                             kernel = "gaussian", n = 512) {
   nx <- length(x)
   if (is.null(w)) {
@@ -124,6 +126,17 @@ compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
 
   dens <- stats::density(x, weights = w, bw = bw, adjust = adjust,
     kernel = kernel, n = n, from = from, to = to)
+
+  integrate_density <- function(x, y) {
+    x_diff <- diff(x)
+    x_diff <- c(x_diff[1], x_diff)
+    sum(y * x_diff, na.rm = TRUE)
+  }
+
+  total_pre <- integrate_density(dens$x, dens$y)
+  total_post <- integrate_density(trans$inverse(dens$x), dens$y)
+
+  dens$y <- dens$y * total_pre / total_post
 
   new_data_frame(list(
     x = dens$x,
