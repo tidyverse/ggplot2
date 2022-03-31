@@ -133,10 +133,12 @@ compute_density <- function(x, w, from, to, trans, bw = "nrd0", adjust = 1,
     sum(y * x_diff, na.rm = TRUE)
   }
 
-  total_pre <- integrate_density(dens$x, dens$y)
-  total_post <- integrate_density(trans$inverse(dens$x), dens$y)
+  if (trans$name != "identity") {
+    area_pre <- integrate_density(dens$x, dens$y)
+    area_post <- integrate_density(trans$inverse(dens$x), dens$y)
 
-  dens$y <- dens$y * total_pre / total_post
+    dens$y <- dens$y * area_pre / area_post
+  }
 
   new_data_frame(list(
     x = dens$x,
