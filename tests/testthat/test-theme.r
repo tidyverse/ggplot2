@@ -250,17 +250,17 @@ test_that("theme validation happens at build stage", {
 
   # the error occurs when we try to render the plot
   p <- ggplot() + theme(text = 0)
-  expect_error(print(p), "must be an object of type `element_text`")
+  expect_snapshot_error(print(p))
 
   # without validation, the error occurs when the element is accessed
   p <- ggplot() + theme(text = 0, validate = FALSE)
-  expect_error(print(p), "text should have class element_text")
+  expect_snapshot_error(print(p))
 })
 
 test_that("element tree can be modified", {
   # we cannot add a new theme element without modifying the element tree
   p <- ggplot() + theme(blablabla = element_text(colour = "red"))
-  expect_error(print(p), "Theme element `blablabla` is not defined in the element hierarchy")
+  expect_snapshot_error(print(p))
 
   # things work once we add a new element to the element tree
   register_theme_elements(

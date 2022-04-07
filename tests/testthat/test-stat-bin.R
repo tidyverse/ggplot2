@@ -1,13 +1,9 @@
 test_that("stat_bin throws error when y aesthetic is present", {
   dat <- data_frame(x = c("a", "b", "c"), y = c(1, 5, 10))
 
-  expect_error(ggplot_build(ggplot(dat, aes(x, y)) + stat_bin()),
-    "can only have an x or y aesthetic.")
+  expect_snapshot_error(ggplot_build(ggplot(dat, aes(x, y)) + stat_bin()))
 
-  expect_error(
-    ggplot_build(ggplot(dat, aes(x)) + stat_bin(y = 5)),
-    "StatBin requires a continuous x"
-  )
+  expect_snapshot_error(ggplot_build(ggplot(dat, aes(x)) + stat_bin(y = 5)))
 })
 
 test_that("stat_bin works in both directions", {
@@ -173,17 +169,10 @@ test_that("bin errors at high bin counts", {
 
 # stat_count --------------------------------------------------------------
 
-test_that("stat_count throws error when y aesthetic present", {
+test_that("stat_count throws error when both x and y aesthetic present", {
   dat <- data_frame(x = c("a", "b", "c"), y = c(1, 5, 10))
 
-  expect_error(
-    ggplot_build(ggplot(dat, aes(x, y)) + stat_count()),
-    "can only have an x or y aesthetic.")
-
-  expect_error(
-    ggplot_build(ggplot(dat, aes(x)) + stat_count(y = 5)),
-    "must not be used with a y aesthetic."
-  )
+  expect_snapshot_error(ggplot_build(ggplot(dat, aes(x, y)) + stat_count()))
 })
 
 test_that("stat_count preserves x order for continuous and discrete", {

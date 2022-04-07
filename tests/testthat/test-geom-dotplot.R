@@ -58,8 +58,7 @@ test_that("NA's result in warning from stat_bindot", {
   dat$x[c(2,10)] <- NA
 
   # Need to assign it to a var here so that it doesn't automatically print
-  expect_warning(ggplot_build(ggplot(dat, aes(x)) + geom_dotplot(binwidth = .2)),
-    "Removed 2 rows.*stat_bindot")
+  expect_snapshot_warning(ggplot_build(ggplot(dat, aes(x)) + geom_dotplot(binwidth = .2)))
 })
 
 test_that("when binning on y-axis, limits depend on the panel", {

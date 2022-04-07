@@ -142,11 +142,11 @@ test_that("facet_grid() accepts vars()", {
 })
 
 test_that("facet_grid() fails if passed both a formula and a vars()", {
-  expect_error(facet_grid(~foo, vars()), "`rows` must be `NULL` or a `vars\\(\\)` list if")
+  expect_snapshot_error(facet_grid(~foo, vars()))
 })
 
 test_that("can't pass formulas to `cols`", {
-  expect_error(facet_grid(NULL, ~foo), "`cols` must be `NULL` or a `vars\\(\\)`")
+  expect_snapshot_error(facet_grid(NULL, ~foo))
 })
 
 test_that("can still pass `margins` as second argument", {
@@ -229,10 +229,7 @@ test_that("facet variables", {
 
 test_that("facet gives clear error if ", {
   df <- data_frame(x = 1)
-  expect_error(
-    print(ggplot(df, aes(x)) + facet_grid(x ~ x)),
-    "row or cols, not both"
-  )
+  expect_snapshot_error(print(ggplot(df, aes(x)) + facet_grid(x ~ x)))
 })
 
 # Variable combinations ---------------------------------------------------
@@ -246,10 +243,7 @@ test_that("zero-length vars in combine_vars() generates zero combinations", {
 test_that("at least one layer must contain all facet variables in combine_vars()", {
   df <- data_frame(letter = c("a", "b"))
   expect_silent(combine_vars(list(df), vars = vars(letter = letter)))
-  expect_error(
-    combine_vars(list(df), vars = vars(letter = number)),
-    "At least one layer"
-  )
+  expect_snapshot_error(combine_vars(list(df), vars = vars(letter = number)))
 })
 
 test_that("at least one combination must exist in combine_vars()", {

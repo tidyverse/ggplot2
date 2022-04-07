@@ -43,12 +43,5 @@ test_that("spatial polygons have correct ordering", {
 })
 
 test_that("fortify.default proves a helpful error with class uneval", {
-  expect_error(
-    ggplot(aes(x = x)),
-    regexp = paste(
-      "`data` must be a data frame, or other object coercible by (.+)",
-      "Did you accidentally pass `aes\\(\\)` to the `data` argument?",
-      sep = "\\n"
-    )
-  )
+  expect_snapshot_error(ggplot(aes(x = x)))
 })
