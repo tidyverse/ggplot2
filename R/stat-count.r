@@ -26,9 +26,6 @@ stat_count <- function(mapping = NULL, data = NULL,
     width = width,
     ...
   )
-  if (!is.null(params$y)) {
-    abort("stat_count() must not be used with a y aesthetic.")
-  }
 
   layer(
     data = data,
@@ -52,16 +49,16 @@ StatCount <- ggproto("StatCount", Stat,
 
   default_aes = aes(x = after_stat(count), y = after_stat(count), weight = 1),
 
-  setup_params = function(data, params) {
+  setup_params = function(self, data, params) {
     params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = FALSE)
 
     has_x <- !(is.null(data$x) && is.null(params$x))
     has_y <- !(is.null(data$y) && is.null(params$y))
     if (!has_x && !has_y) {
-      abort("stat_count() requires an x or y aesthetic.")
+      cli::cli_abort("{.fn {snake_class(self)}} requires an {.field x} or {.field y} aesthetic.")
     }
     if (has_x && has_y) {
-      abort("stat_count() can only have an x or y aesthetic.")
+      cli::cli_abort("{.fn {snake_class(self)}} must only have an {.field x} {.emph or} {.field y} aesthetic.")
     }
 
     if (is.null(params$width)) {

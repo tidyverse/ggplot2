@@ -156,7 +156,7 @@ guide_train.bins <- function(guide, scale, aesthetic = NULL) {
     breaks <- strsplit(gsub("\\(|\\)|\\[|\\]", "", breaks), ",\\s?")
     breaks <- as.numeric(unlist(breaks))
     if (anyNA(breaks)) {
-      abort('Breaks not formatted correctly for a bin legend. Use `(<lower>, <upper>]` format to indicate bins')
+      cli::cli_abort('Breaks not formatted correctly for a bin legend. Use {.strong (<lower>, <upper>]} format to indicate bins')
     }
     all_breaks <- breaks[c(1, seq_along(bin_at) * 2)]
   }
@@ -184,7 +184,7 @@ guide_merge.bins <- function(guide, new_guide) {
   guide$key <- merge(guide$key, new_guide$key, sort = FALSE)
   guide$override.aes <- c(guide$override.aes, new_guide$override.aes)
   if (any(duplicated(names(guide$override.aes)))) {
-    warn("Duplicated override.aes is ignored.")
+    cli::cli_warn("Duplicated {.arg override.aes} is ignored.")
   }
   guide$override.aes <- guide$override.aes[!duplicated(names(guide$override.aes))]
   guide
@@ -211,10 +211,10 @@ guide_geom.bins <- function(guide, layers, default_mapping) {
       aesthetics <- layer$computed_mapping
       modifiers <- aesthetics[is_scaled_aes(aesthetics) | is_staged_aes(aesthetics)]
 
-      data <- tryCatch(
+      data <- try_fetch(
         layer$geom$use_defaults(guide$key[matched], params, modifiers),
-        error = function(...) {
-          warn("Failed to apply `after_scale()` modifications to legend")
+        error = function(cnd) {
+          cli::cli_warn("Failed to apply {.fn after_scale} modifications to legend", parent = cnd)
           layer$geom$use_defaults(guide$key[matched], params, list())
         }
       )
@@ -250,13 +250,13 @@ guide_gengrob.bins <- function(guide, theme) {
   if (guide$direction == "horizontal") {
     label.position <- guide$label.position %||% "bottom"
     if (!label.position %in% c("top", "bottom")) {
-      warn("Ignoring invalid label.position")
+      cli::cli_warn("Ignoring invalid {.arg label.position}")
       label.position <- "bottom"
     }
   } else {
     label.position <- guide$label.position %||% "right"
     if (!label.position %in% c("left", "right")) {
-      warn("Ignoring invalid label.position")
+      cli::cli_warn("Ignoring invalid {.arg label.position}")
       label.position <- "right"
     }
   }

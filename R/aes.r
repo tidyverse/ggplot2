@@ -103,7 +103,7 @@ new_aesthetic <- function(x, env = globalenv()) {
 }
 new_aes <- function(x, env = globalenv()) {
   if (!is.list(x)) {
-    abort("`x` must be a list")
+    cli::cli_abort("{.arg x} must be a {.cls list}")
   }
   x <- lapply(x, new_aesthetic, env = env)
   structure(x, class = "uneval")
@@ -169,8 +169,7 @@ rename_aes <- function(x) {
   names(x) <- standardise_aes_names(names(x))
   duplicated_names <- names(x)[duplicated(names(x))]
   if (length(duplicated_names) > 0L) {
-    duplicated_message <- paste0(unique(duplicated_names), collapse = ", ")
-    warn(glue("Duplicated aesthetics after name standardisation: {duplicated_message}"))
+    cli::cli_warn("Duplicated aesthetics after name standardisation: {.field {unique(duplicated_names)}}")
   }
   x
 }
@@ -281,7 +280,7 @@ aes_ <- function(x, y, ...) {
     } else if (is.call(x) || is.name(x) || is.atomic(x)) {
       new_aesthetic(x, caller_env)
     } else {
-      abort("Aesthetic must be a one-sided formula, call, name, or constant.")
+      cli::cli_abort("Aesthetic must be a one-sided formula, call, name, or constant.")
     }
   }
   mapping <- lapply(mapping, as_quosure_aes)
@@ -349,7 +348,7 @@ aes_auto <- function(data = NULL, ...) {
 
   # detect names of data
   if (is.null(data)) {
-    abort("aes_auto requires data.frame or names of data.frame.")
+    cli::cli_abort("{.fn aes_auto} requires a {.cls data.frame} or names of data.frame.")
   } else if (is.data.frame(data)) {
     vars <- names(data)
   } else {
@@ -398,7 +397,7 @@ warn_for_aes_extract_usage_expr <- function(x, data, env = emptyenv()) {
   if (is_call(x, "[[") || is_call(x, "$")) {
     if (extract_target_is_likely_data(x, data, env)) {
       good_usage <- alternative_aes_extract_usage(x)
-      warn(glue("Use of `{format(x)}` is discouraged. Use `{good_usage}` instead."))
+      cli::cli_warn("Use of {.code {format(x)}} is discouraged. Use {.code {good_usage}} instead.")
     }
   } else if (is.call(x)) {
     lapply(x, warn_for_aes_extract_usage_expr, data, env)
@@ -412,7 +411,7 @@ alternative_aes_extract_usage <- function(x) {
   } else if (is_call(x, "$")) {
     as.character(x[[3]])
   } else {
-    abort(glue("Don't know how to get alternative usage for `{format(x)}`"))
+    cli::cli_abort("Don't know how to get alternative usage for {.arg x}")
   }
 }
 

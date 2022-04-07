@@ -101,7 +101,7 @@ GeomLinerange <- ggproto("GeomLinerange", Geom,
     params$flipped_aes <- has_flipped_aes(data, params, range_is_orthogonal = TRUE)
     # if flipped_aes == TRUE then y, xmin, xmax is present
     if (!(params$flipped_aes || all(c("x", "ymin", "ymax") %in% c(names(data), names(params))))) {
-      abort("Either, `x`, `ymin`, and `ymax` or `y`, `xmin`, and `xmax` must be supplied")
+      cli::cli_abort("Either, {.field x}, {.field ymin}, and {.field ymax} {.emph or} {.field y}, {.field xmin}, and {.field xmax} must be supplied")
     }
     params
   },

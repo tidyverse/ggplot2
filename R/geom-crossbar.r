@@ -59,7 +59,7 @@ GeomCrossbar <- ggproto("GeomCrossbar", Geom,
 
     if (has_notch) {
       if (data$ynotchlower < data$ymin  ||  data$ynotchupper > data$ymax)
-        message("notch went outside hinges. Try setting notch=FALSE.")
+        cli::cli_inform("notch went outside hinges. Try setting {.code notch = FALSE}.")
 
       notchindent <- (1 - data$notchwidth) * (data$xmax - data$xmin) / 2
 

@@ -119,7 +119,7 @@ make_summary_fun <- function(fun.data, fun, fun.max, fun.min, fun.args) {
       ))
     }
   } else {
-    message("No summary function supplied, defaulting to `mean_se()`")
+    cli::cli_inform("No summary function supplied, defaulting to {.fn mean_se}")
     function(df) {
       mean_se(df$y)
     }

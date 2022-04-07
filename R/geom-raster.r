@@ -18,8 +18,8 @@ geom_raster <- function(mapping = NULL, data = NULL,
                         show.legend = NA,
                         inherit.aes = TRUE)
 {
-  if (!(is.numeric(hjust) && length(hjust) == 1)) abort("`hjust` must be a numeric scalar")
-  if (!(is.numeric(vjust) && length(vjust) == 1)) abort("`vjust` must be a numeric scalar")
+  if (!(is.numeric(hjust) && length(hjust) == 1)) cli::cli_abort("{.arg hjust} must be a {.cls numeric} scalar")
+  if (!(is.numeric(vjust) && length(vjust) == 1)) cli::cli_abort("{.arg vjust} must be a {.cls numeric} scalar")
 
   layer(
     data = data,
@@ -57,7 +57,10 @@ GeomRaster <- ggproto("GeomRaster", Geom,
     if (length(x_diff) == 0) {
       w <- 1
     } else if (any(abs(diff(x_diff)) > precision)) {
-      warn("Raster pixels are placed at uneven horizontal intervals and will be shifted. Consider using geom_tile() instead.")
+      cli::cli_warn(c(
+              "Raster pixels are placed at uneven horizontal intervals and will be shifted",
+        "i" = "Consider using {.fn geom_tile} instead."
+      ))
       w <- min(x_diff)
     } else {
       w <- x_diff[1]
@@ -66,7 +69,10 @@ GeomRaster <- ggproto("GeomRaster", Geom,
     if (length(y_diff) == 0) {
       h <- 1
     } else if (any(abs(diff(y_diff)) > precision)) {
-      warn("Raster pixels are placed at uneven vertical intervals and will be shifted. Consider using geom_tile() instead.")
+      cli::cli_warn(c(
+              "Raster pixels are placed at uneven horizontal intervals and will be shifted",
+        "i" = "Consider using {.fn geom_tile} instead."
+      ))
       h <- min(y_diff)
     } else {
       h <- y_diff[1]
@@ -79,10 +85,13 @@ GeomRaster <- ggproto("GeomRaster", Geom,
     data
   },
 
-  draw_panel = function(data, panel_params, coord, interpolate = FALSE,
+  draw_panel = function(self, data, panel_params, coord, interpolate = FALSE,
                         hjust = 0.5, vjust = 0.5) {
     if (!inherits(coord, "CoordCartesian")) {
-      abort("geom_raster only works with Cartesian coordinates")
+      cli::cli_abort(c(
+              "{.fn {snake_class(self)}} only works with Cartesian coordinates",
+        "i" = "only use {.fn coord_cartesian} to modify the coordinate system"
+      ))
     }
     data <- coord$transform(data, panel_params)
 

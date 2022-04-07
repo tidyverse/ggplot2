@@ -56,9 +56,8 @@ annotate <- function(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
   # if there is still more than one unique length, we error out
   if (length(n) > 1L) {
     bad <- lengths != 1L
-    details <- paste(names(aesthetics)[bad], " (", lengths[bad], ")",
-      sep = "", collapse = ", ")
-    abort(glue("Unequal parameter lengths: {details}"))
+    details <- paste0(names(aesthetics)[bad], " (", lengths[bad], ")")
+    cli::cli_abort("Unequal parameter lengths: {details}")
   }
 
   data <- new_data_frame(position, n = n)

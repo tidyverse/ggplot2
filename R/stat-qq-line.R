@@ -64,7 +64,7 @@ StatQqLine <- ggproto("StatQqLine", Stat,
    if (is.null(quantiles)) {
      quantiles <- stats::ppoints(n)
    } else {
-     if (length(quantiles) != n) abort("`quantiles` must have the same length as the data")
+     if (length(quantiles) != n) cli::cli_abort("{.arg quantiles} must have the same length as the data")
    }
 
    theoretical <- do.call(
@@ -73,7 +73,7 @@ StatQqLine <- ggproto("StatQqLine", Stat,
    )
 
    if (length(line.p) != 2) {
-     abort(glue("Cannot fit line quantiles {line.p}. Parameter line.p must have length 2."))
+     cli::cli_abort("Cannot fit line quantiles {line.p}. {.arg line.p} must have length 2.")
    }
 
    x_coords <- do.call(distribution, c(list(p = line.p), dparams))
