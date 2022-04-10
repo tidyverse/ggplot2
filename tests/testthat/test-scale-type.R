@@ -12,3 +12,13 @@ test_that("message + continuous for unknown type", {
   expect_message(scale <- find_scale("colour", x), "ggplot2_foo")
   expect_s3_class(scale, "ScaleContinuous")
 })
+
+test_that("finds pillar even if not attached", {
+  skip_if(is_attached("pillar"))
+  skip_if_not(is_installed("pillar", version = "1.6.5"))
+
+  x <- tibble::num(1:10)
+
+  scale <- find_scale("x", x)
+  expect_s3_class(scale, "ScaleContinuousPositionNum")
+})
