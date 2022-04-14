@@ -52,7 +52,7 @@ GeomErrorbar <- ggproto("GeomErrorbar", Geom,
     flip_data(data, params$flipped_aes)
   },
 
-  draw_panel = function(data, panel_params, coord, width = NULL, flipped_aes = FALSE) {
+  draw_panel = function(data, panel_params, coord, lineend = "butt", width = NULL, flipped_aes = FALSE) {
     data <- flip_data(data, flipped_aes)
     x <- as.vector(rbind(data$xmin, data$xmax, NA, data$x,    data$x,    NA, data$xmin, data$xmax))
     y <- as.vector(rbind(data$ymax, data$ymax, NA, data$ymax, data$ymin, NA, data$ymin, data$ymin))
@@ -67,6 +67,6 @@ GeomErrorbar <- ggproto("GeomErrorbar", Geom,
       row.names = 1:(nrow(data) * 8)
     ))
     data <- flip_data(data, flipped_aes)
-    GeomPath$draw_panel(data, panel_params, coord)
+    GeomPath$draw_panel(data, panel_params, coord, lineend = lineend)
   }
 )

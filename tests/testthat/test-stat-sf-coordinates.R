@@ -1,5 +1,3 @@
-context("stat_sf_coordinates")
-
 comp_sf_coord <- function(df, ...) {
   plot <- ggplot(df) + stat_sf_coordinates(...)
   layer_data(plot)

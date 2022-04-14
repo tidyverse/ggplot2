@@ -3,11 +3,13 @@
 
 # ggplot2 <img src="man/figures/logo.png" align="right" width="120" />
 
-[![R build
-status](https://github.com/tidyverse/ggplot2/workflows/R-CMD-check/badge.svg)](https://github.com/tidyverse/ggplot2/actions)
-[![Coverage
-Status](https://img.shields.io/codecov/c/github/tidyverse/ggplot2/master.svg)](https://codecov.io/github/tidyverse/ggplot2?branch=master)
-[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/ggplot2)](https://cran.r-project.org/package=ggplot2)
+<!-- badges: start -->
+
+[![R-CMD-check](https://github.com/tidyverse/ggplot2/workflows/R-CMD-check/badge.svg)](https://github.com/tidyverse/ggplot2/actions)
+[![Codecov test
+coverage](https://codecov.io/gh/tidyverse/ggplot2/branch/main/graph/badge.svg)](https://app.codecov.io/gh/tidyverse/ggplot2?branch=main)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/ggplot2)](https://cran.r-project.org/package=ggplot2)
+<!-- badges: end -->
 
 ## Overview
 
@@ -33,7 +35,7 @@ devtools::install_github("tidyverse/ggplot2")
 
 ## Cheatsheet
 
-<a href="https://github.com/rstudio/cheatsheets/blob/master/data-visualization-2.1.pdf"><img src="https://raw.githubusercontent.com/rstudio/cheatsheets/master/pngs/thumbnails/data-visualization-cheatsheet-thumbs.png" width="630" height="252"/></a>
+<a href="https://github.com/rstudio/cheatsheets/blob/master/data-visualization.pdf"><img src="https://raw.githubusercontent.com/rstudio/cheatsheets/master/pngs/thumbnails/data-visualization-cheatsheet-thumbs.png" width="630" height="252"/></a>
 
 ## Usage
 
@@ -55,7 +57,7 @@ ggplot(mpg, aes(displ, hwy, colour = class)) +
 
 ## Lifecycle
 
-[![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
+[![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 
 ggplot2 is now over 10 years old and is used by hundreds of thousands of
 people to make millions of plots. That means, by-and-large, ggplot2
@@ -84,10 +86,15 @@ documentation pages. Currently, there are three good places to start:
     get you up to speed with the essentials of ggplot2 as quickly as
     possible.
 
-2.  If you’d like to follow a webinar, try [Plotting Anything with
+2.  If you’d like to take an online course, try [Data Visualization in R
+    With
+    ggplot2](https://learning.oreilly.com/videos/data-visualization-in/9781491963661/)
+    by Kara Woo.
+
+3.  If you’d like to follow a webinar, try [Plotting Anything with
     ggplot2](https://youtu.be/h29g21z0a68) by Thomas Lin Pedersen.
 
-3.  If you want to dive into making common graphics as quickly as
+4.  If you want to dive into making common graphics as quickly as
     possible, I recommend [The R Graphics
     Cookbook](https://r-graphics.org) by Winston Chang. It provides a
     set of recipes to solve common graphics problems.

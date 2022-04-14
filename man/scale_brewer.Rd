@@ -134,6 +134,7 @@ Modify the palette through the \code{palette} argument.
 }
 
 \examples{
+set.seed(596)
 dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
 (d <- ggplot(dsamp, aes(carat, price)) +
   geom_point(aes(colour = clarity)))
@@ -174,6 +175,7 @@ v + scale_fill_fermenter()
 \seealso{
 Other colour scales: 
 \code{\link{scale_alpha}()},
+\code{\link{scale_colour_continuous}()},
 \code{\link{scale_colour_gradient}()},
 \code{\link{scale_colour_grey}()},
 \code{\link{scale_colour_hue}()},

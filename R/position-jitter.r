@@ -46,10 +46,6 @@
 #'   geom_point(position = jitter) +
 #'   geom_point(position = jitter, color = "red", aes(am + 0.2, vs + 0.2))
 position_jitter <- function(width = NULL, height = NULL, seed = NA) {
-  if (!is.null(seed) && is.na(seed)) {
-    seed <- sample.int(.Machine$integer.max, 1L)
-  }
-
   ggproto(NULL, PositionJitter,
     width = width,
     height = height,
@@ -62,13 +58,19 @@ position_jitter <- function(width = NULL, height = NULL, seed = NA) {
 #' @usage NULL
 #' @export
 PositionJitter <- ggproto("PositionJitter", Position,
+  seed = NA,
   required_aes = c("x", "y"),
 
   setup_params = function(self, data) {
+    if (!is.null(self$seed) && is.na(self$seed)) {
+      seed <- sample.int(.Machine$integer.max, 1L)
+    } else {
+      seed <- self$seed
+    }
     list(
       width = self$width %||% (resolution(data$x, zero = FALSE) * 0.4),
       height = self$height %||% (resolution(data$y, zero = FALSE) * 0.4),
-      seed = self$seed
+      seed = seed
     )
   },
 

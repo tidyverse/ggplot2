@@ -16,17 +16,19 @@ stat_summary_bin <- function(mapping = NULL, data = NULL,
                              orientation = NA,
                              show.legend = NA,
                              inherit.aes = TRUE,
-                             fun.y, fun.ymin, fun.ymax) {
-  if (!missing(fun.y)) {
-    warn("`fun.y` is deprecated. Use `fun` instead.")
+                             fun.y = deprecated(),
+                             fun.ymin = deprecated(),
+                             fun.ymax = deprecated()) {
+  if (lifecycle::is_present(fun.y)) {
+    lifecycle::deprecate_warn("3.3.0", "stat_summary_bin(fun.y)", "stat_summary_bin(fun)")
     fun = fun %||% fun.y
   }
-  if (!missing(fun.ymin)) {
-    warn("`fun.ymin` is deprecated. Use `fun.min` instead.")
+  if (lifecycle::is_present(fun.ymin)) {
+    lifecycle::deprecate_warn("3.3.0", "stat_summary_bin(fun.ymin)", "stat_summary_bin(fun.min)")
     fun.min = fun.min %||% fun.ymin
   }
-  if (!missing(fun.ymax)) {
-    warn("`fun.ymax` is deprecated. Use `fun.max` instead.")
+  if (lifecycle::is_present(fun.ymax)) {
+    lifecycle::deprecate_warn("3.3.0", "stat_summary_bin(fun.ymax)", "stat_summary_bin(fun.max)")
     fun.max = fun.max %||% fun.ymax
   }
   layer(

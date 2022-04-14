@@ -1,5 +1,3 @@
-context("Aes - setting values")
-
 test_that("aesthetic parameters match length of data", {
   df <- data_frame(x = 1:5, y = 1:5)
   p <- ggplot(df, aes(x, y))
@@ -13,6 +11,17 @@ test_that("aesthetic parameters match length of data", {
   expect_error(set_colours(rep("red", 3)), "must be either length 1")
   expect_error(set_colours(rep("red", 4)), "must be either length 1")
   set_colours(rep("red", 5))
+})
+
+test_that("Length 1 aesthetics are recycled to 0", {
+  p <- ggplot(data.frame(x = numeric(), y = numeric())) +
+    geom_point(aes(x, y, colour = "red"))
+
+  expect_silent(plot(p))
+
+  data <- layer_data(p)
+
+  expect_equal(nrow(data), 0)
 })
 
 test_that("legend filters out aesthetics not of length 1", {

@@ -1,5 +1,3 @@
-context("Aesthetics (grouping)")
-
 df <- data_frame(
   x = 1:4,
   a = c("a", "a", "b", "b"),

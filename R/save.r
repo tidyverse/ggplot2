@@ -122,10 +122,10 @@ parse_dpi <- function(dpi) {
   }
 }
 
-plot_dim <- function(dim = c(NA, NA), scale = 1, units = c("in", "cm", "mm", "px"),
+plot_dim <- function(dim = c(NA, NA), scale = 1, units = "in",
                      limitsize = TRUE, dpi = 300) {
 
-  units <- match.arg(units)
+  units <- arg_match0(units, c("in", "cm", "mm", "px"))
   to_inches <- function(x) x / c(`in` = 1, cm = 2.54, mm = 2.54 * 10, px = dpi)[units]
   from_inches <- function(x) x * c(`in` = 1, cm = 2.54, mm = 2.54 * 10, px = dpi)[units]
 
@@ -162,6 +162,7 @@ plot_dev <- function(device, filename = NULL, dpi = 300) {
     call_args <- list()
     if ("file" %in% names(args)) {
       call_args$file <- filename
+      call_args["filename"] <- list(NULL)
     }
     if ("res" %in% names(args)) {
       call_args$res <- dpi
@@ -178,9 +179,9 @@ plot_dev <- function(device, filename = NULL, dpi = 300) {
       paper = "special")
   }
   if (requireNamespace('ragg', quietly = TRUE)) {
-    png_dev <- ragg::agg_png
-    jpeg_dev <- ragg::agg_jpeg
-    tiff_dev <- ragg::agg_tiff
+    png_dev <- absorb_grdevice_args(ragg::agg_png)
+    jpeg_dev <- absorb_grdevice_args(ragg::agg_jpeg)
+    tiff_dev <- absorb_grdevice_args(ragg::agg_tiff)
   } else {
     png_dev <- grDevices::png
     jpeg_dev <- grDevices::jpeg
@@ -192,8 +193,9 @@ plot_dev <- function(device, filename = NULL, dpi = 300) {
     tex =  function(filename, ...) grDevices::pictex(file = filename, ...),
     pdf =  function(filename, ..., version = "1.4") grDevices::pdf(file = filename, ..., version = version),
     svg =  function(filename, ...) svglite::svglite(file = filename, ...),
-    emf =  function(...) grDevices::win.metafile(...),
-    wmf =  function(...) grDevices::win.metafile(...),
+    # win.metafile() doesn't have `bg` arg so we need to absorb it before passing `...`
+    emf =  function(..., bg = NULL) grDevices::win.metafile(...),
+    wmf =  function(..., bg = NULL) grDevices::win.metafile(...),
     png =  function(...) png_dev(..., res = dpi, units = "in"),
     jpg =  function(...) jpeg_dev(..., res = dpi, units = "in"),
     jpeg = function(...) jpeg_dev(..., res = dpi, units = "in"),
@@ -219,4 +221,13 @@ plot_dev <- function(device, filename = NULL, dpi = 300) {
 #' @export
 grid.draw.ggplot <- function(x, recording = TRUE) {
   print(x)
+}
+
+absorb_grdevice_args <- function(f) {
+  function(..., type, antialias) {
+    if (!missing(type) || !missing(antialias)) {
+      warn("Using ragg device as default. Ignoring `type` and `antialias` arguments")
+    }
+    f(...)
+  }
 }

@@ -1,7 +1,7 @@
-bins <- function(breaks, closed = c("right", "left"),
+bins <- function(breaks, closed = "right",
                  fuzz = 1e-08 * stats::median(diff(breaks))) {
   if (!is.numeric(breaks)) abort("`breaks` must be a numeric vector")
-  closed <- match.arg(closed)
+  closed <- arg_match0(closed, c("right", "left"))
 
   breaks <- sort(breaks)
   # Adapted base::hist - this protects from floating point rounding errors

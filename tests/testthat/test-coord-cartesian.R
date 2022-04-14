@@ -1,5 +1,3 @@
-context("coord_cartesian")
-
 test_that("clipping can be turned off and on", {
   # clip on by default
   p <- ggplot() + coord_cartesian()

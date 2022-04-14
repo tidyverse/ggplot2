@@ -144,6 +144,7 @@ guide_train.bins <- function(guide, scale, aesthetic = NULL) {
 
   if (is.numeric(breaks)) {
     limits <- scale$get_limits()
+    breaks <- breaks[!breaks %in% limits]
     all_breaks <- c(limits[1], breaks, limits[2])
     bin_at <- all_breaks[-1] - diff(all_breaks) / 2
   } else {
@@ -163,7 +164,12 @@ guide_train.bins <- function(guide, scale, aesthetic = NULL) {
   key$.label <- scale$get_labels(all_breaks)
   guide$show.limits <- guide$show.limits %||% scale$show_limits %||% FALSE
 
-  if (guide$reverse) key <- key[nrow(key):1, ]
+  if (guide$reverse) {
+    key <- key[rev(seq_len(nrow(key))), ]
+    # Move last row back to last
+    aesthetics <- setdiff(names(key), ".label")
+    key[, aesthetics] <- key[c(seq_len(nrow(key))[-1], 1), aesthetics]
+  }
 
   guide$key <- key
   guide$hash <- with(
@@ -188,7 +194,7 @@ guide_merge.bins <- function(guide, new_guide) {
 guide_geom.bins <- function(guide, layers, default_mapping) {
   # arrange common data for vertical and horizontal guide
   guide$geoms <- lapply(layers, function(layer) {
-    matched <- matched_aes(layer, guide, default_mapping)
+    matched <- matched_aes(layer, guide)
 
     # check if this layer should be included
     include <- include_layer_in_guide(layer, matched)
@@ -202,7 +208,7 @@ guide_geom.bins <- function(guide, layers, default_mapping) {
       n <- vapply(layer$aes_params, length, integer(1))
       params <- layer$aes_params[n == 1]
 
-      aesthetics <- layer$mapping
+      aesthetics <- layer$computed_mapping
       modifiers <- aesthetics[is_scaled_aes(aesthetics) | is_staged_aes(aesthetics)]
 
       data <- tryCatch(
@@ -222,7 +228,7 @@ guide_geom.bins <- function(guide, layers, default_mapping) {
     list(
       draw_key = layer$geom$draw_key,
       data = data,
-      params = c(layer$geom_params, layer$stat_params)
+      params = c(layer$computed_geom_params, layer$computed_stat_params)
     )
   })
 

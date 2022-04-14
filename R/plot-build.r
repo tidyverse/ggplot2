@@ -105,6 +105,9 @@ ggplot_build.ggplot <- function(plot) {
   # Let Layout modify data before rendering
   data <- layout$finish_data(data)
 
+  # Consolidate alt-text
+  plot$labels$alt <- get_alt_text(plot)
+
   structure(
     list(data = data, layout = layout, plot = plot),
     class = "ggplot_built"
@@ -199,13 +202,28 @@ ggplot_gtable.ggplot_built <- function(data) {
       ypos <- theme$legend.position[2]
 
       # x and y are specified via theme$legend.position (i.e., coords)
-      legend_box <- editGrob(legend_box,
-        vp = viewport(x = xpos, y = ypos, just = c(xjust, yjust),
-          height = legend_height, width = legend_width))
+      legend_box <- editGrob(
+        legend_box,
+        vp = viewport(
+          x = xpos,
+          y = ypos,
+          just = c(xjust, yjust),
+          height = legend_height,
+          width = legend_width
+        )
+      )
     } else {
       # x and y are adjusted using justification of legend box (i.e., theme$legend.justification)
-      legend_box <- editGrob(legend_box,
-        vp = viewport(x = xjust, y = yjust, just = c(xjust, yjust)))
+      legend_box <- editGrob(
+        legend_box,
+        vp = viewport(
+          x = xjust,
+          y = yjust,
+          just = c(xjust, yjust),
+          height = legend_height,
+          width = legend_width
+        )
+      )
       legend_box <- gtable_add_rows(legend_box, unit(yjust, 'null'))
       legend_box <- gtable_add_rows(legend_box, unit(1 - yjust, 'null'), 0)
       legend_box <- gtable_add_cols(legend_box, unit(xjust, 'null'), 0)
@@ -387,6 +405,10 @@ ggplot_gtable.ggplot_built <- function(data) {
     plot_table$layout <- plot_table$layout[c(nrow(plot_table$layout), 1:(nrow(plot_table$layout) - 1)),]
     plot_table$grobs <- plot_table$grobs[c(nrow(plot_table$layout), 1:(nrow(plot_table$layout) - 1))]
   }
+
+  # add alt-text as attribute
+  attr(plot_table, "alt-label") <- plot$labels$alt
+
   plot_table
 }
 

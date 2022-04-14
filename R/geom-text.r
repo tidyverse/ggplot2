@@ -208,11 +208,12 @@ GeomText <- ggproto("GeomText", Geom,
     }
 
     data <- coord$transform(data, panel_params)
+
     if (is.character(data$vjust)) {
-      data$vjust <- compute_just(data$vjust, data$y)
+      data$vjust <- compute_just(data$vjust, data$y, data$x, data$angle)
     }
     if (is.character(data$hjust)) {
-      data$hjust <- compute_just(data$hjust, data$x)
+      data$hjust <- compute_just(data$hjust, data$x, data$y, data$angle)
     }
 
     textGrob(
@@ -234,11 +235,31 @@ GeomText <- ggproto("GeomText", Geom,
   draw_key = draw_key_text
 )
 
-compute_just <- function(just, x) {
-  inward <- just == "inward"
-  just[inward] <- c("left", "middle", "right")[just_dir(x[inward])]
-  outward <- just == "outward"
-  just[outward] <- c("right", "middle", "left")[just_dir(x[outward])]
+compute_just <- function(just, a, b = a, angle = 0) {
+  #  As justification direction is relative to the text, not the plotting area
+  #  we need to swap x and y if text direction is rotated so that hjust is
+  #  applied along y and vjust along x.
+  if (any(grepl("outward|inward", just))) {
+    # ensure all angles are in -360...+360
+    angle <- angle %% 360
+    # ensure correct behaviour for angles in -360...+360
+    angle <- ifelse(angle > 180, angle - 360, angle)
+    angle <- ifelse(angle < -180, angle + 360, angle)
+    rotated_forward <-
+      grepl("outward|inward", just) & (angle > 45 & angle < 135)
+    rotated_backwards <-
+      grepl("outward|inward", just) & (angle < -45 & angle > -135)
+
+    ab <- ifelse(rotated_forward | rotated_backwards, b, a)
+    just_swap <- rotated_backwards | abs(angle) > 135
+    inward <-
+      (just == "inward" & !just_swap | just == "outward" & just_swap)
+    just[inward] <- c("left", "middle", "right")[just_dir(ab[inward])]
+    outward <-
+      (just == "outward" & !just_swap) | (just == "inward" & just_swap)
+    just[outward] <- c("right", "middle", "left")[just_dir(ab[outward])]
+
+  }
 
   unname(c(left = 0, center = 0.5, right = 1,
     bottom = 0, middle = 0.5, top = 1)[just])

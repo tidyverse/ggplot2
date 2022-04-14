@@ -40,6 +40,7 @@
 #' @rdname scale_brewer
 #' @export
 #' @examples
+#' set.seed(596)
 #' dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
 #' (d <- ggplot(dsamp, aes(carat, price)) +
 #'   geom_point(aes(colour = clarity)))
@@ -90,7 +91,7 @@ scale_fill_brewer <- function(..., type = "seq", palette = 1, direction = 1, aes
 #' @rdname scale_brewer
 scale_colour_distiller <- function(..., type = "seq", palette = 1, direction = -1, values = NULL, space = "Lab", na.value = "grey50", guide = "colourbar", aesthetics = "colour") {
   # warn about using a qualitative brewer palette to generate the gradient
-  type <- match.arg(type, c("seq", "div", "qual"))
+  type <- arg_match0(type, c("seq", "div", "qual"))
   if (type == "qual") {
     warn("Using a discrete colour palette in a continuous scale.\n  Consider using type = \"seq\" or type = \"div\" instead")
   }
@@ -103,7 +104,7 @@ scale_colour_distiller <- function(..., type = "seq", palette = 1, direction = -
 #' @export
 #' @rdname scale_brewer
 scale_fill_distiller <- function(..., type = "seq", palette = 1, direction = -1, values = NULL, space = "Lab", na.value = "grey50", guide = "colourbar", aesthetics = "fill") {
-  type <- match.arg(type, c("seq", "div", "qual"))
+  type <- arg_match0(type, c("seq", "div", "qual"))
   if (type == "qual") {
     warn("Using a discrete colour palette in a continuous scale.\n  Consider using type = \"seq\" or type = \"div\" instead")
   }
@@ -115,7 +116,7 @@ scale_fill_distiller <- function(..., type = "seq", palette = 1, direction = -1,
 #' @rdname scale_brewer
 scale_colour_fermenter <- function(..., type = "seq", palette = 1, direction = -1, na.value = "grey50", guide = "coloursteps", aesthetics = "colour") {
   # warn about using a qualitative brewer palette to generate the gradient
-  type <- match.arg(type, c("seq", "div", "qual"))
+  type <- arg_match0(type, c("seq", "div", "qual"))
   if (type == "qual") {
     warn("Using a discrete colour palette in a binned scale.\n  Consider using type = \"seq\" or type = \"div\" instead")
   }
@@ -125,7 +126,7 @@ scale_colour_fermenter <- function(..., type = "seq", palette = 1, direction = -
 #' @export
 #' @rdname scale_brewer
 scale_fill_fermenter <- function(..., type = "seq", palette = 1, direction = -1, na.value = "grey50", guide = "coloursteps", aesthetics = "fill") {
-  type <- match.arg(type, c("seq", "div", "qual"))
+  type <- arg_match0(type, c("seq", "div", "qual"))
   if (type == "qual") {
     warn("Using a discrete colour palette in a binned scale.\n  Consider using type = \"seq\" or type = \"div\" instead")
   }

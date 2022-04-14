@@ -1,5 +1,3 @@
-context("zzz")
-
 test_that(".onAttach does not modify the random stream", {
   set.seed(42)
   x <- runif(5)

@@ -88,8 +88,13 @@
 NULL
 
 collapse_labels_lines <- function(labels) {
+  is_exp <- vapply(labels, function(l) length(l) > 0 && is.expression(l[[1]]), logical(1))
   out <- do.call("Map", c(list(paste, sep = ", "), labels))
-  list(unname(unlist(out)))
+  label <- list(unname(unlist(out)))
+  if (all(is_exp)) {
+    label <- lapply(label, function(l) list(parse(text = paste0("list(", l, ")"))))
+  }
+  label
 }
 
 #' @rdname labellers
@@ -198,7 +203,8 @@ label_bquote <- function(rows = NULL, cols = NULL,
                          default) {
   cols_quoted <- substitute(cols)
   rows_quoted <- substitute(rows)
-  has_warned <- FALSE
+
+  call_env <- env_parent()
 
   fun <- function(labels) {
     quoted <- resolve_labeller(rows_quoted, cols_quoted, labels)
@@ -208,19 +214,7 @@ label_bquote <- function(rows = NULL, cols = NULL,
 
     evaluate <- function(...) {
       params <- list(...)
-
-      # Mapping `x` to the first variable for backward-compatibility,
-      # but only if there is no facetted variable also named `x`
-      if ("x" %in% find_names(quoted) && !"x" %in% names(params)) {
-        if (!has_warned) {
-          warn("Referring to `x` is deprecated, use variable name instead")
-          # The function is called for each facet so this avoids
-          # multiple warnings
-          has_warned <<- TRUE
-        }
-        params$x <- params[[1]]
-      }
-
+      params <- as_environment(params, call_env)
       eval(substitute(bquote(expr, params), list(expr = quoted)))
     }
     list(do.call("Map", c(list(f = evaluate), labels)))
@@ -311,6 +305,8 @@ as_labeller <- function(x, default = label_value, multi_line = TRUE) {
       x(labels)
     } else if (is.function(x)) {
       default(lapply(labels, x))
+    } else if (is.formula(x)) {
+      default(lapply(labels, as_function(x)))
     } else if (is.character(x)) {
       default(lapply(labels, function(label) x[label]))
     } else {
@@ -342,8 +338,8 @@ as_labeller <- function(x, default = label_value, multi_line = TRUE) {
 #'   the columns). It is passed to [as_labeller()]. When a
 #'   margin-wide labeller is set, make sure you don't mention in
 #'   `...` any variable belonging to the margin.
-#' @param keep.as.numeric Deprecated. All supplied labellers and
-#'   on-labeller functions should be able to work with character
+#' @param keep.as.numeric `r lifecycle::badge("deprecated")` All supplied
+#'   labellers and on-labeller functions should be able to work with character
 #'   labels.
 #' @param .multi_line Whether to display the labels of multiple
 #'   factors on separate lines. This is passed to the labeller
@@ -421,10 +417,10 @@ as_labeller <- function(x, default = label_value, multi_line = TRUE) {
 #' p3 + facet_wrap(~conservation2, labeller = global_labeller)
 #' }
 labeller <- function(..., .rows = NULL, .cols = NULL,
-                     keep.as.numeric = NULL, .multi_line = TRUE,
+                     keep.as.numeric = deprecated(), .multi_line = TRUE,
                      .default = label_value) {
-  if (!is.null(keep.as.numeric)) {
-    .Deprecated(old = "keep.as.numeric")
+  if (lifecycle::is_present(keep.as.numeric)) {
+    lifecycle::deprecate_warn("2.0.0", "labeller(keep.as.numeric)")
   }
   dots <- list(...)
   .default <- as_labeller(.default)
@@ -613,6 +609,7 @@ check_labeller <- function(labeller) {
     labeller <- function(labels) {
       Map(old_labeller, names(labels), labels)
     }
+    # TODO Update to lifecycle after next lifecycle release
     warn(glue(
       "The labeller API has been updated. Labellers taking `variable` ",
       "and `value` arguments are now deprecated. See labellers documentation."))

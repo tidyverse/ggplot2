@@ -21,7 +21,7 @@ scale_alpha_discrete(...)
 scale_alpha_ordinal(..., range = c(0.1, 1))
 }
 \arguments{
-\item{...}{Other arguments passed on to \code{\link[=continuous_scale]{continuous_scale()}}, \link{binned_scale},
+\item{...}{Other arguments passed on to \code{\link[=continuous_scale]{continuous_scale()}}, \code{\link[=binned_scale]{binned_scale()}},
 or \code{\link[=discrete_scale]{discrete_scale()}} as appropriate, to control name, limits,
 breaks, labels and so forth.}
 
@@ -44,6 +44,7 @@ p + scale_alpha(range = c(0.4, 0.8))
 \seealso{
 Other colour scales: 
 \code{\link{scale_colour_brewer}()},
+\code{\link{scale_colour_continuous}()},
 \code{\link{scale_colour_gradient}()},
 \code{\link{scale_colour_grey}()},
 \code{\link{scale_colour_hue}()},
