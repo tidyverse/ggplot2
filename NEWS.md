@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Require rlang >= 1.0.0 (@billybarc, #4797)
+
 * `geom_violin()` no longer issues "collapsing to unique 'x' values" warning
   (@bersbersbers, #4455)
 
