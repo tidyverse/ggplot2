@@ -182,16 +182,26 @@ labels and so forth.</p></dd>
 <dd><p>The alpha transparency, a number in [0,1], see argument alpha in
 <code><a href="https://rdrr.io/r/grDevices/hsv.html" class="external-link">hsv</a></code>.</p></dd>
 <dt>begin</dt>
-<dd><p>The (corrected) hue in [0,1] at which the viridis colormap begins.</p></dd>
+<dd><p>The (corrected) hue in <code>[0,1]</code> at which the color map
+begins and ends.</p></dd>
 <dt>end</dt>
-<dd><p>The (corrected) hue in [0,1] at which the viridis colormap ends.</p></dd>
+<dd><p>The (corrected) hue in <code>[0,1]</code> at which the color map
+begins and ends.</p></dd>
 <dt>direction</dt>
-<dd><p>Sets the order of colors in the scale. If 1, the default, colors
-are ordered from darkest to lightest. If -1, the order of colors is reversed.</p></dd>
+<dd><p>Sets the order of colors in the scale. If 1, the default,
+colors are ordered from darkest to lightest. If -1, the order of colors is
+reversed.</p></dd>
 <dt>option</dt>
-<dd><p>A character string indicating the colormap option to use. Four
-options are available: "magma" (or "A"), "inferno" (or "B"), "plasma" (or "C"),
-"viridis" (or "D", the default option) and "cividis" (or "E").</p></dd>
+<dd><p>A character string indicating the color map option to use.
+Eight options are available:</p><ul><li><p>"magma" (or "A")</p></li>
+<li><p>"inferno" (or "B")</p></li>
+<li><p>"plasma" (or "C")</p></li>
+<li><p>"viridis" (or "D")</p></li>
+<li><p>"cividis" (or "E")</p></li>
+<li><p>"rocket" (or "F")</p></li>
+<li><p>"mako" (or "G")</p></li>
+<li><p>"turbo" (or "H")</p></li>
+</ul></dd>
 <dt>aesthetics</dt>
 <dd><p>Character string or vector of character strings listing the
 name(s) of the aesthetic(s) that this scale works with. This can be useful, for
