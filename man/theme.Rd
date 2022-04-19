@@ -257,8 +257,9 @@ inherits from \code{rect}). Horizontal facet background (\code{strip.background.
 \code{strip.background} or can be specified separately}
 
 \item{strip.clip}{should strip background edges and strip labels be clipped
-to the extend of the strip background? Options are \code{"on"}, \code{"off"} and
-\code{"inherit"}.}
+to the extend of the strip background? Options are \code{"on"} to clip, \code{"off"}
+to disable clipping or \code{"inherit"} (default) to take the clipping setting
+from the parent viewport.}
 
 \item{strip.placement}{placement of strip with respect to axes,
 either "inside" or "outside". Only important when axes and strips are
