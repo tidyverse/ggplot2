@@ -442,10 +442,10 @@ extract_target_is_likely_data <- function(x, data, env) {
 
 # Takes a quosure and returns a named list of quosures, expanding
 # `!!!` expressions as needed
-expand_quos <- function(name, env = caller_env()) {
+expand_quos <- function(name, frame = caller_env()) {
   # First start with `enquo0()` which does not process injection
   # operators
-  quo <- inject(enquo0(!!sym(name)), env)
+  quo <- inject(enquo0(!!sym(name)), frame)
   expr <- quo_get_expr(quo)
 
   if (!is_missing(expr) && is_triple_bang(expr)) {
@@ -456,7 +456,7 @@ expand_quos <- function(name, env = caller_env()) {
   } else {
     # Redefuse `x` to process injection operators, then store in a
     # length-1 list of quosures
-    quo <- inject(enquo(!!sym(name)), env)
+    quo <- inject(enquo(!!sym(name)), frame)
     xs <- set_names(list(quo), name)
   }
 
