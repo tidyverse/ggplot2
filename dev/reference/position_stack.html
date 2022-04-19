@@ -125,6 +125,11 @@ without affecting the legend.</p></li>
 </ol><p>Stacking of positive and negative values are performed separately so that
 positive values stack upwards from the x-axis and negative values stack
 downward.</p>
+<p>Because stacking is performed after scale transformations, stacking with
+non-linear scales gives distortions that easily lead to misinterpretations of
+the data. It is therefore <em>discouraged</em> to use these position adjustments in
+combination with scale transformations, such as logarithmic or square root
+scales.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
