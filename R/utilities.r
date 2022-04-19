@@ -604,3 +604,25 @@ split_with_index <- function(x, f, n = max(f)) {
   attributes(f) <- list(levels = as.character(seq_len(n)), class = "factor")
   unname(split(x, f))
 }
+
+is_bang <- function(x) {
+  is_call(x, "!", n = 1)
+}
+
+is_triple_bang <- function(x) {
+  if (!is_bang(x)) {
+    return(FALSE)
+  }
+
+  x <- x[[2]]
+  if (!is_bang(x)) {
+    return(FALSE)
+  }
+
+  x <- x[[2]]
+  if (!is_bang(x)) {
+    return(FALSE)
+  }
+
+  TRUE
+}

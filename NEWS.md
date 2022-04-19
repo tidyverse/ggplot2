@@ -1,5 +1,9 @@
 # ggplot2 (development version)
 
+* `aes()` now supports the `!!!` operator in its first two arguments
+  (#2675). Thanks to @yutannihilation and @teunbrand for draft
+  implementations.
+
 * Require rlang >= 1.0.0 (@billybarc, #4797)
 
 * `geom_violin()` no longer issues "collapsing to unique 'x' values" warning
