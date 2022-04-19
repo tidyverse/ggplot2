@@ -135,7 +135,7 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
     contour_var <- params$contour_var %||% "density"
     if (!isTRUE(contour_var %in% c("density", "ndensity", "count"))) {
       cli::cli_abort(c(
-              "Invalid value of {.arg contour_var} ({.val {contour_var}})",
+        "Invalid value of {.arg contour_var} ({.val {contour_var}})",
         "i" = "Supported values are {.val density}, {.val ndensity}, and {.val count}."
       ))
     }

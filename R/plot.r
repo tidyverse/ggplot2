@@ -82,7 +82,7 @@ ggplot.default <- function(data = NULL, mapping = aes(), ...,
                            environment = parent.frame()) {
   if (!missing(mapping) && !inherits(mapping, "uneval")) {
     cli::cli_abort(c(
-            "{.arg mapping} should be created with {.fn aes}.",
+      "{.arg mapping} should be created with {.fn aes}.",
       "x" = "You've supplied a {.cls {class(mapping)[1]}} object"
     ))
   }
@@ -111,7 +111,7 @@ ggplot.function <- function(data = NULL, mapping = aes(), ...,
                             environment = parent.frame()) {
   # Added to avoid functions end in ggplot.default
   cli::cli_abort(c(
-          "{.arg data} cannot be a function.",
+    "{.arg data} cannot be a function.",
     "i" = "Have you misspelled the {.arg data} argument in {.fn ggplot}"
   ))
 }

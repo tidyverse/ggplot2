@@ -94,7 +94,7 @@ scale_colour_distiller <- function(..., type = "seq", palette = 1, direction = -
   type <- arg_match0(type, c("seq", "div", "qual"))
   if (type == "qual") {
     cli::cli_warn(c(
-            "Using a discrete colour palette in a continuous scale",
+      "Using a discrete colour palette in a continuous scale",
       "i" = "Consider using {.code type = \"seq\"} or {.code type = \"div\"} instead"
     ))
   }
@@ -110,7 +110,7 @@ scale_fill_distiller <- function(..., type = "seq", palette = 1, direction = -1,
   type <- arg_match0(type, c("seq", "div", "qual"))
   if (type == "qual") {
     cli::cli_warn(c(
-            "Using a discrete colour palette in a continuous scale",
+      "Using a discrete colour palette in a continuous scale",
       "i" = "Consider using {.code type = \"seq\"} or {.code type = \"div\"} instead"
     ))
   }
@@ -125,7 +125,7 @@ scale_colour_fermenter <- function(..., type = "seq", palette = 1, direction = -
   type <- arg_match0(type, c("seq", "div", "qual"))
   if (type == "qual") {
     cli::cli_warn(c(
-            "Using a discrete colour palette in a binned scale",
+      "Using a discrete colour palette in a binned scale",
       "i" = "Consider using {.code type = \"seq\"} or {.code type = \"div\"} instead"
     ))
   }
@@ -138,7 +138,7 @@ scale_fill_fermenter <- function(..., type = "seq", palette = 1, direction = -1,
   type <- arg_match0(type, c("seq", "div", "qual"))
   if (type == "qual") {
     cli::cli_warn(c(
-            "Using a discrete colour palette in a binned scale",
+      "Using a discrete colour palette in a binned scale",
       "i" = "Consider using {.code type = \"seq\"} or {.code type = \"div\"} instead"
     ))
   }

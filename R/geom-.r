@@ -136,7 +136,7 @@ Geom <- ggproto("Geom",
       nondata_modified <- check_nondata_cols(modified_aes)
       if (length(nondata_modified) > 0) {
         cli::cli_abort(c(
-                "Aesthetic modifiers returns invalid values",
+          "Aesthetic modifiers returns invalid values",
           "x" = "The following mappings are invalid: {.code {glue('{nondata_modified} = {as_label(modifiers[[nondata_modified]])}')}}",
           "i" = "Did you map the modifier in the wrong layer?"
         ))
@@ -215,7 +215,7 @@ check_aesthetics <- function(x, n) {
   }
 
   cli::cli_abort(c(
-          "Aesthetics must be either length 1 or the same as the data ({n})",
+    "Aesthetics must be either length 1 or the same as the data ({n})",
     "x" = "Fix the following mappings: {.col {names(which(!good))}}"
   ))
 }

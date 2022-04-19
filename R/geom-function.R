@@ -86,7 +86,7 @@ GeomFunction <- ggproto("GeomFunction", GeomPath,
     groups <- unique(data$group)
     if (length(groups) > 1) {
       cli::cli_warn(c(
-              "Multiple drawing groups in {.fn {snake_class(self)}}",
+        "Multiple drawing groups in {.fn {snake_class(self)}}",
         "i" = "Did you use the correct {.field group}, {.field colour}, or {.field fill} aesthetics?"
       ))
     }

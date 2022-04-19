@@ -131,7 +131,7 @@ GeomSf <- ggproto("GeomSf", Geom,
                         arrow = NULL, na.rm = TRUE) {
     if (!inherits(coord, "CoordSf")) {
       cli::cli_abort(c(
-              "{.fn {snake_class(self)}} can only be used together with an sf coordinate system",
+        "{.fn {snake_class(self)}} can only be used together with an sf coordinate system",
         "i" = "Please only modify the coordinate system using {.fn coord_sf}"
       ))
     }
@@ -261,7 +261,7 @@ geom_sf_label <- function(mapping = aes(), data = NULL,
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
       cli::cli_abort(c(
-              "both {.arg position} and {.arg nudge_x}/{.arg nudge_y} are supplied",
+        "both {.arg position} and {.arg nudge_x}/{.arg nudge_y} are supplied",
         "i" = "Only use one approach to alter the position"
       ))
     }
@@ -308,7 +308,7 @@ geom_sf_text <- function(mapping = aes(), data = NULL,
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
       cli::cli_abort(c(
-              "both {.arg position} and {.arg nudge_x}/{.arg nudge_y} are supplied",
+        "both {.arg position} and {.arg nudge_x}/{.arg nudge_y} are supplied",
         "i" = "Only use one approach to alter the position"
       ))
     }

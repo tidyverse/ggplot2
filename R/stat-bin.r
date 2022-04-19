@@ -99,7 +99,7 @@ StatBin <- ggproto("StatBin", Stat,
     x <- flipped_names(params$flipped_aes)$x
     if (is.integer(data[[x]])) {
       cli::cli_abort(c(
-              "{.fn {snake_class(self)}} requires a continuous {.field {x}} aesthetic",
+        "{.fn {snake_class(self)}} requires a continuous {.field {x}} aesthetic",
         "x" = "the {.field {x}} aesthetic is discrete.",
         "i" = "Perhaps you want {.code stat=\"count\"}?"
       ))

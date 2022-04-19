@@ -274,7 +274,7 @@ guide_gengrob.colorbar <- function(guide, theme) {
     label.position <- guide$label.position %||% "bottom"
     if (!label.position %in% c("top", "bottom")) {
       cli::cli_abort(c(
-              "label position {.val {label.position}} is invalid",
+        "label position {.val {label.position}} is invalid",
         "i" = "use either {.val 'top'} or {.val 'bottom'}"
       ))
     }
@@ -285,7 +285,7 @@ guide_gengrob.colorbar <- function(guide, theme) {
     label.position <- guide$label.position %||% "right"
     if (!label.position %in% c("left", "right")) {
       cli::cli_abort(c(
-              "label position {.val {label.position}} is invalid",
+        "label position {.val {label.position}} is invalid",
         "i" = "use either {.val 'left'} or {.val 'right'}"
       ))
     }

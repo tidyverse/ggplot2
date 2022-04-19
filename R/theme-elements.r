@@ -119,7 +119,7 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
   )
   if (n > 1) {
     cli::cli_warn(c(
-            "Vectorized input to {.fn element_text} is not officially supported.",
+      "Vectorized input to {.fn element_text} is not officially supported.",
       "i" = "Results may be unexpected or may change in future versions of ggplot2."
     ))
   }

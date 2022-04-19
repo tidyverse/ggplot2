@@ -261,7 +261,7 @@ guides_gengrob <- function(gdefs, theme) {
       g$title.position <- g$title.position %||% switch(g$direction, vertical = "top", horizontal = "left")
       if (!g$title.position %in% c("top", "bottom", "left", "right")) {
         cli::cli_abort(c(
-                "title position {.val {g$title.position}} is invalid",
+          "title position {.val {g$title.position}} is invalid",
           "i" = "use either {.val top}, {.val bottom}, {.val left}, or {.val right}"
         ))
       }
@@ -366,7 +366,7 @@ guide_transform <- function(guide, coord, panel_params) UseMethod("guide_transfo
 #' @export
 guide_transform.default <- function(guide, coord, panel_params) {
   cli::cli_abort(c(
-          "Guide with class {.cls {class(guide)}} does not implement {.fn guide_transform}",
+    "Guide with class {.cls {class(guide)}} does not implement {.fn guide_transform}",
     "i" = "Did you mean to use {.fn guide_axis}?"
   ))
 }

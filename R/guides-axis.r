@@ -118,7 +118,7 @@ guide_transform.axis <- function(guide, coord, panel_params) {
 guide_merge.axis <- function(guide, new_guide) {
   if (!inherits(new_guide, "guide_none")) {
     cli::cli_warn(c(
-            "{.fn guide_axis}: Discarding guide on merge",
+      "{.fn guide_axis}: Discarding guide on merge",
       "i" = "Do you have more than one guide with the same position?"
     ))
   }
@@ -436,7 +436,7 @@ warn_for_guide_position <- function(guide) {
 
   if (length(unique(guide$key[[position_aes]][breaks_are_unique])) == 1) {
     cli::cli_warn(c(
-            "Position guide is perpendicular to the intended axis",
+      "Position guide is perpendicular to the intended axis",
       "i" = "Did you mean to specify a different guide {.arg position}?"
     ))
   }

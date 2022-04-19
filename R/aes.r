@@ -398,8 +398,8 @@ warn_for_aes_extract_usage_expr <- function(x, data, env = emptyenv()) {
     if (extract_target_is_likely_data(x, data, env)) {
       good_usage <- alternative_aes_extract_usage(x)
       cli::cli_warn(c(
-        "Use of {.code {format(x)}} is discouraged."
-        i = "Use {.code {good_usage}} instead."
+        "Use of {.code {format(x)}} is discouraged.",
+        "i" = "Use {.code {good_usage}} instead."
       ))
     }
   } else if (is.call(x)) {

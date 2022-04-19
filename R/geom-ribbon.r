@@ -178,7 +178,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
       upper = munched_upper,
       lower = munched_lower,
       cli::cli_abort(c(
-              "invalid {.arg outline.type}: {.val {outline.type}}",
+        "invalid {.arg outline.type}: {.val {outline.type}}",
         "i" = "use either {.val upper}, {.val lower}, or {.val both}"
       ))
     )

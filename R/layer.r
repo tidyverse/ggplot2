@@ -249,7 +249,7 @@ Layer <- ggproto("Layer", NULL,
     nondata_cols <- check_nondata_cols(evaled)
     if (length(nondata_cols) > 0) {
       cli::cli_abort(c(
-              "Aesthetics are not valid data columns.",
+        "Aesthetics are not valid data columns.",
         "x" = "The following aesthetics are invalid: {.code {glue('{nondata_cols} = {as_label(aesthetics[[nondata_cols]])}')}}",
         "i" = "Did you mistype the name of a data column or forget to add {.fn after_stat}?"
       ))
@@ -317,7 +317,7 @@ Layer <- ggproto("Layer", NULL,
     nondata_stat_cols <- check_nondata_cols(stat_data)
     if (length(nondata_stat_cols) > 0) {
       cli::cli_abort(c(
-              "Aesthetics are not valid computed stats.",
+        "Aesthetics are not valid computed stats.",
         "x" = "The following aesthetics are invalid: {.code {glue('{nondata_stat_cols} = {as_label(aesthetics[[nondata_stat_cols]])}')}}",
         "i" = "Did you map your stat in the wrong layer?"
       ))

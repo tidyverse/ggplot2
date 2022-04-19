@@ -85,7 +85,7 @@ scale_colour_continuous <- function(...,
     scale_colour_viridis_c(...)
   } else {
     cli::cli_abort(c(
-            "Unknown scale type: {.val {type}}",
+      "Unknown scale type: {.val {type}}",
       "i" = "Use either {.val gradient} or {.val viridis}"
     ))
   }
@@ -105,7 +105,7 @@ scale_fill_continuous <- function(...,
     scale_fill_viridis_c(...)
   } else {
     cli::cli_abort(c(
-            "Unknown scale type: {.val {type}}",
+      "Unknown scale type: {.val {type}}",
       "i" = "Use either {.val gradient} or {.val viridis}"
     ))
   }
@@ -133,7 +133,7 @@ scale_colour_binned <- function(...,
       scale_colour_viridis_b(...)
     } else {
       cli::cli_abort(c(
-              "Unknown scale type: {.val {type}}",
+        "Unknown scale type: {.val {type}}",
         "i" = "Use either {.val gradient} or {.val viridis}"
       ))
     }
@@ -162,7 +162,7 @@ scale_fill_binned <- function(...,
       scale_fill_viridis_b(...)
     } else {
       cli::cli_abort(c(
-              "Unknown scale type: {.val {type}}",
+        "Unknown scale type: {.val {type}}",
         "i" = "Use either {.val gradient} or {.val viridis}"
       ))
     }
@@ -175,13 +175,13 @@ scale_fill_binned <- function(...,
 check_scale_type <- function(scale, name, aesthetic, scale_is_discrete = FALSE, call = caller_env()) {
   if (!is.ggproto(scale) || !inherits(scale, "Scale")) {
     cli::cli_abort(c(
-            "The {.arg type} argument must return a continuous scale for the {.field {aesthetic}} aesthetic.",
+      "The {.arg type} argument must return a continuous scale for the {.field {aesthetic}} aesthetic.",
       "x" = "The provided object is not a scale function."
     ), call = call)
   }
   if (!isTRUE(aesthetic %in% scale$aesthetics)) {
     cli::cli_abort(c(
-            "The {.arg type} argument must return a continuous scale for the {.field {aesthetic}} aesthetic.",
+      "The {.arg type} argument must return a continuous scale for the {.field {aesthetic}} aesthetic.",
       "x" = "The provided scale works with the following aesthetics: {.field {scale$aesthetics}}"
     ), call = call)
   }
@@ -191,7 +191,7 @@ check_scale_type <- function(scale, name, aesthetic, scale_is_discrete = FALSE, 
       scale_types <- rev(scale_types)
     }
     cli::cli_abort(c(
-            "The {.arg type} argument must return a {scale_types[1]} scale for the {.field {aesthetic}} aesthetic.",
+      "The {.arg type} argument must return a {scale_types[1]} scale for the {.field {aesthetic}} aesthetic.",
       "x" = "The provided scale is {scale_types[2]}."
     ), call = call)
   }

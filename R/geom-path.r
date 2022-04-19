@@ -337,7 +337,7 @@ stairstep <- function(data, direction = "hv") {
     ys <- rep(1:n, each = 2)
   } else {
     cli::cli_abort(c(
-            "{.arg direction} is invalid.",
+      "{.arg direction} is invalid.",
       "i" = "Use either {.val vh}, {.val hv}, or {.va mid}"
     ))
   }

@@ -193,7 +193,7 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
   if (!is.function(limits) && (length(limits) > 0) && !is.discrete(limits)) {
     cli::cli_warn(c(
       "Continuous limits supplied to discrete scale.",
-      "Did you mean {.code limits = factor(...)} or {.fn scale_*_continuous}?"
+      "i" = "Did you mean {.code limits = factor(...)} or {.fn scale_*_continuous}?"
     ))
   }
 

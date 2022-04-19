@@ -75,7 +75,7 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
 
     if (is.double(data$x) && !has_groups(data) && any(data$x != data$x[1L])) {
       cli::cli_warn(c(
-              "Continuous {.field {flipped_names(params$flipped_aes)$x}} aesthetic",
+        "Continuous {.field {flipped_names(params$flipped_aes)$x}} aesthetic",
         "i" = "did you forget {.code aes(group = ...)}?"
       ))
     }

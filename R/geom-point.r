@@ -186,7 +186,7 @@ translate_shape_string <- function(shape_string) {
   if (any(invalid_strings)) {
     bad_string <- unique(shape_string[invalid_strings])
     cli::cli_abort(c(
-            "{.arg shape_string} contains invalid elements",
+      "{.arg shape_string} contains invalid elements",
       "i" = "Fix {.val {bad_string}}"
     ))
   }
@@ -194,7 +194,7 @@ translate_shape_string <- function(shape_string) {
   if (any(nonunique_strings)) {
     bad_string <- unique(shape_string[nonunique_strings])
     cli::cli_abort(c(
-            "{.arg shape_string} elements must be unambiguous",
+      "{.arg shape_string} elements must be unambiguous",
       "i" = "Fix {.val {bad_string}}"
     ))
   }

@@ -58,7 +58,7 @@ GeomRaster <- ggproto("GeomRaster", Geom,
       w <- 1
     } else if (any(abs(diff(x_diff)) > precision)) {
       cli::cli_warn(c(
-              "Raster pixels are placed at uneven horizontal intervals and will be shifted",
+        "Raster pixels are placed at uneven horizontal intervals and will be shifted",
         "i" = "Consider using {.fn geom_tile} instead."
       ))
       w <- min(x_diff)
@@ -70,7 +70,7 @@ GeomRaster <- ggproto("GeomRaster", Geom,
       h <- 1
     } else if (any(abs(diff(y_diff)) > precision)) {
       cli::cli_warn(c(
-              "Raster pixels are placed at uneven horizontal intervals and will be shifted",
+        "Raster pixels are placed at uneven horizontal intervals and will be shifted",
         "i" = "Consider using {.fn geom_tile} instead."
       ))
       h <- min(y_diff)
@@ -89,7 +89,7 @@ GeomRaster <- ggproto("GeomRaster", Geom,
                         hjust = 0.5, vjust = 0.5) {
     if (!inherits(coord, "CoordCartesian")) {
       cli::cli_abort(c(
-              "{.fn {snake_class(self)}} only works with Cartesian coordinates",
+        "{.fn {snake_class(self)}} only works with Cartesian coordinates",
         "i" = "only use {.fn coord_cartesian} to modify the coordinate system"
       ))
     }

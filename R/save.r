@@ -114,7 +114,7 @@ parse_dpi <- function(dpi, call = caller_env()) {
       print = 300,
       retina = 320,
       cli::cli_abort(c(
-              "Unknown {.arg dpi} string",
+        "Unknown {.arg dpi} string",
         "i" = "Use either {.val screen}, {.val print}, or {.val retina}"
       ), call = call)
     )
@@ -148,7 +148,7 @@ plot_dim <- function(dim = c(NA, NA), scale = 1, units = "in",
 
   if (limitsize && any(dim >= 50)) {
     cli::cli_abort(c(
-            "Dimensions exceed 50 inches ({.arg height} and {.arg width} are specified in {.emph {units}} not pixels).",
+      "Dimensions exceed 50 inches ({.arg height} and {.arg width} are specified in {.emph {units}} not pixels).",
       "i" = "If you're sure you want a plot that big, use {.code limitsize = FALSE}.
     "), call = call)
   }
