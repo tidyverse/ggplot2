@@ -1,5 +1,9 @@
 # ggplot2 (development version)
 
+* Automatic break calculation now squishes the scale limits to the domain
+  of the transformation. This allows `scale_{x/y}_sqrt()` to find breaks at 0   
+  when appropriate (@teunbrand, #980).
+
 * `geom_violin()` no longer issues "collapsing to unique 'x' values" warning
   (@bersbersbers, #4455)
 
