@@ -193,7 +193,7 @@ revalue <- function(x, replace) {
     lev[match(names(replace), lev)] <- replace
     levels(x) <- lev
   } else if (!is.null(x)) {
-    cli::cli_abort("{.arg x} is not a {.cls factor} or {.cls character} vector")
+    cli::cli_abort("{.arg x} must be a factor or character vector")
   }
   x
 }
@@ -239,7 +239,7 @@ as.quoted <- function(x, env = parent.frame()) {
   } else if (is.call(x)) {
     as.list(x)[-1]
   } else {
-    cli::cli_abort("Only knows how to quote {.cls character}, {.cls call}, and {.cls formula}")
+    cli::cli_abort("Must be a character vector, call, or formula")
   }
   attributes(x) <- list(env = env, class = 'quoted')
   x

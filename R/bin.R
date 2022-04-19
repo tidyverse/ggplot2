@@ -55,7 +55,7 @@ bin_breaks_width <- function(x_range, width = NULL, center = NULL,
   # if (length(x_range) == 0) {
   #   return(bin_params(numeric()))
   # }
-  if (!(is.numeric(width) && length(width) == 1)) cli::cli_abort("{.arg width} must be a {.cls numeric} scalar")
+  if (!(is.numeric(width) && length(width) == 1)) cli::cli_abort("{.arg width} must be a number")
   if (width <= 0) {
     cli::cli_abort("{.arg binwidth} must be positive")
   }
@@ -88,7 +88,7 @@ bin_breaks_width <- function(x_range, width = NULL, center = NULL,
 
   if (isTRUE((max_x - origin) / width > 1e6)) {
     cli::cli_abort(c(
-            "The number of histogram bins must be less than 1,000,000.",
+      "The number of histogram bins must be less than 1,000,000.",
       "i" = "Did you make {.arg binwidth} too small?"
     ))
   }

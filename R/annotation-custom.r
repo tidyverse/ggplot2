@@ -72,7 +72,7 @@ GeomCustomAnn <- ggproto("GeomCustomAnn", Geom,
                         ymin, ymax) {
     if (!inherits(coord, "CoordCartesian")) {
       cli::cli_abort(c(
-              "{.fn annotation_custom} only works with Cartesian coordinates",
+        "{.fn annotation_custom} only works with Cartesian coordinates",
         "i" = "Only use {.fn coord_cartesian} to modify the coordinate system"
       ))
     }
