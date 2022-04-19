@@ -152,6 +152,22 @@ test_that("Warnings are issued when plots use discouraged extract usage within a
   expect_warning(ggplot_build(p), "Use of `df\\$x` is discouraged")
 })
 
+test_that("aes() supports `!!!` in named arguments (#2675)", {
+  expect_equal(
+    aes(!!!list(y = 1)),
+    aes(y = 1)
+  )
+  expect_equal(
+    aes(!!!list(x = 1), !!!list(y = 2)),
+    aes(x = 1, y = 2)
+  )
+  expect_equal(
+    aes(, , !!!list(y = 1)),
+    aes(y = 1)
+  )
+  expect_snapshot((expect_error(aes(y = 1, !!!list(y = 2)))))
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("aesthetics are drawn correctly", {
