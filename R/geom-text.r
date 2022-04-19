@@ -179,7 +179,7 @@ geom_text <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       parse = parse,
       check_overlap = check_overlap,
       na.rm = na.rm,

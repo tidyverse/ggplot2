@@ -141,7 +141,7 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       outlier.colour = outlier.color %||% outlier.colour,
       outlier.fill = outlier.fill,
       outlier.shape = outlier.shape,

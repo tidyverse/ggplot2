@@ -93,7 +93,7 @@ geom_smooth <- function(mapping = NULL, data = NULL,
                         show.legend = NA,
                         inherit.aes = TRUE) {
 
-  params <- list(
+  params <- list2(
     na.rm = na.rm,
     orientation = orientation,
     se = se,

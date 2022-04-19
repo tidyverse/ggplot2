@@ -99,7 +99,7 @@ geom_violin <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       trim = trim,
       scale = scale,
       draw_quantiles = draw_quantiles,

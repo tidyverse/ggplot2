@@ -31,7 +31,7 @@ geom_label <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       parse = parse,
       label.padding = label.padding,
       label.r = label.r,
