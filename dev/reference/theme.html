@@ -191,6 +191,7 @@ together according to inheritance, read more about theme inheritance below.</p>
   <span class="va">strip.background</span>,
   <span class="va">strip.background.x</span>,
   <span class="va">strip.background.y</span>,
+  <span class="va">strip.clip</span>,
   <span class="va">strip.placement</span>,
   <span class="va">strip.text</span>,
   <span class="va">strip.text.x</span>,
@@ -357,6 +358,11 @@ the top, right, bottom, and left margins)</p></dd>
 inherits from <code>rect</code>). Horizontal facet background (<code>strip.background.x</code>)
 &amp; vertical facet background (<code>strip.background.y</code>) inherit from
 <code>strip.background</code> or can be specified separately</p></dd>
+<dt>strip.clip</dt>
+<dd><p>should strip background edges and strip labels be clipped
+to the extend of the strip background? Options are <code>"on"</code> to clip, <code>"off"</code>
+to disable clipping or <code>"inherit"</code> (default) to take the clipping setting
+from the parent viewport.</p></dd>
 <dt>strip.placement</dt>
 <dd><p>placement of strip with respect to axes,
 either "inside" or "outside". Only important when axes and strips are
