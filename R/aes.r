@@ -79,8 +79,8 @@ NULL
 #' cut3 <- function(x) cut_number(x, 3)
 #' scatter_by(mtcars, cut3(disp), drat)
 aes <- function(x, y, ...) {
-  xs <- expand_quos("x")
-  ys <- expand_quos("y")
+  xs <- arg_enquos("x")
+  ys <- arg_enquos("y")
   dots <- enquos(...)
 
   args <- c(xs, ys, dots)
@@ -442,7 +442,7 @@ extract_target_is_likely_data <- function(x, data, env) {
 
 # Takes a quosure and returns a named list of quosures, expanding
 # `!!!` expressions as needed
-expand_quos <- function(name, frame = caller_env()) {
+arg_enquos <- function(name, frame = caller_env()) {
   # First start with `enquo0()` which does not process injection
   # operators
   quo <- inject(enquo0(!!sym(name)), frame)
