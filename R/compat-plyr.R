@@ -246,7 +246,9 @@ as.quoted <- function(x, env = parent.frame()) {
 }
 # round a number to a given precision
 round_any <- function(x, accuracy, f = round) {
-  if (!is.numeric(x)) cli::cli_abort("{.arg x} must be {.cls numeric}")
+  if (!is.numeric(x)) {
+    cli::cli_abort("{.arg x} must be {.cls numeric}")
+  }
   f(x/accuracy) * accuracy
 }
 #' Bind data frames together by common column names

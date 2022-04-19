@@ -1,6 +1,8 @@
 bins <- function(breaks, closed = "right",
                  fuzz = 1e-08 * stats::median(diff(breaks))) {
-  if (!is.numeric(breaks)) cli::cli_abort("{.arg breaks} must be a {.cls numeric} vector")
+  if (!is.numeric(breaks)) {
+    cli::cli_abort("{.arg breaks} must be a {.cls numeric} vector")
+  }
   closed <- arg_match0(closed, c("right", "left"))
 
   breaks <- sort(breaks)
@@ -50,12 +52,16 @@ bin_breaks <- function(breaks, closed = c("right", "left")) {
 
 bin_breaks_width <- function(x_range, width = NULL, center = NULL,
                              boundary = NULL, closed = c("right", "left")) {
-  if (length(x_range) != 2) cli::cli_abort("{.arg x_range} must have two elements")
+  if (length(x_range) != 2) {
+    cli::cli_abort("{.arg x_range} must have two elements")
+  }
 
   # if (length(x_range) == 0) {
   #   return(bin_params(numeric()))
   # }
-  if (!(is.numeric(width) && length(width) == 1)) cli::cli_abort("{.arg width} must be a number")
+  if (!(is.numeric(width) && length(width) == 1)) {
+    cli::cli_abort("{.arg width} must be a number")
+  }
   if (width <= 0) {
     cli::cli_abort("{.arg binwidth} must be positive")
   }
@@ -105,7 +111,9 @@ bin_breaks_width <- function(x_range, width = NULL, center = NULL,
 
 bin_breaks_bins <- function(x_range, bins = 30, center = NULL,
                             boundary = NULL, closed = c("right", "left")) {
-  if (length(x_range) != 2) cli::cli_abort("{.arg x_range} must have two elements")
+  if (length(x_range) != 2) {
+    cli::cli_abort("{.arg x_range} must have two elements")
+  }
 
   bins <- as.integer(bins)
   if (bins < 1) {
@@ -128,7 +136,9 @@ bin_breaks_bins <- function(x_range, bins = 30, center = NULL,
 # Compute bins ------------------------------------------------------------
 
 bin_vector <- function(x, bins, weight = NULL, pad = FALSE) {
-  if (!is_bins(bins)) cli::cli_abort("{.arg bins} must be a {.cls ggplot2_bins} object")
+  if (!is_bins(bins)) {
+    cli::cli_abort("{.arg bins} must be a {.cls ggplot2_bins} object")
+  }
 
   if (all(is.na(x))) {
     return(bin_out(length(x), NA, NA, xmin = NA, xmax = NA))
