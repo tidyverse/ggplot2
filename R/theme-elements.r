@@ -531,7 +531,7 @@ validate_element <- function(el, elname, element_tree, call = caller_env()) {
     # Need to be a bit looser here since sometimes it's a string like "top"
     # but sometimes its a vector like c(0,0)
     if (!is.character(el) && !is.numeric(el))
-      cli::cli_abort("The {.var {elname}} theme element must be a {.cls character} or {.cls numeric} vector.", call = call)
+      cli::cli_abort("The {.var {elname}} theme element must be a character or numeric vector.", call = call)
   } else if (eldef$class == "margin") {
     if (!is.unit(el) && length(el) == 4)
       cli::cli_abort("The {.var {elname}} theme element must be a {.cls unit} vector of length 4.", call = call)

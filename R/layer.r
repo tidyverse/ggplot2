@@ -419,12 +419,12 @@ obj_desc <- function(x) {
     }
   } else {
     switch(typeof(x),
-      "NULL" = "a {.cls NULL}",
-      character = "a {.cls character} vector",
-      integer = "an {.cls integer} vector",
-      logical = "a {.cls logical} vector",
-      double = "a {.cls numeric} vector",
-      list = "a {.cls list}",
+      "NULL" = "a {.val NULL}",
+      character = "a character vector",
+      integer = "an integer vector",
+      logical = "a logical vector",
+      double = "a numeric vector",
+      list = "a list",
       closure = "a {.cls function}",
       paste0("a base object of type {.cls ", typeof(x), "}")
     )

@@ -1,7 +1,7 @@
 bins <- function(breaks, closed = "right",
                  fuzz = 1e-08 * stats::median(diff(breaks))) {
   if (!is.numeric(breaks)) {
-    cli::cli_abort("{.arg breaks} must be a {.cls numeric} vector")
+    cli::cli_abort("{.arg breaks} must be a numeric vector")
   }
   closed <- arg_match0(closed, c("right", "left"))
 

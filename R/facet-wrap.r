@@ -100,10 +100,10 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
   }
   strip.position <- arg_match0(strip.position, c("top", "bottom", "left", "right"))
   if (!(is.null(ncol) || (is_integerish(ncol, 1) && ncol > 0))) {
-    cli::cli_abort("{.arg ncol} must be a positive scalar {.cls integer} or {.val NULL}")
+    cli::cli_abort("{.arg ncol} must be a positive scalar integer or {.val NULL}")
   }
   if (!(is.null(nrow) || (is_integerish(nrow, 1) && nrow > 0))) {
-    cli::cli_abort("{.arg nrow} must be a positive scalar {.cls integer} or {.val NULL}")
+    cli::cli_abort("{.arg nrow} must be a positive scalar integer or {.val NULL}")
   }
   if (identical(dir, "v")) {
     # swap

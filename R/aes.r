@@ -103,7 +103,7 @@ new_aesthetic <- function(x, env = globalenv()) {
 }
 new_aes <- function(x, env = globalenv()) {
   if (!is.list(x)) {
-    cli::cli_abort("{.arg x} must be a {.cls list}")
+    cli::cli_abort("{.arg x} must be a list")
   }
   x <- lapply(x, new_aesthetic, env = env)
   structure(x, class = "uneval")

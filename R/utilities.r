@@ -84,7 +84,7 @@ uniquecols <- function(df) {
 remove_missing <- function(df, na.rm = FALSE, vars = names(df), name = "",
                            finite = FALSE) {
   if (!is.logical(na.rm)) {
-    cli::cli_abort("{.arg na.rm} must be {.cls logical}")
+    cli::cli_abort("{.arg na.rm} must be logical scalar")
   }
 
   missing <- detect_missing(df, vars, finite)
@@ -375,7 +375,7 @@ is_column_vec <- function(x) {
 #
 parse_safe <- function(text) {
   if (!is.character(text)) {
-    cli::cli_abort("{.arg text} must be a {.cls character} vector")
+    cli::cli_abort("{.arg text} must be a character vector")
   }
   out <- vector("expression", length(text))
   for (i in seq_along(text)) {
