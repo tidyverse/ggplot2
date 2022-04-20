@@ -117,7 +117,7 @@ bin_breaks_bins <- function(x_range, bins = 30, center = NULL,
 
   bins <- as.integer(bins)
   if (bins < 1) {
-    cli::cli_abort("Need at least one bin.")
+    cli::cli_abort("{.arg bins} must be 1 or greater")
   } else if (zero_range(x_range)) {
     # 0.1 is the same width as the expansion `default_expansion()` gives for 0-width data
     width <- 0.1
