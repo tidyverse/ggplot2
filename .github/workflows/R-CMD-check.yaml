@@ -66,7 +66,6 @@ jobs:
             mapproj=?ignore-before-r=3.5.0,
             multcomp=?ignore-before-r=3.5.0,
             quantreg=?ignore-before-r=3.5.0,
-            interp=?ignore-before-r=3.5.0
           needs: check
 
       - uses: r-lib/actions/check-r-package@v2
