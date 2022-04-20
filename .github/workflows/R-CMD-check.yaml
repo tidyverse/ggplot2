@@ -45,6 +45,7 @@ jobs:
       # Runs vdiffr test only on the latest version of R
       VDIFFR_RUN_TESTS: ${{ matrix.config.r == 'release' }}
       VDIFFR_LOG_PATH: "../vdiffr.Rout.fail"
+      R_CLI_DYNAMIC: true
 
     steps:
       - uses: actions/checkout@v2
