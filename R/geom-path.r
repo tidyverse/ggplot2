@@ -151,7 +151,7 @@ GeomPath <- ggproto("GeomPath", Geom,
                         na.rm = FALSE) {
     if (!anyDuplicated(data$group)) {
       cli::cli_inform(c(
-        "{.fn {snake_class(self)}}: Each group consists of only one observation."
+        "{.fn {snake_class(self)}}: Each group consists of only one observation.",
         i = "Do you need to adjust the {.field group} aesthetic?"
       ))
     }

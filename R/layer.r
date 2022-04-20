@@ -155,7 +155,7 @@ validate_mapping <- function(mapping, call = caller_env()) {
       msg <- c(msg, "i" = "Did you use {.code %>%} instead of {.code +}?")
     }
 
-    cli::cli_abort(msg, call = call_env)
+    cli::cli_abort(msg, call = call)
   }
 
   # For backward compatibility with pre-tidy-eval layers

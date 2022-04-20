@@ -130,7 +130,7 @@ GeomSf <- ggproto("GeomSf", Geom,
                         lineend = "butt", linejoin = "round", linemitre = 10,
                         arrow = NULL, na.rm = TRUE) {
     if (!inherits(coord, "CoordSf")) {
-      cli::cli_abort("{.fn {snake_class(self)}} can only be used with {.fn coord_sf}"))
+      cli::cli_abort("{.fn {snake_class(self)}} can only be used with {.fn coord_sf}")
     }
 
     # Need to refactor this to generate one grob per geometry type
@@ -175,7 +175,7 @@ sf_grob <- function(x, lineend = "butt", linejoin = "round", linemitre = 10,
   remove[is_other] <- detect_missing(x, c(GeomPolygon$required_aes, GeomPolygon$non_missing_aes))[is_other]
   if (any(remove)) {
     if (!na.rm) {
-      cli::cli_warn("Removed {sum(remove)} row{s?} containing missing values (geom_sf)")
+      cli::cli_warn("Removed {sum(remove)} row{?s} containing missing values ({.fn geom_sf})")
     }
     x <- x[!remove, , drop = FALSE]
     type_ind <- type_ind[!remove]

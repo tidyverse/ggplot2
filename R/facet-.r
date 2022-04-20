@@ -565,18 +565,16 @@ combine_vars <- function(data, env = emptyenv(), vars = NULL, drop = TRUE) {
   has_all <- unlist(lapply(values, length)) == length(vars)
   if (!any(has_all)) {
     missing <- lapply(values, function(x) setdiff(names(vars), names(x)))
-    msg <- paste(
+    missing_vars <- paste0(
       c("Plot", paste0("Layer ", seq_len(length(data) - 1))),
-      " is missing {.var {missing[[",
-      seq_along(data),
-      "]]}}"
+      " is missing {.var ", missing[[seq_along(data)]], "}"
     )
-    msg <- c(
+    names(missing_vars) <- rep("x", length(data))
+
+    cli::cli_abort(c(
       "At least one layer must contain all faceting variables: {.var {names(vars)}}",
-      msg
-    )
-    names(msg) <- c("", rep("x", length(data)))
-    cli::cli_abort(msg)
+      missing_vars
+    ))
   }
 
   base <- unique(rbind_dfs(values[has_all]))

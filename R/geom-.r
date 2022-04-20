@@ -135,9 +135,12 @@ Geom <- ggproto("Geom",
       # Check that all output are valid data
       nondata_modified <- check_nondata_cols(modified_aes)
       if (length(nondata_modified) > 0) {
+        issues <- paste0("{.code ", nondata_modified, " = ", as_label(modifiers[[nondata_modified]]), "}")
+        names(issues) <- rep("x", length(issues))
         cli::cli_abort(c(
           "Aesthetic modifiers returned invalid values",
-          "x" = "The following mappings are invalid: {.code {glue('{nondata_modified} = {as_label(modifiers[[nondata_modified]])}')}}",
+          "x" = "The following mappings are invalid",
+          issues,
           "i" = "Did you map the modifier in the wrong layer?"
         ))
       }

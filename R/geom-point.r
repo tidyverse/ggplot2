@@ -185,15 +185,13 @@ translate_shape_string <- function(shape_string) {
 
   if (any(invalid_strings)) {
     bad_string <- unique(shape_string[invalid_strings])
-    cli::cli_abort(c(
-      "Shape aesthetic contains invalid value{?s}: {.val {bad_string}}",
-    ))
+    cli::cli_abort("Shape aesthetic contains invalid value{?s}: {.val {bad_string}}")
   }
 
   if (any(nonunique_strings)) {
     bad_string <- unique(shape_string[nonunique_strings])
     cli::cli_abort(c(
-      "{.arg shape_string} elements must be unambiguous",
+      "shape names must be given unambiguously",
       "i" = "Fix {.val {bad_string}}"
     ))
   }

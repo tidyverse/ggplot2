@@ -1,10 +1,9 @@
 # invalid shape names raise an error
 
-    `shape_string` contains invalid elements
-    i Fix "void"
+    Shape aesthetic contains invalid value: "void"
 
 ---
 
-    `shape_string` elements must be unambiguous
+    shape names must be given unambiguously
     i Fix "tri"
 
