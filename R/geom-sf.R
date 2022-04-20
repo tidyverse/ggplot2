@@ -230,7 +230,7 @@ geom_sf <- function(mapping = aes(), data = NULL, stat = "sf",
       position = position,
       show.legend = show.legend,
       inherit.aes = inherit.aes,
-      params = list(
+      params = list2(
         na.rm = na.rm,
         ...
       )
@@ -273,7 +273,7 @@ geom_sf_label <- function(mapping = aes(), data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       parse = parse,
       label.padding = label.padding,
       label.r = label.r,
@@ -317,7 +317,7 @@ geom_sf_text <- function(mapping = aes(), data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       parse = parse,
       check_overlap = check_overlap,
       na.rm = na.rm,

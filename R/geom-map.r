@@ -92,7 +92,7 @@ geom_map <- function(mapping = NULL, data = NULL,
     position = PositionIdentity,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       map = map,
       na.rm = na.rm,
       ...

@@ -147,7 +147,7 @@ guide_colourbar <- function(
   if (!is.null(barwidth) && !is.unit(barwidth)) barwidth <- unit(barwidth, default.unit)
   if (!is.null(barheight) && !is.unit(barheight)) barheight <- unit(barheight, default.unit)
 
-  structure(list(
+  structure(list2(
     # title
     title = title,
     title.position = title.position,

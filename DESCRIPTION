@@ -51,7 +51,6 @@ Suggests:
     ggplot2movies,
     hexbin,
     Hmisc,
-    interp,
     knitr,
     lattice,
     mapproj,

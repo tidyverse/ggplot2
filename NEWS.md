@@ -4,6 +4,11 @@
   of the transformation. This allows `scale_{x/y}_sqrt()` to find breaks at 0   
   when appropriate (@teunbrand, #980).
 
+* `...` supports `rlang::list2` dynamic dots in all public functions. (@mone27, #4764) 
+
+* `theme()` now has a `strip.clip` argument, that can be set to `"off"` to 
+  prevent the clipping of strip text and background borders (@teunbrand, #4118)
+
 * `aes()` now supports the `!!!` operator in its first two arguments
   (#2675). Thanks to @yutannihilation and @teunbrand for draft
   implementations.

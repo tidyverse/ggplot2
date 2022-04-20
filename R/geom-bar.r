@@ -96,7 +96,7 @@ geom_bar <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       width = width,
       na.rm = na.rm,
       orientation = orientation,
