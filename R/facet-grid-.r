@@ -161,7 +161,7 @@ grid_as_facets_list <- function(rows, cols) {
       if(inherits(rows, "ggplot")) {
         msg <- c(
           msg,
-          "i" = "Did you use {.code %>%} instead of {.code +}?"
+          "i" = "Did you use {.code %>%} or {.code |>} instead of {.code +}?"
         )
       }
       cli::cli_abort(msg)

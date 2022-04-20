@@ -453,7 +453,10 @@ wrap_dims <- function(n, nrow = NULL, ncol = NULL) {
     nrow <- ceiling(n / ncol)
   }
   if (nrow * ncol < n) {
-    cli::cli_abort("The provided dimensions cannot hold all panels. Please increase {.arg ncol} and/or {.arg nrow}")
+    cli::cli_abort(c(
+      "Need {n} panels, but together{.arg nrow} and({ncol}) only provide {nrow * ncol}",
+      i = "Please increase {.arg ncol} and/or {.arg nrow}"
+    ))
   }
 
   c(nrow, ncol)
