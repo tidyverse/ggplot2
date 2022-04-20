@@ -93,8 +93,7 @@ GeomRaster <- ggproto("GeomRaster", Geom,
                         hjust = 0.5, vjust = 0.5) {
     if (!inherits(coord, "CoordCartesian")) {
       cli::cli_abort(c(
-        "{.fn {snake_class(self)}} only works with Cartesian coordinates",
-        "i" = "only use {.fn coord_cartesian} to modify the coordinate system"
+        "{.fn {snake_class(self)}} only works with {.fn coord_cartesian}"
       ))
     }
     data <- coord$transform(data, panel_params)

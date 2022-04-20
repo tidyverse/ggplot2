@@ -150,7 +150,10 @@ GeomPath <- ggproto("GeomPath", Geom,
                         lineend = "butt", linejoin = "round", linemitre = 10,
                         na.rm = FALSE) {
     if (!anyDuplicated(data$group)) {
-      cli::cli_inform("{.fn {snake_class(self)}}: Each group consists of only one observation. Do you need to adjust the {.field group} aesthetic?")
+      cli::cli_inform(c(
+        "{.fn {snake_class(self)}}: Each group consists of only one observation."
+        i = "Do you need to adjust the {.field group} aesthetic?"
+      ))
     }
 
     # must be sorted on group

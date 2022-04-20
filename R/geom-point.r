@@ -186,8 +186,7 @@ translate_shape_string <- function(shape_string) {
   if (any(invalid_strings)) {
     bad_string <- unique(shape_string[invalid_strings])
     cli::cli_abort(c(
-      "{.arg shape_string} contains invalid elements",
-      "i" = "Fix {.val {bad_string}}"
+      "Shape aesthetic contains invalid value{?s}: {.val {bad_string}}",
     ))
   }
 
