@@ -153,7 +153,7 @@ validate_mapping <- function(mapping) {
     if (inherits(mapping, "ggplot")) {
       msg <- paste0(
         msg, "\n",
-        "Did you use %>% instead of +?"
+        "Did you use %>% or |> instead of +?"
       )
     }
 

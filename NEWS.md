@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* improved error messages when `|>` is used instead of `+` (@92amartins, #4792)
+
 * `...` supports `rlang::list2` dynamic dots in all public functions. (@mone27, #4764) 
 
 * `theme()` now has a `strip.clip` argument, that can be set to `"off"` to 
