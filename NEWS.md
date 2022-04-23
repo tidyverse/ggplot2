@@ -1,6 +1,6 @@
 # ggplot2 (development version)
 
-* improved error messages when `|>` is used instead of `+` (@92amartins, #4792)
+* Improved error messages when `|>` is used instead of `+` (@92amartins, #4792)
 
 * `...` supports `rlang::list2` dynamic dots in all public functions. (@mone27, #4764) 
 
