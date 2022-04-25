@@ -454,7 +454,7 @@ wrap_dims <- function(n, nrow = NULL, ncol = NULL) {
   }
   if (nrow * ncol < n) {
     cli::cli_abort(c(
-      "Need {n} panels, but together{.arg nrow} and({ncol}) only provide {nrow * ncol}",
+      "Need {n} panels, but together {.arg nrow} and {.arg ncol} only provide {nrow * ncol}",
       i = "Please increase {.arg ncol} and/or {.arg nrow}"
     ))
   }
