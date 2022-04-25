@@ -152,7 +152,7 @@ validate_mapping <- function(mapping, call = caller_env()) {
   if (!inherits(mapping, "uneval")) {
     msg <- paste0("{.arg mapping} must be created by {.fn aes}")
     if (inherits(mapping, "ggplot")) {
-      msg <- c(msg, "i" = "Did you use {.code %>%} instead of {.code +}?")
+      msg <- c(msg, "i" = "Did you use {.code %>%} or {.code |>} instead of {.code +}?")
     }
 
     cli::cli_abort(msg, call = call)
@@ -248,9 +248,12 @@ Layer <- ggproto("Layer", NULL,
     # Check aesthetic values
     nondata_cols <- check_nondata_cols(evaled)
     if (length(nondata_cols) > 0) {
+      issues <- paste0("{.code ", nondata_cols, " = ", as_label(aesthetics[[nondata_cols]]), "}")
+      names(issues) <- rep("x", length(issues))
       cli::cli_abort(c(
         "Aesthetics are not valid data columns.",
-        "x" = "The following aesthetics are invalid: {.code {glue('{nondata_cols} = {as_label(aesthetics[[nondata_cols]])}')}}",
+        "x" = "The following aesthetics are invalid:",
+        issues,
         "i" = "Did you mistype the name of a data column or forget to add {.fn after_stat}?"
       ))
     }
@@ -316,9 +319,12 @@ Layer <- ggproto("Layer", NULL,
     # Check that all columns in aesthetic stats are valid data
     nondata_stat_cols <- check_nondata_cols(stat_data)
     if (length(nondata_stat_cols) > 0) {
+      issues <- paste0("{.code ", nondata_stat_cols, " = ", as_label(aesthetics[[nondata_stat_cols]]), "}")
+      names(issues) <- rep("x", length(issues))
       cli::cli_abort(c(
         "Aesthetics are not valid computed stats.",
-        "x" = "The following aesthetics are invalid: {.code {glue('{nondata_stat_cols} = {as_label(aesthetics[[nondata_stat_cols]])}')}}",
+        "x" = "The following aesthetics are invalid:",
+        issues,
         "i" = "Did you map your stat in the wrong layer?"
       ))
     }
