@@ -64,7 +64,7 @@ stat_smooth <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       method = method,
       formula = formula,
       se = se,
@@ -108,7 +108,7 @@ StatSmooth <- ggproto("StatSmooth", Stat,
       } else {
         params$formula <- y ~ x
       }
-      msg <- c(msg, paste0("formula '", deparse(params$formula), "'"))
+      msg <- c(msg, paste0("formula = '", deparse(params$formula), "'"))
     }
     if (identical(params$method, "gam")) {
       params$method <- mgcv::gam

@@ -85,7 +85,7 @@ geom_segment <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       arrow = arrow,
       arrow.fill = arrow.fill,
       lineend = lineend,

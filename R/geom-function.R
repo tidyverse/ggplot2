@@ -67,7 +67,7 @@ geom_function <- function(mapping = NULL, data = NULL, stat = "function",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       na.rm = na.rm,
       ...
     )

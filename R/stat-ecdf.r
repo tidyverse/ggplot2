@@ -56,7 +56,7 @@ stat_ecdf <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       n = n,
       pad = pad,
       na.rm = na.rm,

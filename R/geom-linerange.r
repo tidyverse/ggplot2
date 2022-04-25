@@ -78,7 +78,7 @@ geom_linerange <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       na.rm = na.rm,
       orientation = orientation,
       ...
@@ -93,7 +93,7 @@ geom_linerange <- function(mapping = NULL, data = NULL,
 GeomLinerange <- ggproto("GeomLinerange", Geom,
   default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
 
-  draw_key = draw_key_vpath,
+  draw_key = draw_key_linerange,
 
   required_aes = c("x|y", "ymin|xmin", "ymax|xmax"),
 

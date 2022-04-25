@@ -16,7 +16,7 @@ geom_crossbar <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       fatten = fatten,
       na.rm = na.rm,
       orientation = orientation,

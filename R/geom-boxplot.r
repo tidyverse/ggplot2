@@ -10,7 +10,7 @@
 #' The lower and upper hinges correspond to the first and third quartiles
 #' (the 25th and 75th percentiles). This differs slightly from the method used
 #' by the [boxplot()] function, and may be apparent with small samples.
-#' See [boxplot.stats()] for for more information on how hinge
+#' See [boxplot.stats()] for more information on how hinge
 #' positions are calculated for [boxplot()].
 #'
 #' The upper whisker extends from the hinge to the largest value no further than
@@ -141,7 +141,7 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       outlier.colour = outlier.color %||% outlier.colour,
       outlier.fill = outlier.fill,
       outlier.shape = outlier.shape,

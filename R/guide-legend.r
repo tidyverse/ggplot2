@@ -161,7 +161,7 @@ guide_legend <- function(# title
   }
 
   structure(
-    list(
+    list2(
       # title
       title = title,
       title.position = title.position,

@@ -161,7 +161,7 @@ stat_summary <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       fun.data = fun.data,
       fun = fun,
       fun.max = fun.max,

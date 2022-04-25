@@ -63,3 +63,7 @@ test_that("annotation_raster() and annotation_custom() requires cartesian coordi
     coord_polar()
   expect_snapshot_error(ggplotGrob(p))
 })
+
+test_that("unsupported geoms signal a warning (#4719)", {
+  expect_snapshot_warning(annotate("hline", yintercept = 0))
+})

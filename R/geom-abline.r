@@ -112,7 +112,7 @@ geom_abline <- function(mapping = NULL, data = NULL,
     position = PositionIdentity,
     show.legend = show.legend,
     inherit.aes = FALSE,
-    params = list(
+    params = list2(
       na.rm = na.rm,
       ...
     )

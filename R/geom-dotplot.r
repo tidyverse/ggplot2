@@ -162,7 +162,7 @@ geom_dotplot <- function(mapping = NULL, data = NULL,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
     # Need to make sure that the binaxis goes to both the stat and the geom
-    params = list(
+    params = list2(
       binaxis = binaxis,
       binwidth = binwidth,
       binpositions = binpositions,
@@ -291,7 +291,7 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
 
     ggname("geom_dotplot",
       dotstackGrob(stackaxis = stackaxis, x = tdata$x, y = tdata$y, dotdia = dotdianpc,
-                  stackposition = tdata$stackpos, stackratio = stackratio,
+                  stackposition = tdata$stackpos, stackdir = stackdir, stackratio = stackratio,
                   default.units = "npc",
                   gp = gpar(col = alpha(tdata$colour, tdata$alpha),
                             fill = alpha(tdata$fill, tdata$alpha),

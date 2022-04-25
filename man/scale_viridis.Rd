@@ -93,22 +93,34 @@ scale_fill_viridis_b(
 }
 \arguments{
 \item{...}{Other arguments passed on to \code{\link[=discrete_scale]{discrete_scale()}},
-\code{\link[=continuous_scale]{continuous_scale()}}, or \link{binned_scale} to control name, limits, breaks,
+\code{\link[=continuous_scale]{continuous_scale()}}, or \code{\link[=binned_scale]{binned_scale()}} to control name, limits, breaks,
 labels and so forth.}
 
 \item{alpha}{The alpha transparency, a number in [0,1], see argument alpha in
 \code{\link[grDevices]{hsv}}.}
 
-\item{begin}{The (corrected) hue in [0,1] at which the viridis colormap begins.}
+\item{begin}{The (corrected) hue in \verb{[0,1]} at which the color map
+begins and ends.}
 
-\item{end}{The (corrected) hue in [0,1] at which the viridis colormap ends.}
+\item{end}{The (corrected) hue in \verb{[0,1]} at which the color map
+begins and ends.}
 
-\item{direction}{Sets the order of colors in the scale. If 1, the default, colors
-are ordered from darkest to lightest. If -1, the order of colors is reversed.}
+\item{direction}{Sets the order of colors in the scale. If 1, the default,
+colors are ordered from darkest to lightest. If -1, the order of colors is
+reversed.}
 
-\item{option}{A character string indicating the colormap option to use. Four
-options are available: "magma" (or "A"), "inferno" (or "B"), "plasma" (or "C"),
-"viridis" (or "D", the default option) and "cividis" (or "E").}
+\item{option}{A character string indicating the color map option to use.
+Eight options are available:
+\itemize{
+ \item "magma" (or "A")
+ \item "inferno" (or "B")
+ \item "plasma" (or "C")
+ \item "viridis" (or "D")
+ \item "cividis" (or "E")
+ \item "rocket" (or "F")
+ \item "mako" (or "G")
+ \item "turbo" (or "H")
+}}
 
 \item{aesthetics}{Character string or vector of character strings listing the
 name(s) of the aesthetic(s) that this scale works with. This can be useful, for

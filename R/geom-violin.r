@@ -99,7 +99,7 @@ geom_violin <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       trim = trim,
       scale = scale,
       draw_quantiles = draw_quantiles,
@@ -197,7 +197,7 @@ GeomViolin <- ggproto("GeomViolin", Geom,
 # Returns a data.frame with info needed to draw quantile segments.
 create_quantile_segment_frame <- function(data, draw_quantiles) {
   dens <- cumsum(data$density) / sum(data$density)
-  ecdf <- stats::approxfun(dens, data$y)
+  ecdf <- stats::approxfun(dens, data$y, ties = "ordered")
   ys <- ecdf(draw_quantiles) # these are all the y-values for quantiles
 
   # Get the violin bounds for the requested quantiles.
