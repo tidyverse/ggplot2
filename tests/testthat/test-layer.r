@@ -1,5 +1,17 @@
 # Parameters --------------------------------------------------------------
 
+test_that("layer() checks its input", {
+  expect_snapshot_error(layer(stat = "identity", position = "identity"))
+  expect_snapshot_error(layer(geom = "point", position = "identity"))
+  expect_snapshot_error(layer(geom = "point", stat = "identity"))
+
+  expect_snapshot_error(layer("point", "identity", mapping = 1:4, position = "identity"))
+  expect_snapshot_error(layer("point", "identity", mapping = ggplot(), position = "identity"))
+
+  expect_snapshot_error(check_subclass("test", "geom"))
+  expect_snapshot_error(check_subclass(environment(), "geom"))
+})
+
 test_that("aesthetics go in aes_params", {
   l <- geom_point(size = "red")
   expect_equal(l$aes_params, list(size = "red"))
@@ -11,6 +23,13 @@ test_that("unknown params create warning", {
 
 test_that("unknown aesthietcs create warning", {
   expect_warning(geom_point(aes(blah = "red")), "unknown aesthetics")
+})
+
+test_that("invalid aesthetics throws errors", {
+  p <- ggplot(mtcars) + geom_point(aes(disp, mpg, fill = data))
+  expect_snapshot_error(ggplot_build(p))
+  p <- ggplot(mtcars) + geom_point(aes(disp, mpg, fill = after_stat(data)))
+  expect_snapshot_error(ggplot_build(p))
 })
 
 test_that("unknown NULL asthetic doesn't create warning (#1909)", {

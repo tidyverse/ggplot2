@@ -48,3 +48,18 @@ test_that("annotation_* has dummy data assigned and don't inherit aes", {
   expect_false(map$inherit.aes)
   expect_false(raster$inherit.aes)
 })
+
+test_that("annotation_raster() and annotation_custom() requires cartesian coordinates", {
+  rainbow <- matrix(hcl(seq(0, 360, length.out = 50 * 50), 80, 70), nrow = 50)
+  p <- ggplot() +
+    annotation_raster(rainbow, 15, 20, 3, 4) +
+    coord_polar()
+  expect_snapshot_error(ggplotGrob(p))
+  p <- ggplot() +
+    annotation_custom(
+      grob = grid::roundrectGrob(),
+      xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf
+    ) +
+    coord_polar()
+  expect_snapshot_error(ggplotGrob(p))
+})

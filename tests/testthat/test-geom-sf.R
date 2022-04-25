@@ -137,6 +137,20 @@ test_that("geom_sf() handles alpha properly", {
   expect_equal(g[[3]]$gp$fill, alpha(red, 0.5))
 })
 
+test_that("errors are correctly triggered", {
+  skip_if_not_installed("sf")
+  pts <- sf::st_sf(
+    geometry = sf::st_sfc(sf::st_point(0:1), sf::st_point(1:2)),
+    size = c(1, NA),
+    shape = c("a", NA),
+    colour = c("red", NA)
+  )
+  p <- ggplot(pts) + geom_sf() + coord_cartesian()
+  expect_snapshot_error(ggplotGrob(p))
+  expect_snapshot_error(geom_sf_label(position = "jitter", nudge_x = 0.5))
+  expect_snapshot_error(geom_sf_text(position = "jitter", nudge_x = 0.5))
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("geom_sf draws correctly", {

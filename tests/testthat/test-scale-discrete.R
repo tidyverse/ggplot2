@@ -143,6 +143,11 @@ test_that("Scale is checked in default colour scale", {
   expect_error(scale_fill_discrete(type = scale_colour_hue))
 })
 
+test_that("Aesthetics with no continuous interpretation fails when called", {
+  expect_snapshot_error(scale_linetype_continuous())
+  expect_snapshot_error(scale_shape_continuous())
+})
+
 # mapped_discrete ---------------------------------------------------------
 
 test_that("mapped_discrete vectors behaves as predicted", {

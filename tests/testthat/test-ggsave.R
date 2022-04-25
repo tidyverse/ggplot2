@@ -84,6 +84,7 @@ test_that("scale multiplies height & width", {
 # plot_dev ---------------------------------------------------------------------
 
 test_that("unknown device triggers error", {
+  expect_snapshot_error(plot_dev(1))
   expect_error(plot_dev("xyz"), "Unknown graphics device")
   expect_error(plot_dev(NULL, "test.xyz"), "Unknown graphics device")
 })

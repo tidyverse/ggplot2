@@ -19,3 +19,9 @@ test_that("stat_boxplot can suppress warning about missing rows", {
 
   expect_silent(ggplot_build(p1))
 })
+
+test_that("stat_boxplot errors with missing x/y aesthetics", {
+  p <- ggplot(PlantGrowth) +
+    geom_boxplot()
+  expect_snapshot_error(ggplot_build(p))
+})

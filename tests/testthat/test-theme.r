@@ -257,16 +257,36 @@ test_that("theme validation happens at build stage", {
   expect_snapshot_error(print(p))
 })
 
+test_that("incorrect theme specifications throw meaningful errors", {
+  expect_snapshot_error(add_theme(theme_grey(), theme(line = element_rect())))
+  expect_snapshot_error(calc_element("line", theme(line = element_rect())))
+  register_theme_elements(element_tree = list(test = el_def("element_rect")))
+  expect_snapshot_error(calc_element("test", theme_gray() + theme(test = element_rect())))
+})
+
 test_that("element tree can be modified", {
   # we cannot add a new theme element without modifying the element tree
   p <- ggplot() + theme(blablabla = element_text(colour = "red"))
   expect_snapshot_error(print(p))
 
+  register_theme_elements(
+    element_tree = list(blablabla = el_def("character", "text"))
+  )
+  expect_snapshot_error(ggplotGrob(p))
+
+  register_theme_elements(
+    element_tree = list(blablabla = el_def("unit", "text"))
+  )
+  expect_snapshot_error(ggplotGrob(p))
+
   # things work once we add a new element to the element tree
   register_theme_elements(
     element_tree = list(blablabla = el_def("element_text", "text"))
   )
-  expect_silent(print(p))
+  expect_silent(ggplotGrob(p))
+
+  p1 <- ggplot() + theme(blablabla = element_line())
+  expect_snapshot_error(ggplotGrob(p1))
 
   # inheritance and final calculation of novel element works
   final_theme <- ggplot2:::plot_theme(p, theme_gray())

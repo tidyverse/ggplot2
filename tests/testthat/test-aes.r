@@ -152,6 +152,11 @@ test_that("Warnings are issued when plots use discouraged extract usage within a
   expect_warning(ggplot_build(p), "Use of `df\\$x` is discouraged")
 })
 
+test_that("aes evaluation fails with unknown input", {
+  expect_snapshot_error(is_calculated(environment()))
+  expect_snapshot_error(strip_dots(environment()))
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("aesthetics are drawn correctly", {
