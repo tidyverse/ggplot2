@@ -8,5 +8,6 @@
 
 # unsupported geoms signal a warning (#4719)
 
-    `annotate()` does not support `geom = "hline"`.
+    `geom` must not be "hline".
     i Please use `geom_hline()` directly instead.
+

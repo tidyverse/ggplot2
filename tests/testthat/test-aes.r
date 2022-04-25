@@ -170,7 +170,7 @@ test_that("aes() supports `!!!` in named arguments (#2675)", {
     aes(, , !!!list(y = 1)),
     aes(y = 1)
   )
-  expect_snapshot((expect_error(aes(y = 1, !!!list(y = 2)))))
+  expect_snapshot_error(aes(y = 1, !!!list(y = 2)))
 })
 
 # Visual tests ------------------------------------------------------------
