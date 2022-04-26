@@ -15,6 +15,9 @@ autoplot <- function(object, ...) {
 
 #' @export
 autoplot.default <- function(object, ...) {
-  cli::cli_abort("Objects of class {.cls {class(object)[[1]]}} are not supported by autoplot.")
+  cli::cli_abort(c(
+    "Objects of class {.cls {class(object)[[1]]}} are not supported by autoplot.",
+    "i" = "have you loaded the required package?"
+  ))
 }
 

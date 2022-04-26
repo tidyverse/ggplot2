@@ -79,7 +79,10 @@ guide_train.colorsteps <- function(guide, scale, aesthetic = NULL) {
       breaks_num <- strsplit(gsub("\\(|\\)|\\[|\\]", "", breaks_num), ",\\s?")
       breaks_num <- as.numeric(unlist(breaks_num))
       if (anyNA(breaks_num)) {
-        cli::cli_abort('Breaks not formatted correctly for a bin legend. Use {.strong (<lower>, <upper>]} format to indicate bins')
+        cli::cli_abort(c(
+          "Breaks not formatted correctly for a bin legend.",
+          "i" = "Use {.str (<lower>, <upper>]} format to indicate bins"
+        ))
       }
       all_breaks <- breaks_num[c(1, seq_along(breaks) * 2)]
       limits <- all_breaks[c(1, length(all_breaks))]
