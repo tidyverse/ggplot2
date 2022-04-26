@@ -1,5 +1,7 @@
-test_that("stat_bin throws error when y aesthetic is present", {
+test_that("stat_bin throws error when wrong combination of aesthetic is present", {
   dat <- data_frame(x = c("a", "b", "c"), y = c(1, 5, 10))
+
+  expect_snapshot_error(ggplot_build(ggplot(dat) + stat_bin()))
 
   expect_snapshot_error(ggplot_build(ggplot(dat, aes(x, y)) + stat_bin()))
 

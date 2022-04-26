@@ -193,6 +193,30 @@ test_that("size = NA doesn't throw rendering errors", {
   expect_silent(plot(p))
 })
 
+test_that("guide specifications are properly checked", {
+  expect_snapshot_error(validate_guide("test"))
+  expect_snapshot_error(validate_guide(1))
+
+  p <- ggplot(mtcars) +
+    geom_point(aes(mpg, disp, shape = factor(gear))) +
+    guides(shape = "colourbar")
+
+  expect_snapshot_error(ggplotGrob(p))
+
+  p <- p + guides(shape = guide_legend(title.position = "leftish"))
+
+  expect_snapshot_error(ggplotGrob(p))
+
+  expect_snapshot_error(guide_transform(guide_colorbar()))
+})
+
+test_that("colorsteps checks the breaks format", {
+  p <- ggplot(mtcars) +
+    geom_point(aes(mpg, disp, colour = paste("A", gear))) +
+    guides(colour = "colorsteps")
+  expect_snapshot_error(suppressWarnings(ggplotGrob(p)))
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("axis guides are drawn correctly", {

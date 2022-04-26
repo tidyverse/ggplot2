@@ -112,3 +112,8 @@ test_that("tolower() and toupper() has been masked", {
 test_that("parse_safe() checks input", {
   expect_snapshot_error(parse_safe(1:5))
 })
+
+test_that("width_cm() and height_cm() checks input", {
+  expect_snapshot_error(width_cm(letters))
+  expect_snapshot_error(height_cm(letters))
+})

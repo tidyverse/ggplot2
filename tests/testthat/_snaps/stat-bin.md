@@ -1,4 +1,8 @@
-# stat_bin throws error when y aesthetic is present
+# stat_bin throws error when wrong combination of aesthetic is present
+
+    `stat_bin()` requires an x or y aesthetic.
+
+---
 
     `stat_bin()` must only have an x or y aesthetic.
 
