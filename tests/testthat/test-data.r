@@ -1,4 +1,6 @@
-context("Data")
+context("data")
+
+skip_if(getRversion() > "4.1")
 
 test_that("stringsAsFactors doesn't affect results", {
     old <- getOption("stringsAsFactors")
