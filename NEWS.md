@@ -1,3 +1,8 @@
+# ggplot2 3.3.6
+This is a very small release only applying an internal change to comply with 
+R 4.2 and its deprecation of `default.stringsAsFactors()`. There are no user
+facing changes and no breaking changes.
+
 # ggplot2 3.3.5
 This is a very small release focusing on fixing a couple of untenable issues 
 that surfaced with the 3.3.4 release
