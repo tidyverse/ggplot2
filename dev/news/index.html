@@ -81,7 +81,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="ggplot2-development-version">ggplot2 (development version)<a class="anchor" aria-label="anchor" href="#ggplot2-development-version"></a></h2>
-<ul><li><p><code>...</code> supports <code><a href="https://rlang.r-lib.org/reference/list2.html" class="external-link">rlang::list2</a></code> dynamic dots in all public functions. (<a href="https://github.com/mone27" class="external-link">@mone27</a>, <a href="https://github.com/tidyverse/ggplot2/issues/4764" class="external-link">#4764</a>)</p></li>
+<ul><li><p>Using multiple modified aesthetics correctly will no longer trigger warnings. If used incorrectly, the warning will now report the duplicated aesthetic instead of <code>NA</code> (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/4707" class="external-link">#4707</a>).</p></li>
+<li><p><code>...</code> supports <code><a href="https://rlang.r-lib.org/reference/list2.html" class="external-link">rlang::list2</a></code> dynamic dots in all public functions. (<a href="https://github.com/mone27" class="external-link">@mone27</a>, <a href="https://github.com/tidyverse/ggplot2/issues/4764" class="external-link">#4764</a>)</p></li>
 <li><p><code><a href="../reference/theme.html">theme()</a></code> now has a <code>strip.clip</code> argument, that can be set to <code>"off"</code> to prevent the clipping of strip text and background borders (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/4118" class="external-link">#4118</a>)</p></li>
 <li><p><code><a href="../reference/aes.html">aes()</a></code> now supports the <code>!!!</code> operator in its first two arguments (<a href="https://github.com/tidyverse/ggplot2/issues/2675" class="external-link">#2675</a>). Thanks to <a href="https://github.com/yutannihilation" class="external-link">@yutannihilation</a> and <a href="https://github.com/teunbrand" class="external-link">@teunbrand</a> for draft implementations.</p></li>
 <li><p>Require rlang &gt;= 1.0.0 (<a href="https://github.com/billybarc" class="external-link">@billybarc</a>, <a href="https://github.com/tidyverse/ggplot2/issues/4797" class="external-link">#4797</a>)</p></li>
@@ -171,8 +172,7 @@
 <li><p>ggplot2 now requires R &gt;= 3.3 (<a href="https://github.com/tidyverse/ggplot2/issues/4247" class="external-link">#4247</a>).</p></li>
 <li>
 <p>ggplot2 now uses <code><a href="https://rlang.r-lib.org/reference/is_installed.html" class="external-link">rlang::check_installed()</a></code> to check if a suggested package is installed, which will offer to install the package before continuing (<a href="https://github.com/tidyverse/ggplot2/issues/4375" class="external-link">#4375</a>,</p>
-<ol class="example" style="list-style-type: decimal"><li>
-</li></ol></li>
+<ol class="example" style="list-style-type: decimal"><li></ol></li>
 <li><p>Improved error with hint when piping a <code>ggplot</code> object into a facet function (<a href="https://github.com/tidyverse/ggplot2/issues/4379" class="external-link">#4379</a>, <a href="https://github.com/mitchelloharawild" class="external-link">@mitchelloharawild</a>).</p></li>
 </ul></div>
 </div>
@@ -442,8 +442,7 @@
 <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">nc</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../reference/ggsf.html">geom_sf</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">AREA</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>It supports all simple features, automatically aligns CRS across layers, sets up the correct aspect ratio, and draws a graticule.</p>
-</li>
-</ul></div>
+</li></ul></div>
 </div>
 <div class="section level3">
 <h3 id="new-features-3-0-0">New features<a class="anchor" aria-label="anchor" href="#new-features-3-0-0"></a></h3>
@@ -589,8 +588,7 @@ to determine which elements overlap, and spreads overlapping elements evenly wit
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.2.1" id="ggplot2-221">ggplot2 2.2.1<a class="anchor" aria-label="anchor" href="#ggplot2-221"></a></h2><p class="text-muted">CRAN release: 2016-12-30</p>
-<ul><li>Fix usage of <code>structure(NULL)</code> for R-devel compatibility (<a href="https://github.com/tidyverse/ggplot2/issues/1968" class="external-link">#1968</a>).</li>
-</ul></div>
+<ul><li>Fix usage of <code>structure(NULL)</code> for R-devel compatibility (<a href="https://github.com/tidyverse/ggplot2/issues/1968" class="external-link">#1968</a>).</li></ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.2.0" id="ggplot2-220">ggplot2 2.2.0<a class="anchor" aria-label="anchor" href="#ggplot2-220"></a></h2><p class="text-muted">CRAN release: 2016-11-11</p>
 <div class="section level3">
@@ -627,8 +625,7 @@ to determine which elements overlap, and spreads overlapping elements evenly wit
 </div>
 <div class="section level3">
 <h3 id="scales-2-2-0">Scales<a class="anchor" aria-label="anchor" href="#scales-2-2-0"></a></h3>
-<ul><li>The position of x and y axes can now be changed using the <code>position</code> argument in <code>scale_x_*</code>and <code>scale_y_*</code> which can take <code>top</code> and <code>bottom</code>, and <code>left</code> and <code>right</code> respectively. The themes of top and right axes can be modified using the <code>.top</code> and <code>.right</code> modifiers to <code>axis.text.*</code> and <code>axis.title.*</code>.</li>
-</ul><div class="section level4">
+<ul><li>The position of x and y axes can now be changed using the <code>position</code> argument in <code>scale_x_*</code>and <code>scale_y_*</code> which can take <code>top</code> and <code>bottom</code>, and <code>left</code> and <code>right</code> respectively. The themes of top and right axes can be modified using the <code>.top</code> and <code>.right</code> modifiers to <code>axis.text.*</code> and <code>axis.title.*</code>.</li></ul><div class="section level4">
 <h4 id="continuous-scales-2-2-0">Continuous scales<a class="anchor" aria-label="anchor" href="#continuous-scales-2-2-0"></a></h4>
 <ul><li><p><code><a href="../reference/scale_continuous.html">scale_x_continuous()</a></code> and <code><a href="../reference/scale_continuous.html">scale_y_continuous()</a></code> can now display a secondary axis that is a <strong>one-to-one</strong> transformation of the primary axis (e.g. degrees Celcius to degrees Fahrenheit). The secondary axis will be positioned opposite to the primary axis and can be controlled with the <code>sec.axis</code> argument to the scale constructor.</p></li>
 <li><p>Scales worry less about having breaks. If no breaks can be computed, the plot will work instead of throwing an uninformative error (<a href="https://github.com/tidyverse/ggplot2/issues/791" class="external-link">#791</a>). This is particularly helpful when you have facets with free scales, and not all panels contain data.</p></li>
@@ -951,7 +948,7 @@ to determine which elements overlap, and spreads overlapping elements evenly wit
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
   </div></footer></body></html>
