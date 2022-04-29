@@ -124,7 +124,7 @@ lines. Only used with loess, i.e. when \code{method = "loess"},
 or when \code{method = NULL} (the default) and there are fewer than 1,000
 observations.}
 
-\item{fullrange}{If TRUE, \code{fullrange} expands the smoothing line to the range of the plot,
+\item{fullrange}{If \code{TRUE}, the smoothing line gets expanded to the range of the plot,
 potentially beyond the data. This does not extend the line into any additional padding
 created by \code{expansion}.}
 
