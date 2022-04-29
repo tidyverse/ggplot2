@@ -20,7 +20,7 @@
 #'   observations and `formula = y ~ s(x, bs = "cs")` otherwise.
 #' @param se Display confidence interval around smooth? (`TRUE` by default, see
 #'   `level` to control.)
-#' @param fullrange If TRUE, `fullrange` expands the smoothing line to the range of the plot,
+#' @param fullrange If `TRUE`, the smoothing line gets expanded to the range of the plot,
 #'   potentially beyond the data. This does not extend the line into any additional padding
 #'   created by `expansion`.
 #' @param level Level of confidence interval to use (0.95 by default).
