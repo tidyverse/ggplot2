@@ -68,7 +68,7 @@ Suggests:
     rpart,
     sf (>= 0.7-3),
     svglite (>= 1.2.0.9001),
-    testthat (>= 3.0.0),
+    testthat (>= 3.1.2),
     vdiffr (>= 1.0.0),
     xml2
 Enhances: 

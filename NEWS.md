@@ -1,5 +1,9 @@
 # ggplot2 (development version)
 
+* Using multiple modified aesthetics correctly will no longer trigger warnings. 
+  If used incorrectly, the warning will now report the duplicated aesthetic 
+  instead of `NA` (@teunbrand, #4707).
+
 * `...` supports `rlang::list2` dynamic dots in all public functions. (@mone27, #4764) 
 
 * `theme()` now has a `strip.clip` argument, that can be set to `"off"` to 
