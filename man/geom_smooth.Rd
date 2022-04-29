@@ -124,8 +124,7 @@ lines. Only used with loess, i.e. when \code{method = "loess"},
 or when \code{method = NULL} (the default) and there are fewer than 1,000
 observations.}
 
-\item{fullrange}{Should the fit span the full range of the plot, or just
-the data?}
+\item{fullrange}{If TRUE, fullrange expands the smoothing line to the range of the plot, potentially beyond the data. This does not extend the line into any additional padding created by \code{\link[=expansion]{expansion()}}.
 
 \item{level}{Level of confidence interval to use (0.95 by default).}
 
