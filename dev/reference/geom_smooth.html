@@ -212,8 +212,9 @@ lines. Only used with loess, i.e. when <code>method = "loess"</code>,
 or when <code>method = NULL</code> (the default) and there are fewer than 1,000
 observations.</p></dd>
 <dt>fullrange</dt>
-<dd><p>Should the fit span the full range of the plot, or just
-the data?</p></dd>
+<dd><p>If <code>TRUE</code>, the smoothing line gets expanded to the range of the plot,
+potentially beyond the data. This does not extend the line into any additional padding
+created by <code>expansion</code>.</p></dd>
 <dt>level</dt>
 <dd><p>Level of confidence interval to use (0.95 by default).</p></dd>
 <dt>method.args</dt>
