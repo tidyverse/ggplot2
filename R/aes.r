@@ -245,9 +245,18 @@ is_position_aes <- function(vars) {
 #'
 #' @section Life cycle:
 #'
-#' All these functions are soft-deprecated. Please use tidy evaluation
-#' idioms instead (see the quasiquotation section in
-#' [aes()] documentation).
+#' All these functions are soft-deprecated. Please use tidy evaluation idioms
+#' instead. Regarding `aes_string()`, you can replace it with `.data` pronoun.
+#' For example, the following code can achieve the same mapping as
+#' `aes_string(x_var, y_var)`.
+#'
+#' ``` r
+#' x_var <- "foo"
+#' y_var <- "bar"
+#' aes(.data[[x_var]], .data[[y_var]])
+#' ````
+#'
+#' For more details, please see `vignette("ggplot2-in-packages")`.
 #'
 #' @param x,y,... List of name value pairs. Elements must be either
 #'   quoted calls, strings, one-sided formulas or constants.
