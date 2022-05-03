@@ -27,3 +27,4 @@ visual_test
 ^cran-comments\.md$
 ^LICENSE\.md$
 ^vignettes/articles$
+^CRAN-SUBMISSION$

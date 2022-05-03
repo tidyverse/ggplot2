@@ -89,7 +89,12 @@ precedence between `bins` and `binwidth`. (@eliocamp, #4651)
   `geom_linerange()` are now orientation-aware (@mjskay, #4732)
   
 * Updated documentation for `geom_smooth()` to more clearly describe effects of the 
-  `fullrange` parameter (@thoolihan, #4399).  
+  `fullrange` parameter (@thoolihan, #4399).
+
+# ggplot2 3.3.6
+This is a very small release only applying an internal change to comply with 
+R 4.2 and its deprecation of `default.stringsAsFactors()`. There are no user
+facing changes and no breaking changes.
 
 # ggplot2 3.3.5
 This is a very small release focusing on fixing a couple of untenable issues 

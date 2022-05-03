@@ -1,6 +1,6 @@
 Package: ggplot2
+Version: 3.3.6.9000
 Title: Create Elegant Data Visualisations Using the Grammar of Graphics
-Version: 3.3.5.9000
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", role = "aut",
            comment = c(ORCID = "0000-0003-4757-117X")),
