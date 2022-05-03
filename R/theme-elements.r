@@ -355,6 +355,15 @@ reset_theme_settings <- function(reset_current = TRUE) {
   }
 }
 
+# create the global variables holding all the theme settings
+on_load({
+  ggplot_global$theme_all_null <- theme_all_null() # cache all null theme, required by theme_grey()
+  ggplot_global$theme_current <- NULL  # the current theme applied to plots if none is specified
+  ggplot_global$theme_default <- NULL  # the underlying fallback default theme
+  ggplot_global$element_tree <- NULL   # the current element tree for themes
+  reset_theme_settings() # sets the preceding three global variables to their actual defaults
+})
+
 #' @rdname register_theme_elements
 #' @details
 #' The function `get_element_tree()` returns the currently active element tree.
@@ -469,6 +478,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   strip.background    = el_def("element_rect", "rect"),
   strip.background.x  = el_def("element_rect", "strip.background"),
   strip.background.y  = el_def("element_rect", "strip.background"),
+  strip.clip          = el_def("character"),
   strip.text.x        = el_def("element_text", "strip.text"),
   strip.text.x.top    = el_def("element_text", "strip.text.x"),
   strip.text.x.bottom = el_def("element_text", "strip.text.x"),

@@ -1,5 +1,3 @@
-context("Creating aesthetic mappings")
-
 test_that("aes() captures input expressions", {
   out <- aes(mpg, wt + 1)
   expect_identical(out$x, quo(mpg))
@@ -36,7 +34,9 @@ test_that("aes_q() & aes_string() preserve explicit NULLs", {
 test_that("aes_all() converts strings into mappings", {
   expect_equal(
     aes_all(c("x", "y", "col", "pch")),
-    aes(x, y, colour = col, shape = pch)
+    aes(x, y, colour = col, shape = pch),
+    # ignore the environments of quosures
+    ignore_attr = TRUE
   )
 })
 
@@ -150,6 +150,22 @@ test_that("Warnings are issued when plots use discouraged extract usage within a
   df <- data_frame(x = 1:3, y = 1:3)
   p <- ggplot(df, aes(df$x, y)) + geom_point()
   expect_warning(ggplot_build(p), "Use of `df\\$x` is discouraged")
+})
+
+test_that("aes() supports `!!!` in named arguments (#2675)", {
+  expect_equal(
+    aes(!!!list(y = 1)),
+    aes(y = 1)
+  )
+  expect_equal(
+    aes(!!!list(x = 1), !!!list(y = 2)),
+    aes(x = 1, y = 2)
+  )
+  expect_equal(
+    aes(, , !!!list(y = 1)),
+    aes(y = 1)
+  )
+  expect_snapshot((expect_error(aes(y = 1, !!!list(y = 2)))))
 })
 
 # Visual tests ------------------------------------------------------------

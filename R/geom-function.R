@@ -32,6 +32,8 @@
 #'
 #' base + stat_function(fun = dnorm, geom = "point", n = 20)
 #'
+#' base + stat_function(fun = dnorm, geom = "polygon", color = "blue", fill = "blue", alpha = 0.5)
+#'
 #' base + geom_function(fun = dnorm, n = 20)
 #'
 #' # Two functions on the same plot
@@ -65,7 +67,7 @@ geom_function <- function(mapping = NULL, data = NULL, stat = "function",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       na.rm = na.rm,
       ...
     )

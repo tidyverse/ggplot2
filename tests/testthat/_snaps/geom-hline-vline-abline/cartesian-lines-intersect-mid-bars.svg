@@ -27,11 +27,11 @@
 </defs>
 <g clip-path='url(#cpMTUuMzF8NzE0LjUyfDIyLjc4fDU1Ny43MQ==)'>
 <rect x='15.31' y='22.78' width='699.22' height='534.92' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<rect x='15.31' y='450.72' width='139.84' height='106.98' style='stroke-width: 1.07; stroke: none; stroke-linecap: square; stroke-linejoin: miter; fill: #595959;' />
-<rect x='155.15' y='343.74' width='139.84' height='213.97' style='stroke-width: 1.07; stroke: none; stroke-linecap: square; stroke-linejoin: miter; fill: #595959;' />
-<rect x='294.99' y='236.75' width='139.84' height='320.95' style='stroke-width: 1.07; stroke: none; stroke-linecap: square; stroke-linejoin: miter; fill: #595959;' />
-<rect x='434.83' y='129.77' width='139.84' height='427.94' style='stroke-width: 1.07; stroke: none; stroke-linecap: square; stroke-linejoin: miter; fill: #595959;' />
-<rect x='574.68' y='22.78' width='139.84' height='534.92' style='stroke-width: 1.07; stroke: none; stroke-linecap: square; stroke-linejoin: miter; fill: #595959;' />
+<rect x='15.31' y='450.72' width='139.84' height='106.98' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #595959;' />
+<rect x='155.15' y='343.74' width='139.84' height='213.97' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #595959;' />
+<rect x='294.99' y='236.75' width='139.84' height='320.95' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #595959;' />
+<rect x='434.83' y='129.77' width='139.84' height='427.94' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #595959;' />
+<rect x='574.68' y='22.78' width='139.84' height='534.92' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #595959;' />
 <circle cx='85.23' cy='450.72' r='1.95' style='stroke-width: 0.71; fill: #000000;' />
 <circle cx='225.07' cy='343.74' r='1.95' style='stroke-width: 0.71; fill: #000000;' />
 <circle cx='364.91' cy='236.75' r='1.95' style='stroke-width: 0.71; fill: #000000;' />

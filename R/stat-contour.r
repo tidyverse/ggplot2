@@ -36,7 +36,7 @@ stat_contour <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       bins = bins,
       binwidth = binwidth,
       breaks = breaks,
@@ -65,7 +65,7 @@ stat_contour_filled <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       bins = bins,
       binwidth = binwidth,
       breaks = breaks,
@@ -144,8 +144,15 @@ StatContourFilled <- ggproto("StatContourFilled", Stat,
 #' @noRd
 #'
 contour_breaks <- function(z_range, bins = NULL, binwidth = NULL, breaks = NULL) {
-  if (!is.null(breaks)) {
+  breaks <- allow_lambda(breaks)
+
+  if (is.numeric(breaks)) {
     return(breaks)
+  }
+
+  breaks_fun <- fullseq
+  if (is.function(breaks)) {
+    breaks_fun <- breaks
   }
 
   # If no parameters set, use pretty bins
@@ -167,20 +174,20 @@ contour_breaks <- function(z_range, bins = NULL, binwidth = NULL, breaks = NULL)
     }
 
     binwidth <- diff(z_range) / (bins - 1)
-    breaks <- fullseq(z_range, binwidth)
+    breaks <- breaks_fun(z_range, binwidth)
 
     # Sometimes the above sequence yields one bin too few.
     # If this happens, try again.
     if (length(breaks) < bins + 1) {
       binwidth <- diff(z_range) / bins
-      breaks <- fullseq(z_range, binwidth)
+      breaks <- breaks_fun(z_range, binwidth)
     }
 
     return(breaks)
   }
 
   # if we haven't returned yet, compute breaks from binwidth
-  fullseq(z_range, binwidth)
+  breaks_fun(z_range, binwidth)
 }
 
 #' Compute isoband objects

@@ -8,7 +8,7 @@ labeller(
   ...,
   .rows = NULL,
   .cols = NULL,
-  keep.as.numeric = NULL,
+  keep.as.numeric = deprecated(),
   .multi_line = TRUE,
   .default = label_value
 )
@@ -24,8 +24,8 @@ the columns). It is passed to \code{\link[=as_labeller]{as_labeller()}}. When a
 margin-wide labeller is set, make sure you don't mention in
 \code{...} any variable belonging to the margin.}
 
-\item{keep.as.numeric}{Deprecated. All supplied labellers and
-on-labeller functions should be able to work with character
+\item{keep.as.numeric}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} All supplied
+labellers and on-labeller functions should be able to work with character
 labels.}
 
 \item{.multi_line}{Whether to display the labels of multiple

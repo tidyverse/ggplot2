@@ -36,7 +36,7 @@ stat_function <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       fun = fun,
       n = n,
       args = args,

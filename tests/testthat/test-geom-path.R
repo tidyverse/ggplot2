@@ -1,5 +1,3 @@
-context("geom-path")
-
 test_that("keep_mid_true drops leading/trailing FALSE", {
   expect_equal(keep_mid_true(c(F, F)), c(F, F))
   expect_equal(keep_mid_true(c(F, T, F, T, F)), c(F, T, T, T, F))

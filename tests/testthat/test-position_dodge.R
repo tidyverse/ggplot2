@@ -1,5 +1,3 @@
-context("position_dodge")
-
 test_that("can control whether to preserve total or individual width", {
   df <- data_frame(x = c("a", "b", "b"), y = c("a", "a", "b"))
 

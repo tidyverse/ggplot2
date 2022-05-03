@@ -1,5 +1,3 @@
-context("data.frame binding")
-
 test_that("rbind_dfs keep classes of columns", {
   df <- data_frame(
     integer = seq_len(10),

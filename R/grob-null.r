@@ -4,8 +4,8 @@
 #' @export
 zeroGrob <- function() .zeroGrob
 
-# Will get assigned in .onLoad()
 .zeroGrob <- NULL
+on_load(.zeroGrob <- grob(cl = "zeroGrob", name = "NULL"))
 
 #' @export
 #' @method widthDetails zeroGrob

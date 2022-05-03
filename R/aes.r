@@ -79,8 +79,21 @@ NULL
 #' cut3 <- function(x) cut_number(x, 3)
 #' scatter_by(mtcars, cut3(disp), drat)
 aes <- function(x, y, ...) {
-  exprs <- enquos(x = x, y = y, ..., .ignore_empty = "all")
-  aes <- new_aes(exprs, env = parent.frame())
+  xs <- arg_enquos("x")
+  ys <- arg_enquos("y")
+  dots <- enquos(...)
+
+  args <- c(xs, ys, dots)
+  args <- Filter(Negate(quo_is_missing), args)
+
+  # Pass arguments to helper dummy to throw an error when duplicate
+  # `x` and `y` arguments are passed through dots
+  local({
+    aes <- function(x, y, ...) NULL
+    inject(aes(!!!args))
+  })
+
+  aes <- new_aes(args, env = parent.frame())
   rename_aes(aes)
 }
 
@@ -212,6 +225,9 @@ is_position_aes <- function(vars) {
 
 #' Define aesthetic mappings programmatically
 #'
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
 #' Aesthetic mappings describe how variables in the data are mapped to visual
 #' properties (aesthetics) of geoms. [aes()] uses non-standard
 #' evaluation to capture the variable names. `aes_()` and `aes_string()`
@@ -239,6 +255,9 @@ is_position_aes <- function(vars) {
 #' @param x,y,... List of name value pairs. Elements must be either
 #'   quoted calls, strings, one-sided formulas or constants.
 #' @seealso [aes()]
+#'
+#' @keywords internal
+#'
 #' @export
 #' @examples
 #' # Three ways of generating the same aesthetics
@@ -258,6 +277,11 @@ is_position_aes <- function(vars) {
 #' aes(col = x)
 #' aes_(col = as.name(var))
 aes_ <- function(x, y, ...) {
+  lifecycle::deprecate_soft(
+    "3.0.0",
+    "aes_()",
+    details = "Please use tidy evaluation ideoms with `aes()`"
+  )
   mapping <- list(...)
   if (!missing(x)) mapping["x"] <- list(x)
   if (!missing(y)) mapping["y"] <- list(y)
@@ -280,6 +304,11 @@ aes_ <- function(x, y, ...) {
 #' @rdname aes_
 #' @export
 aes_string <- function(x, y, ...) {
+  lifecycle::deprecate_soft(
+    "3.0.0",
+    "aes_string()",
+    details = "Please use tidy evaluation ideoms with `aes()`"
+  )
   mapping <- list(...)
   if (!missing(x)) mapping["x"] <- list(x)
   if (!missing(y)) mapping["y"] <- list(y)
@@ -321,12 +350,15 @@ aes_all <- function(vars) {
 
 #' Automatic aesthetic mapping
 #'
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
 #' @param data data.frame or names of variables
 #' @param ... aesthetics that need to be explicitly mapped.
 #' @keywords internal
 #' @export
 aes_auto <- function(data = NULL, ...) {
-  warn("aes_auto() is deprecated")
+  lifecycle::deprecate_warn("2.0.0", "aes_auto()")
 
   # detect names of data
   if (is.null(data)) {
@@ -406,4 +438,27 @@ extract_target_is_likely_data <- function(x, data, env) {
     data_eval <- eval_tidy(x[[2]], data, env)
     identical(data_eval, data)
   }, error = function(err) FALSE)
+}
+
+# Takes a quosure and returns a named list of quosures, expanding
+# `!!!` expressions as needed
+arg_enquos <- function(name, frame = caller_env()) {
+  # First start with `enquo0()` which does not process injection
+  # operators
+  quo <- inject(enquo0(!!sym(name)), frame)
+  expr <- quo_get_expr(quo)
+
+  if (!is_missing(expr) && is_triple_bang(expr)) {
+    # Evaluate `!!!` operand and create a list of quosures
+    env <- quo_get_env(quo)
+    xs <- eval_bare(expr[[2]][[2]][[2]], env)
+    xs <- lapply(xs, as_quosure, env = env)
+  } else {
+    # Redefuse `x` to process injection operators, then store in a
+    # length-1 list of quosures
+    quo <- inject(enquo(!!sym(name)), frame)
+    xs <- set_names(list(quo), name)
+  }
+
+  new_quosures(xs)
 }
