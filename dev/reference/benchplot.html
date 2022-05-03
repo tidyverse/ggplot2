@@ -14,7 +14,7 @@ Broken down into construct, build, render and draw times."><meta property="og:im
     
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">3.3.5.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">3.3.6.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -105,18 +105,18 @@ Broken down into construct, build, render and draw times.</p>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">benchplot</span><span class="op">(</span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="va">wt</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        step user.self sys.self elapsed</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 construct     0.003        0   0.003</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     build     0.019        0   0.019</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3    render     0.027        0   0.027</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4      draw     0.049        0   0.049</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5     TOTAL     0.098        0   0.098</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 construct     0.005        0   0.005</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2     build     0.016        0   0.017</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3    render     0.026        0   0.026</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4      draw     0.041        0   0.042</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5     TOTAL     0.088        0   0.090</span>
 <span class="r-in"><span class="fu">benchplot</span><span class="op">(</span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="va">wt</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">.</span> <span class="op">~</span> <span class="va">cyl</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        step user.self sys.self elapsed</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 construct     0.004        0   0.004</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     build     0.036        0   0.037</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3    render     0.074        0   0.073</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4      draw     0.079        0   0.078</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5     TOTAL     0.193        0   0.192</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2     build     0.033        0   0.032</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3    render     0.066        0   0.066</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4      draw     0.068        0   0.068</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5     TOTAL     0.171        0   0.170</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># With tidy eval:</span></span>
 <span class="r-in"><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="tidyeval.html">expr</a></span><span class="op">(</span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="va">wt</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
@@ -124,10 +124,10 @@ Broken down into construct, build, render and draw times.</p>
 <span class="r-plt img"><img src="benchplot-1.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        step user.self sys.self elapsed</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 construct     0.003        0   0.003</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     build     0.018        0   0.017</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3    render     0.026        0   0.026</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4      draw     0.047        0   0.047</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5     TOTAL     0.094        0   0.093</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2     build     0.019        0   0.018</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3    render     0.025        0   0.025</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4      draw     0.043        0   0.043</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5     TOTAL     0.090        0   0.089</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
