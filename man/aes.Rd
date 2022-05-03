@@ -72,12 +72,9 @@ scatter_by <- function(data, ...) {
 scatter_by(mtcars, disp, drat)
 
 # If your wrapper has a more specific interface with named arguments,
-# you need "enquote and unquote":
+# you need the "embrace operator":
 scatter_by <- function(data, x, y) {
-  x <- enquo(x)
-  y <- enquo(y)
-
-  ggplot(data) + geom_point(aes(!!x, !!y))
+  ggplot(data) + geom_point(aes({{ x }}, {{ y }}))
 }
 scatter_by(mtcars, disp, drat)
 
