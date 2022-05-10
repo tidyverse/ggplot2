@@ -117,6 +117,17 @@ comp_bin <- function(df, ...) {
   layer_data(plot)
 }
 
+test_that("inputs to binning are checked", {
+  dat <- data_frame(x = c(0, 10))
+  expect_snapshot_error(comp_bin(dat, breaks = letters))
+  expect_snapshot_error(bin_breaks_width(3))
+  expect_snapshot_error(comp_bin(dat, binwidth = letters))
+  expect_snapshot_error(comp_bin(dat, binwidth = -4))
+
+  expect_snapshot_error(bin_breaks_bins(3))
+  expect_snapshot_error(comp_bin(dat, bins = -4))
+})
+
 test_that("closed left or right", {
   dat <- data_frame(x = c(0, 10))
 

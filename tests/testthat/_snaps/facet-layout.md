@@ -31,3 +31,11 @@
 
     `facet_wrap()` can't use free scales with `coord_fixed()`
 
+# facet_grid throws errors at bad layout specs
+
+    `coord_fixed()` doesn't support free scales
+
+---
+
+    Free scales cannot be mixed with a fixed aspect ratio
+

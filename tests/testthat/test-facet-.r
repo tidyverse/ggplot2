@@ -230,6 +230,9 @@ test_that("facet variables", {
 test_that("facet gives clear error if ", {
   df <- data_frame(x = 1)
   expect_snapshot_error(print(ggplot(df, aes(x)) + facet_grid(x ~ x)))
+  expect_snapshot_error(print(ggplot(df, aes(x)) %>% facet_grid(. ~ x)))
+  expect_snapshot_error(print(ggplot(df, aes(x)) + facet_grid(list(1, 2, 3))))
+  expect_snapshot_error(print(ggplot(df, aes(x)) + facet_grid(vars(x), "free")))
 })
 
 # Variable combinations ---------------------------------------------------
@@ -293,6 +296,20 @@ test_that("combine_vars() generates the correct combinations", {
     df_all[order(df_all$letter, df_all$number, df_all$boolean, df_all$factor), ],
     ignore_attr = TRUE   # do not compare `row.names`
   )
+
+  expect_snapshot_error(
+    combine_vars(
+      list(data.frame(a = 1:2, b = 2:3), data.frame(a = 1:2, c = 2:3)),
+      vars = vars(b=b, c=c)
+    )
+  )
+
+  expect_snapshot_error(
+    combine_vars(
+      list(data.frame(a = 1:2), data.frame(b = numeric())),
+      vars = vars(b=b)
+    )
+  )
 })
 
 test_that("drop = FALSE in combine_vars() keeps unused factor levels", {
@@ -348,6 +365,15 @@ test_that("eval_facet() is tolerant for missing columns (#2963)", {
     eval_facet(quo(no_such_variable * x), data_frame(foo = 1), possible_columns = c("x")),
     "object 'no_such_variable' not found"
   )
+})
+
+test_that("validate_facets() provide meaningful errors", {
+  expect_snapshot_error(validate_facets(aes(var)))
+  expect_snapshot_error(validate_facets(ggplot()))
+})
+
+test_that("check_layout() throws meaningful errors", {
+  expect_snapshot_error(check_layout(mtcars))
 })
 
 # Visual tests ------------------------------------------------------------

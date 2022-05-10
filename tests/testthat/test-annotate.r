@@ -64,6 +64,15 @@ test_that("annotation_raster() and annotation_custom() requires cartesian coordi
   expect_snapshot_error(ggplotGrob(p))
 })
 
+test_that("annotation_map() checks the input data", {
+  expect_snapshot_error(annotation_map(letters))
+  expect_snapshot_error(annotation_map(mtcars))
+})
+
 test_that("unsupported geoms signal a warning (#4719)", {
   expect_snapshot_warning(annotate("hline", yintercept = 0))
+})
+
+test_that("annotate() checks aesthetic lengths match", {
+  expect_snapshot_error(annotate("point", 1:3, 1:3, fill = c('red', 'black')))
 })

@@ -10,3 +10,11 @@
 
     formal argument "y" matched by multiple actual arguments
 
+# alternative_aes_extract_usage() can inspect the call
+
+    Don't know how to get alternative usage for `foo`
+
+# new_aes() checks its inputs
+
+    `x` must be a list
+

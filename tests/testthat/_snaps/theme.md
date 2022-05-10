@@ -36,3 +36,15 @@
 
     The `blablabla` theme element must be a <element_text> object.
 
+# Theme elements are checked during build
+
+    `plot.title.position` should be either "\"panel\"" or "\"plot\"".
+
+---
+
+    `plot.caption.position` should be either "\"panel\"" or "\"plot\"".
+
+---
+
+    `plot.tag.position` should be a coordinate or one of "topleft", "top", "topright", "left", "right", "bottomleft", "bottom", or "bottomright"
+

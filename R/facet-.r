@@ -320,7 +320,7 @@ validate_facets <- function(x) {
   if (inherits(x, "ggplot")) {
     cli::cli_abort(c(
       "Please use {.fn vars} to supply facet variables",
-      "i" = "Did you use {.code %>%} instead of {.code +}?"
+      "i" = "Did you use {.code %>%} or {.code |>} instead of {.code +}?"
     ))
   }
   x

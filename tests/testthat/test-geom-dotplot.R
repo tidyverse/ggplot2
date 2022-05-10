@@ -75,6 +75,14 @@ test_that("when binning on y-axis, limits depend on the panel", {
    expect_false(all(equal_limits2))
 })
 
+test_that("weight aesthetic is checked", {
+  p <- ggplot(mtcars, aes(x = mpg, weight = gear/3)) +
+    geom_dotplot()
+  expect_snapshot_warning(ggplot_build(p))
+  p <- ggplot(mtcars, aes(x = mpg, weight = -gear)) +
+    geom_dotplot()
+  expect_snapshot_warning(ggplot_build(p))
+})
 
 # Visual tests ------------------------------------------------------------
 

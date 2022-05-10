@@ -11,4 +11,10 @@ test_that("type argument is checked for proper input", {
   expect_snapshot_error(
     scale_fill_binned(type = scale_fill_brewer)
   )
+  expect_snapshot_error(
+    scale_fill_continuous(type = "abc")
+  )
+  expect_snapshot_error(
+    scale_colour_continuous(type = "abc")
+  )
 })

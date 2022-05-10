@@ -117,3 +117,13 @@ test_that("width_cm() and height_cm() checks input", {
   expect_snapshot_error(width_cm(letters))
   expect_snapshot_error(height_cm(letters))
 })
+
+test_that("cut_*() checks its input and output", {
+  expect_snapshot_error(cut_number(1, 10))
+  expect_snapshot_error(breaks(1:10, "numbers", nbins = 2, binwidth = 05))
+  expect_snapshot_error(cut_width(1:10, 1, center = 0, boundary = 0.5))
+})
+
+test_that("interleave() checks the vector lengths", {
+  expect_snapshot_error(interleave(1:4, numeric()))
+})

@@ -477,6 +477,17 @@ test_that("provided themes explicitly define all elements", {
   expect_true(all(names(t) %in% elements))
 })
 
+test_that("Theme elements are checked during build", {
+  p <- ggplot(mtcars) + geom_point(aes(disp, mpg)) + theme(plot.title.position = "test")
+  expect_snapshot_error(ggplotGrob(p))
+
+  p <- ggplot(mtcars) + geom_point(aes(disp, mpg)) + theme(plot.caption.position = "test")
+  expect_snapshot_error(ggplotGrob(p))
+
+  p <- ggplot(mtcars) + geom_point(aes(disp, mpg)) + theme(plot.tag.position = "test")
+  expect_snapshot_error(ggplotGrob(p))
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("aspect ratio is honored", {

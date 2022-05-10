@@ -61,6 +61,7 @@ test_that("axis_label_element_overrides errors when angles are outside the range
   expect_s3_class(axis_label_element_overrides("bottom", 0), "element")
   expect_error(axis_label_element_overrides("bottom", 91), "`angle` must")
   expect_error(axis_label_element_overrides("bottom", -91), "`angle` must")
+  expect_snapshot_error(axis_label_element_overrides("test", 0))
 })
 
 test_that("a warning is generated when guides are drawn at a location that doesn't make sense", {
@@ -208,12 +209,34 @@ test_that("guide specifications are properly checked", {
   expect_snapshot_error(ggplotGrob(p))
 
   expect_snapshot_error(guide_transform(guide_colorbar()))
+
+  p <- ggplot(mtcars) +
+    geom_point(aes(mpg, disp, colour = gear)) +
+    guides(colour = guide_colorbar(label.position = "top"))
+  expect_snapshot_error(ggplotGrob(p))
+  p <- ggplot(mtcars) +
+    geom_point(aes(mpg, disp, colour = gear)) +
+    guides(colour = guide_colorbar(direction = "horizontal", label.position = "left"))
+  expect_snapshot_error(ggplotGrob(p))
+
+  p <- ggplot(mtcars) +
+    geom_point(aes(mpg, disp, colour = gear)) +
+    guides(colour = guide_legend(label.position = "test"))
+  expect_snapshot_error(ggplotGrob(p))
+  p <- ggplot(mtcars) +
+    geom_point(aes(mpg, disp, colour = gear)) +
+    guides(colour = guide_legend(nrow = 2, ncol = 2))
+  expect_snapshot_error(ggplotGrob(p))
 })
 
-test_that("colorsteps checks the breaks format", {
+test_that("colorsteps and bins checks the breaks format", {
   p <- ggplot(mtcars) +
     geom_point(aes(mpg, disp, colour = paste("A", gear))) +
     guides(colour = "colorsteps")
+  expect_snapshot_error(suppressWarnings(ggplotGrob(p)))
+  p <- ggplot(mtcars) +
+    geom_point(aes(mpg, disp, colour = paste("A", gear))) +
+    guides(colour = "bins")
   expect_snapshot_error(suppressWarnings(ggplotGrob(p)))
 })
 

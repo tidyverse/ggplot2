@@ -18,3 +18,13 @@
     The `type` argument must return a continuous scale for the fill aesthetic.
     x The provided scale is discrete.
 
+---
+
+    Unknown scale type: "abc"
+    i Use either "gradient" or "viridis"
+
+---
+
+    Unknown scale type: "abc"
+    i Use either "gradient" or "viridis"
+

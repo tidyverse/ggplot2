@@ -1,3 +1,8 @@
+# axis_label_element_overrides errors when angles are outside the range [0, 90]
+
+    Unrecognized `axis_position`: "test"
+    i use either "top", "bottom", "left" or "right"
+
 # Using non-position guides for position scales results in an informative error
 
     Guide with class <guide/legend> does not implement `guide_transform()`
@@ -25,8 +30,30 @@
     Guide with class <guide/colorbar> does not implement `guide_transform()`
     i Did you mean to use `guide_axis()`?
 
-# colorsteps checks the breaks format
+---
+
+    label position "top" is invalid
+    i use either "'left'" or "'right'"
+
+---
+
+    label position "left" is invalid
+    i use either "'top'" or "'bottom'"
+
+---
+
+    label position `test` is invalid
+
+---
+
+    `nrow` * `ncol` needs to be larger than the number of breaks (5)
+
+# colorsteps and bins checks the breaks format
 
     Breaks not formatted correctly for a bin legend.
     i Use "(<lower>, <upper>]" format to indicate bins
+
+---
+
+    Breaks not formatted correctly for a bin legend. Use (<lower>, <upper>] format to indicate bins
 

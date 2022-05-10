@@ -174,3 +174,16 @@ test_that("facet_wrap throws errors at bad layout specs", {
     coord_fixed()
   expect_snapshot_error(ggplotGrob(p))
 })
+
+test_that("facet_grid throws errors at bad layout specs", {
+  p <- ggplot(mtcars) +
+    geom_point(aes(mpg, disp)) +
+    facet_grid(.~gear, scales = "free") +
+    coord_fixed()
+  expect_snapshot_error(ggplotGrob(p))
+  p <- ggplot(mtcars) +
+    geom_point(aes(mpg, disp)) +
+    facet_grid(.~gear, space = "free") +
+    theme(aspect.ratio = 1)
+  expect_snapshot_error(ggplotGrob(p))
+})
