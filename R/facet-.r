@@ -567,7 +567,7 @@ combine_vars <- function(data, env = emptyenv(), vars = NULL, drop = TRUE) {
     missing <- lapply(values, function(x) setdiff(names(vars), names(x)))
     missing_vars <- paste0(
       c("Plot", paste0("Layer ", seq_len(length(data) - 1))),
-      " is missing {.var ", missing[[seq_along(data)]], "}"
+      " is missing {.var ", missing[seq_along(data)], "}"
     )
     names(missing_vars) <- rep("x", length(data))
 

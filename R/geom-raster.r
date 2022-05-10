@@ -18,10 +18,10 @@ geom_raster <- function(mapping = NULL, data = NULL,
                         show.legend = NA,
                         inherit.aes = TRUE)
 {
-  if (!(is.numeric(hjust) && length(hjust) == 1)) {
+  if (!is_scalar_double(hjust)) {
     cli::cli_abort("{.arg hjust} must be a number")
   }
-  if (!(is.numeric(vjust) && length(vjust) == 1)) {
+  if (!is_scalar_double(vjust)) {
     cli::cli_abort("{.arg vjust} must be a number")
   }
 

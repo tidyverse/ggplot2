@@ -395,7 +395,7 @@ guide_gengrob.legend <- function(guide, theme) {
 
   if (!is.null(guide$nrow) && !is.null(guide$ncol) &&
       guide$nrow * guide$ncol < nbreak) {
-    cli::cli_abort("{.arg nrow} * {.arg ncol} needs to be larger than the number of breaks")
+    cli::cli_abort("{.arg nrow} * {.arg ncol} needs to be larger than the number of breaks ({nbreak})")
   }
 
   # If neither nrow/ncol specified, guess with "reasonable" values

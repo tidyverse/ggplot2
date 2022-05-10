@@ -869,7 +869,7 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
     }
 
     if (identical(self$breaks, NA)) {
-      cli::cli_abort("Invalid {breaks} specification. Use {.val NULL}, not {.val NA}")
+      cli::cli_abort("Invalid {.arg breaks} specification. Use {.val NULL}, not {.val NA}")
     }
 
     if (is.waive(self$breaks)) {
@@ -1048,7 +1048,7 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
     if (is.null(self$breaks)) {
       return(NULL)
     } else if (identical(self$breaks, NA)) {
-      cli::cli_abort("Invalid {breaks} specification. Use {.val NULL}, not {.val NA}")
+      cli::cli_abort("Invalid {.arg breaks} specification. Use {.val NULL}, not {.val NA}")
     } else if (is.waive(self$breaks)) {
       if (self$nice.breaks) {
         if (!is.null(self$n.breaks) && trans_support_nbreaks(self$trans)) {

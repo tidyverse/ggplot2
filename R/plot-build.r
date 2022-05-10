@@ -332,7 +332,7 @@ ggplot_gtable.ggplot_built <- function(data) {
                  "bottom", "bottomright")
 
   if (!(tag_pos == "manual" || tag_pos %in% valid_pos)) {
-    cli::cli_abort("{.arg plot.tag.position} should be a coordinate or one of {.val {valid_pos}}")
+    cli::cli_abort("{.arg plot.tag.position} should be a coordinate or one of {.or {.val {valid_pos}}}")
   }
 
   if (tag_pos == "manual") {

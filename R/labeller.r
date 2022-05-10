@@ -441,7 +441,7 @@ labeller <- function(..., .rows = NULL, .cols = NULL,
       # Check that variable-specific labellers do not overlap with
       # margin-wide labeller
       if (any(names(dots) %in% names(labels))) {
-        cli::cli_abort("Conflict between {.var .{attr(labels, 'type')}} and {.var {names(dots)}}")
+        cli::cli_abort("Conflict between {.var {paste0('.', attr(labels, 'type'))}} and {.var {names(dots)}}")
       }
     }
 

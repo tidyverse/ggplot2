@@ -25,7 +25,7 @@ interleave.default <- function(...) {
   lengths <- unique(setdiff(vapply(vectors, length, integer(1)), 1L))
   if (length(lengths) == 0) lengths <- 1
   if (length(lengths) > 1) {
-    cli::cli_abort("{.var lengths} must be below {.val 1}")
+    cli::cli_abort("vectors must have at least one element")
   }
 
   # Replicate elements of length one up to correct length

@@ -60,15 +60,8 @@ StatBindot <- ggproto("StatBindot", Stat,
                            method = "dotdensity", binpositions = "bygroup",
                            origin = NULL, width = 0.9, drop = FALSE,
                            right = TRUE) {
-
-    # This function taken from integer help page
-    is.wholenumber <- function(x, tol = .Machine$double.eps ^ 0.5) {
-      abs(x - round(x)) < tol
-    }
-
     # Check that weights are whole numbers (for dots, weights must be whole)
-    if (!is.null(data$weight) && any(!is.wholenumber(data$weight)) &&
-        any(data$weight < 0)) {
+    if (!is.null(data$weight) && !(is_integerish(data$weight) && all(data$weight >= 0))) {
       cli::cli_abort("Weights must be nonnegative integers.")
     }
 
