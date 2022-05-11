@@ -39,29 +39,17 @@ with \code{aes_string()} is quite clunky.
 \section{Life cycle}{
 
 
-All these functions are soft-deprecated. Please use tidy evaluation
-idioms instead (see the quasiquotation section in
-\code{\link[=aes]{aes()}} documentation).
+All these functions are soft-deprecated. Please use tidy evaluation idioms
+instead. Regarding \code{aes_string()}, you can replace it with \code{.data} pronoun.
+For example, the following code can achieve the same mapping as
+\code{aes_string(x_var, y_var)}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{x_var <- "foo"
+y_var <- "bar"
+aes(.data[[x_var]], .data[[y_var]])
+}\if{html}{\out{</div>}}
+
+For more details, please see \code{vignette("ggplot2-in-packages")}.
 }
 
-\examples{
-# Three ways of generating the same aesthetics
-aes(mpg, wt, col = cyl)
-aes_(quote(mpg), quote(wt), col = quote(cyl))
-aes_(~mpg, ~wt, col = ~cyl)
-aes_string("mpg", "wt", col = "cyl")
-
-# You can't easily mimic these calls with aes_string
-aes(`$100`, colour = "smooth")
-aes_(~ `$100`, colour = "smooth")
-# Ok, you can, but it requires a _lot_ of quotes
-aes_string("`$100`", colour = '"smooth"')
-
-# Convert strings to names with as.name
-var <- "cyl"
-aes(col = x)
-aes_(col = as.name(var))
-}
 \seealso{
 \code{\link[=aes]{aes()}}
 }

@@ -65,12 +65,9 @@ NULL
 #' scatter_by(mtcars, disp, drat)
 #'
 #' # If your wrapper has a more specific interface with named arguments,
-#' # you need "enquote and unquote":
+#' # you need the "embrace operator":
 #' scatter_by <- function(data, x, y) {
-#'   x <- enquo(x)
-#'   y <- enquo(y)
-#'
-#'   ggplot(data) + geom_point(aes(!!x, !!y))
+#'   ggplot(data) + geom_point(aes({{ x }}, {{ y }}))
 #' }
 #' scatter_by(mtcars, disp, drat)
 #'
@@ -248,9 +245,18 @@ is_position_aes <- function(vars) {
 #'
 #' @section Life cycle:
 #'
-#' All these functions are soft-deprecated. Please use tidy evaluation
-#' idioms instead (see the quasiquotation section in
-#' [aes()] documentation).
+#' All these functions are soft-deprecated. Please use tidy evaluation idioms
+#' instead. Regarding `aes_string()`, you can replace it with `.data` pronoun.
+#' For example, the following code can achieve the same mapping as
+#' `aes_string(x_var, y_var)`.
+#'
+#' ``` r
+#' x_var <- "foo"
+#' y_var <- "bar"
+#' aes(.data[[x_var]], .data[[y_var]])
+#' ````
+#'
+#' For more details, please see `vignette("ggplot2-in-packages")`.
 #'
 #' @param x,y,... List of name value pairs. Elements must be either
 #'   quoted calls, strings, one-sided formulas or constants.
@@ -259,23 +265,6 @@ is_position_aes <- function(vars) {
 #' @keywords internal
 #'
 #' @export
-#' @examples
-#' # Three ways of generating the same aesthetics
-#' aes(mpg, wt, col = cyl)
-#' aes_(quote(mpg), quote(wt), col = quote(cyl))
-#' aes_(~mpg, ~wt, col = ~cyl)
-#' aes_string("mpg", "wt", col = "cyl")
-#'
-#' # You can't easily mimic these calls with aes_string
-#' aes(`$100`, colour = "smooth")
-#' aes_(~ `$100`, colour = "smooth")
-#' # Ok, you can, but it requires a _lot_ of quotes
-#' aes_string("`$100`", colour = '"smooth"')
-#'
-#' # Convert strings to names with as.name
-#' var <- "cyl"
-#' aes(col = x)
-#' aes_(col = as.name(var))
 aes_ <- function(x, y, ...) {
   lifecycle::deprecate_soft(
     "3.0.0",
