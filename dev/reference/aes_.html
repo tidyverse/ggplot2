@@ -146,76 +146,19 @@ quoted calls, strings, one-sided formulas or constants.</p></dd>
     
 
 
-<p>All these functions are soft-deprecated. Please use tidy evaluation
-idioms instead (see the quasiquotation section in
-<code><a href="aes.html">aes()</a></code> documentation).</p>
+<p>All these functions are soft-deprecated. Please use tidy evaluation idioms
+instead. Regarding <code>aes_string()</code>, you can replace it with <code>.data</code> pronoun.
+For example, the following code can achieve the same mapping as
+<code>aes_string(x_var, y_var)</code>.</p><div class="sourceCode r"><pre><code><span class="va">x_var</span> <span class="op">&lt;-</span> <span class="st">"foo"</span>
+<span class="va">y_var</span> <span class="op">&lt;-</span> <span class="st">"bar"</span>
+<span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">.data</span><span class="op">[[</span><span class="va">x_var</span><span class="op">]</span><span class="op">]</span>, <span class="va">.data</span><span class="op">[[</span><span class="va">y_var</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></code></pre><p></p></div>
+<p>For more details, please see <code><a href="../articles/ggplot2-in-packages.html">vignette("ggplot2-in-packages")</a></code>.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="aes.html">aes()</a></code></p></div>
     </div>
 
-    <div class="section level2">
-    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Three ways of generating the same aesthetics</span></span>
-<span class="r-in"><span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="va">wt</span>, col <span class="op">=</span> <span class="va">cyl</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Aesthetic mapping: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> * `x`      -&gt; `mpg`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> * `y`      -&gt; `wt`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> * `colour` -&gt; `cyl`</span>
-<span class="r-in"><span class="fu">aes_</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/substitute.html" class="external-link">quote</a></span><span class="op">(</span><span class="va">mpg</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/substitute.html" class="external-link">quote</a></span><span class="op">(</span><span class="va">wt</span><span class="op">)</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/substitute.html" class="external-link">quote</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`aes_()` was deprecated in ggplot2 3.0.0.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> Please use tidy evaluation ideoms with `aes()`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Aesthetic mapping: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> * `colour` -&gt; `cyl`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> * `x`      -&gt; `mpg`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> * `y`      -&gt; `wt`</span>
-<span class="r-in"><span class="fu">aes_</span><span class="op">(</span><span class="op">~</span><span class="va">mpg</span>, <span class="op">~</span><span class="va">wt</span>, col <span class="op">=</span> <span class="op">~</span><span class="va">cyl</span><span class="op">)</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`aes_()` was deprecated in ggplot2 3.0.0.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> Please use tidy evaluation ideoms with `aes()`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Aesthetic mapping: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> * `colour` -&gt; `cyl`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> * `x`      -&gt; `mpg`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> * `y`      -&gt; `wt`</span>
-<span class="r-in"><span class="fu">aes_string</span><span class="op">(</span><span class="st">"mpg"</span>, <span class="st">"wt"</span>, col <span class="op">=</span> <span class="st">"cyl"</span><span class="op">)</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`aes_string()` was deprecated in ggplot2 3.0.0.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> Please use tidy evaluation ideoms with `aes()`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Aesthetic mapping: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> * `colour` -&gt; `cyl`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> * `x`      -&gt; `mpg`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> * `y`      -&gt; `wt`</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># You can't easily mimic these calls with aes_string</span></span>
-<span class="r-in"><span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">`$100`</span>, colour <span class="op">=</span> <span class="st">"smooth"</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Aesthetic mapping: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> * `x`      -&gt; `$100`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> * `colour` -&gt; "smooth"</span>
-<span class="r-in"><span class="fu">aes_</span><span class="op">(</span><span class="op">~</span> <span class="va">`$100`</span>, colour <span class="op">=</span> <span class="st">"smooth"</span><span class="op">)</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`aes_()` was deprecated in ggplot2 3.0.0.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> Please use tidy evaluation ideoms with `aes()`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Aesthetic mapping: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> * `colour` -&gt; "smooth"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> * `x`      -&gt; `$100`</span>
-<span class="r-in"><span class="co"># Ok, you can, but it requires a _lot_ of quotes</span></span>
-<span class="r-in"><span class="fu">aes_string</span><span class="op">(</span><span class="st">"`$100`"</span>, colour <span class="op">=</span> <span class="st">'"smooth"'</span><span class="op">)</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`aes_string()` was deprecated in ggplot2 3.0.0.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> Please use tidy evaluation ideoms with `aes()`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Aesthetic mapping: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> * `colour` -&gt; "smooth"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> * `x`      -&gt; `$100`</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Convert strings to names with as.name</span></span>
-<span class="r-in"><span class="va">var</span> <span class="op">&lt;-</span> <span class="st">"cyl"</span></span>
-<span class="r-in"><span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>col <span class="op">=</span> <span class="va">x</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Aesthetic mapping: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> * `colour` -&gt; `x`</span>
-<span class="r-in"><span class="fu">aes_</span><span class="op">(</span>col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/name.html" class="external-link">as.name</a></span><span class="op">(</span><span class="va">var</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`aes_()` was deprecated in ggplot2 3.0.0.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> Please use tidy evaluation ideoms with `aes()`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Aesthetic mapping: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> * `colour` -&gt; `cyl`</span>
-</code></pre></div>
-    </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
 
