@@ -77,7 +77,8 @@ scale_fill_fermenter(
 or \code{\link[=binned_scale]{binned_scale()}}, for \code{brewer}, \code{distiller}, and \code{fermenter} variants
 respectively, to control name, limits, breaks, labels and so forth.}
 
-\item{type}{One of seq (sequential), div (diverging) or qual (qualitative)}
+\item{type}{One of "seq" (sequential), "div" (diverging) or "qual"
+(qualitative)}
 
 \item{palette}{If a string, will use that named palette. If a number, will index into
 the list of palettes of appropriate \code{type}. The list of available palettes can found

@@ -65,12 +65,9 @@ NULL
 #' scatter_by(mtcars, disp, drat)
 #'
 #' # If your wrapper has a more specific interface with named arguments,
-#' # you need "enquote and unquote":
+#' # you need the "embrace operator":
 #' scatter_by <- function(data, x, y) {
-#'   x <- enquo(x)
-#'   y <- enquo(y)
-#'
-#'   ggplot(data) + geom_point(aes(!!x, !!y))
+#'   ggplot(data) + geom_point(aes({{ x }}, {{ y }}))
 #' }
 #' scatter_by(mtcars, disp, drat)
 #'
@@ -79,8 +76,21 @@ NULL
 #' cut3 <- function(x) cut_number(x, 3)
 #' scatter_by(mtcars, cut3(disp), drat)
 aes <- function(x, y, ...) {
-  exprs <- enquos(x = x, y = y, ..., .ignore_empty = "all")
-  aes <- new_aes(exprs, env = parent.frame())
+  xs <- arg_enquos("x")
+  ys <- arg_enquos("y")
+  dots <- enquos(...)
+
+  args <- c(xs, ys, dots)
+  args <- Filter(Negate(quo_is_missing), args)
+
+  # Pass arguments to helper dummy to throw an error when duplicate
+  # `x` and `y` arguments are passed through dots
+  local({
+    aes <- function(x, y, ...) NULL
+    inject(aes(!!!args))
+  })
+
+  aes <- new_aes(args, env = parent.frame())
   rename_aes(aes)
 }
 
@@ -235,9 +245,18 @@ is_position_aes <- function(vars) {
 #'
 #' @section Life cycle:
 #'
-#' All these functions are soft-deprecated. Please use tidy evaluation
-#' idioms instead (see the quasiquotation section in
-#' [aes()] documentation).
+#' All these functions are soft-deprecated. Please use tidy evaluation idioms
+#' instead. Regarding `aes_string()`, you can replace it with `.data` pronoun.
+#' For example, the following code can achieve the same mapping as
+#' `aes_string(x_var, y_var)`.
+#'
+#' ``` r
+#' x_var <- "foo"
+#' y_var <- "bar"
+#' aes(.data[[x_var]], .data[[y_var]])
+#' ````
+#'
+#' For more details, please see `vignette("ggplot2-in-packages")`.
 #'
 #' @param x,y,... List of name value pairs. Elements must be either
 #'   quoted calls, strings, one-sided formulas or constants.
@@ -246,23 +265,6 @@ is_position_aes <- function(vars) {
 #' @keywords internal
 #'
 #' @export
-#' @examples
-#' # Three ways of generating the same aesthetics
-#' aes(mpg, wt, col = cyl)
-#' aes_(quote(mpg), quote(wt), col = quote(cyl))
-#' aes_(~mpg, ~wt, col = ~cyl)
-#' aes_string("mpg", "wt", col = "cyl")
-#'
-#' # You can't easily mimic these calls with aes_string
-#' aes(`$100`, colour = "smooth")
-#' aes_(~ `$100`, colour = "smooth")
-#' # Ok, you can, but it requires a _lot_ of quotes
-#' aes_string("`$100`", colour = '"smooth"')
-#'
-#' # Convert strings to names with as.name
-#' var <- "cyl"
-#' aes(col = x)
-#' aes_(col = as.name(var))
 aes_ <- function(x, y, ...) {
   lifecycle::deprecate_soft(
     "3.0.0",
@@ -425,4 +427,27 @@ extract_target_is_likely_data <- function(x, data, env) {
     data_eval <- eval_tidy(x[[2]], data, env)
     identical(data_eval, data)
   }, error = function(err) FALSE)
+}
+
+# Takes a quosure and returns a named list of quosures, expanding
+# `!!!` expressions as needed
+arg_enquos <- function(name, frame = caller_env()) {
+  # First start with `enquo0()` which does not process injection
+  # operators
+  quo <- inject(enquo0(!!sym(name)), frame)
+  expr <- quo_get_expr(quo)
+
+  if (!is_missing(expr) && is_triple_bang(expr)) {
+    # Evaluate `!!!` operand and create a list of quosures
+    env <- quo_get_env(quo)
+    xs <- eval_bare(expr[[2]][[2]][[2]], env)
+    xs <- lapply(xs, as_quosure, env = env)
+  } else {
+    # Redefuse `x` to process injection operators, then store in a
+    # length-1 list of quosures
+    quo <- inject(enquo(!!sym(name)), frame)
+    xs <- set_names(list(quo), name)
+  }
+
+  new_quosures(xs)
 }

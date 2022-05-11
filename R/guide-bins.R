@@ -89,7 +89,7 @@ guide_bins <- function(
   show.limits = NULL,
   ...) {
 
-  structure(list(
+  structure(list2(
     # title
     title = title,
     title.position = title.position,

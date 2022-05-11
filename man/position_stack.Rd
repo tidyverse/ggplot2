@@ -46,6 +46,12 @@ without affecting the legend.
 Stacking of positive and negative values are performed separately so that
 positive values stack upwards from the x-axis and negative values stack
 downward.
+
+Because stacking is performed after scale transformations, stacking with
+non-linear scales gives distortions that easily lead to misinterpretations of
+the data. It is therefore \emph{discouraged} to use these position adjustments in
+combination with scale transformations, such as logarithmic or square root
+scales.
 }
 \examples{
 # Stacking and filling ------------------------------------------------------

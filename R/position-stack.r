@@ -27,6 +27,12 @@
 #' positive values stack upwards from the x-axis and negative values stack
 #' downward.
 #'
+#' Because stacking is performed after scale transformations, stacking with
+#' non-linear scales gives distortions that easily lead to misinterpretations of
+#' the data. It is therefore *discouraged* to use these position adjustments in
+#' combination with scale transformations, such as logarithmic or square root
+#' scales.
+#'
 #' @family position adjustments
 #' @param vjust Vertical adjustment for geoms that have a position
 #'   (like points or lines), not a dimension (like bars or areas). Set to

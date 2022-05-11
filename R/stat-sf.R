@@ -70,7 +70,7 @@ stat_sf <- function(mapping = NULL, data = NULL, geom = "rect",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       na.rm = na.rm,
       ...
     )

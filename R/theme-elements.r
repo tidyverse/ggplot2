@@ -478,6 +478,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   strip.background    = el_def("element_rect", "rect"),
   strip.background.x  = el_def("element_rect", "strip.background"),
   strip.background.y  = el_def("element_rect", "strip.background"),
+  strip.clip          = el_def("character"),
   strip.text.x        = el_def("element_text", "strip.text"),
   strip.text.x.top    = el_def("element_text", "strip.text.x"),
   strip.text.x.bottom = el_def("element_text", "strip.text.x"),

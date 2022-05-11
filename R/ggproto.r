@@ -57,7 +57,7 @@
 ggproto <- function(`_class` = NULL, `_inherit` = NULL, ...) {
   e <- new.env(parent = emptyenv())
 
-  members <- list(...)
+  members <- list2(...)
   if (length(members) != sum(nzchar(names(members)))) {
     abort("All members of a ggproto object must be named.")
   }

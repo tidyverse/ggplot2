@@ -1,6 +1,6 @@
 Package: ggplot2
+Version: 3.3.6.9000
 Title: Create Elegant Data Visualisations Using the Grammar of Graphics
-Version: 3.3.5.9000
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", role = "aut",
            comment = c(ORCID = "0000-0003-4757-117X")),
@@ -40,7 +40,7 @@ Imports:
     lifecycle,
     MASS,
     mgcv,
-    rlang (>= 0.4.10),
+    rlang (>= 1.0.0),
     scales (>= 0.5.0),
     stats,
     tibble,
@@ -51,7 +51,6 @@ Suggests:
     ggplot2movies,
     hexbin,
     Hmisc,
-    interp,
     knitr,
     lattice,
     mapproj,
@@ -69,7 +68,7 @@ Suggests:
     rpart,
     sf (>= 0.7-3),
     svglite (>= 1.2.0.9001),
-    testthat (>= 3.0.0),
+    testthat (>= 3.1.2),
     vdiffr (>= 1.0.0),
     xml2
 Enhances: 

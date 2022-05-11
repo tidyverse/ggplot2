@@ -1,5 +1,20 @@
 # ggplot2 (development version)
 
+* Using multiple modified aesthetics correctly will no longer trigger warnings. 
+  If used incorrectly, the warning will now report the duplicated aesthetic 
+  instead of `NA` (@teunbrand, #4707).
+
+* `...` supports `rlang::list2` dynamic dots in all public functions. (@mone27, #4764) 
+
+* `theme()` now has a `strip.clip` argument, that can be set to `"off"` to 
+  prevent the clipping of strip text and background borders (@teunbrand, #4118)
+
+* `aes()` now supports the `!!!` operator in its first two arguments
+  (#2675). Thanks to @yutannihilation and @teunbrand for draft
+  implementations.
+
+* Require rlang >= 1.0.0 (@billybarc, #4797)
+
 * `geom_violin()` no longer issues "collapsing to unique 'x' values" warning
   (@bersbersbers, #4455)
 
@@ -72,6 +87,14 @@ precedence between `bins` and `binwidth`. (@eliocamp, #4651)
 
 * Key glyphs for `geom_boxplot()`, `geom_crossbar()`, `geom_pointrange()`, and
   `geom_linerange()` are now orientation-aware (@mjskay, #4732)
+  
+* Updated documentation for `geom_smooth()` to more clearly describe effects of the 
+  `fullrange` parameter (@thoolihan, #4399).
+
+# ggplot2 3.3.6
+This is a very small release only applying an internal change to comply with 
+R 4.2 and its deprecation of `default.stringsAsFactors()`. There are no user
+facing changes and no breaking changes.
 
 # ggplot2 3.3.5
 This is a very small release focusing on fixing a couple of untenable issues 

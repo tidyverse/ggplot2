@@ -7,7 +7,7 @@ geom_freqpoly <- function(mapping = NULL, data = NULL,
                           show.legend = NA,
                           inherit.aes = TRUE) {
 
-  params <- list(na.rm = na.rm, ...)
+  params <- list2(na.rm = na.rm, ...)
   if (identical(stat, "bin")) {
     params$pad <- TRUE
   }
