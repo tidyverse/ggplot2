@@ -167,10 +167,11 @@ surrounding the variable names with <code>..</code>.</p>
     </div>
     <div class="section level2">
     <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
-    <p>Evaluation after stat transformation will only have access to the
-variables calculated by the stat. Evaluation after scaling will only have
-access to the final aesthetics of the layer (including non-mapped, default
-aesthetics). The original layer data can only be accessed at the first stage.</p>
+    <p>Evaluation after stat transformation will have access to the
+variables calculated by the stat, not the original mapped values. Evaluation
+after scaling will only have access to the final aesthetics of the layer
+(including non-mapped, default aesthetics). The original layer data can only
+be accessed at the first stage.</p>
     </div>
 
     <div class="section level2">
