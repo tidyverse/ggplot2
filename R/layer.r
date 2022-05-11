@@ -332,11 +332,6 @@ Layer <- ggproto("Layer", NULL,
 
     # Add any new scales, if needed
     scales_add_defaults(plot$scales, data, new, plot$plot_env)
-    # Transform the values, if the scale say it's ok
-    # (see stat_spoke for one exception)
-    if (self$stat$retransform) {
-      stat_data <- scales_transform_df(plot$scales, stat_data)
-    }
 
     cunion(stat_data, data)
   },
