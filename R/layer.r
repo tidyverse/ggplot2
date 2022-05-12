@@ -23,11 +23,17 @@
 #'    the plot data. The return value must be a `data.frame`, and
 #'    will be used as the layer data. A `function` can be created
 #'    from a `formula` (e.g. `~ head(.x, 10)`).
-#' @param geom The geometric object to use display the data
+#' @param geom The geometric object to use to display the data, either as a
+#'   `ggproto` `Geom` subclass or as a string naming the geom stripped of the
+#'   `geom_` prefix (e.g. `"point"` rather than `"geom_point"`)
 #' @param stat The statistical transformation to use on the data for this
-#'    layer, as a string.
-#' @param position Position adjustment, either as a string, or the result of
-#'  a call to a position adjustment function.
+#'    layer, either as a `ggproto` `Geom` subclass or as a string naming the
+#'    stat stripped of the `stat_` prefix (e.g. `"count"` rather than
+#'    `"stat_count"`)
+#' @param position Position adjustment, either as a string naming the adjustment
+#'   (e.g. `"jitter"` to use `position_jitter`), or the result of a call to a
+#'   position adjustment function. Use the latter if you need to change the
+#'   settings of the adjustment.
 #' @param show.legend logical. Should this layer be included in the legends?
 #'   `NA`, the default, includes if any aesthetics are mapped.
 #'   `FALSE` never includes, and `TRUE` always includes.
