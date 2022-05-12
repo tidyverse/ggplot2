@@ -16,7 +16,9 @@
 #'   This parameter only matters if you are displaying multiple densities in
 #'   one plot or if you are manually adjusting the scale limits.
 #' @param bounds Known lower and upper bounds for estimated data. Default
-#'   `c(-Inf, Inf)` means that there are no (finite) bounds.
+#'   `c(-Inf, Inf)` means that there are no (finite) bounds. If any bound is
+#'   finite, boundary effect of default density estimation will be corrected by
+#'   reflecting tails outside `bounds` around their closest edge.
 #' @section Computed variables:
 #' \describe{
 #'   \item{density}{density estimate}
@@ -129,14 +131,15 @@ compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
     ), n = 1))
   }
 
-  if (all(is.infinite(bounds))) {
-    dens <- stats::density(x, weights = w, bw = bw, adjust = adjust,
-                           kernel = kernel, n = n, from = from, to = to)
-  } else {
+  # Decide whether to use boundary correction
+  if (any(is.finite(bounds))) {
     dens <- stats::density(x, weights = w, bw = bw, adjust = adjust,
                            kernel = kernel, n = n)
 
     dens <- reflect_density(dens = dens, bounds = bounds, from = from, to = to)
+  } else {
+    dens <- stats::density(x, weights = w, bw = bw, adjust = adjust,
+                           kernel = kernel, n = n, from = from, to = to)
   }
 
   new_data_frame(list(
@@ -149,25 +152,39 @@ compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
   ), n = length(dens$x))
 }
 
+# Update density estimation to mitigate boundary effect at known `bounds`:
+# - All x values will lie inside `bounds`.
+# - All y-values will be updated to have total probability of `bounds` be
+#   closer to 1. This is done by reflecting tails outside of `bounds` around
+#   their closest edge. This leads to those tails lie inside of `bounds`
+#   (completely, if they are not wider than `bounds` itself, which is a common
+#   situation) and correct boundary effect of default density estimation.
+#
+# `dens` - output of `stats::density`.
+# `bounds` - two-element vector with left and right known (user supplied)
+#   bounds of x values.
+# `from`, `to` - numbers used as corresponding arguments of `stats::density()`
+#   in case of no boundary correction.
 reflect_density <- function(dens, bounds, from, to) {
+  # No adjustment is needed if no finite bounds are supplied
   if (all(is.infinite(bounds))) {
     return(dens)
   }
 
+  # Estimate linearly with zero tails (crucial to account for infinite bound)
   f_dens <- stats::approxfun(
     x = dens$x, y = dens$y, method = "linear", yleft = 0, yright = 0
   )
 
-  out_x <- intersection_grid(dens$x, bounds, from, to)
-  out_y <- f_dens(out_x) + f_dens(bounds[1] + (bounds[1] - out_x)) +
-    f_dens(bounds[2] + (bounds[2] - out_x))
-
-  list(x = out_x, y = out_y)
-}
-
-intersection_grid <- function(grid, bounds, from, to) {
+  # Create a uniform x-grid inside `bounds`
   left <- max(from, bounds[1])
   right <- min(to, bounds[2])
+  out_x <- seq(from = left, to = right, length.out = length(dens$x))
 
-  seq(from = left, to = right, length.out = length(grid))
+  # Update density estimation by adding reflected tails from outside `bounds`
+  left_reflection <- f_dens(bounds[1] + (bounds[1] - out_x))
+  right_reflection <- f_dens(bounds[2] + (bounds[2] - out_x))
+  out_y <- f_dens(out_x) + left_reflection + right_reflection
+
+  list(x = out_x, y = out_y)
 }
