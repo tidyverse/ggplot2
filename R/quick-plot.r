@@ -24,7 +24,9 @@ qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
                   ylim = c(NA, NA), log = "", main = NULL,
                   xlab = NULL, ylab = NULL,
                   asp = NA, stat = deprecated(), position = deprecated()) {
-  .Deprecated()
+
+  lifecycle::deprecate_warn("3.4.0", "qplot()")
+
   caller_env <- parent.frame()
 
   if (!is.character(geom)) {
