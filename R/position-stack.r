@@ -27,6 +27,12 @@
 #' positive values stack upwards from the x-axis and negative values stack
 #' downward.
 #'
+#' Because stacking is performed after scale transformations, stacking with
+#' non-linear scales gives distortions that easily lead to misinterpretations of
+#' the data. It is therefore *discouraged* to use these position adjustments in
+#' combination with scale transformations, such as logarithmic or square root
+#' scales.
+#'
 #' @family position adjustments
 #' @param vjust Vertical adjustment for geoms that have a position
 #'   (like points or lines), not a dimension (like bars or areas). Set to
@@ -165,7 +171,7 @@ PositionStack <- ggproto("PositionStack", Position,
 
     data$ymax <- switch(params$var,
       y = data$y,
-      ymax = ifelse(data$ymax == 0, data$ymin, data$ymax)
+      ymax = as.numeric(ifelse(data$ymax == 0, data$ymin, data$ymax))
     )
 
     data <- remove_missing(
@@ -225,8 +231,8 @@ pos_stack <- function(df, width, vjust = 1, fill = FALSE) {
   ymin <- pmin(heights[-n], heights[-1])
   ymax <- pmax(heights[-n], heights[-1])
   df$y <- (1 - vjust) * ymin + vjust * ymax
-  df$ymin <- ifelse(max_is_lower, ymax, ymin)
-  df$ymax <- ifelse(max_is_lower, ymin, ymax)
+  df$ymin <- as.numeric(ifelse(max_is_lower, ymax, ymin))
+  df$ymax <- as.numeric(ifelse(max_is_lower, ymin, ymax))
   df
 }
 

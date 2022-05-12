@@ -93,7 +93,7 @@ geom_polygon <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       na.rm = na.rm,
       rule = rule,
       ...
@@ -106,7 +106,8 @@ geom_polygon <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomPolygon <- ggproto("GeomPolygon", Geom,
-  draw_panel = function(data, panel_params, coord, rule = "evenodd") {
+  draw_panel = function(data, panel_params, coord, rule = "evenodd", lineend = "butt",
+                        linejoin = "round", linemitre = 10) {
     n <- nrow(data)
     if (n == 1) return(zeroGrob())
 
@@ -131,7 +132,10 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
             col = first_rows$colour,
             fill = alpha(first_rows$fill, first_rows$alpha),
             lwd = first_rows$size * .pt,
-            lty = first_rows$linetype
+            lty = first_rows$linetype,
+            lineend = lineend,
+            linejoin = linejoin,
+            linemitre = linemitre
           )
         )
       )
@@ -159,7 +163,10 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
             col = first_rows$colour,
             fill = alpha(first_rows$fill, first_rows$alpha),
             lwd = first_rows$size * .pt,
-            lty = first_rows$linetype
+            lty = first_rows$linetype,
+            lineend = lineend,
+            linejoin = linejoin,
+            linemitre = linemitre
           )
         )
       )
@@ -167,7 +174,7 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
 
   },
 
-  default_aes = aes(colour = "NA", fill = "grey20", size = 0.5, linetype = 1,
+  default_aes = aes(colour = NA, fill = "grey20", size = 0.5, linetype = 1,
     alpha = NA, subgroup = NULL),
 
   handle_na = function(data, params) {
@@ -179,3 +186,15 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
   draw_key = draw_key_polygon
 )
 
+# Assigning pathGrob in .onLoad ensures that packages that subclass GeomPolygon
+# do not install with error `possible error in 'pathGrob(munched$x, munched$y, ':
+# unused argument (pathId = munched$group)` despite the fact that this is correct
+# usage
+pathGrob <- NULL
+on_load(
+  if (getRversion() < as.numeric_version("3.6")) {
+    pathGrob <- function(..., pathId.lengths) {
+      grid::pathGrob(...)
+    }
+  }
+)

@@ -21,6 +21,7 @@
 #'   \item{count}{density * number of points - useful for stacked density
 #'      plots}
 #'   \item{scaled}{density estimate, scaled to maximum of 1}
+#'   \item{n}{number of points}
 #'   \item{ndensity}{alias for `scaled`, to mirror the syntax of
 #'    [`stat_bin()`]}
 #' }
@@ -47,7 +48,7 @@ stat_density <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       bw = bw,
       adjust = adjust,
       kernel = kernel,

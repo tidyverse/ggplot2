@@ -112,7 +112,7 @@ geom_path <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       lineend = lineend,
       linejoin = linejoin,
       linemitre = linemitre,
@@ -248,7 +248,7 @@ geom_line <- function(mapping = NULL, data = NULL, stat = "identity",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       na.rm = na.rm,
       orientation = orientation,
       ...
@@ -293,7 +293,7 @@ geom_step <- function(mapping = NULL, data = NULL, stat = "identity",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       direction = direction,
       na.rm = na.rm,
       ...
@@ -318,7 +318,7 @@ GeomStep <- ggproto("GeomStep", GeomPath,
 #'
 #' @noRd
 stairstep <- function(data, direction = "hv") {
-  direction <- match.arg(direction, c("hv", "vh", "mid"))
+  direction <- arg_match0(direction, c("hv", "vh", "mid"))
   data <- as.data.frame(data)[order(data$x), ]
   n <- nrow(data)
 

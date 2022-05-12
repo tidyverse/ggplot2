@@ -16,7 +16,7 @@ geom_col <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       width = width,
       na.rm = na.rm,
       ...
@@ -56,8 +56,15 @@ GeomCol <- ggproto("GeomCol", GeomRect,
     flip_data(data, params$flipped_aes)
   },
 
-  draw_panel = function(self, data, panel_params, coord, width = NULL, flipped_aes = FALSE) {
+  draw_panel = function(self, data, panel_params, coord, lineend = "butt",
+                        linejoin = "mitre", width = NULL, flipped_aes = FALSE) {
     # Hack to ensure that width is detected as a parameter
-    ggproto_parent(GeomRect, self)$draw_panel(data, panel_params, coord)
+    ggproto_parent(GeomRect, self)$draw_panel(
+      data,
+      panel_params,
+      coord,
+      lineend = lineend,
+      linejoin = linejoin
+    )
   }
 )

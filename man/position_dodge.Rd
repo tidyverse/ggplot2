@@ -5,11 +5,11 @@
 \alias{position_dodge2}
 \title{Dodge overlapping objects side-to-side}
 \usage{
-position_dodge(width = NULL, preserve = c("total", "single"))
+position_dodge(width = NULL, preserve = "total")
 
 position_dodge2(
   width = NULL,
-  preserve = c("total", "single"),
+  preserve = "total",
   padding = 0.1,
   reverse = FALSE
 )
@@ -19,8 +19,8 @@ position_dodge2(
 elements. This is useful when you want to align narrow geoms with wider
 geoms. See the examples.}
 
-\item{preserve}{Should dodging preserve the total width of all elements
-at a position, or the width of a single element?}
+\item{preserve}{Should dodging preserve the \code{"total"} width of all elements
+at a position, or the width of a \code{"single"} element?}
 
 \item{padding}{Padding between elements at the same position. Elements are
 shrunk by this proportion to allow space between them. Defaults to 0.1.}
@@ -58,7 +58,11 @@ ggplot(diamonds, aes(price, colour = cut)) +
 
 # Dodging with various widths -------------------------------------
 # To dodge items with different widths, you need to be explicit
-df <- data.frame(x = c("a","a","b","b"), y = 2:5, g = rep(1:2, 2))
+df <- data.frame(
+  x = c("a","a","b","b"),
+  y = 2:5,
+  g = rep(1:2, 2)
+)
 p <- ggplot(df, aes(x, y, group = g)) +
   geom_col(position = "dodge", fill = "grey50", colour = "black")
 p

@@ -19,7 +19,9 @@ qplot(
   main = NULL,
   xlab = NULL,
   ylab = NULL,
-  asp = NA
+  asp = NA,
+  stat = deprecated(),
+  position = deprecated()
 )
 
 quickplot(
@@ -36,7 +38,9 @@ quickplot(
   main = NULL,
   xlab = NULL,
   ylab = NULL,
-  asp = NA
+  asp = NA,
+  stat = deprecated(),
+  position = deprecated()
 )
 }
 \arguments{
@@ -62,6 +66,8 @@ or two-sided}
 x axis label, and y axis label respectively.}
 
 \item{asp}{The y/x aspect ratio}
+
+\item{stat, position}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}}
 }
 \description{
 \code{qplot()} is now deprecated in order to encourage the users to

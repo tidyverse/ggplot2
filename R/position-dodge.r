@@ -11,8 +11,8 @@
 #' @param width Dodging width, when different to the width of the individual
 #'   elements. This is useful when you want to align narrow geoms with wider
 #'   geoms. See the examples.
-#' @param preserve Should dodging preserve the total width of all elements
-#'    at a position, or the width of a single element?
+#' @param preserve Should dodging preserve the `"total"` width of all elements
+#'    at a position, or the width of a `"single"` element?
 #' @family position adjustments
 #' @export
 #' @examples
@@ -36,7 +36,11 @@
 #'
 #' # Dodging with various widths -------------------------------------
 #' # To dodge items with different widths, you need to be explicit
-#' df <- data.frame(x = c("a","a","b","b"), y = 2:5, g = rep(1:2, 2))
+#' df <- data.frame(
+#'   x = c("a","a","b","b"),
+#'   y = 2:5,
+#'   g = rep(1:2, 2)
+#' )
 #' p <- ggplot(df, aes(x, y, group = g)) +
 #'   geom_col(position = "dodge", fill = "grey50", colour = "black")
 #' p
@@ -75,10 +79,10 @@
 #'
 #' ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
 #'   geom_bar(position = position_dodge2(preserve = "total"))
-position_dodge <- function(width = NULL, preserve = c("total", "single")) {
+position_dodge <- function(width = NULL, preserve = "total") {
   ggproto(NULL, PositionDodge,
     width = width,
-    preserve = match.arg(preserve)
+    preserve = arg_match0(preserve, c("total", "single"))
   )
 }
 

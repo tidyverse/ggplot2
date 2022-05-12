@@ -1,4 +1,3 @@
-context("geom_rule")
 # tests for geom_vline, geom_hline & geom_abline
 
 df <- data_frame(x = 1:3, y = 3:1)

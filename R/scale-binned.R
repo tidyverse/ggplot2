@@ -27,7 +27,7 @@ scale_x_binned <- function(name = waiver(), n.breaks = 10, nice.breaks = TRUE,
                            right = TRUE, show.limits = FALSE, trans = "identity",
                            guide = waiver(), position = "bottom") {
   binned_scale(
-    aesthetics = c("x", "xmin", "xmax", "xend", "xintercept", "xmin_final", "xmax_final", "xlower", "xmiddle", "xupper"),
+    ggplot_global$x_aes,
     scale_name = "position_b", palette = identity, name = name, breaks = breaks,
     labels = labels, limits = limits, expand = expand, oob = oob, na.value = na.value,
     n.breaks = n.breaks, nice.breaks = nice.breaks, right = right, trans = trans,
@@ -44,7 +44,7 @@ scale_y_binned <- function(name = waiver(), n.breaks = 10, nice.breaks = TRUE,
                            right = TRUE, show.limits = FALSE, trans = "identity",
                            guide = waiver(), position = "left") {
   binned_scale(
-    aesthetics = c("y", "ymin", "ymax", "yend", "yintercept", "ymin_final", "ymax_final", "lower", "middle", "upper"),
+    ggplot_global$y_aes,
     scale_name = "position_b", palette = identity, name = name, breaks = breaks,
     labels = labels, limits = limits, expand = expand, oob = oob, na.value = na.value,
     n.breaks = n.breaks, nice.breaks = nice.breaks, right = right, trans = trans,

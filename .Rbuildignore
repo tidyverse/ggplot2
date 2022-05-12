@@ -26,3 +26,5 @@ visual_test
 ^vignettes/profiling.Rmd$
 ^cran-comments\.md$
 ^LICENSE\.md$
+^vignettes/articles$
+^CRAN-SUBMISSION$

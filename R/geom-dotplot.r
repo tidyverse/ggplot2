@@ -60,8 +60,11 @@
 #' @references Wilkinson, L. (1999) Dot plots. The American Statistician,
 #'    53(3), 276-281.
 #' @examples
-#' ggplot(mtcars, aes(x = mpg)) + geom_dotplot()
-#' ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5)
+#' ggplot(mtcars, aes(x = mpg)) +
+#'   geom_dotplot()
+#'
+#' ggplot(mtcars, aes(x = mpg)) +
+#'   geom_dotplot(binwidth = 1.5)
 #'
 #' # Use fixed-width bins
 #' ggplot(mtcars, aes(x = mpg)) +
@@ -70,6 +73,7 @@
 #' # Some other stacking methods
 #' ggplot(mtcars, aes(x = mpg)) +
 #'   geom_dotplot(binwidth = 1.5, stackdir = "center")
+#'
 #' ggplot(mtcars, aes(x = mpg)) +
 #'   geom_dotplot(binwidth = 1.5, stackdir = "centerwhole")
 #'
@@ -78,13 +82,16 @@
 #'   scale_y_continuous(NULL, breaks = NULL)
 #'
 #' # Overlap dots vertically
-#' ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5, stackratio = .7)
+#' ggplot(mtcars, aes(x = mpg)) +
+#'   geom_dotplot(binwidth = 1.5, stackratio = .7)
 #'
 #' # Expand dot diameter
-#' ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5, dotsize = 1.25)
+#' ggplot(mtcars, aes(x = mpg)) +
+#'   geom_dotplot(binwidth = 1.5, dotsize = 1.25)
 #'
 #' # Change dot fill colour, stroke width
-#' ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5, fill = "white", stroke = 2)
+#' ggplot(mtcars, aes(x = mpg)) +
+#'   geom_dotplot(binwidth = 1.5, fill = "white", stroke = 2)
 #'
 #' \donttest{
 #' # Examples with stacking along y axis instead of x
@@ -142,6 +149,7 @@ geom_dotplot <- function(mapping = NULL, data = NULL,
   if (stackgroups && method == "dotdensity" && binpositions == "bygroup")
     message('geom_dotplot called with stackgroups=TRUE and method="dotdensity". You probably want to set binpositions="all"')
 
+  stackdir <- arg_match0(stackdir, c("up", "down", "center", "centerwhole"), "stackdir")
   layer(
     data = data,
     mapping = mapping,
@@ -151,7 +159,7 @@ geom_dotplot <- function(mapping = NULL, data = NULL,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
     # Need to make sure that the binaxis goes to both the stat and the geom
-    params = list(
+    params = list2(
       binaxis = binaxis,
       binwidth = binwidth,
       binpositions = binpositions,
@@ -203,23 +211,27 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
       stackaxismax <- .5
     }
 
-
     # Fill the bins: at a given x (or y), if count=3, make 3 entries at that x
     data <- data[rep(1:nrow(data), data$count), ]
 
     # Next part will set the position of each dot within each stack
     # If stackgroups=TRUE, split only on x (or y) and panel; if not stacking, also split by group
     plyvars <- params$binaxis %||% "x"
+    stackaxis <- setdiff(c("x", "y"), plyvars)
     plyvars <- c(plyvars, "PANEL")
     if (is.null(params$stackgroups) || !params$stackgroups)
       plyvars <- c(plyvars, "group")
 
+    if (stackaxis == "x") {
+      plyvars <- c(plyvars, "x")
+    }
+
     # Within each x, or x+group, set countidx=1,2,3, and set stackpos according to stack function
     data <- dapply(data, plyvars, function(xx) {
-            xx$countidx <- 1:nrow(xx)
-            xx$stackpos <- stackdots(xx$countidx)
-            xx
-          })
+      xx$countidx <- 1:nrow(xx)
+      xx$stackpos <- stackdots(xx$countidx)
+      xx
+    })
 
 
     # Set the bounding boxes for the dots
@@ -252,7 +264,7 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
   },
 
 
-  draw_group = function(data, panel_params, coord, na.rm = FALSE,
+  draw_group = function(data, panel_params, coord, lineend = "butt", na.rm = FALSE,
                         binaxis = "x", stackdir = "up", stackratio = 1,
                         dotsize = 1, stackgroups = FALSE) {
     if (!coord$is_linear()) {
@@ -276,11 +288,12 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
 
     ggname("geom_dotplot",
       dotstackGrob(stackaxis = stackaxis, x = tdata$x, y = tdata$y, dotdia = dotdianpc,
-                  stackposition = tdata$stackpos, stackratio = stackratio,
+                  stackposition = tdata$stackpos, stackdir = stackdir, stackratio = stackratio,
                   default.units = "npc",
                   gp = gpar(col = alpha(tdata$colour, tdata$alpha),
                             fill = alpha(tdata$fill, tdata$alpha),
-                            lwd = tdata$stroke, lty = tdata$linetype))
+                            lwd = tdata$stroke, lty = tdata$linetype,
+                            lineend = lineend))
     )
   },
 

@@ -12,6 +12,7 @@
 #' @param margins See `facet_grid()`: display marginal facets?
 #' @param geom Character vector specifying geom(s) to draw. Defaults to
 #'  "point" if x and y are specified, and "histogram" if only x is specified.
+#' @param stat,position `r lifecycle::badge("deprecated")`
 #' @param xlim,ylim X and y axis limits
 #' @param log Which variables to log transform ("x", "y", or "xy")
 #' @param main,xlab,ylab Character vector (or expression) giving plot title,
@@ -22,9 +23,8 @@ qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
                   geom = "auto", xlim = c(NA, NA),
                   ylim = c(NA, NA), log = "", main = NULL,
                   xlab = NULL, ylab = NULL,
-                  asp = NA) {
+                  asp = NA, stat = deprecated(), position = deprecated()) {
   .Deprecated()
-
   caller_env <- parent.frame()
 
   if (!is.character(geom)) {
@@ -33,8 +33,8 @@ qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
 
   exprs <- enquos(x = x, y = y, ...)
 
-  if ("stat" %in% names(exprs)) abort("`stat` is now defunct")
-  if ("position" %in% names(exprs)) abort("`position` is now defunct")
+  if (lifecycle::is_present(stat)) lifecycle::deprecate_stop("3.4.0", "qplot(stat)")
+  if (lifecycle::is_present(position)) lifecycle::deprecate_stop("3.4.0", "qplot(position)")
 
   is_missing <- vapply(exprs, quo_is_missing, logical(1))
   # treat arguments as regular parameters if they are wrapped into I() or
@@ -51,10 +51,19 @@ qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
 
 
   if (is.null(xlab)) {
-    xlab <- as_label(exprs$x)
+    # Avoid <empty> label (#4170)
+    if (quo_is_missing(exprs$x)) {
+      xlab <- ""
+    } else {
+      xlab <- as_label(exprs$x)
+    }
   }
   if (is.null(ylab)) {
-    ylab <- as_label(exprs$y)
+    if (quo_is_missing(exprs$y)) {
+      ylab <- ""
+    } else {
+      ylab <- as_label(exprs$y)
+    }
   }
 
   if (missing(data)) {
@@ -119,8 +128,8 @@ qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
   if (!missing(xlab)) p <- p + xlab(xlab)
   if (!missing(ylab)) p <- p + ylab(ylab)
 
-  if (!missing(xlim)) p <- p + xlim(xlim)
-  if (!missing(ylim)) p <- p + ylim(ylim)
+  if (!missing(xlim) && !all(is.na(xlim))) p <- p + xlim(xlim)
+  if (!missing(ylim) && !all(is.na(ylim))) p <- p + ylim(ylim)
 
   p
 }

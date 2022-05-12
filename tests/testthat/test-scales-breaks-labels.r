@@ -1,5 +1,3 @@
-context("Scales: breaks and labels")
-
 test_that("labels match breaks, even when outside limits", {
   sc <- scale_y_continuous(breaks = 1:4, labels = 1:4, limits = c(1, 3))
 
@@ -99,7 +97,7 @@ test_that("discrete labels match breaks", {
   sc <- init_scale(breaks = 0:5 * 10)
   expect_equal(length(sc$get_breaks()), 5)
   expect_equal(length(sc$get_labels()), 5)
-  expect_equivalent(sc$get_labels(), sc$get_breaks())
+  expect_equal(sc$get_labels(), sc$get_breaks(), ignore_attr = TRUE)
 
   sc <- init_scale(breaks = 0:5 * 10, labels = letters[1:6])
   expect_equal(length(sc$get_breaks()), 5)

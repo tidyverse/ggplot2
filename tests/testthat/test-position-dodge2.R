@@ -1,5 +1,3 @@
-context("position_dodge2")
-
 test_that("find_x_overlaps identifies overlapping groups", {
 
   df1 <- data_frame(
@@ -40,8 +38,7 @@ test_that("rectangles are dodged", {
 test_that("cols at the same x position are dodged", {
   df <- data_frame(
     x = c("a", "a", "b"),
-    n = c(1, 5, 10),
-    stringsAsFactors = FALSE
+    n = c(1, 5, 10)
   )
 
   p <- ggplot(df, aes(1, n, fill = x)) +
@@ -107,4 +104,12 @@ test_that("width of groups is computed per facet", {
   width <- d$xmax - d$xmin
 
   expect_true(all(width == (0.9 / 3) * 0.9))
+})
+
+test_that("NA values are given their own group", {
+  df <- data.frame(
+    xmin = c(1, 2, NA, NA),
+    xmax = c(1, 2, NA, NA)
+  )
+  expect_equal(find_x_overlaps(df), seq_len(4))
 })
