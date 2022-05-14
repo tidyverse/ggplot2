@@ -80,3 +80,18 @@ test_that("stat_summary_(2d|hex) work with lambda expressions", {
   )
 
 })
+
+test_that("stat_summary() errors when check_installed() fails (#4736)", {
+  fun1 <- function(...) {
+    stop("usual error")
+  }
+
+  fun2 <- function(...) {
+    check_installed("nosuchpackage")
+  }
+
+  p <- ggplot(data.frame(x = 1), aes(x, x))
+
+  expect_warning(expect_error(ggplot_build(p + stat_summary(fun.data = fun1)), NA))
+  expect_error(ggplot_build(p + stat_summary(fun.data = fun2)), class = "rlib_error_package_not_found")
+})
