@@ -38,6 +38,7 @@
 #' @examples
 #' # Generate some sample data, then compute mean and standard deviation
 #' # in each group
+#' set.seed(1)
 #' df <- data.frame(
 #'   gp = factor(rep(letters[1:3], each = 10)),
 #'   y = rnorm(30)

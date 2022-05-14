@@ -59,6 +59,7 @@
 #'   geom_histogram(binwidth = 500, position = "fill")
 #'
 #' # Stacking is also useful for time series
+#' set.seed(1)
 #' series <- data.frame(
 #'   time = c(rep(1, 4),rep(2, 4), rep(3, 4), rep(4, 4)),
 #'   type = rep(c('a', 'b', 'c', 'd'), 4),

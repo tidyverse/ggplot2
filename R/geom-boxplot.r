@@ -90,6 +90,7 @@
 #' \donttest{
 #' # It's possible to draw a boxplot with your own computations if you
 #' # use stat = "identity":
+#' set.seed(1)
 #' y <- rnorm(100)
 #' df <- data.frame(
 #'   x = 1,

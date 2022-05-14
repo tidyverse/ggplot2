@@ -23,6 +23,7 @@ A data frame with three columns:
 For use with \code{\link[=stat_summary]{stat_summary()}}
 }
 \examples{
+set.seed(1)
 x <- rnorm(100)
 mean_se(x)
 }
