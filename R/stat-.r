@@ -97,10 +97,18 @@ Stat <- ggproto("Stat",
     args <- c(list(data = quote(data), scales = quote(scales)), params)
     dapply(data, "PANEL", function(data) {
       scales <- layout$get_scales(data$PANEL[1])
-      tryCatch(do.call(self$compute_panel, args), error = function(e) {
-        warn(glue("Computation failed in `{snake_class(self)}()`:\n{e$message}"))
-        new_data_frame()
-      })
+      tryCatch(do.call(self$compute_panel, args),
+        error = function(e) {
+          # if the error comes from check_installed(), propagate it immediately.
+          if (inherits(e, "rlib_error_package_not_found")) {
+            stop(e)
+          }
+
+          # for other errors, ignore them with warnings
+          warn(glue("Computation failed in `{snake_class(self)}()`:\n{e$message}"))
+          new_data_frame()
+        }
+      )
     })
   },
 
