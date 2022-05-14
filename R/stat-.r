@@ -101,7 +101,7 @@ Stat <- ggproto("Stat",
         error = function(e) {
           # if the error comes from check_installed(), propagate it immediately.
           if (inherits(e, "rlib_error_package_not_found")) {
-            stop(e)
+            abort("Aborted computation", parent = e)
           }
 
           # for other errors, ignore them with warnings
