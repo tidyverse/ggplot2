@@ -458,6 +458,8 @@ and the value of \code{self$trans$minor_breaks()}. Discrete scales always return
 \item \code{make_title()} Hook to modify the title that is calculated during guide construction
 (for non-position scales) or when the \code{Layout} calculates the x and y labels
 (position scales).
+\item \code{update_params()} Method to feed scale parameters into scale object at the end of
+plot construction. For ggplot2 internal use only.
 }
 
 These methods are only valid for position (x and y) scales:

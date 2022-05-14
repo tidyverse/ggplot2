@@ -8,6 +8,7 @@ scales_list <- function() {
 
 ScalesList <- ggproto("ScalesList", NULL,
   scales = NULL,
+  scales_params = list(),
 
   find = function(self, aesthetic) {
     vapply(self$scales, function(x) any(aesthetic %in% x$aesthetics), logical(1))
@@ -34,6 +35,33 @@ ScalesList <- ggproto("ScalesList", NULL,
 
     # Remove old scale for this aesthetic (if it exists)
     self$scales <- c(self$scales[!prev_aes], list(scale))
+  },
+
+  # Save parameters for a scale, to be applied later
+  # via `update_scales_params()`. The `params` object
+  # should be created with `scales_params()`.
+  add_params = function(self, params) {
+    aesthetic <- params$aesthetic
+    self$scales_params[[aesthetic]] <-
+      defaults(params$params, self$scales_params[[aesthetic]])
+  },
+
+  # update the parameters for all scales currently stored
+  update_scales_params = function(self) {
+    for (scale in self$scales) {
+      self$update_params_for_scale(scale)
+    }
+  },
+
+  # update the parameters for one specific scale object
+  update_params_for_scale = function(self, scale) {
+    # get a list of all the params objects that are possibly relevant
+    params_list <- self$scales_params[scale$aesthetics]
+    # update the scale with each params object
+    lapply(params_list, function(x) {
+      if (!is.null(x)) scale$update_params(x)
+    })
+    invisible()
   },
 
   n = function(self) {
@@ -100,7 +128,12 @@ scales_add_defaults <- function(scales, data, aesthetics, env) {
   datacols <- compact(datacols)
 
   for (aes in names(datacols)) {
-    scales$add(find_scale(aes, datacols[[aes]], env))
+    # find the appropriate scale object
+    scale <- find_scale(aes, datacols[[aes]], env)
+    # make sure it has the latest available parameters
+    scales$update_params_for_scale(scale)
+    # add to scales list
+    scales$add(scale)
   }
 
 }
@@ -115,9 +148,27 @@ scales_add_missing <- function(plot, aesthetics, env) {
   for (aes in aesthetics) {
     scale_name <- paste("scale", aes, "continuous", sep = "_")
 
-    scale_f <- find_global(scale_name, env, mode = "function")
-    plot$scales$add(scale_f())
+    # find the appropriate scale object
+    scale_fun <- find_global(scale_name, env, mode = "function")
+    scale <- scale_fun()
+    # make sure it has the latest available parameters
+    scales$update_params_for_scale(scale)
+    # add to scales list
+    plot$scales$add(scale)
   }
 }
 
+
+# create a data structure to store parameters to be added to scales later on
+# @param aesthetic A single aesthetic, *not* a vector of aesthetics.
+# @param ... Parameters to be provided to the scale.
+scales_params <- function(aesthetic, ...) {
+  structure(
+    list(
+      aesthetic = aesthetic,
+      params = list(...)
+    ),
+    class = "scales_params"
+  )
+}
 
