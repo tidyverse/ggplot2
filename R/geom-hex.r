@@ -14,6 +14,7 @@
 #' @inheritParams geom_point
 #' @export
 #' @examples
+#' if (!requireNamespace("hexbin", quietly = TRUE)) {
 #' d <- ggplot(diamonds, aes(carat, price))
 #' d + geom_hex()
 #'
@@ -26,6 +27,7 @@
 #' # Or by specifying the width of the bins
 #' d + geom_hex(binwidth = c(1, 1000))
 #' d + geom_hex(binwidth = c(.1, 500))
+#' }
 #' }
 geom_hex <- function(mapping = NULL, data = NULL,
                      stat = "binhex", position = "identity",

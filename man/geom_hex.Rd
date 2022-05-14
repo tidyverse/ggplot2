@@ -115,6 +115,7 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
 
 \examples{
+if (!requireNamespace("hexbin", quietly = TRUE)) {
 d <- ggplot(diamonds, aes(carat, price))
 d + geom_hex()
 
@@ -127,6 +128,7 @@ d + geom_hex(bins = 30)
 # Or by specifying the width of the bins
 d + geom_hex(binwidth = c(1, 1000))
 d + geom_hex(binwidth = c(.1, 500))
+}
 }
 }
 \seealso{
