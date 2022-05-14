@@ -182,6 +182,7 @@ If no aggregation functions are supplied, will default to
 }
 
 \examples{
+if (requireNamespace("Hmisc", quietly = TRUE)) {
 d <- ggplot(mtcars, aes(cyl, mpg)) + geom_point()
 d + stat_summary(fun.data = "mean_cl_boot", colour = "red", size = 2)
 
@@ -257,6 +258,7 @@ m2 + scale_y_log10()
 # and stretching the geoms onto the log scale.  Compare the widths of the
 # standard errors.
 m2 + coord_trans(y="log10")
+}
 }
 }
 }
