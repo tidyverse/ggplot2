@@ -79,40 +79,45 @@ scales_map_df <- function(scales, df) {
 
 # Transform values to cardinal representation
 scales_transform_df <- function(scales, df) {
-  if (empty(df) || length(scales$scales) == 0) return(df)
+  if (empty(df)) return(df)
 
-  transformed <- unlist(lapply(scales$scales, function(s) s$transform_df(df = df)),
+  # if the scale contains no trans or the trans is of identity, it doesn't need
+  # to be transformed.
+  idx_skip <- vapply(scales$scales, function(x) {
+    is.null(x$trans) ||
+      identical(x$trans$transform, identity)
+  }, logical(1L))
+  scale_list <- scales$scales[!idx_skip]
+
+  if (length(scale_list) == 0L) return(df)
+
+  transformed <- unlist(lapply(scale_list, function(s) s$transform_df(df = df)),
     recursive = FALSE)
   new_data_frame(c(transformed, df[setdiff(names(df), names(transformed))]))
 }
 
 scales_backtransform_df <- function(scales, df) {
-  if (empty(df)) return(df)
+  # NOTE: no need to check empty(data) because it should be already checked
+  # before this function is called.
 
-  # if the scale doesn't contain any trans, it doesn't need to be backtransformed.
-  idx_skip <- vapply(scales$scales, function(x) identical(x$trans$inverse, identity), logical(1L))
+  # if the scale contains no trans or the trans is of identity, it doesn't need
+  # to be backtransformed.
+  idx_skip <- vapply(scales$scales, function(x) {
+    is.null(x$trans) ||
+      identical(x$trans$inverse, identity)
+  }, logical(1L))
   scale_list <- scales$scales[!idx_skip]
 
   if (length(scale_list) == 0L) return(df)
 
-  backtransformed <- lapply(scales$scales, function(scale) {
-    if (empty(df)) {
-      return()
-    }
-
+  backtransformed <- unlist(lapply(scale_list, function(scale) {
     aesthetics <- intersect(scale$aesthetics, names(df))
-    if (length(aesthetics) == 0) {
-      return()
-    }
-    # If the scale doesn't have trans, return df as it is
-    if (is.null(scale$trans)) {
-      return(df[aesthetics])
-    }
+
+    if (length(aesthetics) == 0) return()
+    browser()
 
     lapply(df[aesthetics], scale$trans$inverse)
-  })
-
-  backtransformed <- unlist(backtransformed, recursive = FALSE)
+  }), recursive = FALSE)
 
   new_data_frame(c(backtransformed, df[setdiff(names(df), names(backtransformed))]))
 }
