@@ -114,7 +114,6 @@ scales_backtransform_df <- function(scales, df) {
     aesthetics <- intersect(scale$aesthetics, names(df))
 
     if (length(aesthetics) == 0) return()
-    browser()
 
     lapply(df[aesthetics], scale$trans$inverse)
   }), recursive = FALSE)
