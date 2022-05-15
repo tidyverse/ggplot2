@@ -299,9 +299,6 @@ Layer <- ggproto("Layer", NULL,
     # evaluation (since the evaluation symbols gets renamed)
     data <- rename_aes(data)
 
-    # data needs to be non-scaled
-    data_orig <- scales_backtransform_df(plot$scales, data)
-
     # Assemble aesthetics from layer, plot and stat mappings
     aesthetics <- self$computed_mapping
     aesthetics <- defaults(aesthetics, self$stat$default_aes)
@@ -309,6 +306,9 @@ Layer <- ggproto("Layer", NULL,
 
     new <- strip_dots(aesthetics[is_calculated_aes(aesthetics) | is_staged_aes(aesthetics)])
     if (length(new) == 0) return(data)
+
+    # data needs to be non-scaled
+    data_orig <- scales_backtransform_df(plot$scales, data)
 
     # Add map stat output to aesthetics
     env <- child_env(baseenv(), stat = stat, after_stat = after_stat)
