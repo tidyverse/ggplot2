@@ -98,13 +98,20 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 \code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
-\item{bins}{Number of contour bins. Overridden by \code{binwidth}.}
+\item{bins}{Number of contour bins. Overridden by \code{breaks}.}
 
-\item{binwidth}{The width of the contour bins. Overridden by \code{breaks}.}
+\item{binwidth}{The width of the contour bins. Overridden by \code{bins}.}
 
-\item{breaks}{Numeric vector to set the contour breaks.
-Overrides \code{binwidth} and \code{bins}. By default, this is a vector of
-length ten with \code{\link[=pretty]{pretty()}} breaks.}
+\item{breaks}{One of:
+\itemize{
+\item Numeric vector to set the contour breaks
+\item A function that takes the range of the data and binwidth as input
+and returns breaks as output. A function can be created from a formula
+(e.g. ~ fullseq(.x, .y)).
+}
+
+Overrides \code{binwidth} and \code{bins}. By default, this is a vector of length
+ten with \code{\link[=pretty]{pretty()}} breaks.}
 
 \item{lineend}{Line end style (round, butt, square).}
 
@@ -131,11 +138,13 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 \description{
 ggplot2 can not draw true 3D surfaces, but you can use \code{geom_contour()},
 \code{geom_contour_filled()}, and \code{\link[=geom_tile]{geom_tile()}} to visualise 3D surfaces in 2D.
-To specify a valid surface, the data must contain \code{x}, \code{y}, and \code{z} coordinates,
-and each unique combination of \code{x} and \code{y} can appear exactly once. Contouring
-tends to work best when \code{x} and \code{y} form a (roughly) evenly
-spaced grid. If your data is not evenly spaced, you may want to interpolate
-to a grid before visualising, see \code{\link[=geom_density_2d]{geom_density_2d()}}.
+
+These functions require regular data, where the \code{x} and \code{y} coordinates
+form an equally spaced grid, and each combination of \code{x} and \code{y} appears
+once. Missing values of \code{z} are allowed, but contouring will only work for
+grid points where all four corners are non-missing. If you have irregular
+data, you'll need to first interpolate on to a grid before visualising,
+using \code{\link[interp:interp]{interp::interp()}}, \code{\link[akima:bilinear]{akima::bilinear()}}, or similar.
 }
 \section{Aesthetics}{
 

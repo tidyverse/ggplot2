@@ -143,7 +143,7 @@ Geom <- ggproto("Geom",
         abort(msg)
       }
 
-      names(modified_aes) <- rename_aes(names(modifiers))
+      names(modified_aes) <- names(rename_aes(modifiers))
       modified_aes <- new_data_frame(compact(modified_aes))
 
       data <- cunion(modified_aes, data)
@@ -208,7 +208,7 @@ NULL
 .stroke <- 96 / 25.4
 
 check_aesthetics <- function(x, n) {
-  ns <- vapply(x, length, numeric(1))
+  ns <- vapply(x, length, integer(1))
   good <- ns == 1L | ns == n
 
   if (all(good)) {

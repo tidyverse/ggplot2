@@ -4,7 +4,7 @@
 #'   horizontal directions. Overrides `bins` if both set.
 #' @param drop if `TRUE` removes all cells with 0 counts.
 #' @export
-#' @rdname geom_bin2d
+#' @rdname geom_bin_2d
 #' @section Computed variables:
 #' \describe{
 #'   \item{count}{number of points in bin}
@@ -29,7 +29,7 @@ stat_bin_2d <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       bins = bins,
       binwidth = binwidth,
       drop = drop,
@@ -41,7 +41,7 @@ stat_bin_2d <- function(mapping = NULL, data = NULL,
 
 
 #' @export
-#' @rdname geom_bin2d
+#' @rdname geom_bin_2d
 #' @usage NULL
 stat_bin2d <- stat_bin_2d
 
@@ -50,7 +50,7 @@ stat_bin2d <- stat_bin_2d
 #' @usage NULL
 #' @export
 StatBin2d <- ggproto("StatBin2d", Stat,
-  default_aes = aes(fill = after_stat(count)),
+  default_aes = aes(weight = 1, fill = after_stat(count)),
   required_aes = c("x", "y"),
 
   compute_group = function(data, scales, binwidth = NULL, bins = 30,
@@ -132,6 +132,12 @@ bin2d_breaks <- function(scale, breaks = NULL, origin = NULL, binwidth = NULL,
   if (!(is.numeric(origin) && length(origin) == 1)) abort("`origin` must be a numeric scalar")
 
   breaks <- seq(origin, range[2] + binwidth, binwidth)
+
+  # Check if the last bin lies fully outside the range
+  if (length(breaks) > 1 && breaks[length(breaks) - 1] >= range[2]) {
+    breaks <- breaks[-length(breaks)]
+  }
+
   adjust_breaks(breaks, right)
 }
 

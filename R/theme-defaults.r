@@ -197,6 +197,7 @@ theme_grey <- function(base_size = 11, base_family = "",
     panel.ontop    =     FALSE,
 
     strip.background =   element_rect(fill = "grey85", colour = NA),
+    strip.clip =         "inherit",
     strip.text =         element_text(
                            colour = "grey10",
                            size = rel(0.8),
@@ -484,6 +485,7 @@ theme_void <- function(base_size = 11, base_family = "",
     legend.position =    "right",
     legend.text =        element_text(size = rel(0.8)),
     legend.title =       element_text(hjust = 0),
+    strip.clip =         "inherit",
     strip.text =         element_text(size = rel(0.8)),
     strip.switch.pad.grid = unit(half_line / 2, "pt"),
     strip.switch.pad.wrap = unit(half_line / 2, "pt"),
@@ -609,6 +611,7 @@ theme_test <- function(base_size = 11, base_family = "",
     panel.ontop    =     FALSE,
 
     strip.background =   element_rect(fill = "grey85", colour = "grey20"),
+    strip.clip =         "inherit",
     strip.text =         element_text(
                            colour = "grey10",
                            size = rel(0.8),

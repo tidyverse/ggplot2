@@ -20,12 +20,15 @@
 #'   observations and `formula = y ~ s(x, bs = "cs")` otherwise.
 #' @param se Display confidence interval around smooth? (`TRUE` by default, see
 #'   `level` to control.)
-#' @param fullrange Should the fit span the full range of the plot, or just
-#'   the data?
+#' @param fullrange If `TRUE`, the smoothing line gets expanded to the range of the plot,
+#'   potentially beyond the data. This does not extend the line into any additional padding
+#'   created by `expansion`.
 #' @param level Level of confidence interval to use (0.95 by default).
 #' @param span Controls the amount of smoothing for the default loess smoother.
 #'   Smaller numbers produce wigglier lines, larger numbers produce smoother
-#'   lines.
+#'   lines. Only used with loess, i.e. when `method = "loess"`,
+#'   or when `method = NULL` (the default) and there are fewer than 1,000
+#'   observations.
 #' @param n Number of points at which to evaluate smoother.
 #' @param method.args List of additional arguments passed on to the modelling
 #'   function defined by `method`.
@@ -62,7 +65,7 @@ stat_smooth <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       method = method,
       formula = formula,
       se = se,
@@ -106,7 +109,7 @@ StatSmooth <- ggproto("StatSmooth", Stat,
       } else {
         params$formula <- y ~ x
       }
-      msg <- c(msg, paste0("formula '", deparse(params$formula), "'"))
+      msg <- c(msg, paste0("formula = '", deparse(params$formula), "'"))
     }
     if (identical(params$method, "gam")) {
       params$method <- mgcv::gam

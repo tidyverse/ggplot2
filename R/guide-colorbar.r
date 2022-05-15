@@ -147,7 +147,7 @@ guide_colourbar <- function(
   if (!is.null(barwidth) && !is.unit(barwidth)) barwidth <- unit(barwidth, default.unit)
   if (!is.null(barheight) && !is.unit(barheight)) barheight <- unit(barheight, default.unit)
 
-  structure(list(
+  structure(list2(
     # title
     title = title,
     title.position = title.position,
@@ -248,7 +248,7 @@ guide_merge.colorbar <- function(guide, new_guide) {
 guide_geom.colorbar <- function(guide, layers, default_mapping) {
   # Layers that use this guide
   guide_layers <- lapply(layers, function(layer) {
-    matched <- matched_aes(layer, guide, default_mapping)
+    matched <- matched_aes(layer, guide)
 
     if (length(matched) == 0) {
       # This layer does not use this guide

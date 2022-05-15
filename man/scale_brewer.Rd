@@ -77,7 +77,8 @@ scale_fill_fermenter(
 or \code{\link[=binned_scale]{binned_scale()}}, for \code{brewer}, \code{distiller}, and \code{fermenter} variants
 respectively, to control name, limits, breaks, labels and so forth.}
 
-\item{type}{One of seq (sequential), div (diverging) or qual (qualitative)}
+\item{type}{One of "seq" (sequential), "div" (diverging) or "qual"
+(qualitative)}
 
 \item{palette}{If a string, will use that named palette. If a number, will index into
 the list of palettes of appropriate \code{type}. The list of available palettes can found
@@ -108,7 +109,7 @@ colour bar, or \code{"legend"} for discrete colour legend.}
 \description{
 The \code{brewer} scales provide sequential, diverging and qualitative
 colour schemes from ColorBrewer. These are particularly well suited to
-display discrete values on a map. See \url{http://colorbrewer2.org} for
+display discrete values on a map. See \url{https://colorbrewer2.org} for
 more information.
 }
 \details{
@@ -134,6 +135,7 @@ Modify the palette through the \code{palette} argument.
 }
 
 \examples{
+set.seed(596)
 dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
 (d <- ggplot(dsamp, aes(carat, price)) +
   geom_point(aes(colour = clarity)))
@@ -174,6 +176,7 @@ v + scale_fill_fermenter()
 \seealso{
 Other colour scales: 
 \code{\link{scale_alpha}()},
+\code{\link{scale_colour_continuous}()},
 \code{\link{scale_colour_gradient}()},
 \code{\link{scale_colour_grey}()},
 \code{\link{scale_colour_hue}()},

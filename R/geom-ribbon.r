@@ -49,7 +49,7 @@ geom_ribbon <- function(mapping = NULL, data = NULL,
                         show.legend = NA,
                         inherit.aes = TRUE,
                         outline.type = "both") {
-  outline.type <- match.arg(outline.type, c("both", "upper", "lower", "full"))
+  outline.type <- arg_match0(outline.type, c("both", "upper", "lower", "full"))
 
   layer(
     data = data,
@@ -59,7 +59,7 @@ geom_ribbon <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       na.rm = na.rm,
       orientation = orientation,
       outline.type = outline.type,
@@ -104,7 +104,9 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     data
   },
 
-  draw_group = function(data, panel_params, coord, na.rm = FALSE, flipped_aes = FALSE, outline.type = "both") {
+  draw_group = function(data, panel_params, coord, lineend = "butt",
+                        linejoin = "round", linemitre = 10, na.rm = FALSE,
+                        flipped_aes = FALSE, outline.type = "both") {
     data <- flip_data(data, flipped_aes)
     if (na.rm) data <- data[stats::complete.cases(data[c("x", "ymin", "ymax")]), ]
     data <- data[order(data$group), ]
@@ -158,7 +160,10 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
         fill = alpha(aes$fill, aes$alpha),
         col = if (is_full_outline) aes$colour else NA,
         lwd = if (is_full_outline) aes$size * .pt else 0,
-        lty = if (is_full_outline) aes$linetype else 1
+        lty = if (is_full_outline) aes$linetype else 1,
+        lineend = lineend,
+        linejoin = linejoin,
+        linemitre = linemitre
       )
     )
 
@@ -181,7 +186,11 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
       gp = gpar(
         col = aes$colour,
         lwd = aes$size * .pt,
-        lty = aes$linetype)
+        lty = aes$linetype,
+        lineend = lineend,
+        linejoin = linejoin,
+        linemitre = linemitre
+      )
     )
 
     ggname("geom_ribbon", grobTree(g_poly, g_lines))
@@ -195,7 +204,7 @@ geom_area <- function(mapping = NULL, data = NULL, stat = "identity",
                       position = "stack", na.rm = FALSE, orientation = NA,
                       show.legend = NA, inherit.aes = TRUE, ...,
                       outline.type = "upper") {
-  outline.type <- match.arg(outline.type, c("both", "upper", "lower", "full"))
+  outline.type <- arg_match0(outline.type, c("both", "upper", "lower", "full"))
 
   layer(
     data = data,
@@ -205,7 +214,7 @@ geom_area <- function(mapping = NULL, data = NULL, stat = "identity",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       na.rm = na.rm,
       orientation = orientation,
       outline.type = outline.type,

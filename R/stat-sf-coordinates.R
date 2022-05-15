@@ -70,7 +70,7 @@ stat_sf_coordinates <- function(mapping = aes(), data = NULL, geom = "point",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       na.rm = na.rm,
       fun.geometry = fun.geometry,
       ...

@@ -36,6 +36,8 @@ hexBinSummarise <- function(x, y, z, binwidth, fun = mean, fun.args = list(), dr
   # Convert to data frame
   out <- new_data_frame(hexbin::hcell2xy(hb))
   out$value <- as.vector(value)
+  out$width <- binwidth[1]
+  out$height <- binwidth[2]
 
   if (drop) out <- stats::na.omit(out)
   out

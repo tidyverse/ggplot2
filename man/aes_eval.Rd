@@ -51,10 +51,11 @@ you can use the \code{stage()} function to collect multiple mappings.
 surrounding the variable names with \code{..}.
 }
 \note{
-Evaluation after stat transformation will only have access to the
-variables calculated by the stat. Evaluation after scaling will only have
-access to the final aesthetics of the layer (including non-mapped, default
-aesthetics). The original layer data can only be accessed at the first stage.
+Evaluation after stat transformation will have access to the
+variables calculated by the stat, not the original mapped values. Evaluation
+after scaling will only have access to the final aesthetics of the layer
+(including non-mapped, default aesthetics). The original layer data can only
+be accessed at the first stage.
 }
 \examples{
 # Default histogram display

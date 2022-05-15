@@ -23,10 +23,11 @@
 #' `after_stat()` replaces the old approaches of using either `stat()` or
 #' surrounding the variable names with `..`.
 #'
-#' @note Evaluation after stat transformation will only have access to the
-#' variables calculated by the stat. Evaluation after scaling will only have
-#' access to the final aesthetics of the layer (including non-mapped, default
-#' aesthetics). The original layer data can only be accessed at the first stage.
+#' @note Evaluation after stat transformation will have access to the
+#' variables calculated by the stat, not the original mapped values. Evaluation
+#' after scaling will only have access to the final aesthetics of the layer
+#' (including non-mapped, default aesthetics). The original layer data can only
+#' be accessed at the first stage.
 #'
 #' @param x An aesthetic expression using variables calculated by the stat
 #'   (`after_stat()`) or layer aesthetics (`after_scale()`).

@@ -77,7 +77,7 @@
 #' p + coord_cartesian(xlim =c(Sys.Date() - 30, NA), ylim = c(10, 20))
 #'
 lims <- function(...) {
-  args <- list(...)
+  args <- list2(...)
 
   if (any(!has_name(args))) {
     abort("All arguments must be named")
@@ -181,7 +181,7 @@ limits.POSIXlt <- function(lims, var) {
 #'   geom_point(aes(colour = factor(cyl))) +
 #'   expand_limits(colour = factor(seq(2, 10, by = 2)))
 expand_limits <- function(...) {
-  data <- list(...)
+  data <- list2(...)
   data_dfs <- vapply(data, is.data.frame, logical(1))
   data <- do.call(c, c(list(data[!data_dfs]), data[data_dfs]))
   n_rows <- max(vapply(data, length, integer(1)))

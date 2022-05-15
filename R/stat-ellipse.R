@@ -5,7 +5,7 @@
 #'
 #' @references John Fox and Sanford Weisberg (2011). An \R Companion to
 #'   Applied Regression, Second Edition. Thousand Oaks CA: Sage. URL:
-#'   \url{http://socserv.socsci.mcmaster.ca/jfox/Books/Companion}
+#'   \url{https://socialsciences.mcmaster.ca/jfox/Books/Companion/}
 #' @param level The level at which to draw an ellipse,
 #'   or, if `type="euclid"`, the radius of the circle to be drawn.
 #' @param type The type of ellipse.
@@ -57,7 +57,7 @@ stat_ellipse <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       type = type,
       level = level,
       segments = segments,

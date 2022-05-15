@@ -1,5 +1,3 @@
-context("stat_boxplot")
-
 test_that("stat_boxplot drops missing rows with a warning", {
 
   p1 <- ggplot(PlantGrowth, aes(x = group, y = weight)) +

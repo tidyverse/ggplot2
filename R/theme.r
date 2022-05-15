@@ -148,6 +148,10 @@
 #' @param strip.placement placement of strip with respect to axes,
 #'    either "inside" or "outside". Only important when axes and strips are
 #'    on the same side of the plot.
+#' @param strip.clip should strip background edges and strip labels be clipped
+#'   to the extend of the strip background? Options are `"on"` to clip, `"off"`
+#'   to disable clipping or `"inherit"` (default) to take the clipping setting
+#'   from the parent viewport.
 #' @param strip.text,strip.text.x,strip.text.y facet labels ([element_text()];
 #'   inherits from  `text`). Horizontal facet labels (`strip.text.x`) & vertical
 #'   facet labels (`strip.text.y`) inherit from `strip.text` or can be specified
@@ -350,6 +354,7 @@ theme <- function(line,
                   strip.background,
                   strip.background.x,
                   strip.background.y,
+                  strip.clip,
                   strip.placement,
                   strip.text,
                   strip.text.x,
@@ -363,21 +368,30 @@ theme <- function(line,
   elements <- find_args(..., complete = NULL, validate = NULL)
 
   if (!is.null(elements$axis.ticks.margin)) {
-    warn("`axis.ticks.margin` is deprecated. Please set `margin` property of `axis.text` instead")
+    lifecycle::deprecate_warn(
+      "2.0.0", "theme(axis.ticks.margin)",
+      details = "Please set `margin` property of `axis.text` instead"
+    )
     elements$axis.ticks.margin <- NULL
   }
   if (!is.null(elements$panel.margin)) {
-    warn("`panel.margin` is deprecated. Please use `panel.spacing` property instead")
+    lifecycle::deprecate_warn(
+      "2.2.0", "theme(panel.margin)", "theme(panel.spacing)"
+    )
     elements$panel.spacing <- elements$panel.margin
     elements$panel.margin <- NULL
   }
   if (!is.null(elements$panel.margin.x)) {
-    warn("`panel.margin.x` is deprecated. Please use `panel.spacing.x` property instead")
+    lifecycle::deprecate_warn(
+      "2.2.0", "theme(panel.margin.x)", "theme(panel.spacing.x)"
+    )
     elements$panel.spacing.x <- elements$panel.margin.x
     elements$panel.margin.x <- NULL
   }
   if (!is.null(elements$panel.margin.y)) {
-    warn("`panel.margin` is deprecated. Please use `panel.spacing` property instead")
+    lifecycle::deprecate_warn(
+      "2.2.0", "theme(panel.margin.y)", "theme(panel.spacing.y)"
+    )
     elements$panel.spacing.y <- elements$panel.margin.y
     elements$panel.margin.y <- NULL
   }
@@ -454,6 +468,9 @@ plot_theme <- function(x, default = theme_get()) {
 #'   informative error messages.
 #' @keywords internal
 add_theme <- function(t1, t2, t2name) {
+  if (is.null(t2)) {
+    return(t1)
+  }
   if (!is.list(t2)) { # in various places in the code base, simple lists are used as themes
     abort(glue("Can't add `{t2name}` to a theme object."))
   }

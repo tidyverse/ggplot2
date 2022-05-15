@@ -1,128 +1,20 @@
 # Revdeps
 
-## Failed to check (103)
+## Failed to check (6)
 
-|package              |version |error |warning |note |
-|:--------------------|:-------|:-----|:-------|:----|
-|AID                  |2.5     |1     |        |     |
-|ALA4R                |?       |      |        |     |
-|av                   |0.5.0   |1     |        |     |
-|backShift            |?       |      |        |     |
-|BGGM                 |2.0.0   |1     |        |     |
-|NA                   |?       |      |        |     |
-|bootnet              |1.4.3   |1     |        |     |
-|BPEC                 |?       |      |        |     |
-|breathteststan       |0.6.0.0 |1     |        |     |
-|cate                 |?       |      |        |     |
-|CausalImpact         |?       |      |        |     |
-|CB2                  |?       |      |        |     |
-|cbar                 |?       |      |        |     |
-|NA                   |?       |      |        |     |
-|csp                  |0.1.0   |1     |        |     |
-|decisionSupport      |?       |      |        |     |
-|dendroTools          |1.0.7   |1     |        |     |
-|dfpk                 |3.5.1   |1     |        |     |
-|diceR                |?       |      |        |     |
-|dimRed               |?       |      |        |     |
-|EffectLiteR          |0.4-4   |1     |        |     |
-|EGAnet               |0.9.3   |1     |        |     |
-|EstimateGroupNetwork |0.2.2   |1     |        |     |
-|EvaluateCore         |0.1.1   |1     |        |     |
-|ezCutoffs            |1.0.1   |1     |        |     |
-|fingertipscharts     |0.0.11  |1     |        |     |
-|ForecastComb         |1.3.1   |1     |        |     |
-|fSRM                 |0.6.4   |1     |        |     |
-|gastempt             |0.5.0   |1     |        |     |
-|GeomComb             |1.0     |1     |        |     |
-|GGEBiplots           |?       |      |        |     |
-|ggmsa                |?       |      |        |     |
-|gscaLCA              |0.0.3   |1     |        |     |
-|HierDpart            |0.5.0   |1     |        |     |
-|hilldiv              |?       |      |        |     |
-|iarm                 |0.4.1   |1     |        |     |
-|idiogramFISH         |?       |      |        |     |
-|NA                   |?       |      |        |     |
-|JWileymisc           |1.1.1   |1     |        |     |
-|likert               |1.3.5   |1     |        |     |
-|NA                   |?       |      |        |     |
-|lsl                  |0.5.6   |1     |        |     |
-|MAINT.Data           |2.3.1   |1     |        |     |
-|MarketMatching       |?       |      |        |     |
-|mcvis                |1.0.4   |1     |        |     |
-|mrbayes              |0.2.0   |1     |        |     |
-|multilevelPSA        |1.2.5   |1     |        |     |
-|multilevelTools      |0.1.1   |1     |        |     |
-|MultisiteMediation   |0.0.3   |1     |        |     |
-|mvdalab              |1.4     |1     |        |     |
-|NetworkChange        |0.6     |1     |        |     |
-|networktools         |1.2.3   |1     |        |     |
-|neuropsychology      |0.5.0   |1     |        |     |
-|nLTT                 |?       |      |        |     |
-|NMF                  |?       |      |        |     |
-|OncoBayes2           |0.6-5   |1     |        |     |
-|osmplotr             |?       |      |        |     |
-|OutlierDetection     |0.1.1   |1     |        |     |
-|NA                   |?       |      |        |     |
-|pcalg                |?       |      |        |     |
-|PCMBase              |?       |      |        |     |
-|penaltyLearning      |?       |      |        |     |
-|PhyInformR           |?       |      |        |     |
-|phylopath            |?       |      |        |     |
-|pmc                  |?       |      |        |     |
-|pompom               |0.2.0   |1     |        |     |
-|processR             |0.2.3   |1     |        |     |
-|profileR             |0.3-5   |1     |        |     |
-|prophet              |0.6.1   |1     |        |     |
-|pscore               |0.1-2   |1     |        |     |
-|psychonetrics        |0.7.1   |1     |        |     |
-|qgraph               |1.6.5   |1     |        |     |
-|quokar               |0.1.0   |1     |        |     |
-|r4lineups            |0.1.1   |1     |        |     |
-|radiant.basics       |1.3.4   |1     |        |     |
-|radiant.data         |1.3.4   |1     |        |     |
-|radiant.model        |1.3.10  |1     |        |     |
-|radiant.multivariate |1.3.5   |1     |        |     |
-|RAM                  |?       |      |        |     |
-|RBesT                |1.6-1   |1     |        |     |
-|rhierbaps            |?       |      |        |     |
-|rrd                  |0.2.2   |1     |        |     |
-|rstanarm             |2.19.3  |1     |        |     |
-|NA                   |?       |      |        |     |
-|sdmvspecies          |0.3.2   |1     |        |     |
-|sensiPhy             |?       |      |        |     |
-|ShinyItemAnalysis    |1.3.3   |1     |        |     |
-|ShortForm            |0.4.6   |1     |        |     |
-|NA                   |?       |      |        |     |
-|SimCorrMix           |0.1.1   |1     |        |     |
-|SimDesign            |?       |      |        |     |
-|SimMultiCorrData     |0.2.2   |1     |        |     |
-|spectralAnalysis     |?       |      |        |     |
-|StroupGLMM           |?       |      |        |     |
-|NA                   |?       |      |        |     |
-|trackdf              |?       |      |        |     |
-|trackr               |?       |      |        |     |
-|treespace            |?       |      |        |     |
-|TriMatch             |0.9.9   |1     |        |     |
-|userfriendlyscience  |0.7.2   |1     |        |     |
-|vcfR                 |1.11.0  |1     |        |     |
-|webr                 |0.1.5   |1     |        |     |
-|wrswoR               |?       |      |        |     |
+|package      |version |error |warning |note |
+|:------------|:-------|:-----|:-------|:----|
+|CausalImpact |?       |      |        |     |
+|ctsem        |3.6.0   |1     |        |     |
+|loon.ggplot  |?       |      |        |     |
+|SSVS         |?       |      |        |     |
+|valse        |0.1-0   |1     |        |     |
+|vivid        |?       |      |        |     |
 
-## New problems (13)
+## New problems (2)
 
-|package                                  |version |error  |warning |note   |
-|:----------------------------------------|:-------|:------|:-------|:------|
-|[drugCombo](problems.md#drugcombo)       |1.1.1   |       |__+1__  |       |
-|[frontiles](problems.md#frontiles)       |1.2     |       |__+1__  |1      |
-|[GENEAsphere](problems.md#geneasphere)   |1.5.1   |       |__+1__  |       |
-|[ggdistribute](problems.md#ggdistribute) |1.0.3   |__+1__ |        |1      |
-|[gMOIP](problems.md#gmoip)               |1.4.3   |       |__+1__  |       |
-|[helda](problems.md#helda)               |1.1.2   |__+1__ |        |1      |
-|[lemon](problems.md#lemon)               |0.4.4   |__+1__ |        |       |
-|[metagen](problems.md#metagen)           |1.0     |__+1__ |        |1      |
-|[NeatMap](problems.md#neatmap)           |0.3.6.2 |       |__+1__  |2      |
-|[PPQplan](problems.md#ppqplan)           |1.0.0   |       |__+1__  |1      |
-|[predict3d](problems.md#predict3d)       |0.1.3.3 |       |__+1__  |1      |
-|[ratPASTA](problems.md#ratpasta)         |0.1.1   |__+1__ |        |1      |
-|[vmsbase](problems.md#vmsbase)           |2.2.1   |       |__+4__  |__+4__ |
+|package                      |version |error |warning |note |
+|:----------------------------|:-------|:-----|:-------|:----|
+|[eurlex](problems.md#eurlex) |0.4.1   |      |__+1__  |     |
+|[gggrid](problems.md#gggrid) |0.2-0   |      |__+1__  |     |
 

@@ -1,5 +1,3 @@
-context("coord_polar")
-
 test_that("polar distance is calculated correctly", {
   dat <- data_frame(
     theta = c(0, 2*pi,   2,   6, 6, 1,    1,  0),

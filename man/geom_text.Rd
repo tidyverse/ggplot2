@@ -100,7 +100,8 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 \item{check_overlap}{If \code{TRUE}, text that overlaps previous text in the
 same layer will not be plotted. \code{check_overlap} happens at draw time and in
 the order of the data. Therefore data should be arranged by the label
-column before calling \code{geom_label()} or \code{geom_text()}.}
+column before calling \code{geom_text()}. Note that this argument is not
+supported by \code{geom_label()}.}
 }
 \description{
 Text geoms are useful for labeling plots. They can be used by themselves as
@@ -150,9 +151,9 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 
 \section{\code{geom_label()}}{
 
-Currently \code{geom_label()} does not support the \code{angle} aesthetic and
-is considerably slower than \code{geom_text()}. The \code{fill} aesthetic
-controls the background colour of the label.
+Currently \code{geom_label()} does not support the \code{check_overlap} argument
+or the \code{angle} aesthetic. Also, it is considerably slower than \code{geom_text()}.
+The \code{fill} aesthetic controls the background colour of the label.
 }
 
 \section{Alignment}{
