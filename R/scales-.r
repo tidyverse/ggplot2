@@ -87,7 +87,15 @@ scales_transform_df <- function(scales, df) {
 }
 
 scales_backtransform_df <- function(scales, df) {
-  backtransform_df <- function(scale) {
+  if (empty(df)) return(df)
+
+  # if the scale doesn't contain any trans, it doesn't need to be backtransformed.
+  idx_skip <- vapply(scales$scales, function(x) identical(x$trans$inverse, identity), logical(1L))
+  scale_list <- scales$scales[!idx_skip]
+
+  if (length(scale_list) == 0L) return(df)
+
+  backtransformed <- lapply(scales$scales, function(scale) {
     if (empty(df)) {
       return()
     }
@@ -102,10 +110,10 @@ scales_backtransform_df <- function(scales, df) {
     }
 
     lapply(df[aesthetics], scale$trans$inverse)
-  }
+  })
 
-  if (empty(df) || length(scales$scales) == 0) return(df)
-  backtransformed <- unlist(lapply(scales$scales, backtransform_df), recursive = FALSE)
+  backtransformed <- unlist(backtransformed, recursive = FALSE)
+
   new_data_frame(c(backtransformed, df[setdiff(names(df), names(backtransformed))]))
 }
 
