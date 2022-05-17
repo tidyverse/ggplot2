@@ -82,6 +82,17 @@ test_that("inherit.aes works", {
   expect_identical(p1$layers[[1]]$computed_mapping, p2$layers[[1]]$computed_mapping)
 })
 
+test_that("retransform works on computed aesthetics in `map_statistic`", {
+  df <- data.frame(x = rep(c(1,2), c(9, 25)))
+  p <- ggplot(df, aes(x)) + geom_bar() + scale_y_sqrt()
+  expect_equal(layer_data(p)$y, c(3, 5))
+
+  # To double check: should be original values when `retransform = FALSE`
+  parent <- p$layers[[1]]$stat
+  p$layers[[1]]$stat <- ggproto(NULL, parent, retransform = FALSE)
+  expect_equal(layer_data(p)$y, c(9, 25))
+})
+
 # Data extraction ---------------------------------------------------------
 
 test_that("layer_data returns a data.frame", {
