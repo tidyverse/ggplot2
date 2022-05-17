@@ -109,7 +109,7 @@ ylim <- function(...) {
 #' ggplot2:::limits(c("A", "b", "c"), "x")
 #' ggplot2:::limits(c("A", "b", "c"), "fill")
 #' ggplot2:::limits(as.Date(c("2008-01-01", "2009-01-01")), "x")
-limits <- function(lims, var, ...) UseMethod("limits")
+limits <- function(lims, var, call = caller_env()) UseMethod("limits")
 #' @export
 limits.numeric <- function(lims, var, call = caller_env()) {
   if (length(lims) != 2) {
@@ -130,11 +130,11 @@ make_scale <- function(type, var, ...) {
 }
 
 #' @export
-limits.character <- function(lims, var, ...) {
+limits.character <- function(lims, var, call = caller_env()) {
   make_scale("discrete", var, limits = lims)
 }
 #' @export
-limits.factor <- function(lims, var, ...) {
+limits.factor <- function(lims, var, call = caller_env()) {
   make_scale("discrete", var, limits = as.character(lims))
 }
 #' @export
