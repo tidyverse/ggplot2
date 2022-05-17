@@ -547,6 +547,53 @@ test_that("coloursteps guide can be styled correctly", {
   )
 })
 
+test_that("binning scales understand the different combinations of limits, breaks, labels, and show.limits", {
+  p <- ggplot(mpg, aes(cty, hwy, color = year)) +
+    geom_point()
+
+  expect_doppelganger("guide_bins understands coinciding limits and bins",
+    p + scale_color_binned(limits = c(1999, 2008),
+                           breaks = c(1999, 2000, 2002, 2004, 2006),
+                           guide = 'bins')
+  )
+  expect_doppelganger("guide_bins understands coinciding limits and bins 2",
+    p + scale_color_binned(limits = c(1999, 2008),
+                           breaks = c(2000, 2002, 2004, 2006, 2008),
+                           guide = 'bins')
+  )
+  expect_doppelganger("guide_bins understands coinciding limits and bins showing limits",
+    p + scale_color_binned(limits = c(1999, 2008),
+                           breaks = c(1999, 2000, 2002, 2004, 2006),
+                           guide = 'bins', show.limits = TRUE)
+  )
+  expect_doppelganger("guide_bins sets labels when limits is in breaks",
+    p + scale_color_binned(limits = c(1999, 2008),
+                           breaks = c(1999, 2000, 2002, 2004, 2006),
+                           labels = 1:5, guide = 'bins')
+  )
+  expect_snapshot_warning(ggplotGrob(p + scale_color_binned(labels = 1:4, show.limits = TRUE, guide = "bins")))
+
+  expect_doppelganger("guide_colorsteps understands coinciding limits and bins",
+    p + scale_color_binned(limits = c(1999, 2008),
+                           breaks = c(1999, 2000, 2002, 2004, 2006))
+  )
+  expect_doppelganger("guide_colorsteps understands coinciding limits and bins 2",
+    p + scale_color_binned(limits = c(1999, 2008),
+                           breaks = c(2000, 2002, 2004, 2006, 2008))
+  )
+  expect_doppelganger("guide_colorsteps understands coinciding limits and bins showing limits",
+    p + scale_color_binned(limits = c(1999, 2008),
+                           breaks = c(1999, 2000, 2002, 2004, 2006),
+                           show.limits = TRUE)
+  )
+  expect_doppelganger("guide_colorsteps sets labels when limits is in breaks",
+    p + scale_color_binned(limits = c(1999, 2008),
+                           breaks = c(1999, 2000, 2002, 2004, 2006),
+                           labels = 1:5)
+  )
+  expect_snapshot_warning(ggplotGrob(p + scale_color_binned(labels = 1:4, show.limits = TRUE)))
+})
+
 test_that("a warning is generated when guides(<scale> = FALSE) is specified", {
   df <- data_frame(x = c(1, 2, 4),
                    y = c(6, 5, 7))
