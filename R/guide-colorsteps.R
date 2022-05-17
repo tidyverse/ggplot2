@@ -72,7 +72,7 @@ guide_train.colorsteps <- function(guide, scale, aesthetic = NULL) {
       # if the breaks follow the allowed format "(<lower>, <upper>]", and if it
       # does we convert it into bin specs
       if (!guide$even.steps) {
-        cli::cli_warn("{.code even.steps = FALSE} is not supported when used together with a discrete scale")
+        cli::cli_warn("{.code even.steps = FALSE} is not supported when used with a discrete scale")
       }
       bin_at <- breaks
       breaks_num <- as.character(breaks)

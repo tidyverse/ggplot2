@@ -204,7 +204,10 @@ guides_train <- function(scales, theme, guides, labels) {
         # the below gives us the correct behaviour but is too brittle and hacky
         # lifecycle::deprecate_warn("3.3.4", "`scale_*()`(guide = 'cannot be `FALSE`. Use \"none\" instead')")
         # TODO: update to lifecycle after next lifecycle release
-        cli::cli_warn('It is deprecated to specify {.code guide = FALSE} to remove a guide. Please use {.code guide = "none"} instead.')
+        cli::cli_warn(c(
+           "{.code guide = FALSE} is deprecated",
+           i = "Please use {.code guide = "none"} instead.'
+        ))
         next
       }
 
@@ -261,8 +264,8 @@ guides_gengrob <- function(gdefs, theme) {
       g$title.position <- g$title.position %||% switch(g$direction, vertical = "top", horizontal = "left")
       if (!g$title.position %in% c("top", "bottom", "left", "right")) {
         cli::cli_abort(c(
-          "title position {.val {g$title.position}} is invalid",
-          "i" = "use either {.val top}, {.val bottom}, {.val left}, or {.val right}"
+          "Title position {.val {g$title.position}} is invalid",
+          "i" = "Use one of {.val top}, {.val bottom}, {.val left}, or {.val right}"
         ))
       }
       g

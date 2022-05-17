@@ -55,7 +55,7 @@
   else if (is.ggplot(e1)) add_ggplot(e1, e2, e2name)
   else if (is.ggproto(e1)) {
     cli::cli_abort(c(
-            "Cannot add {.cls ggproto} objects together",
+      "Cannot add {.cls ggproto} objects together",
       "i" = "Did you forget to add this object to a {.cls ggplot} object?"
     ))
   }

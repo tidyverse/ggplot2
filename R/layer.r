@@ -68,13 +68,13 @@ layer <- function(geom = NULL, stat = NULL,
                   position = NULL, params = list(),
                   inherit.aes = TRUE, check.aes = TRUE, check.param = TRUE,
                   show.legend = NA, key_glyph = NULL, layer_class = Layer) {
-  call_env = caller_env()
+  call_env <- caller_env()
   if (is.null(geom))
-    cli::cli_abort("Attempted to create layer with no geom.", call = call_env)
+    cli::cli_abort("Can't create layer without a geom.", call = call_env)
   if (is.null(stat))
-    cli::cli_abort("Attempted to create layer with no stat.", call = call_env)
+    cli::cli_abort("Can't create layer without a stat.", call = call_env)
   if (is.null(position))
-    cli::cli_abort("Attempted to create layer with no position.", call = call_env)
+    cli::cli_abort("Can't create layer without a position.", call = call_env)
 
   # Handle show_guide/show.legend
   if (!is.null(params$show_guide)) {

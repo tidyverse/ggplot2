@@ -72,7 +72,10 @@ guide_train.axis <- function(guide, scale, aesthetic = NULL) {
   names(empty_ticks) <- c(aesthetic, ".value", ".label")
 
   if (length(intersect(scale$aesthetics, guide$available_aes)) == 0) {
-    cli::cli_warn("axis guide needs appropriate scales: {.or {.field {guide$available_aes}}}")
+    cli::cli_warn(c(
+       "Axis guide lacks appropriate scales"
+       i = "Use one of {.or {.field {guide$available_aes}}}"
+    ))
     guide$key <- empty_ticks
   } else if (length(breaks) == 0) {
     guide$key <- empty_ticks
@@ -411,7 +414,7 @@ axis_label_element_overrides <- function(axis_position, angle = NULL) {
   } else {
     cli::cli_abort(c(
       "Unrecognized {.arg axis_position}: {.val {axis_position}}",
-      "i" = "use either {.val top}, {.val bottom}, {.val left} or {.val right}"
+      "i" = "Use one of {.val top}, {.val bottom}, {.val left} or {.val right}"
     ))
   }
 }
