@@ -120,7 +120,7 @@ layer <- function(geom = NULL, stat = NULL,
   # Warn about extra params and aesthetics
   extra_param <- setdiff(names(params), all)
   if (check.param && length(extra_param) > 0) {
-    cli::cli_warn("Ignoring unknown parameters: {.arg {extra_param}}")
+    cli::cli_warn("Ignoring unknown parameters: {.arg {extra_param}}", call = call_env)
   }
 
   extra_aes <- setdiff(
@@ -128,7 +128,7 @@ layer <- function(geom = NULL, stat = NULL,
     c(geom$aesthetics(), stat$aesthetics())
   )
   if (check.aes && length(extra_aes) > 0) {
-    cli::cli_warn("Ignoring unknown aesthetics: {.field {extra_aes}}")
+    cli::cli_warn("Ignoring unknown aesthetics: {.field {extra_aes}}", call = call_env)
   }
 
   # adjust the legend draw key if requested
