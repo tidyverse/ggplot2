@@ -143,7 +143,7 @@ Geom <- ggproto("Geom",
         abort(msg)
       }
 
-      names(modified_aes) <- rename_aes(names(modifiers))
+      names(modified_aes) <- names(rename_aes(modifiers))
       modified_aes <- new_data_frame(compact(modified_aes))
 
       data <- cunion(modified_aes, data)

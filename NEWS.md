@@ -4,6 +4,10 @@
   of the transformation. This allows `scale_{x/y}_sqrt()` to find breaks at 0   
   when appropriate (@teunbrand, #980).
 
+* Using multiple modified aesthetics correctly will no longer trigger warnings. 
+  If used incorrectly, the warning will now report the duplicated aesthetic 
+  instead of `NA` (@teunbrand, #4707).
+
 * `...` supports `rlang::list2` dynamic dots in all public functions. (@mone27, #4764) 
 
 * `theme()` now has a `strip.clip` argument, that can be set to `"off"` to 
@@ -87,6 +91,14 @@ precedence between `bins` and `binwidth`. (@eliocamp, #4651)
 
 * Key glyphs for `geom_boxplot()`, `geom_crossbar()`, `geom_pointrange()`, and
   `geom_linerange()` are now orientation-aware (@mjskay, #4732)
+  
+* Updated documentation for `geom_smooth()` to more clearly describe effects of the 
+  `fullrange` parameter (@thoolihan, #4399).
+
+# ggplot2 3.3.6
+This is a very small release only applying an internal change to comply with 
+R 4.2 and its deprecation of `default.stringsAsFactors()`. There are no user
+facing changes and no breaking changes.
 
 # ggplot2 3.3.5
 This is a very small release focusing on fixing a couple of untenable issues 
