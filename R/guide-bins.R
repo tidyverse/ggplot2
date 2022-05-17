@@ -156,7 +156,10 @@ guide_train.bins <- function(guide, scale, aesthetic = NULL) {
     breaks <- strsplit(gsub("\\(|\\)|\\[|\\]", "", breaks), ",\\s?")
     breaks <- as.numeric(unlist(breaks))
     if (anyNA(breaks)) {
-      cli::cli_abort('Breaks not formatted correctly for a bin legend. Use {.strong (<lower>, <upper>]} format to indicate bins')
+      cli::cli_abort(c(
+        "Breaks not formatted correctly for a bin legend.",
+        "i" = "Use {.code (<lower>, <upper>]} format to indicate bins"
+      ))
     }
     all_breaks <- breaks[c(1, seq_along(bin_at) * 2)]
   }

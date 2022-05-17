@@ -81,7 +81,7 @@ guide_train.colorsteps <- function(guide, scale, aesthetic = NULL) {
       if (anyNA(breaks_num)) {
         cli::cli_abort(c(
           "Breaks not formatted correctly for a bin legend.",
-          "i" = "Use {.str (<lower>, <upper>]} format to indicate bins"
+          "i" = "Use {.code (<lower>, <upper>]} format to indicate bins"
         ))
       }
       all_breaks <- breaks_num[c(1, seq_along(breaks) * 2)]
