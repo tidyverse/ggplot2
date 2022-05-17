@@ -1,5 +1,9 @@
 # ggplot2 (development version)
 
+* Automatic break calculation now squishes the scale limits to the domain
+  of the transformation. This allows `scale_{x/y}_sqrt()` to find breaks at 0   
+  when appropriate (@teunbrand, #980).
+
 * Using multiple modified aesthetics correctly will no longer trigger warnings. 
   If used incorrectly, the warning will now report the duplicated aesthetic 
   instead of `NA` (@teunbrand, #4707).
