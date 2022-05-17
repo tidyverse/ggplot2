@@ -73,7 +73,7 @@ guide_train.axis <- function(guide, scale, aesthetic = NULL) {
 
   if (length(intersect(scale$aesthetics, guide$available_aes)) == 0) {
     cli::cli_warn(c(
-       "Axis guide lacks appropriate scales"
+       "Axis guide lacks appropriate scales",
        i = "Use one of {.or {.field {guide$available_aes}}}"
     ))
     guide$key <- empty_ticks

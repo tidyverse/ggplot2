@@ -206,7 +206,7 @@ guides_train <- function(scales, theme, guides, labels) {
         # TODO: update to lifecycle after next lifecycle release
         cli::cli_warn(c(
            "{.code guide = FALSE} is deprecated",
-           i = "Please use {.code guide = "none"} instead.'
+           "i" = 'Please use {.code guide = "none"} instead.'
         ))
         next
       }
