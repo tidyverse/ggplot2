@@ -1,7 +1,7 @@
 # axis_label_element_overrides errors when angles are outside the range [0, 90]
 
     Unrecognized `axis_position`: "test"
-    i use either "top", "bottom", "left" or "right"
+    i Use one of "top", "bottom", "left" or "right"
 
 # Using non-position guides for position scales results in an informative error
 
@@ -22,8 +22,8 @@
 
 ---
 
-    title position "leftish" is invalid
-    i use either "top", "bottom", "left", or "right"
+    Title position "leftish" is invalid
+    i Use one of "top", "bottom", "left", or "right"
 
 ---
 
@@ -51,9 +51,15 @@
 # colorsteps and bins checks the breaks format
 
     Breaks not formatted correctly for a bin legend.
-    i Use "(<lower>, <upper>]" format to indicate bins
+    i Use `(<lower>, <upper>]` format to indicate bins
 
 ---
 
-    Breaks not formatted correctly for a bin legend. Use (<lower>, <upper>] format to indicate bins
+    Breaks not formatted correctly for a bin legend.
+    i Use `(<lower>, <upper>]` format to indicate bins
+
+# a warning is generated when guides(<scale> = FALSE) is specified
+
+    `guide = FALSE` is deprecated
+    i Please use `guide = "none"` instead.
 

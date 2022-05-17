@@ -605,5 +605,5 @@ test_that("a warning is generated when guides(<scale> = FALSE) is specified", {
   # warn on scale_*(guide = FALSE)
   p <- ggplot(df, aes(x, y, colour = x)) + scale_colour_continuous(guide = FALSE)
   built <- expect_silent(ggplot_build(p))
-  expect_warning(ggplot_gtable(built), "It is deprecated to specify `guide = FALSE`")
+  expect_snapshot_warning(ggplot_gtable(built))
 })

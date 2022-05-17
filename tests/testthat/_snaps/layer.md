@@ -1,14 +1,14 @@
 # layer() checks its input
 
-    Attempted to create layer with no geom.
+    Can't create layer without a geom.
 
 ---
 
-    Attempted to create layer with no stat.
+    Can't create layer without a stat.
 
 ---
 
-    Attempted to create layer with no position.
+    Can't create layer without a position.
 
 ---
 
