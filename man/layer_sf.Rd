@@ -59,11 +59,7 @@ rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
-\item{check.aes}{If \code{TRUE}, the default, will check that
-supplied parameters and aesthetics are understood by the \code{geom} or
-\code{stat}. Use \code{FALSE} to suppress the checks.}
-
-\item{check.param}{If \code{TRUE}, the default, will check that
+\item{check.aes, check.param}{If \code{TRUE}, the default, will check that
 supplied parameters and aesthetics are understood by the \code{geom} or
 \code{stat}. Use \code{FALSE} to suppress the checks.}
 
