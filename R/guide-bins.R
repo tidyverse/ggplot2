@@ -14,7 +14,10 @@
 #' @param axis.arrow A call to `arrow()` to specify arrows at the end of the
 #'   axis line, thus showing an open interval.
 #' @param show.limits Logical. Should the limits of the scale be shown with
-#'   labels and ticks.
+#'   labels and ticks. Default is `NULL` meaning it will take the value from the
+#'   scale. This argument is ignored if `labels` is given as a vector of
+#'   values. If one or both of the limits is also given in `breaks` it will be
+#'   shown irrespective of the value of `show.limits`.
 #'
 #' @section Use with discrete scale:
 #' This guide is intended to show binned data and work together with ggplot2's

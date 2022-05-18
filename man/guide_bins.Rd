@@ -101,7 +101,10 @@ multiple guides are displayed, not the contents of the guide itself.
 If 0 (default), the order is determined by a secret algorithm.}
 
 \item{show.limits}{Logical. Should the limits of the scale be shown with
-labels and ticks.}
+labels and ticks. Default is \code{NULL} meaning it will take the value from the
+scale. This argument is ignored if \code{labels} is given as a vector of
+values. If one or both of the limits is also given in \code{breaks} it will be
+shown irrespective of the value of \code{show.limits}.}
 
 \item{...}{ignored.}
 }
