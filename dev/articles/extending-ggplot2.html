@@ -557,10 +557,10 @@
 <span class="co">#&gt; &lt;ggproto method&gt;</span>
 <span class="co">#&gt;   &lt;Wrapper function&gt;</span>
 <span class="co">#&gt;     function (...) </span>
-<span class="co">#&gt; f(...)</span>
+<span class="co">#&gt; f(..., self = self)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;   &lt;Inner function (f)&gt;</span>
-<span class="co">#&gt;     function (data, params) </span>
+<span class="co">#&gt;     function (self, data, params) </span>
 <span class="co">#&gt; {</span>
 <span class="co">#&gt;     params$flipped_aes &lt;- has_flipped_aes(data, params, main_is_orthogonal = TRUE, </span>
 <span class="co">#&gt;         group_has_equal = TRUE, main_is_optional = TRUE)</span>
@@ -568,13 +568,14 @@
 <span class="co">#&gt;     has_x &lt;- !(is.null(data$x) &amp;&amp; is.null(params$x))</span>
 <span class="co">#&gt;     has_y &lt;- !(is.null(data$y) &amp;&amp; is.null(params$y))</span>
 <span class="co">#&gt;     if (!has_x &amp;&amp; !has_y) {</span>
-<span class="co">#&gt;         abort("stat_boxplot() requires an x or y aesthetic.")</span>
+<span class="co">#&gt;         cli::cli_abort("{.fn {snake_class(self)}} requires an {.field x} or {.field y} aesthetic.")</span>
 <span class="co">#&gt;     }</span>
 <span class="co">#&gt;     params$width &lt;- params$width %||% (resolution(data$x %||% </span>
 <span class="co">#&gt;         0) * 0.75)</span>
 <span class="co">#&gt;     if (is.double(data$x) &amp;&amp; !has_groups(data) &amp;&amp; any(data$x != </span>
 <span class="co">#&gt;         data$x[1L])) {</span>
-<span class="co">#&gt;         warn(glue("Continuous {flipped_names(params$flipped_aes)$x} aesthetic -- did you forget aes(group=...)?"))</span>
+<span class="co">#&gt;         cli::cli_warn(c("Continuous {.field {flipped_names(params$flipped_aes)$x}} aesthetic", </span>
+<span class="co">#&gt;             i = "did you forget {.code aes(group = ...)}?"))</span>
 <span class="co">#&gt;     }</span>
 <span class="co">#&gt;     params</span>
 <span class="co">#&gt; }</span></code></pre></div>
@@ -584,10 +585,10 @@
 <span class="co">#&gt; &lt;ggproto method&gt;</span>
 <span class="co">#&gt;   &lt;Wrapper function&gt;</span>
 <span class="co">#&gt;     function (...) </span>
-<span class="co">#&gt; f(...)</span>
+<span class="co">#&gt; f(..., self = self)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;   &lt;Inner function (f)&gt;</span>
-<span class="co">#&gt;     function (data, params) </span>
+<span class="co">#&gt;     function (self, data, params) </span>
 <span class="co">#&gt; {</span>
 <span class="co">#&gt;     data &lt;- flip_data(data, params$flipped_aes)</span>
 <span class="co">#&gt;     data$x &lt;- data$x %||% 0</span>

@@ -332,7 +332,8 @@ See example
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">txhousing</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">median</span>, y <span class="op">=</span> <span class="va">volume</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; Warning: Removed 617 rows containing missing values (geom_point).</span></code></pre></div>
+<span class="co">#&gt; Warning: Removed 617 rows containing missing values</span>
+<span class="co">#&gt; (`geom_point()`).</span></code></pre></div>
 <p><img src="faq-axes_files/figure-html/unnamed-chunk-14-1.png" width="80%"></p>
 <p>The <a href="https://scales.r-lib.org/" class="external-link"><strong>scales</strong></a> package offers a large number of functions to control the formatting of axis labels and legend keys. Use <code><a href="https://scales.r-lib.org/reference/label_number.html" class="external-link">scales::label_number()</a></code> to force decimal display of numbers rather than using scientific notation or use <code><a href="https://scales.r-lib.org/reference/label_number.html" class="external-link">scales::label_comma()</a></code> to insert a comma every three digits.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
@@ -341,7 +342,8 @@ See example
   <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/label_number.html" class="external-link">label_number</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/label_number.html" class="external-link">label_comma</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; Warning: Removed 617 rows containing missing values (geom_point).</span></code></pre></div>
+<span class="co">#&gt; Warning: Removed 617 rows containing missing values</span>
+<span class="co">#&gt; (`geom_point()`).</span></code></pre></div>
 <p><img src="faq-axes_files/figure-html/unnamed-chunk-15-1.png" width="80%"></p>
 </details>
 </div>

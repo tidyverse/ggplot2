@@ -374,7 +374,7 @@ See example
 <code class="sourceCode R"><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../reference/lims.html">ylim</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">120</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; Warning: Removed 3 rows containing missing values (geom_bar).</span></code></pre></div>
+<span class="co">#&gt; Warning: Removed 3 rows containing missing values (`geom_bar()`).</span></code></pre></div>
 <p><img src="faq-bars_files/figure-html/unnamed-chunk-24-1.png" width="80%"></p>
 <p>In order to obtain a bar plot with limited y-axis, you need to instead set the limits in <code><a href="../reference/coord_cartesian.html">coord_cartesian()</a></code>.</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">

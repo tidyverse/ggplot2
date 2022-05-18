@@ -86,7 +86,13 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">calc_element</span><span class="op">(</span><span class="va">element</span>, <span class="va">theme</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span>, skip_blank <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">calc_element</span><span class="op">(</span>
+  <span class="va">element</span>,
+  <span class="va">theme</span>,
+  verbose <span class="op">=</span> <span class="cn">FALSE</span>,
+  skip_blank <span class="op">=</span> <span class="cn">FALSE</span>,
+  call <span class="op">=</span> <span class="fu">caller_env</span><span class="op">(</span><span class="op">)</span>
+<span class="op">)</span></code></pre></div>
     </div>
 
     <div class="section level2">
