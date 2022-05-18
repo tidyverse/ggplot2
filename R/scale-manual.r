@@ -149,7 +149,7 @@ manual_scale <- function(aesthetic, values = NULL, breaks = waiver(), ..., limit
 
   pal <- function(n) {
     if (n > length(values)) {
-      abort(glue("Insufficient values in manual scale. {n} needed but only {length(values)} provided."))
+      cli::cli_abort("Insufficient values in manual scale. {n} needed but only {length(values)} provided.")
     }
     values
   }

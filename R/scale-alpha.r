@@ -35,7 +35,7 @@ scale_alpha_binned <- function(..., range = c(0.1, 1)) {
 #' @rdname scale_alpha
 #' @export
 scale_alpha_discrete <- function(...) {
-  warn("Using alpha for a discrete variable is not advised.")
+  cli::cli_warn("Using alpha for a discrete variable is not advised.")
   scale_alpha_ordinal(...)
 }
 

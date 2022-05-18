@@ -46,6 +46,15 @@ test_that("quantiles do not fail on zero-range data", {
   expect_equal(length(layer_grob(p)), 1)
 })
 
+test_that("quantiles fails outside 0-1 bound", {
+  p <- ggplot(mtcars) +
+    geom_violin(aes(as.factor(gear), mpg), draw_quantiles = c(-1, 0.5))
+  expect_snapshot_error(ggplotGrob(p))
+  p <- ggplot(mtcars) +
+    geom_violin(aes(as.factor(gear), mpg), draw_quantiles = c(0.5, 2))
+  expect_snapshot_error(ggplotGrob(p))
+})
+
 test_that("quantiles are at expected positions at zero width", {
   # Symmetric density with n components and zero middle:
   # 50% quantile can be drawn anywhere as long as there is density 0

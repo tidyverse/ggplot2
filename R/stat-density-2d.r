@@ -134,9 +134,9 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
     # set up data and parameters for contouring
     contour_var <- params$contour_var %||% "density"
     if (!isTRUE(contour_var %in% c("density", "ndensity", "count"))) {
-      abort(glue(
-        'Unsupported value for `contour_var`: {contour_var}\n',
-        'Supported values are "density", "ndensity", and "count".'
+      cli::cli_abort(c(
+        "Invalid value of {.arg contour_var} ({.val {contour_var}})",
+        "i" = "Supported values are {.val density}, {.val ndensity}, and {.val count}."
       ))
     }
     data$z <- data[[contour_var]]
@@ -153,8 +153,8 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
     args <- c(list(data = quote(data), scales = quote(scales)), params)
     dapply(data, "PANEL", function(data) {
       scales <- layout$get_scales(data$PANEL[1])
-      tryCatch(do.call(contour_stat$compute_panel, args), error = function(e) {
-        warn(glue("Computation failed in `{snake_class(self)}()`:\n{e$message}"))
+      try_fetch(do.call(contour_stat$compute_panel, args), error = function(cnd) {
+        cli::cli_warn("Computation failed in {.fn {snake_class(self)}}", parent = cnd)
         new_data_frame()
       })
     })

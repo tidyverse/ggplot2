@@ -32,7 +32,7 @@ ggplot_build.ggplot <- function(plot) {
   }
 
   layers <- plot$layers
-  layer_data <- lapply(layers, function(y) y$layer_data(plot$data))
+  data <- rep(list(NULL), length(layers))
 
   scales <- plot$scales
   # Apply function to layer and matching data
@@ -46,7 +46,7 @@ ggplot_build.ggplot <- function(plot) {
 
   # Allow all layers to make any final adjustments based
   # on raw input data and plot info
-  data <- layer_data
+  data <- by_layer(function(l, d) l$layer_data(plot$data))
   data <- by_layer(function(l, d) l$setup_layer(d, plot))
 
   # Initialise panels, add extra data for margins & missing faceting
@@ -286,11 +286,11 @@ ggplot_gtable.ggplot_built <- function(data) {
   #   "plot" means align to the entire plot (except margins and tag)
   title_pos <- theme$plot.title.position %||% "panel"
   if (!(title_pos %in% c("panel", "plot"))) {
-    abort('plot.title.position should be either "panel" or "plot".')
+    cli::cli_abort('{.var plot.title.position} should be either {.val "panel"} or {.val "plot"}.')
   }
   caption_pos <- theme$plot.caption.position %||% "panel"
   if (!(caption_pos %in% c("panel", "plot"))) {
-    abort('plot.caption.position should be either "panel" or "plot".')
+    cli::cli_abort('{.var plot.caption.position} should be either {.val "panel"} or {.val "plot"}.')
   }
 
   pans <- plot_table$layout[grepl("^panel", plot_table$layout$name), , drop = FALSE]
@@ -332,8 +332,7 @@ ggplot_gtable.ggplot_built <- function(data) {
                  "bottom", "bottomright")
 
   if (!(tag_pos == "manual" || tag_pos %in% valid_pos)) {
-    abort(glue("plot.tag.position should be a coordinate or one of ",
-         glue_collapse(valid_pos, ', ', last = " or ")))
+    cli::cli_abort("{.arg plot.tag.position} should be a coordinate or one of {.or {.val {valid_pos}}}")
   }
 
   if (tag_pos == "manual") {

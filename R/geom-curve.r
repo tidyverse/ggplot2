@@ -45,7 +45,7 @@ GeomCurve <- ggproto("GeomCurve", GeomSegment,
                         ncp = 5, arrow = NULL, arrow.fill = NULL, lineend = "butt", na.rm = FALSE) {
 
     if (!coord$is_linear()) {
-      warn("geom_curve is not implemented for non-linear coordinates")
+      cli::cli_warn("{.fn geom_curve} is not implemented for non-linear coordinates")
     }
 
     trans <- coord$transform(data, panel_params)

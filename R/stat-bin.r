@@ -84,22 +84,25 @@ stat_bin <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 StatBin <- ggproto("StatBin", Stat,
-  setup_params = function(data, params) {
+  setup_params = function(self, data, params) {
     params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = FALSE)
 
     has_x <- !(is.null(data$x) && is.null(params$x))
     has_y <- !(is.null(data$y) && is.null(params$y))
     if (!has_x && !has_y) {
-      abort("stat_bin() requires an x or y aesthetic.")
+      cli::cli_abort("{.fn {snake_class(self)}} requires an {.field x} or {.field y} aesthetic.")
     }
     if (has_x && has_y) {
-      abort("stat_bin() can only have an x or y aesthetic.")
+      cli::cli_abort("{.fn {snake_class(self)}} must only have an {.field x} {.emph or} {.field y} aesthetic.")
     }
 
     x <- flipped_names(params$flipped_aes)$x
     if (is.integer(data[[x]])) {
-      abort(glue("StatBin requires a continuous {x} variable: the {x} variable is discrete.",
-                 "Perhaps you want stat=\"count\"?"))
+      cli::cli_abort(c(
+        "{.fn {snake_class(self)}} requires a continuous {.field {x}} aesthetic",
+        "x" = "the {.field {x}} aesthetic is discrete.",
+        "i" = "Perhaps you want {.code stat=\"count\"}?"
+      ))
     }
 
     if (!is.null(params$drop)) {
@@ -120,11 +123,11 @@ StatBin <- ggproto("StatBin", Stat,
       lifecycle::deprecate_warn("2.1.0", "stat_bin(width)", "geom_bar()")
     }
     if (!is.null(params$boundary) && !is.null(params$center)) {
-      abort("Only one of `boundary` and `center` may be specified.")
+      cli::cli_abort("Only one of {.arg boundary} and {.arg center} may be specified in {.fn {snake_class(self)}}.")
     }
 
     if (is.null(params$breaks) && is.null(params$binwidth) && is.null(params$bins)) {
-      message_wrap("`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.")
+      cli::cli_inform("{.fn {snake_class(self)}} using {.code bins = 30}. Pick better value with {.arg binwidth}.")
       params$bins <- 30
     }
 

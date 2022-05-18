@@ -199,14 +199,11 @@ guide_train.colorbar <- function(guide, scale, aesthetic = NULL) {
 
   # do nothing if scale are inappropriate
   if (length(intersect(scale$aesthetics, guide$available_aes)) == 0) {
-    warn(glue(
-      "colourbar guide needs appropriate scales: ",
-      glue_collapse(guide$available_aes, ", ", last = " or ")
-    ))
+    cli::cli_warn("colourbar guide needs appropriate scales: {.or {.field {guide$available_aes}}}")
     return(NULL)
   }
   if (scale$is_discrete()) {
-    warn("colourbar guide needs continuous scales.")
+    cli::cli_warn("colourbar guide needs continuous scales.")
     return(NULL)
   }
 
@@ -276,7 +273,10 @@ guide_gengrob.colorbar <- function(guide, theme) {
   if (guide$direction == "horizontal") {
     label.position <- guide$label.position %||% "bottom"
     if (!label.position %in% c("top", "bottom")) {
-      abort(glue("label position '{label.position}' is invalid"))
+      cli::cli_abort(c(
+        "label position {.val {label.position}} is invalid",
+        "i" = "use either {.val 'top'} or {.val 'bottom'}"
+      ))
     }
 
     barwidth <- width_cm(guide$barwidth %||% (theme$legend.key.width * 5))
@@ -284,7 +284,10 @@ guide_gengrob.colorbar <- function(guide, theme) {
   } else { # guide$direction == "vertical"
     label.position <- guide$label.position %||% "right"
     if (!label.position %in% c("left", "right")) {
-      abort(glue("label position '{label.position}' is invalid"))
+      cli::cli_abort(c(
+        "label position {.val {label.position}} is invalid",
+        "i" = "use either {.val 'left'} or {.val 'right'}"
+      ))
     }
 
     barwidth <- width_cm(guide$barwidth %||% theme$legend.key.width)
@@ -539,7 +542,8 @@ guide_gengrob.colorbar <- function(guide, theme) {
     name = "label",
     clip = "off",
     t = 1 + min(vps$label.row), r = 1 + max(vps$label.col),
-    b = 1 + max(vps$label.row), l = 1 + min(vps$label.col))
+    b = 1 + max(vps$label.row), l = 1 + min(vps$label.col)
+  )
   gt <- gtable_add_grob(
     gt,
     justify_grobs(
@@ -552,10 +556,13 @@ guide_gengrob.colorbar <- function(guide, theme) {
     name = "title",
     clip = "off",
     t = 1 + min(vps$title.row), r = 1 + max(vps$title.col),
-    b = 1 + max(vps$title.row), l = 1 + min(vps$title.col))
+    b = 1 + max(vps$title.row), l = 1 + min(vps$title.col)
+  )
+
   gt <- gtable_add_grob(gt, grob.ticks, name = "ticks", clip = "off",
     t = 1 + min(vps$bar.row), r = 1 + max(vps$bar.col),
-    b = 1 + max(vps$bar.row), l = 1 + min(vps$bar.col))
+    b = 1 + max(vps$bar.row), l = 1 + min(vps$bar.col)
+  )
 
   gt
 }

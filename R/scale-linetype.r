@@ -43,7 +43,10 @@ scale_linetype_binned <- function(..., na.value = "blank") {
 #' @rdname scale_linetype
 #' @export
 scale_linetype_continuous <- function(...) {
-  abort("A continuous variable can not be mapped to linetype")
+  cli::cli_abort(c(
+    "A continuous variable cannot be mapped to the {.field linetype} aesthetic",
+    "i" = "choose a different aesthetic or use {.fn scale_linetype_binned}"
+  ))
 }
 #' @rdname scale_linetype
 #' @export

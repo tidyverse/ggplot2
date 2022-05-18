@@ -141,7 +141,7 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
       )
     } else {
       if (utils::packageVersion('grid') < "3.6") {
-        abort("Polygons with holes requires R 3.6 or above")
+        cli::cli_abort("Polygons with holes requires R 3.6 or above")
       }
       # Sort by group to make sure that colors, fill, etc. come in same order
       munched <- munched[order(munched$group, munched$subgroup), ]

@@ -2,7 +2,7 @@
 # No checking, recycling etc. unless asked for
 new_data_frame <- function(x = list(), n = NULL) {
   if (length(x) != 0 && is.null(names(x))) {
-    abort("Elements must be named")
+    cli::cli_abort("Elements must be named")
   }
   lengths <- vapply(x, length, integer(1))
   if (is.null(n)) {
@@ -11,7 +11,7 @@ new_data_frame <- function(x = list(), n = NULL) {
   for (i in seq_along(x)) {
     if (lengths[i] == n) next
     if (lengths[i] != 1) {
-      abort("Elements must equal the number of rows or 1")
+      cli::cli_abort("Elements must equal the number of rows or 1")
     }
     x[[i]] <- rep(x[[i]], n)
   }
@@ -49,8 +49,8 @@ modify_list <- function(old, new) {
   old
 }
 modifyList <- function(...) {
-  abort(glue("
-    Please use `modify_list()` instead of `modifyList()` for better performance.
-    See the vignette 'ggplot2 internal programming guidelines' for details.
-  "))
+  cli::cli_abort(c(
+    "Please use {.fn modify_list} instead of {.fn modifyList} for better performance.",
+    "i" = "See the vignette {.emph ggplot2 internal programming guidelines} for details."
+  ))
 }

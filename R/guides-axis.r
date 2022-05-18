@@ -72,9 +72,9 @@ guide_train.axis <- function(guide, scale, aesthetic = NULL) {
   names(empty_ticks) <- c(aesthetic, ".value", ".label")
 
   if (length(intersect(scale$aesthetics, guide$available_aes)) == 0) {
-    warn(glue(
-      "axis guide needs appropriate scales: ",
-      glue_collapse(guide$available_aes, ", ", last = " or ")
+    cli::cli_warn(c(
+       "Axis guide lacks appropriate scales",
+       i = "Use one of {.or {.field {guide$available_aes}}}"
     ))
     guide$key <- empty_ticks
   } else if (length(breaks) == 0) {
@@ -120,7 +120,10 @@ guide_transform.axis <- function(guide, coord, panel_params) {
 #' @export
 guide_merge.axis <- function(guide, new_guide) {
   if (!inherits(new_guide, "guide_none")) {
-    warn("guide_axis(): Discarding guide on merge. Do you have more than one guide with the same position?")
+    cli::cli_warn(c(
+      "{.fn guide_axis}: Discarding guide on merge",
+      "i" = "Do you have more than one guide with the same position?"
+    ))
   }
 
   guide
@@ -381,7 +384,7 @@ axis_label_element_overrides <- function(axis_position, angle = NULL) {
 
   # it is not worth the effort to align upside-down labels properly
   if (angle > 90 || angle < -90) {
-    abort("`angle` must be between 90 and -90")
+    cli::cli_abort("{.arg angle} must be between 90 and -90")
   }
 
   if (axis_position == "bottom") {
@@ -409,7 +412,10 @@ axis_label_element_overrides <- function(axis_position, angle = NULL) {
       vjust = if (angle > 0) 1 else if (angle < 0) 0 else 0.5,
     )
   } else {
-    abort(glue("Unrecognized position: '{axis_position}'"))
+    cli::cli_abort(c(
+      "Unrecognized {.arg axis_position}: {.val {axis_position}}",
+      "i" = "Use one of {.val top}, {.val bottom}, {.val left} or {.val right}"
+    ))
   }
 }
 
@@ -432,6 +438,9 @@ warn_for_guide_position <- function(guide) {
   }
 
   if (length(unique(guide$key[[position_aes]][breaks_are_unique])) == 1) {
-    warn("Position guide is perpendicular to the intended axis. Did you mean to specify a different guide `position`?")
+    cli::cli_warn(c(
+      "Position guide is perpendicular to the intended axis",
+      "i" = "Did you mean to specify a different guide {.arg position}?"
+    ))
   }
 }

@@ -30,7 +30,7 @@ cut_interval <- function(x, n = NULL, length = NULL, ...) {
 cut_number <- function(x, n = NULL, ...) {
   brk <- breaks(x, "numbers", n)
   if (anyDuplicated(brk))
-    abort(glue("Insufficient data values to produce {n} bins."))
+    cli::cli_abort("Insufficient data values to produce {n} bins.")
   cut(x, brk , include.lowest = TRUE, ...)
 }
 
@@ -60,7 +60,7 @@ cut_width <- function(x, width, center = NULL, boundary = NULL, closed = "right"
 
   # Determine boundary
   if (!is.null(boundary) && !is.null(center)) {
-    abort("Only one of 'boundary' and 'center' may be specified.")
+    cli::cli_abort("Only one of {.arg boundary} and {.arg center} may be specified.")
   }
   if (is.null(boundary)) {
     if (is.null(center)) {
@@ -93,7 +93,7 @@ find_origin <- function(x_range, width, boundary) {
 breaks <- function(x, equal, nbins = NULL, binwidth = NULL) {
   equal <- arg_match0(equal, c("numbers", "width"))
   if ((!is.null(nbins) && !is.null(binwidth)) || (is.null(nbins) && is.null(binwidth))) {
-    abort("Specify exactly one of n and width")
+    cli::cli_abort("Specify exactly one of {.arg n} and {.arg width}")
   }
 
   rng <- range(x, na.rm = TRUE, finite = TRUE)
