@@ -165,7 +165,10 @@ geom_text <- function(mapping = NULL, data = NULL,
 {
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
-      abort("You must specify either `position` or `nudge_x`/`nudge_y`.")
+      cli::cli_abort(c(
+        "both {.arg position} and {.arg nudge_x}/{.arg nudge_y} are supplied",
+        "i" = "Only use one approach to alter the position"
+      ))
     }
 
     position <- position_nudge(nudge_x, nudge_y)

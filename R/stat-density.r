@@ -70,13 +70,13 @@ StatDensity <- ggproto("StatDensity", Stat,
 
   default_aes = aes(x = after_stat(density), y = after_stat(density), fill = NA, weight = NULL),
 
-  setup_params = function(data, params) {
+  setup_params = function(self, data, params) {
     params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = FALSE, main_is_continuous = TRUE)
 
     has_x <- !(is.null(data$x) && is.null(params$x))
     has_y <- !(is.null(data$y) && is.null(params$y))
     if (!has_x && !has_y) {
-      abort("stat_density() requires an x or y aesthetic.")
+      cli::cli_abort("{.fn {snake_class(self)}} requires an {.field x} or {.field y} aesthetic.")
     }
 
     params
@@ -112,7 +112,7 @@ compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
 
   # if less than 2 points return data frame of NAs and a warning
   if (nx < 2) {
-    warn("Groups with fewer than two data points have been dropped.")
+    cli::cli_warn("Groups with fewer than two data points have been dropped.")
     return(new_data_frame(list(
       x = NA_real_,
       density = NA_real_,

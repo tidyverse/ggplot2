@@ -21,7 +21,7 @@ width_cm <- function(x) {
   } else if (is.list(x)) {
     vapply(x, width_cm, numeric(1))
   } else {
-    abort("Unknown input")
+    cli::cli_abort("Don't know how to get width of {.cls {class(x)}} object")
   }
 }
 height_cm <- function(x) {
@@ -32,6 +32,6 @@ height_cm <- function(x) {
   } else if (is.list(x)) {
     vapply(x, height_cm, numeric(1))
   } else {
-    abort("Unknown input")
+    cli::cli_abort("Don't know how to get height of {.cls {class(x)}} object")
   }
 }

@@ -86,10 +86,10 @@ geom_abline <- function(mapping = NULL, data = NULL,
 
     # Warn if supplied mapping and/or data is going to be overwritten
     if (!is.null(mapping)) {
-      warn_overwritten_args("geom_abline()", "mapping", c("slope", "intercept"))
+      cli::cli_warn("{.fn geom_abline}: Ignoring {.arg mapping} because {.arg slope} and/or {.arg intercept} were provided.")
     }
     if (!is.null(data)) {
-      warn_overwritten_args("geom_abline()", "data", c("slope", "intercept"))
+      cli::cli_warn("{.fn geom_abline}: Ignoring {.arg data} because {.arg slope} and/or {.arg intercept} were provided.")
     }
 
     if (missing(slope)) slope <- 1
@@ -146,25 +146,3 @@ GeomAbline <- ggproto("GeomAbline", Geom,
 
   draw_key = draw_key_abline
 )
-
-warn_overwritten_args <- function(fun_name, overwritten_arg, provided_args, plural_join = " and/or ") {
-  overwritten_arg_text <- paste0("`", overwritten_arg, "`")
-
-  n_provided_args <- length(provided_args)
-  if (n_provided_args == 1) {
-    provided_arg_text <- paste0("`", provided_args, "`")
-    verb <- "was"
-  } else if (n_provided_args == 2) {
-    provided_arg_text <- paste0("`", provided_args, "`", collapse = plural_join)
-    verb <- "were"
-  } else {
-    provided_arg_text <- paste0(
-      paste0("`", provided_args[-n_provided_args], "`", collapse = ", "),
-      ",", plural_join,
-      "`", provided_args[n_provided_args], "`"
-    )
-    verb <- "were"
-  }
-
-  warn(glue("{fun_name}: Ignoring {overwritten_arg_text} because {provided_arg_text} {verb} provided."))
-}

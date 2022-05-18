@@ -126,11 +126,11 @@ GeomSf <- ggproto("GeomSf", Geom,
     stroke = 0.5
   ),
 
-  draw_panel = function(data, panel_params, coord, legend = NULL,
+  draw_panel = function(self, data, panel_params, coord, legend = NULL,
                         lineend = "butt", linejoin = "round", linemitre = 10,
                         arrow = NULL, na.rm = TRUE) {
     if (!inherits(coord, "CoordSf")) {
-      abort("geom_sf() must be used with coord_sf()")
+      cli::cli_abort("{.fn {snake_class(self)}} can only be used with {.fn coord_sf}")
     }
 
     # Need to refactor this to generate one grob per geometry type
@@ -175,9 +175,7 @@ sf_grob <- function(x, lineend = "butt", linejoin = "round", linemitre = 10,
   remove[is_other] <- detect_missing(x, c(GeomPolygon$required_aes, GeomPolygon$non_missing_aes))[is_other]
   if (any(remove)) {
     if (!na.rm) {
-      warning_wrap(
-        "Removed ", sum(remove), " rows containing missing values (geom_sf)."
-      )
+      cli::cli_warn("Removed {sum(remove)} row{?s} containing missing values ({.fn geom_sf})")
     }
     x <- x[!remove, , drop = FALSE]
     type_ind <- type_ind[!remove]
@@ -259,7 +257,10 @@ geom_sf_label <- function(mapping = aes(), data = NULL,
 
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
-      abort("Specify either `position` or `nudge_x`/`nudge_y`")
+      cli::cli_abort(c(
+        "both {.arg position} and {.arg nudge_x}/{.arg nudge_y} are supplied",
+        "i" = "Only use one approach to alter the position"
+      ))
     }
 
     position <- position_nudge(nudge_x, nudge_y)
@@ -303,7 +304,10 @@ geom_sf_text <- function(mapping = aes(), data = NULL,
 
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
-      abort("You must specify either `position` or `nudge_x`/`nudge_y`.")
+      cli::cli_abort(c(
+        "both {.arg position} and {.arg nudge_x}/{.arg nudge_y} are supplied",
+        "i" = "Only use one approach to alter the position"
+      ))
     }
 
     position <- position_nudge(nudge_x, nudge_y)

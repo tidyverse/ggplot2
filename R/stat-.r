@@ -105,7 +105,7 @@ Stat <- ggproto("Stat",
           }
 
           # for other errors, ignore them with warnings
-          warn(glue("Computation failed in `{snake_class(self)}()`:\n{e$message}"))
+          cli::cli_warn("Computation failed in {.fn {snake_class(self)}}", parent = cnd)
           new_data_frame()
         }
       )
@@ -134,7 +134,7 @@ Stat <- ggproto("Stat",
   },
 
   compute_group = function(self, data, scales) {
-    abort("Not implemented")
+    cli::cli_abort("Not implemented")
   },
 
   finish_layer = function(self, data, params) {

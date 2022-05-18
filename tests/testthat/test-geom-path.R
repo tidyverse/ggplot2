@@ -5,6 +5,10 @@ test_that("keep_mid_true drops leading/trailing FALSE", {
   expect_equal(keep_mid_true(c(F, T, F, T, T)), c(F, T, T, T, T))
 })
 
+test_that("geom_path() throws meaningful error on bad combination of varying aesthetics", {
+  p <- ggplot(economics, aes(unemploy/pop, psavert, colour = pop)) + geom_path(linetype = 2)
+  expect_snapshot_error(ggplotGrob(p))
+})
 
 # Tests on stairstep() ------------------------------------------------------------
 

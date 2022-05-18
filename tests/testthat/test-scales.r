@@ -351,6 +351,11 @@ test_that("scale_apply preserves class and attributes", {
     df, "x", "transform", 1:2, plot$layout$panel_scales_x
   )[[1]], `c.baz` = `c.baz`, `[.baz` = `[.baz`, .env = global_env())
 
+  # Check that it errors on bad scale ids
+  expect_snapshot_error(scale_apply(
+    df, "x", "transform", c(NA, 1), plot$layout$panel_scales_x
+  ))
+
   # Check class preservation
   expect_s3_class(out, "baz")
   expect_s3_class(out, "numeric")
@@ -426,4 +431,27 @@ test_that("scales accept lambda notation for function input", {
     scale
   )
   expect_true(all(check))
+})
+
+test_that("breaks and labels are correctly checked", {
+  expect_snapshot_error(check_breaks_labels(1:10, letters))
+  p <- ggplot(mtcars) + geom_point(aes(mpg, disp)) + scale_x_continuous(breaks = NA)
+  expect_snapshot_error(ggplot_build(p))
+  p <- ggplot(mtcars) + geom_point(aes(mpg, disp)) + scale_x_continuous(minor_breaks = NA)
+  expect_snapshot_error(ggplot_build(p))
+  p <- ggplot(mtcars) + geom_point(aes(mpg, disp)) + scale_x_continuous(labels = NA)
+  expect_snapshot_error(ggplotGrob(p))
+  p <- ggplot(mtcars) + geom_point(aes(mpg, disp)) + scale_x_continuous(labels = function(x) 1:2)
+  expect_snapshot_error(ggplotGrob(p))
+  p <- ggplot(mtcars) + geom_bar(aes(factor(gear))) + scale_x_discrete(breaks = NA)
+  expect_snapshot_error(ggplot_build(p))
+  p <- ggplot(mtcars) + geom_bar(aes(factor(gear))) + scale_x_discrete(labels = NA)
+  expect_snapshot_error(ggplotGrob(p))
+
+  p <- ggplot(mtcars) + geom_bar(aes(mpg)) + scale_x_binned(breaks = NA)
+  expect_snapshot_error(ggplot_build(p))
+  p <- ggplot(mtcars) + geom_bar(aes(mpg)) + scale_x_binned(labels = NA)
+  expect_snapshot_error(ggplotGrob(p))
+  p <- ggplot(mtcars) + geom_bar(aes(mpg)) + scale_x_binned(labels = function(x) 1:2)
+  expect_snapshot_error(ggplotGrob(p))
 })

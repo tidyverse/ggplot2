@@ -4,7 +4,7 @@
 \alias{add_theme}
 \title{Modify properties of an element in a theme object}
 \usage{
-add_theme(t1, t2, t2name)
+add_theme(t1, t2, t2name, call = caller_env())
 }
 \arguments{
 \item{t1}{A theme object}
