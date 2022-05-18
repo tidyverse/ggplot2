@@ -13,8 +13,11 @@ guide_colorsteps(even.steps = TRUE, show.limits = NULL, ticks = FALSE, ...)
 \item{even.steps}{Should the rendered size of the bins be equal, or should
 they be proportional to their length in the data space? Defaults to \code{TRUE}}
 
-\item{show.limits}{Should labels for the outer limits of the bins be printed?
-Default is \code{NULL} which makes the guide use the setting from the scale}
+\item{show.limits}{Logical. Should the limits of the scale be shown with
+labels and ticks. Default is \code{NULL} meaning it will take the value from the
+scale. This argument is ignored if \code{labels} is given as a vector of
+values. If one or both of the limits is also given in \code{breaks} it will be
+shown irrespective of the value of \code{show.limits}.}
 
 \item{ticks}{A logical specifying if tick marks on the colourbar should be
 visible.}

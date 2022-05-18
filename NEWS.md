@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Fix various issues with how `labels`, `breaks`, `limits`, and `show.limits`
+  interact in the different binning guides (@thomasp85, #4831)
+
 * Automatic break calculation now squishes the scale limits to the domain
   of the transformation. This allows `scale_{x/y}_sqrt()` to find breaks at 0   
   when appropriate (@teunbrand, #980).
