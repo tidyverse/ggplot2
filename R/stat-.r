@@ -97,11 +97,11 @@ Stat <- ggproto("Stat",
     args <- c(list(data = quote(data), scales = quote(scales)), params)
     dapply(data, "PANEL", function(data) {
       scales <- layout$get_scales(data$PANEL[1])
-      tryCatch(do.call(self$compute_panel, args),
-        error = function(e) {
+      try_fetch(do.call(self$compute_panel, args),
+        error = function(cnd) {
           # if the error comes from check_installed(), propagate it immediately.
-          if (inherits(e, "rlib_error_package_not_found")) {
-            cli::cli_abort("Aborted computation in {.fn {snake_class(self)}}", parent = e)
+          if (inherits(cnd, "rlib_error_package_not_found")) {
+            cli::cli_abort("Aborted computation in {.fn {snake_class(self)}}", parent = cnd)
           }
 
           # for other errors, ignore them with warnings
