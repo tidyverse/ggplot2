@@ -128,7 +128,7 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
     if (varwidth == TRUE) position <- position_dodge2(preserve = "single")
   } else {
     if (identical(position$preserve, "total") & varwidth == TRUE) {
-      warn("Can't preserve total widths when varwidth = TRUE.")
+      cli::cli_warn("Can't preserve total widths when {.code varwidth = TRUE}.")
       position$preserve <- "single"
     }
   }
@@ -205,7 +205,7 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
     flip_data(data, params$flipped_aes)
   },
 
-  draw_group = function(data, panel_params, coord, lineend = "butt",
+  draw_group = function(self, data, panel_params, coord, lineend = "butt",
                         linejoin = "mitre", fatten = 2, outlier.colour = NULL,
                         outlier.fill = NULL, outlier.shape = 19,
                         outlier.size = 1.5, outlier.stroke = 0.5,
@@ -214,7 +214,10 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
     data <- flip_data(data, flipped_aes)
     # this may occur when using geom_boxplot(stat = "identity")
     if (nrow(data) != 1) {
-      abort("Can't draw more than one boxplot per group. Did you forget aes(group = ...)?")
+      cli::cli_abort(c(
+        "Can only draw one boxplot per group",
+        "i"= "Did you forget {.code aes(group = ...)}?"
+      ))
     }
 
     common <- list(

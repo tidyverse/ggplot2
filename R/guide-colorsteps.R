@@ -85,14 +85,17 @@ guide_train.colorsteps <- function(guide, scale, aesthetic = NULL) {
       # if the breaks follow the allowed format "(<lower>, <upper>]", and if it
       # does we convert it into bin specs
       if (!guide$even.steps) {
-        warn("`even.steps = FALSE` is not supported when used together with a discrete scale")
+        cli::cli_warn("{.code even.steps = FALSE} is not supported when used with a discrete scale")
       }
       bin_at <- breaks
       breaks_num <- as.character(breaks)
       breaks_num <- strsplit(gsub("\\(|\\)|\\[|\\]", "", breaks_num), ",\\s?")
       breaks_num <- as.numeric(unlist(breaks_num))
       if (anyNA(breaks_num)) {
-        abort('Breaks not formatted correctly for a bin legend. Use `(<lower>, <upper>]` format to indicate bins')
+        cli::cli_abort(c(
+          "Breaks not formatted correctly for a bin legend.",
+          "i" = "Use {.code (<lower>, <upper>]} format to indicate bins"
+        ))
       }
       all_breaks <- breaks_num[c(1, seq_along(breaks) * 2)]
       limits <- all_breaks[c(1, length(all_breaks))]

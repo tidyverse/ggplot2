@@ -105,12 +105,13 @@ GeomSegment <- ggproto("GeomSegment", Geom,
   non_missing_aes = c("linetype", "size", "shape"),
   default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
 
-  draw_panel = function(data, panel_params, coord, arrow = NULL, arrow.fill = NULL,
+  draw_panel = function(self, data, panel_params, coord, arrow = NULL, arrow.fill = NULL,
                         lineend = "butt", linejoin = "round", na.rm = FALSE) {
-
     data <- remove_missing(data, na.rm = na.rm,
       c("x", "y", "xend", "yend", "linetype", "size", "shape"),
-      name = "geom_segment")
+      name = "geom_segment"
+    )
+
     if (empty(data)) return(zeroGrob())
 
     if (coord$is_linear()) {

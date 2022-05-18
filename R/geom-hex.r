@@ -126,7 +126,9 @@ GeomHex <- ggproto("GeomHex", Geom,
 #
 # THIS IS NO LONGER USED BUT LEFT IF CODE SOMEWHERE ELSE RELIES ON IT
 hexGrob <- function(x, y, size = rep(1, length(x)), gp = gpar()) {
-  if (length(y) != length(x)) abort("`x` and `y` must have the same length")
+  if (length(y) != length(x)) {
+    cli::cli_abort("{.arg x} and {.arg y} must have the same length")
+  }
 
   dx <- resolution(x, FALSE)
   dy <- resolution(y, FALSE) / sqrt(3) / 2 * 1.15

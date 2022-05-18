@@ -1,5 +1,25 @@
+# annotation_raster() and annotation_custom() requires cartesian coordinates
+
+    `annotation_raster()` only works with `coord_cartesian()`
+
+---
+
+    `annotation_custom()` only works with `coord_cartesian()`
+
+# annotation_map() checks the input data
+
+    `map` must be a <data.frame>
+
+---
+
+    `map` must have the columns `x`, `y`, and `id`
+
 # unsupported geoms signal a warning (#4719)
 
-    `annotate()` does not support `geom = "hline"`.
+    `geom` must not be "hline".
     i Please use `geom_hline()` directly instead.
+
+# annotate() checks aesthetic lengths match
+
+    Unequal parameter lengths: x (3), y (3), and fill (2)
 

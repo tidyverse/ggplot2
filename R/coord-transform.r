@@ -233,8 +233,8 @@ train_trans <- function(scale, coord_limits, trans, name, expand = TRUE) {
 #' @param new_values A vector of post-transformation values.
 #' @param axis Which axis the values originate from (e.g. x, y).
 #' @noRd
-warn_new_infinites <- function(old_values, new_values, axis) {
+warn_new_infinites <- function(old_values, new_values, axis, call = caller_env()) {
   if (any(is.finite(old_values) & !is.finite(new_values))) {
-    warn(glue("Transformation introduced infinite values in {axis}-axis"))
+    cli::cli_warn("Transformation introduced infinite values in {axis}-axis", call = call)
   }
 }
