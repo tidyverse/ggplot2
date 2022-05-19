@@ -1,3 +1,7 @@
+test_that("geom_text() checks input", {
+  expect_snapshot_error(geom_text(position = "jitter", nudge_x = 0.5))
+})
+
 # compute_just ------------------------------------------------------------
 
 test_that("vertical and horizontal positions are equivalent", {

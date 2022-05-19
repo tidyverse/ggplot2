@@ -83,7 +83,7 @@ StatQq <- ggproto("StatQq", Stat,
 
   required_aes = c("sample"),
 
-  compute_group = function(data, scales, quantiles = NULL,
+  compute_group = function(self, data, scales, quantiles = NULL,
                            distribution = stats::qnorm, dparams = list(),
                            na.rm = FALSE) {
 
@@ -94,7 +94,7 @@ StatQq <- ggproto("StatQq", Stat,
     if (is.null(quantiles)) {
       quantiles <- stats::ppoints(n)
     } else if (length(quantiles) != n) {
-      abort("length of quantiles must match length of data")
+      cli::cli_abort("The length of {.arg quantiles} must match the length of the data")
     }
 
     theoretical <- do.call(distribution, c(list(p = quote(quantiles)), dparams))

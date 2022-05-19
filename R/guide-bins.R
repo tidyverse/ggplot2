@@ -14,7 +14,10 @@
 #' @param axis.arrow A call to `arrow()` to specify arrows at the end of the
 #'   axis line, thus showing an open interval.
 #' @param show.limits Logical. Should the limits of the scale be shown with
-#'   labels and ticks.
+#'   labels and ticks. Default is `NULL` meaning it will take the value from the
+#'   scale. This argument is ignored if `labels` is given as a vector of
+#'   values. If one or both of the limits is also given in `breaks` it will be
+#'   shown irrespective of the value of `show.limits`.
 #'
 #' @section Use with discrete scale:
 #' This guide is intended to show binned data and work together with ggplot2's
@@ -137,6 +140,14 @@ guide_train.bins <- function(guide, scale, aesthetic = NULL) {
   if (length(breaks) == 0 || all(is.na(breaks))) {
     return()
   }
+  show_limits <- guide$show.limits %||% scale$show.limits %||% FALSE
+  if (show_limits && (is.character(scale$labels) || is.numeric(scale$labels))) {
+    cli::cli_warn(c(
+      "{.arg show.limits} is ignored when {.arg labels} are given as a character vector",
+      "i" = "Either add the limits to {.arg breaks} or provide a function for {.arg labels}"
+    ))
+    show_limits <- FALSE
+  }
   # in the key data frame, use either the aesthetic provided as
   # argument to this function or, as a fall back, the first in the vector
   # of possible aesthetics handled by the scale
@@ -144,8 +155,10 @@ guide_train.bins <- function(guide, scale, aesthetic = NULL) {
 
   if (is.numeric(breaks)) {
     limits <- scale$get_limits()
-    breaks <- breaks[!breaks %in% limits]
-    all_breaks <- c(limits[1], breaks, limits[2])
+    if (!is.numeric(scale$breaks)) {
+      breaks <- breaks[!breaks %in% limits]
+    }
+    all_breaks <- unique(c(limits[1], breaks, limits[2]))
     bin_at <- all_breaks[-1] - diff(all_breaks) / 2
   } else {
     # If the breaks are not numeric it is used with a discrete scale. We check
@@ -156,13 +169,35 @@ guide_train.bins <- function(guide, scale, aesthetic = NULL) {
     breaks <- strsplit(gsub("\\(|\\)|\\[|\\]", "", breaks), ",\\s?")
     breaks <- as.numeric(unlist(breaks))
     if (anyNA(breaks)) {
-      abort('Breaks not formatted correctly for a bin legend. Use `(<lower>, <upper>]` format to indicate bins')
+      cli::cli_abort(c(
+        "Breaks not formatted correctly for a bin legend.",
+        "i" = "Use {.code (<lower>, <upper>]} format to indicate bins"
+      ))
     }
     all_breaks <- breaks[c(1, seq_along(bin_at) * 2)]
+    limits <- all_breaks[c(1, length(all_breaks))]
+    breaks <- all_breaks[-c(1, length(all_breaks))]
   }
   key <- new_data_frame(setNames(list(c(scale$map(bin_at), NA)), aes_column_name))
-  key$.label <- scale$get_labels(all_breaks)
-  guide$show.limits <- guide$show.limits %||% scale$show_limits %||% FALSE
+  labels <- scale$get_labels(breaks)
+  show_limits <- rep(show_limits, 2)
+  if (is.character(scale$labels) || is.numeric(scale$labels)) {
+    limit_lab <- c(NA, NA)
+  } else {
+    limit_lab <- scale$get_labels(limits)
+  }
+  if (!breaks[1] %in% limits) {
+    labels <- c(limit_lab[1], labels)
+  } else {
+    show_limits[1] <- TRUE
+  }
+  if (!breaks[length(breaks)] %in% limits) {
+    labels <- c(labels, limit_lab[2])
+  } else {
+    show_limits[2] <- TRUE
+  }
+  key$.label <- labels
+  guide$show.limits <- show_limits
 
   if (guide$reverse) {
     key <- key[rev(seq_len(nrow(key))), ]
@@ -184,7 +219,7 @@ guide_merge.bins <- function(guide, new_guide) {
   guide$key <- merge(guide$key, new_guide$key, sort = FALSE)
   guide$override.aes <- c(guide$override.aes, new_guide$override.aes)
   if (any(duplicated(names(guide$override.aes)))) {
-    warn("Duplicated override.aes is ignored.")
+    cli::cli_warn("Duplicated {.arg override.aes} is ignored.")
   }
   guide$override.aes <- guide$override.aes[!duplicated(names(guide$override.aes))]
   guide
@@ -211,10 +246,10 @@ guide_geom.bins <- function(guide, layers, default_mapping) {
       aesthetics <- layer$computed_mapping
       modifiers <- aesthetics[is_scaled_aes(aesthetics) | is_staged_aes(aesthetics)]
 
-      data <- tryCatch(
+      data <- try_fetch(
         layer$geom$use_defaults(guide$key[matched], params, modifiers),
-        error = function(...) {
-          warn("Failed to apply `after_scale()` modifications to legend")
+        error = function(cnd) {
+          cli::cli_warn("Failed to apply {.fn after_scale} modifications to legend", parent = cnd)
           layer$geom$use_defaults(guide$key[matched], params, list())
         }
       )
@@ -242,21 +277,19 @@ guide_geom.bins <- function(guide, layers, default_mapping) {
 
 #' @export
 guide_gengrob.bins <- function(guide, theme) {
-  if (!guide$show.limits) {
-    guide$key$.label[c(1, nrow(guide$key))] <- NA
-  }
+  guide$key$.label[c(1, nrow(guide$key))[!guide$show.limits]] <- NA
 
   # default setting
   if (guide$direction == "horizontal") {
     label.position <- guide$label.position %||% "bottom"
     if (!label.position %in% c("top", "bottom")) {
-      warn("Ignoring invalid label.position")
+      cli::cli_warn("Ignoring invalid {.arg label.position}")
       label.position <- "bottom"
     }
   } else {
     label.position <- guide$label.position %||% "right"
     if (!label.position %in% c("left", "right")) {
-      warn("Ignoring invalid label.position")
+      cli::cli_warn("Ignoring invalid {.arg label.position}")
       label.position <- "right"
     }
   }
@@ -329,9 +362,7 @@ guide_gengrob.bins <- function(guide, theme) {
       )
       ggname("guide.label", g)
     })
-    if (!guide$show.limits) {
-      grob.labels[c(1, length(grob.labels))] <- list(zeroGrob())
-    }
+    grob.labels[c(1, length(grob.labels))[!guide$show.limits]] <- list(zeroGrob())
   }
 
   label_widths <- width_cm(grob.labels)
@@ -511,9 +542,8 @@ guide_gengrob.bins <- function(guide, theme) {
     )
   }
   grob.ticks <- rep_len(list(grob.ticks), length(grob.labels))
-  if (!guide$show.limits) {
-    grob.ticks[c(1, length(grob.ticks))] <- list(zeroGrob())
-  }
+  grob.ticks[c(1, length(grob.ticks))[!guide$show.limits]] <- list(zeroGrob())
+
   # Create the gtable for the legend
   gt <- gtable(widths = unit(widths, "cm"), heights = unit(heights, "cm"))
   gt <- gtable_add_grob(

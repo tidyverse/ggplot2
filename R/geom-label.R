@@ -17,7 +17,10 @@ geom_label <- function(mapping = NULL, data = NULL,
                        inherit.aes = TRUE) {
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
-      abort("You must specify either `position` or `nudge_x`/`nudge_y`.")
+      cli::cli_abort(c(
+        "both {.arg position} and {.arg nudge_x}/{.arg nudge_y} are supplied",
+        "i" = "Only use one approach to alter the position"
+      ))
     }
 
     position <- position_nudge(nudge_x, nudge_y)
@@ -110,7 +113,7 @@ labelGrob <- function(label, x = unit(0.5, "npc"), y = unit(0.5, "npc"),
                       text.gp = gpar(), rect.gp = gpar(fill = "white"), vp = NULL) {
 
   if (length(label) != 1) {
-    abort("label must be of length 1")
+    cli::cli_abort("{.arg label} must be of length 1")
   }
 
   if (!is.unit(x))

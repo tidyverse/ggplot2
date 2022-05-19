@@ -73,7 +73,7 @@ stat_summary_2d <- function(mapping = NULL, data = NULL,
 #' @rdname stat_summary_2d
 #' @usage NULL
 stat_summary2d <- function(...) {
-  message("Please use stat_summary_2d() instead")
+  cli::cli_inform("Please use {.fn stat_summary_2d} instead")
   stat_summary_2d(...)
 }
 

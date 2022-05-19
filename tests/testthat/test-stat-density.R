@@ -15,6 +15,9 @@ test_that("stat_density works in both directions", {
   x$flipped_aes <- NULL
   y$flipped_aes <- NULL
   expect_identical(x, flip_data(y, TRUE)[,names(x)])
+
+  p <- ggplot(mpg) + stat_density()
+  expect_snapshot_error(ggplot_build(p))
 })
 
 test_that("compute_density returns useful df and throws warning when <2 values", {

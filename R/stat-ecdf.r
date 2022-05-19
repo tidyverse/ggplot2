@@ -75,13 +75,13 @@ StatEcdf <- ggproto("StatEcdf", Stat,
 
   default_aes = aes(y = after_stat(y)),
 
-  setup_params = function(data, params) {
+  setup_params = function(self, data, params) {
     params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = FALSE, main_is_continuous = TRUE)
 
     has_x <- !(is.null(data$x) && is.null(params$x))
     has_y <- !(is.null(data$y) && is.null(params$y))
     if (!has_x && !has_y) {
-      abort("stat_ecdf() requires an x or y aesthetic.")
+      cli::cli_abort("{.fn {snake_class(self)}} requires an {.field x} or {.field y} aesthetic.")
     }
 
     params

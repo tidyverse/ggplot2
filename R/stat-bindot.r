@@ -9,17 +9,13 @@ StatBindot <- ggproto("StatBindot", Stat,
 
   setup_params = function(data, params) {
     if (is.null(params$binwidth)) {
-      message("Bin width defaults to 1/30 of the range of the data. Pick better value with `binwidth`.")
+      cli::cli_inform("Bin width defaults to 1/30 of the range of the data. Pick better value with {.arg binwidth}.")
     }
     params
   },
 
   compute_layer = function(self, data, params, layout) {
-    data <- remove_missing(data, params$na.rm,
-      params$binaxis,
-      snake_class(self),
-      finite = TRUE
-    )
+    data <- remove_missing(data, params$na.rm, name = snake_class(self))
     ggproto_parent(Stat, self)$compute_layer(data, params, layout)
   },
 
@@ -64,16 +60,9 @@ StatBindot <- ggproto("StatBindot", Stat,
                            method = "dotdensity", binpositions = "bygroup",
                            origin = NULL, width = 0.9, drop = FALSE,
                            right = TRUE) {
-
-    # This function taken from integer help page
-    is.wholenumber <- function(x, tol = .Machine$double.eps ^ 0.5) {
-      abs(x - round(x)) < tol
-    }
-
     # Check that weights are whole numbers (for dots, weights must be whole)
-    if (!is.null(data$weight) && any(!is.wholenumber(data$weight)) &&
-        any(data$weight < 0)) {
-      abort("Weights for stat_bindot must be nonnegative integers.")
+    if (!is.null(data$weight) && !(is_integerish(data$weight) && all(data$weight >= 0))) {
+      cli::cli_abort("Weights must be nonnegative integers.")
     }
 
     if (binaxis == "x") {

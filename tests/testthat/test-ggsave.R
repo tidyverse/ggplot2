@@ -84,6 +84,7 @@ test_that("scale multiplies height & width", {
 # plot_dev ---------------------------------------------------------------------
 
 test_that("unknown device triggers error", {
+  expect_snapshot_error(plot_dev(1))
   expect_error(plot_dev("xyz"), "Unknown graphics device")
   expect_error(plot_dev(NULL, "test.xyz"), "Unknown graphics device")
 })
@@ -109,12 +110,12 @@ test_that("DPI string values are parsed correctly", {
 })
 
 test_that("invalid single-string DPI values throw an error", {
-  expect_error(parse_dpi("abc"), "Unknown DPI string")
+  expect_snapshot_error(parse_dpi("abc"))
 })
 
 test_that("invalid non-single-string DPI values throw an error", {
-  expect_error(parse_dpi(factor(100)), "DPI must be a single number or string")
-  expect_error(parse_dpi(c("print", "screen")), "DPI must be a single number or string")
-  expect_error(parse_dpi(c(150, 300)), "DPI must be a single number or string")
-  expect_error(parse_dpi(list(150)), "DPI must be a single number or string")
+  expect_snapshot_error(parse_dpi(factor(100)))
+  expect_snapshot_error(parse_dpi(c("print", "screen")))
+  expect_snapshot_error(parse_dpi(c(150, 300)))
+  expect_snapshot_error(parse_dpi(list(150)))
 })
