@@ -139,12 +139,6 @@ bounds values with \code{NA}.
 \item \code{\link[scales:oob]{scales::squish()}} for squishing out of bounds values into range.
 \item \code{\link[scales:oob]{scales::squish_infinite()}} for squishing infinite values into range.
 }}
-    \item{\code{expand}}{For position scales, a vector of range expansion constants used to add some
-padding around the data to ensure that they are placed some distance
-away from the axes. Use the convenience function \code{\link[=expansion]{expansion()}}
-to generate the values for the \code{expand} argument. The defaults are to
-expand the scale by 5\% on each side for continuous variables, and by
-0.6 units on each side for discrete variables.}
     \item{\code{trans}}{For continuous scales, the name of a transformation object
 or the object itself. Built-in transformations include "asn", "atanh",
 "boxcox", "date", "exp", "hms", "identity", "log", "log10", "log1p", "log2",
@@ -156,14 +150,18 @@ and methods for generating breaks and labels. Transformation objects
 are defined in the scales package, and are called \verb{<name>_trans} (e.g.,
 \code{\link[scales:boxcox_trans]{scales::boxcox_trans()}}). You can create your own
 transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
+    \item{\code{expand}}{For position scales, a vector of range expansion constants used to add some
+padding around the data to ensure that they are placed some distance
+away from the axes. Use the convenience function \code{\link[=expansion]{expansion()}}
+to generate the values for the \code{expand} argument. The defaults are to
+expand the scale by 5\% on each side for continuous variables, and by
+0.6 units on each side for discrete variables.}
     \item{\code{position}}{For position scales, The position of the axis.
 \code{left} or \code{right} for y axes, \code{top} or \code{bottom} for x axes.}
     \item{\code{super}}{The super class to use for the constructed scale}
   }}
 
-\item{low}{Colours for low and high ends of the gradient.}
-
-\item{high}{Colours for low and high ends of the gradient.}
+\item{low, high}{Colours for low and high ends of the gradient.}
 
 \item{space}{colour space in which to calculate gradient. Must be "Lab" -
 other values are deprecated.}
@@ -183,14 +181,12 @@ same time, via \code{aesthetics = c("colour", "fill")}.}
 \item{midpoint}{The midpoint (in data value) of the diverging scale.
 Defaults to 0.}
 
-\item{colours}{Vector of colours to use for n-colour gradient.}
+\item{colours, colors}{Vector of colours to use for n-colour gradient.}
 
 \item{values}{if colours should not be evenly positioned along the gradient
 this vector gives the position (between 0 and 1) for each colour in the
 \code{colours} vector. See \code{\link[scales:rescale]{rescale()}} for a convenience function
 to map an arbitrary range to between 0 and 1.}
-
-\item{colors}{Vector of colours to use for n-colour gradient.}
 }
 \description{
 \verb{scale_*_steps} creates a two colour binned gradient (low-high),

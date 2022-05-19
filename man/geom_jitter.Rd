@@ -53,16 +53,7 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 \code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
-\item{width}{Amount of vertical and horizontal jitter. The jitter
-is added in both positive and negative directions, so the total spread
-is twice the value specified here.
-
-If omitted, defaults to 40\% of the resolution of the data: this means the
-jitter values will occupy 80\% of the implied bins. Categorical data
-is aligned on the integers, so a width or height of 0.5 will spread the
-data so it's not possible to see the distinction between the categories.}
-
-\item{height}{Amount of vertical and horizontal jitter. The jitter
+\item{width, height}{Amount of vertical and horizontal jitter. The jitter
 is added in both positive and negative directions, so the total spread
 is twice the value specified here.
 

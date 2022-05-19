@@ -28,3 +28,4 @@ visual_test
 ^LICENSE\.md$
 ^vignettes/articles$
 ^CRAN-SUBMISSION$
+^docs$
