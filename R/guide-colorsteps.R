@@ -121,7 +121,7 @@ guide_train.colorsteps <- function(guide, scale, aesthetic = NULL) {
       guide$key <- guide$key[nrow(guide$key):1, ]
       guide$bar <- guide$bar[nrow(guide$bar):1, ]
     }
-    guide$hash <- with(guide, digest::digest(list(title, key$.label, bar, name)))
+    guide$hash <- with(guide, hash(list(title, key$.label, bar, name)))
   } else {
     guide <- NextMethod()
     limits <- scale$get_limits()

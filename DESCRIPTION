@@ -31,7 +31,6 @@ Depends:
     R (>= 3.3)
 Imports: 
     cli,
-    digest,
     glue,
     grDevices,
     grid,

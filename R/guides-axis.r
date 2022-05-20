@@ -89,7 +89,7 @@ guide_train.axis <- function(guide, scale, aesthetic = NULL) {
   }
 
   guide$name <- paste0(guide$name, "_", aesthetic)
-  guide$hash <- digest::digest(list(guide$title, guide$key$.value, guide$key$.label, guide$name))
+  guide$hash <- hash(list(guide$title, guide$key$.value, guide$key$.label, guide$name))
   guide
 }
 
