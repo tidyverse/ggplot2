@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Use `rlang::hash()` instead of `digest::digest()`. This update may lead to 
+  changes in the automatic sorting of legends (@thomasp85, #4458)
+
 * Fix various issues with how `labels`, `breaks`, `limits`, and `show.limits`
   interact in the different binning guides (@thomasp85, #4831)
 
