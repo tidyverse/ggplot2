@@ -636,7 +636,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     }
 
     # Ensure limits don't exceed domain (#980)
-    domain <- self$trans$transform(self$trans$domain)
+    domain <- suppressWarnings(self$trans$transform(self$trans$domain))
     limits <- oob_squish(limits, domain)
 
     # Limits in transformed space need to be converted back to data space
