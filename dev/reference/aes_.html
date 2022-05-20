@@ -149,7 +149,8 @@ quoted calls, strings, one-sided formulas or constants.</p></dd>
 <p>All these functions are soft-deprecated. Please use tidy evaluation idioms
 instead. Regarding <code>aes_string()</code>, you can replace it with <code>.data</code> pronoun.
 For example, the following code can achieve the same mapping as
-<code>aes_string(x_var, y_var)</code>.</p><div class="sourceCode r"><pre><code><span class="va">x_var</span> <span class="op">&lt;-</span> <span class="st">"foo"</span>
+<code>aes_string(x_var, y_var)</code>.</p>
+<p></p><div class="sourceCode r"><pre><code><span class="va">x_var</span> <span class="op">&lt;-</span> <span class="st">"foo"</span>
 <span class="va">y_var</span> <span class="op">&lt;-</span> <span class="st">"bar"</span>
 <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">.data</span><span class="op">[[</span><span class="va">x_var</span><span class="op">]</span><span class="op">]</span>, <span class="va">.data</span><span class="op">[[</span><span class="va">y_var</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></code></pre><p></p></div>
 <p>For more details, please see <code><a href="../articles/ggplot2-in-packages.html">vignette("ggplot2-in-packages")</a></code>.</p>

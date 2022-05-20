@@ -235,14 +235,6 @@ bounds values with <code>NA</code>.</p></li>
 <li><p><code><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">scales::squish_infinite()</a></code> for squishing infinite values into range.</p></li>
 </ul></dd>
 
-    <dt><code>expand</code></dt>
-<dd><p>For position scales, a vector of range expansion constants used to add some
-padding around the data to ensure that they are placed some distance
-away from the axes. Use the convenience function <code><a href="expansion.html">expansion()</a></code>
-to generate the values for the <code>expand</code> argument. The defaults are to
-expand the scale by 5% on each side for continuous variables, and by
-0.6 units on each side for discrete variables.</p></dd>
-
     <dt><code>trans</code></dt>
 <dd><p>For continuous scales, the name of a transformation object
 or the object itself. Built-in transformations include "asn", "atanh",
@@ -255,6 +247,14 @@ are defined in the scales package, and are called <code>&lt;name&gt;_trans</code
 <code><a href="https://scales.r-lib.org/reference/boxcox_trans.html" class="external-link">scales::boxcox_trans()</a></code>). You can create your own
 transformation with <code><a href="https://scales.r-lib.org/reference/trans_new.html" class="external-link">scales::trans_new()</a></code>.</p></dd>
 
+    <dt><code>expand</code></dt>
+<dd><p>For position scales, a vector of range expansion constants used to add some
+padding around the data to ensure that they are placed some distance
+away from the axes. Use the convenience function <code><a href="expansion.html">expansion()</a></code>
+to generate the values for the <code>expand</code> argument. The defaults are to
+expand the scale by 5% on each side for continuous variables, and by
+0.6 units on each side for discrete variables.</p></dd>
+
     <dt><code>position</code></dt>
 <dd><p>For position scales, The position of the axis.
 <code>left</code> or <code>right</code> for y axes, <code>top</code> or <code>bottom</code> for x axes.</p></dd>
@@ -264,9 +264,7 @@ transformation with <code><a href="https://scales.r-lib.org/reference/trans_new.
 
   
 </dl></dd>
-<dt>low</dt>
-<dd><p>Colours for low and high ends of the gradient.</p></dd>
-<dt>high</dt>
+<dt>low, high</dt>
 <dd><p>Colours for low and high ends of the gradient.</p></dd>
 <dt>space</dt>
 <dd><p>colour space in which to calculate gradient. Must be "Lab" -
@@ -286,15 +284,13 @@ same time, via <code>aesthetics = c("colour", "fill")</code>.</p></dd>
 <dt>midpoint</dt>
 <dd><p>The midpoint (in data value) of the diverging scale.
 Defaults to 0.</p></dd>
-<dt>colours</dt>
+<dt>colours, colors</dt>
 <dd><p>Vector of colours to use for n-colour gradient.</p></dd>
 <dt>values</dt>
 <dd><p>if colours should not be evenly positioned along the gradient
 this vector gives the position (between 0 and 1) for each colour in the
 <code>colours</code> vector. See <code><a href="https://scales.r-lib.org/reference/rescale.html" class="external-link">rescale()</a></code> for a convenience function
 to map an arbitrary range to between 0 and 1.</p></dd>
-<dt>colors</dt>
-<dd><p>Vector of colours to use for n-colour gradient.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
