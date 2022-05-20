@@ -23,11 +23,17 @@
 #'    the plot data. The return value must be a `data.frame`, and
 #'    will be used as the layer data. A `function` can be created
 #'    from a `formula` (e.g. `~ head(.x, 10)`).
-#' @param geom The geometric object to use display the data
+#' @param geom The geometric object to use to display the data, either as a
+#'   `ggproto` `Geom` subclass or as a string naming the geom stripped of the
+#'   `geom_` prefix (e.g. `"point"` rather than `"geom_point"`)
 #' @param stat The statistical transformation to use on the data for this
-#'    layer, as a string.
-#' @param position Position adjustment, either as a string, or the result of
-#'  a call to a position adjustment function.
+#'    layer, either as a `ggproto` `Geom` subclass or as a string naming the
+#'    stat stripped of the `stat_` prefix (e.g. `"count"` rather than
+#'    `"stat_count"`)
+#' @param position Position adjustment, either as a string naming the adjustment
+#'   (e.g. `"jitter"` to use `position_jitter`), or the result of a call to a
+#'   position adjustment function. Use the latter if you need to change the
+#'   settings of the adjustment.
 #' @param show.legend logical. Should this layer be included in the legends?
 #'   `NA`, the default, includes if any aesthetics are mapped.
 #'   `FALSE` never includes, and `TRUE` always includes.
@@ -68,12 +74,13 @@ layer <- function(geom = NULL, stat = NULL,
                   position = NULL, params = list(),
                   inherit.aes = TRUE, check.aes = TRUE, check.param = TRUE,
                   show.legend = NA, key_glyph = NULL, layer_class = Layer) {
+  call_env <- caller_env()
   if (is.null(geom))
-    abort("Attempted to create layer with no geom.")
+    cli::cli_abort("Can't create layer without a geom.", call = call_env)
   if (is.null(stat))
-    abort("Attempted to create layer with no stat.")
+    cli::cli_abort("Can't create layer without a stat.", call = call_env)
   if (is.null(position))
-    abort("Attempted to create layer with no position.")
+    cli::cli_abort("Can't create layer without a position.", call = call_env)
 
   # Handle show_guide/show.legend
   if (!is.null(params$show_guide)) {
@@ -87,14 +94,14 @@ layer <- function(geom = NULL, stat = NULL,
   # less confusing error messages when layers are accidentally
   # piped into each other
   if (!is.null(mapping)) {
-    mapping <- validate_mapping(mapping)
+    mapping <- validate_mapping(mapping, call_env)
   }
 
   data <- fortify(data)
 
-  geom <- check_subclass(geom, "Geom", env = parent.frame())
-  stat <- check_subclass(stat, "Stat", env = parent.frame())
-  position <- check_subclass(position, "Position", env = parent.frame())
+  geom <- check_subclass(geom, "Geom", env = parent.frame(), call = call_env)
+  stat <- check_subclass(stat, "Stat", env = parent.frame(), call = call_env)
+  position <- check_subclass(position, "Position", env = parent.frame(), call = call_env)
 
   # Special case for na.rm parameter needed by all layers
   if (is.null(params$na.rm)) {
@@ -119,7 +126,7 @@ layer <- function(geom = NULL, stat = NULL,
   # Warn about extra params and aesthetics
   extra_param <- setdiff(names(params), all)
   if (check.param && length(extra_param) > 0) {
-    warn(glue("Ignoring unknown parameters: ", paste(extra_param, collapse = ", ")))
+    cli::cli_warn("Ignoring unknown parameters: {.arg {extra_param}}", call = call_env)
   }
 
   extra_aes <- setdiff(
@@ -127,7 +134,7 @@ layer <- function(geom = NULL, stat = NULL,
     c(geom$aesthetics(), stat$aesthetics())
   )
   if (check.aes && length(extra_aes) > 0) {
-    warn(glue("Ignoring unknown aesthetics: ", paste(extra_aes, collapse = ", ")))
+    cli::cli_warn("Ignoring unknown aesthetics: {.field {extra_aes}}", call = call_env)
   }
 
   # adjust the legend draw key if requested
@@ -147,17 +154,14 @@ layer <- function(geom = NULL, stat = NULL,
   )
 }
 
-validate_mapping <- function(mapping) {
+validate_mapping <- function(mapping, call = caller_env()) {
   if (!inherits(mapping, "uneval")) {
-    msg <- paste0("`mapping` must be created by `aes()`")
+    msg <- paste0("{.arg mapping} must be created by {.fn aes}")
     if (inherits(mapping, "ggplot")) {
-      msg <- paste0(
-        msg, "\n",
-        "Did you use %>% instead of +?"
-      )
+      msg <- c(msg, "i" = "Did you use {.code %>%} or {.code |>} instead of {.code +}?")
     }
 
-    abort(msg)
+    cli::cli_abort(msg, call = call)
   }
 
   # For backward compatibility with pre-tidy-eval layers
@@ -199,7 +203,7 @@ Layer <- ggproto("Layer", NULL,
     } else if (is.function(self$data)) {
       data <- self$data(plot_data)
       if (!is.data.frame(data)) {
-        abort("Data function must return a data.frame")
+        cli::cli_abort("{.fn layer_data} must return a {.cls data.frame}")
       }
       data
     } else {
@@ -250,12 +254,14 @@ Layer <- ggproto("Layer", NULL,
     # Check aesthetic values
     nondata_cols <- check_nondata_cols(evaled)
     if (length(nondata_cols) > 0) {
-      msg <- paste0(
-        "Aesthetics must be valid data columns. Problematic aesthetic(s): ",
-        paste0(vapply(nondata_cols, function(x) {paste0(x, " = ", as_label(aesthetics[[x]]))}, character(1)), collapse = ", "),
-        ". \nDid you mistype the name of a data column or forget to add after_stat()?"
-      )
-      abort(msg)
+      issues <- paste0("{.code ", nondata_cols, " = ", as_label(aesthetics[[nondata_cols]]), "}")
+      names(issues) <- rep("x", length(issues))
+      cli::cli_abort(c(
+        "Aesthetics are not valid data columns.",
+        "x" = "The following aesthetics are invalid:",
+        issues,
+        "i" = "Did you mistype the name of a data column or forget to add {.fn after_stat}?"
+      ))
     }
 
     n <- nrow(data)
@@ -319,12 +325,14 @@ Layer <- ggproto("Layer", NULL,
     # Check that all columns in aesthetic stats are valid data
     nondata_stat_cols <- check_nondata_cols(stat_data)
     if (length(nondata_stat_cols) > 0) {
-      msg <- paste0(
-        "Aesthetics must be valid computed stats. Problematic aesthetic(s): ",
-        paste0(vapply(nondata_stat_cols, function(x) {paste0(x, " = ", as_label(aesthetics[[x]]))}, character(1)), collapse = ", "),
-        ". \nDid you map your stat in the wrong layer?"
-      )
-      abort(msg)
+      issues <- paste0("{.code ", nondata_stat_cols, " = ", as_label(aesthetics[[nondata_stat_cols]]), "}")
+      names(issues) <- rep("x", length(issues))
+      cli::cli_abort(c(
+        "Aesthetics are not valid computed stats.",
+        "x" = "The following aesthetics are invalid:",
+        issues,
+        "i" = "Did you map your stat in the wrong layer?"
+      ))
     }
 
     names(stat_data) <- names(new)
@@ -389,11 +397,10 @@ Layer <- ggproto("Layer", NULL,
 
 is.layer <- function(x) inherits(x, "Layer")
 
-
-
 check_subclass <- function(x, subclass,
                            argname = to_lower_ascii(subclass),
-                           env = parent.frame()) {
+                           env = parent.frame(),
+                           call = caller_env()) {
   if (inherits(x, subclass)) {
     x
   } else if (is.character(x) && length(x) == 1) {
@@ -401,38 +408,37 @@ check_subclass <- function(x, subclass,
     obj <- find_global(name, env = env)
 
     if (is.null(obj) || !inherits(obj, subclass)) {
-      abort(glue("Can't find `{argname}` called '{x}'"))
+      cli::cli_abort("Can't find {argname} called {.val {x}}", call = call)
     } else {
       obj
     }
   } else {
-    abort(glue(
-      "`{argname}` must be either a string or a {subclass} object, not {obj_desc(x)}"
-    ))
+    msg <- paste0("{argname} must be either a string or a {.cls {subclass}} object, not ", obj_desc(x))
+    cli::cli_abort(msg, call = call)
   }
 }
 
 obj_desc <- function(x) {
   if (isS4(x)) {
-    paste0("an S4 object with class ", class(x)[[1]])
+    paste0("an S4 object with class {.cls ", class(x)[[1]], "}")
   } else if (is.object(x)) {
     if (is.data.frame(x)) {
-      "a data frame"
+      "a {.cls data.frame}"
     } else if (is.factor(x)) {
-      "a factor"
+      "a {.cls factor}"
     } else {
-      paste0("an S3 object with class ", paste(class(x), collapse = "/"))
+      paste0("an S3 object with class ", paste(paste0("{.cls ", class(x), "}"), collapse = "/"))
     }
   } else {
     switch(typeof(x),
-      "NULL" = "a NULL",
+      "NULL" = "a {.val NULL}",
       character = "a character vector",
       integer = "an integer vector",
       logical = "a logical vector",
       double = "a numeric vector",
       list = "a list",
-      closure = "a function",
-      paste0("a base object of type", typeof(x))
+      closure = "a {.cls function}",
+      paste0("a base object of type {.cls ", typeof(x), "}")
     )
   }
 }

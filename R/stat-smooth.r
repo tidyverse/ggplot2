@@ -116,7 +116,7 @@ StatSmooth <- ggproto("StatSmooth", Stat,
     }
 
     if (length(msg) > 0) {
-      message("`geom_smooth()` using ", paste0(msg, collapse = " and "))
+      cli::cli_inform("{.fn geom_smooth} using {msg}")
     }
 
     params

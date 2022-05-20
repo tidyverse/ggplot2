@@ -122,7 +122,9 @@ is.sec_axis <- function(x) {
 set_sec_axis <- function(sec.axis, scale) {
   if (!is.waive(sec.axis)) {
     if (is.formula(sec.axis)) sec.axis <- sec_axis(sec.axis)
-    if (!is.sec_axis(sec.axis)) abort("Secondary axes must be specified using 'sec_axis()'")
+    if (!is.sec_axis(sec.axis)) {
+      cli::cli_abort("Secondary axes must be specified using {.fn sec_axis}")
+    }
     scale$secondary.axis <- sec.axis
   }
   return(scale)
@@ -159,8 +161,12 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
 
   # Inherit settings from the primary axis/scale
   init = function(self, scale) {
-    if (self$empty()) return()
-    if (!is.function(self$trans)) abort("transformation for secondary axes must be a function")
+    if (self$empty()) {
+      return()
+    }
+    if (!is.function(self$trans)) {
+      cli::cli_abort("Transformation for secondary axes must be a function")
+    }
     if (is.derived(self$name) && !is.waive(scale$name)) self$name <- scale$name
     if (is.derived(self$breaks)) self$breaks <- scale$breaks
     if (is.waive(self$breaks)) self$breaks <- scale$trans$breaks
@@ -188,7 +194,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
 
     # Test for monotonicity
     if (length(unique(sign(diff(full_range)))) != 1)
-      abort("transformation for secondary axes must be monotonic")
+      cli::cli_abort("Transformation for secondary axes must be monotonic")
   },
 
   break_info = function(self, range, scale) {

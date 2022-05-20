@@ -35,15 +35,12 @@ fortify.grouped_df <- function(model, data, ...) {
 }
 #' @export
 fortify.default <- function(model, data, ...) {
-  msg <- paste0(
-    "`data` must be a data frame, or other object coercible by `fortify()`, ",
-    "not ", obj_desc(model), "."
-  )
+  msg <- "{.arg data} must be a {.cls data.frame}, or an object coercible by `fortify()`, not {obj_desc(model)}."
   if (inherits(model, "uneval")) {
-    msg <- paste0(
-      msg, "\n",
-      "Did you accidentally pass `aes()` to the `data` argument?"
+    msg <- c(
+      msg,
+      "i" = "Did you accidentally pass {.fn aes} to the {.arg data} argument?"
     )
   }
-  abort(msg)
+  cli::cli_abort(msg)
 }

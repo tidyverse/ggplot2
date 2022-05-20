@@ -240,7 +240,7 @@ justify_grobs <- function(grobs, x = NULL, y = NULL, hjust = 0.5, vjust = 0.5,
       return(lapply(grobs, justify_grobs, x, y, hjust, vjust, int_angle, debug))
     }
     else {
-      abort("need individual grob or list of grobs as argument.")
+      cli::cli_abort("{.arg grobs} must be an individual {.cls grob} or list of {.cls grob} objects.")
     }
   }
 

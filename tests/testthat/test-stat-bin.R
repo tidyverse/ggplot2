@@ -1,13 +1,11 @@
-test_that("stat_bin throws error when y aesthetic is present", {
+test_that("stat_bin throws error when wrong combination of aesthetic is present", {
   dat <- data_frame(x = c("a", "b", "c"), y = c(1, 5, 10))
 
-  expect_error(ggplot_build(ggplot(dat, aes(x, y)) + stat_bin()),
-    "can only have an x or y aesthetic.")
+  expect_snapshot_error(ggplot_build(ggplot(dat) + stat_bin()))
 
-  expect_error(
-    ggplot_build(ggplot(dat, aes(x)) + stat_bin(y = 5)),
-    "StatBin requires a continuous x"
-  )
+  expect_snapshot_error(ggplot_build(ggplot(dat, aes(x, y)) + stat_bin()))
+
+  expect_snapshot_error(ggplot_build(ggplot(dat, aes(x)) + stat_bin(y = 5)))
 })
 
 test_that("stat_bin works in both directions", {
@@ -119,6 +117,17 @@ comp_bin <- function(df, ...) {
   layer_data(plot)
 }
 
+test_that("inputs to binning are checked", {
+  dat <- data_frame(x = c(0, 10))
+  expect_snapshot_error(comp_bin(dat, breaks = letters))
+  expect_snapshot_error(bin_breaks_width(3))
+  expect_snapshot_error(comp_bin(dat, binwidth = letters))
+  expect_snapshot_error(comp_bin(dat, binwidth = -4))
+
+  expect_snapshot_error(bin_breaks_bins(3))
+  expect_snapshot_error(comp_bin(dat, bins = -4))
+})
+
 test_that("closed left or right", {
   dat <- data_frame(x = c(0, 10))
 
@@ -173,17 +182,10 @@ test_that("bin errors at high bin counts", {
 
 # stat_count --------------------------------------------------------------
 
-test_that("stat_count throws error when y aesthetic present", {
+test_that("stat_count throws error when both x and y aesthetic present", {
   dat <- data_frame(x = c("a", "b", "c"), y = c(1, 5, 10))
 
-  expect_error(
-    ggplot_build(ggplot(dat, aes(x, y)) + stat_count()),
-    "can only have an x or y aesthetic.")
-
-  expect_error(
-    ggplot_build(ggplot(dat, aes(x)) + stat_count(y = 5)),
-    "must not be used with a y aesthetic."
-  )
+  expect_snapshot_error(ggplot_build(ggplot(dat, aes(x, y)) + stat_count()))
 })
 
 test_that("stat_count preserves x order for continuous and discrete", {

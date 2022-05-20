@@ -21,7 +21,7 @@ Users who continue to engage with the project and its community will often find 
 
 ## Contributors
 
-Contributors interact with the project on GitHub by filing new issues, improving existing issues, or submitting pull requests. Anyone can become a contributor: there is no expectation of commitment to the project, no required set of skills, and no selection process. The only obligation is to follow the [code of conduct](CODE_OF_CONDUCT.md).
+Contributors interact with the project on GitHub by filing new issues, improving existing issues, or submitting pull requests. Anyone can become a contributor: there is no expectation of commitment to the project, no required set of skills, and no selection process. The only obligation is to follow the [code of conduct](.github/CODE_OF_CONDUCT.md).
 
 Specific advice for contributing to the project can be found in
 [CONTRIBUTING.md](https://github.com/tidyverse/ggplot2/blob/master/CONTRIBUTING.md).

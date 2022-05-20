@@ -120,6 +120,10 @@ test_that("facet_grid() switches to both 'x' and 'y'", {
   expect_equal(strip_layout(grid_xy), grid_xy_expected)
 })
 
+test_that("facet_grid() warns about bad switch input", {
+  expect_snapshot_error(facet_grid(am ~ cyl, switch = "z"))
+})
+
 test_that("strips can be removed", {
   dat <- data_frame(a = rep(LETTERS[1:10], 10), x = rnorm(100), y = rnorm(100))
   g <- ggplot(dat, aes(x = x, y = y)) +

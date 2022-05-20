@@ -147,7 +147,7 @@ new_mapped_discrete <- function(x) {
     return(x)
   }
   if (!is.numeric(x)) {
-    abort("`mapped_discrete` objects can only be created from numeric vectors")
+    cli::cli_abort("{.cls mapped_discrete} objects can only be created from numeric vectors")
   }
   class(x) <- c("mapped_discrete", "numeric")
   x

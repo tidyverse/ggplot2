@@ -293,7 +293,7 @@ scale_apply <- function(data, vars, method, scale_id, scales) {
   if (nrow(data) == 0) return()
 
   if (any(is.na(scale_id))) {
-    abort("`scale_id` must not be `NA`")
+    cli::cli_abort("{.arg scale_id} must not contain any {.val NA}")
   }
 
   scale_index <- split_with_index(seq_along(scale_id), scale_id, length(scales))
