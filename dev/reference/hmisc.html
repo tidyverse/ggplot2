@@ -131,6 +131,7 @@ for more details:</p><ul><li><p><code><a href="https://rdrr.io/pkg/Hmisc/man/sme
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"Hmisc"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">mean_cl_boot</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">mean_cl_normal</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
@@ -138,7 +139,7 @@ for more details:</p><ul><li><p><code><a href="https://rdrr.io/pkg/Hmisc/man/sme
 <span class="r-in"><span class="fu">median_hilow</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span class="r-in"><span class="op">}</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           y      ymin     ymax</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.1338222 -1.649625 1.981843</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.1139092 -1.671298 1.797468</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
