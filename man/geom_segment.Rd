@@ -176,6 +176,7 @@ ggplot(df2, aes(x = 1, y = y, xend = 2, yend = y, label = paste(lineend, linejoi
   xlim(0.5, 2)
 
 # You can also use geom_segment to recreate plot(type = "h") :
+set.seed(1)
 counts <- as.data.frame(table(x = rpois(100,5)))
 counts$x <- as.numeric(as.character(counts$x))
 with(counts, plot(x, Freq, type = "h", lwd = 10))

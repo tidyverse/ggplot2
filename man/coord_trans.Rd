@@ -101,6 +101,7 @@ ggplot(diamonds, aes(carat, price)) +
   geom_smooth(method = "lm")
 
 # Also works with discrete scales
+set.seed(1)
 df <- data.frame(a = abs(rnorm(26)),letters)
 plot <- ggplot(df,aes(a,letters)) + geom_point()
 

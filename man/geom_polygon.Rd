@@ -128,6 +128,7 @@ p
 # Which seems like a lot of work, but then it's easy to add on
 # other features in this coordinate system, e.g.:
 
+set.seed(1)
 stream <- data.frame(
   x = cumsum(runif(50, max = 0.1)),
   y = cumsum(runif(50,max = 0.1))

@@ -77,6 +77,7 @@
 #'
 #' # geom_point warns when missing values have been dropped from the data set
 #' # and not plotted, you can turn this off by setting na.rm = TRUE
+#' set.seed(1)
 #' mtcars2 <- transform(mtcars, mpg = ifelse(runif(32) < 0.2, NA, mpg))
 #' ggplot(mtcars2, aes(wt, mpg)) +
 #'   geom_point()
