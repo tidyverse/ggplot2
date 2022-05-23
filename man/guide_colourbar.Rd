@@ -99,7 +99,8 @@ object of \code{\link[=element_text]{element_text()}} is expected. By default, t
 specified by \code{legend.text} in \code{\link[=theme]{theme()}}.}
 
 \item{label.hjust}{A numeric specifying horizontal justification of the
-label text.}
+label text. The default for standard text is 0 (left-aligned) and 1
+(right-aligned) for expressions.}
 
 \item{label.vjust}{A numeric specifying vertical justification of the label
 text.}
@@ -178,7 +179,8 @@ As for how to specify the guide for each scale in more detail,
 see \code{\link[=guides]{guides()}}.
 }
 \examples{
-df <- reshape2::melt(outer(1:4, 1:4), varnames = c("X1", "X2"))
+df <- expand.grid(X1 = 1:10, X2 = 1:10)
+df$value <- df$X1 * df$X2
 
 p1 <- ggplot(df, aes(X1, X2)) + geom_tile(aes(fill = value))
 p2 <- p1 + geom_point(aes(size = value))
@@ -212,8 +214,11 @@ p1 + guides(fill = guide_colourbar(nbin = 3))
 p1 + guides(fill = guide_colourbar(nbin = 100))
 
 # make top- and bottom-most ticks invisible
-p1 + scale_fill_continuous(limits = c(0,20), breaks = c(0, 5, 10, 15, 20),
- guide = guide_colourbar(nbin=100, draw.ulim = FALSE, draw.llim = FALSE))
+p1 +
+  scale_fill_continuous(
+    limits = c(0,20), breaks = c(0, 5, 10, 15, 20),
+    guide = guide_colourbar(nbin = 100, draw.ulim = FALSE, draw.llim = FALSE)
+   )
 
 # guides can be controlled independently
 p2 +

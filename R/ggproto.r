@@ -1,7 +1,7 @@
 #' Create a new ggproto object
 #'
-#' Construct a new object with `ggproto`, test with `is.proto`,
-#' and access parent methods/fields with `ggproto_parent`.
+#' Construct a new object with `ggproto()`, test with `is.ggproto()`,
+#' and access parent methods/fields with `ggproto_parent()`.
 #'
 #' ggproto implements a protype based OO system which blurs the lines between
 #' classes and instances. It is inspired by the proto package, but it has some
@@ -57,9 +57,9 @@
 ggproto <- function(`_class` = NULL, `_inherit` = NULL, ...) {
   e <- new.env(parent = emptyenv())
 
-  members <- list(...)
+  members <- list2(...)
   if (length(members) != sum(nzchar(names(members)))) {
-    stop("All members of a ggproto object must be named.")
+    cli::cli_abort("All members of a {.cls ggproto} object must be named.")
   }
 
   # R <3.1.2 will error when list2env() is given an empty list, so we need to
@@ -79,7 +79,7 @@ ggproto <- function(`_class` = NULL, `_inherit` = NULL, ...) {
   super <- find_super()
   if (!is.null(super)) {
     if (!is.ggproto(super)) {
-      stop("`_inherit` must be a ggproto object.")
+      cli::cli_abort("{.arg _inherit} must be a {.cls ggproto} object.")
     }
     e$super <- find_super
     class(e) <- c(`_class`, class(super))
@@ -119,11 +119,10 @@ fetch_ggproto <- function(x, name) {
     } else if (is.function(super)) {
       res <- fetch_ggproto(super(), name)
     } else {
-      stop(
-        class(x)[[1]], " was built with an incompatible version of ggproto.\n",
-        "Please reinstall the package that provides this extension.",
-        call. = FALSE
-      )
+      cli::cli_abort(c(
+              "{class(x)[[1]]} was built with an incompatible version of ggproto.",
+        "i" = "Please reinstall the package that provides this extension.
+      "))
     }
   }
 

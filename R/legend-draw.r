@@ -49,7 +49,7 @@ draw_key_abline <- function(data, params, size) {
       col = alpha(data$colour %||% data$fill %||% "black", data$alpha),
       lwd = (data$linewidth %||% 0.5) * .pt,
       lty = data$linetype %||% 1,
-      lineend = "butt"
+      lineend = params$lineend %||% "butt"
     )
   )
 }
@@ -81,9 +81,7 @@ draw_key_polygon <- function(data, params, size) {
       lty = data$linetype %||% 1,
       lwd = lwd * .pt,
       linejoin = params$linejoin %||% "mitre",
-      # `lineend` is a workaround for Windows and intentionally kept unexposed
-      # as an argument. (c.f. https://github.com/tidyverse/ggplot2/issues/3037#issuecomment-457504667)
-      lineend = if (identical(params$linejoin, "round")) "round" else "square"
+      lineend = params$lineend %||% "butt"
   ))
 }
 
@@ -105,8 +103,11 @@ draw_key_boxplot <- function(data, params, size) {
       col = data$colour %||% "grey20",
       fill = alpha(data$fill %||% "white", data$alpha),
       lwd = (data$linewidth %||% 0.5) * .pt,
-      lty = data$linetype %||% 1
-    )
+      lty = data$linetype %||% 1,
+      lineend = params$lineend %||% "butt",
+      linejoin = params$linejoin %||% "mitre"
+    ),
+    vp = if (isTRUE(params$flipped_aes)) viewport(angle = -90)
   )
 }
 
@@ -120,8 +121,11 @@ draw_key_crossbar <- function(data, params, size) {
       col = data$colour %||% "grey20",
       fill = alpha(data$fill %||% "white", data$alpha),
       lwd = (data$linewidth %||% 0.5) * .pt,
-      lty = data$linetype %||% 1
-    )
+      lty = data$linetype %||% 1,
+      lineend = params$lineend %||% "butt",
+      linejoin = params$linejoin %||% "mitre"
+    ),
+    vp = if (isTRUE(params$flipped_aes)) viewport(angle = -90)
   )
 }
 
@@ -137,9 +141,11 @@ draw_key_path <- function(data, params, size) {
   segmentsGrob(0.1, 0.5, 0.9, 0.5,
     gp = gpar(
       col = alpha(data$colour %||% data$fill %||% "black", data$alpha),
+      fill = alpha(params$arrow.fill %||% data$colour
+                   %||% data$fill %||% "black", data$alpha),
       lwd = (data$linewidth %||% 0.5) * .pt,
       lty = data$linetype %||% 1,
-      lineend = "butt"
+      lineend = params$lineend %||% "butt"
     ),
     arrow = params$arrow
   )
@@ -153,7 +159,7 @@ draw_key_vpath <- function(data, params, size) {
       col = alpha(data$colour %||% data$fill %||% "black", data$alpha),
       lwd = (data$linewidth %||% 0.5) * .pt,
       lty = data$linetype %||% 1,
-      lineend = "butt"
+      lineend = params$lineend %||% "butt"
     ),
     arrow = params$arrow
   )
@@ -166,17 +172,29 @@ draw_key_dotplot <- function(data, params, size) {
     pch = 21,
     gp = gpar(
       col = alpha(data$colour %||% "black", data$alpha),
-      fill = alpha(data$fill %||% "black", data$alpha)
+      fill = alpha(data$fill %||% "black", data$alpha),
+      lty = data$linetype %||% 1,
+      lineend = params$lineend %||% "butt"
     )
   )
 }
 
 #' @export
 #' @rdname draw_key
+draw_key_linerange <- function(data, params, size) {
+  if (isTRUE(params$flipped_aes)) {
+    draw_key_path(data, params, size)
+  } else {
+    draw_key_vpath(data, params, size)
+  }
+}
+
+#' @export
+#' @rdname draw_key
 draw_key_pointrange <- function(data, params, size) {
   grobTree(
-    draw_key_vpath(data, params, size),
-    draw_key_point(transform(data, size = (data$size %||% 1.5) * 4), params, size)
+    draw_key_linerange(data, params, size),
+    draw_key_point(transform(data, params, size = (data$size %||% 1.5) * 4))
   )
 }
 
@@ -225,7 +243,7 @@ draw_key_vline <- function(data, params, size) {
       col = alpha(data$colour %||% data$fill %||% "black", data$alpha),
       lwd = (data$linewidth %||% 0.5) * .pt,
       lty = data$linetype %||% 1,
-      lineend = "butt"
+      lineend = params$lineend %||% "butt"
     )
   )
 }
@@ -246,7 +264,8 @@ draw_key_timeseries <- function(data, params, size) {
       col = alpha(data$colour %||% data$fill %||% "black", data$alpha),
       lwd = (data$linewidth %||% 0.5) * .pt,
       lty = data$linetype %||% 1,
-      lineend = "butt"
+      lineend = params$lineend %||% "butt",
+      linejoin = params$linejoin %||% "round"
     )
   )
 }

@@ -1,5 +1,3 @@
-context("Facetting (layout)")
-
 a <- data_frame(a = c(1, 1, 2, 2), b = c(1, 2, 1, 1))
 b <- data_frame(a = 3)
 c <- data_frame(b = 3)
@@ -82,6 +80,14 @@ test_that("wrap: as.table reverses rows", {
   expect_equal(two$ROW, c(1, 1))
 })
 
+test_that("wrap: as.table = FALSE gets axes", {
+  p <- ggplot(mpg, aes(displ, hwy)) +
+    geom_point() +
+    scale_y_continuous(position = "left") +
+    facet_wrap(vars(class), dir = "v", as.table = FALSE)
+  expect_doppelganger("Axes are positioned correctly in non-table layout", p)
+})
+
 test_that("grid: as.table reverses rows", {
   one <- panel_layout(facet_grid(a~., as.table = FALSE), list(a))
   expect_equal(as.character(one$a), c("2", "1"))
@@ -144,4 +150,40 @@ test_that("missing values get a panel", {
   expect_equal(nrow(grid_a), 4)
   expect_equal(nrow(grid_b), 4)
   expect_equal(nrow(grid_c), 4)
+})
+
+# Input checking ----------------------------------------------------------
+
+test_that("facet_wrap throws errors at bad layout specs", {
+  expect_snapshot_error(facet_wrap(~test, ncol = 1:4))
+  expect_snapshot_error(facet_wrap(~test, ncol = -1))
+  expect_snapshot_error(facet_wrap(~test, ncol = 1.5))
+
+  expect_snapshot_error(facet_wrap(~test, nrow = 1:4))
+  expect_snapshot_error(facet_wrap(~test, nrow = -1))
+  expect_snapshot_error(facet_wrap(~test, nrow = 1.5))
+
+  p <- ggplot(mtcars) +
+    geom_point(aes(mpg, disp)) +
+    facet_wrap(~gear, ncol = 1, nrow = 1)
+  expect_snapshot_error(ggplot_build(p))
+
+  p <- ggplot(mtcars) +
+    geom_point(aes(mpg, disp)) +
+    facet_wrap(~gear, scales = "free") +
+    coord_fixed()
+  expect_snapshot_error(ggplotGrob(p))
+})
+
+test_that("facet_grid throws errors at bad layout specs", {
+  p <- ggplot(mtcars) +
+    geom_point(aes(mpg, disp)) +
+    facet_grid(.~gear, scales = "free") +
+    coord_fixed()
+  expect_snapshot_error(ggplotGrob(p))
+  p <- ggplot(mtcars) +
+    geom_point(aes(mpg, disp)) +
+    facet_grid(.~gear, space = "free") +
+    theme(aspect.ratio = 1)
+  expect_snapshot_error(ggplotGrob(p))
 })

@@ -50,6 +50,7 @@
 #' # Which seems like a lot of work, but then it's easy to add on
 #' # other features in this coordinate system, e.g.:
 #'
+#' set.seed(1)
 #' stream <- data.frame(
 #'   x = cumsum(runif(50, max = 0.1)),
 #'   y = cumsum(runif(50,max = 0.1))
@@ -93,7 +94,7 @@ geom_polygon <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       na.rm = na.rm,
       rule = rule,
       ...
@@ -106,7 +107,8 @@ geom_polygon <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomPolygon <- ggproto("GeomPolygon", Geom,
-  draw_panel = function(data, panel_params, coord, rule = "evenodd") {
+  draw_panel = function(data, panel_params, coord, rule = "evenodd", lineend = "butt",
+                        linejoin = "round", linemitre = 10) {
     n <- nrow(data)
     if (n == 1) return(zeroGrob())
 
@@ -131,13 +133,16 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
             col = first_rows$colour,
             fill = alpha(first_rows$fill, first_rows$alpha),
             lwd = first_rows$linewidth * .pt,
-            lty = first_rows$linetype
+            lty = first_rows$linetype,
+            lineend = lineend,
+            linejoin = linejoin,
+            linemitre = linemitre
           )
         )
       )
     } else {
       if (utils::packageVersion('grid') < "3.6") {
-        stop("Polygons with holes requires R 3.6 or above", call. = FALSE)
+        cli::cli_abort("Polygons with holes requires R 3.6 or above")
       }
       # Sort by group to make sure that colors, fill, etc. come in same order
       munched <- munched[order(munched$group, munched$subgroup), ]
@@ -159,19 +164,21 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
             col = first_rows$colour,
             fill = alpha(first_rows$fill, first_rows$alpha),
             lwd = first_rows$linewidth * .pt,
-            lty = first_rows$linetype
+            lty = first_rows$linetype,
+            lineend = lineend,
+            linejoin = linejoin,
+            linemitre = linemitre
           )
         )
       )
     }
-
   },
 
   setup_data = function(data, params) {
     rename_size_aesthetic(data)
   },
 
-  default_aes = aes(colour = "NA", fill = "grey20", linewidth = 0.5, linetype = 1,
+  default_aes = aes(colour = NA, fill = "grey20", linewidth = 0.5, linetype = 1,
     alpha = NA, subgroup = NULL),
 
   handle_na = function(data, params) {
@@ -183,3 +190,15 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
   draw_key = draw_key_polygon
 )
 
+# Assigning pathGrob in .onLoad ensures that packages that subclass GeomPolygon
+# do not install with error `possible error in 'pathGrob(munched$x, munched$y, ':
+# unused argument (pathId = munched$group)` despite the fact that this is correct
+# usage
+pathGrob <- NULL
+on_load(
+  if (getRversion() < as.numeric_version("3.6")) {
+    pathGrob <- function(..., pathId.lengths) {
+      grid::pathGrob(...)
+    }
+  }
+)

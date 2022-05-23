@@ -1,5 +1,3 @@
-context("Themes")
-
 skip_on_cran() # This test suite is long-running (on cran) and is skipped
 
 test_that("modifying theme element properties with + operator works", {
@@ -252,26 +250,46 @@ test_that("theme validation happens at build stage", {
 
   # the error occurs when we try to render the plot
   p <- ggplot() + theme(text = 0)
-  expect_error(print(p), "must be an `element_text`")
+  expect_snapshot_error(print(p))
 
   # without validation, the error occurs when the element is accessed
   p <- ggplot() + theme(text = 0, validate = FALSE)
-  expect_error(print(p), "text should have class element_text")
+  expect_snapshot_error(print(p))
+})
+
+test_that("incorrect theme specifications throw meaningful errors", {
+  expect_snapshot_error(add_theme(theme_grey(), theme(line = element_rect())))
+  expect_snapshot_error(calc_element("line", theme(line = element_rect())))
+  register_theme_elements(element_tree = list(test = el_def("element_rect")))
+  expect_snapshot_error(calc_element("test", theme_gray() + theme(test = element_rect())))
 })
 
 test_that("element tree can be modified", {
   # we cannot add a new theme element without modifying the element tree
   p <- ggplot() + theme(blablabla = element_text(colour = "red"))
-  expect_error(print(p), "Theme element `blablabla` is not defined in the element hierarchy")
+  expect_snapshot_error(print(p))
+
+  register_theme_elements(
+    element_tree = list(blablabla = el_def("character", "text"))
+  )
+  expect_snapshot_error(ggplotGrob(p))
+
+  register_theme_elements(
+    element_tree = list(blablabla = el_def("unit", "text"))
+  )
+  expect_snapshot_error(ggplotGrob(p))
 
   # things work once we add a new element to the element tree
-  q <- p + theme(
+  register_theme_elements(
     element_tree = list(blablabla = el_def("element_text", "text"))
   )
-  expect_silent(print(q))
+  expect_silent(ggplotGrob(p))
+
+  p1 <- ggplot() + theme(blablabla = element_line())
+  expect_snapshot_error(ggplotGrob(p1))
 
   # inheritance and final calculation of novel element works
-  final_theme <- ggplot2:::plot_theme(q, theme_gray())
+  final_theme <- ggplot2:::plot_theme(p, theme_gray())
   e1 <- calc_element("blablabla", final_theme)
   e2 <- calc_element("text", final_theme)
   expect_identical(e1$family, e2$family)
@@ -279,6 +297,15 @@ test_that("element tree can be modified", {
   expect_identical(e1$size, e2$size)
   expect_identical(e1$lineheight, e2$lineheight)
   expect_identical(e1$colour, "red") # not inherited from element_text
+
+  # existing elements can be overwritten
+  ed <- el_def("element_rect", "rect")
+  register_theme_elements(
+    element_tree = list(axis.title = ed)
+  )
+  expect_identical(get_element_tree()$axis.title, ed)
+
+  reset_theme_settings(reset_current = FALSE) # revert back to defaults
 })
 
 test_that("all elements in complete themes have inherit.blank=TRUE", {
@@ -362,10 +389,9 @@ test_that("current theme can be updated with new elements", {
   expect_identical(calc_element("abcde", plot_theme(b1)), NULL)
 
   # element tree gets merged properly
-  theme_replace(
+  register_theme_elements(
     abcde = element_text(color = "blue", hjust = 0, vjust = 1),
-    element_tree = list(abcde = el_def("element_text", "text")),
-    complete = TRUE
+    element_tree = list(abcde = el_def("element_text", "text"))
   )
 
   e1 <- calc_element("abcde", plot_theme(b2))
@@ -375,6 +401,7 @@ test_that("current theme can be updated with new elements", {
   e2$vjust <- 1
   expect_identical(e1, e2)
 
+  reset_theme_settings()
   theme_set(old)
 })
 
@@ -415,6 +442,51 @@ test_that("titleGrob() and margins() work correctly", {
   expect_equal(width_cm(g10), width_cm(g1) + 2)
 })
 
+test_that("provided themes explicitly define all elements", {
+  elements <- names(.element_tree)
+
+  t <- theme_all_null()
+  expect_true(all(names(t) %in% elements))
+  expect_true(all(vapply(t, is.null, logical(1))))
+
+  t <- theme_grey()
+  expect_true(all(names(t) %in% elements))
+
+  t <- theme_bw()
+  expect_true(all(names(t) %in% elements))
+
+  t <- theme_linedraw()
+  expect_true(all(names(t) %in% elements))
+
+  t <- theme_light()
+  expect_true(all(names(t) %in% elements))
+
+  t <- theme_dark()
+  expect_true(all(names(t) %in% elements))
+
+  t <- theme_minimal()
+  expect_true(all(names(t) %in% elements))
+
+  t <- theme_classic()
+  expect_true(all(names(t) %in% elements))
+
+  t <- theme_void()
+  expect_true(all(names(t) %in% elements))
+
+  t <- theme_test()
+  expect_true(all(names(t) %in% elements))
+})
+
+test_that("Theme elements are checked during build", {
+  p <- ggplot(mtcars) + geom_point(aes(disp, mpg)) + theme(plot.title.position = "test")
+  expect_snapshot_error(ggplotGrob(p))
+
+  p <- ggplot(mtcars) + geom_point(aes(disp, mpg)) + theme(plot.caption.position = "test")
+  expect_snapshot_error(ggplotGrob(p))
+
+  p <- ggplot(mtcars) + geom_point(aes(disp, mpg)) + theme(plot.tag.position = "test")
+  expect_snapshot_error(ggplotGrob(p))
+})
 
 # Visual tests ------------------------------------------------------------
 
@@ -519,8 +591,8 @@ test_that("axes ticks can have independent lengths", {
       axis.ticks.length.x.bottom = unit(-.25, "cm"),
       axis.ticks.length.y.left = unit(.25, "cm"),
       axis.ticks.length.y.right = unit(.5, "cm"),
-      axis.text.x.bottom = element_text(margin = margin(t = .5, unit = "cm")),
-      axis.text.x.top = element_text(margin = margin(b = .75, unit = "cm"))
+      axis.text.x.bottom = element_text(margin = margin(t = .25, unit = "cm")),
+      axis.text.x.top = element_text(margin = margin(b = .25, unit = "cm"))
     )
   expect_doppelganger("ticks_length", plot)
 })
@@ -576,37 +648,19 @@ test_that("plot titles and caption can be aligned to entire plot", {
 
 })
 
-test_that("provided themes explicitly define all elements", {
-  elements <- names(ggplot_global$element_tree)
-
-  t <- theme_all_null()
-  expect_true(all(names(t) %in% elements))
-  expect_true(all(vapply(t, is.null, logical(1))))
-
-  t <- theme_grey()
-  expect_true(all(names(t) %in% elements))
-
-  t <- theme_bw()
-  expect_true(all(names(t) %in% elements))
-
-  t <- theme_linedraw()
-  expect_true(all(names(t) %in% elements))
-
-  t <- theme_light()
-  expect_true(all(names(t) %in% elements))
-
-  t <- theme_dark()
-  expect_true(all(names(t) %in% elements))
-
-  t <- theme_minimal()
-  expect_true(all(names(t) %in% elements))
-
-  t <- theme_classic()
-  expect_true(all(names(t) %in% elements))
-
-  t <- theme_void()
-  expect_true(all(names(t) %in% elements))
-
-  t <- theme_test()
-  expect_true(all(names(t) %in% elements))
+test_that("Strips can render custom elements", {
+  element_test <- function(...) {
+    el <- element_text(...)
+    class(el) <- c('element_test', 'element_text', 'element')
+    el
+  }
+  element_grob.element_test <- function(element, label = "", x = NULL, y = NULL, ...) {
+    rectGrob(width = unit(1, "cm"), height = unit(1, "cm"))
+  }
+  df <- data_frame(x = 1:3, y = 1:3, a = letters[1:3])
+  plot <- ggplot(df, aes(x, y)) +
+    geom_point() +
+    facet_wrap(~a) +
+    theme(strip.text = element_test())
+  expect_doppelganger("custom strip elements can render", plot)
 })

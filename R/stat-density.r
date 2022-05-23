@@ -9,18 +9,19 @@
 #' @param n number of equally spaced points at which the density is to be
 #'   estimated, should be a power of two, see [density()] for
 #'   details
-#' @param trim This parameter only matters if you are displaying multiple
-#'   densities in one plot. If `FALSE`, the default, each density is
-#'   computed on the full range of the data. If `TRUE`, each density
-#'   is computed over the range of that group: this typically means the
-#'   estimated x values will not line-up, and hence you won't be able to
-#'   stack density values.
+#' @param trim If `FALSE`, the default, each density is computed on the
+#'   full range of the data. If `TRUE`, each density is computed over the
+#'   range of that group: this typically means the estimated x values will
+#'   not line-up, and hence you won't be able to stack density values.
+#'   This parameter only matters if you are displaying multiple densities in
+#'   one plot or if you are manually adjusting the scale limits.
 #' @section Computed variables:
 #' \describe{
 #'   \item{density}{density estimate}
 #'   \item{count}{density * number of points - useful for stacked density
 #'      plots}
 #'   \item{scaled}{density estimate, scaled to maximum of 1}
+#'   \item{n}{number of points}
 #'   \item{ndensity}{alias for `scaled`, to mirror the syntax of
 #'    [`stat_bin()`]}
 #' }
@@ -47,7 +48,7 @@ stat_density <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       bw = bw,
       adjust = adjust,
       kernel = kernel,
@@ -67,15 +68,15 @@ stat_density <- function(mapping = NULL, data = NULL,
 StatDensity <- ggproto("StatDensity", Stat,
   required_aes = "x|y",
 
-  default_aes = aes(x = stat(density), y = stat(density), fill = NA, weight = NULL),
+  default_aes = aes(x = after_stat(density), y = after_stat(density), fill = NA, weight = NULL),
 
-  setup_params = function(data, params) {
+  setup_params = function(self, data, params) {
     params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = FALSE, main_is_continuous = TRUE)
 
     has_x <- !(is.null(data$x) && is.null(params$x))
     has_y <- !(is.null(data$y) && is.null(params$y))
     if (!has_x && !has_y) {
-      stop("stat_density() requires an x or y aesthetic.", call. = FALSE)
+      cli::cli_abort("{.fn {snake_class(self)}} requires an {.field x} or {.field y} aesthetic.")
     }
 
     params
@@ -111,7 +112,7 @@ compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
 
   # if less than 2 points return data frame of NAs and a warning
   if (nx < 2) {
-    warning("Groups with fewer than two data points have been dropped.", call. = FALSE)
+    cli::cli_warn("Groups with fewer than two data points have been dropped.")
     return(new_data_frame(list(
       x = NA_real_,
       density = NA_real_,

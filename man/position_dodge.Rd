@@ -5,11 +5,11 @@
 \alias{position_dodge2}
 \title{Dodge overlapping objects side-to-side}
 \usage{
-position_dodge(width = NULL, preserve = c("total", "single"))
+position_dodge(width = NULL, preserve = "total")
 
 position_dodge2(
   width = NULL,
-  preserve = c("total", "single"),
+  preserve = "total",
   padding = 0.1,
   reverse = FALSE
 )
@@ -19,8 +19,8 @@ position_dodge2(
 elements. This is useful when you want to align narrow geoms with wider
 geoms. See the examples.}
 
-\item{preserve}{Should dodging preserve the total width of all elements
-at a position, or the width of a single element?}
+\item{preserve}{Should dodging preserve the \code{"total"} width of all elements
+at a position, or the width of a \code{"single"} element?}
 
 \item{padding}{Padding between elements at the same position. Elements are
 shrunk by this proportion to allow space between them. Defaults to 0.1.}
@@ -30,10 +30,12 @@ This is useful if you're rotating both the plot and legend.}
 }
 \description{
 Dodging preserves the vertical position of an geom while adjusting the
-horizontal position. \code{position_dodge2} is a special case of \code{position_dodge}
-for arranging box plots, which can have variable widths. \code{position_dodge2}
-also works with bars and rectangles. But unlike \code{position_dodge},
-\code{position_dodge2} works without a grouping variable in a layer.
+horizontal position. \code{position_dodge()} requires the grouping variable to be
+be specified in the global or \verb{geom_*} layer. Unlike \code{position_dodge()},
+\code{position_dodge2()} works without a grouping variable in a layer.
+\code{position_dodge2()} works with bars and rectangles, but is
+particulary useful for arranging box plots, which
+can have variable widths.
 }
 \examples{
 ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
@@ -56,7 +58,11 @@ ggplot(diamonds, aes(price, colour = cut)) +
 
 # Dodging with various widths -------------------------------------
 # To dodge items with different widths, you need to be explicit
-df <- data.frame(x = c("a","a","b","b"), y = 2:5, g = rep(1:2, 2))
+df <- data.frame(
+  x = c("a","a","b","b"),
+  y = 2:5,
+  g = rep(1:2, 2)
+)
 p <- ggplot(df, aes(x, y, group = g)) +
   geom_col(position = "dodge", fill = "grey50", colour = "black")
 p
@@ -84,11 +90,11 @@ p + geom_errorbar(
 )
 
 # Box plots use position_dodge2 by default, and bars can use it too
-ggplot(data = iris, aes(Species, Sepal.Length)) +
-  geom_boxplot(aes(colour = Sepal.Width < 3.2))
+ggplot(mpg, aes(factor(year), displ)) +
+  geom_boxplot(aes(colour = hwy < 30))
 
-ggplot(data = iris, aes(Species, Sepal.Length)) +
-  geom_boxplot(aes(colour = Sepal.Width < 3.2), varwidth = TRUE)
+ggplot(mpg, aes(factor(year), displ)) +
+  geom_boxplot(aes(colour = hwy < 30), varwidth = TRUE)
 
 ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
   geom_bar(position = position_dodge2(preserve = "single"))

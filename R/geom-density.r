@@ -12,8 +12,9 @@
 #'   See [geom_violin()] for a compact density display.
 #' @inheritParams layer
 #' @inheritParams geom_bar
+#' @inheritParams geom_ribbon
 #' @param geom,stat Use to override the default connection between
-#'   `geom_density` and `stat_density`.
+#'   `geom_density()` and `stat_density()`.
 #' @export
 #' @examples
 #' ggplot(diamonds, aes(carat)) +
@@ -43,11 +44,11 @@
 #' ggplot(diamonds, aes(carat, fill = cut)) +
 #'   geom_density(position = "stack")
 #' # Preserves marginal densities
-#' ggplot(diamonds, aes(carat, stat(count), fill = cut)) +
+#' ggplot(diamonds, aes(carat, after_stat(count), fill = cut)) +
 #'   geom_density(position = "stack")
 #'
 #' # You can use position="fill" to produce a conditional density estimate
-#' ggplot(diamonds, aes(carat, stat(count), fill = cut)) +
+#' ggplot(diamonds, aes(carat, after_stat(count), fill = cut)) +
 #'   geom_density(position = "fill")
 #' }
 geom_density <- function(mapping = NULL, data = NULL,
@@ -56,7 +57,9 @@ geom_density <- function(mapping = NULL, data = NULL,
                          na.rm = FALSE,
                          orientation = NA,
                          show.legend = NA,
-                         inherit.aes = TRUE) {
+                         inherit.aes = TRUE,
+                         outline.type = "upper") {
+  outline.type <- arg_match0(outline.type, c("both", "upper", "lower", "full"))
 
   layer(
     data = data,
@@ -66,9 +69,10 @@ geom_density <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       na.rm = na.rm,
       orientation = orientation,
+      outline.type = outline.type,
       ...
     )
   )

@@ -19,7 +19,7 @@ NULL
 #' because you can name those directly. The flip side is that you have
 #' to use [quasiquotation][rlang::quasiquotation] to program with
 #' `aes()`. See a tidy evaluation tutorial such as the [dplyr
-#' programming vignette](http://dplyr.tidyverse.org/articles/programming.html)
+#' programming vignette](https://dplyr.tidyverse.org/articles/programming.html)
 #' to learn more about these techniques.
 #'
 #' @param x,y,... List of name-value pairs in the form `aesthetic = variable`
@@ -65,12 +65,9 @@ NULL
 #' scatter_by(mtcars, disp, drat)
 #'
 #' # If your wrapper has a more specific interface with named arguments,
-#' # you need "enquote and unquote":
+#' # you need the "embrace operator":
 #' scatter_by <- function(data, x, y) {
-#'   x <- enquo(x)
-#'   y <- enquo(y)
-#'
-#'   ggplot(data) + geom_point(aes(!!x, !!y))
+#'   ggplot(data) + geom_point(aes({{ x }}, {{ y }}))
 #' }
 #' scatter_by(mtcars, disp, drat)
 #'
@@ -79,8 +76,21 @@ NULL
 #' cut3 <- function(x) cut_number(x, 3)
 #' scatter_by(mtcars, cut3(disp), drat)
 aes <- function(x, y, ...) {
-  exprs <- enquos(x = x, y = y, ..., .ignore_empty = "all")
-  aes <- new_aes(exprs, env = parent.frame())
+  xs <- arg_enquos("x")
+  ys <- arg_enquos("y")
+  dots <- enquos(...)
+
+  args <- c(xs, ys, dots)
+  args <- Filter(Negate(quo_is_missing), args)
+
+  # Pass arguments to helper dummy to throw an error when duplicate
+  # `x` and `y` arguments are passed through dots
+  local({
+    aes <- function(x, y, ...) NULL
+    inject(aes(!!!args))
+  })
+
+  aes <- new_aes(args, env = parent.frame())
   rename_aes(aes)
 }
 
@@ -102,7 +112,9 @@ new_aesthetic <- function(x, env = globalenv()) {
   x
 }
 new_aes <- function(x, env = globalenv()) {
-  stopifnot(is.list(x))
+  if (!is.list(x)) {
+    cli::cli_abort("{.arg x} must be a list")
+  }
   x <- lapply(x, new_aesthetic, env = env)
   structure(x, class = "uneval")
 }
@@ -167,11 +179,30 @@ rename_aes <- function(x) {
   names(x) <- standardise_aes_names(names(x))
   duplicated_names <- names(x)[duplicated(names(x))]
   if (length(duplicated_names) > 0L) {
-    duplicated_message <- paste0(unique(duplicated_names), collapse = ", ")
-    warning(
-      "Duplicated aesthetics after name standardisation: ", duplicated_message, call. = FALSE
-    )
+    cli::cli_warn("Duplicated aesthetics after name standardisation: {.field {unique(duplicated_names)}}")
   }
+  x
+}
+substitute_aes <- function(x) {
+  x <- lapply(x, function(aesthetic) {
+    as_quosure(standardise_aes_symbols(quo_get_expr(aesthetic)), env = environment(aesthetic))
+  })
+  class(x) <- "uneval"
+  x
+}
+# x is a quoted expression from inside aes()
+standardise_aes_symbols <- function(x) {
+  if (is.symbol(x)) {
+    name <- standardise_aes_names(as_string(x))
+    return(sym(name))
+  }
+  if (!is.call(x)) {
+    return(x)
+  }
+
+  # Don't walk through function heads
+  x[-1] <- lapply(x[-1], standardise_aes_symbols)
+
   x
 }
 
@@ -190,52 +221,55 @@ is_position_aes <- function(vars) {
 
 #' Define aesthetic mappings programmatically
 #'
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
 #' Aesthetic mappings describe how variables in the data are mapped to visual
 #' properties (aesthetics) of geoms. [aes()] uses non-standard
-#' evaluation to capture the variable names. `aes_` and `aes_string`
+#' evaluation to capture the variable names. `aes_()` and `aes_string()`
 #' require you to explicitly quote the inputs either with `""` for
 #' `aes_string()`, or with `quote` or `~` for `aes_()`.
-#' (`aes_q` is an alias to `aes_`). This makes `aes_` and
-#' `aes_string` easy to program with.
+#' (`aes_q()` is an alias to `aes_()`). This makes `aes_()` and
+#' `aes_string()` easy to program with.
 #'
-#' `aes_string` and `aes_` are particularly useful when writing
+#' `aes_string()` and `aes_()` are particularly useful when writing
 #' functions that create plots because you can use strings or quoted
 #' names/calls to define the aesthetic mappings, rather than having to use
 #' [substitute()] to generate a call to `aes()`.
 #'
 #' I recommend using `aes_()`, because creating the equivalents of
-#' `aes(colour = "my colour")` or \code{aes{x = `X$1`}}
+#' `aes(colour = "my colour")` or \code{aes(x = `X$1`)}
 #' with `aes_string()` is quite clunky.
 #'
 #'
 #' @section Life cycle:
 #'
-#' All these functions are soft-deprecated. Please use tidy evaluation
-#' idioms instead (see the quasiquotation section in
-#' [aes()] documentation).
+#' All these functions are soft-deprecated. Please use tidy evaluation idioms
+#' instead. Regarding `aes_string()`, you can replace it with `.data` pronoun.
+#' For example, the following code can achieve the same mapping as
+#' `aes_string(x_var, y_var)`.
+#'
+#' ``` r
+#' x_var <- "foo"
+#' y_var <- "bar"
+#' aes(.data[[x_var]], .data[[y_var]])
+#' ````
+#'
+#' For more details, please see `vignette("ggplot2-in-packages")`.
 #'
 #' @param x,y,... List of name value pairs. Elements must be either
 #'   quoted calls, strings, one-sided formulas or constants.
 #' @seealso [aes()]
+#'
+#' @keywords internal
+#'
 #' @export
-#' @examples
-#' # Three ways of generating the same aesthetics
-#' aes(mpg, wt, col = cyl)
-#' aes_(quote(mpg), quote(wt), col = quote(cyl))
-#' aes_(~mpg, ~wt, col = ~cyl)
-#' aes_string("mpg", "wt", col = "cyl")
-#'
-#' # You can't easily mimic these calls with aes_string
-#' aes(`$100`, colour = "smooth")
-#' aes_(~ `$100`, colour = "smooth")
-#' # Ok, you can, but it requires a _lot_ of quotes
-#' aes_string("`$100`", colour = '"smooth"')
-#'
-#' # Convert strings to names with as.name
-#' var <- "cyl"
-#' aes(col = x)
-#' aes_(col = as.name(var))
 aes_ <- function(x, y, ...) {
+  lifecycle::deprecate_soft(
+    "3.0.0",
+    "aes_()",
+    details = "Please use tidy evaluation ideoms with `aes()`"
+  )
   mapping <- list(...)
   if (!missing(x)) mapping["x"] <- list(x)
   if (!missing(y)) mapping["y"] <- list(y)
@@ -248,8 +282,7 @@ aes_ <- function(x, y, ...) {
     } else if (is.call(x) || is.name(x) || is.atomic(x)) {
       new_aesthetic(x, caller_env)
     } else {
-      stop("Aesthetic must be a one-sided formula, call, name, or constant.",
-        call. = FALSE)
+      cli::cli_abort("Aesthetic must be a one-sided formula, call, name, or constant.")
     }
   }
   mapping <- lapply(mapping, as_quosure_aes)
@@ -259,6 +292,11 @@ aes_ <- function(x, y, ...) {
 #' @rdname aes_
 #' @export
 aes_string <- function(x, y, ...) {
+  lifecycle::deprecate_soft(
+    "3.0.0",
+    "aes_string()",
+    details = "Please use tidy evaluation ideoms with `aes()`"
+  )
   mapping <- list(...)
   if (!missing(x)) mapping["x"] <- list(x)
   if (!missing(y)) mapping["y"] <- list(y)
@@ -300,16 +338,19 @@ aes_all <- function(vars) {
 
 #' Automatic aesthetic mapping
 #'
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
 #' @param data data.frame or names of variables
 #' @param ... aesthetics that need to be explicitly mapped.
 #' @keywords internal
 #' @export
 aes_auto <- function(data = NULL, ...) {
-  warning("aes_auto() is deprecated", call. = FALSE)
+  lifecycle::deprecate_warn("2.0.0", "aes_auto()")
 
   # detect names of data
   if (is.null(data)) {
-    stop("aes_auto requires data.frame or names of data.frame.")
+    cli::cli_abort("{.fn aes_auto} requires a {.cls data.frame} or names of data.frame.")
   } else if (is.data.frame(data)) {
     vars <- names(data)
   } else {
@@ -358,11 +399,10 @@ warn_for_aes_extract_usage_expr <- function(x, data, env = emptyenv()) {
   if (is_call(x, "[[") || is_call(x, "$")) {
     if (extract_target_is_likely_data(x, data, env)) {
       good_usage <- alternative_aes_extract_usage(x)
-      warning(
-        "Use of `", format(x), "` is discouraged. ",
-        "Use `", good_usage,  "` instead.",
-        call. = FALSE
-      )
+      cli::cli_warn(c(
+        "Use of {.code {format(x)}} is discouraged.",
+        "i" = "Use {.code {good_usage}} instead."
+      ))
     }
   } else if (is.call(x)) {
     lapply(x, warn_for_aes_extract_usage_expr, data, env)
@@ -376,7 +416,7 @@ alternative_aes_extract_usage <- function(x) {
   } else if (is_call(x, "$")) {
     as.character(x[[3]])
   } else {
-    stop("Don't know how to get alternative usage for `", format(x), "`", call. = FALSE)
+    cli::cli_abort("Don't know how to get alternative usage for {.var {x}}")
   }
 }
 
@@ -389,4 +429,27 @@ extract_target_is_likely_data <- function(x, data, env) {
     data_eval <- eval_tidy(x[[2]], data, env)
     identical(data_eval, data)
   }, error = function(err) FALSE)
+}
+
+# Takes a quosure and returns a named list of quosures, expanding
+# `!!!` expressions as needed
+arg_enquos <- function(name, frame = caller_env()) {
+  # First start with `enquo0()` which does not process injection
+  # operators
+  quo <- inject(enquo0(!!sym(name)), frame)
+  expr <- quo_get_expr(quo)
+
+  if (!is_missing(expr) && is_triple_bang(expr)) {
+    # Evaluate `!!!` operand and create a list of quosures
+    env <- quo_get_env(quo)
+    xs <- eval_bare(expr[[2]][[2]][[2]], env)
+    xs <- lapply(xs, as_quosure, env = env)
+  } else {
+    # Redefuse `x` to process injection operators, then store in a
+    # length-1 list of quosures
+    quo <- inject(enquo(!!sym(name)), frame)
+    xs <- set_names(list(quo), name)
+  }
+
+  new_quosures(xs)
 }

@@ -47,8 +47,10 @@ the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
-\item{position}{Position adjustment, either as a string, or the result of
-a call to a position adjustment function.}
+\item{position}{Position adjustment, either as a string naming the adjustment
+(e.g. \code{"jitter"} to use \code{position_jitter}), or the result of a call to a
+position adjustment function. Use the latter if you need to change the
+settings of the adjustment.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
@@ -155,8 +157,11 @@ if method is "histodot"}
 }
 
 \examples{
-ggplot(mtcars, aes(x = mpg)) + geom_dotplot()
-ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5)
+ggplot(mtcars, aes(x = mpg)) +
+  geom_dotplot()
+
+ggplot(mtcars, aes(x = mpg)) +
+  geom_dotplot(binwidth = 1.5)
 
 # Use fixed-width bins
 ggplot(mtcars, aes(x = mpg)) +
@@ -165,6 +170,7 @@ ggplot(mtcars, aes(x = mpg)) +
 # Some other stacking methods
 ggplot(mtcars, aes(x = mpg)) +
   geom_dotplot(binwidth = 1.5, stackdir = "center")
+
 ggplot(mtcars, aes(x = mpg)) +
   geom_dotplot(binwidth = 1.5, stackdir = "centerwhole")
 
@@ -173,13 +179,16 @@ ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5) +
   scale_y_continuous(NULL, breaks = NULL)
 
 # Overlap dots vertically
-ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5, stackratio = .7)
+ggplot(mtcars, aes(x = mpg)) +
+  geom_dotplot(binwidth = 1.5, stackratio = .7)
 
 # Expand dot diameter
-ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5, dotsize = 1.25)
+ggplot(mtcars, aes(x = mpg)) +
+  geom_dotplot(binwidth = 1.5, dotsize = 1.25)
 
 # Change dot fill colour, stroke width
-ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5, fill = "white", stroke = 2)
+ggplot(mtcars, aes(x = mpg)) +
+  geom_dotplot(binwidth = 1.5, fill = "white", stroke = 2)
 
 \donttest{
 # Examples with stacking along y axis instead of x

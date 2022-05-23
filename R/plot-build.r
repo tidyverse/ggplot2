@@ -32,7 +32,7 @@ ggplot_build.ggplot <- function(plot) {
   }
 
   layers <- plot$layers
-  layer_data <- lapply(layers, function(y) y$layer_data(plot$data))
+  data <- rep(list(NULL), length(layers))
 
   scales <- plot$scales
   # Apply function to layer and matching data
@@ -46,7 +46,7 @@ ggplot_build.ggplot <- function(plot) {
 
   # Allow all layers to make any final adjustments based
   # on raw input data and plot info
-  data <- layer_data
+  data <- by_layer(function(l, d) l$layer_data(plot$data))
   data <- by_layer(function(l, d) l$setup_layer(d, plot))
 
   # Initialise panels, add extra data for margins & missing faceting
@@ -104,6 +104,9 @@ ggplot_build.ggplot <- function(plot) {
 
   # Let Layout modify data before rendering
   data <- layout$finish_data(data)
+
+  # Consolidate alt-text
+  plot$labels$alt <- get_alt_text(plot)
 
   structure(
     list(data = data, layout = layout, plot = plot),
@@ -199,13 +202,28 @@ ggplot_gtable.ggplot_built <- function(data) {
       ypos <- theme$legend.position[2]
 
       # x and y are specified via theme$legend.position (i.e., coords)
-      legend_box <- editGrob(legend_box,
-        vp = viewport(x = xpos, y = ypos, just = c(xjust, yjust),
-          height = legend_height, width = legend_width))
+      legend_box <- editGrob(
+        legend_box,
+        vp = viewport(
+          x = xpos,
+          y = ypos,
+          just = c(xjust, yjust),
+          height = legend_height,
+          width = legend_width
+        )
+      )
     } else {
       # x and y are adjusted using justification of legend box (i.e., theme$legend.justification)
-      legend_box <- editGrob(legend_box,
-        vp = viewport(x = xjust, y = yjust, just = c(xjust, yjust)))
+      legend_box <- editGrob(
+        legend_box,
+        vp = viewport(
+          x = xjust,
+          y = yjust,
+          just = c(xjust, yjust),
+          height = legend_height,
+          width = legend_width
+        )
+      )
       legend_box <- gtable_add_rows(legend_box, unit(yjust, 'null'))
       legend_box <- gtable_add_rows(legend_box, unit(1 - yjust, 'null'), 0)
       legend_box <- gtable_add_cols(legend_box, unit(xjust, 'null'), 0)
@@ -268,11 +286,11 @@ ggplot_gtable.ggplot_built <- function(data) {
   #   "plot" means align to the entire plot (except margins and tag)
   title_pos <- theme$plot.title.position %||% "panel"
   if (!(title_pos %in% c("panel", "plot"))) {
-    stop('plot.title.position should be either "panel" or "plot".', call. = FALSE)
+    cli::cli_abort('{.var plot.title.position} should be either {.val "panel"} or {.val "plot"}.')
   }
   caption_pos <- theme$plot.caption.position %||% "panel"
   if (!(caption_pos %in% c("panel", "plot"))) {
-    stop('plot.caption.position should be either "panel" or "plot".', call. = FALSE)
+    cli::cli_abort('{.var plot.caption.position} should be either {.val "panel"} or {.val "plot"}.')
   }
 
   pans <- plot_table$layout[grepl("^panel", plot_table$layout$name), , drop = FALSE]
@@ -314,8 +332,7 @@ ggplot_gtable.ggplot_built <- function(data) {
                  "bottom", "bottomright")
 
   if (!(tag_pos == "manual" || tag_pos %in% valid_pos)) {
-    stop("plot.tag.position should be a coordinate or one of ",
-         paste(valid_pos, collapse = ', '), call. = FALSE)
+    cli::cli_abort("{.arg plot.tag.position} should be a coordinate or one of {.or {.val {valid_pos}}}")
   }
 
   if (tag_pos == "manual") {
@@ -387,6 +404,10 @@ ggplot_gtable.ggplot_built <- function(data) {
     plot_table$layout <- plot_table$layout[c(nrow(plot_table$layout), 1:(nrow(plot_table$layout) - 1)),]
     plot_table$grobs <- plot_table$grobs[c(nrow(plot_table$layout), 1:(nrow(plot_table$layout) - 1))]
   }
+
+  # add alt-text as attribute
+  attr(plot_table, "alt-label") <- plot$labels$alt
+
   plot_table
 }
 

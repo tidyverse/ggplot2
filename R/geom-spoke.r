@@ -10,6 +10,8 @@
 #' @export
 #' @examples
 #' df <- expand.grid(x = 1:10, y=1:10)
+#'
+#' set.seed(1)
 #' df$angle <- runif(100, 0, 2*pi)
 #' df$speed <- runif(100, 0, sqrt(0.1 * df$x))
 #'
@@ -34,7 +36,7 @@ geom_spoke <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       na.rm = na.rm,
       ...
     )
@@ -45,7 +47,7 @@ geom_spoke <- function(mapping = NULL, data = NULL,
 #' @rdname geom_spoke
 #' @usage NULL
 stat_spoke <- function(...) {
-  message("stat_spoke is deprecated, please use geom_spoke")
+  lifecycle::deprecate_warn("2.0.0", "stat_spoke()", "geom_spoke()")
   geom_spoke(...)
 }
 

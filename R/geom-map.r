@@ -45,16 +45,23 @@ NULL
 #'   expand_limits(positions) + ylim(0, 3)
 #'
 #' # Better example
-#' crimes <- data.frame(state = tolower(rownames(USArrests)), USArrests)
-#' crimesm <- reshape2::melt(crimes, id = 1)
 #' if (require(maps)) {
+#'
+#'   crimes <- data.frame(state = tolower(rownames(USArrests)), USArrests)
+#'
+#'   # Equivalent to crimes %>% tidyr::pivot_longer(Murder:Rape)
+#'   vars <- lapply(names(crimes)[-1], function(j) {
+#'     data.frame(state = crimes$state, variable = j, value = crimes[[j]])
+#'   })
+#'   crimes_long <- do.call("rbind", vars)
+#'
 #'   states_map <- map_data("state")
 #'   ggplot(crimes, aes(map_id = state)) +
 #'     geom_map(aes(fill = Murder), map = states_map) +
 #'     expand_limits(x = states_map$long, y = states_map$lat)
 #'
 #'   last_plot() + coord_map()
-#'   ggplot(crimesm, aes(map_id = state)) +
+#'   ggplot(crimes_long, aes(map_id = state)) +
 #'     geom_map(aes(fill = value), map = states_map) +
 #'     expand_limits(x = states_map$long, y = states_map$lat) +
 #'     facet_wrap( ~ variable)
@@ -67,11 +74,15 @@ geom_map <- function(mapping = NULL, data = NULL,
                      show.legend = NA,
                      inherit.aes = TRUE) {
   # Get map input into correct form
-  stopifnot(is.data.frame(map))
+  if (!is.data.frame(map)) {
+    cli::cli_abort("{.arg map} must be a {.cls data.frame}")
+  }
   if (!is.null(map$lat)) map$y <- map$lat
   if (!is.null(map$long)) map$x <- map$long
   if (!is.null(map$region)) map$id <- map$region
-  stopifnot(all(c("x", "y", "id") %in% names(map)))
+  if (!all(c("x", "y", "id") %in% names(map))) {
+    cli::cli_abort("{.arg map} must have the columns {.col x}, {.col y}, and {.col id}")
+  }
 
   layer(
     data = data,
@@ -81,7 +92,7 @@ geom_map <- function(mapping = NULL, data = NULL,
     position = PositionIdentity,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       map = map,
       na.rm = na.rm,
       ...
@@ -94,7 +105,8 @@ geom_map <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomMap <- ggproto("GeomMap", GeomPolygon,
-  draw_panel = function(data, panel_params, coord, map) {
+  draw_panel = function(data, panel_params, coord, lineend = "butt",
+                        linejoin = "round", linemitre = 10, map) {
     # Only use matching data and map ids
     common <- intersect(data$map_id, map$id)
     data <- data[data$map_id %in% common, , drop = FALSE]
@@ -112,8 +124,12 @@ GeomMap <- ggproto("GeomMap", GeomPolygon,
 
     polygonGrob(coords$x, coords$y, default.units = "native", id = grob_id,
       gp = gpar(
-        col = data$colour, fill = alpha(data$fill, data$alpha),
-        lwd = data$linewidth * .pt
+        col = data$colour,
+        fill = alpha(data$fill, data$alpha),
+        lwd = data$linewidth * .pt,
+        lineend = lineend,
+        linejoin = linejoin,
+        linemitre = linemitre
       )
     )
   },

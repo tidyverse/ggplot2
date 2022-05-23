@@ -1,11 +1,11 @@
 #' Scales for shapes, aka glyphs
 #'
-#' `scale_shape` maps discrete variables to six easily discernible shapes.
+#' `scale_shape()` maps discrete variables to six easily discernible shapes.
 #' If you have more than six levels, you will get a warning message, and the
-#' seventh and subsequence levels will not appear on the plot. Use
+#' seventh and subsequent levels will not appear on the plot. Use
 #' [scale_shape_manual()] to supply your own values. You can not map
 #' a continuous variable to shape unless `scale_shape_binned()` is used. Still,
-#' as shape has no inherent order, this use is not advised..
+#' as shape has no inherent order, this use is not advised.
 #'
 #' @param solid Should the shapes be solid, `TRUE`, or hollow,
 #'   `FALSE`?
@@ -14,6 +14,7 @@
 #' @rdname scale_shape
 #' @export
 #' @examples
+#' set.seed(596)
 #' dsmall <- diamonds[sample(nrow(diamonds), 100), ]
 #'
 #' (d <- ggplot(dsmall, aes(carat, price)) + geom_point(aes(shape = cut)))
@@ -54,7 +55,7 @@ scale_shape_discrete <- scale_shape
 #' @export
 #' @usage NULL
 scale_shape_ordinal <- function(...) {
-  warning("Using shapes for an ordinal variable is not advised", call. = FALSE)
+  cli::cli_warn("Using shapes for an ordinal variable is not advised")
   scale_shape(...)
 }
 
@@ -62,5 +63,8 @@ scale_shape_ordinal <- function(...) {
 #' @export
 #' @usage NULL
 scale_shape_continuous <- function(...) {
-  stop("A continuous variable can not be mapped to shape", call. = FALSE)
+  cli::cli_abort(c(
+    "A continuous variable cannot be mapped to the {.field shape} aesthetic",
+    "i" = "choose a different aesthetic or use {.fn scale_shape_binned}"
+  ))
 }

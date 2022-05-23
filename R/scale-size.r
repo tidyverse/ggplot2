@@ -1,12 +1,12 @@
 #' Scales for area or radius
 #'
-#' `scale_size` scales area, `scale_radius` scales radius. The size
+#' `scale_size()` scales area, `scale_radius()` scales radius. The size
 #' aesthetic is most commonly used for points and text, and humans perceive
 #' the area of points (not their radius), so this provides for optimal
-#' perception. `scale_size_area` ensures that a value of 0 is mapped
-#' to a size of 0. `scale_size_binned` is a binned version of `scale_size` that
+#' perception. `scale_size_area()` ensures that a value of 0 is mapped
+#' to a size of 0. `scale_size_binned()` is a binned version of `scale_size()` that
 #' scales by area (but does not ensure 0 equals an area of zero). For a binned
-#' equivalent of `scale_size_area` use `scale_size_binned_area`.
+#' equivalent of `scale_size_area()` use `scale_size_binned_area()`.
 #'
 #' @name scale_size
 #' @inheritParams continuous_scale
@@ -76,7 +76,7 @@ scale_size_binned <- function(name = waiver(), breaks = waiver(), labels = waive
 #' @export
 #' @usage NULL
 scale_size_discrete <- function(...) {
-  warning("Using size for a discrete variable is not advised.", call. = FALSE)
+  cli::cli_warn("Using {.field size} for a discrete variable is not advised.")
   scale_size_ordinal(...)
 }
 

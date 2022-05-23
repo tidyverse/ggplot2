@@ -17,6 +17,10 @@
 #' one change at a time. You may need to look at a few options to uncover
 #' the full story behind your data.
 #'
+#' In addition to `geom_histogram()`, you can create a histogram plot by using
+#' `scale_x_binned()` with [geom_bar()]. This method by default plots tick marks
+#' in between each bar.
+#'
 #' @eval rd_orientation()
 #'
 #' @section Aesthetics:
@@ -39,6 +43,12 @@
 #' ggplot(diamonds, aes(y = carat)) +
 #'   geom_histogram()
 #'
+#' # For histograms with tick marks between each bin, use `geom_bar()` with
+#' # `scale_x_binned()`.
+#' ggplot(diamonds, aes(carat)) +
+#'   geom_bar() +
+#'   scale_x_binned()
+#'
 #' # Rather than stacking histograms, it's easier to compare frequency
 #' # polygons
 #' ggplot(diamonds, aes(price, fill = cut)) +
@@ -48,7 +58,7 @@
 #'
 #' # To make it easier to compare distributions with very different counts,
 #' # put density on the y axis instead of the default count
-#' ggplot(diamonds, aes(price, stat(density), colour = cut)) +
+#' ggplot(diamonds, aes(price, after_stat(density), colour = cut)) +
 #'   geom_freqpoly(binwidth = 500)
 #'
 #' if (require("ggplot2movies")) {
@@ -61,12 +71,18 @@
 #'
 #' # If, however, we want to see the number of votes cast in each
 #' # category, we need to weight by the votes variable
-#' m + geom_histogram(aes(weight = votes), binwidth = 0.1) + ylab("votes")
+#' m +
+#'   geom_histogram(aes(weight = votes), binwidth = 0.1) +
+#'   ylab("votes")
 #'
 #' # For transformed scales, binwidth applies to the transformed data.
 #' # The bins have constant width on the transformed scale.
-#' m + geom_histogram() + scale_x_log10()
-#' m + geom_histogram(binwidth = 0.05) + scale_x_log10()
+#' m +
+#'  geom_histogram() +
+#'  scale_x_log10()
+#' m +
+#'   geom_histogram(binwidth = 0.05) +
+#'   scale_x_log10()
 #'
 #' # For transformed coordinate systems, the binwidth applies to the
 #' # raw data. The bins have constant width on the original scale.
@@ -75,21 +91,27 @@
 #' # bar is anchored at zero, and so when transformed becomes negative
 #' # infinity. This is not a problem when transforming the scales, because
 #' # no observations have 0 ratings.
-#' m + geom_histogram(boundary = 0) + coord_trans(x = "log10")
+#' m +
+#'   geom_histogram(boundary = 0) +
+#'   coord_trans(x = "log10")
 #' # Use boundary = 0, to make sure we don't take sqrt of negative values
-#' m + geom_histogram(boundary = 0) + coord_trans(x = "sqrt")
+#' m +
+#'   geom_histogram(boundary = 0) +
+#'   coord_trans(x = "sqrt")
 #'
 #' # You can also transform the y axis.  Remember that the base of the bars
 #' # has value 0, so log transformations are not appropriate
 #' m <- ggplot(movies, aes(x = rating))
-#' m + geom_histogram(binwidth = 0.5) + scale_y_sqrt()
+#' m +
+#'   geom_histogram(binwidth = 0.5) +
+#'   scale_y_sqrt()
 #' }
 #'
 #' # You can specify a function for calculating binwidth, which is
 #' # particularly useful when faceting along variables with
 #' # different ranges because the function will be called once per facet
-#' mtlong <- reshape2::melt(mtcars)
-#' ggplot(mtlong, aes(value)) + facet_wrap(~variable, scales = 'free_x') +
+#' ggplot(economics_long, aes(value)) +
+#'   facet_wrap(~variable, scales = 'free_x') +
 #'   geom_histogram(binwidth = function(x) 2 * IQR(x) / (length(x)^(1/3)))
 geom_histogram <- function(mapping = NULL, data = NULL,
                            stat = "bin", position = "stack",
@@ -109,7 +131,7 @@ geom_histogram <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       binwidth = binwidth,
       bins = bins,
       na.rm = na.rm,

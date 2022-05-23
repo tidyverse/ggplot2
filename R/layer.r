@@ -23,11 +23,17 @@
 #'    the plot data. The return value must be a `data.frame`, and
 #'    will be used as the layer data. A `function` can be created
 #'    from a `formula` (e.g. `~ head(.x, 10)`).
-#' @param geom The geometric object to use display the data
+#' @param geom The geometric object to use to display the data, either as a
+#'   `ggproto` `Geom` subclass or as a string naming the geom stripped of the
+#'   `geom_` prefix (e.g. `"point"` rather than `"geom_point"`)
 #' @param stat The statistical transformation to use on the data for this
-#'    layer, as a string.
-#' @param position Position adjustment, either as a string, or the result of
-#'  a call to a position adjustment function.
+#'    layer, either as a `ggproto` `Geom` subclass or as a string naming the
+#'    stat stripped of the `stat_` prefix (e.g. `"count"` rather than
+#'    `"stat_count"`)
+#' @param position Position adjustment, either as a string naming the adjustment
+#'   (e.g. `"jitter"` to use `position_jitter`), or the result of a call to a
+#'   position adjustment function. Use the latter if you need to change the
+#'   settings of the adjustment.
 #' @param show.legend logical. Should this layer be included in the legends?
 #'   `NA`, the default, includes if any aesthetics are mapped.
 #'   `FALSE` never includes, and `TRUE` always includes.
@@ -51,13 +57,15 @@
 #' ggplot(mpg, aes(displ, hwy)) + geom_point()
 #' # shortcut for
 #' ggplot(mpg, aes(displ, hwy)) +
-#'   layer(geom = "point", stat = "identity", position = "identity",
+#'   layer(
+#'     geom = "point", stat = "identity", position = "identity",
 #'     params = list(na.rm = FALSE)
 #'   )
 #'
 #' # use a function as data to plot a subset of global data
 #' ggplot(mpg, aes(displ, hwy)) +
-#'   layer(geom = "point", stat = "identity", position = "identity",
+#'   layer(
+#'     geom = "point", stat = "identity", position = "identity",
 #'     data = head, params = list(na.rm = FALSE)
 #'   )
 #'
@@ -66,17 +74,17 @@ layer <- function(geom = NULL, stat = NULL,
                   position = NULL, params = list(),
                   inherit.aes = TRUE, check.aes = TRUE, check.param = TRUE,
                   show.legend = NA, key_glyph = NULL, layer_class = Layer) {
+  call_env <- caller_env()
   if (is.null(geom))
-    stop("Attempted to create layer with no geom.", call. = FALSE)
+    cli::cli_abort("Can't create layer without a geom.", call = call_env)
   if (is.null(stat))
-    stop("Attempted to create layer with no stat.", call. = FALSE)
+    cli::cli_abort("Can't create layer without a stat.", call = call_env)
   if (is.null(position))
-    stop("Attempted to create layer with no position.", call. = FALSE)
+    cli::cli_abort("Can't create layer without a position.", call = call_env)
 
   # Handle show_guide/show.legend
   if (!is.null(params$show_guide)) {
-    warning("`show_guide` has been deprecated. Please use `show.legend` instead.",
-      call. = FALSE)
+    lifecycle::deprecate_warn("2.0.0", "layer(show_guide)", "layer(show.legend)")
     show.legend <- params$show_guide
     params$show_guide <- NULL
   }
@@ -86,14 +94,14 @@ layer <- function(geom = NULL, stat = NULL,
   # less confusing error messages when layers are accidentally
   # piped into each other
   if (!is.null(mapping)) {
-    mapping <- validate_mapping(mapping)
+    mapping <- validate_mapping(mapping, call_env)
   }
 
   data <- fortify(data)
 
-  geom <- check_subclass(geom, "Geom", env = parent.frame())
-  stat <- check_subclass(stat, "Stat", env = parent.frame())
-  position <- check_subclass(position, "Position", env = parent.frame())
+  geom <- check_subclass(geom, "Geom", env = parent.frame(), call = call_env)
+  stat <- check_subclass(stat, "Stat", env = parent.frame(), call = call_env)
+  position <- check_subclass(position, "Position", env = parent.frame(), call = call_env)
 
   # Special case for na.rm parameter needed by all layers
   if (is.null(params$na.rm)) {
@@ -118,11 +126,7 @@ layer <- function(geom = NULL, stat = NULL,
   # Warn about extra params and aesthetics
   extra_param <- setdiff(names(params), all)
   if (check.param && length(extra_param) > 0) {
-    warning(
-      "Ignoring unknown parameters: ", paste(extra_param, collapse = ", "),
-      call. = FALSE,
-      immediate. = TRUE
-    )
+    cli::cli_warn("Ignoring unknown parameters: {.arg {extra_param}}", call = call_env)
   }
 
   extra_aes <- setdiff(
@@ -130,11 +134,7 @@ layer <- function(geom = NULL, stat = NULL,
     c(geom$aesthetics(), stat$aesthetics())
   )
   if (check.aes && length(extra_aes) > 0) {
-    warning(
-      "Ignoring unknown aesthetics: ", paste(extra_aes, collapse = ", "),
-      call. = FALSE,
-      immediate. = TRUE
-    )
+    cli::cli_warn("Ignoring unknown aesthetics: {.field {extra_aes}}", call = call_env)
   }
 
   # adjust the legend draw key if requested
@@ -154,17 +154,14 @@ layer <- function(geom = NULL, stat = NULL,
   )
 }
 
-validate_mapping <- function(mapping) {
+validate_mapping <- function(mapping, call = caller_env()) {
   if (!inherits(mapping, "uneval")) {
-    msg <- paste0("`mapping` must be created by `aes()`")
+    msg <- paste0("{.arg mapping} must be created by {.fn aes}")
     if (inherits(mapping, "ggplot")) {
-      msg <- paste0(
-        msg, "\n",
-        "Did you use %>% instead of +?"
-      )
+      msg <- c(msg, "i" = "Did you use {.code %>%} or {.code |>} instead of {.code +}?")
     }
 
-    stop(msg, call. = FALSE)
+    cli::cli_abort(msg, call = call)
   }
 
   # For backward compatibility with pre-tidy-eval layers
@@ -176,6 +173,13 @@ Layer <- ggproto("Layer", NULL,
   geom_params = NULL,
   stat = NULL,
   stat_params = NULL,
+
+  # These two fields carry state throughout rendering but will always be
+  # calculated before use
+  computed_geom_params = NULL,
+  computed_stat_params = NULL,
+  computed_mapping = NULL,
+
   data = NULL,
   aes_params = NULL,
   mapping = NULL,
@@ -199,7 +203,7 @@ Layer <- ggproto("Layer", NULL,
     } else if (is.function(self$data)) {
       data <- self$data(plot_data)
       if (!is.data.frame(data)) {
-        stop("Data function must return a data.frame", call. = FALSE)
+        cli::cli_abort("{.fn layer_data} must return a {.cls data.frame}")
       }
       data
     } else {
@@ -210,21 +214,27 @@ Layer <- ggproto("Layer", NULL,
   # hook to allow a layer access to the final layer data
   # in input form and to global plot info
   setup_layer = function(self, data, plot) {
+    # For annotation geoms, it is useful to be able to ignore the default aes
+    if (isTRUE(self$inherit.aes)) {
+      self$computed_mapping <- defaults(self$mapping, plot$mapping)
+      # defaults() strips class, but it needs to be preserved for now
+      class(self$computed_mapping) <- "uneval"
+    } else {
+      self$computed_mapping <- self$mapping
+    }
+
     data
   },
 
   compute_aesthetics = function(self, data, plot) {
-    # For annotation geoms, it is useful to be able to ignore the default aes
-    if (self$inherit.aes) {
-      aesthetics <- defaults(self$mapping, plot$mapping)
-    } else {
-      aesthetics <- self$mapping
-    }
+    aesthetics <- self$computed_mapping
 
     # Drop aesthetics that are set or calculated
     set <- names(aesthetics) %in% names(self$aes_params)
     calculated <- is_calculated_aes(aesthetics)
-    aesthetics <- aesthetics[!set & !calculated]
+    modifiers <- is_scaled_aes(aesthetics)
+
+    aesthetics <- aesthetics[!set & !calculated & !modifiers]
 
     # Override grouping if set in layer
     if (!is.null(self$geom_params$group)) {
@@ -234,7 +244,8 @@ Layer <- ggproto("Layer", NULL,
     scales_add_defaults(plot$scales, data, aesthetics, plot$plot_env)
 
     # Evaluate aesthetics
-    evaled <- lapply(aesthetics, eval_tidy, data = data)
+    env <- child_env(baseenv(), stage = stage)
+    evaled <- lapply(aesthetics, eval_tidy, data = data, env = env)
     evaled <- compact(evaled)
 
     # Check for discouraged usage in mapping
@@ -243,12 +254,14 @@ Layer <- ggproto("Layer", NULL,
     # Check aesthetic values
     nondata_cols <- check_nondata_cols(evaled)
     if (length(nondata_cols) > 0) {
-      msg <- paste0(
-        "Aesthetics must be valid data columns. Problematic aesthetic(s): ",
-        paste0(vapply(nondata_cols, function(x) {paste0(x, " = ", as_label(aesthetics[[x]]))}, character(1)), collapse = ", "),
-        ". \nDid you mistype the name of a data column or forget to add stat()?"
-      )
-      stop(msg, call. = FALSE)
+      issues <- paste0("{.code ", nondata_cols, " = ", as_label(aesthetics[[nondata_cols]]), "}")
+      names(issues) <- rep("x", length(issues))
+      cli::cli_abort(c(
+        "Aesthetics are not valid data columns.",
+        "x" = "The following aesthetics are invalid:",
+        issues,
+        "i" = "Did you mistype the name of a data column or forget to add {.fn after_stat}?"
+      ))
     }
 
     n <- nrow(data)
@@ -257,7 +270,8 @@ Layer <- ggproto("Layer", NULL,
       if (length(evaled) == 0) {
         n <- 0
       } else {
-        n <- max(vapply(evaled, length, integer(1)))
+        aes_n <- vapply(evaled, length, integer(1))
+        n <- if (min(aes_n) == 0) 0L else max(aes_n)
       }
     }
     check_aesthetics(evaled, n)
@@ -278,43 +292,51 @@ Layer <- ggproto("Layer", NULL,
     if (empty(data))
       return(new_data_frame())
 
-    params <- self$stat$setup_params(data, self$stat_params)
-    data <- self$stat$setup_data(data, params)
-    self$stat$compute_layer(data, params, layout)
+    self$computed_stat_params <- self$stat$setup_params(data, self$stat_params)
+    data <- self$stat$setup_data(data, self$computed_stat_params)
+    self$stat$compute_layer(data, self$computed_stat_params, layout)
   },
 
   map_statistic = function(self, data, plot) {
     if (empty(data)) return(new_data_frame())
 
+    # Make sure data columns are converted to correct names. If not done, a
+    # column with e.g. a color name will not be found in an after_stat()
+    # evaluation (since the evaluation symbols gets renamed)
+    data <- rename_aes(data)
+
     # Assemble aesthetics from layer, plot and stat mappings
-    aesthetics <- self$mapping
-    if (self$inherit.aes) {
-      aesthetics <- defaults(aesthetics, plot$mapping)
-    }
+    aesthetics <- self$computed_mapping
     aesthetics <- defaults(aesthetics, self$stat$default_aes)
     aesthetics <- compact(aesthetics)
 
-    new <- strip_dots(aesthetics[is_calculated_aes(aesthetics)])
+    new <- strip_dots(aesthetics[is_calculated_aes(aesthetics) | is_staged_aes(aesthetics)])
     if (length(new) == 0) return(data)
 
     # Add map stat output to aesthetics
-    env <- new.env(parent = baseenv())
-    env$stat <- stat
+    env <- child_env(baseenv(), stat = stat, after_stat = after_stat)
+    stage_mask <- child_env(emptyenv(), stage = stage_calculated)
+    mask <- new_data_mask(as_environment(data, stage_mask), stage_mask)
+    mask$.data <- as_data_pronoun(mask)
 
-    stat_data <- new_data_frame(lapply(new, eval_tidy, data, env))
+    new <- substitute_aes(new)
+    stat_data <- lapply(new, eval_tidy, mask, env)
 
     # Check that all columns in aesthetic stats are valid data
     nondata_stat_cols <- check_nondata_cols(stat_data)
     if (length(nondata_stat_cols) > 0) {
-      msg <- paste0(
-        "Aesthetics must be valid computed stats. Problematic aesthetic(s): ",
-        paste0(vapply(nondata_stat_cols, function(x) {paste0(x, " = ", as_label(aesthetics[[x]]))}, character(1)), collapse = ", "),
-        ". \nDid you map your stat in the wrong layer?"
-      )
-      stop(msg, call. = FALSE)
+      issues <- paste0("{.code ", nondata_stat_cols, " = ", as_label(aesthetics[[nondata_stat_cols]]), "}")
+      names(issues) <- rep("x", length(issues))
+      cli::cli_abort(c(
+        "Aesthetics are not valid computed stats.",
+        "x" = "The following aesthetics are invalid:",
+        issues,
+        "i" = "Did you map your stat in the wrong layer?"
+      ))
     }
 
     names(stat_data) <- names(new)
+    stat_data <- new_data_frame(compact(stat_data))
 
     # Add any new scales, if needed
     scales_add_defaults(plot$scales, data, new, plot$plot_env)
@@ -335,8 +357,8 @@ Layer <- ggproto("Layer", NULL,
       c(names(data), names(self$aes_params)),
       snake_class(self$geom)
     )
-    self$geom_params <- self$geom$setup_params(data, c(self$geom_params, self$aes_params))
-    self$geom$setup_data(data, self$geom_params)
+    self$computed_geom_params <- self$geom$setup_params(data, c(self$geom_params, self$aes_params))
+    self$geom$setup_data(data, self$computed_geom_params)
   },
 
   compute_position = function(self, data, layout) {
@@ -352,11 +374,14 @@ Layer <- ggproto("Layer", NULL,
     # Combine aesthetics, defaults, & params
     if (empty(data)) return(data)
 
-    self$geom$use_defaults(data, self$aes_params)
+    aesthetics <- self$computed_mapping
+    modifiers <- aesthetics[is_scaled_aes(aesthetics) | is_staged_aes(aesthetics)]
+
+    self$geom$use_defaults(data, self$aes_params, modifiers)
   },
 
   finish_statistics = function(self, data) {
-    self$stat$finish_layer(data, self$stat_params)
+    self$stat$finish_layer(data, self$computed_stat_params)
   },
 
   draw_geom = function(self, data, layout) {
@@ -365,18 +390,17 @@ Layer <- ggproto("Layer", NULL,
       return(rep(list(zeroGrob()), n))
     }
 
-    data <- self$geom$handle_na(data, self$geom_params)
-    self$geom$draw_layer(data, self$geom_params, layout, layout$coord)
+    data <- self$geom$handle_na(data, self$computed_geom_params)
+    self$geom$draw_layer(data, self$computed_geom_params, layout, layout$coord)
   }
 )
 
 is.layer <- function(x) inherits(x, "Layer")
 
-
-
 check_subclass <- function(x, subclass,
                            argname = to_lower_ascii(subclass),
-                           env = parent.frame()) {
+                           env = parent.frame(),
+                           call = caller_env()) {
   if (inherits(x, subclass)) {
     x
   } else if (is.character(x) && length(x) == 1) {
@@ -384,40 +408,37 @@ check_subclass <- function(x, subclass,
     obj <- find_global(name, env = env)
 
     if (is.null(obj) || !inherits(obj, subclass)) {
-      stop("Can't find `", argname, "` called \"", x, "\"", call. = FALSE)
+      cli::cli_abort("Can't find {argname} called {.val {x}}", call = call)
     } else {
       obj
     }
   } else {
-    stop(
-      "`", argname, "` must be either a string or a ", subclass, " object, ",
-      "not ", obj_desc(x),
-      call. = FALSE
-    )
+    msg <- paste0("{argname} must be either a string or a {.cls {subclass}} object, not ", obj_desc(x))
+    cli::cli_abort(msg, call = call)
   }
 }
 
 obj_desc <- function(x) {
   if (isS4(x)) {
-    paste0("an S4 object with class ", class(x)[[1]])
+    paste0("an S4 object with class {.cls ", class(x)[[1]], "}")
   } else if (is.object(x)) {
     if (is.data.frame(x)) {
-      "a data frame"
+      "a {.cls data.frame}"
     } else if (is.factor(x)) {
-      "a factor"
+      "a {.cls factor}"
     } else {
-      paste0("an S3 object with class ", paste(class(x), collapse = "/"))
+      paste0("an S3 object with class ", paste(paste0("{.cls ", class(x), "}"), collapse = "/"))
     }
   } else {
     switch(typeof(x),
-      "NULL" = "a NULL",
+      "NULL" = "a {.val NULL}",
       character = "a character vector",
       integer = "an integer vector",
       logical = "a logical vector",
       double = "a numeric vector",
       list = "a list",
-      closure = "a function",
-      paste0("a base object of type", typeof(x))
+      closure = "a {.cls function}",
+      paste0("a base object of type {.cls ", typeof(x), "}")
     )
   }
 }

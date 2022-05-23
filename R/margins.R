@@ -96,7 +96,7 @@ title_spec <- function(label, x, y, hjust, vjust, angle, gp = gpar(),
 #' Given a text grob, `add_margins()` adds margins around the grob in the
 #' directions determined by `margin_x` and `margin_y`.
 #'
-#' @param grob Text grob to add margins to.
+#' @param grob A gList containing a grob, such as a text grob
 #' @param height,width Usually the height and width of the text grob. Passed as
 #'   separate arguments from the grob itself because in the special case of
 #'   facet strip labels each set of strips should share the same height and
@@ -240,7 +240,7 @@ justify_grobs <- function(grobs, x = NULL, y = NULL, hjust = 0.5, vjust = 0.5,
       return(lapply(grobs, justify_grobs, x, y, hjust, vjust, int_angle, debug))
     }
     else {
-      stop("need individual grob or list of grobs as argument.")
+      cli::cli_abort("{.arg grobs} must be an individual {.cls grob} or list of {.cls grob} objects.")
     }
   }
 

@@ -34,6 +34,7 @@
 #' @seealso [sec_axis()] for how to specify secondary axes
 #' @examples
 #' last_month <- Sys.Date() - 0:29
+#' set.seed(1)
 #' df <- data.frame(
 #'   date = last_month,
 #'   price = runif(30)
@@ -66,6 +67,7 @@ scale_x_date <- function(name = waiver(),
                          date_minor_breaks = waiver(),
                          limits = NULL,
                          expand = waiver(),
+                         oob = censor,
                          guide = waiver(),
                          position = "bottom",
                          sec.axis = waiver()) {
@@ -84,6 +86,7 @@ scale_x_date <- function(name = waiver(),
     guide = guide,
     limits = limits,
     expand = expand,
+    oob = oob,
     position = position
   )
 
@@ -101,6 +104,7 @@ scale_y_date <- function(name = waiver(),
                          date_minor_breaks = waiver(),
                          limits = NULL,
                          expand = waiver(),
+                         oob = censor,
                          guide = waiver(),
                          position = "left",
                          sec.axis = waiver()) {
@@ -119,6 +123,7 @@ scale_y_date <- function(name = waiver(),
     guide = guide,
     limits = limits,
     expand = expand,
+    oob = oob,
     position = position
   )
 
@@ -137,6 +142,7 @@ scale_x_datetime <- function(name = waiver(),
                              timezone = NULL,
                              limits = NULL,
                              expand = waiver(),
+                             oob = censor,
                              guide = waiver(),
                              position = "bottom",
                              sec.axis = waiver()) {
@@ -156,6 +162,7 @@ scale_x_datetime <- function(name = waiver(),
     guide = guide,
     limits = limits,
     expand = expand,
+    oob = oob,
     position = position
   )
 
@@ -175,6 +182,7 @@ scale_y_datetime <- function(name = waiver(),
                              timezone = NULL,
                              limits = NULL,
                              expand = waiver(),
+                             oob = censor,
                              guide = waiver(),
                              position = "left",
                              sec.axis = waiver()) {
@@ -194,6 +202,7 @@ scale_y_datetime <- function(name = waiver(),
     guide = guide,
     limits = limits,
     expand = expand,
+    oob = oob,
     position = position
   )
 
@@ -306,6 +315,11 @@ datetime_scale <- function(aesthetics, trans, palette,
     scale_class <- ScaleContinuous
   }
 
+  trans <- switch(trans,
+    date = date_trans(),
+    time = time_trans(timezone)
+  )
+
   sc <- continuous_scale(
     aesthetics,
     name,
@@ -373,6 +387,14 @@ ScaleContinuousDate <- ggproto("ScaleContinuousDate", ScaleContinuous,
   secondary.axis = waiver(),
   map = function(self, x, limits = self$get_limits()) {
     self$oob(x, limits)
+  },
+  get_breaks = function(self, limits = self$get_limits()) {
+    breaks <- ggproto_parent(ScaleContinuous, self)$get_breaks(limits)
+    if (is.null(breaks)) {
+      return(NULL)
+    }
+    breaks <- floor(breaks)
+    breaks[breaks >= limits[1] & breaks <= limits[2]]
   },
   break_info = function(self, range = NULL) {
     breaks <- ggproto_parent(ScaleContinuous, self)$break_info(range)

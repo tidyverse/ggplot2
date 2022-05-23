@@ -23,12 +23,16 @@
 #' p + geom_jitter(aes(colour = class))
 #'
 #' # Use smaller width/height to emphasise categories
-#' ggplot(mpg, aes(cyl, hwy)) + geom_jitter()
-#' ggplot(mpg, aes(cyl, hwy)) + geom_jitter(width = 0.25)
+#' ggplot(mpg, aes(cyl, hwy)) +
+#'   geom_jitter()
+#' ggplot(mpg, aes(cyl, hwy)) +
+#'   geom_jitter(width = 0.25)
 #'
 #' # Use larger width/height to completely smooth away discreteness
-#' ggplot(mpg, aes(cty, hwy)) + geom_jitter()
-#' ggplot(mpg, aes(cty, hwy)) + geom_jitter(width = 0.5, height = 0.5)
+#' ggplot(mpg, aes(cty, hwy)) +
+#'   geom_jitter()
+#' ggplot(mpg, aes(cty, hwy)) +
+#'   geom_jitter(width = 0.5, height = 0.5)
 geom_jitter <- function(mapping = NULL, data = NULL,
                         stat = "identity", position = "jitter",
                         ...,
@@ -39,7 +43,10 @@ geom_jitter <- function(mapping = NULL, data = NULL,
                         inherit.aes = TRUE) {
   if (!missing(width) || !missing(height)) {
     if (!missing(position)) {
-      stop("You must specify either `position` or `width`/`height`.", call. = FALSE)
+      cli::cli_abort(c(
+        "both {.arg position} and {.arg width}/{.arg height} are supplied",
+        "i" = "Only use one approach to alter the position"
+      ))
     }
 
     position <- position_jitter(width = width, height = height)
@@ -53,7 +60,7 @@ geom_jitter <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       na.rm = na.rm,
       ...
     )

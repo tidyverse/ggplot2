@@ -1,23 +1,27 @@
 #' Set scale limits
 #'
-#' This is a shortcut for supplying the `limits` argument to the
-#' individual scales. Note that, by default, any values outside the limits
-#' will be replaced with `NA`.
+#' This is a shortcut for supplying the `limits` argument to the individual
+#' scales. By default, any values outside the limits specified are replaced with
+#' `NA`. Be warned that this will remove data outside the limits and this can
+#' produce unintended results. For changing x or y axis limits \strong{without}
+#' dropping data observations, see [coord_cartesian()].
 #'
-#' @param ... A name-value pair. The name must be an aesthetic, and the value
-#'   must be either a length-2 numeric, a character, a factor, or a date/time.
+#' @param ... For `xlim()` and `ylim()`: Two numeric values, specifying the left/lower
+#'  limit and the right/upper limit of the scale. If the larger value is given first,
+#'  the scale will be reversed. You can leave one value as `NA` if you want to compute
+#'  the corresponding limit from the range of the data.
 #'
-#'   A numeric value will create a continuous scale. If the larger value
-#'   comes first, the scale will be reversed. You can leave one value as
-#'   `NA` to compute from the range of the data.
+#'  For `lims()`: A name--value pair. The name must be an aesthetic, and the value
+#'  must be either a length-2 numeric, a character, a factor, or a date/time.
+#'  A numeric value will create a continuous scale. If the larger value comes first,
+#'  the scale will be reversed. You can leave one value as `NA` if you want
+#'  to compute the corresponding limit from the range of the data.
+#'  A character or factor value will create a discrete scale.
+#'  A date-time value will create a continuous date/time scale.
 #'
-#'   A character or factor value will create a discrete scale.
-#'
-#'   A date-time value will create a continuous date/time scale.
-#' @seealso For changing x or y axis limits \strong{without} dropping data
-#'   observations, see [coord_cartesian()]. To expand the range of
-#'   a plot to always include certain values, see [expand_limits()]. For other
-#'   types of data, see [scale_x_discrete()], [scale_x_continuous()], [scale_x_date()].
+#' @seealso To expand the range of a plot to always include
+#'   certain values, see [expand_limits()]. For other types of data, see
+#'   [scale_x_discrete()], [scale_x_continuous()], [scale_x_date()].
 #'
 #' @export
 #' @examples
@@ -52,6 +56,7 @@
 #' # There are two ways of setting the axis limits: with limits or
 #' # with coordinate systems. They work in two rather different ways.
 #'
+#' set.seed(1)
 #' last_month <- Sys.Date() - 0:59
 #' df <- data.frame(
 #'   date = last_month,
@@ -73,13 +78,13 @@
 #' p + coord_cartesian(xlim =c(Sys.Date() - 30, NA), ylim = c(10, 20))
 #'
 lims <- function(...) {
-  args <- list(...)
+  args <- list2(...)
 
   if (any(!has_name(args))) {
-    stop("All arguments must be named", call. = FALSE)
+    cli::cli_abort("All arguments must be named")
   }
-
-  Map(limits, args, names(args))
+  env <- current_env()
+  Map(limits, args, names(args), rep(list(env), length(args)))
 }
 
 #' @export
@@ -96,7 +101,7 @@ ylim <- function(...) {
 
 #' Generate correct scale type for specified limits
 #'
-#' @param limits vector of limits
+#' @param lims vector of limits
 #' @param var name of variable
 #' @keywords internal
 #' @examples
@@ -105,10 +110,12 @@ ylim <- function(...) {
 #' ggplot2:::limits(c("A", "b", "c"), "x")
 #' ggplot2:::limits(c("A", "b", "c"), "fill")
 #' ggplot2:::limits(as.Date(c("2008-01-01", "2009-01-01")), "x")
-limits <- function(lims, var) UseMethod("limits")
+limits <- function(lims, var, call = caller_env()) UseMethod("limits")
 #' @export
-limits.numeric <- function(lims, var) {
-  stopifnot(length(lims) == 2)
+limits.numeric <- function(lims, var, call = caller_env()) {
+  if (length(lims) != 2) {
+    cli::cli_abort("{.arg {var}} must be a two-element vector", call = call)
+  }
   if (!any(is.na(lims)) && lims[1] > lims[2]) {
     trans <- "reverse"
   } else {
@@ -124,26 +131,32 @@ make_scale <- function(type, var, ...) {
 }
 
 #' @export
-limits.character <- function(lims, var) {
+limits.character <- function(lims, var, call = caller_env()) {
   make_scale("discrete", var, limits = lims)
 }
 #' @export
-limits.factor <- function(lims, var) {
+limits.factor <- function(lims, var, call = caller_env()) {
   make_scale("discrete", var, limits = as.character(lims))
 }
 #' @export
-limits.Date <- function(lims, var) {
-  stopifnot(length(lims) == 2)
+limits.Date <- function(lims, var, call = caller_env()) {
+  if (length(lims) != 2) {
+    cli::cli_abort("{.arg {var}} must be a two-element vector", call = call)
+  }
   make_scale("date", var, limits = lims)
 }
 #' @export
-limits.POSIXct <- function(lims, var) {
-  stopifnot(length(lims) == 2)
+limits.POSIXct <- function(lims, var, call = caller_env()) {
+  if (length(lims) != 2) {
+    cli::cli_abort("{.arg {var}} must be a two-element vector", call = call)
+  }
   make_scale("datetime", var, limits = lims)
 }
 #' @export
-limits.POSIXlt <- function(lims, var) {
-  stopifnot(length(lims) == 2)
+limits.POSIXlt <- function(lims, var, call = caller_env()) {
+  if (length(lims) != 2) {
+    cli::cli_abort("{.arg {var}} must be a two-element vector", call = call)
+  }
   make_scale("datetime", var, limits = as.POSIXct(lims))
 }
 
@@ -169,7 +182,7 @@ limits.POSIXlt <- function(lims, var) {
 #'   geom_point(aes(colour = factor(cyl))) +
 #'   expand_limits(colour = factor(seq(2, 10, by = 2)))
 expand_limits <- function(...) {
-  data <- list(...)
+  data <- list2(...)
   data_dfs <- vapply(data, is.data.frame, logical(1))
   data <- do.call(c, c(list(data[!data_dfs]), data[data_dfs]))
   n_rows <- max(vapply(data, length, integer(1)))

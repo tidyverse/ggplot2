@@ -40,10 +40,14 @@ will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{stat}{The statistical transformation to use on the data for this
-layer, as a string.}
+layer, either as a \code{ggproto} \code{Geom} subclass or as a string naming the
+stat stripped of the \code{stat_} prefix (e.g. \code{"count"} rather than
+\code{"stat_count"})}
 
-\item{position}{Position adjustment, either as a string, or the result of
-a call to a position adjustment function.}
+\item{position}{Position adjustment, either as a string naming the adjustment
+(e.g. \code{"jitter"} to use \code{position_jitter}), or the result of a call to a
+position adjustment function. Use the latter if you need to change the
+settings of the adjustment.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
@@ -117,17 +121,20 @@ ggplot(mpg, aes(displ, cty)) +
 
 # move the rug tassels to outside the plot
 # remember to set clip = "off".
-p + geom_rug(outside = TRUE) +
+p +
+  geom_rug(outside = TRUE) +
   coord_cartesian(clip = "off")
 
 # set sides to top right, and then move the margins
-p + geom_rug(outside = TRUE, sides = "tr") +
-   coord_cartesian(clip = "off") +
-   theme(plot.margin = margin(1, 1, 1, 1, "cm"))
+p +
+  geom_rug(outside = TRUE, sides = "tr") +
+  coord_cartesian(clip = "off") +
+  theme(plot.margin = margin(1, 1, 1, 1, "cm"))
 
 # increase the line length and
 # expand axis to avoid overplotting
-p + geom_rug(length = unit(0.05, "npc")) +
-   scale_y_continuous(expand = c(0.1, 0.1))
+p +
+  geom_rug(length = unit(0.05, "npc")) +
+  scale_y_continuous(expand = c(0.1, 0.1))
 
 }

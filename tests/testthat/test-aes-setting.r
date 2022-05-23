@@ -1,5 +1,3 @@
-context("Aes - setting values")
-
 test_that("aesthetic parameters match length of data", {
   df <- data_frame(x = 1:5, y = 1:5)
   p <- ggplot(df, aes(x, y))
@@ -15,10 +13,21 @@ test_that("aesthetic parameters match length of data", {
   set_colours(rep("red", 5))
 })
 
+test_that("Length 1 aesthetics are recycled to 0", {
+  p <- ggplot(data.frame(x = numeric(), y = numeric())) +
+    geom_point(aes(x, y, colour = "red"))
+
+  expect_silent(plot(p))
+
+  data <- layer_data(p)
+
+  expect_equal(nrow(data), 0)
+})
+
 test_that("legend filters out aesthetics not of length 1", {
   df <- data_frame(x = 1:5, y = 1:5)
   p <- ggplot(df, aes(x, y, colour = factor(x))) +
-    geom_point(alpha = seq(0, 1, length = 5))
+    geom_point(alpha = seq(0, 1, length.out = 5))
 
   # Ideally would test something in the legend data structure, but
   # that's not easily accessible currently.
@@ -32,14 +41,15 @@ test_that("alpha affects only fill colour of solid geoms", {
     geom_polygon(fill = "red", colour = "red", alpha = 0.5)
   rect <- ggplot(df, aes(xmin = x, xmax = x + 1, ymin = 1, ymax = y + 1)) +
     geom_rect(fill = "red", colour = "red", alpha = 0.5)
+  # geom_ribbon() consists of polygonGrob and polylineGrob
   ribb <- ggplot(df, aes(x = x, ymin = 1, ymax = y + 1)) +
     geom_ribbon(fill = "red", colour = "red", alpha = 0.5)
 
   expect_equal(layer_grob(poly)[[1]]$gp$col[[1]], "red")
   expect_equal(layer_grob(rect)[[1]]$gp$col[[1]], "red")
-  expect_equal(layer_grob(ribb)[[1]]$children[[1]]$gp$col[[1]], "red")
+  expect_equal(layer_grob(ribb)[[1]]$children[[1]]$children[[2]]$gp$col[[1]], "red")
 
   expect_equal(layer_grob(poly)[[1]]$gp$fill[[1]], "#FF000080")
   expect_equal(layer_grob(rect)[[1]]$gp$fill[[1]], "#FF000080")
-  expect_equal(layer_grob(ribb)[[1]]$children[[1]]$gp$fill[[1]], "#FF000080")
+  expect_equal(layer_grob(ribb)[[1]]$children[[1]]$children[[1]]$gp$fill[[1]], "#FF000080")
 })

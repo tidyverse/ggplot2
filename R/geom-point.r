@@ -67,17 +67,22 @@
 #' # You can create interesting shapes by layering multiple points of
 #' # different sizes
 #' p <- ggplot(mtcars, aes(mpg, wt, shape = factor(cyl)))
-#' p + geom_point(aes(colour = factor(cyl)), size = 4) +
+#' p +
+#'   geom_point(aes(colour = factor(cyl)), size = 4) +
 #'   geom_point(colour = "grey90", size = 1.5)
-#' p + geom_point(colour = "black", size = 4.5) +
+#' p +
+#'   geom_point(colour = "black", size = 4.5) +
 #'   geom_point(colour = "pink", size = 4) +
 #'   geom_point(aes(shape = factor(cyl)))
 #'
 #' # geom_point warns when missing values have been dropped from the data set
 #' # and not plotted, you can turn this off by setting na.rm = TRUE
+#' set.seed(1)
 #' mtcars2 <- transform(mtcars, mpg = ifelse(runif(32) < 0.2, NA, mpg))
-#' ggplot(mtcars2, aes(wt, mpg)) + geom_point()
-#' ggplot(mtcars2, aes(wt, mpg)) + geom_point(na.rm = TRUE)
+#' ggplot(mtcars2, aes(wt, mpg)) +
+#'   geom_point()
+#' ggplot(mtcars2, aes(wt, mpg)) +
+#'   geom_point(na.rm = TRUE)
 #' }
 geom_point <- function(mapping = NULL, data = NULL,
                        stat = "identity", position = "identity",
@@ -93,7 +98,7 @@ geom_point <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       na.rm = na.rm,
       ...
     )
@@ -112,12 +117,14 @@ GeomPoint <- ggproto("GeomPoint", Geom,
     alpha = NA, stroke = 0.5
   ),
 
-  draw_panel = function(data, panel_params, coord, na.rm = FALSE) {
+  draw_panel = function(self, data, panel_params, coord, na.rm = FALSE) {
     if (is.character(data$shape)) {
       data$shape <- translate_shape_string(data$shape)
     }
 
     coords <- coord$transform(data, panel_params)
+    stroke_size <- coords$stroke
+    stroke_size[is.na(stroke_size)] <- 0
     ggname("geom_point",
       pointsGrob(
         coords$x, coords$y,
@@ -126,7 +133,7 @@ GeomPoint <- ggproto("GeomPoint", Geom,
           col = alpha(coords$colour, coords$alpha),
           fill = alpha(coords$fill, coords$alpha),
           # Stroke is added around the outside of the point
-          fontsize = coords$size * .pt + coords$stroke * .stroke / 2,
+          fontsize = coords$size * .pt + stroke_size * .stroke / 2,
           lwd = coords$stroke * .stroke / 2
         )
       )
@@ -179,47 +186,15 @@ translate_shape_string <- function(shape_string) {
 
   if (any(invalid_strings)) {
     bad_string <- unique(shape_string[invalid_strings])
-    n_bad <- length(bad_string)
-
-    collapsed_names <- sprintf("\n* '%s'", bad_string[1:min(5, n_bad)])
-
-    more_problems <- if (n_bad > 5) {
-      sprintf("\n* ... and %d more problem%s", n_bad - 5, ifelse(n_bad > 6, "s", ""))
-    }
-
-    stop(
-      "Can't find shape name:",
-      collapsed_names,
-      more_problems,
-      call. = FALSE
-    )
+    cli::cli_abort("Shape aesthetic contains invalid value{?s}: {.val {bad_string}}")
   }
 
   if (any(nonunique_strings)) {
     bad_string <- unique(shape_string[nonunique_strings])
-    n_bad <- length(bad_string)
-
-    n_matches <- vapply(
-      bad_string[1:min(5, n_bad)],
-      function(shape_string) sum(grepl(paste0("^", shape_string), names(pch_table))),
-      integer(1)
-    )
-
-    collapsed_names <- sprintf(
-      "\n* '%s' partially matches %d shape names",
-      bad_string[1:min(5, n_bad)], n_matches
-    )
-
-    more_problems <- if (n_bad > 5) {
-      sprintf("\n* ... and %d more problem%s", n_bad - 5, ifelse(n_bad > 6, "s", ""))
-    }
-
-    stop(
-      "Shape names must be unambiguous:",
-      collapsed_names,
-      more_problems,
-      call. = FALSE
-    )
+    cli::cli_abort(c(
+      "shape names must be given unambiguously",
+      "i" = "Fix {.val {bad_string}}"
+    ))
   }
 
   unname(pch_table[shape_match])

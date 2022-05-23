@@ -13,8 +13,11 @@ guide_colorsteps(even.steps = TRUE, show.limits = NULL, ticks = FALSE, ...)
 \item{even.steps}{Should the rendered size of the bins be equal, or should
 they be proportional to their length in the data space? Defaults to \code{TRUE}}
 
-\item{show.limits}{Should labels for the outer limits of the bins be printed?
-Default is \code{NULL} which makes the guide use the setting from the scale}
+\item{show.limits}{Logical. Should the limits of the scale be shown with
+labels and ticks. Default is \code{NULL} meaning it will take the value from the
+scale. This argument is ignored if \code{labels} is given as a vector of
+values. If one or both of the limits is also given in \code{breaks} it will be
+shown irrespective of the value of \code{show.limits}.}
 
 \item{ticks}{A logical specifying if tick marks on the colourbar should be
 visible.}
@@ -69,7 +72,8 @@ label. One of "top", "bottom" (default for horizontal guide), "left", or
 object of \code{\link[=element_text]{element_text()}} is expected. By default, the theme is
 specified by \code{legend.text} in \code{\link[=theme]{theme()}}.}
     \item{\code{label.hjust}}{A numeric specifying horizontal justification of the
-label text.}
+label text. The default for standard text is 0 (left-aligned) and 1
+(right-aligned) for expressions.}
     \item{\code{label.vjust}}{A numeric specifying vertical justification of the label
 text.}
     \item{\code{order}}{positive integer less than 99 that specifies the order of
@@ -86,8 +90,23 @@ This guide is version of \code{\link[=guide_colourbar]{guide_colourbar()}} for b
 scales. It shows areas between breaks as a single constant colour instead of
 the gradient known from the colourbar counterpart.
 }
+\section{Use with discrete scale}{
+
+This guide is intended to show binned data and work together with ggplot2's
+binning scales. However, it is sometimes desirable to perform the binning in
+a separate step, either as part of a stat (e.g. \code{\link[=stat_contour_filled]{stat_contour_filled()}}) or
+prior to the visualisation. If you want to use this guide for discrete data
+the levels must follow the naming scheme implemented by \code{\link[base:cut]{base::cut()}}. This
+means that a bin must be encoded as \code{"(<lower>, <upper>]"} with \verb{<lower>}
+giving the lower bound of the bin and \verb{<upper>} giving the upper bound
+(\code{"[<lower>, <upper>)"} is also accepted). If you use \code{\link[base:cut]{base::cut()}} to
+perform the binning everything should work as expected, if not, some recoding
+may be needed.
+}
+
 \examples{
-df <- reshape2::melt(outer(1:10, 1:10), varnames = c("X1", "X2"))
+df <- expand.grid(X1 = 1:10, X2 = 1:10)
+df$value <- df$X1 * df$X2
 
 p <- ggplot(df, aes(X1, X2)) + geom_tile(aes(fill = value))
 

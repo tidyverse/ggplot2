@@ -46,10 +46,6 @@
 #'   geom_point(position = jitter) +
 #'   geom_point(position = jitter, color = "red", aes(am + 0.2, vs + 0.2))
 position_jitter <- function(width = NULL, height = NULL, seed = NA) {
-  if (!is.null(seed) && is.na(seed)) {
-    seed <- sample.int(.Machine$integer.max, 1L)
-  }
-
   ggproto(NULL, PositionJitter,
     width = width,
     height = height,
@@ -62,13 +58,19 @@ position_jitter <- function(width = NULL, height = NULL, seed = NA) {
 #' @usage NULL
 #' @export
 PositionJitter <- ggproto("PositionJitter", Position,
+  seed = NA,
   required_aes = c("x", "y"),
 
   setup_params = function(self, data) {
+    if (!is.null(self$seed) && is.na(self$seed)) {
+      seed <- sample.int(.Machine$integer.max, 1L)
+    } else {
+      seed <- self$seed
+    }
     list(
       width = self$width %||% (resolution(data$x, zero = FALSE) * 0.4),
       height = self$height %||% (resolution(data$y, zero = FALSE) * 0.4),
-      seed = self$seed
+      seed = seed
     )
   },
 
@@ -76,6 +78,17 @@ PositionJitter <- ggproto("PositionJitter", Position,
     trans_x <- if (params$width > 0) function(x) jitter(x, amount = params$width)
     trans_y <- if (params$height > 0) function(x) jitter(x, amount = params$height)
 
-    with_seed_null(params$seed, transform_position(data, trans_x, trans_y))
+    # Make sure x and y jitter is only calculated once for all position aesthetics
+    x_aes <- intersect(ggplot_global$x_aes, names(data))
+    x <- if (length(x_aes) == 0) 0 else data[[x_aes[1]]]
+    y_aes <- intersect(ggplot_global$y_aes, names(data))
+    y <- if (length(y_aes) == 0) 0 else data[[y_aes[1]]]
+    dummy_data <- new_data_frame(list(x = x, y = y), nrow(data))
+    fixed_jitter <- with_seed_null(params$seed, transform_position(dummy_data, trans_x, trans_y))
+    x_jit <- fixed_jitter$x - x
+    y_jit <- fixed_jitter$y - y
+
+    # Apply jitter
+    transform_position(data, function(x) x + x_jit, function(x) x + y_jit)
   }
 )

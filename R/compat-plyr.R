@@ -19,7 +19,7 @@ unrowname <- function(x) {
   } else if (is.matrix(x)) {
     dimnames(x)[1] <- list(NULL)
   } else {
-    stop("Can only remove rownames from data.frame and matrix objects", call. = FALSE)
+    cli::cli_abort("Can only remove rownames from {.cls data.frame} and {.cls matrix} objects")
   }
   x
 }
@@ -193,7 +193,7 @@ revalue <- function(x, replace) {
     lev[match(names(replace), lev)] <- replace
     levels(x) <- lev
   } else if (!is.null(x)) {
-    stop("x is not a factor or character vector", call. = FALSE)
+    cli::cli_abort("{.arg x} must be a factor or character vector")
   }
   x
 }
@@ -239,14 +239,16 @@ as.quoted <- function(x, env = parent.frame()) {
   } else if (is.call(x)) {
     as.list(x)[-1]
   } else {
-    stop("Only knows how to quote characters, calls, and formula", call. = FALSE)
+    cli::cli_abort("Must be a character vector, call, or formula")
   }
   attributes(x) <- list(env = env, class = 'quoted')
   x
 }
 # round a number to a given precision
 round_any <- function(x, accuracy, f = round) {
-  if (!is.numeric(x)) stop("x must be numeric", call. = FALSE)
+  if (!is.numeric(x)) {
+    cli::cli_abort("{.arg x} must be numeric")
+  }
   f(x/accuracy) * accuracy
 }
 #' Bind data frames together by common column names
@@ -273,15 +275,22 @@ rbind_dfs <- function(dfs) {
   allocated <- rep(FALSE, length(columns))
   names(allocated) <- columns
   col_levels <- list()
+  ord_levels <- list()
   for (df in dfs) {
     new_columns <- intersect(names(df), columns[!allocated])
     for (col in new_columns) {
       if (is.factor(df[[col]])) {
+        all_ordered <- all(vapply(dfs, function(df) {
+          val <- .subset2(df, col)
+          is.null(val) || is.ordered(val)
+        }, logical(1)))
         all_factors <- all(vapply(dfs, function(df) {
           val <- .subset2(df, col)
           is.null(val) || is.factor(val)
         }, logical(1)))
-        if (all_factors) {
+        if (all_ordered) {
+          ord_levels[[col]] <- unique(unlist(lapply(dfs, function(df) levels(.subset2(df, col)))))
+        } else if (all_factors) {
           col_levels[[col]] <- unique(unlist(lapply(dfs, function(df) levels(.subset2(df, col)))))
         }
         out[[col]] <- rep(NA_character_, total)
@@ -318,6 +327,9 @@ rbind_dfs <- function(dfs) {
       }
     }
   }
+  for (col in names(ord_levels)) {
+    out[[col]] <- ordered(out[[col]], levels = ord_levels[[col]])
+  }
   for (col in names(col_levels)) {
     out[[col]] <- factor(out[[col]], levels = col_levels[[col]])
   }
@@ -328,6 +340,15 @@ rbind_dfs <- function(dfs) {
   )
   out
 }
+
+# Info needed for rbind_dfs date/time handling
+on_load({
+  date <- Sys.Date()
+  ggplot_global$date_origin <- date - unclass(date)
+  time <- Sys.time()
+  ggplot_global$time_origin <- time - unclass(time)
+})
+
 #' Apply function to unique subsets of a data.frame
 #'
 #' This function is akin to `plyr::ddply`. It takes a single data.frame,
@@ -349,19 +370,42 @@ rbind_dfs <- function(dfs) {
 #' @noRd
 dapply <- function(df, by, fun, ..., drop = TRUE) {
   grouping_cols <- .subset(df, by)
-  ids <- id(grouping_cols, drop = drop)
-  group_rows <- split(seq_len(nrow(df)), ids)
   fallback_order <- unique(c(by, names(df)))
-  rbind_dfs(lapply(seq_along(group_rows), function(i) {
-    cur_data <- df_rows(df, group_rows[[i]])
-    res <- fun(cur_data, ...)
+  apply_fun <- function(x) {
+    res <- fun(x, ...)
     if (is.null(res)) return(res)
     if (length(res) == 0) return(new_data_frame())
-    vars <- lapply(setNames(by, by), function(col) .subset2(cur_data, col)[1])
+    vars <- lapply(setNames(by, by), function(col) .subset2(x, col)[1])
     if (is.matrix(res)) res <- split_matrix(res)
     if (is.null(names(res))) names(res) <- paste0("V", seq_along(res))
     if (all(by %in% names(res))) return(new_data_frame(unclass(res)))
     res <- modify_list(unclass(vars), unclass(res))
     new_data_frame(res[intersect(c(fallback_order, names(res)), names(res))])
+  }
+
+  # Shortcut when only one group
+  if (all(vapply(grouping_cols, single_value, logical(1)))) {
+    return(apply_fun(df))
+  }
+
+  ids <- id(grouping_cols, drop = drop)
+  group_rows <- split_with_index(seq_len(nrow(df)), ids)
+  rbind_dfs(lapply(seq_along(group_rows), function(i) {
+    cur_data <- df_rows(df, group_rows[[i]])
+    apply_fun(cur_data)
   }))
+}
+
+single_value <- function(x, ...) {
+  UseMethod("single_value")
+}
+#' @export
+single_value.default <- function(x, ...) {
+  # This is set by id() used in creating the grouping var
+  identical(attr(x, "n"), 1L)
+}
+#' @export
+single_value.factor <- function(x, ...) {
+  # Panels are encoded as factor numbers and can never be missing (NA)
+  identical(levels(x), "1")
 }

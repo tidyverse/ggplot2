@@ -3,7 +3,7 @@ NULL
 
 #' @section Geoms:
 #'
-#' All `geom_*` functions (like `geom_point`) return a layer that
+#' All `geom_*()` functions (like `geom_point()`) return a layer that
 #' contains a `Geom*` object (like `GeomPoint`). The `Geom*`
 #' object is responsible for rendering the data in the plot.
 #'
@@ -14,9 +14,7 @@ NULL
 #' Compared to `Stat` and `Position`, `Geom` is a little
 #' different because the execution of the setup and compute functions is
 #' split up. `setup_data` runs before position adjustments, and
-#' `draw_layer` is not run until render time, much later. This
-#' means there is no `setup_params` because it's hard to communicate
-#' the changes.
+#' `draw_layer()` is not run until render time, much later.
 #'
 #' To create a new type of Geom object, you typically will want to
 #' override one or more of the following:
@@ -101,7 +99,7 @@ Geom <- ggproto("Geom",
   },
 
   draw_group = function(self, data, panel_params, coord) {
-    stop("Not implemented")
+    cli::cli_abort("{.fn {snake_class(self)}}, has not implemented a {.fn draw_group} method")
   },
 
   setup_params = function(data, params) params,
@@ -109,7 +107,7 @@ Geom <- ggproto("Geom",
   setup_data = function(data, params) data,
 
   # Combine data with defaults and set aesthetics from parameters
-  use_defaults = function(self, data, params = list()) {
+  use_defaults = function(self, data, params = list(), modifiers = aes()) {
     # Fill in missing aesthetics with their defaults
     missing_aes <- setdiff(names(self$default_aes), names(data))
 
@@ -121,6 +119,36 @@ Geom <- ggproto("Geom",
       data <- as_gg_data_frame(missing_eval)
     } else {
       data[names(missing_eval)] <- missing_eval
+    }
+
+    # If any after_scale mappings are detected they will be resolved here
+    # This order means that they will have access to all default aesthetics
+    if (length(modifiers) != 0) {
+      # Set up evaluation environment
+      env <- child_env(baseenv(), after_scale = after_scale)
+      # Mask stage with stage_scaled so it returns the correct expression
+      stage_mask <- child_env(emptyenv(), stage = stage_scaled)
+      mask <- new_data_mask(as_environment(data, stage_mask), stage_mask)
+      mask$.data <- as_data_pronoun(mask)
+      modified_aes <- lapply(substitute_aes(modifiers),  eval_tidy, mask, env)
+
+      # Check that all output are valid data
+      nondata_modified <- check_nondata_cols(modified_aes)
+      if (length(nondata_modified) > 0) {
+        issues <- paste0("{.code ", nondata_modified, " = ", as_label(modifiers[[nondata_modified]]), "}")
+        names(issues) <- rep("x", length(issues))
+        cli::cli_abort(c(
+          "Aesthetic modifiers returned invalid values",
+          "x" = "The following mappings are invalid",
+          issues,
+          "i" = "Did you map the modifier in the wrong layer?"
+        ))
+      }
+
+      names(modified_aes) <- names(rename_aes(modifiers))
+      modified_aes <- new_data_frame(compact(modified_aes))
+
+      data <- cunion(modified_aes, data)
     }
 
     # Override mappings with params
@@ -182,16 +210,15 @@ NULL
 .stroke <- 96 / 25.4
 
 check_aesthetics <- function(x, n) {
-  ns <- vapply(x, length, numeric(1))
+  ns <- vapply(x, length, integer(1))
   good <- ns == 1L | ns == n
 
   if (all(good)) {
     return()
   }
 
-  stop(
-    "Aesthetics must be either length 1 or the same as the data (", n, "): ",
-    paste(names(which(!good)), collapse = ", "),
-    call. = FALSE
-  )
+  cli::cli_abort(c(
+    "Aesthetics must be either length 1 or the same as the data ({n})",
+    "x" = "Fix the following mappings: {.col {names(which(!good))}}"
+  ))
 }

@@ -55,8 +55,10 @@ the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
-\item{position}{Position adjustment, either as a string, or the result of
-a call to a position adjustment function.}
+\item{position}{Position adjustment, either as a string naming the adjustment
+(e.g. \code{"jitter"} to use \code{position_jitter}), or the result of a call to a
+position adjustment function. Use the latter if you need to change the
+settings of the adjustment.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
@@ -84,7 +86,7 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
 \item{geom, stat}{Use to override the default connection between
-\code{geom_quantile} and \code{stat_quantile}.}
+\code{geom_quantile()} and \code{stat_quantile()}.}
 
 \item{quantiles}{conditional quantiles of y to calculate and display}
 
@@ -124,7 +126,9 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
 
 \examples{
-m <- ggplot(mpg, aes(displ, 1 / hwy)) + geom_point()
+m <-
+  ggplot(mpg, aes(displ, 1 / hwy)) +
+  geom_point()
 m + geom_quantile()
 m + geom_quantile(quantiles = 0.5)
 q10 <- seq(0.05, 0.95, by = 0.05)

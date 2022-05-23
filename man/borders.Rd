@@ -31,7 +31,7 @@ polygons, see \code{\link[maps:map]{maps::map()}} for details.}
   \describe{
     \item{\code{rule}}{Either \code{"evenodd"} or \code{"winding"}. If polygons with holes are
 being drawn (using the \code{subgroup} aesthetic) this argument defines how the
-hole coordinates are interpreted. See the examples in \code{\link[grid:pathGrob]{grid::pathGrob()}} for
+hole coordinates are interpreted. See the examples in \code{\link[grid:grid.path]{grid::pathGrob()}} for
 an explanation.}
     \item{\code{mapping}}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
 \code{\link[=aes_]{aes_()}}. If specified and \code{inherit.aes = TRUE} (the
@@ -52,9 +52,13 @@ the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
     \item{\code{stat}}{The statistical transformation to use on the data for this
-layer, as a string.}
-    \item{\code{position}}{Position adjustment, either as a string, or the result of
-a call to a position adjustment function.}
+layer, either as a \code{ggproto} \code{Geom} subclass or as a string naming the
+stat stripped of the \code{stat_} prefix (e.g. \code{"count"} rather than
+\code{"stat_count"})}
+    \item{\code{position}}{Position adjustment, either as a string naming the adjustment
+(e.g. \code{"jitter"} to use \code{position_jitter}), or the result of a call to a
+position adjustment function. Use the latter if you need to change the
+settings of the adjustment.}
     \item{\code{show.legend}}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.
@@ -69,8 +73,8 @@ a warning. If \code{TRUE}, missing values are silently removed.}
   }}
 }
 \description{
-This is a quick and dirty way to get map data (from the maps package)
-on to your plot. This is a good place to start if you need some crude
+This is a quick and dirty way to get map data (from the \pkg{maps} package)
+onto your plot. This is a good place to start if you need some crude
 reference lines, but you'll typically want something more sophisticated
 for communication graphics.
 }

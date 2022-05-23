@@ -7,8 +7,8 @@
 #'
 #' @eval rd_aesthetics("geom", "hex")
 #' @seealso [stat_bin2d()] for rectangular binning
-#' @param geom,stat Override the default connection between `geom_hex` and
-#'   `stat_binhex.`
+#' @param geom,stat Override the default connection between `geom_hex()` and
+#'   `stat_binhex()`.
 #' @export
 #' @inheritParams layer
 #' @inheritParams geom_point
@@ -41,7 +41,7 @@ geom_hex <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       na.rm = na.rm,
       ...
     )
@@ -54,23 +54,53 @@ geom_hex <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomHex <- ggproto("GeomHex", Geom,
-    setup_data = function(data, params) {
-      rename_size_aesthetic(data)
-    },
-    draw_group = function(data, panel_params, coord) {
-    if (!inherits(coord, "CoordCartesian")) {
-      stop("geom_hex() only works with Cartesian coordinates", call. = FALSE)
+  setup_data = function(data, params) {
+    rename_size_aesthetic(data)
+  },
+  draw_group = function(data, panel_params, coord, lineend = "butt",
+                        linejoin = "mitre", linemitre = 10) {
+    if (empty(data)) {
+      return(zeroGrob())
     }
 
+    # Get hex sizes
+    if (!is.null(data$width)) {
+      dx <- data$width[1] / 2
+    } else {
+      dx <- resolution(data$x, FALSE)
+    }
+    # Adjust for difference in width and height of regular hexagon. 1.15 adjusts
+    # for the effect of the overlapping range in y-direction on the resolution
+    # calculation
+    if (!is.null(data$height)) {
+      dy <- data$height[1] /  sqrt(3) / 2
+    } else {
+      dy <- resolution(data$y, FALSE) / sqrt(3) / 2 * 1.15
+    }
+
+    hexC <- hexbin::hexcoords(dx, dy, n = 1)
+
+    n <- nrow(data)
+
+    data <- data[rep(seq_len(n), each = 6), ]
+    data$x <- rep.int(hexC$x, n) + data$x
+    data$y <- rep.int(hexC$y, n) + data$y
+
     coords <- coord$transform(data, panel_params)
-    ggname("geom_hex", hexGrob(
+
+    ggname("geom_hex", polygonGrob(
       coords$x, coords$y,
       gp = gpar(
         col = coords$colour,
         fill = alpha(coords$fill, coords$alpha),
         lwd = coords$linewidth * .pt,
-        lty = coords$linetype
-      )
+        lty = coords$linetype,
+        lineend = lineend,
+        linejoin = linejoin,
+        linemitre = linemitre
+      ),
+      default.units = "native",
+      id.lengths = rep.int(6, n)
     ))
   },
 
@@ -96,8 +126,12 @@ GeomHex <- ggproto("GeomHex", Geom,
 # @param size vector of hex sizes
 # @param gp graphical parameters
 # @keyword internal
+#
+# THIS IS NO LONGER USED BUT LEFT IF CODE SOMEWHERE ELSE RELIES ON IT
 hexGrob <- function(x, y, size = rep(1, length(x)), gp = gpar()) {
-  stopifnot(length(y) == length(x))
+  if (length(y) != length(x)) {
+    cli::cli_abort("{.arg x} and {.arg y} must have the same length")
+  }
 
   dx <- resolution(x, FALSE)
   dy <- resolution(y, FALSE) / sqrt(3) / 2 * 1.15

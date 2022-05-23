@@ -30,7 +30,7 @@ stat_ydensity <- function(mapping = NULL, data = NULL,
                           orientation = NA,
                           show.legend = NA,
                           inherit.aes = TRUE) {
-  scale <- match.arg(scale, c("area", "count", "width"))
+  scale <- arg_match0(scale, c("area", "count", "width"))
 
   layer(
     data = data,
@@ -40,7 +40,7 @@ stat_ydensity <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       bw = bw,
       adjust = adjust,
       kernel = kernel,
@@ -69,9 +69,12 @@ StatYdensity <- ggproto("StatYdensity", Stat,
 
   extra_params = c("na.rm", "orientation"),
 
-  compute_group = function(data, scales, width = NULL, bw = "nrd0", adjust = 1,
+  compute_group = function(self, data, scales, width = NULL, bw = "nrd0", adjust = 1,
                        kernel = "gaussian", trim = TRUE, na.rm = FALSE, flipped_aes = FALSE) {
-    if (nrow(data) < 3) return(new_data_frame())
+    if (nrow(data) < 2) {
+      cli::cli_warn("Groups with fewer than two data points have been dropped.")
+      return(new_data_frame())
+    }
     range <- range(data$y, na.rm = TRUE)
     modifier <- if (trim) 0 else 3
     bw <- calc_bw(data$y, bw)
@@ -118,8 +121,10 @@ StatYdensity <- ggproto("StatYdensity", Stat,
 
 calc_bw <- function(x, bw) {
   if (is.character(bw)) {
-    if (length(x) < 2)
-      stop("need at least 2 points to select a bandwidth automatically", call. = FALSE)
+    if (length(x) < 2) {
+      cli::cli_abort("{.arg x} must contain at least 2 elements to select a bandwidth automatically")
+    }
+
     bw <- switch(
       to_lower_ascii(bw),
       nrd0 = stats::bw.nrd0(x),
@@ -129,7 +134,7 @@ calc_bw <- function(x, bw) {
       sj = ,
       `sj-ste` = stats::bw.SJ(x, method = "ste"),
       `sj-dpi` = stats::bw.SJ(x, method = "dpi"),
-      stop("unknown bandwidth rule")
+      cli::cli_abort("{.var {bw}} is not a valid bandwidth rule")
     )
   }
   bw

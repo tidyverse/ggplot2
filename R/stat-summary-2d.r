@@ -1,7 +1,7 @@
 #' Bin and summarise in 2d (rectangle & hexagons)
 #'
-#' `stat_summary_2d` is a 2d variation of [stat_summary()].
-#' `stat_summary_hex` is a hexagonal variation of
+#' `stat_summary_2d()` is a 2d variation of [stat_summary()].
+#' `stat_summary_hex()` is a hexagonal variation of
 #' [stat_summary_2d()]. The data are divided into bins defined
 #' by `x` and `y`, and then the values of `z` in each cell is
 #' are summarised with `fun`.
@@ -30,11 +30,13 @@
 #'
 #' # Specifying function
 #' d + stat_summary_2d(fun = function(x) sum(x^2))
+#' d + stat_summary_2d(fun = ~ sum(.x^2))
 #' d + stat_summary_2d(fun = var)
 #' d + stat_summary_2d(fun = "quantile", fun.args = list(probs = 0.1))
 #'
 #' if (requireNamespace("hexbin")) {
 #' d + stat_summary_hex()
+#' d + stat_summary_hex(fun = ~ sum(.x^2))
 #' }
 stat_summary_2d <- function(mapping = NULL, data = NULL,
                             geom = "tile", position = "identity",
@@ -55,7 +57,7 @@ stat_summary_2d <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       bins = bins,
       binwidth = binwidth,
       drop = drop,
@@ -71,7 +73,7 @@ stat_summary_2d <- function(mapping = NULL, data = NULL,
 #' @rdname stat_summary_2d
 #' @usage NULL
 stat_summary2d <- function(...) {
-  message("Please use stat_summary_2d() instead")
+  cli::cli_inform("Please use {.fn stat_summary_2d} instead")
   stat_summary_2d(...)
 }
 
@@ -80,7 +82,7 @@ stat_summary2d <- function(...) {
 #' @usage NULL
 #' @export
 StatSummary2d <- ggproto("StatSummary2d", Stat,
-  default_aes = aes(fill = stat(value)),
+  default_aes = aes(fill = after_stat(value)),
 
   required_aes = c("x", "y", "z"),
 
@@ -98,6 +100,7 @@ StatSummary2d <- ggproto("StatSummary2d", Stat,
     xbin <- cut(data$x, xbreaks, include.lowest = TRUE, labels = FALSE)
     ybin <- cut(data$y, ybreaks, include.lowest = TRUE, labels = FALSE)
 
+    fun <- as_function(fun)
     f <- function(x) {
       do.call(fun, c(list(quote(x)), fun.args))
     }

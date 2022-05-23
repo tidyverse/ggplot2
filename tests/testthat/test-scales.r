@@ -1,5 +1,3 @@
-context("Scales")
-
 test_that("building a plot does not affect its scales", {
   dat <- data_frame(x = rnorm(20), y = rnorm(20))
 
@@ -318,4 +316,142 @@ test_that("limits with NA are replaced with the min/max of the data for continuo
   expect_equal(make_scale(limits = c(NA, NA), data = 1:5)$get_limits(), c(1, 5))
   expect_equal(make_scale(limits = c(1, NA), data = 1:5)$get_limits(), c(1, 5))
   expect_equal(make_scale(limits = c(NA, 5), data = 1:5)$get_limits(), c(1, 5))
+})
+
+test_that("scale_apply preserves class and attributes", {
+  df <- data_frame(
+    x = structure(c(1, 2), foo = "bar", class = c("baz", "numeric")),
+    y = c(1, 1),
+    z = c("A", "B")
+  )
+
+  # Functions to make the 'baz'-class more type stable
+  `c.baz` <- function(...) {
+    dots <- list(...)
+    attris <- attributes(dots[[1]])
+    x <- do.call("c", lapply(dots, unclass))
+    attributes(x) <- attris
+    x
+  }
+  `[.baz` <- function(x, i) {
+    attris <- attributes(x)
+    x <- unclass(x)[i]
+    attributes(x) <- attris
+    x
+  }
+
+  plot <- ggplot(df, aes(x, y)) +
+    scale_x_continuous() +
+    # Facetting such that 2 x-scales will exist, i.e. `x` will be subsetted
+    facet_grid(~ z, scales = "free_x")
+  plot <- ggplot_build(plot)
+
+  # Perform identity transformation via `scale_apply`
+  out <- with_bindings(scale_apply(
+    df, "x", "transform", 1:2, plot$layout$panel_scales_x
+  )[[1]], `c.baz` = `c.baz`, `[.baz` = `[.baz`, .env = global_env())
+
+  # Check that it errors on bad scale ids
+  expect_snapshot_error(scale_apply(
+    df, "x", "transform", c(NA, 1), plot$layout$panel_scales_x
+  ))
+
+  # Check class preservation
+  expect_s3_class(out, "baz")
+  expect_s3_class(out, "numeric")
+
+  # Check attribute preservation
+  expect_identical(attr(out, "foo"), "bar")
+
+  # Negative control: non-type stable classes don't preserve attributes
+  class(df$x) <- "foobar"
+
+  out <- with_bindings(scale_apply(
+    df, "x", "transform", 1:2, plot$layout$panel_scales_x
+  )[[1]], `c.baz` = `c.baz`, `[.baz` = `[.baz`, .env = global_env())
+
+  expect_false(inherits(out, "foobar"))
+  expect_null(attributes(out))
+})
+
+test_that("All scale_colour_*() have their American versions", {
+  # In testthat, the package env contains non-exported functions as well so we
+  # need to parse NAMESPACE file by ourselves
+  exports <- readLines(system.file("NAMESPACE", package = "ggplot2"))
+  colour_scale_exports <- grep("export\\(scale_colour_.*\\)", exports, value = TRUE)
+  color_scale_exports <- grep("export\\(scale_color_.*\\)", exports, value = TRUE)
+  expect_equal(
+    colour_scale_exports,
+    sub("color", "colour", color_scale_exports)
+  )
+})
+
+test_that("scales accept lambda notation for function input", {
+  check_lambda <- function(items, ggproto) {
+    vapply(items, function(x) {
+      f <- environment(ggproto[[x]])$f
+      is_lambda(f)
+    }, logical(1))
+  }
+
+  # Test continuous scale
+  scale <- scale_fill_gradient(
+    limits = ~ .x + c(-1, 1),
+    breaks = ~ seq(.x[1], .x[2], by = 2),
+    minor_breaks = ~ seq(.x[1], .x[2], by = 1),
+    labels = ~ toupper(.x),
+    rescaler = ~ rescale_mid(.x, mid = 0),
+    oob = ~ oob_squish(.x, .y, only.finite = FALSE)
+  )
+  check <- check_lambda(
+    c("limits", "breaks", "minor_breaks", "labels", "rescaler"),
+    scale
+  )
+  expect_true(all(check))
+
+  # Test discrete scale
+  scale <- scale_x_discrete(
+    limits = ~ rev(.x),
+    breaks = ~ .x[-1],
+    labels = ~ toupper(.x)
+  )
+  check <- check_lambda(c("limits", "breaks", "labels"), scale)
+  expect_true(all(check))
+
+  # Test binned scale
+  scale <- scale_fill_steps(
+    limits = ~ .x + c(-1, 1),
+    breaks = ~ seq(.x[1], .x[2], by = 2),
+    labels = ~ toupper(.x),
+    rescaler = ~ rescale_mid(.x, mid = 0),
+    oob = ~ oob_squish(.x, .y, only.finite = FALSE)
+  )
+  check <- check_lambda(
+    c("limits", "breaks", "labels", "rescaler"),
+    scale
+  )
+  expect_true(all(check))
+})
+
+test_that("breaks and labels are correctly checked", {
+  expect_snapshot_error(check_breaks_labels(1:10, letters))
+  p <- ggplot(mtcars) + geom_point(aes(mpg, disp)) + scale_x_continuous(breaks = NA)
+  expect_snapshot_error(ggplot_build(p))
+  p <- ggplot(mtcars) + geom_point(aes(mpg, disp)) + scale_x_continuous(minor_breaks = NA)
+  expect_snapshot_error(ggplot_build(p))
+  p <- ggplot(mtcars) + geom_point(aes(mpg, disp)) + scale_x_continuous(labels = NA)
+  expect_snapshot_error(ggplotGrob(p))
+  p <- ggplot(mtcars) + geom_point(aes(mpg, disp)) + scale_x_continuous(labels = function(x) 1:2)
+  expect_snapshot_error(ggplotGrob(p))
+  p <- ggplot(mtcars) + geom_bar(aes(factor(gear))) + scale_x_discrete(breaks = NA)
+  expect_snapshot_error(ggplot_build(p))
+  p <- ggplot(mtcars) + geom_bar(aes(factor(gear))) + scale_x_discrete(labels = NA)
+  expect_snapshot_error(ggplotGrob(p))
+
+  p <- ggplot(mtcars) + geom_bar(aes(mpg)) + scale_x_binned(breaks = NA)
+  expect_snapshot_error(ggplot_build(p))
+  p <- ggplot(mtcars) + geom_bar(aes(mpg)) + scale_x_binned(labels = NA)
+  expect_snapshot_error(ggplotGrob(p))
+  p <- ggplot(mtcars) + geom_bar(aes(mpg)) + scale_x_binned(labels = function(x) 1:2)
+  expect_snapshot_error(ggplotGrob(p))
 })

@@ -1,5 +1,3 @@
-context("test-aes-calculated.r")
-
 test_that("constants aren't calculated", {
   expect_equal(is_calculated_aes(aes(1, "a", TRUE)), c(FALSE, FALSE, FALSE))
 })
@@ -24,6 +22,18 @@ test_that("strip_dots remove dots around calculated aesthetics", {
   )
 })
 
+test_that("strip_dots handles tidy evaluation pronouns", {
+  expect_identical(strip_dots(aes(.data$x), strip_pronoun = TRUE)$x, quo(x))
+  expect_identical(strip_dots(aes(.data[["x"]]), strip_pronoun = TRUE)$x, quo(x))
+
+  var <- "y"
+  f <- function() {
+    var <- "x"
+    aes(.data[[var]])$x
+  }
+  expect_identical(quo_get_expr(strip_dots(f(), strip_pronoun = TRUE)), quote(x))
+})
+
 test_that("make_labels() deprases mappings properly", {
   # calculation stripped from labels
   expect_identical(make_labels(aes(x = ..y..)), list(x = "y"))
@@ -38,4 +48,24 @@ test_that("make_labels() deprases mappings properly", {
   # if the mapping is a literal or NULL, the aesthetics is used
   expect_identical(make_labels(aes(x = 1)), list(x = "x"))
   expect_identical(make_labels(aes(x = NULL)), list(x = "x"))
+})
+
+test_that("staged aesthetics warn appropriately for duplicated names", {
+  # Test should *not* report `NA` as the duplicated aes (#4707)
+  df <- data.frame(x = 1, y = 1, lab = "test")
+
+  # One warning in plot code due to evaluation of `aes()`
+  expect_snapshot_warning(
+    p <- ggplot(df, aes(x, y, label = lab)) +
+      geom_label(
+        aes(colour = stage(lab, after_scale = colour),
+            color  = after_scale(color))
+      ) +
+      # Guide would trigger another warning when plot is printed, due to the
+      # `guide_geom.legend` also using `Geom$use_defaults` method, which we
+      # test next
+      guides(colour = "none")
+  )
+  # One warning in building due to `stage()`/`after_scale()`
+  expect_snapshot_warning(ggplot_build(p))
 })

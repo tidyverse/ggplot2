@@ -51,7 +51,8 @@
 #' @export
 #' @family guides
 #' @examples
-#' df <- reshape2::melt(outer(1:4, 1:4), varnames = c("X1", "X2"))
+#' df <- expand.grid(X1 = 1:10, X2 = 1:10)
+#' df$value <- df$X1 * df$X2
 #'
 #' p1 <- ggplot(df, aes(X1, X2)) + geom_tile(aes(fill = value))
 #' p2 <- p1 + geom_point(aes(size = value))
@@ -85,8 +86,11 @@
 #' p1 + guides(fill = guide_colourbar(nbin = 100))
 #'
 #' # make top- and bottom-most ticks invisible
-#' p1 + scale_fill_continuous(limits = c(0,20), breaks = c(0, 5, 10, 15, 20),
-#'  guide = guide_colourbar(nbin=100, draw.ulim = FALSE, draw.llim = FALSE))
+#' p1 +
+#'   scale_fill_continuous(
+#'     limits = c(0,20), breaks = c(0, 5, 10, 15, 20),
+#'     guide = guide_colourbar(nbin = 100, draw.ulim = FALSE, draw.llim = FALSE)
+#'    )
 #'
 #' # guides can be controlled independently
 #' p2 +
@@ -143,7 +147,7 @@ guide_colourbar <- function(
   if (!is.null(barwidth) && !is.unit(barwidth)) barwidth <- unit(barwidth, default.unit)
   if (!is.null(barheight) && !is.unit(barheight)) barheight <- unit(barheight, default.unit)
 
-  structure(list(
+  structure(list2(
     # title
     title = title,
     title.position = title.position,
@@ -195,12 +199,11 @@ guide_train.colorbar <- function(guide, scale, aesthetic = NULL) {
 
   # do nothing if scale are inappropriate
   if (length(intersect(scale$aesthetics, guide$available_aes)) == 0) {
-    warning("colourbar guide needs appropriate scales: ",
-            paste(guide$available_aes, collapse = ", "))
+    cli::cli_warn("colourbar guide needs appropriate scales: {.or {.field {guide$available_aes}}}")
     return(NULL)
   }
   if (scale$is_discrete()) {
-    warning("colourbar guide needs continuous scales.")
+    cli::cli_warn("colourbar guide needs continuous scales.")
     return(NULL)
   }
 
@@ -242,7 +245,7 @@ guide_merge.colorbar <- function(guide, new_guide) {
 guide_geom.colorbar <- function(guide, layers, default_mapping) {
   # Layers that use this guide
   guide_layers <- lapply(layers, function(layer) {
-    matched <- matched_aes(layer, guide, default_mapping)
+    matched <- matched_aes(layer, guide)
 
     if (length(matched) == 0) {
       # This layer does not use this guide
@@ -269,13 +272,23 @@ guide_gengrob.colorbar <- function(guide, theme) {
   # settings of location and size
   if (guide$direction == "horizontal") {
     label.position <- guide$label.position %||% "bottom"
-    if (!label.position %in% c("top", "bottom")) stop("label position \"", label.position, "\" is invalid")
+    if (!label.position %in% c("top", "bottom")) {
+      cli::cli_abort(c(
+        "label position {.val {label.position}} is invalid",
+        "i" = "use either {.val 'top'} or {.val 'bottom'}"
+      ))
+    }
 
     barwidth <- width_cm(guide$barwidth %||% (theme$legend.key.width * 5))
     barheight <- height_cm(guide$barheight %||% theme$legend.key.height)
   } else { # guide$direction == "vertical"
     label.position <- guide$label.position %||% "right"
-    if (!label.position %in% c("left", "right")) stop("label position \"", label.position, "\" is invalid")
+    if (!label.position %in% c("left", "right")) {
+      cli::cli_abort(c(
+        "label position {.val {label.position}} is invalid",
+        "i" = "use either {.val 'left'} or {.val 'right'}"
+      ))
+    }
 
     barwidth <- width_cm(guide$barwidth %||% theme$legend.key.width)
     barheight <- height_cm(guide$barheight %||% (theme$legend.key.height * 5))
@@ -529,7 +542,8 @@ guide_gengrob.colorbar <- function(guide, theme) {
     name = "label",
     clip = "off",
     t = 1 + min(vps$label.row), r = 1 + max(vps$label.col),
-    b = 1 + max(vps$label.row), l = 1 + min(vps$label.col))
+    b = 1 + max(vps$label.row), l = 1 + min(vps$label.col)
+  )
   gt <- gtable_add_grob(
     gt,
     justify_grobs(
@@ -542,10 +556,13 @@ guide_gengrob.colorbar <- function(guide, theme) {
     name = "title",
     clip = "off",
     t = 1 + min(vps$title.row), r = 1 + max(vps$title.col),
-    b = 1 + max(vps$title.row), l = 1 + min(vps$title.col))
+    b = 1 + max(vps$title.row), l = 1 + min(vps$title.col)
+  )
+
   gt <- gtable_add_grob(gt, grob.ticks, name = "ticks", clip = "off",
     t = 1 + min(vps$bar.row), r = 1 + max(vps$bar.col),
-    b = 1 + max(vps$bar.row), l = 1 + min(vps$bar.col))
+    b = 1 + max(vps$bar.row), l = 1 + min(vps$bar.col)
+  )
 
   gt
 }

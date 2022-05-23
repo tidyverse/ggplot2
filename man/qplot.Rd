@@ -20,8 +20,8 @@ qplot(
   xlab = NULL,
   ylab = NULL,
   asp = NA,
-  stat = NULL,
-  position = NULL
+  stat = deprecated(),
+  position = deprecated()
 )
 
 quickplot(
@@ -39,8 +39,8 @@ quickplot(
   xlab = NULL,
   ylab = NULL,
   asp = NA,
-  stat = NULL,
-  position = NULL
+  stat = deprecated(),
+  position = deprecated()
 )
 }
 \arguments{
@@ -53,7 +53,7 @@ one, extracting vectors from the current environment.}
 \code{\link[=facet_grid]{facet_grid()}} depending on whether the formula is one-
 or two-sided}
 
-\item{margins}{See \code{facet_grid}: display marginal facets?}
+\item{margins}{See \code{facet_grid()}: display marginal facets?}
 
 \item{geom}{Character vector specifying geom(s) to draw. Defaults to
 "point" if x and y are specified, and "histogram" if only x is specified.}
@@ -67,10 +67,10 @@ x axis label, and y axis label respectively.}
 
 \item{asp}{The y/x aspect ratio}
 
-\item{stat, position}{DEPRECATED.}
+\item{stat, position}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}}
 }
 \description{
-\code{qplot} is a shortcut designed to be familiar if you're used to base
+\code{qplot()} is a shortcut designed to be familiar if you're used to base
 \code{\link[=plot]{plot()}}. It's a convenient wrapper for creating a number of
 different types of plots using a consistent calling scheme. It's great
 for allowing you to produce plots quickly, but I highly recommend
@@ -85,6 +85,7 @@ qplot(mpg, wt, data = mtcars, size = cyl)
 qplot(mpg, wt, data = mtcars, facets = vs ~ am)
 
 \donttest{
+set.seed(1)
 qplot(1:10, rnorm(10), colour = runif(10))
 qplot(1:10, letters[1:10])
 mod <- lm(mpg ~ wt, data = mtcars)

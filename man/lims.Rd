@@ -13,21 +13,25 @@ xlim(...)
 ylim(...)
 }
 \arguments{
-\item{...}{A name-value pair. The name must be an aesthetic, and the value
+\item{...}{For \code{xlim()} and \code{ylim()}: Two numeric values, specifying the left/lower
+limit and the right/upper limit of the scale. If the larger value is given first,
+the scale will be reversed. You can leave one value as \code{NA} if you want to compute
+the corresponding limit from the range of the data.
+
+For \code{lims()}: A name--value pair. The name must be an aesthetic, and the value
 must be either a length-2 numeric, a character, a factor, or a date/time.
-
-A numeric value will create a continuous scale. If the larger value
-comes first, the scale will be reversed. You can leave one value as
-\code{NA} to compute from the range of the data.
-
+A numeric value will create a continuous scale. If the larger value comes first,
+the scale will be reversed. You can leave one value as \code{NA} if you want
+to compute the corresponding limit from the range of the data.
 A character or factor value will create a discrete scale.
-
 A date-time value will create a continuous date/time scale.}
 }
 \description{
-This is a shortcut for supplying the \code{limits} argument to the
-individual scales. Note that, by default, any values outside the limits
-will be replaced with \code{NA}.
+This is a shortcut for supplying the \code{limits} argument to the individual
+scales. By default, any values outside the limits specified are replaced with
+\code{NA}. Be warned that this will remove data outside the limits and this can
+produce unintended results. For changing x or y axis limits \strong{without}
+dropping data observations, see \code{\link[=coord_cartesian]{coord_cartesian()}}.
 }
 \examples{
 # Zoom into a specified area
@@ -61,6 +65,7 @@ ggplot(big, aes(mpg, wt, colour = factor(cyl))) +
 # There are two ways of setting the axis limits: with limits or
 # with coordinate systems. They work in two rather different ways.
 
+set.seed(1)
 last_month <- Sys.Date() - 0:59
 df <- data.frame(
   date = last_month,
@@ -83,8 +88,7 @@ p + coord_cartesian(xlim =c(Sys.Date() - 30, NA), ylim = c(10, 20))
 
 }
 \seealso{
-For changing x or y axis limits \strong{without} dropping data
-observations, see \code{\link[=coord_cartesian]{coord_cartesian()}}. To expand the range of
-a plot to always include certain values, see \code{\link[=expand_limits]{expand_limits()}}. For other
-types of data, see \code{\link[=scale_x_discrete]{scale_x_discrete()}}, \code{\link[=scale_x_continuous]{scale_x_continuous()}}, \code{\link[=scale_x_date]{scale_x_date()}}.
+To expand the range of a plot to always include
+certain values, see \code{\link[=expand_limits]{expand_limits()}}. For other types of data, see
+\code{\link[=scale_x_discrete]{scale_x_discrete()}}, \code{\link[=scale_x_continuous]{scale_x_continuous()}}, \code{\link[=scale_x_date]{scale_x_date()}}.
 }

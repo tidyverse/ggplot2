@@ -1,35 +1,47 @@
 Package: ggplot2
-Version: 3.2.1.9000
+Version: 3.3.6.9000
 Title: Create Elegant Data Visualisations Using the Grammar of Graphics
-Description: A system for 'declaratively' creating graphics,
-    based on "The Grammar of Graphics". You provide the data, tell 'ggplot2'
-    how to map variables to aesthetics, what graphical primitives to use,
-    and it takes care of the details.
 Authors@R: c(
-    person("Hadley", "Wickham", , "hadley@rstudio.com", c("aut", "cre")),
-    person("Winston", "Chang", , role = "aut"),
-    person("Lionel", "Henry", , role = "aut"),
-    person("Thomas Lin", "Pedersen", role = "aut"),
+    person("Hadley", "Wickham", , "hadley@rstudio.com", role = "aut",
+           comment = c(ORCID = "0000-0003-4757-117X")),
+    person("Winston", "Chang", role = "aut",
+           comment = c(ORCID = "0000-0002-1576-2126")),
+    person("Lionel", "Henry", role = "aut"),
+    person("Thomas Lin", "Pedersen", , "thomas.pedersen@rstudio.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-5147-4711")),
     person("Kohske", "Takahashi", role = "aut"),
-    person("Claus", "Wilke", role = "aut"),
-    person("Kara", "Woo", role = "aut"),
-    person("Hiroaki", "Yutani", role = "aut"),
-    person("Dewey", "Dunnington", role = "aut"),
-    person("RStudio", role = c("cph"))
-    )
+    person("Claus", "Wilke", role = "aut",
+           comment = c(ORCID = "0000-0002-7470-9261")),
+    person("Kara", "Woo", role = "aut",
+           comment = c(ORCID = "0000-0002-5125-4188")),
+    person("Hiroaki", "Yutani", role = "aut",
+           comment = c(ORCID = "0000-0002-3385-7233")),
+    person("Dewey", "Dunnington", role = "aut",
+           comment = c(ORCID = "0000-0002-9415-4582")),
+    person("RStudio", role = c("cph", "fnd"))
+  )
+Description: A system for 'declaratively' creating graphics, based on "The
+    Grammar of Graphics". You provide the data, tell 'ggplot2' how to map
+    variables to aesthetics, what graphical primitives to use, and it
+    takes care of the details.
+License: MIT + file LICENSE
+URL: https://ggplot2.tidyverse.org, https://github.com/tidyverse/ggplot2
+BugReports: https://github.com/tidyverse/ggplot2/issues
 Depends:
-    R (>= 3.2)
+    R (>= 3.3)
 Imports: 
+    cli,
     digest,
+    glue,
     grDevices,
     grid,
     gtable (>= 0.1.1),
     isoband,
+    lifecycle,
     MASS,
     mgcv,
-    reshape2,
-    rlang (>= 0.3.0),
-    scales (>= 0.5.0),
+    rlang (>= 1.0.0),
+    scales (>= 1.2.0),
     stats,
     tibble,
     withr (>= 2.0.0)
@@ -49,24 +61,32 @@ Suggests:
     nlme,
     profvis,
     quantreg,
+    ragg,
+    RColorBrewer,
     rgeos,
     rmarkdown,
     rpart,
     sf (>= 0.7-3),
     svglite (>= 1.2.0.9001),
-    testthat (>= 2.1.0),
-    vdiffr (>= 0.3.0)
-Enhances: sp
-License: GPL-2 | file LICENSE
-URL: http://ggplot2.tidyverse.org, https://github.com/tidyverse/ggplot2
-BugReports: https://github.com/tidyverse/ggplot2/issues
+    testthat (>= 3.1.2),
+    vdiffr (>= 1.0.0),
+    xml2
+Enhances: 
+    sp
+VignetteBuilder: 
+    knitr
+Config/Needs/website: ggtext, tidyr, forcats, tidyverse/tidytemplate
+Config/testthat/edition: 3
+Encoding: UTF-8
 LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.0
 Collate: 
     'ggproto.r'
     'ggplot-global.R'
     'aaa-.r'
-    'aes-calculated.r'
     'aes-colour-fill-alpha.r'
+    'aes-evaluation.r'
     'aes-group-order.r'
     'aes-linetype-size-shape.r'
     'aes-position.r'
@@ -131,6 +151,7 @@ Collate:
     'geom-errorbar.r'
     'geom-errorbarh.r'
     'geom-freqpoly.r'
+    'geom-function.R'
     'geom-hex.r'
     'geom-histogram.r'
     'geom-hline.r'
@@ -148,7 +169,7 @@ Collate:
     'geom-tile.r'
     'geom-violin.r'
     'geom-vline.r'
-    'ggplot2.r'
+    'ggplot2-package.R'
     'grob-absolute.r'
     'grob-dotstack.r'
     'grob-null.r'
@@ -185,6 +206,7 @@ Collate:
     'position-stack.r'
     'quick-plot.r'
     'range.r'
+    'reshape-add-margins.R'
     'save.r'
     'scale-.r'
     'scale-alpha.r'
@@ -252,7 +274,3 @@ Collate:
     'utilities-tidy-eval.R'
     'zxx.r'
     'zzz.r'
-VignetteBuilder: knitr
-RoxygenNote: 7.0.2
-Roxygen: list(markdown = TRUE)
-Encoding: UTF-8

@@ -14,7 +14,8 @@ geom_density(
   na.rm = FALSE,
   orientation = NA,
   show.legend = NA,
-  inherit.aes = TRUE
+  inherit.aes = TRUE,
+  outline.type = "upper"
 )
 
 stat_density(
@@ -55,8 +56,10 @@ the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
-\item{position}{Position adjustment, either as a string, or the result of
-a call to a position adjustment function.}
+\item{position}{Position adjustment, either as a string naming the adjustment
+(e.g. \code{"jitter"} to use \code{position_jitter}), or the result of a call to a
+position adjustment function. Use the latter if you need to change the
+settings of the adjustment.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
@@ -82,13 +85,17 @@ rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
+\item{outline.type}{Type of the outline of the area; \code{"both"} draws both the
+upper and lower lines, \code{"upper"}/\code{"lower"} draws the respective lines only.
+\code{"full"} draws a closed polygon around the area.}
+
 \item{geom, stat}{Use to override the default connection between
-\code{geom_density} and \code{stat_density}.}
+\code{geom_density()} and \code{stat_density()}.}
 
 \item{bw}{The smoothing bandwidth to be used.
 If numeric, the standard deviation of the smoothing kernel.
 If character, a rule to choose the bandwidth, as listed in
-\code{\link[stats:bw.nrd]{stats::bw.nrd()}}.}
+\code{\link[stats:bandwidth]{stats::bw.nrd()}}.}
 
 \item{adjust}{A multiplicate bandwidth adjustment. This makes it possible
 to adjust the bandwidth while still using the a bandwidth estimator.
@@ -100,12 +107,12 @@ For example, \code{adjust = 1/2} means use half of the default bandwidth.}
 estimated, should be a power of two, see \code{\link[=density]{density()}} for
 details}
 
-\item{trim}{This parameter only matters if you are displaying multiple
-densities in one plot. If \code{FALSE}, the default, each density is
-computed on the full range of the data. If \code{TRUE}, each density
-is computed over the range of that group: this typically means the
-estimated x values will not line-up, and hence you won't be able to
-stack density values.}
+\item{trim}{If \code{FALSE}, the default, each density is computed on the
+full range of the data. If \code{TRUE}, each density is computed over the
+range of that group: this typically means the estimated x values will
+not line-up, and hence you won't be able to stack density values.
+This parameter only matters if you are displaying multiple densities in
+one plot or if you are manually adjusting the scale limits.}
 }
 \description{
 Computes and draws kernel density estimate, which is a smoothed version of
@@ -141,6 +148,7 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 \item{count}{density * number of points - useful for stacked density
 plots}
 \item{scaled}{density estimate, scaled to maximum of 1}
+\item{n}{number of points}
 \item{ndensity}{alias for \code{scaled}, to mirror the syntax of
 \code{\link[=stat_bin]{stat_bin()}}}
 }
@@ -174,11 +182,11 @@ ggplot(diamonds, aes(depth, fill = cut, colour = cut)) +
 ggplot(diamonds, aes(carat, fill = cut)) +
   geom_density(position = "stack")
 # Preserves marginal densities
-ggplot(diamonds, aes(carat, stat(count), fill = cut)) +
+ggplot(diamonds, aes(carat, after_stat(count), fill = cut)) +
   geom_density(position = "stack")
 
 # You can use position="fill" to produce a conditional density estimate
-ggplot(diamonds, aes(carat, stat(count), fill = cut)) +
+ggplot(diamonds, aes(carat, after_stat(count), fill = cut)) +
   geom_density(position = "fill")
 }
 }

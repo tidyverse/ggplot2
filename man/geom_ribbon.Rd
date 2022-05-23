@@ -14,7 +14,8 @@ geom_ribbon(
   na.rm = FALSE,
   orientation = NA,
   show.legend = NA,
-  inherit.aes = TRUE
+  inherit.aes = TRUE,
+  outline.type = "both"
 )
 
 geom_area(
@@ -26,7 +27,8 @@ geom_area(
   orientation = NA,
   show.legend = NA,
   inherit.aes = TRUE,
-  ...
+  ...,
+  outline.type = "upper"
 )
 }
 \arguments{
@@ -51,10 +53,14 @@ will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{stat}{The statistical transformation to use on the data for this
-layer, as a string.}
+layer, either as a \code{ggproto} \code{Geom} subclass or as a string naming the
+stat stripped of the \code{stat_} prefix (e.g. \code{"count"} rather than
+\code{"stat_count"})}
 
-\item{position}{Position adjustment, either as a string, or the result of
-a call to a position adjustment function.}
+\item{position}{Position adjustment, either as a string naming the adjustment
+(e.g. \code{"jitter"} to use \code{position_jitter}), or the result of a call to a
+position adjustment function. Use the latter if you need to change the
+settings of the adjustment.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
@@ -79,11 +85,15 @@ display.}
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
+
+\item{outline.type}{Type of the outline of the area; \code{"both"} draws both the
+upper and lower lines, \code{"upper"}/\code{"lower"} draws the respective lines only.
+\code{"full"} draws a closed polygon around the area.}
 }
 \description{
 For each x value, \code{geom_ribbon()} displays a y interval defined
 by \code{ymin} and \code{ymax}. \code{geom_area()} is a special case of
-\code{geom_ribbon}, where the \code{ymin} is fixed to 0 and \code{y} is used instead
+\code{geom_ribbon()}, where the \code{ymin} is fixed to 0 and \code{y} is used instead
 of \code{ymax}.
 }
 \details{

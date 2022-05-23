@@ -43,10 +43,10 @@ the limits to ensure that data and axes don't overlap. If \code{FALSE},
 limits are taken exactly from the data or \code{xlim}/\code{ylim}.}
 }
 \description{
-\code{coord_map} projects a portion of the earth, which is approximately
+\code{coord_map()} projects a portion of the earth, which is approximately
 spherical, onto a flat 2D plane using any projection defined by the
 \code{mapproj} package. Map projections do not, in general, preserve straight
-lines, so this requires considerable computation. \code{coord_quickmap} is a
+lines, so this requires considerable computation. \code{coord_quickmap()} is a
 quick approximation that does preserve straight lines. It works best for
 smaller areas closer to the equator.
 }
@@ -59,7 +59,7 @@ towards infinity because the length of one degree of longitude tends towards
 0. For regions that span only a few degrees and are not too close to the
 poles, setting the aspect ratio of the plot to the appropriate lat/lon ratio
 approximates the usual mercator projection. This is what
-\code{coord_quickmap} does, and is much faster (particularly for complex
+\code{coord_quickmap()} does, and is much faster (particularly for complex
 plots like \code{\link[=geom_tile]{geom_tile()}}) at the expense of correctness.
 }
 \examples{

@@ -1,6 +1,6 @@
 #' Create a complete ggplot appropriate to a particular data type
 #'
-#' `autoplot` uses ggplot2 to draw a particular plot for an object of a
+#' `autoplot()` uses ggplot2 to draw a particular plot for an object of a
 #' particular class in a single command. This defines the S3 generic that
 #' other classes and packages can extend.
 #'
@@ -15,7 +15,9 @@ autoplot <- function(object, ...) {
 
 #' @export
 autoplot.default <- function(object, ...) {
-  stop("Objects of type ", paste(class(object), collapse = "/"),
-    " not supported by autoplot.", call. = FALSE)
+  cli::cli_abort(c(
+    "Objects of class {.cls {class(object)[[1]]}} are not supported by autoplot.",
+    "i" = "have you loaded the required package?"
+  ))
 }
 

@@ -15,10 +15,10 @@
 #'   `boundary`, may be specified for a single plot. `center` specifies the
 #'   center of one of the bins. `boundary` specifies the boundary between two
 #'   bins. Note that if either is above or below the range of the data, things
-#'   will be shifted by the appropriate integer multiple of `width`.
-#'   For example, to center on integers use `width = 1` and `center = 0`, even
+#'   will be shifted by the appropriate integer multiple of `binwidth`.
+#'   For example, to center on integers use `binwidth = 1` and `center = 0`, even
 #'   if `0` is outside the range of the data. Alternatively, this same alignment
-#'   can be specified with `width = 1` and `boundary = 0.5`, even if `0.5` is
+#'   can be specified with `binwidth = 1` and `boundary = 0.5`, even if `0.5` is
 #'   outside the range of the data.
 #' @param breaks Alternatively, you can supply a numeric vector giving
 #'    the bin boundaries. Overrides `binwidth`, `bins`, `center`,
@@ -33,6 +33,7 @@
 #'   \item{density}{density of points in bin, scaled to integrate to 1}
 #'   \item{ncount}{count, scaled to maximum of 1}
 #'   \item{ndensity}{density, scaled to maximum of 1}
+#'   \item{width}{widths of bins}
 #' }
 #'
 #' @seealso [stat_count()], which counts the number of cases at each x
@@ -63,7 +64,7 @@ stat_bin <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       binwidth = binwidth,
       bins = bins,
       center = center,
@@ -83,48 +84,50 @@ stat_bin <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 StatBin <- ggproto("StatBin", Stat,
-  setup_params = function(data, params) {
+  setup_params = function(self, data, params) {
     params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = FALSE)
 
     has_x <- !(is.null(data$x) && is.null(params$x))
     has_y <- !(is.null(data$y) && is.null(params$y))
     if (!has_x && !has_y) {
-      stop("stat_bin() requires an x or y aesthetic.", call. = FALSE)
+      cli::cli_abort("{.fn {snake_class(self)}} requires an {.field x} or {.field y} aesthetic.")
     }
     if (has_x && has_y) {
-      stop("stat_bin() can only have an x or y aesthetic.", call. = FALSE)
+      cli::cli_abort("{.fn {snake_class(self)}} must only have an {.field x} {.emph or} {.field y} aesthetic.")
     }
 
     x <- flipped_names(params$flipped_aes)$x
     if (is.integer(data[[x]])) {
-      stop('StatBin requires a continuous ', x, ' variable: the ',
-           x, ' variable is discrete. Perhaps you want stat="count"?',
-        call. = FALSE)
+      cli::cli_abort(c(
+        "{.fn {snake_class(self)}} requires a continuous {.field {x}} aesthetic",
+        "x" = "the {.field {x}} aesthetic is discrete.",
+        "i" = "Perhaps you want {.code stat=\"count\"}?"
+      ))
     }
 
     if (!is.null(params$drop)) {
-      warning("`drop` is deprecated. Please use `pad` instead.", call. = FALSE)
+      lifecycle::deprecate_warn("2.1.0", "stat_bin(drop)", "stat_bin(pad)")
       params$drop <- NULL
     }
     if (!is.null(params$origin)) {
-      warning("`origin` is deprecated. Please use `boundary` instead.", call. = FALSE)
+      lifecycle::deprecate_warn("2.1.0", "stat_bin(origin)", "stat_bin(boundary)")
       params$boundary <- params$origin
       params$origin <- NULL
     }
     if (!is.null(params$right)) {
-      warning("`right` is deprecated. Please use `closed` instead.", call. = FALSE)
+      lifecycle::deprecate_warn("2.1.0", "stat_bin(right)", "stat_bin(closed)")
       params$closed <- if (params$right) "right" else "left"
       params$right <- NULL
     }
     if (!is.null(params$width)) {
-      stop("`width` is deprecated. Do you want `geom_bar()`?", call. = FALSE)
+      lifecycle::deprecate_warn("2.1.0", "stat_bin(width)", "geom_bar()")
     }
     if (!is.null(params$boundary) && !is.null(params$center)) {
-      stop("Only one of `boundary` and `center` may be specified.", call. = FALSE)
+      cli::cli_abort("Only one of {.arg boundary} and {.arg center} may be specified in {.fn {snake_class(self)}}.")
     }
 
     if (is.null(params$breaks) && is.null(params$binwidth) && is.null(params$bins)) {
-      message_wrap("`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.")
+      cli::cli_inform("{.fn {snake_class(self)}} using {.code bins = 30}. Pick better value with {.arg binwidth}.")
       params$bins <- 30
     }
 
@@ -162,7 +165,7 @@ StatBin <- ggproto("StatBin", Stat,
     flip_data(bins, flipped_aes)
   },
 
-  default_aes = aes(x = stat(count), y = stat(count), weight = 1),
+  default_aes = aes(x = after_stat(count), y = after_stat(count), weight = 1),
 
   required_aes = "x|y"
 )

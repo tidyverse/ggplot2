@@ -62,7 +62,8 @@ object of \code{\link[=element_text]{element_text()}} is expected. By default, t
 specified by \code{legend.text} in \code{\link[=theme]{theme()}}.}
 
 \item{label.hjust}{A numeric specifying horizontal justification of the
-label text.}
+label text. The default for standard text is 0 (left-aligned) and 1
+(right-aligned) for expressions.}
 
 \item{label.vjust}{A numeric specifying vertical justification of the label
 text.}
@@ -100,7 +101,10 @@ multiple guides are displayed, not the contents of the guide itself.
 If 0 (default), the order is determined by a secret algorithm.}
 
 \item{show.limits}{Logical. Should the limits of the scale be shown with
-labels and ticks.}
+labels and ticks. Default is \code{NULL} meaning it will take the value from the
+scale. This argument is ignored if \code{labels} is given as a vector of
+values. If one or both of the limits is also given in \code{breaks} it will be
+shown irrespective of the value of \code{show.limits}.}
 
 \item{...}{ignored.}
 }
@@ -115,6 +119,20 @@ for all non-position aesthetics though colour and fill defaults to
 \code{\link[=guide_coloursteps]{guide_coloursteps()}}, and it will merge aesthetics together into the same
 guide if they are mapped in the same way.
 }
+\section{Use with discrete scale}{
+
+This guide is intended to show binned data and work together with ggplot2's
+binning scales. However, it is sometimes desirable to perform the binning in
+a separate step, either as part of a stat (e.g. \code{\link[=stat_contour_filled]{stat_contour_filled()}}) or
+prior to the visualisation. If you want to use this guide for discrete data
+the levels must follow the naming scheme implemented by \code{\link[base:cut]{base::cut()}}. This
+means that a bin must be encoded as \code{"(<lower>, <upper>]"} with \verb{<lower>}
+giving the lower bound of the bin and \verb{<upper>} giving the upper bound
+(\code{"[<lower>, <upper>)"} is also accepted). If you use \code{\link[base:cut]{base::cut()}} to
+perform the binning everything should work as expected, if not, some recoding
+may be needed.
+}
+
 \examples{
 p <- ggplot(mtcars) +
   geom_point(aes(disp, mpg, size = hp)) +

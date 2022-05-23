@@ -1,5 +1,3 @@
-context("Aesthetics (grouping)")
-
 df <- data_frame(
   x = 1:4,
   a = c("a", "a", "b", "b"),
@@ -21,6 +19,14 @@ test_that("one group per combination of discrete vars", {
 
   plot <- ggplot(df, aes(a, b)) + geom_point()
   expect_equal(groups(plot), 4)
+})
+
+test_that("no error for aes(groupS)", {
+  df2 <- data_frame(x = df$a, y = df$b, groupS = 1)
+  g <- add_group(df2)
+
+  expect_equal(nrow(g), nrow(df2))
+  expect_equal(names(g), c("x", "y", "groupS", "group"))
 })
 
 test_that("label is not used as a grouping var", {

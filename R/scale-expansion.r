@@ -36,10 +36,9 @@
 #'   scale_y_continuous(expand = expansion(mult = .05))
 #'
 expansion <- function(mult = 0, add = 0) {
-  stopifnot(
-    is.numeric(mult), (length(mult) %in% 1:2),
-    is.numeric(add), (length(add) %in% 1:2)
-  )
+  if (!(is.numeric(mult) && (length(mult) %in% 1:2) && is.numeric(add) && (length(add) %in% 1:2))) {
+    cli::cli_abort("{.arg mult} and {.arg add} must be numeric vectors with 1 or 2 elements")
+  }
 
   mult <- rep(mult, length.out = 2)
   add <- rep(add, length.out = 2)
@@ -49,7 +48,7 @@ expansion <- function(mult = 0, add = 0) {
 #' @rdname expansion
 #' @export
 expand_scale <- function(mult = 0, add = 0) {
-  .Deprecated(msg = "`expand_scale()` is deprecated; use `expansion()` instead.")
+  lifecycle::deprecate_warn("3.3.0", "expand_scale()", "expansion()")
   expansion(mult, add)
 }
 
@@ -66,10 +65,9 @@ expand_scale <- function(mult = 0, add = 0) {
 #' @noRd
 #'
 expand_range4 <- function(limits, expand) {
-  stopifnot(
-    is.numeric(expand),
-    length(expand) %in% c(2,4)
-  )
+  if (!(is.numeric(expand) && length(expand) %in% c(2,4))) {
+    cli::cli_abort("{.arg expand} must be a numeric vector with 2 or 4 elements")
+  }
 
   if (all(!is.finite(limits))) {
     return(c(-Inf, Inf))
@@ -202,10 +200,14 @@ expand_limits_continuous_trans <- function(limits, expand = expansion(0, 0),
 expand_limits_discrete_trans <- function(limits, expand = expansion(0, 0),
                                          coord_limits = c(NA, NA), trans = identity_trans(),
                                          range_continuous = NULL) {
+  if (is.discrete(limits)) {
+    n_discrete_limits <- length(limits)
+  } else {
+    n_discrete_limits <- 0
+  }
 
-  n_limits <- length(limits)
   is_empty <- is.null(limits) && is.null(range_continuous)
-  is_only_continuous <- n_limits == 0
+  is_only_continuous <- n_discrete_limits == 0
   is_only_discrete <- is.null(range_continuous)
 
   if (is_empty) {
@@ -213,10 +215,10 @@ expand_limits_discrete_trans <- function(limits, expand = expansion(0, 0),
   } else if (is_only_continuous) {
     expand_limits_continuous_trans(range_continuous, expand, coord_limits, trans)
   } else if (is_only_discrete) {
-    expand_limits_continuous_trans(c(1, n_limits), expand, coord_limits, trans)
+    expand_limits_continuous_trans(c(1, n_discrete_limits), expand, coord_limits, trans)
   } else {
     # continuous and discrete
-    limit_info_discrete <- expand_limits_continuous_trans(c(1, n_limits), expand, coord_limits, trans)
+    limit_info_discrete <- expand_limits_continuous_trans(c(1, n_discrete_limits), expand, coord_limits, trans)
 
     # don't expand continuous range if there is also a discrete range
     limit_info_continuous <- expand_limits_continuous_trans(

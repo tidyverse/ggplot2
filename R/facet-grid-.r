@@ -32,9 +32,9 @@ NULL
 #'   one with `vars(cyl, am)`. Each output
 #'   column gets displayed as one separate line in the strip
 #'   label. This function should inherit from the "labeller" S3 class
-#'   for compatibility with [labeller()]. You can use different labeling 
-#'   functions for different kind of labels, for example use [label_parsed()] for 
-#'   formatting facet labels. [label_value()] is used by default, 
+#'   for compatibility with [labeller()]. You can use different labeling
+#'   functions for different kind of labels, for example use [label_parsed()] for
+#'   formatting facet labels. [label_value()] is used by default,
 #'   check it for more details and pointers to other options.
 #' @param as.table If `TRUE`, the default, the facets are laid out like
 #'   a table with highest values at the bottom-right. If `FALSE`, the
@@ -123,20 +123,20 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
     cols <- NULL
   }
 
-  scales <- match.arg(scales, c("fixed", "free_x", "free_y", "free"))
+  scales <- arg_match0(scales, c("fixed", "free_x", "free_y", "free"))
   free <- list(
     x = any(scales %in% c("free_x", "free")),
     y = any(scales %in% c("free_y", "free"))
   )
 
-  space <- match.arg(space, c("fixed", "free_x", "free_y", "free"))
+  space <- arg_match0(space, c("fixed", "free_x", "free_y", "free"))
   space_free <- list(
     x = any(space %in% c("free_x", "free")),
     y = any(space %in% c("free_y", "free"))
   )
 
   if (!is.null(switch) && !switch %in% c("both", "x", "y")) {
-    stop("switch must be either 'both', 'x', or 'y'", call. = FALSE)
+    cli::cli_abort("{.arg switch} must be either {.val both}, {.val x}, or {.val y}")
   }
 
   facets_list <- grid_as_facets_list(rows, cols)
@@ -157,12 +157,19 @@ grid_as_facets_list <- function(rows, cols) {
   is_rows_vars <- is.null(rows) || is_quosures(rows)
   if (!is_rows_vars) {
     if (!is.null(cols)) {
-      stop("`rows` must be `NULL` or a `vars()` list if `cols` is a `vars()` list", call. = FALSE)
+      msg <- "{.arg rows} must be {.val NULL} or a {.fn vars} list if {.arg cols} is a {.fn vars} list"
+      if (inherits(rows, "ggplot")) {
+        msg <- c(
+          msg,
+          "i" = "Did you use {.code %>%} or {.code |>} instead of {.code +}?"
+        )
+      }
+      cli::cli_abort(msg)
     }
     # For backward-compatibility
     facets_list <- as_facets_list(rows)
     if (length(facets_list) > 2L) {
-      stop("A grid facet specification can't have more than two dimensions", call. = FALSE)
+      cli::cli_abort("A grid facet specification can't have more than two dimensions")
     }
     # Fill with empty quosures
     facets <- list(rows = quos(), cols = quos())
@@ -173,7 +180,7 @@ grid_as_facets_list <- function(rows, cols) {
 
   is_cols_vars <- is.null(cols) || is_quosures(cols)
   if (!is_cols_vars) {
-    stop("`cols` must be `NULL` or a `vars()` specification", call. = FALSE)
+    cli::cli_abort("{.arg cols} must be {.val NULL} or a {.fn vars} specification")
   }
 
   list(
@@ -195,11 +202,10 @@ FacetGrid <- ggproto("FacetGrid", Facet,
 
     dups <- intersect(names(rows), names(cols))
     if (length(dups) > 0) {
-      stop(
-        "Faceting variables can only appear in row or cols, not both.\n",
-        "Problems: ", paste0(dups, collapse = "'"),
-        call. = FALSE
-      )
+      cli::cli_abort(c(
+              "Faceting variables can only appear in {.arg rows} or {.arg cols}, not both.\n",
+        "i" = "Duplicated variables: {.val {dups}}"
+      ))
     }
 
     base_rows <- combine_vars(data, params$plot_env, rows, drop = params$drop)
@@ -211,12 +217,11 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     base <- df.grid(base_rows, base_cols)
 
     if (nrow(base) == 0) {
-      return(new_data_frame(list(PANEL = 1L, ROW = 1L, COL = 1L, SCALE_X = 1L, SCALE_Y = 1L)))
+      return(new_data_frame(list(PANEL = factor(1L), ROW = 1L, COL = 1L, SCALE_X = 1L, SCALE_Y = 1L)))
     }
 
     # Add margins
-    base <- reshape2::add_margins(base, list(names(rows), names(cols)), params$margins)
-    # Work around bug in reshape2
+    base <- reshape_add_margins(base, list(names(rows), names(cols)), params$margins)
     base <- unique(base)
 
     # Create panel info dataset
@@ -252,9 +257,9 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     # Compute faceting values and add margins
     margin_vars <- list(intersect(names(rows), names(data)),
       intersect(names(cols), names(data)))
-    data <- reshape2::add_margins(data, margin_vars, params$margins)
+    data <- reshape_add_margins(data, margin_vars, params$margins)
 
-    facet_vals <- eval_facets(c(rows, cols), data, params$plot_env)
+    facet_vals <- eval_facets(c(rows, cols), data, params$.possible_columns)
 
     # If any faceting variables are missing, add them in by
     # duplicating the data
@@ -287,7 +292,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
   },
   draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
     if ((params$free$x || params$free$y) && !coord$is_free()) {
-      stop(snake_class(coord), " doesn't support free scales", call. = FALSE)
+      cli::cli_abort("{.fn {snake_class(coord)}} doesn't support free scales")
     }
 
     cols <- which(layout$ROW == 1)
@@ -304,6 +309,9 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     strips <- render_strips(col_vars, row_vars, params$labeller, theme)
 
     aspect_ratio <- theme$aspect.ratio
+    if (!is.null(aspect_ratio) && (params$space_free$x || params$space_free$y)) {
+      cli::cli_abort("Free scales cannot be mixed with a fixed aspect ratio")
+    }
     if (is.null(aspect_ratio) && !params$free$x && !params$free$y) {
       aspect_ratio <- coord$aspect(ranges[[1]])
     }
@@ -335,12 +343,12 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       heights <- vapply(ps, function(i) diff(ranges[[i]]$y.range), numeric(1))
       panel_heights <- unit(heights, "null")
     } else {
-      panel_heights <- rep(unit(1 * aspect_ratio, "null"), nrow)
+      panel_heights <- rep(unit(1 * abs(aspect_ratio), "null"), nrow)
     }
 
     panel_table <- gtable_matrix("layout", panel_table,
       panel_widths, panel_heights, respect = respect, clip = coord$clip, z = matrix(1, ncol = ncol, nrow = nrow))
-    panel_table$layout$name <- paste0('panel-', rep(seq_len(ncol), nrow), '-', rep(seq_len(nrow), each = ncol))
+    panel_table$layout$name <- paste0('panel-', rep(seq_len(nrow), ncol), '-', rep(seq_len(ncol), each = nrow))
 
     panel_table <- gtable_add_col_space(panel_table,
       theme$panel.spacing.x %||% theme$panel.spacing)
@@ -348,10 +356,14 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       theme$panel.spacing.y %||% theme$panel.spacing)
 
     # Add axes
-    panel_table <- gtable_add_rows(panel_table, max_height(axes$x$top), 0)
-    panel_table <- gtable_add_rows(panel_table, max_height(axes$x$bottom), -1)
-    panel_table <- gtable_add_cols(panel_table, max_width(axes$y$left), 0)
-    panel_table <- gtable_add_cols(panel_table, max_width(axes$y$right), -1)
+    axis_height_top <- max_height(axes$x$top)
+    axis_height_bottom <- max_height(axes$x$bottom)
+    axis_width_left <- max_width(axes$y$left)
+    axis_width_right <- max_width(axes$y$right)
+    panel_table <- gtable_add_rows(panel_table, axis_height_top, 0)
+    panel_table <- gtable_add_rows(panel_table, axis_height_bottom, -1)
+    panel_table <- gtable_add_cols(panel_table, axis_width_left, 0)
+    panel_table <- gtable_add_cols(panel_table, axis_width_right, -1)
     panel_pos_col <- panel_cols(panel_table)
     panel_pos_rows <- panel_rows(panel_table)
 
@@ -369,7 +381,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     panel_pos_col <- panel_cols(panel_table)
     if (switch_x) {
       if (!is.null(strips$x$bottom)) {
-        if (inside_x) {
+        if (inside_x || as.numeric(axis_height_bottom) == 0) {
           panel_table <- gtable_add_rows(panel_table, max_height(strips$x$bottom), -2)
           panel_table <- gtable_add_grob(panel_table, strips$x$bottom, -2, panel_pos_col$l, clip = "on", name = paste0("strip-b-", seq_along(strips$x$bottom)), z = 2)
         } else {
@@ -380,7 +392,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       }
     } else {
       if (!is.null(strips$x$top)) {
-        if (inside_x) {
+        if (inside_x || as.numeric(axis_height_top) == 0) {
           panel_table <- gtable_add_rows(panel_table, max_height(strips$x$top), 1)
           panel_table <- gtable_add_grob(panel_table, strips$x$top, 2, panel_pos_col$l, clip = "on", name = paste0("strip-t-", seq_along(strips$x$top)), z = 2)
         } else {
@@ -393,7 +405,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     panel_pos_rows <- panel_rows(panel_table)
     if (switch_y) {
       if (!is.null(strips$y$left)) {
-        if (inside_y) {
+        if (inside_y || as.numeric(axis_width_left) == 0) {
           panel_table <- gtable_add_cols(panel_table, max_width(strips$y$left), 1)
           panel_table <- gtable_add_grob(panel_table, strips$y$left, panel_pos_rows$t, 2, clip = "on", name = paste0("strip-l-", seq_along(strips$y$left)), z = 2)
         } else {
@@ -404,7 +416,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       }
     } else {
       if (!is.null(strips$y$right)) {
-        if (inside_y) {
+        if (inside_y || as.numeric(axis_width_right) == 0) {
           panel_table <- gtable_add_cols(panel_table, max_width(strips$y$right), -2)
           panel_table <- gtable_add_grob(panel_table, strips$y$right, panel_pos_rows$t, -2, clip = "on", name = paste0("strip-r-", seq_along(strips$y$right)), z = 2)
         } else {

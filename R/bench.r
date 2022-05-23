@@ -15,7 +15,9 @@
 benchplot <- function(x) {
   x <- enquo(x)
   construct <- system.time(x <- eval_tidy(x))
-  stopifnot(inherits(x, "ggplot"))
+  if (!inherits(x, "ggplot")) {
+    cli::cli_abort("{.arg x} must be a {.cls ggplot} object")
+  }
 
   build <- system.time(data <- ggplot_build(x))
   render <- system.time(grob <- ggplot_gtable(data))

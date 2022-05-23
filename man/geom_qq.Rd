@@ -84,10 +84,14 @@ the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
-\item{geom}{The geometric object to use display the data}
+\item{geom}{The geometric object to use to display the data, either as a
+\code{ggproto} \code{Geom} subclass or as a string naming the geom stripped of the
+\code{geom_} prefix (e.g. \code{"point"} rather than \code{"geom_point"})}
 
-\item{position}{Position adjustment, either as a string, or the result of
-a call to a position adjustment function.}
+\item{position}{Position adjustment, either as a string naming the adjustment
+(e.g. \code{"jitter"} to use \code{position_jitter}), or the result of a call to a
+position adjustment function. Use the latter if you need to change the
+settings of the adjustment.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
@@ -120,8 +124,8 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 }
 \description{
-\code{geom_qq} and \code{stat_qq} produce quantile-quantile plots. \code{geom_qq_line} and
-\code{stat_qq_line} compute the slope and intercept of the line connecting the
+\code{geom_qq()} and \code{stat_qq()} produce quantile-quantile plots. \code{geom_qq_line()} and
+\code{stat_qq_line()} compute the slope and intercept of the line connecting the
 points at specified quartiles of the theoretical and sample distributions.
 }
 \section{Aesthetics}{
@@ -148,12 +152,12 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 
 \section{Computed variables}{
 
-Variables computed by \code{stat_qq}:
+Variables computed by \code{stat_qq()}:
 \describe{
 \item{sample}{sample quantiles}
 \item{theoretical}{theoretical quantiles}
 }
-Variables computed by \code{stat_qq_line}:
+Variables computed by \code{stat_qq_line()}:
 \describe{
 \item{x}{x-coordinates of the endpoints of the line segment connecting the
 points at the chosen quantiles of the theoretical and the sample

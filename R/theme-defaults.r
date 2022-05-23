@@ -4,7 +4,7 @@
 #' [theme()] if you just need to tweak the display of an existing
 #' theme.
 #'
-#' @param base_size base font size
+#' @param base_size base font size, given in pts.
 #' @param base_family base font family
 #' @param base_line_size base size for line elements
 #' @param base_rect_size base size for rect elements
@@ -12,37 +12,37 @@
 #' @details
 #' \describe{
 #'
-#' \item{`theme_gray`}{
+#' \item{`theme_gray()`}{
 #' The signature ggplot2 theme with a grey background and white gridlines,
 #' designed to put the data forward yet make comparisons easy.}
 #'
-#' \item{`theme_bw`}{
+#' \item{`theme_bw()`}{
 #' The classic dark-on-light ggplot2 theme. May work better for presentations
 #' displayed with a projector.}
 #'
-#' \item{`theme_linedraw`}{
+#' \item{`theme_linedraw()`}{
 #' A theme with only black lines of various widths on white backgrounds,
-#' reminiscent of a line drawing. Serves a purpose similar to `theme_bw`.
+#' reminiscent of a line drawing. Serves a purpose similar to `theme_bw()`.
 #' Note that this theme has some very thin lines (<< 1 pt) which some journals
 #' may refuse.}
 #'
-#' \item{`theme_light`}{
-#' A theme similar to `theme_linedraw` but with light grey lines and axes,
+#' \item{`theme_light()`}{
+#' A theme similar to `theme_linedraw()` but with light grey lines and axes,
 #' to direct more attention towards the data.}
 #'
-#' \item{`theme_dark`}{
-#' The dark cousin of `theme_light`, with similar line sizes but a dark background. Useful to make thin coloured lines pop out.}
+#' \item{`theme_dark()`}{
+#' The dark cousin of `theme_light()`, with similar line sizes but a dark background. Useful to make thin coloured lines pop out.}
 #'
-#' \item{`theme_minimal`}{
+#' \item{`theme_minimal()`}{
 #' A minimalistic theme with no background annotations.}
 #'
-#' \item{`theme_classic`}{
+#' \item{`theme_classic()`}{
 #' A classic-looking theme, with x and y axis lines and no gridlines.}
 #'
-#' \item{`theme_void`}{
+#' \item{`theme_void()`}{
 #' A completely empty theme.}
 #'
-#' \item{`theme_test`}{
+#' \item{`theme_test()`}{
 #' A theme for visual unit tests. It should ideally never change except
 #' for new features.}
 #'
@@ -58,13 +58,15 @@
 #'
 #' p1 <- ggplot(mtcars2) +
 #'   geom_point(aes(x = wt, y = mpg, colour = gear)) +
-#'   labs(title = "Fuel economy declines as weight increases",
-#'        subtitle = "(1973-74)",
-#'        caption = "Data from the 1974 Motor Trend US magazine.",
-#'        tag = "Figure 1",
-#'        x = "Weight (1000 lbs)",
-#'        y = "Fuel economy (mpg)",
-#'        colour = "Gears")
+#'   labs(
+#'     title = "Fuel economy declines as weight increases",
+#'     subtitle = "(1973-74)",
+#'     caption = "Data from the 1974 Motor Trend US magazine.",
+#'     tag = "Figure 1",
+#'     x = "Weight (1000 lbs)",
+#'     y = "Fuel economy (mpg)",
+#'     colour = "Gears"
+#'   )
 #'
 #' p1 + theme_gray() # the default
 #' p1 + theme_bw()
@@ -195,6 +197,7 @@ theme_grey <- function(base_size = 11, base_family = "",
     panel.ontop    =     FALSE,
 
     strip.background =   element_rect(fill = "grey85", colour = NA),
+    strip.clip =         "inherit",
     strip.text =         element_text(
                            colour = "grey10",
                            size = rel(0.8),
@@ -202,6 +205,7 @@ theme_grey <- function(base_size = 11, base_family = "",
                          ),
     strip.text.x =       NULL,
     strip.text.y =       element_text(angle = -90),
+    strip.text.y.left =  element_text(angle = 90),
     strip.placement =    "inside",
     strip.placement.x =  NULL,
     strip.placement.y =  NULL,
@@ -481,6 +485,7 @@ theme_void <- function(base_size = 11, base_family = "",
     legend.position =    "right",
     legend.text =        element_text(size = rel(0.8)),
     legend.title =       element_text(hjust = 0),
+    strip.clip =         "inherit",
     strip.text =         element_text(size = rel(0.8)),
     strip.switch.pad.grid = unit(half_line / 2, "pt"),
     strip.switch.pad.wrap = unit(half_line / 2, "pt"),
@@ -606,6 +611,7 @@ theme_test <- function(base_size = 11, base_family = "",
     panel.ontop    =     FALSE,
 
     strip.background =   element_rect(fill = "grey85", colour = "grey20"),
+    strip.clip =         "inherit",
     strip.text =         element_text(
                            colour = "grey10",
                            size = rel(0.8),
@@ -651,9 +657,13 @@ theme_test <- function(base_size = 11, base_family = "",
 }
 
 theme_all_null <- function() {
-  # set all elements in the element tree to NULL
+  # Set all elements in the element tree to NULL.
+
+  # We read from `.element_tree` instead of `ggplot_global$element_tree`
+  # because we don't want to change our results just because a user
+  # has defined new theme elements.
   elements <- sapply(
-    names(ggplot_global$element_tree),
+    names(.element_tree),
     function(x) NULL,
     simplify = FALSE, USE.NAMES = TRUE
   )

@@ -1,23 +1,28 @@
 #' Bar charts
 #'
 #' There are two types of bar charts: `geom_bar()` and `geom_col()`.
-#' `geom_bar()` makes the height of the
-#' bar proportional to the number of cases in each group (or if the
-#' `weight` aesthetic is supplied, the sum of the weights). If you want the
-#' heights of the bars to represent values in the data, use
-#' `geom_col()` instead. `geom_bar()` uses `stat_count()` by
+#' `geom_bar()` makes the height of the bar proportional to the number of
+#' cases in each group (or if the `weight` aesthetic is supplied, the sum
+#' of the weights). If you want the heights of the bars to represent values
+#' in the data, use `geom_col()` instead. `geom_bar()` uses `stat_count()` by
 #' default: it counts the number of cases at each x position. `geom_col()`
 #' uses `stat_identity()`: it leaves the data as is.
 #'
 #' A bar chart uses height to represent a value, and so the base of the
-#' bar must always be shown to produce a valid visual comparison. This is why
-#' it doesn't make sense to use a log-scaled y axis with a bar chart.
+#' bar must always be shown to produce a valid visual comparison.
+#' Proceed with caution when using transformed scales with a bar chart.
+#' It's important to always use a meaningful reference point for the base of the bar.
+#' For example, for log transformations the reference point is 1. In fact, when
+#' using a log scale, `geom_bar()` automatically places the base of the bar at 1.
+#' Furthermore, never use stacked bars with a transformed scale, because scaling
+#' happens before stacking. As a consequence, the height of bars will be wrong
+#' when stacking occurs with a transformed scale.
 #'
 #' By default, multiple bars occupying the same `x` position will be stacked
 #' atop one another by [position_stack()]. If you want them to be dodged
 #' side-to-side, use [position_dodge()] or [position_dodge2()]. Finally,
-#' [position_fill()] shows relative proportions at each `x` by stacking the bars
-#' and then standardising each bar to have the same height.
+#' [position_fill()] shows relative proportions at each `x` by stacking the
+#' bars and then standardising each bar to have the same height.
 #'
 #' @eval rd_orientation()
 #'
@@ -36,9 +41,6 @@
 #' rare event that this fails it can be given explicitly by setting `orientation`
 #' to either `"x"` or `"y"`. See the *Orientation* section for more detail.
 #' @param width Bar width. By default, set to 90% of the resolution of the data.
-#' @param binwidth `geom_bar()` no longer has a binwidth argument - if
-#'   you use it you'll get an warning telling to you use
-#'   [geom_histogram()] instead.
 #' @param geom,stat Override the default connection between `geom_bar()` and
 #'   `stat_count()`.
 #' @examples
@@ -82,20 +84,10 @@ geom_bar <- function(mapping = NULL, data = NULL,
                      stat = "count", position = "stack",
                      ...,
                      width = NULL,
-                     binwidth = NULL,
                      na.rm = FALSE,
                      orientation = NA,
                      show.legend = NA,
                      inherit.aes = TRUE) {
-
-  if (!is.null(binwidth)) {
-    warning("`geom_bar()` no longer has a `binwidth` parameter. ",
-      "Please use `geom_histogram()` instead.", call. = "FALSE")
-    return(geom_histogram(mapping = mapping, data = data,
-      position = position, width = width, binwidth = binwidth, ...,
-      na.rm = na.rm, show.legend = show.legend, inherit.aes = inherit.aes))
-  }
-
   layer(
     data = data,
     mapping = mapping,
@@ -104,7 +96,7 @@ geom_bar <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       width = width,
       na.rm = na.rm,
       orientation = orientation,
@@ -127,7 +119,7 @@ GeomBar <- ggproto("GeomBar", GeomRect,
   non_missing_aes = c("xmin", "xmax", "ymin", "ymax"),
 
   setup_params = function(data, params) {
-    params$flipped_aes <- has_flipped_aes(data, params, range_is_orthogonal = FALSE)
+    params$flipped_aes <- has_flipped_aes(data, params)
     params
   },
 
@@ -146,8 +138,15 @@ GeomBar <- ggproto("GeomBar", GeomRect,
     flip_data(data, params$flipped_aes)
   },
 
-  draw_panel = function(self, data, panel_params, coord, width = NULL, flipped_aes = FALSE) {
+  draw_panel = function(self, data, panel_params, coord, lineend = "butt",
+                        linejoin = "mitre", width = NULL, flipped_aes = FALSE) {
     # Hack to ensure that width is detected as a parameter
-    ggproto_parent(GeomRect, self)$draw_panel(data, panel_params, coord)
+    ggproto_parent(GeomRect, self)$draw_panel(
+      data,
+      panel_params,
+      coord,
+      lineend = lineend,
+      linejoin = linejoin
+    )
   }
 )

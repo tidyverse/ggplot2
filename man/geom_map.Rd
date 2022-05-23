@@ -37,7 +37,9 @@ will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{stat}{The statistical transformation to use on the data for this
-layer, as a string.}
+layer, either as a \code{ggproto} \code{Geom} subclass or as a string naming the
+stat stripped of the \code{stat_} prefix (e.g. \code{"count"} rather than
+\code{"stat_count"})}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
@@ -114,16 +116,23 @@ ggplot(values, aes(fill = value)) +
   expand_limits(positions) + ylim(0, 3)
 
 # Better example
-crimes <- data.frame(state = tolower(rownames(USArrests)), USArrests)
-crimesm <- reshape2::melt(crimes, id = 1)
 if (require(maps)) {
+
+  crimes <- data.frame(state = tolower(rownames(USArrests)), USArrests)
+
+  # Equivalent to crimes \%>\% tidyr::pivot_longer(Murder:Rape)
+  vars <- lapply(names(crimes)[-1], function(j) {
+    data.frame(state = crimes$state, variable = j, value = crimes[[j]])
+  })
+  crimes_long <- do.call("rbind", vars)
+
   states_map <- map_data("state")
   ggplot(crimes, aes(map_id = state)) +
     geom_map(aes(fill = Murder), map = states_map) +
     expand_limits(x = states_map$long, y = states_map$lat)
 
   last_plot() + coord_map()
-  ggplot(crimesm, aes(map_id = state)) +
+  ggplot(crimes_long, aes(map_id = state)) +
     geom_map(aes(fill = value), map = states_map) +
     expand_limits(x = states_map$long, y = states_map$lat) +
     facet_wrap( ~ variable)

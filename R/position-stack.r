@@ -27,6 +27,12 @@
 #' positive values stack upwards from the x-axis and negative values stack
 #' downward.
 #'
+#' Because stacking is performed after scale transformations, stacking with
+#' non-linear scales gives distortions that easily lead to misinterpretations of
+#' the data. It is therefore *discouraged* to use these position adjustments in
+#' combination with scale transformations, such as logarithmic or square root
+#' scales.
+#'
 #' @family position adjustments
 #' @param vjust Vertical adjustment for geoms that have a position
 #'   (like points or lines), not a dimension (like bars or areas). Set to
@@ -53,6 +59,7 @@
 #'   geom_histogram(binwidth = 500, position = "fill")
 #'
 #' # Stacking is also useful for time series
+#' set.seed(1)
 #' series <- data.frame(
 #'   time = c(rep(1, 4),rep(2, 4), rep(3, 4), rep(4, 4)),
 #'   type = rep(c('a', 'b', 'c', 'd'), 4),
@@ -165,7 +172,7 @@ PositionStack <- ggproto("PositionStack", Position,
 
     data$ymax <- switch(params$var,
       y = data$y,
-      ymax = ifelse(data$ymax == 0, data$ymin, data$ymax)
+      ymax = as.numeric(ifelse(data$ymax == 0, data$ymin, data$ymax))
     )
 
     data <- remove_missing(
@@ -216,10 +223,17 @@ pos_stack <- function(df, width, vjust = 1, fill = FALSE) {
   if (fill) {
     heights <- heights / abs(heights[length(heights)])
   }
-
-  df$ymin <- pmin(heights[-n], heights[-1])
-  df$ymax <- pmax(heights[-n], heights[-1])
-  df$y <- (1 - vjust) * df$ymin + vjust * df$ymax
+# We need to preserve ymin/ymax order. If ymax is lower than ymin in input, it should remain that way
+  if (!is.null(df$ymin) && !is.null(df$ymax)) {
+    max_is_lower <- df$ymax < df$ymin
+  } else {
+    max_is_lower <- rep(FALSE, nrow(df))
+  }
+  ymin <- pmin(heights[-n], heights[-1])
+  ymax <- pmax(heights[-n], heights[-1])
+  df$y <- (1 - vjust) * ymin + vjust * ymax
+  df$ymin <- as.numeric(ifelse(max_is_lower, ymax, ymin))
+  df$ymax <- as.numeric(ifelse(max_is_lower, ymin, ymax))
   df
 }
 
@@ -235,17 +249,16 @@ PositionFill <- ggproto("PositionFill", PositionStack,
 stack_var <- function(data) {
   if (!is.null(data$ymax)) {
     if (any(data$ymin != 0 & data$ymax != 0, na.rm = TRUE)) {
-      warning("Stacking not well defined when not anchored on the axis", call. = FALSE)
+      cli::cli_warn("Stacking not well defined when not anchored on the axis")
     }
     "ymax"
   } else if (!is.null(data$y)) {
     "y"
   } else {
-    warning(
-      "Stacking requires either ymin & ymin or y aesthetics.\n",
-      "Maybe you want position = 'identity'?",
-      call. = FALSE
-    )
+    cli::cli_warn(c(
+      "Stacking requires either the {.field ymin} {.emph and} {.field ymin} or the {.field y} aesthetics",
+      "i" = "Maybe you want {.code position = \"identity\"}?"
+    ))
     NULL
   }
 }

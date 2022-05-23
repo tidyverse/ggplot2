@@ -1,5 +1,3 @@
-context("stat_density") # and stat_ydensity
-
 test_that("compute_density succeeds when variance is zero", {
   dens <- compute_density(rep(0, 10), NULL, from = 0.5, to = 0.5)
   expect_equal(dens$n, rep(10, 512))
@@ -17,6 +15,9 @@ test_that("stat_density works in both directions", {
   x$flipped_aes <- NULL
   y$flipped_aes <- NULL
   expect_identical(x, flip_data(y, TRUE)[,names(x)])
+
+  p <- ggplot(mpg) + stat_density()
+  expect_snapshot_error(ggplot_build(p))
 })
 
 test_that("compute_density returns useful df and throws warning when <2 values", {

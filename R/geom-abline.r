@@ -86,10 +86,10 @@ geom_abline <- function(mapping = NULL, data = NULL,
 
     # Warn if supplied mapping and/or data is going to be overwritten
     if (!is.null(mapping)) {
-      warn_overwritten_args("geom_abline()", "mapping", c("slope", "intercept"))
+      cli::cli_warn("{.fn geom_abline}: Ignoring {.arg mapping} because {.arg slope} and/or {.arg intercept} were provided.")
     }
     if (!is.null(data)) {
-      warn_overwritten_args("geom_abline()", "data", c("slope", "intercept"))
+      cli::cli_warn("{.fn geom_abline}: Ignoring {.arg data} because {.arg slope} and/or {.arg intercept} were provided.")
     }
 
     if (missing(slope)) slope <- 1
@@ -112,7 +112,7 @@ geom_abline <- function(mapping = NULL, data = NULL,
     position = PositionIdentity,
     show.legend = show.legend,
     inherit.aes = FALSE,
-    params = list(
+    params = list2(
       na.rm = na.rm,
       ...
     )
@@ -127,15 +127,21 @@ GeomAbline <- ggproto("GeomAbline", Geom,
   setup_data = function(data, params) {
     rename_size_aesthetic(data)
   },
-  draw_panel = function(data, panel_params, coord) {
+  draw_panel = function(data, panel_params, coord, lineend = "butt") {
     ranges <- coord$backtransform_range(panel_params)
+
+    if (coord$clip == "on" && coord$is_linear()) {
+      # Ensure the line extends well outside the panel to avoid visible line
+      # ending for thick lines
+      ranges$x <- ranges$x + c(-1, 1) * diff(ranges$x)
+    }
 
     data$x    <- ranges$x[1]
     data$xend <- ranges$x[2]
     data$y    <- ranges$x[1] * data$slope + data$intercept
     data$yend <- ranges$x[2] * data$slope + data$intercept
 
-    GeomSegment$draw_panel(unique(data), panel_params, coord)
+    GeomSegment$draw_panel(unique(data), panel_params, coord, lineend = lineend)
   },
 
   default_aes = aes(colour = "black", linewidth = 0.5, linetype = 1, alpha = NA),
@@ -143,34 +149,3 @@ GeomAbline <- ggproto("GeomAbline", Geom,
 
   draw_key = draw_key_abline
 )
-
-warn_overwritten_args <- function(fun_name, overwritten_arg, provided_args, plural_join = " and/or ") {
-  overwritten_arg_text <- paste0("`", overwritten_arg, "`")
-
-  n_provided_args <- length(provided_args)
-  if (n_provided_args == 1) {
-    provided_arg_text <- paste0("`", provided_args, "`")
-    verb <- "was"
-  } else if (n_provided_args == 2) {
-    provided_arg_text <- paste0("`", provided_args, "`", collapse = plural_join)
-    verb <- "were"
-  } else {
-    provided_arg_text <- paste0(
-      paste0("`", provided_args[-n_provided_args], "`", collapse = ", "),
-      ",", plural_join,
-      "`", provided_args[n_provided_args], "`"
-    )
-    verb <- "were"
-  }
-
-  warning(
-    sprintf(
-      "%s: Ignoring %s because %s %s provided.",
-      fun_name,
-      overwritten_arg_text,
-      provided_arg_text,
-      verb
-    ),
-    call. = FALSE
-  )
-}

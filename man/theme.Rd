@@ -91,6 +91,7 @@ theme(
   strip.background,
   strip.background.x,
   strip.background.y,
+  strip.clip,
   strip.placement,
   strip.text,
   strip.text.x,
@@ -99,8 +100,7 @@ theme(
   strip.switch.pad.wrap,
   ...,
   complete = FALSE,
-  validate = TRUE,
-  element_tree = NULL
+  validate = TRUE
 )
 }
 \arguments{
@@ -256,6 +256,11 @@ inherits from \code{rect}). Horizontal facet background (\code{strip.background.
 & vertical facet background (\code{strip.background.y}) inherit from
 \code{strip.background} or can be specified separately}
 
+\item{strip.clip}{should strip background edges and strip labels be clipped
+to the extend of the strip background? Options are \code{"on"} to clip, \code{"off"}
+to disable clipping or \code{"inherit"} (default) to take the clipping setting
+from the parent viewport.}
+
 \item{strip.placement}{placement of strip with respect to axes,
 either "inside" or "outside". Only important when axes and strips are
 on the same side of the plot.}
@@ -271,8 +276,8 @@ switched (\code{unit})}
 \item{strip.switch.pad.wrap}{space between strips and axes when strips are
 switched (\code{unit})}
 
-\item{...}{additional element specifications not part of base ggplot2. If
-supplied \code{validate} needs to be set to \code{FALSE}.}
+\item{...}{additional element specifications not part of base ggplot2. In general,
+these should also be defined in the \verb{element tree} argument.}
 
 \item{complete}{set this to \code{TRUE} if this is a complete theme, such as
 the one returned by \code{\link[=theme_grey]{theme_grey()}}. Complete themes behave
@@ -281,20 +286,15 @@ differently when added to a ggplot object. Also, when setting
 elements.}
 
 \item{validate}{\code{TRUE} to run \code{validate_element()}, \code{FALSE} to bypass checks.}
-
-\item{element_tree}{optional addition or modification to the element tree,
-which specifies the inheritance relationship of the theme elements. The element
-tree should be provided as a list of named element definitions created with
-\code{\link[=el_def]{el_def()}}. See \code{\link[=el_def]{el_def()}} for more details.}
 }
 \description{
-Themes are a powerful way to customize the non-data components of your
-plots: i.e. titles, labels, fonts, background, gridlines, and legends.
-Themes can be used to give plots a consistent customized look.
-Modify a single plot's theme using \code{theme()}; see \code{\link[=theme_update]{theme_update()}} if
-you want modify the active theme, to affect all subsequent plots. Theme
-elements are documented together according to inheritance, read more
-about theme inheritance below.
+Themes are a powerful way to customize the non-data components of your plots:
+i.e. titles, labels, fonts, background, gridlines, and legends. Themes can be
+used to give plots a consistent customized look. Modify a single plot's theme
+using \code{theme()}; see \code{\link[=theme_update]{theme_update()}} if you want modify the active theme, to
+affect all subsequent plots. Use the themes available in \link[=theme_bw]{complete themes} if you would like to use a complete theme such as
+\code{theme_bw()}, \code{theme_minimal()}, and more. Theme elements are documented
+together according to inheritance, read more about theme inheritance below.
 }
 \section{Theme inheritance}{
 

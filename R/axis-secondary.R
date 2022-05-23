@@ -24,12 +24,12 @@
 #'   the axis on the plot. Usually this is [guide_axis()].
 #'
 #' @details
-#' `sec_axis` is used to create the specifications for a secondary axis.
+#' `sec_axis()` is used to create the specifications for a secondary axis.
 #' Except for the `trans` argument any of the arguments can be set to
 #' `derive()` which would result in the secondary axis inheriting the
 #' settings from the primary axis.
 #'
-#' `dup_axis` is provide as a shorthand for creating a secondary axis that
+#' `dup_axis()` is provide as a shorthand for creating a secondary axis that
 #' is a duplication of the primary axis, effectively mirroring the primary axis.
 #'
 #' As of v3.1, date and datetime scales have limited secondary axis capabilities.
@@ -59,27 +59,39 @@
 #'
 #' # Secondary axes work for date and datetime scales too:
 #' df <- data.frame(
-#'   dx = seq(as.POSIXct("2012-02-29 12:00:00",
-#'                        tz = "UTC",
-#'                        format = "%Y-%m-%d %H:%M:%S"
-#'   ),
-#'   length.out = 10, by = "4 hour"
+#'   dx = seq(
+#'     as.POSIXct("2012-02-29 12:00:00", tz = "UTC"),
+#'     length.out = 10,
+#'     by = "4 hour"
 #'   ),
 #'   price = seq(20, 200000, length.out = 10)
 #'  )
 #'
 #' # This may useful for labelling different time scales in the same plot
-#' ggplot(df, aes(x = dx, y = price)) + geom_line() +
-#'   scale_x_datetime("Date", date_labels = "%b %d",
-#'   date_breaks = "6 hour",
-#'   sec.axis = dup_axis(name = "Time of Day",
-#'   labels = scales::time_format("%I %p")))
+#' ggplot(df, aes(x = dx, y = price)) +
+#'   geom_line() +
+#'   scale_x_datetime(
+#'     "Date",
+#'     date_labels = "%b %d",
+#'     date_breaks = "6 hour",
+#'     sec.axis = dup_axis(
+#'       name = "Time of Day",
+#'       labels = scales::time_format("%I %p")
+#'     )
+#'   )
 #'
 #' # or to transform axes for different timezones
-#' ggplot(df, aes(x = dx, y = price)) + geom_line() +
-#'   scale_x_datetime("GMT", date_labels = "%b %d %I %p",
-#'   sec.axis = sec_axis(~ . + 8 * 3600, name = "GMT+8",
-#'   labels = scales::time_format("%b %d %I %p")))
+#' ggplot(df, aes(x = dx, y = price)) +
+#'   geom_line() +
+#'   scale_x_datetime("
+#'     GMT",
+#'     date_labels = "%b %d %I %p",
+#'     sec.axis = sec_axis(
+#'       ~ . + 8 * 3600,
+#'       name = "GMT+8",
+#'       labels = scales::time_format("%b %d %I %p")
+#'     )
+#'   )
 #'
 #' @export
 sec_axis <- function(trans = NULL, name = waiver(), breaks = waiver(), labels = waiver(),
@@ -110,7 +122,9 @@ is.sec_axis <- function(x) {
 set_sec_axis <- function(sec.axis, scale) {
   if (!is.waive(sec.axis)) {
     if (is.formula(sec.axis)) sec.axis <- sec_axis(sec.axis)
-    if (!is.sec_axis(sec.axis)) stop("Secondary axes must be specified using 'sec_axis()'")
+    if (!is.sec_axis(sec.axis)) {
+      cli::cli_abort("Secondary axes must be specified using {.fn sec_axis}")
+    }
     scale$secondary.axis <- sec.axis
   }
   return(scale)
@@ -147,8 +161,12 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
 
   # Inherit settings from the primary axis/scale
   init = function(self, scale) {
-    if (self$empty()) return()
-    if (!is.function(self$trans)) stop("transformation for secondary axes must be a function", call. = FALSE)
+    if (self$empty()) {
+      return()
+    }
+    if (!is.function(self$trans)) {
+      cli::cli_abort("Transformation for secondary axes must be a function")
+    }
     if (is.derived(self$name) && !is.waive(scale$name)) self$name <- scale$name
     if (is.derived(self$breaks)) self$breaks <- scale$breaks
     if (is.waive(self$breaks)) self$breaks <- scale$trans$breaks
@@ -162,6 +180,12 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
 
   mono_test = function(self, scale){
     range <- scale$range$range
+
+    # Check if plot is empty
+    if (is.null(range)) {
+      return()
+    }
+
     along_range <- seq(range[1], range[2], length.out = self$detail)
     old_range <- scale$trans$inverse(along_range)
 
@@ -170,7 +194,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
 
     # Test for monotonicity
     if (length(unique(sign(diff(full_range)))) != 1)
-      stop("transformation for secondary axes must be monotonic")
+      cli::cli_abort("Transformation for secondary axes must be monotonic")
   },
 
   break_info = function(self, range, scale) {
@@ -201,30 +225,38 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
       range_info <- temp_scale$break_info()
 
       # Map the break values back to their correct position on the primary scale
-      old_val <- lapply(range_info$major_source, function(x) which.min(abs(full_range - x)))
-      old_val <- old_range[unlist(old_val)]
-      old_val_trans <- scale$trans$transform(old_val)
+      if (!is.null(range_info$major_source)) {
+        old_val <- lapply(range_info$major_source, function(x) which.min(abs(full_range - x)))
+        old_val <- old_range[unlist(old_val)]
+        old_val_trans <- scale$trans$transform(old_val)
 
-      old_val_minor <- lapply(range_info$minor_source, function(x) which.min(abs(full_range - x)))
-      old_val_minor <- old_range[unlist(old_val_minor)]
-      old_val_minor_trans <- scale$trans$transform(old_val_minor)
+        # rescale values from 0 to 1
+        range_info$major[] <- round(
+          rescale(
+            scale$map(old_val_trans, range(old_val_trans)),
+            from = range
+          ),
+          digits = 3
+        )
+      } else {
+        old_val_trans <- NULL
+      }
 
-      # rescale values from 0 to 1
-      range_info$major[] <- round(
-        rescale(
-          scale$map(old_val_trans, range(old_val_trans)),
-          from = range
-        ),
-        digits = 3
-      )
+      if (!is.null(range_info$minor_source)) {
+        old_val_minor <- lapply(range_info$minor_source, function(x) which.min(abs(full_range - x)))
+        old_val_minor <- old_range[unlist(old_val_minor)]
+        old_val_minor_trans <- scale$trans$transform(old_val_minor)
 
-      range_info$minor[] <- round(
-        rescale(
-          scale$map(old_val_minor_trans, range(old_val_minor_trans)),
-          from = range
-        ),
-        digits = 3
-      )
+        range_info$minor[] <- round(
+          rescale(
+            scale$map(old_val_minor_trans, range(old_val_minor_trans)),
+            from = range
+          ),
+          digits = 3
+        )
+      } else {
+        old_val_minor_trans <- NULL
+      }
     }
 
     # The _source values should be in (primary) scale_transformed space,

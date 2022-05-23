@@ -1,5 +1,3 @@
-context("coord_sf")
-
 test_that("basic plot builds without error", {
   skip_if_not_installed("sf")
 
@@ -82,6 +80,21 @@ test_that("axis labels can be set manually", {
     graticule[graticule$type == "N", ]$degree_label,
     c("D", "E", "F")
   )
+  p <- plot +
+    scale_x_continuous(
+      breaks = c(1000, 2000, 3000),
+      labels = function(...) c("A", "B")
+    )
+  expect_snapshot_error(ggplot_build(p))
+  p <- plot +
+    scale_y_continuous(
+      breaks = c(1000, 2000, 3000),
+      labels = function(...) c("A", "B")
+    )
+  expect_snapshot_error(ggplot_build(p))
+
+  expect_snapshot_error(coord_sf(label_graticule = 1:17))
+  expect_snapshot_error(coord_sf(label_axes = 1:17))
 })
 
 test_that("factors are treated like character labels and are not parsed", {
@@ -203,4 +216,86 @@ test_that("Inf is squished to range", {
 
   expect_equal(d[[2]]$x, 0)
   expect_equal(d[[2]]$y, 1)
+})
+
+test_that("default crs works", {
+  skip_if_not_installed("sf")
+
+  polygon <- sf::st_sfc(
+    sf::st_polygon(list(matrix(c(-80, -76, -76, -80, -80, 35, 35, 40, 40, 35), ncol = 2))),
+    crs = 4326 # basic long-lat crs
+  )
+  polygon <- sf::st_transform(polygon, crs = 3347)
+
+  points <- data_frame(
+    x = c(-80, -80, -76, -76),
+    y = c(35, 40, 35, 40)
+  )
+
+  p <- ggplot(polygon) + geom_sf(fill = NA)
+
+  expect_snapshot_error(ggplot_build(p + xlim(-Inf, 80)))
+
+  # by default, regular geoms are interpreted to use projected data
+  points_trans <- sf_transform_xy(points, 3347, 4326)
+  expect_doppelganger(
+    "non-sf geoms using projected coords",
+    p + geom_point(data = points_trans, aes(x, y))
+  )
+
+  # projected sf objects can be mixed with regular geoms using non-projected data
+  expect_doppelganger(
+    "non-sf geoms using long-lat",
+    p + geom_point(data = points, aes(x, y)) +
+      coord_sf(default_crs = 4326)
+  )
+
+  # coord limits can be specified in long-lat
+  expect_doppelganger(
+    "limits specified in long-lat",
+    p + geom_point(data = points, aes(x, y)) +
+      coord_sf(xlim = c(-80.5, -76), ylim = c(36, 41), default_crs = 4326)
+  )
+
+  # by default limits are specified in projected coords
+  lims <- sf_transform_xy(
+    list(x = c(-80.5, -76, -78.25, -78.25), y = c(38.5, 38.5, 36, 41)),
+    3347, 4326
+  )
+  expect_doppelganger(
+    "limits specified in projected coords",
+    p + geom_point(data = points_trans, aes(x, y)) +
+      coord_sf(xlim = lims$x[1:2], ylim = lims$y[3:4])
+  )
+
+
+})
+
+test_that("sf_transform_xy() works", {
+  skip_if_not_installed("sf")
+
+  data <- list(
+    city = c("Charlotte", "Raleigh", "Greensboro"),
+    x =  c(-80.843, -78.639, -79.792),
+    y = c(35.227, 35.772, 36.073)
+  )
+
+  # no transformation if one crs is missing
+  out <- sf_transform_xy(data, NULL, 4326)
+  expect_identical(data, out)
+  out <- sf_transform_xy(data, 4326, NULL)
+  expect_identical(data, out)
+
+  # transform to projected coordinates
+  out <- sf_transform_xy(data, 3347, 4326)
+  expect_identical(data$city, out$city) # columns other than x, y are not changed
+  expect_true(all(abs(out$x - c(7275499, 7474260, 7357835)) < 10))
+  expect_true(all(abs(out$y - c(-60169, 44384, 57438)) < 10))
+
+  # transform back
+  out2 <- sf_transform_xy(out, 4326, 3347)
+  expect_identical(data$city, out2$city)
+  expect_true(all(abs(out2$x - data$x) < .01))
+  expect_true(all(abs(out2$y - data$y) < .01))
+
 })

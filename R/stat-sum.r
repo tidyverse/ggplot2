@@ -21,7 +21,7 @@ stat_sum <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       na.rm = na.rm,
       ...
     )
@@ -33,7 +33,7 @@ stat_sum <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 StatSum <- ggproto("StatSum", Stat,
-  default_aes = aes(size = stat(n), weight = 1),
+  default_aes = aes(size = after_stat(n), weight = 1),
 
   required_aes = c("x", "y"),
 

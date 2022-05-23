@@ -66,10 +66,14 @@ will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{stat}{The statistical transformation to use on the data for this
-layer, as a string.}
+layer, either as a \code{ggproto} \code{Geom} subclass or as a string naming the
+stat stripped of the \code{stat_} prefix (e.g. \code{"count"} rather than
+\code{"stat_count"})}
 
-\item{position}{Position adjustment, either as a string, or the result of
-a call to a position adjustment function.}
+\item{position}{Position adjustment, either as a string naming the adjustment
+(e.g. \code{"jitter"} to use \code{position_jitter}), or the result of a call to a
+position adjustment function. Use the latter if you need to change the
+settings of the adjustment.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
@@ -100,11 +104,11 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 \item{linejoin}{Line join style (round, mitre, bevel).}
 }
 \description{
-\code{geom_rect} and \code{geom_tile} do the same thing, but are
-parameterised differently: \code{geom_rect} uses the locations of the four
+\code{geom_rect()} and \code{geom_tile()} do the same thing, but are
+parameterised differently: \code{geom_rect()} uses the locations of the four
 corners (\code{xmin}, \code{xmax}, \code{ymin} and \code{ymax}), while
-\code{geom_tile} uses the center of the tile and its size (\code{x},
-\code{y}, \code{width}, \code{height}). \code{geom_raster} is a high
+\code{geom_tile()} uses the center of the tile and its size (\code{x},
+\code{y}, \code{width}, \code{height}). \code{geom_raster()} is a high
 performance special case for when all the tiles are the same size.
 }
 \section{Aesthetics}{
@@ -153,19 +157,32 @@ ggplot(df, aes(xmin = x - w / 2, xmax = x + w / 2, ymin = y, ymax = y + 1)) +
 \donttest{
 # Justification controls where the cells are anchored
 df <- expand.grid(x = 0:5, y = 0:5)
+set.seed(1)
 df$z <- runif(nrow(df))
 # default is compatible with geom_tile()
-ggplot(df, aes(x, y, fill = z)) + geom_raster()
+ggplot(df, aes(x, y, fill = z)) +
+  geom_raster()
 # zero padding
-ggplot(df, aes(x, y, fill = z)) + geom_raster(hjust = 0, vjust = 0)
+ggplot(df, aes(x, y, fill = z)) +
+  geom_raster(hjust = 0, vjust = 0)
 
 # Inspired by the image-density plots of Ken Knoblauch
 cars <- ggplot(mtcars, aes(mpg, factor(cyl)))
 cars + geom_point()
-cars + stat_bin2d(aes(fill = stat(count)), binwidth = c(3,1))
-cars + stat_bin2d(aes(fill = stat(density)), binwidth = c(3,1))
+cars + stat_bin2d(aes(fill = after_stat(count)), binwidth = c(3,1))
+cars + stat_bin2d(aes(fill = after_stat(density)), binwidth = c(3,1))
 
-cars + stat_density(aes(fill = stat(density)), geom = "raster", position = "identity")
-cars + stat_density(aes(fill = stat(count)), geom = "raster", position = "identity")
+cars +
+  stat_density(
+    aes(fill = after_stat(density)),
+    geom = "raster",
+    position = "identity"
+   )
+cars +
+  stat_density(
+    aes(fill = after_stat(count)),
+    geom = "raster",
+    position = "identity"
+  )
 }
 }

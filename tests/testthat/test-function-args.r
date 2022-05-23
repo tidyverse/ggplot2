@@ -1,5 +1,3 @@
-context("function-args")
-
 filter_args <- function(x) {
   all_names <- names(x)
   all_names <- setdiff(all_names, c("self", "data", "scales", "coordinates", "..."))
@@ -13,8 +11,9 @@ test_that("geom_xxx and GeomXxx$draw arg defaults match", {
   # These aren't actually geoms, or need special parameters and can't be tested this way.
   geom_fun_names <- setdiff(
     geom_fun_names,
-    c("geom_map", "geom_sf", "geom_smooth", "geom_column", "annotation_custom", "annotation_map",
-      "annotation_raster", "annotation_id")
+    c("geom_map", "geom_sf", "geom_smooth", "geom_column", "geom_area",
+      "geom_density", "annotation_custom", "annotation_map", "annotation_raster",
+      "annotation_id")
   )
 
   # For each geom_xxx function and the corresponding GeomXxx$draw and
@@ -51,6 +50,8 @@ test_that("stat_xxx and StatXxx$compute_panel arg defaults match", {
     stat_fun_names,
     c("stat_function", "stat_sf")
   )
+  # Remove stat_spoke as it has been deprecated
+  stat_fun_names <- setdiff(stat_fun_names, "stat_spoke")
 
   # For each stat_xxx function and the corresponding StatXxx$compute_panel and
   # StatXxx$compute_group functions, make sure that if they have same args, that

@@ -4,7 +4,9 @@
 \name{seals}
 \alias{seals}
 \title{Vector field of seal movements}
-\format{A data frame with 1155 rows and 4 variables}
+\format{
+A data frame with 1155 rows and 4 variables
+}
 \usage{
 seals
 }
@@ -17,6 +19,6 @@ Inference 122 (2004), 43-63, using the methods of Brillinger, D.R.,
 Letters. December (2007).
 }
 \references{
-\url{http://www.stat.berkeley.edu/~brill/Papers/jspifinal.pdf}
+\url{https://www.stat.berkeley.edu/~brill/Papers/jspifinal.pdf}
 }
 \keyword{datasets}
