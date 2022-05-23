@@ -175,11 +175,11 @@ make_proto_method <- function(self, f, name) {
   # We assign the method with its correct name and construct a call to it to
   # make errors reported as coming from the method name rather than `f()`
   assign(name, f, envir = environment())
+  args <- list(quote(...))
   if (has_self) {
-    fun <- inject(function(...) !!call2(name, quote(...), self = quote(self)))
-  } else {
-    fun <- inject(function(...) !!call2(name, quote(...)))
+    args$self <- quote(self)
   }
+  fun <- inject(function(...) !!call2(name, !!!args))
 
   class(fun) <- "ggproto_method"
   fun
