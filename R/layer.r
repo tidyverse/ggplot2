@@ -140,7 +140,10 @@ layer <- function(geom = NULL, stat = NULL,
   # adjust the legend draw key if requested
   geom <- set_draw_key(geom, key_glyph)
 
+  fr_call <- layer_class$constructor %||% frame_call(call_env)
+
   ggproto("LayerInstance", layer_class,
+    constructor = fr_call,
     geom = geom,
     geom_params = geom_params,
     stat = stat,
@@ -169,6 +172,7 @@ validate_mapping <- function(mapping, call = caller_env()) {
 }
 
 Layer <- ggproto("Layer", NULL,
+  constructor = NULL,
   geom = NULL,
   geom_params = NULL,
   stat = NULL,
