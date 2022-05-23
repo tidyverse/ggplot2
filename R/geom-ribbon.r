@@ -159,7 +159,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
       gp = gpar(
         fill = alpha(aes$fill, aes$alpha),
         col = if (is_full_outline) aes$colour else NA,
-        lwd = if (is_full_outline) aes$size * .pt else 0,
+        lwd = if (is_full_outline) aes$linewidth * .pt else 0,
         lty = if (is_full_outline) aes$linetype else 1,
         lineend = lineend,
         linejoin = linejoin,

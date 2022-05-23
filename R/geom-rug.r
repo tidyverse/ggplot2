@@ -112,7 +112,7 @@ GeomRug <- ggproto("GeomRug", Geom,
     gp <- gpar(
       col = alpha(data$colour, data$alpha),
       lty = data$linetype,
-      lwd = data$size * .pt,
+      lwd = data$linewidth * .pt,
       lineend = lineend
     )
     if (!is.null(data$x)) {
