@@ -202,7 +202,11 @@ sf_grob <- function(x, lineend = "butt", linejoin = "round", linemitre = 10,
   fill <- alpha(fill, alpha)
   size <- x$size %||% defaults$size[type_ind]
   linewidth <- x$linewidth %||% defaults$linewidth[type_ind]
-  point_size <- ifelse(is_collection, x$size %||% defaults$point_size[type_ind], size)
+  point_size <- ifelse(
+    is_collection,
+    x$size %||% defaults$point_size[type_ind],
+    ifelse(is_point, size, linewidth)
+  )
   stroke <- (x$stroke %||% defaults$stroke[1]) * .stroke / 2
   fontsize <- point_size * .pt + stroke
   lwd <- ifelse(is_point, stroke, linewidth * .pt)

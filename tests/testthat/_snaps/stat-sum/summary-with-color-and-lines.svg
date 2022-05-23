@@ -59,8 +59,8 @@
 <circle cx='345.25' cy='333.45' r='1.95' style='stroke-width: 0.71; stroke: #F8766D; fill: #F8766D;' />
 <circle cx='629.31' cy='428.42' r='1.95' style='stroke-width: 0.71; stroke: #F8766D; fill: #F8766D;' />
 <circle cx='61.20' cy='299.10' r='1.95' style='stroke-width: 0.71; stroke: #00BFC4; fill: #00BFC4;' />
-<polyline points='61.20,206.15 345.25,315.94 629.31,426.40 ' style='stroke-width: 1.07; stroke: #F8766D; stroke-linecap: butt;' />
-<polyline points='61.20,191.40 345.25,345.07 ' style='stroke-width: 1.07; stroke: #00BFC4; stroke-linecap: butt;' />
+<polyline points='61.20,206.15 345.25,315.94 629.31,426.40 ' style='stroke-width: 4.27; stroke: #F8766D; stroke-linecap: butt;' />
+<polyline points='61.20,191.40 345.25,345.07 ' style='stroke-width: 4.27; stroke: #00BFC4; stroke-linecap: butt;' />
 <rect x='32.79' y='22.78' width='624.92' height='522.33' style='stroke-width: 1.07; stroke: #333333;' />
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
@@ -92,10 +92,10 @@
 <text x='668.67' y='267.71' style='font-size: 11.00px; font-family: sans;' textLength='45.85px' lengthAdjust='spacingAndGlyphs'>factor(vs)</text>
 <rect x='668.67' y='274.33' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
 <circle cx='677.31' cy='282.97' r='1.95' style='stroke-width: 0.71; stroke: #F8766D; fill: #F8766D;' />
-<line x1='670.40' y1='282.97' x2='684.22' y2='282.97' style='stroke-width: 1.07; stroke: #F8766D; stroke-linecap: butt;' />
+<line x1='670.40' y1='282.97' x2='684.22' y2='282.97' style='stroke-width: 4.27; stroke: #F8766D; stroke-linecap: butt;' />
 <rect x='668.67' y='291.61' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
 <circle cx='677.31' cy='300.25' r='1.95' style='stroke-width: 0.71; stroke: #00BFC4; fill: #00BFC4;' />
-<line x1='670.40' y1='300.25' x2='684.22' y2='300.25' style='stroke-width: 1.07; stroke: #00BFC4; stroke-linecap: butt;' />
+<line x1='670.40' y1='300.25' x2='684.22' y2='300.25' style='stroke-width: 4.27; stroke: #00BFC4; stroke-linecap: butt;' />
 <text x='691.43' y='286.00' style='font-size: 8.80px; font-family: sans;' textLength='4.89px' lengthAdjust='spacingAndGlyphs'>0</text>
 <text x='691.43' y='303.28' style='font-size: 8.80px; font-family: sans;' textLength='4.89px' lengthAdjust='spacingAndGlyphs'>1</text>
 <text x='32.79' y='14.56' style='font-size: 13.20px; font-family: sans;' textLength='170.22px' lengthAdjust='spacingAndGlyphs'>summary with color and lines</text>
