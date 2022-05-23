@@ -5,12 +5,12 @@
 # weight aesthetic is checked
 
     Computation failed in `stat_bindot()`
-    Caused by error in `f()`:
+    Caused by error in `compute_group()`:
     ! Weights must be nonnegative integers.
 
 ---
 
     Computation failed in `stat_bindot()`
-    Caused by error in `f()`:
+    Caused by error in `compute_group()`:
     ! Weights must be nonnegative integers.
 

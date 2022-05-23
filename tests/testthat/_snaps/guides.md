@@ -1,13 +1,3 @@
-# binning scales understand the different combinations of limits, breaks, labels, and show.limits
-
-    `show.limits` is ignored when `labels` are given as a character vector
-    i Either add the limits to `breaks` or provide a function for `labels`
-
----
-
-    `show.limits` is ignored when `labels` are given as a character vector
-    i Either add the limits to `breaks` or provide a function for `labels`
-
 # axis_label_element_overrides errors when angles are outside the range [0, 90]
 
     Unrecognized `axis_position`: "test"
@@ -67,6 +57,16 @@
 
     Breaks not formatted correctly for a bin legend.
     i Use `(<lower>, <upper>]` format to indicate bins
+
+# binning scales understand the different combinations of limits, breaks, labels, and show.limits
+
+    `show.limits` is ignored when `labels` are given as a character vector
+    i Either add the limits to `breaks` or provide a function for `labels`
+
+---
+
+    `show.limits` is ignored when `labels` are given as a character vector
+    i Either add the limits to `breaks` or provide a function for `labels`
 
 # a warning is generated when guides(<scale> = FALSE) is specified
 
