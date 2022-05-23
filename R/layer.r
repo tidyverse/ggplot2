@@ -328,7 +328,7 @@ Layer <- ggproto("Layer", NULL,
       issues <- paste0("{.code ", nondata_stat_cols, " = ", as_label(aesthetics[[nondata_stat_cols]]), "}")
       names(issues) <- rep("x", length(issues))
       cli::cli_abort(c(
-        "Aesthetics are not valid computed stats.",
+        "Aesthetics must be valid computed stats.",
         "x" = "The following aesthetics are invalid:",
         issues,
         "i" = "Did you map your stat in the wrong layer?"
