@@ -3,7 +3,7 @@
 #' `scale_linewidth` scales the width of lines and polygon strokes. Due to
 #' historical reasons, it is also possible to control this with the `size`
 #' aesthetic, but using `linewidth` is encourage to clearly differentiate area
-#' aesthetics from line aesthetics.
+#' aesthetics from stroke width aesthetics.
 #'
 #' @name scale_linewidth
 #' @inheritParams continuous_scale
@@ -11,6 +11,14 @@
 #' @param range a numeric vector of length 2 that specifies the minimum and
 #'   maximum size of the plotting symbol after transformation.
 #' @examples
+#' p <- ggplot(economics, aes(date, unemploy, linewidth = uempmed)) +
+#'   geom_line(lineend = "round")
+#' p
+#' p + scale_linewidth("Duration of\nunemployment")
+#' p + scale_linewidth(range = c(0, 4))
+#'
+#' # Binning can sometimes make it easier to match the scaled data to the legend
+#' p + scale_linewidth_binned()
 #'
 NULL
 

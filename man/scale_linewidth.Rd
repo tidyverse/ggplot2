@@ -107,5 +107,16 @@ breaks are given explicitly.}
 \code{scale_linewidth} scales the width of lines and polygon strokes. Due to
 historical reasons, it is also possible to control this with the \code{size}
 aesthetic, but using \code{linewidth} is encourage to clearly differentiate area
-aesthetics from line aesthetics.
+aesthetics from stroke width aesthetics.
+}
+\examples{
+p <- ggplot(economics, aes(date, unemploy, linewidth = uempmed)) +
+  geom_line(lineend = "round")
+p
+p + scale_linewidth("Duration of\nunemployment")
+p + scale_linewidth(range = c(0, 4))
+
+# Binning can sometimes make it easier to match the scaled data to the legend
+p + scale_linewidth_binned()
+
 }
