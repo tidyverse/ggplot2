@@ -86,7 +86,6 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
   extra_params = c("na.rm", "orientation"),
 
   setup_data = function(data, params) {
-    data <- rename_size_aesthetic(data)
     data$flipped_aes <- params$flipped_aes
     data <- flip_data(data, params$flipped_aes)
 
@@ -197,8 +196,9 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     )
 
     ggname("geom_ribbon", grobTree(g_poly, g_lines))
-  }
+  },
 
+  rename_size = TRUE
 )
 
 #' @rdname geom_ribbon

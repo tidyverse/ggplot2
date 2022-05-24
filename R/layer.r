@@ -125,6 +125,12 @@ layer <- function(geom = NULL, stat = NULL,
 
   # Warn about extra params and aesthetics
   extra_param <- setdiff(names(params), all)
+  # Take care of size->linewidth renaming in layer params
+  if (geom$rename_size && "size" %in% extra_param && !"linewidth" %in% mapped_aesthetics(mapping)) {
+    aes_params <- c(aes_params, params["size"])
+    extra_param <- setdiff(extra_param, "size")
+    cli::cli_inform("Using {.arg size} as {.arg linewidth}")
+  }
   if (check.param && length(extra_param) > 0) {
     cli::cli_warn("Ignoring unknown parameters: {.arg {extra_param}}", call = call_env)
   }
@@ -133,6 +139,11 @@ layer <- function(geom = NULL, stat = NULL,
     mapped_aesthetics(mapping),
     c(geom$aesthetics(), stat$aesthetics())
   )
+  # Take care of size->linewidth aes renaming
+  if (geom$rename_size && "size" %in% extra_aes && !"linewidth" %in% mapped_aesthetics(mapping)) {
+    extra_aes <- setdiff(extra_aes, "size")
+    cli::cli_inform("Using {.field size} as {.field linewidth}")
+  }
   if (check.aes && length(extra_aes) > 0) {
     cli::cli_warn("Ignoring unknown aesthetics: {.field {extra_aes}}", call = call_env)
   }
@@ -217,6 +228,15 @@ Layer <- ggproto("Layer", NULL,
     # For annotation geoms, it is useful to be able to ignore the default aes
     if (isTRUE(self$inherit.aes)) {
       self$computed_mapping <- defaults(self$mapping, plot$mapping)
+
+      # Inherit size as linewidth from global mapping
+      if (self$geom$rename_size &&
+          "size" %in% names(plot$mapping) &&
+          !"linewidth" %in% names(self$computed_mapping) &&
+          "linewidth" %in% self$geom$aesthetics()) {
+        self$computed_mapping$size <- plot$mapping$size
+        cli::cli_inform("Inheriting {.field size} as {.field linewidth}")
+      }
       # defaults() strips class, but it needs to be preserved for now
       class(self$computed_mapping) <- "uneval"
     } else {

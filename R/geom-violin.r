@@ -123,7 +123,6 @@ GeomViolin <- ggproto("GeomViolin", Geom,
   extra_params = c("na.rm", "orientation", "lineend", "linejoin", "linemitre"),
 
   setup_data = function(data, params) {
-    data <- rename_size_aesthetic(data)
     data$flipped_aes <- params$flipped_aes
     data <- flip_data(data, params$flipped_aes)
     data$width <- data$width %||%
@@ -192,7 +191,9 @@ GeomViolin <- ggproto("GeomViolin", Geom,
   default_aes = aes(weight = 1, colour = "grey20", fill = "white", linewidth = 0.5,
     alpha = NA, linetype = "solid"),
 
-  required_aes = c("x", "y")
+  required_aes = c("x", "y"),
+
+  rename_size = TRUE
 )
 
 # Returns a data.frame with info needed to draw quantile segments.

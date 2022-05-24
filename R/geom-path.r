@@ -217,11 +217,9 @@ GeomPath <- ggproto("GeomPath", Geom,
     }
   },
 
-  setup_data = function(data, params) {
-    rename_size_aesthetic(data)
-  },
+  draw_key = draw_key_path,
 
-  draw_key = draw_key_path
+  rename_size = TRUE
 )
 
 # Trim false values from left and right: keep all values from
@@ -276,7 +274,6 @@ GeomLine <- ggproto("GeomLine", GeomPath,
   extra_params = c("na.rm", "orientation"),
 
   setup_data = function(data, params) {
-    data <- rename_size_aesthetic(data)
     data$flipped_aes <- params$flipped_aes
     data <- flip_data(data, params$flipped_aes)
     data <- data[order(data$PANEL, data$group, data$x), ]

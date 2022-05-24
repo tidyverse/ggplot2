@@ -67,11 +67,9 @@ GeomRect <- ggproto("GeomRect", Geom,
     }
   },
 
-  setup_data = function(data, params) {
-    rename_size_aesthetic(data)
-  },
+  draw_key = draw_key_polygon,
 
-  draw_key = draw_key_polygon
+  rename_size = TRUE
 )
 
 

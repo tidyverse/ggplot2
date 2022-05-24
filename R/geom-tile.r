@@ -100,7 +100,6 @@ GeomTile <- ggproto("GeomTile", GeomRect,
   extra_params = c("na.rm"),
 
   setup_data = function(data, params) {
-    data <- rename_size_aesthetic(data)
     data$width <- data$width %||% params$width %||% resolution(data$x, FALSE)
     data$height <- data$height %||% params$height %||% resolution(data$y, FALSE)
 

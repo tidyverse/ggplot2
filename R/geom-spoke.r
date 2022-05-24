@@ -57,7 +57,6 @@ stat_spoke <- function(...) {
 #' @export
 GeomSpoke <- ggproto("GeomSpoke", GeomSegment,
   setup_data = function(data, params) {
-    data <- rename_size_aesthetic(data)
     data$radius <- data$radius %||% params$radius
     data$angle <- data$angle %||% params$angle
 

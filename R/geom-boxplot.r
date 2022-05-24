@@ -175,7 +175,6 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
   },
 
   setup_data = function(data, params) {
-    data <- rename_size_aesthetic(data)
     data$flipped_aes <- params$flipped_aes
     data <- flip_data(data, params$flipped_aes)
     data$width <- data$width %||%
@@ -297,5 +296,7 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
   default_aes = aes(weight = 1, colour = "grey20", fill = "white", size = NULL,
     alpha = NA, shape = 19, linetype = "solid", linewidth = 0.5),
 
-  required_aes = c("x|y", "lower|xlower", "upper|xupper", "middle|xmiddle", "ymin|xmin", "ymax|xmax")
+  required_aes = c("x|y", "lower|xlower", "upper|xupper", "middle|xmiddle", "ymin|xmin", "ymax|xmax"),
+
+  rename_size = TRUE
 )

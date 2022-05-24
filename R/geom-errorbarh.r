@@ -59,7 +59,6 @@ GeomErrorbarh <- ggproto("GeomErrorbarh", Geom,
   required_aes = c("xmin", "xmax", "y"),
 
   setup_data = function(data, params) {
-    data <- rename_size_aesthetic(data)
     data$height <- data$height %||%
       params$height %||% (resolution(data$y, FALSE) * 0.9)
 
@@ -79,5 +78,7 @@ GeomErrorbarh <- ggproto("GeomErrorbarh", Geom,
       group = rep(1:(nrow(data)), each = 8),
       row.names = 1:(nrow(data) * 8)
     )), panel_params, coord, lineend = lineend)
-  }
+  },
+
+  rename_size = TRUE
 )

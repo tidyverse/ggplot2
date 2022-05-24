@@ -124,9 +124,6 @@ geom_abline <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomAbline <- ggproto("GeomAbline", Geom,
-  setup_data = function(data, params) {
-    rename_size_aesthetic(data)
-  },
   draw_panel = function(data, panel_params, coord, lineend = "butt") {
     ranges <- coord$backtransform_range(panel_params)
 
@@ -147,5 +144,7 @@ GeomAbline <- ggproto("GeomAbline", Geom,
   default_aes = aes(colour = "black", linewidth = 0.5, linetype = 1, alpha = NA),
   required_aes = c("slope", "intercept"),
 
-  draw_key = draw_key_abline
+  draw_key = draw_key_abline,
+
+  rename_size = TRUE
 )

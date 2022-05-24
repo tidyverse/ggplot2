@@ -154,11 +154,9 @@ GeomRug <- ggproto("GeomRug", Geom,
     gTree(children = do.call("gList", rugs))
   },
 
-  setup_data = function(data, params) {
-    rename_size_aesthetic(data)
-  },
-
   default_aes = aes(colour = "black", linewidth = 0.5, linetype = 1, alpha = NA),
 
-  draw_key = draw_key_path
+  draw_key = draw_key_path,
+
+  rename_size = TRUE
 )

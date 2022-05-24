@@ -109,7 +109,6 @@ GeomLinerange <- ggproto("GeomLinerange", Geom,
   extra_params = c("na.rm", "orientation"),
 
   setup_data = function(data, params) {
-    data <- rename_size_aesthetic(data)
     data$flipped_aes <- params$flipped_aes
     data
   },
@@ -119,5 +118,7 @@ GeomLinerange <- ggproto("GeomLinerange", Geom,
     data <- transform(data, xend = x, y = ymin, yend = ymax)
     data <- flip_data(data, flipped_aes)
     ggname("geom_linerange", GeomSegment$draw_panel(data, panel_params, coord, lineend = lineend))
-  }
+  },
+
+  rename_size = TRUE
 )

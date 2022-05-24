@@ -174,10 +174,6 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
     }
   },
 
-  setup_data = function(data, params) {
-    rename_size_aesthetic(data)
-  },
-
   default_aes = aes(colour = NA, fill = "grey20", linewidth = 0.5, linetype = 1,
     alpha = NA, subgroup = NULL),
 
@@ -187,7 +183,9 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
 
   required_aes = c("x", "y"),
 
-  draw_key = draw_key_polygon
+  draw_key = draw_key_polygon,
+
+  rename_size = TRUE
 )
 
 # Assigning pathGrob in .onLoad ensures that packages that subclass GeomPolygon

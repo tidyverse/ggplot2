@@ -54,12 +54,11 @@ GeomHline <- ggproto("GeomHline", Geom,
 
     GeomSegment$draw_panel(unique(data), panel_params, coord, lineend = lineend)
   },
-  setup_data = function(data, params) {
-    rename_size_aesthetic(data)
-  },
 
   default_aes = aes(colour = "black", linewidth = 0.5, linetype = 1, alpha = NA),
   required_aes = "yintercept",
 
-  draw_key = draw_key_path
+  draw_key = draw_key_path,
+
+  rename_size = TRUE
 )

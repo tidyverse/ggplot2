@@ -83,10 +83,3 @@ scale_linewidth_datetime <- function(..., range = c(1, 6)) {
 scale_linewidth_date <- function(..., range = c(1, 6)) {
   datetime_scale("linewidth", "date", palette = rescale_pal(range), ...)
 }
-
-rename_size_aesthetic <- function(data) {
-  if (is.null(data$linewidth)) {
-    data$linewidth <- data$size
-  }
-  data
-}

@@ -54,9 +54,6 @@ geom_hex <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomHex <- ggproto("GeomHex", Geom,
-  setup_data = function(data, params) {
-    rename_size_aesthetic(data)
-  },
   draw_group = function(data, panel_params, coord, lineend = "butt",
                         linejoin = "mitre", linemitre = 10) {
     if (empty(data)) {
@@ -114,7 +111,9 @@ GeomHex <- ggproto("GeomHex", Geom,
     alpha = NA
   ),
 
-  draw_key = draw_key_polygon
+  draw_key = draw_key_polygon,
+
+  rename_size = TRUE
 )
 
 

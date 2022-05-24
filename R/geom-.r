@@ -108,6 +108,11 @@ Geom <- ggproto("Geom",
 
   # Combine data with defaults and set aesthetics from parameters
   use_defaults = function(self, data, params = list(), modifiers = aes()) {
+    # Inherit size as linewidth if no linewidth aesthetic and param exist
+    if (self$rename_size && is.null(data$linewidth) && is.null(params$linewidth)) {
+      data$linewidth <- data$size
+      params$linewidth <- params$size
+    }
     # Fill in missing aesthetics with their defaults
     missing_aes <- setdiff(names(self$default_aes), names(data))
 
@@ -187,7 +192,10 @@ Geom <- ggproto("Geom",
       required_aes <- unlist(strsplit(self$required_aes, '|', fixed = TRUE))
     }
     c(union(required_aes, names(self$default_aes)), self$optional_aes, "group")
-  }
+  },
+
+  # Should the geom rename size to linewidth?
+  rename_size = FALSE
 
 )
 
