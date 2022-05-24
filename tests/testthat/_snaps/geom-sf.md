@@ -1,6 +1,9 @@
 # errors are correctly triggered
 
-    `geom_sf()` can only be used with `coord_sf()`
+    Problem while converting geom to grob.
+    i Error occurred in the 1st layer.
+    Caused by error in `draw_panel()`:
+    ! `geom_sf()` can only be used with `coord_sf()`
 
 ---
 

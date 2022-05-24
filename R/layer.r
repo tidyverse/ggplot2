@@ -140,7 +140,10 @@ layer <- function(geom = NULL, stat = NULL,
   # adjust the legend draw key if requested
   geom <- set_draw_key(geom, key_glyph)
 
+  fr_call <- layer_class$constructor %||% frame_call(call_env)
+
   ggproto("LayerInstance", layer_class,
+    constructor = fr_call,
     geom = geom,
     geom_params = geom_params,
     stat = stat,
@@ -169,6 +172,7 @@ validate_mapping <- function(mapping, call = caller_env()) {
 }
 
 Layer <- ggproto("Layer", NULL,
+  constructor = NULL,
   geom = NULL,
   geom_params = NULL,
   stat = NULL,
@@ -328,7 +332,7 @@ Layer <- ggproto("Layer", NULL,
       issues <- paste0("{.code ", nondata_stat_cols, " = ", as_label(aesthetics[[nondata_stat_cols]]), "}")
       names(issues) <- rep("x", length(issues))
       cli::cli_abort(c(
-        "Aesthetics are not valid computed stats.",
+        "Aesthetics must be valid computed stats.",
         "x" = "The following aesthetics are invalid:",
         issues,
         "i" = "Did you map your stat in the wrong layer?"

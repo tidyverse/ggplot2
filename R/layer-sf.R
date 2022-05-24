@@ -13,6 +13,7 @@ layer_sf <- function(geom = NULL, stat = NULL,
                      position = NULL, params = list(),
                      inherit.aes = TRUE, check.aes = TRUE, check.param = TRUE,
                      show.legend = NA) {
+  call_env <- caller_env()
   if (is.character(show.legend)) {
     legend_key_type <- show.legend
     show.legend <- TRUE
@@ -21,7 +22,10 @@ layer_sf <- function(geom = NULL, stat = NULL,
   }
 
   # inherit from LayerSf class to add `legend_key_type` slot
-  layer_class <- ggproto(NULL, LayerSf, legend_key_type = legend_key_type)
+  layer_class <- ggproto(NULL, LayerSf,
+    constructor = frame_call(call_env),
+    legend_key_type = legend_key_type
+  )
 
   layer(
     geom = geom, stat = stat, data = data, mapping = mapping,

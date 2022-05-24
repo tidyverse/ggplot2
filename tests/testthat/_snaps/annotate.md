@@ -1,10 +1,16 @@
 # annotation_raster() and annotation_custom() requires cartesian coordinates
 
-    `annotation_raster()` only works with `coord_cartesian()`
+    Problem while converting geom to grob.
+    i Error occurred in the 1st layer.
+    Caused by error in `draw_panel()`:
+    ! `annotation_raster()` only works with `coord_cartesian()`
 
 ---
 
-    `annotation_custom()` only works with `coord_cartesian()`
+    Problem while converting geom to grob.
+    i Error occurred in the 1st layer.
+    Caused by error in `draw_panel()`:
+    ! `annotation_custom()` only works with `coord_cartesian()`
 
 # annotation_map() checks the input data
 
