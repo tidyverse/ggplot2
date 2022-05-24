@@ -1,14 +1,14 @@
 # annotation_raster() and annotation_custom() requires cartesian coordinates
 
-    Problem converting geom to grob
-    i Error occurred in the 1st layer
+    Problem while converting geom to grob.
+    i Error occurred in the 1st layer.
     Caused by error in `draw_panel()`:
     ! `annotation_raster()` only works with `coord_cartesian()`
 
 ---
 
-    Problem converting geom to grob
-    i Error occurred in the 1st layer
+    Problem while converting geom to grob.
+    i Error occurred in the 1st layer.
     Caused by error in `draw_panel()`:
     ! `annotation_custom()` only works with `coord_cartesian()`
 

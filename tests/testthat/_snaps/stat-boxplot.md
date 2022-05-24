@@ -8,8 +8,8 @@
 
 # stat_boxplot errors with missing x/y aesthetics
 
-    Problem computing statistics
-    i Error occurred in the 1st layer
+    Problem while computing stat.
+    i Error occurred in the 1st layer.
     Caused by error in `setup_params()`:
     ! `stat_boxplot()` requires an x or y aesthetic.
 

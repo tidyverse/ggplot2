@@ -16,8 +16,8 @@
 
 ---
 
-    Problem converting geom to grob
-    i Error occurred in the 1st layer
+    Problem while converting geom to grob.
+    i Error occurred in the 1st layer.
     Caused by error in `draw_panel()`:
     ! `geom_raster()` only works with `coord_cartesian()`
 

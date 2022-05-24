@@ -29,8 +29,8 @@
 
 # invalid aesthetics throws errors
 
-    Problem computing aesthetics
-    i Error occurred in the 1st layer
+    Problem while computing aesthetics.
+    i Error occurred in the 1st layer.
     Caused by error in `compute_aesthetics()`:
     ! Aesthetics are not valid data columns.
     x The following aesthetics are invalid:
@@ -39,8 +39,8 @@
 
 ---
 
-    Problem mapping statistics to aesthetics
-    i Error occurred in the 1st layer
+    Problem while mapping stat to aesthetics.
+    i Error occurred in the 1st layer.
     Caused by error in `map_statistic()`:
     ! Aesthetics must be valid computed stats.
     x The following aesthetics are invalid:
@@ -49,8 +49,8 @@
 
 # function aesthetics are wrapped with stat()
 
-    Problem computing aesthetics
-    i Error occurred in the 1st layer
+    Problem while computing aesthetics.
+    i Error occurred in the 1st layer.
     Caused by error in `compute_aesthetics()`:
     ! Aesthetics are not valid data columns.
     x The following aesthetics are invalid:
@@ -60,8 +60,8 @@
 
 # computed stats are in appropriate layer
 
-    Problem mapping statistics to aesthetics
-    i Error occurred in the 1st layer
+    Problem while mapping stat to aesthetics.
+    i Error occurred in the 1st layer.
     Caused by error in `map_statistic()`:
     ! Aesthetics must be valid computed stats.
     x The following aesthetics are invalid:

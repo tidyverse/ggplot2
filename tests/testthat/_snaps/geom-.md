@@ -1,7 +1,7 @@
 # aesthetic checking in geom throws correct errors
 
-    Problem setting up geom aesthetics
-    i Error occurred in the 1st layer
+    Problem while setting up geom aesthetics.
+    i Error occurred in the 1st layer.
     Caused by error in `use_defaults()`:
     ! Aesthetic modifiers returned invalid values
     x The following mappings are invalid
