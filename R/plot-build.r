@@ -61,8 +61,8 @@ ggplot_build.ggplot <- function(plot) {
   data <- layout$map_position(data)
 
   # Apply and map statistics
-  data <- by_layer(function(l, d) l$compute_statistic(d, layout), layers, data, "computing statistics")
-  data <- by_layer(function(l, d) l$map_statistic(d, plot), layers, data, "mapping statistics to aesthetics")
+  data <- by_layer(function(l, d) l$compute_statistic(d, layout), layers, data, "computing stat")
+  data <- by_layer(function(l, d) l$map_statistic(d, plot), layers, data, "mapping stat to aesthetics")
 
   # Make sure missing (but required) aesthetics are added
   scales_add_missing(plot, c("x", "y"), plot$plot_env)
@@ -71,7 +71,7 @@ ggplot_build.ggplot <- function(plot) {
   data <- by_layer(function(l, d) l$compute_geom_1(d), layers, data, "setting up geom")
 
   # Apply position adjustments
-  data <- by_layer(function(l, d) l$compute_position(d, layout), layers, data, "computing positions")
+  data <- by_layer(function(l, d) l$compute_position(d, layout), layers, data, "computing position")
 
   # Reset position scales, then re-train and map.  This ensures that facets
   # have control over the range of a plot: is it generated from what is
@@ -421,7 +421,7 @@ by_layer <- function(f, layers, data, step = NULL) {
       out[[i]] <- f(l = layers[[i]], d = data[[i]])
     },
     error = function(cnd) {
-      cli::cli_abort(c("Problem {step}", "i" = "Error occurred in the {ordinal(i)} layer"), call = I(layers[[i]]$constructor), parent = cnd)
+      cli::cli_abort(c("Problem while {step}.", "i" = "Error occurred in the {ordinal(i)} layer."), call = I(layers[[i]]$constructor), parent = cnd)
     }
   )
   out
