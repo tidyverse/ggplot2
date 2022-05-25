@@ -111,11 +111,11 @@ For more information, see the inspiration for this function:
   nbin <span class="op">=</span> <span class="fl">300</span>,
   raster <span class="op">=</span> <span class="cn">TRUE</span>,
   frame.colour <span class="op">=</span> <span class="cn">NULL</span>,
-  frame.linewidth <span class="op">=</span> <span class="fl">0.5</span>,
+  frame.linewidth <span class="op">=</span> <span class="fl">0.5</span><span class="op">/</span><span class="va">.pt</span>,
   frame.linetype <span class="op">=</span> <span class="fl">1</span>,
   ticks <span class="op">=</span> <span class="cn">TRUE</span>,
   ticks.colour <span class="op">=</span> <span class="st">"white"</span>,
-  ticks.linewidth <span class="op">=</span> <span class="fl">0.5</span>,
+  ticks.linewidth <span class="op">=</span> <span class="fl">0.5</span><span class="op">/</span><span class="va">.pt</span>,
   draw.ulim <span class="op">=</span> <span class="cn">TRUE</span>,
   draw.llim <span class="op">=</span> <span class="cn">TRUE</span>,
   direction <span class="op">=</span> <span class="cn">NULL</span>,
@@ -142,11 +142,11 @@ For more information, see the inspiration for this function:
   nbin <span class="op">=</span> <span class="fl">300</span>,
   raster <span class="op">=</span> <span class="cn">TRUE</span>,
   frame.colour <span class="op">=</span> <span class="cn">NULL</span>,
-  frame.linewidth <span class="op">=</span> <span class="fl">0.5</span>,
+  frame.linewidth <span class="op">=</span> <span class="fl">0.5</span><span class="op">/</span><span class="va">.pt</span>,
   frame.linetype <span class="op">=</span> <span class="fl">1</span>,
   ticks <span class="op">=</span> <span class="cn">TRUE</span>,
   ticks.colour <span class="op">=</span> <span class="st">"white"</span>,
-  ticks.linewidth <span class="op">=</span> <span class="fl">0.5</span>,
+  ticks.linewidth <span class="op">=</span> <span class="fl">0.5</span><span class="op">/</span><span class="va">.pt</span>,
   draw.ulim <span class="op">=</span> <span class="cn">TRUE</span>,
   draw.llim <span class="op">=</span> <span class="cn">TRUE</span>,
   direction <span class="op">=</span> <span class="cn">NULL</span>,
@@ -218,7 +218,7 @@ raster image.</p></dd>
 drawn around the bar. If <code>NULL</code> (the default), no frame is drawn.</p></dd>
 <dt>frame.linewidth</dt>
 <dd><p>A numeric specifying the width of the frame
-drawn around the bar.</p></dd>
+drawn around the bar in millimetres.</p></dd>
 <dt>frame.linetype</dt>
 <dd><p>A numeric specifying the linetype of the frame
 drawn around the bar.</p></dd>
@@ -228,7 +228,8 @@ visible.</p></dd>
 <dt>ticks.colour</dt>
 <dd><p>A string specifying the colour of the tick marks.</p></dd>
 <dt>ticks.linewidth</dt>
-<dd><p>A numeric specifying the width of the tick marks.</p></dd>
+<dd><p>A numeric specifying the width of the tick marks in
+millimetres.</p></dd>
 <dt>draw.ulim</dt>
 <dd><p>A logical specifying if the upper limit tick marks should
 be visible.</p></dd>
