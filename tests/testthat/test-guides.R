@@ -529,9 +529,9 @@ test_that("colorbar can be styled", {
           low = 'white', high = 'red',
           guide = guide_colorbar(
             frame.colour = "green",
-            frame.linewidth = 1.5,
+            frame.linewidth = 1.5 / .pt,
             ticks.colour = "black",
-            ticks.linewidth = 2.5
+            ticks.linewidth = 2.5 / .pt
             )
         )
     )

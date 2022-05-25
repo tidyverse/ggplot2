@@ -89,6 +89,11 @@
 * Updated documentation for `geom_contour()` to correctly reflect argument 
 precedence between `bins` and `binwidth`. (@eliocamp, #4651)
 
+* The `ticks.linewidth` and `frame.linewidth` parameters of `guide_colourbar()`
+  are now multiplied with `.pt` like elsewhere in ggplot2. It can cause visual
+  changes when these arguments are not the defaults and these changes can be 
+  restored to their previous behaviour by adding `/ .pt` (@teunbrand #4314).
+
 * Dots in `geom_dotplot()` are now correctly aligned to the baseline when
   `stackratio != 1` and `stackdir != "up"` (@mjskay, #4614)
 

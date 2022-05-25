@@ -34,11 +34,12 @@ the height of the colourbar. Default value is \code{legend.key.height} or
     \item{\code{frame.colour}}{A string specifying the colour of the frame
 drawn around the bar. If \code{NULL} (the default), no frame is drawn.}
     \item{\code{frame.linewidth}}{A numeric specifying the width of the frame
-drawn around the bar.}
+drawn around the bar in millimetres.}
     \item{\code{frame.linetype}}{A numeric specifying the linetype of the frame
 drawn around the bar.}
     \item{\code{ticks.colour}}{A string specifying the colour of the tick marks.}
-    \item{\code{ticks.linewidth}}{A numeric specifying the width of the tick marks.}
+    \item{\code{ticks.linewidth}}{A numeric specifying the width of the tick marks in
+millimetres.}
     \item{\code{draw.ulim}}{A logical specifying if the upper limit tick marks should
 be visible.}
     \item{\code{draw.llim}}{A logical specifying if the lower limit tick marks should
