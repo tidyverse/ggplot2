@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Secondary axis ticks are now positioned more precisely, removing small visual
+  artefacts with alignment between grid and ticks (@thomasp85, #3576)
+
 * Use `rlang::hash()` instead of `digest::digest()`. This update may lead to 
   changes in the automatic sorting of legends. In order to enforce a specific
   legend order use the `order` argument in the guide. (@thomasp85, #4458)
