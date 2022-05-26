@@ -372,10 +372,13 @@ test_that("limits are squished to transformation domain", {
   # Breaks should not be calculated on ranges outside domain #980
   sc1 <- scale_x_sqrt()
   sc2 <- scale_x_sqrt()
+  sc3 <- scale_x_reverse(breaks = 1:9) # Test for #4858
 
   sc1$train(c(0, 10))
   sc2$train(c(-10, 10))
+  sc3$train(c(0, -10)) # training expects transformed input
 
   expect_equal(sc1$get_breaks(), sc2$get_breaks())
   expect_equal(sc2$get_breaks()[1], 0)
+  expect_equal(sc3$get_breaks(), -1:-9)
 })
