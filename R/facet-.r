@@ -83,10 +83,10 @@ Facet <- ggproto("Facet", NULL,
   params = list(),
 
   compute_layout = function(data, params) {
-    abort("Not implemented")
+    cli::cli_abort("Not implemented")
   },
   map_data = function(data, layout, params) {
-    abort("Not implemented")
+    cli::cli_abort("Not implemented")
   },
   init_scales = function(layout, x_scale = NULL, y_scale = NULL, params) {
     scales <- list()
@@ -125,7 +125,7 @@ Facet <- ggproto("Facet", NULL,
     rep(list(zeroGrob()), length(unique(layout$PANEL)))
   },
   draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
-    abort("Not implemented")
+    cli::cli_abort("Not implemented")
   },
   draw_labels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, labels, params) {
     panel_dim <-  find_panel(panels)
@@ -315,12 +315,13 @@ as_facets_list <- function(x) {
 
 validate_facets <- function(x) {
   if (inherits(x, "uneval")) {
-    abort("Please use `vars()` to supply facet variables")
+    cli::cli_abort("Please use {.fn vars} to supply facet variables")
   }
   if (inherits(x, "ggplot")) {
-    abort(
-      "Please use `vars()` to supply facet variables\nDid you use %>% instead of +?"
-    )
+    cli::cli_abort(c(
+      "Please use {.fn vars} to supply facet variables",
+      "i" = "Did you use {.code %>%} or {.code |>} instead of {.code +}?"
+    ))
   }
   x
 }
@@ -451,7 +452,7 @@ eval_facet <- function(facet, data, possible_columns = NULL) {
   # but present in others raise a custom error
   env <- new_environment(data)
   missing_columns <- setdiff(possible_columns, names(data))
-  undefined_error <- function(e) abort("", class = "ggplot2_missing_facet_var")
+  undefined_error <- function(e) cli::cli_abort("", class = "ggplot2_missing_facet_var")
   bindings <- rep_named(missing_columns, list(undefined_error))
   env_bind_active(env, !!!bindings)
 
@@ -475,7 +476,7 @@ check_layout <- function(x) {
     return()
   }
 
-  abort("Facet layout has bad format. It must contain columns 'PANEL', 'SCALE_X', and 'SCALE_Y'")
+  cli::cli_abort("Facet layout has a bad format. It must contain columns {.col PANEL}, {.col SCALE_X}, and {.col SCALE_Y}")
 }
 
 
@@ -564,12 +565,15 @@ combine_vars <- function(data, env = emptyenv(), vars = NULL, drop = TRUE) {
   has_all <- unlist(lapply(values, length)) == length(vars)
   if (!any(has_all)) {
     missing <- lapply(values, function(x) setdiff(names(vars), names(x)))
-    missing_txt <- vapply(missing, var_list, character(1))
-    name <- c("Plot", paste0("Layer ", seq_len(length(data) - 1)))
+    missing_vars <- paste0(
+      c("Plot", paste0("Layer ", seq_len(length(data) - 1))),
+      " is missing {.var ", missing[seq_along(data)], "}"
+    )
+    names(missing_vars) <- rep("x", length(data))
 
-    abort(glue(
-      "At least one layer must contain all faceting variables: {var_list(names(vars))}.\n",
-      glue_collapse(glue("* {name} is missing {missing_txt}"), "\n", last = "\n")
+    cli::cli_abort(c(
+      "At least one layer must contain all faceting variables: {.var {names(vars)}}",
+      missing_vars
     ))
   }
 
@@ -591,7 +595,7 @@ combine_vars <- function(data, env = emptyenv(), vars = NULL, drop = TRUE) {
   }
 
   if (empty(base)) {
-    abort("Faceting variables must have at least one value")
+    cli::cli_abort("Faceting variables must have at least one value")
   }
 
   base

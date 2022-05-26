@@ -102,17 +102,17 @@ test_that("geom_sf() removes rows containing missing aes", {
   p <- ggplot(pts) + geom_sf()
   expect_warning(
     expect_identical(grob_xy_length(p + aes(size = size)), c(1L, 1L)),
-    "Removed 1 rows containing missing values"
+    "Removed 1 row containing missing values"
   )
   expect_warning(
     expect_identical(grob_xy_length(p + aes(shape = shape)), c(1L, 1L)),
-    "Removed 1 rows containing missing values"
+    "Removed 1 row containing missing values"
   )
   # default colour scale maps a colour even to a NA, so identity scale is needed to see if NA is removed
   expect_warning(
     expect_identical(grob_xy_length(p + aes(colour = colour) + scale_colour_identity()),
                      c(1L, 1L)),
-    "Removed 1 rows containing missing values"
+    "Removed 1 row containing missing values"
   )
 })
 
@@ -135,6 +135,20 @@ test_that("geom_sf() handles alpha properly", {
   # alpha doesn't affect the colour of polygons, but the fill
   expect_equal(g[[3]]$gp$col, alpha(red, 1.0))
   expect_equal(g[[3]]$gp$fill, alpha(red, 0.5))
+})
+
+test_that("errors are correctly triggered", {
+  skip_if_not_installed("sf")
+  pts <- sf::st_sf(
+    geometry = sf::st_sfc(sf::st_point(0:1), sf::st_point(1:2)),
+    size = c(1, NA),
+    shape = c("a", NA),
+    colour = c("red", NA)
+  )
+  p <- ggplot(pts) + geom_sf() + coord_cartesian()
+  expect_snapshot_error(ggplotGrob(p))
+  expect_snapshot_error(geom_sf_label(position = "jitter", nudge_x = 0.5))
+  expect_snapshot_error(geom_sf_text(position = "jitter", nudge_x = 0.5))
 })
 
 # Visual tests ------------------------------------------------------------

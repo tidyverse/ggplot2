@@ -37,6 +37,7 @@ for more details:
 }
 \examples{
 if (requireNamespace("Hmisc", quietly = TRUE)) {
+set.seed(1)
 x <- rnorm(100)
 mean_cl_boot(x)
 mean_cl_normal(x)

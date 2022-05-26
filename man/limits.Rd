@@ -4,7 +4,7 @@
 \alias{limits}
 \title{Generate correct scale type for specified limits}
 \usage{
-limits(lims, var)
+limits(lims, var, call = caller_env())
 }
 \arguments{
 \item{lims}{vector of limits}

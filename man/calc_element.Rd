@@ -4,7 +4,13 @@
 \alias{calc_element}
 \title{Calculate the element properties, by inheriting properties from its parents}
 \usage{
-calc_element(element, theme, verbose = FALSE, skip_blank = FALSE)
+calc_element(
+  element,
+  theme,
+  verbose = FALSE,
+  skip_blank = FALSE,
+  call = caller_env()
+)
 }
 \arguments{
 \item{element}{The name of the theme element to calculate}

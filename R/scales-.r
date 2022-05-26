@@ -27,9 +27,10 @@ ScalesList <- ggproto("ScalesList", NULL,
       # Get only the first aesthetic name in the returned vector -- it can
       # sometimes be c("x", "xmin", "xmax", ....)
       scalename <- self$scales[prev_aes][[1]]$aesthetics[1]
-      message_wrap("Scale for '", scalename,
-        "' is already present. Adding another scale for '", scalename,
-        "', which will replace the existing scale.")
+      cli::cli_inform(c(
+        "Scale for {.field {scalename}} is already present.",
+        "Adding another scale for {.field {scalename}}, which will replace the existing scale."
+      ))
     }
 
     # Remove old scale for this aesthetic (if it exists)

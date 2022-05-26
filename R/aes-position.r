@@ -65,6 +65,7 @@
 #'
 #' # You can also use geom_segment() to recreate plot(type = "h")
 #' # from base R:
+#' set.seed(1)
 #' counts <- as.data.frame(table(x = rpois(100, 5)))
 #' counts$x <- as.numeric(as.character(counts$x))
 #' with(counts, plot(x, Freq, type = "h", lwd = 10))

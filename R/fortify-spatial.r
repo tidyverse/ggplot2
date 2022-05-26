@@ -26,7 +26,7 @@ fortify.SpatialPolygonsDataFrame <- function(model, data, region = NULL, ...) {
   # If not specified, split into regions based on polygons
   if (is.null(region)) {
     coords <- rbind_dfs(lapply(model@polygons,fortify))
-    message("Regions defined for each Polygons")
+    cli::cli_inform("Regions defined for each Polygons")
   } else {
     cp <- sp::polygons(model)
 

@@ -31,6 +31,7 @@
 #' qplot(mpg, wt, data = mtcars, facets = vs ~ am)
 #'
 #' \donttest{
+#' set.seed(1)
 #' qplot(1:10, rnorm(10), colour = runif(10))
 #' qplot(1:10, letters[1:10])
 #' mod <- lm(mpg ~ wt, data = mtcars)
@@ -70,7 +71,7 @@ qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
   if (lifecycle::is_present(stat)) lifecycle::deprecate_warn("2.0.0", "qplot(stat)")
   if (lifecycle::is_present(position)) lifecycle::deprecate_warn("2.0.0", "qplot(position)")
   if (!is.character(geom)) {
-    abort("`geom` must be a character vector")
+    cli::cli_abort("{.arg geom} must be a character vector")
   }
 
   exprs <- enquos(x = x, y = y, ...)
