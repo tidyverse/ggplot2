@@ -17,7 +17,7 @@ ggplot_add(object, plot, object_name)
 A modified ggplot object
 }
 \description{
-This generic allows you to add your own methods for adding custom objects to
-a ggplot with \link{+.gg}.
+This generic allows you to add your own methods for adding custom
+right-hand-side objects to a ggplot with \link{+.gg}.
 }
 \keyword{internal}
