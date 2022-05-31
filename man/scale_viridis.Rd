@@ -74,8 +74,7 @@ scale_colour_viridis_b(
   space = "Lab",
   na.value = "grey50",
   guide = "coloursteps",
-  aesthetics = "colour",
-  pal_full_range = FALSE
+  aesthetics = "colour"
 )
 
 scale_fill_viridis_b(
@@ -89,8 +88,7 @@ scale_fill_viridis_b(
   space = "Lab",
   na.value = "grey50",
   guide = "coloursteps",
-  aesthetics = "fill",
-  pal_full_range = FALSE
+  aesthetics = "fill"
 )
 }
 \arguments{
@@ -101,16 +99,28 @@ labels and so forth.}
 \item{alpha}{The alpha transparency, a number in [0,1], see argument alpha in
 \code{\link[grDevices]{hsv}}.}
 
-\item{begin}{The (corrected) hue in [0,1] at which the viridis colormap begins.}
+\item{begin}{The (corrected) hue in \verb{[0,1]} at which the color map
+begins and ends.}
 
-\item{end}{The (corrected) hue in [0,1] at which the viridis colormap ends.}
+\item{end}{The (corrected) hue in \verb{[0,1]} at which the color map
+begins and ends.}
 
-\item{direction}{Sets the order of colors in the scale. If 1, the default, colors
-are ordered from darkest to lightest. If -1, the order of colors is reversed.}
+\item{direction}{Sets the order of colors in the scale. If 1, the default,
+colors are ordered from darkest to lightest. If -1, the order of colors is
+reversed.}
 
-\item{option}{A character string indicating the colormap option to use. Four
-options are available: "magma" (or "A"), "inferno" (or "B"), "plasma" (or "C"),
-"viridis" (or "D", the default option) and "cividis" (or "E").}
+\item{option}{A character string indicating the color map option to use.
+Eight options are available:
+\itemize{
+ \item "magma" (or "A")
+ \item "inferno" (or "B")
+ \item "plasma" (or "C")
+ \item "viridis" (or "D")
+ \item "cividis" (or "E")
+ \item "rocket" (or "F")
+ \item "mako" (or "G")
+ \item "turbo" (or "H")
+}}
 
 \item{aesthetics}{Character string or vector of character strings listing the
 name(s) of the aesthetic(s) that this scale works with. This can be useful, for
@@ -129,8 +139,6 @@ other values are deprecated.}
 
 \item{guide}{A function used to create a guide or its name. See
 \code{\link[=guides]{guides()}} for more information.}
-
-\item{pal_full_range}{For the binned versions, use the full range of the palette}
 }
 \description{
 The \code{viridis} scales provide colour maps that are perceptually uniform in both

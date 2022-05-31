@@ -7,7 +7,6 @@
 #'
 #' @inheritParams scales::viridis_pal
 #' @inheritParams scales::gradient_n_pal
-#' @param pal_full_range For the binned versions, use the full range of the palette
 #' @inheritParams continuous_scale
 #' @param ... Other arguments passed on to [discrete_scale()],
 #' [continuous_scale()], or [binned_scale] to control name, limits, breaks,
@@ -124,18 +123,10 @@ scale_fill_viridis_c <- function(..., alpha = 1, begin = 0, end = 1,
 scale_colour_viridis_b <- function(..., alpha = 1, begin = 0, end = 1,
                                    direction = 1, option = "D", values = NULL,
                                    space = "Lab", na.value = "grey50",
-                                   guide = "coloursteps", aesthetics = "colour", pal_full_range = FALSE) {
-  if(pal_full_range) {
-    pal <-  binned_pal(
-      viridis_pal(alpha, begin, end, direction, option)
-    )
-  } else {
-    pal <- gradient_n_pal(
-      viridis_pal(alpha, begin, end, direction, option)(6),
-      values,
-      space
-    )
-  }
+                                   guide = "coloursteps", aesthetics = "colour") {
+  pal <-  binned_pal(
+    viridis_pal(alpha, begin, end, direction, option)
+  )
 
   binned_scale(
     aesthetics,
@@ -152,18 +143,10 @@ scale_colour_viridis_b <- function(..., alpha = 1, begin = 0, end = 1,
 scale_fill_viridis_b <- function(..., alpha = 1, begin = 0, end = 1,
                                  direction = 1, option = "D", values = NULL,
                                  space = "Lab", na.value = "grey50",
-                                 guide = "coloursteps", aesthetics = "fill", pal_full_range = FALSE) {
-  if(pal_full_range) {
-    pal <-  binned_pal(
-      viridis_pal(alpha, begin, end, direction, option)
-    )
-  } else {
-    pal <- gradient_n_pal(
-      viridis_pal(alpha, begin, end, direction, option)(6),
-      values,
-      space
-    )
-  }
+                                 guide = "coloursteps", aesthetics = "fill") {
+  pal <-  binned_pal(
+    viridis_pal(alpha, begin, end, direction, option)
+  )
 
   binned_scale(
     aesthetics,

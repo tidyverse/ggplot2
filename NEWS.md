@@ -53,6 +53,8 @@
   
 * `geom_contour()` now accepts a function in the `breaks` argument (@eliocamp, #4652).
 
+* VISUAL CHANGE: `scale_*_viridis_b()` now uses the full range of the viridis scales (@gregleleu, #4737)
+
 # ggplot2 3.3.5
 This is a very small release focusing on fixing a couple of untenable issues 
 that surfaced with the 3.3.4 release
