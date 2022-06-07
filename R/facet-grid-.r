@@ -217,7 +217,14 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     base <- df.grid(base_rows, base_cols)
 
     if (nrow(base) == 0) {
-      return(new_data_frame(list(PANEL = factor(1L), ROW = 1L, COL = 1L, SCALE_X = 1L, SCALE_Y = 1L)))
+      return(data_frame(
+        PANEL = factor(1L),
+        ROW = 1L,
+        COL = 1L,
+        SCALE_X = 1L,
+        SCALE_Y = 1L,
+        .name_repair = "minimal"
+      ))
     }
 
     # Add margins
@@ -231,7 +238,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     rows <- if (!length(names(rows))) rep(1L, length(panel)) else id(base[names(rows)], drop = TRUE)
     cols <- if (!length(names(cols))) rep(1L, length(panel)) else id(base[names(cols)], drop = TRUE)
 
-    panels <- new_data_frame(c(list(PANEL = panel, ROW = rows, COL = cols), base))
+    panels <- data_frame(PANEL = panel, ROW = rows, COL = cols, !!!base, .name_repair = "minimal")
     panels <- panels[order(panels$PANEL), , drop = FALSE]
     rownames(panels) <- NULL
 
@@ -242,7 +249,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
   },
   map_data = function(data, layout, params) {
     if (empty(data)) {
-      return(cbind(data, PANEL = integer(0)))
+      return(vec_cbind(data %|W|% NULL, PANEL = integer(0)))
     }
 
     rows <- params$rows
@@ -271,7 +278,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       facet_rep <- rep(1:nrow(to_add), each = nrow(data))
 
       data <- unrowname(data[data_rep, , drop = FALSE])
-      facet_vals <- unrowname(cbind(
+      facet_vals <- unrowname(vec_cbind(
         facet_vals[data_rep, ,  drop = FALSE],
         to_add[facet_rep, , drop = FALSE]))
     }
@@ -283,6 +290,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     } else {
       facet_vals[] <- lapply(facet_vals[], as.factor)
       facet_vals[] <- lapply(facet_vals[], addNA, ifany = TRUE)
+      layout[] <- lapply(layout[], as.factor)
 
       keys <- join_keys(facet_vals, layout, by = vars)
 

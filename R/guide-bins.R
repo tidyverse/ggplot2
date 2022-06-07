@@ -178,7 +178,7 @@ guide_train.bins <- function(guide, scale, aesthetic = NULL) {
     limits <- all_breaks[c(1, length(all_breaks))]
     breaks <- all_breaks[-c(1, length(all_breaks))]
   }
-  key <- new_data_frame(setNames(list(c(scale$map(bin_at), NA)), aes_column_name))
+  key <- data_frame(c(scale$map(bin_at), NA), .name_repair = ~ aes_column_name)
   labels <- scale$get_labels(breaks)
   show_limits <- rep(show_limits, 2)
   if (is.character(scale$labels) || is.numeric(scale$labels)) {
@@ -412,11 +412,13 @@ guide_gengrob.bins <- function(guide, theme) {
 
   key_loc <- data_frame(
     R = seq(2, by = 2, length.out = n_keys),
-    C = if (label.position %in% c("right", "bottom")) 1 else 3
+    C = if (label.position %in% c("right", "bottom")) 1 else 3,
+    .name_repair = "minimal"
   )
   label_loc <- data_frame(
     R = seq(1, by = 2, length.out = n_keys + 1),
-    C = if (label.position %in% c("right", "bottom")) 3 else 1
+    C = if (label.position %in% c("right", "bottom")) 3 else 1,
+    .name_repair = "minimal"
   )
   tick_loc <- label_loc
   tick_loc$C <- if (label.position %in% c("right", "bottom")) 1 else 3

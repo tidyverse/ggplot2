@@ -75,7 +75,7 @@ scales_map_df <- function(scales, df) {
 
   mapped <- unlist(lapply(scales$scales, function(scale) scale$map_df(df = df)), recursive = FALSE)
 
-  new_data_frame(c(mapped, df[setdiff(names(df), names(mapped))]))
+  data_frame(!!!mapped, !!!df[setdiff(names(df), names(mapped))], .name_repair = "minimal")
 }
 
 # Transform values to cardinal representation
@@ -84,7 +84,7 @@ scales_transform_df <- function(scales, df) {
 
   transformed <- unlist(lapply(scales$scales, function(s) s$transform_df(df = df)),
     recursive = FALSE)
-  new_data_frame(c(transformed, df[setdiff(names(df), names(transformed))]))
+  data_frame(!!!transformed, !!!df[setdiff(names(df), names(transformed))], .name_repair = "minimal")
 }
 
 # @param aesthetics A list of aesthetic-variable mappings. The name of each

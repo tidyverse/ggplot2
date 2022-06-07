@@ -41,9 +41,9 @@ GeomRect <- ggproto("GeomRect", Geom,
 
       polys <- lapply(split(data, seq_len(nrow(data))), function(row) {
         poly <- rect_to_poly(row$xmin, row$xmax, row$ymin, row$ymax)
-        aes <- new_data_frame(row[aesthetics])[rep(1,5), ]
+        aes <- data_frame(!!!row[aesthetics], .name_repair = "minimal")[rep(1,5), ]
 
-        GeomPolygon$draw_panel(cbind(poly, aes), panel_params, coord, lineend = lineend, linejoin = linejoin)
+        GeomPolygon$draw_panel(vec_cbind(poly, aes), panel_params, coord, lineend = lineend, linejoin = linejoin)
       })
 
       ggname("bar", do.call("grobTree", polys))
@@ -79,8 +79,9 @@ GeomRect <- ggproto("GeomRect", Geom,
 #
 # @keyword internal
 rect_to_poly <- function(xmin, xmax, ymin, ymax) {
-  new_data_frame(list(
+  data_frame(
     y = c(ymax, ymax, ymin, ymin, ymax),
-    x = c(xmin, xmax, xmax, xmin, xmin)
-  ))
+    x = c(xmin, xmax, xmax, xmin, xmin),
+    .name_repair = "minimal"
+  )
 }

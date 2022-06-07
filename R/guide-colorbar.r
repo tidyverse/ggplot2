@@ -214,7 +214,7 @@ guide_train.colorbar <- function(guide, scale, aesthetic = NULL) {
   if (length(breaks) == 0 || all(is.na(breaks)))
     return()
 
-  ticks <- new_data_frame(setNames(list(scale$map(breaks)), aesthetic %||% scale$aesthetics[1]))
+  ticks <- data_frame(scale$map(breaks), .name_repair = ~ aesthetic %||% scale$aesthetics[1])
   ticks$.value <- breaks
   ticks$.label <- scale$get_labels(breaks)
 
@@ -226,7 +226,12 @@ guide_train.colorbar <- function(guide, scale, aesthetic = NULL) {
   if (length(.bar) == 0) {
     .bar = unique(.limits)
   }
-  guide$bar <- new_data_frame(list(colour = scale$map(.bar), value = .bar), n = length(.bar))
+  guide$bar <- data_frame(
+    colour = scale$map(.bar),
+    value = .bar,
+    .size = length(.bar),
+    .name_repair = "minimal"
+  )
   if (guide$reverse) {
     guide$key <- guide$key[nrow(guide$key):1, ]
     guide$bar <- guide$bar[nrow(guide$bar):1, ]

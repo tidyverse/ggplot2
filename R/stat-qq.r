@@ -99,6 +99,6 @@ StatQq <- ggproto("StatQq", Stat,
 
     theoretical <- do.call(distribution, c(list(p = quote(quantiles)), dparams))
 
-    new_data_frame(list(sample = sample, theoretical = theoretical))
+    data_frame(sample = sample, theoretical = theoretical, .name_repair = "minimal")
   }
 )

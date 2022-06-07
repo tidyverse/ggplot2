@@ -131,7 +131,7 @@ StatSmooth <- ggproto("StatSmooth", Stat,
     data <- flip_data(data, flipped_aes)
     if (length(unique(data$x)) < 2) {
       # Not enough data to perform fit
-      return(new_data_frame())
+      return(data_frame(.name_repair = "minimal"))
     }
 
     if (is.null(data$weight)) data$weight <- 1

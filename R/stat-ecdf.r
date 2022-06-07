@@ -102,7 +102,12 @@ StatEcdf <- ggproto("StatEcdf", Stat,
     }
     data_ecdf <- ecdf(data$x)(x)
 
-    df_ecdf <- new_data_frame(list(x = x, y = data_ecdf), n = length(x))
+    df_ecdf <- data_frame(
+      x = x,
+      y = data_ecdf,
+      .size = length(x),
+      .name_repair = "minimal"
+    )
     df_ecdf$flipped_aes <- flipped_aes
     flip_data(df_ecdf, flipped_aes)
   }

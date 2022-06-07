@@ -183,7 +183,7 @@ bin_out <- function(count = integer(0), x = numeric(0), width = numeric(0),
   xmin = x - width / 2, xmax = x + width / 2) {
   density <- count / width / sum(abs(count))
 
-  new_data_frame(list(
+  data_frame(
     count = count,
     x = x,
     xmin = xmin,
@@ -191,6 +191,8 @@ bin_out <- function(count = integer(0), x = numeric(0), width = numeric(0),
     width = width,
     density = density,
     ncount = count / max(abs(count)),
-    ndensity = density / max(abs(density))
-  ), n = length(count))
+    ndensity = density / max(abs(density)),
+    .size = length(count),
+    .name_repair = "minimal"
+  )
 }

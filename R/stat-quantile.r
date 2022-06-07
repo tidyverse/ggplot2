@@ -74,7 +74,7 @@ StatQuantile <- ggproto("StatQuantile", Stat,
       xmax <- max(data$x, na.rm = TRUE)
       xseq <- seq(xmin, xmax, length.out = 100)
     }
-    grid <- new_data_frame(list(x = xseq))
+    grid <- data_frame(x = xseq, .size = length(xseq), .name_repair = "minimal")
 
     # if method was specified as a character string, replace with
     # the corresponding function
@@ -86,7 +86,7 @@ StatQuantile <- ggproto("StatQuantile", Stat,
       method <- match.fun(method) # allow users to supply their own methods
     }
 
-    rbind_dfs(lapply(quantiles, quant_pred, data = data, method = method,
+    vec_rbind(!!!lapply(quantiles, quant_pred, data = data, method = method,
       formula = formula, weight = weight, grid = grid, method.args = method.args))
   }
 )

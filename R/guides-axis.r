@@ -66,8 +66,11 @@ guide_train.axis <- function(guide, scale, aesthetic = NULL) {
   aesthetic <- aesthetic %||% scale$aesthetics[1]
   breaks <- scale$get_breaks()
 
-  empty_ticks <- new_data_frame(
-    list(aesthetic = numeric(0), .value = numeric(0), .label = character(0))
+  empty_ticks <- data_frame(
+    aesthetic = numeric(0),
+    .value = numeric(0),
+    .label = character(0),
+    .name_repair = "minimal"
   )
   names(empty_ticks) <- c(aesthetic, ".value", ".label")
 
@@ -81,7 +84,7 @@ guide_train.axis <- function(guide, scale, aesthetic = NULL) {
     guide$key <- empty_ticks
   } else {
     mapped_breaks <- if (scale$is_discrete()) scale$map(breaks) else breaks
-    ticks <- new_data_frame(setNames(list(mapped_breaks), aesthetic))
+    ticks <- data_frame(mapped_breaks, .name_repair = ~ aesthetic)
     ticks$.value <- breaks
     ticks$.label <- scale$get_labels(breaks)
 

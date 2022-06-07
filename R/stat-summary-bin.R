@@ -112,11 +112,12 @@ make_summary_fun <- function(fun.data, fun, fun.max, fun.min, fun.args) {
     }
 
     function(df, ...) {
-      new_data_frame(list(
+      data_frame(
         ymin = call_f(fun.min, df$y),
         y = call_f(fun, df$y),
-        ymax = call_f(fun.max, df$y)
-      ))
+        ymax = call_f(fun.max, df$y),
+        .name_repair = "minimal"
+      )
     }
   } else {
     cli::cli_inform("No summary function supplied, defaulting to {.fn mean_se}")

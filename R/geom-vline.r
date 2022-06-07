@@ -19,7 +19,7 @@ geom_vline <- function(mapping = NULL, data = NULL,
       cli::cli_warn("{.fn geom_vline}: Ignoring {.arg data} because {.arg xintercept} was provided.")
     }
 
-    data <- new_data_frame(list(xintercept = xintercept))
+    data <- data_frame(xintercept = xintercept, .name_repair = "minimal")
     mapping <- aes(xintercept = xintercept)
     show.legend <- FALSE
   }

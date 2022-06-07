@@ -257,7 +257,7 @@ df.grid <- function(a, b) {
     i_a = seq_len(nrow(a)),
     i_b = seq_len(nrow(b))
   )
-  unrowname(cbind(
+  unrowname(vec_cbind(
     a[indexes$i_a, , drop = FALSE],
     b[indexes$i_b, , drop = FALSE]
   ))
@@ -432,7 +432,7 @@ is_facets <- function(x) {
 # but that seems like a reasonable tradeoff.
 eval_facets <- function(facets, data, possible_columns = NULL) {
   vars <- compact(lapply(facets, eval_facet, data, possible_columns = possible_columns))
-  new_data_frame(tibble::as_tibble(vars))
+  data_frame(!!!tibble::as_tibble(vars), .name_repair = "minimal")
 }
 eval_facet <- function(facet, data, possible_columns = NULL) {
   # Treat the case when `facet` is a quosure of a symbol specifically
@@ -468,7 +468,14 @@ eval_facet <- function(facet, data, possible_columns = NULL) {
 
 layout_null <- function() {
   # PANEL needs to be a factor to be consistent with other facet types
-  new_data_frame(list(PANEL = factor(1), ROW = 1, COL = 1, SCALE_X = 1, SCALE_Y = 1))
+  data_frame(
+    PANEL = factor(1),
+    ROW = 1,
+    COL = 1,
+    SCALE_X = 1,
+    SCALE_Y = 1,
+    .name_repair = "minimal"
+  )
 }
 
 check_layout <- function(x) {
@@ -521,12 +528,14 @@ find_panel <- function(table) {
   layout <- table$layout
   panels <- layout[grepl("^panel", layout$name), , drop = FALSE]
 
-  new_data_frame(list(
+  data_frame(
     t = min(.subset2(panels, "t")),
     r = max(.subset2(panels, "r")),
     b = max(.subset2(panels, "b")),
-    l = min(.subset2(panels, "l"))
-  ), n = 1)
+    l = min(.subset2(panels, "l")),
+    .size = 1,
+    .name_repair = "minimal"
+  )
 }
 #' @rdname find_panel
 #' @export
@@ -555,7 +564,7 @@ panel_rows <- function(table) {
 #' @export
 combine_vars <- function(data, env = emptyenv(), vars = NULL, drop = TRUE) {
   possible_columns <- unique(unlist(lapply(data, names)))
-  if (length(vars) == 0) return(new_data_frame())
+  if (length(vars) == 0) return(data_frame(.name_repair = "minimal"))
 
   # For each layer, compute the facet values
   values <- compact(lapply(data, eval_facets, facets = vars, possible_columns = possible_columns))
@@ -577,7 +586,7 @@ combine_vars <- function(data, env = emptyenv(), vars = NULL, drop = TRUE) {
     ))
   }
 
-  base <- unique(rbind_dfs(values[has_all]))
+  base <- unique(vec_rbind(!!!values[has_all]))
   if (!drop) {
     base <- unique_combs(base)
   }
@@ -591,7 +600,7 @@ combine_vars <- function(data, env = emptyenv(), vars = NULL, drop = TRUE) {
     if (drop) {
       new <- unique_combs(new)
     }
-    base <- unique(rbind(base, df.grid(old, new)))
+    base <- unique(vec_rbind(base, df.grid(old, new)))
   }
 
   if (empty(base)) {

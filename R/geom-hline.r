@@ -19,7 +19,7 @@ geom_hline <- function(mapping = NULL, data = NULL,
       cli::cli_warn("{.fn geom_hline}: Ignoring {.arg data} because {.arg yintercept} was provided.")
     }
 
-    data <- new_data_frame(list(yintercept = yintercept))
+    data <- data_frame(yintercept = yintercept, .name_repair = "minimal")
     mapping <- aes(yintercept = yintercept)
     show.legend <- FALSE
   }

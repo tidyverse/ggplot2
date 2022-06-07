@@ -80,10 +80,11 @@ StatFunction <- ggproto("StatFunction", Stat,
       y_out <- scales$y$trans$transform(y_out)
     }
 
-    new_data_frame(list(
+    data_frame(
       x = xseq,
-      y = y_out
-    ))
+      y = y_out,
+      .name_repair = "minimal"
+    )
   }
 )
 
@@ -93,7 +94,7 @@ StatFunction <- ggproto("StatFunction", Stat,
 # input data that may have been provided.
 ensure_nonempty_data <- function(data) {
   if (empty(data)) {
-    new_data_frame(list(group = 1), n = 1)
+    data_frame(group = 1, .size = 1, .name_repair = "minimal")
   } else {
     data
   }

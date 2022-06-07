@@ -24,12 +24,14 @@
 #'   geom_polygon(aes(group = group), colour = "white")
 #' }
 fortify.map <- function(model, data, ...) {
-  df <- new_data_frame(list(
+  df <- data_frame(
     long = model$x,
     lat = model$y,
     group = cumsum(is.na(model$x) & is.na(model$y)) + 1,
-    order = seq_along(model$x)
-  ), n = length(model$x))
+    order = seq_along(model$x),
+    .size = length(model$x),
+    .name_repair = "minimal"
+  )
 
   names <- do.call("rbind", lapply(strsplit(model$names, "[:,]"), "[", 1:2))
   df$region <- names[df$group, 1]

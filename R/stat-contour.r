@@ -255,7 +255,7 @@ iso_to_path <- function(iso, group = 1) {
 
   if (all(lengths == 0)) {
     cli::cli_warn("{.fn stat_contour}: Zero contours were generated")
-    return(new_data_frame())
+    return(data_frame(.name_repair = "minimal"))
   }
 
   levels <- names(iso)
@@ -268,15 +268,14 @@ iso_to_path <- function(iso, group = 1) {
   groups <- paste(group, sprintf("%03d", item_id), sprintf("%03d", ids), sep = "-")
   groups <- factor(groups)
 
-  new_data_frame(
-    list(
-      level = rep(levels, lengths),
-      x = xs,
-      y = ys,
-      piece = as.integer(groups),
-      group = groups
-    ),
-    n = length(xs)
+  data_frame(
+    level = rep(levels, lengths),
+    x = xs,
+    y = ys,
+    piece = as.integer(groups),
+    group = groups,
+    .size = length(xs),
+    .name_repair = "minimal"
   )
 }
 
@@ -293,7 +292,7 @@ iso_to_polygon <- function(iso, group = 1) {
 
   if (all(lengths == 0)) {
     cli::cli_warn("{.fn stat_contour}: Zero contours were generated")
-    return(new_data_frame())
+    return(data_frame(.name_repair = "minimal"))
   }
 
   levels <- names(iso)
@@ -306,16 +305,15 @@ iso_to_polygon <- function(iso, group = 1) {
   groups <- paste(group, sprintf("%03d", item_id), sep = "-")
   groups <- factor(groups)
 
-  new_data_frame(
-    list(
-      level = rep(levels, lengths),
-      x = xs,
-      y = ys,
-      piece = as.integer(groups),
-      group = groups,
-      subgroup = ids
-    ),
-    n = length(xs)
+  data_frame(
+    level = rep(levels, lengths),
+    x = xs,
+    y = ys,
+    piece = as.integer(groups),
+    group = groups,
+    subgroup = ids,
+    .size = length(xs),
+    .name_repair = "minimal"
   )
 }
 

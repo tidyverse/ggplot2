@@ -489,11 +489,11 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
     })
   }
 
-  # Create matrix of labels
-  labels <- lapply(labeller(label_df), cbind)
-  labels <- do.call("cbind", labels)
+  # Create labels
+  labels <- data_frame(!!!labeller(label_df), .name_repair = "minimal")
   ncol <- ncol(labels)
   nrow <- nrow(labels)
+  labels_vec <- unlist(labels, use.names = FALSE)
 
   # Decide strip clipping
   clip <- calc_element("strip.clip", theme)[[1]]
@@ -501,13 +501,13 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
   clip <- c("on", "off", "inherit")[clip]
 
   if (horizontal) {
-    grobs_top <- lapply(labels, element_render, theme = theme,
+    grobs_top <- lapply(labels_vec, element_render, theme = theme,
                         element = "strip.text.x.top", margin_x = TRUE,
                         margin_y = TRUE)
     grobs_top <- assemble_strips(matrix(grobs_top, ncol = ncol, nrow = nrow),
                                  theme, horizontal, clip = clip)
 
-    grobs_bottom <- lapply(labels, element_render, theme = theme,
+    grobs_bottom <- lapply(labels_vec, element_render, theme = theme,
                            element = "strip.text.x.bottom", margin_x = TRUE,
                            margin_y = TRUE)
     grobs_bottom <- assemble_strips(matrix(grobs_bottom, ncol = ncol, nrow = nrow),
@@ -518,13 +518,13 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
       bottom = grobs_bottom
     )
   } else {
-    grobs_left <- lapply(labels, element_render, theme = theme,
+    grobs_left <- lapply(labels_vec, element_render, theme = theme,
                          element = "strip.text.y.left", margin_x = TRUE,
                          margin_y = TRUE)
     grobs_left <- assemble_strips(matrix(grobs_left, ncol = ncol, nrow = nrow),
                                   theme, horizontal, clip = clip)
 
-    grobs_right <- lapply(labels[, rev(seq_len(ncol(labels))), drop = FALSE],
+    grobs_right <- lapply(unlist(labels[, rev(seq_len(ncol(labels))), drop = FALSE], use.names = FALSE),
                           element_render, theme = theme,
                           element = "strip.text.y.right", margin_x = TRUE,
                           margin_y = TRUE)

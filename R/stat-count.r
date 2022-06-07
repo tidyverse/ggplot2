@@ -79,13 +79,15 @@ StatCount <- ggproto("StatCount", Stat,
     count <- as.numeric(tapply(weight, x, sum, na.rm = TRUE))
     count[is.na(count)] <- 0
 
-    bars <- new_data_frame(list(
+    bars <- data_frame(
       count = count,
       prop = count / sum(abs(count)),
       x = sort(unique(x)),
       width = width,
-      flipped_aes = flipped_aes
-    ), n = length(count))
+      flipped_aes = flipped_aes,
+      .size = length(count),
+      .name_repair = "minimal"
+    )
     flip_data(bars, flipped_aes)
   }
 )

@@ -99,13 +99,13 @@ Stat <- ggproto("Stat",
       scales <- layout$get_scales(data$PANEL[1])
       try_fetch(do.call(self$compute_panel, args), error = function(cnd) {
         cli::cli_warn("Computation failed in {.fn {snake_class(self)}}", parent = cnd)
-        new_data_frame()
+        data_frame(.name_repair = "minimal")
       })
     })
   },
 
   compute_panel = function(self, data, scales, ...) {
-    if (empty(data)) return(new_data_frame())
+    if (empty(data)) return(data_frame(.name_repair = "minimal"))
 
     groups <- split(data, data$group)
     stats <- lapply(groups, function(group) {
@@ -113,16 +113,16 @@ Stat <- ggproto("Stat",
     })
 
     stats <- mapply(function(new, old) {
-      if (empty(new)) return(new_data_frame())
+      if (empty(new)) return(data_frame(.name_repair = "minimal"))
       unique <- uniquecols(old)
       missing <- !(names(unique) %in% names(new))
-      cbind(
+      vec_cbind(
         new,
         unique[rep(1, nrow(new)), missing,drop = FALSE]
       )
     }, stats, groups, SIMPLIFY = FALSE)
 
-    rbind_dfs(stats)
+    vec_rbind(!!!stats)
   },
 
   compute_group = function(self, data, scales) {

@@ -131,17 +131,19 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     data <- unclass(data) #for faster indexing
 
     # The upper line and lower line need to processed separately (#4023)
-    positions_upper <- new_data_frame(list(
+    positions_upper <- data_frame(
       x = data$x,
       y = data$ymax,
-      id = ids
-    ))
+      id = ids,
+      .name_repair = "minimal"
+    )
 
-    positions_lower <- new_data_frame(list(
+    positions_lower <- data_frame(
       x = rev(data$x),
       y = rev(data$ymin),
-      id = rev(ids)
-    ))
+      id = rev(ids),
+      .name_repair = "minimal"
+    )
 
     positions_upper <- flip_data(positions_upper, flipped_aes)
     positions_lower <- flip_data(positions_lower, flipped_aes)
@@ -149,7 +151,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     munched_upper <- coord_munch(coord, positions_upper, panel_params)
     munched_lower <- coord_munch(coord, positions_lower, panel_params)
 
-    munched_poly <- rbind(munched_upper, munched_lower)
+    munched_poly <- vec_rbind(munched_upper, munched_lower)
 
     is_full_outline <- identical(outline.type, "full")
     g_poly <- polygonGrob(
@@ -174,7 +176,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     munched_lower$id <- munched_lower$id + max(ids, na.rm = TRUE)
 
     munched_lines <- switch(outline.type,
-      both = rbind(munched_upper, munched_lower),
+      both = vec_rbind(munched_upper, munched_lower),
       upper = munched_upper,
       lower = munched_lower,
       cli::cli_abort(c(

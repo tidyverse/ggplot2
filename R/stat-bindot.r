@@ -99,10 +99,12 @@ StatBindot <- ggproto("StatBindot", Stat,
 
       # Collapse each bin and get a count
       data <- dapply(data, "bincenter", function(x) {
-        new_data_frame(list(
+        data_frame(
           binwidth = .subset2(x, "binwidth")[1],
-          count = sum(.subset2(x, "weight"))
-        ))
+          count = sum(.subset2(x, "weight")),
+          .size = 1,
+          .name_repair = "minimal"
+        )
       })
 
       if (sum(data$count, na.rm = TRUE) != 0) {
@@ -130,7 +132,7 @@ StatBindot <- ggproto("StatBindot", Stat,
 # It returns a data frame with the original data (x), weights, bin #, and the bin centers.
 densitybin <- function(x, weight = NULL, binwidth = NULL, method = method, range = NULL) {
 
-    if (length(stats::na.omit(x)) == 0) return(new_data_frame())
+    if (length(stats::na.omit(x)) == 0) return(data_frame(.name_repair = "minimal"))
     if (is.null(weight))  weight <- rep(1, length(x))
     weight[is.na(weight)] <- 0
 
@@ -156,16 +158,18 @@ densitybin <- function(x, weight = NULL, binwidth = NULL, method = method, range
         bin[i] <- cbin
     }
 
-    results <- new_data_frame(list(
+    results <- data_frame(
       x = x,
       bin = bin,
       binwidth = binwidth,
-      weight = weight
-    ), n = length(x))
+      weight = weight,
+      .size = length(x),
+      .name_repair = "minimal"
+    )
     results <- dapply(results, "bin", function(df) {
-                    df$bincenter = (min(df$x) + max(df$x)) / 2
-                    return(df)
-                  })
+      df$bincenter = (min(df$x) + max(df$x)) / 2
+      return(df)
+    })
 
     return(results)
 }
