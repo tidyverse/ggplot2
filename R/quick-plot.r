@@ -66,14 +66,13 @@ qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
 
   caller_env <- parent.frame()
 
+  if (lifecycle::is_present(stat)) lifecycle::deprecate_stop("3.4.0", "qplot(stat)")
+  if (lifecycle::is_present(position)) lifecycle::deprecate_stop("3.4.0", "qplot(position)")
   if (!is.character(geom)) {
     cli::cli_abort("{.arg geom} must be a character vector")
   }
 
   exprs <- enquos(x = x, y = y, ...)
-
-  if (lifecycle::is_present(stat)) lifecycle::deprecate_stop("3.4.0", "qplot(stat)")
-  if (lifecycle::is_present(position)) lifecycle::deprecate_stop("3.4.0", "qplot(position)")
 
   is_missing <- vapply(exprs, quo_is_missing, logical(1))
   # treat arguments as regular parameters if they are wrapped into I() or
