@@ -251,7 +251,7 @@ draw_axis <- function(break_positions, break_labels, axis_position, theme,
   # break_labels can be a list() of language objects
   if (is.list(break_labels)) {
     if (any(vapply(break_labels, is.language, logical(1)))) {
-      break_labels <- do.call(expression, break_labels)
+      break_labels <- inject(expression(!!!break_labels))
     } else {
       break_labels <- unlist(break_labels)
     }
@@ -283,7 +283,7 @@ draw_axis <- function(break_positions, break_labels, axis_position, theme,
 
   # create gtable
   non_position_sizes <- paste0(non_position_size, "s")
-  label_dims <- do.call(unit.c, lapply(label_grobs, measure_labels_non_pos))
+  label_dims <- inject(unit.c(!!!lapply(label_grobs, measure_labels_non_pos)))
   grobs <- c(list(ticks_grob), label_grobs)
   grob_dims <- unit.c(max(tick_length, unit(0, "pt")), label_dims)
 

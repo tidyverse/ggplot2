@@ -31,7 +31,7 @@ hexBinSummarise <- function(x, y, z, binwidth, fun = mean, fun.args = list(), dr
     IDs = TRUE
   )
 
-  value <- do.call(tapply, c(list(quote(z), quote(hb@cID), quote(fun)), fun.args))
+  value <- inject(tapply(z, hb@cID, fun, !!!fun.args))
 
   # Convert to data frame
   out <- data_frame(!!!hexbin::hcell2xy(hb), .name_repair = "minimal")

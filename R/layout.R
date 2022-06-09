@@ -89,7 +89,7 @@ Layout <- ggproto("Layout", NULL,
 
       ggname(
         paste("panel", i, sep = "-"),
-        gTree(children = do.call("gList", panel))
+        gTree(children = inject(gList(!!!panel)))
       )
     })
     plot_table <- self$facet$draw_panels(
@@ -304,6 +304,6 @@ scale_apply <- function(data, vars, method, scale_id, scales) {
       scales[[i]][[method]](data[[var]][scale_index[[i]]])
     })
     o <- order(unlist(scale_index))[seq_len(sum(lengths(pieces)))]
-    do.call("c", pieces)[o]
+    vec_c(!!!pieces)[o]
   })
 }

@@ -67,16 +67,13 @@ StatQqLine <- ggproto("StatQqLine", Stat,
       cli::cli_abort("{.arg quantiles} must have the same length as the data")
     }
 
-    theoretical <- do.call(
-      distribution,
-      c(list(p = quote(quantiles)), dparams)
-    )
+    theoretical <- inject(distribution(p = quantiles, !!!dparams))
 
     if (length(line.p) != 2) {
       cli::cli_abort("Cannot fit line quantiles {line.p}. {.arg line.p} must have length 2.")
     }
 
-    x_coords <- do.call(distribution, c(list(p = line.p), dparams))
+    x_coords <- inject(distribution(p = line.p, !!!dparams))
     y_coords <- quantile(sample, line.p)
     slope <- diff(y_coords) / diff(x_coords)
     intercept <- y_coords[1L] - slope * x_coords[1L]

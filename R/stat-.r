@@ -97,10 +97,13 @@ Stat <- ggproto("Stat",
     args <- c(list(data = quote(data), scales = quote(scales)), params)
     dapply(data, "PANEL", function(data) {
       scales <- layout$get_scales(data$PANEL[1])
-      try_fetch(do.call(self$compute_panel, args), error = function(cnd) {
-        cli::cli_warn("Computation failed in {.fn {snake_class(self)}}", parent = cnd)
-        data_frame(.name_repair = "minimal")
-      })
+      try_fetch(
+        inject(self$compute_panel(data = data, scales = scales, !!!params)),
+        error = function(cnd) {
+          cli::cli_warn("Computation failed in {.fn {snake_class(self)}}", parent = cnd)
+          data_frame(.name_repair = "minimal")
+        }
+      )
     })
   },
 

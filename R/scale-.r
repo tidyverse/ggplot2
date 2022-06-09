@@ -739,7 +739,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
       labels <- lapply(labels, `[`, 1)
 
       if (any(vapply(labels, is.language, logical(1)))) {
-        labels <- do.call(expression, labels)
+        labels <- inject(expression(!!!labels))
       } else {
         labels <- unlist(labels)
       }

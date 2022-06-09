@@ -251,7 +251,7 @@ wrap_hmisc <- function(fun) {
     check_installed("Hmisc")
 
     fun <- getExportedValue("Hmisc", fun)
-    result <- do.call(fun, list(x = quote(x), ...))
+    result <- fun(x = x, ...)
 
     rename(
       data_frame(!!!as.list(result), .name_repair = "minimal"),

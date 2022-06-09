@@ -1,11 +1,11 @@
 compute_grob_widths <- function(grob_layout, widths) {
   cols <- split(grob_layout, grob_layout$l)
-  do.call("unit.c", lapply(cols, compute_grob_dimensions, dims = widths))
+  inject(unit.c(!!!lapply(cols, compute_grob_dimensions, dims = widths)))
 }
 
 compute_grob_heights <- function(grob_layout, heights) {
   cols <- split(grob_layout, grob_layout$t)
-  do.call("unit.c", lapply(cols, compute_grob_dimensions, dims = heights))
+  inject(unit.c(!!!lapply(cols, compute_grob_dimensions, dims = heights)))
 }
 
 compute_grob_dimensions <- function(grob_layout, dims) {
@@ -24,11 +24,11 @@ compute_grob_dimensions <- function(grob_layout, dims) {
 
   if (all(units)) {
     if (all(lapply(dims, attr, "unit") == "null")) unit(max(unlist(dims)), "null")
-    else do.call("max", dims)
+    else inject(max(!!!dims))
   } else {
     raw_max <- unit(max(unlist(dims[!units])), "cm")
     if (any(units)) {
-      unit_max <- max(do.call("unit.c", dims[units]))
+      unit_max <- max(inject(unit.c(!!!dims[units])))
       max(raw_max, unit_max)
     }
     else {

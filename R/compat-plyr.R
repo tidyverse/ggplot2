@@ -107,12 +107,12 @@ id <- function(.variables, drop = FALSE) {
   ndistinct <- vapply(ids, attr, "n", FUN.VALUE = numeric(1), USE.NAMES = FALSE)
   n <- prod(ndistinct)
   if (n > 2^31) {
-    char_id <- do.call("paste", c(ids, sep = "\r"))
+    char_id <- inject(paste(!!!ids, sep = "\r"))
     res <- match(char_id, unique(char_id))
   }
   else {
     combs <- c(1, cumprod(ndistinct[-p]))
-    mat <- do.call("cbind", ids)
+    mat <- inject(cbind(!!!ids))
     res <- c((mat - 1L) %*% combs + 1L)
   }
   if (drop) {

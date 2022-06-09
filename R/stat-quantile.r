@@ -93,9 +93,13 @@ StatQuantile <- ggproto("StatQuantile", Stat,
 
 quant_pred <- function(quantile, data, method, formula, weight, grid,
                        method.args = method.args) {
-  args <- c(list(quote(formula), data = quote(data), tau = quote(quantile),
-    weights = quote(weight)), method.args)
-  model <- do.call(method, args)
+  model <- inject(method(
+    formula,
+    data = data,
+    tau = quantile,
+    weights = weight,
+    !!!method.args
+  ))
 
   grid$y <- stats::predict(model, newdata = grid)
   grid$quantile <- quantile

@@ -170,8 +170,12 @@ StatSmooth <- ggproto("StatSmooth", Stat,
       method.args$method <- "REML"
     }
 
-    base.args <- list(quote(formula), data = quote(data), weights = quote(weight))
-    model <- do.call(method, c(base.args, method.args))
+    model <- inject(method(
+      formula,
+      data = data,
+      weights = weight,
+      !!!method.args
+    ))
 
     prediction <- predictdf(model, xseq, se, level)
     prediction$flipped_aes <- flipped_aes

@@ -46,7 +46,7 @@ GeomRect <- ggproto("GeomRect", Geom,
         GeomPolygon$draw_panel(vec_cbind(poly, aes), panel_params, coord, lineend = lineend, linejoin = linejoin)
       })
 
-      ggname("bar", do.call("grobTree", polys))
+      ggname("geom_rect", inject(grobTree(!!!polys)))
     } else {
       coords <- coord$transform(data, panel_params)
       ggname("geom_rect", rectGrob(

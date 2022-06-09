@@ -418,11 +418,7 @@ guide_gengrob.colorbar <- function(guide, theme) {
     # If any of the labels are quoted language objects, convert them
     # to expressions. Labels from formatter functions can return these
     if (any(vapply(label, is.call, logical(1)))) {
-      label <- lapply(label, function(l) {
-        if (is.call(l)) substitute(expression(x), list(x = l))
-        else l
-      })
-      label <- do.call(c, label)
+      label <- inject(expression(!!!label))
     }
     grob.label <- element_grob(
       element = label.theme,

@@ -313,7 +313,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
         lapply(sf::st_geometry(panel_params$graticule), sf::st_as_grob, gp = line_gp)
       )
     }
-    ggname("grill", do.call("grobTree", grobs))
+    ggname("grill", inject(grobTree(!!!grobs)))
   },
 
   render_axis_h = function(self, panel_params, theme) {

@@ -387,7 +387,7 @@ guide_gengrob.legend <- function(guide, theme) {
     guide$keyheight %||% theme$legend.key.height %||% theme$legend.key.size
   )
 
-  key_size_mat <- do.call("cbind", lapply(guide$geoms, function(g) g$data$size / 10))
+  key_size_mat <- inject(cbind(!!!lapply(guide$geoms, function(g) g$data$size / 10)))
 
   if (nrow(key_size_mat) == 0 || ncol(key_size_mat) == 0) {
     key_size_mat <- matrix(0, ncol = 1, nrow = nbreak)

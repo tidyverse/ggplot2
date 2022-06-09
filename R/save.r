@@ -173,7 +173,7 @@ plot_dev <- function(device, filename = NULL, dpi = 300, call = caller_env()) {
     if ("units" %in% names(args)) {
       call_args$units <- 'in'
     }
-    dev <- function(...) do.call(device, modify_list(list(...), call_args))
+    dev <- function(...) inject(device(!!!modify_list(list(...), call_args)))
     return(dev)
   }
 

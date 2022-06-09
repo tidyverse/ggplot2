@@ -89,7 +89,7 @@ NULL
 
 collapse_labels_lines <- function(labels) {
   is_exp <- vapply(labels, function(l) length(l) > 0 && is.expression(l[[1]]), logical(1))
-  out <- do.call("Map", c(list(paste, sep = ", "), labels))
+  out <- inject(mapply(paste, !!!labels, sep = ", ", SIMPLIFY = FALSE))
   label <- list(unname(unlist(out)))
   if (all(is_exp)) {
     label <- lapply(label, function(l) list(parse(text = paste0("list(", l, ")"))))
@@ -133,8 +133,8 @@ label_both <- function(labels, multi_line = TRUE, sep = ": ") {
       out[[i]] <- paste(variable[[i]], value[[i]], sep = sep)
     }
   } else {
-    value <- do.call("paste", c(value, sep = ", "))
-    variable <- do.call("paste", c(variable, sep = ", "))
+    value <- inject(paste(!!!value, sep = ", "))
+    variable <- inject(paste(!!!variable, sep = ", "))
     out <- Map(paste, variable, value, sep = sep)
     out <- list(unname(unlist(out)))
   }
@@ -217,7 +217,7 @@ label_bquote <- function(rows = NULL, cols = NULL,
       params <- as_environment(params, call_env)
       eval(substitute(bquote(expr, params), list(expr = quoted)))
     }
-    list(do.call("Map", c(list(f = evaluate), labels)))
+    list(inject(mapply(evaluate, !!!labels, SIMPLIFY = FALSE)))
   }
 
   structure(fun, class = "labeller")
