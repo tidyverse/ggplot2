@@ -167,6 +167,8 @@ StatBin <- ggproto("StatBin", Stat,
 
   default_aes = aes(x = after_stat(count), y = after_stat(count), weight = 1),
 
-  required_aes = "x|y"
+  required_aes = "x|y",
+
+  dropped_aes = "weight" # after statistical transformation, weights are no longer available
 )
 

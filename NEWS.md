@@ -1,5 +1,10 @@
 # ggplot2 (development version)
 
+* ggplot now checks during statistical transformations whether any data 
+  columns were dropped and warns about this. If stats intend to drop
+  data columns they can declare them in the new field `dropped_aes`.
+  (@clauswilke, #3250)
+
 * Use `rlang::hash()` instead of `digest::digest()`. This update may lead to 
   changes in the automatic sorting of legends. In order to enforce a specific
   legend order use the `order` argument in the guide. (@thomasp85, #4458)

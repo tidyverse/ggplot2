@@ -61,6 +61,11 @@ Stat <- ggproto("Stat",
 
   non_missing_aes = character(),
 
+  # Any aesthetics that are dropped from the data frame during the
+  # statistical transformation should be listed here to suppress a
+  # warning about dropped aesthetics
+  dropped_aes = character(),
+
   optional_aes = character(),
 
   setup_params = function(data, params) {
@@ -122,7 +127,20 @@ Stat <- ggproto("Stat",
       )
     }, stats, groups, SIMPLIFY = FALSE)
 
-    rbind_dfs(stats)
+    data_new <- rbind_dfs(stats)
+
+    # The above code will drop columns that are not constant within groups and not
+    # carried over/recreated by the stat. This can produce unexpected results,
+    # and hence we warn about it.
+    dropped <- base::setdiff(names(data), base::union(self$dropped_aes, names(data_new)))
+    if (length(dropped) > 0) {
+      cli::cli_warn(c(
+        "The following aesthetics were dropped during statistical transformation: {.field {glue_collapse(dropped, sep = ', ')}}",
+        "i" = "This can happen when ggplot fails to infer the correct grouping structure in the data.",
+        "i" = "Did you forget to specify a {.code group} aesthetic or to convert a numerical variable into a factor?"
+      ))
+    }
+    data_new
   },
 
   compute_group = function(self, data, scales) {

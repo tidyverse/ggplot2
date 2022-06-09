@@ -115,6 +115,10 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
   default_aes = aes(colour = "#3366FF", size = 0.5),
 
   required_aes = c("x", "y"),
+  # because of the chained calculation in compute_panel(),
+  # which calls compute_panel() of a different stat, we declare
+  # dropped aesthetics there
+  dropped_aes = character(0),
 
   extra_params = c(
     "na.rm", "contour", "contour_var",
@@ -149,6 +153,8 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
     } else { # lines is the default
       contour_stat <- StatContour
     }
+    # update dropped aes
+    contour_stat$dropped_aes <- c(contour_stat$dropped_aes, "density", "ndensity", "count")
 
     args <- c(list(data = quote(data), scales = quote(scales)), params)
     dapply(data, "PANEL", function(data) {
