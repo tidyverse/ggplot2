@@ -1,6 +1,7 @@
 # ggplot2 (development version)
 
 * `qplot()` is now formally deprecated (@yutannihilation, #3956).
+
 * Use `rlang::hash()` instead of `digest::digest()`. This update may lead to 
   changes in the automatic sorting of legends. In order to enforce a specific
   legend order use the `order` argument in the guide. (@thomasp85, #4458)
@@ -295,7 +296,6 @@ It further changes the licensing model of ggplot2 to an MIT license.
 
 * Fixed a bug that `guide_bins()` mistakenly ignore `override.aes` argument
   (@yutannihilation, #4085).
->>>>>>> upstream/main
 
 # ggplot2 3.3.2
 This is a small release focusing on fixing regressions introduced in 3.3.1.
