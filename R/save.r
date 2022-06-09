@@ -107,23 +107,26 @@ ggsave <- function(filename, plot = last_plot(),
 #' @param dpi Input value from user
 #' @return Parsed DPI input value
 #' @noRd
-parse_dpi <- function(dpi) {
+parse_dpi <- function(dpi, call = caller_env()) {
   if (is.character(dpi) && length(dpi) == 1) {
     switch(dpi,
       screen = 72,
       print = 300,
       retina = 320,
-      abort("Unknown DPI string")
+      cli::cli_abort(c(
+        "Unknown {.arg dpi} string",
+        "i" = "Use either {.val screen}, {.val print}, or {.val retina}"
+      ), call = call)
     )
   } else if (is.numeric(dpi) && length(dpi) == 1) {
     dpi
   } else {
-    abort("DPI must be a single number or string")
+    cli::cli_abort("{.arg dpi} must be a single number or string", call = call)
   }
 }
 
 plot_dim <- function(dim = c(NA, NA), scale = 1, units = "in",
-                     limitsize = TRUE, dpi = 300) {
+                     limitsize = TRUE, dpi = 300, call = caller_env()) {
 
   units <- arg_match0(units, c("in", "cm", "mm", "px"))
   to_inches <- function(x) x / c(`in` = 1, cm = 2.54, mm = 2.54 * 10, px = dpi)[units]
@@ -140,20 +143,20 @@ plot_dim <- function(dim = c(NA, NA), scale = 1, units = "in",
     dim[is.na(dim)] <- default_dim[is.na(dim)]
     dim_f <- prettyNum(from_inches(dim), digits = 3)
 
-    message("Saving ", dim_f[1], " x ", dim_f[2], " ", units, " image")
+    cli::cli_inform("Saving {dim_f[1]} x {dim_f[2]} {units} image")
   }
 
   if (limitsize && any(dim >= 50)) {
-    abort(glue("
-      Dimensions exceed 50 inches (height and width are specified in '{units}' not pixels).
-      If you're sure you want a plot that big, use `limitsize = FALSE`.
-    "))
+    cli::cli_abort(c(
+      "Dimensions exceed 50 inches ({.arg height} and {.arg width} are specified in {.emph {units}} not pixels).",
+      "i" = "If you're sure you want a plot that big, use {.code limitsize = FALSE}.
+    "), call = call)
   }
 
   dim
 }
 
-plot_dev <- function(device, filename = NULL, dpi = 300) {
+plot_dev <- function(device, filename = NULL, dpi = 300, call = caller_env()) {
   force(filename)
   force(dpi)
 
@@ -208,12 +211,12 @@ plot_dev <- function(device, filename = NULL, dpi = 300) {
   }
 
   if (!is.character(device) || length(device) != 1) {
-    abort("`device` must be NULL, a string or a function.")
+    cli::cli_abort("{.arg device} must be {.val NULL}, a string or a function.", call = call)
   }
 
   dev <- devices[[device]]
   if (is.null(dev)) {
-    abort(glue("Unknown graphics device '{device}'"))
+    cli::cli_abort("Unknown graphics device {.val {device}}", call = call)
   }
   dev
 }
@@ -226,7 +229,7 @@ grid.draw.ggplot <- function(x, recording = TRUE) {
 absorb_grdevice_args <- function(f) {
   function(..., type, antialias) {
     if (!missing(type) || !missing(antialias)) {
-      warn("Using ragg device as default. Ignoring `type` and `antialias` arguments")
+      cli::cli_warn("Using ragg device as default. Ignoring {.arg type} and {.arg antialias} arguments")
     }
     f(...)
   }

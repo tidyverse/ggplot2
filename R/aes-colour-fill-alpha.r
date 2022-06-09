@@ -82,6 +82,7 @@
 #'
 #' # For large datasets with overplotting the alpha
 #' # aesthetic will make the points more transparent.
+#' set.seed(1)
 #' df <- data.frame(x = rnorm(5000), y = rnorm(5000))
 #' p  <- ggplot(df, aes(x,y))
 #' p + geom_point()

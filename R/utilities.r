@@ -23,7 +23,7 @@ scales::alpha
 # @param character vector of present aesthetics
 # @param name of object for error message
 # @keyword internal
-check_required_aesthetics <- function(required, present, name) {
+check_required_aesthetics <- function(required, present, name, call = caller_env()) {
   if (is.null(required)) return()
 
   required <- strsplit(required, "|", fixed = TRUE)
@@ -38,11 +38,11 @@ check_required_aesthetics <- function(required, present, name) {
   }
   missing_aes <- lapply(required, setdiff, present)
   if (any(vapply(missing_aes, length, integer(1)) == 0)) return()
-
-  abort(glue(
-    "{name} requires the following missing aesthetics: ",
-    glue_collapse(lapply(missing_aes, glue_collapse, sep = ", ", last = " and "), sep = " or ")
-  ))
+  message <- "{.fn {name}} requires the following missing aesthetics: {.field {missing_aes[[1]]}}"
+  if (length(missing_aes) > 1) {
+    message <- paste0(message, " {.strong or} {.field {missing_aes[[2]]}}")
+  }
+  cli::cli_abort(message, call = call)
 }
 
 # Concatenate a named list for output
@@ -84,7 +84,7 @@ uniquecols <- function(df) {
 remove_missing <- function(df, na.rm = FALSE, vars = names(df), name = "",
                            finite = FALSE) {
   if (!is.logical(na.rm)) {
-    abort("`na.rm` must be logical")
+    cli::cli_abort("{.arg na.rm} must be logical scalar")
   }
 
   missing <- detect_missing(df, vars, finite)
@@ -92,11 +92,13 @@ remove_missing <- function(df, na.rm = FALSE, vars = names(df), name = "",
   if (any(missing)) {
     df <- df[!missing, ]
     if (!na.rm) {
-      if (name != "") name <- paste(" (", name, ")", sep = "")
-      str <- if (finite) "non-finite" else "missing"
-      warning_wrap(
-        "Removed ", sum(missing), " rows containing ", str, " values", name, "."
+      if (name != "") name <- paste(" ({.fn ", name, "})", sep = "")
+      msg <- paste0(
+        "Removed {sum(missing)} rows containing ",
+        if (finite) "non-finite" else "missing",
+        " values", name, "."
       )
+      cli::cli_warn(msg)
     }
   }
 
@@ -152,7 +154,7 @@ is_complete <- function(x) {
 should_stop <- function(expr) {
   res <- try(print(force(expr)), TRUE)
   if (!inherits(res, "try-error")) {
-    abort("No error!")
+    cli::cli_abort("No error!")
   }
   invisible()
 }
@@ -204,15 +206,15 @@ gg_dep <- function(version, msg) {
   #  current minor number is more than 1 greater than last-good minor number,
   #  give error.
   if (cv[[1,1]] > v[[1,1]]  ||  cv[[1,2]] > v[[1,2]] + 1) {
-    abort(glue(text))
+    cli::cli_abort(text)
 
   # If minor number differs by one, give warning
   } else if (cv[[1,2]] > v[[1,2]]) {
-    warn(glue(text))
+    cli::cli_warn(text)
 
   # If only subminor number is greater, give message
   } else if (cv[[1,3]] > v[[1,3]]) {
-    message(glue(text))
+    cli::cli_inform(text)
   }
 
   invisible()
@@ -234,11 +236,11 @@ to_lower_ascii <- function(x) chartr(upper_ascii, lower_ascii, x)
 to_upper_ascii <- function(x) chartr(lower_ascii, upper_ascii, x)
 
 tolower <- function(x) {
-  abort("Please use `to_lower_ascii()`, which works fine in all locales.")
+  cli::cli_abort("Please use {.fn to_lower_ascii}, which works fine in all locales.")
 }
 
 toupper <- function(x) {
-  abort("Please use `to_upper_ascii()`, which works fine in all locales.")
+  cli::cli_abort("Please use {.fn to_upper_ascii}, which works fine in all locales.")
 }
 
 # Convert a snake_case string to camelCase
@@ -298,27 +300,6 @@ deparse2 <- function(x) {
   } else {
     paste0(y[[1]], "...")
   }
-}
-
-message_wrap <- function(...) {
-  msg <- paste(..., collapse = "", sep = "")
-  wrapped <- strwrap(msg, width = getOption("width") - 2)
-  message(paste0(wrapped, collapse = "\n"))
-}
-
-warning_wrap <- function(...) {
-  msg <- paste(..., collapse = "", sep = "")
-  wrapped <- strwrap(msg, width = getOption("width") - 2)
-  warn(glue_collapse(wrapped, "\n", last = "\n"))
-}
-
-var_list <- function(x) {
-  x <- encodeString(x, quote = "`")
-  if (length(x) > 5) {
-    x <- c(x[1:5], paste0("and ", length(x) - 5, " more"))
-  }
-
-  paste0(x, collapse = ", ")
 }
 
 dispatch_args <- function(f, ...) {
@@ -394,7 +375,7 @@ is_column_vec <- function(x) {
 #
 parse_safe <- function(text) {
   if (!is.character(text)) {
-    abort("`text` must be a character vector")
+    cli::cli_abort("{.arg text} must be a character vector")
   }
   out <- vector("expression", length(text))
   for (i in seq_along(text)) {

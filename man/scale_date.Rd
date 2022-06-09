@@ -203,6 +203,7 @@ usually be added automatically. To override manually, use
 }
 \examples{
 last_month <- Sys.Date() - 0:29
+set.seed(1)
 df <- data.frame(
   date = last_month,
   price = runif(30)
