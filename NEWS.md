@@ -90,6 +90,8 @@
   
 * `geom_contour()` now accepts a function in the `breaks` argument (@eliocamp, #4652).
 
+* VISUAL CHANGE: `scale_*_viridis_b()` now uses the full range of the viridis scales (@gregleleu, #4737)
+
 * Updated documentation for `geom_contour()` to correctly reflect argument 
 precedence between `bins` and `binwidth`. (@eliocamp, #4651)
 
