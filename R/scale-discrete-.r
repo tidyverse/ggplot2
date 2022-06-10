@@ -147,7 +147,7 @@ new_mapped_discrete <- function(x) {
     return(x)
   }
   if (!is.numeric(x)) {
-    abort("`mapped_discrete` objects can only be created from numeric vectors")
+    cli::cli_abort("{.cls mapped_discrete} objects can only be created from numeric vectors")
   }
   class(x) <- c("mapped_discrete", "numeric")
   x
@@ -170,6 +170,6 @@ c.mapped_discrete <- function(..., recursive = FALSE) {
   new_mapped_discrete(NextMethod())
 }
 #' @export
-as.data.frame.mapped_discrete <- function (x, ..., stringsAsFactors = default.stringsAsFactors()) {
-  as.data.frame.vector(x = unclass(x), ..., stringsAsFactors = stringsAsFactors)
+as.data.frame.mapped_discrete <- function (x, ...) {
+  as.data.frame.vector(x = unclass(x), ...)
 }

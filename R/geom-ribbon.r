@@ -49,7 +49,7 @@ geom_ribbon <- function(mapping = NULL, data = NULL,
                         show.legend = NA,
                         inherit.aes = TRUE,
                         outline.type = "both") {
-  outline.type <- match.arg(outline.type, c("both", "upper", "lower", "full"))
+  outline.type <- arg_match0(outline.type, c("both", "upper", "lower", "full"))
 
   layer(
     data = data,
@@ -59,7 +59,7 @@ geom_ribbon <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       na.rm = na.rm,
       orientation = orientation,
       outline.type = outline.type,
@@ -90,8 +90,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     data <- flip_data(data, params$flipped_aes)
 
     if (is.null(data$ymin) && is.null(data$ymax)) {
-      abort(glue("Either ", flipped_names(params$flipped_aes)$ymin, " or ",
-           flipped_names(params$flipped_aes)$ymax, " must be given as an aesthetic."))
+      cli::cli_abort("Either {.field {flipped_names(params$flipped_aes)$ymin}} or {.field {flipped_names(params$flipped_aes)$ymax}} must be given as an aesthetic.")
     }
     data <- data[order(data$PANEL, data$group, data$x), , drop = FALSE]
     data$y <- data$ymin %||% data$ymax
@@ -114,7 +113,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     # Check that aesthetics are constant
     aes <- unique(data[c("colour", "fill", "size", "linetype", "alpha")])
     if (nrow(aes) > 1) {
-      abort("Aesthetics can not vary with a ribbon")
+      cli::cli_abort("Aesthetics can not vary along a ribbon")
     }
     aes <- as.list(aes)
 
@@ -178,7 +177,10 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
       both = rbind(munched_upper, munched_lower),
       upper = munched_upper,
       lower = munched_lower,
-      abort(glue("invalid outline.type: {outline.type}"))
+      cli::cli_abort(c(
+        "invalid {.arg outline.type}: {.val {outline.type}}",
+        "i" = "use either {.val upper}, {.val lower}, or {.val both}"
+      ))
     )
     g_lines <- polylineGrob(
       munched_lines$x, munched_lines$y, id = munched_lines$id,
@@ -204,7 +206,7 @@ geom_area <- function(mapping = NULL, data = NULL, stat = "identity",
                       position = "stack", na.rm = FALSE, orientation = NA,
                       show.legend = NA, inherit.aes = TRUE, ...,
                       outline.type = "upper") {
-  outline.type <- match.arg(outline.type, c("both", "upper", "lower", "full"))
+  outline.type <- arg_match0(outline.type, c("both", "upper", "lower", "full"))
 
   layer(
     data = data,
@@ -214,7 +216,7 @@ geom_area <- function(mapping = NULL, data = NULL, stat = "identity",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       na.rm = na.rm,
       orientation = orientation,
       outline.type = outline.type,

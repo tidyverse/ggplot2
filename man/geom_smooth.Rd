@@ -61,8 +61,10 @@ the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
-\item{position}{Position adjustment, either as a string, or the result of
-a call to a position adjustment function.}
+\item{position}{Position adjustment, either as a string naming the adjustment
+(e.g. \code{"jitter"} to use \code{position_jitter}), or the result of a call to a
+position adjustment function. Use the latter if you need to change the
+settings of the adjustment.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
@@ -124,8 +126,9 @@ lines. Only used with loess, i.e. when \code{method = "loess"},
 or when \code{method = NULL} (the default) and there are fewer than 1,000
 observations.}
 
-\item{fullrange}{Should the fit span the full range of the plot, or just
-the data?}
+\item{fullrange}{If \code{TRUE}, the smoothing line gets expanded to the range of the plot,
+potentially beyond the data. This does not extend the line into any additional padding
+created by \code{expansion}.}
 
 \item{level}{Level of confidence interval to use (0.95 by default).}
 

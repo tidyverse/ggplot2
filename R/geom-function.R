@@ -67,7 +67,7 @@ geom_function <- function(mapping = NULL, data = NULL, stat = "function",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       na.rm = na.rm,
       ...
     )
@@ -85,7 +85,10 @@ GeomFunction <- ggproto("GeomFunction", GeomPath,
                         na.rm = FALSE) {
     groups <- unique(data$group)
     if (length(groups) > 1) {
-      warn("Multiple drawing groups in `geom_function()`. Did you use the correct `group`, `colour`, or `fill` aesthetics?")
+      cli::cli_warn(c(
+        "Multiple drawing groups in {.fn {snake_class(self)}}",
+        "i" = "Did you use the correct {.field group}, {.field colour}, or {.field fill} aesthetics?"
+      ))
     }
 
     ggproto_parent(GeomPath, self)$draw_panel(

@@ -40,6 +40,7 @@
 #' \donttest{
 #' # Justification controls where the cells are anchored
 #' df <- expand.grid(x = 0:5, y = 0:5)
+#' set.seed(1)
 #' df$z <- runif(nrow(df))
 #' # default is compatible with geom_tile()
 #' ggplot(df, aes(x, y, fill = z)) +
@@ -82,7 +83,7 @@ geom_tile <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       linejoin = linejoin,
       na.rm = na.rm,
       ...

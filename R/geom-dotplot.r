@@ -144,10 +144,13 @@ geom_dotplot <- function(mapping = NULL, data = NULL,
   # because == will fail if object is position_stack() or position_dodge()
   if (!is.null(position) &&
       (identical(position, "stack") || (inherits(position, "PositionStack"))))
-    message("position=\"stack\" doesn't work properly with geom_dotplot. Use stackgroups=TRUE instead.")
+    cli::cli_inform("{.code position = \"stack\"} doesn't work properly with {.fn geom_dotplot}. Use {.code stackgroups = TRUE} instead.")
 
   if (stackgroups && method == "dotdensity" && binpositions == "bygroup")
-    message('geom_dotplot called with stackgroups=TRUE and method="dotdensity". You probably want to set binpositions="all"')
+    cli::cli_inform(c(
+      '{.fn geom_dotplot} called with {.code stackgroups = TRUE} and {.code method = "dotdensity"}.",
+      i = "Do you want {.code binpositions = "all"} instead?'
+    ))
 
   stackdir <- arg_match0(stackdir, c("up", "down", "center", "centerwhole"), "stackdir")
   layer(
@@ -159,7 +162,7 @@ geom_dotplot <- function(mapping = NULL, data = NULL,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
     # Need to make sure that the binaxis goes to both the stat and the geom
-    params = list(
+    params = list2(
       binaxis = binaxis,
       binwidth = binwidth,
       binpositions = binpositions,
@@ -268,7 +271,7 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
                         binaxis = "x", stackdir = "up", stackratio = 1,
                         dotsize = 1, stackgroups = FALSE) {
     if (!coord$is_linear()) {
-      warn("geom_dotplot does not work properly with non-linear coordinates.")
+      cli::cli_warn("{.fn geom_dotplot} does not work properly with non-linear coordinates.")
     }
 
     tdata <- coord$transform(data, panel_params)
@@ -288,7 +291,7 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
 
     ggname("geom_dotplot",
       dotstackGrob(stackaxis = stackaxis, x = tdata$x, y = tdata$y, dotdia = dotdianpc,
-                  stackposition = tdata$stackpos, stackratio = stackratio,
+                  stackposition = tdata$stackpos, stackdir = stackdir, stackratio = stackratio,
                   default.units = "npc",
                   gp = gpar(col = alpha(tdata$colour, tdata$alpha),
                             fill = alpha(tdata$fill, tdata$alpha),

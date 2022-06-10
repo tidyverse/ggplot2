@@ -59,7 +59,7 @@ argument.
 ggplot(luv_colours, aes(u, v)) +
   geom_point(aes(colour = col), size = 3) +
   scale_color_identity() +
-  coord_equal()
+  coord_fixed()
 
 df <- data.frame(
   x = 1:4,

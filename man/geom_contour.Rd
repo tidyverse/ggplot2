@@ -88,19 +88,23 @@ will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{stat}{The statistical transformation to use on the data for this
-layer, as a string.}
+layer, either as a \code{ggproto} \code{Geom} subclass or as a string naming the
+stat stripped of the \code{stat_} prefix (e.g. \code{"count"} rather than
+\code{"stat_count"})}
 
-\item{position}{Position adjustment, either as a string, or the result of
-a call to a position adjustment function.}
+\item{position}{Position adjustment, either as a string naming the adjustment
+(e.g. \code{"jitter"} to use \code{position_jitter}), or the result of a call to a
+position adjustment function. Use the latter if you need to change the
+settings of the adjustment.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
-\item{bins}{Number of contour bins. Overridden by \code{binwidth}.}
+\item{bins}{Number of contour bins. Overridden by \code{breaks}.}
 
-\item{binwidth}{The width of the contour bins. Overridden by \code{breaks}.}
+\item{binwidth}{The width of the contour bins. Overridden by \code{bins}.}
 
 \item{breaks}{One of:
 \itemize{
@@ -133,20 +137,20 @@ rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
-\item{geom}{The geometric object to use display the data}
+\item{geom}{The geometric object to use to display the data, either as a
+\code{ggproto} \code{Geom} subclass or as a string naming the geom stripped of the
+\code{geom_} prefix (e.g. \code{"point"} rather than \code{"geom_point"})}
 }
 \description{
 ggplot2 can not draw true 3D surfaces, but you can use \code{geom_contour()},
-\code{geom_contour_filled()}, and \code{\link[=geom_tile]{geom_tile()}} to visualise 3D surfaces in 2D. To
-specify a valid surface, the data must contain \code{x}, \code{y}, and \code{z} coordinates,
-and each unique combination of \code{x} and \code{y} can appear at most once.
-Contouring requires that the points can be rearranged so that the \code{z} values
-form a matrix, with rows corresponding to unique \code{x} values, and columns
-corresponding to unique \code{y} values. Missing entries are allowed, but contouring
-will only be done on cells of the grid with all four \code{z} values present. If
-your data is irregular, you can interpolate to a grid before visualising
-using the \code{\link[interp:interp]{interp::interp()}} function from the \code{interp} package
-(or one of the interpolating functions from the \code{akima} package.)
+\code{geom_contour_filled()}, and \code{\link[=geom_tile]{geom_tile()}} to visualise 3D surfaces in 2D.
+
+These functions require regular data, where the \code{x} and \code{y} coordinates
+form an equally spaced grid, and each combination of \code{x} and \code{y} appears
+once. Missing values of \code{z} are allowed, but contouring will only work for
+grid points where all four corners are non-missing. If you have irregular
+data, you'll need to first interpolate on to a grid before visualising,
+using \code{\link[interp:interp]{interp::interp()}}, \code{\link[akima:bilinear]{akima::bilinear()}}, or similar.
 }
 \section{Aesthetics}{
 
@@ -247,22 +251,6 @@ v + geom_contour(aes(colour = after_stat(level)))
 v + geom_contour(colour = "red")
 v + geom_raster(aes(fill = density)) +
   geom_contour(colour = "white")
-
-# Irregular data
-if (requireNamespace("interp")) {
-  # Use a dataset from the interp package
-  data(franke, package = "interp")
-  origdata <- as.data.frame(interp::franke.data(1, 1, franke))
-  grid <- with(origdata, interp::interp(x, y, z))
-  griddf <- subset(data.frame(x = rep(grid$x, nrow(grid$z)),
-                              y = rep(grid$y, each = ncol(grid$z)),
-                              z = as.numeric(grid$z)),
-                   !is.na(z))
-  ggplot(griddf, aes(x, y, z = z)) +
-    geom_contour_filled() +
-    geom_point(data = origdata)
-} else
-  message("Irregular data requires the 'interp' package")
 }
 }
 \seealso{

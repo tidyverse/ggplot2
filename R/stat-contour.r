@@ -36,7 +36,7 @@ stat_contour <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       bins = bins,
       binwidth = binwidth,
       breaks = breaks,
@@ -65,7 +65,7 @@ stat_contour_filled <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       bins = bins,
       binwidth = binwidth,
       breaks = breaks,
@@ -254,7 +254,7 @@ iso_to_path <- function(iso, group = 1) {
   lengths <- vapply(iso, function(x) length(x$x), integer(1))
 
   if (all(lengths == 0)) {
-    warn("stat_contour(): Zero contours were generated")
+    cli::cli_warn("{.fn stat_contour}: Zero contours were generated")
     return(new_data_frame())
   }
 
@@ -292,7 +292,7 @@ iso_to_polygon <- function(iso, group = 1) {
   lengths <- vapply(iso, function(x) length(x$x), integer(1))
 
   if (all(lengths == 0)) {
-    warn("stat_contour(): Zero contours were generated")
+    cli::cli_warn("{.fn stat_contour}: Zero contours were generated")
     return(new_data_frame())
   }
 

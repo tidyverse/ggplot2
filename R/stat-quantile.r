@@ -28,7 +28,7 @@ stat_quantile <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       quantiles = quantiles,
       formula = formula,
       method = method,
@@ -64,8 +64,7 @@ StatQuantile <- ggproto("StatQuantile", Stat,
       } else {
         formula <- y ~ x
       }
-      message("Smoothing formula not specified. Using: ",
-        deparse(formula))
+      cli::cli_inform("Smoothing formula not specified. Using: {deparse(formula)}")
     }
 
     if (is.null(data$weight)) data$weight <- 1

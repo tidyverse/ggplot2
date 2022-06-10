@@ -148,6 +148,10 @@
 #' @param strip.placement placement of strip with respect to axes,
 #'    either "inside" or "outside". Only important when axes and strips are
 #'    on the same side of the plot.
+#' @param strip.clip should strip background edges and strip labels be clipped
+#'   to the extend of the strip background? Options are `"on"` to clip, `"off"`
+#'   to disable clipping or `"inherit"` (default) to take the clipping setting
+#'   from the parent viewport.
 #' @param strip.text,strip.text.x,strip.text.y facet labels ([element_text()];
 #'   inherits from  `text`). Horizontal facet labels (`strip.text.x`) & vertical
 #'   facet labels (`strip.text.y`) inherit from `strip.text` or can be specified
@@ -350,6 +354,7 @@ theme <- function(line,
                   strip.background,
                   strip.background.x,
                   strip.background.y,
+                  strip.clip,
                   strip.placement,
                   strip.text,
                   strip.text.x,
@@ -363,26 +368,38 @@ theme <- function(line,
   elements <- find_args(..., complete = NULL, validate = NULL)
 
   if (!is.null(elements$axis.ticks.margin)) {
-    warn("`axis.ticks.margin` is deprecated. Please set `margin` property of `axis.text` instead")
+    lifecycle::deprecate_warn(
+      "2.0.0", "theme(axis.ticks.margin)",
+      details = "Please set `margin` property of `axis.text` instead"
+    )
     elements$axis.ticks.margin <- NULL
   }
   if (!is.null(elements$panel.margin)) {
-    warn("`panel.margin` is deprecated. Please use `panel.spacing` property instead")
+    lifecycle::deprecate_warn(
+      "2.2.0", "theme(panel.margin)", "theme(panel.spacing)"
+    )
     elements$panel.spacing <- elements$panel.margin
     elements$panel.margin <- NULL
   }
   if (!is.null(elements$panel.margin.x)) {
-    warn("`panel.margin.x` is deprecated. Please use `panel.spacing.x` property instead")
+    lifecycle::deprecate_warn(
+      "2.2.0", "theme(panel.margin.x)", "theme(panel.spacing.x)"
+    )
     elements$panel.spacing.x <- elements$panel.margin.x
     elements$panel.margin.x <- NULL
   }
   if (!is.null(elements$panel.margin.y)) {
-    warn("`panel.margin` is deprecated. Please use `panel.spacing` property instead")
+    lifecycle::deprecate_warn(
+      "2.2.0", "theme(panel.margin.y)", "theme(panel.spacing.y)"
+    )
     elements$panel.spacing.y <- elements$panel.margin.y
     elements$panel.margin.y <- NULL
   }
   if (is.unit(elements$legend.margin) && !is.margin(elements$legend.margin)) {
-    warn("`legend.margin` must be specified using `margin()`. For the old behavior use legend.spacing")
+    cli::cli_warn(c(
+      "{.var legend.margin} must be specified using {.fn margin}",
+      "i" = "For the old behavior use {.var legend.spacing}"
+    ))
     elements$legend.spacing <- elements$legend.margin
     elements$legend.margin <- margin()
   }
@@ -453,12 +470,12 @@ plot_theme <- function(x, default = theme_get()) {
 #' @param t2name A name of the t2 object. This is used for printing
 #'   informative error messages.
 #' @keywords internal
-add_theme <- function(t1, t2, t2name) {
+add_theme <- function(t1, t2, t2name, call = caller_env()) {
   if (is.null(t2)) {
     return(t1)
   }
   if (!is.list(t2)) { # in various places in the code base, simple lists are used as themes
-    abort(glue("Can't add `{t2name}` to a theme object."))
+    cli::cli_abort("Can't add {.arg {t2name}} to a theme object.", call = call)
   }
 
   # If t2 is a complete theme or t1 is NULL, just return t2
@@ -466,14 +483,19 @@ add_theme <- function(t1, t2, t2name) {
     return(t2)
 
   # Iterate over the elements that are to be updated
-  for (item in names(t2)) {
-    x <- merge_element(t2[[item]], t1[[item]])
+  try_fetch(
+    for (item in names(t2)) {
+      x <- merge_element(t2[[item]], t1[[item]])
 
-    # Assign it back to t1
-    # This is like doing t1[[item]] <- x, except that it preserves NULLs.
-    # The other form will simply drop NULL values
-    t1[item] <- list(x)
-  }
+      # Assign it back to t1
+      # This is like doing t1[[item]] <- x, except that it preserves NULLs.
+      # The other form will simply drop NULL values
+      t1[item] <- list(x)
+    },
+    error = function(cnd) {
+      cli::cli_abort("Problem merging the {.var {item}} theme element", parent = cnd, call = call)
+    }
+  )
 
   # make sure the "complete" attribute is set; this can be missing
   # when t1 is an empty list
@@ -509,7 +531,8 @@ add_theme <- function(t1, t2, t2name) {
 #' t$axis.text.x
 #' t$axis.text
 #' t$text
-calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE) {
+calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
+                         call = caller_env()) {
   if (verbose) message(element, " --> ", appendLF = FALSE)
 
   el_out <- theme[[element]]
@@ -532,7 +555,7 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE) {
   # it is of the class specified in element_tree
   if (!is.null(el_out) &&
       !inherits(el_out, element_tree[[element]]$class)) {
-    abort(glue("{element} should have class {ggplot_global$element_tree[[element]]$class}"))
+    cli::cli_abort("Theme element {.var {element}} must have class {.cls {ggplot_global$element_tree[[element]]$class}}", call = call)
   }
 
   # Get the names of parents from the inheritance tree
@@ -555,8 +578,7 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE) {
       return(el_out) # no null properties remaining, return element
     }
 
-    abort(glue("Theme element `{element}` has NULL property without default: ",
-          glue_collapse(names(nullprops)[nullprops], ", ", last = " and ")))
+    cli::cli_abort("Theme element {.var {element}} has {.val NULL} property without default: {.field {names(nullprops)[nullprops]}}", call = call)
   }
 
   # Calculate the parent objects' inheritance
@@ -569,7 +591,8 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE) {
     # once we've started skipping blanks, we continue doing so until the end of the
     # recursion; we initiate skipping blanks if we encounter an element that
     # doesn't inherit blank.
-    skip_blank = skip_blank || (!is.null(el_out) && !isTRUE(el_out$inherit.blank))
+    skip_blank = skip_blank || (!is.null(el_out) && !isTRUE(el_out$inherit.blank)),
+    call = call
   )
 
   # Combine the properties of this element with all parents
@@ -611,7 +634,7 @@ merge_element.default <- function(new, old) {
   }
 
   # otherwise we can't merge
-  abort(glue("No method for merging {class(new)[1]} into {class(old)[1]}"))
+  cli::cli_abort("No method for merging {.cls {class(new)[1]}} into {.cls {class(old)[1]}}")
 }
 
 #' @rdname merge_element
@@ -631,7 +654,7 @@ merge_element.element <- function(new, old) {
 
   # actual merging can only happen if classes match
   if (!inherits(new, class(old)[1])) {
-    abort("Only elements of the same class can be merged")
+    cli::cli_abort("Only elements of the same class can be merged")
   }
 
   # Override NULL properties of new with the values in old

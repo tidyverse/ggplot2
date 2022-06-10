@@ -10,14 +10,7 @@ cut_interval(x, n = NULL, length = NULL, ...)
 
 cut_number(x, n = NULL, ...)
 
-cut_width(
-  x,
-  width,
-  center = NULL,
-  boundary = NULL,
-  closed = c("right", "left"),
-  ...
-)
+cut_width(x, width, center = NULL, boundary = NULL, closed = "right", ...)
 }
 \arguments{
 \item{x}{numeric vector}
@@ -65,6 +58,8 @@ makes \code{n} groups with (approximately) equal numbers of observations;
 \examples{
 table(cut_interval(1:100, 10))
 table(cut_interval(1:100, 11))
+
+set.seed(1)
 
 table(cut_number(runif(1000), 10))
 

@@ -21,7 +21,7 @@
 #' @param frame.colour A string specifying the colour of the frame
 #'   drawn around the bar. If `NULL` (the default), no frame is drawn.
 #' @param frame.linewidth A numeric specifying the width of the frame
-#'   drawn around the bar.
+#'   drawn around the bar in millimetres.
 #' @param frame.linetype A numeric specifying the linetype of the frame
 #'   drawn around the bar.
 #' @param nbin A numeric specifying the number of bins for drawing the
@@ -33,7 +33,8 @@
 #' @param ticks A logical specifying if tick marks on the colourbar should be
 #'   visible.
 #' @param ticks.colour A string specifying the colour of the tick marks.
-#' @param ticks.linewidth A numeric specifying the width of the tick marks.
+#' @param ticks.linewidth A numeric specifying the width of the tick marks in
+#'   millimetres.
 #' @param draw.ulim A logical specifying if the upper limit tick marks should
 #'   be visible.
 #' @param draw.llim A logical specifying if the lower limit tick marks should
@@ -125,13 +126,13 @@ guide_colourbar <- function(
 
   # frame
   frame.colour = NULL,
-  frame.linewidth = 0.5,
+  frame.linewidth = 0.5 / .pt,
   frame.linetype = 1,
 
   # ticks
   ticks = TRUE,
   ticks.colour = "white",
-  ticks.linewidth = 0.5,
+  ticks.linewidth = 0.5 / .pt,
   draw.ulim= TRUE,
   draw.llim = TRUE,
 
@@ -147,7 +148,7 @@ guide_colourbar <- function(
   if (!is.null(barwidth) && !is.unit(barwidth)) barwidth <- unit(barwidth, default.unit)
   if (!is.null(barheight) && !is.unit(barheight)) barheight <- unit(barheight, default.unit)
 
-  structure(list(
+  structure(list2(
     # title
     title = title,
     title.position = title.position,
@@ -199,14 +200,11 @@ guide_train.colorbar <- function(guide, scale, aesthetic = NULL) {
 
   # do nothing if scale are inappropriate
   if (length(intersect(scale$aesthetics, guide$available_aes)) == 0) {
-    warn(glue(
-      "colourbar guide needs appropriate scales: ",
-      glue_collapse(guide$available_aes, ", ", last = " or ")
-    ))
+    cli::cli_warn("colourbar guide needs appropriate scales: {.or {.field {guide$available_aes}}}")
     return(NULL)
   }
   if (scale$is_discrete()) {
-    warn("colourbar guide needs continuous scales.")
+    cli::cli_warn("colourbar guide needs continuous scales.")
     return(NULL)
   }
 
@@ -233,7 +231,7 @@ guide_train.colorbar <- function(guide, scale, aesthetic = NULL) {
     guide$key <- guide$key[nrow(guide$key):1, ]
     guide$bar <- guide$bar[nrow(guide$bar):1, ]
   }
-  guide$hash <- with(guide, digest::digest(list(title, key$.label, bar, name)))
+  guide$hash <- with(guide, hash(list(title, key$.label, bar, name)))
   guide
 }
 
@@ -276,7 +274,10 @@ guide_gengrob.colorbar <- function(guide, theme) {
   if (guide$direction == "horizontal") {
     label.position <- guide$label.position %||% "bottom"
     if (!label.position %in% c("top", "bottom")) {
-      abort(glue("label position '{label.position}' is invalid"))
+      cli::cli_abort(c(
+        "label position {.val {label.position}} is invalid",
+        "i" = "use either {.val 'top'} or {.val 'bottom'}"
+      ))
     }
 
     barwidth <- width_cm(guide$barwidth %||% (theme$legend.key.width * 5))
@@ -284,7 +285,10 @@ guide_gengrob.colorbar <- function(guide, theme) {
   } else { # guide$direction == "vertical"
     label.position <- guide$label.position %||% "right"
     if (!label.position %in% c("left", "right")) {
-      abort(glue("label position '{label.position}' is invalid"))
+      cli::cli_abort(c(
+        "label position {.val {label.position}} is invalid",
+        "i" = "use either {.val 'left'} or {.val 'right'}"
+      ))
     }
 
     barwidth <- width_cm(guide$barwidth %||% theme$legend.key.width)
@@ -322,7 +326,7 @@ guide_gengrob.colorbar <- function(guide, theme) {
                     default.units = "cm",
                     gp = gpar(
                       col = guide$frame.colour,
-                      lwd = guide$frame.linewidth,
+                      lwd = guide$frame.linewidth * .pt,
                       lty = guide$frame.linetype,
                       fill = NA)
                     )
@@ -451,7 +455,7 @@ guide_gengrob.colorbar <- function(guide, theme) {
       default.units = "cm",
       gp = gpar(
         col = guide$ticks.colour,
-        lwd = guide$ticks.linewidth,
+        lwd = guide$ticks.linewidth * .pt,
         lineend = "butt"
       )
     )
@@ -539,7 +543,8 @@ guide_gengrob.colorbar <- function(guide, theme) {
     name = "label",
     clip = "off",
     t = 1 + min(vps$label.row), r = 1 + max(vps$label.col),
-    b = 1 + max(vps$label.row), l = 1 + min(vps$label.col))
+    b = 1 + max(vps$label.row), l = 1 + min(vps$label.col)
+  )
   gt <- gtable_add_grob(
     gt,
     justify_grobs(
@@ -552,10 +557,13 @@ guide_gengrob.colorbar <- function(guide, theme) {
     name = "title",
     clip = "off",
     t = 1 + min(vps$title.row), r = 1 + max(vps$title.col),
-    b = 1 + max(vps$title.row), l = 1 + min(vps$title.col))
+    b = 1 + max(vps$title.row), l = 1 + min(vps$title.col)
+  )
+
   gt <- gtable_add_grob(gt, grob.ticks, name = "ticks", clip = "off",
     t = 1 + min(vps$bar.row), r = 1 + max(vps$bar.col),
-    b = 1 + max(vps$bar.row), l = 1 + min(vps$bar.col))
+    b = 1 + max(vps$bar.row), l = 1 + min(vps$bar.col)
+  )
 
   gt
 }

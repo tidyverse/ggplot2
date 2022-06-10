@@ -50,6 +50,7 @@
 #' # Which seems like a lot of work, but then it's easy to add on
 #' # other features in this coordinate system, e.g.:
 #'
+#' set.seed(1)
 #' stream <- data.frame(
 #'   x = cumsum(runif(50, max = 0.1)),
 #'   y = cumsum(runif(50,max = 0.1))
@@ -93,7 +94,7 @@ geom_polygon <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       na.rm = na.rm,
       rule = rule,
       ...
@@ -141,7 +142,7 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
       )
     } else {
       if (utils::packageVersion('grid') < "3.6") {
-        abort("Polygons with holes requires R 3.6 or above")
+        cli::cli_abort("Polygons with holes requires R 3.6 or above")
       }
       # Sort by group to make sure that colors, fill, etc. come in same order
       munched <- munched[order(munched$group, munched$subgroup), ]
@@ -186,3 +187,15 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
   draw_key = draw_key_polygon
 )
 
+# Assigning pathGrob in .onLoad ensures that packages that subclass GeomPolygon
+# do not install with error `possible error in 'pathGrob(munched$x, munched$y, ':
+# unused argument (pathId = munched$group)` despite the fact that this is correct
+# usage
+pathGrob <- NULL
+on_load(
+  if (getRversion() < as.numeric_version("3.6")) {
+    pathGrob <- function(..., pathId.lengths) {
+      grid::pathGrob(...)
+    }
+  }
+)

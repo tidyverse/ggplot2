@@ -91,14 +91,16 @@ the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
-\item{position}{Position adjustment, either as a string, or the result of
-a call to a position adjustment function.}
+\item{position}{Position adjustment, either as a string naming the adjustment
+(e.g. \code{"jitter"} to use \code{position_jitter}), or the result of a call to a
+position adjustment function. Use the latter if you need to change the
+settings of the adjustment.}
 
 \item{...}{
   Arguments passed on to \code{\link[=geom_contour]{geom_contour}}
   \describe{
-    \item{\code{bins}}{Number of contour bins. Overridden by \code{binwidth}.}
-    \item{\code{binwidth}}{The width of the contour bins. Overridden by \code{breaks}.}
+    \item{\code{binwidth}}{The width of the contour bins. Overridden by \code{bins}.}
+    \item{\code{bins}}{Number of contour bins. Overridden by \code{breaks}.}
     \item{\code{breaks}}{One of:
 \itemize{
 \item Numeric vector to set the contour breaks

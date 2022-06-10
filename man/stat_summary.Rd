@@ -23,9 +23,9 @@ stat_summary_bin(
   orientation = NA,
   show.legend = NA,
   inherit.aes = TRUE,
-  fun.y,
-  fun.ymin,
-  fun.ymax
+  fun.y = deprecated(),
+  fun.ymin = deprecated(),
+  fun.ymax = deprecated()
 )
 
 stat_summary(
@@ -43,9 +43,9 @@ stat_summary(
   orientation = NA,
   show.legend = NA,
   inherit.aes = TRUE,
-  fun.y,
-  fun.ymin,
-  fun.ymax
+  fun.y = deprecated(),
+  fun.ymin = deprecated(),
+  fun.ymax = deprecated()
 )
 }
 \arguments{
@@ -69,11 +69,14 @@ the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
-\item{geom}{Use to override the default connection between
-\code{geom_histogram()}/\code{geom_freqpoly()} and \code{stat_bin()}.}
+\item{geom}{The geometric object to use to display the data, either as a
+\code{ggproto} \code{Geom} subclass or as a string naming the geom stripped of the
+\code{geom_} prefix (e.g. \code{"point"} rather than \code{"geom_point"})}
 
-\item{position}{Position adjustment, either as a string, or the result of
-a call to a position adjustment function.}
+\item{position}{Position adjustment, either as a string naming the adjustment
+(e.g. \code{"jitter"} to use \code{position_jitter}), or the result of a call to a
+position adjustment function. Use the latter if you need to change the
+settings of the adjustment.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
@@ -127,8 +130,8 @@ rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
-\item{fun.ymin, fun.y, fun.ymax}{Deprecated, use the versions specified above
-instead.}
+\item{fun.ymin, fun.y, fun.ymax}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Use the
+versions specified above instead.}
 }
 \description{
 \code{stat_summary()} operates on unique \code{x} or \code{y}; \code{stat_summary_bin()}

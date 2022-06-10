@@ -57,7 +57,7 @@ stat_ellipse <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       type = type,
       level = level,
       segments = segments,
@@ -86,10 +86,10 @@ calculate_ellipse <- function(data, vars, type, level, segments){
   dfd <- nrow(data) - 1
 
   if (!type %in% c("t", "norm", "euclid")) {
-    message("Unrecognized ellipse type")
+    cli::cli_inform("Unrecognized ellipse type")
     ellipse <- rbind(as.numeric(c(NA, NA)))
   } else if (dfd < 3) {
-    message("Too few points to calculate an ellipse")
+    cli::cli_inform("Too few points to calculate an ellipse")
     ellipse <- rbind(as.numeric(c(NA, NA)))
   } else {
     if (type == "t") {

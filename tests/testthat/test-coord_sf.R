@@ -80,6 +80,21 @@ test_that("axis labels can be set manually", {
     graticule[graticule$type == "N", ]$degree_label,
     c("D", "E", "F")
   )
+  p <- plot +
+    scale_x_continuous(
+      breaks = c(1000, 2000, 3000),
+      labels = function(...) c("A", "B")
+    )
+  expect_snapshot_error(ggplot_build(p))
+  p <- plot +
+    scale_y_continuous(
+      breaks = c(1000, 2000, 3000),
+      labels = function(...) c("A", "B")
+    )
+  expect_snapshot_error(ggplot_build(p))
+
+  expect_snapshot_error(coord_sf(label_graticule = 1:17))
+  expect_snapshot_error(coord_sf(label_axes = 1:17))
 })
 
 test_that("factors are treated like character labels and are not parsed", {
@@ -219,6 +234,8 @@ test_that("default crs works", {
 
   p <- ggplot(polygon) + geom_sf(fill = NA)
 
+  expect_snapshot_error(ggplot_build(p + xlim(-Inf, 80)))
+
   # by default, regular geoms are interpreted to use projected data
   points_trans <- sf_transform_xy(points, 3347, 4326)
   expect_doppelganger(
@@ -250,6 +267,8 @@ test_that("default crs works", {
     p + geom_point(data = points_trans, aes(x, y)) +
       coord_sf(xlim = lims$x[1:2], ylim = lims$y[3:4])
   )
+
+
 })
 
 test_that("sf_transform_xy() works", {

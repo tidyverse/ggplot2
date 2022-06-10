@@ -61,6 +61,7 @@
 #'   xlim(0.5, 2)
 #'
 #' # You can also use geom_segment to recreate plot(type = "h") :
+#' set.seed(1)
 #' counts <- as.data.frame(table(x = rpois(100,5)))
 #' counts$x <- as.numeric(as.character(counts$x))
 #' with(counts, plot(x, Freq, type = "h", lwd = 10))
@@ -85,7 +86,7 @@ geom_segment <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       arrow = arrow,
       arrow.fill = arrow.fill,
       lineend = lineend,
@@ -105,12 +106,13 @@ GeomSegment <- ggproto("GeomSegment", Geom,
   non_missing_aes = c("linetype", "size", "shape"),
   default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
 
-  draw_panel = function(data, panel_params, coord, arrow = NULL, arrow.fill = NULL,
+  draw_panel = function(self, data, panel_params, coord, arrow = NULL, arrow.fill = NULL,
                         lineend = "butt", linejoin = "round", na.rm = FALSE) {
-
     data <- remove_missing(data, na.rm = na.rm,
       c("x", "y", "xend", "yend", "linetype", "size", "shape"),
-      name = "geom_segment")
+      name = "geom_segment"
+    )
+
     if (empty(data)) return(zeroGrob())
 
     if (coord$is_linear()) {

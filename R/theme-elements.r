@@ -118,7 +118,10 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
     length(hjust), length(vjust), length(angle), length(lineheight)
   )
   if (n > 1) {
-    warn("Vectorized input to `element_text()` is not officially supported.\nResults may be unexpected or may change in future versions of ggplot2.")
+    cli::cli_warn(c(
+      "Vectorized input to {.fn element_text} is not officially supported.",
+      "i" = "Results may be unexpected or may change in future versions of ggplot2."
+    ))
   }
 
 
@@ -165,7 +168,7 @@ element_render <- function(theme, element, ..., name = NULL) {
   # Get the element from the theme, calculating inheritance
   el <- calc_element(element, theme)
   if (is.null(el)) {
-    message("Theme element `", element, "` missing")
+    cli::cli_inform("Theme element {.var {element}} is missing")
     return(zeroGrob())
   }
 
@@ -355,6 +358,15 @@ reset_theme_settings <- function(reset_current = TRUE) {
   }
 }
 
+# create the global variables holding all the theme settings
+on_load({
+  ggplot_global$theme_all_null <- theme_all_null() # cache all null theme, required by theme_grey()
+  ggplot_global$theme_current <- NULL  # the current theme applied to plots if none is specified
+  ggplot_global$theme_default <- NULL  # the underlying fallback default theme
+  ggplot_global$element_tree <- NULL   # the current element tree for themes
+  reset_theme_settings() # sets the preceding three global variables to their actual defaults
+})
+
 #' @rdname register_theme_elements
 #' @details
 #' The function `get_element_tree()` returns the currently active element tree.
@@ -469,6 +481,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   strip.background    = el_def("element_rect", "rect"),
   strip.background.x  = el_def("element_rect", "strip.background"),
   strip.background.y  = el_def("element_rect", "strip.background"),
+  strip.clip          = el_def("character"),
   strip.text.x        = el_def("element_text", "strip.text"),
   strip.text.x.top    = el_def("element_text", "strip.text.x"),
   strip.text.x.bottom = el_def("element_text", "strip.text.x"),
@@ -505,11 +518,11 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
 # @param el an element
 # @param elname the name of the element
 # @param element_tree the element tree to validate against
-validate_element <- function(el, elname, element_tree) {
+validate_element <- function(el, elname, element_tree, call = caller_env()) {
   eldef <- element_tree[[elname]]
 
   if (is.null(eldef)) {
-    abort(glue("Theme element `{elname}` is not defined in the element hierarchy."))
+    cli::cli_abort("The {.var {elname}} theme element is not defined in the element hierarchy.", call = call)
   }
 
   # NULL values for elements are OK
@@ -519,12 +532,12 @@ validate_element <- function(el, elname, element_tree) {
     # Need to be a bit looser here since sometimes it's a string like "top"
     # but sometimes its a vector like c(0,0)
     if (!is.character(el) && !is.numeric(el))
-      abort(glue("Theme element `{elname}` must be a string or numeric vector."))
+      cli::cli_abort("The {.var {elname}} theme element must be a character or numeric vector.", call = call)
   } else if (eldef$class == "margin") {
     if (!is.unit(el) && length(el) == 4)
-      abort(glue("Theme element `{elname}` must be a unit vector of length 4."))
+      cli::cli_abort("The {.var {elname}} theme element must be a {.cls unit} vector of length 4.", call = call)
   } else if (!inherits(el, eldef$class) && !inherits(el, "element_blank")) {
-      abort(glue("Theme element `{elname}` must be an object of type `{eldef$class}`."))
+    cli::cli_abort("The {.var {elname}} theme element must be a {.cls {eldef$class}} object.", call = call)
   }
   invisible()
 }

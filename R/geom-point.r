@@ -77,6 +77,7 @@
 #'
 #' # geom_point warns when missing values have been dropped from the data set
 #' # and not plotted, you can turn this off by setting na.rm = TRUE
+#' set.seed(1)
 #' mtcars2 <- transform(mtcars, mpg = ifelse(runif(32) < 0.2, NA, mpg))
 #' ggplot(mtcars2, aes(wt, mpg)) +
 #'   geom_point()
@@ -97,7 +98,7 @@ geom_point <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       na.rm = na.rm,
       ...
     )
@@ -116,7 +117,7 @@ GeomPoint <- ggproto("GeomPoint", Geom,
     alpha = NA, stroke = 0.5
   ),
 
-  draw_panel = function(data, panel_params, coord, na.rm = FALSE) {
+  draw_panel = function(self, data, panel_params, coord, na.rm = FALSE) {
     if (is.character(data$shape)) {
       data$shape <- translate_shape_string(data$shape)
     }
@@ -185,41 +186,15 @@ translate_shape_string <- function(shape_string) {
 
   if (any(invalid_strings)) {
     bad_string <- unique(shape_string[invalid_strings])
-    n_bad <- length(bad_string)
-
-    collapsed_names <- sprintf("\n* '%s'", bad_string[1:min(5, n_bad)])
-
-    more_problems <- if (n_bad > 5) {
-      sprintf("\n* ... and %d more problem%s", n_bad - 5, ifelse(n_bad > 6, "s", ""))
-    } else {
-      ""
-    }
-
-    abort(glue("Can't find shape name:", collapsed_names, more_problems))
+    cli::cli_abort("Shape aesthetic contains invalid value{?s}: {.val {bad_string}}")
   }
 
   if (any(nonunique_strings)) {
     bad_string <- unique(shape_string[nonunique_strings])
-    n_bad <- length(bad_string)
-
-    n_matches <- vapply(
-      bad_string[1:min(5, n_bad)],
-      function(shape_string) sum(grepl(paste0("^", shape_string), names(pch_table))),
-      integer(1)
-    )
-
-    collapsed_names <- sprintf(
-      "\n* '%s' partially matches %d shape names",
-      bad_string[1:min(5, n_bad)], n_matches
-    )
-
-    more_problems <- if (n_bad > 5) {
-      sprintf("\n* ... and %d more problem%s", n_bad - 5, ifelse(n_bad > 6, "s", ""))
-    } else {
-      ""
-    }
-
-    abort(glue("Shape names must be unambiguous:", collapsed_names, more_problems))
+    cli::cli_abort(c(
+      "shape names must be given unambiguously",
+      "i" = "Fix {.val {bad_string}}"
+    ))
   }
 
   unname(pch_table[shape_match])

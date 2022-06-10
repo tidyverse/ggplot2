@@ -1,24 +1,23 @@
 #' 2D contours of a 3D surface
 #'
+#' @description
 #' ggplot2 can not draw true 3D surfaces, but you can use `geom_contour()`,
-#' `geom_contour_filled()`, and [geom_tile()] to visualise 3D surfaces in 2D. To
-#' specify a valid surface, the data must contain `x`, `y`, and `z` coordinates,
-#' and each unique combination of `x` and `y` can appear at most once.
-#' Contouring requires that the points can be rearranged so that the `z` values
-#' form a matrix, with rows corresponding to unique `x` values, and columns
-#' corresponding to unique `y` values. Missing entries are allowed, but contouring
-#' will only be done on cells of the grid with all four `z` values present. If
-#' your data is irregular, you can interpolate to a grid before visualising
-#' using the [interp::interp()] function from the `interp` package
-#' (or one of the interpolating functions from the `akima` package.)
+#' `geom_contour_filled()`, and [geom_tile()] to visualise 3D surfaces in 2D.
+#'
+#' These functions require regular data, where the `x` and `y` coordinates
+#' form an equally spaced grid, and each combination of `x` and `y` appears
+#' once. Missing values of `z` are allowed, but contouring will only work for
+#' grid points where all four corners are non-missing. If you have irregular
+#' data, you'll need to first interpolate on to a grid before visualising,
+#' using [interp::interp()], [akima::bilinear()], or similar.
 #'
 #' @eval rd_aesthetics("geom", "contour")
 #' @eval rd_aesthetics("geom", "contour_filled")
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @inheritParams geom_path
-#' @param bins Number of contour bins. Overridden by `binwidth`.
-#' @param binwidth The width of the contour bins. Overridden by `breaks`.
+#' @param binwidth The width of the contour bins. Overridden by `bins`.
+#' @param bins Number of contour bins. Overridden by `breaks`.
 #' @param breaks One of:
 #'   - Numeric vector to set the contour breaks
 #'   - A function that takes the range of the data and binwidth as input
@@ -56,22 +55,6 @@
 #' v + geom_contour(colour = "red")
 #' v + geom_raster(aes(fill = density)) +
 #'   geom_contour(colour = "white")
-#'
-#' # Irregular data
-#' if (requireNamespace("interp")) {
-#'   # Use a dataset from the interp package
-#'   data(franke, package = "interp")
-#'   origdata <- as.data.frame(interp::franke.data(1, 1, franke))
-#'   grid <- with(origdata, interp::interp(x, y, z))
-#'   griddf <- subset(data.frame(x = rep(grid$x, nrow(grid$z)),
-#'                               y = rep(grid$y, each = ncol(grid$z)),
-#'                               z = as.numeric(grid$z)),
-#'                    !is.na(z))
-#'   ggplot(griddf, aes(x, y, z = z)) +
-#'     geom_contour_filled() +
-#'     geom_point(data = origdata)
-#' } else
-#'   message("Irregular data requires the 'interp' package")
 #' }
 geom_contour <- function(mapping = NULL, data = NULL,
                          stat = "contour", position = "identity",
@@ -93,7 +76,7 @@ geom_contour <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       bins = bins,
       binwidth = binwidth,
       breaks = breaks,
@@ -125,7 +108,7 @@ geom_contour_filled <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       bins = bins,
       binwidth = binwidth,
       breaks = breaks,

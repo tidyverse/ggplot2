@@ -1,5 +1,42 @@
 # ggplot2 (development version)
 
+* Use `rlang::hash()` instead of `digest::digest()`. This update may lead to 
+  changes in the automatic sorting of legends. In order to enforce a specific
+  legend order use the `order` argument in the guide. (@thomasp85, #4458)
+
+* Fix various issues with how `labels`, `breaks`, `limits`, and `show.limits`
+  interact in the different binning guides (@thomasp85, #4831)
+
+* Automatic break calculation now squishes the scale limits to the domain
+  of the transformation. This allows `scale_{x/y}_sqrt()` to find breaks at 0   
+  when appropriate (@teunbrand, #980).
+
+* Using multiple modified aesthetics correctly will no longer trigger warnings. 
+  If used incorrectly, the warning will now report the duplicated aesthetic 
+  instead of `NA` (@teunbrand, #4707).
+
+* `...` supports `rlang::list2` dynamic dots in all public functions. (@mone27, #4764) 
+
+* `theme()` now has a `strip.clip` argument, that can be set to `"off"` to 
+  prevent the clipping of strip text and background borders (@teunbrand, #4118)
+
+* `aes()` now supports the `!!!` operator in its first two arguments
+  (#2675). Thanks to @yutannihilation and @teunbrand for draft
+  implementations.
+
+* Require rlang >= 1.0.0 (@billybarc, #4797)
+
+* `geom_violin()` no longer issues "collapsing to unique 'x' values" warning
+  (@bersbersbers, #4455)
+
+* `annotate()` now documents unsupported geoms (`geom_abline()`, `geom_hline()`
+  and `geom_vline()`), and warns when they are requested (@mikmart, #4719)
+
+* `presidential` dataset now includes Trump's presidency (@bkmgit, #4703).
+
+* referring to `x` in backquoted expressions with `label_bquote()` is no longer
+  possible.
+
 * `position_stack()` now works fully with `geom_text()` (@thomasp85, #4367)
 
 * `geom_tile()` now correctly recognises missing data in `xmin`, `xmax`, `ymin`,
@@ -54,6 +91,28 @@
 * `geom_contour()` now accepts a function in the `breaks` argument (@eliocamp, #4652).
 
 * VISUAL CHANGE: `scale_*_viridis_b()` now uses the full range of the viridis scales (@gregleleu, #4737)
+
+* Updated documentation for `geom_contour()` to correctly reflect argument 
+precedence between `bins` and `binwidth`. (@eliocamp, #4651)
+
+* The `ticks.linewidth` and `frame.linewidth` parameters of `guide_colourbar()`
+  are now multiplied with `.pt` like elsewhere in ggplot2. It can cause visual
+  changes when these arguments are not the defaults and these changes can be 
+  restored to their previous behaviour by adding `/ .pt` (@teunbrand #4314).
+
+* Dots in `geom_dotplot()` are now correctly aligned to the baseline when
+  `stackratio != 1` and `stackdir != "up"` (@mjskay, #4614)
+
+* Key glyphs for `geom_boxplot()`, `geom_crossbar()`, `geom_pointrange()`, and
+  `geom_linerange()` are now orientation-aware (@mjskay, #4732)
+  
+* Updated documentation for `geom_smooth()` to more clearly describe effects of the 
+  `fullrange` parameter (@thoolihan, #4399).
+
+# ggplot2 3.3.6
+This is a very small release only applying an internal change to comply with 
+R 4.2 and its deprecation of `default.stringsAsFactors()`. There are no user
+facing changes and no breaking changes.
 
 # ggplot2 3.3.5
 This is a very small release focusing on fixing a couple of untenable issues 
