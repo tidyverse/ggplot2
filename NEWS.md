@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* `qplot()` is now formally deprecated (@yutannihilation, #3956).
+
 * Use `rlang::hash()` instead of `digest::digest()`. This update may lead to 
   changes in the automatic sorting of legends. In order to enforce a specific
   legend order use the `order` argument in the guide. (@thomasp85, #4458)
