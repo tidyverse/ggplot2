@@ -122,7 +122,7 @@ is_calculated <- function(x) {
   } else if (is.pairlist(x)) {
     FALSE
   } else {
-    abort(glue("Unknown input: {class(x)[1]}"))
+    cli::cli_abort("Unknown input: {.cls {class(x)[1]}}")
   }
 }
 is_scaled <- function(x) {
@@ -170,7 +170,7 @@ strip_dots <- function(expr, env, strip_pronoun = FALSE) {
     # For list of aesthetics
     lapply(expr, strip_dots, env = env, strip_pronoun = strip_pronoun)
   } else {
-    abort(glue("Unknown input: {class(expr)[1]}"))
+    cli::cli_abort("Unknown input: {.cls {class(expr)[1]}}")
   }
 }
 

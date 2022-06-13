@@ -99,15 +99,17 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
     strip.position <- if (switch == "x") "bottom" else "left"
   }
   strip.position <- arg_match0(strip.position, c("top", "bottom", "left", "right"))
+  if (!(is.null(ncol) || (is_integerish(ncol, 1) && ncol > 0))) {
+    cli::cli_abort("{.arg ncol} must be a positive scalar integer or {.val NULL}")
+  }
+  if (!(is.null(nrow) || (is_integerish(nrow, 1) && nrow > 0))) {
+    cli::cli_abort("{.arg nrow} must be a positive scalar integer or {.val NULL}")
+  }
   if (identical(dir, "v")) {
     # swap
-    nrow_swap <- ncol
-    ncol_swap <- nrow
-    nrow <- sanitise_dim(nrow_swap)
-    ncol <- sanitise_dim(ncol_swap)
-  } else {
-    nrow <- sanitise_dim(nrow)
-    ncol <- sanitise_dim(ncol)
+    tmp <- ncol
+    ncol <- nrow
+    nrow <- tmp
   }
 
   ggproto(NULL, FacetWrap,
@@ -139,7 +141,7 @@ wrap_as_facets_list <- function(x) {
 FacetWrap <- ggproto("FacetWrap", Facet,
   shrink = TRUE,
 
-  compute_layout = function(data, params) {
+  compute_layout = function(self, data, params) {
     vars <- params$facets
     if (length(vars) == 0) {
       return(layout_null())
@@ -211,9 +213,9 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     data$PANEL <- layout$PANEL[match(keys$x, keys$y)]
     data
   },
-  draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
+  draw_panels = function(self, panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
     if ((params$free$x || params$free$y) && !coord$is_free()) {
-      abort(glue("{snake_class(coord)} doesn't support free scales"))
+      cli::cli_abort("{.fn {snake_class(self)}} can't use free scales with {.fn {snake_class(coord)}}")
     }
 
     if (inherits(coord, "CoordFlip")) {
@@ -329,7 +331,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
             !inside &&
             any(!vapply(x_axes, is.zero, logical(1))) &&
             !params$free$x) {
-          warn("Suppressing axis rendering when strip.position = 'bottom' and strip.placement == 'outside'")
+          cli::cli_warn("Suppressing axis rendering when {.code strip.position = \"bottom\"} and {.code strip.placement == \"outside\"}")
         } else {
           axis_mat_x_bottom[pos] <- x_axes
         }
@@ -344,7 +346,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
             !inside &&
             any(!vapply(x_axes, is.zero, logical(1))) &&
             !params$free$x) {
-          warn("Suppressing axis rendering when strip.position = 'top' and strip.placement == 'outside'")
+          cli::cli_warn("Suppressing axis rendering when {.code strip.position = \"top\"} and {.code strip.placement == \"outside\"}")
         } else {
           axis_mat_x_top[pos] <- x_axes
         }
@@ -359,7 +361,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
             !inside &&
             any(!vapply(y_axes, is.zero, logical(1))) &&
             !params$free$y) {
-          warn("Suppressing axis rendering when strip.position = 'right' and strip.placement == 'outside'")
+          cli::cli_warn("Suppressing axis rendering when {.code strip.position = \"right\"} and {.code strip.placement == \"outside\"}")
         } else {
           axis_mat_y_right[pos] <- y_axes
         }
@@ -374,7 +376,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
             !inside &&
             any(!vapply(y_axes, is.zero, logical(1))) &&
             !params$free$y) {
-          warn("Suppressing axis rendering when strip.position = 'left' and strip.placement == 'outside'")
+          cli::cli_warn("Suppressing axis rendering when {.code strip.position = \"left\"} and {.code strip.placement == \"outside\"}")
         } else {
           axis_mat_y_left[pos] <- y_axes
         }
@@ -431,58 +433,6 @@ FacetWrap <- ggproto("FacetWrap", Facet,
 
 # Helpers -----------------------------------------------------------------
 
-#' Sanitise the number of rows or columns
-#'
-#' Cleans up the input to be an integer greater than or equal to one, or
-#' `NULL`. Intended to be used on the `nrow` and `ncol`
-#' arguments of `facet_wrap()`.
-#' @param n Hopefully an integer greater than or equal to one, or `NULL`,
-#' though other inputs are handled.
-#' @return An integer greater than or equal to one, or `NULL`.
-#' @note If the length of the input is greater than one, only the first element
-#' is returned, with a warning.
-#' If the input is not an integer, it will be coerced to be one.
-#' If the value is less than one, `NULL` is returned, effectively ignoring
-#' the argument.
-#' Multiple warnings may be generated.
-#' @examples
-#' # Valid input just gets returns unchanged
-#' sanitise_dim(1)
-#' sanitise_dim(NULL)
-#'
-#' # Only the first element of vectors get returned
-#' sanitise_dim(10:1)
-#' # Non-integer values are coerced to integer
-#' sanitise_dim(pi)
-#' # Missing values, values less than one and non-numeric values are
-#' # treated as NULL
-#' sanitise_dim(NA_integer_)
-#' sanitise_dim(0)
-#' sanitise_dim("foo")
-#' @noRd
-sanitise_dim <- function(n) {
-  xname <- paste0("`", deparse(substitute(n)), "`")
-  if (length(n) == 0) {
-    if (!is.null(n)) {
-      warn(glue("{xname} has length zero and will be treated as NULL."))
-    }
-    return(NULL)
-  }
-  if (length(n) > 1) {
-    warn(glue("Only the first value of {xname} will be used."))
-    n <- n[1]
-  }
-  if (!is.numeric(n) || (!is.na(n) && n != round(n))) {
-    warn(glue("Coercing {xname} to be an integer."))
-    n <- as.integer(n)
-  }
-  if (is.na(n) || n < 1) {
-    warn(glue("{xname} is missing or less than 1 and will be treated as NULL."))
-    return(NULL)
-  }
-  n
-}
-
 #' Arrange 1d structure into a grid
 #'
 #' @param n length of structure
@@ -503,7 +453,10 @@ wrap_dims <- function(n, nrow = NULL, ncol = NULL) {
     nrow <- ceiling(n / ncol)
   }
   if (nrow * ncol < n) {
-    abort("The given dimensions cannot hold all panels. Please increase `ncol` or `nrow`")
+    cli::cli_abort(c(
+      "Need {n} panels, but together {.arg nrow} and {.arg ncol} only provide {nrow * ncol}",
+      i = "Please increase {.arg ncol} and/or {.arg nrow}"
+    ))
   }
 
   c(nrow, ncol)

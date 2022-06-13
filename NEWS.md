@@ -1,5 +1,18 @@
 # ggplot2 (development version)
 
+* `qplot()` is now formally deprecated (@yutannihilation, #3956).
+
+* Use `rlang::hash()` instead of `digest::digest()`. This update may lead to 
+  changes in the automatic sorting of legends. In order to enforce a specific
+  legend order use the `order` argument in the guide. (@thomasp85, #4458)
+
+* Fix various issues with how `labels`, `breaks`, `limits`, and `show.limits`
+  interact in the different binning guides (@thomasp85, #4831)
+
+* Automatic break calculation now squishes the scale limits to the domain
+  of the transformation. This allows `scale_{x/y}_sqrt()` to find breaks at 0   
+  when appropriate (@teunbrand, #980).
+
 * Using multiple modified aesthetics correctly will no longer trigger warnings. 
   If used incorrectly, the warning will now report the duplicated aesthetic 
   instead of `NA` (@teunbrand, #4707).
@@ -79,8 +92,15 @@
   
 * `geom_contour()` now accepts a function in the `breaks` argument (@eliocamp, #4652).
 
+* VISUAL CHANGE: `scale_*_viridis_b()` now uses the full range of the viridis scales (@gregleleu, #4737)
+
 * Updated documentation for `geom_contour()` to correctly reflect argument 
 precedence between `bins` and `binwidth`. (@eliocamp, #4651)
+
+* The `ticks.linewidth` and `frame.linewidth` parameters of `guide_colourbar()`
+  are now multiplied with `.pt` like elsewhere in ggplot2. It can cause visual
+  changes when these arguments are not the defaults and these changes can be 
+  restored to their previous behaviour by adding `/ .pt` (@teunbrand #4314).
 
 * Dots in `geom_dotplot()` are now correctly aligned to the baseline when
   `stackratio != 1` and `stackdir != "up"` (@mjskay, #4614)

@@ -89,3 +89,41 @@ test_that("parse_safe works with multi expressions", {
 test_that("x and y aesthetics have the same length", {
   expect_equal(length(ggplot_global$x_aes), length(ggplot_global$y_aes))
 })
+
+test_that("check_required_aesthetics() errors on missing", {
+  required_single <- c("x", "y")
+  required_bidirectional <- c("x|y", "fill")
+  expect_snapshot_error(check_required_aesthetics(required_single, present = "x", name = "test"))
+  expect_snapshot_error(check_required_aesthetics(required_single, present = "shape", name = "test"))
+
+  expect_snapshot_error(check_required_aesthetics(required_bidirectional, present = "fill", name = "test"))
+  expect_snapshot_error(check_required_aesthetics(required_bidirectional, present = "shape", name = "test"))
+})
+
+test_that("remove_missing checks input", {
+  expect_snapshot_error(remove_missing(na.rm = 1:5))
+})
+
+test_that("tolower() and toupper() has been masked", {
+  expect_snapshot_error(tolower())
+  expect_snapshot_error(toupper())
+})
+
+test_that("parse_safe() checks input", {
+  expect_snapshot_error(parse_safe(1:5))
+})
+
+test_that("width_cm() and height_cm() checks input", {
+  expect_snapshot_error(width_cm(letters))
+  expect_snapshot_error(height_cm(letters))
+})
+
+test_that("cut_*() checks its input and output", {
+  expect_snapshot_error(cut_number(1, 10))
+  expect_snapshot_error(breaks(1:10, "numbers", nbins = 2, binwidth = 05))
+  expect_snapshot_error(cut_width(1:10, 1, center = 0, boundary = 0.5))
+})
+
+test_that("interleave() checks the vector lengths", {
+  expect_snapshot_error(interleave(1:4, numeric()))
+})

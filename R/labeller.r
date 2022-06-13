@@ -241,12 +241,12 @@ is_labeller <- function(x) inherits(x, "labeller")
 
 resolve_labeller <- function(rows, cols, labels) {
   if (is.null(cols) && is.null(rows)) {
-    abort("Supply one of rows or cols")
+    cli::cli_abort("Supply one of {.arg rows} or {.arg cols}")
   }
   if (attr(labels, "facet") == "wrap") {
     # Return either rows or cols for facet_wrap()
     if (!is.null(cols) && !is.null(rows)) {
-      abort("Cannot supply both rows and cols to facet_wrap()")
+      cli::cli_abort("Cannot supply both {.arg rows} and {.arg cols} to {.fn facet_wrap}")
     }
     cols %||% rows
   } else {
@@ -441,10 +441,7 @@ labeller <- function(..., .rows = NULL, .cols = NULL,
       # Check that variable-specific labellers do not overlap with
       # margin-wide labeller
       if (any(names(dots) %in% names(labels))) {
-        abort(glue(
-          "Conflict between .{attr(labels, 'type')} and ",
-          glue_collapse(names(dots), ", ", last = " and ")
-        ))
+        cli::cli_abort("Conflict between {.var {paste0('.', attr(labels, 'type'))}} and {.var {names(dots)}}")
       }
     }
 
@@ -615,9 +612,10 @@ check_labeller <- function(labeller) {
       Map(old_labeller, names(labels), labels)
     }
     # TODO Update to lifecycle after next lifecycle release
-    warn(glue(
-      "The labeller API has been updated. Labellers taking `variable` ",
-      "and `value` arguments are now deprecated. See labellers documentation."))
+    cli::cli_warn(c(
+      "The {.arg labeller} API has been updated. Labellers taking {.arg variable} and {.arg value} arguments are now deprecated.",
+      "i" = "See labellers documentation."
+    ))
   }
 
   labeller

@@ -59,6 +59,8 @@ makes \code{n} groups with (approximately) equal numbers of observations;
 table(cut_interval(1:100, 10))
 table(cut_interval(1:100, 11))
 
+set.seed(1)
+
 table(cut_number(runif(1000), 10))
 
 table(cut_width(runif(1000), 0.1))

@@ -3,9 +3,24 @@ get_n_stop <- function(f) {
   sum(d$token == "SYMBOL_FUNCTION_CALL" & d$text == "stop")
 }
 
+get_n_abort <- function(f) {
+  d <- getParseData(parse(f, keep.source = TRUE))
+  sum(d$token == "SYMBOL_FUNCTION_CALL" & d$text == "abort")
+}
+
 get_n_warning <- function(f) {
   d <- getParseData(parse(f, keep.source = TRUE))
   sum(d$token == "SYMBOL_FUNCTION_CALL" & d$text == "warning")
+}
+
+get_n_warn <- function(f) {
+  d <- getParseData(parse(f, keep.source = TRUE))
+  sum(d$token == "SYMBOL_FUNCTION_CALL" & d$text == "warn")
+}
+
+get_n_inform <- function(f) {
+  d <- getParseData(parse(f, keep.source = TRUE))
+  sum(d$token == "SYMBOL_FUNCTION_CALL" & d$text == "inform")
 }
 
 get_n_data.frame <- function(f) {
@@ -56,9 +71,24 @@ test_that("do not use stop()", {
   expect_equal(sum(stops), 0)
 })
 
+test_that("do not use abort()", {
+  aborts <- vapply(R_files, get_n_abort, integer(1))
+  expect_equal(sum(aborts), 0)
+})
+
 test_that("do not use warning()", {
   warnings <- vapply(R_files, get_n_warning, integer(1))
   expect_equal(sum(warnings), 0)
+})
+
+test_that("do not use warn()", {
+  warns <- vapply(R_files, get_n_warn, integer(1))
+  expect_equal(sum(warns), 0)
+})
+
+test_that("do not use inform()", {
+  informs <- vapply(R_files, get_n_inform, integer(1))
+  expect_equal(sum(informs), 0)
 })
 
 test_that("do not use data.frame(), use `data_frame()` or `new_data_frame()`, or add `base::` prefix", {

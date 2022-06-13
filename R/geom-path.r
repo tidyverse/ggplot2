@@ -132,7 +132,7 @@ GeomPath <- ggproto("GeomPath", Geom,
 
   default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
 
-  handle_na = function(data, params) {
+  handle_na = function(self, data, params) {
     # Drop missing values at the start or end of a line - can't drop in the
     # middle since you expect those to be shown by a break in the line
     complete <- stats::complete.cases(data[c("x", "y", "size", "colour", "linetype")])
@@ -140,18 +140,20 @@ GeomPath <- ggproto("GeomPath", Geom,
     data <- data[kept, ]
 
     if (!all(kept) && !params$na.rm) {
-      warn(glue("Removed {sum(!kept)} row(s) containing missing values (geom_path)."))
+      cli::cli_warn("Removed {sum(!kept)} row{?s} containing missing values ({.fn {snake_class(self)}}).")
     }
 
     data
   },
 
-  draw_panel = function(data, panel_params, coord, arrow = NULL,
+  draw_panel = function(self, data, panel_params, coord, arrow = NULL,
                         lineend = "butt", linejoin = "round", linemitre = 10,
                         na.rm = FALSE) {
     if (!anyDuplicated(data$group)) {
-      message_wrap("geom_path: Each group consists of only one observation. ",
-        "Do you need to adjust the group aesthetic?")
+      cli::cli_inform(c(
+        "{.fn {snake_class(self)}}: Each group consists of only one observation.",
+        i = "Do you need to adjust the {.field group} aesthetic?"
+      ))
     }
 
     # must be sorted on group
@@ -174,7 +176,7 @@ GeomPath <- ggproto("GeomPath", Geom,
     solid_lines <- all(attr$solid)
     constant <- all(attr$constant)
     if (!solid_lines && !constant) {
-      abort("geom_path: If you are using dotted or dashed lines, colour, size and linetype must be constant over the line")
+      cli::cli_abort("{.fn {snake_class(self)}} can't have varying {.field colour}, {.field size}, and/or {.field alpha} along the line when {.field linetype} isn't solid")
     }
 
     # Work out grouping variables for grobs
@@ -337,7 +339,10 @@ stairstep <- function(data, direction = "hv") {
     xs <- rep(1:(n-1), each = 2)
     ys <- rep(1:n, each = 2)
   } else {
-    abort("Parameter `direction` is invalid.")
+    cli::cli_abort(c(
+      "{.arg direction} is invalid.",
+      "i" = "Use either {.val vh}, {.val hv}, or {.va mid}"
+    ))
   }
 
   if (direction == "mid") {

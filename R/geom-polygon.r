@@ -50,6 +50,7 @@
 #' # Which seems like a lot of work, but then it's easy to add on
 #' # other features in this coordinate system, e.g.:
 #'
+#' set.seed(1)
 #' stream <- data.frame(
 #'   x = cumsum(runif(50, max = 0.1)),
 #'   y = cumsum(runif(50,max = 0.1))
@@ -141,7 +142,7 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
       )
     } else {
       if (utils::packageVersion('grid') < "3.6") {
-        abort("Polygons with holes requires R 3.6 or above")
+        cli::cli_abort("Polygons with holes requires R 3.6 or above")
       }
       # Sort by group to make sure that colors, fill, etc. come in same order
       munched <- munched[order(munched$group, munched$subgroup), ]

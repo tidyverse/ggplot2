@@ -42,7 +42,9 @@ with \code{aes_string()} is quite clunky.
 All these functions are soft-deprecated. Please use tidy evaluation idioms
 instead. Regarding \code{aes_string()}, you can replace it with \code{.data} pronoun.
 For example, the following code can achieve the same mapping as
-\code{aes_string(x_var, y_var)}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{x_var <- "foo"
+\code{aes_string(x_var, y_var)}.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{x_var <- "foo"
 y_var <- "bar"
 aes(.data[[x_var]], .data[[y_var]])
 }\if{html}{\out{</div>}}
