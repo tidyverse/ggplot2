@@ -83,7 +83,7 @@ pos_dodge2 <- function(df, width, n = NULL, padding = 0.1) {
   # elements. for boxes, bars, etc. this should be the same as original x, but
   # for arbitrary rects it may not be
   newx <- (tapply(df$xmin, df$xid, min) + tapply(df$xmax, df$xid, max)) / 2
-  df$newx <- as.vector(newx[df$xid])
+  df$newx <- newx[df$xid]
 
   if (is.null(n)) {
     # If n is null, preserve total widths of elements at each position by

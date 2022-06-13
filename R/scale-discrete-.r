@@ -197,6 +197,8 @@ vec_cast.character.ggplot2_mapped_discrete <- function(x, to, ...) as.character(
 vec_cast.ggplot2_mapped_discrete.factor <- function(x, to, ...) new_mapped_discrete(unclass(x))
 #' @export
 vec_cast.factor.ggplot2_mapped_discrete <- function(x, to, ...) factor(vec_data(x), ...)
+#' @export
+vec_cast.ggplot2_mapped_discrete.array <- function(x, to, ...) new_mapped_discrete(as.vector(x))
 #' Utilities for working with discrete values mapped to numeric domain
 #'
 #' @param op The operator to apply
