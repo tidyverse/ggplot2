@@ -210,10 +210,13 @@ test_that("aesthetics are drawn correctly", {
 })
 
 test_that("alpha is drawn correctly", {
+  d <- data.frame(x = 1, y = 1)
   expect_doppelganger("Alpha set in colour",
-    qplot(1, 1, color = I("#cc000044"), size = I(50))
+    ggplot(d, aes(x, y)) +
+      geom_point(color = I("#cc000044"), size = I(50))
   )
   expect_doppelganger("Alpha set in alpha",
-    qplot(1, 1, color = I("#cc0000"), size = I(50), alpha = I(0.27))
+    ggplot(d, aes(x, y)) +
+      geom_point(color = I("#cc0000"), size = I(50), alpha = I(0.27))
   )
 })

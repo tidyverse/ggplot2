@@ -152,22 +152,22 @@ test_that("all-Inf layers are not used for determining the type of scale", {
 
 test_that("scales are looked for in appropriate place", {
   xlabel <- function(x) ggplot_build(x)$layout$panel_scales_x[[1]]$name
-  p0 <- qplot(mpg, wt, data = mtcars) + scale_x_continuous("0")
+  p0 <- ggplot(mtcars, aes(mpg, wt)) + geom_point() + scale_x_continuous("0")
   expect_equal(xlabel(p0), "0")
 
   scale_x_continuous <- function(...) ggplot2::scale_x_continuous("1")
-  p1 <- qplot(mpg, wt, data = mtcars)
+  p1 <- ggplot(mtcars, aes(mpg, wt)) + geom_point()
   expect_equal(xlabel(p1), "1")
 
   f <- function() {
     scale_x_continuous <- function(...) ggplot2::scale_x_continuous("2")
-    qplot(mpg, wt, data = mtcars)
+    ggplot(mtcars, aes(mpg, wt)) + geom_point()
   }
   p2 <- f()
   expect_equal(xlabel(p2), "2")
 
   rm(scale_x_continuous)
-  p4 <- qplot(mpg, wt, data = mtcars)
+  p4 <- ggplot(mtcars, aes(mpg, wt)) + geom_point()
   expect_equal(xlabel(p4), waiver())
 })
 

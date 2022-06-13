@@ -153,7 +153,7 @@ fetch_ggproto <- function(x, name) {
     return(res)
   }
 
-  make_proto_method(x, res)
+  make_proto_method(x, res, name)
 }
 
 #' @export
@@ -163,20 +163,23 @@ fetch_ggproto <- function(x, name) {
     return(res)
   }
 
-  make_proto_method(.subset2(x, "self"), res)
+  make_proto_method(.subset2(x, "self"), res, name)
 }
 
-make_proto_method <- function(self, f) {
+make_proto_method <- function(self, f, name) {
   args <- formals(f)
   # is.null is a fast path for a common case; the %in% check is slower but also
   # catches the case where there's a `self = NULL` argument.
   has_self  <- !is.null(args[["self"]]) || "self"  %in% names(args)
 
+  # We assign the method with its correct name and construct a call to it to
+  # make errors reported as coming from the method name rather than `f()`
+  assign(name, f, envir = environment())
+  args <- list(quote(...))
   if (has_self) {
-    fun <- function(...) f(..., self = self)
-  } else {
-    fun <- function(...) f(...)
+    args$self <- quote(self)
   }
+  fun <- inject(function(...) !!call2(name, !!!args))
 
   class(fun) <- "ggproto_method"
   fun

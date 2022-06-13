@@ -39,7 +39,7 @@ test_that("missing values are replaced with na.value", {
 
 test_that("insufficient values raise an error", {
   df <- data_frame(x = 1, y = 1:3, z = factor(c(1:2, NA), exclude = NULL))
-  p <- qplot(x, y, data = df, colour = z)
+  p <- ggplot(df, aes(x, y, colour = z)) + geom_point()
 
   expect_error(ggplot_build(p + scale_colour_manual(values = "black")),
     "Insufficient values")

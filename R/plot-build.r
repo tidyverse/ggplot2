@@ -35,19 +35,11 @@ ggplot_build.ggplot <- function(plot) {
   data <- rep(list(NULL), length(layers))
 
   scales <- plot$scales
-  # Apply function to layer and matching data
-  by_layer <- function(f) {
-    out <- vector("list", length(data))
-    for (i in seq_along(data)) {
-      out[[i]] <- f(l = layers[[i]], d = data[[i]])
-    }
-    out
-  }
 
   # Allow all layers to make any final adjustments based
   # on raw input data and plot info
-  data <- by_layer(function(l, d) l$layer_data(plot$data))
-  data <- by_layer(function(l, d) l$setup_layer(d, plot))
+  data <- by_layer(function(l, d) l$layer_data(plot$data), layers, data, "computing layer data")
+  data <- by_layer(function(l, d) l$setup_layer(d, plot), layers, data, "setting up layer")
 
   # Initialise panels, add extra data for margins & missing faceting
   # variables, and add on a PANEL variable to data
@@ -55,7 +47,7 @@ ggplot_build.ggplot <- function(plot) {
   data <- layout$setup(data, plot$data, plot$plot_env)
 
   # Compute aesthetics to produce data with generalised variable names
-  data <- by_layer(function(l, d) l$compute_aesthetics(d, plot))
+  data <- by_layer(function(l, d) l$compute_aesthetics(d, plot), layers, data, "computing aesthetics")
 
   # Transform all scales
   data <- lapply(data, scales_transform_df, scales = scales)
@@ -69,17 +61,17 @@ ggplot_build.ggplot <- function(plot) {
   data <- layout$map_position(data)
 
   # Apply and map statistics
-  data <- by_layer(function(l, d) l$compute_statistic(d, layout))
-  data <- by_layer(function(l, d) l$map_statistic(d, plot))
+  data <- by_layer(function(l, d) l$compute_statistic(d, layout), layers, data, "computing stat")
+  data <- by_layer(function(l, d) l$map_statistic(d, plot), layers, data, "mapping stat to aesthetics")
 
   # Make sure missing (but required) aesthetics are added
   scales_add_missing(plot, c("x", "y"), plot$plot_env)
 
   # Reparameterise geoms from (e.g.) y and width to ymin and ymax
-  data <- by_layer(function(l, d) l$compute_geom_1(d))
+  data <- by_layer(function(l, d) l$compute_geom_1(d), layers, data, "setting up geom")
 
   # Apply position adjustments
-  data <- by_layer(function(l, d) l$compute_position(d, layout))
+  data <- by_layer(function(l, d) l$compute_position(d, layout), layers, data, "computing position")
 
   # Reset position scales, then re-train and map.  This ensures that facets
   # have control over the range of a plot: is it generated from what is
@@ -97,10 +89,10 @@ ggplot_build.ggplot <- function(plot) {
   }
 
   # Fill in defaults etc.
-  data <- by_layer(function(l, d) l$compute_geom_2(d))
+  data <- by_layer(function(l, d) l$compute_geom_2(d), layers, data, "setting up geom aesthetics")
 
   # Let layer stat have a final say before rendering
-  data <- by_layer(function(l, d) l$finish_statistics(d))
+  data <- by_layer(function(l, d) l$finish_statistics(d), layers, data, "finishing layer stat")
 
   # Let Layout modify data before rendering
   data <- layout$finish_data(data)
@@ -168,7 +160,7 @@ ggplot_gtable.ggplot_built <- function(data) {
   data <- data$data
   theme <- plot_theme(plot)
 
-  geom_grobs <- Map(function(l, d) l$draw_geom(d, layout), plot$layers, data)
+  geom_grobs <- by_layer(function(l, d) l$draw_geom(d, layout), plot$layers, data, "converting geom to grob")
   layout$setup_panel_guides(plot$guides, plot$layers, plot$mapping)
   plot_table <- layout$render(geom_grobs, data, theme, plot$labels)
 
@@ -418,4 +410,19 @@ ggplot_gtable.ggplot_built <- function(data) {
 #' @export
 ggplotGrob <- function(x) {
   ggplot_gtable(ggplot_build(x))
+}
+
+# Apply function to layer and matching data
+by_layer <- function(f, layers, data, step = NULL) {
+  ordinal <- label_ordinal()
+  out <- vector("list", length(data))
+  try_fetch(
+    for (i in seq_along(data)) {
+      out[[i]] <- f(l = layers[[i]], d = data[[i]])
+    },
+    error = function(cnd) {
+      cli::cli_abort(c("Problem while {step}.", "i" = "Error occurred in the {ordinal(i)} layer."), call = I(layers[[i]]$constructor), parent = cnd)
+    }
+  )
+  out
 }

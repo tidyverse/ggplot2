@@ -313,19 +313,22 @@ test_that("axis guides are drawn correctly", {
 
 test_that("axis guides are drawn correctly in plots", {
   expect_doppelganger("align facet labels, facets horizontal",
-    qplot(hwy, reorder(model, hwy), data = mpg) +
+    ggplot(mpg, aes(hwy, reorder(model, hwy))) +
+      geom_point() +
       facet_grid(manufacturer ~ ., scales = "free", space = "free") +
       theme_test() +
       theme(strip.text.y = element_text(angle = 0))
   )
   expect_doppelganger("align facet labels, facets vertical",
-    qplot(reorder(model, hwy), hwy, data = mpg) +
+    ggplot(mpg, aes(reorder(model, hwy), hwy)) +
+      geom_point() +
       facet_grid(. ~ manufacturer, scales = "free", space = "free") +
       theme_test() +
       theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
   )
   expect_doppelganger("thick axis lines",
-    qplot(wt, mpg, data = mtcars) +
+    ggplot(mtcars, aes(wt, mpg)) +
+      geom_point() +
       theme_test() +
       theme(axis.line = element_line(size = 5, lineend = "square"))
   )
@@ -529,9 +532,9 @@ test_that("colorbar can be styled", {
           low = 'white', high = 'red',
           guide = guide_colorbar(
             frame.colour = "green",
-            frame.linewidth = 1.5,
+            frame.linewidth = 1.5 / .pt,
             ticks.colour = "black",
-            ticks.linewidth = 2.5
+            ticks.linewidth = 2.5 / .pt
             )
         )
     )

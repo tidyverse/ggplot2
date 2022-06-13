@@ -66,7 +66,11 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 }
 \description{
-This is pure annotation, so does not affect position scales.
+Display polygons as a map. This is meant as annotation, so it does not
+affect position scales. Note that this function predates the \code{\link[=geom_sf]{geom_sf()}}
+framework and does not work with sf geometry columns as input. However,
+it can be used in conjunction with \code{geom_sf()} layers and/or
+\code{\link[=coord_sf]{coord_sf()}} (see examples).
 }
 \section{Aesthetics}{
 
@@ -85,10 +89,12 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
 
 \examples{
-# When using geom_polygon, you will typically need two data frames:
-# one contains the coordinates of each polygon (positions),  and the
-# other the values associated with each polygon (values).  An id
-# variable links the two together
+# First, a made-up example containing a few polygons, to explain
+# how `geom_map()` works. It requires two data frames:
+# One contains the coordinates of each polygon (`positions`), and is
+# provided via the `map` argument. The other contains the
+# other the values associated with each polygon (`values`).  An id
+# variable links the two together.
 
 ids <- factor(c("1.1", "2.1", "1.2", "2.2", "1.3", "2.3"))
 
@@ -115,7 +121,7 @@ ggplot(values, aes(fill = value)) +
   geom_map(aes(map_id = id), map = positions) +
   expand_limits(positions) + ylim(0, 3)
 
-# Better example
+# Now some examples with real maps
 if (require(maps)) {
 
   crimes <- data.frame(state = tolower(rownames(USArrests)), USArrests)
@@ -127,14 +133,31 @@ if (require(maps)) {
   crimes_long <- do.call("rbind", vars)
 
   states_map <- map_data("state")
+
+  # without geospatial coordinate system, the resulting plot
+  # looks weird
   ggplot(crimes, aes(map_id = state)) +
     geom_map(aes(fill = Murder), map = states_map) +
     expand_limits(x = states_map$long, y = states_map$lat)
 
-  last_plot() + coord_map()
-  ggplot(crimes_long, aes(map_id = state)) +
-    geom_map(aes(fill = value), map = states_map) +
-    expand_limits(x = states_map$long, y = states_map$lat) +
-    facet_wrap( ~ variable)
+  # in combination with `coord_sf()` we get an appropriate result
+  ggplot(crimes, aes(map_id = state)) +
+    geom_map(aes(fill = Murder), map = states_map) +
+    # crs = 5070 is a Conus Albers projection for North America,
+    #   see: https://epsg.io/5070
+    # default_crs = 4326 tells coord_sf() that the input map data
+    #   are in longitude-latitude format
+    coord_sf(
+      crs = 5070, default_crs = 4326,
+      xlim = c(-125, -70), ylim = c(25, 52)
+     )
+
+ ggplot(crimes_long, aes(map_id = state)) +
+   geom_map(aes(fill = value), map = states_map) +
+   coord_sf(
+     crs = 5070, default_crs = 4326,
+     xlim = c(-125, -70), ylim = c(25, 52)
+   ) +
+   facet_wrap(~variable)
 }
 }

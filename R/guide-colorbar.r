@@ -21,7 +21,7 @@
 #' @param frame.colour A string specifying the colour of the frame
 #'   drawn around the bar. If `NULL` (the default), no frame is drawn.
 #' @param frame.linewidth A numeric specifying the width of the frame
-#'   drawn around the bar.
+#'   drawn around the bar in millimetres.
 #' @param frame.linetype A numeric specifying the linetype of the frame
 #'   drawn around the bar.
 #' @param nbin A numeric specifying the number of bins for drawing the
@@ -33,7 +33,8 @@
 #' @param ticks A logical specifying if tick marks on the colourbar should be
 #'   visible.
 #' @param ticks.colour A string specifying the colour of the tick marks.
-#' @param ticks.linewidth A numeric specifying the width of the tick marks.
+#' @param ticks.linewidth A numeric specifying the width of the tick marks in
+#'   millimetres.
 #' @param draw.ulim A logical specifying if the upper limit tick marks should
 #'   be visible.
 #' @param draw.llim A logical specifying if the lower limit tick marks should
@@ -125,13 +126,13 @@ guide_colourbar <- function(
 
   # frame
   frame.colour = NULL,
-  frame.linewidth = 0.5,
+  frame.linewidth = 0.5 / .pt,
   frame.linetype = 1,
 
   # ticks
   ticks = TRUE,
   ticks.colour = "white",
-  ticks.linewidth = 0.5,
+  ticks.linewidth = 0.5 / .pt,
   draw.ulim= TRUE,
   draw.llim = TRUE,
 
@@ -230,7 +231,7 @@ guide_train.colorbar <- function(guide, scale, aesthetic = NULL) {
     guide$key <- guide$key[nrow(guide$key):1, ]
     guide$bar <- guide$bar[nrow(guide$bar):1, ]
   }
-  guide$hash <- with(guide, digest::digest(list(title, key$.label, bar, name)))
+  guide$hash <- with(guide, hash(list(title, key$.label, bar, name)))
   guide
 }
 
@@ -325,7 +326,7 @@ guide_gengrob.colorbar <- function(guide, theme) {
                     default.units = "cm",
                     gp = gpar(
                       col = guide$frame.colour,
-                      lwd = guide$frame.linewidth,
+                      lwd = guide$frame.linewidth * .pt,
                       lty = guide$frame.linetype,
                       fill = NA)
                     )
@@ -454,7 +455,7 @@ guide_gengrob.colorbar <- function(guide, theme) {
       default.units = "cm",
       gp = gpar(
         col = guide$ticks.colour,
-        lwd = guide$ticks.linewidth,
+        lwd = guide$ticks.linewidth * .pt,
         lineend = "butt"
       )
     )
