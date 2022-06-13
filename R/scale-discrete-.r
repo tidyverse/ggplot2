@@ -166,6 +166,10 @@ vec_ptype2.ggplot2_mapped_discrete.double <- function(x, y, ...) new_mapped_disc
 #' @export
 vec_ptype2.double.ggplot2_mapped_discrete <- function(x, y, ...) new_mapped_discrete()
 #' @export
+vec_ptype2.ggplot2_mapped_discrete.integer <- function(x, y, ...) new_mapped_discrete()
+#' @export
+vec_ptype2.integer.ggplot2_mapped_discrete <- function(x, y, ...) new_mapped_discrete()
+#' @export
 vec_ptype2.ggplot2_mapped_discrete.character <- function(x, y, ...) character()
 #' @export
 vec_ptype2.character.ggplot2_mapped_discrete <- function(x, y, ...) character()
@@ -180,6 +184,10 @@ vec_cast.ggplot2_mapped_discrete.numeric <- function(x, to, ...) new_mapped_disc
 #' @export
 vec_cast.numeric.ggplot2_mapped_discrete <- function(x, to, ...) vec_data(x)
 #' @export
+vec_cast.ggplot2_mapped_discrete.integer <- function(x, to, ...) new_mapped_discrete(x)
+#' @export
+vec_cast.integer.ggplot2_mapped_discrete <- function(x, to, ...) as.integer(vec_data(x))
+#' @export
 vec_cast.ggplot2_mapped_discrete.double <- function(x, to, ...) new_mapped_discrete(x)
 #' @export
 vec_cast.double.ggplot2_mapped_discrete <- function(x, to, ...) vec_data(x)
@@ -189,8 +197,15 @@ vec_cast.character.ggplot2_mapped_discrete <- function(x, to, ...) as.character(
 vec_cast.ggplot2_mapped_discrete.factor <- function(x, to, ...) new_mapped_discrete(unclass(x))
 #' @export
 vec_cast.factor.ggplot2_mapped_discrete <- function(x, to, ...) factor(vec_data(x), ...)
+#' Utilities for working with discrete values mapped to numeric domain
+#'
+#' @param op The operator to apply
+#' @param x,y items to apply the operator to
+#' @param ... passed on
 #' @export vec_arith.ggplot2_mapped_discrete
 #' @method vec_arith ggplot2_mapped_discrete
+#'
+#' @keywords internal
 #' @export
 vec_arith.ggplot2_mapped_discrete <- function(op, x, y, ...) {
   UseMethod("vec_arith.ggplot2_mapped_discrete", y)
