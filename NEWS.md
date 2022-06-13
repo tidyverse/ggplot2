@@ -1,5 +1,10 @@
 # ggplot2 (development version)
 
+* `stage()` now properly refers to the values without scale transformations for
+  the stage of `after_stat`. If your code requires the scaled version of the
+  values, you have to apply the same transformation by yourself, e.g. `sqrt()`
+  for `scale_{x,y}_sqrt()` (@yutannihilation and @teunbrand, #4155).
+
 * `qplot()` is now formally deprecated (@yutannihilation, #3956).
 
 * Use `rlang::hash()` instead of `digest::digest()`. This update may lead to 
