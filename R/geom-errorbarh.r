@@ -73,10 +73,9 @@ GeomErrorbarh <- ggproto("GeomErrorbarh", Geom,
       y = vec_interleave(data$ymin, data$ymax, NA, data$y,    data$y,    NA, data$ymin, data$ymax),
       colour = rep(data$colour, each = 8),
       alpha = rep(data$alpha, each = 8),
-      linewidth = rep(data$linewidth, each = 8),
+      size = rep(data$linewidth, each = 8),
       linetype = rep(data$linetype, each = 8),
       group = rep(1:(nrow(data)), each = 8),
-      row.names = 1:(nrow(data) * 8),
       .size = nrow(data) * 8,
       .name_repair = "minimal"
     ), panel_params, coord, lineend = lineend)
