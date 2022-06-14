@@ -86,6 +86,11 @@
 #'   scale_colour_discrete(l = 40)
 #' p + geom_label(aes(fill = factor(cyl)), colour = "white", fontface = "bold")
 #'
+#' # Customise legend, change legend label from a to a dot
+#' p + geom_text(aes(colour = factor(cyl))) +
+#'   scale_colour_hue("Cylinders",
+#'                    guide = guide_legend(override.aes = aes(label = "●")))
+#'
 #' p + geom_text(aes(size = wt))
 #' # Scale height of text, rather than sqrt(height)
 #' p +
