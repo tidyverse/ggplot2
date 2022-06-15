@@ -1,5 +1,10 @@
 # ggplot2 (development version)
 
+* A `linewidth` aesthetic has been introduced and supersedes the `size` 
+  aesthetic for scaling the width of lines in line based geoms. `size` will 
+  remain functioning but deprecated for these geoms and it is recommended to 
+  update all code to reflect the new aesthetic (@thomasp85, #3672)
+
 * Secondary axis ticks are now positioned more precisely, removing small visual
   artefacts with alignment between grid and ticks (@thomasp85, #3576)
 
