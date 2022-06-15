@@ -462,7 +462,7 @@
   required_aes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span>,
   
   default_aes <span class="op">=</span> <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>
-    colour <span class="op">=</span> <span class="cn">NA</span>, fill <span class="op">=</span> <span class="st">"grey20"</span>, size <span class="op">=</span> <span class="fl">0.5</span>,
+    colour <span class="op">=</span> <span class="cn">NA</span>, fill <span class="op">=</span> <span class="st">"grey20"</span>, linewidth <span class="op">=</span> <span class="fl">0.5</span>,
     linetype <span class="op">=</span> <span class="fl">1</span>, alpha <span class="op">=</span> <span class="fl">1</span>
   <span class="op">)</span>,
 
@@ -482,7 +482,7 @@
       gp <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">gpar</a></span><span class="op">(</span>
         col <span class="op">=</span> <span class="va">first_row</span><span class="op">$</span><span class="va">colour</span>,
         fill <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/alpha.html" class="external-link">alpha</a></span><span class="op">(</span><span class="va">first_row</span><span class="op">$</span><span class="va">fill</span>, <span class="va">first_row</span><span class="op">$</span><span class="va">alpha</span><span class="op">)</span>,
-        lwd <span class="op">=</span> <span class="va">first_row</span><span class="op">$</span><span class="va">size</span> <span class="op">*</span> <span class="va">.pt</span>,
+        lwd <span class="op">=</span> <span class="va">first_row</span><span class="op">$</span><span class="va">linewidth</span> <span class="op">*</span> <span class="va">.pt</span>,
         lty <span class="op">=</span> <span class="va">first_row</span><span class="op">$</span><span class="va">linetype</span>
       <span class="op">)</span>
     <span class="op">)</span>
@@ -516,7 +516,7 @@
 <p>Sometimes you just want to make a small modification to an existing geom. In this case, rather than inheriting from <code>Geom</code> you can inherit from an existing subclass. For example, we might want to change the defaults for <code>GeomPolygon</code> to work better with <code>StatChull</code>:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">GeomPolygonHollow</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggproto.html">ggproto</a></span><span class="op">(</span><span class="st">"GeomPolygonHollow"</span>, <span class="va">GeomPolygon</span>,
-  default_aes <span class="op">=</span> <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"black"</span>, fill <span class="op">=</span> <span class="cn">NA</span>, size <span class="op">=</span> <span class="fl">0.5</span>, linetype <span class="op">=</span> <span class="fl">1</span>,
+  default_aes <span class="op">=</span> <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"black"</span>, fill <span class="op">=</span> <span class="cn">NA</span>, linewidth <span class="op">=</span> <span class="fl">0.5</span>, linetype <span class="op">=</span> <span class="fl">1</span>,
     alpha <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>
   <span class="op">)</span>
 <span class="va">geom_chull</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">mapping</span> <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">data</span> <span class="op">=</span> <span class="cn">NULL</span>, 
