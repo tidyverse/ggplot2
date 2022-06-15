@@ -101,7 +101,7 @@ the very regular alignment of \code{\link[=geom_bin2d]{geom_bin2d()}}.
 \item \code{fill}
 \item \code{group}
 \item \code{linetype}
-\item \code{size}
+\item \code{linewidth}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

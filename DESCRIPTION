@@ -221,6 +221,7 @@ Collate:
     'scale-hue.r'
     'scale-identity.r'
     'scale-linetype.r'
+    'scale-linewidth.R'
     'scale-manual.r'
     'scale-shape.r'
     'scale-size.r'

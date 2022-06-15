@@ -66,5 +66,7 @@ GeomCol <- ggproto("GeomCol", GeomRect,
       lineend = lineend,
       linejoin = linejoin
     )
-  }
+  },
+
+  rename_size = TRUE
 )

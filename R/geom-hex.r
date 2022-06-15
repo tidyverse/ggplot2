@@ -90,7 +90,7 @@ GeomHex <- ggproto("GeomHex", Geom,
       gp = gpar(
         col = coords$colour,
         fill = alpha(coords$fill, coords$alpha),
-        lwd = coords$size * .pt,
+        lwd = coords$linewidth * .pt,
         lty = coords$linetype,
         lineend = lineend,
         linejoin = linejoin,
@@ -106,12 +106,14 @@ GeomHex <- ggproto("GeomHex", Geom,
   default_aes = aes(
     colour = NA,
     fill = "grey50",
-    size = 0.5,
+    linewidth = 0.5,
     linetype = 1,
     alpha = NA
   ),
 
-  draw_key = draw_key_polygon
+  draw_key = draw_key_polygon,
+
+  rename_size = TRUE
 )
 
 
