@@ -208,15 +208,25 @@ together according to inheritance, read more about theme inheritance below.</p>
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>line</dt>
 <dd><p>all line elements (<code><a href="element.html">element_line()</a></code>)</p></dd>
+
+
 <dt>rect</dt>
 <dd><p>all rectangular elements (<code><a href="element.html">element_rect()</a></code>)</p></dd>
+
+
 <dt>text</dt>
 <dd><p>all text elements (<code><a href="element.html">element_text()</a></code>)</p></dd>
+
+
 <dt>title</dt>
 <dd><p>all title elements: plot, axes, legends (<code><a href="element.html">element_text()</a></code>;
 inherits from <code>text</code>)</p></dd>
+
+
 <dt>aspect.ratio</dt>
 <dd><p>aspect ratio of the panel</p></dd>
+
+
 <dt>axis.title, axis.title.x, axis.title.y, axis.title.x.top, axis.title.x.bottom, axis.title.y.left, axis.title.y.right</dt>
 <dd><p>labels of axes (<code><a href="element.html">element_text()</a></code>). Specify all axes' labels (<code>axis.title</code>),
 labels by plane (using <code>axis.title.x</code> or <code>axis.title.y</code>), or individually
@@ -224,6 +234,8 @@ for each axis (using <code>axis.title.x.bottom</code>, <code>axis.title.x.top</c
 <code>axis.title.y.left</code>, <code>axis.title.y.right</code>). <code>axis.title.*.*</code> inherits from
 <code>axis.title.*</code> which inherits from <code>axis.title</code>, which in turn inherits
 from <code>text</code></p></dd>
+
+
 <dt>axis.text, axis.text.x, axis.text.y, axis.text.x.top, axis.text.x.bottom, axis.text.y.left, axis.text.y.right</dt>
 <dd><p>tick labels along axes (<code><a href="element.html">element_text()</a></code>). Specify all axis tick labels (<code>axis.text</code>),
 tick labels by plane (using <code>axis.text.x</code> or <code>axis.text.y</code>), or individually
@@ -231,6 +243,8 @@ for each axis (using <code>axis.text.x.bottom</code>, <code>axis.text.x.top</cod
 <code>axis.text.y.left</code>, <code>axis.text.y.right</code>). <code>axis.text.*.*</code> inherits from
 <code>axis.text.*</code> which inherits from <code>axis.text</code>, which in turn inherits
 from <code>text</code></p></dd>
+
+
 <dt>axis.ticks, axis.ticks.x, axis.ticks.x.top, axis.ticks.x.bottom, axis.ticks.y, axis.ticks.y.left, axis.ticks.y.right</dt>
 <dd><p>tick marks along axes (<code><a href="element.html">element_line()</a></code>). Specify all tick marks (<code>axis.ticks</code>),
 ticks by plane (using <code>axis.ticks.x</code> or <code>axis.ticks.y</code>), or individually
@@ -238,8 +252,12 @@ for each axis (using <code>axis.ticks.x.bottom</code>, <code>axis.ticks.x.top</c
 <code>axis.ticks.y.left</code>, <code>axis.ticks.y.right</code>). <code>axis.ticks.*.*</code> inherits from
 <code>axis.ticks.*</code> which inherits from <code>axis.ticks</code>, which in turn inherits
 from <code>line</code></p></dd>
+
+
 <dt>axis.ticks.length, axis.ticks.length.x, axis.ticks.length.x.top, axis.ticks.length.x.bottom, axis.ticks.length.y, axis.ticks.length.y.left, axis.ticks.length.y.right</dt>
 <dd><p>length of tick marks (<code>unit</code>)</p></dd>
+
+
 <dt>axis.line, axis.line.x, axis.line.x.top, axis.line.x.bottom, axis.line.y, axis.line.y.left, axis.line.y.right</dt>
 <dd><p>lines along axes (<code><a href="element.html">element_line()</a></code>). Specify lines along all axes (<code>axis.line</code>),
 lines for each plane (using <code>axis.line.x</code> or <code>axis.line.y</code>), or individually
@@ -247,70 +265,112 @@ for each axis (using <code>axis.line.x.bottom</code>, <code>axis.line.x.top</cod
 <code>axis.line.y.left</code>, <code>axis.line.y.right</code>). <code>axis.line.*.*</code> inherits from
 <code>axis.line.*</code> which inherits from <code>axis.line</code>, which in turn inherits
 from <code>line</code></p></dd>
+
+
 <dt>legend.background</dt>
 <dd><p>background of legend (<code><a href="element.html">element_rect()</a></code>; inherits
 from <code>rect</code>)</p></dd>
+
+
 <dt>legend.margin</dt>
 <dd><p>the margin around each legend (<code><a href="element.html">margin()</a></code>)</p></dd>
+
+
 <dt>legend.spacing, legend.spacing.x, legend.spacing.y</dt>
 <dd><p>the spacing between legends (<code>unit</code>). <code>legend.spacing.x</code> &amp; <code>legend.spacing.y</code>
 inherit from <code>legend.spacing</code> or can be specified separately</p></dd>
+
+
 <dt>legend.key</dt>
 <dd><p>background underneath legend keys (<code><a href="element.html">element_rect()</a></code>;
 inherits from <code>rect</code>)</p></dd>
+
+
 <dt>legend.key.size, legend.key.height, legend.key.width</dt>
 <dd><p>size of legend keys (<code>unit</code>); key background height &amp; width inherit from
 <code>legend.key.size</code> or can be specified separately</p></dd>
+
+
 <dt>legend.text</dt>
 <dd><p>legend item labels (<code><a href="element.html">element_text()</a></code>; inherits from
 <code>text</code>)</p></dd>
+
+
 <dt>legend.text.align</dt>
 <dd><p>alignment of legend labels (number from 0 (left) to
 1 (right))</p></dd>
+
+
 <dt>legend.title</dt>
 <dd><p>title of legend (<code><a href="element.html">element_text()</a></code>; inherits from
 <code>title</code>)</p></dd>
+
+
 <dt>legend.title.align</dt>
 <dd><p>alignment of legend title (number from 0 (left) to
 1 (right))</p></dd>
+
+
 <dt>legend.position</dt>
 <dd><p>the position of legends ("none", "left", "right",
 "bottom", "top", or two-element numeric vector)</p></dd>
+
+
 <dt>legend.direction</dt>
 <dd><p>layout of items in legends ("horizontal" or
 "vertical")</p></dd>
+
+
 <dt>legend.justification</dt>
 <dd><p>anchor point for positioning legend inside plot
 ("center" or two-element numeric vector) or the justification according to
 the plot area when positioned outside the plot</p></dd>
+
+
 <dt>legend.box</dt>
 <dd><p>arrangement of multiple legends ("horizontal" or
 "vertical")</p></dd>
+
+
 <dt>legend.box.just</dt>
 <dd><p>justification of each legend within the overall
 bounding box, when there are multiple legends ("top", "bottom", "left", or
 "right")</p></dd>
+
+
 <dt>legend.box.margin</dt>
 <dd><p>margins around the full legend area, as specified
 using <code><a href="element.html">margin()</a></code></p></dd>
+
+
 <dt>legend.box.background</dt>
 <dd><p>background of legend area (<code><a href="element.html">element_rect()</a></code>;
 inherits from <code>rect</code>)</p></dd>
+
+
 <dt>legend.box.spacing</dt>
 <dd><p>The spacing between the plotting area and the
 legend box (<code>unit</code>)</p></dd>
+
+
 <dt>panel.background</dt>
 <dd><p>background of plotting area, drawn underneath plot
 (<code><a href="element.html">element_rect()</a></code>; inherits from <code>rect</code>)</p></dd>
+
+
 <dt>panel.border</dt>
 <dd><p>border around plotting area, drawn on top of plot so that
 it covers tick marks and grid lines. This should be used with
 <code>fill = NA</code>
 (<code><a href="element.html">element_rect()</a></code>; inherits from <code>rect</code>)</p></dd>
+
+
 <dt>panel.spacing, panel.spacing.x, panel.spacing.y</dt>
 <dd><p>spacing between facet
 panels (<code>unit</code>). <code>panel.spacing.x</code> &amp; <code>panel.spacing.y</code> inherit from <code>panel.spacing</code>
 or can be specified separately.</p></dd>
+
+
 <dt>panel.grid, panel.grid.major, panel.grid.minor, panel.grid.major.x, panel.grid.major.y, panel.grid.minor.x, panel.grid.minor.y</dt>
 <dd><p>grid lines (<code><a href="element.html">element_line()</a></code>). Specify major grid lines,
 or minor grid lines separately (using <code>panel.grid.major</code> or <code>panel.grid.minor</code>)
@@ -319,16 +379,24 @@ or individually for each axis (using <code>panel.grid.major.x</code>, <code>pane
 and x axis grid lines are vertical. <code>panel.grid.*.*</code> inherits from
 <code>panel.grid.*</code> which inherits from <code>panel.grid</code>, which in turn inherits
 from <code>line</code></p></dd>
+
+
 <dt>panel.ontop</dt>
 <dd><p>option to place the panel (background, gridlines) over
 the data layers (<code>logical</code>). Usually used with a transparent or blank
 <code>panel.background</code>.</p></dd>
+
+
 <dt>plot.background</dt>
 <dd><p>background of the entire plot (<code><a href="element.html">element_rect()</a></code>;
 inherits from <code>rect</code>)</p></dd>
+
+
 <dt>plot.title</dt>
 <dd><p>plot title (text appearance) (<code><a href="element.html">element_text()</a></code>; inherits
 from <code>title</code>) left-aligned by default</p></dd>
+
+
 <dt>plot.title.position, plot.caption.position</dt>
 <dd><p>Alignment of the plot title/subtitle
 and caption.  The setting for <code>plot.title.position</code> applies to both
@@ -336,59 +404,88 @@ the title and the subtitle. A value of "panel" (the default) means that
 titles and/or caption are aligned to the plot panels. A value of "plot" means
 that titles and/or caption are aligned to the entire plot (minus any space
 for margins and plot tag).</p></dd>
+
+
 <dt>plot.subtitle</dt>
 <dd><p>plot subtitle (text appearance) (<code><a href="element.html">element_text()</a></code>;
 inherits from <code>title</code>) left-aligned by default</p></dd>
+
+
 <dt>plot.caption</dt>
 <dd><p>caption below the plot (text appearance)
 (<code><a href="element.html">element_text()</a></code>; inherits from <code>title</code>) right-aligned by default</p></dd>
+
+
 <dt>plot.tag</dt>
 <dd><p>upper-left label to identify a plot (text appearance)
 (<code><a href="element.html">element_text()</a></code>; inherits from <code>title</code>) left-aligned by default</p></dd>
+
+
 <dt>plot.tag.position</dt>
 <dd><p>The position of the tag as a string ("topleft",
 "top", "topright", "left", "right", "bottomleft", "bottom", "bottomright)
 or a coordinate. If a string, extra space will be added to accommodate the
 tag.</p></dd>
+
+
 <dt>plot.margin</dt>
 <dd><p>margin around entire plot (<code>unit</code> with the sizes of
 the top, right, bottom, and left margins)</p></dd>
+
+
 <dt>strip.background, strip.background.x, strip.background.y</dt>
 <dd><p>background of facet labels (<code><a href="element.html">element_rect()</a></code>;
 inherits from <code>rect</code>). Horizontal facet background (<code>strip.background.x</code>)
 &amp; vertical facet background (<code>strip.background.y</code>) inherit from
 <code>strip.background</code> or can be specified separately</p></dd>
+
+
 <dt>strip.clip</dt>
 <dd><p>should strip background edges and strip labels be clipped
 to the extend of the strip background? Options are <code>"on"</code> to clip, <code>"off"</code>
 to disable clipping or <code>"inherit"</code> (default) to take the clipping setting
 from the parent viewport.</p></dd>
+
+
 <dt>strip.placement</dt>
 <dd><p>placement of strip with respect to axes,
 either "inside" or "outside". Only important when axes and strips are
 on the same side of the plot.</p></dd>
+
+
 <dt>strip.text, strip.text.x, strip.text.y</dt>
 <dd><p>facet labels (<code><a href="element.html">element_text()</a></code>;
 inherits from  <code>text</code>). Horizontal facet labels (<code>strip.text.x</code>) &amp; vertical
 facet labels (<code>strip.text.y</code>) inherit from <code>strip.text</code> or can be specified
 separately</p></dd>
+
+
 <dt>strip.switch.pad.grid</dt>
 <dd><p>space between strips and axes when strips are
 switched (<code>unit</code>)</p></dd>
+
+
 <dt>strip.switch.pad.wrap</dt>
 <dd><p>space between strips and axes when strips are
 switched (<code>unit</code>)</p></dd>
+
+
 <dt>...</dt>
 <dd><p>additional element specifications not part of base ggplot2. In general,
 these should also be defined in the <code>element tree</code> argument.</p></dd>
+
+
 <dt>complete</dt>
 <dd><p>set this to <code>TRUE</code> if this is a complete theme, such as
 the one returned by <code><a href="ggtheme.html">theme_grey()</a></code>. Complete themes behave
 differently when added to a ggplot object. Also, when setting
 <code>complete = TRUE</code> all elements will be set to inherit from blank
 elements.</p></dd>
+
+
 <dt>validate</dt>
 <dd><p><code>TRUE</code> to run <code>validate_element()</code>, <code>FALSE</code> to bypass checks.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="theme-inheritance">Theme inheritance<a class="anchor" aria-label="anchor" href="#theme-inheritance"></a></h2>
@@ -544,7 +641,7 @@ details of the specific theme elements.</p></div>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
   </div></footer></body></html>

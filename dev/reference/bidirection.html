@@ -112,41 +112,62 @@ how they are used when implementing <code>Geom</code>, <code>Stat</code>, and <c
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>data</dt>
 <dd><p>The layer data</p></dd>
+
+
 <dt>params</dt>
 <dd><p>The parameters of the <code>Stat</code>/<code>Geom</code>. Only the <code>orientation</code>
 parameter will be used.</p></dd>
+
+
 <dt>main_is_orthogonal</dt>
 <dd><p>If only <code>x</code> or <code>y</code> are present do they correspond
 to the main orientation or the reverse. E.g. If <code>TRUE</code> and <code>y</code> is present
 it is not flipped. If <code>NA</code> this check will be ignored.</p></dd>
+
+
 <dt>range_is_orthogonal</dt>
 <dd><p>If <code>xmin</code>/<code>xmax</code> or <code>ymin</code>/<code>ymax</code> is present do
 they correspond to the main orientation or reverse. If <code>NA</code> this check will
 be ignored.</p></dd>
+
+
 <dt>group_has_equal</dt>
 <dd><p>Is it expected that grouped data has either a single
 <code>x</code> or <code>y</code> value that will correspond to the orientation.</p></dd>
+
+
 <dt>ambiguous</dt>
 <dd><p>Is the layer ambiguous in its mapping by nature. If so, it
 will only be flipped if <code>params$orientation == "y"</code></p></dd>
+
+
 <dt>main_is_continuous</dt>
 <dd><p>If there is a discrete and continuous axis, does
 the continuous one correspond to the main orientation?</p></dd>
+
+
 <dt>main_is_optional</dt>
 <dd><p>Is the main axis aesthetic optional and, if not
 given, set to <code>0</code></p></dd>
+
+
 <dt>flip</dt>
 <dd><p>Logical. Is the layer flipped.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p><code>has_flipped_aes()</code> returns <code>TRUE</code> if it detects a layer in the other
+    
+
+<p><code>has_flipped_aes()</code> returns <code>TRUE</code> if it detects a layer in the other
 orientation and <code>FALSE</code> otherwise. <code>flip_data()</code> will return the input
 unchanged if <code>flip = FALSE</code> and the data with flipped aesthetic names if
 <code>flip = TRUE</code>. <code>flipped_names()</code> returns a named list of strings. If
 <code>flip = FALSE</code> the name of the element will correspond to the element, e.g.
 <code>flipped_names(FALSE)$x == "x"</code> and if <code>flip = TRUE</code> it will correspond to
 the flipped name, e.g. <code>flipped_names(FALSE)$x == "y"</code></p>
+
+
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -205,7 +226,7 @@ be a check for whether all <code>x</code> or all <code>y</code> are equal to <co
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
   </div></footer></body></html>

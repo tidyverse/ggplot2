@@ -147,6 +147,8 @@ that set the <code>trans</code> argument for commonly used transformations:
 <code><a href="waiver.html">waiver()</a></code>, the default, the name of the scale is taken from the first
 mapping used for that aesthetic. If <code>NULL</code>, the legend title will be
 omitted.</p></dd>
+
+
 <dt>breaks</dt>
 <dd><p>One of:</p><ul><li><p><code>NULL</code> for no breaks</p></li>
 <li><p><code><a href="waiver.html">waiver()</a></code> for the default breaks computed by the
@@ -156,6 +158,8 @@ omitted.</p></dd>
 as output (e.g., a function returned by <code><a href="https://scales.r-lib.org/reference/breaks_extended.html" class="external-link">scales::extended_breaks()</a></code>).
 Also accepts rlang <a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">lambda</a> function notation.</p></li>
 </ul></dd>
+
+
 <dt>minor_breaks</dt>
 <dd><p>One of:</p><ul><li><p><code>NULL</code> for no minor breaks</p></li>
 <li><p><code><a href="waiver.html">waiver()</a></code> for the default breaks (one minor break between
@@ -164,11 +168,15 @@ each major break)</p></li>
 <li><p>A function that given the limits returns a vector of minor breaks. Also
 accepts rlang <a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">lambda</a> function notation.</p></li>
 </ul></dd>
+
+
 <dt>n.breaks</dt>
 <dd><p>An integer guiding the number of major breaks. The algorithm
 may choose a slightly different number to ensure nice break labels. Will
 only have an effect if <code>breaks = waiver()</code>. Use <code>NULL</code> to use the default
 number of breaks given by the transformation.</p></dd>
+
+
 <dt>labels</dt>
 <dd><p>One of:</p><ul><li><p><code>NULL</code> for no labels</p></li>
 <li><p><code><a href="waiver.html">waiver()</a></code> for the default labels computed by the
@@ -179,6 +187,8 @@ transformation object</p></li>
 as output. Also accepts rlang <a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">lambda</a> function
 notation.</p></li>
 </ul></dd>
+
+
 <dt>limits</dt>
 <dd><p>One of:</p><ul><li><p><code>NULL</code> to use the default scale range</p></li>
 <li><p>A numeric vector of length two providing limits of the scale.
@@ -190,6 +200,8 @@ Note that setting limits on positional scales will <strong>remove</strong> data 
 If the purpose is to zoom, use the limit argument in the coordinate system
 (see <code><a href="coord_cartesian.html">coord_cartesian()</a></code>).</p></li>
 </ul></dd>
+
+
 <dt>expand</dt>
 <dd><p>For position scales, a vector of range expansion constants used to add some
 padding around the data to ensure that they are placed some distance
@@ -197,6 +209,8 @@ away from the axes. Use the convenience function <code><a href="expansion.html">
 to generate the values for the <code>expand</code> argument. The defaults are to
 expand the scale by 5% on each side for continuous variables, and by
 0.6 units on each side for discrete variables.</p></dd>
+
+
 <dt>oob</dt>
 <dd><p>One of:</p><ul><li><p>Function that handles limits outside of the scale limits
 (out of bounds). Also accepts rlang <a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">lambda</a>
@@ -206,8 +220,12 @@ bounds values with <code>NA</code>.</p></li>
 <li><p><code><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">scales::squish()</a></code> for squishing out of bounds values into range.</p></li>
 <li><p><code><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">scales::squish_infinite()</a></code> for squishing infinite values into range.</p></li>
 </ul></dd>
+
+
 <dt>na.value</dt>
 <dd><p>Missing values will be replaced with this value.</p></dd>
+
+
 <dt>trans</dt>
 <dd><p>For continuous scales, the name of a transformation object
 or the object itself. Built-in transformations include "asn", "atanh",
@@ -219,16 +237,25 @@ and methods for generating breaks and labels. Transformation objects
 are defined in the scales package, and are called <code>&lt;name&gt;_trans</code> (e.g.,
 <code><a href="https://scales.r-lib.org/reference/boxcox_trans.html" class="external-link">scales::boxcox_trans()</a></code>). You can create your own
 transformation with <code><a href="https://scales.r-lib.org/reference/trans_new.html" class="external-link">scales::trans_new()</a></code>.</p></dd>
+
+
 <dt>guide</dt>
 <dd><p>A function used to create a guide or its name. See
 <code><a href="guides.html">guides()</a></code> for more information.</p></dd>
+
+
 <dt>position</dt>
 <dd><p>For position scales, The position of the axis.
 <code>left</code> or <code>right</code> for y axes, <code>top</code> or <code>bottom</code> for x axes.</p></dd>
+
+
 <dt>sec.axis</dt>
 <dd><p><code><a href="sec_axis.html">sec_axis()</a></code> is used to specify a secondary axis.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Other arguments passed on to <code>scale_(x|y)_continuous()</code></p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -328,7 +355,7 @@ transformation with <code><a href="https://scales.r-lib.org/reference/trans_new.
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
   </div></footer></body></html>

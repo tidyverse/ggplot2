@@ -128,6 +128,8 @@ in the presence of overplotting.</p>
 <code><a href="aes_.html">aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply <code>mapping</code> if there is no plot mapping.</p></dd>
+
+
 <dt>data</dt>
 <dd><p>The data to be displayed in this layer. There are three
 options:</p>
@@ -140,41 +142,60 @@ data. All objects will be fortified to produce a data frame. See
 the plot data. The return value must be a <code>data.frame</code>, and
 will be used as the layer data. A <code>function</code> can be created
 from a <code>formula</code> (e.g. <code>~ head(.x, 10)</code>).</p></dd>
+
+
 <dt>position</dt>
 <dd><p>Position adjustment, either as a string naming the adjustment
 (e.g. <code>"jitter"</code> to use <code>position_jitter</code>), or the result of a call to a
 position adjustment function. Use the latter if you need to change the
 settings of the adjustment.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Other arguments passed on to <code><a href="layer.html">layer()</a></code>. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 <code>colour = "red"</code> or <code>size = 3</code>. They may also be parameters
 to the paired geom/stat.</p></dd>
+
+
 <dt>na.rm</dt>
 <dd><p>If <code>FALSE</code>, the default, missing values are removed with
 a warning. If <code>TRUE</code>, missing values are silently removed.</p></dd>
+
+
 <dt>show.legend</dt>
 <dd><p>logical. Should this layer be included in the legends?
 <code>NA</code>, the default, includes if any aesthetics are mapped.
 <code>FALSE</code> never includes, and <code>TRUE</code> always includes.
 It can also be a named logical vector to finely select the aesthetics to
 display.</p></dd>
+
+
 <dt>inherit.aes</dt>
 <dd><p>If <code>FALSE</code>, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. <code><a href="borders.html">borders()</a></code>.</p></dd>
+
+
 <dt>geom, stat</dt>
 <dd><p>Use to override the default connection between
 <code>geom_bin_2d()</code> and <code>stat_bin_2d()</code>.</p></dd>
+
+
 <dt>bins</dt>
 <dd><p>numeric vector giving number of bins in both vertical and
 horizontal directions. Set to 30 by default.</p></dd>
+
+
 <dt>binwidth</dt>
 <dd><p>Numeric vector giving bin width in both vertical and
 horizontal directions. Overrides <code>bins</code> if both set.</p></dd>
+
+
 <dt>drop</dt>
 <dd><p>if <code>TRUE</code> removes all cells with 0 counts.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="aesthetics">Aesthetics<a class="anchor" aria-label="anchor" href="#aesthetics"></a></h2>
@@ -247,7 +268,7 @@ horizontal directions. Overrides <code>bins</code> if both set.</p></dd>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
   </div></footer></body></html>

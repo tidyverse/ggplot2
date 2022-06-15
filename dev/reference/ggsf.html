@@ -190,14 +190,20 @@ limits along the other direction. Therefore, it is best to always specify limits
 for both x and y. Third, specifying limits via position scales or <code><a href="lims.html">xlim()</a></code>/<code><a href="lims.html">ylim()</a></code>
 is strongly discouraged, as it can result in data points being dropped from the plot even
 though they would be visible in the final plot region.</p></dd>
+
+
 <dt>expand</dt>
 <dd><p>If <code>TRUE</code>, the default, adds a small expansion factor to
 the limits to ensure that data and axes don't overlap. If <code>FALSE</code>,
 limits are taken exactly from the data or <code>xlim</code>/<code>ylim</code>.</p></dd>
+
+
 <dt>crs</dt>
 <dd><p>The coordinate reference system (CRS) into which all data should
 be projected before plotting. If not specified, will use the CRS defined
 in the first sf layer of the plot.</p></dd>
+
+
 <dt>default_crs</dt>
 <dd><p>The default CRS to be used for non-sf layers (which
 don't carry any CRS information) and scale limits. The default value of
@@ -206,8 +212,12 @@ non-sf layers and scale limits are assumed to be specified in projected
 coordinates. A useful alternative setting is <code>default_crs = sf::st_crs(4326)</code>,
 which means x and y positions are interpreted as longitude and latitude,
 respectively, in the World Geodetic System 1984 (WGS84).</p></dd>
+
+
 <dt>datum</dt>
 <dd><p>CRS that provides datum to use when generating graticules.</p></dd>
+
+
 <dt>label_graticule</dt>
 <dd><p>Character vector indicating which graticule lines should be labeled
 where. Meridians run north-south, and the letters <code>"N"</code> and <code>"S"</code> indicate that
@@ -223,6 +233,8 @@ are not guaranteed to reside on only one particular side of the plot panel. Also
 coincides with the edge of the plot panel. In such circumstances, <code>label_axes</code> will
 generally yield better results and should be used instead.</p>
 <p>This parameter can be used alone or in combination with <code>label_axes</code>.</p></dd>
+
+
 <dt>label_axes</dt>
 <dd><p>Character vector or named list of character values
 specifying which graticule lines (meridians or parallels) should be labeled on
@@ -232,6 +244,8 @@ parallels by <code>"N"</code> (for North). Default is <code>"--EN"</code>, which
 on the bottom, and parallels on the left. Alternatively, this setting could have been
 specified with <code>list(bottom = "E", left = "N")</code>.</p>
 <p>This parameter can be used alone or in combination with <code>label_graticule</code>.</p></dd>
+
+
 <dt>lims_method</dt>
 <dd><p>Method specifying how scale limits are converted into
 limits on the plot region. Has no effect when <code>default_crs = NULL</code>.
@@ -249,14 +263,20 @@ visible. This method can yield plot regions that are too large. Finally, method
 <code>"orthogonal"</code> applies limits separately along each axis, and method
 <code>"geometry_bbox"</code> ignores all limit information except the bounding boxes of any
 objects in the <code>geometry</code> aesthetic.</p></dd>
+
+
 <dt>ndiscr</dt>
 <dd><p>Number of segments to use for discretising graticule lines;
 try increasing this number when graticules look incorrect.</p></dd>
+
+
 <dt>default</dt>
 <dd><p>Is this the default coordinate system? If <code>FALSE</code> (the default),
 then replacing this coordinate system with another one creates a message alerting
 the user that the coordinate system is being replaced. If <code>TRUE</code>, that warning
 is suppressed.</p></dd>
+
+
 <dt>clip</dt>
 <dd><p>Should drawing be clipped to the extent of the plot panel? A
 setting of <code>"on"</code> (the default) means yes, and a setting of <code>"off"</code>
@@ -266,11 +286,15 @@ drawing of data points anywhere on the plot, including in the plot margins. If
 limits are set via <code>xlim</code> and <code>ylim</code> and some data points fall outside those
 limits, then those data points may show up in places such as the axes, the
 legend, the plot title, or the plot margins.</p></dd>
+
+
 <dt>mapping</dt>
 <dd><p>Set of aesthetic mappings created by <code><a href="aes.html">aes()</a></code> or
 <code><a href="aes_.html">aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply <code>mapping</code> if there is no plot mapping.</p></dd>
+
+
 <dt>data</dt>
 <dd><p>The data to be displayed in this layer. There are three
 options:</p>
@@ -283,64 +307,93 @@ data. All objects will be fortified to produce a data frame. See
 the plot data. The return value must be a <code>data.frame</code>, and
 will be used as the layer data. A <code>function</code> can be created
 from a <code>formula</code> (e.g. <code>~ head(.x, 10)</code>).</p></dd>
+
+
 <dt>stat</dt>
 <dd><p>The statistical transformation to use on the data for this
 layer, either as a <code>ggproto</code> <code>Geom</code> subclass or as a string naming the
 stat stripped of the <code>stat_</code> prefix (e.g. <code>"count"</code> rather than
 <code>"stat_count"</code>)</p></dd>
+
+
 <dt>position</dt>
 <dd><p>Position adjustment, either as a string naming the adjustment
 (e.g. <code>"jitter"</code> to use <code>position_jitter</code>), or the result of a call to a
 position adjustment function. Use the latter if you need to change the
 settings of the adjustment.</p></dd>
+
+
 <dt>na.rm</dt>
 <dd><p>If <code>FALSE</code>, the default, missing values are removed with
 a warning. If <code>TRUE</code>, missing values are silently removed.</p></dd>
+
+
 <dt>show.legend</dt>
 <dd><p>logical. Should this layer be included in the legends?
 <code>NA</code>, the default, includes if any aesthetics are mapped.
 <code>FALSE</code> never includes, and <code>TRUE</code> always includes.</p>
 <p>You can also set this to one of "polygon", "line", and "point" to
 override the default legend.</p></dd>
+
+
 <dt>inherit.aes</dt>
 <dd><p>If <code>FALSE</code>, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. <code><a href="borders.html">borders()</a></code>.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Other arguments passed on to <code><a href="layer.html">layer()</a></code>. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 <code>colour = "red"</code> or <code>size = 3</code>. They may also be parameters
 to the paired geom/stat.</p></dd>
+
+
 <dt>parse</dt>
 <dd><p>If <code>TRUE</code>, the labels will be parsed into expressions and
 displayed as described in <code><a href="https://rdrr.io/r/grDevices/plotmath.html" class="external-link">?plotmath</a></code>.</p></dd>
+
+
 <dt>nudge_x, nudge_y</dt>
 <dd><p>Horizontal and vertical adjustment to nudge labels by.
 Useful for offsetting text from points, particularly on discrete scales.
 Cannot be jointly specified with <code>position</code>.</p></dd>
+
+
 <dt>label.padding</dt>
 <dd><p>Amount of padding around label. Defaults to 0.25 lines.</p></dd>
+
+
 <dt>label.r</dt>
 <dd><p>Radius of rounded corners. Defaults to 0.15 lines.</p></dd>
+
+
 <dt>label.size</dt>
 <dd><p>Size of label border, in mm.</p></dd>
+
+
 <dt>fun.geometry</dt>
 <dd><p>A function that takes a <code>sfc</code> object and returns a <code>sfc_POINT</code> with the
 same length as the input. If <code>NULL</code>, <code>function(x) sf::st_point_on_surface(sf::st_zm(x))</code>
 will be used. Note that the function may warn about the incorrectness of
 the result if the data is not projected, but you can ignore this except
 when you really care about the exact locations.</p></dd>
+
+
 <dt>check_overlap</dt>
 <dd><p>If <code>TRUE</code>, text that overlaps previous text in the
 same layer will not be plotted. <code>check_overlap</code> happens at draw time and in
 the order of the data. Therefore data should be arranged by the label
 column before calling <code><a href="geom_text.html">geom_text()</a></code>. Note that this argument is not
 supported by <code><a href="geom_text.html">geom_label()</a></code>.</p></dd>
+
+
 <dt>geom</dt>
 <dd><p>The geometric object to use to display the data, either as a
 <code>ggproto</code> <code>Geom</code> subclass or as a string naming the geom stripped of the
 <code>geom_</code> prefix (e.g. <code>"point"</code> rather than <code>"geom_point"</code>)</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="geometry-aesthetic">Geometry aesthetic<a class="anchor" aria-label="anchor" href="#geometry-aesthetic"></a></h2>
@@ -460,7 +513,7 @@ in projected coordinates.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
   </div></footer></body></html>

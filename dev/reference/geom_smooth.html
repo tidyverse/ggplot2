@@ -138,6 +138,8 @@ display the results with a non-standard geom.</p>
 <code><a href="aes_.html">aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply <code>mapping</code> if there is no plot mapping.</p></dd>
+
+
 <dt>data</dt>
 <dd><p>The data to be displayed in this layer. There are three
 options:</p>
@@ -150,16 +152,22 @@ data. All objects will be fortified to produce a data frame. See
 the plot data. The return value must be a <code>data.frame</code>, and
 will be used as the layer data. A <code>function</code> can be created
 from a <code>formula</code> (e.g. <code>~ head(.x, 10)</code>).</p></dd>
+
+
 <dt>position</dt>
 <dd><p>Position adjustment, either as a string naming the adjustment
 (e.g. <code>"jitter"</code> to use <code>position_jitter</code>), or the result of a call to a
 position adjustment function. Use the latter if you need to change the
 settings of the adjustment.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Other arguments passed on to <code><a href="layer.html">layer()</a></code>. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 <code>colour = "red"</code> or <code>size = 3</code>. They may also be parameters
 to the paired geom/stat.</p></dd>
+
+
 <dt>method</dt>
 <dd><p>Smoothing method (function) to use, accepts either
 <code>NULL</code> or a character vector, e.g. <code>"lm"</code>, <code>"glm"</code>, <code>"gam"</code>, <code>"loess"</code>
@@ -175,53 +183,78 @@ so does not work for larger datasets.</p>
 <p>If you have fewer than 1,000 observations but want to use the same <code>gam()</code>
 model that <code>method = NULL</code> would use, then set
 <code>method = "gam", formula = y ~ s(x, bs = "cs")</code>.</p></dd>
+
+
 <dt>formula</dt>
 <dd><p>Formula to use in smoothing function, eg. <code>y ~ x</code>,
 <code>y ~ poly(x, 2)</code>, <code>y ~ log(x)</code>. <code>NULL</code> by default, in which case
 <code>method = NULL</code> implies <code>formula = y ~ x</code> when there are fewer than 1,000
 observations and <code>formula = y ~ s(x, bs = "cs")</code> otherwise.</p></dd>
+
+
 <dt>se</dt>
 <dd><p>Display confidence interval around smooth? (<code>TRUE</code> by default, see
 <code>level</code> to control.)</p></dd>
+
+
 <dt>na.rm</dt>
 <dd><p>If <code>FALSE</code>, the default, missing values are removed with
 a warning. If <code>TRUE</code>, missing values are silently removed.</p></dd>
+
+
 <dt>orientation</dt>
 <dd><p>The orientation of the layer. The default (<code>NA</code>)
 automatically determines the orientation from the aesthetic mapping. In the
 rare event that this fails it can be given explicitly by setting <code>orientation</code>
 to either <code>"x"</code> or <code>"y"</code>. See the <em>Orientation</em> section for more detail.</p></dd>
+
+
 <dt>show.legend</dt>
 <dd><p>logical. Should this layer be included in the legends?
 <code>NA</code>, the default, includes if any aesthetics are mapped.
 <code>FALSE</code> never includes, and <code>TRUE</code> always includes.
 It can also be a named logical vector to finely select the aesthetics to
 display.</p></dd>
+
+
 <dt>inherit.aes</dt>
 <dd><p>If <code>FALSE</code>, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. <code><a href="borders.html">borders()</a></code>.</p></dd>
+
+
 <dt>geom, stat</dt>
 <dd><p>Use to override the default connection between
 <code>geom_smooth()</code> and <code>stat_smooth()</code>.</p></dd>
+
+
 <dt>n</dt>
 <dd><p>Number of points at which to evaluate smoother.</p></dd>
+
+
 <dt>span</dt>
 <dd><p>Controls the amount of smoothing for the default loess smoother.
 Smaller numbers produce wigglier lines, larger numbers produce smoother
 lines. Only used with loess, i.e. when <code>method = "loess"</code>,
 or when <code>method = NULL</code> (the default) and there are fewer than 1,000
 observations.</p></dd>
+
+
 <dt>fullrange</dt>
 <dd><p>If <code>TRUE</code>, the smoothing line gets expanded to the range of the plot,
 potentially beyond the data. This does not extend the line into any additional padding
 created by <code>expansion</code>.</p></dd>
+
+
 <dt>level</dt>
 <dd><p>Level of confidence interval to use (0.95 by default).</p></dd>
+
+
 <dt>method.args</dt>
 <dd><p>List of additional arguments passed on to the modelling
 function defined by <code>method</code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -374,7 +407,7 @@ scale and then back-transformed to the response scale.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
   </div></footer></body></html>

@@ -165,100 +165,157 @@ For more information, see the inspiration for this function:
 If <code>NULL</code>, the title is not shown. By default
 (<code><a href="waiver.html">waiver()</a></code>), the name of the scale object or the name
 specified in <code><a href="labs.html">labs()</a></code> is used for the title.</p></dd>
+
+
 <dt>title.position</dt>
 <dd><p>A character string indicating the position of a
 title. One of "top" (default for a vertical guide), "bottom", "left"
 (default for a horizontal guide), or "right."</p></dd>
+
+
 <dt>title.theme</dt>
 <dd><p>A theme object for rendering the title text. Usually the
 object of <code><a href="element.html">element_text()</a></code> is expected. By default, the theme is
 specified by <code>legend.title</code> in <code><a href="theme.html">theme()</a></code> or theme.</p></dd>
+
+
 <dt>title.hjust</dt>
 <dd><p>A number specifying horizontal justification of the
 title text.</p></dd>
+
+
 <dt>title.vjust</dt>
 <dd><p>A number specifying vertical justification of the title
 text.</p></dd>
+
+
 <dt>label</dt>
 <dd><p>logical. If <code>TRUE</code> then the labels are drawn. If
 <code>FALSE</code> then the labels are invisible.</p></dd>
+
+
 <dt>label.position</dt>
 <dd><p>A character string indicating the position of a
 label. One of "top", "bottom" (default for horizontal guide), "left", or
 "right" (default for vertical guide).</p></dd>
+
+
 <dt>label.theme</dt>
 <dd><p>A theme object for rendering the label text. Usually the
 object of <code><a href="element.html">element_text()</a></code> is expected. By default, the theme is
 specified by <code>legend.text</code> in <code><a href="theme.html">theme()</a></code>.</p></dd>
+
+
 <dt>label.hjust</dt>
 <dd><p>A numeric specifying horizontal justification of the
 label text. The default for standard text is 0 (left-aligned) and 1
 (right-aligned) for expressions.</p></dd>
+
+
 <dt>label.vjust</dt>
 <dd><p>A numeric specifying vertical justification of the label
 text.</p></dd>
+
+
 <dt>barwidth</dt>
 <dd><p>A numeric or a <code><a href="https://rdrr.io/r/grid/unit.html" class="external-link">grid::unit()</a></code> object specifying
 the width of the colourbar. Default value is <code>legend.key.width</code> or
 <code>legend.key.size</code> in <code><a href="theme.html">theme()</a></code> or theme.</p></dd>
+
+
 <dt>barheight</dt>
 <dd><p>A numeric or a <code><a href="https://rdrr.io/r/grid/unit.html" class="external-link">grid::unit()</a></code> object specifying
 the height of the colourbar. Default value is <code>legend.key.height</code> or
 <code>legend.key.size</code> in <code><a href="theme.html">theme()</a></code> or theme.</p></dd>
+
+
 <dt>nbin</dt>
 <dd><p>A numeric specifying the number of bins for drawing the
 colourbar. A smoother colourbar results from a larger value.</p></dd>
+
+
 <dt>raster</dt>
 <dd><p>A logical. If <code>TRUE</code> then the colourbar is rendered as a
 raster object. If <code>FALSE</code> then the colourbar is rendered as a set of
 rectangles. Note that not all graphics devices are capable of rendering
 raster image.</p></dd>
+
+
 <dt>frame.colour</dt>
 <dd><p>A string specifying the colour of the frame
 drawn around the bar. If <code>NULL</code> (the default), no frame is drawn.</p></dd>
+
+
 <dt>frame.linewidth</dt>
 <dd><p>A numeric specifying the width of the frame
 drawn around the bar in millimetres.</p></dd>
+
+
 <dt>frame.linetype</dt>
 <dd><p>A numeric specifying the linetype of the frame
 drawn around the bar.</p></dd>
+
+
 <dt>ticks</dt>
 <dd><p>A logical specifying if tick marks on the colourbar should be
 visible.</p></dd>
+
+
 <dt>ticks.colour</dt>
 <dd><p>A string specifying the colour of the tick marks.</p></dd>
+
+
 <dt>ticks.linewidth</dt>
 <dd><p>A numeric specifying the width of the tick marks in
 millimetres.</p></dd>
+
+
 <dt>draw.ulim</dt>
 <dd><p>A logical specifying if the upper limit tick marks should
 be visible.</p></dd>
+
+
 <dt>draw.llim</dt>
 <dd><p>A logical specifying if the lower limit tick marks should
 be visible.</p></dd>
+
+
 <dt>direction</dt>
 <dd><p>A character string indicating the direction of the guide.
 One of "horizontal" or "vertical."</p></dd>
+
+
 <dt>default.unit</dt>
 <dd><p>A character string indicating <code><a href="https://rdrr.io/r/grid/unit.html" class="external-link">grid::unit()</a></code>
 for <code>barwidth</code> and <code>barheight</code>.</p></dd>
+
+
 <dt>reverse</dt>
 <dd><p>logical. If <code>TRUE</code> the colourbar is reversed. By default,
 the highest value is on the top and the lowest value is on the bottom</p></dd>
+
+
 <dt>order</dt>
 <dd><p>positive integer less than 99 that specifies the order of
 this guide among multiple guides. This controls the order in which
 multiple guides are displayed, not the contents of the guide itself.
 If 0 (default), the order is determined by a secret algorithm.</p></dd>
+
+
 <dt>available_aes</dt>
 <dd><p>A vector of character strings listing the aesthetics
 for which a colourbar can be drawn.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>ignored.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A guide object</p>
+    
+
+<p>A guide object</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -356,7 +413,7 @@ see <code><a href="guides.html">guides()</a></code>.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
   </div></footer></body></html>

@@ -243,14 +243,27 @@ operators which you should not have to use in simple cases.</p>
 passed from function arguments inside other tidy eval functions.
 <code>{{</code> is designed for individual arguments. To pass multiple
 arguments contained in dots, use <code>...</code> in the normal way.</p>
-<p></p><div class="sourceCode"><pre><code></code></pre><p></p></div></li>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>my_function <span class="ot">&lt;-</span> <span class="cf">function</span>(data, var, ...) {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  data <span class="sc">%&gt;%</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(...) <span class="sc">%&gt;%</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">mean</span>({{ var }}))</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre><p></p></div></li>
 <li><p><code>enquo()</code> and <code>enquos()</code> delay the execution of one or several
 function arguments. The former returns a single expression, the
 latter returns a list of expressions. Once defused, expressions
 will no longer evaluate on their own. They must be injected back
 into an evaluation context with <code>!!</code> (for a single expression) and
 <code>!!!</code> (for a list of expressions).</p>
-<p></p><div class="sourceCode"><pre><code></code></pre><p></p></div>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>my_function <span class="ot">&lt;-</span> <span class="cf">function</span>(data, var, ...) {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Defuse</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  var <span class="ot">&lt;-</span> <span class="fu">enquo</span>(var)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  dots <span class="ot">&lt;-</span> <span class="fu">enquos</span>(...)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Inject</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  data <span class="sc">%&gt;%</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(<span class="sc">!!!</span>dots) <span class="sc">%&gt;%</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">mean</span>(<span class="sc">!!</span>var))</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre><p></p></div>
 <p>In this simple case, the code is equivalent to the usage of <code>{{</code>
 and <code>...</code> above. Defusing with <code>enquo()</code> or <code>enquos()</code> is only
 needed in more complex cases, for instance if you need to inspect
@@ -258,18 +271,29 @@ or modify the expressions in some way.</p></li>
 <li><p>The <code>.data</code> pronoun is an object that represents the current
 slice of data. If you have a variable name in a string, use the
 <code>.data</code> pronoun to subset that variable with <code>[[</code>.</p>
-<p></p><div class="sourceCode"><pre><code></code></pre><p></p></div></li>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>my_var <span class="ot">&lt;-</span> <span class="st">"disp"</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">mean</span>(.data[[my_var]]))</span></code></pre><p></p></div></li>
 <li><p>Another tidy eval operator is <code>:=</code>. It makes it possible to use
 glue and curly-curly syntax on the LHS of <code>=</code>. For technical
 reasons, the R language doesn't support complex expressions on
 the left of <code>=</code>, so we use <code>:=</code> as a workaround.</p>
-<p></p><div class="sourceCode"><pre><code></code></pre><p></p></div></li>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>my_function <span class="ot">&lt;-</span> <span class="cf">function</span>(data, var, <span class="at">suffix =</span> <span class="st">"foo"</span>) {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Use `{{` to tunnel function arguments and the usual glue</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># operator `{` to interpolate plain strings.</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  data <span class="sc">%&gt;%</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="st">"{{ var }}_mean_{suffix}"</span> <span class="sc">:</span><span class="er">=</span> <span class="fu">mean</span>({{ var }}))</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre><p></p></div></li>
 <li><p>Many tidy eval functions like <code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">dplyr::mutate()</a></code> or
 <code><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">dplyr::summarise()</a></code> give an automatic name to unnamed inputs. If
 you need to create the same sort of automatic names by yourself,
 use <code>as_label()</code>. For instance, the glue-tunnelling syntax above
 can be reproduced manually with:</p>
-<p></p><div class="sourceCode"><pre><code></code></pre><p></p></div>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>my_function <span class="ot">&lt;-</span> <span class="cf">function</span>(data, var, <span class="at">suffix =</span> <span class="st">"foo"</span>) {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  var <span class="ot">&lt;-</span> <span class="fu">enquo</span>(var)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  prefix <span class="ot">&lt;-</span> <span class="fu">as_label</span>(var)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  data <span class="sc">%&gt;%</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="st">"{prefix}_mean_{suffix}"</span> <span class="sc">:</span><span class="er">=</span> <span class="fu">mean</span>(<span class="sc">!!</span>var))</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre><p></p></div>
 <p>Expressions defused with <code>enquo()</code> (or tunnelled with <code>{{</code>) need
 not be simple column names, they can be arbitrarily complex.
 <code>as_label()</code> handles those cases gracefully. If your code assumes
@@ -289,7 +313,7 @@ because it throws an error if the input is not a name as expected.</p></li>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
   </div></footer></body></html>

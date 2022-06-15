@@ -137,27 +137,38 @@ See also the examples for <code><a href="annotation_map.html">annotation_map()</
     <dl><dt>projection</dt>
 <dd><p>projection to use, see
 <code><a href="https://rdrr.io/pkg/mapproj/man/mapproject.html" class="external-link">mapproj::mapproject()</a></code> for list</p></dd>
+
+
 <dt>..., parameters</dt>
 <dd><p>Other arguments passed on to
 <code><a href="https://rdrr.io/pkg/mapproj/man/mapproject.html" class="external-link">mapproj::mapproject()</a></code>. Use <code>...</code> for named parameters to
 the projection, and <code>parameters</code> for unnamed parameters.
 <code>...</code> is ignored if the <code>parameters</code> argument is present.</p></dd>
+
+
 <dt>orientation</dt>
 <dd><p>projection orientation, which defaults to
 <code>c(90, 0, mean(range(x)))</code>.  This is not optimal for many
 projections, so you will have to supply your own. See
 <code><a href="https://rdrr.io/pkg/mapproj/man/mapproject.html" class="external-link">mapproj::mapproject()</a></code> for more information.</p></dd>
+
+
 <dt>xlim, ylim</dt>
 <dd><p>Manually specific x/y limits (in degrees of
 longitude/latitude)</p></dd>
+
+
 <dt>clip</dt>
 <dd><p>Should drawing be clipped to the extent of the plot panel? A
 setting of <code>"on"</code> (the default) means yes, and a setting of <code>"off"</code>
 means no. For details, please see <code><a href="coord_cartesian.html">coord_cartesian()</a></code>.</p></dd>
+
+
 <dt>expand</dt>
 <dd><p>If <code>TRUE</code>, the default, adds a small expansion factor to
 the limits to ensure that data and axes don't overlap. If <code>FALSE</code>,
 limits are taken exactly from the data or <code>xlim</code>/<code>ylim</code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -280,7 +291,7 @@ plots like <code><a href="geom_tile.html">geom_tile()</a></code>) at the expense
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
   </div></footer></body></html>

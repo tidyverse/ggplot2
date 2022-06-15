@@ -108,18 +108,26 @@
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>aesthetics</dt>
 <dd><p>The names of the aesthetics that this scale works with.</p></dd>
+
+
 <dt>scale_name</dt>
 <dd><p>The name of the scale that should be used for error messages
 associated with this scale.</p></dd>
+
+
 <dt>palette</dt>
 <dd><p>A palette function that when called with a single integer
 argument (the number of levels in the scale) returns the values that
 they should take (e.g., <code><a href="https://scales.r-lib.org/reference/hue_pal.html" class="external-link">scales::hue_pal()</a></code>).</p></dd>
+
+
 <dt>name</dt>
 <dd><p>The name of the scale. Used as the axis or legend title. If
 <code><a href="waiver.html">waiver()</a></code>, the default, the name of the scale is taken from the first
 mapping used for that aesthetic. If <code>NULL</code>, the legend title will be
 omitted.</p></dd>
+
+
 <dt>breaks</dt>
 <dd><p>One of:</p><ul><li><p><code>NULL</code> for no breaks</p></li>
 <li><p><code><a href="waiver.html">waiver()</a></code> for the default breaks (the scale limits)</p></li>
@@ -128,6 +136,8 @@ omitted.</p></dd>
 as output. Also accepts rlang <a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">lambda</a> function
 notation.</p></li>
 </ul></dd>
+
+
 <dt>labels</dt>
 <dd><p>One of:</p><ul><li><p><code>NULL</code> for no labels</p></li>
 <li><p><code><a href="waiver.html">waiver()</a></code> for the default labels computed by the
@@ -138,6 +148,8 @@ transformation object</p></li>
 as output. Also accepts rlang <a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">lambda</a> function
 notation.</p></li>
 </ul></dd>
+
+
 <dt>limits</dt>
 <dd><p>One of:</p><ul><li><p><code>NULL</code> to use the default scale values</p></li>
 <li><p>A character vector that defines possible values of the scale and their
@@ -146,6 +158,8 @@ order</p></li>
 new ones. Also accepts rlang <a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">lambda</a> function
 notation.</p></li>
 </ul></dd>
+
+
 <dt>expand</dt>
 <dd><p>For position scales, a vector of range expansion constants used to add some
 padding around the data to ensure that they are placed some distance
@@ -153,26 +167,39 @@ away from the axes. Use the convenience function <code><a href="expansion.html">
 to generate the values for the <code>expand</code> argument. The defaults are to
 expand the scale by 5% on each side for continuous variables, and by
 0.6 units on each side for discrete variables.</p></dd>
+
+
 <dt>na.translate</dt>
 <dd><p>Unlike continuous scales, discrete scales can easily show
 missing values, and do so by default. If you want to remove missing values
 from a discrete scale, specify <code>na.translate = FALSE</code>.</p></dd>
+
+
 <dt>na.value</dt>
 <dd><p>If <code>na.translate = TRUE</code>, what aesthetic value should the
 missing values be displayed as? Does not apply to position scales
 where <code>NA</code> is always placed at the far right.</p></dd>
+
+
 <dt>drop</dt>
 <dd><p>Should unused factor levels be omitted from the scale?
 The default, <code>TRUE</code>, uses the levels that appear in the data;
 <code>FALSE</code> uses all the levels in the factor.</p></dd>
+
+
 <dt>guide</dt>
 <dd><p>A function used to create a guide or its name. See
 <code><a href="guides.html">guides()</a></code> for more information.</p></dd>
+
+
 <dt>position</dt>
 <dd><p>For position scales, The position of the axis.
 <code>left</code> or <code>right</code> for y axes, <code>top</code> or <code>bottom</code> for x axes.</p></dd>
+
+
 <dt>super</dt>
 <dd><p>The super class to use for the constructed scale</p></dd>
+
 </dl></div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -186,7 +213,7 @@ The default, <code>TRUE</code>, uses the levels that appear in the data;
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
   </div></footer></body></html>

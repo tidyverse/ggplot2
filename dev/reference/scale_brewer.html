@@ -162,35 +162,52 @@ more information.</p>
 <dd><p>Other arguments passed on to <code><a href="discrete_scale.html">discrete_scale()</a></code>, <code><a href="continuous_scale.html">continuous_scale()</a></code>,
 or <code><a href="binned_scale.html">binned_scale()</a></code>, for <code>brewer</code>, <code>distiller</code>, and <code>fermenter</code> variants
 respectively, to control name, limits, breaks, labels and so forth.</p></dd>
+
+
 <dt>type</dt>
 <dd><p>One of "seq" (sequential), "div" (diverging) or "qual"
 (qualitative)</p></dd>
+
+
 <dt>palette</dt>
 <dd><p>If a string, will use that named palette. If a number, will index into
 the list of palettes of appropriate <code>type</code>. The list of available palettes can found
 in the Palettes section.</p></dd>
+
+
 <dt>direction</dt>
 <dd><p>Sets the order of colours in the scale. If 1, the default,
 colours are as output by <code><a href="https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html" class="external-link">RColorBrewer::brewer.pal()</a></code>. If -1, the
 order of colours is reversed.</p></dd>
+
+
 <dt>aesthetics</dt>
 <dd><p>Character string or vector of character strings listing the
 name(s) of the aesthetic(s) that this scale works with. This can be useful, for
 example, to apply colour settings to the <code>colour</code> and <code>fill</code> aesthetics at the
 same time, via <code>aesthetics = c("colour", "fill")</code>.</p></dd>
+
+
 <dt>values</dt>
 <dd><p>if colours should not be evenly positioned along the gradient
 this vector gives the position (between 0 and 1) for each colour in the
 <code>colours</code> vector. See <code><a href="https://scales.r-lib.org/reference/rescale.html" class="external-link">rescale()</a></code> for a convenience function
 to map an arbitrary range to between 0 and 1.</p></dd>
+
+
 <dt>space</dt>
 <dd><p>colour space in which to calculate gradient. Must be "Lab" -
 other values are deprecated.</p></dd>
+
+
 <dt>na.value</dt>
 <dd><p>Colour to use for missing values</p></dd>
+
+
 <dt>guide</dt>
 <dd><p>Type of legend. Use <code>"colourbar"</code> for continuous
 colour bar, or <code>"legend"</code> for discrete colour legend.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -297,7 +314,7 @@ OrRd, PuBu, PuBuGn, PuRd, Purples, RdPu, Reds, YlGn, YlGnBu, YlOrBr, YlOrRd</p><
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
   </div></footer></body></html>

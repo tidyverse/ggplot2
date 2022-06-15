@@ -110,40 +110,65 @@ These tick marks probably make sense only for base 10.</p>
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>base</dt>
 <dd><p>the base of the log (default 10)</p></dd>
+
+
 <dt>sides</dt>
 <dd><p>a string that controls which sides of the plot the log ticks appear on.
 It can be set to a string containing any of <code>"trbl"</code>, for top, right,
 bottom, and left.</p></dd>
+
+
 <dt>outside</dt>
 <dd><p>logical that controls whether to move the log ticks outside
 of the plot area. Default is off (<code>FALSE</code>). You will also need to use
 <code>coord_cartesian(clip = "off")</code>. See examples.</p></dd>
+
+
 <dt>scaled</dt>
 <dd><p>is the data already log-scaled? This should be <code>TRUE</code>
 (default) when the data is already transformed with <code><a href="https://rdrr.io/r/base/Log.html" class="external-link">log10()</a></code> or when
 using <code><a href="scale_continuous.html">scale_y_log10()</a></code>. It should be <code>FALSE</code> when using
 <code>coord_trans(y = "log10")</code>.</p></dd>
+
+
 <dt>short</dt>
 <dd><p>a <code><a href="https://rdrr.io/r/grid/unit.html" class="external-link">grid::unit()</a></code> object specifying the length of the
 short tick marks</p></dd>
+
+
 <dt>mid</dt>
 <dd><p>a <code><a href="https://rdrr.io/r/grid/unit.html" class="external-link">grid::unit()</a></code> object specifying the length of the
 middle tick marks. In base 10, these are the "5" ticks.</p></dd>
+
+
 <dt>long</dt>
 <dd><p>a <code><a href="https://rdrr.io/r/grid/unit.html" class="external-link">grid::unit()</a></code> object specifying the length of the
 long tick marks. In base 10, these are the "1" (or "10") ticks.</p></dd>
+
+
 <dt>colour</dt>
 <dd><p>Colour of the tick marks.</p></dd>
+
+
 <dt>size</dt>
 <dd><p>Thickness of tick marks, in mm.</p></dd>
+
+
 <dt>linetype</dt>
 <dd><p>Linetype of tick marks (<code>solid</code>, <code>dashed</code>, etc.)</p></dd>
+
+
 <dt>alpha</dt>
 <dd><p>The transparency of the tick marks.</p></dd>
+
+
 <dt>color</dt>
 <dd><p>An alias for <code>colour</code>.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Other parameters passed on to the layer</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -222,7 +247,7 @@ transformations.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
   </div></footer></body></html>

@@ -116,16 +116,24 @@ The variables can be named (the names are passed to <code>labeller</code>).</p>
 <p>For compatibility with the classic interface, can also be a
 formula or character vector. Use either a one sided formula, <code>~a + b</code>,
 or a character vector, <code>c("a", "b")</code>.</p></dd>
+
+
 <dt>nrow, ncol</dt>
 <dd><p>Number of rows and columns.</p></dd>
+
+
 <dt>scales</dt>
 <dd><p>Should scales be fixed (<code>"fixed"</code>, the default),
 free (<code>"free"</code>), or free in one dimension (<code>"free_x"</code>,
 <code>"free_y"</code>)?</p></dd>
+
+
 <dt>shrink</dt>
 <dd><p>If <code>TRUE</code>, will shrink scales to fit output of
 statistics, not raw data. If <code>FALSE</code>, will be range of raw data
 before statistical summary.</p></dd>
+
+
 <dt>labeller</dt>
 <dd><p>A function that takes one data frame of labels and
 returns a list or data frame of character vectors. Each input
@@ -137,28 +145,39 @@ for compatibility with <code><a href="labeller.html">labeller()</a></code>. You 
 functions for different kind of labels, for example use <code><a href="labellers.html">label_parsed()</a></code> for
 formatting facet labels. <code><a href="labellers.html">label_value()</a></code> is used by default,
 check it for more details and pointers to other options.</p></dd>
+
+
 <dt>as.table</dt>
 <dd><p>If <code>TRUE</code>, the default, the facets are laid out like
 a table with highest values at the bottom-right. If <code>FALSE</code>, the
 facets are laid out like a plot with the highest value at the top-right.</p></dd>
+
+
 <dt>switch</dt>
 <dd><p>By default, the labels are displayed on the top and
 right of the plot. If <code>"x"</code>, the top labels will be
 displayed to the bottom. If <code>"y"</code>, the right-hand side
 labels will be displayed to the left. Can also be set to
 <code>"both"</code>.</p></dd>
+
+
 <dt>drop</dt>
 <dd><p>If <code>TRUE</code>, the default, all factor levels not used in the
 data will automatically be dropped. If <code>FALSE</code>, all factor levels
 will be shown, regardless of whether or not they appear in the data.</p></dd>
+
+
 <dt>dir</dt>
 <dd><p>Direction: either <code>"h"</code> for horizontal, the default, or <code>"v"</code>,
 for vertical.</p></dd>
+
+
 <dt>strip.position</dt>
 <dd><p>By default, the labels are displayed on the top of
 the plot. Using <code>strip.position</code> it is possible to place the labels on
 either of the four sides by setting <code>strip.position = c("top",
   "bottom", "left", "right")</code></p></dd>
+
 </dl></div>
 
     <div class="section level2">
@@ -234,7 +253,7 @@ either of the four sides by setting <code>strip.position = c("top",
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
   </div></footer></body></html>

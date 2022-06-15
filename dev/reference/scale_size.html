@@ -148,6 +148,8 @@ equivalent of <code>scale_size_area()</code> use <code>scale_size_binned_area()<
 <code><a href="waiver.html">waiver()</a></code>, the default, the name of the scale is taken from the first
 mapping used for that aesthetic. If <code>NULL</code>, the legend title will be
 omitted.</p></dd>
+
+
 <dt>breaks</dt>
 <dd><p>One of:</p><ul><li><p><code>NULL</code> for no breaks</p></li>
 <li><p><code><a href="waiver.html">waiver()</a></code> for the default breaks computed by the
@@ -157,6 +159,8 @@ omitted.</p></dd>
 as output (e.g., a function returned by <code><a href="https://scales.r-lib.org/reference/breaks_extended.html" class="external-link">scales::extended_breaks()</a></code>).
 Also accepts rlang <a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">lambda</a> function notation.</p></li>
 </ul></dd>
+
+
 <dt>labels</dt>
 <dd><p>One of:</p><ul><li><p><code>NULL</code> for no labels</p></li>
 <li><p><code><a href="waiver.html">waiver()</a></code> for the default labels computed by the
@@ -167,6 +171,8 @@ transformation object</p></li>
 as output. Also accepts rlang <a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">lambda</a> function
 notation.</p></li>
 </ul></dd>
+
+
 <dt>limits</dt>
 <dd><p>One of:</p><ul><li><p><code>NULL</code> to use the default scale range</p></li>
 <li><p>A numeric vector of length two providing limits of the scale.
@@ -178,9 +184,13 @@ Note that setting limits on positional scales will <strong>remove</strong> data 
 If the purpose is to zoom, use the limit argument in the coordinate system
 (see <code><a href="coord_cartesian.html">coord_cartesian()</a></code>).</p></li>
 </ul></dd>
+
+
 <dt>range</dt>
 <dd><p>a numeric vector of length 2 that specifies the minimum and
 maximum size of the plotting symbol after transformation.</p></dd>
+
+
 <dt>trans</dt>
 <dd><p>For continuous scales, the name of a transformation object
 or the object itself. Built-in transformations include "asn", "atanh",
@@ -192,20 +202,28 @@ and methods for generating breaks and labels. Transformation objects
 are defined in the scales package, and are called <code>&lt;name&gt;_trans</code> (e.g.,
 <code><a href="https://scales.r-lib.org/reference/boxcox_trans.html" class="external-link">scales::boxcox_trans()</a></code>). You can create your own
 transformation with <code><a href="https://scales.r-lib.org/reference/trans_new.html" class="external-link">scales::trans_new()</a></code>.</p></dd>
+
+
 <dt>guide</dt>
 <dd><p>A function used to create a guide or its name. See
 <code><a href="guides.html">guides()</a></code> for more information.</p></dd>
+
+
 <dt>n.breaks</dt>
 <dd><p>An integer guiding the number of major breaks. The algorithm
 may choose a slightly different number to ensure nice break labels. Will
 only have an effect if <code>breaks = waiver()</code>. Use <code>NULL</code> to use the default
 number of breaks given by the transformation.</p></dd>
+
+
 <dt>nice.breaks</dt>
 <dd><p>Logical. Should breaks be attempted placed at nice values
 instead of exactly evenly spaced between the limits. If <code>TRUE</code> (default)
 the scale will ask the transformation object to create breaks, and this
 may result in a different number of breaks than requested. Ignored if
 breaks are given explicitly.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Arguments passed on to <code><a href="continuous_scale.html">continuous_scale</a></code></p><dl><dt><code>minor_breaks</code></dt>
 <dd><p>One of:</p><ul><li><p><code>NULL</code> for no minor breaks</p></li>
@@ -246,8 +264,11 @@ expand the scale by 5% on each side for continuous variables, and by
 
   
 </dl></dd>
+
+
 <dt>max_size</dt>
 <dd><p>Size of largest points.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -296,7 +317,7 @@ to points with size 0.</p></div>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
   </div></footer></body></html>

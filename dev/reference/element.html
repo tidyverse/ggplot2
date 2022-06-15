@@ -155,56 +155,93 @@ specify the display of how non-data components of the plot are drawn.</p><ul><li
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>t, r, b, l</dt>
 <dd><p>Dimensions of each margin. (To remember order, think trouble).</p></dd>
+
+
 <dt>unit</dt>
 <dd><p>Default units of dimensions. Defaults to "pt" so it
 can be most easily scaled with the text.</p></dd>
+
+
 <dt>fill</dt>
 <dd><p>Fill colour.</p></dd>
+
+
 <dt>colour, color</dt>
 <dd><p>Line/border colour. Color is an alias for colour.</p></dd>
+
+
 <dt>size</dt>
 <dd><p>Line/border size in mm; text size in pts.</p></dd>
+
+
 <dt>linetype</dt>
 <dd><p>Line type. An integer (0:8), a name (blank, solid,
 dashed, dotted, dotdash, longdash, twodash), or a string with
 an even number (up to eight) of hexadecimal digits which give the
 lengths in consecutive positions in the string.</p></dd>
+
+
 <dt>inherit.blank</dt>
 <dd><p>Should this element inherit the existence of an
 <code>element_blank</code> among its parents? If <code>TRUE</code> the existence of
 a blank element among its parents will cause this element to be blank as
 well. If <code>FALSE</code> any blank parent element will be ignored when
 calculating final element state.</p></dd>
+
+
 <dt>lineend</dt>
 <dd><p>Line end Line end style (round, butt, square)</p></dd>
+
+
 <dt>arrow</dt>
 <dd><p>Arrow specification, as created by <code><a href="https://rdrr.io/r/grid/arrow.html" class="external-link">grid::arrow()</a></code></p></dd>
+
+
 <dt>family</dt>
 <dd><p>Font family</p></dd>
+
+
 <dt>face</dt>
 <dd><p>Font face ("plain", "italic", "bold", "bold.italic")</p></dd>
+
+
 <dt>hjust</dt>
 <dd><p>Horizontal justification (in \([0, 1]\))</p></dd>
+
+
 <dt>vjust</dt>
 <dd><p>Vertical justification (in \([0, 1]\))</p></dd>
+
+
 <dt>angle</dt>
 <dd><p>Angle (in \([0, 360]\))</p></dd>
+
+
 <dt>lineheight</dt>
 <dd><p>Line height</p></dd>
+
+
 <dt>margin</dt>
 <dd><p>Margins around the text. See <code>margin()</code> for more
 details. When creating a theme, the margins should be placed on the
 side of the text facing towards the center of the plot.</p></dd>
+
+
 <dt>debug</dt>
 <dd><p>If <code>TRUE</code>, aids visual debugging by drawing a solid
 rectangle behind the complete text area, and a point where each label
 is anchored.</p></dd>
+
+
 <dt>x</dt>
 <dd><p>A single number specifying size relative to parent element.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>An S3 object of class <code>element</code>, <code>rel</code>, or <code>margin</code>.</p>
+    
+
+<p>An S3 object of class <code>element</code>, <code>rel</code>, or <code>margin</code>.</p>
     </div>
 
     <div class="section level2">
@@ -250,7 +287,7 @@ is anchored.</p></dd>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
   </div></footer></body></html>

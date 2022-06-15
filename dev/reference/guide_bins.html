@@ -135,82 +135,127 @@ guide if they are mapped in the same way.</p>
 If <code>NULL</code>, the title is not shown. By default
 (<code><a href="waiver.html">waiver()</a></code>), the name of the scale object or the name
 specified in <code><a href="labs.html">labs()</a></code> is used for the title.</p></dd>
+
+
 <dt>title.position</dt>
 <dd><p>A character string indicating the position of a
 title. One of "top" (default for a vertical guide), "bottom", "left"
 (default for a horizontal guide), or "right."</p></dd>
+
+
 <dt>title.theme</dt>
 <dd><p>A theme object for rendering the title text. Usually the
 object of <code><a href="element.html">element_text()</a></code> is expected. By default, the theme is
 specified by <code>legend.title</code> in <code><a href="theme.html">theme()</a></code> or theme.</p></dd>
+
+
 <dt>title.hjust</dt>
 <dd><p>A number specifying horizontal justification of the
 title text.</p></dd>
+
+
 <dt>title.vjust</dt>
 <dd><p>A number specifying vertical justification of the title
 text.</p></dd>
+
+
 <dt>label</dt>
 <dd><p>logical. If <code>TRUE</code> then the labels are drawn. If
 <code>FALSE</code> then the labels are invisible.</p></dd>
+
+
 <dt>label.position</dt>
 <dd><p>A character string indicating the position of a
 label. One of "top", "bottom" (default for horizontal guide), "left", or
 "right" (default for vertical guide).</p></dd>
+
+
 <dt>label.theme</dt>
 <dd><p>A theme object for rendering the label text. Usually the
 object of <code><a href="element.html">element_text()</a></code> is expected. By default, the theme is
 specified by <code>legend.text</code> in <code><a href="theme.html">theme()</a></code>.</p></dd>
+
+
 <dt>label.hjust</dt>
 <dd><p>A numeric specifying horizontal justification of the
 label text. The default for standard text is 0 (left-aligned) and 1
 (right-aligned) for expressions.</p></dd>
+
+
 <dt>label.vjust</dt>
 <dd><p>A numeric specifying vertical justification of the label
 text.</p></dd>
+
+
 <dt>keywidth</dt>
 <dd><p>A numeric or a <code><a href="https://rdrr.io/r/grid/unit.html" class="external-link">grid::unit()</a></code> object specifying
 the width of the legend key. Default value is <code>legend.key.width</code> or
 <code>legend.key.size</code> in <code><a href="theme.html">theme()</a></code>.</p></dd>
+
+
 <dt>keyheight</dt>
 <dd><p>A numeric or a <code><a href="https://rdrr.io/r/grid/unit.html" class="external-link">grid::unit()</a></code> object specifying
 the height of the legend key. Default value is <code>legend.key.height</code> or
 <code>legend.key.size</code> in <code><a href="theme.html">theme()</a></code>.</p></dd>
+
+
 <dt>axis</dt>
 <dd><p>Logical. Should a small axis be drawn along the guide</p></dd>
+
+
 <dt>axis.colour, axis.linewidth</dt>
 <dd><p>Graphic specifications for the look of the
 axis.</p></dd>
+
+
 <dt>axis.arrow</dt>
 <dd><p>A call to <code><a href="https://rdrr.io/r/grid/arrow.html" class="external-link">arrow()</a></code> to specify arrows at the end of the
 axis line, thus showing an open interval.</p></dd>
+
+
 <dt>direction</dt>
 <dd><p>A character string indicating the direction of the guide.
 One of "horizontal" or "vertical."</p></dd>
+
+
 <dt>default.unit</dt>
 <dd><p>A character string indicating <code><a href="https://rdrr.io/r/grid/unit.html" class="external-link">grid::unit()</a></code>
 for <code>keywidth</code> and <code>keyheight</code>.</p></dd>
+
+
 <dt>override.aes</dt>
 <dd><p>A list specifying aesthetic parameters of legend key.
 See details and examples.</p></dd>
+
+
 <dt>reverse</dt>
 <dd><p>logical. If <code>TRUE</code> the order of legends is reversed.</p></dd>
+
+
 <dt>order</dt>
 <dd><p>positive integer less than 99 that specifies the order of
 this guide among multiple guides. This controls the order in which
 multiple guides are displayed, not the contents of the guide itself.
 If 0 (default), the order is determined by a secret algorithm.</p></dd>
+
+
 <dt>show.limits</dt>
 <dd><p>Logical. Should the limits of the scale be shown with
 labels and ticks. Default is <code>NULL</code> meaning it will take the value from the
 scale. This argument is ignored if <code>labels</code> is given as a vector of
 values. If one or both of the limits is also given in <code>breaks</code> it will be
 shown irrespective of the value of <code>show.limits</code>.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>ignored.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A guide object</p>
+    
+
+<p>A guide object</p>
     </div>
     <div class="section level2">
     <h2 id="use-with-discrete-scale">Use with discrete scale<a class="anchor" aria-label="anchor" href="#use-with-discrete-scale"></a></h2>
@@ -278,7 +323,7 @@ may be needed.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
   </div></footer></body></html>
