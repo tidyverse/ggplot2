@@ -262,8 +262,6 @@ Collate:
     'theme.r'
     'theme-defaults.r'
     'theme-current.R'
-    'translate-qplot-ggplot.r'
-    'translate-qplot-lattice.r'
     'utilities-break.r'
     'utilities-grid.r'
     'utilities-help.r'
