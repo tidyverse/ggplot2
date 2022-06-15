@@ -43,15 +43,23 @@ the limits to ensure that data and axes don't overlap. If \code{FALSE},
 limits are taken exactly from the data or \code{xlim}/\code{ylim}.}
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}}
+
 \code{coord_map()} projects a portion of the earth, which is approximately
 spherical, onto a flat 2D plane using any projection defined by the
 \code{mapproj} package. Map projections do not, in general, preserve straight
 lines, so this requires considerable computation. \code{coord_quickmap()} is a
 quick approximation that does preserve straight lines. It works best for
 smaller areas closer to the equator.
+
+Both \code{coord_map()} and \code{coord_quickmap()}
+are superseded by \code{\link[=coord_sf]{coord_sf()}}, and should no longer be used in new
+code. All regular (non-sf) geoms can be used with \code{coord_sf()} by
+setting the default coordinate system via the \code{default_crs} argument.
+See also the examples for \code{\link[=annotation_map]{annotation_map()}} and \code{\link[=geom_map]{geom_map()}}.
 }
 \details{
-In general, map projections must account for the fact that the actual length
+Map projections must account for the fact that the actual length
 (in km) of one degree of longitude varies between the equator and the pole.
 Near the equator, the ratio between the lengths of one degree of latitude and
 one degree of longitude is approximately 1. Near the pole, it tends

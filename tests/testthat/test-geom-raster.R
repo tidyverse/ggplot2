@@ -66,6 +66,6 @@ test_that("geom_raster draws correctly", {
   df$col[df$x == 5 & df$col == 1] <- NA
   df$col[df$y == 5 & df$col == 0] <- NA
   expect_doppelganger("irregular categorical",
-    qplot(x, y, data = df, fill = factor(col), geom = "raster")
+    ggplot(df, aes(x, y, fill = factor(col))) + geom_raster()
   )
 })
