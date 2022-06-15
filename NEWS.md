@@ -1,5 +1,10 @@
 # ggplot2 (development version)
 
+* Secondary axis ticks are now positioned more precisely, removing small visual
+  artefacts with alignment between grid and ticks (@thomasp85, #3576)
+
+* Improve `stat_function` documentation regarding `xlim` argument. (@92amartins, #4474)
+
 * `qplot()` is now formally deprecated (@yutannihilation, #3956).
 
 * Use `rlang::hash()` instead of `digest::digest()`. This update may lead to 
