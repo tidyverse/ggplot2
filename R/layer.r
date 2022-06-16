@@ -349,10 +349,13 @@ Layer <- ggproto("Layer", NULL,
     new <- strip_dots(aesthetics[is_calculated_aes(aesthetics) | is_staged_aes(aesthetics)])
     if (length(new) == 0) return(data)
 
+    # data needs to be non-scaled
+    data_orig <- scales_backtransform_df(plot$scales, data)
+
     # Add map stat output to aesthetics
     env <- child_env(baseenv(), stat = stat, after_stat = after_stat)
     stage_mask <- child_env(emptyenv(), stage = stage_calculated)
-    mask <- new_data_mask(as_environment(data, stage_mask), stage_mask)
+    mask <- new_data_mask(as_environment(data_orig, stage_mask), stage_mask)
     mask$.data <- as_data_pronoun(mask)
 
     new <- substitute_aes(new)
