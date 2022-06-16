@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' data-engine-version='2.0' width='720.00pt' height='576.00pt' viewBox='0 0 720.00 576.00'>
+<defs>
+  <style type='text/css'><![CDATA[
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<defs>
+  <clipPath id='cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA='>
+    <rect x='0.00' y='0.00' width='720.00' height='576.00' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
+<rect x='0.00' y='0.00' width='720.00' height='576.00' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
+<rect x='19.93' y='37.23' width='680.15' height='518.85' style='stroke-width: 1.07; stroke: none; fill: #EBEBEB;' />
+<text transform='translate(28.28,296.65) rotate(-90)' text-anchor='middle' style='font-size: 11.04px; font-family: sans;' textLength='28.85px' lengthAdjust='spacingAndGlyphs'>inside</text>
+<text transform='translate(691.72,296.65) rotate(-270)' text-anchor='middle' style='font-size: 11.04px; font-family: sans;' textLength='28.85px' lengthAdjust='spacingAndGlyphs'>inside</text>
+<text x='360.00' y='555.31' text-anchor='middle' style='font-size: 11.04px; font-family: sans;' textLength='28.85px' lengthAdjust='spacingAndGlyphs'>inside</text>
+<text x='360.00' y='45.59' text-anchor='middle' style='font-size: 11.04px; font-family: sans;' textLength='28.85px' lengthAdjust='spacingAndGlyphs'>inside</text>
+<text transform='translate(19.17,296.65) rotate(-90)' text-anchor='middle' style='font-size: 11.04px; font-family: sans;' textLength='35.60px' lengthAdjust='spacingAndGlyphs'>outside</text>
+<text transform='translate(700.83,296.65) rotate(-270)' text-anchor='middle' style='font-size: 11.04px; font-family: sans;' textLength='35.60px' lengthAdjust='spacingAndGlyphs'>outside</text>
+<text x='360.00' y='564.43' text-anchor='middle' style='font-size: 11.04px; font-family: sans;' textLength='35.60px' lengthAdjust='spacingAndGlyphs'>outside</text>
+<text x='360.00' y='36.47' text-anchor='middle' style='font-size: 11.04px; font-family: sans;' textLength='35.60px' lengthAdjust='spacingAndGlyphs'>outside</text>
+<text x='19.93' y='29.01' style='font-size: 13.20px; font-family: sans;' textLength='272.79px' lengthAdjust='spacingAndGlyphs'>clip turned off, both 'inside' and 'outside' visible</text>
+</g>
+</svg>

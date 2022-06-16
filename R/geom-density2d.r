@@ -12,7 +12,7 @@
 #'  how contours are drawn; [geom_bin2d()] for another way of dealing with
 #'  overplotting.
 #' @param geom,stat Use to override the default connection between
-#'   `geom_density_2d` and `stat_density_2d`.
+#'   `geom_density_2d()` and `stat_density_2d()`.
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @inheritParams geom_path
@@ -81,7 +81,7 @@ geom_density_2d <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       lineend = lineend,
       linejoin = linejoin,
       linemitre = linemitre,
@@ -104,7 +104,7 @@ geom_density2d <- geom_density_2d
 #' @usage NULL
 #' @export
 GeomDensity2d <- ggproto("GeomDensity2d", GeomPath,
-  default_aes = aes(colour = "#3366FF", size = 0.5, linetype = 1, alpha = NA)
+  default_aes = aes(colour = "#3366FF", linewidth = 0.5, linetype = 1, alpha = NA)
 )
 
 #' @export
@@ -124,7 +124,7 @@ geom_density_2d_filled <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       na.rm = na.rm,
       contour = TRUE,
       contour_var = contour_var,

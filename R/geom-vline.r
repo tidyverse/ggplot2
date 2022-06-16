@@ -13,10 +13,10 @@ geom_vline <- function(mapping = NULL, data = NULL,
   if (!missing(xintercept)) {
     # Warn if supplied mapping and/or data is going to be overwritten
     if (!is.null(mapping)) {
-      warn_overwritten_args("geom_vline()", "mapping", "xintercept")
+      cli::cli_warn("{.fn geom_vline}: Ignoring {.arg mapping} because {.arg xintercept} was provided.")
     }
     if (!is.null(data)) {
-      warn_overwritten_args("geom_vline()", "data", "xintercept")
+      cli::cli_warn("{.fn geom_vline}: Ignoring {.arg data} because {.arg xintercept} was provided.")
     }
 
     data <- new_data_frame(list(xintercept = xintercept))
@@ -32,7 +32,7 @@ geom_vline <- function(mapping = NULL, data = NULL,
     position = PositionIdentity,
     show.legend = show.legend,
     inherit.aes = FALSE,
-    params = list(
+    params = list2(
       na.rm = na.rm,
       ...
     )
@@ -44,7 +44,7 @@ geom_vline <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomVline <- ggproto("GeomVline", Geom,
-  draw_panel = function(data, panel_params, coord) {
+  draw_panel = function(data, panel_params, coord, lineend = "butt") {
     ranges <- coord$backtransform_range(panel_params)
 
     data$x    <- data$xintercept
@@ -52,11 +52,13 @@ GeomVline <- ggproto("GeomVline", Geom,
     data$y    <- ranges$y[1]
     data$yend <- ranges$y[2]
 
-    GeomSegment$draw_panel(unique(data), panel_params, coord)
+    GeomSegment$draw_panel(unique(data), panel_params, coord, lineend = lineend)
   },
 
-  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
+  default_aes = aes(colour = "black", linewidth = 0.5, linetype = 1, alpha = NA),
   required_aes = "xintercept",
 
-  draw_key = draw_key_vline
+  draw_key = draw_key_vline,
+
+  rename_size = TRUE
 )

@@ -10,7 +10,7 @@
 #' The lower and upper hinges correspond to the first and third quartiles
 #' (the 25th and 75th percentiles). This differs slightly from the method used
 #' by the [boxplot()] function, and may be apparent with small samples.
-#' See [boxplot.stats()] for for more information on how hinge
+#' See [boxplot.stats()] for more information on how hinge
 #' positions are calculated for [boxplot()].
 #'
 #' The upper whisker extends from the hinge to the largest value no further than
@@ -32,7 +32,7 @@
 #' @inheritParams layer
 #' @inheritParams geom_bar
 #' @param geom,stat Use to override the default connection between
-#'   `geom_boxplot` and `stat_boxplot`.
+#'   `geom_boxplot()` and `stat_boxplot()`.
 #' @param outlier.colour,outlier.color,outlier.fill,outlier.shape,outlier.size,outlier.stroke,outlier.alpha
 #'   Default aesthetics for outliers. Set to `NULL` to inherit from the
 #'   aesthetics used for the box.
@@ -90,6 +90,7 @@
 #' \donttest{
 #' # It's possible to draw a boxplot with your own computations if you
 #' # use stat = "identity":
+#' set.seed(1)
 #' y <- rnorm(100)
 #' df <- data.frame(
 #'   x = 1,
@@ -128,7 +129,7 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
     if (varwidth == TRUE) position <- position_dodge2(preserve = "single")
   } else {
     if (identical(position$preserve, "total") & varwidth == TRUE) {
-      warn("Can't preserve total widths when varwidth = TRUE.")
+      cli::cli_warn("Can't preserve total widths when {.code varwidth = TRUE}.")
       position$preserve <- "single"
     }
   }
@@ -141,7 +142,7 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       outlier.colour = outlier.color %||% outlier.colour,
       outlier.fill = outlier.fill,
       outlier.shape = outlier.shape,
@@ -205,21 +206,24 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
     flip_data(data, params$flipped_aes)
   },
 
-  draw_group = function(data, panel_params, coord, fatten = 2,
-                        outlier.colour = NULL, outlier.fill = NULL,
-                        outlier.shape = 19,
+  draw_group = function(self, data, panel_params, coord, lineend = "butt",
+                        linejoin = "mitre", fatten = 2, outlier.colour = NULL,
+                        outlier.fill = NULL, outlier.shape = 19,
                         outlier.size = 1.5, outlier.stroke = 0.5,
-                        outlier.alpha = NULL,
-                        notch = FALSE, notchwidth = 0.5, varwidth = FALSE, flipped_aes = FALSE) {
+                        outlier.alpha = NULL, notch = FALSE, notchwidth = 0.5,
+                        varwidth = FALSE, flipped_aes = FALSE) {
     data <- flip_data(data, flipped_aes)
     # this may occur when using geom_boxplot(stat = "identity")
     if (nrow(data) != 1) {
-      abort("Can't draw more than one boxplot per group. Did you forget aes(group = ...)?")
+      cli::cli_abort(c(
+        "Can only draw one boxplot per group",
+        "i"= "Did you forget {.code aes(group = ...)}?"
+      ))
     }
 
     common <- list(
       colour = data$colour,
-      size = data$size,
+      linewidth = data$linewidth,
       linetype = data$linetype,
       fill = alpha(data$fill, data$alpha),
       group = data$group
@@ -274,15 +278,25 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
 
     ggname("geom_boxplot", grobTree(
       outliers_grob,
-      GeomSegment$draw_panel(whiskers, panel_params, coord),
-      GeomCrossbar$draw_panel(box, fatten = fatten, panel_params, coord, flipped_aes = flipped_aes)
+      GeomSegment$draw_panel(whiskers, panel_params, coord, lineend = lineend),
+      GeomCrossbar$draw_panel(
+        box,
+        fatten = fatten,
+        panel_params,
+        coord,
+        lineend = lineend,
+        linejoin = linejoin,
+        flipped_aes = flipped_aes
+      )
     ))
   },
 
   draw_key = draw_key_boxplot,
 
-  default_aes = aes(weight = 1, colour = "grey20", fill = "white", size = 0.5,
-    alpha = NA, shape = 19, linetype = "solid"),
+  default_aes = aes(weight = 1, colour = "grey20", fill = "white", size = NULL,
+    alpha = NA, shape = 19, linetype = "solid", linewidth = 0.5),
 
-  required_aes = c("x|y", "lower|xlower", "upper|xupper", "middle|xmiddle", "ymin|xmin", "ymax|xmax")
+  required_aes = c("x|y", "lower|xlower", "upper|xupper", "middle|xmiddle", "ymin|xmin", "ymax|xmax"),
+
+  rename_size = TRUE
 )

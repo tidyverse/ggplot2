@@ -1,5 +1,3 @@
-context("Scales: breaks and labels")
-
 test_that("labels match breaks, even when outside limits", {
   sc <- scale_y_continuous(breaks = 1:4, labels = 1:4, limits = c(1, 3))
 
@@ -99,7 +97,7 @@ test_that("discrete labels match breaks", {
   sc <- init_scale(breaks = 0:5 * 10)
   expect_equal(length(sc$get_breaks()), 5)
   expect_equal(length(sc$get_labels()), 5)
-  expect_equivalent(sc$get_labels(), sc$get_breaks())
+  expect_equal(sc$get_labels(), sc$get_breaks(), ignore_attr = TRUE)
 
   sc <- init_scale(breaks = 0:5 * 10, labels = letters[1:6])
   expect_equal(length(sc$get_breaks()), 5)
@@ -138,13 +136,17 @@ test_that("discrete scales with no data have no breaks or labels", {
   expect_equal(sc$get_limits(), c(0, 1))
 })
 
+test_that("passing continuous limits to a discrete scale generates a warning", {
+  expect_warning(scale_x_discrete(limits = 1:3), "Continuous limits supplied to discrete scale")
+})
+
 test_that("suppressing breaks, minor_breask, and labels works", {
   expect_equal(scale_x_continuous(breaks = NULL, limits = c(1, 3))$get_breaks(), NULL)
-  expect_equal(scale_x_discrete(breaks = NULL, limits = c(1, 3))$get_breaks(), NULL)
+  expect_equal(scale_x_discrete(breaks = NULL, limits = c("one", "three"))$get_breaks(), NULL)
   expect_equal(scale_x_continuous(minor_breaks = NULL, limits = c(1, 3))$get_breaks_minor(), NULL)
 
   expect_equal(scale_x_continuous(labels = NULL, limits = c(1, 3))$get_labels(), NULL)
-  expect_equal(scale_x_discrete(labels = NULL, limits = c(1, 3))$get_labels(), NULL)
+  expect_equal(scale_x_discrete(labels = NULL, limits = c("one", "three"))$get_labels(), NULL)
 
   # date, datetime
   lims <- as.Date(c("2000/1/1", "2000/2/1"))
@@ -260,7 +262,12 @@ test_that("equal length breaks and labels can be passed to ViewScales with limit
 
   test_view_scale <- view_scale_primary(test_scale)
   expect_identical(test_view_scale$get_breaks(), c(NA, 20, NA))
-  expect_identical(test_scale$get_labels(), c(c("0", "20", "40")))
+  expect_identical(test_view_scale$get_labels(), c(c("0", "20", "40")))
+
+  # ViewScale accepts the limits in the opposite order (#3952)
+  test_view_scale_rev <- view_scale_primary(test_scale, limits = rev(test_scale$get_limits()))
+  expect_identical(test_view_scale_rev$get_breaks(), c(NA, 20, NA))
+  expect_identical(test_view_scale_rev$get_labels(), c(c("0", "20", "40")))
 })
 
 # Visual tests ------------------------------------------------------------
@@ -359,4 +366,19 @@ test_that("functional limits work for continuous scales", {
     "functional limits",
     ggplot(mpg, aes(class)) + geom_bar(aes(fill = drv)) + scale_y_continuous(limits = limiter(50))
   )
+})
+
+test_that("limits are squished to transformation domain", {
+  # Breaks should not be calculated on ranges outside domain #980
+  sc1 <- scale_x_sqrt()
+  sc2 <- scale_x_sqrt()
+  sc3 <- scale_x_reverse(breaks = 1:9) # Test for #4858
+
+  sc1$train(c(0, 10))
+  sc2$train(c(-10, 10))
+  sc3$train(c(0, -10)) # training expects transformed input
+
+  expect_equal(sc1$get_breaks(), sc2$get_breaks())
+  expect_equal(sc2$get_breaks()[1], 0)
+  expect_equal(sc3$get_breaks(), -1:-9)
 })

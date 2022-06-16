@@ -1,17 +1,17 @@
 #' Line segments and curves
 #'
-#' `geom_segment` draws a straight line between points (x, y) and
-#' (xend, yend). `geom_curve` draws a curved line. See the underlying
+#' `geom_segment()` draws a straight line between points (x, y) and
+#' (xend, yend). `geom_curve()` draws a curved line. See the underlying
 #' drawing function [grid::curveGrob()] for the parameters that
 #' control the curve.
 #'
-#' Both geoms draw a single segment/curve per case. See `geom_path` if you
+#' Both geoms draw a single segment/curve per case. See `geom_path()` if you
 #' need to connect points across multiple cases.
 #'
 #' @eval rd_aesthetics("geom", "segment")
 #' @inheritParams layer
 #' @inheritParams geom_point
-#' @param arrow specification for arrow heads, as created by arrow().
+#' @param arrow specification for arrow heads, as created by [grid::arrow()].
 #' @param arrow.fill fill colour to use for the arrow head (if closed). `NULL`
 #'        means use `colour` aesthetic.
 #' @param lineend Line end style (round, butt, square).
@@ -38,10 +38,12 @@
 #'   arrow = arrow(length = unit(0.03, "npc"))
 #' )
 #'
+#' if (requireNamespace('maps', quietly = TRUE)) {
 #' ggplot(seals, aes(long, lat)) +
 #'   geom_segment(aes(xend = long + delta_long, yend = lat + delta_lat),
 #'     arrow = arrow(length = unit(0.1,"cm"))) +
 #'   borders("state")
+#' }
 #'
 #' # Use lineend and linejoin to change the style of the segments
 #' df2 <- expand.grid(
@@ -59,6 +61,7 @@
 #'   xlim(0.5, 2)
 #'
 #' # You can also use geom_segment to recreate plot(type = "h") :
+#' set.seed(1)
 #' counts <- as.data.frame(table(x = rpois(100,5)))
 #' counts$x <- as.numeric(as.character(counts$x))
 #' with(counts, plot(x, Freq, type = "h", lwd = 10))
@@ -83,7 +86,7 @@ geom_segment <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       arrow = arrow,
       arrow.fill = arrow.fill,
       lineend = lineend,
@@ -100,15 +103,15 @@ geom_segment <- function(mapping = NULL, data = NULL,
 #' @export
 GeomSegment <- ggproto("GeomSegment", Geom,
   required_aes = c("x", "y", "xend", "yend"),
-  non_missing_aes = c("linetype", "size", "shape"),
-  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
-
-  draw_panel = function(data, panel_params, coord, arrow = NULL, arrow.fill = NULL,
+  non_missing_aes = c("linetype", "linewidth", "shape"),
+  default_aes = aes(colour = "black", linewidth = 0.5, linetype = 1, alpha = NA),
+  draw_panel = function(self, data, panel_params, coord, arrow = NULL, arrow.fill = NULL,
                         lineend = "butt", linejoin = "round", na.rm = FALSE) {
-
     data <- remove_missing(data, na.rm = na.rm,
-      c("x", "y", "xend", "yend", "linetype", "size", "shape"),
-      name = "geom_segment")
+      c("x", "y", "xend", "yend", "linetype", "linewidth", "shape"),
+      name = "geom_segment"
+    )
+
     if (empty(data)) return(zeroGrob())
 
     if (coord$is_linear()) {
@@ -119,7 +122,7 @@ GeomSegment <- ggproto("GeomSegment", Geom,
         gp = gpar(
           col = alpha(coord$colour, coord$alpha),
           fill = alpha(arrow.fill, coord$alpha),
-          lwd = coord$size * .pt,
+          lwd = coord$linewidth * .pt,
           lty = coord$linetype,
           lineend = lineend,
           linejoin = linejoin
@@ -139,5 +142,7 @@ GeomSegment <- ggproto("GeomSegment", Geom,
       lineend = lineend)
   },
 
-  draw_key = draw_key_path
+  draw_key = draw_key_path,
+
+  rename_size = TRUE
 )

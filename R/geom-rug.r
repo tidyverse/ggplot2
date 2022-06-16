@@ -37,18 +37,21 @@
 #'
 #' # move the rug tassels to outside the plot
 #' # remember to set clip = "off".
-#' p + geom_rug(outside = TRUE) +
+#' p +
+#'   geom_rug(outside = TRUE) +
 #'   coord_cartesian(clip = "off")
 #'
 #' # set sides to top right, and then move the margins
-#' p + geom_rug(outside = TRUE, sides = "tr") +
-#'    coord_cartesian(clip = "off") +
-#'    theme(plot.margin = margin(1, 1, 1, 1, "cm"))
+#' p +
+#'   geom_rug(outside = TRUE, sides = "tr") +
+#'   coord_cartesian(clip = "off") +
+#'   theme(plot.margin = margin(1, 1, 1, 1, "cm"))
 #'
 #' # increase the line length and
 #' # expand axis to avoid overplotting
-#' p + geom_rug(length = unit(0.05, "npc")) +
-#'    scale_y_continuous(expand = c(0.1, 0.1))
+#' p +
+#'   geom_rug(length = unit(0.05, "npc")) +
+#'   scale_y_continuous(expand = c(0.1, 0.1))
 #'
 geom_rug <- function(mapping = NULL, data = NULL,
                      stat = "identity", position = "identity",
@@ -67,7 +70,7 @@ geom_rug <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       outside = outside,
       sides = sides,
       length = length,
@@ -85,9 +88,10 @@ geom_rug <- function(mapping = NULL, data = NULL,
 GeomRug <- ggproto("GeomRug", Geom,
   optional_aes = c("x", "y"),
 
-  draw_panel = function(data, panel_params, coord, sides = "bl", outside = FALSE, length = unit(0.03, "npc")) {
+  draw_panel = function(data, panel_params, coord, lineend = "butt", sides = "bl",
+                        outside = FALSE, length = unit(0.03, "npc")) {
     if (!inherits(length, "unit")) {
-      abort("'length' must be a 'unit' object.")
+      cli::cli_abort("{.arg length} must be a {.cls unit} object.")
     }
     rugs <- list()
     data <- coord$transform(data, panel_params)
@@ -105,7 +109,12 @@ GeomRug <- ggproto("GeomRug", Geom,
       list(min = -1 * length, max = unit(1, "npc") + length)
     }
 
-    gp <- gpar(col = alpha(data$colour, data$alpha), lty = data$linetype, lwd = data$size * .pt)
+    gp <- gpar(
+      col = alpha(data$colour, data$alpha),
+      lty = data$linetype,
+      lwd = data$linewidth * .pt,
+      lineend = lineend
+    )
     if (!is.null(data$x)) {
       if (grepl("b", sides)) {
         rugs$x_b <- segmentsGrob(
@@ -145,7 +154,9 @@ GeomRug <- ggproto("GeomRug", Geom,
     gTree(children = do.call("gList", rugs))
   },
 
-  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
+  default_aes = aes(colour = "black", linewidth = 0.5, linetype = 1, alpha = NA),
 
-  draw_key = draw_key_path
+  draw_key = draw_key_path,
+
+  rename_size = TRUE
 )

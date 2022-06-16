@@ -1,5 +1,3 @@
-context("geom_boxplot")
-
 # thanks wch for providing the test code
 test_that("geom_boxplot range includes all outliers", {
   dat <- data_frame(x = 1, y = c(-(1:20) ^ 3, (1:20) ^ 3) )
@@ -55,8 +53,14 @@ test_that("can use US spelling of colour", {
 })
 
 test_that("boxes with variable widths do not overlap", {
-  p <- ggplot(data = iris, aes(Species, Sepal.Length)) +
-    geom_boxplot(aes(colour = Sepal.Width < 3.2), varwidth = TRUE)
+  df <- data_frame(
+    value = 1:12,
+    group = rep(c("a", "b", "c"), each = 4L),
+    subgroup = rep(c("A", "B"), times = 6L)
+  )
+
+  p <- ggplot(df, aes(group, value, colour = subgroup)) +
+    geom_boxplot(varwidth = TRUE)
   d <- layer_data(p)[c("xmin", "xmax")]
   xid <- find_x_overlaps(d)
 
@@ -71,7 +75,7 @@ test_that("boxplots with a group size >1 error", {
     geom_boxplot(stat = "identity")
 
   expect_equal(nrow(layer_data(p, 1)), 3)
-  expect_error(layer_grob(p, 1), "Can't draw more than one boxplot")
+  expect_snapshot_error(layer_grob(p, 1))
 })
 
 # Visual tests ------------------------------------------------------------

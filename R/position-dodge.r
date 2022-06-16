@@ -1,18 +1,18 @@
 #' Dodge overlapping objects side-to-side
 #'
 #' Dodging preserves the vertical position of an geom while adjusting the
-#' horizontal position. `position_dodge` requires the grouping variable to be
-#' be specified in the global or `geom_*` layer. Unlike `position_dodge`,
-#' `position_dodge2` works without a grouping variable in a layer.
-#' `position_dodge2` works with bars and rectangles, but is
+#' horizontal position. `position_dodge()` requires the grouping variable to be
+#' be specified in the global or `geom_*` layer. Unlike `position_dodge()`,
+#' `position_dodge2()` works without a grouping variable in a layer.
+#' `position_dodge2()` works with bars and rectangles, but is
 #' particulary useful for arranging box plots, which
 #' can have variable widths.
 #'
 #' @param width Dodging width, when different to the width of the individual
 #'   elements. This is useful when you want to align narrow geoms with wider
 #'   geoms. See the examples.
-#' @param preserve Should dodging preserve the total width of all elements
-#'    at a position, or the width of a single element?
+#' @param preserve Should dodging preserve the `"total"` width of all elements
+#'    at a position, or the width of a `"single"` element?
 #' @family position adjustments
 #' @export
 #' @examples
@@ -36,7 +36,11 @@
 #'
 #' # Dodging with various widths -------------------------------------
 #' # To dodge items with different widths, you need to be explicit
-#' df <- data.frame(x = c("a","a","b","b"), y = 2:5, g = rep(1:2, 2))
+#' df <- data.frame(
+#'   x = c("a","a","b","b"),
+#'   y = 2:5,
+#'   g = rep(1:2, 2)
+#' )
 #' p <- ggplot(df, aes(x, y, group = g)) +
 #'   geom_col(position = "dodge", fill = "grey50", colour = "black")
 #' p
@@ -64,21 +68,21 @@
 #' )
 #'
 #' # Box plots use position_dodge2 by default, and bars can use it too
-#' ggplot(data = iris, aes(Species, Sepal.Length)) +
-#'   geom_boxplot(aes(colour = Sepal.Width < 3.2))
+#' ggplot(mpg, aes(factor(year), displ)) +
+#'   geom_boxplot(aes(colour = hwy < 30))
 #'
-#' ggplot(data = iris, aes(Species, Sepal.Length)) +
-#'   geom_boxplot(aes(colour = Sepal.Width < 3.2), varwidth = TRUE)
+#' ggplot(mpg, aes(factor(year), displ)) +
+#'   geom_boxplot(aes(colour = hwy < 30), varwidth = TRUE)
 #'
 #' ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
 #'   geom_bar(position = position_dodge2(preserve = "single"))
 #'
 #' ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
 #'   geom_bar(position = position_dodge2(preserve = "total"))
-position_dodge <- function(width = NULL, preserve = c("total", "single")) {
+position_dodge <- function(width = NULL, preserve = "total") {
   ggproto(NULL, PositionDodge,
     width = width,
-    preserve = match.arg(preserve)
+    preserve = arg_match0(preserve, c("total", "single"))
   )
 }
 
@@ -93,7 +97,10 @@ PositionDodge <- ggproto("PositionDodge", Position,
     flipped_aes <- has_flipped_aes(data)
     data <- flip_data(data, flipped_aes)
     if (is.null(data$xmin) && is.null(data$xmax) && is.null(self$width)) {
-      warn("Width not defined. Set with `position_dodge(width = ?)`")
+      cli::cli_warn(c(
+        "Width not defined",
+        "i" = "Set with {.code position_dodge(width = ...)}"
+      ))
     }
 
     if (identical(self$preserve, "total")) {

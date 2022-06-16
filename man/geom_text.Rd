@@ -59,7 +59,9 @@ will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{stat}{The statistical transformation to use on the data for this
-layer, as a string.}
+layer, either as a \code{ggproto} \code{Geom} subclass or as a string naming the
+stat stripped of the \code{stat_} prefix (e.g. \code{"count"} rather than
+\code{"stat_count"})}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function. Cannot be jointy specified with
@@ -75,7 +77,7 @@ displayed as described in \code{?plotmath}.}
 
 \item{nudge_x, nudge_y}{Horizontal and vertical adjustment to nudge labels by.
 Useful for offsetting text from points, particularly on discrete scales.
-Cannot be jointy specified with \code{position}.}
+Cannot be jointly specified with \code{position}.}
 
 \item{label.padding}{Amount of padding around label. Defaults to 0.25 lines.}
 
@@ -100,11 +102,12 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 \item{check_overlap}{If \code{TRUE}, text that overlaps previous text in the
 same layer will not be plotted. \code{check_overlap} happens at draw time and in
 the order of the data. Therefore data should be arranged by the label
-column before calling \code{geom_label()} or \code{geom_text()}.}
+column before calling \code{geom_text()}. Note that this argument is not
+supported by \code{geom_label()}.}
 }
 \description{
 Text geoms are useful for labeling plots. They can be used by themselves as
-scatterplots or in cobination with other geoms, for example, for labeling
+scatterplots or in combination with other geoms, for example, for labeling
 points or for annotating the height of bars. \code{geom_text()} adds only text
 to the plot. \code{geom_label()} draws a rectangle behind the text, making it
 easier to read.
@@ -150,9 +153,9 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 
 \section{\code{geom_label()}}{
 
-Currently \code{geom_label()} does not support the \code{angle} aesthetic and
-is considerably slower than \code{geom_text()}. The \code{fill} aesthetic
-controls the background colour of the label.
+Currently \code{geom_label()} does not support the \code{check_overlap} argument
+or the \code{angle} aesthetic. Also, it is considerably slower than \code{geom_text()}.
+The \code{fill} aesthetic controls the background colour of the label.
 }
 
 \section{Alignment}{
@@ -177,12 +180,19 @@ p + geom_label()
 p + geom_text(size = 10)
 
 # Set aesthetics to fixed value
-p + geom_point() + geom_text(hjust = 0, nudge_x = 0.05)
-p + geom_point() + geom_text(vjust = 0, nudge_y = 0.5)
-p + geom_point() + geom_text(angle = 45)
+p +
+  geom_point() +
+  geom_text(hjust = 0, nudge_x = 0.05)
+p +
+  geom_point() +
+  geom_text(vjust = 0, nudge_y = 0.5)
+p +
+  geom_point() +
+  geom_text(angle = 45)
 \dontrun{
 # Doesn't work on all systems
-p + geom_text(family = "Times New Roman")
+p +
+  geom_text(family = "Times New Roman")
 }
 
 # Add aesthetic mappings
@@ -193,18 +203,26 @@ p + geom_label(aes(fill = factor(cyl)), colour = "white", fontface = "bold")
 
 p + geom_text(aes(size = wt))
 # Scale height of text, rather than sqrt(height)
-p + geom_text(aes(size = wt)) + scale_radius(range = c(3,6))
+p +
+  geom_text(aes(size = wt)) +
+  scale_radius(range = c(3,6))
 
 # You can display expressions by setting parse = TRUE.  The
 # details of the display are described in ?plotmath, but note that
 # geom_text uses strings, not expressions.
-p + geom_text(aes(label = paste(wt, "^(", cyl, ")", sep = "")),
-  parse = TRUE)
+p +
+  geom_text(
+    aes(label = paste(wt, "^(", cyl, ")", sep = "")),
+    parse = TRUE
+  )
 
 # Add a text annotation
 p +
   geom_text() +
-  annotate("text", label = "plot mpg vs. wt", x = 2, y = 15, size = 8, colour = "red")
+  annotate(
+    "text", label = "plot mpg vs. wt",
+    x = 2, y = 15, size = 8, colour = "red"
+  )
 
 \donttest{
 # Aligning labels and bars --------------------------------------------------

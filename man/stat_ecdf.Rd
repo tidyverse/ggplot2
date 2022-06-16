@@ -38,10 +38,14 @@ the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
-\item{geom}{The geometric object to use display the data}
+\item{geom}{The geometric object to use to display the data, either as a
+\code{ggproto} \code{Geom} subclass or as a string naming the geom stripped of the
+\code{geom_} prefix (e.g. \code{"point"} rather than \code{"geom_point"})}
 
-\item{position}{Position adjustment, either as a string, or the result of
-a call to a position adjustment function.}
+\item{position}{Position adjustment, either as a string naming the adjustment
+(e.g. \code{"jitter"} to use \code{position_jitter}), or the result of a call to a
+position adjustment function. Use the latter if you need to change the
+settings of the adjustment.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
@@ -76,24 +80,33 @@ tuning parameters and handles both continuous and categorical variables.
 The downside is that it requires more training to accurately interpret,
 and the underlying visual tasks are somewhat more challenging.
 }
+\details{
+The statistic relies on the aesthetics assignment to guess which variable to
+use as the input and which to use as the output. Either x or y must be provided
+and one of them must be unused. The ECDF will be calculated on the given aesthetic
+and will be output on the unused one.
+}
 \section{Computed variables}{
 
 \describe{
-\item{x}{x in data}
 \item{y}{cumulative density corresponding x}
 }
 }
 
 \examples{
+set.seed(1)
 df <- data.frame(
   x = c(rnorm(100, 0, 3), rnorm(100, 0, 10)),
   g = gl(2, 100)
 )
-ggplot(df, aes(x)) + stat_ecdf(geom = "step")
+ggplot(df, aes(x)) +
+  stat_ecdf(geom = "step")
 
 # Don't go to positive/negative infinity
-ggplot(df, aes(x)) + stat_ecdf(geom = "step", pad = FALSE)
+ggplot(df, aes(x)) +
+  stat_ecdf(geom = "step", pad = FALSE)
 
 # Multiple ECDFs
-ggplot(df, aes(x, colour = g)) + stat_ecdf()
+ggplot(df, aes(x, colour = g)) +
+  stat_ecdf()
 }

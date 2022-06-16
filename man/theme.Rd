@@ -91,6 +91,7 @@ theme(
   strip.background,
   strip.background.x,
   strip.background.y,
+  strip.clip,
   strip.placement,
   strip.text,
   strip.text.x,
@@ -254,6 +255,11 @@ the top, right, bottom, and left margins)}
 inherits from \code{rect}). Horizontal facet background (\code{strip.background.x})
 & vertical facet background (\code{strip.background.y}) inherit from
 \code{strip.background} or can be specified separately}
+
+\item{strip.clip}{should strip background edges and strip labels be clipped
+to the extend of the strip background? Options are \code{"on"} to clip, \code{"off"}
+to disable clipping or \code{"inherit"} (default) to take the clipping setting
+from the parent viewport.}
 
 \item{strip.placement}{placement of strip with respect to axes,
 either "inside" or "outside". Only important when axes and strips are

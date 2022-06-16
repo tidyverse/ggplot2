@@ -1,7 +1,7 @@
 #' Bin and summarise in 2d (rectangle & hexagons)
 #'
-#' `stat_summary_2d` is a 2d variation of [stat_summary()].
-#' `stat_summary_hex` is a hexagonal variation of
+#' `stat_summary_2d()` is a 2d variation of [stat_summary()].
+#' `stat_summary_hex()` is a hexagonal variation of
 #' [stat_summary_2d()]. The data are divided into bins defined
 #' by `x` and `y`, and then the values of `z` in each cell is
 #' are summarised with `fun`.
@@ -57,7 +57,7 @@ stat_summary_2d <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       bins = bins,
       binwidth = binwidth,
       drop = drop,
@@ -73,7 +73,7 @@ stat_summary_2d <- function(mapping = NULL, data = NULL,
 #' @rdname stat_summary_2d
 #' @usage NULL
 stat_summary2d <- function(...) {
-  message("Please use stat_summary_2d() instead")
+  cli::cli_inform("Please use {.fn stat_summary_2d} instead")
   stat_summary_2d(...)
 }
 

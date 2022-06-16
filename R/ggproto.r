@@ -1,7 +1,7 @@
 #' Create a new ggproto object
 #'
-#' Construct a new object with `ggproto`, test with `is.proto`,
-#' and access parent methods/fields with `ggproto_parent`.
+#' Construct a new object with `ggproto()`, test with `is.ggproto()`,
+#' and access parent methods/fields with `ggproto_parent()`.
 #'
 #' ggproto implements a protype based OO system which blurs the lines between
 #' classes and instances. It is inspired by the proto package, but it has some
@@ -57,9 +57,9 @@
 ggproto <- function(`_class` = NULL, `_inherit` = NULL, ...) {
   e <- new.env(parent = emptyenv())
 
-  members <- list(...)
+  members <- list2(...)
   if (length(members) != sum(nzchar(names(members)))) {
-    abort("All members of a ggproto object must be named.")
+    cli::cli_abort("All members of a {.cls ggproto} object must be named.")
   }
 
   # R <3.1.2 will error when list2env() is given an empty list, so we need to
@@ -79,7 +79,7 @@ ggproto <- function(`_class` = NULL, `_inherit` = NULL, ...) {
   super <- find_super()
   if (!is.null(super)) {
     if (!is.ggproto(super)) {
-      abort("`_inherit` must be a ggproto object.")
+      cli::cli_abort("{.arg _inherit} must be a {.cls ggproto} object.")
     }
     e$super <- find_super
     class(e) <- c(`_class`, class(super))
@@ -119,9 +119,9 @@ fetch_ggproto <- function(x, name) {
     } else if (is.function(super)) {
       res <- fetch_ggproto(super(), name)
     } else {
-      abort(glue("
-        {class(x)[[1]]} was built with an incompatible version of ggproto.
-        Please reinstall the package that provides this extension.
+      cli::cli_abort(c(
+              "{class(x)[[1]]} was built with an incompatible version of ggproto.",
+        "i" = "Please reinstall the package that provides this extension.
       "))
     }
   }
@@ -153,7 +153,7 @@ fetch_ggproto <- function(x, name) {
     return(res)
   }
 
-  make_proto_method(x, res)
+  make_proto_method(x, res, name)
 }
 
 #' @export
@@ -163,20 +163,23 @@ fetch_ggproto <- function(x, name) {
     return(res)
   }
 
-  make_proto_method(.subset2(x, "self"), res)
+  make_proto_method(.subset2(x, "self"), res, name)
 }
 
-make_proto_method <- function(self, f) {
+make_proto_method <- function(self, f, name) {
   args <- formals(f)
   # is.null is a fast path for a common case; the %in% check is slower but also
   # catches the case where there's a `self = NULL` argument.
   has_self  <- !is.null(args[["self"]]) || "self"  %in% names(args)
 
+  # We assign the method with its correct name and construct a call to it to
+  # make errors reported as coming from the method name rather than `f()`
+  assign(name, f, envir = environment())
+  args <- list(quote(...))
   if (has_self) {
-    fun <- function(...) f(..., self = self)
-  } else {
-    fun <- function(...) f(...)
+    args$self <- quote(self)
   }
+  fun <- inject(function(...) !!call2(name, !!!args))
 
   class(fun) <- "ggproto_method"
   fun

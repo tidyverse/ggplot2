@@ -1,4 +1,17 @@
-context("geom_ribbon")
+test_that("geom_ribbon() checks the aesthetics", {
+  huron <- data.frame(year = 1875:1972, level = as.vector(LakeHuron))
+  p <- ggplot(huron) +
+    geom_ribbon(aes(year, ymin = level - 5, ymax = level + 5), orientation = "y")
+  expect_snapshot_error(ggplotGrob(p))
+  p <- ggplot(huron) +
+    geom_ribbon(aes(y = year, xmin = level - 5, xmax = level + 5), orientation = "x")
+  expect_snapshot_error(ggplotGrob(p))
+  p <- ggplot(huron) +
+    geom_ribbon(aes(year, ymin = level - 5, ymax = level + 5, fill = year))
+  expect_snapshot_error(ggplotGrob(p))
+
+  expect_snapshot_error(geom_ribbon(aes(year, ymin = level - 5, ymax = level + 5), outline.type = "test"))
+})
 
 test_that("NAs are not dropped from the data", {
   df <- data_frame(x = 1:5, y = c(1, 1, NA, 1, 1))
@@ -46,12 +59,12 @@ test_that("outline.type option works", {
   # upper
   expect_s3_class(g_ribbon_upper$children[[1]]$children[[1]], "polygon")
   expect_s3_class(g_ribbon_upper$children[[1]]$children[[2]], "polyline")
-  expect_equal(g_ribbon_upper$children[[1]]$children[[2]]$id, rep(c(1L, NA), each = 4))
+  expect_equal(g_ribbon_upper$children[[1]]$children[[2]]$id, rep(1L, each = 4))
 
   # lower
   expect_s3_class(g_ribbon_lower$children[[1]]$children[[1]], "polygon")
   expect_s3_class(g_ribbon_lower$children[[1]]$children[[2]], "polyline")
-  expect_equal(g_ribbon_lower$children[[1]]$children[[2]]$id, rep(c(NA, 1L), each = 4))
+  expect_equal(g_ribbon_lower$children[[1]]$children[[2]]$id, rep(2L, each = 4))
 
   # full
   expect_s3_class(g_ribbon_full$children[[1]], "polygon")
@@ -59,5 +72,5 @@ test_that("outline.type option works", {
   # geom_area()'s default is upper
   expect_s3_class(g_area_default$children[[1]]$children[[1]], "polygon")
   expect_s3_class(g_area_default$children[[1]]$children[[2]], "polyline")
-  expect_equal(g_area_default$children[[1]]$children[[2]]$id, rep(c(1L, NA), each = 4))
+  expect_equal(g_area_default$children[[1]]$children[[2]]$id, rep(1L, each = 4))
 })

@@ -40,7 +40,9 @@ be added in turn.
 }
 
 \examples{
-base <- ggplot(mpg, aes(displ, hwy)) + geom_point()
+base <-
+ ggplot(mpg, aes(displ, hwy)) +
+ geom_point()
 base + geom_smooth()
 
 # To override the data, you must use \%+\%

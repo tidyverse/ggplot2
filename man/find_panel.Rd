@@ -21,8 +21,8 @@ b(ottom), and l(eft)
 }
 \description{
 These functions help detect the placement of panels in a gtable, if they are
-named with "panel" in the beginning. \code{find_panel} returns the extend of
-the panel area, while \code{panel_cols} and \code{panel_rows} returns the
+named with "panel" in the beginning. \code{find_panel()} returns the extend of
+the panel area, while \code{panel_cols()} and \code{panel_rows()} returns the
 columns and rows that contains panels respectively.
 }
 \keyword{internal}

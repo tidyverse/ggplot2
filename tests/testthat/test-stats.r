@@ -1,5 +1,3 @@
-context("Stats")
-
 test_that("plot succeeds even if some computation fails", {
   df <- data_frame(x = 1:2, y = 1)
   p1 <- ggplot(df, aes(x, y)) + geom_point()
@@ -8,7 +6,12 @@ test_that("plot succeeds even if some computation fails", {
   expect_equal(length(b1$data), 1)
 
   p2 <- p1 + geom_smooth()
-  expect_warning(b2 <- ggplot_build(p2), "Computation failed")
+
+  # TODO: These multiple warnings should be summarized nicely. Until this gets
+  #       fixed, this test ignores all the following errors than the first one.
+  suppressWarnings(
+    expect_warning(b2 <- ggplot_build(p2), "Computation failed")
+  )
   expect_equal(length(b2$data), 2)
 })
 

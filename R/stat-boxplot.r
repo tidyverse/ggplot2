@@ -2,15 +2,16 @@
 #' @param coef Length of the whiskers as multiple of IQR. Defaults to 1.5.
 #' @inheritParams stat_identity
 #' @section Computed variables:
+#' `stat_boxplot()` provides the following variables, some of which depend on the orientation:
 #' \describe{
 #'   \item{width}{width of boxplot}
-#'   \item{ymin}{lower whisker = smallest observation greater than or equal to lower hinge - 1.5 * IQR}
-#'   \item{lower}{lower hinge, 25% quantile}
+#'   \item{ymin *or* xmin}{lower whisker = smallest observation greater than or equal to lower hinge - 1.5 * IQR}
+#'   \item{lower *or* xlower}{lower hinge, 25% quantile}
 #'   \item{notchlower}{lower edge of notch = median - 1.58 * IQR / sqrt(n)}
-#'   \item{middle}{median, 50% quantile}
+#'   \item{middle *or* xmiddle}{median, 50% quantile}
 #'   \item{notchupper}{upper edge of notch = median + 1.58 * IQR / sqrt(n)}
-#'   \item{upper}{upper hinge, 75% quantile}
-#'   \item{ymax}{upper whisker = largest observation less than or equal to upper hinge + 1.5 * IQR}
+#'   \item{upper *or* xupper}{upper hinge, 75% quantile}
+#'   \item{ymax *or* xmax}{upper whisker = largest observation less than or equal to upper hinge + 1.5 * IQR}
 #' }
 #' @export
 stat_boxplot <- function(mapping = NULL, data = NULL,
@@ -29,7 +30,7 @@ stat_boxplot <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       na.rm = na.rm,
       orientation = orientation,
       coef = coef,
@@ -46,7 +47,7 @@ stat_boxplot <- function(mapping = NULL, data = NULL,
 StatBoxplot <- ggproto("StatBoxplot", Stat,
   required_aes = c("y|x"),
   non_missing_aes = "weight",
-  setup_data = function(data, params) {
+  setup_data = function(self, data, params) {
     data <- flip_data(data, params$flipped_aes)
     data$x <- data$x %||% 0
     data <- remove_missing(
@@ -58,7 +59,7 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
     flip_data(data, params$flipped_aes)
   },
 
-  setup_params = function(data, params) {
+  setup_params = function(self, data, params) {
     params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = TRUE,
                                           group_has_equal = TRUE,
                                           main_is_optional = TRUE)
@@ -67,13 +68,16 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
     has_x <- !(is.null(data$x) && is.null(params$x))
     has_y <- !(is.null(data$y) && is.null(params$y))
     if (!has_x && !has_y) {
-      abort("stat_boxplot() requires an x or y aesthetic.")
+      cli::cli_abort("{.fn {snake_class(self)}} requires an {.field x} or {.field y} aesthetic.")
     }
 
     params$width <- params$width %||% (resolution(data$x %||% 0) * 0.75)
 
     if (is.double(data$x) && !has_groups(data) && any(data$x != data$x[1L])) {
-      warn(glue("Continuous {flipped_names(params$flipped_aes)$x} aesthetic -- did you forget aes(group=...)?"))
+      cli::cli_warn(c(
+        "Continuous {.field {flipped_names(params$flipped_aes)$x}} aesthetic",
+        "i" = "did you forget {.code aes(group = ...)}?"
+      ))
     }
 
     params

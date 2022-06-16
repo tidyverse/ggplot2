@@ -11,6 +11,10 @@
 #' set. This means that layers created with this function will never
 #' affect the legend.
 #'
+#' @section Unsupported geoms:
+#' Due to their special nature, reference line geoms [geom_abline()],
+#' [geom_hline()], and [geom_vline()] can't be used with [annotate()].
+#' You can use these geoms directory for annotations.
 #' @param geom name of geom to use for annotation
 #' @param x,y,xmin,ymin,xmax,ymax,xend,yend positioning aesthetics -
 #'   you must specify at least one of these.
@@ -38,6 +42,13 @@ annotate <- function(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
                      ymin = NULL, ymax = NULL, xend = NULL, yend = NULL, ...,
                      na.rm = FALSE) {
 
+  if (geom %in% c("abline", "hline", "vline")) {
+    cli::cli_warn(c(
+      "{.arg geom} must not be {.val {geom}}.",
+      "i" = "Please use {.fn {paste0('geom_', geom)}} directly instead."
+    ))
+  }
+
   position <- compact(list(
     x = x, xmin = xmin, xmax = xmax, xend = xend,
     y = y, ymin = ymin, ymax = ymax, yend = yend
@@ -56,9 +67,8 @@ annotate <- function(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
   # if there is still more than one unique length, we error out
   if (length(n) > 1L) {
     bad <- lengths != 1L
-    details <- paste(names(aesthetics)[bad], " (", lengths[bad], ")",
-      sep = "", collapse = ", ")
-    abort(glue("Unequal parameter lengths: {details}"))
+    details <- paste0(names(aesthetics)[bad], " (", lengths[bad], ")")
+    cli::cli_abort("Unequal parameter lengths: {details}")
   }
 
   data <- new_data_frame(position, n = n)

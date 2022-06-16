@@ -44,7 +44,10 @@
 #' @param p A ggplot_built object.
 #'
 #' @examples
-#' p <- ggplot(mpg, aes(displ, hwy)) + geom_point() + facet_wrap(~class)
+#' p <-
+#'   ggplot(mpg, aes(displ, hwy)) +
+#'   geom_point() +
+#'   facet_wrap(~class)
 #' b <- ggplot_build(p)
 #'
 #' summarise_layout(b)
@@ -59,7 +62,9 @@ NULL
 #' @rdname summarise_plot
 #' @export
 summarise_layout = function(p) {
-  if (!inherits(p, "ggplot_built")) abort("`p` must be a ggplot_build object")
+  if (!inherits(p, "ggplot_built")) {
+    cli::cli_abort("{.arg p} must be a {.cls ggplot_build} object")
+  }
   l <- p$layout
 
   layout <- l$layout
@@ -96,7 +101,9 @@ summarise_layout = function(p) {
 #' @rdname summarise_plot
 #' @export
 summarise_coord = function(p) {
-  if (!inherits(p, "ggplot_built")) abort("`p` must be a ggplot_build object")
+  if (!inherits(p, "ggplot_built")) {
+    cli::cli_abort("{.arg p} must be a {.cls ggplot_build} object")
+  }
 
   # Given a transform object, find the log base; if the transform object is
   # NULL, or if it's not a log transform, return NA.
@@ -119,7 +126,9 @@ summarise_coord = function(p) {
 #' @rdname summarise_plot
 #' @export
 summarise_layers <- function(p) {
-  if (!inherits(p, "ggplot_built")) abort("`p` must be a ggplot_build object")
+  if (!inherits(p, "ggplot_built")) {
+    cli::cli_abort("{.arg p} must be a {.cls ggplot_build} object")
+  }
 
   # Default mappings. Make sure it's a regular list instead of an uneval
   # object.

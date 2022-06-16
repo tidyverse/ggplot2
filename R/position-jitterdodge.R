@@ -13,7 +13,8 @@
 #' @inheritParams position_jitter
 #' @export
 #' @examples
-#' dsub <- diamonds[ sample(nrow(diamonds), 1000), ]
+#' set.seed(596)
+#' dsub <- diamonds[sample(nrow(diamonds), 1000), ]
 #' ggplot(dsub, aes(x = cut, y = carat, fill = clarity)) +
 #'   geom_boxplot(outlier.size = 0) +
 #'   geom_point(pch = 21, position = position_jitterdodge())
@@ -49,7 +50,7 @@ PositionJitterdodge <- ggproto("PositionJitterdodge", Position,
     # Adjust the x transformation based on the number of 'dodge' variables
     dodgecols <- intersect(c("fill", "colour", "linetype", "shape", "size", "alpha"), colnames(data))
     if (length(dodgecols) == 0) {
-      abort("`position_jitterdodge()` requires at least one aesthetic to dodge by")
+      cli::cli_abort("{.fn position_jitterdodge} requires at least one aesthetic to dodge by")
     }
     ndodge    <- lapply(data[dodgecols], levels)  # returns NULL for numeric, i.e. non-dodge layers
     ndodge    <- length(unique(unlist(ndodge)))

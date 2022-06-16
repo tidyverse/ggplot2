@@ -4,12 +4,12 @@
 \alias{limits}
 \title{Generate correct scale type for specified limits}
 \usage{
-limits(lims, var)
+limits(lims, var, call = caller_env())
 }
 \arguments{
-\item{var}{name of variable}
+\item{lims}{vector of limits}
 
-\item{limits}{vector of limits}
+\item{var}{name of variable}
 }
 \description{
 Generate correct scale type for specified limits

@@ -14,7 +14,7 @@
 #' @inheritParams geom_bar
 #' @inheritParams geom_ribbon
 #' @param geom,stat Use to override the default connection between
-#'   `geom_density` and `stat_density`.
+#'   `geom_density()` and `stat_density()`.
 #' @export
 #' @examples
 #' ggplot(diamonds, aes(carat)) +
@@ -59,7 +59,7 @@ geom_density <- function(mapping = NULL, data = NULL,
                          show.legend = NA,
                          inherit.aes = TRUE,
                          outline.type = "upper") {
-  outline.type <- match.arg(outline.type, c("both", "upper", "lower", "full"))
+  outline.type <- arg_match0(outline.type, c("both", "upper", "lower", "full"))
 
   layer(
     data = data,
@@ -69,7 +69,7 @@ geom_density <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       na.rm = na.rm,
       orientation = orientation,
       outline.type = outline.type,

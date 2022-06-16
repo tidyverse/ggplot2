@@ -1,6 +1,6 @@
 #' @section Stats:
 #'
-#' All `stat_*` functions (like `stat_bin`) return a layer that
+#' All `stat_*()` functions (like `stat_bin()`) return a layer that
 #' contains a `Stat*` object (like `StatBin`). The `Stat*`
 #' object is responsible for rendering the data in the plot.
 #'
@@ -61,6 +61,8 @@ Stat <- ggproto("Stat",
 
   non_missing_aes = character(),
 
+  optional_aes = character(),
+
   setup_params = function(data, params) {
     params
   },
@@ -95,8 +97,8 @@ Stat <- ggproto("Stat",
     args <- c(list(data = quote(data), scales = quote(scales)), params)
     dapply(data, "PANEL", function(data) {
       scales <- layout$get_scales(data$PANEL[1])
-      tryCatch(do.call(self$compute_panel, args), error = function(e) {
-        warn(glue("Computation failed in `{snake_class(self)}()`:\n{e$message}"))
+      try_fetch(do.call(self$compute_panel, args), error = function(cnd) {
+        cli::cli_warn("Computation failed in {.fn {snake_class(self)}}", parent = cnd)
         new_data_frame()
       })
     })
@@ -124,7 +126,7 @@ Stat <- ggproto("Stat",
   },
 
   compute_group = function(self, data, scales) {
-    abort("Not implemented")
+    cli::cli_abort("Not implemented")
   },
 
   finish_layer = function(self, data, params) {
@@ -155,7 +157,7 @@ Stat <- ggproto("Stat",
     } else {
       required_aes <- unlist(strsplit(self$required_aes, '|', fixed = TRUE))
     }
-    c(union(required_aes, names(self$default_aes)), "group")
+    c(union(required_aes, names(self$default_aes)), self$optional_aes, "group")
   }
 
 )

@@ -22,7 +22,7 @@
 #'  [geom_polygon()]: Filled paths (polygons);
 #'  [geom_segment()]: Line segments
 #' @section Missing value handling:
-#' `geom_path()`, `geom_line()`, and `geom_step` handle `NA` as follows:
+#' `geom_path()`, `geom_line()`, and `geom_step()` handle `NA` as follows:
 #'
 #' * If an `NA` occurs in the middle of a line, it breaks the line. No warning
 #'   is shown, regardless of whether `na.rm` is `TRUE` or `FALSE`.
@@ -112,7 +112,7 @@ geom_path <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       lineend = lineend,
       linejoin = linejoin,
       linemitre = linemitre,
@@ -130,28 +130,30 @@ geom_path <- function(mapping = NULL, data = NULL,
 GeomPath <- ggproto("GeomPath", Geom,
   required_aes = c("x", "y"),
 
-  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
+  default_aes = aes(colour = "black", linewidth = 0.5, linetype = 1, alpha = NA),
 
-  handle_na = function(data, params) {
+  handle_na = function(self, data, params) {
     # Drop missing values at the start or end of a line - can't drop in the
     # middle since you expect those to be shown by a break in the line
-    complete <- stats::complete.cases(data[c("x", "y", "size", "colour", "linetype")])
+    complete <- stats::complete.cases(data[c("x", "y", "linewidth", "colour", "linetype")])
     kept <- stats::ave(complete, data$group, FUN = keep_mid_true)
     data <- data[kept, ]
 
     if (!all(kept) && !params$na.rm) {
-      warn(glue("Removed {sum(!kept)} row(s) containing missing values (geom_path)."))
+      cli::cli_warn("Removed {sum(!kept)} row{?s} containing missing values ({.fn {snake_class(self)}}).")
     }
 
     data
   },
 
-  draw_panel = function(data, panel_params, coord, arrow = NULL,
+  draw_panel = function(self, data, panel_params, coord, arrow = NULL,
                         lineend = "butt", linejoin = "round", linemitre = 10,
                         na.rm = FALSE) {
     if (!anyDuplicated(data$group)) {
-      message_wrap("geom_path: Each group consists of only one observation. ",
-        "Do you need to adjust the group aesthetic?")
+      cli::cli_inform(c(
+        "{.fn {snake_class(self)}}: Each group consists of only one observation.",
+        i = "Do you need to adjust the {.field group} aesthetic?"
+      ))
     }
 
     # must be sorted on group
@@ -168,13 +170,13 @@ GeomPath <- ggproto("GeomPath", Geom,
       linetype <- unique(df$linetype)
       new_data_frame(list(
         solid = identical(linetype, 1) || identical(linetype, "solid"),
-        constant = nrow(unique(df[, c("alpha", "colour","size", "linetype")])) == 1
+        constant = nrow(unique(df[, c("alpha", "colour","linewidth", "linetype")])) == 1
       ), n = 1)
     })
     solid_lines <- all(attr$solid)
     constant <- all(attr$constant)
     if (!solid_lines && !constant) {
-      abort("geom_path: If you are using dotted or dashed lines, colour, size and linetype must be constant over the line")
+      cli::cli_abort("{.fn {snake_class(self)}} can't have varying {.field colour}, {.field size}, and/or {.field alpha} along the line when {.field linetype} isn't solid")
     }
 
     # Work out grouping variables for grobs
@@ -190,7 +192,7 @@ GeomPath <- ggproto("GeomPath", Geom,
         gp = gpar(
           col = alpha(munched$colour, munched$alpha)[!end],
           fill = alpha(munched$colour, munched$alpha)[!end],
-          lwd = munched$size[!end] * .pt,
+          lwd = munched$linewidth[!end] * .pt,
           lty = munched$linetype[!end],
           lineend = lineend,
           linejoin = linejoin,
@@ -205,7 +207,7 @@ GeomPath <- ggproto("GeomPath", Geom,
         gp = gpar(
           col = alpha(munched$colour, munched$alpha)[start],
           fill = alpha(munched$colour, munched$alpha)[start],
-          lwd = munched$size[start] * .pt,
+          lwd = munched$linewidth[start] * .pt,
           lty = munched$linetype[start],
           lineend = lineend,
           linejoin = linejoin,
@@ -215,7 +217,9 @@ GeomPath <- ggproto("GeomPath", Geom,
     }
   },
 
-  draw_key = draw_key_path
+  draw_key = draw_key_path,
+
+  rename_size = TRUE
 )
 
 # Trim false values from left and right: keep all values from
@@ -248,7 +252,7 @@ geom_line <- function(mapping = NULL, data = NULL, stat = "identity",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       na.rm = na.rm,
       orientation = orientation,
       ...
@@ -293,7 +297,7 @@ geom_step <- function(mapping = NULL, data = NULL, stat = "identity",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       direction = direction,
       na.rm = na.rm,
       ...
@@ -318,7 +322,7 @@ GeomStep <- ggproto("GeomStep", GeomPath,
 #'
 #' @noRd
 stairstep <- function(data, direction = "hv") {
-  direction <- match.arg(direction, c("hv", "vh", "mid"))
+  direction <- arg_match0(direction, c("hv", "vh", "mid"))
   data <- as.data.frame(data)[order(data$x), ]
   n <- nrow(data)
 
@@ -337,7 +341,10 @@ stairstep <- function(data, direction = "hv") {
     xs <- rep(1:(n-1), each = 2)
     ys <- rep(1:n, each = 2)
   } else {
-    abort("Parameter `direction` is invalid.")
+    cli::cli_abort(c(
+      "{.arg direction} is invalid.",
+      "i" = "Use either {.val vh}, {.val hv}, or {.va mid}"
+    ))
   }
 
   if (direction == "mid") {

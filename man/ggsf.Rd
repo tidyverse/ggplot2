@@ -18,9 +18,11 @@ coord_sf(
   ylim = NULL,
   expand = TRUE,
   crs = NULL,
+  default_crs = NULL,
   datum = sf::st_crs(4326),
   label_graticule = waiver(),
   label_axes = waiver(),
+  lims_method = "cross",
   ndiscr = 100,
   default = FALSE,
   clip = "on"
@@ -83,18 +85,35 @@ stat_sf(
 )
 }
 \arguments{
-\item{xlim}{Limits for the x and y axes.}
-
-\item{ylim}{Limits for the x and y axes.}
+\item{xlim, ylim}{Limits for the x and y axes. These limits are specified
+in the units of the default CRS. By default, this means projected coordinates
+(\code{default_crs = NULL}). How limit specifications translate into the exact
+region shown on the plot can be confusing when non-linear or rotated coordinate
+systems are used as the default crs. First, different methods can be preferable
+under different conditions. See parameter \code{lims_method} for details. Second,
+specifying limits along only one direction can affect the automatically generated
+limits along the other direction. Therefore, it is best to always specify limits
+for both x and y. Third, specifying limits via position scales or \code{xlim()}/\code{ylim()}
+is strongly discouraged, as it can result in data points being dropped from the plot even
+though they would be visible in the final plot region.}
 
 \item{expand}{If \code{TRUE}, the default, adds a small expansion factor to
 the limits to ensure that data and axes don't overlap. If \code{FALSE},
 limits are taken exactly from the data or \code{xlim}/\code{ylim}.}
 
-\item{crs}{Use this to select a specific coordinate reference system (CRS).
-If not specified, will use the CRS defined in the first layer.}
+\item{crs}{The coordinate reference system (CRS) into which all data should
+be projected before plotting. If not specified, will use the CRS defined
+in the first sf layer of the plot.}
 
-\item{datum}{CRS that provides datum to use when generating graticules}
+\item{default_crs}{The default CRS to be used for non-sf layers (which
+don't carry any CRS information) and scale limits. The default value of
+\code{NULL} means that the setting for \code{crs} is used. This implies that all
+non-sf layers and scale limits are assumed to be specified in projected
+coordinates. A useful alternative setting is \code{default_crs = sf::st_crs(4326)},
+which means x and y positions are interpreted as longitude and latitude,
+respectively, in the World Geodetic System 1984 (WGS84).}
+
+\item{datum}{CRS that provides datum to use when generating graticules.}
 
 \item{label_graticule}{Character vector indicating which graticule lines should be labeled
 where. Meridians run north-south, and the letters \code{"N"} and \code{"S"} indicate that
@@ -105,7 +124,10 @@ should be labeled on their east or west end points, respectively. Thus,
 their west end, whereas \code{label_graticule = "EW"} would label parallels at both
 ends and meridians not at all. Because meridians and parallels can in general
 intersect with any side of the plot panel, for any choice of \code{label_graticule} labels
-are not guaranteed to reside on only one particular side of the plot panel.
+are not guaranteed to reside on only one particular side of the plot panel. Also,
+\code{label_graticule} can cause labeling artifacts, in particular if a graticule line
+coincides with the edge of the plot panel. In such circumstances, \code{label_axes} will
+generally yield better results and should be used instead.
 
 This parameter can be used alone or in combination with \code{label_axes}.}
 
@@ -119,8 +141,25 @@ specified with \code{list(bottom = "E", left = "N")}.
 
 This parameter can be used alone or in combination with \code{label_graticule}.}
 
-\item{ndiscr}{number of segments to use for discretising graticule lines;
-try increasing this when graticules look unexpected}
+\item{lims_method}{Method specifying how scale limits are converted into
+limits on the plot region. Has no effect when \code{default_crs = NULL}.
+For a very non-linear CRS (e.g., a perspective centered
+around the North pole), the available methods yield widely differing results, and
+you may want to try various options. Methods currently implemented include \code{"cross"}
+(the default), \code{"box"}, \code{"orthogonal"}, and \code{"geometry_bbox"}. For method \code{"cross"},
+limits along one direction (e.g., longitude) are applied at the midpoint of the
+other direction (e.g., latitude). This method avoids excessively large limits for
+rotated coordinate systems but means that sometimes limits need to be expanded a
+little further if extreme data points are to be included in the final plot region.
+By contrast, for method \code{"box"}, a box is generated out of the limits along both directions,
+and then limits in projected coordinates are chosen such that the entire box is
+visible. This method can yield plot regions that are too large. Finally, method
+\code{"orthogonal"} applies limits separately along each axis, and method
+\code{"geometry_bbox"} ignores all limit information except the bounding boxes of any
+objects in the \code{geometry} aesthetic.}
+
+\item{ndiscr}{Number of segments to use for discretising graticule lines;
+try increasing this number when graticules look incorrect.}
 
 \item{default}{Is this the default coordinate system? If \code{FALSE} (the default),
 then replacing this coordinate system with another one creates a message alerting
@@ -157,10 +196,14 @@ will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{stat}{The statistical transformation to use on the data for this
-layer, as a string.}
+layer, either as a \code{ggproto} \code{Geom} subclass or as a string naming the
+stat stripped of the \code{stat_} prefix (e.g. \code{"count"} rather than
+\code{"stat_count"})}
 
-\item{position}{Position adjustment, either as a string, or the result of
-a call to a position adjustment function.}
+\item{position}{Position adjustment, either as a string naming the adjustment
+(e.g. \code{"jitter"} to use \code{position_jitter}), or the result of a call to a
+position adjustment function. Use the latter if you need to change the
+settings of the adjustment.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
@@ -185,13 +228,9 @@ to the paired geom/stat.}
 \item{parse}{If \code{TRUE}, the labels will be parsed into expressions and
 displayed as described in \code{?plotmath}.}
 
-\item{nudge_x}{Horizontal and vertical adjustment to nudge labels by.
+\item{nudge_x, nudge_y}{Horizontal and vertical adjustment to nudge labels by.
 Useful for offsetting text from points, particularly on discrete scales.
-Cannot be jointy specified with \code{position}.}
-
-\item{nudge_y}{Horizontal and vertical adjustment to nudge labels by.
-Useful for offsetting text from points, particularly on discrete scales.
-Cannot be jointy specified with \code{position}.}
+Cannot be jointly specified with \code{position}.}
 
 \item{label.padding}{Amount of padding around label. Defaults to 0.25 lines.}
 
@@ -208,9 +247,12 @@ when you really care about the exact locations.}
 \item{check_overlap}{If \code{TRUE}, text that overlaps previous text in the
 same layer will not be plotted. \code{check_overlap} happens at draw time and in
 the order of the data. Therefore data should be arranged by the label
-column before calling \code{geom_label()} or \code{geom_text()}.}
+column before calling \code{geom_text()}. Note that this argument is not
+supported by \code{geom_label()}.}
 
-\item{geom}{The geometric object to use display the data}
+\item{geom}{The geometric object to use to display the data, either as a
+\code{ggproto} \code{Geom} subclass or as a string naming the geom stripped of the
+\code{geom_} prefix (e.g. \code{"point"} rather than \code{"geom_point"})}
 }
 \description{
 This set of geom, stat, and coord are used to visualise simple feature (sf)
@@ -241,8 +283,36 @@ the plot.
 \section{CRS}{
 
 \code{coord_sf()} ensures that all layers use a common CRS. You can
-either specify it using the \code{CRS} param, or \code{coord_sf()} will
+either specify it using the \code{crs} param, or \code{coord_sf()} will
 take it from the first layer that defines a CRS.
+}
+
+\section{Combining sf layers and regular geoms}{
+
+Most regular geoms, such as \code{\link[=geom_point]{geom_point()}}, \code{\link[=geom_path]{geom_path()}},
+\code{\link[=geom_text]{geom_text()}}, \code{\link[=geom_polygon]{geom_polygon()}} etc. will work fine with \code{coord_sf()}. However
+when using these geoms, two problems arise. First, what CRS should be used
+for the x and y coordinates used by these non-sf geoms? The CRS applied to
+non-sf geoms is set by the \code{default_crs} parameter, and it defaults to
+\code{NULL}, which means positions for non-sf geoms are interpreted as projected
+coordinates in the coordinate system set by the \code{crs} parameter. This setting
+allows you complete control over where exactly items are placed on the plot
+canvas, but it may require some understanding of how projections work and how
+to generate data in projected coordinates. As an alternative, you can set
+\code{default_crs = sf::st_crs(4326)}, the World Geodetic System 1984 (WGS84).
+This means that x and y positions are interpreted as longitude and latitude,
+respectively. You can also specify any other valid CRS as the default CRS for
+non-sf geoms.
+
+The second problem that arises for non-sf geoms is how straight lines
+should be interpreted in projected space when \code{default_crs} is not set to \code{NULL}.
+The approach \code{coord_sf()} takes is to break straight lines into small pieces
+(i.e., segmentize them) and then transform the pieces into projected coordinates.
+For the default setting where x and y are interpreted as longitude and latitude,
+this approach means that horizontal lines follow the parallels and vertical lines
+follow the meridians. If you need a different approach to handling straight lines,
+then you should manually segmentize and project coordinates and generate the plot
+in projected coordinates.
 }
 
 \examples{
@@ -266,14 +336,22 @@ ggplot(nc_3857) +
   geom_sf(colour = "white") +
   geom_sf(aes(geometry = mid, size = AREA), show.legend = "point")
 
-# You can also use layers with x and y aesthetics: these are
-# assumed to already be in the common CRS.
-ggplot(nc) +
+# You can also use layers with x and y aesthetics. To have these interpreted
+# as longitude/latitude you need to set the default CRS in coord_sf()
+ggplot(nc_3857) +
   geom_sf() +
-  annotate("point", x = -80, y = 35, colour = "red", size = 4)
+  annotate("point", x = -80, y = 35, colour = "red", size = 4) +
+  coord_sf(default_crs = sf::st_crs(4326))
+
+# To add labels, use geom_sf_label().
+ggplot(nc_3857[1:3, ]) +
+   geom_sf(aes(fill = AREA)) +
+   geom_sf_label(aes(label = NAME))
+}
 
 # Thanks to the power of sf, a geom_sf nicely handles varying projections
 # setting the aspect ratio correctly.
+if (requireNamespace('maps', quietly = TRUE)) {
 library(maps)
 world1 <- sf::st_as_sf(map('world', plot = FALSE, fill = TRUE))
 ggplot() + geom_sf(data = world1)
@@ -283,11 +361,6 @@ world2 <- sf::st_transform(
   "+proj=laea +y_0=0 +lon_0=155 +lat_0=-90 +ellps=WGS84 +no_defs"
 )
 ggplot() + geom_sf(data = world2)
-
-# To add labels, use geom_sf_label().
-ggplot(nc_3857[1:3, ]) +
-   geom_sf(aes(fill = AREA)) +
-   geom_sf_label(aes(label = NAME))
 }
 }
 \seealso{

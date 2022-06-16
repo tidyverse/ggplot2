@@ -9,7 +9,7 @@
 #' @inheritParams scales::gradient_n_pal
 #' @inheritParams continuous_scale
 #' @param ... Other arguments passed on to [discrete_scale()],
-#' [continuous_scale()], or [binned_scale] to control name, limits, breaks,
+#' [continuous_scale()], or [binned_scale()] to control name, limits, breaks,
 #'   labels and so forth.
 #' @param aesthetics Character string or vector of character strings listing the
 #'   name(s) of the aesthetic(s) that this scale works with. This can be useful, for
@@ -20,6 +20,7 @@
 #' @export
 #' @examples
 #' # viridis is the default colour/fill scale for ordered factors
+#' set.seed(596)
 #' dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
 #' ggplot(dsamp, aes(carat, price)) +
 #'   geom_point(aes(colour = clarity))
@@ -123,14 +124,14 @@ scale_colour_viridis_b <- function(..., alpha = 1, begin = 0, end = 1,
                                    direction = 1, option = "D", values = NULL,
                                    space = "Lab", na.value = "grey50",
                                    guide = "coloursteps", aesthetics = "colour") {
+  pal <-  binned_pal(
+    viridis_pal(alpha, begin, end, direction, option)
+  )
+
   binned_scale(
     aesthetics,
     "viridis_b",
-    gradient_n_pal(
-      viridis_pal(alpha, begin, end, direction, option)(6),
-      values,
-      space
-    ),
+    pal,
     na.value = na.value,
     guide = guide,
     ...
@@ -143,14 +144,14 @@ scale_fill_viridis_b <- function(..., alpha = 1, begin = 0, end = 1,
                                  direction = 1, option = "D", values = NULL,
                                  space = "Lab", na.value = "grey50",
                                  guide = "coloursteps", aesthetics = "fill") {
+  pal <-  binned_pal(
+    viridis_pal(alpha, begin, end, direction, option)
+  )
+
   binned_scale(
     aesthetics,
     "viridis_b",
-    gradient_n_pal(
-      viridis_pal(alpha, begin, end, direction, option)(6),
-      values,
-      space
-    ),
+    pal,
     na.value = na.value,
     guide = guide,
     ...

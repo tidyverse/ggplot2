@@ -15,6 +15,8 @@ if (getRversion() < 3.3) {
   backport_unit_methods <- function() {}
 }
 
+on_load(backport_unit_methods())
+
 # isFALSE() is available on R (>=3.5)
 if (getRversion() < 3.5) {
   isFALSE <- function(x) is.logical(x) && length(x) == 1L && !is.na(x) && !x

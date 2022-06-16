@@ -4,7 +4,8 @@
 \name{msleep}
 \alias{msleep}
 \title{An updated and expanded version of the mammals sleep dataset}
-\format{A data frame with 83 rows and 11 variables:
+\format{
+A data frame with 83 rows and 11 variables:
 \describe{
 \item{name}{common name}
 \item{genus}{}
@@ -17,7 +18,8 @@
 \item{awake}{amount of time spent awake, in hours}
 \item{brainwt}{brain weight in kilograms}
 \item{bodywt}{body weight in kilograms}
-}}
+}
+}
 \usage{
 msleep
 }

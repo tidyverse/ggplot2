@@ -1,6 +1,6 @@
 #' Transformed Cartesian coordinate system
 #'
-#' `coord_trans` is different to scale transformations in that it occurs after
+#' `coord_trans()` is different to scale transformations in that it occurs after
 #' statistical transformation and will affect the visual appearance of geoms - there is
 #' no guarantee that straight lines will continue to be straight.
 #'
@@ -10,7 +10,7 @@
 #'
 #' @inheritParams coord_cartesian
 #' @param x,y Transformers for x and y axes or their names.
-#' @param limx,limy **Deprecated**: use `xlim` and `ylim` instead.
+#' @param limx,limy `r lifecycle::badge("deprecated")` use `xlim` and `ylim` instead.
 #' @export
 #' @examples
 #' \donttest{
@@ -68,6 +68,7 @@
 #'   geom_smooth(method = "lm")
 #'
 #' # Also works with discrete scales
+#' set.seed(1)
 #' df <- data.frame(a = abs(rnorm(26)),letters)
 #' plot <- ggplot(df,aes(a,letters)) + geom_point()
 #'
@@ -75,13 +76,13 @@
 #' plot + coord_trans(x = "sqrt")
 #' }
 coord_trans <- function(x = "identity", y = "identity", xlim = NULL, ylim = NULL,
-                        limx = "DEPRECATED", limy = "DEPRECATED", clip = "on", expand = TRUE) {
-  if (!missing(limx)) {
-    warn("`limx` argument is deprecated; please use `xlim` instead.")
+                        limx = deprecated(), limy = deprecated(), clip = "on", expand = TRUE) {
+  if (lifecycle::is_present(limx)) {
+    lifecycle::deprecate_warn("3.3.0", "coord_trans(limx)", "coord_trans(xlim)")
     xlim <- limx
   }
-  if (!missing(limy)) {
-    warn("`limy` argument is deprecated; please use `ylim` instead.")
+  if (lifecycle::is_present(limy)) {
+    lifecycle::deprecate_warn("3.3.0", "coord_trans(limy)", "coord_trans(ylim)")
     ylim <- limy
   }
 
@@ -247,8 +248,8 @@ train_trans <- function(scale, coord_limits, trans, name, expand = TRUE) {
 #' @param new_values A vector of post-transformation values.
 #' @param axis Which axis the values originate from (e.g. x, y).
 #' @noRd
-warn_new_infinites <- function(old_values, new_values, axis) {
+warn_new_infinites <- function(old_values, new_values, axis, call = caller_env()) {
   if (any(is.finite(old_values) & !is.finite(new_values))) {
-    warn(glue("Transformation introduced infinite values in {axis}-axis"))
+    cli::cli_warn("Transformation introduced infinite values in {axis}-axis", call = call)
   }
 }

@@ -36,7 +36,7 @@ stat_contour <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       bins = bins,
       binwidth = binwidth,
       breaks = breaks,
@@ -65,7 +65,7 @@ stat_contour_filled <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       bins = bins,
       binwidth = binwidth,
       breaks = breaks,
@@ -144,26 +144,50 @@ StatContourFilled <- ggproto("StatContourFilled", Stat,
 #' @noRd
 #'
 contour_breaks <- function(z_range, bins = NULL, binwidth = NULL, breaks = NULL) {
-  if (!is.null(breaks)) {
+  breaks <- allow_lambda(breaks)
+
+  if (is.numeric(breaks)) {
     return(breaks)
+  }
+
+  breaks_fun <- fullseq
+  if (is.function(breaks)) {
+    breaks_fun <- breaks
   }
 
   # If no parameters set, use pretty bins
   if (is.null(bins) && is.null(binwidth)) {
     breaks <- pretty(z_range, 10)
+    return(breaks)
   }
 
   # If provided, use bins to calculate binwidth
   if (!is.null(bins)) {
+    # round lower limit down and upper limit up to make sure
+    # we generate bins that span the data range nicely
+    accuracy <- signif(diff(z_range), 1)/10
+    z_range[1] <- floor(z_range[1]/accuracy)*accuracy
+    z_range[2] <- ceiling(z_range[2]/accuracy)*accuracy
+
+    if (bins == 1) {
+      return(z_range)
+    }
+
     binwidth <- diff(z_range) / (bins - 1)
+    breaks <- breaks_fun(z_range, binwidth)
+
+    # Sometimes the above sequence yields one bin too few.
+    # If this happens, try again.
+    if (length(breaks) < bins + 1) {
+      binwidth <- diff(z_range) / bins
+      breaks <- breaks_fun(z_range, binwidth)
+    }
+
+    return(breaks)
   }
 
-  # If necessary, compute breaks from binwidth
-  if (is.null(breaks)) {
-    breaks <- fullseq(z_range, binwidth)
-  }
-
-  breaks
+  # if we haven't returned yet, compute breaks from binwidth
+  breaks_fun(z_range, binwidth)
 }
 
 #' Compute isoband objects
@@ -230,7 +254,7 @@ iso_to_path <- function(iso, group = 1) {
   lengths <- vapply(iso, function(x) length(x$x), integer(1))
 
   if (all(lengths == 0)) {
-    warn("stat_contour(): Zero contours were generated")
+    cli::cli_warn("{.fn stat_contour}: Zero contours were generated")
     return(new_data_frame())
   }
 
@@ -268,7 +292,7 @@ iso_to_polygon <- function(iso, group = 1) {
   lengths <- vapply(iso, function(x) length(x$x), integer(1))
 
   if (all(lengths == 0)) {
-    warn("stat_contour(): Zero contours were generated")
+    cli::cli_warn("{.fn stat_contour}: Zero contours were generated")
     return(new_data_frame())
   }
 

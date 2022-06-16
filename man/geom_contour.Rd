@@ -88,23 +88,34 @@ will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{stat}{The statistical transformation to use on the data for this
-layer, as a string.}
+layer, either as a \code{ggproto} \code{Geom} subclass or as a string naming the
+stat stripped of the \code{stat_} prefix (e.g. \code{"count"} rather than
+\code{"stat_count"})}
 
-\item{position}{Position adjustment, either as a string, or the result of
-a call to a position adjustment function.}
+\item{position}{Position adjustment, either as a string naming the adjustment
+(e.g. \code{"jitter"} to use \code{position_jitter}), or the result of a call to a
+position adjustment function. Use the latter if you need to change the
+settings of the adjustment.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
-\item{bins}{Number of contour bins. Overridden by \code{binwidth}.}
+\item{bins}{Number of contour bins. Overridden by \code{breaks}.}
 
-\item{binwidth}{The width of the contour bins. Overridden by \code{breaks}.}
+\item{binwidth}{The width of the contour bins. Overridden by \code{bins}.}
 
-\item{breaks}{Numeric vector to set the contour breaks.
-Overrides \code{binwidth} and \code{bins}. By default, this is a vector of
-length ten with \code{\link[=pretty]{pretty()}} breaks.}
+\item{breaks}{One of:
+\itemize{
+\item Numeric vector to set the contour breaks
+\item A function that takes the range of the data and binwidth as input
+and returns breaks as output. A function can be created from a formula
+(e.g. ~ fullseq(.x, .y)).
+}
+
+Overrides \code{binwidth} and \code{bins}. By default, this is a vector of length
+ten with \code{\link[=pretty]{pretty()}} breaks.}
 
 \item{lineend}{Line end style (round, butt, square).}
 
@@ -126,16 +137,20 @@ rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
-\item{geom}{The geometric object to use display the data}
+\item{geom}{The geometric object to use to display the data, either as a
+\code{ggproto} \code{Geom} subclass or as a string naming the geom stripped of the
+\code{geom_} prefix (e.g. \code{"point"} rather than \code{"geom_point"})}
 }
 \description{
 ggplot2 can not draw true 3D surfaces, but you can use \code{geom_contour()},
 \code{geom_contour_filled()}, and \code{\link[=geom_tile]{geom_tile()}} to visualise 3D surfaces in 2D.
-To specify a valid surface, the data must contain \code{x}, \code{y}, and \code{z} coordinates,
-and each unique combination of \code{x} and \code{y} can appear exactly once. Contouring
-tends to work best when \code{x} and \code{y} form a (roughly) evenly
-spaced grid. If your data is not evenly spaced, you may want to interpolate
-to a grid before visualising, see \code{\link[=geom_density_2d]{geom_density_2d()}}.
+
+These functions require regular data, where the \code{x} and \code{y} coordinates
+form an equally spaced grid, and each combination of \code{x} and \code{y} appears
+once. Missing values of \code{z} are allowed, but contouring will only work for
+grid points where all four corners are non-missing. If you have irregular
+data, you'll need to first interpolate on to a grid before visualising,
+using \code{\link[interp:interp]{interp::interp()}}, \code{\link[akima:bilinear]{akima::bilinear()}}, or similar.
 }
 \section{Aesthetics}{
 
@@ -147,7 +162,7 @@ to a grid before visualising, see \code{\link[=geom_density_2d]{geom_density_2d(
 \item \code{colour}
 \item \code{group}
 \item \code{linetype}
-\item \code{size}
+\item \code{linewidth}
 \item \code{weight}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
@@ -162,7 +177,7 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 \item \code{fill}
 \item \code{group}
 \item \code{linetype}
-\item \code{size}
+\item \code{linewidth}
 \item \code{subgroup}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
@@ -223,8 +238,8 @@ ggplot(faithful, aes(waiting, eruptions)) +
 v + geom_contour_filled()
 
 # Setting bins creates evenly spaced contours in the range of the data
+v + geom_contour(bins = 3)
 v + geom_contour(bins = 5)
-v + geom_contour(bins = 10)
 
 # Setting binwidth does the same thing, parameterised by the distance
 # between contours

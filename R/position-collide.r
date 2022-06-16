@@ -49,7 +49,7 @@ collide <- function(data, width = NULL, name, strategy,
   intervals <- intervals[!is.na(intervals)]
 
   if (length(unique(intervals)) > 1 & any(diff(scale(intervals)) < -1e-6)) {
-    warn(glue("{name} requires non-overlapping x intervals"))
+    cli::cli_warn("{.fn {name}} requires non-overlapping {.field x} intervals")
     # This is where the algorithm from [L. Wilkinson. Dot plots.
     # The American Statistician, 1999.] should be used
   }
@@ -61,7 +61,7 @@ collide <- function(data, width = NULL, name, strategy,
     data <- dapply(data, "xmin", strategy, ..., width = width)
     data$y <- data$ymax
   } else {
-    abort("Neither y nor ymax defined")
+    cli::cli_abort("Neither {.field y} nor {.field ymax} defined")
   }
   data[match(seq_along(ord), ord), ]
 }

@@ -2,39 +2,105 @@
 % Please edit documentation in R/utilities-tidy-eval.R
 \name{tidyeval}
 \alias{tidyeval}
-\alias{quo}
-\alias{quos}
+\alias{expr}
 \alias{enquo}
 \alias{enquos}
-\alias{quo_name}
 \alias{sym}
-\alias{ensym}
 \alias{syms}
-\alias{ensyms}
-\alias{expr}
-\alias{exprs}
+\alias{.data}
+\alias{as_label}
+\alias{quo_name}
+\alias{quo}
+\alias{quos}
 \alias{enexpr}
 \alias{enexprs}
-\alias{.data}
+\alias{ensym}
+\alias{ensyms}
 \title{Tidy eval helpers}
 \description{
+This page lists the tidy eval tools reexported in this package from
+rlang. To learn about using tidy eval in scripts and packages at a
+high level, see the \href{https://dplyr.tidyverse.org/articles/programming.html}{dplyr programming vignette}
+and the \href{https://ggplot2.tidyverse.org/articles/ggplot2-in-packages.html}{ggplot2 in packages vignette}.
+The \href{https://adv-r.hadley.nz/metaprogramming.html}{Metaprogramming section} of \href{https://adv-r.hadley.nz}{Advanced R} may also be useful for a deeper dive.
 \itemize{
-\item \code{\link[rlang]{sym}()} creates a symbol from a string and
-\code{\link[rlang]{syms}()} creates a list of symbols from a
-character vector.
-\item \code{\link[rlang]{expr}()} and \code{\link[rlang]{quo}()} quote
-one expression. \code{quo()} wraps the quoted expression in a quosure.
+\item The tidy eval operators \verb{\{\{}, \verb{!!}, and \verb{!!!} are syntactic
+constructs which are specially interpreted by tidy eval functions.
+You will mostly need \verb{\{\{}, as \verb{!!} and \verb{!!!} are more advanced
+operators which you should not have to use in simple cases.
 
-The plural variants \code{\link[rlang]{exprs}()} and
-\code{\link[rlang]{quos}()} return a list of quoted expressions or
-quosures.
-\item \code{\link[rlang]{enexpr}()} and \code{\link[rlang]{enquo}()}
-capture the expression supplied as argument by the user of the
-current function (\code{enquo()} wraps this expression in a quosure).
+The curly-curly operator \verb{\{\{} allows you to tunnel data-variables
+passed from function arguments inside other tidy eval functions.
+\verb{\{\{} is designed for individual arguments. To pass multiple
+arguments contained in dots, use \code{...} in the normal way.
 
-\code{\link[rlang]{enexprs}()} and \code{\link[rlang]{enquos}()}
-capture multiple expressions supplied as arguments, including
-\code{...}.
+\if{html}{\out{<div class="sourceCode">}}\preformatted{my_function <- function(data, var, ...) \{
+  data \%>\%
+    group_by(...) \%>\%
+    summarise(mean = mean(\{\{ var \}\}))
+\}
+}\if{html}{\out{</div>}}
+\item \code{\link[=enquo]{enquo()}} and \code{\link[=enquos]{enquos()}} delay the execution of one or several
+function arguments. The former returns a single expression, the
+latter returns a list of expressions. Once defused, expressions
+will no longer evaluate on their own. They must be injected back
+into an evaluation context with \verb{!!} (for a single expression) and
+\verb{!!!} (for a list of expressions).
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{my_function <- function(data, var, ...) \{
+  # Defuse
+  var <- enquo(var)
+  dots <- enquos(...)
+
+  # Inject
+  data \%>\%
+    group_by(!!!dots) \%>\%
+    summarise(mean = mean(!!var))
+\}
+}\if{html}{\out{</div>}}
+
+In this simple case, the code is equivalent to the usage of \verb{\{\{}
+and \code{...} above. Defusing with \code{enquo()} or \code{enquos()} is only
+needed in more complex cases, for instance if you need to inspect
+or modify the expressions in some way.
+\item The \code{.data} pronoun is an object that represents the current
+slice of data. If you have a variable name in a string, use the
+\code{.data} pronoun to subset that variable with \code{[[}.
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{my_var <- "disp"
+mtcars \%>\% summarise(mean = mean(.data[[my_var]]))
+}\if{html}{\out{</div>}}
+\item Another tidy eval operator is \verb{:=}. It makes it possible to use
+glue and curly-curly syntax on the LHS of \code{=}. For technical
+reasons, the R language doesn't support complex expressions on
+the left of \code{=}, so we use \verb{:=} as a workaround.
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{my_function <- function(data, var, suffix = "foo") \{
+  # Use `\{\{` to tunnel function arguments and the usual glue
+  # operator `\{` to interpolate plain strings.
+  data \%>\%
+    summarise("\{\{ var \}\}_mean_\{suffix\}" := mean(\{\{ var \}\}))
+\}
+}\if{html}{\out{</div>}}
+\item Many tidy eval functions like \code{dplyr::mutate()} or
+\code{dplyr::summarise()} give an automatic name to unnamed inputs. If
+you need to create the same sort of automatic names by yourself,
+use \code{as_label()}. For instance, the glue-tunnelling syntax above
+can be reproduced manually with:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{my_function <- function(data, var, suffix = "foo") \{
+  var <- enquo(var)
+  prefix <- as_label(var)
+  data \%>\%
+    summarise("\{prefix\}_mean_\{suffix\}" := mean(!!var))
+\}
+}\if{html}{\out{</div>}}
+
+Expressions defused with \code{enquo()} (or tunnelled with \verb{\{\{}) need
+not be simple column names, they can be arbitrarily complex.
+\code{as_label()} handles those cases gracefully. If your code assumes
+a simple column name, use \code{as_name()} instead. This is safer
+because it throws an error if the input is not a name as expected.
 }
 }
 \keyword{internal}

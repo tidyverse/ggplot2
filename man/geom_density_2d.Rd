@@ -91,13 +91,27 @@ the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
-\item{position}{Position adjustment, either as a string, or the result of
-a call to a position adjustment function.}
+\item{position}{Position adjustment, either as a string naming the adjustment
+(e.g. \code{"jitter"} to use \code{position_jitter}), or the result of a call to a
+position adjustment function. Use the latter if you need to change the
+settings of the adjustment.}
 
-\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
-often aesthetics, used to set an aesthetic to a fixed value, like
-\code{colour = "red"} or \code{size = 3}. They may also be parameters
-to the paired geom/stat.}
+\item{...}{
+  Arguments passed on to \code{\link[=geom_contour]{geom_contour}}
+  \describe{
+    \item{\code{binwidth}}{The width of the contour bins. Overridden by \code{bins}.}
+    \item{\code{bins}}{Number of contour bins. Overridden by \code{breaks}.}
+    \item{\code{breaks}}{One of:
+\itemize{
+\item Numeric vector to set the contour breaks
+\item A function that takes the range of the data and binwidth as input
+and returns breaks as output. A function can be created from a formula
+(e.g. ~ fullseq(.x, .y)).
+}
+
+Overrides \code{binwidth} and \code{bins}. By default, this is a vector of length
+ten with \code{\link[=pretty]{pretty()}} breaks.}
+  }}
 
 \item{contour_var}{Character string identifying the variable to contour
 by. Can be one of \code{"density"}, \code{"ndensity"}, or \code{"count"}. See the section
@@ -124,7 +138,7 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
 \item{geom, stat}{Use to override the default connection between
-\code{geom_density_2d} and \code{stat_density_2d}.}
+\code{geom_density_2d()} and \code{stat_density_2d()}.}
 
 \item{contour}{If \code{TRUE}, contour the results of the 2d density
 estimation.}
@@ -156,7 +170,7 @@ bands.
 \item \code{colour}
 \item \code{group}
 \item \code{linetype}
-\item \code{size}
+\item \code{linewidth}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 
@@ -170,7 +184,7 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 \item \code{fill}
 \item \code{group}
 \item \code{linetype}
-\item \code{size}
+\item \code{linewidth}
 \item \code{subgroup}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.

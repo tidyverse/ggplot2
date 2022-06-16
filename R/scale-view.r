@@ -16,7 +16,9 @@ view_scale_primary <- function(scale, limits = scale$get_limits(),
                                continuous_range = scale$dimension(limits = limits)) {
 
   if(!scale$is_discrete()) {
-    breaks <- scale$get_breaks(continuous_range)
+    # continuous_range can be specified in arbitrary order, but
+    # continuous scales expect the one in ascending order.
+    breaks <- scale$get_breaks(sort(continuous_range))
     minor_breaks <- scale$get_breaks_minor(b = breaks, limits = continuous_range)
   } else {
     breaks <- scale$get_breaks(limits)
@@ -95,8 +97,8 @@ view_scale_empty <- function() {
     get_breaks = function() NULL,
     get_breaks_minor = function() NULL,
     get_labels = function(breaks = NULL) breaks,
-    rescale = function(x) abort("Not implemented"),
-    map = function(x) abort("Not implemented"),
+    rescale = function(x) cli::cli_abort("Not implemented"),
+    map = function(x) cli::cli_abort("Not implemented"),
     make_title = function(title) title,
     break_positions = function() NULL,
     break_positions_minor = function() NULL

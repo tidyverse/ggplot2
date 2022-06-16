@@ -1,5 +1,3 @@
-context("annotate")
-
 test_that("dates in segment annotation work", {
   dt <- structure(list(month = structure(c(1364774400, 1377993600),
       class = c("POSIXct", "POSIXt"), tzone = "UTC"), total = c(-10.3,
@@ -31,6 +29,7 @@ test_that("segment annotations transform with scales", {
 })
 
 test_that("annotation_* has dummy data assigned and don't inherit aes", {
+  skip_if(packageVersion("base") < "3.5.0")
   custom <- annotation_custom(zeroGrob())
   logtick <- annotation_logticks()
   library(maps)
@@ -48,4 +47,32 @@ test_that("annotation_* has dummy data assigned and don't inherit aes", {
   expect_false(logtick$inherit.aes)
   expect_false(map$inherit.aes)
   expect_false(raster$inherit.aes)
+})
+
+test_that("annotation_raster() and annotation_custom() requires cartesian coordinates", {
+  rainbow <- matrix(hcl(seq(0, 360, length.out = 50 * 50), 80, 70), nrow = 50)
+  p <- ggplot() +
+    annotation_raster(rainbow, 15, 20, 3, 4) +
+    coord_polar()
+  expect_snapshot_error(ggplotGrob(p))
+  p <- ggplot() +
+    annotation_custom(
+      grob = grid::roundrectGrob(),
+      xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf
+    ) +
+    coord_polar()
+  expect_snapshot_error(ggplotGrob(p))
+})
+
+test_that("annotation_map() checks the input data", {
+  expect_snapshot_error(annotation_map(letters))
+  expect_snapshot_error(annotation_map(mtcars))
+})
+
+test_that("unsupported geoms signal a warning (#4719)", {
+  expect_snapshot_warning(annotate("hline", yintercept = 0))
+})
+
+test_that("annotate() checks aesthetic lengths match", {
+  expect_snapshot_error(annotate("point", 1:3, 1:3, fill = c('red', 'black')))
 })

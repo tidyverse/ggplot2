@@ -59,17 +59,21 @@ will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{stat}{The statistical transformation to use on the data for this
-layer, as a string.}
+layer, either as a \code{ggproto} \code{Geom} subclass or as a string naming the
+stat stripped of the \code{stat_} prefix (e.g. \code{"count"} rather than
+\code{"stat_count"})}
 
-\item{position}{Position adjustment, either as a string, or the result of
-a call to a position adjustment function.}
+\item{position}{Position adjustment, either as a string naming the adjustment
+(e.g. \code{"jitter"} to use \code{position_jitter}), or the result of a call to a
+position adjustment function. Use the latter if you need to change the
+settings of the adjustment.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
-\item{arrow}{specification for arrow heads, as created by arrow().}
+\item{arrow}{specification for arrow heads, as created by \code{\link[grid:arrow]{grid::arrow()}}.}
 
 \item{arrow.fill}{fill colour to use for the arrow head (if closed). \code{NULL}
 means use \code{colour} aesthetic.}
@@ -106,13 +110,13 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
     More control points creates a smoother curve.}
 }
 \description{
-\code{geom_segment} draws a straight line between points (x, y) and
-(xend, yend). \code{geom_curve} draws a curved line. See the underlying
-drawing function \code{\link[grid:curveGrob]{grid::curveGrob()}} for the parameters that
+\code{geom_segment()} draws a straight line between points (x, y) and
+(xend, yend). \code{geom_curve()} draws a curved line. See the underlying
+drawing function \code{\link[grid:grid.curve]{grid::curveGrob()}} for the parameters that
 control the curve.
 }
 \details{
-Both geoms draw a single segment/curve per case. See \code{geom_path} if you
+Both geoms draw a single segment/curve per case. See \code{geom_path()} if you
 need to connect points across multiple cases.
 }
 \section{Aesthetics}{
@@ -127,7 +131,7 @@ need to connect points across multiple cases.
 \item \code{colour}
 \item \code{group}
 \item \code{linetype}
-\item \code{size}
+\item \code{linewidth}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
@@ -149,10 +153,12 @@ b + geom_curve(
   arrow = arrow(length = unit(0.03, "npc"))
 )
 
+if (requireNamespace('maps', quietly = TRUE)) {
 ggplot(seals, aes(long, lat)) +
   geom_segment(aes(xend = long + delta_long, yend = lat + delta_lat),
     arrow = arrow(length = unit(0.1,"cm"))) +
   borders("state")
+}
 
 # Use lineend and linejoin to change the style of the segments
 df2 <- expand.grid(
@@ -170,6 +176,7 @@ ggplot(df2, aes(x = 1, y = y, xend = 2, yend = y, label = paste(lineend, linejoi
   xlim(0.5, 2)
 
 # You can also use geom_segment to recreate plot(type = "h") :
+set.seed(1)
 counts <- as.data.frame(table(x = rpois(100,5)))
 counts$x <- as.numeric(as.character(counts$x))
 with(counts, plot(x, Freq, type = "h", lwd = 10))
