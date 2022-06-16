@@ -59,6 +59,7 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
+          cache-version: 2
           extra-packages: >
             any::rcmdcheck,
             maps=?ignore-before-r=3.5.0,
