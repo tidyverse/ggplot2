@@ -210,6 +210,16 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
     # Create mapping between primary and secondary range
     full_range <- self$transform_range(old_range)
 
+    # Remove duplicates in the expanded area of the range that can arise if
+    # the transformation is non-monotonic in the expansion. The split ensures
+    # the middle duplicated are kept
+    duplicates <- c(
+      !duplicated(full_range[seq_len(self$detail/2)], fromLast = TRUE),
+      !duplicated(full_range[-seq_len(self$detail/2)])
+    )
+    old_range <- old_range[duplicates]
+    full_range <- full_range[duplicates]
+
     # Get break info for the secondary axis
     new_range <- range(full_range, na.rm = TRUE)
 
@@ -226,8 +236,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
 
       # Map the break values back to their correct position on the primary scale
       if (!is.null(range_info$major_source)) {
-        old_val <- lapply(range_info$major_source, function(x) which.min(abs(full_range - x)))
-        old_val <- old_range[unlist(old_val)]
+        old_val <- approx(full_range, old_range, range_info$major_source)$y
         old_val_trans <- scale$trans$transform(old_val)
 
         # rescale values from 0 to 1
@@ -243,8 +252,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
       }
 
       if (!is.null(range_info$minor_source)) {
-        old_val_minor <- lapply(range_info$minor_source, function(x) which.min(abs(full_range - x)))
-        old_val_minor <- old_range[unlist(old_val_minor)]
+        old_val_minor <- approx(full_range, old_range, range_info$minor_source)$y
         old_val_minor_trans <- scale$trans$transform(old_val_minor)
 
         range_info$minor[] <- round(

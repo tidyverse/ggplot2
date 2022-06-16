@@ -123,7 +123,7 @@ performance special case for when all the tiles are the same size.
 \item \code{group}
 \item \code{height}
 \item \code{linetype}
-\item \code{size}
+\item \code{linewidth}
 \item \code{width}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.

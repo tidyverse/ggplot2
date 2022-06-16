@@ -149,7 +149,7 @@ GeomMap <- ggproto("GeomMap", GeomPolygon,
       gp = gpar(
         col = data$colour,
         fill = alpha(data$fill, data$alpha),
-        lwd = data$size * .pt,
+        lwd = data$linewidth * .pt,
         lineend = lineend,
         linejoin = linejoin,
         linemitre = linemitre

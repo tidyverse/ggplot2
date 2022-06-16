@@ -82,7 +82,7 @@ it can be used in conjunction with \code{geom_sf()} layers and/or
 \item \code{fill}
 \item \code{group}
 \item \code{linetype}
-\item \code{size}
+\item \code{linewidth}
 \item \code{subgroup}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
@@ -150,7 +150,7 @@ if (require(maps)) {
     coord_sf(
       crs = 5070, default_crs = 4326,
       xlim = c(-125, -70), ylim = c(25, 52)
-     )
+    )
 
  ggplot(crimes_long, aes(map_id = state)) +
    geom_map(aes(fill = value), map = states_map) +

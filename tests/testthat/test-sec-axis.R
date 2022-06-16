@@ -242,7 +242,7 @@ test_that("sec_axis() respects custom transformations", {
   expect_doppelganger(
     "sec_axis, custom transform",
     ggplot(dat, aes(x = x, y = y)) +
-      geom_line(size = 1, na.rm = T) +
+      geom_line(linewidth = 1, na.rm = T) +
       scale_y_continuous(
         trans =
           magnify_trans_log(interval_low = 0.5, interval_high = 1, reducer = 0.5, reducer2 = 8), breaks =

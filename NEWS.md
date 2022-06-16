@@ -4,6 +4,15 @@
   the stage of `after_stat`. If your code requires the scaled version of the
   values, you have to apply the same transformation by yourself, e.g. `sqrt()`
   for `scale_{x,y}_sqrt()` (@yutannihilation and @teunbrand, #4155).
+* A `linewidth` aesthetic has been introduced and supersedes the `size` 
+  aesthetic for scaling the width of lines in line based geoms. `size` will 
+  remain functioning but deprecated for these geoms and it is recommended to 
+  update all code to reflect the new aesthetic (@thomasp85, #3672)
+
+* Secondary axis ticks are now positioned more precisely, removing small visual
+  artefacts with alignment between grid and ticks (@thomasp85, #3576)
+
+* Improve `stat_function` documentation regarding `xlim` argument. (@92amartins, #4474)
 
 * `qplot()` is now formally deprecated (@yutannihilation, #3956).
 

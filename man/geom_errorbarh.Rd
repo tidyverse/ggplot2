@@ -80,7 +80,7 @@ A rotated version of \code{\link[=geom_errorbar]{geom_errorbar()}}.
 \item \code{group}
 \item \code{height}
 \item \code{linetype}
-\item \code{size}
+\item \code{linewidth}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

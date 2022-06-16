@@ -384,6 +384,9 @@ guide_gengrob <- function(guide, theme) UseMethod("guide_gengrob")
 matched_aes <- function(layer, guide) {
   all <- names(c(layer$computed_mapping, layer$stat$default_aes))
   geom <- c(layer$geom$required_aes, names(layer$geom$default_aes))
+
+  # Make sure that size guides are shown if a renaming layer is used
+  if (layer$geom$rename_size && "size" %in% all && !"linewidth" %in% all) geom <- c(geom, "size")
   matched <- intersect(intersect(all, geom), names(guide$key))
   matched <- setdiff(matched, names(layer$computed_geom_params))
   setdiff(matched, names(layer$aes_params))

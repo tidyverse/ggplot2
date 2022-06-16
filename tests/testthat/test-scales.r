@@ -229,6 +229,10 @@ test_that("size and alpha scales throw appropriate warnings for factors", {
     ggplot_build(p + geom_point(aes(alpha = d))),
     "Using alpha for a discrete variable is not advised."
   )
+  expect_warning(
+    ggplot_build(p + geom_line(aes(linewidth = d, group = 1))),
+    "Using linewidth for a discrete variable is not advised."
+  )
   # There should be no warnings for ordered factors
   expect_warning(ggplot_build(p + geom_point(aes(size = o))), NA)
   expect_warning(ggplot_build(p + geom_point(aes(alpha = o))), NA)

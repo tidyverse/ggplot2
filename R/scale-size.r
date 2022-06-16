@@ -8,13 +8,20 @@
 #' scales by area (but does not ensure 0 equals an area of zero). For a binned
 #' equivalent of `scale_size_area()` use `scale_size_binned_area()`.
 #'
+#' @note Historically the size aesthetic was used for two different things:
+#'   Scaling the size of object (like points and glyphs) and scaling the width
+#'   of lines. From ggplot2 3.4.0 the latter has been moved to its own linewidth
+#'   aesthetic. For backwards compatibility using size is still possible, but it
+#'   is highly advised to switch to the new linewidth aesthetic for these cases.
+#'
 #' @name scale_size
 #' @inheritParams continuous_scale
 #' @inheritParams binned_scale
 #' @param range a numeric vector of length 2 that specifies the minimum and
 #'   maximum size of the plotting symbol after transformation.
 #' @seealso [scale_size_area()] if you want 0 values to be mapped
-#'   to points with size 0.
+#'   to points with size 0. [scale_linewidth()] if you want to scale the width
+#'   of lines.
 #' @examples
 #' p <- ggplot(mpg, aes(displ, hwy, size = hwy)) +
 #'    geom_point()
