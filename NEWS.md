@@ -2,8 +2,9 @@
 
 * `stage()` now properly refers to the values without scale transformations for
   the stage of `after_stat`. If your code requires the scaled version of the
-  values, you have to apply the same transformation by yourself, e.g. `sqrt()`
-  for `scale_{x,y}_sqrt()` (@yutannihilation and @teunbrand, #4155).
+  values for some reason, you have to apply the same transformation by yourself,
+  e.g. `sqrt()` for `scale_{x,y}_sqrt()` (@yutannihilation and @teunbrand, #4155).
+
 * A `linewidth` aesthetic has been introduced and supersedes the `size` 
   aesthetic for scaling the width of lines in line based geoms. `size` will 
   remain functioning but deprecated for these geoms and it is recommended to 
