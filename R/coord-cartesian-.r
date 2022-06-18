@@ -118,7 +118,7 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
       )
     })
 
-    # resolve the guide definition as a "guide" S3
+    # resolve the guide definition as a "Guide"
     guides <- lapply(guides, validate_guide)
 
     # if there is an "position" specification in the scale, pass this on to the guide
@@ -127,7 +127,8 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
       guide <- guides[[aesthetic]]
       scale <- panel_params[[aesthetic]]
       # position could be NULL here for an empty scale
-      guide$position <- guide$position %|W|% scale$position
+
+      guide$set_position(scale$position)
       guide
     })
 
@@ -142,9 +143,10 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
     panel_params$guides <- lapply(aesthetics, function(aesthetic) {
       axis <- substr(aesthetic, 1, 1)
       guide <- panel_params$guides[[aesthetic]]
-      guide <- guide_train(guide, panel_params[[aesthetic]])
-      guide <- guide_transform(guide, self, panel_params)
-      guide <- guide_geom(guide, layers, default_mapping)
+      guide$train(panel_params[[aesthetic]])
+      guide$transform(self, panel_params)
+      guide$geom(layers, default_mapping)
+
       guide
     })
 
@@ -216,22 +218,24 @@ view_scales_from_scale <- function(scale, coord_limits = NULL, expand = TRUE) {
 
 panel_guide_label <- function(guides, position, default_label) {
   guide <- guide_for_position(guides, position) %||% guide_none(title = NULL)
-  guide$title %|W|% default_label
+  guide$params$title %|W|% default_label
 }
 
 panel_guides_grob <- function(guides, position, theme) {
   guide <- guide_for_position(guides, position) %||% guide_none()
-  guide_gengrob(guide, theme)
+  guide$draw(theme)
 }
 
 guide_for_position <- function(guides, position) {
   has_position <- vapply(
     guides,
-    function(guide) identical(guide$position, position),
+    function(guide) identical(guide$params$position, position),
     logical(1)
   )
 
   guides <- guides[has_position]
-  guides_order <- vapply(guides, function(guide) as.numeric(guide$order)[1], numeric(1))
-  Reduce(guide_merge, guides[order(guides_order)])
+  guides_order <- vapply(guides, function(guide) {
+    as.numeric(guide$params$order)
+  }, numeric(1))
+  Reduce(function(old, new) {old$merge(new)}, guides[order(guides_order)])
 }
