@@ -8,37 +8,33 @@
 #' @export
 #'
 guide_none <- function(title = waiver(), position = waiver()) {
-  structure(
-    list(
-      title = title,
-      position = position,
-      available_aes = "any"
-    ),
-    class = c("guide", "guide_none")
+  new_guide(
+    title = title,
+    position = position,
+    available_aes = "any",
+    super = GuideNone
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
 #' @export
-guide_train.guide_none <- function(guide, scale, aesthetic = NULL) {
-  guide
-}
+GuideNone <- ggproto(
+  "GuideNone", Guide,
 
-#' @export
-guide_merge.guide_none <- function(guide, new_guide) {
-  new_guide
-}
+  # Perform no training
+  train = function(self, scale, aesthetic = NULL) {
+    self
+  },
 
-#' @export
-guide_geom.guide_none <- function(guide, layers, default_mapping) {
-  guide
-}
+  # Defaults to returning the *other* guide
+  merge = function(self, new_guide) {
+    new_guide
+  },
 
-#' @export
-guide_transform.guide_none <- function(guide, coord, panel_params) {
-  guide
-}
-
-#' @export
-guide_gengrob.guide_none <- function(guide, theme, ...) {
-  zeroGrob()
-}
+  # Draw nothing
+  draw = function(self, params, theme) {
+    zeroGrob()
+  }
+)
