@@ -1,0 +1,350 @@
+#' @section Guides:
+#'
+#' The `guide_*()` functions, such as `guide_legend()` return an object that
+#' is responsible for displaying how objects in the plotting panel are related
+#' to actual values.
+#'
+#' Each of the `Guide*` object is a [ggproto()] object, descended from the
+#' top-level `Guide`, and each implements their own methods for drawing.
+#'
+#' To create a new type of Guide object, you typically will want to override
+#' one or more of the following:
+#'
+#'  TODO: Fill this in properly
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+Guide <- ggproto(
+  "Guide",
+
+  # Counter to ggplot wisdom, there are 4 stateful fields in the `Guide` class.
+  # These are (i) the `params` parameters which may carry user-input, the
+  # (ii) `key` data.frame, which carries information from the scale and (iii)
+  # the `elements` list that can carry user-supplied theme elements, and (iv)
+  # the `decor` which carries information from layers or scales.
+
+  # `params` is a mutable list of guide parameters, part of which may be
+  # provided by the user. The following lists parameters that the `guides_*`
+  # family of functions may expect to be present.
+  params = list(
+    title     = waiver(),
+    name      = character(),
+    position  = waiver(),
+    direction = NULL,
+    order     = 0,
+    hash      = character()
+  ),
+
+  # The `key` is a data.frame describing the information acquired from a scale
+  # that is used to train the guide.
+  key = vctrs::data_frame(
+    aesthetic = numeric(), .value = numeric(), .label = character(),
+    .size = 0, .name_repair = "minimal"
+  ),
+
+  # The `decor` is used for useful components extracted from the scale or
+  # layers.
+  decor = NULL,
+
+  # A list of theme elements that should be calculated
+  elements = list(),
+
+  available_aes = character(),
+
+  # The `hashables` are the parameters of the guide that are used to generate a
+  # unique hash that determines whether other guides are compatible.
+  hashables = exprs(params$title, params$name),
+
+  # The following functions are simple setters/getters
+  get_hash = function(self) {
+    self$params$hash
+  },
+  set_title = function(self, title) {
+    self$params$title <- self$params$title %|W|% title
+    return(invisible())
+  },
+  set_direction = function(self, direction) {
+    self$params$direction <- self$params$direction %||% direction
+    return(invisible())
+  },
+  set_position = function(self, position) {
+    self$params$position <- self$params$position %|W|% position
+    return(invisible())
+  },
+
+  # We need a clone function that is called in validate_guide because a guide
+  # can be created outside the plot, which would mean that important parameters
+  # such as direction are being assigned to the environment of multiple
+  # Guide ggprotos. This could have gotten hairy in a situation like the
+  # following, where the y-guide would get `direction = "horizontal"`.
+  #
+  # g <- guide_axis(title = "My axis")
+  # ggplot(mpg, aes(displ, hwy)) +
+  #  geom_point() +
+  #  guides(x = g, y = g)
+  clone = function(self) {
+    ggproto(NULL, self)
+  },
+
+  # Training has several tasks:
+  # 1. Check if scale and guide are compatible
+  # 2. Extract a key from the scale
+  # 3. (Optionally) extract further decor from the scale
+  # 4. Name the guide
+  # 5. Make a hash for the guide
+  train = function(self, scale, aesthetic = NULL, params = self$params) {
+    # Resolve aesthetic
+    aesthetic <- aesthetic %||% scale$aesthetics[1]
+
+    # Check if scale-guide match is appropriate
+    aes_intersect <- intersect(scale$aesthetics, self$available_aes)
+    if (!("any" %in% self$available_aes) && length(aes_intersect) == 0) {
+      key <- NULL # Set key as missing
+      cli::cli_warn(c(
+        "{.fn {snake_class(self)}} lacks appropriate scales.",
+        i = "Use {?one of} {.or {.field {self$available_aes}}} instead."
+      ))
+
+    } else {
+      # Forward params as arguments to `extract_key()`
+      key <- inject(self$extract_key(scale, aesthetic, !!!params))
+    }
+    # Draw empty guide if key is missing
+    if (is.null(key)) {
+      return(guide_none())
+    }
+
+    # Forward params as arguments to `extract_decor()`
+    decor <- inject(self$extract_decor(scale, aesthetic, !!!params))
+
+    # Assign key, decor, name and hash to current guide
+    self$key   <- key
+    self$decor <- decor
+    self$params$name <- paste0(params$name, "_", aesthetic)
+    self$params$hash <- hash(lapply(self$hashables, eval_tidy, data = self))
+
+    return(self)
+  },
+
+  # Function for generating a `key` data.frame from the scale
+  extract_key = function(scale, aesthetic, ...) {
+    breaks <- scale$get_breaks()
+    if (length(breaks) == 0) {
+      return(NULL)
+    }
+
+    values <- scale$map(breaks)
+    labels <- scale$get_labels(breaks)
+
+    key <- vctrs::new_data_frame(list2(
+      !!aesthetic := breaks,
+      .value       = values,
+      .label       = labels
+    ))
+    key[is.finite(key[[aesthetic]]), , drop = FALSE]
+  },
+
+  # Function for extracting decoration from the scale.
+  # This is for `guide_colourbar` to extract the bar as well as the key,
+  # and might be a good extension point.
+  extract_decor = function(scale, aesthetic, ...) {
+    return(invisible()) # By default, nothing else needs to be extracted
+  },
+
+  # Function for merging multiple guides.
+  # Mostly applies to `guide_legend()` and `guide_binned()`.
+  merge = function(self, new_guide) {
+    return(self)
+  },
+
+  # Function for applying coord-transformation.
+  # Mostly applied to position guides, such as `guide_axis()`.
+  transform = function(self, coord, ...) {
+    return(self)
+  },
+
+  # Function for extracting information from the layers.
+  # Mostly applies to `guide_legend()` and `guide_binned()`
+  # TODO: Consider renaming this to a more informative name.
+  geom = function(self, layers, default_mapping) {
+    return(self)
+  },
+
+  # Called at start of the `draw` method. Typically used to either overrule
+  # user-specified parameters or populate extra parameters derived from
+  # the guide's direction or position.
+  setup_params = function(params) {
+    params
+  },
+
+  # Converts the `elements` field to proper elements to be accepted by
+  # `element_grob()`. String-interpolates aesthetic/position dependent elements.
+  setup_elements = function(params, elements, theme) {
+    is_char  <- vapply(elements, is.character, logical(1))
+    elements[is_char] <- lapply(elements[is_char], glue,
+                                .envir = params[c("aes", "position")])
+    elements[is_char] <- lapply(elements[is_char], calc_element, theme = theme)
+    elements
+  },
+
+  # Called after `setup_elements` to overrule any element defaults descended
+  # from the theme.
+  override_elements = function(params, elements, theme) {
+    elements
+  },
+
+  # Main drawing function that organises more specialised aspects of guide
+  # drawing.
+  draw = function(self, theme, params = self$params, key = self$key) {
+
+    # Setup parameters and theme
+    params <- self$setup_params(params)
+    elems  <- self$setup_elements(params, self$elements, theme)
+    elems  <- self$override_elements(params, elems, theme)
+
+    # Allow early exit when key is empty
+    if (prod(dim(key)) == 0) {
+      out <- self$draw_early_exit(params, elems)
+      return(out)
+    }
+
+    # Build grobs
+    grob_title  <- self$build_title(params$title, elems, params)
+    grob_labels <- self$build_labels(key, elems, params)
+    grob_ticks  <- self$build_ticks(key, elems, params)
+    grob_decor  <- self$build_decor(self$decor, grob_ticks, elems, params)
+    grobs <- list(
+      title = grob_title,
+      label = grob_labels,
+      ticks = grob_ticks,
+      decor = grob_decor
+    )
+
+    # Arrange and assemble grobs
+    sizes  <- self$measure_grobs(grobs, params, elems)
+    layout <- self$arrange_layout(key, sizes, params)
+    self$assemble_drawing(grobs, layout, sizes, params)
+  },
+
+  # Makes measurements of grobs that can be used in the layout or assembly
+  # stages of guide drawing.
+  measure_grobs = function(grobs, params) {
+    return(invisible())
+  },
+
+  # Takes care of where grobs should be added to the output gtable.
+  arrange_layout = function(key, sizes, params) {
+    return(invisible())
+  },
+
+  # Combines grobs into a single gtable.
+  assemble_drawing = function(grobs, layout, sizes, params) {
+    zeroGrob()
+  },
+
+  # Renders the guide title
+  build_title = function(label, elements, params) {
+    ggname(
+      element_grob(
+        elements$title,
+        label    = label,
+        margin_x = TRUE,
+        margin_y = TRUE
+      ),
+      "guide.title"
+    )
+  },
+
+  # Renders the guide labels
+  # TODO: See if we can generalise label drawing for many guides
+  build_labels = function(key, elements, params) {
+    zeroGrob()
+  },
+
+  # Renders 'decor', which can have different meanings for different guides.
+  # Ticks are provided because they may need to be combined with decor.
+  build_decor = function(decor, ticks, elements, params) {
+    zeroGrob()
+  },
+
+  # Renders tickmarks
+  build_ticks = function(key, elements, params, position = params$position) {
+    breaks   <- key[[params$aes]] %||% key
+    n_breaks <- length(breaks)
+
+    # Early exit if there are no breaks
+    if (n_breaks < 1) {
+      return(zeroGrob())
+    }
+
+    tick_len <- rep(elements$ticks_length %||% unit(0.2, "npc"),
+                    length.out = n_breaks)
+
+    # Resolve mark
+    mark <- unit(rep(breaks, each = 2), "npc")
+
+    # Resolve ticks
+    pos <- unname(c(top = 1, bottom = 0, left = 0, right = 1)[position])
+    dir <- -2 * pos + 1
+    pos <- unit(rep(pos, 2 * n_breaks), "npc")
+    dir <- rep(vctrs::vec_interleave(0, dir), n_breaks) * tick_len
+    tick <- pos + dir
+
+    # Build grob
+    bidi_element_grob(
+      elements$ticks,
+      x = tick, y = mark,
+      id.lengths = rep(2, n_breaks),
+      flip = position %in% c("top", "bottom")
+    )
+  },
+
+  early_exit = function(params, elements) {
+    zeroGrob()
+  }
+)
+
+# Helper function that may facilitate bidirectional theme elements by
+# flipping x/y related arguments to `element_grob()`
+bidi_element_grob = function(..., flip = FALSE) {
+  if (!flip) {
+    ans <- element_grob(...)
+    return(ans)
+  }
+  args <- list(...)
+  translate <- names(args) %in% names(bidi_names)
+  names(args)[translate] <- bidi_names[names(args)[translate]]
+  do.call(element_grob, args)
+}
+
+# The flippable arguments for `bidi_element_grob()`.
+bidi_names = c(
+  "x"        = "y",
+  "y"        = "x",
+  "width"    = "height",
+  "height"   = "width",
+  "hjust"    = "vjust",
+  "vjust"    = "hjust",
+  "margin_x" = "margin_y",
+  "margin_y" = "margin_x"
+)
+
+# Helper function that facilitates adding grobs to a gtable bidirectionally.
+bidi_add_grob = function(x, grobs, t, l, b = t, r = l, z = Inf, clip = "on",
+                         name = x$name, flip = FALSE) {
+  if (flip) {
+    # Swap trbl for lbrt
+    gtable_add_grob(
+      x = x, grobs = grobs,
+      t = l, l = t, b = r, r = b, z = z,
+      clip = clip, name = name
+    )
+  } else {
+    gtable_add_grob(
+      x = x, grobs = grobs,
+      t = t, l = l, b = b, r = r, z = z,
+      clip = clip, name = name
+    )
+  }
+}
