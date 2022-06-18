@@ -54,6 +54,4 @@ p + guides(x = guide_axis(angle = 90))
 
 # can also be used to add a duplicate guide
 p + guides(x = guide_axis(n.dodge = 2), y.sec = guide_axis())
-
-
 }

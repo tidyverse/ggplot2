@@ -34,119 +34,305 @@
 #'
 #' # can also be used to add a duplicate guide
 #' p + guides(x = guide_axis(n.dodge = 2), y.sec = guide_axis())
-#'
-#'
-guide_axis <- function(title = waiver(), check.overlap = FALSE, angle = NULL, n.dodge = 1,
-                       order = 0, position = waiver()) {
-  structure(
-    list(
-      title = title,
+guide_axis <- function(title = waiver(), check.overlap = FALSE, angle = NULL,
+                       n.dodge = 1, order = 0, position = waiver()) {
+  new_guide(
+    title = title,
 
-      # customizations
-      check.overlap = check.overlap,
-      angle = angle,
-      n.dodge = n.dodge,
+    # customisations
+    check.overlap = check.overlap,
+    angle = angle,
+    n.dodge = n.dodge,
 
-      # general
-      order = order,
-      position = position,
+    # parameter
+    available_aes = c("x", "y"),
 
-      # parameter
-      available_aes = c("x", "y"),
+    # general
+    order = order,
+    position = position,
+    name = "axis",
+    super = GuideAxis
+  )
+}
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+GuideAxis <- ggproto(
+  "GuideAxis", Guide,
+
+  params = list(
+    title     = waiver(),
+    name      = "axis",
+    hash      = character(),
+    position  = waiver(),
+    direction = NULL,
+    angle     = NULL,
+    n.dodge   = 1,
+    order     = 0,
+    check.overlap = FALSE
+  ),
+
+  available_aes = c("x", "y"),
+
+  hashables = quos(params$title, key$.value, key$.label, params$name),
+
+  transform = function(self, coord, panel_params) {
+    key <- self$key
+    position <- self$params$position
+
+    if (is.null(position) || nrow(key) == 0) {
+      return(self)
+    }
+
+    aesthetics <- names(key)[!grepl("^\\.", names(key))]
+    if (!all(c("x", "y") %in% aesthetics)) {
+      other_aesthetic <- setdiff(c("x", "y"), aesthetics)
+      override_value <- if (position %in% c("bottom", "left")) -Inf else Inf
+      key[[other_aesthetic]] <- override_value
+    }
+    key <- coord$transform(key, panel_params)
+    self$key <- key
+
+    # Ported over from `warn_for_position_guide`
+    # This is trying to catch when a user specifies a position perpendicular
+    # to the direction of the axis (e.g., a "y" axis on "top").
+    # The strategy is to check that two or more unique breaks are mapped
+    # to the same value along the axis.
+    breaks_are_unique <- !duplicated(key$.value)
+    if (empty(key) || sum(breaks_are_unique) == 1) {
+      return(self)
+    }
+
+    if (position %in% c("top", "bottom")) {
+      position_aes <- "x"
+    } else if (position %in% c("left", "right")) {
+      position_aes <- "y"
+    } else {
+      return(self)
+    }
+
+    if (length(unique(key[[position_aes]][breaks_are_unique])) == 1) {
+      cli::cli_warn(c(
+        "Position guide is perpendicular to the intended axis.",
+        "i" = "Did you mean to specify a different guide {.arg position}?"
+      ))
+    }
+
+    return(self)
+  },
+
+  merge = function(self, new_guide) {
+    if (!inherits(new_guide, "GuideNone")) {
+      cli::cli_warn(c(
+        "{.fn {snake_class(self)}}: Discarding guide on merge.",
+        "i" = "Do you have more than one guide with the same {.arg position}?"
+      ))
+    }
+    return(self)
+  },
+
+  elements = list(
+    line  = "axis.line.{aes}.{position}",
+    text  = "axis.text.{aes}.{position}",
+    ticks = "axis.ticks.{aes}.{position}",
+    ticks_length = "axis.ticks.length.{aes}.{position}"
+  ),
+
+  override_elements = function(params, elements, theme) {
+    label <- elements$text
+    if (!inherits(label, "element_text")) {
+      return(elements)
+    }
+    label_overrides <- axis_label_element_overrides(
+      params$position, params$angle
+    )
+    # label_overrides is an element_text, but label_element may not be;
+    # to merge the two elements, we just copy angle, hjust, and vjust
+    # unless their values are NULL
+    label$angle <- label_overrides$angle %||% label$angle
+    label$hjust <- label_overrides$hjust %||% label$hjust
+    label$vjust <- label_overrides$vjust %||% label$vjust
+
+    elements$text <- label
+    return(elements)
+  },
+
+  setup_params = function(params) {
+    all_pos   <- c("left", "top", "bottom", "right")
+    position  <- arg_match0(params$position, all_pos)
+    direction <- if (position %in% c("left", "right")) "vertical" else "horizontal"
+
+    # TODO: delete following comment at some point:
+    # I found the 'position_*'/'non-position_*' and '*_dim' names confusing.
+    # For my own understanding, these have been renamed as follows:
+    # * 'aes' and 'orth_aes' for the aesthetic direction and the direction
+    #   orthogonal to the aesthetic direction, respectively.
+    # * 'para_sizes' and 'orth_size(s)' for the dimension parallel to the
+    #   aesthetic and orthogonal to the aesthetic respectively.
+    # I also tried to trim down the verbosity of the variable names a bit
+
+    new_params <- c("aes", "orth_aes", "para_sizes", "orth_size", "orth_sizes",
+                    "vertical", "measure_gtable", "measure_text")
+    if (direction == "vertical") {
+      params[new_params] <- list(
+        "y", "x", "heights", "width", "widths",
+        TRUE, gtable_width, grobWidth
+      )
+    } else {
+      params[new_params] <- list(
+        "x", "y", "widths", "height", "heights",
+        FALSE, gtable_height, grobHeight
+      )
+    }
+
+    new_params <- list(
+      opposite  = unname(setNames(all_pos, rev(all_pos))[position]),
+      secondary = position %in% c("top", "right"),
+      lab_first = position %in% c("top", "left"),
+      orth_side = if (position %in% c("top", "right")) 0 else 1,
+      direction = direction,
+      position  = position
+    )
+    c(params, new_params)
+  },
+
+  build_title = function(label, elements, params) {
+    zeroGrob()
+  },
+
+  # The decor in the axis guide is the axis line
+  build_decor = function(decor, ticks, elements, params) {
+    exec(
+      element_grob,
+      element = elements$line,
+      !!params$aes := unit(c(0, 1), "npc"),
+      !!params$orth_aes := unit(rep(params$orth_side, 2), "npc")
+    )
+  },
+
+  build_labels = function(key, elements, params) {
+    labels <- key$.label
+    n_labels <- length(labels)
+
+    if (n_labels < 1) {
+      return(list(zeroGrob()))
+    }
+
+    pos    <- key[[params$aes]]
+
+    if (is.list(labels)) {
+      if (any(vapply(labels, is.language, logical(1)))) {
+        labels <- do.call(expression, labels)
+      } else {
+        labels <- unlist(labels)
+      }
+    }
+
+
+    dodge_pos     <- rep(seq_len(params$n.dodge %||% 1), length.out = n_labels)
+    dodge_indices <- unname(split(seq_len(n_labels), dodge_pos))
+
+    lapply(dodge_indices, function(indices) {
+      draw_axis_labels(
+        break_positions = pos[indices],
+        break_labels    = labels[indices],
+        label_element   = elements$text,
+        is_vertical     = params$vertical,
+        check.overlap   = params$check.overlap %||% FALSE
+      )
+    })
+  },
+
+  measure_grobs = function(grobs, params, elements) {
+
+    # Below, we include a spacer measurement. This measurement is used
+    # to offset subsequent rows/columns in the gtable in case the tick length is
+    # negative. This causes the text to align nicely at panel borders.
+    # In case tick length is positive, this will just be a 0-size empty row
+    # or column.
+
+    measure <- params$measure_text
+
+    length <- elements$ticks_length
+    spacer <- max(unit(0, "pt"), -1 * length)
+    labels <- do.call(unit.c, lapply(grobs$label, measure))
+    title  <- measure(grobs$title)
+
+    sizes <- unit.c(length, spacer, labels, title)
+    if (params$lab_first) {
+      sizes <- rev(sizes)
+    }
+    sizes
+  },
+
+  arrange_layout = function(key, sizes, params) {
+    layout <- seq_along(sizes)
+
+    if (params$lab_first) {
+      layout <- rev(layout)
+    }
+    # Set gap for spacer
+    layout <- layout[-2]
+
+    layout <- list(1, -1, layout, layout)
+    nms <- if (params$vertical) c("t", "b", "l", "r") else c("l", "r", "t", "b")
+    setNames(layout, nms)
+  },
+
+  assemble_drawing = function(grobs, layout, sizes, params) {
+
+    axis_line <- grobs$decor
+
+    # Unlist the 'label' grobs
+    grobs  <- c(list(grobs$ticks), grobs$label, list(grobs$title))
+
+    # Initialise empty gtable
+    gt <- exec(
+      gtable,
+      !!params$orth_sizes := sizes,
+      !!params$para_sizes := unit(1, "npc"),
       name = "axis"
-    ),
-    class = c("guide", "axis")
-  )
-}
+    )
 
-#' @export
-guide_train.axis <- function(guide, scale, aesthetic = NULL) {
+    # Add grobs
+    gt <- gtable_add_grob(
+      gt, grobs,
+      t = layout$t, b = layout$b, l = layout$l, r = layout$r,
+      clip = "off"
+    )
 
-  aesthetic <- aesthetic %||% scale$aesthetics[1]
-  breaks <- scale$get_breaks()
+    # Set justification viewport
+    vp <- exec(
+      viewport,
+      !!params$orth_aes := unit(params$orth_side, "npc"),
+      !!params$orth_size := params$measure_gtable(gt),
+      just = params$opposite
+    )
 
-  empty_ticks <- new_data_frame(
-    list(aesthetic = numeric(0), .value = numeric(0), .label = character(0))
-  )
-  names(empty_ticks) <- c(aesthetic, ".value", ".label")
+    # Assemble with axis line
+    absoluteGrob(
+      gList(axis_line, gt),
+      width  = gtable_width(gt),
+      height = gtable_height(gt),
+      vp = vp
+    )
+  },
 
-  if (length(intersect(scale$aesthetics, guide$available_aes)) == 0) {
-    warn(glue(
-      "axis guide needs appropriate scales: ",
-      glue_collapse(guide$available_aes, ", ", last = " or ")
-    ))
-    guide$key <- empty_ticks
-  } else if (length(breaks) == 0) {
-    guide$key <- empty_ticks
-  } else {
-    mapped_breaks <- if (scale$is_discrete()) scale$map(breaks) else breaks
-    ticks <- new_data_frame(setNames(list(mapped_breaks), aesthetic))
-    ticks$.value <- breaks
-    ticks$.label <- scale$get_labels(breaks)
-
-    guide$key <- ticks[is.finite(ticks[[aesthetic]]), ]
+  draw_early_exit = function(self, params, elements) {
+    line <- self$build_decor(elements = elements, params = params)
+    absoluteGrob(
+      gList(line),
+      width  = grobWidth(line),
+      height = grobHeight(line)
+    )
   }
+)
 
-  guide$name <- paste0(guide$name, "_", aesthetic)
-  guide$hash <- digest::digest(list(guide$title, guide$key$.value, guide$key$.label, guide$name))
-  guide
-}
-
-#' @export
-guide_transform.axis <- function(guide, coord, panel_params) {
-  if (is.null(guide$position) || nrow(guide$key) == 0) {
-    return(guide)
-  }
-
-  aesthetics <- names(guide$key)[!grepl("^\\.", names(guide$key))]
-
-  if (all(c("x", "y") %in% aesthetics)) {
-    guide$key <- coord$transform(guide$key, panel_params)
-  } else {
-    other_aesthetic <- setdiff(c("x", "y"), aesthetics)
-    override_value <- if (guide$position %in% c("bottom", "left")) -Inf else Inf
-    guide$key[[other_aesthetic]] <- override_value
-
-    guide$key <- coord$transform(guide$key, panel_params)
-
-    warn_for_guide_position(guide)
-  }
-
-  guide
-}
-
-# discards the new guide with a warning
-#' @export
-guide_merge.axis <- function(guide, new_guide) {
-  if (!inherits(new_guide, "guide_none")) {
-    warn("guide_axis(): Discarding guide on merge. Do you have more than one guide with the same position?")
-  }
-
-  guide
-}
-
-# axis guides don't care which geometry uses these aesthetics
-#' @export
-guide_geom.axis <- function(guide, layers, default_mapping) {
-  guide
-}
-
-#' @export
-guide_gengrob.axis <- function(guide, theme) {
-  aesthetic <- names(guide$key)[!grepl("^\\.", names(guide$key))][1]
-
-  draw_axis(
-    break_positions = guide$key[[aesthetic]],
-    break_labels = guide$key$.label,
-    axis_position = guide$position,
-    theme = theme,
-    check.overlap = guide$check.overlap,
-    angle = guide$angle,
-    n.dodge = guide$n.dodge
-  )
-}
-
+# TODO: If #3972 gets implemented, reconsider the usefulness of this function.
+# We still need the `draw_axis` function because most coords other than
+# `coord_cartesian()` ignore guides. See #3972
 
 #' Grob for axes
 #'
@@ -167,147 +353,18 @@ guide_gengrob.axis <- function(guide, theme) {
 #'
 draw_axis <- function(break_positions, break_labels, axis_position, theme,
                       check.overlap = FALSE, angle = NULL, n.dodge = 1) {
-  axis_position <- arg_match0(axis_position, c("top", "bottom", "right", "left"))
-  aesthetic <- if (axis_position %in% c("top", "bottom")) "x" else "y"
-
-  # resolve elements
-  line_element_name <- paste0("axis.line.", aesthetic, ".", axis_position)
-  tick_element_name <- paste0("axis.ticks.", aesthetic, ".", axis_position)
-  tick_length_element_name <- paste0("axis.ticks.length.", aesthetic, ".", axis_position)
-  label_element_name <- paste0("axis.text.", aesthetic, ".", axis_position)
-
-  line_element <- calc_element(line_element_name, theme)
-  tick_element <- calc_element(tick_element_name, theme)
-  tick_length <- calc_element(tick_length_element_name, theme)
-  label_element <- calc_element(label_element_name, theme)
-
-  # override label element parameters for rotation
-  if (inherits(label_element, "element_text")) {
-    label_overrides <- axis_label_element_overrides(axis_position, angle)
-    # label_overrides is an element_text, but label_element may not be;
-    # to merge the two elements, we just copy angle, hjust, and vjust
-    # unless their values are NULL
-    if (!is.null(label_overrides$angle)) {
-      label_element$angle <- label_overrides$angle
-    }
-    if (!is.null(label_overrides$hjust)) {
-      label_element$hjust <- label_overrides$hjust
-    }
-    if (!is.null(label_overrides$vjust)) {
-      label_element$vjust <- label_overrides$vjust
-    }
-  }
-
-  # conditionally set parameters that depend on axis orientation
-  is_vertical <- axis_position %in% c("left",  "right")
-
-  position_dim <- if (is_vertical) "y" else "x"
-  non_position_dim <- if (is_vertical) "x" else "y"
-  position_size <- if (is_vertical) "height" else "width"
-  non_position_size <- if (is_vertical) "width" else "height"
-  gtable_element <- if (is_vertical) gtable_row else gtable_col
-  measure_gtable <- if (is_vertical) gtable_width else gtable_height
-  measure_labels_non_pos <- if (is_vertical) grobWidth else grobHeight
-
-  # conditionally set parameters that depend on which side of the panel
-  # the axis is on
-  is_second <- axis_position %in% c("right", "top")
-
-  tick_direction <- if (is_second) 1 else -1
-  non_position_panel <- if (is_second) unit(0, "npc") else unit(1, "npc")
-  tick_coordinate_order <- if (is_second) c(2, 1) else c(1, 2)
-
-  # conditionally set the gtable ordering
-  labels_first_gtable <- axis_position %in% c("left", "top") # refers to position in gtable
-
-  # set common parameters
-  n_breaks <- length(break_positions)
-  opposite_positions <- c("top" = "bottom", "bottom" = "top", "right" = "left", "left" = "right")
-  axis_position_opposite <- unname(opposite_positions[axis_position])
-
-  # draw elements
-  line_grob <- exec(
-    element_grob, line_element,
-    !!position_dim := unit(c(0, 1), "npc"),
-    !!non_position_dim := unit.c(non_position_panel, non_position_panel)
-  )
-
-  if (n_breaks == 0) {
-    return(
-      absoluteGrob(
-        gList(line_grob),
-        width = grobWidth(line_grob),
-        height = grobHeight(line_grob)
-      )
-    )
-  }
-
-  # break_labels can be a list() of language objects
-  if (is.list(break_labels)) {
-    if (any(vapply(break_labels, is.language, logical(1)))) {
-      break_labels <- do.call(expression, break_labels)
-    } else {
-      break_labels <- unlist(break_labels)
-    }
-  }
-
-  # calculate multiple rows/columns of labels (which is usually 1)
-  dodge_pos <- rep(seq_len(n.dodge), length.out = n_breaks)
-  dodge_indices <- split(seq_len(n_breaks), dodge_pos)
-
-  label_grobs <- lapply(dodge_indices, function(indices) {
-    draw_axis_labels(
-      break_positions = break_positions[indices],
-      break_labels = break_labels[indices],
-      label_element = label_element,
-      is_vertical = is_vertical,
-      check.overlap = check.overlap
-    )
-  })
-
-  ticks_grob <- exec(
-    element_grob, tick_element,
-    !!position_dim := rep(unit(break_positions, "native"), each = 2),
-    !!non_position_dim := rep(
-      unit.c(non_position_panel + (tick_direction * tick_length), non_position_panel)[tick_coordinate_order],
-      times = n_breaks
-    ),
-    id.lengths = rep(2, times = n_breaks)
-  )
-
-  # create gtable
-  non_position_sizes <- paste0(non_position_size, "s")
-  label_dims <- do.call(unit.c, lapply(label_grobs, measure_labels_non_pos))
-  grobs <- c(list(ticks_grob), label_grobs)
-  grob_dims <- unit.c(max(tick_length, unit(0, "pt")), label_dims)
-
-  if (labels_first_gtable) {
-    grobs <- rev(grobs)
-    grob_dims <- rev(grob_dims)
-  }
-
-  gt <- exec(
-    gtable_element,
-    name = "axis",
-    grobs = grobs,
-    !!non_position_sizes := grob_dims,
-    !!position_size := unit(1, "npc")
-  )
-
-  # create viewport
-  justvp <- exec(
-    viewport,
-    !!non_position_dim := non_position_panel,
-    !!non_position_size := measure_gtable(gt),
-    just = axis_position_opposite
-  )
-
-  absoluteGrob(
-    gList(line_grob, gt),
-    width = gtable_width(gt),
-    height = gtable_height(gt),
-    vp = justvp
-  )
+  guide <- guide_axis(check.overlap = check.overlap,
+                      angle = angle,
+                      n.dodge = n.dodge)
+  guide$set_position(axis_position)
+  aes <- if (axis_position %in% c("top", "bottom")) "x" else "y"
+  key <- vctrs::new_data_frame(list2(
+    !!aes := break_positions,
+    .value = break_positions,
+    .label = break_labels
+  ))
+  guide$key <- key
+  guide$draw(theme)
 }
 
 draw_axis_labels <- function(break_positions, break_labels, label_element, is_vertical,
@@ -410,28 +467,5 @@ axis_label_element_overrides <- function(axis_position, angle = NULL) {
     )
   } else {
     abort(glue("Unrecognized position: '{axis_position}'"))
-  }
-}
-
-warn_for_guide_position <- function(guide) {
-  # This is trying to catch when a user specifies a position perpendicular
-  # to the direction of the axis (e.g., a "y" axis on "top").
-  # The strategy is to check that two or more unique breaks are mapped
-  # to the same value along the axis.
-  breaks_are_unique <- !duplicated(guide$key$.value)
-  if (empty(guide$key) || sum(breaks_are_unique) == 1) {
-    return()
-  }
-
-  if (guide$position %in% c("top", "bottom")) {
-    position_aes <- "x"
-  } else if(guide$position %in% c("left", "right")) {
-    position_aes <- "y"
-  } else {
-    return()
-  }
-
-  if (length(unique(guide$key[[position_aes]][breaks_are_unique])) == 1) {
-    warn("Position guide is perpendicular to the intended axis. Did you mean to specify a different guide `position`?")
   }
 }
