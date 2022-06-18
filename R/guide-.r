@@ -180,7 +180,8 @@ Guide <- ggproto(
     self$key   <- key
     self$decor <- decor
     self$params$name <- paste0(params$name, "_", aesthetic)
-    self$params$hash <- hash(lapply(self$hashables, eval_tidy, data = self))
+    mask <- new_data_mask(self)
+    self$params$hash <- hash(lapply(self$hashables, eval_tidy, data = mask))
 
     return(self)
   },
@@ -200,7 +201,7 @@ Guide <- ggproto(
       .value       = values,
       .label       = labels
     ))
-    key[is.finite(key[[aesthetic]]), , drop = FALSE]
+    key[is.finite(key[[".value"]]), , drop = FALSE]
   },
 
   # Function for extracting decoration from the scale.

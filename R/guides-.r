@@ -177,7 +177,8 @@ resolve_guide <- function(aesthetic, scale, guides, default = "none", null = "no
 validate_guide <- function(guide) {
   # if guide is specified by character, then find the corresponding guide
   if (is.character(guide)) {
-    find_global(paste0("guide_", guide), mode = "function")()
+    find_global(paste0("guide_", guide), env = global_env(),
+                mode = "function")()
   } else if (inherits(guide, "guide")) {
     guide
   } else if (inherits(guide, "Guide")) {
