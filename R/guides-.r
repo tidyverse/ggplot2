@@ -173,15 +173,20 @@ resolve_guide <- function(aesthetic, scale, guides, default = "none", null = "no
 }
 
 # validate guide object
+# TODO: when done converting to ggproto, remove "guide" class?
 validate_guide <- function(guide) {
   # if guide is specified by character, then find the corresponding guide
-  # when guides are officially extensible, this should use find_global()
-  if (is.character(guide))
-    match.fun(paste("guide_", guide, sep = ""))()
-  else if (inherits(guide, "guide"))
+  if (is.character(guide)) {
+    find_global(paste0("guide_", guide), mode = "function")()
+  } else if (inherits(guide, "guide")) {
     guide
-  else
-    abort(glue("Unknown guide: {guide}"))
+  } else if (inherits(guide, "Guide")) {
+    # ggproto guides need to be cloned because they may have been defined
+    # outside the plot.
+    guide$clone()
+  } else {
+    cli::cli_abort("Unknown guide: {guide}")
+  }
 }
 
 # train each scale in scales and generate the definition of guide
