@@ -203,7 +203,8 @@ guides_train <- function(scales, theme, guides, labels) {
       #   + guides(XXX) > + scale_ZZZ(guide=XXX) > default(i.e., legend)
       guide <- resolve_guide(output, scale, guides)
 
-      if (identical(guide, "none") || inherits(guide, "guide_none")) next
+      # TODO: Revisit after implementing guides in ggproto
+      if (identical(guide, "none") || inherits(guide, c("guide_none", "GuideNone"))) next
 
       if (isFALSE(guide)) {
         # lifecycle currently doesn't support function name placeholders.
@@ -218,20 +219,33 @@ guides_train <- function(scales, theme, guides, labels) {
       # if guide is character, then find the guide object
       guide <- validate_guide(guide)
 
-      # check the consistency of the guide and scale.
-      if (!identical(guide$available_aes, "any") && !any(scale$aesthetics %in% guide$available_aes)) {
-        abort(glue("Guide '{guide$name}' cannot be used for '{scale$aesthetics}'."))
+      # # check the consistency of the guide and scale.
+      if (inherits(guide, "guide")) {
+        if (!identical(guide$available_aes, "any") &&
+            !any(scale$aesthetics %in% guide$available_aes)) {
+          abort(glue(
+            "Guide '{guide$name}' cannot be used for '{scale$aesthetics}'."
+          ))
+        }
+        guide$title <- scale$make_title(guide$title %|W|% scale$name %|W|% labels[[output]])
+
+        # direction of this grob
+        guide$direction <- guide$direction %||% theme$legend.direction
+
+        # each guide object trains scale within the object,
+        # so Guides (i.e., the container of guides) need not to know about them
+        guide <- guide_train(guide, scale, output)
+
+      } else if (inherits(guide, "Guide")) {
+        guide$set_title(scale$make_title(scale$name %|W|% labels[[output]]))
+
+        # direction of this grob
+        guide$set_direction(theme$legend.direction)
+
+        # each guide object trains scale within the object,
+        # so Guides (i.e., the container of guides) need not to know about them
+        guide <- guide$train(scale, output)
       }
-
-      guide$title <- scale$make_title(guide$title %|W|% scale$name %|W|% labels[[output]])
-
-      # direction of this grob
-      guide$direction <- guide$direction %||% theme$legend.direction
-
-      # each guide object trains scale within the object,
-      # so Guides (i.e., the container of guides) need not to know about them
-      guide <- guide_train(guide, scale, output)
-
       if (!is.null(guide)) gdefs[[length(gdefs) + 1]] <- guide
     }
   }
