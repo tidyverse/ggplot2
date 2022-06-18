@@ -1,3 +1,61 @@
+#' Guide constructor
+#'
+#' A constructor function for guides, which performs some standard compatability
+#' checks between the guide and provided arguments.
+#'
+#' @param ... Named arguments that match the parameters of `super$params` or
+#'   the theme elements in `super$elements`.
+#' @param available_aes A vector of character strings listing the aesthetics
+#'   for which the guide can be drawn.
+#' @param super The super class to use for the constructed guide. Should be a
+#'   Guide class object.
+#'
+#' @return A `Guide` ggproto object.
+#' @export
+new_guide <- function(..., available_aes = "any", super) {
+
+  super <- check_subclass(super, "Guide", env = parent.frame())
+
+  args <- list2(...)
+
+  # Set parameters
+  param_names <- names(super$params)
+  params <- intersect(names(args), param_names)
+  params <- defaults(args[params], super$params)
+
+  # Set elements
+  elems_names <- names(super$elements)
+  elems  <- intersect(names(args), elems_names)
+  elems  <- defaults(args[elems], super$elements)
+
+  # Warn about extra arguments
+  extra_args <- setdiff(names(args), union(param_names, elems_names))
+  if (length(extra_args) > 0) {
+    cli::cli_warn(paste0(
+      "Ignoring unknown {cli::qty(extra_args)} argument{?s} to ",
+      "{.fn {snake_class(super)}}: {.arg {extra_args}}."
+    ))
+  }
+
+  # Stop when some required parameters are missing.
+  # This should only happen with mis-constructed guides
+  required_params <- names(Guide$params)
+  missing_params  <- setdiff(required_params, names(params))
+  if (length(missing_params) > 0) {
+    cli::cli_abort(paste0(
+      "The following parameter{?s} {?is/are} required for setting up a guide, ",
+      "but are missing: {.field {missing_params}}"
+    ))
+  }
+
+  ggproto(
+    NULL, super,
+    params   = params,
+    elements = elems,
+    available_aes = available_aes
+  )
+}
+
 #' @section Guides:
 #'
 #' The `guide_*()` functions, such as `guide_legend()` return an object that
@@ -300,7 +358,7 @@ Guide <- ggproto(
     )
   },
 
-  early_exit = function(params, elements) {
+  draw_early_exit = function(self, params, elements) {
     zeroGrob()
   }
 )
@@ -330,21 +388,3 @@ bidi_names = c(
   "margin_y" = "margin_x"
 )
 
-# Helper function that facilitates adding grobs to a gtable bidirectionally.
-bidi_add_grob = function(x, grobs, t, l, b = t, r = l, z = Inf, clip = "on",
-                         name = x$name, flip = FALSE) {
-  if (flip) {
-    # Swap trbl for lbrt
-    gtable_add_grob(
-      x = x, grobs = grobs,
-      t = l, l = t, b = r, r = b, z = z,
-      clip = clip, name = name
-    )
-  } else {
-    gtable_add_grob(
-      x = x, grobs = grobs,
-      t = t, l = l, b = b, r = r, z = z,
-      clip = clip, name = name
-    )
-  }
-}
