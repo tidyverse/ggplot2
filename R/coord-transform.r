@@ -228,8 +228,10 @@ train_trans <- function(scale, coord_limits, trans, name, expand = TRUE) {
 
   out <- list(
     view_scale_primary(scale, scale_limits, continuous_ranges$continuous_range_coord),
-    # TODO: Can I add here? This seems cause cryptic warning "In min(x) : no non-missing arguments to min; returning Inf"
-    # sec = view_scale_secondary(scale, scale_limits, continuous_ranges$continuous_range_coord),
+    # TODO: currently, view_scale_secondary() requires the range that's not affected by
+    #       the Coord transformation. I'm not yet sure if this is necessary or it's
+    #       just I don't figure out the whole process.
+    sec = view_scale_secondary(scale, scale_limits, continuous_ranges$continuous_range),
     range = out$range,
     labels = out$labels,
     major = out$major_source,
