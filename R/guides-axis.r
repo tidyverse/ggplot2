@@ -230,7 +230,6 @@ GuideAxis <- ggproto(
       }
     }
 
-
     dodge_pos     <- rep(seq_len(params$n.dodge %||% 1), length.out = n_labels)
     dodge_indices <- unname(split(seq_len(n_labels), dodge_pos))
 
@@ -438,7 +437,7 @@ axis_label_element_overrides <- function(axis_position, angle = NULL) {
 
   # it is not worth the effort to align upside-down labels properly
   if (angle > 90 || angle < -90) {
-    abort("`angle` must be between 90 and -90")
+    cli::cli_abort("{.arg angle} must be between 90 and -90")
   }
 
   if (axis_position == "bottom") {
@@ -466,6 +465,9 @@ axis_label_element_overrides <- function(axis_position, angle = NULL) {
       vjust = if (angle > 0) 1 else if (angle < 0) 0 else 0.5,
     )
   } else {
-    abort(glue("Unrecognized position: '{axis_position}'"))
+    cli::cli_abort(c(
+      "Unrecognized {.arg axis_position}: {.val {axis_position}}",
+      "i" = "Use one of {.val top}, {.val bottom}, {.val left} or {.val right}"
+    ))
   }
 }

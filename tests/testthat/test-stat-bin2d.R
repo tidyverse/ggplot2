@@ -8,6 +8,14 @@ test_that("binwidth is respected", {
   # Adjust tolerance to account for fuzzy breaks adjustment
   expect_equal(out$xmin, c(1, 1.75), tolerance = 1e-7)
   expect_equal(out$xmax, c(1.25, 2), tolerance = 1e-7)
+
+  p <- ggplot(df, aes(x, y)) +
+    stat_bin2d(geom = "tile", binwidth = c(0.25, 0.5, 0.75))
+  expect_snapshot_warning(ggplot_build(p))
+
+  p <- ggplot(df, aes(x, y)) +
+    stat_bin2d(geom = "tile", origin = c(0.25, 0.5, 0.75))
+  expect_snapshot_warning(ggplot_build(p))
 })
 
 test_that("breaks override binwidth", {

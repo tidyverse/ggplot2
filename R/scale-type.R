@@ -60,8 +60,7 @@ scale_type <- function(x) UseMethod("scale_type")
 
 #' @export
 scale_type.default <- function(x) {
-  message("Don't know how to automatically pick scale for object of type ",
-          paste(class(x), collapse = "/"), ". Defaulting to continuous.")
+  cli::cli_inform("Don't know how to automatically pick scale for object of type {.cls {class(x)}}. Defaulting to continuous.")
   "continuous"
 }
 

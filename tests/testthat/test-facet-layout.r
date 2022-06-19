@@ -151,3 +151,39 @@ test_that("missing values get a panel", {
   expect_equal(nrow(grid_b), 4)
   expect_equal(nrow(grid_c), 4)
 })
+
+# Input checking ----------------------------------------------------------
+
+test_that("facet_wrap throws errors at bad layout specs", {
+  expect_snapshot_error(facet_wrap(~test, ncol = 1:4))
+  expect_snapshot_error(facet_wrap(~test, ncol = -1))
+  expect_snapshot_error(facet_wrap(~test, ncol = 1.5))
+
+  expect_snapshot_error(facet_wrap(~test, nrow = 1:4))
+  expect_snapshot_error(facet_wrap(~test, nrow = -1))
+  expect_snapshot_error(facet_wrap(~test, nrow = 1.5))
+
+  p <- ggplot(mtcars) +
+    geom_point(aes(mpg, disp)) +
+    facet_wrap(~gear, ncol = 1, nrow = 1)
+  expect_snapshot_error(ggplot_build(p))
+
+  p <- ggplot(mtcars) +
+    geom_point(aes(mpg, disp)) +
+    facet_wrap(~gear, scales = "free") +
+    coord_fixed()
+  expect_snapshot_error(ggplotGrob(p))
+})
+
+test_that("facet_grid throws errors at bad layout specs", {
+  p <- ggplot(mtcars) +
+    geom_point(aes(mpg, disp)) +
+    facet_grid(.~gear, scales = "free") +
+    coord_fixed()
+  expect_snapshot_error(ggplotGrob(p))
+  p <- ggplot(mtcars) +
+    geom_point(aes(mpg, disp)) +
+    facet_grid(.~gear, space = "free") +
+    theme(aspect.ratio = 1)
+  expect_snapshot_error(ggplotGrob(p))
+})

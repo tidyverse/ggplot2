@@ -144,10 +144,13 @@ geom_dotplot <- function(mapping = NULL, data = NULL,
   # because == will fail if object is position_stack() or position_dodge()
   if (!is.null(position) &&
       (identical(position, "stack") || (inherits(position, "PositionStack"))))
-    message("position=\"stack\" doesn't work properly with geom_dotplot. Use stackgroups=TRUE instead.")
+    cli::cli_inform("{.code position = \"stack\"} doesn't work properly with {.fn geom_dotplot}. Use {.code stackgroups = TRUE} instead.")
 
   if (stackgroups && method == "dotdensity" && binpositions == "bygroup")
-    message('geom_dotplot called with stackgroups=TRUE and method="dotdensity". You probably want to set binpositions="all"')
+    cli::cli_inform(c(
+      '{.fn geom_dotplot} called with {.code stackgroups = TRUE} and {.code method = "dotdensity"}.",
+      i = "Do you want {.code binpositions = "all"} instead?'
+    ))
 
   stackdir <- arg_match0(stackdir, c("up", "down", "center", "centerwhole"), "stackdir")
   layer(
@@ -268,7 +271,7 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
                         binaxis = "x", stackdir = "up", stackratio = 1,
                         dotsize = 1, stackgroups = FALSE) {
     if (!coord$is_linear()) {
-      warn("geom_dotplot does not work properly with non-linear coordinates.")
+      cli::cli_warn("{.fn geom_dotplot} does not work properly with non-linear coordinates.")
     }
 
     tdata <- coord$transform(data, panel_params)

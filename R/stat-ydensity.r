@@ -69,10 +69,10 @@ StatYdensity <- ggproto("StatYdensity", Stat,
 
   extra_params = c("na.rm", "orientation"),
 
-  compute_group = function(data, scales, width = NULL, bw = "nrd0", adjust = 1,
+  compute_group = function(self, data, scales, width = NULL, bw = "nrd0", adjust = 1,
                        kernel = "gaussian", trim = TRUE, na.rm = FALSE, flipped_aes = FALSE) {
     if (nrow(data) < 2) {
-      warn("Groups with fewer than two data points have been dropped.")
+      cli::cli_warn("Groups with fewer than two data points have been dropped.")
       return(new_data_frame())
     }
     range <- range(data$y, na.rm = TRUE)
@@ -121,8 +121,10 @@ StatYdensity <- ggproto("StatYdensity", Stat,
 
 calc_bw <- function(x, bw) {
   if (is.character(bw)) {
-    if (length(x) < 2)
-      abort("need at least 2 points to select a bandwidth automatically")
+    if (length(x) < 2) {
+      cli::cli_abort("{.arg x} must contain at least 2 elements to select a bandwidth automatically")
+    }
+
     bw <- switch(
       to_lower_ascii(bw),
       nrd0 = stats::bw.nrd0(x),
@@ -132,7 +134,7 @@ calc_bw <- function(x, bw) {
       sj = ,
       `sj-ste` = stats::bw.SJ(x, method = "ste"),
       `sj-dpi` = stats::bw.SJ(x, method = "dpi"),
-      abort("unknown bandwidth rule")
+      cli::cli_abort("{.var {bw}} is not a valid bandwidth rule")
     )
   }
   bw

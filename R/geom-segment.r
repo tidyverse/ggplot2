@@ -61,6 +61,7 @@
 #'   xlim(0.5, 2)
 #'
 #' # You can also use geom_segment to recreate plot(type = "h") :
+#' set.seed(1)
 #' counts <- as.data.frame(table(x = rpois(100,5)))
 #' counts$x <- as.numeric(as.character(counts$x))
 #' with(counts, plot(x, Freq, type = "h", lwd = 10))
@@ -102,15 +103,15 @@ geom_segment <- function(mapping = NULL, data = NULL,
 #' @export
 GeomSegment <- ggproto("GeomSegment", Geom,
   required_aes = c("x", "y", "xend", "yend"),
-  non_missing_aes = c("linetype", "size", "shape"),
-  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
-
-  draw_panel = function(data, panel_params, coord, arrow = NULL, arrow.fill = NULL,
+  non_missing_aes = c("linetype", "linewidth", "shape"),
+  default_aes = aes(colour = "black", linewidth = 0.5, linetype = 1, alpha = NA),
+  draw_panel = function(self, data, panel_params, coord, arrow = NULL, arrow.fill = NULL,
                         lineend = "butt", linejoin = "round", na.rm = FALSE) {
-
     data <- remove_missing(data, na.rm = na.rm,
-      c("x", "y", "xend", "yend", "linetype", "size", "shape"),
-      name = "geom_segment")
+      c("x", "y", "xend", "yend", "linetype", "linewidth", "shape"),
+      name = "geom_segment"
+    )
+
     if (empty(data)) return(zeroGrob())
 
     if (coord$is_linear()) {
@@ -121,7 +122,7 @@ GeomSegment <- ggproto("GeomSegment", Geom,
         gp = gpar(
           col = alpha(coord$colour, coord$alpha),
           fill = alpha(arrow.fill, coord$alpha),
-          lwd = coord$size * .pt,
+          lwd = coord$linewidth * .pt,
           lty = coord$linetype,
           lineend = lineend,
           linejoin = linejoin
@@ -141,5 +142,7 @@ GeomSegment <- ggproto("GeomSegment", Geom,
       lineend = lineend)
   },
 
-  draw_key = draw_key_path
+  draw_key = draw_key_path,
+
+  rename_size = TRUE
 )

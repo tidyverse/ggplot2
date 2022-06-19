@@ -34,6 +34,7 @@
 #' @seealso [sec_axis()] for how to specify secondary axes
 #' @examples
 #' last_month <- Sys.Date() - 0:29
+#' set.seed(1)
 #' df <- data.frame(
 #'   date = last_month,
 #'   price = runif(30)

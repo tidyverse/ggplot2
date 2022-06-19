@@ -236,6 +236,7 @@ summarise_by_x <- function(data, summary, ...) {
 #' @name hmisc
 #' @examples
 #' if (requireNamespace("Hmisc", quietly = TRUE)) {
+#' set.seed(1)
 #' x <- rnorm(100)
 #' mean_cl_boot(x)
 #' mean_cl_normal(x)
@@ -285,6 +286,7 @@ median_hilow <- wrap_hmisc("smedian.hilow")
 #' }
 #' @export
 #' @examples
+#' set.seed(1)
 #' x <- rnorm(100)
 #' mean_se(x)
 mean_se <- function(x, mult = 1) {

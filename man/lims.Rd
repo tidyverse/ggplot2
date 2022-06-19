@@ -65,6 +65,7 @@ ggplot(big, aes(mpg, wt, colour = factor(cyl))) +
 # There are two ways of setting the axis limits: with limits or
 # with coordinate systems. They work in two rather different ways.
 
+set.seed(1)
 last_month <- Sys.Date() - 0:59
 df <- data.frame(
   date = last_month,

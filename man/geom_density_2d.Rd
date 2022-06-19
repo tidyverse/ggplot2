@@ -91,8 +91,10 @@ the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
-\item{position}{Position adjustment, either as a string, or the result of
-a call to a position adjustment function.}
+\item{position}{Position adjustment, either as a string naming the adjustment
+(e.g. \code{"jitter"} to use \code{position_jitter}), or the result of a call to a
+position adjustment function. Use the latter if you need to change the
+settings of the adjustment.}
 
 \item{...}{
   Arguments passed on to \code{\link[=geom_contour]{geom_contour}}
@@ -168,7 +170,7 @@ bands.
 \item \code{colour}
 \item \code{group}
 \item \code{linetype}
-\item \code{size}
+\item \code{linewidth}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 
@@ -182,7 +184,7 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 \item \code{fill}
 \item \code{group}
 \item \code{linetype}
-\item \code{size}
+\item \code{linewidth}
 \item \code{subgroup}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.

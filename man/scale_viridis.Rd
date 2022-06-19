@@ -99,10 +99,7 @@ labels and so forth.}
 \item{alpha}{The alpha transparency, a number in [0,1], see argument alpha in
 \code{\link[grDevices]{hsv}}.}
 
-\item{begin}{The (corrected) hue in \verb{[0,1]} at which the color map
-begins and ends.}
-
-\item{end}{The (corrected) hue in \verb{[0,1]} at which the color map
+\item{begin, end}{The (corrected) hue in \verb{[0,1]} at which the color map
 begins and ends.}
 
 \item{direction}{Sets the order of colors in the scale. If 1, the default,

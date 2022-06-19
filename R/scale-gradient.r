@@ -23,6 +23,7 @@
 #' @rdname scale_gradient
 #' @export
 #' @examples
+#' set.seed(1)
 #' df <- data.frame(
 #'   x = runif(100),
 #'   y = runif(100),

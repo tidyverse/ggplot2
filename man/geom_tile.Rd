@@ -66,10 +66,14 @@ will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{stat}{The statistical transformation to use on the data for this
-layer, as a string.}
+layer, either as a \code{ggproto} \code{Geom} subclass or as a string naming the
+stat stripped of the \code{stat_} prefix (e.g. \code{"count"} rather than
+\code{"stat_count"})}
 
-\item{position}{Position adjustment, either as a string, or the result of
-a call to a position adjustment function.}
+\item{position}{Position adjustment, either as a string naming the adjustment
+(e.g. \code{"jitter"} to use \code{position_jitter}), or the result of a call to a
+position adjustment function. Use the latter if you need to change the
+settings of the adjustment.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
@@ -119,7 +123,7 @@ performance special case for when all the tiles are the same size.
 \item \code{group}
 \item \code{height}
 \item \code{linetype}
-\item \code{size}
+\item \code{linewidth}
 \item \code{width}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
@@ -153,6 +157,7 @@ ggplot(df, aes(xmin = x - w / 2, xmax = x + w / 2, ymin = y, ymax = y + 1)) +
 \donttest{
 # Justification controls where the cells are anchored
 df <- expand.grid(x = 0:5, y = 0:5)
+set.seed(1)
 df$z <- runif(nrow(df))
 # default is compatible with geom_tile()
 ggplot(df, aes(x, y, fill = z)) +

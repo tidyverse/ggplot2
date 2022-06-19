@@ -37,7 +37,7 @@
 #'
 expansion <- function(mult = 0, add = 0) {
   if (!(is.numeric(mult) && (length(mult) %in% 1:2) && is.numeric(add) && (length(add) %in% 1:2))) {
-    abort("`mult` and `add` must be numeric vectors with 1 or 2 elements")
+    cli::cli_abort("{.arg mult} and {.arg add} must be numeric vectors with 1 or 2 elements")
   }
 
   mult <- rep(mult, length.out = 2)
@@ -66,7 +66,7 @@ expand_scale <- function(mult = 0, add = 0) {
 #'
 expand_range4 <- function(limits, expand) {
   if (!(is.numeric(expand) && length(expand) %in% c(2,4))) {
-    abort("`expand` must be a numeric vector with 2 or 4 elements")
+    cli::cli_abort("{.arg expand} must be a numeric vector with 2 or 4 elements")
   }
 
   if (all(!is.finite(limits))) {

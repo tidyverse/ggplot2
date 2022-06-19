@@ -38,6 +38,7 @@
 #' @examples
 #' # Generate some sample data, then compute mean and standard deviation
 #' # in each group
+#' set.seed(1)
 #' df <- data.frame(
 #'   gp = factor(rep(letters[1:3], each = 10)),
 #'   y = rnorm(30)
@@ -81,7 +82,10 @@ ggplot <- function(data = NULL, mapping = aes(), ...,
 ggplot.default <- function(data = NULL, mapping = aes(), ...,
                            environment = parent.frame()) {
   if (!missing(mapping) && !inherits(mapping, "uneval")) {
-    abort("Mapping should be created with `aes()` or `aes_()`.")
+    cli::cli_abort(c(
+      "{.arg mapping} should be created with {.fn aes}.",
+      "x" = "You've supplied a {.cls {class(mapping)[1]}} object"
+    ))
   }
 
   data <- fortify(data, ...)
@@ -107,10 +111,10 @@ ggplot.default <- function(data = NULL, mapping = aes(), ...,
 ggplot.function <- function(data = NULL, mapping = aes(), ...,
                             environment = parent.frame()) {
   # Added to avoid functions end in ggplot.default
-  abort(glue("
-    You're passing a function as global data.
-    Have you misspelled the `data` argument in `ggplot()`
-  "))
+  cli::cli_abort(c(
+    "{.arg data} cannot be a function.",
+    "i" = "Have you misspelled the {.arg data} argument in {.fn ggplot}"
+  ))
 }
 
 plot_clone <- function(plot) {
