@@ -107,5 +107,7 @@ GeomCrossbar <- ggproto("GeomCrossbar", Geom,
       GeomPolygon$draw_panel(box, panel_params, coord, lineend = lineend, linejoin = linejoin),
       GeomSegment$draw_panel(middle, panel_params, coord, lineend = lineend, linejoin = linejoin)
     )))
-  }
+  },
+
+  rename_size = TRUE
 )
