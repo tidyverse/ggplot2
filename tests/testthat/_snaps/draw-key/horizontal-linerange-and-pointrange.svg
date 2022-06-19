@@ -59,23 +59,23 @@
 <text x='348.60' y='568.24' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>middle</text>
 <text transform='translate(13.05,283.95) rotate(-90)' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='34.25px' lengthAdjust='spacingAndGlyphs'>group1</text>
 <rect x='680.27' y='228.58' width='34.25' height='49.89' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<text x='680.27' y='237.29' style='font-size: 11.00px; font-family: sans;' textLength='34.25px' lengthAdjust='spacingAndGlyphs'>group2</text>
+<text x='680.27' y='237.29' style='font-size: 11.00px; font-family: sans;' textLength='34.25px' lengthAdjust='spacingAndGlyphs'>group1</text>
 <rect x='680.27' y='243.91' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<line x1='681.99' y1='252.55' x2='695.82' y2='252.55' style='stroke-width: 1.07; stroke-linecap: butt;' />
-<circle cx='688.91' cy='252.55' r='2.84' style='stroke-width: 1.42; stroke: none; fill: #000000;' />
+<line x1='681.99' y1='252.55' x2='695.82' y2='252.55' style='stroke-width: 1.07; stroke: #F8766D; stroke-linecap: butt;' />
 <rect x='680.27' y='261.19' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<line x1='681.99' y1='269.83' x2='695.82' y2='269.83' style='stroke-width: 1.07; stroke-linecap: butt;' />
-<polygon points='688.91,265.41 692.73,272.04 685.08,272.04 ' style='stroke-width: 1.42; stroke: none; fill: #000000;' />
-<text x='703.03' y='255.58' style='font-size: 8.80px; font-family: sans;' textLength='4.40px' lengthAdjust='spacingAndGlyphs'>c</text>
-<text x='703.03' y='272.86' style='font-size: 8.80px; font-family: sans;' textLength='4.89px' lengthAdjust='spacingAndGlyphs'>d</text>
+<line x1='681.99' y1='269.83' x2='695.82' y2='269.83' style='stroke-width: 1.07; stroke: #00BFC4; stroke-linecap: butt;' />
+<text x='703.03' y='255.58' style='font-size: 8.80px; font-family: sans;' textLength='4.89px' lengthAdjust='spacingAndGlyphs'>a</text>
+<text x='703.03' y='272.86' style='font-size: 8.80px; font-family: sans;' textLength='4.89px' lengthAdjust='spacingAndGlyphs'>b</text>
 <rect x='680.27' y='289.43' width='34.25' height='49.89' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<text x='680.27' y='298.14' style='font-size: 11.00px; font-family: sans;' textLength='34.25px' lengthAdjust='spacingAndGlyphs'>group1</text>
+<text x='680.27' y='298.14' style='font-size: 11.00px; font-family: sans;' textLength='34.25px' lengthAdjust='spacingAndGlyphs'>group2</text>
 <rect x='680.27' y='304.76' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<line x1='681.99' y1='313.40' x2='695.82' y2='313.40' style='stroke-width: 1.07; stroke: #F8766D; stroke-linecap: butt;' />
+<line x1='681.99' y1='313.40' x2='695.82' y2='313.40' style='stroke-width: 1.07; stroke-linecap: butt;' />
+<circle cx='688.91' cy='313.40' r='2.84' style='stroke-width: 1.42; stroke: none; fill: #000000;' />
 <rect x='680.27' y='322.04' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<line x1='681.99' y1='330.68' x2='695.82' y2='330.68' style='stroke-width: 1.07; stroke: #00BFC4; stroke-linecap: butt;' />
-<text x='703.03' y='316.43' style='font-size: 8.80px; font-family: sans;' textLength='4.89px' lengthAdjust='spacingAndGlyphs'>a</text>
-<text x='703.03' y='333.71' style='font-size: 8.80px; font-family: sans;' textLength='4.89px' lengthAdjust='spacingAndGlyphs'>b</text>
+<line x1='681.99' y1='330.68' x2='695.82' y2='330.68' style='stroke-width: 1.07; stroke-linecap: butt;' />
+<polygon points='688.91,326.26 692.73,332.89 685.08,332.89 ' style='stroke-width: 1.42; stroke: none; fill: #000000;' />
+<text x='703.03' y='316.43' style='font-size: 8.80px; font-family: sans;' textLength='4.40px' lengthAdjust='spacingAndGlyphs'>c</text>
+<text x='703.03' y='333.71' style='font-size: 8.80px; font-family: sans;' textLength='4.89px' lengthAdjust='spacingAndGlyphs'>d</text>
 <text x='27.90' y='14.56' style='font-size: 13.20px; font-family: sans;' textLength='206.96px' lengthAdjust='spacingAndGlyphs'>horizontal linerange and pointrange</text>
 </g>
 </svg>

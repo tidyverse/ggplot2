@@ -18,9 +18,7 @@ coord_trans(
 \arguments{
 \item{x, y}{Transformers for x and y axes or their names.}
 
-\item{xlim}{Limits for the x and y axes.}
-
-\item{ylim}{Limits for the x and y axes.}
+\item{xlim, ylim}{Limits for the x and y axes.}
 
 \item{limx, limy}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} use \code{xlim} and \code{ylim} instead.}
 
@@ -103,6 +101,7 @@ ggplot(diamonds, aes(carat, price)) +
   geom_smooth(method = "lm")
 
 # Also works with discrete scales
+set.seed(1)
 df <- data.frame(a = abs(rnorm(26)),letters)
 plot <- ggplot(df,aes(a,letters)) + geom_point()
 

@@ -40,12 +40,12 @@ geom_curve <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomCurve <- ggproto("GeomCurve", GeomSegment,
-  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
+  default_aes = aes(colour = "black", linewidth = 0.5, linetype = 1, alpha = NA),
   draw_panel = function(data, panel_params, coord, curvature = 0.5, angle = 90,
                         ncp = 5, arrow = NULL, arrow.fill = NULL, lineend = "butt", na.rm = FALSE) {
 
     if (!coord$is_linear()) {
-      warn("geom_curve is not implemented for non-linear coordinates")
+      cli::cli_warn("{.fn geom_curve} is not implemented for non-linear coordinates")
     }
 
     trans <- coord$transform(data, panel_params)
@@ -60,7 +60,7 @@ GeomCurve <- ggproto("GeomCurve", GeomSegment,
       gp = gpar(
         col = alpha(trans$colour, trans$alpha),
         fill = alpha(arrow.fill, trans$alpha),
-        lwd = trans$size * .pt,
+        lwd = trans$linewidth * .pt,
         lty = trans$linetype,
         lineend = lineend),
       arrow = arrow

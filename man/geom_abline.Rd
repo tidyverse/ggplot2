@@ -92,7 +92,7 @@ commonly set in the plot. They also do not affect the x and y scales.
 
 These geoms are drawn using with \code{\link[=geom_line]{geom_line()}} so support the
 same aesthetics: \code{alpha}, \code{colour}, \code{linetype} and
-\code{size}. They also each have aesthetics that control the position of
+\code{linewidth}. They also each have aesthetics that control the position of
 the line:
 \itemize{
 \item \code{geom_vline()}: \code{xintercept}

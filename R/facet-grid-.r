@@ -136,7 +136,7 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
   )
 
   if (!is.null(switch) && !switch %in% c("both", "x", "y")) {
-    abort("switch must be either 'both', 'x', or 'y'")
+    cli::cli_abort("{.arg switch} must be either {.val both}, {.val x}, or {.val y}")
   }
 
   facets_list <- grid_as_facets_list(rows, cols)
@@ -157,19 +157,19 @@ grid_as_facets_list <- function(rows, cols) {
   is_rows_vars <- is.null(rows) || is_quosures(rows)
   if (!is_rows_vars) {
     if (!is.null(cols)) {
-      msg <- "`rows` must be `NULL` or a `vars()` list if `cols` is a `vars()` list"
-      if(inherits(rows, "ggplot")) {
-        msg <- paste0(
-          msg, "\n",
-          "Did you use %>% instead of +?"
+      msg <- "{.arg rows} must be {.val NULL} or a {.fn vars} list if {.arg cols} is a {.fn vars} list"
+      if (inherits(rows, "ggplot")) {
+        msg <- c(
+          msg,
+          "i" = "Did you use {.code %>%} or {.code |>} instead of {.code +}?"
         )
       }
-      abort(msg)
+      cli::cli_abort(msg)
     }
     # For backward-compatibility
     facets_list <- as_facets_list(rows)
     if (length(facets_list) > 2L) {
-      abort("A grid facet specification can't have more than two dimensions")
+      cli::cli_abort("A grid facet specification can't have more than two dimensions")
     }
     # Fill with empty quosures
     facets <- list(rows = quos(), cols = quos())
@@ -180,7 +180,7 @@ grid_as_facets_list <- function(rows, cols) {
 
   is_cols_vars <- is.null(cols) || is_quosures(cols)
   if (!is_cols_vars) {
-    abort("`cols` must be `NULL` or a `vars()` specification")
+    cli::cli_abort("{.arg cols} must be {.val NULL} or a {.fn vars} specification")
   }
 
   list(
@@ -202,9 +202,9 @@ FacetGrid <- ggproto("FacetGrid", Facet,
 
     dups <- intersect(names(rows), names(cols))
     if (length(dups) > 0) {
-      abort(glue(
-        "Faceting variables can only appear in row or cols, not both.\n",
-        "Problems: ", paste0(dups, collapse = "'")
+      cli::cli_abort(c(
+              "Faceting variables can only appear in {.arg rows} or {.arg cols}, not both.\n",
+        "i" = "Duplicated variables: {.val {dups}}"
       ))
     }
 
@@ -292,7 +292,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
   },
   draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
     if ((params$free$x || params$free$y) && !coord$is_free()) {
-      abort(glue("{snake_class(coord)} doesn't support free scales"))
+      cli::cli_abort("{.fn {snake_class(coord)}} doesn't support free scales")
     }
 
     cols <- which(layout$ROW == 1)
@@ -310,7 +310,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
 
     aspect_ratio <- theme$aspect.ratio
     if (!is.null(aspect_ratio) && (params$space_free$x || params$space_free$y)) {
-      abort("Free scales cannot be mixed with a fixed aspect ratio")
+      cli::cli_abort("Free scales cannot be mixed with a fixed aspect ratio")
     }
     if (is.null(aspect_ratio) && !params$free$x && !params$free$y) {
       aspect_ratio <- coord$aspect(ranges[[1]])

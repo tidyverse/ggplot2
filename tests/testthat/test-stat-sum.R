@@ -47,7 +47,7 @@ test_that("summaries are drawn correctly", {
   expect_doppelganger("summary with color and lines",
     ggplot(mtcars, aes(x = cyl, y = mpg, colour = factor(vs))) +
       geom_point() +
-      stat_summary(fun = mean, geom = "line", size = 2)
+      stat_summary(fun = mean, geom = "line", linewidth = 2)
   )
   expect_doppelganger("summary with crossbars, no grouping",
     ggplot(mtcars, aes(x = cyl, y = mpg)) +

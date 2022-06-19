@@ -13,10 +13,10 @@ geom_hline <- function(mapping = NULL, data = NULL,
   if (!missing(yintercept)) {
     # Warn if supplied mapping and/or data is going to be overwritten
     if (!is.null(mapping)) {
-      warn_overwritten_args("geom_hline()", "mapping", "yintercept")
+      cli::cli_warn("{.fn geom_hline}: Ignoring {.arg mapping} because {.arg yintercept} was provided.")
     }
     if (!is.null(data)) {
-      warn_overwritten_args("geom_hline()", "data", "yintercept")
+      cli::cli_warn("{.fn geom_hline}: Ignoring {.arg data} because {.arg yintercept} was provided.")
     }
 
     data <- new_data_frame(list(yintercept = yintercept))
@@ -55,8 +55,10 @@ GeomHline <- ggproto("GeomHline", Geom,
     GeomSegment$draw_panel(unique(data), panel_params, coord, lineend = lineend)
   },
 
-  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
+  default_aes = aes(colour = "black", linewidth = 0.5, linetype = 1, alpha = NA),
   required_aes = "yintercept",
 
-  draw_key = draw_key_path
+  draw_key = draw_key_path,
+
+  rename_size = TRUE
 )

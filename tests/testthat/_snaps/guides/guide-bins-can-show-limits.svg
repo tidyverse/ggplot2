@@ -71,11 +71,11 @@
 <line x1='693.35' y1='308.89' x2='696.81' y2='308.89' style='stroke-width: 0.38; stroke-linecap: butt;' />
 <line x1='693.35' y1='326.17' x2='696.81' y2='326.17' style='stroke-width: 0.38; stroke-linecap: butt;' />
 <line x1='696.81' y1='326.17' x2='696.81' y2='257.05' style='stroke-width: 0.38; stroke-linecap: square;' />
-<text x='702.29' y='260.08' style='font-size: 8.80px; font-family: sans;' textLength='12.23px' lengthAdjust='spacingAndGlyphs'>1.0</text>
+<text x='702.29' y='260.08' style='font-size: 8.80px; font-family: sans;' textLength='4.89px' lengthAdjust='spacingAndGlyphs'>1</text>
 <text x='702.29' y='277.36' style='font-size: 8.80px; font-family: sans;' textLength='12.23px' lengthAdjust='spacingAndGlyphs'>1.5</text>
 <text x='702.29' y='294.64' style='font-size: 8.80px; font-family: sans;' textLength='12.23px' lengthAdjust='spacingAndGlyphs'>2.0</text>
 <text x='702.29' y='311.92' style='font-size: 8.80px; font-family: sans;' textLength='12.23px' lengthAdjust='spacingAndGlyphs'>2.5</text>
-<text x='702.29' y='329.20' style='font-size: 8.80px; font-family: sans;' textLength='12.23px' lengthAdjust='spacingAndGlyphs'>3.0</text>
+<text x='702.29' y='329.20' style='font-size: 8.80px; font-family: sans;' textLength='4.89px' lengthAdjust='spacingAndGlyphs'>3</text>
 <text x='35.24' y='14.56' style='font-size: 13.20px; font-family: sans;' textLength='157.04px' lengthAdjust='spacingAndGlyphs'>guide_bins can show limits</text>
 </g>
 </svg>

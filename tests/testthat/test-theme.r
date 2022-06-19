@@ -41,7 +41,7 @@ test_that("modifying theme element properties with + operator works", {
 
 test_that("adding theme object to ggplot object with + operator works", {
   ## test with complete theme
-  p <- qplot(1:3, 1:3) + theme_grey()
+  p <- ggplot(data.frame(x = 1:3), aes(x, x)) + geom_point() + theme_grey()
   p <- p + theme(axis.title = element_text(size = 20))
   expect_true(p$theme$axis.title$size == 20)
 
@@ -55,7 +55,7 @@ test_that("adding theme object to ggplot object with + operator works", {
   expect_identical(p$theme$text, tt)
 
   ## test without complete theme
-  p <- qplot(1:3, 1:3)
+  p <- ggplot(data.frame(x = 1:3), aes(x, x)) + geom_point()
   p <- p + theme(axis.title = element_text(size = 20))
   expect_true(p$theme$axis.title$size == 20)
 
@@ -73,7 +73,7 @@ test_that("adding theme object to ggplot object with + operator works", {
   expect_null(p$theme$text$debug)
 
   ## stepwise addition of partial themes is identical to one-step addition
-  p <- qplot(1:3, 1:3)
+  p <- ggplot(data.frame(x = 1:3), aes(x, x)) + geom_point()
   p1 <- p + theme_light() +
     theme(axis.line.x = element_line(color = "blue")) +
     theme(axis.ticks.x = element_line(color = "red"))
@@ -193,9 +193,11 @@ test_that("complete and non-complete themes interact correctly with each other",
 })
 
 test_that("complete and non-complete themes interact correctly with ggplot objects", {
+  base <- ggplot(data.frame(x = 1:3), aes(x, x)) + geom_point()
+
   # Check that adding two theme successive theme objects to a ggplot object
   # works like adding the two theme object to each other
-  p <- ggplot_build(qplot(1:3, 1:3) + theme_bw() + theme(text = element_text(colour = 'red')))
+  p <- ggplot_build(base + theme_bw() + theme(text = element_text(colour = 'red')))
   expect_true(attr(p$plot$theme, "complete"))
 
   # Compare the theme objects, after sorting the items, because item order can differ
@@ -205,7 +207,7 @@ test_that("complete and non-complete themes interact correctly with ggplot objec
   tt <- tt[order(names(tt))]
   expect_identical(pt, tt)
 
-  p <- ggplot_build(qplot(1:3, 1:3) + theme(text = element_text(colour = 'red')) + theme_bw())
+  p <- ggplot_build(base + theme(text = element_text(colour = 'red')) + theme_bw())
   expect_true(attr(p$plot$theme, "complete"))
   # Compare the theme objects, after sorting the items, because item order can differ
   pt <- p$plot$theme
@@ -214,12 +216,12 @@ test_that("complete and non-complete themes interact correctly with ggplot objec
   tt <- tt[order(names(tt))]
   expect_identical(pt, tt)
 
-  p <- ggplot_build(qplot(1:3, 1:3) + theme(text = element_text(colour = 'red', face = 'italic')))
+  p <- ggplot_build(base + theme(text = element_text(colour = 'red', face = 'italic')))
   expect_false(attr(p$plot$theme, "complete"))
   expect_equal(p$plot$theme$text$colour, "red")
   expect_equal(p$plot$theme$text$face, "italic")
 
-  p <- ggplot_build(qplot(1:3, 1:3) +
+  p <- ggplot_build(base +
     theme(text = element_text(colour = 'red')) +
     theme(text = element_text(face = 'italic')))
   expect_false(attr(p$plot$theme, "complete"))
@@ -228,7 +230,7 @@ test_that("complete and non-complete themes interact correctly with ggplot objec
 })
 
 test_that("theme(validate=FALSE) means do not validate_element", {
-  p <- qplot(1:3, 1:3)
+  p <- ggplot(data.frame(x = 1:3), aes(x, x)) + geom_point()
   bw <- p + theme_bw()
   red.text <- theme(text = element_text(colour = "red"))
   bw.before <- bw + theme(animint.width = 500, validate = FALSE)
@@ -250,23 +252,43 @@ test_that("theme validation happens at build stage", {
 
   # the error occurs when we try to render the plot
   p <- ggplot() + theme(text = 0)
-  expect_error(print(p), "must be an object of type `element_text`")
+  expect_snapshot_error(print(p))
 
   # without validation, the error occurs when the element is accessed
   p <- ggplot() + theme(text = 0, validate = FALSE)
-  expect_error(print(p), "text should have class element_text")
+  expect_snapshot_error(print(p))
+})
+
+test_that("incorrect theme specifications throw meaningful errors", {
+  expect_snapshot_error(add_theme(theme_grey(), theme(line = element_rect())))
+  expect_snapshot_error(calc_element("line", theme(line = element_rect())))
+  register_theme_elements(element_tree = list(test = el_def("element_rect")))
+  expect_snapshot_error(calc_element("test", theme_gray() + theme(test = element_rect())))
 })
 
 test_that("element tree can be modified", {
   # we cannot add a new theme element without modifying the element tree
   p <- ggplot() + theme(blablabla = element_text(colour = "red"))
-  expect_error(print(p), "Theme element `blablabla` is not defined in the element hierarchy")
+  expect_snapshot_error(print(p))
+
+  register_theme_elements(
+    element_tree = list(blablabla = el_def("character", "text"))
+  )
+  expect_snapshot_error(ggplotGrob(p))
+
+  register_theme_elements(
+    element_tree = list(blablabla = el_def("unit", "text"))
+  )
+  expect_snapshot_error(ggplotGrob(p))
 
   # things work once we add a new element to the element tree
   register_theme_elements(
     element_tree = list(blablabla = el_def("element_text", "text"))
   )
-  expect_silent(print(p))
+  expect_silent(ggplotGrob(p))
+
+  p1 <- ggplot() + theme(blablabla = element_line())
+  expect_snapshot_error(ggplotGrob(p1))
 
   # inheritance and final calculation of novel element works
   final_theme <- ggplot2:::plot_theme(p, theme_gray())
@@ -338,7 +360,7 @@ test_that("theme elements that don't inherit from element can be combined", {
 
 test_that("complete plot themes shouldn't inherit from default", {
   default_theme <- theme_gray() + theme(axis.text.x = element_text(colour = "red"))
-  base <- qplot(1, 1)
+  base <- ggplot(data.frame(x = 1), aes(x, x)) + geom_point()
 
   ptheme <- plot_theme(base + theme(axis.text.x = element_text(colour = "blue")), default_theme)
   expect_equal(ptheme$axis.text.x$colour, "blue")
@@ -455,6 +477,17 @@ test_that("provided themes explicitly define all elements", {
 
   t <- theme_test()
   expect_true(all(names(t) %in% elements))
+})
+
+test_that("Theme elements are checked during build", {
+  p <- ggplot(mtcars) + geom_point(aes(disp, mpg)) + theme(plot.title.position = "test")
+  expect_snapshot_error(ggplotGrob(p))
+
+  p <- ggplot(mtcars) + geom_point(aes(disp, mpg)) + theme(plot.caption.position = "test")
+  expect_snapshot_error(ggplotGrob(p))
+
+  p <- ggplot(mtcars) + geom_point(aes(disp, mpg)) + theme(plot.tag.position = "test")
+  expect_snapshot_error(ggplotGrob(p))
 })
 
 # Visual tests ------------------------------------------------------------

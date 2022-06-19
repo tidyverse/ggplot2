@@ -4,7 +4,7 @@
 #'   be vectorised.
 #' @param n Number of points to interpolate along the x axis.
 #' @param args List of additional arguments passed on to the function defined by `fun`.
-#' @param xlim Optionally, restrict the range of the function to this range.
+#' @param xlim Optionally, specify the range of the function.
 #' @section Computed variables:
 #' `stat_function()` computes the following variables:
 #' \describe{

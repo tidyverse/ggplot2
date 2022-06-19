@@ -41,7 +41,10 @@
 #' base + list(subset(mpg, fl == "p"), geom_smooth())
 "+.gg" <- function(e1, e2) {
   if (missing(e2)) {
-    abort("Cannot use `+.gg()` with a single argument. Did you accidentally put + on a new line?")
+    cli::cli_abort(c(
+            "Cannot use {.code +} with a single argument",
+      "i" = "Did you accidentally put {.code +} on a new line?"
+    ))
   }
 
   # Get the name of what was passed in as e2, and pass along so that it
@@ -51,7 +54,10 @@
   if      (is.theme(e1))  add_theme(e1, e2, e2name)
   else if (is.ggplot(e1)) add_ggplot(e1, e2, e2name)
   else if (is.ggproto(e1)) {
-    abort("Cannot add ggproto objects together. Did you forget to add this object to a ggplot object?")
+    cli::cli_abort(c(
+      "Cannot add {.cls ggproto} objects together",
+      "i" = "Did you forget to add this object to a {.cls ggplot} object?"
+    ))
   }
 }
 
@@ -86,7 +92,7 @@ ggplot_add <- function(object, plot, object_name) {
 }
 #' @export
 ggplot_add.default <- function(object, plot, object_name) {
-  abort(glue("Can't add `{object_name}` to a ggplot object."))
+  cli::cli_abort("Can't add {.var {object_name}} to a {.cls ggplot} object.")
 }
 #' @export
 ggplot_add.NULL <- function(object, plot, object_name) {
@@ -99,9 +105,9 @@ ggplot_add.data.frame <- function(object, plot, object_name) {
 }
 #' @export
 ggplot_add.function <- function(object, plot, object_name) {
-  abort(glue(
-    "Can't add `{object_name}` to a ggplot object.\n",
-    "Did you forget to add parentheses, as in `{object_name}()`?"
+  cli::cli_abort(c(
+          "Can't add {.var {object_name}} to a {.cls ggplot} object",
+    "i" = "Did you forget to add parentheses, as in {.fn {object_name}}?"
   ))
 }
 #' @export
@@ -135,10 +141,7 @@ ggplot_add.uneval <- function(object, plot, object_name) {
 #' @export
 ggplot_add.Coord <- function(object, plot, object_name) {
   if (!isTRUE(plot$coordinates$default)) {
-    message(
-      "Coordinate system already present. Adding new coordinate ",
-      "system, which will replace the existing one."
-    )
+    cli::cli_inform("Coordinate system already present. Adding new coordinate system, which will replace the existing one.")
   }
 
   plot$coordinates <- object

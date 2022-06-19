@@ -40,6 +40,7 @@
 #' \donttest{
 #' # Justification controls where the cells are anchored
 #' df <- expand.grid(x = 0:5, y = 0:5)
+#' set.seed(1)
 #' df$z <- runif(nrow(df))
 #' # default is compatible with geom_tile()
 #' ggplot(df, aes(x, y, fill = z)) +
@@ -108,7 +109,7 @@ GeomTile <- ggproto("GeomTile", GeomRect,
     )
   },
 
-  default_aes = aes(fill = "grey20", colour = NA, size = 0.1, linetype = 1,
+  default_aes = aes(fill = "grey20", colour = NA, linewidth = 0.1, linetype = 1,
     alpha = NA, width = NA, height = NA),
 
   required_aes = c("x", "y"),

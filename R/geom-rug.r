@@ -91,7 +91,7 @@ GeomRug <- ggproto("GeomRug", Geom,
   draw_panel = function(data, panel_params, coord, lineend = "butt", sides = "bl",
                         outside = FALSE, length = unit(0.03, "npc")) {
     if (!inherits(length, "unit")) {
-      abort("'length' must be a 'unit' object.")
+      cli::cli_abort("{.arg length} must be a {.cls unit} object.")
     }
     rugs <- list()
     data <- coord$transform(data, panel_params)
@@ -112,7 +112,7 @@ GeomRug <- ggproto("GeomRug", Geom,
     gp <- gpar(
       col = alpha(data$colour, data$alpha),
       lty = data$linetype,
-      lwd = data$size * .pt,
+      lwd = data$linewidth * .pt,
       lineend = lineend
     )
     if (!is.null(data$x)) {
@@ -154,7 +154,9 @@ GeomRug <- ggproto("GeomRug", Geom,
     gTree(children = do.call("gList", rugs))
   },
 
-  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
+  default_aes = aes(colour = "black", linewidth = 0.5, linetype = 1, alpha = NA),
 
-  draw_key = draw_key_path
+  draw_key = draw_key_path,
+
+  rename_size = TRUE
 )

@@ -64,8 +64,7 @@ StatQuantile <- ggproto("StatQuantile", Stat,
       } else {
         formula <- y ~ x
       }
-      message("Smoothing formula not specified. Using: ",
-        deparse(formula))
+      cli::cli_inform("Smoothing formula not specified. Using: {deparse(formula)}")
     }
 
     if (is.null(data$weight)) data$weight <- 1

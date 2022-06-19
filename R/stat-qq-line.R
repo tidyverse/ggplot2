@@ -44,49 +44,49 @@ stat_qq_line <- geom_qq_line
 #' @usage NULL
 #' @export
 StatQqLine <- ggproto("StatQqLine", Stat,
- default_aes = aes(x = after_stat(x), y = after_stat(y)),
+  default_aes = aes(x = after_stat(x), y = after_stat(y)),
 
- required_aes = c("sample"),
+  required_aes = c("sample"),
 
- compute_group = function(data,
-                          scales,
-                          quantiles = NULL,
-                          distribution = stats::qnorm,
-                          dparams = list(),
-                          na.rm = FALSE,
-                          line.p = c(.25, .75),
-                          fullrange = FALSE) {
+  compute_group = function(data,
+                           scales,
+                           quantiles = NULL,
+                           distribution = stats::qnorm,
+                           dparams = list(),
+                           na.rm = FALSE,
+                           line.p = c(.25, .75),
+                           fullrange = FALSE) {
 
-   sample <- sort(data$sample)
-   n <- length(sample)
+    sample <- sort(data$sample)
+    n <- length(sample)
 
-   # Compute theoretical quantiles
-   if (is.null(quantiles)) {
-     quantiles <- stats::ppoints(n)
-   } else {
-     if (length(quantiles) != n) abort("`quantiles` must have the same length as the data")
-   }
+    # Compute theoretical quantiles
+    if (is.null(quantiles)) {
+      quantiles <- stats::ppoints(n)
+    } else if (length(quantiles) != n) {
+      cli::cli_abort("{.arg quantiles} must have the same length as the data")
+    }
 
-   theoretical <- do.call(
-     distribution,
-     c(list(p = quote(quantiles)), dparams)
-   )
+    theoretical <- do.call(
+      distribution,
+      c(list(p = quote(quantiles)), dparams)
+    )
 
-   if (length(line.p) != 2) {
-     abort(glue("Cannot fit line quantiles {line.p}. Parameter line.p must have length 2."))
-   }
+    if (length(line.p) != 2) {
+      cli::cli_abort("Cannot fit line quantiles {line.p}. {.arg line.p} must have length 2.")
+    }
 
-   x_coords <- do.call(distribution, c(list(p = line.p), dparams))
-   y_coords <- quantile(sample, line.p)
-   slope <- diff(y_coords) / diff(x_coords)
-   intercept <- y_coords[1L] - slope * x_coords[1L]
+    x_coords <- do.call(distribution, c(list(p = line.p), dparams))
+    y_coords <- quantile(sample, line.p)
+    slope <- diff(y_coords) / diff(x_coords)
+    intercept <- y_coords[1L] - slope * x_coords[1L]
 
-   if (fullrange & !is.null(scales$x$dimension)) {
-     x <- scales$x$dimension()
-   } else {
-     x <- range(theoretical)
-   }
+    if (fullrange & !is.null(scales$x$dimension)) {
+      x <- scales$x$dimension()
+    } else {
+      x <- range(theoretical)
+    }
 
-   new_data_frame(list(x = x, y = slope * x + intercept))
- }
+    new_data_frame(list(x = x, y = slope * x + intercept))
+  }
 )
