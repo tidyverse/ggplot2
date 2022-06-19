@@ -148,8 +148,8 @@ CoordTrans <- ggproto("CoordTrans", Coord,
 
   setup_panel_params = function(self, scale_x, scale_y, params = list()) {
     c(
-      train_trans(scale_x, self$limits$x, self$trans$x, "x", self$expand),
-      train_trans(scale_y, self$limits$y, self$trans$y, "y", self$expand)
+      train_trans(scale_x, self$limits$x, self$trans$x, self$expand),
+      train_trans(scale_y, self$limits$y, self$trans$y, self$expand)
     )
   },
 
@@ -188,7 +188,7 @@ transform_value <- function(trans, value, range) {
   rescale(trans$transform(value), 0:1, range)
 }
 
-train_trans <- function(scale, coord_limits, trans, name, expand = TRUE) {
+train_trans <- function(scale, coord_limits, trans, expand = TRUE) {
   expansion <- default_expansion(scale, expand = expand)
   scale_trans <- scale$trans %||% identity_trans()
   coord_limits <- coord_limits %||% scale_trans$inverse(c(NA, NA))
@@ -240,7 +240,9 @@ train_trans <- function(scale, coord_limits, trans, name, expand = TRUE) {
     sec.major = out$sec.major_source,
     sec.minor = out$sec.minor_source
   )
-  names(out) <- c(name, paste(name, names(out)[-1], sep = "."))
+
+  aesthetic <- scale$aesthetics[1]
+  names(out) <- c(aesthetic, paste(aesthetic, names(out)[-1], sep = "."))
   out
 }
 
