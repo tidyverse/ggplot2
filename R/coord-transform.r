@@ -148,8 +148,8 @@ CoordTrans <- ggproto("CoordTrans", Coord,
 
   setup_panel_params = function(self, scale_x, scale_y, params = list()) {
     c(
-      train_trans(scale_x, self$limits$x, self$trans$x, self$expand),
-      train_trans(scale_y, self$limits$y, self$trans$y, self$expand)
+      view_scales_from_scale_with_coord_trans(scale_x, self$limits$x, self$trans$x, self$expand),
+      view_scales_from_scale_with_coord_trans(scale_y, self$limits$y, self$trans$y, self$expand)
     )
   },
 
@@ -188,7 +188,8 @@ transform_value <- function(trans, value, range) {
   rescale(trans$transform(value), 0:1, range)
 }
 
-train_trans <- function(scale, coord_limits, trans, expand = TRUE) {
+# TODO: can we merge this with view_scales_from_scale()?
+view_scales_from_scale_with_coord_trans <- function(scale, coord_limits, trans, expand = TRUE) {
   expansion <- default_expansion(scale, expand = expand)
   scale_trans <- scale$trans %||% identity_trans()
   coord_limits <- coord_limits %||% scale_trans$inverse(c(NA, NA))
