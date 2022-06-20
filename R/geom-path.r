@@ -168,11 +168,10 @@ GeomPath <- ggproto("GeomPath", Geom,
     # Work out whether we should use lines or segments
     attr <- dapply(munched, "group", function(df) {
       linetype <- unique(df$linetype)
-      data_frame(
+      data_frame0(
         solid = identical(linetype, 1) || identical(linetype, "solid"),
         constant = nrow(unique(df[, c("alpha", "colour","size", "linetype")])) == 1,
-        .size = 1,
-        .name_repair = "minimal"
+        .size = 1
       )
     })
     solid_lines <- all(attr$solid)
@@ -359,5 +358,5 @@ stairstep <- function(data, direction = "hv") {
     data_attr <- data[xs, setdiff(names(data), c("x", "y"))]
   }
 
-  data_frame(x = x, y = y, !!!data_attr, .name_repair = "minimal")
+  data_frame0(x = x, y = y, !!!data_attr)
 }

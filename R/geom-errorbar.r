@@ -56,7 +56,7 @@ GeomErrorbar <- ggproto("GeomErrorbar", Geom,
     data <- flip_data(data, flipped_aes)
     x <- vec_interleave(data$xmin, data$xmax, NA, data$x,    data$x,    NA, data$xmin, data$xmax)
     y <- vec_interleave(data$ymax, data$ymax, NA, data$ymax, data$ymin, NA, data$ymin, data$ymin)
-    data <- data_frame(
+    data <- data_frame0(
       x = x,
       y = y,
       colour = rep(data$colour, each = 8),
@@ -64,8 +64,7 @@ GeomErrorbar <- ggproto("GeomErrorbar", Geom,
       size = rep(data$size, each = 8),
       linetype = rep(data$linetype, each = 8),
       group = rep(seq_len(nrow(data)), each = 8),
-      .size = nrow(data) * 8,
-      .name_repair = "minimal"
+      .size = nrow(data) * 8
     )
     data <- flip_data(data, flipped_aes)
     GeomPath$draw_panel(data, panel_params, coord, lineend = lineend)

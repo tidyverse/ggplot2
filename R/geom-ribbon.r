@@ -131,18 +131,16 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     data <- unclass(data) #for faster indexing
 
     # The upper line and lower line need to processed separately (#4023)
-    positions_upper <- data_frame(
+    positions_upper <- data_frame0(
       x = data$x,
       y = data$ymax,
-      id = ids,
-      .name_repair = "minimal"
+      id = ids
     )
 
-    positions_lower <- data_frame(
+    positions_lower <- data_frame0(
       x = rev(data$x),
       y = rev(data$ymin),
-      id = rev(ids),
-      .name_repair = "minimal"
+      id = rev(ids)
     )
 
     positions_upper <- flip_data(positions_upper, flipped_aes)

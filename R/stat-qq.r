@@ -99,6 +99,6 @@ StatQq <- ggproto("StatQq", Stat,
 
     theoretical <- inject(distribution(p = quantiles, !!!dparams))
 
-    data_frame(sample = sample, theoretical = theoretical, .name_repair = "minimal")
+    data_frame0(sample = sample, theoretical = theoretical)
   }
 )

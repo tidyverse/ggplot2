@@ -490,7 +490,7 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
   }
 
   # Create labels
-  labels <- data_frame(!!!labeller(label_df), .name_repair = "minimal")
+  labels <- data_frame0(!!!labeller(label_df))
   ncol <- ncol(labels)
   nrow <- nrow(labels)
   labels_vec <- unlist(labels, use.names = FALSE)

@@ -153,7 +153,7 @@ count <- function(df, vars = NULL, wt_var = NULL) {
     wt <- .subset2(df, wt_var)
     freq <- vapply(split(wt, id), sum, numeric(1))
   }
-  data_frame(!!!as.list(labels), n = freq, .name_repair = "minimal")
+  data_frame0(!!!as.list(labels), n = freq)
 }
 # Adapted from plyr::join.keys
 # Create a shared unique id across two data frames such that common variable
@@ -277,13 +277,13 @@ dapply <- function(df, by, fun, ..., drop = TRUE) {
   apply_fun <- function(x) {
     res <- fun(x, ...)
     if (is.null(res)) return(res)
-    if (length(res) == 0) return(data_frame(.name_repair = "minimal"))
+    if (length(res) == 0) return(data_frame0())
     vars <- lapply(setNames(by, by), function(col) .subset2(x, col)[1])
     if (is.matrix(res)) res <- split_matrix(res)
     if (is.null(names(res))) names(res) <- paste0("V", seq_along(res))
-    if (all(by %in% names(res))) return(data_frame(!!!unclass(res), .name_repair = "minimal"))
+    if (all(by %in% names(res))) return(data_frame0(!!!unclass(res)))
     res <- modify_list(unclass(vars), unclass(res))
-    data_frame(!!!res[intersect(c(fallback_order, names(res)), names(res))], .name_repair = "minimal")
+    data_frame0(!!!res[intersect(c(fallback_order, names(res)), names(res))])
   }
 
   # Shortcut when only one group

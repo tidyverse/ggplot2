@@ -229,19 +229,18 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
       group = data$group
     )
 
-    whiskers <- data_frame(
+    whiskers <- data_frame0(
       x = c(data$x, data$x),
       xend = c(data$x, data$x),
       y = c(data$upper, data$lower),
       yend = c(data$ymax, data$ymin),
       alpha = c(NA_real_, NA_real_),
       !!!common,
-      .size = 2,
-      .name_repair = "minimal"
+      .size = 2
     )
     whiskers <- flip_data(whiskers, flipped_aes)
 
-    box <- data_frame(
+    box <- data_frame0(
       xmin = data$xmin,
       xmax = data$xmax,
       ymin = data$lower,
@@ -251,13 +250,12 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
       ynotchupper = ifelse(notch, data$notchupper, NA),
       notchwidth = notchwidth,
       alpha = data$alpha,
-      !!!common,
-      .name_repair = "minimal"
+      !!!common
     )
     box <- flip_data(box, flipped_aes)
 
     if (!is.null(data$outliers) && length(data$outliers[[1]] >= 1)) {
-      outliers <- data_frame(
+      outliers <- data_frame0(
         y = data$outliers[[1]],
         x = data$x[1],
         colour = outlier.colour %||% data$colour[1],
@@ -267,8 +265,7 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
         stroke = outlier.stroke %||% data$stroke[1],
         fill = NA,
         alpha = outlier.alpha %||% data$alpha[1],
-        .size = length(data$outliers[[1]]),
-        .name_repair = "minimal"
+        .size = length(data$outliers[[1]])
       )
       outliers <- flip_data(outliers, flipped_aes)
 

@@ -24,13 +24,12 @@
 #'   geom_polygon(aes(group = group), colour = "white")
 #' }
 fortify.map <- function(model, data, ...) {
-  df <- data_frame(
+  df <- data_frame0(
     long = model$x,
     lat = model$y,
     group = cumsum(is.na(model$x) & is.na(model$y)) + 1,
     order = seq_along(model$x),
-    .size = length(model$x),
-    .name_repair = "minimal"
+    .size = length(model$x)
   )
 
   # TODO: convert to vec_rbind() once it accepts a function in .name_repair

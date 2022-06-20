@@ -34,7 +34,7 @@ hexBinSummarise <- function(x, y, z, binwidth, fun = mean, fun.args = list(), dr
   value <- inject(tapply(z, hb@cID, fun, !!!fun.args))
 
   # Convert to data frame
-  out <- data_frame(!!!hexbin::hcell2xy(hb), .name_repair = "minimal")
+  out <- data_frame0(!!!hexbin::hcell2xy(hb))
   out$value <- as.vector(value)
   out$width <- binwidth[1]
   out$height <- binwidth[2]

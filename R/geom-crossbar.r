@@ -69,7 +69,7 @@ GeomCrossbar <- ggproto("GeomCrossbar", Geom,
       middle$x <- middle$x + notchindent
       middle$xend <- middle$xend - notchindent
 
-      box <- data_frame(
+      box <- data_frame0(
         x = c(
           data$xmin, data$xmin, data$xmin + notchindent, data$xmin, data$xmin,
           data$xmax, data$xmax, data$xmax - notchindent, data$xmax, data$xmax,
@@ -85,12 +85,11 @@ GeomCrossbar <- ggproto("GeomCrossbar", Geom,
         size = rep(data$size, 11),
         linetype = rep(data$linetype, 11),
         fill = rep(data$fill, 11),
-        group = rep(seq_len(nrow(data)), 11),
-        .name_repair = "minimal"
+        group = rep(seq_len(nrow(data)), 11)
       )
     } else {
       # No notch
-      box <- data_frame(
+      box <- data_frame0(
         x = c(data$xmin, data$xmin, data$xmax, data$xmax, data$xmin),
         y = c(data$ymax, data$ymin, data$ymin, data$ymax, data$ymax),
         alpha = rep(data$alpha, 5),
@@ -98,8 +97,7 @@ GeomCrossbar <- ggproto("GeomCrossbar", Geom,
         size = rep(data$size, 5),
         linetype = rep(data$linetype, 5),
         fill = rep(data$fill, 5),
-        group = rep(seq_len(nrow(data)), 5), # each bar forms it's own group
-        .name_repair = "minimal"
+        group = rep(seq_len(nrow(data)), 5) # each bar forms it's own group
       )
     }
     box <- flip_data(box, flipped_aes)

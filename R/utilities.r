@@ -326,7 +326,7 @@ find_args <- function(...) {
 
 # Used in annotations to ensure printed even when no
 # global data
-dummy_data <- function() data_frame(x = NA, .size = 1, .name_repair = "minimal")
+dummy_data <- function() data_frame0(x = NA, .size = 1)
 
 with_seed_null <- function(seed, code) {
   if (is.null(seed)) {
@@ -348,9 +348,12 @@ seq_asc <- function(to, from) {
 #' @importFrom tibble tibble
 NULL
 
+# Wrapping vctrs data_frame constructor with no name repair
+data_frame0 <- function(...) data_frame(..., .name_repair = "minimal")
+
 # Check inputs with tibble but allow column vectors (see #2609 and #2374)
 as_gg_data_frame <- function(x) {
-  data_frame(!!!lapply(x, validate_column_vec), .name_repair = "minimal")
+  data_frame0(!!!lapply(x, validate_column_vec))
 }
 validate_column_vec <- function(x) {
   if (is_column_vec(x)) {

@@ -277,11 +277,10 @@ CoordMap <- ggproto("CoordMap", Coord,
       ))
     }
 
-    x_intercept <- with(panel_params, data_frame(
+    x_intercept <- with(panel_params, data_frame0(
       x = x.major,
       y = y.range[1],
-      .size = length(x.major),
-      .name_repair = "minimal"
+      .size = length(x.major)
     ))
     pos <- self$transform(x_intercept, panel_params)
 
@@ -303,11 +302,10 @@ CoordMap <- ggproto("CoordMap", Coord,
       ))
     }
 
-    x_intercept <- with(panel_params, data_frame(
+    x_intercept <- with(panel_params, data_frame0(
       x = x.range[1],
       y = y.major,
-      .size = length(y.major),
-      .name_repair = "minimal"
+      .size = length(y.major)
     ))
     pos <- self$transform(x_intercept, panel_params)
 

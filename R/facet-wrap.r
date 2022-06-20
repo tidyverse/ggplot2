@@ -155,7 +155,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     n <- attr(id, "n")
 
     dims <- wrap_dims(n, params$nrow, params$ncol)
-    layout <- data_frame(
+    layout <- data_frame0(
       PANEL = factor(id, levels = seq_len(n)),
       ROW = if (params$as.table) {
         as.integer((id - 1L) %/% dims[2] + 1L)
@@ -163,8 +163,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
         as.integer(dims[1] - (id - 1L) %/% dims[2])
       },
       COL = as.integer((id - 1L) %% dims[2] + 1L),
-      .size = length(id),
-      .name_repair = "minimal"
+      .size = length(id)
     )
 
     # For vertical direction, flip row and col
@@ -247,7 +246,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
 
     if (length(params$facets) == 0) {
       # Add a dummy label
-      labels_df <- data_frame("(all)" = "(all)", .size = 1, .name_repair = "minimal")
+      labels_df <- data_frame0("(all)" = "(all)", .size = 1)
     } else {
       labels_df <- layout[names(params$facets)]
     }
@@ -326,11 +325,10 @@ FacetWrap <- ggproto("FacetWrap", Facet,
       empty_bottom <- apply(empties, 2, function(x) c(diff(x) == 1, FALSE))
       if (any(empty_bottom)) {
         pos <- which(empty_bottom)
-        panel_loc <- data_frame(
+        panel_loc <- data_frame0(
           ROW = row_ind[pos],
           COL = col_ind[pos],
-          .size = length(pos),
-          .name_repair = "minimal"
+          .size = length(pos)
         )
         panels <- vec_match(panel_loc, layout[, c("ROW", "COL")])
         x_axes <- axes$x$bottom[layout$SCALE_X[panels]]
@@ -346,11 +344,10 @@ FacetWrap <- ggproto("FacetWrap", Facet,
       empty_top <- apply(empties, 2, function(x) c(FALSE, diff(x) == -1))
       if (any(empty_top)) {
         pos <- which(empty_top)
-        panel_loc <- data_frame(
+        panel_loc <- data_frame0(
           ROW = row_ind[pos],
           COL = col_ind[pos],
-          .size = length(pos),
-          .name_repair = "minimal"
+          .size = length(pos)
         )
         panels <- vec_match(panel_loc, layout[, c("ROW", "COL")])
         x_axes <- axes$x$top[layout$SCALE_X[panels]]
@@ -366,11 +363,10 @@ FacetWrap <- ggproto("FacetWrap", Facet,
       empty_right <- t(apply(empties, 1, function(x) c(diff(x) == 1, FALSE)))
       if (any(empty_right)) {
         pos <- which(empty_right)
-        panel_loc <- data_frame(
+        panel_loc <- data_frame0(
           ROW = row_ind[pos],
           COL = col_ind[pos],
-          .size = length(pos),
-          .name_repair = "minimal"
+          .size = length(pos)
         )
         panels <- vec_match(panel_loc, layout[, c("ROW", "COL")])
         y_axes <- axes$y$right[layout$SCALE_Y[panels]]
@@ -386,11 +382,10 @@ FacetWrap <- ggproto("FacetWrap", Facet,
       empty_left <- t(apply(empties, 1, function(x) c(FALSE, diff(x) == -1)))
       if (any(empty_left)) {
         pos <- which(empty_left)
-        panel_loc <- data_frame(
+        panel_loc <- data_frame0(
           ROW = row_ind[pos],
           COL = col_ind[pos],
-          .size = length(pos),
-          .name_repair = "minimal"
+          .size = length(pos)
         )
         panels <- vec_match(panel_loc, layout[, c("ROW", "COL")])
         y_axes <- axes$y$left[layout$SCALE_Y[panels]]

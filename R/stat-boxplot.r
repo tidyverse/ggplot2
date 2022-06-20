@@ -106,7 +106,7 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
     if (length(unique(data$x)) > 1)
       width <- diff(range(data$x)) * 0.9
 
-    df <- data_frame(!!!as.list(stats), .name_repair = "minimal")
+    df <- data_frame0(!!!as.list(stats))
     df$outliers <- list(data$y[outliers])
 
     if (is.null(data$weight)) {

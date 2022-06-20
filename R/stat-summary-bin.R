@@ -112,11 +112,10 @@ make_summary_fun <- function(fun.data, fun, fun.max, fun.min, fun.args) {
     }
 
     function(df, ...) {
-      data_frame(
+      data_frame0(
         ymin = call_f(fun.min, df$y),
         y = call_f(fun, df$y),
-        ymax = call_f(fun.max, df$y),
-        .name_repair = "minimal"
+        ymax = call_f(fun.max, df$y)
       )
     }
   } else {

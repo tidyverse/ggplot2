@@ -107,7 +107,7 @@ qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
 
   if (missing(data)) {
     # If data not explicitly specified, will be pulled from workspace
-    data <- data_frame(.name_repair = "minimal")
+    data <- data_frame0()
 
     # Faceting variables must be in a data frame, so pull those out
     facetvars <- all.vars(facets)

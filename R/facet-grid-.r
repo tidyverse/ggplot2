@@ -217,13 +217,12 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     base <- df.grid(base_rows, base_cols)
 
     if (nrow(base) == 0) {
-      return(data_frame(
+      return(data_frame0(
         PANEL = factor(1L),
         ROW = 1L,
         COL = 1L,
         SCALE_X = 1L,
-        SCALE_Y = 1L,
-        .name_repair = "minimal"
+        SCALE_Y = 1L
       ))
     }
 
@@ -238,7 +237,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     rows <- if (!length(names(rows))) rep(1L, length(panel)) else id(base[names(rows)], drop = TRUE)
     cols <- if (!length(names(cols))) rep(1L, length(panel)) else id(base[names(cols)], drop = TRUE)
 
-    panels <- data_frame(PANEL = panel, ROW = rows, COL = cols, !!!base, .name_repair = "minimal")
+    panels <- data_frame0(PANEL = panel, ROW = rows, COL = cols, !!!base)
     panels <- panels[order(panels$PANEL), , drop = FALSE]
     rownames(panels) <- NULL
 

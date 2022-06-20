@@ -30,10 +30,10 @@ FacetNull <- ggproto("FacetNull", Facet,
     # Need the is.waive check for special case where no data, but aesthetics
     # are mapped to vectors
     if (is.waive(data))
-      return(data_frame(PANEL = factor(), .name_repair = "minimal"))
+      return(data_frame0(PANEL = factor()))
 
     if (empty(data))
-      return(data_frame(!!!data, PANEL = factor(), .name_repair = "minimal"))
+      return(data_frame0(!!!data, PANEL = factor()))
 
     # Needs to be a factor to be consistent with other facet types
     data$PANEL <- factor(1)

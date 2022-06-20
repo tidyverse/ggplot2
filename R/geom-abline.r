@@ -96,11 +96,10 @@ geom_abline <- function(mapping = NULL, data = NULL,
     if (missing(intercept)) intercept <- 0
     n_slopes <- max(length(slope), length(intercept))
 
-    data <- data_frame(
+    data <- data_frame0(
       intercept = intercept,
       slope = slope,
-      .size = n_slopes,
-      .name_repair = "minimal"
+      .size = n_slopes
     )
     mapping <- aes(intercept = intercept, slope = slope)
     show.legend <- FALSE

@@ -68,7 +68,7 @@ GeomErrorbarh <- ggproto("GeomErrorbarh", Geom,
   },
 
   draw_panel = function(data, panel_params, coord, height = NULL, lineend = "butt") {
-    GeomPath$draw_panel(data_frame(
+    GeomPath$draw_panel(data_frame0(
       x = vec_interleave(data$xmax, data$xmax, NA, data$xmax, data$xmin, NA, data$xmin, data$xmin),
       y = vec_interleave(data$ymin, data$ymax, NA, data$y,    data$y,    NA, data$ymin, data$ymax),
       colour = rep(data$colour, each = 8),
@@ -76,8 +76,7 @@ GeomErrorbarh <- ggproto("GeomErrorbarh", Geom,
       size = rep(data$linewidth, each = 8),
       linetype = rep(data$linetype, each = 8),
       group = rep(1:(nrow(data)), each = 8),
-      .size = nrow(data) * 8,
-      .name_repair = "minimal"
+      .size = nrow(data) * 8
     ), panel_params, coord, lineend = lineend)
   },
 

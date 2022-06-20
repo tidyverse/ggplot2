@@ -156,7 +156,7 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
         inject(contour_stat$compute_panel(data = data, scales = scales, !!!params)),
         error = function(cnd) {
           cli::cli_warn("Computation failed in {.fn {snake_class(self)}}", parent = cnd)
-          data_frame(.name_repair = "minimal")
+          data_frame0()
         }
       )
     })

@@ -12,7 +12,7 @@ predictdf <- function(model, xseq, se, level) UseMethod("predictdf")
 predictdf.default <- function(model, xseq, se, level) {
   pred <- stats::predict(
     model,
-    newdata = data_frame(x = xseq, .name_repair = "minimal"),
+    newdata = data_frame0(x = xseq),
     se.fit = se,
     level = level,
     interval = if (se) "confidence" else "none"
@@ -31,7 +31,7 @@ predictdf.default <- function(model, xseq, se, level) {
 predictdf.glm <- function(model, xseq, se, level) {
   pred <- stats::predict(
     model,
-    newdata = data_frame(x = xseq, .name_repair = "minimal"),
+    newdata = data_frame0(x = xseq),
     se.fit = se,
     type = "link"
   )
@@ -54,7 +54,7 @@ predictdf.glm <- function(model, xseq, se, level) {
 predictdf.loess <- function(model, xseq, se, level) {
   pred <- stats::predict(
     model,
-    newdata = data_frame(x = xseq, .name_repair = "minimal"),
+    newdata = data_frame0(x = xseq),
     se = se
   )
 
@@ -73,7 +73,7 @@ predictdf.loess <- function(model, xseq, se, level) {
 predictdf.locfit <- function(model, xseq, se, level) {
   pred <- stats::predict(
     model,
-    newdata = data_frame(x = xseq, .name_repair = "minimal"),
+    newdata = data_frame0(x = xseq),
     se.fit = se
   )
 

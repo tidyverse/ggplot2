@@ -226,11 +226,10 @@ guide_train.colorbar <- function(guide, scale, aesthetic = NULL) {
   if (length(.bar) == 0) {
     .bar = unique(.limits)
   }
-  guide$bar <- data_frame(
+  guide$bar <- data_frame0(
     colour = scale$map(.bar),
     value = .bar,
-    .size = length(.bar),
-    .name_repair = "minimal"
+    .size = length(.bar)
   )
   if (guide$reverse) {
     guide$key <- guide$key[nrow(guide$key):1, ]

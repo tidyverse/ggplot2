@@ -432,7 +432,7 @@ is_facets <- function(x) {
 # but that seems like a reasonable tradeoff.
 eval_facets <- function(facets, data, possible_columns = NULL) {
   vars <- compact(lapply(facets, eval_facet, data, possible_columns = possible_columns))
-  data_frame(!!!tibble::as_tibble(vars), .name_repair = "minimal")
+  data_frame0(!!!tibble::as_tibble(vars))
 }
 eval_facet <- function(facet, data, possible_columns = NULL) {
   # Treat the case when `facet` is a quosure of a symbol specifically
@@ -468,13 +468,12 @@ eval_facet <- function(facet, data, possible_columns = NULL) {
 
 layout_null <- function() {
   # PANEL needs to be a factor to be consistent with other facet types
-  data_frame(
+  data_frame0(
     PANEL = factor(1),
     ROW = 1,
     COL = 1,
     SCALE_X = 1,
-    SCALE_Y = 1,
-    .name_repair = "minimal"
+    SCALE_Y = 1
   )
 }
 
@@ -528,13 +527,12 @@ find_panel <- function(table) {
   layout <- table$layout
   panels <- layout[grepl("^panel", layout$name), , drop = FALSE]
 
-  data_frame(
+  data_frame0(
     t = min(.subset2(panels, "t")),
     r = max(.subset2(panels, "r")),
     b = max(.subset2(panels, "b")),
     l = min(.subset2(panels, "l")),
-    .size = 1,
-    .name_repair = "minimal"
+    .size = 1
   )
 }
 #' @rdname find_panel
@@ -564,7 +562,7 @@ panel_rows <- function(table) {
 #' @export
 combine_vars <- function(data, env = emptyenv(), vars = NULL, drop = TRUE) {
   possible_columns <- unique(unlist(lapply(data, names)))
-  if (length(vars) == 0) return(data_frame(.name_repair = "minimal"))
+  if (length(vars) == 0) return(data_frame0())
 
   # For each layer, compute the facet values
   values <- compact(lapply(data, eval_facets, facets = vars, possible_columns = possible_columns))

@@ -41,7 +41,7 @@ GeomRect <- ggproto("GeomRect", Geom,
 
       polys <- lapply(split(data, seq_len(nrow(data))), function(row) {
         poly <- rect_to_poly(row$xmin, row$xmax, row$ymin, row$ymax)
-        aes <- data_frame(!!!row[aesthetics], .name_repair = "minimal")[rep(1,5), ]
+        aes <- data_frame0(!!!row[aesthetics])[rep(1,5), ]
 
         GeomPolygon$draw_panel(vec_cbind(poly, aes), panel_params, coord, lineend = lineend, linejoin = linejoin)
       })
@@ -79,9 +79,8 @@ GeomRect <- ggproto("GeomRect", Geom,
 #
 # @keyword internal
 rect_to_poly <- function(xmin, xmax, ymin, ymax) {
-  data_frame(
+  data_frame0(
     y = c(ymax, ymax, ymin, ymin, ymax),
-    x = c(xmin, xmax, xmax, xmin, xmin),
-    .name_repair = "minimal"
+    x = c(xmin, xmax, xmax, xmin, xmin)
   )
 }

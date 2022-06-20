@@ -442,10 +442,9 @@ guide_gengrob.legend <- function(guide, theme) {
   )
 
   if (guide$byrow) {
-    vps <- data_frame(
+    vps <- data_frame0(
       R = ceiling(seq(nbreak) / legend.ncol),
-      C = (seq(nbreak) - 1) %% legend.ncol + 1,
-      .name_repair = "minimal"
+      C = (seq(nbreak) - 1) %% legend.ncol + 1
     )
   } else {
     vps <- mat_2_df(arrayInd(seq(nbreak), dim(key_sizes)), c("R", "C"))

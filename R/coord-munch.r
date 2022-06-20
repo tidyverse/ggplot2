@@ -63,7 +63,7 @@ munch_data <- function(data, dist = NULL, segment_length = 0.01) {
   id <- c(rep(seq_len(nrow(data) - 1), extra), nrow(data))
   aes_df <- data[id, setdiff(names(data), c("x", "y")), drop = FALSE]
 
-  data_frame(x = x, y = y, !!!unclass(aes_df), .name_repair = "minimal")
+  data_frame0(x = x, y = y, !!!unclass(aes_df))
 }
 
 # Interpolate.
@@ -174,15 +174,14 @@ find_line_formula <- function(x, y) {
   slope <- diff(y) / diff(x)
   yintercept <- y[-1] - (slope * x[-1])
   xintercept <- x[-1] - (y[-1] / slope)
-  data_frame(
+  data_frame0(
     x1 = x[-length(x)],
     y1 = y[-length(y)],
     x2 = x[-1],
     y2 = y[-1],
     slope = slope,
     yintercept = yintercept,
-    xintercept = xintercept,
-    .name_repair = "minimal"
+    xintercept = xintercept
   )
 }
 

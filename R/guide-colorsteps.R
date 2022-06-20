@@ -118,11 +118,10 @@ guide_train.colorsteps <- function(guide, scale, aesthetic = NULL) {
       guide$nbin <- guide$nbin - 1L
     }
     guide$key <- ticks
-    guide$bar <- data_frame(
+    guide$bar <- data_frame0(
       colour = scale$map(bin_at),
       value = seq_along(bin_at) - 1,
-      .size = length(bin_at),
-      .name_repair = "minimal"
+      .size = length(bin_at)
     )
 
     if (guide$reverse) {

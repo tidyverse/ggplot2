@@ -408,15 +408,13 @@ guide_gengrob.bins <- function(guide, theme) {
   label_widths <- max(apply(label_sizes, 2, max))
   label_heights <- max(apply(label_sizes, 1, max))
 
-  key_loc <- data_frame(
+  key_loc <- data_frame0(
     R = seq(2, by = 2, length.out = n_keys),
-    C = if (label.position %in% c("right", "bottom")) 1 else 3,
-    .name_repair = "minimal"
+    C = if (label.position %in% c("right", "bottom")) 1 else 3
   )
-  label_loc <- data_frame(
+  label_loc <- data_frame0(
     R = seq(1, by = 2, length.out = n_keys + 1),
-    C = if (label.position %in% c("right", "bottom")) 3 else 1,
-    .name_repair = "minimal"
+    C = if (label.position %in% c("right", "bottom")) 3 else 1
   )
   tick_loc <- label_loc
   tick_loc$C <- if (label.position %in% c("right", "bottom")) 1 else 3

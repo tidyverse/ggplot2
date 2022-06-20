@@ -71,7 +71,7 @@ annotate <- function(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
     cli::cli_abort("Unequal parameter lengths: {details}")
   }
 
-  data <- data_frame(!!!position, .size = n, .name_repair = "minimal")
+  data <- data_frame0(!!!position, .size = n)
   layer(
     geom = geom,
     params = list(

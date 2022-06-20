@@ -254,12 +254,11 @@ calc_logticks <- function(base = 10, ticks_per_base = base - 1,
   longtick_after_base <- floor(ticks_per_base/2)
   tickend[ cycleIdx == longtick_after_base ] <- midend
 
-  tickdf <- data_frame(
+  tickdf <- data_frame0(
     value = ticks,
     start = start,
     end = tickend,
-    .size = length(ticks),
-    .name_repair = "minimal"
+    .size = length(ticks)
   )
 
   return(tickdf)

@@ -101,14 +101,14 @@ Stat <- ggproto("Stat",
         inject(self$compute_panel(data = data, scales = scales, !!!params)),
         error = function(cnd) {
           cli::cli_warn("Computation failed in {.fn {snake_class(self)}}", parent = cnd)
-          data_frame(.name_repair = "minimal")
+          data_frame0()
         }
       )
     })
   },
 
   compute_panel = function(self, data, scales, ...) {
-    if (empty(data)) return(data_frame(.name_repair = "minimal"))
+    if (empty(data)) return(data_frame0())
 
     groups <- split(data, data$group)
     stats <- lapply(groups, function(group) {
@@ -116,7 +116,7 @@ Stat <- ggproto("Stat",
     })
 
     stats <- mapply(function(new, old) {
-      if (empty(new)) return(data_frame(.name_repair = "minimal"))
+      if (empty(new)) return(data_frame0())
       unique <- uniquecols(old)
       missing <- !(names(unique) %in% names(new))
       vec_cbind(

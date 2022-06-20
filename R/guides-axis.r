@@ -66,11 +66,10 @@ guide_train.axis <- function(guide, scale, aesthetic = NULL) {
   aesthetic <- aesthetic %||% scale$aesthetics[1]
   breaks <- scale$get_breaks()
 
-  empty_ticks <- data_frame(
+  empty_ticks <- data_frame0(
     aesthetic = numeric(0),
     .value = numeric(0),
-    .label = character(0),
-    .name_repair = "minimal"
+    .label = character(0)
   )
   names(empty_ticks) <- c(aesthetic, ".value", ".label")
 

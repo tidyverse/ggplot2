@@ -145,7 +145,7 @@ Geom <- ggproto("Geom",
       }
 
       names(modified_aes) <- names(rename_aes(modifiers))
-      modified_aes <- data_frame(!!!compact(modified_aes), .name_repair = "minimal")
+      modified_aes <- data_frame0(!!!compact(modified_aes))
 
       data <- cunion(modified_aes, data)
     }

@@ -186,7 +186,7 @@ expand_limits <- function(...) {
   data_dfs <- vapply(data, is.data.frame, logical(1))
   data <- unlist(c(list(data[!data_dfs]), data[data_dfs]), recursive = FALSE)
   n_rows <- max(vapply(data, length, integer(1)))
-  data <- data_frame(!!!lapply(data, rep, length.out = n_rows), .name_repair = "minimal")
+  data <- data_frame0(!!!lapply(data, rep, length.out = n_rows))
 
   geom_blank(aes_all(names(data)), data, inherit.aes = FALSE)
 }

@@ -73,7 +73,7 @@ StatYdensity <- ggproto("StatYdensity", Stat,
                        kernel = "gaussian", trim = TRUE, na.rm = FALSE, flipped_aes = FALSE) {
     if (nrow(data) < 2) {
       cli::cli_warn("Groups with fewer than two data points have been dropped.")
-      return(data_frame(.name_repair = "minimal"))
+      return(data_frame0())
     }
     range <- range(data$y, na.rm = TRUE)
     modifier <- if (trim) 0 else 3
