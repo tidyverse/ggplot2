@@ -159,10 +159,6 @@ format.ggplot2_mapped_discrete <- function(x, ...) format(vec_data(x), ...)
 #' @export
 vec_ptype2.ggplot2_mapped_discrete.ggplot2_mapped_discrete <- function(x, y, ...) new_mapped_discrete()
 #' @export
-vec_ptype2.ggplot2_mapped_discrete.numeric <- function(x, y, ...) new_mapped_discrete()
-#' @export
-vec_ptype2.numeric.ggplot2_mapped_discrete <- function(x, y, ...) new_mapped_discrete()
-#' @export
 vec_ptype2.ggplot2_mapped_discrete.double <- function(x, y, ...) new_mapped_discrete()
 #' @export
 vec_ptype2.double.ggplot2_mapped_discrete <- function(x, y, ...) new_mapped_discrete()
@@ -181,11 +177,7 @@ vec_ptype2.factor.ggplot2_mapped_discrete <- function(x, y, ...) new_mapped_disc
 #' @export
 vec_cast.ggplot2_mapped_discrete.ggplot2_mapped_discrete <- function(x, to, ...) x
 #' @export
-vec_cast.ggplot2_mapped_discrete.numeric <- function(x, to, ...) new_mapped_discrete(x)
-#' @export
-vec_cast.numeric.ggplot2_mapped_discrete <- function(x, to, ...) vec_data(x)
-#' @export
-vec_cast.ggplot2_mapped_discrete.integer <- function(x, to, ...) new_mapped_discrete(x)
+vec_cast.ggplot2_mapped_discrete.integer <- function(x, to, ...) mapped_discrete(x)
 #' @export
 vec_cast.integer.ggplot2_mapped_discrete <- function(x, to, ...) as.integer(vec_data(x))
 #' @export
