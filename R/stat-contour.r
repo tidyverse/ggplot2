@@ -201,8 +201,8 @@ contour_breaks <- function(z_range, bins = NULL, binwidth = NULL, breaks = NULL)
 #'
 xyz_to_isolines <- function(data, breaks) {
   isoband::isolines(
-    x = sort(unique(data$x)),
-    y = sort(unique(data$y)),
+    x = sort(unique0(data$x)),
+    y = sort(unique0(data$y)),
     z = isoband_z_matrix(data),
     levels = breaks
   )
@@ -210,8 +210,8 @@ xyz_to_isolines <- function(data, breaks) {
 
 xyz_to_isobands <- function(data, breaks) {
   isoband::isobands(
-    x = sort(unique(data$x)),
-    y = sort(unique(data$y)),
+    x = sort(unique0(data$x)),
+    y = sort(unique0(data$y)),
     z = isoband_z_matrix(data),
     levels_low = breaks[-length(breaks)],
     levels_high = breaks[-1]
@@ -230,8 +230,8 @@ xyz_to_isobands <- function(data, breaks) {
 #'
 isoband_z_matrix <- function(data) {
   # Convert vector of data to raster
-  x_pos <- as.integer(factor(data$x, levels = sort(unique(data$x))))
-  y_pos <- as.integer(factor(data$y, levels = sort(unique(data$y))))
+  x_pos <- as.integer(factor(data$x, levels = sort(unique0(data$x))))
+  y_pos <- as.integer(factor(data$y, levels = sort(unique0(data$y))))
 
   nrow <- max(y_pos)
   ncol <- max(x_pos)

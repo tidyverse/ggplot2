@@ -339,8 +339,8 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       id2 <- c(id2, which(graticule$type == "N" & graticule$y_end > 0.999))
     }
 
-    ticks1 <- graticule[unique(id1), ]
-    ticks2 <- graticule[unique(id2), ]
+    ticks1 <- graticule[unique0(id1), ]
+    ticks2 <- graticule[unique0(id2), ]
     tick_positions <- c(ticks1$x_start, ticks2$x_end)
     tick_labels <- c(ticks1$degree_label, ticks2$degree_label)
 
@@ -375,8 +375,8 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       id2 <- c(id2, which(graticule$type == "N" & graticule$y_end < 0.001))
     }
 
-    ticks1 <- graticule[unique(id1), ]
-    ticks2 <- graticule[unique(id2), ]
+    ticks1 <- graticule[unique0(id1), ]
+    ticks2 <- graticule[unique0(id2), ]
     tick_positions <- c(ticks1$x_start, ticks2$x_end)
     tick_labels <- c(ticks1$degree_label, ticks2$degree_label)
 
@@ -417,8 +417,8 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       id2 <- c(id2, which(graticule$type == "N" & graticule$x_start > 0.999))
     }
 
-    ticks1 <- graticule[unique(id1), ]
-    ticks2 <- graticule[unique(id2), ]
+    ticks1 <- graticule[unique0(id1), ]
+    ticks2 <- graticule[unique0(id2), ]
     tick_positions <- c(ticks1$y_end, ticks2$y_start)
     tick_labels <- c(ticks1$degree_label, ticks2$degree_label)
 
@@ -453,8 +453,8 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       id2 <- c(id2, which(graticule$type == "N" & graticule$x_start < 0.001))
     }
 
-    ticks1 <- graticule[unique(id1), ]
-    ticks2 <- graticule[unique(id2), ]
+    ticks1 <- graticule[unique0(id1), ]
+    ticks2 <- graticule[unique0(id2), ]
     tick_positions <- c(ticks1$y_end, ticks2$y_start)
     tick_labels <- c(ticks1$degree_label, ticks2$degree_label)
 

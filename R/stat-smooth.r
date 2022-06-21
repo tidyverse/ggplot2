@@ -129,7 +129,7 @@ StatSmooth <- ggproto("StatSmooth", Stat,
                            xseq = NULL, level = 0.95, method.args = list(),
                            na.rm = FALSE, flipped_aes = NA) {
     data <- flip_data(data, flipped_aes)
-    if (length(unique(data$x)) < 2) {
+    if (length(unique0(data$x)) < 2) {
       # Not enough data to perform fit
       return(data_frame0())
     }
@@ -141,7 +141,7 @@ StatSmooth <- ggproto("StatSmooth", Stat,
         if (fullrange) {
           xseq <- scales$x$dimension()
         } else {
-          xseq <- sort(unique(data$x))
+          xseq <- sort(unique0(data$x))
         }
       } else {
         if (fullrange) {

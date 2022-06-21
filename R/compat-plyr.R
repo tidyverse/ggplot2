@@ -62,7 +62,7 @@ id_var <- function(x, drop = FALSE) {
     id <- as.integer(x)
     n <- length(levels(x))
   } else {
-    levels <- sort(unique(x), na.last = TRUE)
+    levels <- sort(unique0(x), na.last = TRUE)
     id <- match(x, levels)
     n <- max(id)
   }
@@ -108,7 +108,7 @@ id <- function(.variables, drop = FALSE) {
   n <- prod(ndistinct)
   if (n > 2^31) {
     char_id <- inject(paste(!!!ids, sep = "\r"))
-    res <- match(char_id, unique(char_id))
+    res <- match(char_id, unique0(char_id))
   }
   else {
     combs <- c(1, cumprod(ndistinct[-p]))
@@ -273,7 +273,7 @@ round_any <- function(x, accuracy, f = round) {
 #' @noRd
 dapply <- function(df, by, fun, ..., drop = TRUE) {
   grouping_cols <- .subset(df, by)
-  fallback_order <- unique(c(by, names(df)))
+  fallback_order <- unique0(c(by, names(df)))
   apply_fun <- function(x) {
     res <- fun(x, ...)
     if (is.null(res)) return(res)

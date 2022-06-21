@@ -43,7 +43,7 @@ Imports:
     scales (>= 1.2.0),
     stats,
     tibble,
-    vctrs,
+    vctrs (>= 0.4.1),
     withr (>= 2.0.0)
 Suggests:
     covr,

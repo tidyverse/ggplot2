@@ -92,7 +92,7 @@ StatEcdf <- ggproto("StatEcdf", Stat,
     data <- flip_data(data, flipped_aes)
     # If n is NULL, use raw values; otherwise interpolate
     if (is.null(n)) {
-      x <- unique(data$x)
+      x <- unique0(data$x)
     } else {
       x <- seq(min(data$x), max(data$x), length.out = n)
     }

@@ -200,7 +200,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     missing_facets <- setdiff(names(vars), names(facet_vals))
     if (length(missing_facets) > 0) {
 
-      to_add <- unique(layout[missing_facets])
+      to_add <- unique0(layout[missing_facets])
 
       data_rep <- rep.int(1:nrow(data), nrow(to_add))
       facet_rep <- rep(1:nrow(to_add), each = nrow(data))

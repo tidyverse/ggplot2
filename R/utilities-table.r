@@ -16,7 +16,7 @@ compute_grob_dimensions <- function(grob_layout, dims) {
 
   grob_layout <- grob_layout[grob_layout$type %in% names(dims), , drop = FALSE]
 
-  dims <- unique(Map(function(type, pos) {
+  dims <- unique0(Map(function(type, pos) {
     type_width <- dims[[type]]
     if (length(type_width) == 1) type_width else type_width[pos]
   }, grob_layout$type, grob_layout$id))

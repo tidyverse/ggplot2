@@ -57,7 +57,7 @@ GeomRaster <- ggproto("GeomRaster", Geom,
     hjust <- params$hjust %||% 0.5
     vjust <- params$vjust %||% 0.5
 
-    x_diff <- diff(sort(unique(as.numeric(data$x))))
+    x_diff <- diff(sort(unique0(as.numeric(data$x))))
     if (length(x_diff) == 0) {
       w <- 1
     } else if (any(abs(diff(x_diff)) > precision)) {
@@ -69,7 +69,7 @@ GeomRaster <- ggproto("GeomRaster", Geom,
     } else {
       w <- x_diff[1]
     }
-    y_diff <- diff(sort(unique(as.numeric(data$y))))
+    y_diff <- diff(sort(unique0(as.numeric(data$y))))
     if (length(y_diff) == 0) {
       h <- 1
     } else if (any(abs(diff(y_diff)) > precision)) {

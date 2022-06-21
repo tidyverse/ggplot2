@@ -52,7 +52,7 @@ GeomVline <- ggproto("GeomVline", Geom,
     data$y    <- ranges$y[1]
     data$yend <- ranges$y[2]
 
-    GeomSegment$draw_panel(unique(data), panel_params, coord, lineend = lineend)
+    GeomSegment$draw_panel(unique0(data), panel_params, coord, lineend = lineend)
   },
 
   default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),

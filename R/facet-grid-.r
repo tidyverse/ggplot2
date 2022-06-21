@@ -228,7 +228,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
 
     # Add margins
     base <- reshape_add_margins(base, list(names(rows), names(cols)), params$margins)
-    base <- unique(base)
+    base <- unique0(base)
 
     # Create panel info dataset
     panel <- id(base, drop = TRUE)
@@ -271,7 +271,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     # duplicating the data
     missing_facets <- setdiff(vars, names(facet_vals))
     if (length(missing_facets) > 0) {
-      to_add <- unique(layout[missing_facets])
+      to_add <- unique0(layout[missing_facets])
 
       data_rep <- rep.int(1:nrow(data), nrow(to_add))
       facet_rep <- rep(1:nrow(to_add), each = nrow(data))
@@ -306,8 +306,8 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     rows <- which(layout$COL == 1)
     axes <- render_axes(ranges[cols], ranges[rows], coord, theme, transpose = TRUE)
 
-    col_vars <- unique(layout[names(params$cols)])
-    row_vars <- unique(layout[names(params$rows)])
+    col_vars <- unique0(layout[names(params$cols)])
+    row_vars <- unique0(layout[names(params$rows)])
     # Adding labels metadata, useful for labellers
     attr(col_vars, "type") <- "cols"
     attr(col_vars, "facet") <- "grid"
@@ -447,6 +447,6 @@ ulevels <- function(x) {
     x <- addNA(x, TRUE)
     factor(levels(x), levels(x), exclude = NULL)
   } else {
-    sort(unique(x))
+    sort(unique0(x))
   }
 }

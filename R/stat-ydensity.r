@@ -85,7 +85,7 @@ StatYdensity <- ggproto("StatYdensity", Stat,
     dens$x <- mean(range(data$x))
 
     # Compute width if x has multiple values
-    if (length(unique(data$x)) > 1) {
+    if (length(unique0(data$x)) > 1) {
       width <- diff(range(data$x)) * 0.9
     }
     dens$width <- width

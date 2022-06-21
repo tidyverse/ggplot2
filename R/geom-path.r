@@ -167,10 +167,10 @@ GeomPath <- ggproto("GeomPath", Geom,
 
     # Work out whether we should use lines or segments
     attr <- dapply(munched, "group", function(df) {
-      linetype <- unique(df$linetype)
+      linetype <- unique0(df$linetype)
       data_frame0(
         solid = identical(linetype, 1) || identical(linetype, "solid"),
-        constant = nrow(unique(df[, c("alpha", "colour","size", "linetype")])) == 1,
+        constant = nrow(unique0(df[, c("alpha", "colour","size", "linetype")])) == 1,
         .size = 1
       )
     })
@@ -201,7 +201,7 @@ GeomPath <- ggproto("GeomPath", Geom,
         )
       )
     } else {
-      id <- match(munched$group, unique(munched$group))
+      id <- match(munched$group, unique0(munched$group))
       polylineGrob(
         munched$x, munched$y, id = id,
         default.units = "native", arrow = arrow,

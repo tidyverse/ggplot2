@@ -119,10 +119,10 @@ Facet <- ggproto("Facet", NULL,
     }
   },
   draw_back = function(data, layout, x_scales, y_scales, theme, params) {
-    rep(list(zeroGrob()), length(unique(layout$PANEL)))
+    rep(list(zeroGrob()), length(unique0(layout$PANEL)))
   },
   draw_front = function(data, layout, x_scales, y_scales, theme, params) {
-    rep(list(zeroGrob()), length(unique(layout$PANEL)))
+    rep(list(zeroGrob()), length(unique0(layout$PANEL)))
   },
   draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
     cli::cli_abort("Not implemented")
@@ -155,7 +155,7 @@ Facet <- ggproto("Facet", NULL,
     panels
   },
   setup_params = function(data, params) {
-    params$.possible_columns <- unique(unlist(lapply(data, names)))
+    params$.possible_columns <- unique0(unlist(lapply(data, names)))
     params
   },
   setup_data = function(data, params) {
@@ -539,13 +539,13 @@ find_panel <- function(table) {
 #' @export
 panel_cols = function(table) {
   panels <- table$layout[grepl("^panel", table$layout$name), , drop = FALSE]
-  unique(panels[, c('l', 'r')])
+  unique0(panels[, c('l', 'r')])
 }
 #' @rdname find_panel
 #' @export
 panel_rows <- function(table) {
   panels <- table$layout[grepl("^panel", table$layout$name), , drop = FALSE]
-  unique(panels[, c('t', 'b')])
+  unique0(panels[, c('t', 'b')])
 }
 #' Take input data and define a mapping between faceting variables and ROW,
 #' COL and PANEL keys
@@ -561,7 +561,7 @@ panel_rows <- function(table) {
 #' @keywords internal
 #' @export
 combine_vars <- function(data, env = emptyenv(), vars = NULL, drop = TRUE) {
-  possible_columns <- unique(unlist(lapply(data, names)))
+  possible_columns <- unique0(unlist(lapply(data, names)))
   if (length(vars) == 0) return(data_frame0())
 
   # For each layer, compute the facet values
@@ -584,7 +584,7 @@ combine_vars <- function(data, env = emptyenv(), vars = NULL, drop = TRUE) {
     ))
   }
 
-  base <- unique(vec_rbind(!!!values[has_all]))
+  base <- unique0(vec_rbind(!!!values[has_all]))
   if (!drop) {
     base <- unique_combs(base)
   }
@@ -594,11 +594,11 @@ combine_vars <- function(data, env = emptyenv(), vars = NULL, drop = TRUE) {
     if (empty(value)) next;
 
     old <- base[setdiff(names(base), names(value))]
-    new <- unique(value[intersect(names(base), names(value))])
+    new <- unique0(value[intersect(names(base), names(value))])
     if (drop) {
       new <- unique_combs(new)
     }
-    base <- unique(vec_rbind(base, df.grid(old, new)))
+    base <- unique0(vec_rbind(base, df.grid(old, new)))
   }
 
   if (empty(base)) {

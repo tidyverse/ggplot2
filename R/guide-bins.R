@@ -158,7 +158,7 @@ guide_train.bins <- function(guide, scale, aesthetic = NULL) {
     if (!is.numeric(scale$breaks)) {
       breaks <- breaks[!breaks %in% limits]
     }
-    all_breaks <- unique(c(limits[1], breaks, limits[2]))
+    all_breaks <- unique0(c(limits[1], breaks, limits[2]))
     bin_at <- all_breaks[-1] - diff(all_breaks) / 2
   } else {
     # If the breaks are not numeric it is used with a discrete scale. We check

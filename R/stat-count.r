@@ -82,7 +82,7 @@ StatCount <- ggproto("StatCount", Stat,
     bars <- data_frame0(
       count = count,
       prop = count / sum(abs(count)),
-      x = sort(unique(x)),
+      x = sort(unique0(x)),
       width = width,
       flipped_aes = flipped_aes,
       .size = length(count)
