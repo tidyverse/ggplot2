@@ -86,8 +86,17 @@ StatQuantile <- ggproto("StatQuantile", Stat,
       method <- match.fun(method) # allow users to supply their own methods
     }
 
-    vec_rbind(!!!lapply(quantiles, quant_pred, data = data, method = method,
-      formula = formula, weight = weight, grid = grid, method.args = method.args))
+    result <- lapply(
+      quantiles,
+      quant_pred,
+      data = data,
+      method = method,
+      formula = formula,
+      weight = weight,
+      grid = grid,
+      method.args = method.args
+    )
+    vec_rbind(!!!result)
   }
 )
 

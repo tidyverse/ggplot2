@@ -33,7 +33,8 @@ fortify.map <- function(model, data, ...) {
   )
 
   # TODO: convert to vec_rbind() once it accepts a function in .name_repair
-  names <- inject(rbind(!!!lapply(strsplit(model$names, "[:,]"), "[", 1:2)))
+  names <- lapply(strsplit(model$names, "[:,]"), "[", 1:2)
+  names <- inject(rbind(!!!names))
   df$region <- names[df$group, 1]
   df$subregion <- names[df$group, 2]
   df[stats::complete.cases(df$lat, df$long), ]

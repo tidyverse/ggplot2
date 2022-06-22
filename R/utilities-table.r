@@ -1,11 +1,13 @@
 compute_grob_widths <- function(grob_layout, widths) {
   cols <- split(grob_layout, grob_layout$l)
-  inject(unit.c(!!!lapply(cols, compute_grob_dimensions, dims = widths)))
+  widths <- lapply(cols, compute_grob_dimensions, dims = widths)
+  inject(unit.c(!!!widths))
 }
 
 compute_grob_heights <- function(grob_layout, heights) {
   cols <- split(grob_layout, grob_layout$t)
-  inject(unit.c(!!!lapply(cols, compute_grob_dimensions, dims = heights)))
+  heights <- lapply(cols, compute_grob_dimensions, dims = heights)
+  inject(unit.c(!!!heights))
 }
 
 compute_grob_dimensions <- function(grob_layout, dims) {

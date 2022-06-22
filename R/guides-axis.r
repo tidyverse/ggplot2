@@ -282,7 +282,8 @@ draw_axis <- function(break_positions, break_labels, axis_position, theme,
 
   # create gtable
   non_position_sizes <- paste0(non_position_size, "s")
-  label_dims <- inject(unit.c(!!!lapply(label_grobs, measure_labels_non_pos)))
+  label_dims <- lapply(label_grobs, measure_labels_non_pos)
+  label_dims <- inject(unit.c(!!!label_dims))
   grobs <- c(list(ticks_grob), label_grobs)
   grob_dims <- unit.c(max(tick_length, unit(0, "pt")), label_dims)
 

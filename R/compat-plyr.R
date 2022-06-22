@@ -283,7 +283,8 @@ dapply <- function(df, by, fun, ..., drop = TRUE) {
     if (is.null(names(res))) names(res) <- paste0("V", seq_along(res))
     if (all(by %in% names(res))) return(data_frame0(!!!unclass(res)))
     res <- modify_list(unclass(vars), unclass(res))
-    data_frame0(!!!res[intersect(c(fallback_order, names(res)), names(res))])
+    res <- res[intersect(c(fallback_order, names(res)), names(res))]
+    data_frame0(!!!res)
   }
 
   # Shortcut when only one group

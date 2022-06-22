@@ -15,7 +15,8 @@ cunion <- function(a, b) {
 interleave <- function(...) UseMethod("interleave")
 #' @export
 interleave.unit <- function(...) {
-  interleaved_list <- interleave.default(!!!lapply(list(...), as.list))
+  units <- lapply(list(...), as.list)
+  interleaved_list <- interleave.default(!!!units)
   inject(unit.c(!!!interleaved_list))
 }
 #' @export
