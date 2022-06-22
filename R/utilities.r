@@ -356,7 +356,8 @@ unique0 <- function(x, ...) if (is.null(x)) x else vec_unique(x, ...)
 
 # Check inputs with tibble but allow column vectors (see #2609 and #2374)
 as_gg_data_frame <- function(x) {
-  data_frame0(!!!lapply(x, validate_column_vec))
+  x <- lapply(x, validate_column_vec)
+  data_frame0(!!!x)
 }
 validate_column_vec <- function(x) {
   if (is_column_vec(x)) {

@@ -6,13 +6,15 @@ split_matrix <- function(x, col_names = colnames(x)) {
 }
 
 mat_2_df <- function(x, col_names = colnames(x)) {
-  data_frame0(!!!split_matrix(x, col_names), .size = nrow(x))
+  cols <- split_matrix(x, col_names)
+  data_frame0(!!!cols, .size = nrow(x))
 }
 
 df_col <- function(x, name) .subset2(x, name)
 
 df_rows <- function(x, i) {
-  data_frame0(!!!lapply(x, `[`, i = i), .size = length(i))
+  cols <- lapply(x, `[`, i = i)
+  data_frame0(!!!cols, .size = length(i))
 }
 
 # More performant modifyList without recursion
