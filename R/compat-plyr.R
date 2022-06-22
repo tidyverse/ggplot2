@@ -153,7 +153,7 @@ count <- function(df, vars = NULL, wt_var = NULL) {
     wt <- .subset2(df, wt_var)
     freq <- vapply(split(wt, id), sum, numeric(1))
   }
-  data_frame0(!!!as.list(labels), n = freq)
+  data_frame0(labels, n = freq)
 }
 # Adapted from plyr::join.keys
 # Create a shared unique id across two data frames such that common variable

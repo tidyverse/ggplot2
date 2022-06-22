@@ -33,7 +33,7 @@ FacetNull <- ggproto("FacetNull", Facet,
       return(data_frame0(PANEL = factor()))
 
     if (empty(data))
-      return(data_frame0(!!!data, PANEL = factor()))
+      return(data_frame0(data, PANEL = factor()))
 
     # Needs to be a factor to be consistent with other facet types
     data$PANEL <- factor(1)

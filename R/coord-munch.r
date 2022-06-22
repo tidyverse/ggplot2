@@ -63,7 +63,7 @@ munch_data <- function(data, dist = NULL, segment_length = 0.01) {
   id <- c(rep(seq_len(nrow(data) - 1), extra), nrow(data))
   aes_df <- data[id, setdiff(names(data), c("x", "y")), drop = FALSE]
 
-  data_frame0(x = x, y = y, !!!unclass(aes_df))
+  data_frame0(x = x, y = y, aes_df)
 }
 
 # Interpolate.
