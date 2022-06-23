@@ -95,7 +95,7 @@ any data points under the default settings.
 \item \code{colour}
 \item \code{group}
 \item \code{linetype}
-\item \code{size}
+\item \code{linewidth}
 \item \code{x}
 \item \code{y}
 }

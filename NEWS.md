@@ -1,5 +1,22 @@
 # ggplot2 (development version)
 
+* `stage()` now properly refers to the values without scale transformations for
+  the stage of `after_stat`. If your code requires the scaled version of the
+  values for some reason, you have to apply the same transformation by yourself,
+  e.g. `sqrt()` for `scale_{x,y}_sqrt()` (@yutannihilation and @teunbrand, #4155).
+
+* A `linewidth` aesthetic has been introduced and supersedes the `size` 
+  aesthetic for scaling the width of lines in line based geoms. `size` will 
+  remain functioning but deprecated for these geoms and it is recommended to 
+  update all code to reflect the new aesthetic (@thomasp85, #3672)
+
+* Secondary axis ticks are now positioned more precisely, removing small visual
+  artefacts with alignment between grid and ticks (@thomasp85, #3576)
+
+* Improve `stat_function` documentation regarding `xlim` argument. (@92amartins, #4474)
+
+* `qplot()` is now formally deprecated (@yutannihilation, #3956).
+
 * Use `rlang::hash()` instead of `digest::digest()`. This update may lead to 
   changes in the automatic sorting of legends. In order to enforce a specific
   legend order use the `order` argument in the guide. (@thomasp85, #4458)
@@ -89,6 +106,8 @@
   #4511, #4534)
   
 * `geom_contour()` now accepts a function in the `breaks` argument (@eliocamp, #4652).
+
+* VISUAL CHANGE: `scale_*_viridis_b()` now uses the full range of the viridis scales (@gregleleu, #4737)
 
 * Updated documentation for `geom_contour()` to correctly reflect argument 
 precedence between `bins` and `binwidth`. (@eliocamp, #4651)

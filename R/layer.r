@@ -125,6 +125,16 @@ layer <- function(geom = NULL, stat = NULL,
 
   # Warn about extra params and aesthetics
   extra_param <- setdiff(names(params), all)
+  # Take care of size->linewidth renaming in layer params
+  if (geom$rename_size && "size" %in% extra_param && !"linewidth" %in% mapped_aesthetics(mapping)) {
+    aes_params <- c(aes_params, params["size"])
+    extra_param <- setdiff(extra_param, "size")
+    # TODO: move to cli_warn()
+    cli::cli_inform(c(
+      "{.field size} aesthetic has been deprecated for use with lines as of ggplot2 3.4.0",
+      "i" = "Please use {.field linewidth} aesthetic instead"
+    ), .frequency = "regularly", .frequency_id = "ggplot-size-linewidth")
+  }
   if (check.param && length(extra_param) > 0) {
     cli::cli_warn("Ignoring unknown parameters: {.arg {extra_param}}", call = call_env)
   }
@@ -133,6 +143,15 @@ layer <- function(geom = NULL, stat = NULL,
     mapped_aesthetics(mapping),
     c(geom$aesthetics(), stat$aesthetics())
   )
+  # Take care of size->linewidth aes renaming
+  if (geom$rename_size && "size" %in% extra_aes && !"linewidth" %in% mapped_aesthetics(mapping)) {
+    extra_aes <- setdiff(extra_aes, "size")
+    # TODO: move to cli_warn()
+    cli::cli_inform(c(
+      "{.field size} aesthetic has been deprecated for use with lines as of ggplot2 3.4.0",
+      "i" = "Please use {.field linewidth} aesthetic instead"
+    ), .frequency = "regularly", .frequency_id = "ggplot-size-linewidth")
+  }
   if (check.aes && length(extra_aes) > 0) {
     cli::cli_warn("Ignoring unknown aesthetics: {.field {extra_aes}}", call = call_env)
   }
@@ -221,6 +240,19 @@ Layer <- ggproto("Layer", NULL,
     # For annotation geoms, it is useful to be able to ignore the default aes
     if (isTRUE(self$inherit.aes)) {
       self$computed_mapping <- defaults(self$mapping, plot$mapping)
+
+      # Inherit size as linewidth from global mapping
+      if (self$geom$rename_size &&
+          "size" %in% names(plot$mapping) &&
+          !"linewidth" %in% names(self$computed_mapping) &&
+          "linewidth" %in% self$geom$aesthetics()) {
+        self$computed_mapping$size <- plot$mapping$size
+        # TODO: move to cli_warn()
+        cli::cli_inform(c(
+          "{.field size} aesthetic has been deprecated for use with lines as of ggplot2 3.4.0",
+          "i" = "Please use {.field linewidth} aesthetic instead"
+        ), .frequency = "regularly", .frequency_id = "ggplot-size-linewidth")
+      }
       # defaults() strips class, but it needs to be preserved for now
       class(self$computed_mapping) <- "uneval"
     } else {
@@ -317,10 +349,13 @@ Layer <- ggproto("Layer", NULL,
     new <- strip_dots(aesthetics[is_calculated_aes(aesthetics) | is_staged_aes(aesthetics)])
     if (length(new) == 0) return(data)
 
+    # data needs to be non-scaled
+    data_orig <- scales_backtransform_df(plot$scales, data)
+
     # Add map stat output to aesthetics
     env <- child_env(baseenv(), stat = stat, after_stat = after_stat)
     stage_mask <- child_env(emptyenv(), stage = stage_calculated)
-    mask <- new_data_mask(as_environment(data, stage_mask), stage_mask)
+    mask <- new_data_mask(as_environment(data_orig, stage_mask), stage_mask)
     mask$.data <- as_data_pronoun(mask)
 
     new <- substitute_aes(new)

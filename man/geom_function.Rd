@@ -77,7 +77,7 @@ rlang formula syntax (see \code{\link[rlang:as_function]{rlang::as_function()}})
 or 2) a quoted or character name referencing a function; see examples. Must
 be vectorised.}
 
-\item{xlim}{Optionally, restrict the range of the function to this range.}
+\item{xlim}{Optionally, specify the range of the function.}
 
 \item{n}{Number of points to interpolate along the x axis.}
 
@@ -99,7 +99,7 @@ drawn (by default) with a line.
 \item \code{colour}
 \item \code{group}
 \item \code{linetype}
-\item \code{size}
+\item \code{linewidth}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
@@ -154,6 +154,16 @@ base + geom_function(fun = ~ 0.5*exp(-abs(.x)))
 f <- function(x) 0.5*exp(-abs(x))
 
 base + geom_function(fun = f)
+
+# Using xlim to restrict the range of function
+ggplot(data.frame(x = rnorm(100)), aes(x)) +
+geom_density() +
+geom_function(fun = dnorm, colour = "red", xlim=c(-1, 1))
+
+# Using xlim to widen the range of function
+ggplot(data.frame(x = rnorm(100)), aes(x)) +
+geom_density() +
+geom_function(fun = dnorm, colour = "red", xlim=c(-7, 7))
 
 }
 \seealso{

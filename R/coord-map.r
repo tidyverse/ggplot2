@@ -1,5 +1,8 @@
 #' Map projections
 #'
+#' @description
+#' `r lifecycle::badge("superseded")`
+#'
 #' `coord_map()` projects a portion of the earth, which is approximately
 #' spherical, onto a flat 2D plane using any projection defined by the
 #' `mapproj` package. Map projections do not, in general, preserve straight
@@ -7,7 +10,15 @@
 #' quick approximation that does preserve straight lines. It works best for
 #' smaller areas closer to the equator.
 #'
-#' In general, map projections must account for the fact that the actual length
+#' Both `coord_map()` and `coord_quickmap()`
+#' are superseded by [`coord_sf()`], and should no longer be used in new
+#' code. All regular (non-sf) geoms can be used with `coord_sf()` by
+#' setting the default coordinate system via the `default_crs` argument.
+#' See also the examples for [`annotation_map()`] and [`geom_map()`].
+#'
+#' @details
+#'
+#' Map projections must account for the fact that the actual length
 #' (in km) of one degree of longitude varies between the equator and the pole.
 #' Near the equator, the ratio between the lengths of one degree of latitude and
 #' one degree of longitude is approximately 1. Near the pole, it tends

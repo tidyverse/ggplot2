@@ -130,12 +130,12 @@ geom_path <- function(mapping = NULL, data = NULL,
 GeomPath <- ggproto("GeomPath", Geom,
   required_aes = c("x", "y"),
 
-  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
+  default_aes = aes(colour = "black", linewidth = 0.5, linetype = 1, alpha = NA),
 
   handle_na = function(self, data, params) {
     # Drop missing values at the start or end of a line - can't drop in the
     # middle since you expect those to be shown by a break in the line
-    complete <- stats::complete.cases(data[c("x", "y", "size", "colour", "linetype")])
+    complete <- stats::complete.cases(data[c("x", "y", "linewidth", "colour", "linetype")])
     kept <- stats::ave(complete, data$group, FUN = keep_mid_true)
     data <- data[kept, ]
 
@@ -170,7 +170,7 @@ GeomPath <- ggproto("GeomPath", Geom,
       linetype <- unique0(df$linetype)
       data_frame0(
         solid = identical(linetype, 1) || identical(linetype, "solid"),
-        constant = nrow(unique0(df[, c("alpha", "colour","size", "linetype")])) == 1,
+        constant = nrow(unique0(df[, c("alpha", "colour", "size", "linetype")])) == 1,
         .size = 1
       )
     })
@@ -193,7 +193,7 @@ GeomPath <- ggproto("GeomPath", Geom,
         gp = gpar(
           col = alpha(munched$colour, munched$alpha)[!end],
           fill = alpha(munched$colour, munched$alpha)[!end],
-          lwd = munched$size[!end] * .pt,
+          lwd = munched$linewidth[!end] * .pt,
           lty = munched$linetype[!end],
           lineend = lineend,
           linejoin = linejoin,
@@ -208,7 +208,7 @@ GeomPath <- ggproto("GeomPath", Geom,
         gp = gpar(
           col = alpha(munched$colour, munched$alpha)[start],
           fill = alpha(munched$colour, munched$alpha)[start],
-          lwd = munched$size[start] * .pt,
+          lwd = munched$linewidth[start] * .pt,
           lty = munched$linetype[start],
           lineend = lineend,
           linejoin = linejoin,
@@ -218,7 +218,9 @@ GeomPath <- ggproto("GeomPath", Geom,
     }
   },
 
-  draw_key = draw_key_path
+  draw_key = draw_key_path,
+
+  rename_size = TRUE
 )
 
 # Trim false values from left and right: keep all values from

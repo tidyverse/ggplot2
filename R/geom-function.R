@@ -51,6 +51,16 @@
 #'
 #' base + geom_function(fun = f)
 #'
+#' # Using xlim to restrict the range of function
+#' ggplot(data.frame(x = rnorm(100)), aes(x)) +
+#' geom_density() +
+#' geom_function(fun = dnorm, colour = "red", xlim=c(-1, 1))
+#'
+#' # Using xlim to widen the range of function
+#' ggplot(data.frame(x = rnorm(100)), aes(x)) +
+#' geom_density() +
+#' geom_function(fun = dnorm, colour = "red", xlim=c(-7, 7))
+#'
 #' @export
 geom_function <- function(mapping = NULL, data = NULL, stat = "function",
                           position = "identity", ..., na.rm = FALSE,
