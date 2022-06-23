@@ -231,7 +231,7 @@ Layer <- ggproto("Layer", NULL,
     } else {
       data <- self$data
     }
-    unrowname(data)
+    if (is.null(data) || is.waive(data)) data else unrowname(data)
   },
 
   # hook to allow a layer access to the final layer data
