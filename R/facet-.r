@@ -257,10 +257,10 @@ df.grid <- function(a, b) {
     i_a = seq_len(nrow(a)),
     i_b = seq_len(nrow(b))
   )
-  unrowname(vec_cbind(
-    a[indexes$i_a, , drop = FALSE],
-    b[indexes$i_b, , drop = FALSE]
-  ))
+  vec_cbind(
+    unrowname(a[indexes$i_a, , drop = FALSE]),
+    unrowname(b[indexes$i_b, , drop = FALSE])
+  )
 }
 
 # A facets spec is a list of facets. A grid facetting needs two facets
@@ -473,7 +473,8 @@ layout_null <- function() {
     ROW = 1,
     COL = 1,
     SCALE_X = 1,
-    SCALE_Y = 1
+    SCALE_Y = 1,
+    .size = 1L
   )
 }
 

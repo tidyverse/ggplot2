@@ -203,16 +203,16 @@ Layer <- ggproto("Layer", NULL,
 
   layer_data = function(self, plot_data) {
     if (is.waive(self$data)) {
-      plot_data
+      data <- plot_data
     } else if (is.function(self$data)) {
       data <- self$data(plot_data)
       if (!is.data.frame(data)) {
         cli::cli_abort("{.fn layer_data} must return a {.cls data.frame}")
       }
-      data
     } else {
-      self$data
+      data <- self$data
     }
+    unrowname(data)
   },
 
   # hook to allow a layer access to the final layer data

@@ -147,9 +147,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
       return(layout_null())
     }
 
-    base <- unrowname(
-      combine_vars(data, params$plot_env, vars, drop = params$drop)
-    )
+    base <- combine_vars(data, params$plot_env, vars, drop = params$drop)
 
     id <- id(base, drop = TRUE)
     n <- attr(id, "n")
@@ -171,7 +169,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
       layout[c("ROW", "COL")] <- layout[c("COL", "ROW")]
     }
 
-    panels <- vec_cbind(layout, unrowname(base))
+    panels <- vec_cbind(layout, base)
     panels <- panels[order(panels$PANEL), , drop = FALSE]
     rownames(panels) <- NULL
 
@@ -205,10 +203,11 @@ FacetWrap <- ggproto("FacetWrap", Facet,
       data_rep <- rep.int(1:nrow(data), nrow(to_add))
       facet_rep <- rep(1:nrow(to_add), each = nrow(data))
 
-      data <- unrowname(data[data_rep, , drop = FALSE])
-      facet_vals <- unrowname(vec_cbind(
+      data <- data[data_rep, , drop = FALSE]
+      facet_vals <- vec_cbind(
         facet_vals[data_rep, ,  drop = FALSE],
-        to_add[facet_rep, , drop = FALSE]))
+        to_add[facet_rep, , drop = FALSE]
+      )
     }
 
     keys <- join_keys(facet_vals, layout, by = names(vars))

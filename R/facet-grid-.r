@@ -278,8 +278,9 @@ FacetGrid <- ggproto("FacetGrid", Facet,
 
       data <- unrowname(data[data_rep, , drop = FALSE])
       facet_vals <- unrowname(vec_cbind(
-        facet_vals[data_rep, ,  drop = FALSE],
-        to_add[facet_rep, , drop = FALSE]))
+        unrowname(facet_vals[data_rep, ,  drop = FALSE]),
+        unrowname(to_add[facet_rep, , drop = FALSE]))
+      )
     }
 
     # Add PANEL variable
