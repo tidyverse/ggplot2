@@ -170,14 +170,14 @@ GeomPath <- ggproto("GeomPath", Geom,
       linetype <- unique0(df$linetype)
       data_frame0(
         solid = identical(linetype, 1) || identical(linetype, "solid"),
-        constant = nrow(unique0(df[, c("alpha", "colour", "size", "linetype")])) == 1,
+        constant = nrow(unique0(df[, c("alpha", "colour", "linewidth", "linetype")])) == 1,
         .size = 1
       )
     })
     solid_lines <- all(attr$solid)
     constant <- all(attr$constant)
     if (!solid_lines && !constant) {
-      cli::cli_abort("{.fn {snake_class(self)}} can't have varying {.field colour}, {.field size}, and/or {.field alpha} along the line when {.field linetype} isn't solid")
+      cli::cli_abort("{.fn {snake_class(self)}} can't have varying {.field colour}, {.field linewidth}, and/or {.field alpha} along the line when {.field linetype} isn't solid")
     }
 
     # Work out grouping variables for grobs
