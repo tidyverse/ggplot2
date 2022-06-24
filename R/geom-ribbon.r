@@ -203,7 +203,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
 
 #' @rdname geom_ribbon
 #' @export
-geom_area <- function(mapping = NULL, data = NULL, stat = "identity",
+geom_area <- function(mapping = NULL, data = NULL, stat = "align",
                       position = "stack", na.rm = FALSE, orientation = NA,
                       show.legend = NA, inherit.aes = TRUE, ...,
                       outline.type = "upper") {
