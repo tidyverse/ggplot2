@@ -33,11 +33,15 @@ StatAlign <- ggproto("StatAlign", Stat,
 
   setup_params = function(data, params) {
     params$flipped_aes <- has_flipped_aes(data, params, ambiguous = TRUE)
-    params$unique_loc <- unique(sort(data[[flipped_names(params$flipped_aes)$x]]))
+    unique_loc <- unique(sort(data[[flipped_names(params$flipped_aes)$x]]))
+    adjust <- diff(range(unique_loc)) * 0.001
+    unique_loc <- sort(c(unique_loc - adjust, unique_loc, unique_loc + adjust))
+    params$unique_loc <- unique_loc
+    params$adjust <- adjust
     params
   },
 
-  compute_group = function(data, scales, flipped_aes = NA, unique_loc = NULL) {
+  compute_group = function(data, scales, flipped_aes = NA, unique_loc = NULL, adjust = 0) {
     data <- flip_data(data, flipped_aes)
     if (length(unique(data$x)) == 1) {
       # Not enough data to align
@@ -47,10 +51,14 @@ StatAlign <- ggproto("StatAlign", Stat,
     keep <- !is.na(y_val)
     x_val <- unique_loc[keep]
     y_val <- y_val[keep]
+    x_val <- c(min(x_val) - adjust, x_val, max(x_val) + adjust)
+    y_val <- c(0, y_val, 0)
+
+    # TODO: Move to data_frame0 once merged
     data_aligned <- cbind(
       x = x_val,
       y = y_val,
-      data[1, setdiff(names(data), c("x", "y"))],
+      unrowname(data[1, setdiff(names(data), c("x", "y"))]),
       flipped_aes = flipped_aes
     )
     flip_data(data_aligned, flipped_aes)
