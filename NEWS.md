@@ -1,5 +1,9 @@
 # ggplot2 (development version)
 
+* Fix a bug in `stat_contour_filled()` where break value differences below a 
+  certain number of digits would cause the computations to fail (@thomasp85, 
+  #4874)
+
 * `stage()` now properly refers to the values without scale transformations for
   the stage of `after_stat`. If your code requires the scaled version of the
   values for some reason, you have to apply the same transformation by yourself,
