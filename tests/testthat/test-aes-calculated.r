@@ -69,3 +69,23 @@ test_that("staged aesthetics warn appropriately for duplicated names", {
   # One warning in building due to `stage()`/`after_scale()`
   expect_snapshot_warning(ggplot_build(p))
 })
+
+test_that("stage() works with only the start arg (#4873)", {
+  do_strip_stage <- function(...) {
+    args <- enexprs(...)
+    stage_call <- expr(stage(!!!args))
+    strip_stage(stage_call)
+  }
+
+  # the standard usage
+  expect_equal(do_strip_stage(x, after_stat = y), expr(y))
+
+  # positional
+  expect_equal(do_strip_stage(x, y), expr(y))
+
+  # when with only the start arg, simply strips stage()
+  expect_equal(do_strip_stage(x), expr(x))
+
+  # when an explicit NULL is specified, use it (not sure how useful this is...)
+  expect_equal(do_strip_stage(x, after_stat = NULL), expr(NULL))
+})
