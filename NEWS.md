@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Added `stat_align()` to align data without common x-coordinates prior to
+  stacking. This is now the default stat for `geom_area()` (@thomasp85, #4850)
+
 * Fix a bug in `stat_contour_filled()` where break value differences below a 
   certain number of digits would cause the computations to fail (@thomasp85, 
   #4874)
