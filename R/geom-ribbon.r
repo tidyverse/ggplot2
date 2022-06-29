@@ -130,11 +130,14 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
 
     data <- unclass(data) #for faster indexing
 
+    # In case the data comes from stat_align
+    upper_keep <- if (is.null(data$align_padding)) TRUE else !data$align_padding
+
     # The upper line and lower line need to processed separately (#4023)
     positions_upper <- new_data_frame(list(
-      x = data$x,
-      y = data$ymax,
-      id = ids
+      x = data$x[upper_keep],
+      y = data$ymax[upper_keep],
+      id = ids[upper_keep]
     ))
 
     positions_lower <- new_data_frame(list(
