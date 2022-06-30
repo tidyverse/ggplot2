@@ -35,6 +35,7 @@ StatAlign <- ggproto("StatAlign", Stat,
     params$flipped_aes <- has_flipped_aes(data, params, ambiguous = TRUE)
     unique_loc <- unique(sort(data[[flipped_names(params$flipped_aes)$x]]))
     adjust <- diff(range(unique_loc, na.rm = TRUE)) * 0.001
+    adjust <- min(adjust, min(diff(unique_loc))/3)
     unique_loc <- sort(c(unique_loc - adjust, unique_loc, unique_loc + adjust))
     params$unique_loc <- unique_loc
     params$adjust <- adjust
