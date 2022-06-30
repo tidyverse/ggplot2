@@ -49,22 +49,12 @@ StatAlign <- ggproto("StatAlign", Stat,
     }
     # Sort out multiple observations at the same x
     if (anyDuplicated(data$x)) {
-      data$before <- c(-Inf, data$y[-nrow(data)])
-      data$after <- c(data$y[-1], Inf)
       data <- dapply(data, "x", function(d) {
         if (nrow(d) == 1) return(d)
-        y_range <- range(d$y)
         d <- d[c(1, nrow(d)), ]
-        if (d$before[1] < d$after[2]) {
-          d$y <- y_range
-        } else {
-          d$y <- rev(y_range)
-        }
         d$x[1] <- d$x[1] - adjust
         d
       })
-      data$before <- NULL
-      data$after <- NULL
     }
     y_val <- approxfun(data$x, data$y)(unique_loc)
     keep <- !is.na(y_val)
