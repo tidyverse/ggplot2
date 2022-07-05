@@ -87,13 +87,10 @@ test_that("boxes in facetted plots keep the correct width", {
 })
 
 test_that("width of groups is computed per facet", {
-  df <- tibble::tribble(
-    ~g1, ~g2,  ~y,
-    "x", "a",  1,
-    "x", "b",  2,
-    "y", "a",  3,
-    "y", "b",  4,
-    "y", "c",  3,
+  df <- data_frame(
+    g1 = c("x", "x", "y", "y", "y"),
+    g2 = c("a", "b", "a", "b", "c"),
+    y = c(1, 2, 3, 4, 3)
   )
 
   p <- ggplot(df, aes("x", y, fill = g2)) +

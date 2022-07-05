@@ -3,5 +3,5 @@
     Problem while converting geom to grob.
     i Error occurred in the 1st layer.
     Caused by error in `draw_panel()`:
-    ! `geom_path()` can't have varying colour, size, and/or alpha along the line when linetype isn't solid
+    ! `geom_path()` can't have varying colour, linewidth, and/or alpha along the line when linetype isn't solid
 

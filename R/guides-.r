@@ -280,8 +280,10 @@ guides_build <- function(ggrobs, theme) {
   theme$legend.spacing.y <- theme$legend.spacing.y  %||% theme$legend.spacing
   theme$legend.spacing.x <- theme$legend.spacing.x  %||% theme$legend.spacing
 
-  widths <- do.call("unit.c", lapply(ggrobs, function(g)sum(g$widths)))
-  heights <- do.call("unit.c", lapply(ggrobs, function(g)sum(g$heights)))
+  widths <- lapply(ggrobs, function(g) sum(g$widths))
+  widths <- inject(unit.c(!!!widths))
+  heights <- lapply(ggrobs, function(g) sum(g$heights))
+  heights <- inject(unit.c(!!!heights))
 
   # Set the justification of each legend within the legend box
   # First value is xjust, second value is yjust

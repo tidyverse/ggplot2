@@ -100,7 +100,7 @@ make_summary_fun <- function(fun.data, fun, fun.max, fun.min, fun.args) {
     # Function that takes complete data frame as input
     fun.data <- as_function(fun.data)
     function(df) {
-      do.call(fun.data, c(list(quote(df$y)), fun.args))
+      inject(fun.data(df$y, !!!fun.args))
     }
   } else if (!is.null(fun) || !is.null(fun.max) || !is.null(fun.min)) {
     # Three functions that take vectors as inputs
@@ -108,15 +108,15 @@ make_summary_fun <- function(fun.data, fun, fun.max, fun.min, fun.args) {
     call_f <- function(fun, x) {
       if (is.null(fun)) return(NA_real_)
       fun <- as_function(fun)
-      do.call(fun, c(list(quote(x)), fun.args))
+      inject(fun(x, !!!fun.args))
     }
 
     function(df, ...) {
-      new_data_frame(list(
+      data_frame0(
         ymin = call_f(fun.min, df$y),
         y = call_f(fun, df$y),
         ymax = call_f(fun.max, df$y)
-      ))
+      )
     }
   } else {
     cli::cli_inform("No summary function supplied, defaulting to {.fn mean_se}")

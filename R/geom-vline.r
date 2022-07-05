@@ -19,7 +19,7 @@ geom_vline <- function(mapping = NULL, data = NULL,
       cli::cli_warn("{.fn geom_vline}: Ignoring {.arg data} because {.arg xintercept} was provided.")
     }
 
-    data <- new_data_frame(list(xintercept = xintercept))
+    data <- data_frame0(xintercept = xintercept)
     mapping <- aes(xintercept = xintercept)
     show.legend <- FALSE
   }
@@ -52,7 +52,7 @@ GeomVline <- ggproto("GeomVline", Geom,
     data$y    <- ranges$y[1]
     data$yend <- ranges$y[2]
 
-    GeomSegment$draw_panel(unique(data), panel_params, coord, lineend = lineend)
+    GeomSegment$draw_panel(unique0(data), panel_params, coord, lineend = lineend)
   },
 
   default_aes = aes(colour = "black", linewidth = 0.5, linetype = 1, alpha = NA),

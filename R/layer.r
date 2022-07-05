@@ -222,16 +222,16 @@ Layer <- ggproto("Layer", NULL,
 
   layer_data = function(self, plot_data) {
     if (is.waive(self$data)) {
-      plot_data
+      data <- plot_data
     } else if (is.function(self$data)) {
       data <- self$data(plot_data)
       if (!is.data.frame(data)) {
         cli::cli_abort("{.fn layer_data} must return a {.cls data.frame}")
       }
-      data
     } else {
-      self$data
+      data <- self$data
     }
+    if (is.null(data) || is.waive(data)) data else unrowname(data)
   },
 
   # hook to allow a layer access to the final layer data
@@ -326,7 +326,7 @@ Layer <- ggproto("Layer", NULL,
 
   compute_statistic = function(self, data, layout) {
     if (empty(data))
-      return(new_data_frame())
+      return(data_frame0())
 
     self$computed_stat_params <- self$stat$setup_params(data, self$stat_params)
     data <- self$stat$setup_data(data, self$computed_stat_params)
@@ -334,7 +334,7 @@ Layer <- ggproto("Layer", NULL,
   },
 
   map_statistic = function(self, data, plot) {
-    if (empty(data)) return(new_data_frame())
+    if (empty(data)) return(data_frame0())
 
     # Make sure data columns are converted to correct names. If not done, a
     # column with e.g. a color name will not be found in an after_stat()
@@ -375,7 +375,7 @@ Layer <- ggproto("Layer", NULL,
     }
 
     names(stat_data) <- names(new)
-    stat_data <- new_data_frame(compact(stat_data))
+    stat_data <- data_frame0(!!!compact(stat_data))
 
     # Add any new scales, if needed
     scales_add_defaults(plot$scales, data, new, plot$plot_env)
@@ -389,7 +389,7 @@ Layer <- ggproto("Layer", NULL,
   },
 
   compute_geom_1 = function(self, data) {
-    if (empty(data)) return(new_data_frame())
+    if (empty(data)) return(data_frame0())
 
     check_required_aesthetics(
       self$geom$required_aes,
@@ -401,7 +401,7 @@ Layer <- ggproto("Layer", NULL,
   },
 
   compute_position = function(self, data, layout) {
-    if (empty(data)) return(new_data_frame())
+    if (empty(data)) return(data_frame0())
 
     params <- self$position$setup_params(data)
     data <- self$position$setup_data(data, params)

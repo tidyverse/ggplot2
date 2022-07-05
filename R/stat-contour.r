@@ -201,8 +201,8 @@ contour_breaks <- function(z_range, bins = NULL, binwidth = NULL, breaks = NULL)
 #'
 xyz_to_isolines <- function(data, breaks) {
   isoband::isolines(
-    x = sort(unique(data$x)),
-    y = sort(unique(data$y)),
+    x = sort(unique0(data$x)),
+    y = sort(unique0(data$y)),
     z = isoband_z_matrix(data),
     levels = breaks
   )
@@ -210,8 +210,8 @@ xyz_to_isolines <- function(data, breaks) {
 
 xyz_to_isobands <- function(data, breaks) {
   isoband::isobands(
-    x = sort(unique(data$x)),
-    y = sort(unique(data$y)),
+    x = sort(unique0(data$x)),
+    y = sort(unique0(data$y)),
     z = isoband_z_matrix(data),
     levels_low = breaks[-length(breaks)],
     levels_high = breaks[-1]
@@ -230,8 +230,8 @@ xyz_to_isobands <- function(data, breaks) {
 #'
 isoband_z_matrix <- function(data) {
   # Convert vector of data to raster
-  x_pos <- as.integer(factor(data$x, levels = sort(unique(data$x))))
-  y_pos <- as.integer(factor(data$y, levels = sort(unique(data$y))))
+  x_pos <- as.integer(factor(data$x, levels = sort(unique0(data$x))))
+  y_pos <- as.integer(factor(data$y, levels = sort(unique0(data$y))))
 
   nrow <- max(y_pos)
   ncol <- max(x_pos)
@@ -255,7 +255,7 @@ iso_to_path <- function(iso, group = 1) {
 
   if (all(lengths == 0)) {
     cli::cli_warn("{.fn stat_contour}: Zero contours were generated")
-    return(new_data_frame())
+    return(data_frame0())
   }
 
   levels <- names(iso)
@@ -268,15 +268,13 @@ iso_to_path <- function(iso, group = 1) {
   groups <- paste(group, sprintf("%03d", item_id), sprintf("%03d", ids), sep = "-")
   groups <- factor(groups)
 
-  new_data_frame(
-    list(
-      level = rep(levels, lengths),
-      x = xs,
-      y = ys,
-      piece = as.integer(groups),
-      group = groups
-    ),
-    n = length(xs)
+  data_frame0(
+    level = rep(levels, lengths),
+    x = xs,
+    y = ys,
+    piece = as.integer(groups),
+    group = groups,
+    .size = length(xs)
   )
 }
 
@@ -293,7 +291,7 @@ iso_to_polygon <- function(iso, group = 1) {
 
   if (all(lengths == 0)) {
     cli::cli_warn("{.fn stat_contour}: Zero contours were generated")
-    return(new_data_frame())
+    return(data_frame0())
   }
 
   levels <- names(iso)
@@ -306,16 +304,14 @@ iso_to_polygon <- function(iso, group = 1) {
   groups <- paste(group, sprintf("%03d", item_id), sep = "-")
   groups <- factor(groups)
 
-  new_data_frame(
-    list(
-      level = rep(levels, lengths),
-      x = xs,
-      y = ys,
-      piece = as.integer(groups),
-      group = groups,
-      subgroup = ids
-    ),
-    n = length(xs)
+  data_frame0(
+    level = rep(levels, lengths),
+    x = xs,
+    y = ys,
+    piece = as.integer(groups),
+    group = groups,
+    subgroup = ids,
+    .size = length(xs)
   )
 }
 

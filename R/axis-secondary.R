@@ -193,7 +193,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
     full_range <- self$transform_range(old_range)
 
     # Test for monotonicity
-    if (length(unique(sign(diff(full_range)))) != 1)
+    if (length(unique0(sign(diff(full_range)))) != 1)
       cli::cli_abort("Transformation for secondary axes must be monotonic")
   },
 
