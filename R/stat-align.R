@@ -33,7 +33,19 @@ StatAlign <- ggproto("StatAlign", Stat,
 
   setup_params = function(data, params) {
     params$flipped_aes <- has_flipped_aes(data, params, ambiguous = TRUE)
-    unique_loc <- unique(sort(data[[flipped_names(params$flipped_aes)$x]]))
+    x_name <- flipped_names(params$flipped_aes)$x
+    y_name <- flipped_names(params$flipped_aes)$y
+    x_cross <- dapply(data, "group", function(d) {
+      pivots <- cumsum(rle(d[[y_name]] < 0)$lengths)
+      pivots <- pivots[-length(pivots)]
+      cross <- vapply(pivots, function(i) {
+        y <- d[[y_name]][c(i, i+1)]
+        x <- d[[x_name]][c(i, i+1)]
+        -y[1]*diff(x)/diff(y) + x[1]
+      }, numeric(1))
+      data_frame(cross = cross)
+    })
+    unique_loc <- unique(sort(c(data[[x_name]], x_cross$cross)))
     adjust <- diff(range(unique_loc, na.rm = TRUE)) * 0.001
     adjust <- min(adjust, min(diff(unique_loc))/3)
     unique_loc <- sort(c(unique_loc - adjust, unique_loc, unique_loc + adjust))
