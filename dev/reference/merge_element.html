@@ -89,16 +89,16 @@ method</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">merge_element</span><span class="op">(</span><span class="va">new</span>, <span class="va">old</span><span class="op">)</span>
-
-<span class="co"># S3 method for default</span>
-<span class="fu">merge_element</span><span class="op">(</span><span class="va">new</span>, <span class="va">old</span><span class="op">)</span>
-
-<span class="co"># S3 method for element_blank</span>
-<span class="fu">merge_element</span><span class="op">(</span><span class="va">new</span>, <span class="va">old</span><span class="op">)</span>
-
-<span class="co"># S3 method for element</span>
-<span class="fu">merge_element</span><span class="op">(</span><span class="va">new</span>, <span class="va">old</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">merge_element</span><span class="op">(</span><span class="va">new</span>, <span class="va">old</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">merge_element</span><span class="op">(</span><span class="va">new</span>, <span class="va">old</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for element_blank</span></span>
+<span><span class="fu">merge_element</span><span class="op">(</span><span class="va">new</span>, <span class="va">old</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for element</span></span>
+<span><span class="fu">merge_element</span><span class="op">(</span><span class="va">new</span>, <span class="va">old</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -123,11 +123,11 @@ method</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">new</span> <span class="op">&lt;-</span> <span class="fu"><a href="element.html">element_text</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">old</span> <span class="op">&lt;-</span> <span class="fu"><a href="element.html">element_text</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"blue"</span>, size <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Adopt size but ignore colour</span></span>
-<span class="r-in"><span class="fu">merge_element</span><span class="op">(</span><span class="va">new</span>, <span class="va">old</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">new</span> <span class="op">&lt;-</span> <span class="fu"><a href="element.html">element_text</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">old</span> <span class="op">&lt;-</span> <span class="fu"><a href="element.html">element_text</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"blue"</span>, size <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Adopt size but ignore colour</span></span></span>
+<span class="r-in"><span><span class="fu">merge_element</span><span class="op">(</span><span class="va">new</span>, <span class="va">old</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> List of 11</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ family       : NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ face         : NULL</span>
@@ -141,7 +141,7 @@ method</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ debug        : NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ inherit.blank: logi FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "class")= chr [1:2] "element_text" "element"</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -155,7 +155,7 @@ method</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
   </div></footer></body></html>

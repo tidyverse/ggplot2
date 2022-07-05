@@ -92,14 +92,14 @@ named character vectors that will serve as a lookup table.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">labeller</span><span class="op">(</span>
-  <span class="va">...</span>,
-  .rows <span class="op">=</span> <span class="cn">NULL</span>,
-  .cols <span class="op">=</span> <span class="cn">NULL</span>,
-  keep.as.numeric <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Deprecated.html" class="external-link">deprecated</a></span><span class="op">(</span><span class="op">)</span>,
-  .multi_line <span class="op">=</span> <span class="cn">TRUE</span>,
-  .default <span class="op">=</span> <span class="va">label_value</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">labeller</span><span class="op">(</span></span>
+<span>  <span class="va">...</span>,</span>
+<span>  .rows <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  .cols <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  keep.as.numeric <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  .multi_line <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  .default <span class="op">=</span> <span class="va">label_value</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -161,77 +161,77 @@ functions taking a character vector such as
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># \donttest{</span></span>
-<span class="r-in"><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">wt</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># You can assign different labellers to variables:</span></span>
-<span class="r-in"><span class="va">p1</span> <span class="op">+</span> <span class="fu"><a href="facet_grid.html">facet_grid</a></span><span class="op">(</span></span>
-<span class="r-in">  <span class="va">vs</span> <span class="op">+</span> <span class="va">am</span> <span class="op">~</span> <span class="va">gear</span>,</span>
-<span class="r-in">  labeller <span class="op">=</span> <span class="fu">labeller</span><span class="op">(</span>vs <span class="op">=</span> <span class="va">label_both</span>, am <span class="op">=</span> <span class="va">label_value</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">wt</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># You can assign different labellers to variables:</span></span></span>
+<span class="r-in"><span><span class="va">p1</span> <span class="op">+</span> <span class="fu"><a href="facet_grid.html">facet_grid</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">vs</span> <span class="op">+</span> <span class="va">am</span> <span class="op">~</span> <span class="va">gear</span>,</span></span>
+<span class="r-in"><span>  labeller <span class="op">=</span> <span class="fu">labeller</span><span class="op">(</span>vs <span class="op">=</span> <span class="va">label_both</span>, am <span class="op">=</span> <span class="va">label_value</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="labeller-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Or whole margins:</span></span>
-<span class="r-in"><span class="va">p1</span> <span class="op">+</span> <span class="fu"><a href="facet_grid.html">facet_grid</a></span><span class="op">(</span></span>
-<span class="r-in">  <span class="va">vs</span> <span class="op">+</span> <span class="va">am</span> <span class="op">~</span> <span class="va">gear</span>,</span>
-<span class="r-in">  labeller <span class="op">=</span> <span class="fu">labeller</span><span class="op">(</span>.rows <span class="op">=</span> <span class="va">label_both</span>, .cols <span class="op">=</span> <span class="va">label_value</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Or whole margins:</span></span></span>
+<span class="r-in"><span><span class="va">p1</span> <span class="op">+</span> <span class="fu"><a href="facet_grid.html">facet_grid</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">vs</span> <span class="op">+</span> <span class="va">am</span> <span class="op">~</span> <span class="va">gear</span>,</span></span>
+<span class="r-in"><span>  labeller <span class="op">=</span> <span class="fu">labeller</span><span class="op">(</span>.rows <span class="op">=</span> <span class="va">label_both</span>, .cols <span class="op">=</span> <span class="va">label_value</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="labeller-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># You can supply functions operating on strings:</span></span>
-<span class="r-in"><span class="va">capitalize</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">string</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/substr.html" class="external-link">substr</a></span><span class="op">(</span><span class="va">string</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/chartr.html" class="external-link">toupper</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/substr.html" class="external-link">substr</a></span><span class="op">(</span><span class="va">string</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">  <span class="va">string</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">msleep</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">sleep_total</span>, y <span class="op">=</span> <span class="va">awake</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">p2</span> <span class="op">+</span> <span class="fu"><a href="facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">vore</span> <span class="op">~</span> <span class="va">conservation</span>, labeller <span class="op">=</span> <span class="fu">labeller</span><span class="op">(</span>vore <span class="op">=</span> <span class="va">capitalize</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># You can supply functions operating on strings:</span></span></span>
+<span class="r-in"><span><span class="va">capitalize</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">string</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/substr.html" class="external-link">substr</a></span><span class="op">(</span><span class="va">string</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/chartr.html" class="external-link">toupper</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/substr.html" class="external-link">substr</a></span><span class="op">(</span><span class="va">string</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">string</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">msleep</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">sleep_total</span>, y <span class="op">=</span> <span class="va">awake</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p2</span> <span class="op">+</span> <span class="fu"><a href="facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">vore</span> <span class="op">~</span> <span class="va">conservation</span>, labeller <span class="op">=</span> <span class="fu">labeller</span><span class="op">(</span>vore <span class="op">=</span> <span class="va">capitalize</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="labeller-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Or use character vectors as lookup tables:</span></span>
-<span class="r-in"><span class="va">conservation_status</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span class="r-in">  cd <span class="op">=</span> <span class="st">"Conservation Dependent"</span>,</span>
-<span class="r-in">  en <span class="op">=</span> <span class="st">"Endangered"</span>,</span>
-<span class="r-in">  lc <span class="op">=</span> <span class="st">"Least concern"</span>,</span>
-<span class="r-in">  nt <span class="op">=</span> <span class="st">"Near Threatened"</span>,</span>
-<span class="r-in">  vu <span class="op">=</span> <span class="st">"Vulnerable"</span>,</span>
-<span class="r-in">  domesticated <span class="op">=</span> <span class="st">"Domesticated"</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="co">## Source: http://en.wikipedia.org/wiki/Wikipedia:Conservation_status</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">p2</span> <span class="op">+</span> <span class="fu"><a href="facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">vore</span> <span class="op">~</span> <span class="va">conservation</span>, labeller <span class="op">=</span> <span class="fu">labeller</span><span class="op">(</span></span>
-<span class="r-in">  .default <span class="op">=</span> <span class="va">capitalize</span>,</span>
-<span class="r-in">  conservation <span class="op">=</span> <span class="va">conservation_status</span></span>
-<span class="r-in"><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Or use character vectors as lookup tables:</span></span></span>
+<span class="r-in"><span><span class="va">conservation_status</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  cd <span class="op">=</span> <span class="st">"Conservation Dependent"</span>,</span></span>
+<span class="r-in"><span>  en <span class="op">=</span> <span class="st">"Endangered"</span>,</span></span>
+<span class="r-in"><span>  lc <span class="op">=</span> <span class="st">"Least concern"</span>,</span></span>
+<span class="r-in"><span>  nt <span class="op">=</span> <span class="st">"Near Threatened"</span>,</span></span>
+<span class="r-in"><span>  vu <span class="op">=</span> <span class="st">"Vulnerable"</span>,</span></span>
+<span class="r-in"><span>  domesticated <span class="op">=</span> <span class="st">"Domesticated"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## Source: http://en.wikipedia.org/wiki/Wikipedia:Conservation_status</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">p2</span> <span class="op">+</span> <span class="fu"><a href="facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">vore</span> <span class="op">~</span> <span class="va">conservation</span>, labeller <span class="op">=</span> <span class="fu">labeller</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  .default <span class="op">=</span> <span class="va">capitalize</span>,</span></span>
+<span class="r-in"><span>  conservation <span class="op">=</span> <span class="va">conservation_status</span></span></span>
+<span class="r-in"><span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="labeller-4.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># In the following example, we rename the levels to the long form,</span></span>
-<span class="r-in"><span class="co"># then apply a wrap labeller to the columns to prevent cropped text</span></span>
-<span class="r-in"><span class="va">idx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/match.html" class="external-link">match</a></span><span class="op">(</span><span class="va">msleep</span><span class="op">$</span><span class="va">conservation</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">conservation_status</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">msleep</span><span class="op">$</span><span class="va">conservation2</span> <span class="op">&lt;-</span> <span class="va">conservation_status</span><span class="op">[</span><span class="va">idx</span><span class="op">]</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">p3</span> <span class="op">&lt;-</span> <span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">msleep</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">sleep_total</span>, y <span class="op">=</span> <span class="va">awake</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">p3</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">vore</span> <span class="op">~</span> <span class="va">conservation2</span>,</span>
-<span class="r-in">    labeller <span class="op">=</span> <span class="fu">labeller</span><span class="op">(</span>conservation2 <span class="op">=</span> <span class="fu"><a href="labellers.html">label_wrap_gen</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">  <span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># In the following example, we rename the levels to the long form,</span></span></span>
+<span class="r-in"><span><span class="co"># then apply a wrap labeller to the columns to prevent cropped text</span></span></span>
+<span class="r-in"><span><span class="va">idx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/match.html" class="external-link">match</a></span><span class="op">(</span><span class="va">msleep</span><span class="op">$</span><span class="va">conservation</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">conservation_status</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">msleep</span><span class="op">$</span><span class="va">conservation2</span> <span class="op">&lt;-</span> <span class="va">conservation_status</span><span class="op">[</span><span class="va">idx</span><span class="op">]</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">msleep</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">sleep_total</span>, y <span class="op">=</span> <span class="va">awake</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p3</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">vore</span> <span class="op">~</span> <span class="va">conservation2</span>,</span></span>
+<span class="r-in"><span>    labeller <span class="op">=</span> <span class="fu">labeller</span><span class="op">(</span>conservation2 <span class="op">=</span> <span class="fu"><a href="labellers.html">label_wrap_gen</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-plt img"><img src="labeller-5.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># labeller() is especially useful to act as a global labeller. You</span></span>
-<span class="r-in"><span class="co"># can set it up once and use it on a range of different plots with</span></span>
-<span class="r-in"><span class="co"># different facet specifications.</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">global_labeller</span> <span class="op">&lt;-</span> <span class="fu">labeller</span><span class="op">(</span></span>
-<span class="r-in">  vore <span class="op">=</span> <span class="va">capitalize</span>,</span>
-<span class="r-in">  conservation <span class="op">=</span> <span class="va">conservation_status</span>,</span>
-<span class="r-in">  conservation2 <span class="op">=</span> <span class="fu"><a href="labellers.html">label_wrap_gen</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>,</span>
-<span class="r-in">  .default <span class="op">=</span> <span class="va">label_both</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">p2</span> <span class="op">+</span> <span class="fu"><a href="facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">vore</span> <span class="op">~</span> <span class="va">conservation</span>, labeller <span class="op">=</span> <span class="va">global_labeller</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># labeller() is especially useful to act as a global labeller. You</span></span></span>
+<span class="r-in"><span><span class="co"># can set it up once and use it on a range of different plots with</span></span></span>
+<span class="r-in"><span><span class="co"># different facet specifications.</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">global_labeller</span> <span class="op">&lt;-</span> <span class="fu">labeller</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  vore <span class="op">=</span> <span class="va">capitalize</span>,</span></span>
+<span class="r-in"><span>  conservation <span class="op">=</span> <span class="va">conservation_status</span>,</span></span>
+<span class="r-in"><span>  conservation2 <span class="op">=</span> <span class="fu"><a href="labellers.html">label_wrap_gen</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  .default <span class="op">=</span> <span class="va">label_both</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">p2</span> <span class="op">+</span> <span class="fu"><a href="facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">vore</span> <span class="op">~</span> <span class="va">conservation</span>, labeller <span class="op">=</span> <span class="va">global_labeller</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="labeller-6.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="va">p3</span> <span class="op">+</span> <span class="fu"><a href="facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">conservation2</span>, labeller <span class="op">=</span> <span class="va">global_labeller</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">p3</span> <span class="op">+</span> <span class="fu"><a href="facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">conservation2</span>, labeller <span class="op">=</span> <span class="va">global_labeller</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="labeller-7.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># }</span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -245,7 +245,7 @@ functions taking a character vector such as
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
   </div></footer></body></html>

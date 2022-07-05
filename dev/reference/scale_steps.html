@@ -98,71 +98,71 @@ works in the same way.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">scale_colour_steps</span><span class="op">(</span>
-  <span class="va">...</span>,
-  low <span class="op">=</span> <span class="st">"#132B43"</span>,
-  high <span class="op">=</span> <span class="st">"#56B1F7"</span>,
-  space <span class="op">=</span> <span class="st">"Lab"</span>,
-  na.value <span class="op">=</span> <span class="st">"grey50"</span>,
-  guide <span class="op">=</span> <span class="st">"coloursteps"</span>,
-  aesthetics <span class="op">=</span> <span class="st">"colour"</span>
-<span class="op">)</span>
-
-<span class="fu">scale_colour_steps2</span><span class="op">(</span>
-  <span class="va">...</span>,
-  low <span class="op">=</span> <span class="fu">muted</span><span class="op">(</span><span class="st">"red"</span><span class="op">)</span>,
-  mid <span class="op">=</span> <span class="st">"white"</span>,
-  high <span class="op">=</span> <span class="fu">muted</span><span class="op">(</span><span class="st">"blue"</span><span class="op">)</span>,
-  midpoint <span class="op">=</span> <span class="fl">0</span>,
-  space <span class="op">=</span> <span class="st">"Lab"</span>,
-  na.value <span class="op">=</span> <span class="st">"grey50"</span>,
-  guide <span class="op">=</span> <span class="st">"coloursteps"</span>,
-  aesthetics <span class="op">=</span> <span class="st">"colour"</span>
-<span class="op">)</span>
-
-<span class="fu">scale_colour_stepsn</span><span class="op">(</span>
-  <span class="va">...</span>,
-  <span class="va">colours</span>,
-  values <span class="op">=</span> <span class="cn">NULL</span>,
-  space <span class="op">=</span> <span class="st">"Lab"</span>,
-  na.value <span class="op">=</span> <span class="st">"grey50"</span>,
-  guide <span class="op">=</span> <span class="st">"coloursteps"</span>,
-  aesthetics <span class="op">=</span> <span class="st">"colour"</span>,
-  <span class="va">colors</span>
-<span class="op">)</span>
-
-<span class="fu">scale_fill_steps</span><span class="op">(</span>
-  <span class="va">...</span>,
-  low <span class="op">=</span> <span class="st">"#132B43"</span>,
-  high <span class="op">=</span> <span class="st">"#56B1F7"</span>,
-  space <span class="op">=</span> <span class="st">"Lab"</span>,
-  na.value <span class="op">=</span> <span class="st">"grey50"</span>,
-  guide <span class="op">=</span> <span class="st">"coloursteps"</span>,
-  aesthetics <span class="op">=</span> <span class="st">"fill"</span>
-<span class="op">)</span>
-
-<span class="fu">scale_fill_steps2</span><span class="op">(</span>
-  <span class="va">...</span>,
-  low <span class="op">=</span> <span class="fu">muted</span><span class="op">(</span><span class="st">"red"</span><span class="op">)</span>,
-  mid <span class="op">=</span> <span class="st">"white"</span>,
-  high <span class="op">=</span> <span class="fu">muted</span><span class="op">(</span><span class="st">"blue"</span><span class="op">)</span>,
-  midpoint <span class="op">=</span> <span class="fl">0</span>,
-  space <span class="op">=</span> <span class="st">"Lab"</span>,
-  na.value <span class="op">=</span> <span class="st">"grey50"</span>,
-  guide <span class="op">=</span> <span class="st">"coloursteps"</span>,
-  aesthetics <span class="op">=</span> <span class="st">"fill"</span>
-<span class="op">)</span>
-
-<span class="fu">scale_fill_stepsn</span><span class="op">(</span>
-  <span class="va">...</span>,
-  <span class="va">colours</span>,
-  values <span class="op">=</span> <span class="cn">NULL</span>,
-  space <span class="op">=</span> <span class="st">"Lab"</span>,
-  na.value <span class="op">=</span> <span class="st">"grey50"</span>,
-  guide <span class="op">=</span> <span class="st">"coloursteps"</span>,
-  aesthetics <span class="op">=</span> <span class="st">"fill"</span>,
-  <span class="va">colors</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">scale_colour_steps</span><span class="op">(</span></span>
+<span>  <span class="va">...</span>,</span>
+<span>  low <span class="op">=</span> <span class="st">"#132B43"</span>,</span>
+<span>  high <span class="op">=</span> <span class="st">"#56B1F7"</span>,</span>
+<span>  space <span class="op">=</span> <span class="st">"Lab"</span>,</span>
+<span>  na.value <span class="op">=</span> <span class="st">"grey50"</span>,</span>
+<span>  guide <span class="op">=</span> <span class="st">"coloursteps"</span>,</span>
+<span>  aesthetics <span class="op">=</span> <span class="st">"colour"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">scale_colour_steps2</span><span class="op">(</span></span>
+<span>  <span class="va">...</span>,</span>
+<span>  low <span class="op">=</span> <span class="fu">muted</span><span class="op">(</span><span class="st">"red"</span><span class="op">)</span>,</span>
+<span>  mid <span class="op">=</span> <span class="st">"white"</span>,</span>
+<span>  high <span class="op">=</span> <span class="fu">muted</span><span class="op">(</span><span class="st">"blue"</span><span class="op">)</span>,</span>
+<span>  midpoint <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  space <span class="op">=</span> <span class="st">"Lab"</span>,</span>
+<span>  na.value <span class="op">=</span> <span class="st">"grey50"</span>,</span>
+<span>  guide <span class="op">=</span> <span class="st">"coloursteps"</span>,</span>
+<span>  aesthetics <span class="op">=</span> <span class="st">"colour"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">scale_colour_stepsn</span><span class="op">(</span></span>
+<span>  <span class="va">...</span>,</span>
+<span>  <span class="va">colours</span>,</span>
+<span>  values <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  space <span class="op">=</span> <span class="st">"Lab"</span>,</span>
+<span>  na.value <span class="op">=</span> <span class="st">"grey50"</span>,</span>
+<span>  guide <span class="op">=</span> <span class="st">"coloursteps"</span>,</span>
+<span>  aesthetics <span class="op">=</span> <span class="st">"colour"</span>,</span>
+<span>  <span class="va">colors</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">scale_fill_steps</span><span class="op">(</span></span>
+<span>  <span class="va">...</span>,</span>
+<span>  low <span class="op">=</span> <span class="st">"#132B43"</span>,</span>
+<span>  high <span class="op">=</span> <span class="st">"#56B1F7"</span>,</span>
+<span>  space <span class="op">=</span> <span class="st">"Lab"</span>,</span>
+<span>  na.value <span class="op">=</span> <span class="st">"grey50"</span>,</span>
+<span>  guide <span class="op">=</span> <span class="st">"coloursteps"</span>,</span>
+<span>  aesthetics <span class="op">=</span> <span class="st">"fill"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">scale_fill_steps2</span><span class="op">(</span></span>
+<span>  <span class="va">...</span>,</span>
+<span>  low <span class="op">=</span> <span class="fu">muted</span><span class="op">(</span><span class="st">"red"</span><span class="op">)</span>,</span>
+<span>  mid <span class="op">=</span> <span class="st">"white"</span>,</span>
+<span>  high <span class="op">=</span> <span class="fu">muted</span><span class="op">(</span><span class="st">"blue"</span><span class="op">)</span>,</span>
+<span>  midpoint <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  space <span class="op">=</span> <span class="st">"Lab"</span>,</span>
+<span>  na.value <span class="op">=</span> <span class="st">"grey50"</span>,</span>
+<span>  guide <span class="op">=</span> <span class="st">"coloursteps"</span>,</span>
+<span>  aesthetics <span class="op">=</span> <span class="st">"fill"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">scale_fill_stepsn</span><span class="op">(</span></span>
+<span>  <span class="va">...</span>,</span>
+<span>  <span class="va">colours</span>,</span>
+<span>  values <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  space <span class="op">=</span> <span class="st">"Lab"</span>,</span>
+<span>  na.value <span class="op">=</span> <span class="st">"grey50"</span>,</span>
+<span>  guide <span class="op">=</span> <span class="st">"coloursteps"</span>,</span>
+<span>  aesthetics <span class="op">=</span> <span class="st">"fill"</span>,</span>
+<span>  <span class="va">colors</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -335,29 +335,29 @@ palette, <code><a href="scale_gradient.html">scale_colour_gradient()</a></code> 
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span class="r-in">  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>,</span>
-<span class="r-in">  y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>,</span>
-<span class="r-in">  z1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Use scale_colour_steps for a standard binned gradient</span></span>
-<span class="r-in"><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">z1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu">scale_colour_steps</span><span class="op">(</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  z1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Use scale_colour_steps for a standard binned gradient</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">z1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">scale_colour_steps</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="scale_steps-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Get a divergent binned scale with the *2 variant</span></span>
-<span class="r-in"><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">z1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu">scale_colour_steps2</span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Get a divergent binned scale with the *2 variant</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">z1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">scale_colour_steps2</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="scale_steps-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Define your own colour ramp to extract binned colours from</span></span>
-<span class="r-in"><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">z1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu">scale_colour_stepsn</span><span class="op">(</span>colours <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">terrain.colors</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Define your own colour ramp to extract binned colours from</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">z1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">scale_colour_stepsn</span><span class="op">(</span>colours <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">terrain.colors</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="scale_steps-3.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -372,7 +372,7 @@ palette, <code><a href="scale_gradient.html">scale_colour_gradient()</a></code> 
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
   </div></footer></body></html>

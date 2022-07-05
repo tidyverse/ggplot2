@@ -136,34 +136,34 @@
 See example
 </summary><p>In the following visualisation we have annotated a histogram with a red line and red text to mark the mean. Note that both the line and the text appears pixellated/fuzzy.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mean_hwy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">mpg</span><span class="op">$</span><span class="va">hwy</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span>
-
-<span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../reference/geom_segment.html">geom_segment</a></span><span class="op">(</span>
-    x <span class="op">=</span> <span class="va">mean_hwy</span>, xend <span class="op">=</span> <span class="va">mean_hwy</span>,
-    y <span class="op">=</span> <span class="fl">0</span>, yend <span class="op">=</span> <span class="fl">35</span>,
-    color <span class="op">=</span> <span class="st">"red"</span>
-  <span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../reference/geom_text.html">geom_text</a></span><span class="op">(</span>
-    x <span class="op">=</span> <span class="va">mean_hwy</span>, y <span class="op">=</span> <span class="fl">40</span>,
-    label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"mean\n"</span>, <span class="va">mean_hwy</span><span class="op">)</span>,
-    color <span class="op">=</span> <span class="st">"red"</span>
-  <span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">mean_hwy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">mpg</span><span class="op">$</span><span class="va">hwy</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_segment.html">geom_segment</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">mean_hwy</span>, xend <span class="op">=</span> <span class="va">mean_hwy</span>,</span>
+<span>    y <span class="op">=</span> <span class="fl">0</span>, yend <span class="op">=</span> <span class="fl">35</span>,</span>
+<span>    color <span class="op">=</span> <span class="st">"red"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_text.html">geom_text</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">mean_hwy</span>, y <span class="op">=</span> <span class="fl">40</span>,</span>
+<span>    label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"mean\n"</span>, <span class="va">mean_hwy</span><span class="op">)</span>,</span>
+<span>    color <span class="op">=</span> <span class="st">"red"</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="faq-annotation_files/figure-html/unnamed-chunk-2-1.png" width="80%"></p>
 <p>This is because <code><a href="../reference/geom_text.html">geom_text()</a></code> draws the geom once per each row of the data frame, and plotting these on top of each other. For annotation (as opposed to plotting the data using text as geometric objects to represent each observation) use <code><a href="../reference/annotate.html">annotate()</a></code> instead.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../reference/annotate.html">annotate</a></span><span class="op">(</span><span class="st">"segment"</span>,
-    x <span class="op">=</span> <span class="va">mean_hwy</span>, xend <span class="op">=</span> <span class="va">mean_hwy</span>, y <span class="op">=</span> <span class="fl">0</span>, yend <span class="op">=</span> <span class="fl">35</span>,
-    color <span class="op">=</span> <span class="st">"red"</span>
-  <span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../reference/annotate.html">annotate</a></span><span class="op">(</span><span class="st">"text"</span>,
-    x <span class="op">=</span> <span class="va">mean_hwy</span>, y <span class="op">=</span> <span class="fl">40</span>,
-    label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"mean ="</span>, <span class="va">mean_hwy</span><span class="op">)</span>,
-    color <span class="op">=</span> <span class="st">"red"</span>
-  <span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/annotate.html">annotate</a></span><span class="op">(</span><span class="st">"segment"</span>,</span>
+<span>    x <span class="op">=</span> <span class="va">mean_hwy</span>, xend <span class="op">=</span> <span class="va">mean_hwy</span>, y <span class="op">=</span> <span class="fl">0</span>, yend <span class="op">=</span> <span class="fl">35</span>,</span>
+<span>    color <span class="op">=</span> <span class="st">"red"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/annotate.html">annotate</a></span><span class="op">(</span><span class="st">"text"</span>,</span>
+<span>    x <span class="op">=</span> <span class="va">mean_hwy</span>, y <span class="op">=</span> <span class="fl">40</span>,</span>
+<span>    label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"mean ="</span>, <span class="va">mean_hwy</span><span class="op">)</span>,</span>
+<span>    color <span class="op">=</span> <span class="st">"red"</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="faq-annotation_files/figure-html/unnamed-chunk-3-1.png" width="80%"></p>
 </details>
 </div>
@@ -175,20 +175,20 @@ See example
 See example
 </summary><p>Suppose you have the following data frame and visualization. The labels at the edges of the plot are cut off slightly.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span>
-  <span class="op">~</span><span class="va">x</span>, <span class="op">~</span><span class="va">y</span>, <span class="op">~</span><span class="va">name</span>,
-  <span class="fl">2</span>,  <span class="fl">2</span>,  <span class="st">"two"</span>,
-  <span class="fl">3</span>,  <span class="fl">3</span>,  <span class="st">"three"</span>,
-  <span class="fl">4</span>,  <span class="fl">4</span>,  <span class="st">"four"</span>
-<span class="op">)</span>
-
-<span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, label <span class="op">=</span> <span class="va">name</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../reference/geom_text.html">geom_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span>
+<span>  <span class="op">~</span><span class="va">x</span>, <span class="op">~</span><span class="va">y</span>, <span class="op">~</span><span class="va">name</span>,</span>
+<span>  <span class="fl">2</span>,  <span class="fl">2</span>,  <span class="st">"two"</span>,</span>
+<span>  <span class="fl">3</span>,  <span class="fl">3</span>,  <span class="st">"three"</span>,</span>
+<span>  <span class="fl">4</span>,  <span class="fl">4</span>,  <span class="st">"four"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, label <span class="op">=</span> <span class="va">name</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_text.html">geom_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code></pre></div>
 <p><img src="faq-annotation_files/figure-html/unnamed-chunk-4-1.png" width="80%"></p>
 <p>You could manually extend axis limits to avoid this, but a more straightforward approach is to set <code>vjust = "inward"</code> and <code>hjust = "inward"</code> in <code><a href="../reference/geom_text.html">geom_text()</a></code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, label <span class="op">=</span> <span class="va">name</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../reference/geom_text.html">geom_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">10</span>, vjust <span class="op">=</span> <span class="st">"inward"</span>, hjust <span class="op">=</span> <span class="st">"inward"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, label <span class="op">=</span> <span class="va">name</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_text.html">geom_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">10</span>, vjust <span class="op">=</span> <span class="st">"inward"</span>, hjust <span class="op">=</span> <span class="st">"inward"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="faq-annotation_files/figure-html/unnamed-chunk-5-1.png" width="80%"></p>
 </details>
 </div>
@@ -200,24 +200,24 @@ See example
 See example
 </summary><p>Suppose you have the following bar plot and you want to add the number of cars that fall into each <code>drv</code> level on their respective bars.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="faq-annotation_files/figure-html/unnamed-chunk-6-1.png" width="80%"></p>
 <p>One option is to calculate the counts with <code><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">dplyr::count()</a></code> and then pass them to the <code>label</code> mapping in <code><a href="../reference/geom_text.html">geom_text()</a></code>. Note that we expanded the y axis limit to get the numbers to fit on the plot.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mpg</span> <span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">drv</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span>, y <span class="op">=</span> <span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../reference/geom_bar.html">geom_col</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">n</span><span class="op">)</span>, vjust <span class="op">=</span> <span class="op">-</span><span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span>ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">110</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">mpg</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">drv</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span>, y <span class="op">=</span> <span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_bar.html">geom_col</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">n</span><span class="op">)</span>, vjust <span class="op">=</span> <span class="op">-</span><span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span>ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">110</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="faq-annotation_files/figure-html/unnamed-chunk-7-1.png" width="80%"></p>
 <p>Another option is to let <code><a href="../reference/ggplot.html">ggplot()</a></code> do the counting for you, and access these counts with <code>..count..</code> that is mapped to the labels to be placed on the plot with <code><a href="../reference/geom_bar.html">stat_count()</a></code>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="../reference/geom_bar.html">stat_count</a></span><span class="op">(</span>geom <span class="op">=</span> <span class="st">"text"</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">..count..</span><span class="op">)</span>, vjust <span class="op">=</span> <span class="op">-</span><span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span>ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">110</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="../reference/geom_bar.html">stat_count</a></span><span class="op">(</span>geom <span class="op">=</span> <span class="st">"text"</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">..count..</span><span class="op">)</span>, vjust <span class="op">=</span> <span class="op">-</span><span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span>ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">110</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="faq-annotation_files/figure-html/unnamed-chunk-8-1.png" width="80%"></p>
 </details>
 </div>
@@ -229,35 +229,35 @@ See example
 See example
 </summary><p>Suppose you have the following stacked bar plot.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">class</span>, fill <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">class</span>, fill <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="faq-annotation_files/figure-html/unnamed-chunk-9-1.png" width="80%"></p>
 <p>You can first calculate the counts for each segment with <code><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">dplyr::count()</a></code>, which will place these values in a column called <code>n</code>.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mpg</span> <span class="op">%&gt;%</span>
-  <span class="fu">count</span><span class="op">(</span><span class="va">class</span>, <span class="va">drv</span><span class="op">)</span> 
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 12 × 3</span></span>
-<span class="co">#&gt;    class      drv       n</span>
-<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 2seater    r         5</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> compact    4        12</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> compact    f        35</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> midsize    4         3</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> midsize    f        38</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> minivan    f        11</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> pickup     4        33</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> subcompact 4         4</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> subcompact f        22</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> subcompact r         9</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">11</span> suv        4        51</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">12</span> suv        r        11</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">mpg</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">count</span><span class="op">(</span><span class="va">class</span>, <span class="va">drv</span><span class="op">)</span> </span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 12 × 3</span></span></span>
+<span><span class="co">#&gt;    class      drv       n</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 2seater    r         5</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> compact    4        12</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> compact    f        35</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> midsize    4         3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> midsize    f        38</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> minivan    f        11</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> pickup     4        33</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> subcompact 4         4</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> subcompact f        22</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> subcompact r         9</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> suv        4        51</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> suv        r        11</span></span></code></pre></div>
 <p>You can then pass this result directly to <code><a href="../reference/ggplot.html">ggplot()</a></code>, draw the segments with appropriate heights with <code>y = n</code> in the <code>aes</code>thetic mapping and <code><a href="../reference/geom_bar.html">geom_col()</a></code> to draw the bars, and finally place the counts on the plot with <code><a href="../reference/geom_text.html">geom_text()</a></code>.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mpg</span> <span class="op">%&gt;%</span>
-  <span class="fu">count</span><span class="op">(</span><span class="va">class</span>, <span class="va">drv</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">class</span>, fill <span class="op">=</span> <span class="va">drv</span>, y <span class="op">=</span> <span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../reference/geom_bar.html">geom_col</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">n</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">3</span>, position <span class="op">=</span> <span class="fu"><a href="../reference/position_stack.html">position_stack</a></span><span class="op">(</span>vjust <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">mpg</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">count</span><span class="op">(</span><span class="va">class</span>, <span class="va">drv</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">class</span>, fill <span class="op">=</span> <span class="va">drv</span>, y <span class="op">=</span> <span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_bar.html">geom_col</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">n</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">3</span>, position <span class="op">=</span> <span class="fu"><a href="../reference/position_stack.html">position_stack</a></span><span class="op">(</span>vjust <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="faq-annotation_files/figure-html/unnamed-chunk-11-1.png" width="80%"></p>
 </details>
 </div>
@@ -269,21 +269,21 @@ See example
 See example
 </summary><p>Suppose you have the following bar plot but you want to display the proportion of cars that fall into each <code>drv</code> level, instead of the count.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="faq-annotation_files/figure-html/unnamed-chunk-12-1.png" width="80%"></p>
 <p>One option is to calculate the proportions with <code><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">dplyr::count()</a></code> and then use <code><a href="../reference/geom_bar.html">geom_col()</a></code> to draw the bars</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mpg</span> <span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">drv</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">mutate</span><span class="op">(</span>prop <span class="op">=</span> <span class="va">n</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span>, y <span class="op">=</span> <span class="va">prop</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../reference/geom_bar.html">geom_col</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">mpg</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">drv</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>prop <span class="op">=</span> <span class="va">n</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span>, y <span class="op">=</span> <span class="va">prop</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_bar.html">geom_col</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="faq-annotation_files/figure-html/unnamed-chunk-13-1.png" width="80%"></p>
 <p>Another option is to let <code><a href="../reference/ggplot.html">ggplot()</a></code> do the calculation of proportions for you, and access these counts with <code>..prop..</code>. Note that we also need to the <code>group = 1</code> mapping for this option.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span>, y <span class="op">=</span> <span class="va">..prop..</span>, group <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span>, y <span class="op">=</span> <span class="va">..prop..</span>, group <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="faq-annotation_files/figure-html/unnamed-chunk-14-1.png" width="80%"></p>
 </details>
 </div>
@@ -302,7 +302,7 @@ See example
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
   </div></footer>

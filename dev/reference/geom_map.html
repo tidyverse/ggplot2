@@ -98,16 +98,16 @@ it can be used in conjunction with <code><a href="ggsf.html">geom_sf()</a></code
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">geom_map</span><span class="op">(</span>
-  mapping <span class="op">=</span> <span class="cn">NULL</span>,
-  data <span class="op">=</span> <span class="cn">NULL</span>,
-  stat <span class="op">=</span> <span class="st">"identity"</span>,
-  <span class="va">...</span>,
-  <span class="va">map</span>,
-  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,
-  show.legend <span class="op">=</span> <span class="cn">NA</span>,
-  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">geom_map</span><span class="op">(</span></span>
+<span>  mapping <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  data <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  stat <span class="op">=</span> <span class="st">"identity"</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  <span class="va">map</span>,</span>
+<span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -191,80 +191,80 @@ the default plot specification, e.g. <code><a href="borders.html">borders()</a><
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># First, a made-up example containing a few polygons, to explain</span></span>
-<span class="r-in"><span class="co"># how `geom_map()` works. It requires two data frames:</span></span>
-<span class="r-in"><span class="co"># One contains the coordinates of each polygon (`positions`), and is</span></span>
-<span class="r-in"><span class="co"># provided via the `map` argument. The other contains the</span></span>
-<span class="r-in"><span class="co"># other the values associated with each polygon (`values`).  An id</span></span>
-<span class="r-in"><span class="co"># variable links the two together.</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1.1"</span>, <span class="st">"2.1"</span>, <span class="st">"1.2"</span>, <span class="st">"2.2"</span>, <span class="st">"1.3"</span>, <span class="st">"2.3"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">values</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span class="r-in">  id <span class="op">=</span> <span class="va">ids</span>,</span>
-<span class="r-in">  value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">3.1</span>, <span class="fl">3.1</span>, <span class="fl">3.2</span>, <span class="fl">3.15</span>, <span class="fl">3.5</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">positions</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span class="r-in">  id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">ids</span>, each <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span>
-<span class="r-in">  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">1.1</span>, <span class="fl">2.2</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0.3</span>, <span class="fl">1.1</span>, <span class="fl">2.2</span>, <span class="fl">1.1</span>, <span class="fl">1.2</span>, <span class="fl">2.5</span>, <span class="fl">1.1</span>, <span class="fl">0.3</span>,</span>
-<span class="r-in">  <span class="fl">0.5</span>, <span class="fl">1.2</span>, <span class="fl">2.5</span>, <span class="fl">1.2</span>, <span class="fl">1.3</span>, <span class="fl">2.7</span>, <span class="fl">1.2</span>, <span class="fl">0.5</span>, <span class="fl">0.6</span>, <span class="fl">1.3</span><span class="op">)</span>,</span>
-<span class="r-in">  y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.5</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0.5</span>, <span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">1.5</span>, <span class="fl">1</span>, <span class="fl">0.5</span>, <span class="fl">1</span>, <span class="fl">2.1</span>, <span class="fl">1.7</span>, <span class="fl">1</span>, <span class="fl">1.5</span>,</span>
-<span class="r-in">  <span class="fl">2.2</span>, <span class="fl">2.1</span>, <span class="fl">1.7</span>, <span class="fl">2.1</span>, <span class="fl">3.2</span>, <span class="fl">2.8</span>, <span class="fl">2.1</span>, <span class="fl">2.2</span>, <span class="fl">3.3</span>, <span class="fl">3.2</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">values</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu">geom_map</span><span class="op">(</span><span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>map_id <span class="op">=</span> <span class="va">id</span><span class="op">)</span>, map <span class="op">=</span> <span class="va">positions</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="expand_limits.html">expand_limits</a></span><span class="op">(</span><span class="va">positions</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># First, a made-up example containing a few polygons, to explain</span></span></span>
+<span class="r-in"><span><span class="co"># how `geom_map()` works. It requires two data frames:</span></span></span>
+<span class="r-in"><span><span class="co"># One contains the coordinates of each polygon (`positions`), and is</span></span></span>
+<span class="r-in"><span><span class="co"># provided via the `map` argument. The other contains the</span></span></span>
+<span class="r-in"><span><span class="co"># other the values associated with each polygon (`values`).  An id</span></span></span>
+<span class="r-in"><span><span class="co"># variable links the two together.</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1.1"</span>, <span class="st">"2.1"</span>, <span class="st">"1.2"</span>, <span class="st">"2.2"</span>, <span class="st">"1.3"</span>, <span class="st">"2.3"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">values</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  id <span class="op">=</span> <span class="va">ids</span>,</span></span>
+<span class="r-in"><span>  value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">3.1</span>, <span class="fl">3.1</span>, <span class="fl">3.2</span>, <span class="fl">3.15</span>, <span class="fl">3.5</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">positions</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">ids</span>, each <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">1.1</span>, <span class="fl">2.2</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0.3</span>, <span class="fl">1.1</span>, <span class="fl">2.2</span>, <span class="fl">1.1</span>, <span class="fl">1.2</span>, <span class="fl">2.5</span>, <span class="fl">1.1</span>, <span class="fl">0.3</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">0.5</span>, <span class="fl">1.2</span>, <span class="fl">2.5</span>, <span class="fl">1.2</span>, <span class="fl">1.3</span>, <span class="fl">2.7</span>, <span class="fl">1.2</span>, <span class="fl">0.5</span>, <span class="fl">0.6</span>, <span class="fl">1.3</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.5</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0.5</span>, <span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">1.5</span>, <span class="fl">1</span>, <span class="fl">0.5</span>, <span class="fl">1</span>, <span class="fl">2.1</span>, <span class="fl">1.7</span>, <span class="fl">1</span>, <span class="fl">1.5</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">2.2</span>, <span class="fl">2.1</span>, <span class="fl">1.7</span>, <span class="fl">2.1</span>, <span class="fl">3.2</span>, <span class="fl">2.8</span>, <span class="fl">2.1</span>, <span class="fl">2.2</span>, <span class="fl">3.3</span>, <span class="fl">3.2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">values</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">geom_map</span><span class="op">(</span><span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>map_id <span class="op">=</span> <span class="va">id</span><span class="op">)</span>, map <span class="op">=</span> <span class="va">positions</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="expand_limits.html">expand_limits</a></span><span class="op">(</span><span class="va">positions</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="geom_map-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">values</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu">geom_map</span><span class="op">(</span><span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>map_id <span class="op">=</span> <span class="va">id</span><span class="op">)</span>, map <span class="op">=</span> <span class="va">positions</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="expand_limits.html">expand_limits</a></span><span class="op">(</span><span class="va">positions</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">values</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">geom_map</span><span class="op">(</span><span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>map_id <span class="op">=</span> <span class="va">id</span><span class="op">)</span>, map <span class="op">=</span> <span class="va">positions</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="expand_limits.html">expand_limits</a></span><span class="op">(</span><span class="va">positions</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="geom_map-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">values</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu">geom_map</span><span class="op">(</span><span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>map_id <span class="op">=</span> <span class="va">id</span><span class="op">)</span>, map <span class="op">=</span> <span class="va">positions</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="expand_limits.html">expand_limits</a></span><span class="op">(</span><span class="va">positions</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="lims.html">ylim</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">3</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">values</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">geom_map</span><span class="op">(</span><span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>map_id <span class="op">=</span> <span class="va">id</span><span class="op">)</span>, map <span class="op">=</span> <span class="va">positions</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="expand_limits.html">expand_limits</a></span><span class="op">(</span><span class="va">positions</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="lims.html">ylim</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="geom_map-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Now some examples with real maps</span></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va">maps</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"></span>
-<span class="r-in">  <span class="va">crimes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>state <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/chartr.html" class="external-link">tolower</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">USArrests</span><span class="op">)</span><span class="op">)</span>, <span class="va">USArrests</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in">  <span class="co"># Equivalent to crimes %&gt;% tidyr::pivot_longer(Murder:Rape)</span></span>
-<span class="r-in">  <span class="va">vars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">crimes</span><span class="op">)</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span>, <span class="kw">function</span><span class="op">(</span><span class="va">j</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">    <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>state <span class="op">=</span> <span class="va">crimes</span><span class="op">$</span><span class="va">state</span>, variable <span class="op">=</span> <span class="va">j</span>, value <span class="op">=</span> <span class="va">crimes</span><span class="op">[[</span><span class="va">j</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-in">  <span class="op">}</span><span class="op">)</span></span>
-<span class="r-in">  <span class="va">crimes_long</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="st">"rbind"</span>, <span class="va">vars</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in">  <span class="va">states_map</span> <span class="op">&lt;-</span> <span class="fu"><a href="map_data.html">map_data</a></span><span class="op">(</span><span class="st">"state"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in">  <span class="co"># without geospatial coordinate system, the resulting plot</span></span>
-<span class="r-in">  <span class="co"># looks weird</span></span>
-<span class="r-in">  <span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">crimes</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>map_id <span class="op">=</span> <span class="va">state</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">    <span class="fu">geom_map</span><span class="op">(</span><span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">Murder</span><span class="op">)</span>, map <span class="op">=</span> <span class="va">states_map</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">    <span class="fu"><a href="expand_limits.html">expand_limits</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">states_map</span><span class="op">$</span><span class="va">long</span>, y <span class="op">=</span> <span class="va">states_map</span><span class="op">$</span><span class="va">lat</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in">  <span class="co"># in combination with `coord_sf()` we get an appropriate result</span></span>
-<span class="r-in">  <span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">crimes</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>map_id <span class="op">=</span> <span class="va">state</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">    <span class="fu">geom_map</span><span class="op">(</span><span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">Murder</span><span class="op">)</span>, map <span class="op">=</span> <span class="va">states_map</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">    <span class="co"># crs = 5070 is a Conus Albers projection for North America,</span></span>
-<span class="r-in">    <span class="co">#   see: https://epsg.io/5070</span></span>
-<span class="r-in">    <span class="co"># default_crs = 4326 tells coord_sf() that the input map data</span></span>
-<span class="r-in">    <span class="co">#   are in longitude-latitude format</span></span>
-<span class="r-in">    <span class="fu"><a href="ggsf.html">coord_sf</a></span><span class="op">(</span></span>
-<span class="r-in">      crs <span class="op">=</span> <span class="fl">5070</span>, default_crs <span class="op">=</span> <span class="fl">4326</span>,</span>
-<span class="r-in">      xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">125</span>, <span class="op">-</span><span class="fl">70</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">25</span>, <span class="fl">52</span><span class="op">)</span></span>
-<span class="r-in">    <span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"> <span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">crimes_long</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>map_id <span class="op">=</span> <span class="va">state</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">   <span class="fu">geom_map</span><span class="op">(</span><span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">value</span><span class="op">)</span>, map <span class="op">=</span> <span class="va">states_map</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">   <span class="fu"><a href="ggsf.html">coord_sf</a></span><span class="op">(</span></span>
-<span class="r-in">     crs <span class="op">=</span> <span class="fl">5070</span>, default_crs <span class="op">=</span> <span class="fl">4326</span>,</span>
-<span class="r-in">     xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">125</span>, <span class="op">-</span><span class="fl">70</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">25</span>, <span class="fl">52</span><span class="op">)</span></span>
-<span class="r-in">   <span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">   <span class="fu"><a href="facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">variable</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Now some examples with real maps</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va">maps</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="va">crimes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>state <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/chartr.html" class="external-link">tolower</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">USArrests</span><span class="op">)</span><span class="op">)</span>, <span class="va">USArrests</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="co"># Equivalent to crimes %&gt;% tidyr::pivot_longer(Murder:Rape)</span></span></span>
+<span class="r-in"><span>  <span class="va">vars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">crimes</span><span class="op">)</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span>, <span class="kw">function</span><span class="op">(</span><span class="va">j</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>state <span class="op">=</span> <span class="va">crimes</span><span class="op">$</span><span class="va">state</span>, variable <span class="op">=</span> <span class="va">j</span>, value <span class="op">=</span> <span class="va">crimes</span><span class="op">[[</span><span class="va">j</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">}</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">crimes_long</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="st">"rbind"</span>, <span class="va">vars</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="va">states_map</span> <span class="op">&lt;-</span> <span class="fu"><a href="map_data.html">map_data</a></span><span class="op">(</span><span class="st">"state"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="co"># without geospatial coordinate system, the resulting plot</span></span></span>
+<span class="r-in"><span>  <span class="co"># looks weird</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">crimes</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>map_id <span class="op">=</span> <span class="va">state</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>    <span class="fu">geom_map</span><span class="op">(</span><span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">Murder</span><span class="op">)</span>, map <span class="op">=</span> <span class="va">states_map</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="expand_limits.html">expand_limits</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">states_map</span><span class="op">$</span><span class="va">long</span>, y <span class="op">=</span> <span class="va">states_map</span><span class="op">$</span><span class="va">lat</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="co"># in combination with `coord_sf()` we get an appropriate result</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">crimes</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>map_id <span class="op">=</span> <span class="va">state</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>    <span class="fu">geom_map</span><span class="op">(</span><span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">Murder</span><span class="op">)</span>, map <span class="op">=</span> <span class="va">states_map</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>    <span class="co"># crs = 5070 is a Conus Albers projection for North America,</span></span></span>
+<span class="r-in"><span>    <span class="co">#   see: https://epsg.io/5070</span></span></span>
+<span class="r-in"><span>    <span class="co"># default_crs = 4326 tells coord_sf() that the input map data</span></span></span>
+<span class="r-in"><span>    <span class="co">#   are in longitude-latitude format</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="ggsf.html">coord_sf</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>      crs <span class="op">=</span> <span class="fl">5070</span>, default_crs <span class="op">=</span> <span class="fl">4326</span>,</span></span>
+<span class="r-in"><span>      xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">125</span>, <span class="op">-</span><span class="fl">70</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">25</span>, <span class="fl">52</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span> <span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">crimes_long</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>map_id <span class="op">=</span> <span class="va">state</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>   <span class="fu">geom_map</span><span class="op">(</span><span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">value</span><span class="op">)</span>, map <span class="op">=</span> <span class="va">states_map</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>   <span class="fu"><a href="ggsf.html">coord_sf</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>     crs <span class="op">=</span> <span class="fl">5070</span>, default_crs <span class="op">=</span> <span class="fl">4326</span>,</span></span>
+<span class="r-in"><span>     xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">125</span>, <span class="op">-</span><span class="fl">70</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">25</span>, <span class="fl">52</span><span class="op">)</span></span></span>
+<span class="r-in"><span>   <span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>   <span class="fu"><a href="facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">variable</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-plt img"><img src="geom_map-4.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -279,7 +279,7 @@ the default plot specification, e.g. <code><a href="borders.html">borders()</a><
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
   </div></footer></body></html>

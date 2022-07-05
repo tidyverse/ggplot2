@@ -95,19 +95,19 @@ If you have only one variable with many levels, try <code><a href="facet_wrap.ht
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">facet_grid</span><span class="op">(</span>
-  rows <span class="op">=</span> <span class="cn">NULL</span>,
-  cols <span class="op">=</span> <span class="cn">NULL</span>,
-  scales <span class="op">=</span> <span class="st">"fixed"</span>,
-  space <span class="op">=</span> <span class="st">"fixed"</span>,
-  shrink <span class="op">=</span> <span class="cn">TRUE</span>,
-  labeller <span class="op">=</span> <span class="st">"label_value"</span>,
-  as.table <span class="op">=</span> <span class="cn">TRUE</span>,
-  switch <span class="op">=</span> <span class="cn">NULL</span>,
-  drop <span class="op">=</span> <span class="cn">TRUE</span>,
-  margins <span class="op">=</span> <span class="cn">FALSE</span>,
-  facets <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">facet_grid</span><span class="op">(</span></span>
+<span>  rows <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  cols <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  scales <span class="op">=</span> <span class="st">"fixed"</span>,</span>
+<span>  space <span class="op">=</span> <span class="st">"fixed"</span>,</span>
+<span>  shrink <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  labeller <span class="op">=</span> <span class="st">"label_value"</span>,</span>
+<span>  as.table <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  switch <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  drop <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  margins <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  facets <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -195,62 +195,62 @@ and <code>cols</code> instead.</p></dd>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">cty</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Use vars() to supply variables from the dataset:</span></span>
-<span class="r-in"><span class="va">p</span> <span class="op">+</span> <span class="fu">facet_grid</span><span class="op">(</span>rows <span class="op">=</span> <span class="fu"><a href="vars.html">vars</a></span><span class="op">(</span><span class="va">drv</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">cty</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Use vars() to supply variables from the dataset:</span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">+</span> <span class="fu">facet_grid</span><span class="op">(</span>rows <span class="op">=</span> <span class="fu"><a href="vars.html">vars</a></span><span class="op">(</span><span class="va">drv</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="facet_grid-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="va">p</span> <span class="op">+</span> <span class="fu">facet_grid</span><span class="op">(</span>cols <span class="op">=</span> <span class="fu"><a href="vars.html">vars</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">+</span> <span class="fu">facet_grid</span><span class="op">(</span>cols <span class="op">=</span> <span class="fu"><a href="vars.html">vars</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="facet_grid-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="va">p</span> <span class="op">+</span> <span class="fu">facet_grid</span><span class="op">(</span><span class="fu"><a href="vars.html">vars</a></span><span class="op">(</span><span class="va">drv</span><span class="op">)</span>, <span class="fu"><a href="vars.html">vars</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">+</span> <span class="fu">facet_grid</span><span class="op">(</span><span class="fu"><a href="vars.html">vars</a></span><span class="op">(</span><span class="va">drv</span><span class="op">)</span>, <span class="fu"><a href="vars.html">vars</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="facet_grid-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># To change plot order of facet grid,</span></span>
-<span class="r-in"><span class="co"># change the order of variable levels with factor()</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># If you combine a facetted dataset with a dataset that lacks those</span></span>
-<span class="r-in"><span class="co"># faceting variables, the data will be repeated across the missing</span></span>
-<span class="r-in"><span class="co"># combinations:</span></span>
-<span class="r-in"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>displ <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">mpg</span><span class="op">$</span><span class="va">displ</span><span class="op">)</span>, cty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">mpg</span><span class="op">$</span><span class="va">cty</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">p</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu">facet_grid</span><span class="op">(</span>cols <span class="op">=</span> <span class="fu"><a href="vars.html">vars</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">df</span>, colour <span class="op">=</span> <span class="st">"red"</span>, size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># To change plot order of facet grid,</span></span></span>
+<span class="r-in"><span><span class="co"># change the order of variable levels with factor()</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># If you combine a facetted dataset with a dataset that lacks those</span></span></span>
+<span class="r-in"><span><span class="co"># faceting variables, the data will be repeated across the missing</span></span></span>
+<span class="r-in"><span><span class="co"># combinations:</span></span></span>
+<span class="r-in"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>displ <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">mpg</span><span class="op">$</span><span class="va">displ</span><span class="op">)</span>, cty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">mpg</span><span class="op">$</span><span class="va">cty</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">facet_grid</span><span class="op">(</span>cols <span class="op">=</span> <span class="fu"><a href="vars.html">vars</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">df</span>, colour <span class="op">=</span> <span class="st">"red"</span>, size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="facet_grid-4.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Free scales -------------------------------------------------------</span></span>
-<span class="r-in"><span class="co"># You can also choose whether the scales should be constant</span></span>
-<span class="r-in"><span class="co"># across all panels (the default), or whether they should be allowed</span></span>
-<span class="r-in"><span class="co"># to vary</span></span>
-<span class="r-in"><span class="va">mt</span> <span class="op">&lt;-</span> <span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="va">wt</span>, colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">mt</span> <span class="op">+</span> <span class="fu">facet_grid</span><span class="op">(</span><span class="fu"><a href="vars.html">vars</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span>, scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Free scales -------------------------------------------------------</span></span></span>
+<span class="r-in"><span><span class="co"># You can also choose whether the scales should be constant</span></span></span>
+<span class="r-in"><span><span class="co"># across all panels (the default), or whether they should be allowed</span></span></span>
+<span class="r-in"><span><span class="co"># to vary</span></span></span>
+<span class="r-in"><span><span class="va">mt</span> <span class="op">&lt;-</span> <span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="va">wt</span>, colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">mt</span> <span class="op">+</span> <span class="fu">facet_grid</span><span class="op">(</span><span class="fu"><a href="vars.html">vars</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span>, scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="facet_grid-5.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># If scales and space are free, then the mapping between position</span></span>
-<span class="r-in"><span class="co"># and values in the data will be the same across all panels. This</span></span>
-<span class="r-in"><span class="co"># is particularly useful for categorical axes</span></span>
-<span class="r-in"><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">drv</span>, <span class="va">model</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu">facet_grid</span><span class="op">(</span><span class="va">manufacturer</span> <span class="op">~</span> <span class="va">.</span>, scales <span class="op">=</span> <span class="st">"free"</span>, space <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="theme.html">theme</a></span><span class="op">(</span>strip.text.y <span class="op">=</span> <span class="fu"><a href="element.html">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># If scales and space are free, then the mapping between position</span></span></span>
+<span class="r-in"><span><span class="co"># and values in the data will be the same across all panels. This</span></span></span>
+<span class="r-in"><span><span class="co"># is particularly useful for categorical axes</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">drv</span>, <span class="va">model</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">facet_grid</span><span class="op">(</span><span class="va">manufacturer</span> <span class="op">~</span> <span class="va">.</span>, scales <span class="op">=</span> <span class="st">"free"</span>, space <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="theme.html">theme</a></span><span class="op">(</span>strip.text.y <span class="op">=</span> <span class="fu"><a href="element.html">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="facet_grid-6.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Margins ----------------------------------------------------------</span></span>
-<span class="r-in"><span class="co"># \donttest{</span></span>
-<span class="r-in"><span class="co"># Margins can be specified logically (all yes or all no) or for specific</span></span>
-<span class="r-in"><span class="co"># variables as (character) variable names</span></span>
-<span class="r-in"><span class="va">mg</span> <span class="op">&lt;-</span> <span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">wt</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mg</span> <span class="op">+</span> <span class="fu">facet_grid</span><span class="op">(</span><span class="va">vs</span> <span class="op">+</span> <span class="va">am</span> <span class="op">~</span> <span class="va">gear</span>, margins <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Margins ----------------------------------------------------------</span></span></span>
+<span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="co"># Margins can be specified logically (all yes or all no) or for specific</span></span></span>
+<span class="r-in"><span><span class="co"># variables as (character) variable names</span></span></span>
+<span class="r-in"><span><span class="va">mg</span> <span class="op">&lt;-</span> <span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">wt</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mg</span> <span class="op">+</span> <span class="fu">facet_grid</span><span class="op">(</span><span class="va">vs</span> <span class="op">+</span> <span class="va">am</span> <span class="op">~</span> <span class="va">gear</span>, margins <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="facet_grid-7.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="va">mg</span> <span class="op">+</span> <span class="fu">facet_grid</span><span class="op">(</span><span class="va">vs</span> <span class="op">+</span> <span class="va">am</span> <span class="op">~</span> <span class="va">gear</span>, margins <span class="op">=</span> <span class="st">"am"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">mg</span> <span class="op">+</span> <span class="fu">facet_grid</span><span class="op">(</span><span class="va">vs</span> <span class="op">+</span> <span class="va">am</span> <span class="op">~</span> <span class="va">gear</span>, margins <span class="op">=</span> <span class="st">"am"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="facet_grid-8.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># when margins are made over "vs", since the facets for "am" vary</span></span>
-<span class="r-in"><span class="co"># within the values of "vs", the marginal facet for "vs" is also</span></span>
-<span class="r-in"><span class="co"># a margin over "am".</span></span>
-<span class="r-in"><span class="va">mg</span> <span class="op">+</span> <span class="fu">facet_grid</span><span class="op">(</span><span class="va">vs</span> <span class="op">+</span> <span class="va">am</span> <span class="op">~</span> <span class="va">gear</span>, margins <span class="op">=</span> <span class="st">"vs"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># when margins are made over "vs", since the facets for "am" vary</span></span></span>
+<span class="r-in"><span><span class="co"># within the values of "vs", the marginal facet for "vs" is also</span></span></span>
+<span class="r-in"><span><span class="co"># a margin over "am".</span></span></span>
+<span class="r-in"><span><span class="va">mg</span> <span class="op">+</span> <span class="fu">facet_grid</span><span class="op">(</span><span class="va">vs</span> <span class="op">+</span> <span class="va">am</span> <span class="op">~</span> <span class="va">gear</span>, margins <span class="op">=</span> <span class="st">"vs"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="facet_grid-9.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># }</span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -264,7 +264,7 @@ and <code>cols</code> instead.</p></dd>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
   </div></footer></body></html>

@@ -89,7 +89,7 @@ labeller()."><meta property="og:image" content="https://ggplot2.tidyverse.org/lo
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">as_labeller</span><span class="op">(</span><span class="va">x</span>, default <span class="op">=</span> <span class="va">label_value</span>, multi_line <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">as_labeller</span><span class="op">(</span><span class="va">x</span>, default <span class="op">=</span> <span class="va">label_value</span>, multi_line <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -119,24 +119,24 @@ on separate lines. This is passed to the labeller function.</p></dd>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">disp</span>, <span class="va">drat</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">am</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">disp</span>, <span class="va">drat</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">am</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="as_labeller-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Rename labels on the fly with a lookup character vector</span></span>
-<span class="r-in"><span class="va">to_string</span> <span class="op">&lt;-</span> <span class="fu">as_labeller</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>`0` <span class="op">=</span> <span class="st">"Zero"</span>, `1` <span class="op">=</span> <span class="st">"One"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">am</span>, labeller <span class="op">=</span> <span class="va">to_string</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Rename labels on the fly with a lookup character vector</span></span></span>
+<span class="r-in"><span><span class="va">to_string</span> <span class="op">&lt;-</span> <span class="fu">as_labeller</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>`0` <span class="op">=</span> <span class="st">"Zero"</span>, `1` <span class="op">=</span> <span class="st">"One"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">am</span>, labeller <span class="op">=</span> <span class="va">to_string</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="as_labeller-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Quickly transform a function operating on character vectors to a</span></span>
-<span class="r-in"><span class="co"># labeller function:</span></span>
-<span class="r-in"><span class="va">appender</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">string</span>, <span class="va">suffix</span> <span class="op">=</span> <span class="st">"-foo"</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">string</span>, <span class="va">suffix</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">am</span>, labeller <span class="op">=</span> <span class="fu">as_labeller</span><span class="op">(</span><span class="va">appender</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Quickly transform a function operating on character vectors to a</span></span></span>
+<span class="r-in"><span><span class="co"># labeller function:</span></span></span>
+<span class="r-in"><span><span class="va">appender</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">string</span>, <span class="va">suffix</span> <span class="op">=</span> <span class="st">"-foo"</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">string</span>, <span class="va">suffix</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">am</span>, labeller <span class="op">=</span> <span class="fu">as_labeller</span><span class="op">(</span><span class="va">appender</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="as_labeller-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># If you have more than one faceting variable, be sure to dispatch</span></span>
-<span class="r-in"><span class="co"># your labeller to the right variable with labeller()</span></span>
-<span class="r-in"><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">cyl</span> <span class="op">~</span> <span class="va">am</span>, labeller <span class="op">=</span> <span class="fu"><a href="labeller.html">labeller</a></span><span class="op">(</span>am <span class="op">=</span> <span class="va">to_string</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># If you have more than one faceting variable, be sure to dispatch</span></span></span>
+<span class="r-in"><span><span class="co"># your labeller to the right variable with labeller()</span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">cyl</span> <span class="op">~</span> <span class="va">am</span>, labeller <span class="op">=</span> <span class="fu"><a href="labeller.html">labeller</a></span><span class="op">(</span>am <span class="op">=</span> <span class="va">to_string</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="as_labeller-4.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -151,7 +151,7 @@ on separate lines. This is passed to the labeller function.</p></dd>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
   </div></footer></body></html>
