@@ -112,7 +112,7 @@ GeomRug <- ggproto("GeomRug", Geom,
     gp <- gpar(
       col = alpha(data$colour, data$alpha),
       lty = data$linetype,
-      lwd = data$size * .pt,
+      lwd = data$linewidth * .pt,
       lineend = lineend
     )
     if (!is.null(data$x)) {
@@ -151,10 +151,12 @@ GeomRug <- ggproto("GeomRug", Geom,
       }
     }
 
-    gTree(children = do.call("gList", rugs))
+    gTree(children = inject(gList(!!!rugs)))
   },
 
-  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
+  default_aes = aes(colour = "black", linewidth = 0.5, linetype = 1, alpha = NA),
 
-  draw_key = draw_key_path
+  draw_key = draw_key_path,
+
+  rename_size = TRUE
 )

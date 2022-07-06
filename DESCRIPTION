@@ -43,6 +43,7 @@ Imports:
     scales (>= 1.2.0),
     stats,
     tibble,
+    vctrs (>= 0.4.1),
     withr (>= 2.0.0)
 Suggests:
     covr,
@@ -79,7 +80,7 @@ Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.0.9000
 Collate: 
     'ggproto.r'
     'ggplot-global.R'
@@ -221,6 +222,7 @@ Collate:
     'scale-hue.r'
     'scale-identity.r'
     'scale-linetype.r'
+    'scale-linewidth.R'
     'scale-manual.r'
     'scale-shape.r'
     'scale-size.r'
@@ -262,8 +264,6 @@ Collate:
     'theme.r'
     'theme-defaults.r'
     'theme-current.R'
-    'translate-qplot-ggplot.r'
-    'translate-qplot-lattice.r'
     'utilities-break.r'
     'utilities-grid.r'
     'utilities-help.r'

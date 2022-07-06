@@ -137,7 +137,7 @@ This geom treats each axis differently and, thus, can thus have two orientations
 \item \code{colour}
 \item \code{group}
 \item \code{linetype}
-\item \code{size}
+\item \code{linewidth}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

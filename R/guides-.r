@@ -280,8 +280,10 @@ guides_build <- function(ggrobs, theme) {
   theme$legend.spacing.y <- theme$legend.spacing.y  %||% theme$legend.spacing
   theme$legend.spacing.x <- theme$legend.spacing.x  %||% theme$legend.spacing
 
-  widths <- do.call("unit.c", lapply(ggrobs, function(g)sum(g$widths)))
-  heights <- do.call("unit.c", lapply(ggrobs, function(g)sum(g$heights)))
+  widths <- lapply(ggrobs, function(g) sum(g$widths))
+  widths <- inject(unit.c(!!!widths))
+  heights <- lapply(ggrobs, function(g) sum(g$heights))
+  heights <- inject(unit.c(!!!heights))
 
   # Set the justification of each legend within the legend box
   # First value is xjust, second value is yjust
@@ -384,6 +386,9 @@ guide_gengrob <- function(guide, theme) UseMethod("guide_gengrob")
 matched_aes <- function(layer, guide) {
   all <- names(c(layer$computed_mapping, layer$stat$default_aes))
   geom <- c(layer$geom$required_aes, names(layer$geom$default_aes))
+
+  # Make sure that size guides are shown if a renaming layer is used
+  if (layer$geom$rename_size && "size" %in% all && !"linewidth" %in% all) geom <- c(geom, "size")
   matched <- intersect(intersect(all, geom), names(guide$key))
   matched <- setdiff(matched, names(layer$computed_geom_params))
   setdiff(matched, names(layer$aes_params))

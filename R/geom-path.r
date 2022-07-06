@@ -130,12 +130,12 @@ geom_path <- function(mapping = NULL, data = NULL,
 GeomPath <- ggproto("GeomPath", Geom,
   required_aes = c("x", "y"),
 
-  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
+  default_aes = aes(colour = "black", linewidth = 0.5, linetype = 1, alpha = NA),
 
   handle_na = function(self, data, params) {
     # Drop missing values at the start or end of a line - can't drop in the
     # middle since you expect those to be shown by a break in the line
-    complete <- stats::complete.cases(data[c("x", "y", "size", "colour", "linetype")])
+    complete <- stats::complete.cases(data[c("x", "y", "linewidth", "colour", "linetype")])
     kept <- stats::ave(complete, data$group, FUN = keep_mid_true)
     data <- data[kept, ]
 
@@ -167,16 +167,17 @@ GeomPath <- ggproto("GeomPath", Geom,
 
     # Work out whether we should use lines or segments
     attr <- dapply(munched, "group", function(df) {
-      linetype <- unique(df$linetype)
-      new_data_frame(list(
+      linetype <- unique0(df$linetype)
+      data_frame0(
         solid = identical(linetype, 1) || identical(linetype, "solid"),
-        constant = nrow(unique(df[, c("alpha", "colour","size", "linetype")])) == 1
-      ), n = 1)
+        constant = nrow(unique0(df[, c("alpha", "colour", "linewidth", "linetype")])) == 1,
+        .size = 1
+      )
     })
     solid_lines <- all(attr$solid)
     constant <- all(attr$constant)
     if (!solid_lines && !constant) {
-      cli::cli_abort("{.fn {snake_class(self)}} can't have varying {.field colour}, {.field size}, and/or {.field alpha} along the line when {.field linetype} isn't solid")
+      cli::cli_abort("{.fn {snake_class(self)}} can't have varying {.field colour}, {.field linewidth}, and/or {.field alpha} along the line when {.field linetype} isn't solid")
     }
 
     # Work out grouping variables for grobs
@@ -192,7 +193,7 @@ GeomPath <- ggproto("GeomPath", Geom,
         gp = gpar(
           col = alpha(munched$colour, munched$alpha)[!end],
           fill = alpha(munched$colour, munched$alpha)[!end],
-          lwd = munched$size[!end] * .pt,
+          lwd = munched$linewidth[!end] * .pt,
           lty = munched$linetype[!end],
           lineend = lineend,
           linejoin = linejoin,
@@ -200,14 +201,14 @@ GeomPath <- ggproto("GeomPath", Geom,
         )
       )
     } else {
-      id <- match(munched$group, unique(munched$group))
+      id <- match(munched$group, unique0(munched$group))
       polylineGrob(
         munched$x, munched$y, id = id,
         default.units = "native", arrow = arrow,
         gp = gpar(
           col = alpha(munched$colour, munched$alpha)[start],
           fill = alpha(munched$colour, munched$alpha)[start],
-          lwd = munched$size[start] * .pt,
+          lwd = munched$linewidth[start] * .pt,
           lty = munched$linetype[start],
           lineend = lineend,
           linejoin = linejoin,
@@ -217,7 +218,9 @@ GeomPath <- ggproto("GeomPath", Geom,
     }
   },
 
-  draw_key = draw_key_path
+  draw_key = draw_key_path,
+
+  rename_size = TRUE
 )
 
 # Trim false values from left and right: keep all values from
@@ -357,5 +360,5 @@ stairstep <- function(data, direction = "hv") {
     data_attr <- data[xs, setdiff(names(data), c("x", "y"))]
   }
 
-  new_data_frame(c(list(x = x, y = y), data_attr))
+  data_frame0(x = x, y = y, data_attr)
 }

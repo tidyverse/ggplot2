@@ -61,7 +61,7 @@ clist <- function(l) {
 #
 # @keyword internal
 uniquecols <- function(df) {
-  df <- df[1, sapply(df, function(x) length(unique(x)) == 1), drop = FALSE]
+  df <- df[1, sapply(df, function(x) length(unique0(x)) == 1), drop = FALSE]
   rownames(df) <- 1:nrow(df)
   df
 }
@@ -326,7 +326,7 @@ find_args <- function(...) {
 
 # Used in annotations to ensure printed even when no
 # global data
-dummy_data <- function() new_data_frame(list(x = NA), n = 1)
+dummy_data <- function() data_frame0(x = NA, .size = 1)
 
 with_seed_null <- function(seed, code) {
   if (is.null(seed)) {
@@ -348,10 +348,16 @@ seq_asc <- function(to, from) {
 #' @importFrom tibble tibble
 NULL
 
+# Wrapping vctrs data_frame constructor with no name repair
+data_frame0 <- function(...) data_frame(..., .name_repair = "minimal")
+
+# Wrapping unique0() to accept NULL
+unique0 <- function(x, ...) if (is.null(x)) x else vec_unique(x, ...)
+
 # Check inputs with tibble but allow column vectors (see #2609 and #2374)
 as_gg_data_frame <- function(x) {
   x <- lapply(x, validate_column_vec)
-  new_data_frame(x)
+  data_frame0(!!!x)
 }
 validate_column_vec <- function(x) {
   if (is_column_vec(x)) {
@@ -539,14 +545,14 @@ has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA,
   if (group_has_equal) {
     if (has_x) {
       if (length(x) == 1) return(FALSE)
-      x_groups <- vapply(split(data$x, data$group), function(x) length(unique(x)), integer(1))
+      x_groups <- vapply(split(data$x, data$group), function(x) length(unique0(x)), integer(1))
       if (all(x_groups == 1)) {
         return(FALSE)
       }
     }
     if (has_y) {
       if (length(y) == 1) return(TRUE)
-      y_groups <- vapply(split(data$y, data$group), function(x) length(unique(x)), integer(1))
+      y_groups <- vapply(split(data$y, data$group), function(x) length(unique0(x)), integer(1))
       if (all(y_groups == 1)) {
         return(TRUE)
       }

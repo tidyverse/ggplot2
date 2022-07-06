@@ -156,13 +156,15 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
     # update dropped aes
     contour_stat$dropped_aes <- c(contour_stat$dropped_aes, "density", "ndensity", "count")
 
-    args <- c(list(data = quote(data), scales = quote(scales)), params)
     dapply(data, "PANEL", function(data) {
       scales <- layout$get_scales(data$PANEL[1])
-      try_fetch(do.call(contour_stat$compute_panel, args), error = function(cnd) {
-        cli::cli_warn("Computation failed in {.fn {snake_class(self)}}", parent = cnd)
-        new_data_frame()
-      })
+      try_fetch(
+        inject(contour_stat$compute_panel(data = data, scales = scales, !!!params)),
+        error = function(cnd) {
+          cli::cli_warn("Computation failed in {.fn {snake_class(self)}}", parent = cnd)
+          data_frame0()
+        }
+      )
     })
   },
 

@@ -124,14 +124,14 @@ scale_colour_viridis_b <- function(..., alpha = 1, begin = 0, end = 1,
                                    direction = 1, option = "D", values = NULL,
                                    space = "Lab", na.value = "grey50",
                                    guide = "coloursteps", aesthetics = "colour") {
+  pal <-  binned_pal(
+    viridis_pal(alpha, begin, end, direction, option)
+  )
+
   binned_scale(
     aesthetics,
     "viridis_b",
-    gradient_n_pal(
-      viridis_pal(alpha, begin, end, direction, option)(6),
-      values,
-      space
-    ),
+    pal,
     na.value = na.value,
     guide = guide,
     ...
@@ -144,14 +144,14 @@ scale_fill_viridis_b <- function(..., alpha = 1, begin = 0, end = 1,
                                  direction = 1, option = "D", values = NULL,
                                  space = "Lab", na.value = "grey50",
                                  guide = "coloursteps", aesthetics = "fill") {
+  pal <-  binned_pal(
+    viridis_pal(alpha, begin, end, direction, option)
+  )
+
   binned_scale(
     aesthetics,
     "viridis_b",
-    gradient_n_pal(
-      viridis_pal(alpha, begin, end, direction, option)(6),
-      values,
-      space
-    ),
+    pal,
     na.value = na.value,
     guide = guide,
     ...

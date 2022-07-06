@@ -112,7 +112,7 @@ with lines. This is as a continuous analogue to \code{\link[=geom_boxplot]{geom_
 \item \code{colour}
 \item \code{group}
 \item \code{linetype}
-\item \code{size}
+\item \code{linewidth}
 \item \code{weight}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.

@@ -152,22 +152,22 @@ test_that("all-Inf layers are not used for determining the type of scale", {
 
 test_that("scales are looked for in appropriate place", {
   xlabel <- function(x) ggplot_build(x)$layout$panel_scales_x[[1]]$name
-  p0 <- qplot(mpg, wt, data = mtcars) + scale_x_continuous("0")
+  p0 <- ggplot(mtcars, aes(mpg, wt)) + geom_point() + scale_x_continuous("0")
   expect_equal(xlabel(p0), "0")
 
   scale_x_continuous <- function(...) ggplot2::scale_x_continuous("1")
-  p1 <- qplot(mpg, wt, data = mtcars)
+  p1 <- ggplot(mtcars, aes(mpg, wt)) + geom_point()
   expect_equal(xlabel(p1), "1")
 
   f <- function() {
     scale_x_continuous <- function(...) ggplot2::scale_x_continuous("2")
-    qplot(mpg, wt, data = mtcars)
+    ggplot(mtcars, aes(mpg, wt)) + geom_point()
   }
   p2 <- f()
   expect_equal(xlabel(p2), "2")
 
   rm(scale_x_continuous)
-  p4 <- qplot(mpg, wt, data = mtcars)
+  p4 <- ggplot(mtcars, aes(mpg, wt)) + geom_point()
   expect_equal(xlabel(p4), waiver())
 })
 
@@ -228,6 +228,10 @@ test_that("size and alpha scales throw appropriate warnings for factors", {
   expect_warning(
     ggplot_build(p + geom_point(aes(alpha = d))),
     "Using alpha for a discrete variable is not advised."
+  )
+  expect_warning(
+    ggplot_build(p + geom_line(aes(linewidth = d, group = 1))),
+    "Using linewidth for a discrete variable is not advised."
   )
   # There should be no warnings for ordered factors
   expect_warning(ggplot_build(p + geom_point(aes(size = o))), NA)
@@ -454,4 +458,13 @@ test_that("breaks and labels are correctly checked", {
   expect_snapshot_error(ggplotGrob(p))
   p <- ggplot(mtcars) + geom_bar(aes(mpg)) + scale_x_binned(labels = function(x) 1:2)
   expect_snapshot_error(ggplotGrob(p))
+})
+
+test_that("staged aesthetics are backtransformed properly (#4155)", {
+  p <- ggplot(data.frame(value = 16)) +
+    geom_point(aes(stage(value, after_stat = x / 2), 0)) +
+    scale_x_sqrt(limits = c(0, 16), breaks = c(2, 4, 8))
+
+  # x / 2 should be 16 / 2 = 8, thus the result should be sqrt(8) on scale_x_sqrt()
+  expect_equal(layer_data(p)$x, sqrt(8))
 })

@@ -12,7 +12,7 @@ test_that("density and value summaries are available", {
 test_that("size and linetype are applied", {
   df <- data_frame(x = c(1, 1, 1, 2), y = c(1, 1, 1, 2))
   plot <- ggplot(df, aes(x, y)) +
-    geom_hex(color = "red", size = 4, linetype = 2)
+    geom_hex(color = "red", linewidth = 4, linetype = 2)
 
   gpar <- layer_grob(plot)[[1]]$children[[1]]$gp
   expect_equal(gpar$lwd, rep(4, 12) * .pt, tolerance = 1e-7)

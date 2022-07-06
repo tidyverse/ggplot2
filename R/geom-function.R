@@ -51,6 +51,16 @@
 #'
 #' base + geom_function(fun = f)
 #'
+#' # Using xlim to restrict the range of function
+#' ggplot(data.frame(x = rnorm(100)), aes(x)) +
+#' geom_density() +
+#' geom_function(fun = dnorm, colour = "red", xlim=c(-1, 1))
+#'
+#' # Using xlim to widen the range of function
+#' ggplot(data.frame(x = rnorm(100)), aes(x)) +
+#' geom_density() +
+#' geom_function(fun = dnorm, colour = "red", xlim=c(-7, 7))
+#'
 #' @export
 geom_function <- function(mapping = NULL, data = NULL, stat = "function",
                           position = "identity", ..., na.rm = FALSE,
@@ -83,7 +93,7 @@ GeomFunction <- ggproto("GeomFunction", GeomPath,
   draw_panel = function(self, data, panel_params, coord, arrow = NULL,
                         lineend = "butt", linejoin = "round", linemitre = 10,
                         na.rm = FALSE) {
-    groups <- unique(data$group)
+    groups <- unique0(data$group)
     if (length(groups) > 1) {
       cli::cli_warn(c(
         "Multiple drawing groups in {.fn {snake_class(self)}}",

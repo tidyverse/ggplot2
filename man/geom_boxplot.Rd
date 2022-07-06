@@ -165,6 +165,7 @@ See McGill et al. (1978) for more details.
 \item \code{fill}
 \item \code{group}
 \item \code{linetype}
+\item \code{linewidth}
 \item \code{shape}
 \item \code{size}
 \item \code{weight}

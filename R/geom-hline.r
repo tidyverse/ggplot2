@@ -19,7 +19,7 @@ geom_hline <- function(mapping = NULL, data = NULL,
       cli::cli_warn("{.fn geom_hline}: Ignoring {.arg data} because {.arg yintercept} was provided.")
     }
 
-    data <- new_data_frame(list(yintercept = yintercept))
+    data <- data_frame0(yintercept = yintercept)
     mapping <- aes(yintercept = yintercept)
     show.legend <- FALSE
   }
@@ -52,11 +52,13 @@ GeomHline <- ggproto("GeomHline", Geom,
     data$y    <- data$yintercept
     data$yend <- data$yintercept
 
-    GeomSegment$draw_panel(unique(data), panel_params, coord, lineend = lineend)
+    GeomSegment$draw_panel(unique0(data), panel_params, coord, lineend = lineend)
   },
 
-  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
+  default_aes = aes(colour = "black", linewidth = 0.5, linetype = 1, alpha = NA),
   required_aes = "yintercept",
 
-  draw_key = draw_key_path
+  draw_key = draw_key_path,
+
+  rename_size = TRUE
 )

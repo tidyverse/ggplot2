@@ -78,12 +78,11 @@ Geom <- ggproto("Geom",
     # Trim off extra parameters
     params <- params[intersect(names(params), self$parameters())]
 
-    args <- c(list(quote(data), quote(panel_params), quote(coord)), params)
     lapply(split(data, data$PANEL), function(data) {
       if (empty(data)) return(zeroGrob())
 
       panel_params <- layout$panel_params[[data$PANEL[1]]]
-      do.call(self$draw_panel, args)
+      inject(self$draw_panel(data, panel_params, coord, !!!params))
     })
   },
 
@@ -94,7 +93,7 @@ Geom <- ggproto("Geom",
     })
 
     ggname(snake_class(self), gTree(
-      children = do.call("gList", grobs)
+      children = inject(gList(!!!grobs))
     ))
   },
 
@@ -108,6 +107,11 @@ Geom <- ggproto("Geom",
 
   # Combine data with defaults and set aesthetics from parameters
   use_defaults = function(self, data, params = list(), modifiers = aes()) {
+    # Inherit size as linewidth if no linewidth aesthetic and param exist
+    if (self$rename_size && is.null(data$linewidth) && is.null(params$linewidth)) {
+      data$linewidth <- data$size
+      params$linewidth <- params$size
+    }
     # Fill in missing aesthetics with their defaults
     missing_aes <- setdiff(names(self$default_aes), names(data))
 
@@ -146,7 +150,7 @@ Geom <- ggproto("Geom",
       }
 
       names(modified_aes) <- names(rename_aes(modifiers))
-      modified_aes <- new_data_frame(compact(modified_aes))
+      modified_aes <- data_frame0(!!!compact(modified_aes))
 
       data <- cunion(modified_aes, data)
     }
@@ -187,7 +191,10 @@ Geom <- ggproto("Geom",
       required_aes <- unlist(strsplit(self$required_aes, '|', fixed = TRUE))
     }
     c(union(required_aes, names(self$default_aes)), self$optional_aes, "group")
-  }
+  },
+
+  # Should the geom rename size to linewidth?
+  rename_size = FALSE
 
 )
 
