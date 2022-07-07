@@ -23,8 +23,8 @@ test_that("position aesthetics are coerced to correct type", {
   l2 <- ggplot(df, aes(x, z)) + geom_point() + scale_x_discrete()
   d2 <- layer_data(l2, 1)
 
-  expect_s3_class(d2$x, "mapped_discrete")
-  expect_s3_class(d2$y, "mapped_discrete")
+  expect_s3_class(d2$x, "ggplot2_mapped_discrete")
+  expect_s3_class(d2$y, "ggplot2_mapped_discrete")
 })
 
 test_that("non-position aesthetics are mapped", {

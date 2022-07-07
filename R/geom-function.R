@@ -93,7 +93,7 @@ GeomFunction <- ggproto("GeomFunction", GeomPath,
   draw_panel = function(self, data, panel_params, coord, arrow = NULL,
                         lineend = "butt", linejoin = "round", linemitre = 10,
                         na.rm = FALSE) {
-    groups <- unique(data$group)
+    groups <- unique0(data$group)
     if (length(groups) > 1) {
       cli::cli_warn(c(
         "Multiple drawing groups in {.fn {snake_class(self)}}",

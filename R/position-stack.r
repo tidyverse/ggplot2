@@ -210,7 +210,7 @@ PositionStack <- ggproto("PositionStack", Position,
       )
     }
 
-    data <- rbind(neg, pos)[match(seq_len(nrow(data)), c(which(negative), which(!negative))),]
+    data <- vec_rbind(neg, pos)[match(seq_len(nrow(data)), c(which(negative), which(!negative))),]
     flip_data(data, params$flipped_aes)
   }
 )

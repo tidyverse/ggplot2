@@ -73,7 +73,7 @@ StatYdensity <- ggproto("StatYdensity", Stat,
                        kernel = "gaussian", trim = TRUE, na.rm = FALSE, flipped_aes = FALSE) {
     if (nrow(data) < 2) {
       cli::cli_warn("Groups with fewer than two data points have been dropped.")
-      return(new_data_frame())
+      return(data_frame0())
     }
     range <- range(data$y, na.rm = TRUE)
     modifier <- if (trim) 0 else 3
@@ -85,7 +85,7 @@ StatYdensity <- ggproto("StatYdensity", Stat,
     dens$x <- mean(range(data$x))
 
     # Compute width if x has multiple values
-    if (length(unique(data$x)) > 1) {
+    if (length(unique0(data$x)) > 1) {
       width <- diff(range(data$x)) * 0.9
     }
     dens$width <- width

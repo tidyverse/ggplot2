@@ -111,7 +111,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     data <- data[order(data$group), ]
 
     # Check that aesthetics are constant
-    aes <- unique(data[c("colour", "fill", "linewidth", "linetype", "alpha")])
+    aes <- unique0(data[c("colour", "fill", "linewidth", "linetype", "alpha")])
     if (nrow(aes) > 1) {
       cli::cli_abort("Aesthetics can not vary along a ribbon")
     }
@@ -130,18 +130,21 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
 
     data <- unclass(data) #for faster indexing
 
-    # The upper line and lower line need to processed separately (#4023)
-    positions_upper <- new_data_frame(list(
-      x = data$x,
-      y = data$ymax,
-      id = ids
-    ))
+    # In case the data comes from stat_align
+    upper_keep <- if (is.null(data$align_padding)) TRUE else !data$align_padding
 
-    positions_lower <- new_data_frame(list(
+    # The upper line and lower line need to processed separately (#4023)
+    positions_upper <- data_frame0(
+      x = data$x[upper_keep],
+      y = data$ymax[upper_keep],
+      id = ids[upper_keep]
+    )
+
+    positions_lower <- data_frame0(
       x = rev(data$x),
       y = rev(data$ymin),
       id = rev(ids)
-    ))
+    )
 
     positions_upper <- flip_data(positions_upper, flipped_aes)
     positions_lower <- flip_data(positions_lower, flipped_aes)
@@ -149,7 +152,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     munched_upper <- coord_munch(coord, positions_upper, panel_params)
     munched_lower <- coord_munch(coord, positions_lower, panel_params)
 
-    munched_poly <- rbind(munched_upper, munched_lower)
+    munched_poly <- vec_rbind(munched_upper, munched_lower)
 
     is_full_outline <- identical(outline.type, "full")
     g_poly <- polygonGrob(
@@ -174,7 +177,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     munched_lower$id <- munched_lower$id + max(ids, na.rm = TRUE)
 
     munched_lines <- switch(outline.type,
-      both = rbind(munched_upper, munched_lower),
+      both = vec_rbind(munched_upper, munched_lower),
       upper = munched_upper,
       lower = munched_lower,
       cli::cli_abort(c(
@@ -203,7 +206,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
 
 #' @rdname geom_ribbon
 #' @export
-geom_area <- function(mapping = NULL, data = NULL, stat = "identity",
+geom_area <- function(mapping = NULL, data = NULL, stat = "align",
                       position = "stack", na.rm = FALSE, orientation = NA,
                       show.legend = NA, inherit.aes = TRUE, ...,
                       outline.type = "upper") {
