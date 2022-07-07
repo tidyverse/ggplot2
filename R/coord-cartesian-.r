@@ -137,7 +137,6 @@ view_scales_from_scale <- function(scale, coord_limits = NULL, expand = TRUE) {
   view_scales <- list(
     view_scale_primary(scale, limits, continuous_range),
     sec = view_scale_secondary(scale, limits, continuous_range),
-    arrange = scale$axis_order(),
     range = continuous_range
   )
   names(view_scales) <- c(aesthetic, paste0(aesthetic, ".", names(view_scales)[-1]))

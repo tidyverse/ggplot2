@@ -164,20 +164,16 @@ CoordTrans <- ggproto("CoordTrans", Coord,
   },
 
   render_axis_h = function(panel_params, theme) {
-    arrange <- panel_params$x.arrange %||% c("secondary", "primary")
-
     list(
-      top = render_axis(panel_params, arrange[1], "x", "top", theme),
-      bottom = render_axis(panel_params, arrange[2], "x", "bottom", theme)
+      top = panel_guides_grob(panel_params$guides, position = "top", theme = theme),
+      bottom = panel_guides_grob(panel_params$guides, position = "bottom", theme = theme)
     )
   },
 
   render_axis_v = function(panel_params, theme) {
-    arrange <- panel_params$y.arrange %||% c("primary", "secondary")
-
     list(
-      left = render_axis(panel_params, arrange[1], "y", "left", theme),
-      right = render_axis(panel_params, arrange[2], "y", "right", theme)
+      left = panel_guides_grob(panel_params$guides, position = "left", theme = theme),
+      right = panel_guides_grob(panel_params$guides, position = "right", theme = theme)
     )
   }
 )
@@ -228,12 +224,10 @@ view_scales_from_scale_with_coord_trans <- function(scale, coord_limits, trans, 
   out$sec.minor_source <- transform_value(trans, out$sec.minor_source, out$range)
 
   out <- list(
-    view_scale_primary(scale, scale_limits, continuous_ranges$continuous_range_coord),
-    # TODO: currently, view_scale_secondary() requires the range that's not affected by
-    #       the Coord transformation. I'm not yet sure if this is necessary or it's
-    #       just I don't figure out the whole process.
+    # Note that a ViewScale requires a limit and a range that are before the
+    # Coord's transformation, so we pass `continuous_range`, not `continuous_range_coord`.
+    view_scale_primary(scale, scale_limits, continuous_ranges$continuous_range),
     sec = view_scale_secondary(scale, scale_limits, continuous_ranges$continuous_range),
-    arrange = scale$axis_order(),
     range = out$range,
     labels = out$labels,
     major = out$major_source,
