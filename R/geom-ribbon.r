@@ -138,7 +138,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
       x = data$x[upper_keep],
       y = data$ymax[upper_keep],
       id = ids[upper_keep]
-    ))
+    )
 
     positions_lower <- data_frame0(
       x = rev(data$x),
