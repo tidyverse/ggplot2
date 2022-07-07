@@ -29,11 +29,16 @@
 #'   frequency polygons touch 0. Defaults to `FALSE`.
 #' @section Computed variables:
 #' \describe{
-#'   \item{count}{number of points in bin}
-#'   \item{density}{density of points in bin, scaled to integrate to 1}
-#'   \item{ncount}{count, scaled to maximum of 1}
-#'   \item{ndensity}{density, scaled to maximum of 1}
-#'   \item{width}{widths of bins}
+#'   \item{`count`}{number of points in bin}
+#'   \item{`density`}{density of points in bin, scaled to integrate to 1}
+#'   \item{`ncount`}{count, scaled to maximum of 1}
+#'   \item{`ndensity`}{density, scaled to maximum of 1}
+#'   \item{`width`}{widths of bins}
+#' }
+#'
+#' @section Dropped variables:
+#' \describe{
+#'   \item{`weight`}{After binning, weights of individual data points (if supplied) are no longer available.}
 #' }
 #'
 #' @seealso [stat_count()], which counts the number of cases at each x
@@ -167,6 +172,8 @@ StatBin <- ggproto("StatBin", Stat,
 
   default_aes = aes(x = after_stat(count), y = after_stat(count), weight = 1),
 
-  required_aes = "x|y"
+  required_aes = "x|y",
+
+  dropped_aes = "weight" # after statistical transformation, weights are no longer available
 )
 

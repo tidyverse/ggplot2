@@ -123,6 +123,13 @@ are summarised with \code{fun}.
 }
 }
 
+\section{Dropped variables}{
+
+\describe{
+\item{\code{z}}{After binning, the z values of individual data points are no longer available.}
+}
+}
+
 \examples{
 d <- ggplot(diamonds, aes(carat, depth, z = price))
 d + stat_summary_2d()
