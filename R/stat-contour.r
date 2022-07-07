@@ -18,6 +18,13 @@
 #'  \item{`nlevel`}{Height of contour, scaled to maximum of 1.}
 #'  \item{`piece`}{Contour piece (an integer).}
 #' }
+#'
+#' @section Dropped variables:
+#' \describe{
+#'   \item{`z`}{After contouring, the z values of individual data points are no longer available.}
+#' }
+#'
+#'
 #' @rdname geom_contour
 stat_contour <- function(mapping = NULL, data = NULL,
                          geom = "contour", position = "identity",

@@ -32,6 +32,15 @@
 #' Contours are calculated for one of the three types of density estimates
 #' obtained before contouring, `density`, `ndensity`, and `count`. Which
 #' of those should be used is determined by the `contour_var` parameter.
+#'
+#' @section Dropped variables:
+#' \describe{
+#'   \item{`z`}{After density estimation, the z values of individual data points are no longer available.}
+#' }
+#'
+#' If contouring is enabled, then similarly `density`, `ndensity`, and `count`
+#' are no longer available after the contouring pass.
+#'
 stat_density_2d <- function(mapping = NULL, data = NULL,
                             geom = "density_2d", position = "identity",
                             ...,
@@ -149,9 +158,9 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
     params$z.range <- z.range
 
     if (isTRUE(self$contour_type == "bands")) {
-      contour_stat <- StatContourFilled
+      contour_stat <- ggproto(NULL, StatContourFilled)
     } else { # lines is the default
-      contour_stat <- StatContour
+      contour_stat <- ggproto(NULL, StatContour)
     }
     # update dropped aes
     contour_stat$dropped_aes <- c(contour_stat$dropped_aes, "density", "ndensity", "count")

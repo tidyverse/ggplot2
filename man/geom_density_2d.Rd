@@ -212,6 +212,16 @@ obtained before contouring, \code{density}, \code{ndensity}, and \code{count}. W
 of those should be used is determined by the \code{contour_var} parameter.
 }
 
+\section{Dropped variables}{
+
+\describe{
+\item{\code{z}}{After density estimation, the z values of individual data points are no longer available.}
+}
+
+If contouring is enabled, then similarly \code{density}, \code{ndensity}, and \code{count}
+no longer be available after the contouring pass.
+}
+
 \examples{
 m <- ggplot(faithful, aes(x = eruptions, y = waiting)) +
  geom_point() +
