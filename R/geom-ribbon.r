@@ -130,11 +130,14 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
 
     data <- unclass(data) #for faster indexing
 
+    # In case the data comes from stat_align
+    upper_keep <- if (is.null(data$align_padding)) TRUE else !data$align_padding
+
     # The upper line and lower line need to processed separately (#4023)
     positions_upper <- data_frame0(
-      x = data$x,
-      y = data$ymax,
-      id = ids
+      x = data$x[upper_keep],
+      y = data$ymax[upper_keep],
+      id = ids[upper_keep]
     )
 
     positions_lower <- data_frame0(
@@ -203,7 +206,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
 
 #' @rdname geom_ribbon
 #' @export
-geom_area <- function(mapping = NULL, data = NULL, stat = "identity",
+geom_area <- function(mapping = NULL, data = NULL, stat = "align",
                       position = "stack", na.rm = FALSE, orientation = NA,
                       show.legend = NA, inherit.aes = TRUE, ...,
                       outline.type = "upper") {
