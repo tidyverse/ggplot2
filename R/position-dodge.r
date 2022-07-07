@@ -144,7 +144,7 @@ PositionDodge <- ggproto("PositionDodge", Position,
 # Assumes that each set has the same horizontal position.
 pos_dodge <- function(df, width, n = NULL) {
   if (is.null(n)) {
-    n <- length(unique(df$group))
+    n <- length(unique0(df$group))
   }
 
   if (n == 1)
@@ -159,7 +159,7 @@ pos_dodge <- function(df, width, n = NULL) {
 
   # Have a new group index from 1 to number of groups.
   # This might be needed if the group numbers in this set don't include all of 1:n
-  groupidx <- match(df$group, sort(unique(df$group)))
+  groupidx <- match(df$group, sort(unique0(df$group)))
 
   # Find the center for each group, then use that to calculate xmin and xmax
   df$x <- df$x + width * ((groupidx - 0.5) / n - .5)

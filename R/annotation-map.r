@@ -93,7 +93,7 @@ GeomAnnotationMap <- ggproto("GeomAnnotationMap", GeomMap,
     # must be sequential integers
     coords <- coord_munch(coord, map, panel_params)
     coords$group <- coords$group %||% coords$id
-    grob_id <- match(coords$group, unique(coords$group))
+    grob_id <- match(coords$group, unique0(coords$group))
 
     polygonGrob(coords$x, coords$y, default.units = "native",
       id = grob_id,

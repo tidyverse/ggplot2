@@ -122,7 +122,7 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
     if (is.discrete(x)) {
       x <- seq_along(limits)[match(as.character(x), limits)]
     }
-    new_mapped_discrete(x)
+    mapped_discrete(x)
   },
 
   rescale = function(self, x, limits = self$get_limits(), range = self$dimension(limits = limits)) {
@@ -141,35 +141,96 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
   }
 )
 
-# TODO: This is a clear candidate for vctrs once we adopt it
-new_mapped_discrete <- function(x) {
-  if (is.null(x)) {
-    return(x)
-  }
-  if (!is.numeric(x)) {
-    cli::cli_abort("{.cls mapped_discrete} objects can only be created from numeric vectors")
-  }
-  class(x) <- c("mapped_discrete", "numeric")
-  x
+new_mapped_discrete <- function(x = double()) {
+  vec_assert(x, double())
+  obj <- new_vctr(x, class = "ggplot2_mapped_discrete")
+  # vctrs does not support inheriting from numeric base class
+  class(obj) <- c(class(obj), "numeric")
+  obj
 }
-is_mapped_discrete <- function(x) inherits(x, "mapped_discrete")
+mapped_discrete <- function(x = double()) {
+  if (is.null(x)) return(NULL)
+  if (is.array(x)) x <- as.vector(x)
+  new_mapped_discrete(vec_cast(x, double()))
+}
+is_mapped_discrete <- function(x) inherits(x, "ggplot2_mapped_discrete")
 #' @export
-c.mapped_discrete <- function(..., recursive = FALSE) {
-  new_mapped_discrete(c(unlist(lapply(list(...), unclass))))
+format.ggplot2_mapped_discrete <- function(x, ...) format(vec_data(x), ...)
+#' @export
+vec_ptype2.ggplot2_mapped_discrete.ggplot2_mapped_discrete <- function(x, y, ...) new_mapped_discrete()
+#' @export
+vec_ptype2.ggplot2_mapped_discrete.double <- function(x, y, ...) new_mapped_discrete()
+#' @export
+vec_ptype2.double.ggplot2_mapped_discrete <- function(x, y, ...) new_mapped_discrete()
+#' @export
+vec_ptype2.ggplot2_mapped_discrete.integer <- function(x, y, ...) new_mapped_discrete()
+#' @export
+vec_ptype2.integer.ggplot2_mapped_discrete <- function(x, y, ...) new_mapped_discrete()
+#' @export
+vec_ptype2.ggplot2_mapped_discrete.character <- function(x, y, ...) character()
+#' @export
+vec_ptype2.character.ggplot2_mapped_discrete <- function(x, y, ...) character()
+#' @export
+vec_ptype2.ggplot2_mapped_discrete.factor <- function(x, y, ...) new_mapped_discrete()
+#' @export
+vec_ptype2.factor.ggplot2_mapped_discrete <- function(x, y, ...) new_mapped_discrete()
+#' @export
+vec_cast.ggplot2_mapped_discrete.ggplot2_mapped_discrete <- function(x, to, ...) x
+#' @export
+vec_cast.ggplot2_mapped_discrete.integer <- function(x, to, ...) mapped_discrete(x)
+#' @export
+vec_cast.integer.ggplot2_mapped_discrete <- function(x, to, ...) as.integer(vec_data(x))
+#' @export
+vec_cast.ggplot2_mapped_discrete.double <- function(x, to, ...) new_mapped_discrete(x)
+#' @export
+vec_cast.double.ggplot2_mapped_discrete <- function(x, to, ...) vec_data(x)
+#' @export
+vec_cast.character.ggplot2_mapped_discrete <- function(x, to, ...) as.character(vec_data(x))
+#' @export
+vec_cast.ggplot2_mapped_discrete.factor <- function(x, to, ...) mapped_discrete(unclass(x))
+#' @export
+vec_cast.factor.ggplot2_mapped_discrete <- function(x, to, ...) factor(vec_data(x), ...)
+#' Utilities for working with discrete values mapped to numeric domain
+#'
+#' @param op The operator to apply
+#' @param x,y items to apply the operator to
+#' @param ... passed on
+#' @export vec_arith.ggplot2_mapped_discrete
+#' @method vec_arith ggplot2_mapped_discrete
+#'
+#' @keywords internal
+#' @export
+vec_arith.ggplot2_mapped_discrete <- function(op, x, y, ...) {
+  UseMethod("vec_arith.ggplot2_mapped_discrete", y)
 }
 #' @export
-`[.mapped_discrete` <- function(x, ..., drop = TRUE) {
-  new_mapped_discrete(NextMethod())
+#' @method vec_arith.ggplot2_mapped_discrete default
+vec_arith.ggplot2_mapped_discrete.default <- function(op, x, y, ...) {
+  stop_incompatible_op(op, x, y)
 }
 #' @export
-`[<-.mapped_discrete` <- function(x, ..., value) {
-  if (length(value) == 0) {
-    return(x)
-  }
-  value <- as.numeric(unclass(value))
-  new_mapped_discrete(NextMethod())
+#' @method vec_arith.ggplot2_mapped_discrete ggplot2_mapped_discrete
+vec_arith.ggplot2_mapped_discrete.ggplot2_mapped_discrete <- function(op, x, y, ...) {
+  mapped_discrete(vec_arith_base(op, x, y))
 }
 #' @export
-as.data.frame.mapped_discrete <- function (x, ...) {
-  as.data.frame.vector(x = unclass(x), ...)
+#' @method vec_arith.ggplot2_mapped_discrete numeric
+vec_arith.ggplot2_mapped_discrete.numeric <- function(op, x, y, ...) {
+  mapped_discrete(vec_arith_base(op, x, y))
+}
+#' @export
+#' @method vec_arith.numeric ggplot2_mapped_discrete
+vec_arith.numeric.ggplot2_mapped_discrete <- function(op, x, y, ...) {
+  mapped_discrete(vec_arith_base(op, x, y))
+}
+#' @export
+#' @method vec_arith.ggplot2_mapped_discrete MISSING
+vec_arith.ggplot2_mapped_discrete.MISSING <- function(op, x, y, ...) {
+  op_fn <- getExportedValue("base", op)
+  mapped_discrete(op_fn(vec_data(x)))
+}
+#' @export
+vec_math.ggplot2_mapped_discrete <- function(.fn, .x, ...) {
+  res <- vec_math_base(.fn, .x, ...)
+  if (is.numeric(res)) mapped_discrete(res) else res
 }

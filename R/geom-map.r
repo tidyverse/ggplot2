@@ -139,7 +139,7 @@ GeomMap <- ggproto("GeomMap", GeomPolygon,
     # must be sequential integers
     coords <- coord_munch(coord, map, panel_params)
     coords$group <- coords$group %||% coords$id
-    grob_id <- match(coords$group, unique(coords$group))
+    grob_id <- match(coords$group, unique0(coords$group))
 
     # Align data with map
     data_rows <- match(coords$id[!duplicated(grob_id)], data$map_id)

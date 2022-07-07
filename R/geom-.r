@@ -78,12 +78,11 @@ Geom <- ggproto("Geom",
     # Trim off extra parameters
     params <- params[intersect(names(params), self$parameters())]
 
-    args <- c(list(quote(data), quote(panel_params), quote(coord)), params)
     lapply(split(data, data$PANEL), function(data) {
       if (empty(data)) return(zeroGrob())
 
       panel_params <- layout$panel_params[[data$PANEL[1]]]
-      do.call(self$draw_panel, args)
+      inject(self$draw_panel(data, panel_params, coord, !!!params))
     })
   },
 
@@ -94,7 +93,7 @@ Geom <- ggproto("Geom",
     })
 
     ggname(snake_class(self), gTree(
-      children = do.call("gList", grobs)
+      children = inject(gList(!!!grobs))
     ))
   },
 
@@ -151,7 +150,7 @@ Geom <- ggproto("Geom",
       }
 
       names(modified_aes) <- names(rename_aes(modifiers))
-      modified_aes <- new_data_frame(compact(modified_aes))
+      modified_aes <- data_frame0(!!!compact(modified_aes))
 
       data <- cunion(modified_aes, data)
     }

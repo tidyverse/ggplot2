@@ -146,7 +146,7 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
       }
       # Sort by group to make sure that colors, fill, etc. come in same order
       munched <- munched[order(munched$group, munched$subgroup), ]
-      id <- match(munched$subgroup, unique(munched$subgroup))
+      id <- match(munched$subgroup, unique0(munched$subgroup))
 
       # For gpar(), there is one entry per polygon (not one entry per point).
       # We'll pull the first value from each group, and assume all these values

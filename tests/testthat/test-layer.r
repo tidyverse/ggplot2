@@ -112,13 +112,13 @@ test_that("retransform works on computed aesthetics in `map_statistic`", {
 
 test_that("layer_data returns a data.frame", {
   l <- geom_point()
-  expect_equal(l$layer_data(mtcars), mtcars)
+  expect_equal(l$layer_data(mtcars), unrowname(mtcars))
   l <- geom_point(data = head(mtcars))
-  expect_equal(l$layer_data(mtcars), head(mtcars))
+  expect_equal(l$layer_data(mtcars), head(unrowname(mtcars)))
   l <- geom_point(data = head)
-  expect_equal(l$layer_data(mtcars), head(mtcars))
+  expect_equal(l$layer_data(mtcars), head(unrowname(mtcars)))
   l <- geom_point(data = ~ head(., 10))
-  expect_equal(l$layer_data(mtcars), head(mtcars, 10))
+  expect_equal(l$layer_data(mtcars), head(unrowname(mtcars), 10))
   l <- geom_point(data = nrow)
   expect_snapshot_error(l$layer_data(mtcars))
 })

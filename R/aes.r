@@ -179,7 +179,7 @@ rename_aes <- function(x) {
   names(x) <- standardise_aes_names(names(x))
   duplicated_names <- names(x)[duplicated(names(x))]
   if (length(duplicated_names) > 0L) {
-    cli::cli_warn("Duplicated aesthetics after name standardisation: {.field {unique(duplicated_names)}}")
+    cli::cli_warn("Duplicated aesthetics after name standardisation: {.field {unique0(duplicated_names)}}")
   }
   x
 }
