@@ -63,7 +63,7 @@ munch_data <- function(data, dist = NULL, segment_length = 0.01) {
   id <- c(rep(seq_len(nrow(data) - 1), extra), nrow(data))
   aes_df <- data[id, setdiff(names(data), c("x", "y")), drop = FALSE]
 
-  new_data_frame(c(list(x = x, y = y), unclass(aes_df)))
+  data_frame0(x = x, y = y, aes_df)
 }
 
 # Interpolate.
@@ -174,9 +174,15 @@ find_line_formula <- function(x, y) {
   slope <- diff(y) / diff(x)
   yintercept <- y[-1] - (slope * x[-1])
   xintercept <- x[-1] - (y[-1] / slope)
-  new_data_frame(list(x1 = x[-length(x)], y1 = y[-length(y)],
-    x2 = x[-1], y2 = y[-1],
-    slope = slope, yintercept = yintercept, xintercept = xintercept))
+  data_frame0(
+    x1 = x[-length(x)],
+    y1 = y[-length(y)],
+    x2 = x[-1],
+    y2 = y[-1],
+    slope = slope,
+    yintercept = yintercept,
+    xintercept = xintercept
+  )
 }
 
 # Spiral arc length

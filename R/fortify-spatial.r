@@ -25,7 +25,8 @@ fortify.SpatialPolygonsDataFrame <- function(model, data, region = NULL, ...) {
   attr <- as.data.frame(model)
   # If not specified, split into regions based on polygons
   if (is.null(region)) {
-    coords <- rbind_dfs(lapply(model@polygons,fortify))
+    coords <- lapply(model@polygons,fortify)
+    coords <- vec_rbind(!!!coords)
     cli::cli_inform("Regions defined for each Polygons")
   } else {
     cp <- sp::polygons(model)
@@ -42,7 +43,8 @@ fortify.SpatialPolygonsDataFrame <- function(model, data, region = NULL, ...) {
 #' @export
 #' @method fortify SpatialPolygons
 fortify.SpatialPolygons <- function(model, data, ...) {
-  rbind_dfs(lapply(model@polygons, fortify))
+  polys <- lapply(model@polygons, fortify)
+  vec_rbind(!!!polys)
 }
 
 #' @rdname fortify.sp
@@ -50,11 +52,12 @@ fortify.SpatialPolygons <- function(model, data, ...) {
 #' @method fortify Polygons
 fortify.Polygons <- function(model, data, ...) {
   subpolys <- model@Polygons
-  pieces <- rbind_dfs(lapply(seq_along(subpolys), function(i) {
+  pieces <- lapply(seq_along(subpolys), function(i) {
     df <- fortify(subpolys[[model@plotOrder[i]]])
     df$piece <- i
     df
-  }))
+  })
+  pieces <- vec_rbind(!!!pieces)
 
   pieces$order <- 1:nrow(pieces)
   pieces$id <- model@ID
@@ -78,7 +81,8 @@ fortify.Polygon <- function(model, data, ...) {
 #' @export
 #' @method fortify SpatialLinesDataFrame
 fortify.SpatialLinesDataFrame <- function(model, data, ...) {
-  rbind_dfs(lapply(model@lines, fortify))
+  lines <- lapply(model@lines, fortify)
+  vec_rbind(!!!lines)
 }
 
 #' @rdname fortify.sp
@@ -86,11 +90,12 @@ fortify.SpatialLinesDataFrame <- function(model, data, ...) {
 #' @method fortify Lines
 fortify.Lines <- function(model, data, ...) {
   lines <- model@Lines
-  pieces <- rbind_dfs(lapply(seq_along(lines), function(i) {
+  pieces <- lapply(seq_along(lines), function(i) {
     df <- fortify(lines[[i]])
     df$piece <- i
     df
-  }))
+  })
+  pieces <- vec_rbind(!!!pieces)
 
   pieces$order <- 1:nrow(pieces)
   pieces$id <- model@ID

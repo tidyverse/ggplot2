@@ -26,7 +26,7 @@ benchplot <- function(x) {
   times <- rbind(construct, build, render, draw)[, 1:3]
   times <- rbind(times, colSums(times))
 
-  cbind(
+  vec_cbind(
     step = c("construct", "build", "render", "draw", "TOTAL"),
     mat_2_df(times)
   )

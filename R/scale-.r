@@ -599,7 +599,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
   map = function(self, x, limits = self$get_limits()) {
     x <- self$rescale(self$oob(x, range = limits), limits)
 
-    uniq <- unique(x)
+    uniq <- unique0(x)
     pal <- self$palette(uniq)
     scaled <- pal[match(x, uniq)]
 
@@ -739,7 +739,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
       labels <- lapply(labels, `[`, 1)
 
       if (any(vapply(labels, is.language, logical(1)))) {
-        labels <- do.call(expression, labels)
+        labels <- inject(expression(!!!labels))
       } else {
         labels <- unlist(labels)
       }
@@ -1013,7 +1013,7 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
       x
     } else {
       breaks <- self$get_breaks(limits)
-      breaks <- sort(unique(c(limits[1], breaks, limits[2])))
+      breaks <- sort(unique0(c(limits[1], breaks, limits[2])))
 
       x <- self$rescale(self$oob(x, range = limits), limits)
       breaks <- self$rescale(breaks, limits)
@@ -1158,7 +1158,7 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
 
     if (self$show.limits) {
       limits <- self$get_limits()
-      major <- sort(unique(c(limits, major)))
+      major <- sort(unique0(c(limits, major)))
     }
 
     # labels

@@ -213,7 +213,7 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
       }
     }
 
-    gTree(children = do.call("gList", ticks))
+    gTree(children = inject(gList(!!!ticks)))
   },
 
   default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = 1)
@@ -254,7 +254,12 @@ calc_logticks <- function(base = 10, ticks_per_base = base - 1,
   longtick_after_base <- floor(ticks_per_base/2)
   tickend[ cycleIdx == longtick_after_base ] <- midend
 
-  tickdf <- new_data_frame(list(value = ticks, start = start, end = tickend), n = length(ticks))
+  tickdf <- data_frame0(
+    value = ticks,
+    start = start,
+    end = tickend,
+    .size = length(ticks)
+  )
 
   return(tickdf)
 }

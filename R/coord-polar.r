@@ -212,23 +212,23 @@ CoordPolar <- ggproto("CoordPolar", Coord,
       element_render(theme, "panel.background"),
       if (length(theta) > 0) element_render(
         theme, majortheta, name = "angle",
-        x = c(rbind(0, 0.45 * sin(theta))) + 0.5,
-        y = c(rbind(0, 0.45 * cos(theta))) + 0.5,
+        x = vec_interleave(0, 0.45 * sin(theta)) + 0.5,
+        y = vec_interleave(0, 0.45 * cos(theta)) + 0.5,
         id.lengths = rep(2, length(theta)),
         default.units = "native"
       ),
       if (length(thetamin) > 0) element_render(
         theme, minortheta, name = "angle",
-        x = c(rbind(0, 0.45 * sin(thetamin))) + 0.5,
-        y = c(rbind(0, 0.45 * cos(thetamin))) + 0.5,
+        x = vec_interleave(0, 0.45 * sin(thetamin)) + 0.5,
+        y = vec_interleave(0, 0.45 * cos(thetamin)) + 0.5,
         id.lengths = rep(2, length(thetamin)),
         default.units = "native"
       ),
 
       element_render(
         theme, majorr, name = "radius",
-        x = rep(rfine, each = length(thetafine)) * sin(thetafine) + 0.5,
-        y = rep(rfine, each = length(thetafine)) * cos(thetafine) + 0.5,
+        x = rep(rfine, each = length(thetafine)) * rep(sin(thetafine), length(rfine)) + 0.5,
+        y = rep(rfine, each = length(thetafine)) * rep(cos(thetafine), length(rfine)) + 0.5,
         id.lengths = rep(length(thetafine), length(rfine)),
         default.units = "native"
       )

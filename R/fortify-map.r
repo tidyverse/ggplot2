@@ -24,14 +24,17 @@
 #'   geom_polygon(aes(group = group), colour = "white")
 #' }
 fortify.map <- function(model, data, ...) {
-  df <- new_data_frame(list(
+  df <- data_frame0(
     long = model$x,
     lat = model$y,
     group = cumsum(is.na(model$x) & is.na(model$y)) + 1,
-    order = seq_along(model$x)
-  ), n = length(model$x))
+    order = seq_along(model$x),
+    .size = length(model$x)
+  )
 
-  names <- do.call("rbind", lapply(strsplit(model$names, "[:,]"), "[", 1:2))
+  # TODO: convert to vec_rbind() once it accepts a function in .name_repair
+  names <- lapply(strsplit(model$names, "[:,]"), "[", 1:2)
+  names <- inject(rbind(!!!names))
   df$region <- names[df$group, 1]
   df$subregion <- names[df$group, 2]
   df[stats::complete.cases(df$lat, df$long), ]

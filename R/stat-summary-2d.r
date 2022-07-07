@@ -102,7 +102,7 @@ StatSummary2d <- ggproto("StatSummary2d", Stat,
 
     fun <- as_function(fun)
     f <- function(x) {
-      do.call(fun, c(list(quote(x)), fun.args))
+      inject(fun(x, !!!fun.args))
     }
     out <- tapply_df(data$z, list(xbin = xbin, ybin = ybin), f, drop = drop)
 

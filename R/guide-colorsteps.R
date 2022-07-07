@@ -78,7 +78,7 @@ guide_train.colorsteps <- function(guide, scale, aesthetic = NULL) {
       if (!is.numeric(scale$breaks)) {
         breaks <- breaks[!breaks %in% limits]
       }
-      all_breaks <- unique(c(limits[1], breaks, limits[2]))
+      all_breaks <- unique0(c(limits[1], breaks, limits[2]))
       bin_at <- all_breaks[-1] - diff(all_breaks) / 2
     } else {
       # If the breaks are not numeric it is used with a discrete scale. We check
@@ -101,7 +101,10 @@ guide_train.colorsteps <- function(guide, scale, aesthetic = NULL) {
       limits <- all_breaks[c(1, length(all_breaks))]
       breaks <- all_breaks[-c(1, length(all_breaks))]
     }
-    ticks <- new_data_frame(setNames(list(scale$map(breaks)), aesthetic %||% scale$aesthetics[1]))
+    ticks <- data_frame(
+      scale$map(breaks),
+      .name_repair = ~ aesthetic %||% scale$aesthetics[1]
+    )
     ticks$.value <- seq_along(breaks) - 0.5
     ticks$.label <- scale$get_labels(breaks)
     guide$nbin <- length(breaks) + 1L
@@ -115,7 +118,11 @@ guide_train.colorsteps <- function(guide, scale, aesthetic = NULL) {
       guide$nbin <- guide$nbin - 1L
     }
     guide$key <- ticks
-    guide$bar <- new_data_frame(list(colour = scale$map(bin_at), value = seq_along(bin_at) - 1), n = length(bin_at))
+    guide$bar <- data_frame0(
+      colour = scale$map(bin_at),
+      value = seq_along(bin_at) - 1,
+      .size = length(bin_at)
+    )
 
     if (guide$reverse) {
       guide$key <- guide$key[nrow(guide$key):1, ]

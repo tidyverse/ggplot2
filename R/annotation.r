@@ -57,7 +57,7 @@ annotate <- function(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
 
   # Check that all aesthetic have compatible lengths
   lengths <- vapply(aesthetics, length, integer(1))
-  n <- unique(lengths)
+  n <- unique0(lengths)
 
   # if there is more than one unique length, ignore constants
   if (length(n) > 1L) {
@@ -71,7 +71,7 @@ annotate <- function(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
     cli::cli_abort("Unequal parameter lengths: {details}")
   }
 
-  data <- new_data_frame(position, n = n)
+  data <- data_frame0(!!!position, .size = n)
   layer(
     geom = geom,
     params = list(
