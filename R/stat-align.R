@@ -76,11 +76,10 @@ StatAlign <- ggproto("StatAlign", Stat,
     x_val <- c(min(x_val) - adjust, x_val, max(x_val) + adjust)
     y_val <- c(0, y_val, 0)
 
-    # TODO: Move to data_frame0 once merged
-    data_aligned <- cbind(
+    data_aligned <- data_frame0(
       x = x_val,
       y = y_val,
-      unrowname(data[1, setdiff(names(data), c("x", "y"))]),
+      data[1, setdiff(names(data), c("x", "y"))],
       align_padding = c(TRUE, rep(FALSE, length(x_val) - 2), TRUE),
       flipped_aes = flipped_aes
     )
