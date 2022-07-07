@@ -233,6 +233,7 @@ view_scales_from_scale_with_coord_trans <- function(scale, coord_limits, trans, 
     #       the Coord transformation. I'm not yet sure if this is necessary or it's
     #       just I don't figure out the whole process.
     sec = view_scale_secondary(scale, scale_limits, continuous_ranges$continuous_range),
+    arrange = scale$axis_order(),
     range = out$range,
     labels = out$labels,
     major = out$major_source,
