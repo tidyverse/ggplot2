@@ -231,6 +231,7 @@ Collate:
     'scale-view.r'
     'scale-viridis.r'
     'scales-.r'
+    'stat-align.R'
     'stat-bin.r'
     'stat-bin2d.r'
     'stat-bindot.r'
