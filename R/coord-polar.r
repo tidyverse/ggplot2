@@ -105,10 +105,11 @@ CoordPolar <- ggproto("CoordPolar", Coord,
   },
 
   setup_panel_params = function(self, scale_x, scale_y, params = list()) {
-    scales <- list(x = scale_x, y = scale_y)
+
     ret <- list(x = list(), y = list())
     for (n in c("x", "y")) {
-      scale <- scales[[n]]
+
+      scale <- get(paste0("scale_", n))
       limits <- self$limits[[n]]
 
       if (self$theta == n) {
@@ -119,10 +120,6 @@ CoordPolar <- ggproto("CoordPolar", Coord,
       range <- expand_limits_scale(scale, expansion, coord_limits = limits)
 
       out <- scale$break_info(range)
-
-      ret[[n]]$primary_axis <- view_scale_primary(scale, scale$get_limits(), out$range)
-      ret[[n]]$secondary_axis <- view_scale_secondary(scale, scale$get_limits(), out$range)
-
       ret[[n]]$range <- out$range
       ret[[n]]$major <- out$major_source
       ret[[n]]$minor <- out$minor_source
@@ -133,11 +130,7 @@ CoordPolar <- ggproto("CoordPolar", Coord,
       ret[[n]]$sec.labels <- out$sec.labels
     }
 
-    details <- list(
-      x = ret$x$primary_axis,
-      y = ret$y$primary_axis,
-      x.sec = ret$x$secondary_axis,
-      y.sec = ret$y$secondary_axis,
+    details = list(
       x.range = ret$x$range, y.range = ret$y$range,
       x.major = ret$x$major, y.major = ret$y$major,
       x.minor = ret$x$minor, y.minor = ret$y$minor,
@@ -149,78 +142,16 @@ CoordPolar <- ggproto("CoordPolar", Coord,
     )
 
     if (self$theta == "y") {
-      # replace x to r, and x.foo to r.foo
-      names(details) <- gsub("x(\\.|$)", "r\\1", names(details))
-      names(details) <- gsub("y(\\.|$)", "theta\\1", names(details))
+      names(details) <- gsub("x\\.", "r.", names(details))
+      names(details) <- gsub("y\\.", "theta.", names(details))
       details$r.arrange <- scale_x$axis_order()
     } else {
-      names(details) <- gsub("x(\\.|$)", "theta\\1", names(details))
-      names(details) <- gsub("y(\\.|$)", "r\\1", names(details))
+      names(details) <- gsub("x\\.", "theta.", names(details))
+      names(details) <- gsub("y\\.", "r.", names(details))
       details$r.arrange <- scale_y$axis_order()
     }
 
     details
-  },
-
-  # TODO: it's not very nice to copy the whole method just to tweak the
-  #       `aesthetics` for r and theta
-  setup_panel_guides = function(self, panel_params, guides, params = list()) {
-    aesthetics <- c("r", "theta", "r.sec", "theta.sec")
-    names(aesthetics) <- aesthetics
-
-    # If the panel_params doesn't contain the scale, do not use a guide for that aesthetic
-    idx <- vapply(aesthetics, function(aesthetic) {
-      scale <- panel_params[[aesthetic]]
-      !is.null(scale) && inherits(scale, "ViewScale")
-    }, logical(1L))
-    aesthetics <- aesthetics[idx]
-
-    # resolve the specified guide from the scale and/or guides
-    guides <- lapply(aesthetics, function(aesthetic) {
-      resolve_guide(
-        aesthetic,
-        panel_params[[aesthetic]],
-        guides,
-        default = guide_axis(),
-        null = guide_none()
-      )
-    })
-
-    # resolve the guide definition as a "guide" S3
-    guides <- lapply(guides, validate_guide)
-
-    # if there is an "position" specification in the scale, pass this on to the guide
-    # ideally, this should be specified in the guide
-    guides <- lapply(aesthetics, function(aesthetic) {
-      guide <- guides[[aesthetic]]
-      scale <- panel_params[[aesthetic]]
-      # position could be NULL here for an empty scale
-      guide$position <- guide$position %|W|% scale$position
-      guide
-    })
-
-    panel_params$guides <- guides
-    panel_params
-  },
-
-  # TODO: it's not very nice to copy the whole method just to tweak the
-  #       `aesthetics` for r and theta
-  train_panel_guides = function(self, panel_params, layers, default_mapping, params = list()) {
-    aesthetics <- c("r", "theta", "r.sec", "theta.sec")
-    names(aesthetics) <- aesthetics
-    # If the panel_params doesn't contain the scale, there's no guide for the aesthetic
-    aesthetics <- intersect(aesthetics, names(panel_params$guides))
-
-    panel_params$guides <- lapply(aesthetics, function(aesthetic) {
-      axis  <- strsplit(aesthetic, ".", fixed = TRUE)[[1]][1]
-      guide <- panel_params$guides[[aesthetic]]
-      guide <- guide_train(guide, panel_params[[aesthetic]])
-      guide <- guide_transform(guide, self, panel_params)
-      guide <- guide_geom(guide, layers, default_mapping)
-      guide
-    })
-
-    panel_params
   },
 
   transform = function(self, data, panel_params) {
@@ -281,23 +212,23 @@ CoordPolar <- ggproto("CoordPolar", Coord,
       element_render(theme, "panel.background"),
       if (length(theta) > 0) element_render(
         theme, majortheta, name = "angle",
-        x = c(rbind(0, 0.45 * sin(theta))) + 0.5,
-        y = c(rbind(0, 0.45 * cos(theta))) + 0.5,
+        x = vec_interleave(0, 0.45 * sin(theta)) + 0.5,
+        y = vec_interleave(0, 0.45 * cos(theta)) + 0.5,
         id.lengths = rep(2, length(theta)),
         default.units = "native"
       ),
       if (length(thetamin) > 0) element_render(
         theme, minortheta, name = "angle",
-        x = c(rbind(0, 0.45 * sin(thetamin))) + 0.5,
-        y = c(rbind(0, 0.45 * cos(thetamin))) + 0.5,
+        x = vec_interleave(0, 0.45 * sin(thetamin)) + 0.5,
+        y = vec_interleave(0, 0.45 * cos(thetamin)) + 0.5,
         id.lengths = rep(2, length(thetamin)),
         default.units = "native"
       ),
 
       element_render(
         theme, majorr, name = "radius",
-        x = rep(rfine, each = length(thetafine)) * sin(thetafine) + 0.5,
-        y = rep(rfine, each = length(thetafine)) * cos(thetafine) + 0.5,
+        x = rep(rfine, each = length(thetafine)) * rep(sin(thetafine), length(rfine)) + 0.5,
+        y = rep(rfine, each = length(thetafine)) * rep(cos(thetafine), length(rfine)) + 0.5,
         id.lengths = rep(length(thetafine), length(rfine)),
         default.units = "native"
       )
@@ -373,6 +304,14 @@ CoordPolar <- ggproto("CoordPolar", Coord,
       ),
       element_render(theme, "panel.border")
     )
+  },
+
+  labels = function(self, labels, panel_params) {
+    if (self$theta == "y") {
+      list(x = labels$y, y = labels$x)
+    } else {
+      labels
+    }
   },
 
   modify_scales = function(self, scales_x, scales_y) {
