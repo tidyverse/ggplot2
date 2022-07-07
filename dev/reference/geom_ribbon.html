@@ -82,7 +82,7 @@ of ymax."><meta property="og:image" content="https://ggplot2.tidyverse.org/logo.
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Ribbons and area plots</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/HEAD/R/geom-ribbon.r" class="external-link"><code>R/geom-ribbon.r</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/HEAD/R/geom-ribbon.r" class="external-link"><code>R/geom-ribbon.r</code></a>, <a href="https://github.com/tidyverse/ggplot2/blob/HEAD/R/stat-align.R" class="external-link"><code>R/stat-align.R</code></a></small>
       <div class="d-none name"><code>geom_ribbon.Rd</code></div>
     </div>
 
@@ -111,7 +111,7 @@ of <code>ymax</code>.</p>
 <span><span class="fu">geom_area</span><span class="op">(</span></span>
 <span>  mapping <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  data <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  stat <span class="op">=</span> <span class="st">"identity"</span>,</span>
+<span>  stat <span class="op">=</span> <span class="st">"align"</span>,</span>
 <span>  position <span class="op">=</span> <span class="st">"stack"</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  orientation <span class="op">=</span> <span class="cn">NA</span>,</span>
@@ -119,6 +119,17 @@ of <code>ymax</code>.</p>
 <span>  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  outline.type <span class="op">=</span> <span class="st">"upper"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">stat_align</span><span class="op">(</span></span>
+<span>  mapping <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  data <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  geom <span class="op">=</span> <span class="st">"area"</span>,</span>
+<span>  position <span class="op">=</span> <span class="st">"identity"</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -197,6 +208,12 @@ the default plot specification, e.g. <code><a href="borders.html">borders()</a><
 <dd><p>Type of the outline of the area; <code>"both"</code> draws both the
 upper and lower lines, <code>"upper"</code>/<code>"lower"</code> draws the respective lines only.
 <code>"full"</code> draws a closed polygon around the area.</p></dd>
+
+
+<dt>geom</dt>
+<dd><p>The geometric object to use to display the data, either as a
+<code>ggproto</code> <code>Geom</code> subclass or as a string naming the geom stripped of the
+<code>geom_</code> prefix (e.g. <code>"point"</code> rather than <code>"geom_point"</code>)</p></dd>
 
 </dl></div>
     <div class="section level2">
