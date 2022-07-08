@@ -86,6 +86,9 @@ test_that("stage() works with only the start arg (#4873)", {
   # when with only the start arg, simply strips stage()
   expect_equal(do_strip_stage(x), expr(x))
 
-  # when an explicit NULL is specified, use it (not sure how useful this is...)
+  # when after_scale is specified without after_stat, return the start arg
+  expect_equal(do_strip_stage(x, after_scale = y), expr(x))
+
+  # when an explicit NULL is specified, use it
   expect_equal(do_strip_stage(x, after_stat = NULL), expr(NULL))
 })
