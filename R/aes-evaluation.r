@@ -180,18 +180,18 @@ strip_stage <- function(expr) {
     uq_expr[[2]]
   } else if (is_call(uq_expr, "stage")) {
     # Prefer stat mapping if present
+    # i.e. `b` for `stage(a, after_stat = b)`
     if (!is.null(uq_expr$after_stat))
       return(uq_expr$after_stat)
 
-    # otherwise original mapping (fallback to scale mapping)
-    if (!is.null(uq_expr$start))
-      return(uq_expr$start)
-
-    # The case when after_stat is positionally provided
+    # The case when after_stat is positionally provided.
+    # Be aware that we need to reject `stage(a, after_scale = c)`.
+    # i.e. `b` for `stage(a, b)`
     if (is.null(uq_expr$after_scale) && length(uq_expr) >= 3)
       return(uq_expr[[3]])
 
-    # The case when stage() has only one unnamed arg
+    # The case when stage() has no `after_stat`
+    # i.e. `stage(a, after_scale = c)` or `stage(a)`
     uq_expr[[2]]
   } else {
     expr
