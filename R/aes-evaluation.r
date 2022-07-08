@@ -179,20 +179,18 @@ strip_stage <- function(expr) {
   if (is_call(uq_expr, c("after_stat", "after_scale"))) {
     uq_expr[[2]]
   } else if (is_call(uq_expr, "stage")) {
-    # Prefer stat mapping if present
-    if (!is.null(uq_expr$after_stat))
-      return(uq_expr$after_stat)
+    # Since the argument matching is a bit difficult to get done right,
+    # let's actually evaluate it.
+    sandbox_env <- env(stage = function(start, after_stat, after_scale) {
+      expr <- enexprs(start = start, after_stat = after_stat)
+      if (!is_missing(expr$after_stat)) {
+        expr$after_stat
+      } else {
+        expr$start
+      }
+    })
 
-    # otherwise original mapping (fallback to scale mapping)
-    if (!is.null(uq_expr$start))
-      return(uq_expr$start)
-
-    # The case when after_stat is positionally provided
-    if (is.null(uq_expr$after_scale) && length(uq_expr) >= 3)
-      return(uq_expr[[3]])
-
-    # The case when stage() has only one unnamed arg
-    uq_expr[[2]]
+    eval_bare(uq_expr, sandbox_env)
   } else {
     expr
   }
