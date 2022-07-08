@@ -224,6 +224,13 @@ bin boundaries for each band, as well the mid point between the boundaries.}
 }
 }
 
+\section{Dropped variables}{
+
+\describe{
+\item{\code{z}}{After contouring, the z values of individual data points are no longer available.}
+}
+}
+
 \examples{
 # Basic plot
 v <- ggplot(faithfuld, aes(waiting, eruptions, z = density))

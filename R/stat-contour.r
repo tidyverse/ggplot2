@@ -18,6 +18,13 @@
 #'  \item{`nlevel`}{Height of contour, scaled to maximum of 1.}
 #'  \item{`piece`}{Contour piece (an integer).}
 #' }
+#'
+#' @section Dropped variables:
+#' \describe{
+#'   \item{`z`}{After contouring, the z values of individual data points are no longer available.}
+#' }
+#'
+#'
 #' @rdname geom_contour
 stat_contour <- function(mapping = NULL, data = NULL,
                          geom = "contour", position = "identity",
@@ -83,6 +90,7 @@ StatContour <- ggproto("StatContour", Stat,
 
   required_aes = c("x", "y", "z"),
   default_aes = aes(order = after_stat(level)),
+  dropped_aes = "z", # z gets dropped during statistical transformation
 
   setup_params = function(data, params) {
     params$z.range <- range(data$z, na.rm = TRUE, finite = TRUE)
@@ -112,6 +120,7 @@ StatContourFilled <- ggproto("StatContourFilled", Stat,
 
   required_aes = c("x", "y", "z"),
   default_aes = aes(order = after_stat(level), fill = after_stat(level)),
+  dropped_aes = "z", # z gets dropped during statistical transformation
 
   setup_params = function(data, params) {
     params$z.range <- range(data$z, na.rm = TRUE, finite = TRUE)
