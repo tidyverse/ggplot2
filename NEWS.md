@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Improve the support for `guide_axis()` on `coord_trans()` (@yutannihilation, #3959)
+
 * ggplot now checks during statistical transformations whether any data 
   columns were dropped and warns about this. If stats intend to drop
   data columns they can declare them in the new field `dropped_aes`.
