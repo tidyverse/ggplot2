@@ -669,5 +669,5 @@ theme_all_null <- function() {
   )
 
   args <- c(elements, list(complete = TRUE))
-  do.call(theme, args)
+  inject(theme(!!!args))
 }

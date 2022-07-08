@@ -89,7 +89,7 @@ NULL
 
 collapse_labels_lines <- function(labels) {
   is_exp <- vapply(labels, function(l) length(l) > 0 && is.expression(l[[1]]), logical(1))
-  out <- do.call("Map", c(list(paste, sep = ", "), labels))
+  out <- inject(mapply(paste, !!!labels, sep = ", ", SIMPLIFY = FALSE))
   label <- list(unname(unlist(out)))
   if (all(is_exp)) {
     label <- lapply(label, function(l) list(parse(text = paste0("list(", l, ")"))))
@@ -133,8 +133,8 @@ label_both <- function(labels, multi_line = TRUE, sep = ": ") {
       out[[i]] <- paste(variable[[i]], value[[i]], sep = sep)
     }
   } else {
-    value <- do.call("paste", c(value, sep = ", "))
-    variable <- do.call("paste", c(variable, sep = ", "))
+    value <- inject(paste(!!!value, sep = ", "))
+    variable <- inject(paste(!!!variable, sep = ", "))
     out <- Map(paste, variable, value, sep = sep)
     out <- list(unname(unlist(out)))
   }
@@ -217,7 +217,7 @@ label_bquote <- function(rows = NULL, cols = NULL,
       params <- as_environment(params, call_env)
       eval(substitute(bquote(expr, params), list(expr = quoted)))
     }
-    list(do.call("Map", c(list(f = evaluate), labels)))
+    list(inject(mapply(evaluate, !!!labels, SIMPLIFY = FALSE)))
   }
 
   structure(fun, class = "labeller")
@@ -489,11 +489,11 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
     })
   }
 
-  # Create matrix of labels
-  labels <- lapply(labeller(label_df), cbind)
-  labels <- do.call("cbind", labels)
+  # Create labels
+  labels <- data_frame0(!!!labeller(label_df))
   ncol <- ncol(labels)
   nrow <- nrow(labels)
+  labels_vec <- unlist(labels, use.names = FALSE)
 
   # Decide strip clipping
   clip <- calc_element("strip.clip", theme)[[1]]
@@ -501,13 +501,13 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
   clip <- c("on", "off", "inherit")[clip]
 
   if (horizontal) {
-    grobs_top <- lapply(labels, element_render, theme = theme,
+    grobs_top <- lapply(labels_vec, element_render, theme = theme,
                         element = "strip.text.x.top", margin_x = TRUE,
                         margin_y = TRUE)
     grobs_top <- assemble_strips(matrix(grobs_top, ncol = ncol, nrow = nrow),
                                  theme, horizontal, clip = clip)
 
-    grobs_bottom <- lapply(labels, element_render, theme = theme,
+    grobs_bottom <- lapply(labels_vec, element_render, theme = theme,
                            element = "strip.text.x.bottom", margin_x = TRUE,
                            margin_y = TRUE)
     grobs_bottom <- assemble_strips(matrix(grobs_bottom, ncol = ncol, nrow = nrow),
@@ -518,13 +518,13 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
       bottom = grobs_bottom
     )
   } else {
-    grobs_left <- lapply(labels, element_render, theme = theme,
+    grobs_left <- lapply(labels_vec, element_render, theme = theme,
                          element = "strip.text.y.left", margin_x = TRUE,
                          margin_y = TRUE)
     grobs_left <- assemble_strips(matrix(grobs_left, ncol = ncol, nrow = nrow),
                                   theme, horizontal, clip = clip)
 
-    grobs_right <- lapply(labels[, rev(seq_len(ncol(labels))), drop = FALSE],
+    grobs_right <- lapply(unlist(labels[, rev(seq_len(ncol(labels))), drop = FALSE], use.names = FALSE),
                           element_render, theme = theme,
                           element = "strip.text.y.right", margin_x = TRUE,
                           margin_y = TRUE)

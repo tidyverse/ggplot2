@@ -206,7 +206,7 @@ ggplot(sizes, aes(size, stroke, size = size, stroke = stroke)) +
 
 ## Text
 
-### Font face
+### Font family
 
 There are only three fonts that are guaranteed to work everywhere: "sans" (the default), "serif", or "mono":
 

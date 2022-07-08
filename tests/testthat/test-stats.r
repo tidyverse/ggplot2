@@ -19,3 +19,16 @@ test_that("error message is thrown when aesthetics are missing", {
   p <- ggplot(mtcars) + stat_sum()
   expect_error(ggplot_build(p), "x and y$")
 })
+
+test_that("erroneously dropped aesthetics are found and issue a warning", {
+  df <- data_frame(
+    x = c( # arbitrary random numbers
+      0.42986445,  1.11153170, -1.22318013,  0.90982003,
+      0.46454276, -0.42300004, -1.76139834, -0.75060412,
+      0.01635474, -0.63202159
+    ),
+    g = rep(1:2, each = 5)
+  )
+  p <- ggplot(df, aes(x, fill = g)) + geom_density()
+  expect_warning(ggplot_build(p), "aesthetics were dropped")
+})

@@ -209,7 +209,7 @@ generate_alt_text <- function(p) {
 
   # Get layer types
   layers <- vapply(p$layers, function(l) snake_class(l$geom), character(1))
-  layers <- sub("_", " ", sub("^geom_", "", unique(layers)))
+  layers <- sub("_", " ", sub("^geom_", "", unique0(layers)))
   layers <- glue(
     " using ",
     if (length(layers) == 1) "a " else "",

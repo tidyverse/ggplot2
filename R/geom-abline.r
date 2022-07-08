@@ -96,10 +96,11 @@ geom_abline <- function(mapping = NULL, data = NULL,
     if (missing(intercept)) intercept <- 0
     n_slopes <- max(length(slope), length(intercept))
 
-    data <- new_data_frame(list(
+    data <- data_frame0(
       intercept = intercept,
-      slope = slope
-    ), n = n_slopes)
+      slope = slope,
+      .size = n_slopes
+    )
     mapping <- aes(intercept = intercept, slope = slope)
     show.legend <- FALSE
   }
@@ -138,7 +139,7 @@ GeomAbline <- ggproto("GeomAbline", Geom,
     data$y    <- ranges$x[1] * data$slope + data$intercept
     data$yend <- ranges$x[2] * data$slope + data$intercept
 
-    GeomSegment$draw_panel(unique(data), panel_params, coord, lineend = lineend)
+    GeomSegment$draw_panel(unique0(data), panel_params, coord, lineend = lineend)
   },
 
   default_aes = aes(colour = "black", linewidth = 0.5, linetype = 1, alpha = NA),

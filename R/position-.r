@@ -55,7 +55,7 @@ Position <- ggproto("Position",
 
   compute_layer = function(self, data, params, layout) {
     dapply(data, "PANEL", function(data) {
-      if (empty(data)) return(new_data_frame())
+      if (empty(data)) return(data_frame0())
 
       scales <- layout$get_scales(data$PANEL[1])
       self$compute_panel(data = data, params = params, scales = scales)

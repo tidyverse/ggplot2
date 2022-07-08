@@ -151,7 +151,7 @@ GeomRug <- ggproto("GeomRug", Geom,
       }
     }
 
-    gTree(children = do.call("gList", rugs))
+    gTree(children = inject(gList(!!!rugs)))
   },
 
   default_aes = aes(colour = "black", linewidth = 0.5, linetype = 1, alpha = NA),

@@ -1,5 +1,12 @@
 # ggplot2 (development version)
 
+* ggplot now checks during statistical transformations whether any data 
+  columns were dropped and warns about this. If stats intend to drop
+  data columns they can declare them in the new field `dropped_aes`.
+  (@clauswilke, #3250)
+* Added `stat_align()` to align data without common x-coordinates prior to
+  stacking. This is now the default stat for `geom_area()` (@thomasp85, #4850)
+
 * Fix a bug in `stat_contour_filled()` where break value differences below a 
   certain number of digits would cause the computations to fail (@thomasp85, 
   #4874)

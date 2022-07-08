@@ -61,6 +61,11 @@ Stat <- ggproto("Stat",
 
   non_missing_aes = character(),
 
+  # Any aesthetics that are dropped from the data frame during the
+  # statistical transformation should be listed here to suppress a
+  # warning about dropped aesthetics
+  dropped_aes = character(),
+
   optional_aes = character(),
 
   setup_params = function(data, params) {
@@ -97,15 +102,18 @@ Stat <- ggproto("Stat",
     args <- c(list(data = quote(data), scales = quote(scales)), params)
     dapply(data, "PANEL", function(data) {
       scales <- layout$get_scales(data$PANEL[1])
-      try_fetch(do.call(self$compute_panel, args), error = function(cnd) {
-        cli::cli_warn("Computation failed in {.fn {snake_class(self)}}", parent = cnd)
-        new_data_frame()
-      })
+      try_fetch(
+        inject(self$compute_panel(data = data, scales = scales, !!!params)),
+        error = function(cnd) {
+          cli::cli_warn("Computation failed in {.fn {snake_class(self)}}", parent = cnd)
+          data_frame0()
+        }
+      )
     })
   },
 
   compute_panel = function(self, data, scales, ...) {
-    if (empty(data)) return(new_data_frame())
+    if (empty(data)) return(data_frame0())
 
     groups <- split(data, data$group)
     stats <- lapply(groups, function(group) {
@@ -113,16 +121,29 @@ Stat <- ggproto("Stat",
     })
 
     stats <- mapply(function(new, old) {
-      if (empty(new)) return(new_data_frame())
+      if (empty(new)) return(data_frame0())
       unique <- uniquecols(old)
       missing <- !(names(unique) %in% names(new))
-      cbind(
+      vec_cbind(
         new,
         unique[rep(1, nrow(new)), missing,drop = FALSE]
       )
     }, stats, groups, SIMPLIFY = FALSE)
 
-    rbind_dfs(stats)
+    data_new <- vec_rbind(!!!stats)
+
+    # The above code will drop columns that are not constant within groups and not
+    # carried over/recreated by the stat. This can produce unexpected results,
+    # and hence we warn about it.
+    dropped <- base::setdiff(names(data), base::union(self$dropped_aes, names(data_new)))
+    if (length(dropped) > 0) {
+      cli::cli_warn(c(
+        "The following aesthetics were dropped during statistical transformation: {.field {glue_collapse(dropped, sep = ', ')}}",
+        "i" = "This can happen when ggplot fails to infer the correct grouping structure in the data.",
+        "i" = "Did you forget to specify a {.code group} aesthetic or to convert a numerical variable into a factor?"
+      ))
+    }
+    data_new
   },
 
   compute_group = function(self, data, scales) {

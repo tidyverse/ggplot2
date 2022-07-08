@@ -214,7 +214,7 @@ guide_train.colorbar <- function(guide, scale, aesthetic = NULL) {
   if (length(breaks) == 0 || all(is.na(breaks)))
     return()
 
-  ticks <- new_data_frame(setNames(list(scale$map(breaks)), aesthetic %||% scale$aesthetics[1]))
+  ticks <- data_frame(scale$map(breaks), .name_repair = ~ aesthetic %||% scale$aesthetics[1])
   ticks$.value <- breaks
   ticks$.label <- scale$get_labels(breaks)
 
@@ -224,9 +224,13 @@ guide_train.colorbar <- function(guide, scale, aesthetic = NULL) {
   .limits <- scale$get_limits()
   .bar <- seq(.limits[1], .limits[2], length.out = guide$nbin)
   if (length(.bar) == 0) {
-    .bar = unique(.limits)
+    .bar = unique0(.limits)
   }
-  guide$bar <- new_data_frame(list(colour = scale$map(.bar), value = .bar), n = length(.bar))
+  guide$bar <- data_frame0(
+    colour = scale$map(.bar),
+    value = .bar,
+    .size = length(.bar)
+  )
   if (guide$reverse) {
     guide$key <- guide$key[nrow(guide$key):1, ]
     guide$bar <- guide$bar[nrow(guide$bar):1, ]
@@ -413,11 +417,7 @@ guide_gengrob.colorbar <- function(guide, theme) {
     # If any of the labels are quoted language objects, convert them
     # to expressions. Labels from formatter functions can return these
     if (any(vapply(label, is.call, logical(1)))) {
-      label <- lapply(label, function(l) {
-        if (is.call(l)) substitute(expression(x), list(x = l))
-        else l
-      })
-      label <- do.call(c, label)
+      label <- as.expression(label)
     }
     grob.label <- element_grob(
       element = label.theme,
