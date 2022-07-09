@@ -44,7 +44,7 @@ Imports:
     stats,
     tibble,
     vctrs (>= 0.4.1),
-    withr (>= 2.0.0)
+    withr (>= 2.5.0)
 Suggests:
     covr,
     dplyr,
