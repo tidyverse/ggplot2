@@ -245,41 +245,6 @@ CoordPolar <- ggproto("CoordPolar", Coord,
 
     # Combine the two ends of the scale if they are close
     theta <- theta[!is.na(theta)]
-    ends_apart <- (theta[length(theta)] - theta[1]) %% (2 * pi)
-    if (length(theta) > 0 && ends_apart < 0.05) {
-      n <- length(labels)
-      if (is.expression(labels)) {
-        combined <- substitute(paste(a, "/", b),
-          list(a = labels[[1]], b = labels[[n]]))
-      } else {
-        combined <- paste(labels[1], labels[n], sep = "/")
-      }
-      labels[[n]] <- combined
-      labels <- labels[-1]
-      theta <- theta[-1]
-    }
-
-    grobTree(
-      if (length(labels) > 0) element_render(
-        theme, "axis.text.x",
-        labels, 0.45 * sin(theta) + 0.5, 0.45 * cos(theta) + 0.5,
-        hjust = 0.5, vjust = 0.5,
-        default.units = "native"
-      ),
-      element_render(theme, "panel.border")
-    )
-  },
-
-  render_fg = function(self, panel_params, theme) {
-    if (is.null(panel_params$theta.major)) {
-      return(element_render(theme, "panel.border"))
-    }
-
-    theta <- theta_rescale(self, panel_params$theta.major, panel_params)
-    labels <- panel_params$theta.labels
-
-    # Combine the two ends of the scale if they are close
-    theta <- theta[!is.na(theta)]
     ends_apart <- (theta[length(theta)] - theta[1]) %% (2*pi)
     if (length(theta) > 0 && ends_apart < 0.05 && !is.null(labels)) {
       n <- length(labels)
