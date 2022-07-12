@@ -18,7 +18,8 @@
 #' @param bounds Known lower and upper bounds for estimated data. Default
 #'   `c(-Inf, Inf)` means that there are no (finite) bounds. If any bound is
 #'   finite, boundary effect of default density estimation will be corrected by
-#'   reflecting tails outside `bounds` around their closest edge.
+#'   reflecting tails outside `bounds` around their closest edge. Data points
+#'   outside of bounds are removed with a warning.
 #' @section Computed variables:
 #' \describe{
 #'   \item{density}{density estimate}
@@ -118,6 +119,12 @@ compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
     w <- w / sum(w)
   }
 
+  # Adjust data points and weights to all fit inside bounds
+  sample_data <- fit_data_to_bounds(bounds, x, w)
+  x <- sample_data$x
+  w <- sample_data$w
+  nx <- length(x)
+
   # if less than 2 points return data frame of NAs and a warning
   if (nx < 2) {
     warn("Groups with fewer than two data points have been dropped.")
@@ -150,6 +157,23 @@ compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
     count =   dens$y * nx,
     n = nx
   ), n = length(dens$x))
+}
+
+# Check if all data points are inside bounds. If not, warn and remove them.
+fit_data_to_bounds <- function(bounds, x, w) {
+  is_inside_bounds <- (bounds[1] <= x) & (x <= bounds[2])
+
+  if (any(!is_inside_bounds)) {
+    warn("Some data points are outside of `bounds`. Removing them.")
+    x <- x[is_inside_bounds]
+    w <- w[is_inside_bounds]
+    w_sum <- sum(w)
+    if (w_sum > 0) {
+      w <- w / w_sum
+    }
+  }
+
+  return(list(x = x, w = w))
 }
 
 # Update density estimation to mitigate boundary effect at known `bounds`:
