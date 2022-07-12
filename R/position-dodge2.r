@@ -4,11 +4,11 @@
 #'   shrunk by this proportion to allow space between them. Defaults to 0.1.
 #' @param reverse If `TRUE`, will reverse the default stacking order.
 #'   This is useful if you're rotating both the plot and legend.
-position_dodge2 <- function(width = NULL, preserve = c("total", "single"),
+position_dodge2 <- function(width = NULL, preserve = "total",
                             padding = 0.1, reverse = FALSE) {
   ggproto(NULL, PositionDodge2,
     width = width,
-    preserve = match.arg(preserve),
+    preserve = arg_match0(preserve, c("total", "single")),
     padding = padding,
     reverse = reverse
   )
@@ -27,7 +27,7 @@ PositionDodge2 <- ggproto("PositionDodge2", PositionDodge,
     flipped_aes <- has_flipped_aes(data)
     data <- flip_data(data, flipped_aes)
     if (is.null(data$xmin) && is.null(data$xmax) && is.null(self$width)) {
-      warn("Width not defined. Set with `position_dodge2(width = ?)`")
+      cli::cli_warn("Width not defined. Set with {.code position_dodge2(width = ...)}")
     }
 
     if (identical(self$preserve, "total")) {
@@ -138,7 +138,7 @@ find_x_overlaps <- function(df) {
   overlaps[1] <- counter <- 1
 
   for (i in seq_asc(2, nrow(df))) {
-    if (df$xmin[i] >= df$xmax[i - 1]) {
+    if (is.na(df$xmin[i]) || is.na(df$xmax[i - 1]) || df$xmin[i] >= df$xmax[i - 1]) {
       counter <- counter + 1
     }
     overlaps[i] <- counter

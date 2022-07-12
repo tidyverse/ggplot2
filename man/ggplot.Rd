@@ -16,7 +16,8 @@ If not specified, must be supplied in each layer added to the plot.}
 
 \item{...}{Other arguments passed on to methods. Not currently used.}
 
-\item{environment}{DEPRECATED. Used prior to tidy evaluation.}
+\item{environment}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Used prior to tidy
+evaluation.}
 }
 \description{
 \code{ggplot()} initializes a ggplot object. It can be used to
@@ -27,7 +28,7 @@ subsequent layers unless specifically overridden.
 \details{
 \code{ggplot()} is used to construct the initial plot object,
 and is almost always followed by \code{+} to add component to the
-plot. There are three common ways to invoke \code{ggplot}:
+plot. There are three common ways to invoke \code{ggplot()}:
 \itemize{
 \item \verb{ggplot(df, aes(x, y, other aesthetics))}
 \item \code{ggplot(df)}
@@ -50,6 +51,7 @@ is often the case in complex graphics.
 \examples{
 # Generate some sample data, then compute mean and standard deviation
 # in each group
+set.seed(1)
 df <- data.frame(
   gp = factor(rep(letters[1:3], each = 10)),
   y = rnorm(30)

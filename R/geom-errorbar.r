@@ -15,7 +15,7 @@ geom_errorbar <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       na.rm = na.rm,
       orientation = orientation,
       ...
@@ -28,7 +28,7 @@ geom_errorbar <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomErrorbar <- ggproto("GeomErrorbar", Geom,
-  default_aes = aes(colour = "black", size = 0.5, linetype = 1, width = 0.5,
+  default_aes = aes(colour = "black", linewidth = 0.5, linetype = 1, width = 0.5,
     alpha = NA),
 
   draw_key = draw_key_path,
@@ -52,21 +52,23 @@ GeomErrorbar <- ggproto("GeomErrorbar", Geom,
     flip_data(data, params$flipped_aes)
   },
 
-  draw_panel = function(data, panel_params, coord, width = NULL, flipped_aes = FALSE) {
+  draw_panel = function(data, panel_params, coord, lineend = "butt", width = NULL, flipped_aes = FALSE) {
     data <- flip_data(data, flipped_aes)
-    x <- as.vector(rbind(data$xmin, data$xmax, NA, data$x,    data$x,    NA, data$xmin, data$xmax))
-    y <- as.vector(rbind(data$ymax, data$ymax, NA, data$ymax, data$ymin, NA, data$ymin, data$ymin))
-    data <- new_data_frame(list(
+    x <- vec_interleave(data$xmin, data$xmax, NA, data$x,    data$x,    NA, data$xmin, data$xmax)
+    y <- vec_interleave(data$ymax, data$ymax, NA, data$ymax, data$ymin, NA, data$ymin, data$ymin)
+    data <- data_frame0(
       x = x,
       y = y,
       colour = rep(data$colour, each = 8),
       alpha = rep(data$alpha, each = 8),
-      size = rep(data$size, each = 8),
+      linewidth = rep(data$linewidth, each = 8),
       linetype = rep(data$linetype, each = 8),
-      group = rep(1:(nrow(data)), each = 8),
-      row.names = 1:(nrow(data) * 8)
-    ))
+      group = rep(seq_len(nrow(data)), each = 8),
+      .size = nrow(data) * 8
+    )
     data <- flip_data(data, flipped_aes)
-    GeomPath$draw_panel(data, panel_params, coord)
-  }
+    GeomPath$draw_panel(data, panel_params, coord, lineend = lineend)
+  },
+
+  rename_size = TRUE
 )

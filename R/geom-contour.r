@@ -1,23 +1,31 @@
 #' 2D contours of a 3D surface
 #'
+#' @description
 #' ggplot2 can not draw true 3D surfaces, but you can use `geom_contour()`,
 #' `geom_contour_filled()`, and [geom_tile()] to visualise 3D surfaces in 2D.
-#' To specify a valid surface, the data must contain `x`, `y`, and `z` coordinates,
-#' and each unique combination of `x` and `y` can appear exactly once. Contouring
-#' tends to work best when `x` and `y` form a (roughly) evenly
-#' spaced grid. If your data is not evenly spaced, you may want to interpolate
-#' to a grid before visualising, see [geom_density_2d()].
+#'
+#' These functions require regular data, where the `x` and `y` coordinates
+#' form an equally spaced grid, and each combination of `x` and `y` appears
+#' once. Missing values of `z` are allowed, but contouring will only work for
+#' grid points where all four corners are non-missing. If you have irregular
+#' data, you'll need to first interpolate on to a grid before visualising,
+#' using [interp::interp()], [akima::bilinear()], or similar.
 #'
 #' @eval rd_aesthetics("geom", "contour")
 #' @eval rd_aesthetics("geom", "contour_filled")
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @inheritParams geom_path
-#' @param bins Number of contour bins. Overridden by `binwidth`.
-#' @param binwidth The width of the contour bins. Overridden by `breaks`.
-#' @param breaks Numeric vector to set the contour breaks.
-#'   Overrides `binwidth` and `bins`. By default, this is a vector of
-#'   length ten with [pretty()] breaks.
+#' @param binwidth The width of the contour bins. Overridden by `bins`.
+#' @param bins Number of contour bins. Overridden by `breaks`.
+#' @param breaks One of:
+#'   - Numeric vector to set the contour breaks
+#'   - A function that takes the range of the data and binwidth as input
+#'   and returns breaks as output. A function can be created from a formula
+#'   (e.g. ~ fullseq(.x, .y)).
+#'
+#'   Overrides `binwidth` and `bins`. By default, this is a vector of length
+#'   ten with [pretty()] breaks.
 #' @seealso [geom_density_2d()]: 2d density contours
 #' @export
 #' @examples
@@ -68,7 +76,7 @@ geom_contour <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       bins = bins,
       binwidth = binwidth,
       breaks = breaks,
@@ -100,7 +108,7 @@ geom_contour_filled <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       bins = bins,
       binwidth = binwidth,
       breaks = breaks,
@@ -119,7 +127,7 @@ GeomContour <- ggproto("GeomContour", GeomPath,
   default_aes = aes(
     weight = 1,
     colour = "#3366FF",
-    size = 0.5,
+    linewidth = 0.5,
     linetype = 1,
     alpha = NA
   )

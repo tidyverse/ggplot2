@@ -18,14 +18,22 @@
 #'   geom_function(fun = dnorm, colour = "red")
 #'
 #' # To plot functions without data, specify range of x-axis
-#' base <- ggplot() + xlim(-5, 5)
+#' base <-
+#'   ggplot() +
+#'   xlim(-5, 5)
+#'
 #' base + geom_function(fun = dnorm)
+#'
 #' base + geom_function(fun = dnorm, args = list(mean = 2, sd = .5))
 #'
 #' # The underlying mechanics evaluate the function at discrete points
 #' # and connect the points with lines
 #' base + stat_function(fun = dnorm, geom = "point")
+#'
 #' base + stat_function(fun = dnorm, geom = "point", n = 20)
+#'
+#' base + stat_function(fun = dnorm, geom = "polygon", color = "blue", fill = "blue", alpha = 0.5)
+#'
 #' base + geom_function(fun = dnorm, n = 20)
 #'
 #' # Two functions on the same plot
@@ -35,20 +43,29 @@
 #'
 #' # Using a custom anonymous function
 #' base + geom_function(fun = function(x) 0.5*exp(-abs(x)))
+#'
 #' base + geom_function(fun = ~ 0.5*exp(-abs(.x)))
 #'
 #' # Using a custom named function
 #' f <- function(x) 0.5*exp(-abs(x))
+#'
 #' base + geom_function(fun = f)
+#'
+#' # Using xlim to restrict the range of function
+#' ggplot(data.frame(x = rnorm(100)), aes(x)) +
+#' geom_density() +
+#' geom_function(fun = dnorm, colour = "red", xlim=c(-1, 1))
+#'
+#' # Using xlim to widen the range of function
+#' ggplot(data.frame(x = rnorm(100)), aes(x)) +
+#' geom_density() +
+#' geom_function(fun = dnorm, colour = "red", xlim=c(-7, 7))
+#'
 #' @export
 geom_function <- function(mapping = NULL, data = NULL, stat = "function",
                           position = "identity", ..., na.rm = FALSE,
                           show.legend = NA, inherit.aes = TRUE) {
-  # Warn if supplied data is going to be overwritten
-  if (identical(stat, "function")) {
-    if (!is.null(data)) {
-      warn("`data` is not used by stat_function()")
-    }
+  if (is.null(data)) {
     data <- ensure_nonempty_data
   }
 
@@ -60,7 +77,7 @@ geom_function <- function(mapping = NULL, data = NULL, stat = "function",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       na.rm = na.rm,
       ...
     )
@@ -76,9 +93,12 @@ GeomFunction <- ggproto("GeomFunction", GeomPath,
   draw_panel = function(self, data, panel_params, coord, arrow = NULL,
                         lineend = "butt", linejoin = "round", linemitre = 10,
                         na.rm = FALSE) {
-    groups <- unique(data$group)
+    groups <- unique0(data$group)
     if (length(groups) > 1) {
-      warn("Multiple drawing groups in `geom_function()`. Did you use the correct `group`, `colour`, or `fill` aesthetics?")
+      cli::cli_warn(c(
+        "Multiple drawing groups in {.fn {snake_class(self)}}",
+        "i" = "Did you use the correct {.field group}, {.field colour}, or {.field fill} aesthetics?"
+      ))
     }
 
     ggproto_parent(GeomPath, self)$draw_panel(

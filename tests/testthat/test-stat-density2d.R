@@ -1,5 +1,3 @@
-context("stat_density_2d")
-
 test_that("uses scale limits, not data limits", {
   base <- ggplot(mtcars, aes(wt, mpg)) +
     stat_density_2d() +
@@ -93,5 +91,5 @@ test_that("stat_density2d can produce contour and raster data", {
   expect_identical(d_bands$level_mid, d_bands2$level_mid)
 
   # error on incorrect contouring variable
-  expect_error(ggplot_build(p + stat_density_2d(contour_var = "abcd")))
+  expect_snapshot_error(ggplot_build(p + stat_density_2d(contour_var = "abcd")))
 })

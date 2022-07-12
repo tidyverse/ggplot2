@@ -1,6 +1,8 @@
 ---
 title: "Extending ggplot2"
 output: rmarkdown::html_vignette
+description: |
+  Official extension mechanism provided in ggplot2.
 vignette: >
   %\VignetteIndexEntry{Extending ggplot2}
   %\VignetteEngine{knitr::rmarkdown}
@@ -326,7 +328,7 @@ ggplot(mpg, aes(displ, drv, fill = stat(density))) +
 
 ## Creating a new geom
 
-It's harder to create a new geom than a new stat because you also need to know some grid. ggplot2 is built on top of grid, so you'll need to know the basics of drawing with grid. If you're serious about adding a new geom, I'd recommend buying [R graphics](http://amzn.com/B00I60M26G) by Paul Murrell. It tells you everything you need to know about drawing with grid.
+It's harder to create a new geom than a new stat because you also need to know some grid. ggplot2 is built on top of grid, so you'll need to know the basics of drawing with grid. If you're serious about adding a new geom, I'd recommend buying [R graphics](https://www.amazon.com/dp/B00I60M26G/ref=cm_sw_su_dp) by Paul Murrell. It tells you everything you need to know about drawing with grid.
 
 ### A simple geom
 
@@ -399,7 +401,7 @@ GeomSimplePolygon <- ggproto("GeomPolygon", Geom,
   required_aes = c("x", "y"),
   
   default_aes = aes(
-    colour = NA, fill = "grey20", size = 0.5,
+    colour = NA, fill = "grey20", linewidth = 0.5,
     linetype = 1, alpha = 1
   ),
 
@@ -419,7 +421,7 @@ GeomSimplePolygon <- ggproto("GeomPolygon", Geom,
       gp = grid::gpar(
         col = first_row$colour,
         fill = scales::alpha(first_row$fill, first_row$alpha),
-        lwd = first_row$size * .pt,
+        lwd = first_row$linewidth * .pt,
         lty = first_row$linetype
       )
     )
@@ -463,7 +465,7 @@ Sometimes you just want to make a small modification to an existing geom. In thi
 
 ```{r}
 GeomPolygonHollow <- ggproto("GeomPolygonHollow", GeomPolygon,
-  default_aes = aes(colour = "black", fill = NA, size = 0.5, linetype = 1,
+  default_aes = aes(colour = "black", fill = NA, linewidth = 0.5, linetype = 1,
     alpha = NA)
   )
 geom_chull <- function(mapping = NULL, data = NULL, 
@@ -490,7 +492,7 @@ This doesn't allow you to use different geoms with the stat, but that seems appr
 1. Compare and contrast `GeomPolygon` with `GeomSimplePolygon`.
 
 ## Geoms and Stats with multiple orientation
-Some layers have a specific orientation. `geom_bar()` e.g. have the bars along one axis, `geom_line()` will sort the input by one axis, etc. The original approach to using these geoms in the other orientation was to add `coord_flip()` to the plot to switch the position of the x and y axes. Following ggplot2 v3.3 all the geoms will natively work in both orientations without `coord_flip()`. The mechanism is that the layer will try to guess the orientation from the mapped data, or take direction from the user using the `orientation` parameter. To replicate this functionality in new stats and geoms there's a few steps to take. We wll look at the boxplot layer as an example instead of creating a new from scratch.
+Some layers have a specific orientation. `geom_bar()` e.g. have the bars along one axis, `geom_line()` will sort the input by one axis, etc. The original approach to using these geoms in the other orientation was to add `coord_flip()` to the plot to switch the position of the x and y axes. Following ggplot2 v3.3 all the geoms will natively work in both orientations without `coord_flip()`. The mechanism is that the layer will try to guess the orientation from the mapped data, or take direction from the user using the `orientation` parameter. To replicate this functionality in new stats and geoms there's a few steps to take. We will look at the boxplot layer as an example instead of creating a new one from scratch.
 
 ### Omnidirectional stats
 The actual guessing of orientation will happen in `setup_params()` using the `has_flipped_aes()` helper:
@@ -507,7 +509,7 @@ StatBoxplot$setup_data
 
 The data is flipped (if needed), manipulated, and flipped back as it is returned. 
 
-During the computation, this sandwiching between `flip_data()` is used as well, but right before the data is returned it will also get a `flipped_aes` column denoting if the data is flipped or not. This allow the
+During the computation, this sandwiching between `flip_data()` is used as well, but right before the data is returned it will also get a `flipped_aes` column denoting if the data is flipped or not. This allows the
 stat to communicate to the geom that orientation has already been determined.
 
 ### Omnidirecitonal geoms

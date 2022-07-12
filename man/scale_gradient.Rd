@@ -104,7 +104,8 @@ omitted.}
 \link[scales:trans_new]{transformation object}
 \item A numeric vector of positions
 \item A function that takes the limits as input and returns breaks
-as output (e.g., a function returned by \code{\link[scales:extended_breaks]{scales::extended_breaks()}})
+as output (e.g., a function returned by \code{\link[scales:breaks_extended]{scales::extended_breaks()}}).
+Also accepts rlang \link[rlang:as_function]{lambda} function notation.
 }}
     \item{\code{minor_breaks}}{One of:
 \itemize{
@@ -112,7 +113,8 @@ as output (e.g., a function returned by \code{\link[scales:extended_breaks]{scal
 \item \code{waiver()} for the default breaks (one minor break between
 each major break)
 \item A numeric vector of positions
-\item A function that given the limits returns a vector of minor breaks.
+\item A function that given the limits returns a vector of minor breaks. Also
+accepts rlang \link[rlang:as_function]{lambda} function notation.
 }}
     \item{\code{n.breaks}}{An integer guiding the number of major breaks. The algorithm
 may choose a slightly different number to ensure nice break labels. Will
@@ -124,8 +126,10 @@ number of breaks given by the transformation.}
 \item \code{waiver()} for the default labels computed by the
 transformation object
 \item A character vector giving labels (must be same length as \code{breaks})
+\item An expression vector (must be the same length as breaks). See ?plotmath for details.
 \item A function that takes the breaks as input and returns labels
-as output
+as output. Also accepts rlang \link[rlang:as_function]{lambda} function
+notation.
 }}
     \item{\code{limits}}{One of:
 \itemize{
@@ -133,7 +137,8 @@ as output
 \item A numeric vector of length two providing limits of the scale.
 Use \code{NA} to refer to the existing minimum or maximum
 \item A function that accepts the existing (automatic) limits and returns
-new limits
+new limits. Also accepts rlang \link[rlang:as_function]{lambda} function
+notation.
 Note that setting limits on positional scales will \strong{remove} data outside of the limits.
 If the purpose is to zoom, use the limit argument in the coordinate system
 (see \code{\link[=coord_cartesian]{coord_cartesian()}}).
@@ -142,15 +147,17 @@ If the purpose is to zoom, use the limit argument in the coordinate system
 range [0, 1]. This is always \code{\link[scales:rescale]{scales::rescale()}}, except for
 diverging and n colour gradients (i.e., \code{\link[=scale_colour_gradient2]{scale_colour_gradient2()}},
 \code{\link[=scale_colour_gradientn]{scale_colour_gradientn()}}). The \code{rescaler} is ignored by position
-scales, which always use \code{\link[scales:rescale]{scales::rescale()}}.}
+scales, which always use \code{\link[scales:rescale]{scales::rescale()}}. Also accepts rlang
+\link[rlang:as_function]{lambda} function notation.}
     \item{\code{oob}}{One of:
 \itemize{
 \item Function that handles limits outside of the scale limits
-(out of bounds).
-\item The default (\code{\link[scales:censor]{scales::censor()}}) replaces out of
+(out of bounds). Also accepts rlang \link[rlang:as_function]{lambda}
+function notation.
+\item The default (\code{\link[scales:oob]{scales::censor()}}) replaces out of
 bounds values with \code{NA}.
-\item \code{\link[scales:squish]{scales::squish()}} for squishing out of bounds values into range.
-\item \code{\link[scales:squish_infinite]{scales::squish_infinite()}} for squishing infinite values into range.
+\item \code{\link[scales:oob]{scales::squish()}} for squishing out of bounds values into range.
+\item \code{\link[scales:oob]{scales::squish_infinite()}} for squishing infinite values into range.
 }}
     \item{\code{trans}}{For continuous scales, the name of a transformation object
 or the object itself. Built-in transformations include "asn", "atanh",
@@ -204,7 +211,8 @@ to map an arbitrary range to between 0 and 1.}
 \description{
 \verb{scale_*_gradient} creates a two colour gradient (low-high),
 \verb{scale_*_gradient2} creates a diverging colour gradient (low-mid-high),
-\verb{scale_*_gradientn} creates a n-colour gradient.
+\verb{scale_*_gradientn} creates a n-colour gradient. For binned variants of
+these scales, see the \link[=scale_colour_steps]{color steps} scales.
 }
 \details{
 Default colours are generated with \pkg{munsell} and
@@ -214,6 +222,7 @@ luminance. The \pkg{munsell} package makes this easy to do using the
 Munsell colour system.
 }
 \examples{
+set.seed(1)
 df <- data.frame(
   x = runif(100),
   y = runif(100),
@@ -266,11 +275,12 @@ ggplot(df_na, aes(x = value, y)) +
 }
 \seealso{
 \code{\link[scales:seq_gradient_pal]{scales::seq_gradient_pal()}} for details on underlying
-palette
+palette, \code{\link[=scale_colour_steps]{scale_colour_steps()}} for binned variants of these scales.
 
 Other colour scales: 
 \code{\link{scale_alpha}()},
 \code{\link{scale_colour_brewer}()},
+\code{\link{scale_colour_continuous}()},
 \code{\link{scale_colour_grey}()},
 \code{\link{scale_colour_hue}()},
 \code{\link{scale_colour_steps}()},

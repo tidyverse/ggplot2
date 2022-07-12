@@ -15,7 +15,7 @@ geom_rect <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       linejoin = linejoin,
       na.rm = na.rm,
       ...
@@ -28,12 +28,12 @@ geom_rect <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomRect <- ggproto("GeomRect", Geom,
-  default_aes = aes(colour = NA, fill = "grey35", size = 0.5, linetype = 1,
+  default_aes = aes(colour = NA, fill = "grey35", linewidth = 0.5, linetype = 1,
     alpha = NA),
 
   required_aes = c("xmin", "xmax", "ymin", "ymax"),
 
-  draw_panel = function(self, data, panel_params, coord, linejoin = "mitre") {
+  draw_panel = function(self, data, panel_params, coord, lineend = "butt", linejoin = "mitre") {
     if (!coord$is_linear()) {
       aesthetics <- setdiff(
         names(data), c("x", "y", "xmin", "xmax", "ymin", "ymax")
@@ -41,12 +41,12 @@ GeomRect <- ggproto("GeomRect", Geom,
 
       polys <- lapply(split(data, seq_len(nrow(data))), function(row) {
         poly <- rect_to_poly(row$xmin, row$xmax, row$ymin, row$ymax)
-        aes <- new_data_frame(row[aesthetics])[rep(1,5), ]
+        aes <- row[rep(1,5), aesthetics]
 
-        GeomPolygon$draw_panel(cbind(poly, aes), panel_params, coord)
+        GeomPolygon$draw_panel(vec_cbind(poly, aes), panel_params, coord, lineend = lineend, linejoin = linejoin)
       })
 
-      ggname("bar", do.call("grobTree", polys))
+      ggname("geom_rect", inject(grobTree(!!!polys)))
     } else {
       coords <- coord$transform(data, panel_params)
       ggname("geom_rect", rectGrob(
@@ -58,18 +58,18 @@ GeomRect <- ggproto("GeomRect", Geom,
         gp = gpar(
           col = coords$colour,
           fill = alpha(coords$fill, coords$alpha),
-          lwd = coords$size * .pt,
+          lwd = coords$linewidth * .pt,
           lty = coords$linetype,
           linejoin = linejoin,
-          # `lineend` is a workaround for Windows and intentionally kept unexposed
-          # as an argument. (c.f. https://github.com/tidyverse/ggplot2/issues/3037#issuecomment-457504667)
-          lineend = if (identical(linejoin, "round")) "round" else "square"
+          lineend = lineend
         )
       ))
     }
   },
 
-  draw_key = draw_key_polygon
+  draw_key = draw_key_polygon,
+
+  rename_size = TRUE
 )
 
 
@@ -81,8 +81,8 @@ GeomRect <- ggproto("GeomRect", Geom,
 #
 # @keyword internal
 rect_to_poly <- function(xmin, xmax, ymin, ymax) {
-  new_data_frame(list(
+  data_frame0(
     y = c(ymax, ymax, ymin, ymin, ymax),
     x = c(xmin, xmax, xmax, xmin, xmin)
-  ))
+  )
 }

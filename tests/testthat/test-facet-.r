@@ -1,5 +1,3 @@
-context("Facetting")
-
 test_that("as_facets_list() coerces formulas", {
   expect_identical(as_facets_list(~foo), list(quos(), quos(foo = foo)))
   expect_identical(as_facets_list(~foo + bar), list(quos(), quos(foo = foo, bar = bar)))
@@ -52,13 +50,25 @@ test_that("facets reject aes()", {
 test_that("wrap_as_facets_list() returns a quosures object with compacted", {
   expect_identical(wrap_as_facets_list(vars(foo)), quos(foo = foo))
   expect_identical(wrap_as_facets_list(~foo + bar), quos(foo = foo, bar = bar))
-  expect_identical(wrap_as_facets_list(vars(foo, NULL, bar)), quos(foo = foo, bar = bar))
+
+  f <- function(x) {
+    expect_identical(wrap_as_facets_list(vars(foo, {{ x }}, bar)), quos(foo = foo, bar = bar))
+  }
+
+  f(NULL)
+  f()
 })
 
 test_that("grid_as_facets_list() returns a list of quosures objects with compacted", {
   expect_identical(grid_as_facets_list(vars(foo), NULL), list(rows = quos(foo = foo), cols = quos()))
   expect_identical(grid_as_facets_list(~foo, NULL), list(rows = quos(), cols = quos(foo = foo)))
-  expect_identical(grid_as_facets_list(vars(foo, NULL, bar), NULL), list(rows = quos(foo = foo, bar = bar), cols = quos()))
+
+  f <- function(x) {
+    expect_identical(grid_as_facets_list(vars(foo, {{ x }}, bar), NULL), list(rows = quos(foo = foo, bar = bar), cols = quos()))
+  }
+
+  f(NULL)
+  f()
 })
 
 test_that("wrap_as_facets_list() and grid_as_facets_list() accept empty specs", {
@@ -125,18 +135,18 @@ test_that("facet_grid() accepts vars()", {
   expect_identical(grid$params$rows, quos(foo = foo))
   expect_identical(grid$params$cols, quos(bar = bar))
 
-  expect_equal(facet_grid(vars(am, vs)), facet_grid(am + vs ~ .))
-  expect_equal(facet_grid(vars(am, vs), vars(cyl)), facet_grid(am + vs ~ cyl))
-  expect_equal(facet_grid(NULL, vars(cyl)), facet_grid(. ~ cyl))
-  expect_equal(facet_grid(vars(am, vs), TRUE), facet_grid(am + vs ~ ., margins = TRUE))
+  expect_equal(facet_grid(vars(am, vs))$params, facet_grid(am + vs ~ .)$params)
+  expect_equal(facet_grid(vars(am, vs), vars(cyl))$params, facet_grid(am + vs ~ cyl)$params)
+  expect_equal(facet_grid(NULL, vars(cyl))$params, facet_grid(. ~ cyl)$params)
+  expect_equal(facet_grid(vars(am, vs), TRUE)$params, facet_grid(am + vs ~ ., margins = TRUE)$params)
 })
 
 test_that("facet_grid() fails if passed both a formula and a vars()", {
-  expect_error(facet_grid(~foo, vars()), "`rows` must be `NULL` or a `vars\\(\\)` list if")
+  expect_snapshot_error(facet_grid(~foo, vars()))
 })
 
 test_that("can't pass formulas to `cols`", {
-  expect_error(facet_grid(NULL, ~foo), "`cols` must be `NULL` or a `vars\\(\\)`")
+  expect_snapshot_error(facet_grid(NULL, ~foo))
 })
 
 test_that("can still pass `margins` as second argument", {
@@ -219,10 +229,10 @@ test_that("facet variables", {
 
 test_that("facet gives clear error if ", {
   df <- data_frame(x = 1)
-  expect_error(
-    print(ggplot(df, aes(x)) + facet_grid(x ~ x)),
-    "row or cols, not both"
-  )
+  expect_snapshot_error(print(ggplot(df, aes(x)) + facet_grid(x ~ x)))
+  expect_snapshot_error(print(ggplot(df, aes(x)) %>% facet_grid(. ~ x)))
+  expect_snapshot_error(print(ggplot(df, aes(x)) + facet_grid(list(1, 2, 3))))
+  expect_snapshot_error(print(ggplot(df, aes(x)) + facet_grid(vars(x), "free")))
 })
 
 # Variable combinations ---------------------------------------------------
@@ -236,10 +246,7 @@ test_that("zero-length vars in combine_vars() generates zero combinations", {
 test_that("at least one layer must contain all facet variables in combine_vars()", {
   df <- data_frame(letter = c("a", "b"))
   expect_silent(combine_vars(list(df), vars = vars(letter = letter)))
-  expect_error(
-    combine_vars(list(df), vars = vars(letter = number)),
-    "At least one layer"
-  )
+  expect_snapshot_error(combine_vars(list(df), vars = vars(letter = number)))
 })
 
 test_that("at least one combination must exist in combine_vars()", {
@@ -265,15 +272,16 @@ test_that("combine_vars() generates the correct combinations", {
     factor = factor(c("level1", "level2")),
     stringsAsFactors = FALSE
   )
+  attr(df_all, "out.attrs") <- NULL
 
   vars_all <- vars(letter = letter, number =  number, boolean = boolean, factor = factor)
 
-  expect_equivalent(
+  expect_equal(
     combine_vars(list(df_one), vars = vars_all),
     df_one
   )
 
-  expect_equivalent(
+  expect_equal(
     combine_vars(list(df_all), vars = vars_all),
     df_all
   )
@@ -283,21 +291,36 @@ test_that("combine_vars() generates the correct combinations", {
   # NAs are kept with with drop = TRUE
   # drop keeps all combinations of data, regardless of the combinations in which
   # they appear in the data (in addition to keeping unused factor levels)
-  expect_equivalent(
+  expect_equal(
     combine_vars(list(df_one), vars = vars_all, drop = FALSE),
-    df_all[order(df_all$letter, df_all$number, df_all$boolean, df_all$factor), ]
+    df_all[order(df_all$letter, df_all$number, df_all$boolean, df_all$factor), ],
+    ignore_attr = TRUE   # do not compare `row.names`
+  )
+
+  expect_snapshot_error(
+    combine_vars(
+      list(data.frame(a = 1:2, b = 2:3), data.frame(a = 1:2, c = 2:3)),
+      vars = vars(b=b, c=c)
+    )
+  )
+
+  expect_snapshot_error(
+    combine_vars(
+      list(data.frame(a = 1:2), data.frame(b = numeric())),
+      vars = vars(b=b)
+    )
   )
 })
 
 test_that("drop = FALSE in combine_vars() keeps unused factor levels", {
   df <- data_frame(x = factor("a", levels = c("a", "b")))
-  expect_equivalent(
+  expect_equal(
     combine_vars(list(df), vars = vars(x = x), drop = TRUE),
-    data_frame(x = factor("a"))
+    data_frame(x = factor("a", levels = c("a", "b")))
   )
-  expect_equivalent(
+  expect_equal(
     combine_vars(list(df), vars = vars(x = x), drop = FALSE),
-    data_frame(x = factor(c("a", "b")))
+    data_frame(x = factor(c("a", "b"), levels = c("a", "b")))
   )
 })
 
@@ -342,6 +365,15 @@ test_that("eval_facet() is tolerant for missing columns (#2963)", {
     eval_facet(quo(no_such_variable * x), data_frame(foo = 1), possible_columns = c("x")),
     "object 'no_such_variable' not found"
   )
+})
+
+test_that("validate_facets() provide meaningful errors", {
+  expect_snapshot_error(validate_facets(aes(var)))
+  expect_snapshot_error(validate_facets(ggplot()))
+})
+
+test_that("check_layout() throws meaningful errors", {
+  expect_snapshot_error(check_layout(mtcars))
 })
 
 # Visual tests ------------------------------------------------------------

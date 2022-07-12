@@ -1,7 +1,7 @@
 #' Bin and summarise in 2d (rectangle & hexagons)
 #'
-#' `stat_summary_2d` is a 2d variation of [stat_summary()].
-#' `stat_summary_hex` is a hexagonal variation of
+#' `stat_summary_2d()` is a 2d variation of [stat_summary()].
+#' `stat_summary_hex()` is a hexagonal variation of
 #' [stat_summary_2d()]. The data are divided into bins defined
 #' by `x` and `y`, and then the values of `z` in each cell is
 #' are summarised with `fun`.
@@ -14,6 +14,11 @@
 #' \describe{
 #'   \item{x,y}{Location}
 #'   \item{value}{Value of summary statistic.}
+#' }
+#'
+#' @section Dropped variables:
+#' \describe{
+#'   \item{`z`}{After binning, the z values of individual data points are no longer available.}
 #' }
 #' @seealso [stat_summary_hex()] for hexagonal summarization.
 #'   [stat_bin2d()] for the binning options.
@@ -57,7 +62,7 @@ stat_summary_2d <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       bins = bins,
       binwidth = binwidth,
       drop = drop,
@@ -73,7 +78,7 @@ stat_summary_2d <- function(mapping = NULL, data = NULL,
 #' @rdname stat_summary_2d
 #' @usage NULL
 stat_summary2d <- function(...) {
-  message("Please use stat_summary_2d() instead")
+  cli::cli_inform("Please use {.fn stat_summary_2d} instead")
   stat_summary_2d(...)
 }
 
@@ -85,6 +90,7 @@ StatSummary2d <- ggproto("StatSummary2d", Stat,
   default_aes = aes(fill = after_stat(value)),
 
   required_aes = c("x", "y", "z"),
+  dropped_aes = "z", # z gets dropped during statistical transformation
 
   compute_group = function(data, scales, binwidth = NULL, bins = 30,
                            breaks = NULL, origin = NULL, drop = TRUE,
@@ -102,7 +108,7 @@ StatSummary2d <- ggproto("StatSummary2d", Stat,
 
     fun <- as_function(fun)
     f <- function(x) {
-      do.call(fun, c(list(quote(x)), fun.args))
+      inject(fun(x, !!!fun.args))
     }
     out <- tapply_df(data$z, list(xbin = xbin, ybin = ybin), f, drop = drop)
 

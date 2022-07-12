@@ -4,7 +4,7 @@
 #'   be vectorised.
 #' @param n Number of points to interpolate along the x axis.
 #' @param args List of additional arguments passed on to the function defined by `fun`.
-#' @param xlim Optionally, restrict the range of the function to this range.
+#' @param xlim Optionally, specify the range of the function.
 #' @section Computed variables:
 #' `stat_function()` computes the following variables:
 #' \describe{
@@ -24,12 +24,9 @@ stat_function <- function(mapping = NULL, data = NULL,
                           na.rm = FALSE,
                           show.legend = NA,
                           inherit.aes = TRUE) {
-
-  # Warn if supplied data is going to be overwritten
-  if (!is.null(data)) {
-    warn("`data` is not used by stat_function()")
+  if (is.null(data)) {
+    data <- ensure_nonempty_data
   }
-  data <- ensure_nonempty_data
 
   layer(
     data = data,
@@ -39,7 +36,7 @@ stat_function <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       fun = fun,
       n = n,
       args = args,
@@ -77,16 +74,13 @@ StatFunction <- ggproto("StatFunction", Stat,
 
     if (is.formula(fun)) fun <- as_function(fun)
 
-    y_out <- do.call(fun, c(list(quote(x_trans)), args))
+    y_out <- inject(fun(x_trans, !!!args))
     if (!is.null(scales$y) && !scales$y$is_discrete()) {
       # For continuous scales, need to apply transform
       y_out <- scales$y$trans$transform(y_out)
     }
 
-    new_data_frame(list(
-      x = xseq,
-      y = y_out
-    ))
+    data_frame0(x = xseq, y = y_out)
   }
 )
 
@@ -96,7 +90,7 @@ StatFunction <- ggproto("StatFunction", Stat,
 # input data that may have been provided.
 ensure_nonempty_data <- function(data) {
   if (empty(data)) {
-    new_data_frame(list(group = 1), n = 1)
+    data_frame0(group = 1, .size = 1)
   } else {
     data
   }

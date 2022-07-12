@@ -57,8 +57,10 @@ the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
-\item{position}{Position adjustment, either as a string, or the result of
-a call to a position adjustment function.}
+\item{position}{Position adjustment, either as a string naming the adjustment
+(e.g. \code{"jitter"} to use \code{position_jitter}), or the result of a call to a
+position adjustment function. Use the latter if you need to change the
+settings of the adjustment.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
@@ -89,12 +91,12 @@ upper and lower lines, \code{"upper"}/\code{"lower"} draws the respective lines 
 \code{"full"} draws a closed polygon around the area.}
 
 \item{geom, stat}{Use to override the default connection between
-\code{geom_density} and \code{stat_density}.}
+\code{geom_density()} and \code{stat_density()}.}
 
 \item{bw}{The smoothing bandwidth to be used.
 If numeric, the standard deviation of the smoothing kernel.
 If character, a rule to choose the bandwidth, as listed in
-\code{\link[stats:bw.nrd]{stats::bw.nrd()}}.}
+\code{\link[stats:bandwidth]{stats::bw.nrd()}}.}
 
 \item{adjust}{A multiplicate bandwidth adjustment. This makes it possible
 to adjust the bandwidth while still using the a bandwidth estimator.
@@ -140,7 +142,7 @@ This geom treats each axis differently and, thus, can thus have two orientations
 \item \code{fill}
 \item \code{group}
 \item \code{linetype}
-\item \code{size}
+\item \code{linewidth}
 \item \code{weight}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
@@ -153,6 +155,7 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 \item{count}{density * number of points - useful for stacked density
 plots}
 \item{scaled}{density estimate, scaled to maximum of 1}
+\item{n}{number of points}
 \item{ndensity}{alias for \code{scaled}, to mirror the syntax of
 \code{\link[=stat_bin]{stat_bin()}}}
 }

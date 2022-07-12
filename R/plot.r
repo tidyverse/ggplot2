@@ -7,7 +7,7 @@
 #'
 #' `ggplot()` is used to construct the initial plot object,
 #' and is almost always followed by `+` to add component to the
-#' plot. There are three common ways to invoke `ggplot`:
+#' plot. There are three common ways to invoke `ggplot()`:
 #'
 #' * `ggplot(df, aes(x, y, other aesthetics))`
 #' * `ggplot(df)`
@@ -32,11 +32,13 @@
 #' @param mapping Default list of aesthetic mappings to use for plot.
 #'   If not specified, must be supplied in each layer added to the plot.
 #' @param ... Other arguments passed on to methods. Not currently used.
-#' @param environment DEPRECATED. Used prior to tidy evaluation.
+#' @param environment `r lifecycle::badge("deprecated")` Used prior to tidy
+#'   evaluation.
 #' @export
 #' @examples
 #' # Generate some sample data, then compute mean and standard deviation
 #' # in each group
+#' set.seed(1)
 #' df <- data.frame(
 #'   gp = factor(rep(letters[1:3], each = 10)),
 #'   y = rnorm(30)
@@ -80,7 +82,10 @@ ggplot <- function(data = NULL, mapping = aes(), ...,
 ggplot.default <- function(data = NULL, mapping = aes(), ...,
                            environment = parent.frame()) {
   if (!missing(mapping) && !inherits(mapping, "uneval")) {
-    abort("Mapping should be created with `aes()` or `aes_()`.")
+    cli::cli_abort(c(
+      "{.arg mapping} should be created with {.fn aes}.",
+      "x" = "You've supplied a {.cls {class(mapping)[1]}} object"
+    ))
   }
 
   data <- fortify(data, ...)
@@ -106,10 +111,10 @@ ggplot.default <- function(data = NULL, mapping = aes(), ...,
 ggplot.function <- function(data = NULL, mapping = aes(), ...,
                             environment = parent.frame()) {
   # Added to avoid functions end in ggplot.default
-  abort(glue("
-    You're passing a function as global data.
-    Have you misspelled the `data` argument in `ggplot()`
-  "))
+  cli::cli_abort(c(
+    "{.arg data} cannot be a function.",
+    "i" = "Have you misspelled the {.arg data} argument in {.fn ggplot}"
+  ))
 }
 
 plot_clone <- function(plot) {
@@ -137,9 +142,7 @@ is.ggplot <- function(x) inherits(x, "ggplot")
 #' @param vp viewport to draw plot in
 #' @param ... other arguments not used by this method
 #' @keywords hplot
-#' @return Invisibly returns the result of [ggplot_build()], which
-#'   is a list with components that contain the plot itself, the data,
-#'   information about the scales, panels etc.
+#' @return Invisibly returns the original plot.
 #' @export
 #' @method print ggplot
 #' @examples
@@ -177,6 +180,10 @@ print.ggplot <- function(x, newpage = is.null(vp), vp = NULL, ...) {
     if (is.character(vp)) seekViewport(vp) else pushViewport(vp)
     grid.draw(gtable)
     upViewport()
+  }
+
+  if (isTRUE(getOption("BrailleR.VI")) && rlang::is_installed("BrailleR")) {
+    print(asNamespace("BrailleR")$VI(x))
   }
 
   invisible(x)

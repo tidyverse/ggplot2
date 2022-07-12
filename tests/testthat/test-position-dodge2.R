@@ -1,5 +1,3 @@
-context("position_dodge2")
-
 test_that("find_x_overlaps identifies overlapping groups", {
 
   df1 <- data_frame(
@@ -40,8 +38,7 @@ test_that("rectangles are dodged", {
 test_that("cols at the same x position are dodged", {
   df <- data_frame(
     x = c("a", "a", "b"),
-    n = c(1, 5, 10),
-    stringsAsFactors = FALSE
+    n = c(1, 5, 10)
   )
 
   p <- ggplot(df, aes(1, n, fill = x)) +
@@ -51,9 +48,11 @@ test_that("cols at the same x position are dodged", {
 })
 
 test_that("padding argument controls space between elements", {
-  p1 <- ggplot(iris, aes(1, Sepal.Length, fill = Sepal.Width < 3.2)) +
+  df <- data_frame(value = 1:3, group = c("a", "a", "b"))
+
+  p1 <- ggplot(df, aes(1, value, fill = group)) +
     geom_boxplot(position = position_dodge2(padding = 0))
-  p2 <- ggplot(iris, aes(1, Sepal.Length, fill = Sepal.Width < 3.2)) +
+  p2 <- ggplot(df, aes(1, value, fill = group)) +
     geom_boxplot(position = position_dodge2(padding = 0.1))
 
   d1 <- layer_data(p1)
@@ -72,9 +71,14 @@ test_that("padding argument controls space between elements", {
 })
 
 test_that("boxes in facetted plots keep the correct width", {
+  df <- data_frame(
+    value = 1:12,
+    group = rep(c("a", "b", "c"), each = 4L),
+    subgroup = rep(c("A", "B"), times = 6L)
+  )
 
-  p <- ggplot(mtcars, aes(x = factor(vs), y = mpg)) +
-    facet_wrap( ~ factor(cyl)) +
+  p <- ggplot(df, aes(subgroup, value)) +
+    facet_wrap( ~ group) +
     geom_boxplot()
 
   d <- layer_data(p)
@@ -83,13 +87,10 @@ test_that("boxes in facetted plots keep the correct width", {
 })
 
 test_that("width of groups is computed per facet", {
-  df <- tibble::tribble(
-    ~g1, ~g2,  ~y,
-    "x", "a",  1,
-    "x", "b",  2,
-    "y", "a",  3,
-    "y", "b",  4,
-    "y", "c",  3,
+  df <- data_frame(
+    g1 = c("x", "x", "y", "y", "y"),
+    g2 = c("a", "b", "a", "b", "c"),
+    y = c(1, 2, 3, 4, 3)
   )
 
   p <- ggplot(df, aes("x", y, fill = g2)) +
@@ -100,4 +101,12 @@ test_that("width of groups is computed per facet", {
   width <- d$xmax - d$xmin
 
   expect_true(all(width == (0.9 / 3) * 0.9))
+})
+
+test_that("NA values are given their own group", {
+  df <- data.frame(
+    xmin = c(1, 2, NA, NA),
+    xmax = c(1, 2, NA, NA)
+  )
+  expect_equal(find_x_overlaps(df), seq_len(4))
 })

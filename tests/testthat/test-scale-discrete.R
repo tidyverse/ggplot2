@@ -1,5 +1,3 @@
-context("scale_discrete")
-
 # Missing values ----------------------------------------------------------
 
 df <- tibble::tibble(
@@ -96,7 +94,8 @@ test_that("discrete scale defaults can be set globally", {
   )
 
   withr::with_options(
-    list(ggplot2.discrete.fill = c("#FFFFFF", "#000000")), {
+    list(ggplot2.discrete.fill = c("#FFFFFF", "#000000"),
+         ggplot2.discrete.colour = c("#FFFFFF", "#000000")), {
       # nlevels == ncodes
       two <- ggplot(df, aes(x, y, colour = two, fill = two)) + geom_point()
       expect_equal(layer_data(two)$colour, rep(c("#FFFFFF", "#000000"), 2))
@@ -107,11 +106,16 @@ test_that("discrete scale defaults can be set globally", {
         geom_point()
       four_hue <- four_default + scale_fill_hue()
       expect_equal(layer_data(four_default)$colour, layer_data(four_hue)$colour)
-  })
+    }
+  )
 
   withr::with_options(
     list(
       ggplot2.discrete.fill = list(
+        c("#FFFFFF", "#000000"),
+        c("#FF0000", "#00FF00", "#0000FF", "#FF00FF")
+      ),
+      ggplot2.discrete.colour = list(
         c("#FFFFFF", "#000000"),
         c("#FF0000", "#00FF00", "#0000FF", "#FF00FF")
       )
@@ -125,20 +129,36 @@ test_that("discrete scale defaults can be set globally", {
       four <- ggplot(df, aes(x, y, colour = four, fill = four)) + geom_point()
       expect_equal(layer_data(four)$colour, c("#FF0000", "#00FF00", "#0000FF", "#FF00FF"))
       expect_equal(layer_data(four)$fill, c("#FF0000", "#00FF00", "#0000FF", "#FF00FF"))
-    })
+    }
+  )
+})
+
+test_that("Scale is checked in default colour scale", {
+  # Check scale type
+  expect_error(scale_colour_discrete(type = scale_colour_gradient))
+  expect_error(scale_fill_discrete(type = scale_fill_gradient))
+
+  # Check aesthetic
+  expect_error(scale_colour_discrete(type = scale_fill_hue))
+  expect_error(scale_fill_discrete(type = scale_colour_hue))
+})
+
+test_that("Aesthetics with no continuous interpretation fails when called", {
+  expect_snapshot_error(scale_linetype_continuous())
+  expect_snapshot_error(scale_shape_continuous())
 })
 
 # mapped_discrete ---------------------------------------------------------
 
 test_that("mapped_discrete vectors behaves as predicted", {
-  expect_null(new_mapped_discrete(NULL))
-  expect_s3_class(new_mapped_discrete(c(0, 3.5)), "mapped_discrete")
-  expect_s3_class(new_mapped_discrete(seq_len(4)), "mapped_discrete")
-  expect_error(new_mapped_discrete(letters))
+  expect_null(mapped_discrete(NULL))
+  expect_s3_class(mapped_discrete(c(0, 3.5)), "ggplot2_mapped_discrete")
+  expect_s3_class(mapped_discrete(seq_len(4)), "ggplot2_mapped_discrete")
+  expect_error(mapped_discrete(letters))
 
-  x <- new_mapped_discrete(1:10)
-  expect_s3_class(x[2:4], "mapped_discrete")
-  expect_s3_class(c(x, x), "mapped_discrete")
-  x[5:7] <- new_mapped_discrete(seq_len(3))
-  expect_s3_class(x, "mapped_discrete")
+  x <- mapped_discrete(1:10)
+  expect_s3_class(x[2:4], "ggplot2_mapped_discrete")
+  expect_s3_class(c(x, x), "ggplot2_mapped_discrete")
+  x[5:7] <- mapped_discrete(seq_len(3))
+  expect_s3_class(x, "ggplot2_mapped_discrete")
 })

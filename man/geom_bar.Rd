@@ -64,8 +64,10 @@ the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
-\item{position}{Position adjustment, either as a string, or the result of
-a call to a position adjustment function.}
+\item{position}{Position adjustment, either as a string naming the adjustment
+(e.g. \code{"jitter"} to use \code{position_jitter}), or the result of a call to a
+position adjustment function. Use the latter if you need to change the
+settings of the adjustment.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
@@ -138,7 +140,7 @@ This geom treats each axis differently and, thus, can thus have two orientations
 \item \code{fill}
 \item \code{group}
 \item \code{linetype}
-\item \code{size}
+\item \code{linewidth}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 
@@ -152,7 +154,7 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 \item \code{fill}
 \item \code{group}
 \item \code{linetype}
-\item \code{size}
+\item \code{linewidth}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 
@@ -218,8 +220,8 @@ ggplot(df, aes(x)) + geom_histogram(binwidth = 0.5)
 bar charts.
 
 \code{\link[=stat_bin]{stat_bin()}}, which bins data in ranges and counts the
-cases in each range. It differs from \code{stat_count}, which counts the
+cases in each range. It differs from \code{stat_count()}, which counts the
 number of cases at each \code{x} position (without binning into ranges).
 \code{\link[=stat_bin]{stat_bin()}} requires continuous \code{x} data, whereas
-\code{stat_count} can be used for both discrete and continuous \code{x} data.
+\code{stat_count()} can be used for both discrete and continuous \code{x} data.
 }

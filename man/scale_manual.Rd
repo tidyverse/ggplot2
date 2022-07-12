@@ -11,17 +11,29 @@
 \alias{scale_color_manual}
 \title{Create your own discrete scale}
 \usage{
-scale_colour_manual(..., values, aesthetics = "colour", breaks = waiver())
+scale_colour_manual(
+  ...,
+  values,
+  aesthetics = "colour",
+  breaks = waiver(),
+  na.value = "grey50"
+)
 
-scale_fill_manual(..., values, aesthetics = "fill", breaks = waiver())
+scale_fill_manual(
+  ...,
+  values,
+  aesthetics = "fill",
+  breaks = waiver(),
+  na.value = "grey50"
+)
 
-scale_size_manual(..., values, breaks = waiver())
+scale_size_manual(..., values, breaks = waiver(), na.value = NA)
 
-scale_shape_manual(..., values, breaks = waiver())
+scale_shape_manual(..., values, breaks = waiver(), na.value = NA)
 
-scale_linetype_manual(..., values, breaks = waiver())
+scale_linetype_manual(..., values, breaks = waiver(), na.value = "blank")
 
-scale_alpha_manual(..., values, breaks = waiver())
+scale_alpha_manual(..., values, breaks = waiver(), na.value = NA)
 
 scale_discrete_manual(aesthetics, ..., values, breaks = waiver())
 }
@@ -32,17 +44,21 @@ scale_discrete_manual(aesthetics, ..., values, breaks = waiver())
     \item{\code{palette}}{A palette function that when called with a single integer
 argument (the number of levels in the scale) returns the values that
 they should take (e.g., \code{\link[scales:hue_pal]{scales::hue_pal()}}).}
-    \item{\code{limits}}{A character vector that defines possible values of the scale
-and their order.}
+    \item{\code{limits}}{One of:
+\itemize{
+\item \code{NULL} to use the default scale values
+\item A character vector that defines possible values of the scale and their
+order
+\item A function that accepts the existing (automatic) values and returns
+new ones. Also accepts rlang \link[rlang:as_function]{lambda} function
+notation.
+}}
     \item{\code{drop}}{Should unused factor levels be omitted from the scale?
 The default, \code{TRUE}, uses the levels that appear in the data;
 \code{FALSE} uses all the levels in the factor.}
     \item{\code{na.translate}}{Unlike continuous scales, discrete scales can easily show
 missing values, and do so by default. If you want to remove missing values
 from a discrete scale, specify \code{na.translate = FALSE}.}
-    \item{\code{na.value}}{If \code{na.translate = TRUE}, what aesthetic value should the
-missing values be displayed as? Does not apply to position scales
-where \code{NA} is always placed at the far right.}
     \item{\code{scale_name}}{The name of the scale that should be used for error messages
 associated with this scale.}
     \item{\code{name}}{The name of the scale. Used as the axis or legend title. If
@@ -55,8 +71,10 @@ omitted.}
 \item \code{waiver()} for the default labels computed by the
 transformation object
 \item A character vector giving labels (must be same length as \code{breaks})
+\item An expression vector (must be the same length as breaks). See ?plotmath for details.
 \item A function that takes the breaks as input and returns labels
-as output
+as output. Also accepts rlang \link[rlang:as_function]{lambda} function
+notation.
 }}
     \item{\code{guide}}{A function used to create a guide or its name. See
 \code{\link[=guides]{guides()}} for more information.}
@@ -82,6 +100,8 @@ same time, via \code{aesthetics = c("colour", "fill")}.}
 \item A function that takes the limits as input and returns breaks
 as output
 }}
+
+\item{na.value}{The aesthetic value to use for missing (\code{NA}) values}
 }
 \description{
 These functions allow you to specify your own set of mappings from levels in the

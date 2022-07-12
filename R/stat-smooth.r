@@ -20,20 +20,24 @@
 #'   observations and `formula = y ~ s(x, bs = "cs")` otherwise.
 #' @param se Display confidence interval around smooth? (`TRUE` by default, see
 #'   `level` to control.)
-#' @param fullrange Should the fit span the full range of the plot, or just
-#'   the data?
+#' @param fullrange If `TRUE`, the smoothing line gets expanded to the range of the plot,
+#'   potentially beyond the data. This does not extend the line into any additional padding
+#'   created by `expansion`.
 #' @param level Level of confidence interval to use (0.95 by default).
 #' @param span Controls the amount of smoothing for the default loess smoother.
 #'   Smaller numbers produce wigglier lines, larger numbers produce smoother
-#'   lines.
+#'   lines. Only used with loess, i.e. when `method = "loess"`,
+#'   or when `method = NULL` (the default) and there are fewer than 1,000
+#'   observations.
 #' @param n Number of points at which to evaluate smoother.
 #' @param method.args List of additional arguments passed on to the modelling
 #'   function defined by `method`.
 #' @section Computed variables:
+#' `stat_smooth()` provides the following variables, some of which depend on the orientation:
 #' \describe{
-#'   \item{y}{predicted value}
-#'   \item{ymin}{lower pointwise confidence interval around the mean}
-#'   \item{ymax}{upper pointwise confidence interval around the mean}
+#'   \item{y *or* x}{predicted value}
+#'   \item{ymin *or* xmin}{lower pointwise confidence interval around the mean}
+#'   \item{ymax *or* xmax}{upper pointwise confidence interval around the mean}
 #'   \item{se}{standard error}
 #' }
 #' @export
@@ -61,7 +65,7 @@ stat_smooth <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       method = method,
       formula = formula,
       se = se,
@@ -105,14 +109,14 @@ StatSmooth <- ggproto("StatSmooth", Stat,
       } else {
         params$formula <- y ~ x
       }
-      msg <- c(msg, paste0("formula '", deparse(params$formula), "'"))
+      msg <- c(msg, paste0("formula = '", deparse(params$formula), "'"))
     }
     if (identical(params$method, "gam")) {
       params$method <- mgcv::gam
     }
 
     if (length(msg) > 0) {
-      message("`geom_smooth()` using ", paste0(msg, collapse = " and "))
+      cli::cli_inform("{.fn geom_smooth} using {msg}")
     }
 
     params
@@ -125,9 +129,9 @@ StatSmooth <- ggproto("StatSmooth", Stat,
                            xseq = NULL, level = 0.95, method.args = list(),
                            na.rm = FALSE, flipped_aes = NA) {
     data <- flip_data(data, flipped_aes)
-    if (length(unique(data$x)) < 2) {
+    if (length(unique0(data$x)) < 2) {
       # Not enough data to perform fit
-      return(new_data_frame())
+      return(data_frame0())
     }
 
     if (is.null(data$weight)) data$weight <- 1
@@ -137,7 +141,7 @@ StatSmooth <- ggproto("StatSmooth", Stat,
         if (fullrange) {
           xseq <- scales$x$dimension()
         } else {
-          xseq <- sort(unique(data$x))
+          xseq <- sort(unique0(data$x))
         }
       } else {
         if (fullrange) {
@@ -166,8 +170,12 @@ StatSmooth <- ggproto("StatSmooth", Stat,
       method.args$method <- "REML"
     }
 
-    base.args <- list(quote(formula), data = quote(data), weights = quote(weight))
-    model <- do.call(method, c(base.args, method.args))
+    model <- inject(method(
+      formula,
+      data = data,
+      weights = weight,
+      !!!method.args
+    ))
 
     prediction <- predictdf(model, xseq, se, level)
     prediction$flipped_aes <- flipped_aes

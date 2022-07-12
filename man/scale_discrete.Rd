@@ -22,10 +22,18 @@ they should take (e.g., \code{\link[scales:hue_pal]{scales::hue_pal()}}).}
 \item \code{waiver()} for the default breaks (the scale limits)
 \item A character vector of breaks
 \item A function that takes the limits as input and returns breaks
-as output
+as output. Also accepts rlang \link[rlang:as_function]{lambda} function
+notation.
 }}
-    \item{\code{limits}}{A character vector that defines possible values of the scale
-and their order.}
+    \item{\code{limits}}{One of:
+\itemize{
+\item \code{NULL} to use the default scale values
+\item A character vector that defines possible values of the scale and their
+order
+\item A function that accepts the existing (automatic) values and returns
+new ones. Also accepts rlang \link[rlang:as_function]{lambda} function
+notation.
+}}
     \item{\code{drop}}{Should unused factor levels be omitted from the scale?
 The default, \code{TRUE}, uses the levels that appear in the data;
 \code{FALSE} uses all the levels in the factor.}
@@ -48,8 +56,10 @@ omitted.}
 \item \code{waiver()} for the default labels computed by the
 transformation object
 \item A character vector giving labels (must be same length as \code{breaks})
+\item An expression vector (must be the same length as breaks). See ?plotmath for details.
 \item A function that takes the breaks as input and returns labels
-as output
+as output. Also accepts rlang \link[rlang:as_function]{lambda} function
+notation.
 }}
     \item{\code{super}}{The super class to use for the constructed scale}
   }}
@@ -68,7 +78,7 @@ expand the scale by 5\% on each side for continuous variables, and by
 \code{left} or \code{right} for y axes, \code{top} or \code{bottom} for x axes.}
 }
 \description{
-\code{scale_x_discrete} and \code{scale_y_discrete} are used to set the values for
+\code{scale_x_discrete()} and \code{scale_y_discrete()} are used to set the values for
 discrete x and y scale aesthetics. For simple manipulation of scale labels
 and limits, you may wish to use \code{\link[=labs]{labs()}} and \code{\link[=lims]{lims()}} instead.
 }
@@ -90,8 +100,17 @@ ggplot(diamonds, aes(cut)) + geom_bar()
       geom_jitter())
 
 d + scale_x_discrete("Cut")
-d + scale_x_discrete("Cut", labels = c("Fair" = "F","Good" = "G",
-  "Very Good" = "VG","Perfect" = "P","Ideal" = "I"))
+d +
+  scale_x_discrete(
+    "Cut",
+    labels = c(
+      "Fair" = "F",
+      "Good" = "G",
+      "Very Good" = "VG",
+      "Perfect" = "P",
+      "Ideal" = "I"
+    )
+  )
 
 # Use limits to adjust the which levels (and in what order)
 # are displayed
@@ -102,9 +121,12 @@ d + xlim("Fair","Ideal", "Good")
 d + ylim("I1", "IF")
 
 # See ?reorder to reorder based on the values of another variable
-ggplot(mpg, aes(manufacturer, cty)) + geom_point()
-ggplot(mpg, aes(reorder(manufacturer, cty), cty)) + geom_point()
-ggplot(mpg, aes(reorder(manufacturer, displ), cty)) + geom_point()
+ggplot(mpg, aes(manufacturer, cty)) +
+  geom_point()
+ggplot(mpg, aes(reorder(manufacturer, cty), cty)) +
+  geom_point()
+ggplot(mpg, aes(reorder(manufacturer, displ), cty)) +
+  geom_point()
 
 # Use abbreviate as a formatter to reduce long names
 ggplot(mpg, aes(reorder(manufacturer, displ), cty)) +

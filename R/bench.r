@@ -16,7 +16,7 @@ benchplot <- function(x) {
   x <- enquo(x)
   construct <- system.time(x <- eval_tidy(x))
   if (!inherits(x, "ggplot")) {
-    abort("`x` must be a ggplot object")
+    cli::cli_abort("{.arg x} must be a {.cls ggplot} object")
   }
 
   build <- system.time(data <- ggplot_build(x))
@@ -26,7 +26,7 @@ benchplot <- function(x) {
   times <- rbind(construct, build, render, draw)[, 1:3]
   times <- rbind(times, colSums(times))
 
-  cbind(
+  vec_cbind(
     step = c("construct", "build", "render", "draw", "TOTAL"),
     mat_2_df(times)
   )

@@ -16,7 +16,9 @@
 #'
 #' dat <- data.frame(x = 1:5, y = 1:5, p = 1:5, q = factor(1:5),
 #'  r = factor(1:5))
-#' p <- ggplot(dat, aes(x, y, colour = p, size = q, shape = r)) + geom_point()
+#' p <-
+#'   ggplot(dat, aes(x, y, colour = p, size = q, shape = r)) +
+#'   geom_point()
 #'
 #' # without guide specification
 #' p
@@ -38,8 +40,12 @@
 #'
 #' # Guides are integrated where possible
 #'
-#' p + guides(colour = guide_legend("title"), size = guide_legend("title"),
-#'   shape = guide_legend("title"))
+#' p +
+#'   guides(
+#'     colour = guide_legend("title"),
+#'     size = guide_legend("title"),
+#'     shape = guide_legend("title")
+#'  )
 #' # same as
 #' g <- guide_legend("title")
 #' p + guides(colour = g, size = g, shape = g)
@@ -58,11 +64,18 @@
 #'  )
 #' }
 guides <- function(...) {
-  args <- list(...)
+  args <- list2(...)
   if (length(args) > 0) {
     if (is.list(args[[1]]) && !inherits(args[[1]], "guide")) args <- args[[1]]
     args <- rename_aes(args)
   }
+
+  idx_false <- vapply(args, isFALSE, FUN.VALUE = logical(1L))
+  if (isTRUE(any(idx_false))) {
+    lifecycle::deprecate_warn("3.3.4", "guides(`<scale>` = 'cannot be `FALSE`. Use \"none\" instead')")
+    args[idx_false] <- "none"
+  }
+
   structure(args, class = "guides")
 }
 
@@ -168,7 +181,7 @@ validate_guide <- function(guide) {
   else if (inherits(guide, "guide"))
     guide
   else
-    abort(glue("Unknown guide: {guide}"))
+    cli::cli_abort("Unknown guide: {guide}")
 }
 
 # train each scale in scales and generate the definition of guide
@@ -184,10 +197,19 @@ guides_train <- function(scales, theme, guides, labels) {
       #   + guides(XXX) > + scale_ZZZ(guide=XXX) > default(i.e., legend)
       guide <- resolve_guide(output, scale, guides)
 
-      # this should be changed to testing guide == "none"
-      # scale$legend is backward compatibility
-      # if guides(XXX=FALSE), then scale_ZZZ(guides=XXX) is discarded.
-      if (identical(guide, "none") || isFALSE(guide) || inherits(guide, "guide_none")) next
+      if (identical(guide, "none") || inherits(guide, "guide_none")) next
+
+      if (isFALSE(guide)) {
+        # lifecycle currently doesn't support function name placeholders.
+        # the below gives us the correct behaviour but is too brittle and hacky
+        # lifecycle::deprecate_warn("3.3.4", "`scale_*()`(guide = 'cannot be `FALSE`. Use \"none\" instead')")
+        # TODO: update to lifecycle after next lifecycle release
+        cli::cli_warn(c(
+           "{.code guide = FALSE} is deprecated",
+           "i" = 'Please use {.code guide = "none"} instead.'
+        ))
+        next
+      }
 
       # check the validity of guide.
       # if guide is character, then find the guide object
@@ -195,7 +217,7 @@ guides_train <- function(scales, theme, guides, labels) {
 
       # check the consistency of the guide and scale.
       if (!identical(guide$available_aes, "any") && !any(scale$aesthetics %in% guide$available_aes)) {
-        abort(glue("Guide '{guide$name}' cannot be used for '{scale$aesthetics}'."))
+        cli::cli_abort("Guide {.var {guide$name}} cannot be used for {.field {scale$aesthetics}}.")
       }
 
       guide$title <- scale$make_title(guide$title %|W|% scale$name %|W|% labels[[output]])
@@ -229,6 +251,7 @@ guides_merge <- function(gdefs) {
 }
 
 # process layer information
+# TODO: `default_mapping` is unused internally but kept for backwards compitability until guide rewrite
 guides_geom <- function(gdefs, layers, default_mapping) {
   compact(lapply(gdefs, guide_geom, layers, default_mapping))
 }
@@ -240,7 +263,10 @@ guides_gengrob <- function(gdefs, theme) {
     function(g) {
       g$title.position <- g$title.position %||% switch(g$direction, vertical = "top", horizontal = "left")
       if (!g$title.position %in% c("top", "bottom", "left", "right")) {
-        abort(glue("title position '{g$title.position}' is invalid"))
+        cli::cli_abort(c(
+          "Title position {.val {g$title.position}} is invalid",
+          "i" = "Use one of {.val top}, {.val bottom}, {.val left}, or {.val right}"
+        ))
       }
       g
     })
@@ -254,8 +280,10 @@ guides_build <- function(ggrobs, theme) {
   theme$legend.spacing.y <- theme$legend.spacing.y  %||% theme$legend.spacing
   theme$legend.spacing.x <- theme$legend.spacing.x  %||% theme$legend.spacing
 
-  widths <- do.call("unit.c", lapply(ggrobs, function(g)sum(g$widths)))
-  heights <- do.call("unit.c", lapply(ggrobs, function(g)sum(g$heights)))
+  widths <- lapply(ggrobs, function(g) sum(g$widths))
+  widths <- inject(unit.c(!!!widths))
+  heights <- lapply(ggrobs, function(g) sum(g$heights))
+  heights <- inject(unit.c(!!!heights))
 
   # Set the justification of each legend within the legend box
   # First value is xjust, second value is yjust
@@ -342,11 +370,9 @@ guide_transform <- function(guide, coord, panel_params) UseMethod("guide_transfo
 
 #' @export
 guide_transform.default <- function(guide, coord, panel_params) {
-  abort(glue(
-    "Guide with class ",
-    glue_collapse(class(guide), " / "),
-    " does not implement guide_transform(). ",
-    "Did you mean to use guide_axis()?"
+  cli::cli_abort(c(
+    "Guide with class {.cls {class(guide)}} does not implement {.fn guide_transform}",
+    "i" = "Did you mean to use {.fn guide_axis}?"
   ))
 }
 
@@ -357,11 +383,14 @@ guide_gengrob <- function(guide, theme) UseMethod("guide_gengrob")
 
 # Helpers -----------------------------------------------------------------
 
-matched_aes <- function(layer, guide, defaults) {
-  all <- names(c(layer$mapping, if (layer$inherit.aes) defaults, layer$stat$default_aes))
+matched_aes <- function(layer, guide) {
+  all <- names(c(layer$computed_mapping, layer$stat$default_aes))
   geom <- c(layer$geom$required_aes, names(layer$geom$default_aes))
+
+  # Make sure that size guides are shown if a renaming layer is used
+  if (layer$geom$rename_size && "size" %in% all && !"linewidth" %in% all) geom <- c(geom, "size")
   matched <- intersect(intersect(all, geom), names(guide$key))
-  matched <- setdiff(matched, names(layer$geom_params))
+  matched <- setdiff(matched, names(layer$computed_geom_params))
   setdiff(matched, names(layer$aes_params))
 }
 
@@ -370,7 +399,7 @@ matched_aes <- function(layer, guide, defaults) {
 # `matched` is the set of aesthetics that match between the layer and the guide
 include_layer_in_guide <- function(layer, matched) {
   if (!is.logical(layer$show.legend)) {
-    warn("`show.legend` must be a logical vector.")
+    cli::cli_warn("{.arg show.legend} must be a logical vector.")
     layer$show.legend <- FALSE # save back to layer so we don't issue this warning more than once
     return(FALSE)
   }

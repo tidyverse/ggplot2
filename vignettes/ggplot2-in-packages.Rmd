@@ -1,6 +1,8 @@
 ---
 title: "Using ggplot2 in packages"
 output: rmarkdown::html_vignette
+description: |
+  Customising how aesthetic specifications are represented on your plot.
 vignette: >
   %\VignetteIndexEntry{Using ggplot2 in packages}
   %\VignetteEngine{knitr::rmarkdown}

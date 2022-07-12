@@ -10,8 +10,13 @@ predictdf <- function(model, xseq, se, level) UseMethod("predictdf")
 
 #' @export
 predictdf.default <- function(model, xseq, se, level) {
-  pred <- stats::predict(model, newdata = new_data_frame(list(x = xseq)), se.fit = se,
-    level = level, interval = if (se) "confidence" else "none")
+  pred <- stats::predict(
+    model,
+    newdata = data_frame0(x = xseq),
+    se.fit = se,
+    level = level,
+    interval = if (se) "confidence" else "none"
+  )
 
   if (se) {
     fit <- as.data.frame(pred$fit)
@@ -24,8 +29,12 @@ predictdf.default <- function(model, xseq, se, level) {
 
 #' @export
 predictdf.glm <- function(model, xseq, se, level) {
-  pred <- stats::predict(model, newdata = data_frame(x = xseq), se.fit = se,
-    type = "link")
+  pred <- stats::predict(
+    model,
+    newdata = data_frame0(x = xseq),
+    se.fit = se,
+    type = "link"
+  )
 
   if (se) {
     std <- stats::qnorm(level / 2 + 0.5)
@@ -43,13 +52,17 @@ predictdf.glm <- function(model, xseq, se, level) {
 
 #' @export
 predictdf.loess <- function(model, xseq, se, level) {
-  pred <- stats::predict(model, newdata = data_frame(x = xseq), se = se)
+  pred <- stats::predict(
+    model,
+    newdata = data_frame0(x = xseq),
+    se = se
+  )
 
   if (se) {
-    y = pred$fit
+    y <- pred$fit
     ci <- pred$se.fit * stats::qt(level / 2 + .5, pred$df)
-    ymin = y - ci
-    ymax = y + ci
+    ymin <- y - ci
+    ymax <- y + ci
     base::data.frame(x = xseq, y, ymin, ymax, se = pred$se.fit)
   } else {
     base::data.frame(x = xseq, y = as.vector(pred))
@@ -58,12 +71,17 @@ predictdf.loess <- function(model, xseq, se, level) {
 
 #' @export
 predictdf.locfit <- function(model, xseq, se, level) {
-  pred <- stats::predict(model, newdata = data_frame(x = xseq), se.fit = se)
+  pred <- stats::predict(
+    model,
+    newdata = data_frame0(x = xseq),
+    se.fit = se
+  )
 
   if (se) {
-    y = pred$fit
-    ymin = y - pred$se.fit
-    ymax = y + pred$se.fit
+    y <- pred$fit
+    ci <- pred$se.fit * stats::qt(level / 2 + .5, model$dp["df2"])
+    ymin <- y - ci
+    ymax <- y + ci
     base::data.frame(x = xseq, y, ymin, ymax, se = pred$se.fit)
   } else {
     base::data.frame(x = xseq, y = as.vector(pred))

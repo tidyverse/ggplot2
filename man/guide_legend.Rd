@@ -60,7 +60,8 @@ object of \code{\link[=element_text]{element_text()}} is expected. By default, t
 specified by \code{legend.text} in \code{\link[=theme]{theme()}}.}
 
 \item{label.hjust}{A numeric specifying horizontal justification of the
-label text.}
+label text. The default for standard text is 0 (left-aligned) and 1
+(right-aligned) for expressions.}
 
 \item{label.vjust}{A numeric specifying vertical justification of the label
 text.}
@@ -141,17 +142,19 @@ p1 + guides(fill =
 p1 + guides(fill = guide_legend(label.position = "left", label.hjust = 1))
 
 # label styles
-p1 + scale_fill_continuous(breaks = c(5, 10, 15),
-  labels = paste("long", c(5, 10, 15)),
-  guide = guide_legend(
-    direction = "horizontal",
-    title.position = "top",
-    label.position = "bottom",
-    label.hjust = 0.5,
-    label.vjust = 1,
-    label.theme = element_text(angle = 90)
+p1 +
+  scale_fill_continuous(
+    breaks = c(5, 10, 15),
+    labels = paste("long", c(5, 10, 15)),
+    guide = guide_legend(
+      direction = "horizontal",
+      title.position = "top",
+      label.position = "bottom",
+      label.hjust = 0.5,
+      label.vjust = 1,
+      label.theme = element_text(angle = 90)
+    )
   )
-)
 
 # Set aesthetic of legend key
 # very low alpha value make it difficult to see legend key

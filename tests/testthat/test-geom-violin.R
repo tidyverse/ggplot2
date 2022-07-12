@@ -1,5 +1,3 @@
-context("geom_violin")
-
 test_that("range is expanded", {
   df <- rbind(
     data_frame(x = "a", y = c(0, runif(10), 1)),
@@ -48,6 +46,35 @@ test_that("quantiles do not fail on zero-range data", {
   expect_equal(length(layer_grob(p)), 1)
 })
 
+test_that("quantiles fails outside 0-1 bound", {
+  p <- ggplot(mtcars) +
+    geom_violin(aes(as.factor(gear), mpg), draw_quantiles = c(-1, 0.5))
+  expect_snapshot_error(ggplotGrob(p))
+  p <- ggplot(mtcars) +
+    geom_violin(aes(as.factor(gear), mpg), draw_quantiles = c(0.5, 2))
+  expect_snapshot_error(ggplotGrob(p))
+})
+
+test_that("quantiles are at expected positions at zero width", {
+  # Symmetric density with n components and zero middle:
+  # 50% quantile can be drawn anywhere as long as there is density 0
+  n <- 256
+  density <- c(rep(2, n / 4), rep(0, n / 2), rep(2, n / 4)) / n
+  density.data <- data_frame(y = (1:n) / n, density = density)
+  line <- create_quantile_segment_frame(density.data, 0.5)
+  y_idx <- which.min(abs(density.data$y - line$y[1]))
+  expect_equal(density[y_idx], 0)
+})
+
+test_that("quantiles do not issue warning", {
+  data <- data_frame(x = 1, y = c(0, 0.25, 0.5, 0.75, 5))
+
+  p <- ggplot(data, aes(x = x, y = y)) +
+    geom_violin(draw_quantiles = 0.5)
+
+  expect_warning(plot(p), regexp = NA)
+})
+
 
 # Visual tests ------------------------------------------------------------
 
@@ -83,7 +110,7 @@ test_that("geom_violin draws correctly", {
   expect_doppelganger("dodging and coord_flip",
     ggplot(dat, aes(x = "foo", y = y, fill = x)) + geom_violin() + coord_flip()
   )
-  expect_doppelganger("continuous x axis, multiple groups (center should be at 2.0)",
+  expect_doppelganger("continuous x axis, many groups (center should be at 2.0)",
     ggplot(dat, aes(x = as.numeric(x), y = y)) + geom_violin()
   )
   expect_doppelganger("continuous x axis, single group (center should be at 1.0)",

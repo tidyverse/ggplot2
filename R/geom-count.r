@@ -6,7 +6,7 @@
 #'
 #' @eval rd_aesthetics("geom", "point")
 #' @param geom,stat Use to override the default connection between
-#'   `geom_count` and `stat_sum`.
+#'   `geom_count()` and `stat_sum()`.
 #' @seealso For continuous `x` and `y`, use [geom_bin2d()].
 #' @inheritParams layer
 #' @inheritParams geom_point
@@ -55,7 +55,7 @@ geom_count <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       na.rm = na.rm,
       ...
     )

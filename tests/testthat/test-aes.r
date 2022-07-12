@@ -1,5 +1,3 @@
-context("Creating aesthetic mappings")
-
 test_that("aes() captures input expressions", {
   out <- aes(mpg, wt + 1)
   expect_identical(out$x, quo(mpg))
@@ -7,36 +5,42 @@ test_that("aes() captures input expressions", {
 })
 
 test_that("aes_q() uses quoted calls and formulas", {
-  out <- aes_q(quote(mpg), ~ wt + 1)
+  # Silence deprecation warning
+  out <- suppressWarnings(aes_q(quote(mpg), ~ wt + 1))
   expect_identical(out$x, quo(mpg))
   expect_identical(out$y, quo(wt + 1))
 })
 
 test_that("aes_string() parses strings", {
-  expect_equal(aes_string("a + b")$x, quo(a + b))
+  # Silence deprecation warning
+  suppressWarnings(expect_equal(aes_string("a + b")$x, quo(a + b)))
 })
 
 test_that("aes_string() doesn't parse non-strings", {
   old <- options(OutDec = ",")
   on.exit(options(old))
 
-  expect_identical(aes_string(0.4)$x, 0.4)
+  # Silence deprecation warning
+  suppressWarnings(expect_identical(aes_string(0.4)$x, 0.4))
 })
 
 test_that("aes_q() & aes_string() preserve explicit NULLs", {
-  expect_equal(aes_q(NULL), aes(NULL))
-  expect_equal(aes_q(x = NULL), aes(NULL))
-  expect_equal(aes_q(colour = NULL), aes(colour = NULL))
+  # Silence deprecation warning
+  suppressWarnings(expect_equal(aes_q(NULL), aes(NULL)))
+  suppressWarnings(expect_equal(aes_q(x = NULL), aes(NULL)))
+  suppressWarnings(expect_equal(aes_q(colour = NULL), aes(colour = NULL)))
 
-  expect_equal(aes_string(NULL), aes(NULL))
-  expect_equal(aes_string(x = NULL), aes(NULL))
-  expect_equal(aes_string(colour = NULL), aes(colour = NULL))
+  suppressWarnings(expect_equal(aes_string(NULL), aes(NULL)))
+  suppressWarnings(expect_equal(aes_string(x = NULL), aes(NULL)))
+  suppressWarnings(expect_equal(aes_string(colour = NULL), aes(colour = NULL)))
 })
 
 test_that("aes_all() converts strings into mappings", {
   expect_equal(
     aes_all(c("x", "y", "col", "pch")),
-    aes(x, y, colour = col, shape = pch)
+    aes(x, y, colour = col, shape = pch),
+    # ignore the environments of quosures
+    ignore_attr = TRUE
   )
 })
 
@@ -152,6 +156,40 @@ test_that("Warnings are issued when plots use discouraged extract usage within a
   expect_warning(ggplot_build(p), "Use of `df\\$x` is discouraged")
 })
 
+test_that("aes evaluation fails with unknown input", {
+  expect_snapshot_error(is_calculated(environment()))
+  expect_snapshot_error(strip_dots(environment()))
+})
+
+test_that("aes() supports `!!!` in named arguments (#2675)", {
+  expect_equal(
+    aes(!!!list(y = 1)),
+    aes(y = 1)
+  )
+  expect_equal(
+    aes(!!!list(x = 1), !!!list(y = 2)),
+    aes(x = 1, y = 2)
+  )
+  expect_equal(
+    aes(, , !!!list(y = 1)),
+    aes(y = 1)
+  )
+  expect_snapshot_error(aes(y = 1, !!!list(y = 2)))
+})
+
+test_that("alternative_aes_extract_usage() can inspect the call", {
+  x <- quote(test[['var']])
+  expect_identical(alternative_aes_extract_usage(x), ".data[[\"var\"]]")
+  x <- quote(test$var)
+  expect_identical(alternative_aes_extract_usage(x), "var")
+  x <- quote(foo())
+  expect_snapshot_error(alternative_aes_extract_usage(x))
+})
+
+test_that("new_aes() checks its inputs", {
+  expect_snapshot_error(new_aes(1:5))
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("aesthetics are drawn correctly", {
@@ -172,10 +210,13 @@ test_that("aesthetics are drawn correctly", {
 })
 
 test_that("alpha is drawn correctly", {
+  d <- data.frame(x = 1, y = 1)
   expect_doppelganger("Alpha set in colour",
-    qplot(1, 1, color = I("#cc000044"), size = I(50))
+    ggplot(d, aes(x, y)) +
+      geom_point(color = I("#cc000044"), size = I(50))
   )
   expect_doppelganger("Alpha set in alpha",
-    qplot(1, 1, color = I("#cc0000"), size = I(50), alpha = I(0.27))
+    ggplot(d, aes(x, y)) +
+      geom_point(color = I("#cc0000"), size = I(50), alpha = I(0.27))
   )
 })

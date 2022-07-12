@@ -16,17 +16,19 @@ stat_summary_bin <- function(mapping = NULL, data = NULL,
                              orientation = NA,
                              show.legend = NA,
                              inherit.aes = TRUE,
-                             fun.y, fun.ymin, fun.ymax) {
-  if (!missing(fun.y)) {
-    warn("`fun.y` is deprecated. Use `fun` instead.")
+                             fun.y = deprecated(),
+                             fun.ymin = deprecated(),
+                             fun.ymax = deprecated()) {
+  if (lifecycle::is_present(fun.y)) {
+    lifecycle::deprecate_warn("3.3.0", "stat_summary_bin(fun.y)", "stat_summary_bin(fun)")
     fun = fun %||% fun.y
   }
-  if (!missing(fun.ymin)) {
-    warn("`fun.ymin` is deprecated. Use `fun.min` instead.")
+  if (lifecycle::is_present(fun.ymin)) {
+    lifecycle::deprecate_warn("3.3.0", "stat_summary_bin(fun.ymin)", "stat_summary_bin(fun.min)")
     fun.min = fun.min %||% fun.ymin
   }
-  if (!missing(fun.ymax)) {
-    warn("`fun.ymax` is deprecated. Use `fun.max` instead.")
+  if (lifecycle::is_present(fun.ymax)) {
+    lifecycle::deprecate_warn("3.3.0", "stat_summary_bin(fun.ymax)", "stat_summary_bin(fun.max)")
     fun.max = fun.max %||% fun.ymax
   }
   layer(
@@ -37,7 +39,7 @@ stat_summary_bin <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       fun.data = fun.data,
       fun = fun,
       fun.max = fun.max,
@@ -98,7 +100,7 @@ make_summary_fun <- function(fun.data, fun, fun.max, fun.min, fun.args) {
     # Function that takes complete data frame as input
     fun.data <- as_function(fun.data)
     function(df) {
-      do.call(fun.data, c(list(quote(df$y)), fun.args))
+      inject(fun.data(df$y, !!!fun.args))
     }
   } else if (!is.null(fun) || !is.null(fun.max) || !is.null(fun.min)) {
     # Three functions that take vectors as inputs
@@ -106,18 +108,18 @@ make_summary_fun <- function(fun.data, fun, fun.max, fun.min, fun.args) {
     call_f <- function(fun, x) {
       if (is.null(fun)) return(NA_real_)
       fun <- as_function(fun)
-      do.call(fun, c(list(quote(x)), fun.args))
+      inject(fun(x, !!!fun.args))
     }
 
     function(df, ...) {
-      new_data_frame(list(
+      data_frame0(
         ymin = call_f(fun.min, df$y),
         y = call_f(fun, df$y),
         ymax = call_f(fun.max, df$y)
-      ))
+      )
     }
   } else {
-    message("No summary function supplied, defaulting to `mean_se()`")
+    cli::cli_inform("No summary function supplied, defaulting to {.fn mean_se}")
     function(df) {
       mean_se(df$y)
     }

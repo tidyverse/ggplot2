@@ -23,7 +23,7 @@ scales::alpha
 # @param character vector of present aesthetics
 # @param name of object for error message
 # @keyword internal
-check_required_aesthetics <- function(required, present, name) {
+check_required_aesthetics <- function(required, present, name, call = caller_env()) {
   if (is.null(required)) return()
 
   required <- strsplit(required, "|", fixed = TRUE)
@@ -38,11 +38,11 @@ check_required_aesthetics <- function(required, present, name) {
   }
   missing_aes <- lapply(required, setdiff, present)
   if (any(vapply(missing_aes, length, integer(1)) == 0)) return()
-
-  abort(glue(
-    "{name} requires the following missing aesthetics: ",
-    glue_collapse(lapply(missing_aes, glue_collapse, sep = ", ", last = " and "), sep = " or ")
-  ))
+  message <- "{.fn {name}} requires the following missing aesthetics: {.field {missing_aes[[1]]}}"
+  if (length(missing_aes) > 1) {
+    message <- paste0(message, " {.strong or} {.field {missing_aes[[2]]}}")
+  }
+  cli::cli_abort(message, call = call)
 }
 
 # Concatenate a named list for output
@@ -56,28 +56,12 @@ clist <- function(l) {
   paste(paste(names(l), l, sep = " = ", collapse = ", "), sep = "")
 }
 
-
-# Test whether package `package` is available. `fun` provides
-# the name of the ggplot2 function that uses this package, and is
-# used only to produce a meaningful error message if the
-# package is not available.
-try_require <- function(package, fun) {
-  if (requireNamespace(package, quietly = TRUE)) {
-    return(invisible())
-  }
-
-  abort(glue("
-    Package `{package}` required for `{fun}`.
-    Please install and try again.
-  "))
-}
-
 # Return unique columns
 # This is used for figuring out which columns are constant within a group
 #
 # @keyword internal
 uniquecols <- function(df) {
-  df <- df[1, sapply(df, function(x) length(unique(x)) == 1), drop = FALSE]
+  df <- df[1, sapply(df, function(x) length(unique0(x)) == 1), drop = FALSE]
   rownames(df) <- 1:nrow(df)
   df
 }
@@ -100,7 +84,7 @@ uniquecols <- function(df) {
 remove_missing <- function(df, na.rm = FALSE, vars = names(df), name = "",
                            finite = FALSE) {
   if (!is.logical(na.rm)) {
-    abort("`na.rm` must be logical")
+    cli::cli_abort("{.arg na.rm} must be logical scalar")
   }
 
   missing <- detect_missing(df, vars, finite)
@@ -108,11 +92,13 @@ remove_missing <- function(df, na.rm = FALSE, vars = names(df), name = "",
   if (any(missing)) {
     df <- df[!missing, ]
     if (!na.rm) {
-      if (name != "") name <- paste(" (", name, ")", sep = "")
-      str <- if (finite) "non-finite" else "missing"
-      warning_wrap(
-        "Removed ", sum(missing), " rows containing ", str, " values", name, "."
+      if (name != "") name <- paste(" ({.fn ", name, "})", sep = "")
+      msg <- paste0(
+        "Removed {sum(missing)} rows containing ",
+        if (finite) "non-finite" else "missing",
+        " values", name, "."
       )
+      cli::cli_warn(msg)
     }
   }
 
@@ -168,7 +154,7 @@ is_complete <- function(x) {
 should_stop <- function(expr) {
   res <- try(print(force(expr)), TRUE)
   if (!inherits(res, "try-error")) {
-    abort("No error!")
+    cli::cli_abort("No error!")
   }
   invisible()
 }
@@ -201,7 +187,8 @@ binned_pal <- function(palette) {
 
 #' Give a deprecation error, warning, or message, depending on version number.
 #'
-#' This function is deprecated.
+#' @description
+#' `r lifecycle::badge("deprecated")`
 #'
 #' @param version The last version of ggplot2 where this function was good
 #'   (in other words, the last version where it was not deprecated).
@@ -209,6 +196,7 @@ binned_pal <- function(palette) {
 #' @keywords internal
 #' @export
 gg_dep <- function(version, msg) {
+  lifecycle::deprecate_warn("3.3.0", "gg_dep()")
   .Deprecated()
   v <- as.package_version(version)
   cv <- utils::packageVersion("ggplot2")
@@ -218,15 +206,15 @@ gg_dep <- function(version, msg) {
   #  current minor number is more than 1 greater than last-good minor number,
   #  give error.
   if (cv[[1,1]] > v[[1,1]]  ||  cv[[1,2]] > v[[1,2]] + 1) {
-    abort(glue(text))
+    cli::cli_abort(text)
 
   # If minor number differs by one, give warning
   } else if (cv[[1,2]] > v[[1,2]]) {
-    warn(glue(text))
+    cli::cli_warn(text)
 
   # If only subminor number is greater, give message
   } else if (cv[[1,3]] > v[[1,3]]) {
-    message(glue(text))
+    cli::cli_inform(text)
   }
 
   invisible()
@@ -248,11 +236,11 @@ to_lower_ascii <- function(x) chartr(upper_ascii, lower_ascii, x)
 to_upper_ascii <- function(x) chartr(lower_ascii, upper_ascii, x)
 
 tolower <- function(x) {
-  abort("Please use `to_lower_ascii()`, which works fine in all locales.")
+  cli::cli_abort("Please use {.fn to_lower_ascii}, which works fine in all locales.")
 }
 
 toupper <- function(x) {
-  abort("Please use `to_upper_ascii()`, which works fine in all locales.")
+  cli::cli_abort("Please use {.fn to_upper_ascii}, which works fine in all locales.")
 }
 
 # Convert a snake_case string to camelCase
@@ -314,27 +302,6 @@ deparse2 <- function(x) {
   }
 }
 
-message_wrap <- function(...) {
-  msg <- paste(..., collapse = "", sep = "")
-  wrapped <- strwrap(msg, width = getOption("width") - 2)
-  message(paste0(wrapped, collapse = "\n"))
-}
-
-warning_wrap <- function(...) {
-  msg <- paste(..., collapse = "", sep = "")
-  wrapped <- strwrap(msg, width = getOption("width") - 2)
-  warn(glue_collapse(wrapped, "\n", last = "\n"))
-}
-
-var_list <- function(x) {
-  x <- encodeString(x, quote = "`")
-  if (length(x) > 5) {
-    x <- c(x[1:5], paste0("and ", length(x) - 5, " more"))
-  }
-
-  paste0(x, collapse = ", ")
-}
-
 dispatch_args <- function(f, ...) {
   args <- list(...)
   formals <- formals(f)
@@ -359,7 +326,7 @@ find_args <- function(...) {
 
 # Used in annotations to ensure printed even when no
 # global data
-dummy_data <- function() new_data_frame(list(x = NA), n = 1)
+dummy_data <- function() data_frame0(x = NA, .size = 1)
 
 with_seed_null <- function(seed, code) {
   if (is.null(seed)) {
@@ -381,10 +348,16 @@ seq_asc <- function(to, from) {
 #' @importFrom tibble tibble
 NULL
 
+# Wrapping vctrs data_frame constructor with no name repair
+data_frame0 <- function(...) data_frame(..., .name_repair = "minimal")
+
+# Wrapping unique0() to accept NULL
+unique0 <- function(x, ...) if (is.null(x)) x else vec_unique(x, ...)
+
 # Check inputs with tibble but allow column vectors (see #2609 and #2374)
 as_gg_data_frame <- function(x) {
   x <- lapply(x, validate_column_vec)
-  new_data_frame(x)
+  data_frame0(!!!x)
 }
 validate_column_vec <- function(x) {
   if (is_column_vec(x)) {
@@ -408,7 +381,7 @@ is_column_vec <- function(x) {
 #
 parse_safe <- function(text) {
   if (!is.character(text)) {
-    abort("`text` must be a character vector")
+    cli::cli_abort("{.arg text} must be a character vector")
   }
   out <- vector("expression", length(text))
   for (i in seq_along(text)) {
@@ -572,14 +545,14 @@ has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA,
   if (group_has_equal) {
     if (has_x) {
       if (length(x) == 1) return(FALSE)
-      x_groups <- vapply(split(data$x, data$group), function(x) length(unique(x)), integer(1))
+      x_groups <- vapply(split(data$x, data$group), function(x) length(unique0(x)), integer(1))
       if (all(x_groups == 1)) {
         return(FALSE)
       }
     }
     if (has_y) {
       if (length(y) == 1) return(TRUE)
-      y_groups <- vapply(split(data$y, data$group), function(x) length(unique(x)), integer(1))
+      y_groups <- vapply(split(data$y, data$group), function(x) length(unique0(x)), integer(1))
       if (all(y_groups == 1)) {
         return(TRUE)
       }
@@ -617,4 +590,26 @@ split_with_index <- function(x, f, n = max(f)) {
   f <- as.integer(f)
   attributes(f) <- list(levels = as.character(seq_len(n)), class = "factor")
   unname(split(x, f))
+}
+
+is_bang <- function(x) {
+  is_call(x, "!", n = 1)
+}
+
+is_triple_bang <- function(x) {
+  if (!is_bang(x)) {
+    return(FALSE)
+  }
+
+  x <- x[[2]]
+  if (!is_bang(x)) {
+    return(FALSE)
+  }
+
+  x <- x[[2]]
+  if (!is_bang(x)) {
+    return(FALSE)
+  }
+
+  TRUE
 }

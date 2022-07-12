@@ -33,7 +33,7 @@ of the plot area. Default is off (\code{FALSE}). You will also need to use
 
 \item{scaled}{is the data already log-scaled? This should be \code{TRUE}
 (default) when the data is already transformed with \code{log10()} or when
-using \code{scale_y_log10}. It should be \code{FALSE} when using
+using \code{scale_y_log10()}. It should be \code{FALSE} when using
 \code{coord_trans(y = "log10")}.}
 
 \item{short}{a \code{\link[grid:unit]{grid::unit()}} object specifying the length of the

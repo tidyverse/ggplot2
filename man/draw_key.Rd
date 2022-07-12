@@ -12,6 +12,7 @@
 \alias{draw_key_path}
 \alias{draw_key_vpath}
 \alias{draw_key_dotplot}
+\alias{draw_key_linerange}
 \alias{draw_key_pointrange}
 \alias{draw_key_smooth}
 \alias{draw_key_text}
@@ -39,6 +40,8 @@ draw_key_path(data, params, size)
 draw_key_vpath(data, params, size)
 
 draw_key_dotplot(data, params, size)
+
+draw_key_linerange(data, params, size)
 
 draw_key_pointrange(data, params, size)
 

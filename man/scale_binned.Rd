@@ -52,7 +52,7 @@ directly.}
 instead of exactly evenly spaced between the limits. If \code{TRUE} (default)
 the scale will ask the transformation object to create breaks, and this
 may result in a different number of breaks than requested. Ignored if
-breaks are given explicetly.}
+breaks are given explicitly.}
 
 \item{breaks}{One of:
 \itemize{
@@ -61,7 +61,8 @@ breaks are given explicetly.}
 \link[scales:trans_new]{transformation object}
 \item A numeric vector of positions
 \item A function that takes the limits as input and returns breaks
-as output (e.g., a function returned by \code{\link[scales:extended_breaks]{scales::extended_breaks()}})
+as output (e.g., a function returned by \code{\link[scales:breaks_extended]{scales::extended_breaks()}}).
+Also accepts rlang \link[rlang:as_function]{lambda} function notation.
 }}
 
 \item{labels}{One of:
@@ -70,8 +71,10 @@ as output (e.g., a function returned by \code{\link[scales:extended_breaks]{scal
 \item \code{waiver()} for the default labels computed by the
 transformation object
 \item A character vector giving labels (must be same length as \code{breaks})
+\item An expression vector (must be the same length as breaks). See ?plotmath for details.
 \item A function that takes the breaks as input and returns labels
-as output
+as output. Also accepts rlang \link[rlang:as_function]{lambda} function
+notation.
 }}
 
 \item{limits}{One of:
@@ -80,7 +83,8 @@ as output
 \item A numeric vector of length two providing limits of the scale.
 Use \code{NA} to refer to the existing minimum or maximum
 \item A function that accepts the existing (automatic) limits and returns
-new limits
+new limits. Also accepts rlang \link[rlang:as_function]{lambda} function
+notation.
 Note that setting limits on positional scales will \strong{remove} data outside of the limits.
 If the purpose is to zoom, use the limit argument in the coordinate system
 (see \code{\link[=coord_cartesian]{coord_cartesian()}}).
@@ -96,11 +100,12 @@ expand the scale by 5\% on each side for continuous variables, and by
 \item{oob}{One of:
 \itemize{
 \item Function that handles limits outside of the scale limits
-(out of bounds).
-\item The default (\code{\link[scales:censor]{scales::censor()}}) replaces out of
+(out of bounds). Also accepts rlang \link[rlang:as_function]{lambda}
+function notation.
+\item The default (\code{\link[scales:oob]{scales::censor()}}) replaces out of
 bounds values with \code{NA}.
-\item \code{\link[scales:squish]{scales::squish()}} for squishing out of bounds values into range.
-\item \code{\link[scales:squish_infinite]{scales::squish_infinite()}} for squishing infinite values into range.
+\item \code{\link[scales:oob]{scales::squish()}} for squishing out of bounds values into range.
+\item \code{\link[scales:oob]{scales::squish_infinite()}} for squishing infinite values into range.
 }}
 
 \item{na.value}{Missing values will be replaced with this value.}

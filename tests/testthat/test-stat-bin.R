@@ -1,15 +1,11 @@
-context("stat_bin/stat_count")
-
-test_that("stat_bin throws error when y aesthetic is present", {
+test_that("stat_bin throws error when wrong combination of aesthetic is present", {
   dat <- data_frame(x = c("a", "b", "c"), y = c(1, 5, 10))
 
-  expect_error(ggplot_build(ggplot(dat, aes(x, y)) + stat_bin()),
-    "can only have an x or y aesthetic.")
+  expect_snapshot_error(ggplot_build(ggplot(dat) + stat_bin()))
 
-  expect_error(
-    ggplot_build(ggplot(dat, aes(x)) + stat_bin(y = 5)),
-    "StatBin requires a continuous x"
-  )
+  expect_snapshot_error(ggplot_build(ggplot(dat, aes(x, y)) + stat_bin()))
+
+  expect_snapshot_error(ggplot_build(ggplot(dat, aes(x)) + stat_bin(y = 5)))
 })
 
 test_that("stat_bin works in both directions", {
@@ -92,12 +88,45 @@ test_that("geom_histogram() can be drawn over a 0-width range (#3043)", {
   expect_equal(out$xmax, 1.05)
 })
 
+test_that("stat_bin() provides width (#3522)", {
+  binwidth <- 1.03
+  df <- data_frame(x = 1:10)
+  p <- ggplot(df) +
+    stat_bin(
+      aes(
+        x,
+        xmin = after_stat(x - width / 2),
+        xmax = after_stat(x + width / 2),
+        ymin = after_stat(0),
+        ymax = after_stat(count)
+      ),
+      geom = "rect",
+      binwidth = binwidth
+    )
+  out <- layer_data(p)
+
+  expect_equal(nrow(out), 10)
+  # (x + width / 2) - (x - width / 2) = width
+  expect_equal(out$xmax - out$xmin, rep(binwidth, 10))
+})
+
 # Underlying binning algorithm --------------------------------------------
 
 comp_bin <- function(df, ...) {
   plot <- ggplot(df, aes(x = x)) + stat_bin(...)
   layer_data(plot)
 }
+
+test_that("inputs to binning are checked", {
+  dat <- data_frame(x = c(0, 10))
+  expect_snapshot_error(comp_bin(dat, breaks = letters))
+  expect_snapshot_error(bin_breaks_width(3))
+  expect_snapshot_error(comp_bin(dat, binwidth = letters))
+  expect_snapshot_error(comp_bin(dat, binwidth = -4))
+
+  expect_snapshot_error(bin_breaks_bins(3))
+  expect_snapshot_error(comp_bin(dat, bins = -4))
+})
 
 test_that("closed left or right", {
   dat <- data_frame(x = c(0, 10))
@@ -153,17 +182,10 @@ test_that("bin errors at high bin counts", {
 
 # stat_count --------------------------------------------------------------
 
-test_that("stat_count throws error when y aesthetic present", {
+test_that("stat_count throws error when both x and y aesthetic present", {
   dat <- data_frame(x = c("a", "b", "c"), y = c(1, 5, 10))
 
-  expect_error(
-    ggplot_build(ggplot(dat, aes(x, y)) + stat_count()),
-    "can only have an x or y aesthetic.")
-
-  expect_error(
-    ggplot_build(ggplot(dat, aes(x)) + stat_count(y = 5)),
-    "must not be used with a y aesthetic."
-  )
+  expect_snapshot_error(ggplot_build(ggplot(dat, aes(x, y)) + stat_count()))
 })
 
 test_that("stat_count preserves x order for continuous and discrete", {
@@ -175,13 +197,13 @@ test_that("stat_count preserves x order for continuous and discrete", {
   # x is factor where levels match numeric order
   mtcars$carb2 <- factor(mtcars$carb)
   b <- ggplot_build(ggplot(mtcars, aes(carb2)) + geom_bar())
-  expect_identical(b$data[[1]]$x, new_mapped_discrete(1:6))
+  expect_identical(b$data[[1]]$x, mapped_discrete(1:6))
   expect_identical(b$data[[1]]$y, c(7,10,3,10,1,1))
 
   # x is factor levels differ from numeric order
   mtcars$carb3 <- factor(mtcars$carb, levels = c(4,1,2,3,6,8))
   b <- ggplot_build(ggplot(mtcars, aes(carb3)) + geom_bar())
-  expect_identical(b$data[[1]]$x, new_mapped_discrete(1:6))
+  expect_identical(b$data[[1]]$x, mapped_discrete(1:6))
   expect_identical(b$layout$panel_params[[1]]$x$get_labels(), c("4","1","2","3","6","8"))
   expect_identical(b$data[[1]]$y, c(10,7,10,3,1,1))
 })

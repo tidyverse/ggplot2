@@ -1,5 +1,3 @@
-context("geom-path")
-
 test_that("keep_mid_true drops leading/trailing FALSE", {
   expect_equal(keep_mid_true(c(F, F)), c(F, F))
   expect_equal(keep_mid_true(c(F, T, F, T, F)), c(F, T, T, T, F))
@@ -7,6 +5,10 @@ test_that("keep_mid_true drops leading/trailing FALSE", {
   expect_equal(keep_mid_true(c(F, T, F, T, T)), c(F, T, T, T, T))
 })
 
+test_that("geom_path() throws meaningful error on bad combination of varying aesthetics", {
+  p <- ggplot(economics, aes(unemploy/pop, psavert, colour = pop)) + geom_path(linetype = 2)
+  expect_snapshot_error(ggplotGrob(p))
+})
 
 # Tests on stairstep() ------------------------------------------------------------
 
@@ -58,13 +60,13 @@ test_that("geom_path draws correctly", {
   expect_doppelganger("lines",
     ggplot(df) + geom_path(aes(x = value, y = category, group = item))
   )
-  expect_doppelganger("lines with changed data order, should have same appearance",
+  expect_doppelganger("lines, changed order, should have same appearance",
     ggplot(df2) + geom_path(aes(x = value, y = category, group = item))
   )
   expect_doppelganger("lines, colour",
     ggplot(df) + geom_path(aes(x = value, y = category, group = item, colour = item))
   )
-  expect_doppelganger("lines, colour, with changed data order, should have same appearance",
+  expect_doppelganger("lines, colour, changed order, should have same appearance",
     ggplot(df2) + geom_path(aes(x = value, y = category, group = item, colour = item))
   )
 })

@@ -1,7 +1,7 @@
 #' A quantile-quantile plot
 #'
-#' `geom_qq` and `stat_qq` produce quantile-quantile plots. `geom_qq_line` and
-#' `stat_qq_line` compute the slope and intercept of the line connecting the
+#' `geom_qq()` and `stat_qq()` produce quantile-quantile plots. `geom_qq_line()` and
+#' `stat_qq_line()` compute the slope and intercept of the line connecting the
 #' points at specified quartiles of the theoretical and sample distributions.
 #'
 #' @eval rd_aesthetics("stat", "qq")
@@ -12,12 +12,12 @@
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @section Computed variables:
-#' Variables computed by `stat_qq`:
+#' Variables computed by `stat_qq()`:
 #' \describe{
 #'   \item{sample}{sample quantiles}
 #'   \item{theoretical}{theoretical quantiles}
 #' }
-#' Variables computed by `stat_qq_line`:
+#' Variables computed by `stat_qq_line()`:
 #' \describe{
 #'   \item{x}{x-coordinates of the endpoints of the line segment connecting the
 #'            points at the chosen quantiles of the theoretical and the sample
@@ -61,7 +61,7 @@ geom_qq <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       distribution = distribution,
       dparams = dparams,
       na.rm = na.rm,
@@ -83,7 +83,7 @@ StatQq <- ggproto("StatQq", Stat,
 
   required_aes = c("sample"),
 
-  compute_group = function(data, scales, quantiles = NULL,
+  compute_group = function(self, data, scales, quantiles = NULL,
                            distribution = stats::qnorm, dparams = list(),
                            na.rm = FALSE) {
 
@@ -94,11 +94,11 @@ StatQq <- ggproto("StatQq", Stat,
     if (is.null(quantiles)) {
       quantiles <- stats::ppoints(n)
     } else if (length(quantiles) != n) {
-      abort("length of quantiles must match length of data")
+      cli::cli_abort("The length of {.arg quantiles} must match the length of the data")
     }
 
-    theoretical <- do.call(distribution, c(list(p = quote(quantiles)), dparams))
+    theoretical <- inject(distribution(p = quantiles, !!!dparams))
 
-    new_data_frame(list(sample = sample, theoretical = theoretical))
+    data_frame0(sample = sample, theoretical = theoretical)
   }
 )

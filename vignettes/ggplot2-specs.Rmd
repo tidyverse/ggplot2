@@ -1,6 +1,8 @@
 ---
 title: "Aesthetic specifications"
 output: rmarkdown::html_vignette
+description: |
+  Customising how aesthetic specifications are represented on your plot.
 vignette: >
   %\VignetteIndexEntry{Aesthetic specifications}
   %\VignetteEngine{knitr::rmarkdown}
@@ -204,7 +206,7 @@ ggplot(sizes, aes(size, stroke, size = size, stroke = stroke)) +
 
 ## Text
 
-### Font face
+### Font family
 
 There are only three fonts that are guaranteed to work everywhere: "sans" (the default), "serif", or "mono":
 

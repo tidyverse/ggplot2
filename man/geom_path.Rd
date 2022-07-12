@@ -67,10 +67,14 @@ will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{stat}{The statistical transformation to use on the data for this
-layer, as a string.}
+layer, either as a \code{ggproto} \code{Geom} subclass or as a string naming the
+stat stripped of the \code{stat_} prefix (e.g. \code{"count"} rather than
+\code{"stat_count"})}
 
-\item{position}{Position adjustment, either as a string, or the result of
-a call to a position adjustment function.}
+\item{position}{Position adjustment, either as a string naming the adjustment
+(e.g. \code{"jitter"} to use \code{position_jitter}), or the result of a call to a
+position adjustment function. Use the latter if you need to change the
+settings of the adjustment.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
@@ -134,14 +138,14 @@ This geom treats each axis differently and, thus, can thus have two orientations
 \item \code{colour}
 \item \code{group}
 \item \code{linetype}
-\item \code{size}
+\item \code{linewidth}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
 
 \section{Missing value handling}{
 
-\code{geom_path()}, \code{geom_line()}, and \code{geom_step} handle \code{NA} as follows:
+\code{geom_path()}, \code{geom_line()}, and \code{geom_step()} handle \code{NA} as follows:
 \itemize{
 \item If an \code{NA} occurs in the middle of a line, it breaks the line. No warning
 is shown, regardless of whether \code{na.rm} is \code{TRUE} or \code{FALSE}.

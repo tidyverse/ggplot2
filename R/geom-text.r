@@ -1,7 +1,7 @@
 #' Text
 #'
 #' Text geoms are useful for labeling plots. They can be used by themselves as
-#' scatterplots or in cobination with other geoms, for example, for labeling
+#' scatterplots or in combination with other geoms, for example, for labeling
 #' points or for annotating the height of bars. `geom_text()` adds only text
 #' to the plot. `geom_label()` draws a rectangle behind the text, making it
 #' easier to read.
@@ -25,9 +25,9 @@
 #'
 #' @eval rd_aesthetics("geom", "text")
 #' @section `geom_label()`:
-#' Currently `geom_label()` does not support the `angle` aesthetic and
-#' is considerably slower than `geom_text()`. The `fill` aesthetic
-#' controls the background colour of the label.
+#' Currently `geom_label()` does not support the `check_overlap` argument
+#' or the `angle` aesthetic. Also, it is considerably slower than `geom_text()`.
+#' The `fill` aesthetic controls the background colour of the label.
 #'
 #' @section Alignment:
 #' You can modify text alignment with the `vjust` and `hjust`
@@ -43,14 +43,15 @@
 #'   displayed as described in `?plotmath`.
 #' @param nudge_x,nudge_y Horizontal and vertical adjustment to nudge labels by.
 #'   Useful for offsetting text from points, particularly on discrete scales.
-#'   Cannot be jointy specified with `position`.
+#'   Cannot be jointly specified with `position`.
 #' @param position Position adjustment, either as a string, or the result of
 #'  a call to a position adjustment function. Cannot be jointy specified with
 #'  `nudge_x` or `nudge_y`.
 #' @param check_overlap If `TRUE`, text that overlaps previous text in the
 #'   same layer will not be plotted. `check_overlap` happens at draw time and in
 #'   the order of the data. Therefore data should be arranged by the label
-#'   column before calling `geom_label()` or `geom_text()`.
+#'   column before calling `geom_text()`. Note that this argument is not
+#'   supported by `geom_label()`.
 #' @export
 #' @examples
 #' p <- ggplot(mtcars, aes(wt, mpg, label = rownames(mtcars)))
@@ -64,12 +65,19 @@
 #' p + geom_text(size = 10)
 #'
 #' # Set aesthetics to fixed value
-#' p + geom_point() + geom_text(hjust = 0, nudge_x = 0.05)
-#' p + geom_point() + geom_text(vjust = 0, nudge_y = 0.5)
-#' p + geom_point() + geom_text(angle = 45)
+#' p +
+#'   geom_point() +
+#'   geom_text(hjust = 0, nudge_x = 0.05)
+#' p +
+#'   geom_point() +
+#'   geom_text(vjust = 0, nudge_y = 0.5)
+#' p +
+#'   geom_point() +
+#'   geom_text(angle = 45)
 #' \dontrun{
 #' # Doesn't work on all systems
-#' p + geom_text(family = "Times New Roman")
+#' p +
+#'   geom_text(family = "Times New Roman")
 #' }
 #'
 #' # Add aesthetic mappings
@@ -80,18 +88,26 @@
 #'
 #' p + geom_text(aes(size = wt))
 #' # Scale height of text, rather than sqrt(height)
-#' p + geom_text(aes(size = wt)) + scale_radius(range = c(3,6))
+#' p +
+#'   geom_text(aes(size = wt)) +
+#'   scale_radius(range = c(3,6))
 #'
 #' # You can display expressions by setting parse = TRUE.  The
 #' # details of the display are described in ?plotmath, but note that
 #' # geom_text uses strings, not expressions.
-#' p + geom_text(aes(label = paste(wt, "^(", cyl, ")", sep = "")),
-#'   parse = TRUE)
+#' p +
+#'   geom_text(
+#'     aes(label = paste(wt, "^(", cyl, ")", sep = "")),
+#'     parse = TRUE
+#'   )
 #'
 #' # Add a text annotation
 #' p +
 #'   geom_text() +
-#'   annotate("text", label = "plot mpg vs. wt", x = 2, y = 15, size = 8, colour = "red")
+#'   annotate(
+#'     "text", label = "plot mpg vs. wt",
+#'     x = 2, y = 15, size = 8, colour = "red"
+#'   )
 #'
 #' \donttest{
 #' # Aligning labels and bars --------------------------------------------------
@@ -149,7 +165,10 @@ geom_text <- function(mapping = NULL, data = NULL,
 {
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
-      abort("You must specify either `position` or `nudge_x`/`nudge_y`.")
+      cli::cli_abort(c(
+        "both {.arg position} and {.arg nudge_x}/{.arg nudge_y} are supplied",
+        "i" = "Only use one approach to alter the position"
+      ))
     }
 
     position <- position_nudge(nudge_x, nudge_y)
@@ -163,7 +182,7 @@ geom_text <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       parse = parse,
       check_overlap = check_overlap,
       na.rm = na.rm,
@@ -192,11 +211,12 @@ GeomText <- ggproto("GeomText", Geom,
     }
 
     data <- coord$transform(data, panel_params)
+
     if (is.character(data$vjust)) {
-      data$vjust <- compute_just(data$vjust, data$y)
+      data$vjust <- compute_just(data$vjust, data$y, data$x, data$angle)
     }
     if (is.character(data$hjust)) {
-      data$hjust <- compute_just(data$hjust, data$x)
+      data$hjust <- compute_just(data$hjust, data$x, data$y, data$angle)
     }
 
     textGrob(
@@ -218,11 +238,31 @@ GeomText <- ggproto("GeomText", Geom,
   draw_key = draw_key_text
 )
 
-compute_just <- function(just, x) {
-  inward <- just == "inward"
-  just[inward] <- c("left", "middle", "right")[just_dir(x[inward])]
-  outward <- just == "outward"
-  just[outward] <- c("right", "middle", "left")[just_dir(x[outward])]
+compute_just <- function(just, a, b = a, angle = 0) {
+  #  As justification direction is relative to the text, not the plotting area
+  #  we need to swap x and y if text direction is rotated so that hjust is
+  #  applied along y and vjust along x.
+  if (any(grepl("outward|inward", just))) {
+    # ensure all angles are in -360...+360
+    angle <- angle %% 360
+    # ensure correct behaviour for angles in -360...+360
+    angle <- ifelse(angle > 180, angle - 360, angle)
+    angle <- ifelse(angle < -180, angle + 360, angle)
+    rotated_forward <-
+      grepl("outward|inward", just) & (angle > 45 & angle < 135)
+    rotated_backwards <-
+      grepl("outward|inward", just) & (angle < -45 & angle > -135)
+
+    ab <- ifelse(rotated_forward | rotated_backwards, b, a)
+    just_swap <- rotated_backwards | abs(angle) > 135
+    inward <-
+      (just == "inward" & !just_swap | just == "outward" & just_swap)
+    just[inward] <- c("left", "middle", "right")[just_dir(ab[inward])]
+    outward <-
+      (just == "outward" & !just_swap) | (just == "inward" & just_swap)
+    just[outward] <- c("right", "middle", "left")[just_dir(ab[outward])]
+
+  }
 
   unname(c(left = 0, center = 0.5, right = 1,
     bottom = 0, middle = 0.5, top = 1)[just])

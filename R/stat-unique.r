@@ -23,7 +23,7 @@ stat_unique <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       na.rm = na.rm,
       ...
     )
@@ -35,5 +35,5 @@ stat_unique <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 StatUnique <- ggproto("StatUnique", Stat,
-  compute_panel = function(data, scales) unique(data)
+  compute_panel = function(data, scales) unique0(data)
 )

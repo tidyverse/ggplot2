@@ -61,8 +61,10 @@ the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
-\item{position}{Position adjustment, either as a string, or the result of
-a call to a position adjustment function.}
+\item{position}{Position adjustment, either as a string naming the adjustment
+(e.g. \code{"jitter"} to use \code{position_jitter}), or the result of a call to a
+position adjustment function. Use the latter if you need to change the
+settings of the adjustment.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
@@ -120,10 +122,13 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
 \item{span}{Controls the amount of smoothing for the default loess smoother.
 Smaller numbers produce wigglier lines, larger numbers produce smoother
-lines.}
+lines. Only used with loess, i.e. when \code{method = "loess"},
+or when \code{method = NULL} (the default) and there are fewer than 1,000
+observations.}
 
-\item{fullrange}{Should the fit span the full range of the plot, or just
-the data?}
+\item{fullrange}{If \code{TRUE}, the smoothing line gets expanded to the range of the plot,
+potentially beyond the data. This does not extend the line into any additional padding
+created by \code{expansion}.}
 
 \item{level}{Level of confidence interval to use (0.95 by default).}
 
@@ -160,7 +165,7 @@ This geom treats each axis differently and, thus, can thus have two orientations
 \item \code{fill}
 \item \code{group}
 \item \code{linetype}
-\item \code{size}
+\item \code{linewidth}
 \item \code{weight}
 \item \code{ymax}
 \item \code{ymin}
@@ -170,10 +175,11 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 
 \section{Computed variables}{
 
+\code{stat_smooth()} provides the following variables, some of which depend on the orientation:
 \describe{
-\item{y}{predicted value}
-\item{ymin}{lower pointwise confidence interval around the mean}
-\item{ymax}{upper pointwise confidence interval around the mean}
+\item{y \emph{or} x}{predicted value}
+\item{ymin \emph{or} xmin}{lower pointwise confidence interval around the mean}
+\item{ymax \emph{or} xmax}{upper pointwise confidence interval around the mean}
 \item{se}{standard error}
 }
 }

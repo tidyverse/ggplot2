@@ -88,8 +88,13 @@
 NULL
 
 collapse_labels_lines <- function(labels) {
-  out <- do.call("Map", c(list(paste, sep = ", "), labels))
-  list(unname(unlist(out)))
+  is_exp <- vapply(labels, function(l) length(l) > 0 && is.expression(l[[1]]), logical(1))
+  out <- inject(mapply(paste, !!!labels, sep = ", ", SIMPLIFY = FALSE))
+  label <- list(unname(unlist(out)))
+  if (all(is_exp)) {
+    label <- lapply(label, function(l) list(parse(text = paste0("list(", l, ")"))))
+  }
+  label
 }
 
 #' @rdname labellers
@@ -128,8 +133,8 @@ label_both <- function(labels, multi_line = TRUE, sep = ": ") {
       out[[i]] <- paste(variable[[i]], value[[i]], sep = sep)
     }
   } else {
-    value <- do.call("paste", c(value, sep = ", "))
-    variable <- do.call("paste", c(variable, sep = ", "))
+    value <- inject(paste(!!!value, sep = ", "))
+    variable <- inject(paste(!!!variable, sep = ", "))
     out <- Map(paste, variable, value, sep = sep)
     out <- list(unname(unlist(out)))
   }
@@ -198,7 +203,8 @@ label_bquote <- function(rows = NULL, cols = NULL,
                          default) {
   cols_quoted <- substitute(cols)
   rows_quoted <- substitute(rows)
-  has_warned <- FALSE
+
+  call_env <- env_parent()
 
   fun <- function(labels) {
     quoted <- resolve_labeller(rows_quoted, cols_quoted, labels)
@@ -208,22 +214,10 @@ label_bquote <- function(rows = NULL, cols = NULL,
 
     evaluate <- function(...) {
       params <- list(...)
-
-      # Mapping `x` to the first variable for backward-compatibility,
-      # but only if there is no facetted variable also named `x`
-      if ("x" %in% find_names(quoted) && !"x" %in% names(params)) {
-        if (!has_warned) {
-          warn("Referring to `x` is deprecated, use variable name instead")
-          # The function is called for each facet so this avoids
-          # multiple warnings
-          has_warned <<- TRUE
-        }
-        params$x <- params[[1]]
-      }
-
+      params <- as_environment(params, call_env)
       eval(substitute(bquote(expr, params), list(expr = quoted)))
     }
-    list(do.call("Map", c(list(f = evaluate), labels)))
+    list(inject(mapply(evaluate, !!!labels, SIMPLIFY = FALSE)))
   }
 
   structure(fun, class = "labeller")
@@ -247,12 +241,12 @@ is_labeller <- function(x) inherits(x, "labeller")
 
 resolve_labeller <- function(rows, cols, labels) {
   if (is.null(cols) && is.null(rows)) {
-    abort("Supply one of rows or cols")
+    cli::cli_abort("Supply one of {.arg rows} or {.arg cols}")
   }
   if (attr(labels, "facet") == "wrap") {
     # Return either rows or cols for facet_wrap()
     if (!is.null(cols) && !is.null(rows)) {
-      abort("Cannot supply both rows and cols to facet_wrap()")
+      cli::cli_abort("Cannot supply both {.arg rows} and {.arg cols} to {.fn facet_wrap}")
     }
     cols %||% rows
   } else {
@@ -311,6 +305,8 @@ as_labeller <- function(x, default = label_value, multi_line = TRUE) {
       x(labels)
     } else if (is.function(x)) {
       default(lapply(labels, x))
+    } else if (is.formula(x)) {
+      default(lapply(labels, as_function(x)))
     } else if (is.character(x)) {
       default(lapply(labels, function(label) x[label]))
     } else {
@@ -342,8 +338,8 @@ as_labeller <- function(x, default = label_value, multi_line = TRUE) {
 #'   the columns). It is passed to [as_labeller()]. When a
 #'   margin-wide labeller is set, make sure you don't mention in
 #'   `...` any variable belonging to the margin.
-#' @param keep.as.numeric Deprecated. All supplied labellers and
-#'   on-labeller functions should be able to work with character
+#' @param keep.as.numeric `r lifecycle::badge("deprecated")` All supplied
+#'   labellers and on-labeller functions should be able to work with character
 #'   labels.
 #' @param .multi_line Whether to display the labels of multiple
 #'   factors on separate lines. This is passed to the labeller
@@ -421,12 +417,12 @@ as_labeller <- function(x, default = label_value, multi_line = TRUE) {
 #' p3 + facet_wrap(~conservation2, labeller = global_labeller)
 #' }
 labeller <- function(..., .rows = NULL, .cols = NULL,
-                     keep.as.numeric = NULL, .multi_line = TRUE,
+                     keep.as.numeric = deprecated(), .multi_line = TRUE,
                      .default = label_value) {
-  if (!is.null(keep.as.numeric)) {
-    .Deprecated(old = "keep.as.numeric")
+  if (lifecycle::is_present(keep.as.numeric)) {
+    lifecycle::deprecate_warn("2.0.0", "labeller(keep.as.numeric)")
   }
-  dots <- list(...)
+  dots <- list2(...)
   .default <- as_labeller(.default)
 
   function(labels) {
@@ -437,7 +433,7 @@ labeller <- function(..., .rows = NULL, .cols = NULL,
     }
 
     if (is.null(margin_labeller)) {
-      labellers <- lapply(dots, as_labeller)
+      labellers <- lapply(dots, as_labeller, default = .default)
     } else {
       margin_labeller <- as_labeller(margin_labeller, default = .default,
                                      multi_line = .multi_line)
@@ -445,10 +441,7 @@ labeller <- function(..., .rows = NULL, .cols = NULL,
       # Check that variable-specific labellers do not overlap with
       # margin-wide labeller
       if (any(names(dots) %in% names(labels))) {
-        abort(glue(
-          "Conflict between .{attr(labels, 'type')} and ",
-          glue_collapse(names(dots), ", ", last = " and ")
-        ))
+        cli::cli_abort("Conflict between {.var {paste0('.', attr(labels, 'type'))}} and {.var {names(dots)}}")
       }
     }
 
@@ -496,42 +489,47 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
     })
   }
 
-  # Create matrix of labels
-  labels <- lapply(labeller(label_df), cbind)
-  labels <- do.call("cbind", labels)
+  # Create labels
+  labels <- data_frame0(!!!labeller(label_df))
   ncol <- ncol(labels)
   nrow <- nrow(labels)
+  labels_vec <- unlist(labels, use.names = FALSE)
+
+  # Decide strip clipping
+  clip <- calc_element("strip.clip", theme)[[1]]
+  clip <- pmatch(clip, c("on", "off", "inherit"), nomatch = 3)
+  clip <- c("on", "off", "inherit")[clip]
 
   if (horizontal) {
-    grobs_top <- lapply(labels, element_render, theme = theme,
+    grobs_top <- lapply(labels_vec, element_render, theme = theme,
                         element = "strip.text.x.top", margin_x = TRUE,
                         margin_y = TRUE)
     grobs_top <- assemble_strips(matrix(grobs_top, ncol = ncol, nrow = nrow),
-                                 theme, horizontal, clip = "on")
+                                 theme, horizontal, clip = clip)
 
-    grobs_bottom <- lapply(labels, element_render, theme = theme,
+    grobs_bottom <- lapply(labels_vec, element_render, theme = theme,
                            element = "strip.text.x.bottom", margin_x = TRUE,
                            margin_y = TRUE)
     grobs_bottom <- assemble_strips(matrix(grobs_bottom, ncol = ncol, nrow = nrow),
-                                    theme, horizontal, clip = "on")
+                                    theme, horizontal, clip = clip)
 
     list(
       top = grobs_top,
       bottom = grobs_bottom
     )
   } else {
-    grobs_left <- lapply(labels, element_render, theme = theme,
+    grobs_left <- lapply(labels_vec, element_render, theme = theme,
                          element = "strip.text.y.left", margin_x = TRUE,
                          margin_y = TRUE)
     grobs_left <- assemble_strips(matrix(grobs_left, ncol = ncol, nrow = nrow),
-                                  theme, horizontal, clip = "on")
+                                  theme, horizontal, clip = clip)
 
-    grobs_right <- lapply(labels[, rev(seq_len(ncol(labels))), drop = FALSE],
+    grobs_right <- lapply(unlist(labels[, rev(seq_len(ncol(labels))), drop = FALSE], use.names = FALSE),
                           element_render, theme = theme,
                           element = "strip.text.y.right", margin_x = TRUE,
                           margin_y = TRUE)
     grobs_right <- assemble_strips(matrix(grobs_right, ncol = ncol, nrow = nrow),
-                                   theme, horizontal, clip = "on")
+                                   theme, horizontal, clip = clip)
 
     list(
       left = grobs_left,
@@ -553,7 +551,11 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
 #'
 #' @noRd
 assemble_strips <- function(grobs, theme, horizontal = TRUE, clip) {
-  if (length(grobs) == 0 || is.zero(grobs[[1]])) return(grobs)
+  if (length(grobs) == 0 || is.zero(grobs[[1]])) {
+    # Subsets matrix of zeroGrobs to correct length (#4050)
+    grobs <- grobs[seq_len(NROW(grobs))]
+    return(grobs)
+  }
 
   # Add margins to non-titleGrobs so they behave eqivalently
   grobs[] <- lapply(grobs, function(g) {
@@ -609,9 +611,11 @@ check_labeller <- function(labeller) {
     labeller <- function(labels) {
       Map(old_labeller, names(labels), labels)
     }
-    warn(glue(
-      "The labeller API has been updated. Labellers taking `variable` ",
-      "and `value` arguments are now deprecated. See labellers documentation."))
+    # TODO Update to lifecycle after next lifecycle release
+    cli::cli_warn(c(
+      "The {.arg labeller} API has been updated. Labellers taking {.arg variable} and {.arg value} arguments are now deprecated.",
+      "i" = "See labellers documentation."
+    ))
   }
 
   labeller

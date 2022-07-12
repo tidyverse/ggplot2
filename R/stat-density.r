@@ -26,6 +26,7 @@
 #'   \item{count}{density * number of points - useful for stacked density
 #'      plots}
 #'   \item{scaled}{density estimate, scaled to maximum of 1}
+#'   \item{n}{number of points}
 #'   \item{ndensity}{alias for `scaled`, to mirror the syntax of
 #'    [`stat_bin()`]}
 #' }
@@ -53,7 +54,7 @@ stat_density <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       bw = bw,
       adjust = adjust,
       kernel = kernel,
@@ -76,13 +77,13 @@ StatDensity <- ggproto("StatDensity", Stat,
 
   default_aes = aes(x = after_stat(density), y = after_stat(density), fill = NA, weight = NULL),
 
-  setup_params = function(data, params) {
+  setup_params = function(self, data, params) {
     params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = FALSE, main_is_continuous = TRUE)
 
     has_x <- !(is.null(data$x) && is.null(params$x))
     has_y <- !(is.null(data$y) && is.null(params$y))
     if (!has_x && !has_y) {
-      abort("stat_density() requires an x or y aesthetic.")
+      cli::cli_abort("{.fn {snake_class(self)}} requires an {.field x} or {.field y} aesthetic.")
     }
 
     params
@@ -127,15 +128,16 @@ compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
 
   # if less than 2 points return data frame of NAs and a warning
   if (nx < 2) {
-    warn("Groups with fewer than two data points have been dropped.")
-    return(new_data_frame(list(
+    cli::cli_warn("Groups with fewer than two data points have been dropped.")
+    return(data_frame0(
       x = NA_real_,
       density = NA_real_,
       scaled = NA_real_,
       ndensity = NA_real_,
       count = NA_real_,
-      n = NA_integer_
-    ), n = 1))
+      n = NA_integer_,
+      .size = 1
+    ))
   }
 
   # Decide whether to use boundary correction
@@ -149,14 +151,15 @@ compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
                            kernel = kernel, n = n, from = from, to = to)
   }
 
-  new_data_frame(list(
+  data_frame0(
     x = dens$x,
     density = dens$y,
     scaled =  dens$y / max(dens$y, na.rm = TRUE),
     ndensity = dens$y / max(dens$y, na.rm = TRUE),
     count =   dens$y * nx,
-    n = nx
-  ), n = length(dens$x))
+    n = nx,
+    .size = length(dens$x)
+  )
 }
 
 # Check if all data points are inside bounds. If not, warn and remove them.

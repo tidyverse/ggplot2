@@ -4,7 +4,8 @@
 #' are a stacked bar chart in polar coordinates.
 #'
 #' @param theta variable to map angle to (`x` or `y`)
-#' @param start offset of starting point from 12 o'clock in radians
+#' @param start Offset of starting point from 12 o'clock in radians. Offset
+#'   is applied clockwise or anticlockwise depending on value of `direction`.
 #' @param direction 1, clockwise; -1, anticlockwise
 #' @param clip Should drawing be clipped to the extent of the plot panel? A
 #'   setting of `"on"` (the default) means yes, and a setting of `"off"`
@@ -58,7 +59,7 @@
 #' }
 #' }
 coord_polar <- function(theta = "x", start = 0, direction = 1, clip = "on") {
-  theta <- match.arg(theta, c("x", "y"))
+  theta <- arg_match0(theta, c("x", "y"))
   r <- if (theta == "x") "y" else "x"
 
   ggproto(NULL, CoordPolar,
@@ -211,23 +212,23 @@ CoordPolar <- ggproto("CoordPolar", Coord,
       element_render(theme, "panel.background"),
       if (length(theta) > 0) element_render(
         theme, majortheta, name = "angle",
-        x = c(rbind(0, 0.45 * sin(theta))) + 0.5,
-        y = c(rbind(0, 0.45 * cos(theta))) + 0.5,
+        x = vec_interleave(0, 0.45 * sin(theta)) + 0.5,
+        y = vec_interleave(0, 0.45 * cos(theta)) + 0.5,
         id.lengths = rep(2, length(theta)),
         default.units = "native"
       ),
       if (length(thetamin) > 0) element_render(
         theme, minortheta, name = "angle",
-        x = c(rbind(0, 0.45 * sin(thetamin))) + 0.5,
-        y = c(rbind(0, 0.45 * cos(thetamin))) + 0.5,
+        x = vec_interleave(0, 0.45 * sin(thetamin)) + 0.5,
+        y = vec_interleave(0, 0.45 * cos(thetamin)) + 0.5,
         id.lengths = rep(2, length(thetamin)),
         default.units = "native"
       ),
 
       element_render(
         theme, majorr, name = "radius",
-        x = rep(rfine, each = length(thetafine)) * sin(thetafine) + 0.5,
-        y = rep(rfine, each = length(thetafine)) * cos(thetafine) + 0.5,
+        x = rep(rfine, each = length(thetafine)) * rep(sin(thetafine), length(rfine)) + 0.5,
+        y = rep(rfine, each = length(thetafine)) * rep(cos(thetafine), length(rfine)) + 0.5,
         id.lengths = rep(length(thetafine), length(rfine)),
         default.units = "native"
       )
@@ -280,7 +281,7 @@ CoordPolar <- ggproto("CoordPolar", Coord,
     # Combine the two ends of the scale if they are close
     theta <- theta[!is.na(theta)]
     ends_apart <- (theta[length(theta)] - theta[1]) %% (2*pi)
-    if (length(theta) > 0 && ends_apart < 0.05) {
+    if (length(theta) > 0 && ends_apart < 0.05 && !is.null(labels)) {
       n <- length(labels)
       if (is.expression(labels)) {
         combined <- substitute(paste(a, "/", b),

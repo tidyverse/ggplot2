@@ -27,7 +27,7 @@ scale_x_binned <- function(name = waiver(), n.breaks = 10, nice.breaks = TRUE,
                            right = TRUE, show.limits = FALSE, trans = "identity",
                            guide = waiver(), position = "bottom") {
   binned_scale(
-    aesthetics = c("x", "xmin", "xmax", "xend", "xintercept", "xmin_final", "xmax_final", "xlower", "xmiddle", "xupper"),
+    ggplot_global$x_aes,
     scale_name = "position_b", palette = identity, name = name, breaks = breaks,
     labels = labels, limits = limits, expand = expand, oob = oob, na.value = na.value,
     n.breaks = n.breaks, nice.breaks = nice.breaks, right = right, trans = trans,
@@ -44,7 +44,7 @@ scale_y_binned <- function(name = waiver(), n.breaks = 10, nice.breaks = TRUE,
                            right = TRUE, show.limits = FALSE, trans = "identity",
                            guide = waiver(), position = "left") {
   binned_scale(
-    aesthetics = c("y", "ymin", "ymax", "yend", "yintercept", "ymin_final", "ymax_final", "lower", "middle", "upper"),
+    ggplot_global$y_aes,
     scale_name = "position_b", palette = identity, name = name, breaks = breaks,
     labels = labels, limits = limits, expand = expand, oob = oob, na.value = na.value,
     n.breaks = n.breaks, nice.breaks = nice.breaks, right = right, trans = trans,
@@ -61,7 +61,7 @@ ScaleBinnedPosition <- ggproto("ScaleBinnedPosition", ScaleBinned,
 
   train = function(self, x) {
     if (!is.numeric(x)) {
-      abort("Binned scales only support continuous data")
+      cli::cli_abort("Binned scales only support continuous data")
     }
 
     if (length(x) == 0 || self$after.stat) return()
@@ -70,7 +70,7 @@ ScaleBinnedPosition <- ggproto("ScaleBinnedPosition", ScaleBinned,
 
   map = function(self, x, limits = self$get_limits()) {
     breaks <- self$get_breaks(limits)
-    all_breaks <- unique(sort(c(limits[1], breaks, limits[2])))
+    all_breaks <- unique0(sort(c(limits[1], breaks, limits[2])))
 
     if (self$after.stat) {
       # Backtransform to original scale
@@ -103,7 +103,7 @@ ScaleBinnedPosition <- ggproto("ScaleBinnedPosition", ScaleBinned,
   get_breaks = function(self, limits = self$get_limits()) {
     breaks <- ggproto_parent(ScaleBinned, self)$get_breaks(limits)
     if (self$show.limits) {
-      breaks <- sort(unique(c(self$get_limits(), breaks)))
+      breaks <- sort(unique0(c(self$get_limits(), breaks)))
     }
     breaks
   }

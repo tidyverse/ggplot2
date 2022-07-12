@@ -88,7 +88,7 @@ directly.}
 instead of exactly evenly spaced between the limits. If \code{TRUE} (default)
 the scale will ask the transformation object to create breaks, and this
 may result in a different number of breaks than requested. Ignored if
-breaks are given explicetly.}
+breaks are given explicitly.}
     \item{\code{right}}{Should values on the border between bins be part of the right
 (upper) bin?}
     \item{\code{show.limits}}{should the limits of the scale appear as ticks}
@@ -103,7 +103,8 @@ omitted.}
 \link[scales:trans_new]{transformation object}
 \item A numeric vector of positions
 \item A function that takes the limits as input and returns breaks
-as output (e.g., a function returned by \code{\link[scales:extended_breaks]{scales::extended_breaks()}})
+as output (e.g., a function returned by \code{\link[scales:breaks_extended]{scales::extended_breaks()}}).
+Also accepts rlang \link[rlang:as_function]{lambda} function notation.
 }}
     \item{\code{labels}}{One of:
 \itemize{
@@ -111,8 +112,10 @@ as output (e.g., a function returned by \code{\link[scales:extended_breaks]{scal
 \item \code{waiver()} for the default labels computed by the
 transformation object
 \item A character vector giving labels (must be same length as \code{breaks})
+\item An expression vector (must be the same length as breaks). See ?plotmath for details.
 \item A function that takes the breaks as input and returns labels
-as output
+as output. Also accepts rlang \link[rlang:as_function]{lambda} function
+notation.
 }}
     \item{\code{limits}}{One of:
 \itemize{
@@ -120,7 +123,8 @@ as output
 \item A numeric vector of length two providing limits of the scale.
 Use \code{NA} to refer to the existing minimum or maximum
 \item A function that accepts the existing (automatic) limits and returns
-new limits
+new limits. Also accepts rlang \link[rlang:as_function]{lambda} function
+notation.
 Note that setting limits on positional scales will \strong{remove} data outside of the limits.
 If the purpose is to zoom, use the limit argument in the coordinate system
 (see \code{\link[=coord_cartesian]{coord_cartesian()}}).
@@ -128,18 +132,13 @@ If the purpose is to zoom, use the limit argument in the coordinate system
     \item{\code{oob}}{One of:
 \itemize{
 \item Function that handles limits outside of the scale limits
-(out of bounds).
-\item The default (\code{\link[scales:censor]{scales::censor()}}) replaces out of
+(out of bounds). Also accepts rlang \link[rlang:as_function]{lambda}
+function notation.
+\item The default (\code{\link[scales:oob]{scales::censor()}}) replaces out of
 bounds values with \code{NA}.
-\item \code{\link[scales:squish]{scales::squish()}} for squishing out of bounds values into range.
-\item \code{\link[scales:squish_infinite]{scales::squish_infinite()}} for squishing infinite values into range.
+\item \code{\link[scales:oob]{scales::squish()}} for squishing out of bounds values into range.
+\item \code{\link[scales:oob]{scales::squish_infinite()}} for squishing infinite values into range.
 }}
-    \item{\code{expand}}{For position scales, a vector of range expansion constants used to add some
-padding around the data to ensure that they are placed some distance
-away from the axes. Use the convenience function \code{\link[=expansion]{expansion()}}
-to generate the values for the \code{expand} argument. The defaults are to
-expand the scale by 5\% on each side for continuous variables, and by
-0.6 units on each side for discrete variables.}
     \item{\code{trans}}{For continuous scales, the name of a transformation object
 or the object itself. Built-in transformations include "asn", "atanh",
 "boxcox", "date", "exp", "hms", "identity", "log", "log10", "log1p", "log2",
@@ -151,14 +150,18 @@ and methods for generating breaks and labels. Transformation objects
 are defined in the scales package, and are called \verb{<name>_trans} (e.g.,
 \code{\link[scales:boxcox_trans]{scales::boxcox_trans()}}). You can create your own
 transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
+    \item{\code{expand}}{For position scales, a vector of range expansion constants used to add some
+padding around the data to ensure that they are placed some distance
+away from the axes. Use the convenience function \code{\link[=expansion]{expansion()}}
+to generate the values for the \code{expand} argument. The defaults are to
+expand the scale by 5\% on each side for continuous variables, and by
+0.6 units on each side for discrete variables.}
     \item{\code{position}}{For position scales, The position of the axis.
 \code{left} or \code{right} for y axes, \code{top} or \code{bottom} for x axes.}
     \item{\code{super}}{The super class to use for the constructed scale}
   }}
 
-\item{low}{Colours for low and high ends of the gradient.}
-
-\item{high}{Colours for low and high ends of the gradient.}
+\item{low, high}{Colours for low and high ends of the gradient.}
 
 \item{space}{colour space in which to calculate gradient. Must be "Lab" -
 other values are deprecated.}
@@ -178,14 +181,12 @@ same time, via \code{aesthetics = c("colour", "fill")}.}
 \item{midpoint}{The midpoint (in data value) of the diverging scale.
 Defaults to 0.}
 
-\item{colours}{Vector of colours to use for n-colour gradient.}
+\item{colours, colors}{Vector of colours to use for n-colour gradient.}
 
 \item{values}{if colours should not be evenly positioned along the gradient
 this vector gives the position (between 0 and 1) for each colour in the
 \code{colours} vector. See \code{\link[scales:rescale]{rescale()}} for a convenience function
 to map an arbitrary range to between 0 and 1.}
-
-\item{colors}{Vector of colours to use for n-colour gradient.}
 }
 \description{
 \verb{scale_*_steps} creates a two colour binned gradient (low-high),
@@ -202,6 +203,7 @@ luminance. The \pkg{munsell} package makes this easy to do using the
 Munsell colour system.
 }
 \examples{
+set.seed(1)
 df <- data.frame(
   x = runif(100),
   y = runif(100),
@@ -225,11 +227,12 @@ ggplot(df, aes(x, y)) +
 }
 \seealso{
 \code{\link[scales:seq_gradient_pal]{scales::seq_gradient_pal()}} for details on underlying
-palette
+palette, \code{\link[=scale_colour_gradient]{scale_colour_gradient()}} for continuous scales without binning.
 
 Other colour scales: 
 \code{\link{scale_alpha}()},
 \code{\link{scale_colour_brewer}()},
+\code{\link{scale_colour_continuous}()},
 \code{\link{scale_colour_gradient}()},
 \code{\link{scale_colour_grey}()},
 \code{\link{scale_colour_hue}()},

@@ -17,16 +17,17 @@ aes_q(x, y, ...)
 quoted calls, strings, one-sided formulas or constants.}
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
 Aesthetic mappings describe how variables in the data are mapped to visual
 properties (aesthetics) of geoms. \code{\link[=aes]{aes()}} uses non-standard
-evaluation to capture the variable names. \code{aes_} and \code{aes_string}
+evaluation to capture the variable names. \code{aes_()} and \code{aes_string()}
 require you to explicitly quote the inputs either with \code{""} for
 \code{aes_string()}, or with \code{quote} or \code{~} for \code{aes_()}.
-(\code{aes_q} is an alias to \code{aes_}). This makes \code{aes_} and
-\code{aes_string} easy to program with.
-}
-\details{
-\code{aes_string} and \code{aes_} are particularly useful when writing
+(\code{aes_q()} is an alias to \code{aes_()}). This makes \code{aes_()} and
+\code{aes_string()} easy to program with.
+
+\code{aes_string()} and \code{aes_()} are particularly useful when writing
 functions that create plots because you can use strings or quoted
 names/calls to define the aesthetic mappings, rather than having to use
 \code{\link[=substitute]{substitute()}} to generate a call to \code{aes()}.
@@ -38,29 +39,20 @@ with \code{aes_string()} is quite clunky.
 \section{Life cycle}{
 
 
-All these functions are soft-deprecated. Please use tidy evaluation
-idioms instead (see the quasiquotation section in
-\code{\link[=aes]{aes()}} documentation).
+All these functions are soft-deprecated. Please use tidy evaluation idioms
+instead. Regarding \code{aes_string()}, you can replace it with \code{.data} pronoun.
+For example, the following code can achieve the same mapping as
+\code{aes_string(x_var, y_var)}.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{x_var <- "foo"
+y_var <- "bar"
+aes(.data[[x_var]], .data[[y_var]])
+}\if{html}{\out{</div>}}
+
+For more details, please see \code{vignette("ggplot2-in-packages")}.
 }
 
-\examples{
-# Three ways of generating the same aesthetics
-aes(mpg, wt, col = cyl)
-aes_(quote(mpg), quote(wt), col = quote(cyl))
-aes_(~mpg, ~wt, col = ~cyl)
-aes_string("mpg", "wt", col = "cyl")
-
-# You can't easily mimic these calls with aes_string
-aes(`$100`, colour = "smooth")
-aes_(~ `$100`, colour = "smooth")
-# Ok, you can, but it requires a _lot_ of quotes
-aes_string("`$100`", colour = '"smooth"')
-
-# Convert strings to names with as.name
-var <- "cyl"
-aes(col = x)
-aes_(col = as.name(var))
-}
 \seealso{
 \code{\link[=aes]{aes()}}
 }
+\keyword{internal}
