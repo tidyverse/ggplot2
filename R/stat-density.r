@@ -167,7 +167,7 @@ fit_data_to_bounds <- function(bounds, x, w) {
   is_inside_bounds <- (bounds[1] <= x) & (x <= bounds[2])
 
   if (any(!is_inside_bounds)) {
-    warn("Some data points are outside of `bounds`. Removing them.")
+    cli::cli_warn("Some data points are outside of `bounds`. Removing them.")
     x <- x[is_inside_bounds]
     w <- w[is_inside_bounds]
     w_sum <- sum(w)
