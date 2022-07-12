@@ -77,6 +77,8 @@ StatDensity <- ggproto("StatDensity", Stat,
 
   default_aes = aes(x = after_stat(density), y = after_stat(density), fill = NA, weight = NULL),
 
+  dropped_aes = "weight",
+
   setup_params = function(self, data, params) {
     params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = FALSE, main_is_continuous = TRUE)
 
