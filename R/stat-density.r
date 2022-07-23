@@ -78,6 +78,9 @@ StatDensity <- ggproto("StatDensity", Stat,
     if (!has_x && !has_y) {
       cli::cli_abort("{.fn {snake_class(self)}} requires an {.field x} or {.field y} aesthetic.")
     }
+    if (has_x && has_y) {
+      cli::cli_abort("{.fn {snake_class(self)}} must only have an {.field x} {.emph or} {.field y} aesthetic.")
+    }
 
     params
   },
