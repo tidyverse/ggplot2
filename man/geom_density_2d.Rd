@@ -71,10 +71,10 @@ stat_density_2d_filled(
 )
 }
 \arguments{
-\item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
-\code{\link[=aes_]{aes_()}}. If specified and \code{inherit.aes = TRUE} (the
-default), it is combined with the default mapping at the top level of the
-plot. You must supply \code{mapping} if there is no plot mapping.}
+\item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}}. If specified and
+\code{inherit.aes = TRUE} (the default), it is combined with the default mapping
+at the top level of the plot. You must supply \code{mapping} if there is no plot
+mapping.}
 
 \item{data}{The data to be displayed in this layer. There are three
 options:
@@ -219,7 +219,7 @@ of those should be used is determined by the \code{contour_var} parameter.
 }
 
 If contouring is enabled, then similarly \code{density}, \code{ndensity}, and \code{count}
-no longer be available after the contouring pass.
+are no longer available after the contouring pass.
 }
 
 \examples{
