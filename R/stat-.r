@@ -134,14 +134,30 @@ Stat <- ggproto("Stat",
 
     # The above code will drop columns that are not constant within groups and not
     # carried over/recreated by the stat. This can produce unexpected results,
-    # and hence we warn about it.
-    dropped <- base::setdiff(names(data), base::union(self$dropped_aes, names(data_new)))
+    # and hence we warn about it. Note that, the column might get partially dropped
+    # on a per-group basis, so this inspect `stats`, not the combined `data_new`.
+    dropped <- lapply(stats,
+      function(x) base::setdiff(names(data), base::union(self$dropped_aes, names(x)))
+    )
+    dropped <- vctrs::vec_c(!!!dropped)
     if (length(dropped) > 0) {
-      cli::cli_warn(c(
-        "The following aesthetics were dropped during statistical transformation: {.field {glue_collapse(dropped, sep = ', ')}}",
-        "i" = "This can happen when ggplot fails to infer the correct grouping structure in the data.",
-        "i" = "Did you forget to specify a {.code group} aesthetic or to convert a numerical variable into a factor?"
-      ))
+      dropped <- vctrs::vec_count(dropped)
+      dropped_columns <- dropped$key
+      dropped_completely <- dropped$count == length(stats)
+      if (any(dropped_completely)) {
+        cli::cli_warn(c(
+          "The following aesthetics were dropped during statistical transformation: {.field {glue_collapse(dropped_columns[dropped_completely], sep = ', ')}}",
+          "i" = "This can happen when ggplot fails to infer the correct grouping structure in the data.",
+          "i" = "Did you forget to specify a {.code group} aesthetic or to convert a numerical variable into a factor?"
+        ))
+      }
+      if (any(!dropped_completely)) {
+        cli::cli_warn(c(
+          "The following aesthetics were dropped partially during statistical transformation: {.field {glue_collapse(dropped_columns[!dropped_completely], sep = ', ')}}",
+          "i" = "This can happen when ggplot fails to infer the correct grouping structure in the data.",
+          "i" = "Did you forget to specify a {.code group} aesthetic or to convert a numerical variable into a factor?"
+        ))
+      }
     }
     data_new
   },
