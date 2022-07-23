@@ -8,16 +8,7 @@ StatBindot <- ggproto("StatBindot", Stat,
   default_aes = aes(y = after_stat(count)),
   dropped_aes = c("bin", "bincenter"), # these are temporary variables that are created and then removed by the stat
 
-  setup_params = function(self, data, params) {
-    has_x <- !(is.null(data$x) && is.null(params$x))
-    has_y <- !(is.null(data$y) && is.null(params$y))
-    if (!has_x && !has_y) {
-      cli::cli_abort("{.fn {snake_class(self)}} requires an {.field x} or {.field y} aesthetic.")
-    }
-    if (has_x && has_y) {
-      cli::cli_abort("{.fn {snake_class(self)}} must only have an {.field x} {.emph or} {.field y} aesthetic.")
-    }
-
+  setup_params = function(data, params) {
     if (is.null(params$binwidth)) {
       cli::cli_inform("Bin width defaults to 1/30 of the range of the data. Pick better value with {.arg binwidth}.")
     }
