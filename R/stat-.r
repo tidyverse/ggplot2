@@ -152,7 +152,7 @@ Stat <- ggproto("Stat",
         "i" = "Did you forget to specify a {.code group} aesthetic or to convert a numerical variable into a factor?"
       ))
     }
-    data_new
+    data_new[, !names(data_new) %in% dropped, drop = FALSE]
   },
 
   compute_group = function(self, data, scales) {
