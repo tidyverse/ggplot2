@@ -120,13 +120,21 @@ Stat <- ggproto("Stat",
       self$compute_group(data = group, scales = scales, ...)
     })
 
+    # record dropped columns
+    dropped_columns <- new_environment()
     stats <- mapply(function(new, old) {
       if (empty(new)) return(data_frame0())
-      unique <- uniquecols(old)
-      missing <- !(names(unique) %in% names(new))
-      vec_cbind(
+
+      # ignore the columns that will be overwritten by `new`
+      old <- old[, !(names(old) %in% names(new)), drop = FALSE]
+
+      # drop columns that are not constant within group
+      unique_idx <- vapply(old, function(x) length(unique0(x)) == 1, logical(1L))
+      env_bind(dropped_columns, !!!set_names(names(old)[!unique_idx]))
+
+      result <- vec_cbind(
         new,
-        unique[rep(1, nrow(new)), missing,drop = FALSE]
+        old[rep(1, nrow(new)), unique_idx, drop = FALSE]
       )
     }, stats, groups, SIMPLIFY = FALSE)
 
@@ -135,7 +143,8 @@ Stat <- ggproto("Stat",
     # The above code will drop columns that are not constant within groups and not
     # carried over/recreated by the stat. This can produce unexpected results,
     # and hence we warn about it.
-    dropped <- base::setdiff(names(data), base::union(self$dropped_aes, names(data_new)))
+    dropped <- ls(dropped_columns)
+    dropped <- dropped[!dropped %in% self$dropped_aes]
     if (length(dropped) > 0) {
       cli::cli_warn(c(
         "The following aesthetics were dropped during statistical transformation: {.field {glue_collapse(dropped, sep = ', ')}}",
