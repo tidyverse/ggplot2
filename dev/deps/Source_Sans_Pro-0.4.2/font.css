@@ -1,0 +1,28 @@
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(6xK1dSBYKcSV-LCoeQqfX1RYOo3qPa7j.woff) format('woff');
+}
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  src: url(6xKwdSBYKcSV-LCoeQqfX1RYOo3qPZY4lBdo.woff) format('woff');
+}
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(6xK3dSBYKcSV-LCoeQqfX1RYOo3aPA.woff) format('woff');
+}
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(6xKydSBYKcSV-LCoeQqfX1RYOo3i54rAkw.woff) format('woff');
+}
