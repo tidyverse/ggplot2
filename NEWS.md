@@ -1,6 +1,8 @@
 # ggplot2 (development version)
 
 * Improve the support for `guide_axis()` on `coord_trans()` (@yutannihilation, #3959)
+* `geom_density()` and `stat_density()` now support `bounds` argument
+  to estimate density with boundary correction (@echasnovski, #4013).
 
 * ggplot now checks during statistical transformations whether any data 
   columns were dropped and warns about this. If stats intend to drop

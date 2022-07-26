@@ -5,10 +5,10 @@
 #' calls but it can also be created directly using this function.
 #'
 #' @export
-#' @param mapping Set of aesthetic mappings created by [aes()] or
-#'   [aes_()]. If specified and `inherit.aes = TRUE` (the
-#'   default), it is combined with the default mapping at the top level of the
-#'   plot. You must supply `mapping` if there is no plot mapping.
+#' @param mapping Set of aesthetic mappings created by [aes()]. If specified and
+#'   `inherit.aes = TRUE` (the default), it is combined with the default mapping
+#'   at the top level of the plot. You must supply `mapping` if there is no plot
+#'   mapping.
 #' @param data The data to be displayed in this layer. There are three
 #'    options:
 #'

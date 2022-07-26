@@ -44,7 +44,7 @@ Imports:
     stats,
     tibble,
     vctrs (>= 0.4.1),
-    withr (>= 2.0.0)
+    withr (>= 2.5.0)
 Suggests:
     covr,
     dplyr,
@@ -80,7 +80,7 @@ Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.0.9000
+RoxygenNote: 7.2.1
 Collate: 
     'ggproto.r'
     'ggplot-global.R'
