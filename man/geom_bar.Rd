@@ -77,7 +77,7 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 to the paired geom/stat.}
 
 \item{just}{Adjustment for column placement. Set to \code{0.5} by default, meaning
-that columns will be centered about axis breaks Set to \code{0} or \code{1} to place
+that columns will be centered about axis breaks. Set to \code{0} or \code{1} to place
 columns to the left/right of axis breaks.}
 
 \item{width}{Bar width. By default, set to 90\% of the \code{resolution()} of the
