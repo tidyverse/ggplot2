@@ -1,4 +1,5 @@
 # ggplot2 (development version)
+
 * `geom_col()` and `geom_bar()` gain a new `just` argument. This is set to `0.5`
   by default; use `just = 0`/`just = 1` to place columns on the left/right
   of the axis breaks.
