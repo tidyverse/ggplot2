@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `geom_density()` and `stat_density()` now support `bounds` argument
+  to estimate density with boundary correction (@echasnovski, #4013).
+
 * ggplot now checks during statistical transformations whether any data 
   columns were dropped and warns about this. If stats intend to drop
   data columns they can declare them in the new field `dropped_aes`.

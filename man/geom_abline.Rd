@@ -35,7 +35,7 @@ geom_vline(
 )
 }
 \arguments{
-\item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or \code{\link[=aes_]{aes_()}}.}
+\item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}}.}
 
 \item{data}{The data to be displayed in this layer. There are three
 options:

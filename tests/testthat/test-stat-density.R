@@ -1,3 +1,94 @@
+test_that("stat_density actually computes density", {
+  # Compare functon approximations because outputs from `ggplot()` and
+  # `density()` give grids spanning different ranges
+  dens <- stats::density(mtcars$mpg)
+  expected_density_fun <- stats::approxfun(data.frame(x = dens$x, y = dens$y))
+
+  plot <- ggplot(mtcars, aes(mpg)) + stat_density()
+  actual_density_fun <- stats::approxfun(layer_data(plot)[, c("x", "y")])
+
+  test_sample <- unique(mtcars$mpg)
+  expect_equal(
+    expected_density_fun(test_sample),
+    actual_density_fun(test_sample),
+    tolerance = 1e-3
+  )
+})
+
+test_that("stat_density can make weighted density estimation", {
+  df <- mtcars
+  df$weight <- mtcars$cyl / sum(mtcars$cyl)
+
+  dens <- stats::density(df$mpg, weights = df$weight)
+  expected_density_fun <- stats::approxfun(data.frame(x = dens$x, y = dens$y))
+
+  plot <- ggplot(df, aes(mpg, weight = weight)) + stat_density()
+  actual_density_fun <- stats::approxfun(layer_data(plot)[, c("x", "y")])
+
+  test_sample <- unique(df$mpg)
+  expect_equal(
+    expected_density_fun(test_sample),
+    actual_density_fun(test_sample),
+    tolerance = 1e-3
+  )
+})
+
+test_that("stat_density uses `bounds`", {
+  mpg_min <- min(mtcars$mpg)
+  mpg_max <- max(mtcars$mpg)
+
+  expect_bounds <- function(bounds) {
+    dens <- stats::density(mtcars$mpg)
+    orig_density <- stats::approxfun(
+      data.frame(x = dens$x, y = dens$y),
+      yleft = 0,
+      yright = 0
+    )
+
+    bounded_plot <- ggplot(mtcars, aes(mpg)) + stat_density(bounds = bounds)
+    bounded_data <- layer_data(bounded_plot)[, c("x", "y")]
+    plot_density <- stats::approxfun(bounded_data, yleft = 0, yright = 0)
+
+    test_sample <- seq(mpg_min, mpg_max, by = 0.1)
+    left_reflection <- orig_density(bounds[1] + (bounds[1] - test_sample))
+    right_reflection <- orig_density(bounds[2] + (bounds[2] - test_sample))
+
+    # Plot density should be an original plus added reflection at both `bounds`
+    # (reflection around infinity is zero)
+    expect_equal(
+      orig_density(test_sample) + left_reflection + right_reflection,
+      plot_density(test_sample),
+      tolerance = 1e-4
+    )
+  }
+
+  expect_bounds(c(-Inf, Inf))
+  expect_bounds(c(mpg_min, Inf))
+  expect_bounds(c(-Inf, mpg_max))
+  expect_bounds(c(mpg_min, mpg_max))
+})
+
+test_that("stat_density handles data outside of `bounds`", {
+  cutoff <- mtcars$mpg[1]
+
+  # Both `x` and `weight` should be filtered out for out of `bounds` points
+  expect_warning(
+    data_actual <- layer_data(
+      ggplot(mtcars, aes(mpg, weight = cyl)) +
+        stat_density(bounds = c(cutoff, Inf))
+    ),
+    "outside of `bounds`"
+  )
+
+  mtcars_filtered <- mtcars[mtcars$mpg >= cutoff, ]
+  data_expected <- layer_data(
+    ggplot(mtcars_filtered, aes(mpg, weight = cyl)) +
+      stat_density(bounds = c(cutoff, Inf))
+  )
+
+  expect_equal(data_actual, data_expected)
+})
+
 test_that("compute_density succeeds when variance is zero", {
   dens <- compute_density(rep(0, 10), NULL, from = 0.5, to = 0.5)
   expect_equal(dens$n, rep(10, 512))
