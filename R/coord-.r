@@ -142,7 +142,7 @@ Coord <- ggproto("Coord",
     # resolve the guide definition as a "guide" S3
     guides <- lapply(guides, validate_guide)
 
-    # if there is an "position" specification in the scale, pass this on to the guide
+    # if there is a "position" specification in the scale, pass this on to the guide
     # ideally, this should be specified in the guide
     guides <- lapply(aesthetics, function(aesthetic) {
       guide <- guides[[aesthetic]]
