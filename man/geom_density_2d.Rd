@@ -219,7 +219,7 @@ of those should be used is determined by the \code{contour_var} parameter.
 }
 
 If contouring is enabled, then similarly \code{density}, \code{ndensity}, and \code{count}
-no longer be available after the contouring pass.
+are no longer available after the contouring pass.
 }
 
 \examples{

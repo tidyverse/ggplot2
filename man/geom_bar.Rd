@@ -12,6 +12,7 @@ geom_bar(
   stat = "count",
   position = "stack",
   ...,
+  just = 0.5,
   width = NULL,
   na.rm = FALSE,
   orientation = NA,
@@ -24,6 +25,7 @@ geom_col(
   data = NULL,
   position = "stack",
   ...,
+  just = 0.5,
   width = NULL,
   na.rm = FALSE,
   show.legend = NA,
@@ -74,7 +76,12 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 \code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
-\item{width}{Bar width. By default, set to 90\% of the resolution of the data.}
+\item{just}{Adjustment for column placement. Set to \code{0.5} by default, meaning
+that columns will be centered about axis breaks Set to \code{0} or \code{1} to place
+columns to the left/right of axis breaks.}
+
+\item{width}{Bar width. By default, set to 90\% of the \code{resolution()} of the
+data.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
