@@ -3,6 +3,7 @@
 geom_col <- function(mapping = NULL, data = NULL,
                      position = "stack",
                      ...,
+                     just = 0.5,
                      width = NULL,
                      na.rm = FALSE,
                      show.legend = NA,
@@ -17,6 +18,7 @@ geom_col <- function(mapping = NULL, data = NULL,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list2(
+      just = just,
       width = width,
       na.rm = na.rm,
       ...
@@ -42,16 +44,19 @@ GeomCol <- ggproto("GeomCol", GeomRect,
     params
   },
 
-  extra_params = c("na.rm", "orientation"),
+  extra_params = c("just", "na.rm", "orientation"),
 
   setup_data = function(data, params) {
     data$flipped_aes <- params$flipped_aes
     data <- flip_data(data, params$flipped_aes)
     data$width <- data$width %||%
       params$width %||% (resolution(data$x, FALSE) * 0.9)
-    data <- transform(data,
-                      ymin = pmin(y, 0), ymax = pmax(y, 0),
-                      xmin = x - width / 2, xmax = x + width / 2, width = NULL
+    data$just <- data$just %||% params$just %||% 0.5
+    data <- transform(
+      data,
+      ymin = pmin(y, 0), ymax = pmax(y, 0),
+      xmin = x - width * (1 - just), xmax = x + width * just,
+      width = NULL, just = NULL
     )
     flip_data(data, params$flipped_aes)
   },

@@ -40,6 +40,9 @@
 #' automatically determines the orientation from the aesthetic mapping. In the
 #' rare event that this fails it can be given explicitly by setting `orientation`
 #' to either `"x"` or `"y"`. See the *Orientation* section for more detail.
+#' @param just Adjustment for column placement. Set to `0.5` by default, meaning
+#'   that columns will be centered on axis values. Set to `0` or `1` to place
+#'   columns to the left/right of axis values.
 #' @param width Bar width. By default, set to 90% of the resolution of the data.
 #' @param geom,stat Override the default connection between `geom_bar()` and
 #'   `stat_count()`.
@@ -83,6 +86,7 @@
 geom_bar <- function(mapping = NULL, data = NULL,
                      stat = "count", position = "stack",
                      ...,
+                     just = 0.5,
                      width = NULL,
                      na.rm = FALSE,
                      orientation = NA,
@@ -97,6 +101,7 @@ geom_bar <- function(mapping = NULL, data = NULL,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list2(
+      just = just,
       width = width,
       na.rm = na.rm,
       orientation = orientation,
@@ -123,16 +128,18 @@ GeomBar <- ggproto("GeomBar", GeomRect,
     params
   },
 
-  extra_params = c("na.rm", "orientation"),
+  extra_params = c("just", "na.rm", "orientation"),
 
   setup_data = function(data, params) {
     data$flipped_aes <- params$flipped_aes
     data <- flip_data(data, params$flipped_aes)
     data$width <- data$width %||%
       params$width %||% (resolution(data$x, FALSE) * 0.9)
+    data$just <- data$just %||% params$just %||% 0.5
     data <- transform(data,
       ymin = pmin(y, 0), ymax = pmax(y, 0),
-      xmin = x - width / 2, xmax = x + width / 2, width = NULL
+      xmin = x - width * (1 - just), xmax = x + width * just,
+      width = NULL, just = NULL
     )
     flip_data(data, params$flipped_aes)
   },
