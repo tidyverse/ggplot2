@@ -373,6 +373,24 @@ test_that("guides have the final say in x and y", {
   expect_doppelganger("position guide titles", plot)
 })
 
+test_that("Axis titles won't be blown away by coord_*()", {
+  df <- data_frame(x = 1, y = 1)
+  plot <- ggplot(df, aes(x, y)) +
+    geom_point() +
+    guides(
+      x = guide_axis(title = "x (primary)"),
+      y = guide_axis(title = "y (primary)"),
+      x.sec = guide_axis(title = "x (secondary)"),
+      y.sec = guide_axis(title = "y (secondary)")
+    )
+
+  expect_doppelganger("guide titles with coord_trans()", plot + coord_trans())
+  # TODO
+  # expect_doppelganger("guide titles with coord_polar()", plot + coord_polar())
+  # TODO
+  # expect_doppelganger("guide titles with coord_sf()", plot + coord_sf())
+})
+
 test_that("guides are positioned correctly", {
   df <- data_frame(x = 1, y = 1, z = factor("a"))
 
