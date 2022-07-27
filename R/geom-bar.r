@@ -43,7 +43,7 @@
 #' @param just Adjustment for column placement. Set to `0.5` by default, meaning
 #'   that columns will be centered about axis breaks. Set to `0` or `1` to place
 #'   columns to the left/right of axis breaks.
-#' @param width Bar width. By default, set to 90% of the `resolution()` of the
+#' @param width Bar width. By default, set to 90% of the [resolution()] of the
 #'   data.
 #' @param geom,stat Override the default connection between `geom_bar()` and
 #'   `stat_count()`.
