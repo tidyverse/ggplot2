@@ -42,7 +42,9 @@
 #' to either `"x"` or `"y"`. See the *Orientation* section for more detail.
 #' @param just Adjustment for column placement. Set to `0.5` by default, meaning
 #'   that columns will be centered about axis breaks. Set to `0` or `1` to place
-#'   columns to the left/right of axis breaks.
+#'   columns to the left/right of axis breaks. Note that this argument may have
+#'   unintended behaviour when used with alternative positions, e.g.
+#'   `position_dodge()`.
 #' @param width Bar width. By default, set to 90% of the [resolution()] of the
 #'   data.
 #' @param geom,stat Override the default connection between `geom_bar()` and
@@ -84,6 +86,13 @@
 #' ggplot(df, aes(x)) + geom_bar()
 #' # cf. a histogram of the same data
 #' ggplot(df, aes(x)) + geom_histogram(binwidth = 0.5)
+#'
+#' # Use `just` to control how columns are aligned with axis breaks:
+#' df <- data.frame(x = as.Date(c("2020-01-01", "2020-02-01")), y = 1:2)
+#' # Columns centered on the first day of the month
+#' ggplot(df, aes(x, y)) + geom_col(just = 0.5)
+#' # Columns begin on the first day of the month
+#' ggplot(df, aes(x, y)) + geom_col(just = 1)
 geom_bar <- function(mapping = NULL, data = NULL,
                      stat = "count", position = "stack",
                      ...,
