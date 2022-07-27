@@ -15,3 +15,9 @@ test_that("stat_ecdf works in both directions", {
   expect_snapshot_error(ggplot_build(p))
 })
 
+test_that("stat_ecdf() checks the aesthetics", {
+  p <- ggplot(mtcars) + stat_ecdf()
+  expect_snapshot_error(ggplot_build(p))
+  p <- ggplot(mtcars) + stat_ecdf(aes(factor(gear), mpg))
+  expect_snapshot_error(ggplot_build(p))
+})

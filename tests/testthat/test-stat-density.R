@@ -118,3 +118,11 @@ test_that("compute_density returns useful df and throws warning when <2 values",
   expect_equal(names(dens), c("x", "density", "scaled", "ndensity", "count", "n"))
   expect_type(dens$x, "double")
 })
+
+test_that("stat_density() checks the aesthetics", {
+  p <- ggplot(mtcars) + stat_density()
+  expect_snapshot_error(ggplot_build(p))
+  p <- ggplot(mtcars) + stat_density(aes(factor(gear), mpg))
+  expect_snapshot_error(ggplot_build(p))
+})
+
