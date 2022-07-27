@@ -103,75 +103,6 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
     )
   },
 
-  setup_panel_guides = function(self, panel_params, guides, params = list()) {
-    aesthetics <- c("x", "y", "x.sec", "y.sec")
-    names(aesthetics) <- aesthetics
-
-    # resolve the specified guide from the scale and/or guides
-    guides <- lapply(aesthetics, function(aesthetic) {
-      resolve_guide(
-        aesthetic,
-        panel_params[[aesthetic]],
-        guides,
-        default = guide_axis(),
-        null = guide_none()
-      )
-    })
-
-    # resolve the guide definition as a "guide" S3
-    guides <- lapply(guides, validate_guide)
-
-    # if there is an "position" specification in the scale, pass this on to the guide
-    # ideally, this should be specified in the guide
-    guides <- lapply(aesthetics, function(aesthetic) {
-      guide <- guides[[aesthetic]]
-      scale <- panel_params[[aesthetic]]
-      # position could be NULL here for an empty scale
-      guide$position <- guide$position %|W|% scale$position
-      guide
-    })
-
-    panel_params$guides <- guides
-    panel_params
-  },
-
-  train_panel_guides = function(self, panel_params, layers, default_mapping, params = list()) {
-    aesthetics <- c("x", "y", "x.sec", "y.sec")
-    names(aesthetics) <- aesthetics
-
-    panel_params$guides <- lapply(aesthetics, function(aesthetic) {
-      axis <- substr(aesthetic, 1, 1)
-      guide <- panel_params$guides[[aesthetic]]
-      guide <- guide_train(guide, panel_params[[aesthetic]])
-      guide <- guide_transform(guide, self, panel_params)
-      guide <- guide_geom(guide, layers, default_mapping)
-      guide
-    })
-
-    panel_params
-  },
-
-  labels = function(self, labels, panel_params) {
-    positions_x <- c("top", "bottom")
-    positions_y <- c("left", "right")
-
-    list(
-      x = lapply(c(1, 2), function(i) {
-        panel_guide_label(
-          panel_params$guides,
-          position = positions_x[[i]],
-          default_label = labels$x[[i]]
-        )
-      }),
-      y = lapply(c(1, 2), function(i) {
-        panel_guide_label(
-          panel_params$guides,
-          position = positions_y[[i]],
-          default_label = labels$y[[i]])
-      })
-    )
-  },
-
   render_bg = function(panel_params, theme) {
     guide_grid(
       theme,
@@ -206,7 +137,6 @@ view_scales_from_scale <- function(scale, coord_limits = NULL, expand = TRUE) {
   view_scales <- list(
     view_scale_primary(scale, limits, continuous_range),
     sec = view_scale_secondary(scale, limits, continuous_range),
-    arrange = scale$axis_order(),
     range = continuous_range
   )
   names(view_scales) <- c(aesthetic, paste0(aesthetic, ".", names(view_scales)[-1]))
@@ -215,7 +145,7 @@ view_scales_from_scale <- function(scale, coord_limits = NULL, expand = TRUE) {
 }
 
 panel_guide_label <- function(guides, position, default_label) {
-  guide <- guide_for_position(guides, position) %||% guide_none(title = NULL)
+  guide <- guide_for_position(guides, position) %||% guide_none(title = waiver())
   guide$title %|W|% default_label
 }
 

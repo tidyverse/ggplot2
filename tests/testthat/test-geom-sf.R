@@ -237,7 +237,7 @@ test_that("geom_sf draws arrows correctly", {
             as.numeric(sf::st_coordinates(nc)[x + 1, 1:2])
             )
         )
-      ), sf::st_crs(nc)
+      )
     ), "LINESTRING"
   )
 

@@ -33,7 +33,7 @@ NULL
 #'   adding straight line segments to a plot.
 #' @inheritParams layer
 #' @inheritParams geom_point
-#' @param mapping Set of aesthetic mappings created by [aes()] or [aes_()].
+#' @param mapping Set of aesthetic mappings created by [aes()].
 #' @param xintercept,yintercept,slope,intercept Parameters that control the
 #'   position of the line. If these are set, `data`, `mapping` and
 #'   `show.legend` are overridden.
