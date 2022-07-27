@@ -125,8 +125,18 @@ CoordTrans <- ggproto("CoordTrans", Coord,
   },
 
   transform = function(self, data, panel_params) {
-    trans_x <- function(data) transform_value(self$trans$x, data, panel_params$x.range)
-    trans_y <- function(data) transform_value(self$trans$y, data, panel_params$y.range)
+    # trans_x() and trans_y() needs to keep Inf values because this can be called
+    # in guide_transform.axis()
+    trans_x <- function(data) {
+      idx <- !is.infinite(data)
+      data[idx] <- transform_value(self$trans$x, data[idx], panel_params$x.range)
+      data
+    }
+    trans_y <- function(data) {
+      idx <- !is.infinite(data)
+      data[idx] <- transform_value(self$trans$y, data[idx], panel_params$y.range)
+      data
+    }
 
     new_data <- transform_position(data, trans_x, trans_y)
 
@@ -138,8 +148,8 @@ CoordTrans <- ggproto("CoordTrans", Coord,
 
   setup_panel_params = function(self, scale_x, scale_y, params = list()) {
     c(
-      train_trans(scale_x, self$limits$x, self$trans$x, "x", self$expand),
-      train_trans(scale_y, self$limits$y, self$trans$y, "y", self$expand)
+      view_scales_from_scale_with_coord_trans(scale_x, self$limits$x, self$trans$x, self$expand),
+      view_scales_from_scale_with_coord_trans(scale_y, self$limits$y, self$trans$y, self$expand)
     )
   },
 
@@ -154,20 +164,16 @@ CoordTrans <- ggproto("CoordTrans", Coord,
   },
 
   render_axis_h = function(panel_params, theme) {
-    arrange <- panel_params$x.arrange %||% c("secondary", "primary")
-
     list(
-      top = render_axis(panel_params, arrange[1], "x", "top", theme),
-      bottom = render_axis(panel_params, arrange[2], "x", "bottom", theme)
+      top = panel_guides_grob(panel_params$guides, position = "top", theme = theme),
+      bottom = panel_guides_grob(panel_params$guides, position = "bottom", theme = theme)
     )
   },
 
   render_axis_v = function(panel_params, theme) {
-    arrange <- panel_params$y.arrange %||% c("primary", "secondary")
-
     list(
-      left = render_axis(panel_params, arrange[1], "y", "left", theme),
-      right = render_axis(panel_params, arrange[2], "y", "right", theme)
+      left = panel_guides_grob(panel_params$guides, position = "left", theme = theme),
+      right = panel_guides_grob(panel_params$guides, position = "right", theme = theme)
     )
   }
 )
@@ -178,14 +184,16 @@ transform_value <- function(trans, value, range) {
   rescale(trans$transform(value), 0:1, range)
 }
 
-train_trans <- function(scale, coord_limits, trans, name, expand = TRUE) {
+# TODO: can we merge this with view_scales_from_scale()?
+view_scales_from_scale_with_coord_trans <- function(scale, coord_limits, trans, expand = TRUE) {
   expansion <- default_expansion(scale, expand = expand)
   scale_trans <- scale$trans %||% identity_trans()
   coord_limits <- coord_limits %||% scale_trans$inverse(c(NA, NA))
+  scale_limits <- scale$get_limits()
 
   if (scale$is_discrete()) {
     continuous_ranges <- expand_limits_discrete_trans(
-      scale$get_limits(),
+      scale_limits,
       expansion,
       coord_limits,
       trans,
@@ -195,7 +203,7 @@ train_trans <- function(scale, coord_limits, trans, name, expand = TRUE) {
     # transform user-specified limits to scale transformed space
     coord_limits <- scale$trans$transform(coord_limits)
     continuous_ranges <- expand_limits_continuous_trans(
-      scale$get_limits(),
+      scale_limits,
       expansion,
       coord_limits,
       trans
@@ -216,6 +224,10 @@ train_trans <- function(scale, coord_limits, trans, name, expand = TRUE) {
   out$sec.minor_source <- transform_value(trans, out$sec.minor_source, out$range)
 
   out <- list(
+    # Note that a ViewScale requires a limit and a range that are before the
+    # Coord's transformation, so we pass `continuous_range`, not `continuous_range_coord`.
+    view_scale_primary(scale, scale_limits, continuous_ranges$continuous_range),
+    sec = view_scale_secondary(scale, scale_limits, continuous_ranges$continuous_range),
     range = out$range,
     labels = out$labels,
     major = out$major_source,
@@ -224,7 +236,9 @@ train_trans <- function(scale, coord_limits, trans, name, expand = TRUE) {
     sec.major = out$sec.major_source,
     sec.minor = out$sec.minor_source
   )
-  names(out) <- paste(name, names(out), sep = ".")
+
+  aesthetic <- scale$aesthetics[1]
+  names(out) <- c(aesthetic, paste(aesthetic, names(out)[-1], sep = "."))
   out
 }
 
