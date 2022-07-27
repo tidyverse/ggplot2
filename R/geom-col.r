@@ -51,7 +51,7 @@ GeomCol <- ggproto("GeomCol", GeomRect,
     data <- flip_data(data, params$flipped_aes)
     data$width <- data$width %||%
       params$width %||% (resolution(data$x, FALSE) * 0.9)
-    data$just <- data$just %||% params$just %||% 0.5
+    data$just <- params$just %||% 0.5
     data <- transform(
       data,
       ymin = pmin(y, 0), ymax = pmax(y, 0),
