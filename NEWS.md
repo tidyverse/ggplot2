@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* `geom_linerange()` now respects the `na.rm` argument (#4927, @thomasp85)
+
 * Improve the support for `guide_axis()` on `coord_trans()` (@yutannihilation, #3959)
 
 * `geom_density()` and `stat_density()` now support `bounds` argument
