@@ -113,7 +113,7 @@ scale_type.sfc <- function(x) "identity"
 
 # helper function to determine the geometry type of sf object
 detect_sf_type <- function(sf) {
-  geometry_type <- unique(as.character(sf::st_geometry_type(sf)))
+  geometry_type <- unique0(as.character(sf::st_geometry_type(sf)))
   if (length(geometry_type) != 1)  geometry_type <- "GEOMETRY"
   sf_types[geometry_type]
 }

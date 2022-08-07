@@ -75,7 +75,7 @@ scales_map_df <- function(scales, df) {
 
   mapped <- unlist(lapply(scales$scales, function(scale) scale$map_df(df = df)), recursive = FALSE)
 
-  new_data_frame(c(mapped, df[setdiff(names(df), names(mapped))]))
+  data_frame0(!!!mapped, df[setdiff(names(df), names(mapped))])
 }
 
 # Transform values to cardinal representation
@@ -94,7 +94,8 @@ scales_transform_df <- function(scales, df) {
 
   transformed <- unlist(lapply(scale_list, function(s) s$transform_df(df = df)),
     recursive = FALSE)
-  new_data_frame(c(transformed, df[setdiff(names(df), names(transformed))]))
+  untransformed <- df[setdiff(names(df), names(transformed))]
+  data_frame0(!!!transformed, untransformed)
 }
 
 scales_backtransform_df <- function(scales, df) {

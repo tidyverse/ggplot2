@@ -15,26 +15,11 @@ cunion <- function(a, b) {
 interleave <- function(...) UseMethod("interleave")
 #' @export
 interleave.unit <- function(...) {
-  do.call("unit.c", do.call("interleave.default", lapply(list(...), as.list)))
+  units <- lapply(list(...), as.list)
+  interleaved_list <- interleave.default(!!!units)
+  inject(unit.c(!!!interleaved_list))
 }
 #' @export
 interleave.default <- function(...) {
-  vectors <- list(...)
-
-  # Check lengths
-  lengths <- unique(setdiff(vapply(vectors, length, integer(1)), 1L))
-  if (length(lengths) == 0) lengths <- 1
-  if (length(lengths) > 1) {
-    cli::cli_abort("vectors must have at least one element")
-  }
-
-  # Replicate elements of length one up to correct length
-  singletons <- vapply(vectors, length, integer(1)) == 1L
-  vectors[singletons] <- lapply(vectors[singletons], rep, lengths)
-
-  # Interleave vectors
-  n <- lengths
-  p <- length(vectors)
-  interleave <- rep(1:n, each = p) + seq(0, p - 1) * n
-  unlist(vectors, recursive = FALSE)[interleave]
+  vec_interleave(...)
 }

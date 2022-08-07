@@ -183,11 +183,15 @@ limits.POSIXlt <- function(lims, var, call = caller_env()) {
 #'   expand_limits(colour = factor(seq(2, 10, by = 2)))
 expand_limits <- function(...) {
   data <- list2(...)
+
+  # unpack data frame columns
   data_dfs <- vapply(data, is.data.frame, logical(1))
-  data <- do.call(c, c(list(data[!data_dfs]), data[data_dfs]))
+  data <- unlist(c(list(data[!data_dfs]), data[data_dfs]), recursive = FALSE)
+
+  # Repeat vectors up to max length and collect to data frame
   n_rows <- max(vapply(data, length, integer(1)))
   data <- lapply(data, rep, length.out = n_rows)
-  data <- new_data_frame(data)
+  data <- data_frame0(!!!data)
 
   geom_blank(aes_all(names(data)), data, inherit.aes = FALSE)
 }

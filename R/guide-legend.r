@@ -210,7 +210,7 @@ guide_train.legend <- function(guide, scale, aesthetic = NULL) {
   # argument to this function or, as a fall back, the first in the vector
   # of possible aesthetics handled by the scale
   aes_column_name <- aesthetic %||% scale$aesthetics[1]
-  key <- new_data_frame(setNames(list(scale$map(breaks)), aes_column_name))
+  key <- data_frame(scale$map(breaks), .name_repair = ~ aes_column_name)
   key$.label <- scale$get_labels(breaks)
 
   # Drop out-of-range values for continuous scale
@@ -235,7 +235,7 @@ guide_train.legend <- function(guide, scale, aesthetic = NULL) {
 #' @export
 guide_merge.legend <- function(guide, new_guide) {
   new_guide$key$.label <- NULL
-  guide$key <- cbind(guide$key, new_guide$key)
+  guide$key <- vec_cbind(guide$key, new_guide$key)
   guide$override.aes <- c(guide$override.aes, new_guide$override.aes)
   if (any(duplicated(names(guide$override.aes)))) {
     cli::cli_warn("Duplicated {.arg override.aes} is ignored.")
@@ -387,7 +387,8 @@ guide_gengrob.legend <- function(guide, theme) {
     guide$keyheight %||% theme$legend.key.height %||% theme$legend.key.size
   )
 
-  key_size_mat <- do.call("cbind", lapply(guide$geoms, function(g) g$data$size / 10))
+  key_size <- lapply(guide$geoms, function(g) g$data$size / 10)
+  key_size_mat <- inject(cbind(!!!key_size))
 
   if (nrow(key_size_mat) == 0 || ncol(key_size_mat) == 0) {
     key_size_mat <- matrix(0, ncol = 1, nrow = nbreak)
@@ -442,10 +443,10 @@ guide_gengrob.legend <- function(guide, theme) {
   )
 
   if (guide$byrow) {
-    vps <- new_data_frame(list(
+    vps <- data_frame0(
       R = ceiling(seq(nbreak) / legend.ncol),
       C = (seq(nbreak) - 1) %% legend.ncol + 1
-    ))
+    )
   } else {
     vps <- mat_2_df(arrayInd(seq(nbreak), dim(key_sizes)), c("R", "C"))
   }

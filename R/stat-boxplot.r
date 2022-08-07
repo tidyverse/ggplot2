@@ -47,6 +47,9 @@ stat_boxplot <- function(mapping = NULL, data = NULL,
 StatBoxplot <- ggproto("StatBoxplot", Stat,
   required_aes = c("y|x"),
   non_missing_aes = "weight",
+  # either the x or y aesthetic will get dropped during
+  # statistical transformation, depending on the orientation
+  dropped_aes = c("x", "y"),
   setup_data = function(self, data, params) {
     data <- flip_data(data, params$flipped_aes)
     data$x <- data$x %||% 0
@@ -103,10 +106,10 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
       stats[c(1, 5)] <- range(c(stats[2:4], data$y[!outliers]), na.rm = TRUE)
     }
 
-    if (length(unique(data$x)) > 1)
+    if (length(unique0(data$x)) > 1)
       width <- diff(range(data$x)) * 0.9
 
-    df <- new_data_frame(as.list(stats))
+    df <- data_frame0(!!!as.list(stats))
     df$outliers <- list(data$y[outliers])
 
     if (is.null(data$weight)) {
