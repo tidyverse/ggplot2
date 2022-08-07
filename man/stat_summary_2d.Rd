@@ -39,10 +39,10 @@ stat_summary_hex(
 )
 }
 \arguments{
-\item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
-\code{\link[=aes_]{aes_()}}. If specified and \code{inherit.aes = TRUE} (the
-default), it is combined with the default mapping at the top level of the
-plot. You must supply \code{mapping} if there is no plot mapping.}
+\item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}}. If specified and
+\code{inherit.aes = TRUE} (the default), it is combined with the default mapping
+at the top level of the plot. You must supply \code{mapping} if there is no plot
+mapping.}
 
 \item{data}{The data to be displayed in this layer. There are three
 options:
@@ -120,6 +120,13 @@ are summarised with \code{fun}.
 \describe{
 \item{x,y}{Location}
 \item{value}{Value of summary statistic.}
+}
+}
+
+\section{Dropped variables}{
+
+\describe{
+\item{\code{z}}{After binning, the z values of individual data points are no longer available.}
 }
 }
 

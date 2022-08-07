@@ -1,5 +1,23 @@
 # ggplot2 (development version)
 
+* `geom_linerange()` now respects the `na.rm` argument (#4927, @thomasp85)
+
+* Improve the support for `guide_axis()` on `coord_trans()` (@yutannihilation, #3959)
+
+* `geom_density()` and `stat_density()` now support `bounds` argument
+  to estimate density with boundary correction (@echasnovski, #4013).
+
+* ggplot now checks during statistical transformations whether any data 
+  columns were dropped and warns about this. If stats intend to drop
+  data columns they can declare them in the new field `dropped_aes`.
+  (@clauswilke, #3250)
+* Added `stat_align()` to align data without common x-coordinates prior to
+  stacking. This is now the default stat for `geom_area()` (@thomasp85, #4850)
+
+* Fix a bug in `stat_contour_filled()` where break value differences below a 
+  certain number of digits would cause the computations to fail (@thomasp85, 
+  #4874)
+
 * `stage()` now properly refers to the values without scale transformations for
   the stage of `after_stat`. If your code requires the scaled version of the
   values for some reason, you have to apply the same transformation by yourself,

@@ -71,10 +71,10 @@ stat_density_2d_filled(
 )
 }
 \arguments{
-\item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
-\code{\link[=aes_]{aes_()}}. If specified and \code{inherit.aes = TRUE} (the
-default), it is combined with the default mapping at the top level of the
-plot. You must supply \code{mapping} if there is no plot mapping.}
+\item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}}. If specified and
+\code{inherit.aes = TRUE} (the default), it is combined with the default mapping
+at the top level of the plot. You must supply \code{mapping} if there is no plot
+mapping.}
 
 \item{data}{The data to be displayed in this layer. There are three
 options:
@@ -210,6 +210,16 @@ and the computed variables are determined by these stats.
 Contours are calculated for one of the three types of density estimates
 obtained before contouring, \code{density}, \code{ndensity}, and \code{count}. Which
 of those should be used is determined by the \code{contour_var} parameter.
+}
+
+\section{Dropped variables}{
+
+\describe{
+\item{\code{z}}{After density estimation, the z values of individual data points are no longer available.}
+}
+
+If contouring is enabled, then similarly \code{density}, \code{ndensity}, and \code{count}
+are no longer available after the contouring pass.
 }
 
 \examples{

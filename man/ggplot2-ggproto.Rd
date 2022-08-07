@@ -4,26 +4,26 @@
 %   R/geom-raster.r, R/annotation-raster.r, R/axis-secondary.R, R/coord-.r,
 %   R/coord-cartesian-.r, R/coord-fixed.r, R/coord-flip.r, R/coord-map.r,
 %   R/coord-polar.r, R/coord-quickmap.R, R/coord-transform.r, R/facet-.r,
-%   R/facet-grid-.r, R/facet-null.r, R/facet-wrap.r, R/stat-.r, R/geom-abline.r,
-%   R/geom-rect.r, R/geom-bar.r, R/geom-blank.r, R/geom-boxplot.r, R/geom-col.r,
-%   R/geom-path.r, R/geom-contour.r, R/geom-crossbar.r, R/geom-segment.r,
-%   R/geom-curve.r, R/geom-ribbon.r, R/geom-density.r, R/geom-density2d.r,
-%   R/geom-dotplot.r, R/geom-errorbar.r, R/geom-errorbarh.r, R/geom-function.R,
-%   R/geom-hex.r, R/geom-hline.r, R/geom-label.R, R/geom-linerange.r,
-%   R/geom-point.r, R/geom-pointrange.r, R/geom-quantile.r, R/geom-rug.r,
-%   R/geom-smooth.r, R/geom-spoke.r, R/geom-text.r, R/geom-tile.r,
-%   R/geom-violin.r, R/geom-vline.r, R/guide-.r, R/guides-axis.r,
-%   R/guides-none.r, R/layout.R, R/position-.r, R/position-dodge.r,
-%   R/position-dodge2.r, R/position-identity.r, R/position-jitter.r,
-%   R/position-jitterdodge.R, R/position-nudge.R, R/position-stack.r,
-%   R/scale-.r, R/scale-binned.R, R/scale-continuous.r, R/scale-date.r,
-%   R/scale-discrete-.r, R/scale-identity.r, R/stat-bin.r, R/stat-bin2d.r,
-%   R/stat-bindot.r, R/stat-binhex.r, R/stat-boxplot.r, R/stat-contour.r,
-%   R/stat-count.r, R/stat-density-2d.r, R/stat-density.r, R/stat-ecdf.r,
-%   R/stat-ellipse.R, R/stat-function.r, R/stat-identity.r, R/stat-qq-line.R,
-%   R/stat-qq.r, R/stat-quantile.r, R/stat-smooth.r, R/stat-sum.r,
-%   R/stat-summary-2d.r, R/stat-summary-bin.R, R/stat-summary-hex.r,
-%   R/stat-summary.r, R/stat-unique.r, R/stat-ydensity.r
+%   R/facet-grid-.r, R/facet-null.r, R/facet-wrap.r, R/stat-.r,
+%   R/geom-abline.r, R/geom-rect.r, R/geom-bar.r, R/geom-blank.r,
+%   R/geom-boxplot.r, R/geom-col.r, R/geom-path.r, R/geom-contour.r,
+%   R/geom-crossbar.r, R/geom-segment.r, R/geom-curve.r, R/geom-ribbon.r,
+%   R/geom-density.r, R/geom-density2d.r, R/geom-dotplot.r, R/geom-errorbar.r,
+%   R/geom-errorbarh.r, R/geom-function.R, R/geom-hex.r, R/geom-hline.r,
+%   R/geom-label.R, R/geom-linerange.r, R/geom-point.r, R/geom-pointrange.r,
+%   R/geom-quantile.r, R/geom-rug.r, R/geom-smooth.r, R/geom-spoke.r,
+%   R/geom-text.r, R/geom-tile.r, R/geom-violin.r, R/geom-vline.r,
+%   R/guide-.r, R/guides-axis.r, R/guides-none.r, R/layout.R, R/position-.r,
+%   R/position-dodge.r, R/position-dodge2.r, R/position-identity.r,
+%   R/position-jitter.r, R/position-jitterdodge.R, R/position-nudge.R,
+%   R/position-stack.r, R/scale-.r, R/scale-binned.R, R/scale-continuous.r,
+%   R/scale-date.r, R/scale-discrete-.r, R/scale-identity.r, R/stat-align.R,
+%   R/stat-bin.r, R/stat-bin2d.r, R/stat-bindot.r, R/stat-binhex.r,
+%   R/stat-boxplot.r, R/stat-contour.r, R/stat-count.r, R/stat-density-2d.r,
+%   R/stat-density.r, R/stat-ecdf.r, R/stat-ellipse.R, R/stat-function.r,
+%   R/stat-identity.r, R/stat-qq-line.R, R/stat-qq.r, R/stat-quantile.r,
+%   R/stat-smooth.r, R/stat-sum.r, R/stat-summary-2d.r, R/stat-summary-bin.R,
+%   R/stat-summary-hex.r, R/stat-summary.r, R/stat-unique.r, R/stat-ydensity.r
 \docType{data}
 \name{ggplot2-ggproto}
 \alias{ggplot2-ggproto}
@@ -110,6 +110,7 @@
 \alias{ScaleDiscretePosition}
 \alias{ScaleDiscreteIdentity}
 \alias{ScaleContinuousIdentity}
+\alias{StatAlign}
 \alias{StatBin}
 \alias{StatBin2d}
 \alias{StatBindot}

@@ -36,20 +36,16 @@ get_n_data.frame <- function(f) {
 }
 
 test_that("`get_n_*() detects number of calls properly", {
-  withr::local_file("tmp.R")
-  writeLines(
-    c(
-      'stop("foo!")',
-      'warning("bar!")',
-      "data.frame(x = 1)",
-      "base::data.frame(x = 1)"  # this is not counted
-    ),
-    "tmp.R"
-  )
+  tmp <- withr::local_tempfile(lines = c(
+    'stop("foo!")',
+    'warning("bar!")',
+    "data.frame(x = 1)",
+    "base::data.frame(x = 1)"  # this is not counted
+  ))
 
-  expect_equal(get_n_stop("tmp.R"), 1)
-  expect_equal(get_n_warning("tmp.R"), 1)
-  expect_equal(get_n_data.frame("tmp.R"), 1)
+  expect_equal(get_n_stop(tmp), 1)
+  expect_equal(get_n_warning(tmp), 1)
+  expect_equal(get_n_data.frame(tmp), 1)
 })
 
 # Pattern is needed filter out files such as ggplot2.rdb, which is created when running covr::package_coverage()

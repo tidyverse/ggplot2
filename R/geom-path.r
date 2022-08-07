@@ -167,16 +167,17 @@ GeomPath <- ggproto("GeomPath", Geom,
 
     # Work out whether we should use lines or segments
     attr <- dapply(munched, "group", function(df) {
-      linetype <- unique(df$linetype)
-      new_data_frame(list(
+      linetype <- unique0(df$linetype)
+      data_frame0(
         solid = identical(linetype, 1) || identical(linetype, "solid"),
-        constant = nrow(unique(df[, c("alpha", "colour","linewidth", "linetype")])) == 1
-      ), n = 1)
+        constant = nrow(unique0(df[, c("alpha", "colour", "linewidth", "linetype")])) == 1,
+        .size = 1
+      )
     })
     solid_lines <- all(attr$solid)
     constant <- all(attr$constant)
     if (!solid_lines && !constant) {
-      cli::cli_abort("{.fn {snake_class(self)}} can't have varying {.field colour}, {.field size}, and/or {.field alpha} along the line when {.field linetype} isn't solid")
+      cli::cli_abort("{.fn {snake_class(self)}} can't have varying {.field colour}, {.field linewidth}, and/or {.field alpha} along the line when {.field linetype} isn't solid")
     }
 
     # Work out grouping variables for grobs
@@ -200,7 +201,7 @@ GeomPath <- ggproto("GeomPath", Geom,
         )
       )
     } else {
-      id <- match(munched$group, unique(munched$group))
+      id <- match(munched$group, unique0(munched$group))
       polylineGrob(
         munched$x, munched$y, id = id,
         default.units = "native", arrow = arrow,
@@ -359,5 +360,5 @@ stairstep <- function(data, direction = "hv") {
     data_attr <- data[xs, setdiff(names(data), c("x", "y"))]
   }
 
-  new_data_frame(c(list(x = x, y = y), data_attr))
+  data_frame0(x = x, y = y, data_attr)
 }

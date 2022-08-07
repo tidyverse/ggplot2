@@ -74,16 +74,13 @@ StatFunction <- ggproto("StatFunction", Stat,
 
     if (is.formula(fun)) fun <- as_function(fun)
 
-    y_out <- do.call(fun, c(list(quote(x_trans)), args))
+    y_out <- inject(fun(x_trans, !!!args))
     if (!is.null(scales$y) && !scales$y$is_discrete()) {
       # For continuous scales, need to apply transform
       y_out <- scales$y$trans$transform(y_out)
     }
 
-    new_data_frame(list(
-      x = xseq,
-      y = y_out
-    ))
+    data_frame0(x = xseq, y = y_out)
   }
 )
 
@@ -93,7 +90,7 @@ StatFunction <- ggproto("StatFunction", Stat,
 # input data that may have been provided.
 ensure_nonempty_data <- function(data) {
   if (empty(data)) {
-    new_data_frame(list(group = 1), n = 1)
+    data_frame0(group = 1, .size = 1)
   } else {
     data
   }

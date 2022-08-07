@@ -97,8 +97,8 @@ StatQq <- ggproto("StatQq", Stat,
       cli::cli_abort("The length of {.arg quantiles} must match the length of the data")
     }
 
-    theoretical <- do.call(distribution, c(list(p = quote(quantiles)), dparams))
+    theoretical <- inject(distribution(p = quantiles, !!!dparams))
 
-    new_data_frame(list(sample = sample, theoretical = theoretical))
+    data_frame0(sample = sample, theoretical = theoretical)
   }
 )

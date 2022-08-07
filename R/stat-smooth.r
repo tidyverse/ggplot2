@@ -129,9 +129,9 @@ StatSmooth <- ggproto("StatSmooth", Stat,
                            xseq = NULL, level = 0.95, method.args = list(),
                            na.rm = FALSE, flipped_aes = NA) {
     data <- flip_data(data, flipped_aes)
-    if (length(unique(data$x)) < 2) {
+    if (length(unique0(data$x)) < 2) {
       # Not enough data to perform fit
-      return(new_data_frame())
+      return(data_frame0())
     }
 
     if (is.null(data$weight)) data$weight <- 1
@@ -141,7 +141,7 @@ StatSmooth <- ggproto("StatSmooth", Stat,
         if (fullrange) {
           xseq <- scales$x$dimension()
         } else {
-          xseq <- sort(unique(data$x))
+          xseq <- sort(unique0(data$x))
         }
       } else {
         if (fullrange) {
@@ -170,8 +170,12 @@ StatSmooth <- ggproto("StatSmooth", Stat,
       method.args$method <- "REML"
     }
 
-    base.args <- list(quote(formula), data = quote(data), weights = quote(weight))
-    model <- do.call(method, c(base.args, method.args))
+    model <- inject(method(
+      formula,
+      data = data,
+      weights = weight,
+      !!!method.args
+    ))
 
     prediction <- predictdf(model, xseq, se, level)
     prediction$flipped_aes <- flipped_aes

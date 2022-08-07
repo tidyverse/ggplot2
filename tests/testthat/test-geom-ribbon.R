@@ -49,7 +49,7 @@ test_that("outline.type option works", {
   g_ribbon_upper   <- layer_grob(p + geom_ribbon(outline.type = "upper"))[[1]]
   g_ribbon_lower   <- layer_grob(p + geom_ribbon(outline.type = "lower"))[[1]]
   g_ribbon_full    <- layer_grob(p + geom_ribbon(outline.type = "full"))[[1]]
-  g_area_default   <- layer_grob(ggplot(df, aes(x, y)) + geom_area())[[1]]
+  g_area_default   <- layer_grob(ggplot(df, aes(x, y)) + geom_area(stat = "identity"))[[1]]
 
   # default
   expect_s3_class(g_ribbon_default$children[[1]]$children[[1]], "polygon")

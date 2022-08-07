@@ -52,5 +52,5 @@
 
 # interleave() checks the vector lengths
 
-    vectors must have at least one element
+    Can't recycle `..1` (size 4) to match `..2` (size 0).
 

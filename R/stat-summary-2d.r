@@ -15,6 +15,11 @@
 #'   \item{x,y}{Location}
 #'   \item{value}{Value of summary statistic.}
 #' }
+#'
+#' @section Dropped variables:
+#' \describe{
+#'   \item{`z`}{After binning, the z values of individual data points are no longer available.}
+#' }
 #' @seealso [stat_summary_hex()] for hexagonal summarization.
 #'   [stat_bin2d()] for the binning options.
 #' @inheritParams layer
@@ -85,6 +90,7 @@ StatSummary2d <- ggproto("StatSummary2d", Stat,
   default_aes = aes(fill = after_stat(value)),
 
   required_aes = c("x", "y", "z"),
+  dropped_aes = "z", # z gets dropped during statistical transformation
 
   compute_group = function(data, scales, binwidth = NULL, bins = 30,
                            breaks = NULL, origin = NULL, drop = TRUE,
@@ -102,7 +108,7 @@ StatSummary2d <- ggproto("StatSummary2d", Stat,
 
     fun <- as_function(fun)
     f <- function(x) {
-      do.call(fun, c(list(quote(x)), fun.args))
+      inject(fun(x, !!!fun.args))
     }
     out <- tapply_df(data$z, list(xbin = xbin, ybin = ybin), f, drop = drop)
 

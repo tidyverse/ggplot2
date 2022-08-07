@@ -187,3 +187,15 @@ test_that("facet_grid throws errors at bad layout specs", {
     theme(aspect.ratio = 1)
   expect_snapshot_error(ggplotGrob(p))
 })
+
+test_that("facet_wrap and facet_grid throws errors when using reserved words", {
+  mtcars2 <- mtcars
+  mtcars2$PANEL <- mtcars2$cyl
+  mtcars2$ROW <- mtcars2$gear
+
+  p <- ggplot(mtcars2) +
+    geom_point(aes(mpg, disp))
+  expect_snapshot_error(ggplotGrob(p + facet_grid(ROW ~ gear)))
+  expect_snapshot_error(ggplotGrob(p + facet_grid(ROW ~ PANEL)))
+  expect_snapshot_error(ggplotGrob(p + facet_wrap(~ROW)))
+})

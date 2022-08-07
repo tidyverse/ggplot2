@@ -113,11 +113,11 @@ GeomLinerange <- ggproto("GeomLinerange", Geom,
     data
   },
 
-  draw_panel = function(data, panel_params, coord, lineend = "butt", flipped_aes = FALSE) {
+  draw_panel = function(data, panel_params, coord, lineend = "butt", flipped_aes = FALSE, na.rm = FALSE) {
     data <- flip_data(data, flipped_aes)
     data <- transform(data, xend = x, y = ymin, yend = ymax)
     data <- flip_data(data, flipped_aes)
-    ggname("geom_linerange", GeomSegment$draw_panel(data, panel_params, coord, lineend = lineend))
+    ggname("geom_linerange", GeomSegment$draw_panel(data, panel_params, coord, lineend = lineend, na.rm = na.rm))
   },
 
   rename_size = TRUE

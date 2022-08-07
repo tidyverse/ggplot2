@@ -158,7 +158,7 @@ guide_train.bins <- function(guide, scale, aesthetic = NULL) {
     if (!is.numeric(scale$breaks)) {
       breaks <- breaks[!breaks %in% limits]
     }
-    all_breaks <- unique(c(limits[1], breaks, limits[2]))
+    all_breaks <- unique0(c(limits[1], breaks, limits[2]))
     bin_at <- all_breaks[-1] - diff(all_breaks) / 2
   } else {
     # If the breaks are not numeric it is used with a discrete scale. We check
@@ -178,7 +178,7 @@ guide_train.bins <- function(guide, scale, aesthetic = NULL) {
     limits <- all_breaks[c(1, length(all_breaks))]
     breaks <- all_breaks[-c(1, length(all_breaks))]
   }
-  key <- new_data_frame(setNames(list(c(scale$map(bin_at), NA)), aes_column_name))
+  key <- data_frame(c(scale$map(bin_at), NA), .name_repair = ~ aes_column_name)
   labels <- scale$get_labels(breaks)
   show_limits <- rep(show_limits, 2)
   if (is.character(scale$labels) || is.numeric(scale$labels)) {
@@ -376,9 +376,8 @@ guide_gengrob.bins <- function(guide, theme) {
     guide$keyheight %||% theme$legend.key.height %||% theme$legend.key.size
   )
 
-  key_size_mat <- do.call("cbind",
-    lapply(guide$geoms, function(g) g$data$size / 10)
-  )
+  key_size <- lapply(guide$geoms, function(g) g$data$size / 10)
+  key_size_mat <- inject(cbind(!!!key_size))
 
   # key_size_mat can be an empty matrix (e.g. the data doesn't contain size
   # column), so subset it only when it has any rows and columns.
@@ -410,11 +409,11 @@ guide_gengrob.bins <- function(guide, theme) {
   label_widths <- max(apply(label_sizes, 2, max))
   label_heights <- max(apply(label_sizes, 1, max))
 
-  key_loc <- data_frame(
+  key_loc <- data_frame0(
     R = seq(2, by = 2, length.out = n_keys),
     C = if (label.position %in% c("right", "bottom")) 1 else 3
   )
-  label_loc <- data_frame(
+  label_loc <- data_frame0(
     R = seq(1, by = 2, length.out = n_keys + 1),
     C = if (label.position %in% c("right", "bottom")) 3 else 1
   )
