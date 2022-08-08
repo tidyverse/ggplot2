@@ -193,15 +193,15 @@ Guide <- ggproto(
       return(NULL)
     }
 
-    values <- scale$map(breaks)
+    mapped <- if (scale$is_discrete()) scale$map(breaks) else breaks
     labels <- scale$get_labels(breaks)
 
-    key <- vctrs::new_data_frame(list2(
-      !!aesthetic := breaks,
-      .value       = values,
-      .label       = labels
-    ))
-    key[is.finite(key[[".value"]]), , drop = FALSE]
+    key <- data_frame(
+      mapped, breaks, labels,
+      .name_repair = ~ c(aesthetic, ".value", ".label")
+    )
+
+    key[is.finite(key[[aesthetic]]), , drop = FALSE]
   },
 
   # Function for extracting decoration from the scale.
