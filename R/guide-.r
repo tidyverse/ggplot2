@@ -11,6 +11,7 @@
 #'   Guide class object.
 #'
 #' @return A `Guide` ggproto object.
+#' @keywords internal
 #' @export
 new_guide <- function(..., available_aes = "any", super) {
 
@@ -96,9 +97,9 @@ Guide <- ggproto(
 
   # The `key` is a data.frame describing the information acquired from a scale
   # that is used to train the guide.
-  key = vctrs::data_frame(
+  key = data_frame0(
     aesthetic = numeric(), .value = numeric(), .label = character(),
-    .size = 0, .name_repair = "minimal"
+    .size = 0
   ),
 
   # The `decor` is used for useful components extracted from the scale or
@@ -347,11 +348,11 @@ Guide <- ggproto(
     pos <- unname(c(top = 1, bottom = 0, left = 0, right = 1)[position])
     dir <- -2 * pos + 1
     pos <- unit(rep(pos, 2 * n_breaks), "npc")
-    dir <- rep(vctrs::vec_interleave(0, dir), n_breaks) * tick_len
+    dir <- rep(vec_interleave(0, dir), n_breaks) * tick_len
     tick <- pos + dir
 
     # Build grob
-    bidi_element_grob(
+    flip_element_grob(
       elements$ticks,
       x = tick, y = mark,
       id.lengths = rep(2, n_breaks),
@@ -364,21 +365,21 @@ Guide <- ggproto(
   }
 )
 
-# Helper function that may facilitate bidirectional theme elements by
-# flipping x/y related arguments to `element_grob()`
-bidi_element_grob = function(..., flip = FALSE) {
+# Helper function that may facilitate flipping theme elements by
+# swapping x/y related arguments to `element_grob()`
+flip_element_grob = function(..., flip = FALSE) {
   if (!flip) {
     ans <- element_grob(...)
     return(ans)
   }
   args <- list(...)
-  translate <- names(args) %in% names(bidi_names)
-  names(args)[translate] <- bidi_names[names(args)[translate]]
+  translate <- names(args) %in% names(flip_names)
+  names(args)[translate] <- flip_names[names(args)[translate]]
   do.call(element_grob, args)
 }
 
-# The flippable arguments for `bidi_element_grob()`.
-bidi_names = c(
+# The flippable arguments for `flip_element_grob()`.
+flip_names = c(
   "x"        = "y",
   "y"        = "x",
   "width"    = "height",
