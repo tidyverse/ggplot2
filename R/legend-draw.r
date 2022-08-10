@@ -30,13 +30,17 @@ draw_key_point <- function(data, params, size) {
     data$shape <- translate_shape_string(data$shape)
   }
 
+  # NULL means the default stroke size, and NA means no stroke.
+  stroke_size <- data$stroke %||% 0.5
+  stroke_size[is.na(stroke_size)] <- 0
+
   pointsGrob(0.5, 0.5,
     pch = data$shape,
     gp = gpar(
       col = alpha(data$colour %||% "black", data$alpha),
       fill = alpha(data$fill %||% "black", data$alpha),
-      fontsize = (data$size %||% 1.5) * .pt + (data$stroke %||% 0.5) * .stroke / 2,
-      lwd = (data$stroke %||% 0.5) * .stroke / 2
+      fontsize = (data$size %||% 1.5) * .pt + stroke_size * .stroke / 2,
+      lwd = stroke_size * .stroke / 2
     )
   )
 }
