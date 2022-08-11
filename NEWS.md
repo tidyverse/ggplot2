@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Fix a bug in `position_jitter()` where infinity values were dropped (@javlon,
+  #4790).
+
 * `geom_linerange()` now respects the `na.rm` argument (#4927, @thomasp85)
 
 * Improve the support for `guide_axis()` on `coord_trans()` (@yutannihilation, #3959)
