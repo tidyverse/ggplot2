@@ -135,17 +135,6 @@ Coord <- ggproto("Coord",
     # resolve the guide definition as a "Guide"
     guides <- lapply(guides, validate_guide)
 
-    # if there is an "position" specification in the scale, pass this on to the guide
-    # ideally, this should be specified in the guide
-    guides <- lapply(aesthetics, function(aesthetic) {
-      guide <- guides[[aesthetic]]
-      scale <- panel_params[[aesthetic]]
-      # position could be NULL here for an empty scale
-
-      guide$set_position(scale$position)
-      guide
-    })
-
     panel_params$guides <- guides
     panel_params
   },
@@ -159,6 +148,9 @@ Coord <- ggproto("Coord",
     panel_params$guides <- lapply(aesthetics, function(aesthetic) {
       axis <- substr(aesthetic, 1, 1)
       guide <- panel_params$guides[[aesthetic]]
+      # if there is an "position" specification in the scale, pass this on to the guide
+      # ideally, this should be specified in the guide
+      guide$set_position(panel_params[[aesthetic]]$position)
       guide$train(panel_params[[aesthetic]])
       guide$transform(self, panel_params)
       guide$geom(layers, default_mapping)
