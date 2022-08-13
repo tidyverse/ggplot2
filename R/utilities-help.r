@@ -16,8 +16,8 @@ rd_aesthetics <- function(type, name, extra_note = NULL) {
     "\\itemize{",
     paste0("  \\item ", aes),
     "}",
-    "Learn more about setting these aesthetics in \\code{vignette(\"ggplot2-specs\")}.",
-    extra_note
+    if (!is.null(extra_note)) paste0(extra_note, "\n"),
+    "Learn more about setting these aesthetics in \\code{vignette(\"ggplot2-specs\")}."
   )
 }
 
