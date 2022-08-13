@@ -145,13 +145,14 @@ view_scales_from_scale <- function(scale, coord_limits = NULL, expand = TRUE) {
 }
 
 panel_guide_label <- function(guides, position, default_label) {
-  guide <- guide_for_position(guides, position) %||% guide_none(title = waiver())
+  guide <- guide_for_position(guides, position) %||%
+    list(params = list(title = waiver()))
   guide$params$title %|W|% default_label
 }
 
 panel_guides_grob <- function(guides, position, theme) {
-  guide <- guide_for_position(guides, position) %||% guide_none()
-  guide$draw(theme)
+  guide <- guide_for_position(guides, position) %||% list(guide = guide_none())
+  guide$guide$draw(theme, guide$params)
 }
 
 guide_for_position <- function(guides, position) {
