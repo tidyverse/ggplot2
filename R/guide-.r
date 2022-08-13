@@ -77,15 +77,9 @@ new_guide <- function(..., available_aes = "any", super) {
 Guide <- ggproto(
   "Guide",
 
-  # Counter to ggplot wisdom, there are 4 stateful fields in the `Guide` class.
-  # These are (i) the `params` parameters which may carry user-input, the
-  # (ii) `key` data.frame, which carries information from the scale and (iii)
-  # the `elements` list that can carry user-supplied theme elements, and (iv)
-  # the `decor` which carries information from layers or scales.
-
-  # `params` is a mutable list of guide parameters, part of which may be
-  # provided by the user. The following lists parameters that the `guides_*`
-  # family of functions may expect to be present.
+  # `params` is a list of initial parameters that gets updated upon
+  #  construction. After construction, parameters are manged by the
+  #  `GuidesList` class.
   params = list(
     title     = waiver(),
     name      = character(),
@@ -95,96 +89,42 @@ Guide <- ggproto(
     hash      = character()
   ),
 
-  # The `key` is a data.frame describing the information acquired from a scale
-  # that is used to train the guide.
-  key = data_frame0(
-    aesthetic = numeric(), .value = numeric(), .label = character(),
-    .size = 0
-  ),
-
-  # The `decor` is used for useful components extracted from the scale or
-  # layers.
-  decor = NULL,
-
   # A list of theme elements that should be calculated
   elements = list(),
 
+  # The aesthetics for which this guide is appropriate
   available_aes = character(),
 
   # The `hashables` are the parameters of the guide that are used to generate a
   # unique hash that determines whether other guides are compatible.
-  hashables = exprs(params$title, params$name),
+  hashables = exprs(title, name),
 
-  # The following functions are simple setters/getters
-  get_hash = function(self) {
-    self$params$hash
-  },
-  set_title = function(self, title) {
-    self$params$title <- self$params$title %|W|% title
-    return(invisible())
-  },
-  set_direction = function(self, direction) {
-    self$params$direction <- self$params$direction %||% direction
-    return(invisible())
-  },
-  set_position = function(self, position) {
-    self$params$position <- self$params$position %|W|% position
-    return(invisible())
-  },
-
-  # We need a clone function that is called in validate_guide because a guide
-  # can be created outside the plot, which would mean that important parameters
-  # such as direction are being assigned to the environment of multiple
-  # Guide ggprotos. This could have gotten hairy in a situation like the
-  # following, where the y-guide would get `direction = "horizontal"`.
-  #
-  # g <- guide_axis(title = "My axis")
-  # ggplot(mpg, aes(displ, hwy)) +
-  #  geom_point() +
-  #  guides(x = g, y = g)
-  clone = function(self) {
-    ggproto(NULL, self)
-  },
-
-  # Training has several tasks:
-  # 1. Check if scale and guide are compatible
-  # 2. Extract a key from the scale
-  # 3. (Optionally) extract further decor from the scale
-  # 4. Name the guide
-  # 5. Make a hash for the guide
-  train = function(self, scale, aesthetic = NULL, params = self$params) {
-    # Resolve aesthetic
-    aesthetic <- aesthetic %||% scale$aesthetics[1]
-
-    # Check if scale-guide match is appropriate
-    aes_intersect <- intersect(scale$aesthetics, self$available_aes)
-    if (!("any" %in% self$available_aes) && length(aes_intersect) == 0) {
-      key <- NULL # Set key as missing
-      cli::cli_warn(c(
-        "{.fn {snake_class(self)}} lacks appropriate scales.",
-        i = "Use {?one of} {.or {.field {self$available_aes}}} instead."
-      ))
-
-    } else {
-      # Forward params as arguments to `extract_key()`
-      key <- inject(self$extract_key(scale, aesthetic, !!!params))
+  # Training has the task of updating parameters based the scale.
+  # There are 3 sub-tasks:
+  # 1. Extract a key from the scale
+  # 2. (Optionally) extract further decoration from the scale (e.g. the
+  #    colour bar).
+  # 3. Extract further parameters
+  train = function(self, params = self$params, scale, aesthetic = NULL) {
+    params$aesthetic <- aesthetic %||% scale$aesthetics[1]
+    params$key   <- inject(self$extract_key(scale, !!!params))
+    if (is.null(params$key)) {
+      return(params$key)
     }
-    # Draw empty guide if key is missing
-    if (is.null(key)) {
-      return(guide_none())
-    }
+    params$decor <- inject(self$extract_decor(scale, !!!params))
+    inject(self$extract_params(scale, params, self$hashables))
+  },
 
-    # Forward params as arguments to `extract_decor()`
-    decor <- inject(self$extract_decor(scale, aesthetic, !!!params))
+  # Setup parameters that are only available after training
+  # TODO: Maybe we only need the hash on demand during merging?
+  extract_params = function(scale, params, hashables) {
+    # Make name
+    params$name <- paste0(params$name, "_", params$aesthetic)
 
-    # Assign key, decor, name and hash to current guide
-    self$key   <- key
-    self$decor <- decor
-    self$params$name <- paste0(params$name, "_", aesthetic)
-    mask <- new_data_mask(self)
-    self$params$hash <- hash(lapply(self$hashables, eval_tidy, data = mask))
-
-    return(self)
+    # Make hash
+    mask <- new_data_mask(as_environment(params))
+    params$hash <- hash(lapply(hashables, eval_tidy, data = mask))
+    params
   },
 
   # Function for generating a `key` data.frame from the scale
@@ -214,21 +154,23 @@ Guide <- ggproto(
 
   # Function for merging multiple guides.
   # Mostly applies to `guide_legend()` and `guide_binned()`.
-  merge = function(self, new_guide) {
-    return(self)
+  # Defaults to returning the *other* guide, because this parent class is
+  # mostly a virtual class and children should implement their own merges.
+  merge = function(self, params, new_guide, new_params) {
+    return(list(guide = new_guide, params = new_params))
   },
 
   # Function for applying coord-transformation.
   # Mostly applied to position guides, such as `guide_axis()`.
-  transform = function(self, coord, ...) {
-    return(self)
+  transform = function(params, coord, ...) {
+    return(params)
   },
 
   # Function for extracting information from the layers.
   # Mostly applies to `guide_legend()` and `guide_binned()`
   # TODO: Consider renaming this to a more informative name.
-  geom = function(self, layers, default_mapping) {
-    return(self)
+  geom = function(params, layers, default_mapping) {
+    return(params)
   },
 
   # Called at start of the `draw` method. Typically used to either overrule
@@ -256,7 +198,9 @@ Guide <- ggproto(
 
   # Main drawing function that organises more specialised aspects of guide
   # drawing.
-  draw = function(self, theme, params = self$params, key = self$key) {
+  draw = function(self, theme, params = self$params) {
+
+    key <- params$key
 
     # Setup parameters and theme
     params <- self$setup_params(params)
@@ -273,7 +217,7 @@ Guide <- ggproto(
     grob_title  <- self$build_title(params$title, elems, params)
     grob_labels <- self$build_labels(key, elems, params)
     grob_ticks  <- self$build_ticks(key, elems, params)
-    grob_decor  <- self$build_decor(self$decor, grob_ticks, elems, params)
+    grob_decor  <- self$build_decor(params$decor, grob_ticks, elems, params)
     grobs <- list(
       title = grob_title,
       label = grob_labels,

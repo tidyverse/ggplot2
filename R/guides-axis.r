@@ -76,14 +76,14 @@ GuideAxis <- ggproto(
 
   available_aes = c("x", "y"),
 
-  hashables = quos(params$title, key$.value, key$.label, params$name),
+  hashables = quos(title, key$.value, key$.label, name),
 
-  transform = function(self, coord, panel_params) {
-    key <- self$key
-    position <- self$params$position
+  transform = function(params, coord, panel_params) {
+    key <- params$key
+    position <- params$position
 
     if (is.null(position) || nrow(key) == 0) {
-      return(self)
+      return(params)
     }
 
     aesthetics <- names(key)[!grepl("^\\.", names(key))]
@@ -93,7 +93,7 @@ GuideAxis <- ggproto(
       key[[other_aesthetic]] <- override_value
     }
     key <- coord$transform(key, panel_params)
-    self$key <- key
+    params$key <- key
 
     # Ported over from `warn_for_position_guide`
     # This is trying to catch when a user specifies a position perpendicular
@@ -102,7 +102,7 @@ GuideAxis <- ggproto(
     # to the same value along the axis.
     breaks_are_unique <- !duplicated(key$.value)
     if (empty(key) || sum(breaks_are_unique) == 1) {
-      return(self)
+      return(params)
     }
 
     if (position %in% c("top", "bottom")) {
@@ -110,7 +110,7 @@ GuideAxis <- ggproto(
     } else if (position %in% c("left", "right")) {
       position_aes <- "y"
     } else {
-      return(self)
+      return(params)
     }
 
     if (length(unique(key[[position_aes]][breaks_are_unique])) == 1) {
@@ -120,17 +120,17 @@ GuideAxis <- ggproto(
       ))
     }
 
-    return(self)
+    return(params)
   },
 
-  merge = function(self, new_guide) {
+  merge = function(self, params, new_guide, new_params) {
     if (!inherits(new_guide, "GuideNone")) {
       cli::cli_warn(c(
         "{.fn {snake_class(self)}}: Discarding guide on merge.",
         "i" = "Do you have more than one guide with the same {.arg position}?"
       ))
     }
-    return(self)
+    return(list(guide = self, params = params))
   },
 
   elements = list(
@@ -354,16 +354,16 @@ draw_axis <- function(break_positions, break_labels, axis_position, theme,
                       check.overlap = FALSE, angle = NULL, n.dodge = 1) {
   guide <- guide_axis(check.overlap = check.overlap,
                       angle = angle,
-                      n.dodge = n.dodge)
-  guide$set_position(axis_position)
+                      n.dodge = n.dodge,
+                      position = axis_position)
+  params <- guide$params
   aes <- if (axis_position %in% c("top", "bottom")) "x" else "y"
-  key <- vctrs::new_data_frame(list2(
-    !!aes := break_positions,
-    .value = break_positions,
-    .label = break_labels
-  ))
-  guide$key <- key
-  guide$draw(theme)
+  key <- data_frame(
+    break_positions, break_positions, break_labels,
+    .name_repair = ~ c(aes, ".value", ".label")
+  )
+  params$key <- key
+  guide$draw(theme, params)
 }
 
 draw_axis_labels <- function(break_positions, break_labels, label_element, is_vertical,

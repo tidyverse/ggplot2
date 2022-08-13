@@ -24,13 +24,8 @@ GuideNone <- ggproto(
   "GuideNone", Guide,
 
   # Perform no training
-  train = function(self, scale, aesthetic = NULL) {
-    self
-  },
-
-  # Defaults to returning the *other* guide
-  merge = function(self, new_guide) {
-    new_guide
+  train = function(self, params = self$params, scale, aesthetic = NULL) {
+    params
   },
 
   # Draw nothing
