@@ -443,3 +443,168 @@ include_layer_in_guide <- function(layer, matched) {
   # Default is to exclude it, except if it is explicitly turned on
   isTRUE(layer$show.legend)
 }
+
+# Class -------------------------------------------------------------------
+
+# Guides object encapsulates multiple guides and their state.
+# TODO: incorporate in non-position branch of guides
+# TODO: fill in other `guides_*` methods when non-position guides are done
+guides_list <- function(guides) {
+  ggproto(NULL, GuidesList, guides = guides)
+}
+
+GuidesList <- ggproto(
+  "GuidesList", NULL,
+
+  # A list of guides to be updated by 'add' or populated upon construction.
+  guides = list(),
+
+  # An index parallel to `guides` for matching guides with scales
+  # Currently not used, but should be useful for non-position training etc.
+  scale_index = integer(),
+
+  # A vector of aesthetics parallel to `guides` tracking which guide belongs to
+  # which aesthetic. Used in `get_guide()` and `get_params()` method
+  aesthetics = character(),
+
+  # Updates the parameters of the guides. NULL parameters indicate switch to
+  # `guide_none()`.
+  update_params = function(self, params) {
+    if (length(params) != length(self$params)) {
+      cli::cli_abort(paste0(
+        "Cannot update {length(self$params)} guide{?s} with a list of ",
+        "parameter{?s} of length {length(params)}."
+      ))
+    }
+    # Find empty parameters
+    is_empty <- vapply(params, is.null, logical(1))
+    # Do parameter update
+    self$params[!is_empty] <- params[!is_empty]
+
+    # Set empty parameter guides to `guide_none`. Don't overwrite parameters,
+    # because things like 'position' are relevant.
+    self$guides[is_empty] <- list(guide_none())
+    return(NULL)
+  },
+
+  # Function for adding new guides
+  add = function(self, guides) {
+    if (is.null(guide)) {
+      return()
+    }
+    if (inherits(guides, "GuidesList")) {
+      guides <- guides$guides
+    }
+    self$guides <- defaults(guides, self$guides)
+    return()
+  },
+
+  # Function for retrieving guides by index or aesthetic
+  get_guide = function(self, index) {
+    if (is.character(index)) {
+      index <- match(index, self$aesthetics)
+    }
+    if (any(is.na(index)) || length(index) == 0) {
+      return(NULL)
+    }
+    if (length(index) == 1) {
+      self$guides[[index]]
+    } else {
+      self$guides[index]
+    }
+  },
+
+  # Function for retrieving parameters by guide or aesthetic
+  get_params = function(self, index) {
+    if (is.character(index)) {
+      index <- match(index, self$aesthetics)
+    }
+    if (any(is.na(index)) || length(index) == 0) {
+      return(NULL)
+    }
+    if (length(index) == 1) {
+      self$params[[index]]
+    } else {
+      self$params[index]
+    }
+  },
+
+  # Setup routine for resolving and validating guides based on paired scales.
+  setup = function(
+    self, scales, aesthetics = NULL,
+    default = "none", keep_none = TRUE
+  ) {
+
+    if (is.null(aesthetics)) {
+      # Aesthetics from scale, as in non-position guides
+      aesthetics <- lapply(scales, `[[`, aesthetics)
+      scale_idx  <- rep(seq_along(scales), lengths(aesthetics))
+      aesthetics <- unlist(aesthetics, FALSE, FALSE)
+    } else {
+      # Scale based on aesthetics, as in position guides
+      scale_idx  <- seq_along(scales)[match(aesthetics, names(scales))]
+    }
+
+    guides <- self$guides
+
+    new_guides <- lapply(seq_along(scale_idx), function(i) {
+      idx <- scale_idx[i]
+
+      guide <- resolve_guide(
+        aesthetic = aesthetics[i],
+        scale     = scales[[idx]],
+        guides    = guides,
+        default   = default,
+        null      = guide_none()
+      )
+
+      if (isFALSE(guide)) {
+        # TODO: update to lifecycle after next lifecycle release
+        cli::cli_warn(c(
+          "{.code guide = FALSE} is deprecated",
+          "i" = 'Please use {.code guide = "none"} instead.'
+        ))
+        guide <- "none"
+      }
+
+      guide <- validate_guide(guide)
+
+      if (inherits(guide, "GuideNone")) {
+        return(guide)
+      }
+
+      scale_aes <- scales[[idx]]$aesthetics
+      if (!any(c("x", "y") %in% scale_aes)) scale_aes <- c(scale_aes, "any")
+      if (!any(scale_aes %in% guide$available_aes)) {
+        warn_aes <- guide$available_aes
+        warn_aes[warn_aes == "any"] <- "any non position aesthetic"
+        cli::cli_warn(c(
+          paste0("{.fn {snake_class(guide)}} cannot be used for ",
+                 "{.or {.field {head(scales[[idx]]$aesthetics, 4)}}}."),
+          i = "Use {?one of} {.or {.field {warn_aes}}} instead."
+        ))
+        guide <- guide_none()
+      }
+
+      guide
+    })
+
+    # Non-position guides drop `GuideNone`
+    if (!keep_none) {
+      is_none <- vapply(new_guides, inherits, logical(1), what = "GuideNone")
+      new_guides <- new_guides[!is_none]
+      scale_idx  <- scale_idx[!is_none]
+      aesthetics <- aesthetics[!is_none]
+    }
+
+    params <- lapply(new_guides, `[[`, "params")
+
+    ggproto(
+      NULL, self,
+      guides      = new_guides,
+      scale_index = scale_idx,
+      aesthetics  = aesthetics,
+      params      = params
+    )
+  }
+)
