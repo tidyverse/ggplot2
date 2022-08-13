@@ -113,6 +113,7 @@ performance special case for when all the tiles are the same size.
 }
 \section{Aesthetics}{
 
+Note: \code{geom_raster()} ignores \code{colour}.
 \code{geom_tile()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{x}}

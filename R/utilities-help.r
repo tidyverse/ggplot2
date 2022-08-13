@@ -1,4 +1,6 @@
-rd_aesthetics <- function(type, name) {
+# Use extra_note arg to add some notes (e.g. the document is shared with multiple
+# Geoms and there's some difference among their aesthetics).
+rd_aesthetics <- function(type, name, extra_note = NULL) {
   obj <- switch(type,
     geom = check_subclass(name, "Geom", env = globalenv()),
     stat = check_subclass(name, "Stat", env = globalenv())
@@ -7,6 +9,7 @@ rd_aesthetics <- function(type, name) {
 
   c(
     "@section Aesthetics:",
+    extra_note,
     paste0(
       "\\code{", type, "_", name, "()} ",
       "understands the following aesthetics (required aesthetics are in bold):"
