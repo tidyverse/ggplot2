@@ -94,25 +94,26 @@ pos_dodge2 <- function(df, width, n = NULL, padding = 0.1) {
     df$new_width <- (df$xmax - df$xmin) / n
   }
 
-  # Find the total width of each group of elements
-  group_sizes <- stats::aggregate(
-    list(size = df$new_width),
-    list(newx = df$newx),
-    sum
-  )
-
-  # Starting xmin for each group of elements
-  starts <- group_sizes$newx - (group_sizes$size / 2)
-
   # Set the elements in place
-  for (i in seq_along(starts)) {
-    divisions <- cumsum(c(starts[i], df[df$xid == i, "new_width"]))
+  for (i in seq_len(max(df$newx))) {
+    df_tmp <- df[df$xid == i, ]
+    # max width of this group
+    max_width <- (df_tmp$xmax[1] - df_tmp$xmin[1])
+    # Normalize new_width -> sum of fake_width equals to max_width
+    # Add epsilon to prevent zero division
+    fake_width <- max_width * (df_tmp$new_width + .Machine$double.eps) /
+      sum(df_tmp$new_width + .Machine$double.eps)
+    divisions <- cumsum(c(df_tmp$newx[1] - max_width / 2, fake_width))
+    # evaluate fake xmin, xmax based on fake_width
     df[df$xid == i, "xmin"] <- divisions[-length(divisions)]
     df[df$xid == i, "xmax"] <- divisions[-1]
   }
 
   # x values get moved to between xmin and xmax
   df$x <- (df$xmin + df$xmax) / 2
+  # re-evaluate xmin, xmax
+  df$xmin <- df$x - (df$new_width / 2)
+  df$xmax <- df$x + (df$new_width / 2)
 
   # If no elements occupy the same position, there is no need to add padding
   if (!any(duplicated(df$xid))) {
@@ -138,7 +139,8 @@ find_x_overlaps <- function(df) {
   overlaps[1] <- counter <- 1
 
   for (i in seq_asc(2, nrow(df))) {
-    if (is.na(df$xmin[i]) || is.na(df$xmax[i - 1]) || df$xmin[i] > df$xmax[i - 1]) {
+    if (is.na(df$xmin[i]) || is.na(df$xmax[i - 1]) || df$xmin[i] > df$xmax[i - 1] ||
+      (df$xmin[i] == df$xmax[i - 1] && df$xmin[i] != df$xmax[i])) {
       counter <- counter + 1
     }
     overlaps[i] <- counter
