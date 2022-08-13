@@ -9,7 +9,6 @@ rd_aesthetics <- function(type, name, extra_note = NULL) {
 
   c(
     "@section Aesthetics:",
-    extra_note,
     paste0(
       "\\code{", type, "_", name, "()} ",
       "understands the following aesthetics (required aesthetics are in bold):"
@@ -17,7 +16,8 @@ rd_aesthetics <- function(type, name, extra_note = NULL) {
     "\\itemize{",
     paste0("  \\item ", aes),
     "}",
-    "Learn more about setting these aesthetics in \\code{vignette(\"ggplot2-specs\")}."
+    "Learn more about setting these aesthetics in \\code{vignette(\"ggplot2-specs\")}.",
+    extra_note
   )
 }
 

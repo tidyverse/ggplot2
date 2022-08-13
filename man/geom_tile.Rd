@@ -113,7 +113,6 @@ performance special case for when all the tiles are the same size.
 }
 \section{Aesthetics}{
 
-Note: \code{geom_raster()} ignores \code{colour}.
 \code{geom_tile()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{x}}
@@ -128,6 +127,7 @@ Note: \code{geom_raster()} ignores \code{colour}.
 \item \code{width}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
+Note: \code{geom_raster()} ignores \code{colour}.
 }
 
 \examples{
