@@ -132,7 +132,7 @@ test_that("Using non-position guides for position scales results in an informati
     scale_x_continuous(guide = guide_legend())
 
   built <- ggplot_build(p)
-  expect_snapshot_error(ggplot_gtable(built))
+  expect_snapshot_warning(ggplot_gtable(built))
 })
 
 test_that("guide merging for guide_legend() works as expected", {
