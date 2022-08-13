@@ -177,18 +177,14 @@ resolve_guide <- function(aesthetic, scale, guides, default = "none", null = "no
 validate_guide <- function(guide) {
   # if guide is specified by character, then find the corresponding guide
   if (is.character(guide)) {
-    guide <- find_global(paste0("guide_", guide), env = global_env(),
+    fun <- find_global(paste0("guide_", guide), env = global_env(),
                          mode = "function")
-    if (is.function(guide)) {
-      return(guide())
+    if (is.function(fun)) {
+      return(fun())
     }
   }
-  if (inherits(guide, "guide")) {
+  if (inherits(guide, c("guide", "Guide"))) {
     guide
-  } else if (inherits(guide, "Guide")) {
-    # ggproto guides need to be cloned because they may have been defined
-    # outside the plot.
-    guide$clone()
   } else {
     cli::cli_abort("Unknown guide: {guide}")
   }
