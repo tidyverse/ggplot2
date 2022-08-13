@@ -60,31 +60,7 @@ Coord <- ggproto("Coord",
   aspect = function(ranges) NULL,
 
   labels = function(self, labels, panel_params) {
-    # If panel params contains guides information, use it.
-    # Otherwise use the labels as is, for backward-compatibility
-    if (is.null(panel_params$guide)) {
-      return(labels)
-    }
-
-    positions_x <- c("top", "bottom")
-    positions_y <- c("left", "right")
-
-    list(
-      x = lapply(c(1, 2), function(i) {
-        panel_guide_label(
-          panel_params$guides,
-          position = positions_x[[i]],
-          default_label = labels$x[[i]]
-        )
-      }),
-      y = lapply(c(1, 2), function(i) {
-        panel_guide_label(
-          panel_params$guides,
-          position = positions_y[[i]],
-          default_label = labels$y[[i]]
-        )
-      })
-    )
+    labels
   },
 
   render_fg = function(panel_params, theme) element_render(theme, "panel.border"),

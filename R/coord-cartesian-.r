@@ -144,12 +144,6 @@ view_scales_from_scale <- function(scale, coord_limits = NULL, expand = TRUE) {
   view_scales
 }
 
-panel_guide_label <- function(guides, position, default_label) {
-  guide <- guide_for_position(guides, position) %||%
-    list(params = list(title = waiver()))
-  guide$params$title %|W|% default_label
-}
-
 panel_guides_grob <- function(guides, position, theme) {
   guide <- guide_for_position(guides, position) %||% list(guide = guide_none())
   guide$guide$draw(theme, guide$params)
@@ -160,8 +154,7 @@ guide_for_position <- function(guides, position) {
   has_position <- vapply(
     params, function(p) identical(p$position, position), logical(1)
   )
-
-  if (sum(has_position) == 0) {
+  if (!any(has_position)) {
     return(NULL)
   }
 
@@ -184,10 +177,4 @@ guide_for_position <- function(guides, position) {
     },
     pairs[order]
   )
-
-  # guides <- guides[has_position]
-  # guides_order <- vapply(guides, function(guide) {
-  #   as.numeric(guide$params$order)
-  # }, numeric(1))
-  # Reduce(function(old, new) {old$merge(new)}, guides[order(guides_order)])
 }
