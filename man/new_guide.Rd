@@ -23,3 +23,4 @@ A \code{Guide} ggproto object.
 A constructor function for guides, which performs some standard compatability
 checks between the guide and provided arguments.
 }
+\keyword{internal}
