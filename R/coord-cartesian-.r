@@ -156,15 +156,38 @@ panel_guides_grob <- function(guides, position, theme) {
 }
 
 guide_for_position <- function(guides, position) {
+  params <- guides$params
   has_position <- vapply(
-    guides,
-    function(guide) identical(guide$params$position, position),
-    logical(1)
+    params, function(p) identical(p$position, position), logical(1)
   )
 
-  guides <- guides[has_position]
-  guides_order <- vapply(guides, function(guide) {
-    as.numeric(guide$params$order)
-  }, numeric(1))
-  Reduce(function(old, new) {old$merge(new)}, guides[order(guides_order)])
+  if (sum(has_position) == 0) {
+    return(NULL)
+  }
+
+  # Subset guides and parameters
+  guides <- guides$get_guide(has_position)
+  params <- params[has_position]
+  # Pair up guides with parameters
+  pairs <- Map(list, guide = guides, params = params)
+
+  # Early exit, nothing to merge
+  if (length(pairs) == 1) {
+    return(pairs[[1]])
+  }
+
+  # TODO: There must be a smarter way to merge these
+  order <- order(vapply(params, function(p) as.numeric(p$order), numeric(1)))
+  Reduce(
+    function(old, new) {
+      old$guide$merge(old$params, new$guide, new$params)
+    },
+    pairs[order]
+  )
+
+  # guides <- guides[has_position]
+  # guides_order <- vapply(guides, function(guide) {
+  #   as.numeric(guide$params$order)
+  # }, numeric(1))
+  # Reduce(function(old, new) {old$merge(new)}, guides[order(guides_order)])
 }
