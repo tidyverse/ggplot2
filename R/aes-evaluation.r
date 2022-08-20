@@ -96,9 +96,9 @@ is_dotted_var <- function(x) {
 # mechanism to generate a frequency ID that is unique per plot build. Otherwise,
 # users might face too many warnings.
 warn_old_calculated_aes <- function() {
-  # TODO: move to cli_warn()
+  # TODO: move to cli_warn()?
   cli::cli_inform(c(
-    "The dot-dot notation ({.var ..var..}) and {.fun stat} have been superseded",
+    "The dot-dot notation ({.var ..var..}) and {.fun stat} have been superseded as of ggplot2 3.3.0",
     "i" = "To access calculated variables, please use {.fun after_stat} instead"
   ), .frequency = "regularly", .frequency_id = "ggplot2-old-calculated-aes")
 }
