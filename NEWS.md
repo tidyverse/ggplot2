@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Warn on the use of the dot-dot notation (`..var..`) and `stat()`, which have
+  been superseded by `after_stat()` (@yutannihilation, #3693).
+
 * Fix a bug in `position_jitter()` where infinity values were dropped (@javlon,
   #4790).
 

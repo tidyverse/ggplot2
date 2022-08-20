@@ -92,9 +92,20 @@ is_dotted_var <- function(x) {
   grepl(match_calculated_aes, x)
 }
 
+# TODO: if we want to set the frequency "always", we probably need some
+# mechanism to generate a frequency ID that is unique per plot build. Otherwise,
+# users might face too many warnings.
+warn_old_calculated_aes <- function() {
+  # TODO: move to cli_warn()
+  cli::cli_inform(c(
+    "The dot-dot notation ({.var ..var..}) and {.fun stat} have been superseded",
+    "i" = "To access calculated variables, please use {.fun after_stat} instead"
+  ), .frequency = "regularly", .frequency_id = "ggplot2-old-calculated-aes")
+}
+
 # Determine if aesthetic is calculated
-is_calculated_aes <- function(aesthetics) {
-  vapply(aesthetics, is_calculated, logical(1), USE.NAMES = FALSE)
+is_calculated_aes <- function(aesthetics, warn = FALSE) {
+  vapply(aesthetics, is_calculated, warn = warn, logical(1), USE.NAMES = FALSE)
 }
 is_scaled_aes <- function(aesthetics) {
   vapply(aesthetics, is_scaled, logical(1), USE.NAMES = FALSE)
@@ -102,7 +113,7 @@ is_scaled_aes <- function(aesthetics) {
 is_staged_aes <- function(aesthetics) {
   vapply(aesthetics, is_staged, logical(1), USE.NAMES = FALSE)
 }
-is_calculated <- function(x) {
+is_calculated <- function(x, warn = FALSE) {
   if (is_call(get_expr(x), "after_stat")) {
     return(TRUE)
   }
@@ -110,14 +121,21 @@ is_calculated <- function(x) {
   if (is.atomic(x)) {
     FALSE
   } else if (is.symbol(x)) {
-    is_dotted_var(as.character(x))
+    res <- is_dotted_var(as.character(x))
+    if (res && warn) {
+      warn_old_calculated_aes()
+    }
+    res
   } else if (is_quosure(x)) {
-    is_calculated(quo_get_expr(x))
+    is_calculated(quo_get_expr(x), warn = warn)
   } else if (is.call(x)) {
     if (identical(x[[1]], quote(stat))) {
+      if (warn) {
+        warn_old_calculated_aes()
+      }
       TRUE
     } else {
-      any(vapply(x, is_calculated, logical(1)))
+      any(vapply(x, is_calculated, warn = warn, logical(1)))
     }
   } else if (is.pairlist(x)) {
     FALSE

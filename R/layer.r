@@ -267,7 +267,7 @@ Layer <- ggproto("Layer", NULL,
 
     # Drop aesthetics that are set or calculated
     set <- names(aesthetics) %in% names(self$aes_params)
-    calculated <- is_calculated_aes(aesthetics)
+    calculated <- is_calculated_aes(aesthetics, warn = TRUE)
     modifiers <- is_scaled_aes(aesthetics)
 
     aesthetics <- aesthetics[!set & !calculated & !modifiers]
