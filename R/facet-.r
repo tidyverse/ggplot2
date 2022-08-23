@@ -486,6 +486,17 @@ check_layout <- function(x) {
   cli::cli_abort("Facet layout has a bad format. It must contain columns {.col PANEL}, {.col SCALE_X}, and {.col SCALE_Y}")
 }
 
+check_facet_vars <- function(..., name) {
+  vars_names <- c(...)
+  reserved_names <- c("PANEL", "ROW", "COL", "SCALE_X", "SCALE_Y")
+  problems <- intersect(vars_names, reserved_names)
+  if (length(problems) != 0) {
+    cli::cli_abort(c(
+      "{.val {problems}} {?is/are} not {?an/} allowed name{?/s} for faceting variables",
+      "i" = "Change the name of your data columns to not be {.or {.str {reserved_names}}}"
+    ), call = call2(name))
+  }
+}
 
 #' Get the maximal width/length of a list of grobs
 #'

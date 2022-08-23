@@ -196,16 +196,18 @@ grid_as_facets_list <- function(rows, cols) {
 FacetGrid <- ggproto("FacetGrid", Facet,
   shrink = TRUE,
 
-  compute_layout = function(data, params) {
+  compute_layout = function(self, data, params) {
     rows <- params$rows
     cols <- params$cols
+
+    check_facet_vars(names(rows), names(cols), name = snake_class(self))
 
     dups <- intersect(names(rows), names(cols))
     if (length(dups) > 0) {
       cli::cli_abort(c(
               "Faceting variables can only appear in {.arg rows} or {.arg cols}, not both.\n",
         "i" = "Duplicated variables: {.val {dups}}"
-      ))
+      ), call = call2(snake_class(self)))
     }
 
     base_rows <- combine_vars(data, params$plot_env, rows, drop = params$drop)

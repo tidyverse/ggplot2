@@ -89,9 +89,9 @@ Line types can be specified with:
     The five standard dash-dot line types described above correspond to 44, 13, 
     1343, 73, and 2262.
 
-### Size
+### Linewidth
 
-The `size` of a line is its width in mm.
+The `linewidth` of a line is its width in mm.
 
 ### Line end/join paramters
 
@@ -102,16 +102,16 @@ The `size` of a line is its width in mm.
     df <- data.frame(x = 1:3, y = c(4, 1, 9))
     base <- ggplot(df, aes(x, y)) + xlim(0.5, 3.5) + ylim(0, 10)
     base + 
-      geom_path(size = 10) + 
-      geom_path(size = 1, colour = "red")
+      geom_path(linewidth = 10) + 
+      geom_path(linewidth = 1, colour = "red")
     
     base + 
-      geom_path(size = 10, lineend = "round") + 
-      geom_path(size = 1, colour = "red")
+      geom_path(linewidth = 10, lineend = "round") + 
+      geom_path(linewidth = 1, colour = "red")
     
     base + 
-      geom_path(size = 10, lineend = "square") + 
-      geom_path(size = 1, colour = "red")
+      geom_path(linewidth = 10, lineend = "square") + 
+      geom_path(linewidth = 1, colour = "red")
     ```
 
 *   The appearance of line joins is controlled by `linejoin` and can be one of 
@@ -121,23 +121,23 @@ The `size` of a line is its width in mm.
     df <- data.frame(x = 1:3, y = c(9, 1, 9))
     base <- ggplot(df, aes(x, y)) + ylim(0, 10)
     base + 
-      geom_path(size = 10) + 
-      geom_path(size = 1, colour = "red")
+      geom_path(linewidth = 10) + 
+      geom_path(linewidth = 1, colour = "red")
     
     base + 
-      geom_path(size = 10, linejoin = "mitre") + 
-      geom_path(size = 1, colour = "red")
+      geom_path(linewidth = 10, linejoin = "mitre") + 
+      geom_path(linewidth = 1, colour = "red")
     
     base + 
-      geom_path(size = 10, linejoin = "bevel") + 
-      geom_path(size = 1, colour = "red")
+      geom_path(linewidth = 10, linejoin = "bevel") + 
+      geom_path(linewidth = 1, colour = "red")
     ```
 
 Mitre joins are automatically converted to bevel joins whenever the angle is too small (which would create a very long bevel). This is controlled by the `linemitre` parameter which specifies the maximum ratio between the line width and the length of the mitre.
 
 ## Polygons
 
-The border of the polygon is controlled by the `colour`, `linetype`, and `size` aesthetics as described above. The inside is controlled by `fill`.
+The border of the polygon is controlled by the `colour`, `linetype`, and `linewidth` aesthetics as described above. The inside is controlled by `fill`.
 
 ## Point
 
@@ -199,7 +199,7 @@ Note that shapes 21-24 have both stroke `colour` and a `fill`. The size of the f
 ```{r}
 sizes <- expand.grid(size = (0:3) * 2, stroke = (0:3) * 2)
 ggplot(sizes, aes(size, stroke, size = size, stroke = stroke)) + 
-  geom_abline(slope = -1, intercept = 6, colour = "white", size = 6) + 
+  geom_abline(slope = -1, intercept = 6, colour = "white", linewidth = 6) + 
   geom_point(shape = 21, fill = "red") +
   scale_size_identity()
 ```
