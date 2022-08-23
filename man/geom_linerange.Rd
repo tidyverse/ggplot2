@@ -139,6 +139,8 @@ This geom treats each axis differently and, thus, can thus have two orientations
 \item \code{linetype}
 \item \code{linewidth}
 }
+Note that \code{geom_pointrange()} also understands \code{size} for the size of the points.
+
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
 
