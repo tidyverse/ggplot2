@@ -186,9 +186,9 @@
 </ul>
 </div>
 <div class="section level3">
-<h3 id="size">Size<a class="anchor" aria-label="anchor" href="#size"></a>
+<h3 id="linewidth">Linewidth<a class="anchor" aria-label="anchor" href="#linewidth"></a>
 </h3>
-<p>The <code>size</code> of a line is its width in mm.</p>
+<p>The <code>linewidth</code> of a line is its width in mm.</p>
 </div>
 <div class="section level3">
 <h3 id="line-endjoin-paramters">Line end/join paramters<a class="anchor" aria-label="anchor" href="#line-endjoin-paramters"></a>
@@ -200,19 +200,16 @@
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">1</span>, <span class="fl">9</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">base</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/lims.html">xlim</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">3.5</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/lims.html">ylim</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span></span>
 <span><span class="va">base</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="../reference/geom_path.html">geom_path</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="../reference/geom_path.html">geom_path</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">1</span>, colour <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">size</span> aesthetic has been deprecated for use with lines as of ggplot2 3.4.0</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Please use <span style="color: #00BB00;">linewidth</span> aesthetic instead</span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">This message is displayed once every 8 hours.</span></span></span>
+<span>  <span class="fu"><a href="../reference/geom_path.html">geom_path</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="../reference/geom_path.html">geom_path</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">1</span>, colour <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">base</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="../reference/geom_path.html">geom_path</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">10</span>, lineend <span class="op">=</span> <span class="st">"round"</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="../reference/geom_path.html">geom_path</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">1</span>, colour <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/geom_path.html">geom_path</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">10</span>, lineend <span class="op">=</span> <span class="st">"round"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="../reference/geom_path.html">geom_path</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">1</span>, colour <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">base</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="../reference/geom_path.html">geom_path</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">10</span>, lineend <span class="op">=</span> <span class="st">"square"</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="../reference/geom_path.html">geom_path</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">1</span>, colour <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../reference/geom_path.html">geom_path</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">10</span>, lineend <span class="op">=</span> <span class="st">"square"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="../reference/geom_path.html">geom_path</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">1</span>, colour <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ggplot2-specs_files/figure-html/unnamed-chunk-5-1.png" width="30%"><img src="ggplot2-specs_files/figure-html/unnamed-chunk-5-2.png" width="30%"><img src="ggplot2-specs_files/figure-html/unnamed-chunk-5-3.png" width="30%"></p>
 </li>
 <li>
@@ -221,16 +218,16 @@
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">9</span>, <span class="fl">1</span>, <span class="fl">9</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">base</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/lims.html">ylim</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span></span>
 <span><span class="va">base</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="../reference/geom_path.html">geom_path</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="../reference/geom_path.html">geom_path</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">1</span>, colour <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/geom_path.html">geom_path</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="../reference/geom_path.html">geom_path</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">1</span>, colour <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">base</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="../reference/geom_path.html">geom_path</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">10</span>, linejoin <span class="op">=</span> <span class="st">"mitre"</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="../reference/geom_path.html">geom_path</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">1</span>, colour <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/geom_path.html">geom_path</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">10</span>, linejoin <span class="op">=</span> <span class="st">"mitre"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="../reference/geom_path.html">geom_path</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">1</span>, colour <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">base</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="../reference/geom_path.html">geom_path</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">10</span>, linejoin <span class="op">=</span> <span class="st">"bevel"</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="../reference/geom_path.html">geom_path</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">1</span>, colour <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../reference/geom_path.html">geom_path</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">10</span>, linejoin <span class="op">=</span> <span class="st">"bevel"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="../reference/geom_path.html">geom_path</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">1</span>, colour <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ggplot2-specs_files/figure-html/unnamed-chunk-6-1.png" width="30%"><img src="ggplot2-specs_files/figure-html/unnamed-chunk-6-2.png" width="30%"><img src="ggplot2-specs_files/figure-html/unnamed-chunk-6-3.png" width="30%"></p>
 </li>
 </ul>
@@ -240,7 +237,7 @@
 <div class="section level2">
 <h2 id="polygons">Polygons<a class="anchor" aria-label="anchor" href="#polygons"></a>
 </h2>
-<p>The border of the polygon is controlled by the <code>colour</code>, <code>linetype</code>, and <code>size</code> aesthetics as described above. The inside is controlled by <code>fill</code>.</p>
+<p>The border of the polygon is controlled by the <code>colour</code>, <code>linetype</code>, and <code>linewidth</code> aesthetics as described above. The inside is controlled by <code>fill</code>.</p>
 </div>
 <div class="section level2">
 <h2 id="point">Point<a class="anchor" aria-label="anchor" href="#point"></a>
@@ -303,7 +300,7 @@
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sizes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span>size <span class="op">=</span> <span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span> <span class="op">*</span> <span class="fl">2</span>, stroke <span class="op">=</span> <span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span> <span class="op">*</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">sizes</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">size</span>, <span class="va">stroke</span>, size <span class="op">=</span> <span class="va">size</span>, stroke <span class="op">=</span> <span class="va">stroke</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="../reference/geom_abline.html">geom_abline</a></span><span class="op">(</span>slope <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, intercept <span class="op">=</span> <span class="fl">6</span>, colour <span class="op">=</span> <span class="st">"white"</span>, size <span class="op">=</span> <span class="fl">6</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="../reference/geom_abline.html">geom_abline</a></span><span class="op">(</span>slope <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, intercept <span class="op">=</span> <span class="fl">6</span>, colour <span class="op">=</span> <span class="st">"white"</span>, linewidth <span class="op">=</span> <span class="fl">6</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="fl">21</span>, fill <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_identity.html">scale_size_identity</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ggplot2-specs_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
