@@ -143,7 +143,7 @@ Stat <- ggproto("Stat",
     # The above code will drop columns that are not constant within groups and not
     # carried over/recreated by the stat. This can produce unexpected results,
     # and hence we warn about it.
-    dropped <- ls(dropped_columns)
+    dropped <- ls(dropped_columns, all.names = TRUE)
     dropped <- dropped[!dropped %in% self$dropped_aes]
     if (length(dropped) > 0) {
       cli::cli_warn(c(
