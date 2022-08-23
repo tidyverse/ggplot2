@@ -141,5 +141,5 @@ m + geom_quantile(method = "rqss")
 m + geom_quantile(method = "rqss", lambda = 0.1)
 
 # Set aesthetics to fixed value
-m + geom_quantile(colour = "red", size = 2, alpha = 0.5)
+m + geom_quantile(colour = "red", linewidth = 2, alpha = 0.5)
 }

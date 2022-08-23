@@ -61,7 +61,7 @@ p + annotate("rect", xmin = 3, xmax = 4.2, ymin = 12, ymax = 21,
 p + annotate("segment", x = 2.5, xend = 4, y = 15, yend = 25,
   colour = "blue")
 p + annotate("pointrange", x = 3.5, y = 20, ymin = 12, ymax = 28,
-  colour = "red", size = 1.5)
+  colour = "red", size = 2.5, linewidth = 1.5)
 
 p + annotate("text", x = 2:3, y = 20:21, label = c("my label", "label 2"))
 

@@ -237,7 +237,7 @@ m + geom_density_2d_filled(alpha = 0.5)
 
 # contour bands and contour lines
 m + geom_density_2d_filled(alpha = 0.5) +
-  geom_density_2d(size = 0.25, colour = "black")
+  geom_density_2d(linewidth = 0.25, colour = "black")
 
 set.seed(4393)
 dsmall <- diamonds[sample(nrow(diamonds), 1000), ]
