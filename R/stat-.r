@@ -121,7 +121,7 @@ Stat <- ggproto("Stat",
     })
 
     # record dropped columns
-    dropped_columns <- new_environment()
+    dropped <- character(0)
     stats <- mapply(function(new, old) {
       if (empty(new)) return(data_frame0())
 
@@ -130,9 +130,9 @@ Stat <- ggproto("Stat",
 
       # drop columns that are not constant within group
       unique_idx <- vapply(old, function(x) length(unique0(x)) == 1, logical(1L))
-      env_bind(dropped_columns, !!!set_names(names(old)[!unique_idx]))
+      dropped <<- c(dropped, names(old)[!unique_idx])
 
-      result <- vec_cbind(
+      vec_cbind(
         new,
         old[rep(1, nrow(new)), unique_idx, drop = FALSE]
       )
@@ -143,7 +143,7 @@ Stat <- ggproto("Stat",
     # The above code will drop columns that are not constant within groups and not
     # carried over/recreated by the stat. This can produce unexpected results,
     # and hence we warn about it.
-    dropped <- ls(dropped_columns, all.names = TRUE)
+    dropped <- unique0(dropped)
     dropped <- dropped[!dropped %in% self$dropped_aes]
     if (length(dropped) > 0) {
       cli::cli_warn(c(
