@@ -110,6 +110,7 @@ uses <code><a href="stat_identity.html">stat_identity()</a></code>: it leaves th
 <span>  stat <span class="op">=</span> <span class="st">"count"</span>,</span>
 <span>  position <span class="op">=</span> <span class="st">"stack"</span>,</span>
 <span>  <span class="va">...</span>,</span>
+<span>  just <span class="op">=</span> <span class="fl">0.5</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  orientation <span class="op">=</span> <span class="cn">NA</span>,</span>
@@ -122,6 +123,7 @@ uses <code><a href="stat_identity.html">stat_identity()</a></code>: it leaves th
 <span>  data <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  position <span class="op">=</span> <span class="st">"stack"</span>,</span>
 <span>  <span class="va">...</span>,</span>
+<span>  just <span class="op">=</span> <span class="fl">0.5</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
@@ -179,8 +181,17 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 to the paired geom/stat.</p></dd>
 
 
+<dt>just</dt>
+<dd><p>Adjustment for column placement. Set to <code>0.5</code> by default, meaning
+that columns will be centered about axis breaks. Set to <code>0</code> or <code>1</code> to place
+columns to the left/right of axis breaks. Note that this argument may have
+unintended behaviour when used with alternative positions, e.g.
+<code><a href="position_dodge.html">position_dodge()</a></code>.</p></dd>
+
+
 <dt>width</dt>
-<dd><p>Bar width. By default, set to 90% of the resolution of the data.</p></dd>
+<dd><p>Bar width. By default, set to 90% of the <code><a href="resolution.html">resolution()</a></code> of the
+data.</p></dd>
 
 
 <dt>na.rm</dt>
@@ -344,6 +355,15 @@ number of cases at each <code>x</code> position (without binning into ranges).
 <span class="r-in"><span><span class="co"># cf. a histogram of the same data</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_histogram.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="geom_bar-9.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Use `just` to control how columns are aligned with axis breaks:</span></span></span>
+<span class="r-in"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2020-01-01"</span>, <span class="st">"2020-02-01"</span><span class="op">)</span><span class="op">)</span>, y <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Columns centered on the first day of the month</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu">geom_col</span><span class="op">(</span>just <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="geom_bar-10.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="co"># Columns begin on the first day of the month</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu">geom_col</span><span class="op">(</span>just <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="geom_bar-11.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

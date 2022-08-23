@@ -274,6 +274,24 @@ see the individual pattern as you move up the stack. See
 <span class="r-in"><span>  <span class="fu">geom_ribbon</span><span class="op">(</span><span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">level</span> <span class="op">-</span> <span class="fl">1</span>, ymax <span class="op">=</span> <span class="va">level</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span>, fill <span class="op">=</span> <span class="st">"grey70"</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">level</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="geom_ribbon-4.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># The underlying stat_align() takes care of unaligned data points</span></span></span>
+<span class="r-in"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  g <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"a"</span>, <span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"b"</span>, <span class="st">"b"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">5</span>, <span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">6</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">5</span>, <span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">6</span>, <span class="fl">7</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, fill <span class="op">=</span> <span class="va">g</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">geom_area</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Two groups have points on different X values.</span></span></span>
+<span class="r-in"><span><span class="va">a</span> <span class="op">+</span> <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">8</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">g</span> <span class="op">~</span> <span class="va">.</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="geom_ribbon-5.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># stat_align() interpolates and aligns the value so that the areas can stack</span></span></span>
+<span class="r-in"><span><span class="co"># properly.</span></span></span>
+<span class="r-in"><span><span class="va">a</span> <span class="op">+</span> <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span>stat <span class="op">=</span> <span class="st">"align"</span>, position <span class="op">=</span> <span class="st">"stack"</span>, size <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="geom_ribbon-6.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
