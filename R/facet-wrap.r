@@ -147,6 +147,8 @@ FacetWrap <- ggproto("FacetWrap", Facet,
       return(layout_null())
     }
 
+    check_facet_vars(names(vars), name = snake_class(self))
+
     base <- combine_vars(data, params$plot_env, vars, drop = params$drop)
 
     id <- id(base, drop = TRUE)

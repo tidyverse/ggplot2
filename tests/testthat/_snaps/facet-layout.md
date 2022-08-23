@@ -39,3 +39,18 @@
 
     Free scales cannot be mixed with a fixed aspect ratio
 
+# facet_wrap and facet_grid throws errors when using reserved words
+
+    "ROW" is not an allowed name for faceting variables
+    i Change the name of your data columns to not be "PANEL", "ROW", "COL", "SCALE_X", or "SCALE_Y"
+
+---
+
+    "ROW" and "PANEL" are not allowed names for faceting variables
+    i Change the name of your data columns to not be "PANEL", "ROW", "COL", "SCALE_X", or "SCALE_Y"
+
+---
+
+    "ROW" is not an allowed name for faceting variables
+    i Change the name of your data columns to not be "PANEL", "ROW", "COL", "SCALE_X", or "SCALE_Y"
+
