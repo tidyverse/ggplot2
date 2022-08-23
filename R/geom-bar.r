@@ -164,5 +164,6 @@ GeomBar <- ggproto("GeomBar", GeomRect,
       lineend = lineend,
       linejoin = linejoin
     )
-  }
+  },
+  rename_size = TRUE
 )
