@@ -25,7 +25,7 @@
 #'   )
 #' )
 #' ggplot(df_lines) +
-#'   geom_hline(aes(linetype = linetype, yintercept = 0), size = 2) +
+#'   geom_hline(aes(linetype = linetype, yintercept = 0), linewidth = 2) +
 #'   scale_linetype_identity() +
 #'   facet_grid(linetype ~ .) +
 #'   theme_void(20)

@@ -41,8 +41,8 @@ NULL
 #' # use with coord_sf() for appropriate projection
 #' p +
 #'   coord_sf(
-#'     crs = st_crs(3347),
-#'     default_crs = st_crs(4326),  # data is provided as long-lat
+#'     crs = sf::st_crs(3347),
+#'     default_crs = sf::st_crs(4326),  # data is provided as long-lat
 #'     xlim = c(-84, -76),
 #'     ylim = c(34, 37.2)
 #'   )
@@ -52,9 +52,9 @@ NULL
 #' p +
 #'   geom_sf(
 #'     data = nc, inherit.aes = FALSE,
-#'     fill = NA, color = "black", size = 0.1
+#'     fill = NA, color = "black", linewidth = 0.1
 #'   ) +
-#'   coord_sf(crs = st_crs(3347), default_crs = st_crs(4326))
+#'   coord_sf(crs = sf::st_crs(3347), default_crs = sf::st_crs(4326))
 #' }}}
 annotation_map <- function(map, ...) {
   # Get map input into correct form
@@ -99,7 +99,7 @@ GeomAnnotationMap <- ggproto("GeomAnnotationMap", GeomMap,
       id = grob_id,
       gp = gpar(
         col = data$colour, fill = alpha(data$fill, data$alpha),
-        lwd = data$size * .pt)
+        lwd = data$linewidth * .pt)
       )
   },
 

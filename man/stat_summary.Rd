@@ -186,12 +186,12 @@ If no aggregation functions are supplied, will default to
 
 \examples{
 d <- ggplot(mtcars, aes(cyl, mpg)) + geom_point()
-d + stat_summary(fun.data = "mean_cl_boot", colour = "red", size = 2)
+d + stat_summary(fun.data = "mean_cl_boot", colour = "red", linewidth = 2, size = 3)
 
 # Orientation follows the discrete axis
 ggplot(mtcars, aes(mpg, factor(cyl))) +
   geom_point() +
-  stat_summary(fun.data = "mean_cl_boot", colour = "red", size = 2)
+  stat_summary(fun.data = "mean_cl_boot", colour = "red", linewidth = 2, size = 3)
 
 # You can supply individual functions to summarise the value at
 # each x:
