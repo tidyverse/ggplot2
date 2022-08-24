@@ -282,7 +282,7 @@ test_that("minor breaks draw correctly", {
   )
   theme <- theme_test() +
     theme(
-      panel.grid.major = element_line(colour = "grey30", size = 0.5),
+      panel.grid.major = element_line(colour = "grey30", linewidth = 0.5),
       panel.grid.minor = element_line(colour = "grey70")
     )
 
