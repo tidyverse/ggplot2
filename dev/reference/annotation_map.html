@@ -140,8 +140,8 @@ details.</p></dd>
 <span class="r-in"><span><span class="co"># use with coord_sf() for appropriate projection</span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="ggsf.html">coord_sf</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    crs <span class="op">=</span> <span class="fu">st_crs</span><span class="op">(</span><span class="fl">3347</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    default_crs <span class="op">=</span> <span class="fu">st_crs</span><span class="op">(</span><span class="fl">4326</span><span class="op">)</span>,  <span class="co"># data is provided as long-lat</span></span></span>
+<span class="r-in"><span>    crs <span class="op">=</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html" class="external-link">st_crs</a></span><span class="op">(</span><span class="fl">3347</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    default_crs <span class="op">=</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html" class="external-link">st_crs</a></span><span class="op">(</span><span class="fl">4326</span><span class="op">)</span>,  <span class="co"># data is provided as long-lat</span></span></span>
 <span class="r-in"><span>    xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">84</span>, <span class="op">-</span><span class="fl">76</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">34</span>, <span class="fl">37.2</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
@@ -151,9 +151,9 @@ details.</p></dd>
 <span class="r-in"><span><span class="va">p</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="ggsf.html">geom_sf</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    data <span class="op">=</span> <span class="va">nc</span>, inherit.aes <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
-<span class="r-in"><span>    fill <span class="op">=</span> <span class="cn">NA</span>, color <span class="op">=</span> <span class="st">"black"</span>, size <span class="op">=</span> <span class="fl">0.1</span></span></span>
+<span class="r-in"><span>    fill <span class="op">=</span> <span class="cn">NA</span>, color <span class="op">=</span> <span class="st">"black"</span>, linewidth <span class="op">=</span> <span class="fl">0.1</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="ggsf.html">coord_sf</a></span><span class="op">(</span>crs <span class="op">=</span> <span class="fu">st_crs</span><span class="op">(</span><span class="fl">3347</span><span class="op">)</span>, default_crs <span class="op">=</span> <span class="fu">st_crs</span><span class="op">(</span><span class="fl">4326</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="ggsf.html">coord_sf</a></span><span class="op">(</span>crs <span class="op">=</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html" class="external-link">st_crs</a></span><span class="op">(</span><span class="fl">3347</span><span class="op">)</span>, default_crs <span class="op">=</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html" class="external-link">st_crs</a></span><span class="op">(</span><span class="fl">4326</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span><span class="op">}</span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
