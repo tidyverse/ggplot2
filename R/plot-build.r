@@ -421,7 +421,7 @@ by_layer <- function(f, layers, data, step = NULL) {
       out[[i]] <- f(l = layers[[i]], d = data[[i]])
     },
     error = function(cnd) {
-      cli::cli_abort(c("Problem while {step}.", "i" = "Error occurred in the {ordinal(i)} layer."), call = I(layers[[i]]$constructor), parent = cnd)
+      cli::cli_abort(c("Problem while {step}.", "i" = "Error occurred in the {ordinal(i)} layer."), call = layers[[i]]$constructor, parent = cnd)
     }
   )
   out
