@@ -36,7 +36,7 @@ Imports:
     grid,
     gtable (>= 0.1.1),
     isoband,
-    lifecycle,
+    lifecycle (> 1.0.1),
     MASS,
     mgcv,
     rlang (>= 1.0.0),
@@ -71,6 +71,8 @@ Suggests:
     testthat (>= 3.1.2),
     vdiffr (>= 1.0.0),
     xml2
+Remotes:
+    r-lib/lifecycle
 Enhances: 
     sp
 VignetteBuilder: 

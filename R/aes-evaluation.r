@@ -92,17 +92,6 @@ is_dotted_var <- function(x) {
   grepl(match_calculated_aes, x)
 }
 
-# TODO: if we want to set the frequency "always", we probably need some
-# mechanism to generate a frequency ID that is unique per plot build. Otherwise,
-# users might face too many warnings.
-warn_old_calculated_aes <- function() {
-  # TODO: move to cli_warn()?
-  cli::cli_inform(c(
-    "The dot-dot notation ({.var ..var..}) and {.fun stat} have been superseded as of ggplot2 3.3.0",
-    "i" = "To access calculated variables, please use {.fun after_stat} instead"
-  ), .frequency = "regularly", .frequency_id = "ggplot2-old-calculated-aes")
-}
-
 # Determine if aesthetic is calculated
 is_calculated_aes <- function(aesthetics, warn = FALSE) {
   vapply(aesthetics, is_calculated, warn = warn, logical(1), USE.NAMES = FALSE)
@@ -123,7 +112,9 @@ is_calculated <- function(x, warn = FALSE) {
   } else if (is.symbol(x)) {
     res <- is_dotted_var(as.character(x))
     if (res && warn) {
-      warn_old_calculated_aes()
+      # TODO: if we want to set always = TRUE, we probably need some mechanism
+      # to limit the warning only once per plot build
+      lifecycle::deprecate_warn("3.4.0", I("The dot-dot notation (`..var..`)"), "after_stat()")
     }
     res
   } else if (is_quosure(x)) {
@@ -131,7 +122,9 @@ is_calculated <- function(x, warn = FALSE) {
   } else if (is.call(x)) {
     if (identical(x[[1]], quote(stat))) {
       if (warn) {
-        warn_old_calculated_aes()
+        # TODO: if we want to set always = TRUE, we probably need some mechanism
+        # to limit the warning only once per plot build
+        lifecycle::deprecate_warn("3.4.0", "stat()", "after_stat()")
       }
       TRUE
     } else {
