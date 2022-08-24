@@ -112,8 +112,6 @@ is_calculated <- function(x, warn = FALSE) {
   } else if (is.symbol(x)) {
     res <- is_dotted_var(as.character(x))
     if (res && warn) {
-      # TODO: if we want to set always = TRUE, we probably need some mechanism
-      # to limit the warning only once per plot build
       lifecycle::deprecate_warn("3.4.0", I("The dot-dot notation (`..var..`)"), "after_stat()")
     }
     res
@@ -122,8 +120,6 @@ is_calculated <- function(x, warn = FALSE) {
   } else if (is.call(x)) {
     if (identical(x[[1]], quote(stat))) {
       if (warn) {
-        # TODO: if we want to set always = TRUE, we probably need some mechanism
-        # to limit the warning only once per plot build
         lifecycle::deprecate_warn("3.4.0", "stat()", "after_stat()")
       }
       TRUE
