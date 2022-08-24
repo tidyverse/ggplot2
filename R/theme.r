@@ -712,6 +712,11 @@ combine_elements <- function(e1, e2) {
     e1$size <- e2$size * unclass(e1$size)
   }
 
+  # Calculate relative linewidth
+  if (is.rel(e1$linewidth)) {
+    e1$linewidth <- e2$linewidth * unclass(e1$linewidth)
+  }
+
   e1
 }
 

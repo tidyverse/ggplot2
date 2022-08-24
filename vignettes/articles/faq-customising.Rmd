@@ -185,13 +185,13 @@ Set the color in `panel.background` element of `theme()` with `element_rect()`, 
 
 <summary>See example</summary>
 
-You can set the background colour of the plot with `panel.backgroun` in `theme()`.
-In the following example the border is made thicker with `size = 3` to
+You can set the background colour of the plot with `panel.background` in `theme()`.
+In the following example the border is made thicker with `linewidth = 3` to
 
 ```{r}
 ggplot(mpg, aes(x = hwy, y = cty)) +
   geom_point() +
-  theme(panel.background = element_rect(fill = "lightblue", colour = "red", size = 3))
+  theme(panel.background = element_rect(fill = "lightblue", colour = "red", linewidth = 3))
 ```
 
 If you want to change the colour of the plotting area but not the panel where the panel, you can so the same thing with `plot.background`.
@@ -199,7 +199,7 @@ If you want to change the colour of the plotting area but not the panel where th
 ```{r}
 ggplot(mpg, aes(x = hwy, y = cty)) +
   geom_point() +
-  theme(plot.background = element_rect(fill = "lightblue", colour = "red", size = 3))
+  theme(plot.background = element_rect(fill = "lightblue", colour = "red", linewidth = 3))
 ```
 
 Note that ggplot2 has a variety of [complete themes](https://ggplot2.tidyverse.org/reference/ggtheme.html) that might already do what you're hoping to accomplish.
@@ -217,7 +217,7 @@ And you can continue customization based on one of these themes.
 ggplot(mpg, aes(x = hwy, y = cty)) +
   geom_point() +
   theme_minimal() +
-  theme(plot.background = element_rect(colour = "red", size = 3))
+  theme(plot.background = element_rect(colour = "red", linewidth = 3))
 ```
 
 You might also find the [**thematic**](https://rstudio.github.io/thematic/) package useful for simplified theming of your plots.

@@ -140,7 +140,7 @@ plot + theme(
   plot.background = element_rect(
     fill = "grey90",
     colour = "black",
-    size = 1
+    linewidth = 1
   )
 )
 }

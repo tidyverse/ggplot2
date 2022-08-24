@@ -131,7 +131,7 @@ test_that("calculating theme element inheritance works", {
   # Check that inheritance from derived class works
   element_dummyrect <- function(dummy) { # like element_rect but w/ dummy argument
     structure(list(
-      fill = NULL, colour = NULL, dummy = dummy, size = NULL,
+      fill = NULL, colour = NULL, dummy = dummy, linewidth = NULL,
       linetype = NULL, inherit.blank = FALSE
     ), class = c("element_dummyrect", "element_rect", "element"))
   }
@@ -139,7 +139,7 @@ test_that("calculating theme element inheritance works", {
   e <- calc_element(
     "panel.background",
     theme(
-      rect = element_rect(fill = "white", colour = "black", size = 0.5, linetype = 1),
+      rect = element_rect(fill = "white", colour = "black", linewidth = 0.5, linetype = 1),
       panel.background = element_dummyrect(dummy = 5),
       complete = TRUE # need to prevent pulling in default theme
     )
@@ -148,7 +148,7 @@ test_that("calculating theme element inheritance works", {
   expect_identical(
     e,
     structure(list(
-      fill = "white", colour = "black", dummy = 5, size = 0.5, linetype = 1,
+      fill = "white", colour = "black", dummy = 5, linewidth = 0.5, linetype = 1,
       inherit.blank = TRUE # this is true because we're requesting a complete theme
     ), class = c("element_dummyrect", "element_rect", "element"))
   )
@@ -336,15 +336,15 @@ test_that("elements can be merged", {
     merge_element(element_text(colour = "blue"), text_base),
     element_text(colour = "blue", size = 10)
   )
-  rect_base <- element_rect(colour = "red", size = 10)
+  rect_base <- element_rect(colour = "red", linewidth = 10)
   expect_equal(
     merge_element(element_rect(colour = "blue"), rect_base),
-    element_rect(colour = "blue", size = 10)
+    element_rect(colour = "blue", linewidth = 10)
   )
-  line_base <- element_line(colour = "red", size = 10)
+  line_base <- element_line(colour = "red", linewidth = 10)
   expect_equal(
     merge_element(element_line(colour = "blue"), line_base),
-    element_line(colour = "blue", size = 10)
+    element_line(colour = "blue", linewidth = 10)
   )
   expect_error(
     merge_element(text_base, rect_base),

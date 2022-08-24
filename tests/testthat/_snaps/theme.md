@@ -18,7 +18,7 @@
 
 ---
 
-    Theme element `test` has "NULL" property without default: fill, colour, size, and linetype
+    Theme element `test` has "NULL" property without default: fill, colour, linewidth, and linetype
 
 # element tree can be modified
 
