@@ -20,7 +20,7 @@ NULL
 #' commonly set in the plot. They also do not affect the x and y scales.
 #'
 #' @section Aesthetics:
-#' These geoms are drawn using with [geom_line()] so support the
+#' These geoms are drawn using [geom_line()] so they support the
 #' same aesthetics: `alpha`, `colour`, `linetype` and
 #' `linewidth`. They also each have aesthetics that control the position of
 #' the line:
