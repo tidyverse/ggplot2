@@ -67,7 +67,7 @@
 #' with(counts, plot(x, Freq, type = "h", lwd = 10))
 #'
 #' ggplot(counts, aes(x, Freq)) +
-#'   geom_segment(aes(xend = x, yend = 0), size = 10, lineend = "butt")
+#'   geom_segment(aes(xend = x, yend = 0), linewidth = 10, lineend = "butt")
 geom_segment <- function(mapping = NULL, data = NULL,
                          stat = "identity", position = "identity",
                          ...,

@@ -67,9 +67,9 @@
 #' # Control line join parameters
 #' df <- data.frame(x = 1:3, y = c(4, 1, 9))
 #' base <- ggplot(df, aes(x, y))
-#' base + geom_path(size = 10)
-#' base + geom_path(size = 10, lineend = "round")
-#' base + geom_path(size = 10, linejoin = "mitre", lineend = "butt")
+#' base + geom_path(linewidth = 10)
+#' base + geom_path(linewidth = 10, lineend = "round")
+#' base + geom_path(linewidth = 10, linejoin = "mitre", lineend = "butt")
 #'
 #' # You can use NAs to break the line.
 #' df <- data.frame(x = 1:5, y = c(1, 2, NA, 4, 5))

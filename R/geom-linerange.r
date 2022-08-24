@@ -5,7 +5,7 @@
 #'
 #' @eval rd_orientation()
 #'
-#' @eval rd_aesthetics("geom", "linerange")
+#' @eval rd_aesthetics("geom", "linerange", "Note that `geom_pointrange()` also understands `size` for the size of the points.")
 #' @param fatten A multiplicative factor used to increase the size of the
 #'   middle bar in `geom_crossbar()` and the middle point in
 #'   `geom_pointrange()`.
