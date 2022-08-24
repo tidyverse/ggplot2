@@ -3,6 +3,11 @@
 * Warn on the use of the dot-dot notation (`..var..`) and `stat()`, which have
   been superseded by `after_stat()` (@yutannihilation, #3693).
 
+* `geom_col()` and `geom_bar()` gain a new `just` argument. This is set to `0.5`
+  by default; use `just = 0`/`just = 1` to place columns on the left/right
+  of the axis breaks.
+  (@wurli, #4899)
+  
 * Fix a bug in `position_jitter()` where infinity values were dropped (@javlon,
   #4790).
 
@@ -17,6 +22,7 @@
   columns were dropped and warns about this. If stats intend to drop
   data columns they can declare them in the new field `dropped_aes`.
   (@clauswilke, #3250)
+  
 * Added `stat_align()` to align data without common x-coordinates prior to
   stacking. This is now the default stat for `geom_area()` (@thomasp85, #4850)
 

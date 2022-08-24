@@ -33,7 +33,7 @@ to the paired geom/stat.}
 a warning. If \code{TRUE}, missing values are silently removed.}
 }
 \description{
-This function adds geoms to a plot, but unlike typical a geom function,
+This function adds geoms to a plot, but unlike a typical geom function,
 the properties of the geoms are not mapped from variables of a data frame,
 but are instead passed in as vectors. This is useful for adding small annotations
 (such as text labels) or if you have your data in vectors, and for some
