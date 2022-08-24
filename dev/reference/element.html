@@ -117,20 +117,22 @@ specify the display of how non-data components of the plot are drawn.</p><ul><li
 <span><span class="fu">element_rect</span><span class="op">(</span></span>
 <span>  fill <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  colour <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  size <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  linewidth <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  linetype <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  color <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  inherit.blank <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  inherit.blank <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  size <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">element_line</span><span class="op">(</span></span>
 <span>  colour <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  size <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  linewidth <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  linetype <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  lineend <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  color <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  arrow <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  inherit.blank <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  inherit.blank <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  size <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">element_text</span><span class="op">(</span></span>
@@ -170,8 +172,8 @@ can be most easily scaled with the text.</p></dd>
 <dd><p>Line/border colour. Color is an alias for colour.</p></dd>
 
 
-<dt>size</dt>
-<dd><p>Line/border size in mm; text size in pts.</p></dd>
+<dt>linewidth</dt>
+<dd><p>Line/border size in mm.</p></dd>
 
 
 <dt>linetype</dt>
@@ -187,6 +189,10 @@ lengths in consecutive positions in the string.</p></dd>
 a blank element among its parents will cause this element to be blank as
 well. If <code>FALSE</code> any blank parent element will be ignored when
 calculating final element state.</p></dd>
+
+
+<dt>size</dt>
+<dd><p>text size in pts.</p></dd>
 
 
 <dt>lineend</dt>
@@ -270,7 +276,7 @@ is anchored.</p></dd>
 <span class="r-in"><span>  plot.background <span class="op">=</span> <span class="fu">element_rect</span><span class="op">(</span></span></span>
 <span class="r-in"><span>    fill <span class="op">=</span> <span class="st">"grey90"</span>,</span></span>
 <span class="r-in"><span>    colour <span class="op">=</span> <span class="st">"black"</span>,</span></span>
-<span class="r-in"><span>    size <span class="op">=</span> <span class="fl">1</span></span></span>
+<span class="r-in"><span>    linewidth <span class="op">=</span> <span class="fl">1</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="element-4.png" alt="" width="700" height="433"></span>
