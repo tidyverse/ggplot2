@@ -108,6 +108,21 @@ test_that("retransform works on computed aesthetics in `map_statistic`", {
   expect_equal(layer_data(p)$y, c(9, 25))
 })
 
+test_that("layer reports the error with correct index etc", {
+  p <- ggplot(mtcars) + geom_linerange(aes(disp, mpg), ymin = 2)
+
+  expect_snapshot_error(ggplotGrob(p))
+
+  p <- ggplot(
+    data_frame(x = "one value", y = 3, value = 4:6),
+    aes(x, ymin = 0, lower = 1, middle = y, upper = value, ymax = 10)
+  ) +
+    geom_point(aes(x = x, y = y), inherit.aes = FALSE) +
+    geom_boxplot(stat = "identity")
+
+  expect_snapshot_error(ggplotGrob(p))
+})
+
 # Data extraction ---------------------------------------------------------
 
 test_that("layer_data returns a data.frame", {
