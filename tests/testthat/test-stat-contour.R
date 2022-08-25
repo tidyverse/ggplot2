@@ -65,7 +65,7 @@ test_that("geom_contour() and stat_contour() result in identical layer data", {
 
 test_that("basic stat_contour() plot builds", {
   p <- ggplot(faithfuld, aes(waiting, eruptions)) +
-    geom_contour(aes(z = density, col = factor(stat(level))))
+    geom_contour(aes(z = density, col = factor(after_stat(level))))
 
   # stat_contour() visual tests are unstable due to the
   # implementation in isoband

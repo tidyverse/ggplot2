@@ -47,7 +47,7 @@
     x `fill = after_stat(data)`
     i Did you map your stat in the wrong layer?
 
-# function aesthetics are wrapped with stat()
+# function aesthetics are wrapped with after_stat()
 
     Problem while computing aesthetics.
     i Error occurred in the 1st layer.

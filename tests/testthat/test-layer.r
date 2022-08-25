@@ -55,7 +55,7 @@ test_that("missing aesthetics trigger informative error", {
   )
 })
 
-test_that("function aesthetics are wrapped with stat()", {
+test_that("function aesthetics are wrapped with after_stat()", {
   df <- data_frame(x = 1:10)
   expect_snapshot_error(
     ggplot_build(ggplot(df, aes(colour = density, fill = density)) + geom_point())
@@ -65,7 +65,7 @@ test_that("function aesthetics are wrapped with stat()", {
 test_that("computed stats are in appropriate layer", {
   df <- data_frame(x = 1:10)
   expect_snapshot_error(
-    ggplot_build(ggplot(df, aes(colour = stat(density), fill = stat(density))) + geom_point())
+    ggplot_build(ggplot(df, aes(colour = after_stat(density), fill = after_stat(density))) + geom_point())
   )
 })
 

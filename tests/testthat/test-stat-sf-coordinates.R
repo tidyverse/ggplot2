@@ -28,7 +28,7 @@ test_that("stat_sf_coordinates() retrieves coordinates from sf objects", {
   # computed variables (x and y)
   df_point <- sf::st_sf(geometry = sf::st_sfc(sf::st_point(c(1, 2))))
   expect_identical(
-    comp_sf_coord(df_point, aes(x = stat(x) + 10, y = stat(y) * 10))[, c("x", "y")],
+    comp_sf_coord(df_point, aes(x = after_stat(x) + 10, y = after_stat(y) * 10))[, c("x", "y")],
     data_frame(x = 11, y = 20)
   )
 })
