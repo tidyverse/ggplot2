@@ -57,7 +57,5 @@ GeomPointrange <- ggproto("GeomPointrange", Geom,
         GeomPoint$draw_panel(transform(data, size = size * fatten), panel_params, coord)
       ))
     )
-  },
-
-  rename_size = TRUE
+  }
 )

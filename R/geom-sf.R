@@ -149,9 +149,7 @@ GeomSf <- ggproto("GeomSf", Geom,
     } else {
       draw_key_polygon(data, params, size)
     }
-  },
-
-  rename_size = TRUE
+  }
 )
 
 default_aesthetics <- function(type) {
