@@ -1,7 +1,7 @@
 #' Compute normal data ellipses
 #'
 #' The method for calculating the ellipses has been modified from
-#' `car::dataEllipse` (Fox, Weisberg,Friendly and Monette 2011)
+#' `car::dataEllipse` (Fox and Weisberg 2011, Friendly and Monette 2013)
 #'
 #' @references John Fox and Sanford Weisberg (2011). An \R Companion to
 #'   Applied Regression, Second Edition. Thousand Oaks CA: Sage. URL:
