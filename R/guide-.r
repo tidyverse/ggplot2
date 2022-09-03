@@ -15,7 +15,8 @@
 #' @export
 new_guide <- function(..., available_aes = "any", super) {
 
-  super <- check_subclass(super, "Guide", env = parent.frame())
+  pf <- parent.frame()
+  super <- check_subclass(super, "Guide", env = pf)
 
   args <- list2(...)
 
@@ -48,6 +49,10 @@ new_guide <- function(..., available_aes = "any", super) {
       "but are missing: {.field {missing_params}}"
     ))
   }
+
+  # Ensure 'order' is length 1 integer
+  params$order <- vec_cast(params$order, 0L, x_arg = "order", call = pf)
+  vec_assert(params$order, 0L, size = 1L, arg = "order", call = pf)
 
   ggproto(
     NULL, super,
