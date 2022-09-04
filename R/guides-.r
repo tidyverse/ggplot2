@@ -143,7 +143,7 @@ build_guides <- function(scales, layers, default_mapping, position, theme, guide
   if (length(guides$guides) == 0) return(no_guides)
 
   # merge overlay guides
-  gdefs <- guides_merge(gdefs)
+  guides$merge()
 
   # process layer information
   gdefs <- guides_geom(gdefs, layers, default_mapping)
@@ -656,6 +656,45 @@ Guides <- ggproto(
     )
     self$update_params(params)
     self$drop_none()
+  },
+
+  # Function to merge guides that encode the same information
+  merge = function(self) {
+    # Bundle together guides and their parameters
+    pairs <- Map(list, guide = self$guides, params = self$params)
+
+    # If there is only one guide, we can exit early, because nothing to merge
+    if (length(pairs) == 1) {
+      return()
+    }
+
+    # The `{order}_{hash}` combination determines groups of guides
+    orders <- vapply(self$params, `[[`, 0, "order")
+    orders[orders == 0] <- 99
+    orders <- sprintf("%02d", orders)
+    hashes <- vapply(self$params, `[[`, "", "hash")
+    hashes <- paste(orders, hashes, sep = "_")
+
+    # Split by hashes
+    indices <- split(seq_along(pairs), hashes)
+    indices <- vapply(indices, `[[`, 0L, 1L, USE.NAMES = FALSE) # First index
+    groups  <- unname(split(pairs, hashes))
+    lens    <- lengths(groups)
+
+    # Merge groups with >1 member
+    groups[lens > 1] <- lapply(groups[lens > 1], function(group) {
+      Reduce(function(old, new) {
+        old$guide$merge(old$params, new$guide, new$params)
+      }, group)
+    })
+    groups[lens == 1] <- unlist(groups[lens == 1], FALSE)
+
+    # Update the Guides object
+    self$guides <- lapply(groups, `[[`, "guide")
+    self$params <- lapply(groups, `[[`, "params")
+    self$aesthetics  <- self$aesthetics[indices]
+    self$scale_index <- self$scale_index[indices]
+    return()
   },
 
     )
