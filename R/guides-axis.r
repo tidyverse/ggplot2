@@ -14,8 +14,10 @@
 #' @param n.dodge The number of rows (for vertical axes) or columns (for
 #'   horizontal axes) that should be used to render the labels. This is
 #'   useful for displaying labels that would otherwise overlap.
-#' @param order Used to determine the order of the guides (left-to-right,
-#'   top-to-bottom), if more than one  guide must be drawn at the same location.
+#' @param order A positive `integer` of length 1 that specifies the order of
+#'   this guide among multiple guides. This controls in which order guides are
+#'   merged if there are multiple guides for the same position. If 0 (default),
+#'   the order is determined by a secret algorithm.
 #' @param position Where this guide should be drawn: one of top, bottom,
 #'   left, or right.
 #'
@@ -78,7 +80,13 @@ GuideAxis <- ggproto(
 
   hashables = quos(title, key$.value, key$.label, name),
 
-  transform = function(params, coord, panel_params) {
+  elements = list(
+    line  = "axis.line.{aes}.{position}",
+    text  = "axis.text.{aes}.{position}",
+    ticks = "axis.ticks.{aes}.{position}",
+    ticks_length = "axis.ticks.length.{aes}.{position}"
+  ),
+
   extract_params = function(scale, params, hashables, ...) {
     params$name <- paste0(params$name, "_", params$aesthetic)
     Guide$extract_params(scale, params, hashables)
@@ -138,13 +146,6 @@ GuideAxis <- ggproto(
     }
     return(list(guide = self, params = params))
   },
-
-  elements = list(
-    line  = "axis.line.{aes}.{position}",
-    text  = "axis.text.{aes}.{position}",
-    ticks = "axis.ticks.{aes}.{position}",
-    ticks_length = "axis.ticks.length.{aes}.{position}"
-  ),
 
   override_elements = function(params, elements, theme) {
     label <- elements$text
