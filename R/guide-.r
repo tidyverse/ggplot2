@@ -136,7 +136,7 @@ Guide <- ggproto(
       return(NULL)
     }
 
-    mapped <- if (scale$is_discrete()) scale$map(breaks) else breaks
+    mapped <- scale$map(breaks)
     labels <- scale$get_labels(breaks)
 
     key <- data_frame(
@@ -144,7 +144,11 @@ Guide <- ggproto(
       .name_repair = ~ c(aesthetic, ".value", ".label")
     )
 
-    key[is.finite(key[[aesthetic]]), , drop = FALSE]
+    if (is.numeric(key$.value)) {
+      key[is.finite(key$.value), , drop = FALSE]
+    } else {
+      key
+    }
   },
 
   # Function for extracting decoration from the scale.
@@ -251,13 +255,13 @@ Guide <- ggproto(
   # Renders the guide title
   build_title = function(label, elements, params) {
     ggname(
+      "guide.title",
       element_grob(
         elements$title,
         label    = label,
         margin_x = TRUE,
         margin_y = TRUE
-      ),
-      "guide.title"
+      )
     )
   },
 
