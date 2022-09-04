@@ -149,8 +149,8 @@ build_guides <- function(scales, layers, default_mapping, position, theme, guide
   guides$process_layers(layers, default_mapping)
   if (length(guides$guides) == 0) return(no_guides)
 
-  # generate grob of each guides
-  ggrobs <- guides_gengrob(gdefs, theme)
+  # generate grob of each guide
+  guide_grobs <- guides$draw(theme)
 
   # build up guides
   grobs <- guides_build(ggrobs, theme)
@@ -717,6 +717,26 @@ Guides <- ggproto(
     self$scale_index <- self$scale_index[keep]
     return()
   },
+
+  # Loop over every guide, let them draw their grobs
+  draw = function(self, theme) {
+    Map(
+      function(guide, params) {
+        # TODO: Remove old branch when done
+        if (inherits(params, "guide")) {
+          params$title.position <- params$title.position %||% switch(
+            params$direction, vertical = "top", horizontal = "bottom"
+          )
+          guide_gengrob(params, theme)
+        } else {
+          guide$draw(theme, params)
+        }
+      },
+      guide  = self$guides,
+      params = self$params
+    )
+  },
+
     )
   }
 )
