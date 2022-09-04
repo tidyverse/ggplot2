@@ -286,8 +286,6 @@ include_layer_in_guide <- function(layer, matched) {
 # Class -------------------------------------------------------------------
 
 # Guides object encapsulates multiple guides and their state.
-# TODO: incorporate in non-position branch of guides
-# TODO: fill in other `guides_*` methods when non-position guides are done
 guides_list <- function(guides) {
   ggproto(NULL, Guides, guides = guides)
 }
