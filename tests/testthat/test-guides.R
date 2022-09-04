@@ -144,8 +144,11 @@ test_that("guide merging for guide_legend() works as expected", {
     scales$add(scale1)
     scales$add(scale2)
 
-    guide_list <- guides_train(scales, theme = theme_gray(), labels = labs(), guides = guides())
-    guides_merge(guide_list)
+    guides <- guides_list(NULL)
+    guides <- guides$setup(scales$scales, keep_none = FALSE)
+    guides$train(scales$scales, "vertical", labs())
+    guides$merge()
+    guides$params
   }
 
   different_limits <- merge_test_guides(
