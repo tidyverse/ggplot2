@@ -153,9 +153,7 @@ build_guides <- function(scales, layers, default_mapping, position, theme, guide
   guide_grobs <- guides$draw(theme)
 
   # build up guides
-  grobs <- guides_build(ggrobs, theme)
-
-  grobs
+  guides$assemble(guide_grobs, theme)
 }
 
 # Simplify legend position to one of horizontal/vertical/inside
@@ -737,6 +735,77 @@ Guides <- ggproto(
     )
   },
 
+  assemble = function(grobs, theme) {
+    # Set spacing
+    theme$legend.spacing   <- theme$legend.spacing    %||% unit(0.5, "lines")
+    theme$legend.spacing.y <- theme$legend.spacing.y  %||% theme$legend.spacing
+    theme$legend.spacing.x <- theme$legend.spacing.x  %||% theme$legend.spacing
+
+    # Measure guides
+    widths  <- lapply(grobs, function(g) sum(g$widths))
+    widths  <- inject(unit.c(!!!widths))
+    heights <- lapply(grobs, function(g) sum(g$heights))
+    heights <- inject(unit.c(!!!heights))
+
+    # Set the justification of each legend within the legend box
+    # First value is xjust, second value is yjust
+    just <- valid.just(theme$legend.box.just)
+    xjust <- just[1]
+    yjust <- just[2]
+
+    # setting that is different for vertical and horizontal guide-boxes.
+    if (identical(theme$legend.box, "horizontal")) {
+      # Set justification for each legend
+      for (i in seq_along(grobs)) {
+        ggrobs[[i]] <- editGrob(
+          ggrobs[[i]],
+          vp = viewport(x = xjust, y = yjust, just = c(xjust, yjust),
+                        height = heightDetails(grobs[[i]]))
+        )
+      }
+
+      guides <- gtable_row(name = "guides",
+                           grobs = ggrobs,
+                           widths = widths, height = max(heights))
+
+      # add space between the guide-boxes
+      guides <- gtable_add_col_space(guides, theme$legend.spacing.x)
+
+    } else { # theme$legend.box == "vertical"
+      # Set justification for each legend
+      for (i in seq_along(grobs)) {
+        ggrobs[[i]] <- editGrob(
+          ggrobs[[i]],
+          vp = viewport(x = xjust, y = yjust, just = c(xjust, yjust),
+                        width = widthDetails(grobs[[i]]))
+        )
+      }
+
+      guides <- gtable_col(name = "guides",
+                           grobs = ggrobs,
+                           width = max(widths), heights = heights)
+
+      # add space between the guide-boxes
+      guides <- gtable_add_row_space(guides, theme$legend.spacing.y)
+    }
+
+    # Add margins around the guide-boxes.
+    margin <- theme$legend.box.margin %||% margin()
+    guides <- gtable_add_cols(guides, margin[4], pos = 0)
+    guides <- gtable_add_cols(guides, margin[2], pos = ncol(guides))
+    guides <- gtable_add_rows(guides, margin[1], pos = 0)
+    guides <- gtable_add_rows(guides, margin[3], pos = nrow(guides))
+
+    # Add legend box background
+    background <- element_grob(theme$legend.box.background %||% element_blank())
+
+    guides <- gtable_add_grob(
+      guides, background,
+      t = 1, l = 1, b = -1, r = -1,
+      z = -Inf, clip = "off",
+      name = "legend.box.background"
     )
+    guides$name <- "guide-box"
+    guides
   }
 )
