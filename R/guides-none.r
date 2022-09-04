@@ -28,6 +28,10 @@ GuideNone <- ggproto(
     params
   },
 
+  transform = function(self, params, coord, ...) {
+    params
+  },
+
   # Draw nothing
   draw = function(self, params, theme) {
     zeroGrob()

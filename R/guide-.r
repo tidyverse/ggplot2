@@ -167,8 +167,11 @@ Guide <- ggproto(
 
   # Function for applying coord-transformation.
   # Mostly applied to position guides, such as `guide_axis()`.
-  transform = function(params, coord, ...) {
-    return(params)
+  transform = function(self, params, coord, ...) {
+    cli::cli_abort(c(
+      "{.fn {snake_class(self)}} does not implement a {.fn transform} method.",
+      "i" = "Did you mean to use {.fn guide_axis}?"
+    ))
   },
 
   # Function for extracting information from the layers.
