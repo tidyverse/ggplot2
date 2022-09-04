@@ -450,11 +450,11 @@ include_layer_in_guide <- function(layer, matched) {
 # TODO: incorporate in non-position branch of guides
 # TODO: fill in other `guides_*` methods when non-position guides are done
 guides_list <- function(guides) {
-  ggproto(NULL, GuidesList, guides = guides)
+  ggproto(NULL, Guides, guides = guides)
 }
 
-GuidesList <- ggproto(
-  "GuidesList", NULL,
+Guides <- ggproto(
+  "Guides", NULL,
 
   # A list of guides to be updated by 'add' or populated upon construction.
   guides = list(),
@@ -489,10 +489,10 @@ GuidesList <- ggproto(
 
   # Function for adding new guides
   add = function(self, guides) {
-    if (is.null(guide)) {
+    if (is.null(guides)) {
       return()
     }
-    if (inherits(guides, "GuidesList")) {
+    if (inherits(guides, "Guides")) {
       guides <- guides$guides
     }
     self$guides <- defaults(guides, self$guides)

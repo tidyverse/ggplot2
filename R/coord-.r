@@ -99,7 +99,7 @@ Coord <- ggproto("Coord",
     is_sec <- grepl("sec$", aesthetics)
 
     # TODO: This should ideally happen in the `guides()` function or earlier.
-    if (!inherits(guides, "GuidesList")) {
+    if (!inherits(guides, "Guides")) {
       guides <- guides_list(guides)
     }
 
