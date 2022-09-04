@@ -109,7 +109,7 @@ update_guides <- function(p, guides) {
 #      arrange all ggrobs
 
 build_guides <- function(scales, layers, default_mapping, position, theme, guides, labels) {
-  theme$legend.key.width <- theme$legend.key.width %||% theme$legend.key.size
+  theme$legend.key.width  <- theme$legend.key.width %||% theme$legend.key.size
   theme$legend.key.height <- theme$legend.key.height %||% theme$legend.key.size
 
   # Layout of legends depends on their overall location
@@ -128,15 +128,19 @@ build_guides <- function(scales, layers, default_mapping, position, theme, guide
     theme$legend.box.just <- theme$legend.box.just %||% c("center", "top")
   }
 
-  # scales -> data for guides
-  gdefs <- guides_train(
-    scales = scales$non_position_scales(),
-    theme = theme,
-    guides = guides,
-    labels = labels
-  )
+  if (!inherits(guides, "Guides")) {
+    guides <- guides_list(guides)
+  }
 
-  if (length(gdefs) == 0) return(zeroGrob())
+  no_guides <- zeroGrob()
+
+  scales <- scales$non_position_scales()$scales
+  if (length(scales) == 0) return(no_guides)
+
+  guides <- guides$setup(scales, keep_none = FALSE)
+
+  guides$train(scales, theme$legend.direction, labels)
+  if (length(guides$guides) == 0) return(no_guides)
 
   # merge overlay guides
   gdefs <- guides_merge(gdefs)
@@ -537,7 +541,7 @@ Guides <- ggproto(
 
     if (is.null(aesthetics)) {
       # Aesthetics from scale, as in non-position guides
-      aesthetics <- lapply(scales, `[[`, aesthetics)
+      aesthetics <- lapply(scales, `[[`, "aesthetics")
       scale_idx  <- rep(seq_along(scales), lengths(aesthetics))
       aesthetics <- unlist(aesthetics, FALSE, FALSE)
     } else {
@@ -547,9 +551,13 @@ Guides <- ggproto(
 
     guides <- self$guides
 
+    # For every aesthetic-scale combination, find and validate guide
     new_guides <- lapply(seq_along(scale_idx), function(i) {
       idx <- scale_idx[i]
 
+      # Find guide for aesthetic-scale combination
+      # Hierarchy is in the order:
+      # plot + guides(XXX) + scale_ZZZ(guide = XXX) > default(i.e., legend)
       guide <- resolve_guide(
         aesthetic = aesthetics[i],
         scale     = scales[[idx]],
@@ -567,12 +575,16 @@ Guides <- ggproto(
         guide <- "none"
       }
 
+      # Instantiate all guides, e.g. go from "legend" character to
+      # GuideLegend class object
       guide <- validate_guide(guide)
 
       if (inherits(guide, "GuideNone")) {
         return(guide)
       }
 
+      # Check compatibility of scale and guide, e.g. you cannot use GuideAxis
+      # to display the "colour" aesthetic.
       scale_aes <- scales[[idx]]$aesthetics
       if (!any(c("x", "y") %in% scale_aes)) scale_aes <- c(scale_aes, "any")
       if (!any(scale_aes %in% guide$available_aes)) {
@@ -597,14 +609,55 @@ Guides <- ggproto(
       aesthetics <- aesthetics[!is_none]
     }
 
-    params <- lapply(new_guides, `[[`, "params")
-
+    # Create updated child
     ggproto(
       NULL, self,
       guides      = new_guides,
       scale_index = scale_idx,
       aesthetics  = aesthetics,
-      params      = params
+      params      = lapply(new_guides, `[[`, "params")
+    )
+  },
+
+  # Function for dropping GuideNone objects from the Guides object
+  drop_none = function(self) {
+    is_none <- vapply(self$guides, inherits, logical(1), what = "GuideNone")
+    self$guides      <- self$guides[!is_none]
+    self$scale_index <- self$scale_index[!is_none]
+    self$aesthetics  <- self$aesthetics[!is_none]
+    self$params      <- self$params[!is_none]
+    return()
+  },
+
+  # Loop over every guide-scale combination to perform training
+  train = function(self, scales, direction, labels) {
+
+    params <- Map(
+      function(guide, param, scale, aes) {
+        # TODO: delete old branch when all guides are ported to ggproto
+        if (inherits(guide, "guide")) {
+          guide$title <- scale$make_title(
+            guide$title %|W|% scale$name %|W|% labels[[aes]]
+          )
+          guide$direction <- guide$direction %||% direction
+          guide_train(guide, scale, aes)
+        } else {
+          guide$train(
+            param, scale, aes,
+            title = labels[[aes]],
+            direction = direction
+          )
+        }
+      },
+      guide = self$guides,
+      param = self$params,
+      aes   = self$aesthetics,
+      scale = scales[self$scale_index]
+    )
+    self$update_params(params)
+    self$drop_none()
+  },
+
     )
   }
 )
