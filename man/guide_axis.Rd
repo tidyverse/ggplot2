@@ -30,8 +30,10 @@ you probably want.}
 horizontal axes) that should be used to render the labels. This is
 useful for displaying labels that would otherwise overlap.}
 
-\item{order}{Used to determine the order of the guides (left-to-right,
-top-to-bottom), if more than one  guide must be drawn at the same location.}
+\item{order}{A positive \code{integer} of length 1 that specifies the order of
+this guide among multiple guides. This controls in which order guides are
+merged if there are multiple guides for the same position. If 0 (default),
+the order is determined by a secret algorithm.}
 
 \item{position}{Where this guide should be drawn: one of top, bottom,
 left, or right.}
