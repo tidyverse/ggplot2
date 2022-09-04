@@ -110,19 +110,19 @@ Guide <- ggproto(
   # 2. (Optionally) extract further decoration from the scale (e.g. the
   #    colour bar).
   # 3. Extract further parameters
-  train = function(self, params = self$params, scale, aesthetic = NULL) {
+  train = function(self, params = self$params, scale, aesthetic = NULL, ...) {
     params$aesthetic <- aesthetic %||% scale$aesthetics[1]
     params$key   <- inject(self$extract_key(scale, !!!params))
     if (is.null(params$key)) {
       return(params$key)
     }
     params$decor <- inject(self$extract_decor(scale, !!!params))
-    inject(self$extract_params(scale, params, self$hashables))
+    self$extract_params(scale, params, self$hashables, ...)
   },
 
   # Setup parameters that are only available after training
   # TODO: Maybe we only need the hash on demand during merging?
-  extract_params = function(scale, params, hashables) {
+  extract_params = function(scale, params, hashables, ...) {
     # Make name
     params$name <- paste0(params$name, "_", params$aesthetic)
 

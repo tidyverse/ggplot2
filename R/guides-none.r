@@ -24,7 +24,7 @@ GuideNone <- ggproto(
   "GuideNone", Guide,
 
   # Perform no training
-  train = function(self, params = self$params, scale, aesthetic = NULL) {
+  train = function(self, params = self$params, scale, aesthetic = NULL, ...) {
     params
   },
 
