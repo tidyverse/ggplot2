@@ -167,9 +167,12 @@ GuideAxis <- ggproto(
   },
 
   setup_params = function(params) {
-    all_pos   <- c("left", "top", "bottom", "right")
-    position  <- arg_match0(params$position, all_pos)
-    direction <- if (position %in% c("left", "right")) "vertical" else "horizontal"
+    position  <- arg_match0(params$position, .trbl)
+    direction <- if (position %in% c("left", "right")) {
+      "vertical"
+    } else {
+      "horizontal"
+    }
 
     # TODO: delete following comment at some point:
     # I found the 'position_*'/'non-position_*' and '*_dim' names confusing.
@@ -195,7 +198,7 @@ GuideAxis <- ggproto(
     }
 
     new_params <- list(
-      opposite  = unname(setNames(all_pos, rev(all_pos))[position]),
+      opposite  = unname(setNames(.trbl, .trbl[c(3,4,1,2)])[position]),
       secondary = position %in% c("top", "right"),
       lab_first = position %in% c("top", "left"),
       orth_side = if (position %in% c("top", "right")) 0 else 1,

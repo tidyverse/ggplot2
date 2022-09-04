@@ -335,3 +335,6 @@ flip_names = c(
   "margin_y" = "margin_x"
 )
 
+# Shortcut for position argument matching
+.trbl <- c("top", "right", "bottom", "left")
+
