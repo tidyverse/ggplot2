@@ -146,8 +146,8 @@ build_guides <- function(scales, layers, default_mapping, position, theme, guide
   guides$merge()
 
   # process layer information
-  gdefs <- guides_geom(gdefs, layers, default_mapping)
-  if (length(gdefs) == 0) return(zeroGrob())
+  guides$process_layers(layers, default_mapping)
+  if (length(guides$guides) == 0) return(no_guides)
 
   # generate grob of each guides
   ggrobs <- guides_gengrob(gdefs, theme)
@@ -697,6 +697,26 @@ Guides <- ggproto(
     return()
   },
 
+  # Loop over guides to let them extract information from layers
+  process_layers = function(self, layers, default_mapping) {
+    params <- Map(
+      function(guide, param) {
+        if (inherits(param, "guide")) {
+          guide_geom(param, layers, default_mapping)
+        } else {
+          guide$geom(param, layers, default_mapping)
+        }
+      },
+      guide = self$guides,
+      param = self$params
+    )
+    keep <- !vapply(params, is.null, logical(1))
+    self$guides <- self$guides[keep]
+    self$params <- params[keep]
+    self$aesthetics <- self$aesthetics[keep]
+    self$scale_index <- self$scale_index[keep]
+    return()
+  },
     )
   }
 )
