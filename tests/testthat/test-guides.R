@@ -243,6 +243,25 @@ test_that("colorsteps and bins checks the breaks format", {
   expect_snapshot_error(suppressWarnings(ggplotGrob(p)))
 })
 
+test_that("legend reverse argument reverses the key", {
+
+  scale <- scale_colour_discrete()
+  scale$train(LETTERS[1:4])
+
+  guides <- guides_list(NULL)
+  guides <- guides$setup(list(scale))
+
+  guides$params[[1]]$reverse <- FALSE
+  guides$train(list(scale), "horizontal", labels = labs())
+  fwd <- guides$get_params(1)$key
+
+  guides$params[[1]]$reverse <- TRUE
+  guides$train(list(scale), "horizontal", labels = labs())
+  rev <- guides$get_params(1)$key
+
+  expect_equal(fwd$colour, rev(rev$colour))
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("axis guides are drawn correctly", {

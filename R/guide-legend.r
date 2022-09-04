@@ -270,6 +270,9 @@ GuideLegend <- ggproto(
       params$direction %||% direction,
       c("horizontal", "vertical"), arg_nm = "direction"
     )
+    if (isTRUE(params$reverse %||% FALSE)) {
+      params$key <- params$key[nrow(params$key):1, , drop = FALSE]
+    }
 
     Guide$extract_params(scale, params, hashables)
   },
