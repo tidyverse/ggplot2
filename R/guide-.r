@@ -219,26 +219,22 @@ Guide <- ggproto(
     }
 
     # Build grobs
-    grob_title  <- self$build_title(params$title, elems, params)
-    grob_labels <- self$build_labels(key, elems, params)
-    grob_ticks  <- self$build_ticks(key, elems, params)
-    grob_decor  <- self$build_decor(params$decor, grob_ticks, elems, params)
     grobs <- list(
-      title = grob_title,
-      label = grob_labels,
-      ticks = grob_ticks,
-      decor = grob_decor
+      title  = self$build_title(params$title, elems, params),
+      labels = self$build_labels(key, elems, params),
+      ticks  = self$build_ticks(key, elems, params),
+      decor  = self$build_decor(params$decor, grob_ticks, elems, params)
     )
 
     # Arrange and assemble grobs
     sizes  <- self$measure_grobs(grobs, params, elems)
     layout <- self$arrange_layout(key, sizes, params)
-    self$assemble_drawing(grobs, layout, sizes, params)
+    self$assemble_drawing(grobs, layout, sizes, params, elems)
   },
 
   # Makes measurements of grobs that can be used in the layout or assembly
   # stages of guide drawing.
-  measure_grobs = function(grobs, params) {
+  measure_grobs = function(grobs, params, elements) {
     return(invisible())
   },
 
@@ -248,7 +244,7 @@ Guide <- ggproto(
   },
 
   # Combines grobs into a single gtable.
-  assemble_drawing = function(grobs, layout, sizes, params) {
+  assemble_drawing = function(grobs, layout, sizes, params, elements) {
     zeroGrob()
   },
 

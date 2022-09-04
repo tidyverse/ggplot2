@@ -286,7 +286,7 @@ GuideAxis <- ggproto(
     setNames(layout, nms)
   },
 
-  assemble_drawing = function(grobs, layout, sizes, params) {
+  assemble_drawing = function(grobs, layout, sizes, params, elements) {
 
     axis_line <- grobs$decor
 
