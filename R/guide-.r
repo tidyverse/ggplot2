@@ -123,9 +123,6 @@ Guide <- ggproto(
   # Setup parameters that are only available after training
   # TODO: Maybe we only need the hash on demand during merging?
   extract_params = function(scale, params, hashables, ...) {
-    # Make name
-    params$name <- paste0(params$name, "_", params$aesthetic)
-
     # Make hash
     mask <- new_data_mask(as_environment(params))
     params$hash <- hash(lapply(hashables, eval_tidy, data = mask))

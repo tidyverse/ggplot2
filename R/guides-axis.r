@@ -79,6 +79,11 @@ GuideAxis <- ggproto(
   hashables = quos(title, key$.value, key$.label, name),
 
   transform = function(params, coord, panel_params) {
+  extract_params = function(scale, params, hashables, ...) {
+    params$name <- paste0(params$name, "_", params$aesthetic)
+    Guide$extract_params(scale, params, hashables)
+  },
+
   transform = function(self, params, coord, panel_params) {
     key <- params$key
     position <- params$position
