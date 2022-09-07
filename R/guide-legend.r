@@ -477,7 +477,7 @@ GuideLegend <- ggproto(
   },
 
   build_labels = function(key, elements, params) {
-    lapply(key$.label, function(lab) {
+    labels <- lapply(key$.label, function(lab) {
       ggname(
         "guide.label",
         element_grob(
@@ -488,6 +488,11 @@ GuideLegend <- ggproto(
         )
       )
     })
+    justify_grobs(
+      labels,
+      hjust = elements$text$hjust, vjust = elements$text$vjust,
+      int_angle = elements$text$angle, debug = elements$text$debug
+    )
   },
 
   measure_grobs = function(grobs, params, elements) {
@@ -682,14 +687,7 @@ GuideLegend <- ggproto(
     )
     # Add labels
     gt <- gtable_add_grob(
-      gt,
-      justify_grobs(
-        grobs$labels,
-        hjust = elements$text$hjust,
-        vjust = elements$text$vjust,
-        int_angle = elements$title$angle,
-        debug = elements$text$debug
-      ),
+      gt, grobs$labels,
       name = paste("label", layout$label_row, layout$label_col, sep = "-"),
       clip = "off",
       t = layout$label_row, r = layout$label_col,
