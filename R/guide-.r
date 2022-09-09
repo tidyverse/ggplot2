@@ -225,9 +225,9 @@ Guide <- ggproto(
     grobs <- list(
       title  = self$build_title(params$title, elems, params),
       labels = self$build_labels(key, elems, params),
-      ticks  = self$build_ticks(key, elems, params),
-      decor  = self$build_decor(params$decor, grob_ticks, elems, params)
+      ticks  = self$build_ticks(key, elems, params)
     )
+    grobs$decor <- self$build_decor(params$decor, grobs$ticks, elems, params)
 
     # Arrange and assemble grobs
     sizes  <- self$measure_grobs(grobs, params, elems)
