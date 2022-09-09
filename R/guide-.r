@@ -278,7 +278,12 @@ Guide <- ggproto(
 
   # Renders tickmarks
   build_ticks = function(key, elements, params, position = params$position) {
-    breaks   <- key[[params$aes]] %||% key
+
+    if (!is.list(key)) {
+      breaks <- key
+    } else {
+      breaks <- key[[params$aes]]
+    }
     n_breaks <- length(breaks)
 
     # Early exit if there are no breaks
