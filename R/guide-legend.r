@@ -372,6 +372,7 @@ GuideLegend <- ggproto(
       params$label.position %||% "right",
       .trbl, arg_nm = "label.position"
     )
+    params$rejust_labels <- TRUE
     params$n_breaks <- n_breaks <- nrow(params$key)
     params$n_key_layers <- length(params$decor) + 1 # +1 is key background
 
@@ -477,7 +478,7 @@ GuideLegend <- ggproto(
   },
 
   build_labels = function(key, elements, params) {
-    labels <- lapply(key$.label, function(lab) {
+    lapply(key$.label, function(lab) {
       ggname(
         "guide.label",
         element_grob(
@@ -488,11 +489,6 @@ GuideLegend <- ggproto(
         )
       )
     })
-    justify_grobs(
-      labels,
-      hjust = elements$text$hjust, vjust = elements$text$vjust,
-      int_angle = elements$text$angle, debug = elements$text$debug
-    )
   },
 
   measure_grobs = function(grobs, params, elements) {
@@ -518,11 +514,11 @@ GuideLegend <- ggproto(
 
     # Measure label sizes
     label_widths  <- apply(matrix(
-      c(width_cm(grobs$label), zeroes),
+      c(width_cm(grobs$labels), zeroes),
       nrow = dim[1], ncol = dim[2], byrow = params$byrow
     ), 2, max)
     label_heights <- apply(matrix(
-      c(height_cm(grobs$label), zeroes),
+      c(height_cm(grobs$labels), zeroes),
       nrow = dim[1], ncol = dim[2], byrow = params$byrow
     ), 1, max)
 
@@ -680,14 +676,24 @@ GuideLegend <- ggproto(
     # Add keys
     gt <- gtable_add_grob(
       gt, grobs$decor,
-      name = paste("key", key_rows, key_cols,
-                   c("bg", seq(params$n_key_layers - 1)), sep = "-"),
+      name = names(grobs$decor) %||% paste("key", key_rows, key_cols,
+                   c("bg", seq_len(params$n_key_layers - 1)), sep = "-"),
       clip = "off",
       t = key_rows, r = key_cols, b = key_rows, l = key_cols
     )
-    # Add labels
+
+    labels <- if (params$rejust_labels %||% TRUE) {
+      justify_grobs(
+        grobs$labels,
+        hjust = elements$text$hjust, vjust = elements$text$vjust,
+        int_angle = elements$text$angle, debug = elements$text$debug
+      )
+    } else {
+      grobs$labels
+    }
+
     gt <- gtable_add_grob(
-      gt, grobs$labels,
+      gt, labels,
       name = paste("label", layout$label_row, layout$label_col, sep = "-"),
       clip = "off",
       t = layout$label_row, r = layout$label_col,
