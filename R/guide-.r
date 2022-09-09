@@ -139,10 +139,9 @@ Guide <- ggproto(
     mapped <- scale$map(breaks)
     labels <- scale$get_labels(breaks)
 
-    key <- data_frame(
-      mapped, breaks, labels,
-      .name_repair = ~ c(aesthetic, ".value", ".label")
-    )
+    key <- data_frame(mapped, .name_repair = ~ aesthetic)
+    key$.value <- breaks
+    key$.label <- labels
 
     if (is.numeric(key$.value)) {
       key[is.finite(key$.value), , drop = FALSE]
