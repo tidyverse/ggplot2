@@ -179,7 +179,6 @@ resolve_guide <- function(aesthetic, scale, guides, default = "none", null = "no
 }
 
 # validate guide object
-# TODO: when done converting to ggproto, remove "guide" class?
 validate_guide <- function(guide) {
   # if guide is specified by character, then find the corresponding guide
   if (is.character(guide)) {
@@ -189,7 +188,7 @@ validate_guide <- function(guide) {
       return(fun())
     }
   }
-  if (inherits(guide, c("guide", "Guide"))) {
+  if (inherits(guide, "Guide")) {
     guide
   } else {
     cli::cli_abort("Unknown guide: {guide}")
@@ -467,20 +466,11 @@ Guides <- ggproto(
 
     params <- Map(
       function(guide, param, scale, aes) {
-        # TODO: delete old branch when all guides are ported to ggproto
-        if (inherits(guide, "guide")) {
-          guide$title <- scale$make_title(
-            guide$title %|W|% scale$name %|W|% labels[[aes]]
-          )
-          guide$direction <- guide$direction %||% direction
-          guide_train(guide, scale, aes)
-        } else {
-          guide$train(
-            param, scale, aes,
-            title = labels[[aes]],
-            direction = direction
-          )
-        }
+        guide$train(
+          param, scale, aes,
+          title = labels[[aes]],
+          direction = direction
+        )
       },
       guide = self$guides,
       param = self$params,
@@ -533,13 +523,7 @@ Guides <- ggproto(
   # Loop over guides to let them extract information from layers
   process_layers = function(self, layers, default_mapping) {
     params <- Map(
-      function(guide, param) {
-        if (inherits(param, "guide")) {
-          guide_geom(param, layers, default_mapping)
-        } else {
-          guide$geom(param, layers, default_mapping)
-        }
-      },
+      function(guide, param) guide$geom(param, layers, default_mapping),
       guide = self$guides,
       param = self$params
     )
@@ -554,17 +538,7 @@ Guides <- ggproto(
   # Loop over every guide, let them draw their grobs
   draw = function(self, theme) {
     Map(
-      function(guide, params) {
-        # TODO: Remove old branch when done
-        if (inherits(params, "guide")) {
-          params$title.position <- params$title.position %||% switch(
-            params$direction, vertical = "top", horizontal = "bottom"
-          )
-          guide_gengrob(params, theme)
-        } else {
-          guide$draw(theme, params)
-        }
-      },
+      function(guide, params) guide$draw(theme, params),
       guide  = self$guides,
       params = self$params
     )
