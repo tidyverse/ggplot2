@@ -262,7 +262,7 @@ GuideLegend <- ggproto(
   ),
 
   extract_params = function(scale, params, hashables,
-                            title = waiver(), direction = NULL) {
+                            title = waiver(), direction = NULL, ...) {
     params$title <- scale$make_title(
       params$title %|W|% scale$name %|W|% title
     )
@@ -565,14 +565,14 @@ GuideLegend <- ggproto(
 
   arrange_layout = function(key, sizes, params) {
 
-    break_seq <- seq_len(params$n_breaks)
-    dim <- c(params$nrow, params$ncol)
+    break_seq <- seq_len(params$n_breaks %||% 1L)
+    dim <- c(params$nrow %||% 1L, params$ncol %||% 1L)
 
     # Find rows / columns of legend items
-    if (params$byrow) {
+    if (params$byrow %||% FALSE) {
       df <- data_frame0(
-        R = ceiling(break_seq / params$ncol),
-        C = (break_seq - 1) %% params$ncol + 1
+        R = ceiling(break_seq / dim[2]),
+        C = (break_seq - 1) %% dim[2] + 1
       )
     } else {
       df <- mat_2_df(arrayInd(break_seq, dim), c("R", "C"))
@@ -665,14 +665,16 @@ GuideLegend <- ggproto(
 
     # Extract appropriate part of layout
     layout   <- layout$layout
-    key_cols <- rep(layout$key_col, each = params$n_key_layers)
-    key_rows <- rep(layout$key_row, each = params$n_key_layers)
+    n_key_layers <- params$n_key_layers %||% 1L
+    key_cols <- rep(layout$key_col, each = n_key_layers)
+    key_rows <- rep(layout$key_row, each = n_key_layers)
 
     # Add keys
     gt <- gtable_add_grob(
       gt, grobs$decor,
-      name = names(grobs$decor) %||% paste("key", key_rows, key_cols,
-                   c("bg", seq_len(params$n_key_layers - 1)), sep = "-"),
+      name = names(grobs$decor) %||%
+        paste("key", key_rows, key_cols, c("bg", seq_len(n_key_layers - 1)),
+              sep = "-"),
       clip = "off",
       t = key_rows, r = key_cols, b = key_rows, l = key_cols
     )
@@ -689,7 +691,8 @@ GuideLegend <- ggproto(
 
     gt <- gtable_add_grob(
       gt, labels,
-      name = paste("label", layout$label_row, layout$label_col, sep = "-"),
+      name = names(labels) %||%
+        paste("label", layout$label_row, layout$label_col, sep = "-"),
       clip = "off",
       t = layout$label_row, r = layout$label_col,
       b = layout$label_row, l = layout$label_col
