@@ -277,6 +277,7 @@ GuideAxis <- ggproto(
   },
 
   arrange_layout = function(key, sizes, params) {
+
     layout <- seq_along(sizes)
 
     if (params$lab_first) {
@@ -295,6 +296,8 @@ GuideAxis <- ggproto(
     axis_line <- grobs$decor
 
     # Unlist the 'label' grobs
+    z <- if (params$position == "left") c(2, 1, 3) else 1:3
+    z <- rep(z, c(1, length(grobs$label), 1))
     grobs  <- c(list(grobs$ticks), grobs$label, list(grobs$title))
 
     # Initialise empty gtable
@@ -309,7 +312,7 @@ GuideAxis <- ggproto(
     gt <- gtable_add_grob(
       gt, grobs,
       t = layout$t, b = layout$b, l = layout$l, r = layout$r,
-      clip = "off"
+      clip = "off", z = z
     )
 
     # Set justification viewport
