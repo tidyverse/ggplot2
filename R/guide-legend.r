@@ -297,18 +297,8 @@ GuideLegend <- ggproto(
   geom = function(params, layers, default_mapping) {
 
     decor <- lapply(layers, function(layer) {
-      # Previously `matched_aes()`
-      all_aes  <- names(c(layer$computed_mapping, layer$stat$default_aes))
-      geom_aes <- c(layer$geom$required_aes, names(layer$geom$default_aes))
 
-      if (layer$geom$rename_size &&
-          "size" %in% all_aes && !"linewidth" %in% all_aes) {
-        geom_aes <- c(geom_aes, size)
-      }
-
-      matched_aes <- intersect(intersect(all_aes, geom_aes), names(params$key))
-      matched_aes <- setdiff(matched_aes, names(layer$computed_geom_params))
-      matched_aes <- setdiff(matched_aes, names(layer$aes_params))
+      matched_aes <- matched_aes(layer, params)
 
       # Check if this layer should be included
       if (!include_layer_in_guide(layer, matched_aes)) {
