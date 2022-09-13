@@ -194,7 +194,6 @@ guide_colourbar <- function(
   if (!inherits(ticks, "element_blank")) {
     ticks$colour    <- ticks.colour    %||% ticks$colour %||% "white"
     ticks$size      <- ticks.linewidth %||% ticks$size   %||% (0.5 / .pt)
-    ticks$lineend   <- ticks$lineend   %||% "butt"
   }
 
   # Trick to re-use this constructor in `guide_coloursteps()`.
@@ -228,7 +227,7 @@ guide_colourbar <- function(
 
     # ticks
     ticks = ticks,
-    ticks.length = ticks.length,
+    ticks_length = ticks.length,
     draw_lim = c(isTRUE(draw.llim), isTRUE(draw.ulim)),
 
     # general
@@ -272,12 +271,6 @@ GuideColourbar <- ggproto(
     nbin = 300,
     raster = TRUE,
 
-    # frame
-    frame = NULL,
-
-    # ticks
-    ticks = NULL,
-    ticks.length = unit(0.2, "npc"),
     draw_lim = c(TRUE, TRUE),
 
     # general
@@ -414,9 +407,8 @@ GuideColourbar <- ggproto(
     } else {
       elements$key.height <- elements$key.height * 5
     }
-    elements$ticks <- combine_elements(params$ticks, elements$ticks)
-    elements$frame <- combine_elements(params$frame, elements$frame)
-    elements$ticks_length <- params$ticks.length
+    elements$ticks <- combine_elements(elements$ticks, theme$line)
+    elements$frame <- combine_elements(elements$frame, theme$rect)
     GuideLegend$override_elements(params, elements, theme)
   },
 
