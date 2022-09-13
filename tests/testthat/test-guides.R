@@ -4,7 +4,7 @@ test_that("colourbar trains without labels", {
   g <- guide_colorbar()
   sc <- scale_colour_continuous(limits = c(0, 4), labels = NULL)
 
-  out <- guide_train(g, sc)
+  out <- g$train(scale = sc)
   expect_equal(names(out$key), c("colour", ".value"))
 })
 
@@ -205,27 +205,22 @@ test_that("guide specifications are properly checked", {
     geom_point(aes(mpg, disp, shape = factor(gear))) +
     guides(shape = "colourbar")
 
-  expect_snapshot_error(ggplotGrob(p))
+  expect_snapshot_warning(ggplotGrob(p))
 
-  p <- p + guides(shape = guide_legend(title.position = "leftish"))
+  expect_snapshot_error(guide_legend(title.position = "leftish"))
 
-  expect_snapshot_error(ggplotGrob(p))
-
-  expect_snapshot_error(guide_transform(guide_colorbar()))
+  expect_snapshot_error(guide_colourbar()$transform())
 
   p <- ggplot(mtcars) +
     geom_point(aes(mpg, disp, colour = gear)) +
-    guides(colour = guide_colorbar(label.position = "top"))
+    guides(colour = guide_colourbar(label.position = "top"))
   expect_snapshot_error(ggplotGrob(p))
   p <- ggplot(mtcars) +
     geom_point(aes(mpg, disp, colour = gear)) +
-    guides(colour = guide_colorbar(direction = "horizontal", label.position = "left"))
+    guides(colour = guide_colourbar(direction = "horizontal", label.position = "left"))
   expect_snapshot_error(ggplotGrob(p))
 
-  p <- ggplot(mtcars) +
-    geom_point(aes(mpg, disp, colour = gear)) +
-    guides(colour = guide_legend(label.position = "test"))
-  expect_snapshot_error(ggplotGrob(p))
+  expect_snapshot_error(guide_legend(label.position = "test"))
   p <- ggplot(mtcars) +
     geom_point(aes(mpg, disp, colour = gear)) +
     guides(colour = guide_legend(nrow = 2, ncol = 2))
@@ -571,7 +566,7 @@ test_that("colorbar can be styled", {
     p + scale_color_gradient(
           low = 'white', high = 'red',
           guide = guide_colorbar(
-            frame.colour = "green",
+            frame = element_rect(colour = "green"),
             frame.linewidth = 1.5 / .pt,
             ticks.colour = "black",
             ticks.linewidth = 2.5 / .pt
