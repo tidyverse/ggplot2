@@ -132,9 +132,9 @@ guide_bins <- function(
     axis <- if (axis) element_line() else element_rect()
   }
   if (inherits(axis, "element_line")) {
-    axis$colour   <- axis.colour    %||% axis$colour %||% "black"
-    axis$size     <- axis.linewidth %||% axis$size   %||% (0.5 / .pt)
-    axis$arrow    <- axis.arrow     %||% axis$arrow
+    axis$colour    <- axis.colour    %||% axis$colour      %||% "black"
+    axis$linewidth <- axis.linewidth %||% axis$linewidth   %||% (0.5 / .pt)
+    axis$arrow     <- axis.arrow     %||% axis$arrow
   } else {
     axis <- element_blank()
   }
@@ -331,6 +331,12 @@ GuideBins <- ggproto(
     params$nrow <- params$ncol <- params$n_breaks <- params$n_key_layers <- 1
     params$multikey_decor <- FALSE
     params
+  },
+
+  override_elements = function(params, elements, theme) {
+    elements$ticks <- combine_elements(elements$ticks, theme$line)
+    elements$line  <- combine_elements(elements$line,  theme$line)
+    GuideLegend$override_elements(params, elements, theme)
   },
 
   build_labels = function(key, elements, params) {

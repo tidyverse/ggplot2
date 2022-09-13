@@ -189,7 +189,7 @@ guide_colourbar <- function(
   }
   if (inherits(frame, "element_rect")) {
     frame$colour    <- frame.colour    %||% frame$colour
-    frame$size      <- frame.linewidth %||% frame$size      %||% (0.5 / .pt)
+    frame$linewidth <- frame.linewidth %||% frame$linewidth %||% (0.5 / .pt)
     frame$linetype  <- frame.linetype  %||% frame$linetype  %||% 1
   } else {
     frame <- element_blank()
@@ -201,8 +201,8 @@ guide_colourbar <- function(
     ticks <- if (ticks) element_line() else element_blank()
   }
   if (!inherits(ticks, "element_blank")) {
-    ticks$colour    <- ticks.colour    %||% ticks$colour %||% "white"
-    ticks$size      <- ticks.linewidth %||% ticks$size   %||% (0.5 / .pt)
+    ticks$colour    <- ticks.colour    %||% ticks$colour    %||% "white"
+    ticks$linewidth <- ticks.linewidth %||% ticks$linewidth %||% (0.5 / .pt)
   }
 
   # Trick to re-use this constructor in `guide_coloursteps()`.
