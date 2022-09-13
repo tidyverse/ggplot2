@@ -299,7 +299,7 @@ GuideColourbar <- ggproto(
 
   available_aes = c("colour", "color", "fill"),
 
-  hashables = quos(title, key$.label, decor, name),
+  hashables = exprs(title, key$.label, decor, name),
 
   elements = list(
     frame       = "rect",

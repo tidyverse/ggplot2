@@ -78,7 +78,7 @@ GuideAxis <- ggproto(
 
   available_aes = c("x", "y"),
 
-  hashables = quos(title, key$.value, key$.label, name),
+  hashables = exprs(title, key$.value, key$.label, name),
 
   elements = list(
     line  = "axis.line.{aes}.{position}",

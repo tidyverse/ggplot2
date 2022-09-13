@@ -244,7 +244,7 @@ GuideLegend <- ggproto(
 
   available_aes = "any",
 
-  hashables = quos(title, key$.label, direction, name),
+  hashables = exprs(title, key$.label, direction, name),
 
   elements = list(
     background  = "legend.background",
