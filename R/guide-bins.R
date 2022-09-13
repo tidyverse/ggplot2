@@ -391,7 +391,8 @@ GuideBins <- ggproto(
       widths  = unit(sizes$widths,  "cm"),
       heights = unit(sizes$heights, "cm")
     )
-    gt <- gtable_add_grob(gt, decor, t = top, l = left, name = key_nm)
+    gt <- gtable_add_grob(gt, decor, t = top, l = left,
+                          name = key_nm, clip = "off")
 
     axis <- switch(
       params$label.position,
