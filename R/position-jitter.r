@@ -87,6 +87,9 @@ PositionJitter <- ggproto("PositionJitter", Position,
     fixed_jitter <- with_seed_null(params$seed, transform_position(dummy_data, trans_x, trans_y))
     x_jit <- fixed_jitter$x - x
     y_jit <- fixed_jitter$y - y
+    # Avoid nan values, if x or y has Inf values
+    x_jit[is.infinite(x)] <- 0
+    y_jit[is.infinite(y)] <- 0
 
     # Apply jitter
     transform_position(data, function(x) x + x_jit, function(x) x + y_jit)

@@ -1,6 +1,6 @@
 #' Create an annotation layer
 #'
-#' This function adds geoms to a plot, but unlike typical a geom function,
+#' This function adds geoms to a plot, but unlike a typical geom function,
 #' the properties of the geoms are not mapped from variables of a data frame,
 #' but are instead passed in as vectors. This is useful for adding small annotations
 #' (such as text labels) or if you have your data in vectors, and for some
@@ -30,7 +30,7 @@
 #' p + annotate("segment", x = 2.5, xend = 4, y = 15, yend = 25,
 #'   colour = "blue")
 #' p + annotate("pointrange", x = 3.5, y = 20, ymin = 12, ymax = 28,
-#'   colour = "red", size = 1.5)
+#'   colour = "red", size = 2.5, linewidth = 1.5)
 #'
 #' p + annotate("text", x = 2:3, y = 20:21, label = c("my label", "label 2"))
 #'

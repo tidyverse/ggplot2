@@ -69,3 +69,11 @@ test_that("staged aesthetics warn appropriately for duplicated names", {
   # One warning in building due to `stage()`/`after_scale()`
   expect_snapshot_warning(ggplot_build(p))
 })
+
+test_that("A deprecated warning is issued when stat(var) or ..var.. is used", {
+  p1 <- ggplot(NULL, aes(stat(foo)))
+  expect_snapshot_warning(b1 <- ggplot_build(p1))
+
+  p2 <- ggplot(NULL, aes(..bar..))
+  expect_snapshot_warning(b2 <- ggplot_build(p2))
+})

@@ -55,7 +55,7 @@ test_that("missing aesthetics trigger informative error", {
   )
 })
 
-test_that("function aesthetics are wrapped with stat()", {
+test_that("function aesthetics are wrapped with after_stat()", {
   df <- data_frame(x = 1:10)
   expect_snapshot_error(
     ggplot_build(ggplot(df, aes(colour = density, fill = density)) + geom_point())
@@ -65,7 +65,7 @@ test_that("function aesthetics are wrapped with stat()", {
 test_that("computed stats are in appropriate layer", {
   df <- data_frame(x = 1:10)
   expect_snapshot_error(
-    ggplot_build(ggplot(df, aes(colour = stat(density), fill = stat(density))) + geom_point())
+    ggplot_build(ggplot(df, aes(colour = after_stat(density), fill = after_stat(density))) + geom_point())
   )
 })
 
@@ -106,6 +106,21 @@ test_that("retransform works on computed aesthetics in `map_statistic`", {
   parent <- p$layers[[1]]$stat
   p$layers[[1]]$stat <- ggproto(NULL, parent, retransform = FALSE)
   expect_equal(layer_data(p)$y, c(9, 25))
+})
+
+test_that("layer reports the error with correct index etc", {
+  p <- ggplot(mtcars) + geom_linerange(aes(disp, mpg), ymin = 2)
+
+  expect_snapshot_error(ggplotGrob(p))
+
+  p <- ggplot(
+    data_frame(x = "one value", y = 3, value = 4:6),
+    aes(x, ymin = 0, lower = 1, middle = y, upper = value, ymax = 10)
+  ) +
+    geom_point(aes(x = x, y = y), inherit.aes = FALSE) +
+    geom_boxplot(stat = "identity")
+
+  expect_snapshot_error(ggplotGrob(p))
 })
 
 # Data extraction ---------------------------------------------------------

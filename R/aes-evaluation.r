@@ -93,8 +93,8 @@ is_dotted_var <- function(x) {
 }
 
 # Determine if aesthetic is calculated
-is_calculated_aes <- function(aesthetics) {
-  vapply(aesthetics, is_calculated, logical(1), USE.NAMES = FALSE)
+is_calculated_aes <- function(aesthetics, warn = FALSE) {
+  vapply(aesthetics, is_calculated, warn = warn, logical(1), USE.NAMES = FALSE)
 }
 is_scaled_aes <- function(aesthetics) {
   vapply(aesthetics, is_scaled, logical(1), USE.NAMES = FALSE)
@@ -102,7 +102,7 @@ is_scaled_aes <- function(aesthetics) {
 is_staged_aes <- function(aesthetics) {
   vapply(aesthetics, is_staged, logical(1), USE.NAMES = FALSE)
 }
-is_calculated <- function(x) {
+is_calculated <- function(x, warn = FALSE) {
   if (is_call(get_expr(x), "after_stat")) {
     return(TRUE)
   }
@@ -110,14 +110,27 @@ is_calculated <- function(x) {
   if (is.atomic(x)) {
     FALSE
   } else if (is.symbol(x)) {
-    is_dotted_var(as.character(x))
+    res <- is_dotted_var(as.character(x))
+    if (res && warn) {
+      what <- I(glue("The dot-dot notation (`{x}`)"))
+      var <- gsub(match_calculated_aes, "\\1", as.character(x))
+      with <- I(glue("`after_stat({var})`"))
+      lifecycle::deprecate_warn("3.4.0", what, with, id = "ggplot-warn-aes-dot-dot")
+    }
+    res
   } else if (is_quosure(x)) {
-    is_calculated(quo_get_expr(x))
+    is_calculated(quo_get_expr(x), warn = warn)
   } else if (is.call(x)) {
     if (identical(x[[1]], quote(stat))) {
+      if (warn) {
+        what <- I(glue("`{expr_deparse(x)}`"))
+        x[[1]] <- quote(after_stat)
+        with <- I(glue("`{expr_deparse(x)}`"))
+        lifecycle::deprecate_warn("3.4.0", what, with, id = "ggplot-warn-aes-stat")
+      }
       TRUE
     } else {
-      any(vapply(x, is_calculated, logical(1)))
+      any(vapply(x, is_calculated, warn = warn, logical(1)))
     }
   } else if (is.pairlist(x)) {
     FALSE

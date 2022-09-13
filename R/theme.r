@@ -204,9 +204,9 @@
 #'
 #' # Axes ----------------------------------------------------------------------
 #' # Change styles of axes texts and lines
-#' p1 + theme(axis.line = element_line(size = 3, colour = "grey80"))
+#' p1 + theme(axis.line = element_line(linewidth = 3, colour = "grey80"))
 #' p1 + theme(axis.text = element_text(colour = "blue"))
-#' p1 + theme(axis.ticks = element_line(size = 2))
+#' p1 + theme(axis.ticks = element_line(linewidth = 2))
 #'
 #' # Change the appearance of the y-axis title
 #' p1 + theme(axis.title.y = element_text(size = rel(1.5), angle = 90))
@@ -710,6 +710,11 @@ combine_elements <- function(e1, e2) {
   # Calculate relative sizes
   if (is.rel(e1$size)) {
     e1$size <- e2$size * unclass(e1$size)
+  }
+
+  # Calculate relative linewidth
+  if (is.rel(e1$linewidth)) {
+    e1$linewidth <- e2$linewidth * unclass(e1$linewidth)
   }
 
   e1

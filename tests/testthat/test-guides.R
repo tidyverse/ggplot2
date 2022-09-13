@@ -260,7 +260,7 @@ test_that("legend reverse argument reverses the key", {
 # Visual tests ------------------------------------------------------------
 
 test_that("axis guides are drawn correctly", {
-  theme_test_axis <- theme_test() + theme(axis.line = element_line(size = 0.5))
+  theme_test_axis <- theme_test() + theme(axis.line = element_line(linewidth = 0.5))
   test_draw_axis <- function(n_breaks = 3,
                              break_positions = seq_len(n_breaks) / (n_breaks + 1),
                              labels = as.character,
@@ -347,7 +347,7 @@ test_that("axis guides are drawn correctly in plots", {
     ggplot(mtcars, aes(wt, mpg)) +
       geom_point() +
       theme_test() +
-      theme(axis.line = element_line(size = 5, lineend = "square"))
+      theme(axis.line = element_line(linewidth = 5, lineend = "square"))
   )
 })
 

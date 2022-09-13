@@ -90,7 +90,7 @@ commonly set in the plot. They also do not affect the x and y scales.
 }
 \section{Aesthetics}{
 
-These geoms are drawn using with \code{\link[=geom_line]{geom_line()}} so support the
+These geoms are drawn using \code{\link[=geom_line]{geom_line()}} so they support the
 same aesthetics: \code{alpha}, \code{colour}, \code{linetype} and
 \code{linewidth}. They also each have aesthetics that control the position of
 the line:

@@ -16,20 +16,22 @@ element_blank()
 element_rect(
   fill = NULL,
   colour = NULL,
-  size = NULL,
+  linewidth = NULL,
   linetype = NULL,
   color = NULL,
-  inherit.blank = FALSE
+  inherit.blank = FALSE,
+  size = deprecated()
 )
 
 element_line(
   colour = NULL,
-  size = NULL,
+  linewidth = NULL,
   linetype = NULL,
   lineend = NULL,
   color = NULL,
   arrow = NULL,
-  inherit.blank = FALSE
+  inherit.blank = FALSE,
+  size = deprecated()
 )
 
 element_text(
@@ -59,7 +61,7 @@ can be most easily scaled with the text.}
 
 \item{colour, color}{Line/border colour. Color is an alias for colour.}
 
-\item{size}{Line/border size in mm; text size in pts.}
+\item{linewidth}{Line/border size in mm.}
 
 \item{linetype}{Line type. An integer (0:8), a name (blank, solid,
 dashed, dotted, dotdash, longdash, twodash), or a string with
@@ -71,6 +73,8 @@ lengths in consecutive positions in the string.}
 a blank element among its parents will cause this element to be blank as
 well. If \code{FALSE} any blank parent element will be ignored when
 calculating final element state.}
+
+\item{size}{text size in pts.}
 
 \item{lineend}{Line end Line end style (round, butt, square)}
 
@@ -136,7 +140,7 @@ plot + theme(
   plot.background = element_rect(
     fill = "grey90",
     colour = "black",
-    size = 1
+    linewidth = 1
   )
 )
 }

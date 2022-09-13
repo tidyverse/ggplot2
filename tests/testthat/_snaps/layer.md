@@ -47,7 +47,7 @@
     x `fill = after_stat(data)`
     i Did you map your stat in the wrong layer?
 
-# function aesthetics are wrapped with stat()
+# function aesthetics are wrapped with after_stat()
 
     Problem while computing aesthetics.
     i Error occurred in the 1st layer.
@@ -68,6 +68,21 @@
     x `colour = NULL`
     x `fill = NULL`
     i Did you map your stat in the wrong layer?
+
+# layer reports the error with correct index etc
+
+    Problem while setting up geom.
+    i Error occurred in the 1st layer.
+    Caused by error in `compute_geom_1()`:
+    ! `geom_linerange()` requires the following missing aesthetics: ymax or xmin and xmax
+
+---
+
+    Problem while converting geom to grob.
+    i Error occurred in the 2nd layer.
+    Caused by error in `draw_group()`:
+    ! Can only draw one boxplot per group
+    i Did you forget `aes(group = ...)`?
 
 # layer_data returns a data.frame
 
