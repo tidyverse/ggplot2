@@ -125,7 +125,7 @@ Guide <- ggproto(
   extract_params = function(scale, params, hashables, ...) {
     # Make hash
     mask <- new_data_mask(as_environment(params))
-    params$hash <- hash(lapply(hashables, eval_tidy, data = mask))
+    params$hash <- hash(lapply(unname(hashables), eval_tidy, data = mask))
     params
   },
 
