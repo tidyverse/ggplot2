@@ -492,34 +492,29 @@ GuideLegend <- ggproto(
   },
 
   measure_grobs = function(grobs, params, elements) {
-    dim <- c(params$nrow, params$ncol)
-    zeroes <- rep(0, prod(dim) - params$n_breaks) # size vector padding
+    byrow    <- params$byrow    %||% FALSE
+    n_breaks <- params$n_breaks %||% 1L
+    dim      <- c(params$nrow %||% 1L, params$ncol %||% 1L)
 
-    # For every key position, find the maximum size among the keys coming from
-    # different geom-layers
-    key_size_mat <- lapply(params$decor, function(g) {g$data$size / 10})
-    key_size_mat <- inject(cbind(!!!key_size_mat))
-    if (any(dim(key_size_mat) == 0)) {
-      key_size_mat <- matrix(0, ncol = 1, nrow = params$n_breaks)
-    }
-    key_sizes <- apply(key_size_mat, 1, max)
-
-    # Arrange sizes as in eventual layout, take row/column-wise maxima.
-    key_sizes <- matrix(
-      c(key_sizes, zeroes),
-      nrow = dim[1], ncol = dim[2], byrow = params$byrow
+    # A guide may have already specified the size of the decoration, only
+    # measure when it hasn't already.
+    sizes <- params$sizes %||% measure_legend_keys(
+      params$decor, n = n_breaks, dim = dim, byrow = byrow,
+      default_width  = elements$key.width,
+      default_height = elements$key.height
     )
-    widths  <- pmax(elements$key.width,  apply(key_sizes, 2, max))
-    heights <- pmax(elements$key.height, apply(key_sizes, 1, max))
+    widths  <- sizes$widths
+    heights <- sizes$heights
 
     # Measure label sizes
+    zeroes   <- rep(0, prod(dim) - n_breaks) # size vector padding
     label_widths  <- apply(matrix(
       c(width_cm(grobs$labels), zeroes),
-      nrow = dim[1], ncol = dim[2], byrow = params$byrow
+      nrow = dim[1], ncol = dim[2], byrow = byrow
     ), 2, max)
     label_heights <- apply(matrix(
       c(height_cm(grobs$labels), zeroes),
-      nrow = dim[1], ncol = dim[2], byrow = params$byrow
+      nrow = dim[1], ncol = dim[2], byrow = byrow
     ), 1, max)
 
     # Interleave gaps between keys and labels, which depends on the label
@@ -530,7 +525,7 @@ GuideLegend <- ggproto(
       params$label.position,
       "left"   = list(label_widths, hgap, widths, hgap),
       "right"  = list(widths, hgap, label_widths, hgap),
-      list(pmax(label_widths, widths), hgap * (!params$byrow))
+      list(pmax(label_widths, widths), hgap * (!byrow))
     )
     widths  <- head(vec_interleave(!!!widths),  -1)
 
@@ -539,7 +534,7 @@ GuideLegend <- ggproto(
       params$label.position,
       "top"    = list(label_heights, vgap, heights, vgap),
       "bottom" = list(heights, vgap, label_heights, vgap),
-      list(pmax(label_heights, heights), vgap * (params$byrow))
+      list(pmax(label_heights, heights), vgap * (byrow))
     )
     heights <- head(vec_interleave(!!!heights), -1)
 
@@ -705,3 +700,31 @@ GuideLegend <- ggproto(
 
 label_hjust_defaults <- c(top = 0.5, bottom = 0.5, left = 1,   right = 0)
 label_vjust_defaults <- c(top = 0,   bottom = 1,   left = 0.5, right = 0.5)
+
+measure_legend_keys <- function(decor, n, dim, byrow = FALSE,
+                                default_width = 1, default_height = 1) {
+  # Vector padding in case rows * cols > keys
+  zeroes <- rep(0, prod(dim) - n)
+
+  # For every layer, extract the size in cm
+  size <- lapply(decor, function(g) g$data$size / 10) # mm to cm
+  size <- inject(cbind(!!!size))
+
+  # Guard against layers with no size aesthetic
+  if (any(dim(size) == 0)) {
+    size <- matrix(0, ncol = 1, nrow = n)
+  } else {
+    size <- size[seq_len(n), , drop = FALSE]
+  }
+
+  # For every key, find maximum across all layers
+  size <- apply(size, 1, max)
+
+  # Apply legend layout
+  size <- matrix(c(size, zeroes), nrow = dim[1], ncol = dim[2], byrow = byrow)
+
+  list(
+    widths  = pmax(default_width,  apply(size, 2, max)),
+    heights = pmax(default_height, apply(size, 1, max))
+  )
+}
