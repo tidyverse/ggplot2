@@ -195,48 +195,6 @@ validate_guide <- function(guide) {
   }
 }
 
-# Generics ----------------------------------------------------------------
-
-#' S3 generics for guides.
-#'
-#' You will need to provide methods for these S3 generics if you want to
-#' create your own guide object. They are currently undocumented; use at
-#' your own risk!
-#'
-#' @param guide The guide object
-#' @keywords internal
-#' @name guide-exts
-NULL
-
-#' @export
-#' @rdname guide-exts
-guide_train <- function(guide, scale, aesthetic = NULL) UseMethod("guide_train")
-
-#' @export
-#' @rdname guide-exts
-guide_merge <- function(guide, new_guide) UseMethod("guide_merge")
-
-#' @export
-#' @rdname guide-exts
-guide_geom <- function(guide, layers, default_mapping) UseMethod("guide_geom")
-
-#' @export
-#' @rdname guide-exts
-guide_transform <- function(guide, coord, panel_params) UseMethod("guide_transform")
-
-#' @export
-guide_transform.default <- function(guide, coord, panel_params) {
-  cli::cli_abort(c(
-    "Guide with class {.cls {class(guide)}} does not implement {.fn guide_transform}",
-    "i" = "Did you mean to use {.fn guide_axis}?"
-  ))
-}
-
-#' @export
-#' @rdname guide-exts
-guide_gengrob <- function(guide, theme) UseMethod("guide_gengrob")
-
-
 # Helpers -----------------------------------------------------------------
 
 matched_aes <- function(layer, guide) {
