@@ -21,8 +21,12 @@ NULL
 #' @param barheight A numeric or a [grid::unit()] object specifying
 #'   the height of the colourbar. Default value is `legend.key.height` or
 #'   `legend.key.size` in [theme()] or theme.
+#' @param frame A theme object for rendering a frame drawn around the bar.
+#'   Usually, the object of `element_rect()` is expected. If `element_blank()`
+#'   (default), no frame is drawn.
 #' @param frame.colour A string specifying the colour of the frame
-#'   drawn around the bar. If `NULL` (the default), no frame is drawn.
+#'   drawn around the bar. For backward compatibility, if this argument is
+#'   not `NULL`, the `frame` argument will be set to `element_rect()`.
 #' @param frame.linewidth A numeric specifying the width of the frame
 #'   drawn around the bar in millimetres.
 #' @param frame.linetype A numeric specifying the linetype of the frame
@@ -33,11 +37,16 @@ NULL
 #'   raster object. If `FALSE` then the colourbar is rendered as a set of
 #'   rectangles. Note that not all graphics devices are capable of rendering
 #'   raster image.
-#' @param ticks A logical specifying if tick marks on the colourbar should be
-#'   visible.
+#' @param ticks A theme object for rendering tick marks at the colourbar.
+#'   Usually, the object of `element_line()` is expected (default). If
+#'   `element_blank()`, no tick marks are drawn. For backward compatibility,
+#'   can also be a logical which translates `TRUE` to `element_line()` and
+#'   `FALSE` to `element_blank()`.
 #' @param ticks.colour A string specifying the colour of the tick marks.
 #' @param ticks.linewidth A numeric specifying the width of the tick marks in
 #'   millimetres.
+#' @param ticks.length A numeric or a [grid::unit()] object specifying the
+#'   length of tick marks at the colourbar.
 #' @param draw.ulim A logical specifying if the upper limit tick marks should
 #'   be visible.
 #' @param draw.llim A logical specifying if the lower limit tick marks should
@@ -247,6 +256,10 @@ guide_colourbar <- function(
 #' @rdname guide_colourbar
 guide_colorbar <- guide_colourbar
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 GuideColourbar <- ggproto(
   "GuideColourbar", GuideLegend,
 
@@ -419,7 +432,7 @@ GuideColourbar <- ggproto(
       elements$text$hjust
     }
 
-    list(flip_element_grob(
+    list(labels = flip_element_grob(
       elements$text,
       label = key$.label,
       x = unit(key$.value, "npc"),
