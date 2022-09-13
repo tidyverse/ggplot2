@@ -13,8 +13,8 @@
 %   R/geom-label.R, R/geom-linerange.r, R/geom-point.r, R/geom-pointrange.r,
 %   R/geom-quantile.r, R/geom-rug.r, R/geom-smooth.r, R/geom-spoke.r,
 %   R/geom-text.r, R/geom-tile.r, R/geom-violin.r, R/geom-vline.r, R/guide-.r,
-%   R/guide-legend.r, R/guide-bins.R, R/guide-colorbar.r, R/guide-colorsteps.R,
-%   R/guides-axis.r, R/guides-none.r, R/layout.R, R/position-.r,
+%   R/guide-axis.r, R/guide-legend.r, R/guide-bins.R, R/guide-colorbar.r,
+%   R/guide-colorsteps.R, R/guide-none.r, R/layout.R, R/position-.r,
 %   R/position-dodge.r, R/position-dodge2.r, R/position-identity.r,
 %   R/position-jitter.r, R/position-jitterdodge.R, R/position-nudge.R,
 %   R/position-stack.r, R/scale-.r, R/scale-binned.R, R/scale-continuous.r,
@@ -88,11 +88,11 @@
 \alias{GeomViolin}
 \alias{GeomVline}
 \alias{Guide}
+\alias{GuideAxis}
 \alias{GuideLegend}
 \alias{GuideBins}
 \alias{GuideColourbar}
 \alias{GuideColoursteps}
-\alias{GuideAxis}
 \alias{GuideNone}
 \alias{Layout}
 \alias{Position}
