@@ -19,8 +19,10 @@ guide_bins(
   keyheight = NULL,
   axis = TRUE,
   axis.colour = "black",
-  axis.linewidth = 0.5,
+  axis.linewidth = NULL,
   axis.arrow = NULL,
+  ticks = NULL,
+  ticks.length = unit(0.2, "npc"),
   direction = NULL,
   default.unit = "line",
   override.aes = list(),
@@ -76,13 +78,25 @@ the width of the legend key. Default value is \code{legend.key.width} or
 the height of the legend key. Default value is \code{legend.key.height} or
 \code{legend.key.size} in \code{\link[=theme]{theme()}}.}
 
-\item{axis}{Logical. Should a small axis be drawn along the guide}
+\item{axis}{A theme object for rendering a small axis along the guide.
+Usually, the object of \code{element_line()} is expected (default). If
+\code{element_blank()}, no axis is drawn. For backward compatibility, can also
+be a logical which translates \code{TRUE} to \code{element_line()} and \code{FALSE} to
+\code{element_blank()}.}
 
 \item{axis.colour, axis.linewidth}{Graphic specifications for the look of the
 axis.}
 
 \item{axis.arrow}{A call to \code{arrow()} to specify arrows at the end of the
 axis line, thus showing an open interval.}
+
+\item{ticks}{A theme object for rendering tick marks at the colourbar.
+Usually, the object of \code{element_line()} is expected. If \code{element_blank()},
+no tick marks are drawn. If \code{NULL} (default), the \code{axis} argument is
+re-used as \code{ticks} argument (without arrow).}
+
+\item{ticks.length}{A numeric or a \code{\link[grid:unit]{grid::unit()}} object specifying the
+length of tick marks between the keys.}
 
 \item{direction}{A character string indicating the direction of the guide.
 One of "horizontal" or "vertical."}

@@ -4,15 +4,16 @@
 %   R/geom-raster.r, R/annotation-raster.r, R/axis-secondary.R, R/coord-.r,
 %   R/coord-cartesian-.r, R/coord-fixed.r, R/coord-flip.r, R/coord-map.r,
 %   R/coord-polar.r, R/coord-quickmap.R, R/coord-transform.r, R/facet-.r,
-%   R/facet-grid-.r, R/facet-null.r, R/facet-wrap.r, R/stat-.r, R/geom-abline.r,
-%   R/geom-rect.r, R/geom-bar.r, R/geom-blank.r, R/geom-boxplot.r, R/geom-col.r,
-%   R/geom-path.r, R/geom-contour.r, R/geom-crossbar.r, R/geom-segment.r,
-%   R/geom-curve.r, R/geom-ribbon.r, R/geom-density.r, R/geom-density2d.r,
-%   R/geom-dotplot.r, R/geom-errorbar.r, R/geom-errorbarh.r, R/geom-function.R,
-%   R/geom-hex.r, R/geom-hline.r, R/geom-label.R, R/geom-linerange.r,
-%   R/geom-point.r, R/geom-pointrange.r, R/geom-quantile.r, R/geom-rug.r,
-%   R/geom-smooth.r, R/geom-spoke.r, R/geom-text.r, R/geom-tile.r,
-%   R/geom-violin.r, R/geom-vline.r, R/guide-.r, R/guide-legend.r,
+%   R/facet-grid-.r, R/facet-null.r, R/facet-wrap.r, R/stat-.r,
+%   R/geom-abline.r, R/geom-rect.r, R/geom-bar.r, R/geom-blank.r,
+%   R/geom-boxplot.r, R/geom-col.r, R/geom-path.r, R/geom-contour.r,
+%   R/geom-crossbar.r, R/geom-segment.r, R/geom-curve.r, R/geom-ribbon.r,
+%   R/geom-density.r, R/geom-density2d.r, R/geom-dotplot.r, R/geom-errorbar.r,
+%   R/geom-errorbarh.r, R/geom-function.R, R/geom-hex.r, R/geom-hline.r,
+%   R/geom-label.R, R/geom-linerange.r, R/geom-point.r, R/geom-pointrange.r,
+%   R/geom-quantile.r, R/geom-rug.r, R/geom-smooth.r, R/geom-spoke.r,
+%   R/geom-text.r, R/geom-tile.r, R/geom-violin.r, R/geom-vline.r, R/guide-.r,
+%   R/guide-legend.r, R/guide-bins.R, R/guide-colorbar.r, R/guide-colorsteps.R,
 %   R/guides-axis.r, R/guides-none.r, R/layout.R, R/position-.r,
 %   R/position-dodge.r, R/position-dodge2.r, R/position-identity.r,
 %   R/position-jitter.r, R/position-jitterdodge.R, R/position-nudge.R,
@@ -88,6 +89,9 @@
 \alias{GeomVline}
 \alias{Guide}
 \alias{GuideLegend}
+\alias{GuideBins}
+\alias{GuideColourbar}
+\alias{GuideColoursteps}
 \alias{GuideAxis}
 \alias{GuideNone}
 \alias{Layout}
