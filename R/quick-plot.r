@@ -1,11 +1,7 @@
 #' Quick plot
 #'
-#' `qplot()` is a shortcut designed to be familiar if you're used to base
-#' [plot()]. It's a convenient wrapper for creating a number of
-#' different types of plots using a consistent calling scheme. It's great
-#' for allowing you to produce plots quickly, but I highly recommend
-#' learning [ggplot()] as it makes it easier to create
-#' complex graphics.
+#' `qplot()` is now deprecated in order to encourage the users to
+#' learn [ggplot()] as it makes it easier to create complex graphics.
 #'
 #' @param x,y,... Aesthetics passed into each layer
 #' @param data Data frame to use (optional).  If not specified, will create
@@ -31,6 +27,7 @@
 #' qplot(mpg, wt, data = mtcars, facets = vs ~ am)
 #'
 #' \donttest{
+#' set.seed(1)
 #' qplot(1:10, rnorm(10), colour = runif(10))
 #' qplot(1:10, letters[1:10])
 #' mod <- lm(mpg ~ wt, data = mtcars)
@@ -65,15 +62,18 @@ qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
                   xlab = NULL, ylab = NULL,
                   asp = NA, stat = deprecated(), position = deprecated()) {
 
+  lifecycle::deprecate_warn("3.4.0", "qplot()")
+
   caller_env <- parent.frame()
 
-  if (lifecycle::is_present(stat)) lifecycle::deprecate_warn("2.0.0", "qplot(stat)")
-  if (lifecycle::is_present(position)) lifecycle::deprecate_warn("2.0.0", "qplot(position)")
+  if (lifecycle::is_present(stat)) lifecycle::deprecate_stop("3.4.0", "qplot(stat)")
+  if (lifecycle::is_present(position)) lifecycle::deprecate_stop("3.4.0", "qplot(position)")
   if (!is.character(geom)) {
-    abort("`geom` must be a character vector")
+    cli::cli_abort("{.arg geom} must be a character vector")
   }
 
   exprs <- enquos(x = x, y = y, ...)
+
   is_missing <- vapply(exprs, quo_is_missing, logical(1))
   # treat arguments as regular parameters if they are wrapped into I() or
   # if they don't have a name that is in the list of all aesthetics
@@ -106,7 +106,7 @@ qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
 
   if (missing(data)) {
     # If data not explicitly specified, will be pulled from workspace
-    data <- new_data_frame()
+    data <- data_frame0()
 
     # Faceting variables must be in a data frame, so pull those out
     facetvars <- all.vars(facets)

@@ -55,13 +55,13 @@
 #'
 #' plot(mod, which = 5)
 #' ggplot(mod, aes(.hat, .stdresid)) +
-#'   geom_vline(size = 2, colour = "white", xintercept = 0) +
-#'   geom_hline(size = 2, colour = "white", yintercept = 0) +
+#'   geom_vline(linewidth = 2, colour = "white", xintercept = 0) +
+#'   geom_hline(linewidth = 2, colour = "white", yintercept = 0) +
 #'   geom_point() + geom_smooth(se = FALSE)
 #'
 #' ggplot(mod, aes(.hat, .stdresid)) +
 #'   geom_point(aes(size = .cooksd)) +
-#'   geom_smooth(se = FALSE, size = 0.5)
+#'   geom_smooth(se = FALSE, linewidth = 0.5)
 #'
 #' plot(mod, which = 6)
 #' ggplot(mod, aes(.hat, .cooksd)) +

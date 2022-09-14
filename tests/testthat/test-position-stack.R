@@ -5,7 +5,7 @@ test_that("data keeps its order after stacking", {
     y = round(runif(30, 1, 5))
   )
   p <- ggplot(df, aes(x = x, y = y, fill = var)) +
-    geom_area(position = "stack")
+    geom_area(stat = "identity", position = "stack")
   dat <- layer_data(p)
   expect_true(all(dat$group == rep(1:3, each = 10)))
   expect_true(all(dat$x == df$x))

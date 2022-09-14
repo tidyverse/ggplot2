@@ -56,6 +56,7 @@
 #' # There are two ways of setting the axis limits: with limits or
 #' # with coordinate systems. They work in two rather different ways.
 #'
+#' set.seed(1)
 #' last_month <- Sys.Date() - 0:59
 #' df <- data.frame(
 #'   date = last_month,
@@ -80,10 +81,10 @@ lims <- function(...) {
   args <- list2(...)
 
   if (any(!has_name(args))) {
-    abort("All arguments must be named")
+    cli::cli_abort("All arguments must be named")
   }
-
-  Map(limits, args, names(args))
+  env <- current_env()
+  Map(limits, args, names(args), rep(list(env), length(args)))
 }
 
 #' @export
@@ -109,11 +110,11 @@ ylim <- function(...) {
 #' ggplot2:::limits(c("A", "b", "c"), "x")
 #' ggplot2:::limits(c("A", "b", "c"), "fill")
 #' ggplot2:::limits(as.Date(c("2008-01-01", "2009-01-01")), "x")
-limits <- function(lims, var) UseMethod("limits")
+limits <- function(lims, var, call = caller_env()) UseMethod("limits")
 #' @export
-limits.numeric <- function(lims, var) {
+limits.numeric <- function(lims, var, call = caller_env()) {
   if (length(lims) != 2) {
-    abort("`lims` must be a two-element vector")
+    cli::cli_abort("{.arg {var}} must be a two-element vector", call = call)
   }
   if (!any(is.na(lims)) && lims[1] > lims[2]) {
     trans <- "reverse"
@@ -130,31 +131,31 @@ make_scale <- function(type, var, ...) {
 }
 
 #' @export
-limits.character <- function(lims, var) {
+limits.character <- function(lims, var, call = caller_env()) {
   make_scale("discrete", var, limits = lims)
 }
 #' @export
-limits.factor <- function(lims, var) {
+limits.factor <- function(lims, var, call = caller_env()) {
   make_scale("discrete", var, limits = as.character(lims))
 }
 #' @export
-limits.Date <- function(lims, var) {
+limits.Date <- function(lims, var, call = caller_env()) {
   if (length(lims) != 2) {
-    abort("`lims` must be a two-element vector")
+    cli::cli_abort("{.arg {var}} must be a two-element vector", call = call)
   }
   make_scale("date", var, limits = lims)
 }
 #' @export
-limits.POSIXct <- function(lims, var) {
+limits.POSIXct <- function(lims, var, call = caller_env()) {
   if (length(lims) != 2) {
-    abort("`lims` must be a two-element vector")
+    cli::cli_abort("{.arg {var}} must be a two-element vector", call = call)
   }
   make_scale("datetime", var, limits = lims)
 }
 #' @export
-limits.POSIXlt <- function(lims, var) {
+limits.POSIXlt <- function(lims, var, call = caller_env()) {
   if (length(lims) != 2) {
-    abort("`lims` must be a two-element vector")
+    cli::cli_abort("{.arg {var}} must be a two-element vector", call = call)
   }
   make_scale("datetime", var, limits = as.POSIXct(lims))
 }
@@ -182,11 +183,15 @@ limits.POSIXlt <- function(lims, var) {
 #'   expand_limits(colour = factor(seq(2, 10, by = 2)))
 expand_limits <- function(...) {
   data <- list2(...)
+
+  # unpack data frame columns
   data_dfs <- vapply(data, is.data.frame, logical(1))
-  data <- do.call(c, c(list(data[!data_dfs]), data[data_dfs]))
+  data <- unlist(c(list(data[!data_dfs]), data[data_dfs]), recursive = FALSE)
+
+  # Repeat vectors up to max length and collect to data frame
   n_rows <- max(vapply(data, length, integer(1)))
   data <- lapply(data, rep, length.out = n_rows)
-  data <- new_data_frame(data)
+  data <- data_frame0(!!!data)
 
   geom_blank(aes_all(names(data)), data, inherit.aes = FALSE)
 }

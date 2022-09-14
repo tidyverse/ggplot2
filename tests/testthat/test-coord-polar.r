@@ -74,9 +74,9 @@ test_that("Inf is squished to range", {
 
   # 0.4 is the upper limit of radius hardcoded in r_rescale()
   expect_equal(d[[2]]$r, 0.4)
-  expect_equal(d[[2]]$theta, new_mapped_discrete(0))
+  expect_equal(d[[2]]$theta, mapped_discrete(0))
   expect_equal(d[[3]]$r, 0)
-  expect_equal(d[[3]]$theta, new_mapped_discrete(0))
+  expect_equal(d[[3]]$theta, mapped_discrete(0))
 })
 
 

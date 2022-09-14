@@ -28,7 +28,7 @@
 #' m + geom_quantile(method = "rqss", lambda = 0.1)
 #'
 #' # Set aesthetics to fixed value
-#' m + geom_quantile(colour = "red", size = 2, alpha = 0.5)
+#' m + geom_quantile(colour = "red", linewidth = 2, alpha = 0.5)
 geom_quantile <- function(mapping = NULL, data = NULL,
                           stat = "quantile", position = "identity",
                           ...,
@@ -64,7 +64,7 @@ geom_quantile <- function(mapping = NULL, data = NULL,
 #' @include geom-path.r
 GeomQuantile <- ggproto("GeomQuantile", GeomPath,
   default_aes = defaults(
-    aes(weight = 1, colour = "#3366FF", size = 0.5),
+    aes(weight = 1, colour = "#3366FF", linewidth = 0.5),
     GeomPath$default_aes
   )
 )

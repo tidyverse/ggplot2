@@ -21,11 +21,11 @@ guide_colourbar(
   nbin = 300,
   raster = TRUE,
   frame.colour = NULL,
-  frame.linewidth = 0.5,
+  frame.linewidth = 0.5/.pt,
   frame.linetype = 1,
   ticks = TRUE,
   ticks.colour = "white",
-  ticks.linewidth = 0.5,
+  ticks.linewidth = 0.5/.pt,
   draw.ulim = TRUE,
   draw.llim = TRUE,
   direction = NULL,
@@ -52,11 +52,11 @@ guide_colorbar(
   nbin = 300,
   raster = TRUE,
   frame.colour = NULL,
-  frame.linewidth = 0.5,
+  frame.linewidth = 0.5/.pt,
   frame.linetype = 1,
   ticks = TRUE,
   ticks.colour = "white",
-  ticks.linewidth = 0.5,
+  ticks.linewidth = 0.5/.pt,
   draw.ulim = TRUE,
   draw.llim = TRUE,
   direction = NULL,
@@ -99,7 +99,8 @@ object of \code{\link[=element_text]{element_text()}} is expected. By default, t
 specified by \code{legend.text} in \code{\link[=theme]{theme()}}.}
 
 \item{label.hjust}{A numeric specifying horizontal justification of the
-label text.}
+label text. The default for standard text is 0 (left-aligned) and 1
+(right-aligned) for expressions.}
 
 \item{label.vjust}{A numeric specifying vertical justification of the label
 text.}
@@ -124,7 +125,7 @@ raster image.}
 drawn around the bar. If \code{NULL} (the default), no frame is drawn.}
 
 \item{frame.linewidth}{A numeric specifying the width of the frame
-drawn around the bar.}
+drawn around the bar in millimetres.}
 
 \item{frame.linetype}{A numeric specifying the linetype of the frame
 drawn around the bar.}
@@ -134,7 +135,8 @@ visible.}
 
 \item{ticks.colour}{A string specifying the colour of the tick marks.}
 
-\item{ticks.linewidth}{A numeric specifying the width of the tick marks.}
+\item{ticks.linewidth}{A numeric specifying the width of the tick marks in
+millimetres.}
 
 \item{draw.ulim}{A logical specifying if the upper limit tick marks should
 be visible.}

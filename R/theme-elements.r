@@ -14,7 +14,8 @@
 #'
 #' @param fill Fill colour.
 #' @param colour,color Line/border colour. Color is an alias for colour.
-#' @param size Line/border size in mm; text size in pts.
+#' @param linewidth Line/border size in mm.
+#' @param size text size in pts.
 #' @param inherit.blank Should this element inherit the existence of an
 #'   `element_blank` among its parents? If `TRUE` the existence of
 #'   a blank element among its parents will cause this element to be blank as
@@ -43,7 +44,7 @@
 #'   plot.background = element_rect(
 #'     fill = "grey90",
 #'     colour = "black",
-#'     size = 1
+#'     linewidth = 1
 #'   )
 #' )
 #' @name element
@@ -61,12 +62,17 @@ element_blank <- function() {
 
 #' @export
 #' @rdname element
-element_rect <- function(fill = NULL, colour = NULL, size = NULL,
-  linetype = NULL, color = NULL, inherit.blank = FALSE) {
+element_rect <- function(fill = NULL, colour = NULL, linewidth = NULL,
+  linetype = NULL, color = NULL, inherit.blank = FALSE, size = deprecated()) {
+
+  if (lifecycle::is_present(size)) {
+    lifecycle::deprecate_warn("3.4.0", "element_rect(size)", "element_rect(linewidth)")
+    linewidth <- size
+  }
 
   if (!is.null(color))  colour <- color
   structure(
-    list(fill = fill, colour = colour, size = size, linetype = linetype,
+    list(fill = fill, colour = colour, linewidth = linewidth, linetype = linetype,
          inherit.blank = inherit.blank),
     class = c("element_rect", "element")
   )
@@ -80,13 +86,18 @@ element_rect <- function(fill = NULL, colour = NULL, size = NULL,
 #'    lengths in consecutive positions in the string.
 #' @param lineend Line end Line end style (round, butt, square)
 #' @param arrow Arrow specification, as created by [grid::arrow()]
-element_line <- function(colour = NULL, size = NULL, linetype = NULL,
-  lineend = NULL, color = NULL, arrow = NULL, inherit.blank = FALSE) {
+element_line <- function(colour = NULL, linewidth = NULL, linetype = NULL,
+  lineend = NULL, color = NULL, arrow = NULL, inherit.blank = FALSE, size = deprecated()) {
+
+  if (lifecycle::is_present(size)) {
+    lifecycle::deprecate_warn("3.4.0", "element_line(size)", "element_line(linewidth)")
+    linewidth <- size
+  }
 
   if (!is.null(color))  colour <- color
   if (is.null(arrow)) arrow <- FALSE
   structure(
-    list(colour = colour, size = size, linetype = linetype, lineend = lineend,
+    list(colour = colour, linewidth = linewidth, linetype = linetype, lineend = lineend,
       arrow = arrow, inherit.blank = inherit.blank),
     class = c("element_line", "element")
   )
@@ -118,7 +129,10 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
     length(hjust), length(vjust), length(angle), length(lineheight)
   )
   if (n > 1) {
-    warn("Vectorized input to `element_text()` is not officially supported.\nResults may be unexpected or may change in future versions of ggplot2.")
+    cli::cli_warn(c(
+      "Vectorized input to {.fn element_text} is not officially supported.",
+      "i" = "Results may be unexpected or may change in future versions of ggplot2."
+    ))
   }
 
 
@@ -165,7 +179,7 @@ element_render <- function(theme, element, ..., name = NULL) {
   # Get the element from the theme, calculating inheritance
   el <- calc_element(element, theme)
   if (is.null(el)) {
-    message("Theme element `", element, "` missing")
+    cli::cli_inform("Theme element {.var {element}} is missing")
     return(zeroGrob())
   }
 
@@ -198,11 +212,16 @@ element_grob.element_blank <- function(element, ...)  zeroGrob()
 #' @export
 element_grob.element_rect <- function(element, x = 0.5, y = 0.5,
   width = 1, height = 1,
-  fill = NULL, colour = NULL, size = NULL, linetype = NULL, ...) {
+  fill = NULL, colour = NULL, linewidth = NULL, linetype = NULL, ..., size = deprecated()) {
+
+  if (lifecycle::is_present(size)) {
+    lifecycle::deprecate_warn("3.4.0", "element_grob.element_rect(size)", "element_grob.element_rect(linewidth)")
+    linewidth <- size
+  }
 
   # The gp settings can override element_gp
-  gp <- gpar(lwd = len0_null(size * .pt), col = colour, fill = fill, lty = linetype)
-  element_gp <- gpar(lwd = len0_null(element$size * .pt), col = element$colour,
+  gp <- gpar(lwd = len0_null(linewidth * .pt), col = colour, fill = fill, lty = linetype)
+  element_gp <- gpar(lwd = len0_null(element$linewidth * .pt), col = element$colour,
     fill = element$fill, lty = element$linetype)
 
   rectGrob(x, y, width, height, gp = modify_list(element_gp, gp), ...)
@@ -241,17 +260,22 @@ element_grob.element_text <- function(element, label = "", x = NULL, y = NULL,
 
 #' @export
 element_grob.element_line <- function(element, x = 0:1, y = 0:1,
-  colour = NULL, size = NULL, linetype = NULL, lineend = NULL,
-  default.units = "npc", id.lengths = NULL, ...) {
+  colour = NULL, linewidth = NULL, linetype = NULL, lineend = NULL,
+  default.units = "npc", id.lengths = NULL, ..., size = deprecated()) {
+
+  if (lifecycle::is_present(size)) {
+    lifecycle::deprecate_warn("3.4.0", "element_grob.element_line(size)", "element_grob.element_line(linewidth)")
+    linewidth <- size
+  }
 
   # The gp settings can override element_gp
   gp <- gpar(
     col = colour, fill = colour,
-    lwd = len0_null(size * .pt), lty = linetype, lineend = lineend
+    lwd = len0_null(linewidth * .pt), lty = linetype, lineend = lineend
   )
   element_gp <- gpar(
     col = element$colour, fill = element$colour,
-    lwd = len0_null(element$size * .pt), lty = element$linetype,
+    lwd = len0_null(element$linewidth * .pt), lty = element$linetype,
     lineend = element$lineend
   )
   arrow <- if (is.logical(element$arrow) && !element$arrow) {
@@ -515,11 +539,11 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
 # @param el an element
 # @param elname the name of the element
 # @param element_tree the element tree to validate against
-validate_element <- function(el, elname, element_tree) {
+validate_element <- function(el, elname, element_tree, call = caller_env()) {
   eldef <- element_tree[[elname]]
 
   if (is.null(eldef)) {
-    abort(glue("Theme element `{elname}` is not defined in the element hierarchy."))
+    cli::cli_abort("The {.var {elname}} theme element is not defined in the element hierarchy.", call = call)
   }
 
   # NULL values for elements are OK
@@ -529,12 +553,12 @@ validate_element <- function(el, elname, element_tree) {
     # Need to be a bit looser here since sometimes it's a string like "top"
     # but sometimes its a vector like c(0,0)
     if (!is.character(el) && !is.numeric(el))
-      abort(glue("Theme element `{elname}` must be a string or numeric vector."))
+      cli::cli_abort("The {.var {elname}} theme element must be a character or numeric vector.", call = call)
   } else if (eldef$class == "margin") {
     if (!is.unit(el) && length(el) == 4)
-      abort(glue("Theme element `{elname}` must be a unit vector of length 4."))
+      cli::cli_abort("The {.var {elname}} theme element must be a {.cls unit} vector of length 4.", call = call)
   } else if (!inherits(el, eldef$class) && !inherits(el, "element_blank")) {
-      abort(glue("Theme element `{elname}` must be an object of type `{eldef$class}`."))
+    cli::cli_abort("The {.var {elname}} theme element must be a {.cls {eldef$class}} object.", call = call)
   }
   invisible()
 }

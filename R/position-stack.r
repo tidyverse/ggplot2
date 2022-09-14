@@ -59,6 +59,7 @@
 #'   geom_histogram(binwidth = 500, position = "fill")
 #'
 #' # Stacking is also useful for time series
+#' set.seed(1)
 #' series <- data.frame(
 #'   time = c(rep(1, 4),rep(2, 4), rep(3, 4), rep(4, 4)),
 #'   type = rep(c('a', 'b', 'c', 'd'), 4),
@@ -209,7 +210,7 @@ PositionStack <- ggproto("PositionStack", Position,
       )
     }
 
-    data <- rbind(neg, pos)[match(seq_len(nrow(data)), c(which(negative), which(!negative))),]
+    data <- vec_rbind(neg, pos)[match(seq_len(nrow(data)), c(which(negative), which(!negative))),]
     flip_data(data, params$flipped_aes)
   }
 )
@@ -248,13 +249,16 @@ PositionFill <- ggproto("PositionFill", PositionStack,
 stack_var <- function(data) {
   if (!is.null(data$ymax)) {
     if (any(data$ymin != 0 & data$ymax != 0, na.rm = TRUE)) {
-      warn("Stacking not well defined when not anchored on the axis")
+      cli::cli_warn("Stacking not well defined when not anchored on the axis")
     }
     "ymax"
   } else if (!is.null(data$y)) {
     "y"
   } else {
-    warn("Stacking requires either ymin & ymin or y aesthetics.\nMaybe you want position = 'identity'?")
+    cli::cli_warn(c(
+      "Stacking requires either the {.field ymin} {.emph and} {.field ymin} or the {.field y} aesthetics",
+      "i" = "Maybe you want {.code position = \"identity\"}?"
+    ))
     NULL
   }
 }

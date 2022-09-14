@@ -35,6 +35,12 @@
 #'   geom_density(alpha = 0.1) +
 #'   xlim(55, 70)
 #'
+#' # Use `bounds` to adjust computation for known data limits
+#' big_diamonds <- diamonds[diamonds$carat >= 1, ]
+#' ggplot(big_diamonds, aes(carat)) +
+#'   geom_density(color = 'red') +
+#'   geom_density(bounds = c(1, Inf), color = 'blue')
+#'
 #' \donttest{
 #' # Stacked density plots: if you want to create a stacked density plot, you
 #' # probably want to 'count' (density * n) variable instead of the default

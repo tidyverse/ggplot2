@@ -15,9 +15,5 @@ autolayer <- function(object, ...) {
 
 #' @export
 autolayer.default <- function(object, ...) {
-  abort(glue(
-    "Objects of type ",
-    glue_collapse(class(object), "/"),
-    " not supported by autolayer."
-  ))
+  cli::cli_abort("No autolayer method avialable for {.cls {class(object)[1]}} objects")
 }

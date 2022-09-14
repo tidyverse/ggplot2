@@ -30,13 +30,17 @@ draw_key_point <- function(data, params, size) {
     data$shape <- translate_shape_string(data$shape)
   }
 
+  # NULL means the default stroke size, and NA means no stroke.
+  stroke_size <- data$stroke %||% 0.5
+  stroke_size[is.na(stroke_size)] <- 0
+
   pointsGrob(0.5, 0.5,
     pch = data$shape,
     gp = gpar(
       col = alpha(data$colour %||% "black", data$alpha),
       fill = alpha(data$fill %||% "black", data$alpha),
-      fontsize = (data$size %||% 1.5) * .pt + (data$stroke %||% 0.5) * .stroke / 2,
-      lwd = (data$stroke %||% 0.5) * .stroke / 2
+      fontsize = (data$size %||% 1.5) * .pt + stroke_size * .stroke / 2,
+      lwd = stroke_size * .stroke / 2
     )
   )
 }
@@ -47,7 +51,7 @@ draw_key_abline <- function(data, params, size) {
   segmentsGrob(0, 0, 1, 1,
     gp = gpar(
       col = alpha(data$colour %||% data$fill %||% "black", data$alpha),
-      lwd = (data$size %||% 0.5) * .pt,
+      lwd = (data$linewidth %||% 0.5) * .pt,
       lty = data$linetype %||% 1,
       lineend = params$lineend %||% "butt"
     )
@@ -66,11 +70,11 @@ draw_key_rect <- function(data, params, size) {
 #' @export
 #' @rdname draw_key
 draw_key_polygon <- function(data, params, size) {
-  if (is.null(data$size)) {
-    data$size <- 0.5
+  if (is.null(data$linewidth)) {
+    data$linewidth <- 0.5
   }
 
-  lwd <- min(data$size, min(size) / 4)
+  lwd <- min(data$linewidth, min(size) / 4)
 
   rectGrob(
     width = unit(1, "npc") - unit(lwd, "mm"),
@@ -102,7 +106,7 @@ draw_key_boxplot <- function(data, params, size) {
     gp = gpar(
       col = data$colour %||% "grey20",
       fill = alpha(data$fill %||% "white", data$alpha),
-      lwd = (data$size %||% 0.5) * .pt,
+      lwd = (data$linewidth %||% 0.5) * .pt,
       lty = data$linetype %||% 1,
       lineend = params$lineend %||% "butt",
       linejoin = params$linejoin %||% "mitre"
@@ -120,7 +124,7 @@ draw_key_crossbar <- function(data, params, size) {
     gp = gpar(
       col = data$colour %||% "grey20",
       fill = alpha(data$fill %||% "white", data$alpha),
-      lwd = (data$size %||% 0.5) * .pt,
+      lwd = (data$linewidth %||% 0.5) * .pt,
       lty = data$linetype %||% 1,
       lineend = params$lineend %||% "butt",
       linejoin = params$linejoin %||% "mitre"
@@ -143,7 +147,7 @@ draw_key_path <- function(data, params, size) {
       col = alpha(data$colour %||% data$fill %||% "black", data$alpha),
       fill = alpha(params$arrow.fill %||% data$colour
                    %||% data$fill %||% "black", data$alpha),
-      lwd = (data$size %||% 0.5) * .pt,
+      lwd = (data$linewidth %||% 0.5) * .pt,
       lty = data$linetype %||% 1,
       lineend = params$lineend %||% "butt"
     ),
@@ -157,7 +161,7 @@ draw_key_vpath <- function(data, params, size) {
   segmentsGrob(0.5, 0.1, 0.5, 0.9,
     gp = gpar(
       col = alpha(data$colour %||% data$fill %||% "black", data$alpha),
-      lwd = (data$size %||% 0.5) * .pt,
+      lwd = (data$linewidth %||% 0.5) * .pt,
       lty = data$linetype %||% 1,
       lineend = params$lineend %||% "butt"
     ),
@@ -194,7 +198,7 @@ draw_key_linerange <- function(data, params, size) {
 draw_key_pointrange <- function(data, params, size) {
   grobTree(
     draw_key_linerange(data, params, size),
-    draw_key_point(transform(data, size = (data$size %||% 1.5) * 4), params)
+    draw_key_point(transform(data, params, size = (data$size %||% 1.5) * 4))
   )
 }
 
@@ -206,7 +210,7 @@ draw_key_smooth <- function(data, params, size) {
 
   grobTree(
     if (isTRUE(params$se)) rectGrob(gp = gpar(col = NA, fill = data$fill)),
-    draw_key_path(data, params)
+    draw_key_path(data, params, size)
   )
 }
 
@@ -241,7 +245,7 @@ draw_key_vline <- function(data, params, size) {
   segmentsGrob(0.5, 0, 0.5, 1,
     gp = gpar(
       col = alpha(data$colour %||% data$fill %||% "black", data$alpha),
-      lwd = (data$size %||% 0.5) * .pt,
+      lwd = (data$linewidth %||% 0.5) * .pt,
       lty = data$linetype %||% 1,
       lineend = params$lineend %||% "butt"
     )
@@ -262,7 +266,7 @@ draw_key_timeseries <- function(data, params, size) {
     y = c(0.1, 0.6, 0.4, 0.9),
     gp = gpar(
       col = alpha(data$colour %||% data$fill %||% "black", data$alpha),
-      lwd = (data$size %||% 0.5) * .pt,
+      lwd = (data$linewidth %||% 0.5) * .pt,
       lty = data$linetype %||% 1,
       lineend = params$lineend %||% "butt",
       linejoin = params$linejoin %||% "round"

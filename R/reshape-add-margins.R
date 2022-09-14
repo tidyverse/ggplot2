@@ -10,7 +10,7 @@ reshape_add_margins <- function(df, vars, margins = TRUE) {
     x <- addNA(x, TRUE)
     factor(x, levels = c(levels(x), "(all)"), exclude = NULL)
   }
-  vars <- unique(unlist(margin_vars))
+  vars <- unique0(unlist(margin_vars))
   df[vars] <- lapply(df[vars], addAll)
 
   rownames(df) <- NULL
@@ -22,7 +22,7 @@ reshape_add_margins <- function(df, vars, margins = TRUE) {
     df
   })
 
-  do.call("rbind", margin_dfs)
+  vec_rbind(!!!margin_dfs)
 }
 
 reshape_margins <- function(vars, margins = NULL) {

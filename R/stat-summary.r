@@ -50,12 +50,12 @@
 #' @export
 #' @examples
 #' d <- ggplot(mtcars, aes(cyl, mpg)) + geom_point()
-#' d + stat_summary(fun.data = "mean_cl_boot", colour = "red", size = 2)
+#' d + stat_summary(fun.data = "mean_cl_boot", colour = "red", linewidth = 2, size = 3)
 #'
 #' # Orientation follows the discrete axis
 #' ggplot(mtcars, aes(mpg, factor(cyl))) +
 #'   geom_point() +
-#'   stat_summary(fun.data = "mean_cl_boot", colour = "red", size = 2)
+#'   stat_summary(fun.data = "mean_cl_boot", colour = "red", linewidth = 2, size = 3)
 #'
 #' # You can supply individual functions to summarise the value at
 #' # each x:
@@ -236,6 +236,7 @@ summarise_by_x <- function(data, summary, ...) {
 #' @name hmisc
 #' @examples
 #' if (requireNamespace("Hmisc", quietly = TRUE)) {
+#' set.seed(1)
 #' x <- rnorm(100)
 #' mean_cl_boot(x)
 #' mean_cl_normal(x)
@@ -250,10 +251,10 @@ wrap_hmisc <- function(fun) {
     check_installed("Hmisc")
 
     fun <- getExportedValue("Hmisc", fun)
-    result <- do.call(fun, list(x = quote(x), ...))
+    result <- fun(x = x, ...)
 
     rename(
-      new_data_frame(as.list(result)),
+      data_frame0(!!!as.list(result)),
       c(Median = "y", Mean = "y", Lower = "ymin", Upper = "ymax")
     )
   }
@@ -285,11 +286,17 @@ median_hilow <- wrap_hmisc("smedian.hilow")
 #' }
 #' @export
 #' @examples
+#' set.seed(1)
 #' x <- rnorm(100)
 #' mean_se(x)
 mean_se <- function(x, mult = 1) {
   x <- stats::na.omit(x)
   se <- mult * sqrt(stats::var(x) / length(x))
   mean <- mean(x)
-  new_data_frame(list(y = mean, ymin = mean - se, ymax = mean + se), n = 1)
+  data_frame0(
+    y = mean,
+    ymin = mean - se,
+    ymax = mean + se,
+    .size = 1
+  )
 }

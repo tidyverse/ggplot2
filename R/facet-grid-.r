@@ -136,7 +136,7 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
   )
 
   if (!is.null(switch) && !switch %in% c("both", "x", "y")) {
-    abort("switch must be either 'both', 'x', or 'y'")
+    cli::cli_abort("{.arg switch} must be either {.val both}, {.val x}, or {.val y}")
   }
 
   facets_list <- grid_as_facets_list(rows, cols)
@@ -157,19 +157,19 @@ grid_as_facets_list <- function(rows, cols) {
   is_rows_vars <- is.null(rows) || is_quosures(rows)
   if (!is_rows_vars) {
     if (!is.null(cols)) {
-      msg <- "`rows` must be `NULL` or a `vars()` list if `cols` is a `vars()` list"
-      if(inherits(rows, "ggplot")) {
-        msg <- paste0(
-          msg, "\n",
-          "Did you use %>% instead of +?"
+      msg <- "{.arg rows} must be {.val NULL} or a {.fn vars} list if {.arg cols} is a {.fn vars} list"
+      if (inherits(rows, "ggplot")) {
+        msg <- c(
+          msg,
+          "i" = "Did you use {.code %>%} or {.code |>} instead of {.code +}?"
         )
       }
-      abort(msg)
+      cli::cli_abort(msg)
     }
     # For backward-compatibility
     facets_list <- as_facets_list(rows)
     if (length(facets_list) > 2L) {
-      abort("A grid facet specification can't have more than two dimensions")
+      cli::cli_abort("A grid facet specification can't have more than two dimensions")
     }
     # Fill with empty quosures
     facets <- list(rows = quos(), cols = quos())
@@ -180,7 +180,7 @@ grid_as_facets_list <- function(rows, cols) {
 
   is_cols_vars <- is.null(cols) || is_quosures(cols)
   if (!is_cols_vars) {
-    abort("`cols` must be `NULL` or a `vars()` specification")
+    cli::cli_abort("{.arg cols} must be {.val NULL} or a {.fn vars} specification")
   }
 
   list(
@@ -196,16 +196,18 @@ grid_as_facets_list <- function(rows, cols) {
 FacetGrid <- ggproto("FacetGrid", Facet,
   shrink = TRUE,
 
-  compute_layout = function(data, params) {
+  compute_layout = function(self, data, params) {
     rows <- params$rows
     cols <- params$cols
 
+    check_facet_vars(names(rows), names(cols), name = snake_class(self))
+
     dups <- intersect(names(rows), names(cols))
     if (length(dups) > 0) {
-      abort(glue(
-        "Faceting variables can only appear in row or cols, not both.\n",
-        "Problems: ", paste0(dups, collapse = "'")
-      ))
+      cli::cli_abort(c(
+              "Faceting variables can only appear in {.arg rows} or {.arg cols}, not both.\n",
+        "i" = "Duplicated variables: {.val {dups}}"
+      ), call = call2(snake_class(self)))
     }
 
     base_rows <- combine_vars(data, params$plot_env, rows, drop = params$drop)
@@ -217,12 +219,18 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     base <- df.grid(base_rows, base_cols)
 
     if (nrow(base) == 0) {
-      return(new_data_frame(list(PANEL = factor(1L), ROW = 1L, COL = 1L, SCALE_X = 1L, SCALE_Y = 1L)))
+      return(data_frame0(
+        PANEL = factor(1L),
+        ROW = 1L,
+        COL = 1L,
+        SCALE_X = 1L,
+        SCALE_Y = 1L
+      ))
     }
 
     # Add margins
     base <- reshape_add_margins(base, list(names(rows), names(cols)), params$margins)
-    base <- unique(base)
+    base <- unique0(base)
 
     # Create panel info dataset
     panel <- id(base, drop = TRUE)
@@ -231,7 +239,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     rows <- if (!length(names(rows))) rep(1L, length(panel)) else id(base[names(rows)], drop = TRUE)
     cols <- if (!length(names(cols))) rep(1L, length(panel)) else id(base[names(cols)], drop = TRUE)
 
-    panels <- new_data_frame(c(list(PANEL = panel, ROW = rows, COL = cols), base))
+    panels <- data_frame0(PANEL = panel, ROW = rows, COL = cols, base)
     panels <- panels[order(panels$PANEL), , drop = FALSE]
     rownames(panels) <- NULL
 
@@ -242,7 +250,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
   },
   map_data = function(data, layout, params) {
     if (empty(data)) {
-      return(cbind(data, PANEL = integer(0)))
+      return(vec_cbind(data %|W|% NULL, PANEL = integer(0)))
     }
 
     rows <- params$rows
@@ -265,15 +273,16 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     # duplicating the data
     missing_facets <- setdiff(vars, names(facet_vals))
     if (length(missing_facets) > 0) {
-      to_add <- unique(layout[missing_facets])
+      to_add <- unique0(layout[missing_facets])
 
       data_rep <- rep.int(1:nrow(data), nrow(to_add))
       facet_rep <- rep(1:nrow(to_add), each = nrow(data))
 
       data <- unrowname(data[data_rep, , drop = FALSE])
-      facet_vals <- unrowname(cbind(
-        facet_vals[data_rep, ,  drop = FALSE],
-        to_add[facet_rep, , drop = FALSE]))
+      facet_vals <- unrowname(vec_cbind(
+        unrowname(facet_vals[data_rep, ,  drop = FALSE]),
+        unrowname(to_add[facet_rep, , drop = FALSE]))
+      )
     }
 
     # Add PANEL variable
@@ -283,6 +292,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     } else {
       facet_vals[] <- lapply(facet_vals[], as.factor)
       facet_vals[] <- lapply(facet_vals[], addNA, ifany = TRUE)
+      layout[] <- lapply(layout[], as.factor)
 
       keys <- join_keys(facet_vals, layout, by = vars)
 
@@ -292,15 +302,15 @@ FacetGrid <- ggproto("FacetGrid", Facet,
   },
   draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
     if ((params$free$x || params$free$y) && !coord$is_free()) {
-      abort(glue("{snake_class(coord)} doesn't support free scales"))
+      cli::cli_abort("{.fn {snake_class(coord)}} doesn't support free scales")
     }
 
     cols <- which(layout$ROW == 1)
     rows <- which(layout$COL == 1)
     axes <- render_axes(ranges[cols], ranges[rows], coord, theme, transpose = TRUE)
 
-    col_vars <- unique(layout[names(params$cols)])
-    row_vars <- unique(layout[names(params$rows)])
+    col_vars <- unique0(layout[names(params$cols)])
+    row_vars <- unique0(layout[names(params$rows)])
     # Adding labels metadata, useful for labellers
     attr(col_vars, "type") <- "cols"
     attr(col_vars, "facet") <- "grid"
@@ -310,7 +320,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
 
     aspect_ratio <- theme$aspect.ratio
     if (!is.null(aspect_ratio) && (params$space_free$x || params$space_free$y)) {
-      abort("Free scales cannot be mixed with a fixed aspect ratio")
+      cli::cli_abort("Free scales cannot be mixed with a fixed aspect ratio")
     }
     if (is.null(aspect_ratio) && !params$free$x && !params$free$y) {
       aspect_ratio <- coord$aspect(ranges[[1]])
@@ -440,6 +450,6 @@ ulevels <- function(x) {
     x <- addNA(x, TRUE)
     factor(levels(x), levels(x), exclude = NULL)
   } else {
-    sort(unique(x))
+    sort(unique0(x))
   }
 }

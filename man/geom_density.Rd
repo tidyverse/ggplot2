@@ -30,16 +30,17 @@ stat_density(
   n = 512,
   trim = FALSE,
   na.rm = FALSE,
+  bounds = c(-Inf, Inf),
   orientation = NA,
   show.legend = NA,
   inherit.aes = TRUE
 )
 }
 \arguments{
-\item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
-\code{\link[=aes_]{aes_()}}. If specified and \code{inherit.aes = TRUE} (the
-default), it is combined with the default mapping at the top level of the
-plot. You must supply \code{mapping} if there is no plot mapping.}
+\item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}}. If specified and
+\code{inherit.aes = TRUE} (the default), it is combined with the default mapping
+at the top level of the plot. You must supply \code{mapping} if there is no plot
+mapping.}
 
 \item{data}{The data to be displayed in this layer. There are three
 options:
@@ -56,8 +57,10 @@ the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
-\item{position}{Position adjustment, either as a string, or the result of
-a call to a position adjustment function.}
+\item{position}{Position adjustment, either as a string naming the adjustment
+(e.g. \code{"jitter"} to use \code{position_jitter}), or the result of a call to a
+position adjustment function. Use the latter if you need to change the
+settings of the adjustment.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
@@ -111,6 +114,12 @@ range of that group: this typically means the estimated x values will
 not line-up, and hence you won't be able to stack density values.
 This parameter only matters if you are displaying multiple densities in
 one plot or if you are manually adjusting the scale limits.}
+
+\item{bounds}{Known lower and upper bounds for estimated data. Default
+\code{c(-Inf, Inf)} means that there are no (finite) bounds. If any bound is
+finite, boundary effect of default density estimation will be corrected by
+reflecting tails outside \code{bounds} around their closest edge. Data points
+outside of bounds are removed with a warning.}
 }
 \description{
 Computes and draws kernel density estimate, which is a smoothed version of
@@ -133,7 +142,7 @@ This geom treats each axis differently and, thus, can thus have two orientations
 \item \code{fill}
 \item \code{group}
 \item \code{linetype}
-\item \code{size}
+\item \code{linewidth}
 \item \code{weight}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
@@ -170,6 +179,12 @@ ggplot(diamonds, aes(depth, colour = cut)) +
 ggplot(diamonds, aes(depth, fill = cut, colour = cut)) +
   geom_density(alpha = 0.1) +
   xlim(55, 70)
+
+# Use `bounds` to adjust computation for known data limits
+big_diamonds <- diamonds[diamonds$carat >= 1, ]
+ggplot(big_diamonds, aes(carat)) +
+  geom_density(color = 'red') +
+  geom_density(bounds = c(1, Inf), color = 'blue')
 
 \donttest{
 # Stacked density plots: if you want to create a stacked density plot, you

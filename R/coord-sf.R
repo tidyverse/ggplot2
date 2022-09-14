@@ -127,7 +127,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     }
 
     if (length(x_labels) != length(x_breaks)) {
-      abort("Breaks and labels along x direction are different lengths")
+      cli::cli_abort("Breaks and labels along x direction are different lengths")
     }
     graticule$degree_label[graticule$type == "E"] <- x_labels
 
@@ -152,7 +152,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     }
 
     if (length(y_labels) != length(y_breaks)) {
-      abort("Breaks and labels along y direction are different lengths")
+      cli::cli_abort("Breaks and labels along y direction are different lengths")
     }
     graticule$degree_label[graticule$type == "N"] <- y_labels
 
@@ -201,7 +201,10 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       scales_yrange <- range(scales_bbox$y, coord_bbox$ymin, coord_bbox$ymax, na.rm = TRUE)
     } else if (any(!is.finite(scales_bbox$x) | !is.finite(scales_bbox$y))) {
       if (self$lims_method != "geometry_bbox") {
-        warn("Projection of x or y limits failed in `coord_sf()`.\nConsider setting `lims_method = \"geometry_bbox\"` or `default_crs = NULL`.")
+        cli::cli_warn(c(
+                "Projection of {.field x} or {.field y} limits failed in {.fn coord_sf}.",
+          "i" = "Consider setting {.code lims_method = \"geometry_bbox\"} or {.code default_crs = NULL}."
+        ))
       }
       coord_bbox <- self$params$bbox
       scales_xrange <- c(coord_bbox$xmin, coord_bbox$xmax) %||% c(0, 0)
@@ -310,7 +313,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
         lapply(sf::st_geometry(panel_params$graticule), sf::st_as_grob, gp = line_gp)
       )
     }
-    ggname("grill", do.call("grobTree", grobs))
+    ggname("grill", inject(grobTree(!!!grobs)))
   },
 
   render_axis_h = function(self, panel_params, theme) {
@@ -336,8 +339,8 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       id2 <- c(id2, which(graticule$type == "N" & graticule$y_end > 0.999))
     }
 
-    ticks1 <- graticule[unique(id1), ]
-    ticks2 <- graticule[unique(id2), ]
+    ticks1 <- graticule[unique0(id1), ]
+    ticks2 <- graticule[unique0(id2), ]
     tick_positions <- c(ticks1$x_start, ticks2$x_end)
     tick_labels <- c(ticks1$degree_label, ticks2$degree_label)
 
@@ -372,8 +375,8 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       id2 <- c(id2, which(graticule$type == "N" & graticule$y_end < 0.001))
     }
 
-    ticks1 <- graticule[unique(id1), ]
-    ticks2 <- graticule[unique(id2), ]
+    ticks1 <- graticule[unique0(id1), ]
+    ticks2 <- graticule[unique0(id2), ]
     tick_positions <- c(ticks1$x_start, ticks2$x_end)
     tick_labels <- c(ticks1$degree_label, ticks2$degree_label)
 
@@ -414,8 +417,8 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       id2 <- c(id2, which(graticule$type == "N" & graticule$x_start > 0.999))
     }
 
-    ticks1 <- graticule[unique(id1), ]
-    ticks2 <- graticule[unique(id2), ]
+    ticks1 <- graticule[unique0(id1), ]
+    ticks2 <- graticule[unique0(id2), ]
     tick_positions <- c(ticks1$y_end, ticks2$y_start)
     tick_labels <- c(ticks1$degree_label, ticks2$degree_label)
 
@@ -450,8 +453,8 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       id2 <- c(id2, which(graticule$type == "N" & graticule$x_start < 0.001))
     }
 
-    ticks1 <- graticule[unique(id1), ]
-    ticks2 <- graticule[unique(id2), ]
+    ticks1 <- graticule[unique0(id1), ]
+    ticks2 <- graticule[unique0(id2), ]
     tick_positions <- c(ticks1$y_end, ticks2$y_start)
     tick_labels <- c(ticks1$degree_label, ticks2$degree_label)
 
@@ -543,7 +546,10 @@ sf_rescale01_x <- function(x, range) {
 # different limits methods
 calc_limits_bbox <- function(method, xlim, ylim, crs, default_crs) {
   if (any(!is.finite(c(xlim, ylim))) && method != "geometry_bbox") {
-    abort("Scale limits cannot be mapped onto spatial coordinates in `coord_sf()`.\nConsider setting `lims_method = \"geometry_bbox\"` or `default_crs = NULL`.")
+    cli::cli_abort(c(
+            "Scale limits cannot be mapped onto spatial coordinates in {.fn coord_sf}",
+      "i" = "Consider setting {.code lims_method = \"geometry_bbox\"} or {.code default_crs = NULL}."
+    ))
   }
 
   bbox <- switch(
@@ -673,14 +679,14 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
   if (is.character(label_axes)) {
     label_axes <- parse_axes_labeling(label_axes)
   } else if (!is.list(label_axes)) {
-    abort("Panel labeling format not recognized.")
+    cli::cli_abort("Panel labeling format not recognized.")
     label_axes <- list(left = "N", bottom = "E")
   }
 
   if (is.character(label_graticule)) {
     label_graticule <- unlist(strsplit(label_graticule, ""))
   } else {
-    abort("Graticule labeling format not recognized.")
+    cli::cli_abort("Graticule labeling format not recognized.")
     label_graticule <- ""
   }
 

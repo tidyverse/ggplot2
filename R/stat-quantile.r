@@ -64,8 +64,7 @@ StatQuantile <- ggproto("StatQuantile", Stat,
       } else {
         formula <- y ~ x
       }
-      message("Smoothing formula not specified. Using: ",
-        deparse(formula))
+      cli::cli_inform("Smoothing formula not specified. Using: {deparse(formula)}")
     }
 
     if (is.null(data$weight)) data$weight <- 1
@@ -75,7 +74,7 @@ StatQuantile <- ggproto("StatQuantile", Stat,
       xmax <- max(data$x, na.rm = TRUE)
       xseq <- seq(xmin, xmax, length.out = 100)
     }
-    grid <- new_data_frame(list(x = xseq))
+    grid <- data_frame0(x = xseq, .size = length(xseq))
 
     # if method was specified as a character string, replace with
     # the corresponding function
@@ -87,16 +86,29 @@ StatQuantile <- ggproto("StatQuantile", Stat,
       method <- match.fun(method) # allow users to supply their own methods
     }
 
-    rbind_dfs(lapply(quantiles, quant_pred, data = data, method = method,
-      formula = formula, weight = weight, grid = grid, method.args = method.args))
+    result <- lapply(
+      quantiles,
+      quant_pred,
+      data = data,
+      method = method,
+      formula = formula,
+      weight = weight,
+      grid = grid,
+      method.args = method.args
+    )
+    vec_rbind(!!!result)
   }
 )
 
 quant_pred <- function(quantile, data, method, formula, weight, grid,
                        method.args = method.args) {
-  args <- c(list(quote(formula), data = quote(data), tau = quote(quantile),
-    weights = quote(weight)), method.args)
-  model <- do.call(method, args)
+  model <- inject(method(
+    formula,
+    data = data,
+    tau = quantile,
+    weights = weight,
+    !!!method.args
+  ))
 
   grid$y <- stats::predict(model, newdata = grid)
   grid$quantile <- quantile

@@ -32,7 +32,8 @@
 #'   object of [element_text()] is expected. By default, the theme is
 #'   specified by `legend.text` in [theme()].
 #' @param label.hjust A numeric specifying horizontal justification of the
-#'   label text.
+#'   label text. The default for standard text is 0 (left-aligned) and 1
+#'   (right-aligned) for expressions.
 #' @param label.vjust A numeric specifying vertical justification of the label
 #'   text.
 #' @param keywidth A numeric or a [grid::unit()] object specifying
@@ -209,7 +210,7 @@ guide_train.legend <- function(guide, scale, aesthetic = NULL) {
   # argument to this function or, as a fall back, the first in the vector
   # of possible aesthetics handled by the scale
   aes_column_name <- aesthetic %||% scale$aesthetics[1]
-  key <- new_data_frame(setNames(list(scale$map(breaks)), aes_column_name))
+  key <- data_frame(scale$map(breaks), .name_repair = ~ aes_column_name)
   key$.label <- scale$get_labels(breaks)
 
   # Drop out-of-range values for continuous scale
@@ -226,7 +227,7 @@ guide_train.legend <- function(guide, scale, aesthetic = NULL) {
   guide$key <- key
   guide$hash <- with(
     guide,
-    digest::digest(list(title, key$.label, direction, name))
+    hash(list(title, key$.label, direction, name))
   )
   guide
 }
@@ -234,10 +235,10 @@ guide_train.legend <- function(guide, scale, aesthetic = NULL) {
 #' @export
 guide_merge.legend <- function(guide, new_guide) {
   new_guide$key$.label <- NULL
-  guide$key <- cbind(guide$key, new_guide$key)
+  guide$key <- vec_cbind(guide$key, new_guide$key)
   guide$override.aes <- c(guide$override.aes, new_guide$override.aes)
   if (any(duplicated(names(guide$override.aes)))) {
-    warn("Duplicated override.aes is ignored.")
+    cli::cli_warn("Duplicated {.arg override.aes} is ignored.")
   }
   guide$override.aes <- guide$override.aes[!duplicated(names(guide$override.aes))]
   guide
@@ -264,10 +265,10 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
       aesthetics <- layer$computed_mapping
       modifiers <- aesthetics[is_scaled_aes(aesthetics) | is_staged_aes(aesthetics)]
 
-      data <- tryCatch(
+      data <- try_fetch(
         layer$geom$use_defaults(guide$key[matched], params, modifiers),
-        error = function(...) {
-          warn("Failed to apply `after_scale()` modifications to legend")
+        error = function(cnd) {
+          cli::cli_warn("Failed to apply {.fn after_scale} modifications to legend", parent = cnd)
           layer$geom$use_defaults(guide$key[matched], params, list())
         }
       )
@@ -303,7 +304,7 @@ guide_gengrob.legend <- function(guide, theme) {
   # default setting
   label.position <- guide$label.position %||% "right"
   if (!label.position %in% c("top", "bottom", "left", "right"))
-    abort(glue("label position `{label.position}` is invalid"))
+    cli::cli_abort("label position {.var {label.position}} is invalid")
 
   nbreak <- nrow(guide$key)
 
@@ -386,7 +387,8 @@ guide_gengrob.legend <- function(guide, theme) {
     guide$keyheight %||% theme$legend.key.height %||% theme$legend.key.size
   )
 
-  key_size_mat <- do.call("cbind", lapply(guide$geoms, function(g) g$data$size / 10))
+  key_size <- lapply(guide$geoms, function(g) g$data$size / 10)
+  key_size_mat <- inject(cbind(!!!key_size))
 
   if (nrow(key_size_mat) == 0 || ncol(key_size_mat) == 0) {
     key_size_mat <- matrix(0, ncol = 1, nrow = nbreak)
@@ -395,7 +397,7 @@ guide_gengrob.legend <- function(guide, theme) {
 
   if (!is.null(guide$nrow) && !is.null(guide$ncol) &&
       guide$nrow * guide$ncol < nbreak) {
-    abort("`nrow` * `ncol` needs to be larger than the number of breaks")
+    cli::cli_abort("{.arg nrow} * {.arg ncol} needs to be larger than the number of breaks ({nbreak})")
   }
 
   # If neither nrow/ncol specified, guess with "reasonable" values
@@ -441,10 +443,10 @@ guide_gengrob.legend <- function(guide, theme) {
   )
 
   if (guide$byrow) {
-    vps <- new_data_frame(list(
+    vps <- data_frame0(
       R = ceiling(seq(nbreak) / legend.ncol),
       C = (seq(nbreak) - 1) %% legend.ncol + 1
-    ))
+    )
   } else {
     vps <- mat_2_df(arrayInd(seq(nbreak), dim(key_sizes)), c("R", "C"))
   }

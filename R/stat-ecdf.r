@@ -26,6 +26,7 @@
 #' }
 #' @export
 #' @examples
+#' set.seed(1)
 #' df <- data.frame(
 #'   x = c(rnorm(100, 0, 3), rnorm(100, 0, 10)),
 #'   g = gl(2, 100)
@@ -75,13 +76,13 @@ StatEcdf <- ggproto("StatEcdf", Stat,
 
   default_aes = aes(y = after_stat(y)),
 
-  setup_params = function(data, params) {
+  setup_params = function(self, data, params) {
     params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = FALSE, main_is_continuous = TRUE)
 
     has_x <- !(is.null(data$x) && is.null(params$x))
     has_y <- !(is.null(data$y) && is.null(params$y))
     if (!has_x && !has_y) {
-      abort("stat_ecdf() requires an x or y aesthetic.")
+      cli::cli_abort("{.fn {snake_class(self)}} requires an {.field x} or {.field y} aesthetic.")
     }
 
     params
@@ -91,7 +92,7 @@ StatEcdf <- ggproto("StatEcdf", Stat,
     data <- flip_data(data, flipped_aes)
     # If n is NULL, use raw values; otherwise interpolate
     if (is.null(n)) {
-      x <- unique(data$x)
+      x <- unique0(data$x)
     } else {
       x <- seq(min(data$x), max(data$x), length.out = n)
     }
@@ -101,7 +102,11 @@ StatEcdf <- ggproto("StatEcdf", Stat,
     }
     data_ecdf <- ecdf(data$x)(x)
 
-    df_ecdf <- new_data_frame(list(x = x, y = data_ecdf), n = length(x))
+    df_ecdf <- data_frame0(
+      x = x,
+      y = data_ecdf,
+      .size = length(x)
+    )
     df_ecdf$flipped_aes <- flipped_aes
     flip_data(df_ecdf, flipped_aes)
   }

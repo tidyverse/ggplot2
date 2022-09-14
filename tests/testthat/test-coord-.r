@@ -1,3 +1,11 @@
+test_that("Coord errors on missing methods", {
+  expect_snapshot_error(Coord$render_bg())
+  expect_snapshot_error(Coord$render_axis_h())
+  expect_snapshot_error(Coord$render_axis_v())
+  expect_snapshot_error(Coord$backtransform_range())
+  expect_snapshot_error(Coord$range())
+})
+
 test_that("clipping is on by default", {
   p <- ggplot()
   coord <- ggplot_build(p)$layout$coord
@@ -14,5 +22,5 @@ test_that("message when replacing non-default coordinate system", {
     gg + coord_cartesian() + coord_cartesian(),
     "Adding new coordinate system"
   )
-  
+
 })

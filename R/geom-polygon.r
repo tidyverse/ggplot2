@@ -50,12 +50,13 @@
 #' # Which seems like a lot of work, but then it's easy to add on
 #' # other features in this coordinate system, e.g.:
 #'
+#' set.seed(1)
 #' stream <- data.frame(
 #'   x = cumsum(runif(50, max = 0.1)),
 #'   y = cumsum(runif(50,max = 0.1))
 #' )
 #'
-#' p + geom_line(data = stream, colour = "grey30", size = 5)
+#' p + geom_line(data = stream, colour = "grey30", linewidth = 5)
 #'
 #' # And if the positions are in longitude and latitude, you can use
 #' # coord_map to produce different map projections.
@@ -131,7 +132,7 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
           gp = gpar(
             col = first_rows$colour,
             fill = alpha(first_rows$fill, first_rows$alpha),
-            lwd = first_rows$size * .pt,
+            lwd = first_rows$linewidth * .pt,
             lty = first_rows$linetype,
             lineend = lineend,
             linejoin = linejoin,
@@ -141,11 +142,11 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
       )
     } else {
       if (utils::packageVersion('grid') < "3.6") {
-        abort("Polygons with holes requires R 3.6 or above")
+        cli::cli_abort("Polygons with holes requires R 3.6 or above")
       }
       # Sort by group to make sure that colors, fill, etc. come in same order
       munched <- munched[order(munched$group, munched$subgroup), ]
-      id <- match(munched$subgroup, unique(munched$subgroup))
+      id <- match(munched$subgroup, unique0(munched$subgroup))
 
       # For gpar(), there is one entry per polygon (not one entry per point).
       # We'll pull the first value from each group, and assume all these values
@@ -162,7 +163,7 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
           gp = gpar(
             col = first_rows$colour,
             fill = alpha(first_rows$fill, first_rows$alpha),
-            lwd = first_rows$size * .pt,
+            lwd = first_rows$linewidth * .pt,
             lty = first_rows$linetype,
             lineend = lineend,
             linejoin = linejoin,
@@ -171,10 +172,9 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
         )
       )
     }
-
   },
 
-  default_aes = aes(colour = NA, fill = "grey20", size = 0.5, linetype = 1,
+  default_aes = aes(colour = NA, fill = "grey20", linewidth = 0.5, linetype = 1,
     alpha = NA, subgroup = NULL),
 
   handle_na = function(data, params) {
@@ -183,7 +183,9 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
 
   required_aes = c("x", "y"),
 
-  draw_key = draw_key_polygon
+  draw_key = draw_key_polygon,
+
+  rename_size = TRUE
 )
 
 # Assigning pathGrob in .onLoad ensures that packages that subclass GeomPolygon

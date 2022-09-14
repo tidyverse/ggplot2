@@ -41,8 +41,8 @@ NULL
 #' # use with coord_sf() for appropriate projection
 #' p +
 #'   coord_sf(
-#'     crs = st_crs(3347),
-#'     default_crs = st_crs(4326),  # data is provided as long-lat
+#'     crs = sf::st_crs(3347),
+#'     default_crs = sf::st_crs(4326),  # data is provided as long-lat
 #'     xlim = c(-84, -76),
 #'     ylim = c(34, 37.2)
 #'   )
@@ -52,20 +52,20 @@ NULL
 #' p +
 #'   geom_sf(
 #'     data = nc, inherit.aes = FALSE,
-#'     fill = NA, color = "black", size = 0.1
+#'     fill = NA, color = "black", linewidth = 0.1
 #'   ) +
-#'   coord_sf(crs = st_crs(3347), default_crs = st_crs(4326))
+#'   coord_sf(crs = sf::st_crs(3347), default_crs = sf::st_crs(4326))
 #' }}}
 annotation_map <- function(map, ...) {
   # Get map input into correct form
   if (!is.data.frame(map)) {
-    abort("`map` must be a data.frame")
+    cli::cli_abort("{.arg map} must be a {.cls data.frame}")
   }
   if (!is.null(map$lat)) map$y <- map$lat
   if (!is.null(map$long)) map$x <- map$long
   if (!is.null(map$region)) map$id <- map$region
   if (!all(c("x", "y", "id") %in% names(map))) {
-    abort("`map`must have the columns `x`, `y`, and `id`")
+    cli::cli_abort("{.arg map} must have the columns {.col x}, {.col y}, and {.col id}")
   }
 
   layer(
@@ -93,13 +93,13 @@ GeomAnnotationMap <- ggproto("GeomAnnotationMap", GeomMap,
     # must be sequential integers
     coords <- coord_munch(coord, map, panel_params)
     coords$group <- coords$group %||% coords$id
-    grob_id <- match(coords$group, unique(coords$group))
+    grob_id <- match(coords$group, unique0(coords$group))
 
     polygonGrob(coords$x, coords$y, default.units = "native",
       id = grob_id,
       gp = gpar(
         col = data$colour, fill = alpha(data$fill, data$alpha),
-        lwd = data$size * .pt)
+        lwd = data$linewidth * .pt)
       )
   },
 

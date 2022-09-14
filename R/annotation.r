@@ -1,6 +1,6 @@
 #' Create an annotation layer
 #'
-#' This function adds geoms to a plot, but unlike typical a geom function,
+#' This function adds geoms to a plot, but unlike a typical geom function,
 #' the properties of the geoms are not mapped from variables of a data frame,
 #' but are instead passed in as vectors. This is useful for adding small annotations
 #' (such as text labels) or if you have your data in vectors, and for some
@@ -30,7 +30,7 @@
 #' p + annotate("segment", x = 2.5, xend = 4, y = 15, yend = 25,
 #'   colour = "blue")
 #' p + annotate("pointrange", x = 3.5, y = 20, ymin = 12, ymax = 28,
-#'   colour = "red", size = 1.5)
+#'   colour = "red", size = 2.5, linewidth = 1.5)
 #'
 #' p + annotate("text", x = 2:3, y = 20:21, label = c("my label", "label 2"))
 #'
@@ -43,9 +43,9 @@ annotate <- function(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
                      na.rm = FALSE) {
 
   if (geom %in% c("abline", "hline", "vline")) {
-    warn(c(
-      glue("`annotate()` does not support `geom = \"{geom}\"`."),
-      i = glue("Please use `geom_{geom}()` directly instead.")
+    cli::cli_warn(c(
+      "{.arg geom} must not be {.val {geom}}.",
+      "i" = "Please use {.fn {paste0('geom_', geom)}} directly instead."
     ))
   }
 
@@ -57,7 +57,7 @@ annotate <- function(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
 
   # Check that all aesthetic have compatible lengths
   lengths <- vapply(aesthetics, length, integer(1))
-  n <- unique(lengths)
+  n <- unique0(lengths)
 
   # if there is more than one unique length, ignore constants
   if (length(n) > 1L) {
@@ -67,12 +67,11 @@ annotate <- function(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
   # if there is still more than one unique length, we error out
   if (length(n) > 1L) {
     bad <- lengths != 1L
-    details <- paste(names(aesthetics)[bad], " (", lengths[bad], ")",
-      sep = "", collapse = ", ")
-    abort(glue("Unequal parameter lengths: {details}"))
+    details <- paste0(names(aesthetics)[bad], " (", lengths[bad], ")")
+    cli::cli_abort("Unequal parameter lengths: {details}")
   }
 
-  data <- new_data_frame(position, n = n)
+  data <- data_frame0(!!!position, .size = n)
   layer(
     geom = geom,
     params = list(

@@ -3,6 +3,11 @@ test_that("expand_scale() produces a deprecation warning", {
   expect_warning(expand_scale(), "deprecated")
 })
 
+test_that("expansion() checks input", {
+  expect_snapshot_error(expansion(mult = 2:4))
+  expect_snapshot_error(expansion(add = 2:4))
+})
+
 # Expanding continuous scales -----------------------------------------
 
 test_that("expand_limits_continuous() can override limits", {

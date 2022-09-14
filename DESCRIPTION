@@ -31,20 +31,20 @@ Depends:
     R (>= 3.3)
 Imports: 
     cli,
-    digest,
     glue,
     grDevices,
     grid,
     gtable (>= 0.1.1),
     isoband,
-    lifecycle,
+    lifecycle (> 1.0.1),
     MASS,
     mgcv,
     rlang (>= 1.0.0),
-    scales (>= 0.5.0),
+    scales (>= 1.2.0),
     stats,
     tibble,
-    withr (>= 2.0.0)
+    vctrs (>= 0.4.1),
+    withr (>= 2.5.0)
 Suggests:
     covr,
     dplyr,
@@ -71,6 +71,8 @@ Suggests:
     testthat (>= 3.1.2),
     vdiffr (>= 1.0.0),
     xml2
+Remotes:
+    r-lib/lifecycle
 Enhances: 
     sp
 VignetteBuilder: 
@@ -80,7 +82,7 @@ Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.1
 Collate: 
     'ggproto.r'
     'ggplot-global.R'
@@ -222,6 +224,7 @@ Collate:
     'scale-hue.r'
     'scale-identity.r'
     'scale-linetype.r'
+    'scale-linewidth.R'
     'scale-manual.r'
     'scale-shape.r'
     'scale-size.r'
@@ -230,6 +233,7 @@ Collate:
     'scale-view.r'
     'scale-viridis.r'
     'scales-.r'
+    'stat-align.R'
     'stat-bin.r'
     'stat-bin2d.r'
     'stat-bindot.r'
@@ -263,8 +267,6 @@ Collate:
     'theme.r'
     'theme-defaults.r'
     'theme-current.R'
-    'translate-qplot-ggplot.r'
-    'translate-qplot-lattice.r'
     'utilities-break.r'
     'utilities-grid.r'
     'utilities-help.r'

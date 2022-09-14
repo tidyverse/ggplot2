@@ -83,10 +83,10 @@ Facet <- ggproto("Facet", NULL,
   params = list(),
 
   compute_layout = function(data, params) {
-    abort("Not implemented")
+    cli::cli_abort("Not implemented")
   },
   map_data = function(data, layout, params) {
-    abort("Not implemented")
+    cli::cli_abort("Not implemented")
   },
   init_scales = function(layout, x_scale = NULL, y_scale = NULL, params) {
     scales <- list()
@@ -119,13 +119,13 @@ Facet <- ggproto("Facet", NULL,
     }
   },
   draw_back = function(data, layout, x_scales, y_scales, theme, params) {
-    rep(list(zeroGrob()), length(unique(layout$PANEL)))
+    rep(list(zeroGrob()), length(unique0(layout$PANEL)))
   },
   draw_front = function(data, layout, x_scales, y_scales, theme, params) {
-    rep(list(zeroGrob()), length(unique(layout$PANEL)))
+    rep(list(zeroGrob()), length(unique0(layout$PANEL)))
   },
   draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
-    abort("Not implemented")
+    cli::cli_abort("Not implemented")
   },
   draw_labels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, labels, params) {
     panel_dim <-  find_panel(panels)
@@ -155,7 +155,7 @@ Facet <- ggproto("Facet", NULL,
     panels
   },
   setup_params = function(data, params) {
-    params$.possible_columns <- unique(unlist(lapply(data, names)))
+    params$.possible_columns <- unique0(unlist(lapply(data, names)))
     params
   },
   setup_data = function(data, params) {
@@ -257,10 +257,10 @@ df.grid <- function(a, b) {
     i_a = seq_len(nrow(a)),
     i_b = seq_len(nrow(b))
   )
-  unrowname(cbind(
-    a[indexes$i_a, , drop = FALSE],
-    b[indexes$i_b, , drop = FALSE]
-  ))
+  vec_cbind(
+    unrowname(a[indexes$i_a, , drop = FALSE]),
+    unrowname(b[indexes$i_b, , drop = FALSE])
+  )
 }
 
 # A facets spec is a list of facets. A grid facetting needs two facets
@@ -315,12 +315,13 @@ as_facets_list <- function(x) {
 
 validate_facets <- function(x) {
   if (inherits(x, "uneval")) {
-    abort("Please use `vars()` to supply facet variables")
+    cli::cli_abort("Please use {.fn vars} to supply facet variables")
   }
   if (inherits(x, "ggplot")) {
-    abort(
-      "Please use `vars()` to supply facet variables\nDid you use %>% instead of +?"
-    )
+    cli::cli_abort(c(
+      "Please use {.fn vars} to supply facet variables",
+      "i" = "Did you use {.code %>%} or {.code |>} instead of {.code +}?"
+    ))
   }
   x
 }
@@ -431,7 +432,7 @@ is_facets <- function(x) {
 # but that seems like a reasonable tradeoff.
 eval_facets <- function(facets, data, possible_columns = NULL) {
   vars <- compact(lapply(facets, eval_facet, data, possible_columns = possible_columns))
-  new_data_frame(tibble::as_tibble(vars))
+  data_frame0(tibble::as_tibble(vars))
 }
 eval_facet <- function(facet, data, possible_columns = NULL) {
   # Treat the case when `facet` is a quosure of a symbol specifically
@@ -451,7 +452,7 @@ eval_facet <- function(facet, data, possible_columns = NULL) {
   # but present in others raise a custom error
   env <- new_environment(data)
   missing_columns <- setdiff(possible_columns, names(data))
-  undefined_error <- function(e) abort("", class = "ggplot2_missing_facet_var")
+  undefined_error <- function(e) cli::cli_abort("", class = "ggplot2_missing_facet_var")
   bindings <- rep_named(missing_columns, list(undefined_error))
   env_bind_active(env, !!!bindings)
 
@@ -467,7 +468,14 @@ eval_facet <- function(facet, data, possible_columns = NULL) {
 
 layout_null <- function() {
   # PANEL needs to be a factor to be consistent with other facet types
-  new_data_frame(list(PANEL = factor(1), ROW = 1, COL = 1, SCALE_X = 1, SCALE_Y = 1))
+  data_frame0(
+    PANEL = factor(1),
+    ROW = 1,
+    COL = 1,
+    SCALE_X = 1,
+    SCALE_Y = 1,
+    .size = 1L
+  )
 }
 
 check_layout <- function(x) {
@@ -475,9 +483,20 @@ check_layout <- function(x) {
     return()
   }
 
-  abort("Facet layout has bad format. It must contain columns 'PANEL', 'SCALE_X', and 'SCALE_Y'")
+  cli::cli_abort("Facet layout has a bad format. It must contain columns {.col PANEL}, {.col SCALE_X}, and {.col SCALE_Y}")
 }
 
+check_facet_vars <- function(..., name) {
+  vars_names <- c(...)
+  reserved_names <- c("PANEL", "ROW", "COL", "SCALE_X", "SCALE_Y")
+  problems <- intersect(vars_names, reserved_names)
+  if (length(problems) != 0) {
+    cli::cli_abort(c(
+      "{.val {problems}} {?is/are} not {?an/} allowed name{?/s} for faceting variables",
+      "i" = "Change the name of your data columns to not be {.or {.str {reserved_names}}}"
+    ), call = call2(name))
+  }
+}
 
 #' Get the maximal width/length of a list of grobs
 #'
@@ -520,24 +539,25 @@ find_panel <- function(table) {
   layout <- table$layout
   panels <- layout[grepl("^panel", layout$name), , drop = FALSE]
 
-  new_data_frame(list(
+  data_frame0(
     t = min(.subset2(panels, "t")),
     r = max(.subset2(panels, "r")),
     b = max(.subset2(panels, "b")),
-    l = min(.subset2(panels, "l"))
-  ), n = 1)
+    l = min(.subset2(panels, "l")),
+    .size = 1
+  )
 }
 #' @rdname find_panel
 #' @export
 panel_cols = function(table) {
   panels <- table$layout[grepl("^panel", table$layout$name), , drop = FALSE]
-  unique(panels[, c('l', 'r')])
+  unique0(panels[, c('l', 'r')])
 }
 #' @rdname find_panel
 #' @export
 panel_rows <- function(table) {
   panels <- table$layout[grepl("^panel", table$layout$name), , drop = FALSE]
-  unique(panels[, c('t', 'b')])
+  unique0(panels[, c('t', 'b')])
 }
 #' Take input data and define a mapping between faceting variables and ROW,
 #' COL and PANEL keys
@@ -553,8 +573,8 @@ panel_rows <- function(table) {
 #' @keywords internal
 #' @export
 combine_vars <- function(data, env = emptyenv(), vars = NULL, drop = TRUE) {
-  possible_columns <- unique(unlist(lapply(data, names)))
-  if (length(vars) == 0) return(new_data_frame())
+  possible_columns <- unique0(unlist(lapply(data, names)))
+  if (length(vars) == 0) return(data_frame0())
 
   # For each layer, compute the facet values
   values <- compact(lapply(data, eval_facets, facets = vars, possible_columns = possible_columns))
@@ -564,16 +584,19 @@ combine_vars <- function(data, env = emptyenv(), vars = NULL, drop = TRUE) {
   has_all <- unlist(lapply(values, length)) == length(vars)
   if (!any(has_all)) {
     missing <- lapply(values, function(x) setdiff(names(vars), names(x)))
-    missing_txt <- vapply(missing, var_list, character(1))
-    name <- c("Plot", paste0("Layer ", seq_len(length(data) - 1)))
+    missing_vars <- paste0(
+      c("Plot", paste0("Layer ", seq_len(length(data) - 1))),
+      " is missing {.var ", missing[seq_along(data)], "}"
+    )
+    names(missing_vars) <- rep("x", length(data))
 
-    abort(glue(
-      "At least one layer must contain all faceting variables: {var_list(names(vars))}.\n",
-      glue_collapse(glue("* {name} is missing {missing_txt}"), "\n", last = "\n")
+    cli::cli_abort(c(
+      "At least one layer must contain all faceting variables: {.var {names(vars)}}",
+      missing_vars
     ))
   }
 
-  base <- unique(rbind_dfs(values[has_all]))
+  base <- unique0(vec_rbind(!!!values[has_all]))
   if (!drop) {
     base <- unique_combs(base)
   }
@@ -583,15 +606,15 @@ combine_vars <- function(data, env = emptyenv(), vars = NULL, drop = TRUE) {
     if (empty(value)) next;
 
     old <- base[setdiff(names(base), names(value))]
-    new <- unique(value[intersect(names(base), names(value))])
+    new <- unique0(value[intersect(names(base), names(value))])
     if (drop) {
       new <- unique_combs(new)
     }
-    base <- unique(rbind(base, df.grid(old, new)))
+    base <- unique0(vec_rbind(base, df.grid(old, new)))
   }
 
   if (empty(base)) {
-    abort("Faceting variables must have at least one value")
+    cli::cli_abort("Faceting variables must have at least one value")
   }
 
   base

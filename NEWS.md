@@ -1,5 +1,63 @@
 # ggplot2 (development version)
 
+* The dot-dot notation (`..var..`) and `stat()`, which have been superseded by
+  `after_stat()`, are now formally deprecated (@yutannihilation, #3693).
+
+* `geom_col()` and `geom_bar()` gain a new `just` argument. This is set to `0.5`
+  by default; use `just = 0`/`just = 1` to place columns on the left/right
+  of the axis breaks.
+  (@wurli, #4899)
+  
+* Fix a bug in `position_jitter()` where infinity values were dropped (@javlon,
+  #4790).
+
+* `geom_linerange()` now respects the `na.rm` argument (#4927, @thomasp85)
+
+* Improve the support for `guide_axis()` on `coord_trans()` (@yutannihilation, #3959)
+
+* `geom_density()` and `stat_density()` now support `bounds` argument
+  to estimate density with boundary correction (@echasnovski, #4013).
+
+* ggplot now checks during statistical transformations whether any data 
+  columns were dropped and warns about this. If stats intend to drop
+  data columns they can declare them in the new field `dropped_aes`.
+  (@clauswilke, #3250)
+  
+* Added `stat_align()` to align data without common x-coordinates prior to
+  stacking. This is now the default stat for `geom_area()` (@thomasp85, #4850)
+
+* Fix a bug in `stat_contour_filled()` where break value differences below a 
+  certain number of digits would cause the computations to fail (@thomasp85, 
+  #4874)
+
+* `stage()` now properly refers to the values without scale transformations for
+  the stage of `after_stat`. If your code requires the scaled version of the
+  values for some reason, you have to apply the same transformation by yourself,
+  e.g. `sqrt()` for `scale_{x,y}_sqrt()` (@yutannihilation and @teunbrand, #4155).
+
+* A `linewidth` aesthetic has been introduced and supersedes the `size` 
+  aesthetic for scaling the width of lines in line based geoms. `size` will 
+  remain functioning but deprecated for these geoms and it is recommended to 
+  update all code to reflect the new aesthetic (@thomasp85, #3672)
+
+* Secondary axis ticks are now positioned more precisely, removing small visual
+  artefacts with alignment between grid and ticks (@thomasp85, #3576)
+
+* Improve `stat_function` documentation regarding `xlim` argument. (@92amartins, #4474)
+
+* `qplot()` is now formally deprecated (@yutannihilation, #3956).
+
+* Use `rlang::hash()` instead of `digest::digest()`. This update may lead to 
+  changes in the automatic sorting of legends. In order to enforce a specific
+  legend order use the `order` argument in the guide. (@thomasp85, #4458)
+
+* Fix various issues with how `labels`, `breaks`, `limits`, and `show.limits`
+  interact in the different binning guides (@thomasp85, #4831)
+
+* Automatic break calculation now squishes the scale limits to the domain
+  of the transformation. This allows `scale_{x/y}_sqrt()` to find breaks at 0   
+  when appropriate (@teunbrand, #980).
+
 * Using multiple modified aesthetics correctly will no longer trigger warnings. 
   If used incorrectly, the warning will now report the duplicated aesthetic 
   instead of `NA` (@teunbrand, #4707).
@@ -79,8 +137,15 @@
   
 * `geom_contour()` now accepts a function in the `breaks` argument (@eliocamp, #4652).
 
+* VISUAL CHANGE: `scale_*_viridis_b()` now uses the full range of the viridis scales (@gregleleu, #4737)
+
 * Updated documentation for `geom_contour()` to correctly reflect argument 
 precedence between `bins` and `binwidth`. (@eliocamp, #4651)
+
+* The `ticks.linewidth` and `frame.linewidth` parameters of `guide_colourbar()`
+  are now multiplied with `.pt` like elsewhere in ggplot2. It can cause visual
+  changes when these arguments are not the defaults and these changes can be 
+  restored to their previous behaviour by adding `/ .pt` (@teunbrand #4314).
 
 * Dots in `geom_dotplot()` are now correctly aligned to the baseline when
   `stackratio != 1` and `stackdir != "up"` (@mjskay, #4614)

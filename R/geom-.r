@@ -78,12 +78,11 @@ Geom <- ggproto("Geom",
     # Trim off extra parameters
     params <- params[intersect(names(params), self$parameters())]
 
-    args <- c(list(quote(data), quote(panel_params), quote(coord)), params)
     lapply(split(data, data$PANEL), function(data) {
       if (empty(data)) return(zeroGrob())
 
       panel_params <- layout$panel_params[[data$PANEL[1]]]
-      do.call(self$draw_panel, args)
+      inject(self$draw_panel(data, panel_params, coord, !!!params))
     })
   },
 
@@ -94,12 +93,12 @@ Geom <- ggproto("Geom",
     })
 
     ggname(snake_class(self), gTree(
-      children = do.call("gList", grobs)
+      children = inject(gList(!!!grobs))
     ))
   },
 
   draw_group = function(self, data, panel_params, coord) {
-    abort("Not implemented")
+    cli::cli_abort("{.fn {snake_class(self)}}, has not implemented a {.fn draw_group} method")
   },
 
   setup_params = function(data, params) params,
@@ -108,6 +107,11 @@ Geom <- ggproto("Geom",
 
   # Combine data with defaults and set aesthetics from parameters
   use_defaults = function(self, data, params = list(), modifiers = aes()) {
+    # Inherit size as linewidth if no linewidth aesthetic and param exist
+    if (self$rename_size && is.null(data$linewidth) && is.null(params$linewidth)) {
+      data$linewidth <- data$size
+      params$linewidth <- params$size
+    }
     # Fill in missing aesthetics with their defaults
     missing_aes <- setdiff(names(self$default_aes), names(data))
 
@@ -135,16 +139,18 @@ Geom <- ggproto("Geom",
       # Check that all output are valid data
       nondata_modified <- check_nondata_cols(modified_aes)
       if (length(nondata_modified) > 0) {
-        msg <- glue(
-          "Modifiers must return valid values. Problematic aesthetic(s): ",
-          glue_collapse(vapply(nondata_modified, function(x) glue("{x} = {as_label(modifiers[[x]])}"), character(1)), ", ", last = " and "),
-          ". \nDid you map your mod in the wrong layer?"
-        )
-        abort(msg)
+        issues <- paste0("{.code ", nondata_modified, " = ", as_label(modifiers[[nondata_modified]]), "}")
+        names(issues) <- rep("x", length(issues))
+        cli::cli_abort(c(
+          "Aesthetic modifiers returned invalid values",
+          "x" = "The following mappings are invalid",
+          issues,
+          "i" = "Did you map the modifier in the wrong layer?"
+        ))
       }
 
       names(modified_aes) <- names(rename_aes(modifiers))
-      modified_aes <- new_data_frame(compact(modified_aes))
+      modified_aes <- data_frame0(!!!compact(modified_aes))
 
       data <- cunion(modified_aes, data)
     }
@@ -185,7 +191,10 @@ Geom <- ggproto("Geom",
       required_aes <- unlist(strsplit(self$required_aes, '|', fixed = TRUE))
     }
     c(union(required_aes, names(self$default_aes)), self$optional_aes, "group")
-  }
+  },
+
+  # Should the geom rename size to linewidth?
+  rename_size = FALSE
 
 )
 
@@ -215,8 +224,8 @@ check_aesthetics <- function(x, n) {
     return()
   }
 
-  abort(glue(
-    "Aesthetics must be either length 1 or the same as the data ({n}): ",
-    glue_collapse(names(which(!good)), ", ", last = " and ")
+  cli::cli_abort(c(
+    "Aesthetics must be either length 1 or the same as the data ({n})",
+    "x" = "Fix the following mappings: {.col {names(which(!good))}}"
   ))
 }

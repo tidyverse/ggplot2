@@ -50,6 +50,8 @@ test_that("stat_xxx and StatXxx$compute_panel arg defaults match", {
     stat_fun_names,
     c("stat_function", "stat_sf")
   )
+  # Remove stat_spoke as it has been deprecated
+  stat_fun_names <- setdiff(stat_fun_names, "stat_spoke")
 
   # For each stat_xxx function and the corresponding StatXxx$compute_panel and
   # StatXxx$compute_group functions, make sure that if they have same args, that

@@ -41,6 +41,22 @@
 #' h +
 #'   geom_ribbon(aes(ymin = level - 1, ymax = level + 1), fill = "grey70") +
 #'   geom_line(aes(y = level))
+#'
+#' # The underlying stat_align() takes care of unaligned data points
+#' df <- data.frame(
+#'   g = c("a", "a", "a", "b", "b", "b"),
+#'   x = c(1, 3, 5, 2, 4, 6),
+#'   y = c(2, 5, 1, 3, 6, 7)
+#' )
+#' a <- ggplot(df, aes(x, y, fill = g)) +
+#'   geom_area()
+#'
+#' # Two groups have points on different X values.
+#' a + geom_point(size = 8) + facet_grid(g ~ .)
+#'
+#' # stat_align() interpolates and aligns the value so that the areas can stack
+#' # properly.
+#' a + geom_point(stat = "align", position = "stack", size = 8)
 geom_ribbon <- function(mapping = NULL, data = NULL,
                         stat = "identity", position = "identity",
                         ...,
@@ -73,7 +89,7 @@ geom_ribbon <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomRibbon <- ggproto("GeomRibbon", Geom,
-  default_aes = aes(colour = NA, fill = "grey20", size = 0.5, linetype = 1,
+  default_aes = aes(colour = NA, fill = "grey20", linewidth = 0.5, linetype = 1,
     alpha = NA),
 
   required_aes = c("x|y", "ymin|xmin", "ymax|xmax"),
@@ -90,8 +106,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     data <- flip_data(data, params$flipped_aes)
 
     if (is.null(data$ymin) && is.null(data$ymax)) {
-      abort(glue("Either ", flipped_names(params$flipped_aes)$ymin, " or ",
-           flipped_names(params$flipped_aes)$ymax, " must be given as an aesthetic."))
+      cli::cli_abort("Either {.field {flipped_names(params$flipped_aes)$ymin}} or {.field {flipped_names(params$flipped_aes)$ymax}} must be given as an aesthetic.")
     }
     data <- data[order(data$PANEL, data$group, data$x), , drop = FALSE]
     data$y <- data$ymin %||% data$ymax
@@ -112,9 +127,9 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     data <- data[order(data$group), ]
 
     # Check that aesthetics are constant
-    aes <- unique(data[c("colour", "fill", "size", "linetype", "alpha")])
+    aes <- unique0(data[c("colour", "fill", "linewidth", "linetype", "alpha")])
     if (nrow(aes) > 1) {
-      abort("Aesthetics can not vary with a ribbon")
+      cli::cli_abort("Aesthetics can not vary along a ribbon")
     }
     aes <- as.list(aes)
 
@@ -131,18 +146,21 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
 
     data <- unclass(data) #for faster indexing
 
-    # The upper line and lower line need to processed separately (#4023)
-    positions_upper <- new_data_frame(list(
-      x = data$x,
-      y = data$ymax,
-      id = ids
-    ))
+    # In case the data comes from stat_align
+    upper_keep <- if (is.null(data$align_padding)) TRUE else !data$align_padding
 
-    positions_lower <- new_data_frame(list(
+    # The upper line and lower line need to processed separately (#4023)
+    positions_upper <- data_frame0(
+      x = data$x[upper_keep],
+      y = data$ymax[upper_keep],
+      id = ids[upper_keep]
+    )
+
+    positions_lower <- data_frame0(
       x = rev(data$x),
       y = rev(data$ymin),
       id = rev(ids)
-    ))
+    )
 
     positions_upper <- flip_data(positions_upper, flipped_aes)
     positions_lower <- flip_data(positions_lower, flipped_aes)
@@ -150,7 +168,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     munched_upper <- coord_munch(coord, positions_upper, panel_params)
     munched_lower <- coord_munch(coord, positions_lower, panel_params)
 
-    munched_poly <- rbind(munched_upper, munched_lower)
+    munched_poly <- vec_rbind(munched_upper, munched_lower)
 
     is_full_outline <- identical(outline.type, "full")
     g_poly <- polygonGrob(
@@ -159,7 +177,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
       gp = gpar(
         fill = alpha(aes$fill, aes$alpha),
         col = if (is_full_outline) aes$colour else NA,
-        lwd = if (is_full_outline) aes$size * .pt else 0,
+        lwd = if (is_full_outline) aes$linewidth * .pt else 0,
         lty = if (is_full_outline) aes$linetype else 1,
         lineend = lineend,
         linejoin = linejoin,
@@ -175,17 +193,20 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     munched_lower$id <- munched_lower$id + max(ids, na.rm = TRUE)
 
     munched_lines <- switch(outline.type,
-      both = rbind(munched_upper, munched_lower),
+      both = vec_rbind(munched_upper, munched_lower),
       upper = munched_upper,
       lower = munched_lower,
-      abort(glue("invalid outline.type: {outline.type}"))
+      cli::cli_abort(c(
+        "invalid {.arg outline.type}: {.val {outline.type}}",
+        "i" = "use either {.val upper}, {.val lower}, or {.val both}"
+      ))
     )
     g_lines <- polylineGrob(
       munched_lines$x, munched_lines$y, id = munched_lines$id,
       default.units = "native",
       gp = gpar(
         col = aes$colour,
-        lwd = aes$size * .pt,
+        lwd = aes$linewidth * .pt,
         lty = aes$linetype,
         lineend = lineend,
         linejoin = linejoin,
@@ -194,13 +215,14 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     )
 
     ggname("geom_ribbon", grobTree(g_poly, g_lines))
-  }
+  },
 
+  rename_size = TRUE
 )
 
 #' @rdname geom_ribbon
 #' @export
-geom_area <- function(mapping = NULL, data = NULL, stat = "identity",
+geom_area <- function(mapping = NULL, data = NULL, stat = "align",
                       position = "stack", na.rm = FALSE, orientation = NA,
                       show.legend = NA, inherit.aes = TRUE, ...,
                       outline.type = "upper") {
@@ -228,7 +250,7 @@ geom_area <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @usage NULL
 #' @export
 GeomArea <- ggproto("GeomArea", GeomRibbon,
-  default_aes = aes(colour = NA, fill = "grey20", size = 0.5, linetype = 1,
+  default_aes = aes(colour = NA, fill = "grey20", linewidth = 0.5, linetype = 1,
     alpha = NA),
 
   required_aes = c("x", "y"),

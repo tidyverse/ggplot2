@@ -13,6 +13,7 @@ layer_sf <- function(geom = NULL, stat = NULL,
                      position = NULL, params = list(),
                      inherit.aes = TRUE, check.aes = TRUE, check.param = TRUE,
                      show.legend = NA) {
+  call_env <- caller_env()
   if (is.character(show.legend)) {
     legend_key_type <- show.legend
     show.legend <- TRUE
@@ -21,7 +22,10 @@ layer_sf <- function(geom = NULL, stat = NULL,
   }
 
   # inherit from LayerSf class to add `legend_key_type` slot
-  layer_class <- ggproto(NULL, LayerSf, legend_key_type = legend_key_type)
+  layer_class <- ggproto(NULL, LayerSf,
+    constructor = frame_call(call_env),
+    legend_key_type = legend_key_type
+  )
 
   layer(
     geom = geom, stat = stat, data = data, mapping = mapping,
@@ -92,7 +96,7 @@ geom_column <- function(data) {
   } else {
     # this may not be best in case more than one geometry list-column is present:
     if (length(w) > 1)
-      warn("more than one geometry column present: taking the first")
+      cli::cli_warn("More than one geometry column present: taking the first")
     w[[1]]
   }
 }
@@ -109,7 +113,7 @@ scale_type.sfc <- function(x) "identity"
 
 # helper function to determine the geometry type of sf object
 detect_sf_type <- function(sf) {
-  geometry_type <- unique(as.character(sf::st_geometry_type(sf)))
+  geometry_type <- unique0(as.character(sf::st_geometry_type(sf)))
   if (length(geometry_type) != 1)  geometry_type <- "GEOMETRY"
   sf_types[geometry_type]
 }

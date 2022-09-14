@@ -71,9 +71,13 @@ GeomCustomAnn <- ggproto("GeomCustomAnn", Geom,
   draw_panel = function(data, panel_params, coord, grob, xmin, xmax,
                         ymin, ymax) {
     if (!inherits(coord, "CoordCartesian")) {
-      abort("annotation_custom only works with Cartesian coordinates")
+      cli::cli_abort("{.fn annotation_custom} only works with {.fn coord_cartesian}")
     }
-    corners <- new_data_frame(list(x = c(xmin, xmax), y = c(ymin, ymax)), n = 2)
+    corners <- data_frame0(
+      x = c(xmin, xmax),
+      y = c(ymin, ymax),
+      .size = 2
+    )
     data <- coord$transform(corners, panel_params)
 
     x_rng <- range(data$x, na.rm = TRUE)

@@ -86,11 +86,11 @@ calculate_ellipse <- function(data, vars, type, level, segments){
   dfd <- nrow(data) - 1
 
   if (!type %in% c("t", "norm", "euclid")) {
-    message("Unrecognized ellipse type")
-    ellipse <- rbind(as.numeric(c(NA, NA)))
+    cli::cli_inform("Unrecognized ellipse type")
+    ellipse <- matrix(NA_real_, ncol = 2)
   } else if (dfd < 3) {
-    message("Too few points to calculate an ellipse")
-    ellipse <- rbind(as.numeric(c(NA, NA)))
+    cli::cli_inform("Too few points to calculate an ellipse")
+    ellipse <- matrix(NA_real_, ncol = 2)
   } else {
     if (type == "t") {
       v <- MASS::cov.trob(data[,vars])

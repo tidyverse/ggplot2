@@ -83,10 +83,13 @@ PositionJitter <- ggproto("PositionJitter", Position,
     x <- if (length(x_aes) == 0) 0 else data[[x_aes[1]]]
     y_aes <- intersect(ggplot_global$y_aes, names(data))
     y <- if (length(y_aes) == 0) 0 else data[[y_aes[1]]]
-    dummy_data <- new_data_frame(list(x = x, y = y), nrow(data))
+    dummy_data <- data_frame0(x = x, y = y, .size = nrow(data))
     fixed_jitter <- with_seed_null(params$seed, transform_position(dummy_data, trans_x, trans_y))
     x_jit <- fixed_jitter$x - x
     y_jit <- fixed_jitter$y - y
+    # Avoid nan values, if x or y has Inf values
+    x_jit[is.infinite(x)] <- 0
+    y_jit[is.infinite(y)] <- 0
 
     # Apply jitter
     transform_position(data, function(x) x + x_jit, function(x) x + y_jit)

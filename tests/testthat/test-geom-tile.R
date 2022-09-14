@@ -14,7 +14,7 @@ test_that("accepts width and height aesthetics", {
   df <- data_frame(x = 0, y = 0, width = c(2, 4), height = c(2, 4))
 
   p <- ggplot(df, aes(x, y, width = width, height = height)) +
-    geom_tile(fill = NA, colour = "black", size = 1)
+    geom_tile(fill = NA, colour = "black", linewidth = 1)
   out <- layer_data(p)
 
   boundary <- as.data.frame(tibble::tribble(

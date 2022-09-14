@@ -47,7 +47,10 @@ stat_boxplot <- function(mapping = NULL, data = NULL,
 StatBoxplot <- ggproto("StatBoxplot", Stat,
   required_aes = c("y|x"),
   non_missing_aes = "weight",
-  setup_data = function(data, params) {
+  # either the x or y aesthetic will get dropped during
+  # statistical transformation, depending on the orientation
+  dropped_aes = c("x", "y"),
+  setup_data = function(self, data, params) {
     data <- flip_data(data, params$flipped_aes)
     data$x <- data$x %||% 0
     data <- remove_missing(
@@ -59,7 +62,7 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
     flip_data(data, params$flipped_aes)
   },
 
-  setup_params = function(data, params) {
+  setup_params = function(self, data, params) {
     params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = TRUE,
                                           group_has_equal = TRUE,
                                           main_is_optional = TRUE)
@@ -68,13 +71,16 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
     has_x <- !(is.null(data$x) && is.null(params$x))
     has_y <- !(is.null(data$y) && is.null(params$y))
     if (!has_x && !has_y) {
-      abort("stat_boxplot() requires an x or y aesthetic.")
+      cli::cli_abort("{.fn {snake_class(self)}} requires an {.field x} or {.field y} aesthetic.")
     }
 
     params$width <- params$width %||% (resolution(data$x %||% 0) * 0.75)
 
     if (is.double(data$x) && !has_groups(data) && any(data$x != data$x[1L])) {
-      warn(glue("Continuous {flipped_names(params$flipped_aes)$x} aesthetic -- did you forget aes(group=...)?"))
+      cli::cli_warn(c(
+        "Continuous {.field {flipped_names(params$flipped_aes)$x}} aesthetic",
+        "i" = "did you forget {.code aes(group = ...)}?"
+      ))
     }
 
     params
@@ -100,10 +106,10 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
       stats[c(1, 5)] <- range(c(stats[2:4], data$y[!outliers]), na.rm = TRUE)
     }
 
-    if (length(unique(data$x)) > 1)
+    if (length(unique0(data$x)) > 1)
       width <- diff(range(data$x)) * 0.9
 
-    df <- new_data_frame(as.list(stats))
+    df <- data_frame0(!!!as.list(stats))
     df$outliers <- list(data$y[outliers])
 
     if (is.null(data$weight)) {

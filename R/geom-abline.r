@@ -20,9 +20,9 @@ NULL
 #' commonly set in the plot. They also do not affect the x and y scales.
 #'
 #' @section Aesthetics:
-#' These geoms are drawn using with [geom_line()] so support the
+#' These geoms are drawn using [geom_line()] so they support the
 #' same aesthetics: `alpha`, `colour`, `linetype` and
-#' `size`. They also each have aesthetics that control the position of
+#' `linewidth`. They also each have aesthetics that control the position of
 #' the line:
 #'
 #'   - `geom_vline()`: `xintercept`
@@ -33,7 +33,7 @@ NULL
 #'   adding straight line segments to a plot.
 #' @inheritParams layer
 #' @inheritParams geom_point
-#' @param mapping Set of aesthetic mappings created by [aes()] or [aes_()].
+#' @param mapping Set of aesthetic mappings created by [aes()].
 #' @param xintercept,yintercept,slope,intercept Parameters that control the
 #'   position of the line. If these are set, `data`, `mapping` and
 #'   `show.legend` are overridden.
@@ -86,20 +86,21 @@ geom_abline <- function(mapping = NULL, data = NULL,
 
     # Warn if supplied mapping and/or data is going to be overwritten
     if (!is.null(mapping)) {
-      warn_overwritten_args("geom_abline()", "mapping", c("slope", "intercept"))
+      cli::cli_warn("{.fn geom_abline}: Ignoring {.arg mapping} because {.arg slope} and/or {.arg intercept} were provided.")
     }
     if (!is.null(data)) {
-      warn_overwritten_args("geom_abline()", "data", c("slope", "intercept"))
+      cli::cli_warn("{.fn geom_abline}: Ignoring {.arg data} because {.arg slope} and/or {.arg intercept} were provided.")
     }
 
     if (missing(slope)) slope <- 1
     if (missing(intercept)) intercept <- 0
     n_slopes <- max(length(slope), length(intercept))
 
-    data <- new_data_frame(list(
+    data <- data_frame0(
       intercept = intercept,
-      slope = slope
-    ), n = n_slopes)
+      slope = slope,
+      .size = n_slopes
+    )
     mapping <- aes(intercept = intercept, slope = slope)
     show.legend <- FALSE
   }
@@ -138,33 +139,13 @@ GeomAbline <- ggproto("GeomAbline", Geom,
     data$y    <- ranges$x[1] * data$slope + data$intercept
     data$yend <- ranges$x[2] * data$slope + data$intercept
 
-    GeomSegment$draw_panel(unique(data), panel_params, coord, lineend = lineend)
+    GeomSegment$draw_panel(unique0(data), panel_params, coord, lineend = lineend)
   },
 
-  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
+  default_aes = aes(colour = "black", linewidth = 0.5, linetype = 1, alpha = NA),
   required_aes = c("slope", "intercept"),
 
-  draw_key = draw_key_abline
+  draw_key = draw_key_abline,
+
+  rename_size = TRUE
 )
-
-warn_overwritten_args <- function(fun_name, overwritten_arg, provided_args, plural_join = " and/or ") {
-  overwritten_arg_text <- paste0("`", overwritten_arg, "`")
-
-  n_provided_args <- length(provided_args)
-  if (n_provided_args == 1) {
-    provided_arg_text <- paste0("`", provided_args, "`")
-    verb <- "was"
-  } else if (n_provided_args == 2) {
-    provided_arg_text <- paste0("`", provided_args, "`", collapse = plural_join)
-    verb <- "were"
-  } else {
-    provided_arg_text <- paste0(
-      paste0("`", provided_args[-n_provided_args], "`", collapse = ", "),
-      ",", plural_join,
-      "`", provided_args[n_provided_args], "`"
-    )
-    verb <- "were"
-  }
-
-  warn(glue("{fun_name}: Ignoring {overwritten_arg_text} because {provided_arg_text} {verb} provided."))
-}
