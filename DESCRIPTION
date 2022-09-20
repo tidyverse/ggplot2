@@ -71,8 +71,6 @@ Suggests:
     testthat (>= 3.1.2),
     vdiffr (>= 1.0.0),
     xml2
-Remotes:
-    r-lib/lifecycle
 Enhances: 
     sp
 VignetteBuilder: 
