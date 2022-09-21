@@ -135,7 +135,7 @@ GeomPath <- ggproto("GeomPath", Geom,
   handle_na = function(self, data, params) {
     # Drop missing values at the start or end of a line - can't drop in the
     # middle since you expect those to be shown by a break in the line
-    complete <- stats::complete.cases(data[c("x", "y", "linewidth", "colour", "linetype")])
+    complete <- stats::complete.cases(data[names(data) %in% c("x", "y", "linewidth", "colour", "linetype")])
     kept <- stats::ave(complete, data$group, FUN = keep_mid_true)
     data <- data[kept, ]
 
@@ -170,7 +170,7 @@ GeomPath <- ggproto("GeomPath", Geom,
       linetype <- unique0(df$linetype)
       data_frame0(
         solid = identical(linetype, 1) || identical(linetype, "solid"),
-        constant = nrow(unique0(df[, c("alpha", "colour", "linewidth", "linetype")])) == 1,
+        constant = nrow(unique0(df[, names(data) %in% c("alpha", "colour", "linewidth", "linetype")])) == 1,
         .size = 1
       )
     })

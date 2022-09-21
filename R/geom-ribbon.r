@@ -127,7 +127,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     data <- data[order(data$group), ]
 
     # Check that aesthetics are constant
-    aes <- unique0(data[c("colour", "fill", "linewidth", "linetype", "alpha")])
+    aes <- unique0(data[names(data) %in% c("colour", "fill", "linewidth", "linetype", "alpha")])
     if (nrow(aes) > 1) {
       cli::cli_abort("Aesthetics can not vary along a ribbon")
     }
