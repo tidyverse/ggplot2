@@ -150,7 +150,7 @@ new_mapped_discrete <- function(x = double()) {
 }
 mapped_discrete <- function(x = double()) {
   if (is.null(x)) return(NULL)
-  if (is.array(x)) x <- as.vector(x)
+  x <- as.vector(x)
   new_mapped_discrete(vec_cast(x, double()))
 }
 is_mapped_discrete <- function(x) inherits(x, "ggplot2_mapped_discrete")
