@@ -261,7 +261,7 @@ CoordPolar <- ggproto("CoordPolar", Coord,
 
     grobTree(
       if (length(labels) > 0) element_render(
-        theme, "axis.text.x",
+        theme, paste0("axis.text.", self$theta),
         labels,
         unit(0.45 * sin(theta) + 0.5, "native"),
         unit(0.45 * cos(theta) + 0.5, "native"),
