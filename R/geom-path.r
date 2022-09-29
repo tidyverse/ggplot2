@@ -149,6 +149,7 @@ GeomPath <- ggproto("GeomPath", Geom,
   draw_panel = function(self, data, panel_params, coord, arrow = NULL,
                         lineend = "butt", linejoin = "round", linemitre = 10,
                         na.rm = FALSE) {
+    data <- check_linewidth(data, snake_class(self))
     if (!anyDuplicated(data$group)) {
       cli::cli_inform(c(
         "{.fn {snake_class(self)}}: Each group consists of only one observation.",
@@ -170,7 +171,7 @@ GeomPath <- ggproto("GeomPath", Geom,
       linetype <- unique0(df$linetype)
       data_frame0(
         solid = identical(linetype, 1) || identical(linetype, "solid"),
-        constant = nrow(unique0(df[, names(data) %in% c("alpha", "colour", "linewidth", "linetype")])) == 1,
+        constant = nrow(unique0(df[, names(df) %in% c("alpha", "colour", "linewidth", "linetype")])) == 1,
         .size = 1
       )
     })
