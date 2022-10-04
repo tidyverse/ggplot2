@@ -152,13 +152,13 @@ test_that("Aesthetics with no continuous interpretation fails when called", {
 
 test_that("mapped_discrete vectors behaves as predicted", {
   expect_null(mapped_discrete(NULL))
-  expect_s3_class(mapped_discrete(c(0, 3.5)), "ggplot2_mapped_discrete")
-  expect_s3_class(mapped_discrete(seq_len(4)), "ggplot2_mapped_discrete")
+  expect_s3_class(mapped_discrete(c(0, 3.5)), "mapped_discrete")
+  expect_s3_class(mapped_discrete(seq_len(4)), "mapped_discrete")
   expect_error(mapped_discrete(letters))
 
   x <- mapped_discrete(1:10)
-  expect_s3_class(x[2:4], "ggplot2_mapped_discrete")
-  expect_s3_class(c(x, x), "ggplot2_mapped_discrete")
+  expect_s3_class(x[2:4], "mapped_discrete")
+  expect_s3_class(c(x, x), "mapped_discrete")
   x[5:7] <- mapped_discrete(seq_len(3))
-  expect_s3_class(x, "ggplot2_mapped_discrete")
+  expect_s3_class(x, "mapped_discrete")
 })
