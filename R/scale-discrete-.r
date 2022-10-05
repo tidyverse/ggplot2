@@ -149,7 +149,6 @@ new_mapped_discrete <- function(x = double()) {
 }
 mapped_discrete <- function(x = double()) {
   if (is.null(x)) return(NULL)
-  x <- as.vector(x)
   new_mapped_discrete(vec_cast(x, double()))
 }
 is_mapped_discrete <- function(x) inherits(x, "mapped_discrete")
