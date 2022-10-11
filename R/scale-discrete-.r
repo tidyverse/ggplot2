@@ -143,7 +143,8 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
 
 # Can't use vctrs - vctrs is too restrictive for mapped_discrete
 new_mapped_discrete <- function(x = double()) {
-  vec_assert(x, double())
+  # Check the storage mode is double but don't error on additional attributes
+  vec_assert(as.vector(x), double())
   class(x) <- c("mapped_discrete", "numeric")
   x
 }
