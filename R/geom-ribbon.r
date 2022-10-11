@@ -169,7 +169,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     munched_upper <- coord_munch(coord, positions_upper, panel_params)
     munched_lower <- coord_munch(coord, positions_lower, panel_params)
 
-    munched_poly <- vec_rbind(munched_upper, munched_lower)
+    munched_poly <- vec_rbind0(munched_upper, munched_lower)
 
     is_full_outline <- identical(outline.type, "full")
     g_poly <- polygonGrob(
@@ -194,7 +194,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     munched_lower$id <- munched_lower$id + max(ids, na.rm = TRUE)
 
     munched_lines <- switch(outline.type,
-      both = vec_rbind(munched_upper, munched_lower),
+      both = vec_rbind0(munched_upper, munched_lower),
       upper = munched_upper,
       lower = munched_lower,
       cli::cli_abort(c(

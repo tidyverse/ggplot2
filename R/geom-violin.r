@@ -144,14 +144,14 @@ GeomViolin <- ggproto("GeomViolin", Geom,
     )
 
     # Make sure it's sorted properly to draw the outline
-    newdata <- vec_rbind(
+    newdata <- vec_rbind0(
       transform(data, x = xminv)[order(data$y), ],
       transform(data, x = xmaxv)[order(data$y, decreasing = TRUE), ]
     )
 
     # Close the polygon: set first and last point the same
     # Needed for coord_polar and such
-    newdata <- vec_rbind(newdata, newdata[1,])
+    newdata <- vec_rbind0(newdata, newdata[1,])
     newdata <- flip_data(newdata, flipped_aes)
 
     # Draw quantiles if requested, so long as there is non-zero y range

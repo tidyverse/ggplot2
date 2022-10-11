@@ -596,7 +596,7 @@ combine_vars <- function(data, env = emptyenv(), vars = NULL, drop = TRUE) {
     ))
   }
 
-  base <- unique0(vec_rbind(!!!values[has_all]))
+  base <- unique0(vec_rbind0(!!!values[has_all]))
   if (!drop) {
     base <- unique_combs(base)
   }
@@ -610,7 +610,7 @@ combine_vars <- function(data, env = emptyenv(), vars = NULL, drop = TRUE) {
     if (drop) {
       new <- unique_combs(new)
     }
-    base <- unique0(vec_rbind(base, df.grid(old, new)))
+    base <- unique0(vec_rbind0(base, df.grid(old, new)))
   }
 
   if (empty(base)) {

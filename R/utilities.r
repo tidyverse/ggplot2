@@ -613,3 +613,96 @@ is_triple_bang <- function(x) {
 
   TRUE
 }
+
+# Restart handler for using vec_rbind with mix of types
+# Ordered is coerced to factor
+# If a character vector is present the other is converted to character
+with_ordered_restart <- function(expr, .call) {
+  withCallingHandlers(
+    expr,
+    vctrs_error_incompatible_type = function(cnd) {
+      x <- cnd[["x"]]
+      y <- cnd[["y"]]
+
+      class_x <- class(x)[1]
+      class_y <- class(y)[1]
+
+      restart <- FALSE
+
+      if (is.ordered(x) || is.ordered(y)) {
+        restart <- TRUE
+        if (is.ordered(x)) {
+          x <- factor(as.character(x), levels = levels(x))
+        } else {
+          y <- factor(as.character(y), levels = levels(y))
+        }
+      } else if (is.character(x) || is.character(y)) {
+        restart <- TRUE
+        if (is.character(x)) {
+          y <- as.character(y)
+        } else {
+          x <- as.character(x)
+        }
+      } else if (is.factor(x) || is.factor(y)) {
+        restart <- TRUE
+        lev <- c()
+        if (is.factor(x)) {
+          lev <- c(lev, levels(x))
+        }
+        if (is.factor(y)) {
+          lev <- c(lev, levels(y))
+        }
+        x <- factor(as.character(x), levels = unique(lev))
+        y <- factor(as.character(y), levels = unique(lev))
+      }
+
+      # Don't recurse and let ptype2 error keep its course
+      if (!restart) {
+        return(zap())
+      }
+
+      msg <- paste0("Combining variables of class <", class_x, "> and <", class_y, ">")
+      desc <- paste0(
+        "Please ensure your variables are compatible before plotting (location: ",
+        format_error_call(.call),
+        ")"
+      )
+
+      lifecycle::deprecate_soft(
+        "3.4.0",
+        I(msg),
+        details = desc
+      )
+
+      x_arg <- cnd[["x_arg"]]
+      y_arg <- cnd[["y_arg"]]
+      call <- cnd[["call"]]
+
+      # Recurse with factor methods and restart with the result
+      if (inherits(cnd, "vctrs_error_ptype2")) {
+        out <- vec_ptype2(x, y, x_arg = x_arg, y_arg = y_arg, call = call)
+        restart <- "vctrs_restart_ptype2"
+      } else if (inherits(cnd, "vctrs_error_cast")) {
+        out <- vec_cast(x, y, x_arg = x_arg, to_arg = y_arg, call = call)
+        restart <- "vctrs_restart_cast"
+      } else {
+        return(zap())
+      }
+
+      # Old-R compat for `tryInvokeRestart()`
+      try_restart <- function(restart, ...) {
+        if (!is_null(findRestart(restart))) {
+          invokeRestart(restart, ...)
+        }
+      }
+      try_restart(restart, out)
+    }
+  )
+}
+
+vec_rbind0 <- function(..., .error_call = current_env(), .call = caller_env()) {
+  with_ordered_restart(
+    vec_rbind(..., .error_call = .error_call),
+    .call
+  )
+}
