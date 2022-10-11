@@ -643,7 +643,11 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
 
     # Ensure limits don't exceed domain (#980)
     domain <- suppressWarnings(self$trans$transform(self$trans$domain))
-    limits <- oob_squish(limits, sort(domain))
+    domain <- sort(domain)
+    # To avoid NaN causing issues. NaN are dropped by the sort()
+    if (length(domain) == 2) {
+      limits <- oob_squish(limits, domain)
+    }
 
     # Limits in transformed space need to be converted back to data space
     limits <- self$trans$inverse(limits)
