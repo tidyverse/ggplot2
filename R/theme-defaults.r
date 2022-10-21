@@ -671,3 +671,34 @@ theme_all_null <- function() {
   args <- c(elements, list(complete = TRUE))
   inject(theme(!!!args))
 }
+
+#' @export
+#' @rdname ggtheme
+theme_transparent <- function(base_size = 11, base_family = "",
+                              base_line_size = base_size / 22,
+                              base_rect_size = base_size / 22) {
+  # Based on theme_bw
+  theme_grey(
+    base_size = base_size,
+    base_family = base_family,
+    base_line_size = base_line_size,
+    base_rect_size = base_rect_size
+  ) %+replace%
+    theme(
+      # white background and dark border
+      panel.background  = element_rect(fill = "transparent", colour = NA),
+      plot.background   = element_rect(fill = "transparent", colour = NA),
+      legend.background = element_rect(fill = "transparent", colour = NA),
+      legend.key        = element_rect(fill = "transparent", colour = NA),
+      panel.border      = element_rect(fill = NA, colour = "grey20"),
+      # make gridlines dark, same contrast with white as in theme_grey
+      panel.grid        = element_line(colour = "grey92"),
+      panel.grid.minor  = element_line(linewidth = rel(0.5)),
+      # contour strips to match panel contour
+      strip.background  = element_rect(fill = "grey85", colour = "grey20"),
+
+      complete = TRUE
+    )
+}
+
+

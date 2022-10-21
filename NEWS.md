@@ -155,6 +155,8 @@ precedence between `bins` and `binwidth`. (@eliocamp, #4651)
   
 * Updated documentation for `geom_smooth()` to more clearly describe effects of the 
   `fullrange` parameter (@thoolihan, #4399).
+  
+* Added `theme_transparent()` with transparent backgrounds. 
 
 # ggplot2 3.3.6
 This is a very small release only applying an internal change to comply with 
