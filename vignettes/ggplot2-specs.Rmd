@@ -43,7 +43,7 @@ Almost every geom has either colour, fill, or both. Colours and fills can be spe
 
 ## Lines
 
-As well as `colour`, the appearance of a line is affected by `size`, `linetype`, `linejoin` and `lineend`.
+As well as `colour`, the appearance of a line is affected by `linewidth`, `linetype`, `linejoin` and `lineend`.
 
 ### Line type {#sec:line-type-spec}
 
