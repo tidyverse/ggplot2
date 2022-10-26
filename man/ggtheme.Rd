@@ -11,6 +11,7 @@
 \alias{theme_classic}
 \alias{theme_void}
 \alias{theme_test}
+\alias{theme_transparent}
 \title{Complete themes}
 \usage{
 theme_grey(
@@ -77,6 +78,13 @@ theme_void(
 )
 
 theme_test(
+  base_size = 11,
+  base_family = "",
+  base_line_size = base_size/22,
+  base_rect_size = base_size/22
+)
+
+theme_transparent(
   base_size = 11,
   base_family = "",
   base_line_size = base_size/22,
