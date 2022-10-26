@@ -171,7 +171,9 @@ layer <- function(geom = NULL, stat = NULL,
 validate_mapping <- function(mapping, call = caller_env()) {
   if (!inherits(mapping, "uneval")) {
     msg <- paste0("{.arg mapping} must be created by {.fn aes}")
-    if (inherits(mapping, "ggplot")) {
+    # Native pipe have higher precedence than + so any type of gg object can be
+    # expected here, not just ggplot
+    if (inherits(mapping, "gg")) {
       msg <- c(msg, "i" = "Did you use {.code %>%} or {.code |>} instead of {.code +}?")
     }
 

@@ -317,7 +317,9 @@ validate_facets <- function(x) {
   if (inherits(x, "uneval")) {
     cli::cli_abort("Please use {.fn vars} to supply facet variables")
   }
-  if (inherits(x, "ggplot")) {
+  # Native pipe have higher precedence than + so any type of gg object can be
+  # expected here, not just ggplot
+  if (inherits(x, "gg")) {
     cli::cli_abort(c(
       "Please use {.fn vars} to supply facet variables",
       "i" = "Did you use {.code %>%} or {.code |>} instead of {.code +}?"

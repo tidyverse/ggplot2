@@ -158,7 +158,9 @@ grid_as_facets_list <- function(rows, cols) {
   if (!is_rows_vars) {
     if (!is.null(cols)) {
       msg <- "{.arg rows} must be {.val NULL} or a {.fn vars} list if {.arg cols} is a {.fn vars} list"
-      if (inherits(rows, "ggplot")) {
+      # Native pipe have higher precedence than + so any type of gg object can be
+      # expected here, not just ggplot
+      if (inherits(rows, "gg")) {
         msg <- c(
           msg,
           "i" = "Did you use {.code %>%} or {.code |>} instead of {.code +}?"
