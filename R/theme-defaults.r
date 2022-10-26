@@ -685,11 +685,11 @@ theme_transparent <- function(base_size = 11, base_family = "",
     base_rect_size = base_rect_size
   ) %+replace%
     theme(
-      # white background and dark border
-      panel.background  = element_rect(fill = "transparent", colour = NA),
-      plot.background   = element_rect(fill = "transparent", colour = NA),
-      legend.background = element_rect(fill = "transparent", colour = NA),
-      legend.key        = element_rect(fill = "transparent", colour = NA),
+      panel.background  = element_blank(),
+      plot.background   = element_blank(),
+      legend.background = element_blank(),
+      legend.key        = element_blank(),
+      # theme_bw specifications
       panel.border      = element_rect(fill = NA, colour = "grey20"),
       # make gridlines dark, same contrast with white as in theme_grey
       panel.grid        = element_line(colour = "grey92"),
