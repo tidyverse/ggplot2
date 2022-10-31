@@ -70,6 +70,6 @@
 
 # a warning is generated when guides(<scale> = FALSE) is specified
 
-    `guide = FALSE` is deprecated
-    i Please use `guide = "none"` instead.
+    The `guide` argument in `scale_*()` cannot be `FALSE`. This was deprecated in ggplot2 3.3.4.
+    i Please use "none" instead.
 
