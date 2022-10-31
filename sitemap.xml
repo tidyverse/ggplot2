@@ -544,6 +544,9 @@
     <loc>https://ggplot2.tidyverse.org/reference/scale_linetype.html</loc>
   </url>
   <url>
+    <loc>https://ggplot2.tidyverse.org/reference/scale_linewidth.html</loc>
+  </url>
+  <url>
     <loc>https://ggplot2.tidyverse.org/reference/scale_manual.html</loc>
   </url>
   <url>
@@ -617,12 +620,6 @@
   </url>
   <url>
     <loc>https://ggplot2.tidyverse.org/reference/transform_position.html</loc>
-  </url>
-  <url>
-    <loc>https://ggplot2.tidyverse.org/reference/translate_qplot_ggplot.html</loc>
-  </url>
-  <url>
-    <loc>https://ggplot2.tidyverse.org/reference/translate_qplot_lattice.html</loc>
   </url>
   <url>
     <loc>https://ggplot2.tidyverse.org/reference/txhousing.html</loc>
