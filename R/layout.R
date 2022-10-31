@@ -302,6 +302,8 @@ scale_apply <- function(data, vars, method, scale_id, scales) {
     pieces <- lapply(seq_along(scales), function(i) {
       scales[[i]][[method]](data[[var]][scale_index[[i]]])
     })
+    # Remove empty vectors to avoid coercion issues with vctrs
+    pieces[lengths(pieces) == 0] <- NULL
     o <- order(unlist(scale_index))[seq_len(sum(lengths(pieces)))]
     vec_c(!!!pieces)[o]
   })

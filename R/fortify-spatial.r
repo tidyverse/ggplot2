@@ -26,7 +26,7 @@ fortify.SpatialPolygonsDataFrame <- function(model, data, region = NULL, ...) {
   # If not specified, split into regions based on polygons
   if (is.null(region)) {
     coords <- lapply(model@polygons,fortify)
-    coords <- vec_rbind(!!!coords)
+    coords <- vec_rbind0(!!!coords)
     cli::cli_inform("Regions defined for each Polygons")
   } else {
     cp <- sp::polygons(model)
@@ -44,7 +44,7 @@ fortify.SpatialPolygonsDataFrame <- function(model, data, region = NULL, ...) {
 #' @method fortify SpatialPolygons
 fortify.SpatialPolygons <- function(model, data, ...) {
   polys <- lapply(model@polygons, fortify)
-  vec_rbind(!!!polys)
+  vec_rbind0(!!!polys)
 }
 
 #' @rdname fortify.sp
@@ -57,7 +57,7 @@ fortify.Polygons <- function(model, data, ...) {
     df$piece <- i
     df
   })
-  pieces <- vec_rbind(!!!pieces)
+  pieces <- vec_rbind0(!!!pieces)
 
   pieces$order <- 1:nrow(pieces)
   pieces$id <- model@ID
@@ -82,7 +82,7 @@ fortify.Polygon <- function(model, data, ...) {
 #' @method fortify SpatialLinesDataFrame
 fortify.SpatialLinesDataFrame <- function(model, data, ...) {
   lines <- lapply(model@lines, fortify)
-  vec_rbind(!!!lines)
+  vec_rbind0(!!!lines)
 }
 
 #' @rdname fortify.sp
@@ -95,7 +95,7 @@ fortify.Lines <- function(model, data, ...) {
     df$piece <- i
     df
   })
-  pieces <- vec_rbind(!!!pieces)
+  pieces <- vec_rbind0(!!!pieces)
 
   pieces$order <- 1:nrow(pieces)
   pieces$id <- model@ID

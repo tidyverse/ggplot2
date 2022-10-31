@@ -107,8 +107,9 @@ geom_polygon <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomPolygon <- ggproto("GeomPolygon", Geom,
-  draw_panel = function(data, panel_params, coord, rule = "evenodd", lineend = "butt",
-                        linejoin = "round", linemitre = 10) {
+  draw_panel = function(self, data, panel_params, coord, rule = "evenodd",
+                        lineend = "butt", linejoin = "round", linemitre = 10) {
+    data <- check_linewidth(data, snake_class(self))
     n <- nrow(data)
     if (n == 1) return(zeroGrob())
 

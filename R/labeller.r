@@ -420,7 +420,7 @@ labeller <- function(..., .rows = NULL, .cols = NULL,
                      keep.as.numeric = deprecated(), .multi_line = TRUE,
                      .default = label_value) {
   if (lifecycle::is_present(keep.as.numeric)) {
-    lifecycle::deprecate_warn("2.0.0", "labeller(keep.as.numeric)")
+    deprecate_warn0("2.0.0", "labeller(keep.as.numeric)")
   }
   dots <- list2(...)
   .default <- as_labeller(.default)

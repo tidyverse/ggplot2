@@ -159,7 +159,7 @@ count <- function(df, vars = NULL, wt_var = NULL) {
 # Create a shared unique id across two data frames such that common variable
 # combinations in the two data frames gets the same id
 join_keys <- function(x, y, by) {
-  joint <- vec_rbind(x[by], y[by])
+  joint <- vec_rbind0(x[by], y[by])
   keys <- id(joint, drop = TRUE)
   n_x <- nrow(x)
   n_y <- nrow(y)
@@ -298,7 +298,7 @@ dapply <- function(df, by, fun, ..., drop = TRUE) {
     cur_data <- df_rows(df, group_rows[[i]])
     apply_fun(cur_data)
   })
-  vec_rbind(!!!result)
+  vec_rbind0(!!!result)
 }
 
 single_value <- function(x, ...) {

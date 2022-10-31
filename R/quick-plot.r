@@ -62,12 +62,12 @@ qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
                   xlab = NULL, ylab = NULL,
                   asp = NA, stat = deprecated(), position = deprecated()) {
 
-  lifecycle::deprecate_warn("3.4.0", "qplot()")
+  deprecate_soft0("3.4.0", "qplot()")
 
   caller_env <- parent.frame()
 
-  if (lifecycle::is_present(stat)) lifecycle::deprecate_stop("3.4.0", "qplot(stat)")
-  if (lifecycle::is_present(position)) lifecycle::deprecate_stop("3.4.0", "qplot(position)")
+  if (lifecycle::is_present(stat)) lifecycle::deprecate_stop("2.0.0", "qplot(stat)")
+  if (lifecycle::is_present(position)) lifecycle::deprecate_stop("2.0.0", "qplot(position)")
   if (!is.character(geom)) {
     cli::cli_abort("{.arg geom} must be a character vector")
   }

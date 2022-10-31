@@ -67,7 +67,8 @@ GeomErrorbarh <- ggproto("GeomErrorbarh", Geom,
     )
   },
 
-  draw_panel = function(data, panel_params, coord, height = NULL, lineend = "butt") {
+  draw_panel = function(self, data, panel_params, coord, height = NULL, lineend = "butt") {
+    data <- check_linewidth(data, snake_class(self))
     GeomPath$draw_panel(data_frame0(
       x = vec_interleave(data$xmax, data$xmax, NA, data$xmax, data$xmin, NA, data$xmin, data$xmin),
       y = vec_interleave(data$ymin, data$ymax, NA, data$y,    data$y,    NA, data$ymin, data$ymax),

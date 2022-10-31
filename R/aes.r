@@ -208,8 +208,8 @@ standardise_aes_symbols <- function(x) {
 
 # Look up the scale that should be used for a given aesthetic
 aes_to_scale <- function(var) {
-  var[var %in% c("x", "xmin", "xmax", "xend", "xintercept")] <- "x"
-  var[var %in% c("y", "ymin", "ymax", "yend", "yintercept")] <- "y"
+  var[var %in% ggplot_global$x_aes] <- "x"
+  var[var %in% ggplot_global$y_aes] <- "y"
 
   var
 }
@@ -265,7 +265,7 @@ is_position_aes <- function(vars) {
 #'
 #' @export
 aes_ <- function(x, y, ...) {
-  lifecycle::deprecate_soft(
+  deprecate_soft0(
     "3.0.0",
     "aes_()",
     details = "Please use tidy evaluation ideoms with `aes()`"
@@ -292,7 +292,7 @@ aes_ <- function(x, y, ...) {
 #' @rdname aes_
 #' @export
 aes_string <- function(x, y, ...) {
-  lifecycle::deprecate_soft(
+  deprecate_soft0(
     "3.0.0",
     "aes_string()",
     details = "Please use tidy evaluation ideoms with `aes()`"
@@ -346,7 +346,7 @@ aes_all <- function(vars) {
 #' @keywords internal
 #' @export
 aes_auto <- function(data = NULL, ...) {
-  lifecycle::deprecate_warn("2.0.0", "aes_auto()")
+  deprecate_warn0("2.0.0", "aes_auto()")
 
   # detect names of data
   if (is.null(data)) {
