@@ -111,21 +111,21 @@ StatBin <- ggproto("StatBin", Stat,
     }
 
     if (!is.null(params$drop)) {
-      lifecycle::deprecate_warn("2.1.0", "stat_bin(drop)", "stat_bin(pad)")
+      deprecate_warn0("2.1.0", "stat_bin(drop)", "stat_bin(pad)")
       params$drop <- NULL
     }
     if (!is.null(params$origin)) {
-      lifecycle::deprecate_warn("2.1.0", "stat_bin(origin)", "stat_bin(boundary)")
+      deprecate_warn0("2.1.0", "stat_bin(origin)", "stat_bin(boundary)")
       params$boundary <- params$origin
       params$origin <- NULL
     }
     if (!is.null(params$right)) {
-      lifecycle::deprecate_warn("2.1.0", "stat_bin(right)", "stat_bin(closed)")
+      deprecate_warn0("2.1.0", "stat_bin(right)", "stat_bin(closed)")
       params$closed <- if (params$right) "right" else "left"
       params$right <- NULL
     }
     if (!is.null(params$width)) {
-      lifecycle::deprecate_warn("2.1.0", "stat_bin(width)", "geom_bar()")
+      deprecate_warn0("2.1.0", "stat_bin(width)", "geom_bar()")
     }
     if (!is.null(params$boundary) && !is.null(params$center)) {
       cli::cli_abort("Only one of {.arg boundary} and {.arg center} may be specified in {.fn {snake_class(self)}}.")

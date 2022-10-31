@@ -95,7 +95,7 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
   facets <- wrap_as_facets_list(facets)
 
   if (lifecycle::is_present(switch) && !is.null(switch)) {
-    lifecycle::deprecate_warn("2.2.0", "facet_wrap(switch)", "facet_wrap(strip.position)")
+    deprecate_warn0("2.2.0", "facet_wrap(switch)", "facet_wrap(strip.position)")
     strip.position <- if (switch == "x") "bottom" else "left"
   }
   strip.position <- arg_match0(strip.position, c("top", "bottom", "left", "right"))

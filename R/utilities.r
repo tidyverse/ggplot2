@@ -196,7 +196,7 @@ binned_pal <- function(palette) {
 #' @keywords internal
 #' @export
 gg_dep <- function(version, msg) {
-  lifecycle::deprecate_warn("3.3.0", "gg_dep()")
+  deprecate_warn0("3.3.0", "gg_dep()")
   .Deprecated()
   v <- as.package_version(version)
   cv <- utils::packageVersion("ggplot2")
@@ -668,7 +668,7 @@ with_ordered_restart <- function(expr, .call) {
         ")"
       )
 
-      lifecycle::deprecate_soft(
+      deprecate_soft0(
         "3.4.0",
         I(msg),
         details = desc
@@ -705,4 +705,20 @@ vec_rbind0 <- function(..., .error_call = current_env(), .call = caller_env()) {
     vec_rbind(..., .error_call = .error_call),
     .call
   )
+}
+
+attach_plot_env <- function(env) {
+  old_env <- getOption("ggplot2_plot_env")
+  options(ggplot2_plot_env = env)
+  withr::defer_parent(options(ggplot2_plot_env = old_env))
+}
+
+deprecate_soft0 <- function(..., user_env = NULL) {
+  user_env <- user_env %||% getOption("ggplot2_plot_env") %||% caller_env(2)
+  lifecycle::deprecate_soft(..., user_env = user_env)
+}
+
+deprecate_warn0 <- function(..., user_env = NULL) {
+  user_env <- user_env %||% getOption("ggplot2_plot_env") %||% caller_env(2)
+  lifecycle::deprecate_warn(..., user_env = user_env)
 }

@@ -72,7 +72,7 @@ guides <- function(...) {
 
   idx_false <- vapply(args, isFALSE, FUN.VALUE = logical(1L))
   if (isTRUE(any(idx_false))) {
-    lifecycle::deprecate_warn("3.3.4", "guides(`<scale>` = 'cannot be `FALSE`. Use \"none\" instead')")
+    deprecate_warn0("3.3.4", "guides(`<scale>` = 'cannot be `FALSE`. Use \"none\" instead')")
     args[idx_false] <- "none"
   }
 
@@ -200,14 +200,7 @@ guides_train <- function(scales, theme, guides, labels) {
       if (identical(guide, "none") || inherits(guide, "guide_none")) next
 
       if (isFALSE(guide)) {
-        # lifecycle currently doesn't support function name placeholders.
-        # the below gives us the correct behaviour but is too brittle and hacky
-        # lifecycle::deprecate_warn("3.3.4", "`scale_*()`(guide = 'cannot be `FALSE`. Use \"none\" instead')")
-        # TODO: update to lifecycle after next lifecycle release
-        cli::cli_warn(c(
-           "{.code guide = FALSE} is deprecated",
-           "i" = 'Please use {.code guide = "none"} instead.'
-        ))
+        deprecate_warn0("3.3.4", I("The `guide` argument in `scale_*()` cannot be `FALSE`. This "), I('"none"'))
         next
       }
 

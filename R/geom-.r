@@ -117,7 +117,7 @@ Geom <- ggproto("Geom",
     # Take care of subclasses setting the wrong default when inheriting from
     # a geom with rename_size = TRUE
     if (self$rename_size && is.null(default_aes$linewidth)) {
-      lifecycle::deprecate_soft("3.4.0", I("Using the `size` aesthetic in this geom"), I("`linewidth` in the `default_aes` field and elsewhere"))
+      deprecate_soft0("3.4.0", I("Using the `size` aesthetic in this geom"), I("`linewidth` in the `default_aes` field and elsewhere"))
       default_aes$linewidth <- default_aes$size
     }
     # Fill in missing aesthetics with their defaults
@@ -240,7 +240,7 @@ check_aesthetics <- function(x, n) {
 
 check_linewidth <- function(data, name) {
   if (is.null(data$linewidth) && !is.null(data$size)) {
-    lifecycle::deprecate_soft("3.4.0", I(paste0("Using the `size` aesthietic with ", name)), I("the `linewidth` aesthetic"))
+    deprecate_soft0("3.4.0", I(paste0("Using the `size` aesthietic with ", name)), I("the `linewidth` aesthetic"))
     data$linewidth <- data$size
   }
   data
