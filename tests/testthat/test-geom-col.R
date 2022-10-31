@@ -37,12 +37,12 @@ test_that("geom_col supports alignment of columns", {
   expect_equal(as.numeric(y$xmin), c(0.55, 1.55))
   expect_equal(as.numeric(y$xmax), c(1.45, 2.45))
 
-  p <- ggplot(dat, aes(x, y)) + geom_col(just = 0.0)
+  p <- ggplot(dat, aes(x, y)) + geom_col(just = 1.0)
   y <- layer_data(p)
   expect_equal(as.numeric(y$xmin), c(0.1, 1.1))
   expect_equal(as.numeric(y$xmax), c(1.0, 2.0))
 
-  p <- ggplot(dat, aes(x, y)) + geom_col(just = 1.0)
+  p <- ggplot(dat, aes(x, y)) + geom_col(just = 0.0)
   y <- layer_data(p)
   expect_equal(as.numeric(y$xmin), c(1.0, 2.0))
   expect_equal(as.numeric(y$xmax), c(1.9, 2.9))
