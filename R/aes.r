@@ -208,8 +208,8 @@ standardise_aes_symbols <- function(x) {
 
 # Look up the scale that should be used for a given aesthetic
 aes_to_scale <- function(var) {
-  var[var %in% c("x", "xmin", "xmax", "xend", "xintercept")] <- "x"
-  var[var %in% c("y", "ymin", "ymax", "yend", "yintercept")] <- "y"
+  var[var %in% ggplot_global$x_aes] <- "x"
+  var[var %in% ggplot_global$y_aes] <- "y"
 
   var
 }
