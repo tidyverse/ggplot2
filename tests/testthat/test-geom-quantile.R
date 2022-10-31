@@ -1,4 +1,8 @@
 test_that("geom_quantile matches quantile regression", {
+  withr::local_options(
+    warnPartialMatchArgs = FALSE,
+    warnPartialMatchDollar = FALSE
+  )
   skip_if_not_installed("quantreg")
 
   set.seed(6531)
