@@ -1,4 +1,4 @@
-# ggplot2 (development version)
+# ggplot2 3.4.0
 This is a minor release focusing on tightening up the internals and ironing out
 some inconsistencies in the API. The biggest change is the addition of the 
 `linewidth` aesthetic that takes of sizing the width of any line from `size`. 
