@@ -58,14 +58,15 @@
 #' doh + geom_bar(width = 0.9, position = "fill") + coord_polar(theta = "y")
 #' }
 #' }
-coord_polar <- function(theta = "x", start = 0, direction = 1, clip = "on") {
+coord_polar <- function(theta = "x", start = 0, end = 2 * pi,
+                        direction = 1, clip = "on") {
   theta <- arg_match0(theta, c("x", "y"))
   r <- if (theta == "x") "y" else "x"
 
   ggproto(NULL, CoordPolar,
     theta = theta,
     r = r,
-    start = start,
+    arc = c(start, end),
     direction = sign(direction),
     clip = clip
   )
@@ -198,7 +199,7 @@ CoordPolar <- ggproto("CoordPolar", Coord,
       theta_rescale(self, panel_params$theta.major, panel_params)
     thetamin <- if (length(panel_params$theta.minor) > 0)
       theta_rescale(self, panel_params$theta.minor, panel_params)
-    thetafine <- seq(0, 2 * pi, length.out = 100)
+    thetafine <- seq(self$arc[1], self$arc[2], length.out = 100)
 
     rfine <- c(r_rescale(self, panel_params$r.major, panel_params$r.range), 0.45)
 
@@ -298,14 +299,16 @@ rename_data <- function(coord, data) {
 }
 
 theta_rescale_no_clip <- function(coord, x, panel_params) {
-  rotate <- function(x) (x + coord$start) * coord$direction
-  rotate(rescale(x, c(0, 2 * pi), panel_params$theta.range))
+  arc <- coord$arc %||% c(0, 2 * pi)
+  rotate <- function(x) x * coord$direction
+  rotate(rescale(x, arc, panel_params$theta.range))
 }
 
 theta_rescale <- function(coord, x, panel_params) {
+  arc <- coord$arc %||% c(0, 2 * pi)
   x <- squish_infinite(x, panel_params$theta.range)
-  rotate <- function(x) (x + coord$start) %% (2 * pi) * coord$direction
-  rotate(rescale(x, c(0, 2 * pi), panel_params$theta.range))
+  rotate <- function(x) x %% (2 * pi) * coord$direction
+  rotate(rescale(x, arc, panel_params$theta.range))
 }
 
 r_rescale <- function(coord, x, range) {
@@ -339,3 +342,4 @@ polar_bbox <- function(theta_range) {
     c(max(y, 0.55), max(x, 0.55), min(y, 0.45), min(x, 0.45))
   )
   list(x = c(bounds[4], bounds[2]), y = c(bounds[3], bounds[1]))
+}
