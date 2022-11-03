@@ -78,7 +78,9 @@ coord_polar <- function(theta = "x", start = 0, end = 2 * pi,
 #' @export
 CoordPolar <- ggproto("CoordPolar", Coord,
 
-  aspect = function(details) 1,
+  aspect = function(details) {
+    diff(details$bbox$y) / diff(details$bbox$x)
+  },
 
   distance = function(self, x, y, details) {
     if (self$theta == "x") {
@@ -139,7 +141,8 @@ CoordPolar <- ggproto("CoordPolar", Coord,
       x.sec.range = ret$x$sec.range, y.sec.range = ret$y$sec.range,
       x.sec.major = ret$x$sec.major, y.sec.major = ret$y$sec.major,
       x.sec.minor = ret$x$sec.minor, y.sec.minor = ret$y$sec.minor,
-      x.sec.labels = ret$x$sec.labels, y.sec.labels = ret$y$sec.labels
+      x.sec.labels = ret$x$sec.labels, y.sec.labels = ret$y$sec.labels,
+      bbox = polar_bbox(self$arc)
     )
 
     if (self$theta == "y") {
@@ -160,8 +163,14 @@ CoordPolar <- ggproto("CoordPolar", Coord,
 
     data$r  <- r_rescale(self, data$r, panel_params$r.range)
     data$theta <- theta_rescale(self, data$theta, panel_params)
-    data$x <- data$r * sin(data$theta) + 0.5
-    data$y <- data$r * cos(data$theta) + 0.5
+    data$x <- rescale(
+      data$r * sin(data$theta) + 0.5,
+      from = panel_params$bbox$x
+    )
+    data$y <- rescale(
+      data$r * cos(data$theta) + 0.5,
+      from = panel_params$bbox$y
+    )
 
     data
   },
@@ -213,23 +222,41 @@ CoordPolar <- ggproto("CoordPolar", Coord,
       element_render(theme, "panel.background"),
       if (length(theta) > 0) element_render(
         theme, majortheta, name = "angle",
-        x = vec_interleave(0, 0.45 * sin(theta)) + 0.5,
-        y = vec_interleave(0, 0.45 * cos(theta)) + 0.5,
+        x = rescale(
+          vec_interleave(0, 0.45 * sin(theta)) + 0.5,
+          from = panel_params$bbox$x
+        ),
+        y = rescale(
+          vec_interleave(0, 0.45 * cos(theta)) + 0.5,
+          from = panel_params$bbox$y
+        ),
         id.lengths = rep(2, length(theta)),
         default.units = "native"
       ),
       if (length(thetamin) > 0) element_render(
         theme, minortheta, name = "angle",
-        x = vec_interleave(0, 0.45 * sin(thetamin)) + 0.5,
-        y = vec_interleave(0, 0.45 * cos(thetamin)) + 0.5,
+        x = rescale(
+          vec_interleave(0, 0.45 * sin(thetamin)) + 0.5,
+          from = panel_params$bbox$x
+        ),
+        y = rescale(
+          vec_interleave(0, 0.45 * cos(thetamin)) + 0.5,
+          from = panel_params$bbox$y
+        ),
         id.lengths = rep(2, length(thetamin)),
         default.units = "native"
       ),
 
       element_render(
         theme, majorr, name = "radius",
-        x = rep(rfine, each = length(thetafine)) * rep(sin(thetafine), length(rfine)) + 0.5,
-        y = rep(rfine, each = length(thetafine)) * rep(cos(thetafine), length(rfine)) + 0.5,
+        x = rescale(
+          as.vector(outer(sin(thetafine), rfine)) + 0.5,
+          from = panel_params$bbox$x
+        ),
+        y = rescale(
+          as.vector(outer(cos(thetafine), rfine)) + 0.5,
+          from = panel_params$bbox$y
+        ),
         id.lengths = rep(length(thetafine), length(rfine)),
         default.units = "native"
       )
@@ -260,12 +287,15 @@ CoordPolar <- ggproto("CoordPolar", Coord,
       theta <- theta[-1]
     }
 
+    x <- rescale(0.45 * sin(theta) + 0.5, from = panel_params$bbox$x)
+    y <- rescale(0.45 * cos(theta) + 0.5, from = panel_params$bbox$y)
+
     grobTree(
       if (length(labels) > 0) element_render(
         theme, "axis.text.x",
         labels,
-        unit(0.45 * sin(theta) + 0.5, "native"),
-        unit(0.45 * cos(theta) + 0.5, "native"),
+        unit(x, "native"),
+        unit(y, "native"),
         hjust = 0.5, vjust = 0.5
       ),
       element_render(theme, "panel.border")
