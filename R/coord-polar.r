@@ -63,6 +63,11 @@ coord_polar <- function(theta = "x", start = 0, end = 2 * pi,
   theta <- arg_match0(theta, c("x", "y"))
   r <- if (theta == "x") "y" else "x"
 
+  if (start > end) {
+    n_rotate <- ((start - end) %/% (2 * pi)) + 1
+    start <- start - n_rotate * 2 * pi
+  }
+
   ggproto(NULL, CoordPolar,
     theta = theta,
     r = r,
@@ -447,3 +452,4 @@ in_arc <- function(theta, arc) {
     !(theta <  arc[1] & theta >  arc[2])
   }
 }
+
