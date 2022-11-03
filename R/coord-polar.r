@@ -142,7 +142,8 @@ CoordPolar <- ggproto("CoordPolar", Coord,
       x.sec.major = ret$x$sec.major, y.sec.major = ret$y$sec.major,
       x.sec.minor = ret$x$sec.minor, y.sec.minor = ret$y$sec.minor,
       x.sec.labels = ret$x$sec.labels, y.sec.labels = ret$y$sec.labels,
-      bbox = polar_bbox(self$arc)
+      bbox = polar_bbox(self$arc),
+      arc  = self$arc
     )
 
     if (self$theta == "y") {
@@ -176,6 +177,16 @@ CoordPolar <- ggproto("CoordPolar", Coord,
   },
 
   render_axis_v = function(self, panel_params, theme) {
+
+    place_axis <- in_arc(c(0, 1) * pi, panel_params$arc)
+    if (!any(place_axis)) {
+      ans <- list(
+        left  = draw_axis(NA, "", "left", theme),
+        right = zeroGrob()
+      )
+      return(ans)
+    }
+
     arrange <- panel_params$r.arrange %||% c("primary", "secondary")
 
     x <- r_rescale(self, panel_params$r.major, panel_params$r.range) + 0.5
@@ -188,16 +199,76 @@ CoordPolar <- ggproto("CoordPolar", Coord,
       ) + 0.5
     }
 
+    if (!place_axis[1]) {
+      panel_params$r.major <- 1 - panel_params$r.major
+      if (!is.null(panel_params$r.sec.major)) {
+        panel_params$r.sec.major <- 1 - panel_params$r.sec.major
+      }
+    }
+
+    panel_params$r.major <- rescale(panel_params$r.major,
+                                    from = panel_params$bbox$y)
+    panel_params$r.sec.major <- rescale(panel_params$r.sec.major,
+                                        from = panel_params$bbox$y)
+
     list(
-      left = render_axis(panel_params, arrange[1], "r", "left", theme),
+      left  = render_axis(panel_params, arrange[1], "r", "left", theme),
       right = render_axis(panel_params, arrange[2], "r", "right", theme)
     )
   },
 
   render_axis_h = function(panel_params, theme) {
-    list(
+
+    no_axis <- list(
       top = zeroGrob(),
       bottom = draw_axis(NA, "", "bottom", theme)
+    )
+
+    # Return no axis if there should already be a left/right axis
+    if (any(in_arc(c(0, 1) * pi, panel_params$arc))) {
+      return(no_axis)
+    }
+
+    place_axis <- in_arc(c(0.5, 1.5) * pi, panel_params$arc)
+    if (!any(place_axis)) {
+      # This should in theory never happen
+      cli::cli_inform(c(paste0(
+        "Could not find appropriate placement for the {.field radius}",
+        " axis."
+      ), i = paste0(
+        "A {.field radius} axis requires the [{.arg start}-{.arg end}] range to ",
+        "include one of: {.code c(0, 0.5, 1, 1.5) * pi}."
+      )))
+      return(no_axis)
+    }
+
+    arrange <- panel_params$r.arrange %||% c("primary", "secondary")
+
+    y <- r_rescale(self, panel_params$r.major, panel_params$r.range) + 0.5
+    panel_params$r.major <- y
+    if (!is.null(panel_params$r.sec.major)) {
+      panel_params$r.sec.major <- r_rescale(
+        self,
+        panel_params$r.sec.major,
+        panel_params$r.sec.range
+      ) + 0.5
+    }
+
+    if (!place_axis[1]) {
+      panel_params$r.major <- 1 - panel_params$r.major
+      if (!is.null(panel_params$r.sec.major)) {
+        panel_params$r.sec.major <- 1 - panel_params$r.sec.major
+      }
+    }
+
+    panel_params$r.major <- rescale(panel_params$r.major,
+                                    from = panel_params$bbox$x)
+    panel_params$r.sec.major <- rescale(panel_params$r.sec.major,
+                                        from = panel_params$bbox$x)
+
+    list(
+      top     = render_axis(panel_params, arrange[2], "r", "top", theme),
+      bottom  = render_axis(panel_params, arrange[1], "r", "bottom", theme)
     )
   },
 
@@ -347,22 +418,16 @@ r_rescale <- function(coord, x, range) {
 }
 
 # Calculate bounding box for the sector of the circle
-# Takes `theta_range` as a vector of two angles in radians
-polar_bbox <- function(theta_range) {
+# Takes `arc` as a vector of two angles in radians
+polar_bbox <- function(arc) {
 
   # X and Y positions of the sector arc ends
-  x <- 0.5 * sin(theta_range) + 0.5
-  y <- 0.5 * cos(theta_range) + 0.5
+  x <- 0.5 * sin(arc) + 0.5
+  y <- 0.5 * cos(arc) + 0.5
 
   # Check for top, right, bottom and left if it falls in sector
   pos_theta <- seq(0, 1.5 * pi, length.out = 4)
-  theta_range <- theta_range %% (2 * pi)
-
-  in_sector <- if (theta_range[1] < theta_range[2]) {
-      pos_theta >= theta_range[1] & pos_theta <= theta_range[2]
-  } else {
-    !(pos_theta <  theta_range[1] & pos_theta >  theta_range[2])
-  }
+  in_sector <- in_arc(pos_theta, arc)
 
   # If position is in sector, take extreme bounds
   # If not, choose center (+/- 0.05 buffer) or sector arc ends
@@ -372,4 +437,13 @@ polar_bbox <- function(theta_range) {
     c(max(y, 0.55), max(x, 0.55), min(y, 0.45), min(x, 0.45))
   )
   list(x = c(bounds[4], bounds[2]), y = c(bounds[3], bounds[1]))
+}
+
+in_arc <- function(theta, arc) {
+  arc <- arc %% (2 * pi)
+  if (arc[1] < arc[2]) {
+      theta >= arc[1] & theta <= arc[2]
+  } else {
+    !(theta <  arc[1] & theta >  arc[2])
+  }
 }
