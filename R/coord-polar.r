@@ -381,10 +381,17 @@ CoordPolar <- ggproto("CoordPolar", Coord,
 
   labels = function(self, labels, panel_params) {
     if (self$theta == "y") {
-      list(x = labels$y, y = labels$x)
+      if (any(in_arc(c(0, 1) * pi, self$arc))) {
+        labels <- list(x = labels$y, y = labels$x)
+      } else {
+        labels <- list(x = rev(labels$x), y = rev(labels$y))
+      }
     } else {
-      labels
+      if (!any(in_arc(c(0, 1) * pi, self$arc))) {
+        labels <- list(x = rev(labels$y), y = rev(labels$x))
+      }
     }
+    labels
   },
 
   modify_scales = function(self, scales_x, scales_y) {
