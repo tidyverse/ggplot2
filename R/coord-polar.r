@@ -6,6 +6,8 @@
 #' @param theta variable to map angle to (`x` or `y`)
 #' @param start Offset of starting point from 12 o'clock in radians. Offset
 #'   is applied clockwise or anticlockwise depending on value of `direction`.
+#' @param end Offset of end point from 12 o'clock in radians. Can be used to
+#'   make partial polar plots. Defaults to `start + 2 * pi`.
 #' @param direction 1, clockwise; -1, anticlockwise
 #' @param clip Should drawing be clipped to the extent of the plot panel? A
 #'   setting of `"on"` (the default) means yes, and a setting of `"off"`
@@ -21,6 +23,9 @@
 #' pie <- ggplot(mtcars, aes(x = factor(1), fill = factor(cyl))) +
 #'  geom_bar(width = 1)
 #' pie + coord_polar(theta = "y")
+#'
+#' # A pie chart, but half of it is already eaten
+#' pie + coord_polar(theta = "y", start = -0.5 * pi, end = 0.5 * pi)
 #'
 #' \donttest{
 #'
