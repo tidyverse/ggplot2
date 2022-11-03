@@ -48,7 +48,7 @@ expansion <- function(mult = 0, add = 0) {
 #' @rdname expansion
 #' @export
 expand_scale <- function(mult = 0, add = 0) {
-  lifecycle::deprecate_warn("3.3.0", "expand_scale()", "expansion()")
+  deprecate_warn0("3.3.0", "expand_scale()", "expansion()")
   expansion(mult, add)
 }
 

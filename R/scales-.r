@@ -85,8 +85,8 @@ scales_transform_df <- function(scales, df) {
   # if the scale contains no trans or the trans is of identity, it doesn't need
   # to be transformed.
   idx_skip <- vapply(scales$scales, function(x) {
-    is.null(x$trans) ||
-      identical(x$trans$transform, identity)
+    has_default_transform(x) &&
+    (is.null(x$trans) || identical(x$trans$transform, identity))
   }, logical(1L))
   scale_list <- scales$scales[!idx_skip]
 

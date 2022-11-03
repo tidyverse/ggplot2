@@ -317,7 +317,9 @@ validate_facets <- function(x) {
   if (inherits(x, "uneval")) {
     cli::cli_abort("Please use {.fn vars} to supply facet variables")
   }
-  if (inherits(x, "ggplot")) {
+  # Native pipe have higher precedence than + so any type of gg object can be
+  # expected here, not just ggplot
+  if (inherits(x, "gg")) {
     cli::cli_abort(c(
       "Please use {.fn vars} to supply facet variables",
       "i" = "Did you use {.code %>%} or {.code |>} instead of {.code +}?"
@@ -596,7 +598,7 @@ combine_vars <- function(data, env = emptyenv(), vars = NULL, drop = TRUE) {
     ))
   }
 
-  base <- unique0(vec_rbind(!!!values[has_all]))
+  base <- unique0(vec_rbind0(!!!values[has_all]))
   if (!drop) {
     base <- unique_combs(base)
   }
@@ -610,7 +612,7 @@ combine_vars <- function(data, env = emptyenv(), vars = NULL, drop = TRUE) {
     if (drop) {
       new <- unique_combs(new)
     }
-    base <- unique0(vec_rbind(base, df.grid(old, new)))
+    base <- unique0(vec_rbind0(base, df.grid(old, new)))
   }
 
   if (empty(base)) {

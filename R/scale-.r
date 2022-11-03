@@ -560,6 +560,17 @@ check_breaks_labels <- function(breaks, labels) {
   TRUE
 }
 
+default_transform <- function(self, x) {
+  new_x <- self$trans$transform(x)
+  axis <- if ("x" %in% self$aesthetics) "x" else "y"
+  check_transformation(x, new_x, self$scale_name, axis)
+  new_x
+}
+
+has_default_transform <- function(scale) {
+  transform_method <- environment(scale$transform)$f
+  identical(default_transform, transform_method) || identical(identity, transform_method)
+}
 
 #' @rdname ggplot2-ggproto
 #' @format NULL
@@ -589,12 +600,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     !has_data && !has_limits
   },
 
-  transform = function(self, x) {
-    new_x <- self$trans$transform(x)
-    axis <- if ("x" %in% self$aesthetics) "x" else "y"
-    check_transformation(x, new_x, self$scale_name, axis)
-    new_x
-  },
+  transform = default_transform,
 
   map = function(self, x, limits = self$get_limits()) {
     x <- self$rescale(self$oob(x, range = limits), limits)
@@ -637,7 +643,11 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
 
     # Ensure limits don't exceed domain (#980)
     domain <- suppressWarnings(self$trans$transform(self$trans$domain))
-    limits <- oob_squish(limits, sort(domain))
+    domain <- sort(domain)
+    # To avoid NaN causing issues. NaN are dropped by the sort()
+    if (length(domain) == 2) {
+      limits <- oob_squish(limits, domain)
+    }
 
     # Limits in transformed space need to be converted back to data space
     limits <- self$trans$inverse(limits)
@@ -819,9 +829,7 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
     self$range$train(x, drop = self$drop, na.rm = !self$na.translate)
   },
 
-  transform = function(x) {
-    x
-  },
+  transform = identity,
 
   map = function(self, x, limits = self$get_limits()) {
     n <- sum(!is.na(limits))
@@ -1001,12 +1009,7 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
     self$range$train(x)
   },
 
-  transform = function(self, x) {
-    new_x <- self$trans$transform(x)
-    axis <- if ("x" %in% self$aesthetics) "x" else "y"
-    check_transformation(x, new_x, self$scale_name, axis)
-    new_x
-  },
+  transform = default_transform,
 
   map = function(self, x, limits = self$get_limits()) {
     if (self$after.stat) {

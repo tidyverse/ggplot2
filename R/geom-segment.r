@@ -107,6 +107,7 @@ GeomSegment <- ggproto("GeomSegment", Geom,
   default_aes = aes(colour = "black", linewidth = 0.5, linetype = 1, alpha = NA),
   draw_panel = function(self, data, panel_params, coord, arrow = NULL, arrow.fill = NULL,
                         lineend = "butt", linejoin = "round", na.rm = FALSE) {
+    data <- check_linewidth(data, snake_class(self))
     data <- remove_missing(data, na.rm = na.rm,
       c("x", "y", "xend", "yend", "linetype", "linewidth", "shape"),
       name = "geom_segment"
@@ -135,7 +136,7 @@ GeomSegment <- ggproto("GeomSegment", Geom,
     starts <- subset(data, select = c(-xend, -yend))
     ends <- rename(subset(data, select = c(-x, -y)), c("xend" = "x", "yend" = "y"))
 
-    pieces <- vec_rbind(starts, ends)
+    pieces <- vec_rbind0(starts, ends)
     pieces <- pieces[order(pieces$group),]
 
     GeomPath$draw_panel(pieces, panel_params, coord, arrow = arrow,

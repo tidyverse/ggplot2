@@ -135,7 +135,7 @@ GeomPath <- ggproto("GeomPath", Geom,
   handle_na = function(self, data, params) {
     # Drop missing values at the start or end of a line - can't drop in the
     # middle since you expect those to be shown by a break in the line
-    complete <- stats::complete.cases(data[c("x", "y", "linewidth", "colour", "linetype")])
+    complete <- stats::complete.cases(data[names(data) %in% c("x", "y", "linewidth", "colour", "linetype")])
     kept <- stats::ave(complete, data$group, FUN = keep_mid_true)
     data <- data[kept, ]
 
@@ -149,6 +149,7 @@ GeomPath <- ggproto("GeomPath", Geom,
   draw_panel = function(self, data, panel_params, coord, arrow = NULL,
                         lineend = "butt", linejoin = "round", linemitre = 10,
                         na.rm = FALSE) {
+    data <- check_linewidth(data, snake_class(self))
     if (!anyDuplicated(data$group)) {
       cli::cli_inform(c(
         "{.fn {snake_class(self)}}: Each group consists of only one observation.",
@@ -170,7 +171,7 @@ GeomPath <- ggproto("GeomPath", Geom,
       linetype <- unique0(df$linetype)
       data_frame0(
         solid = identical(linetype, 1) || identical(linetype, "solid"),
-        constant = nrow(unique0(df[, c("alpha", "colour", "linewidth", "linetype")])) == 1,
+        constant = nrow(unique0(df[, names(df) %in% c("alpha", "colour", "linewidth", "linetype")])) == 1,
         .size = 1
       )
     })

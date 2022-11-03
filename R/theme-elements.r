@@ -66,7 +66,7 @@ element_rect <- function(fill = NULL, colour = NULL, linewidth = NULL,
   linetype = NULL, color = NULL, inherit.blank = FALSE, size = deprecated()) {
 
   if (lifecycle::is_present(size)) {
-    lifecycle::deprecate_warn("3.4.0", "element_rect(size)", "element_rect(linewidth)")
+    deprecate_soft0("3.4.0", "element_rect(size)", "element_rect(linewidth)")
     linewidth <- size
   }
 
@@ -90,7 +90,7 @@ element_line <- function(colour = NULL, linewidth = NULL, linetype = NULL,
   lineend = NULL, color = NULL, arrow = NULL, inherit.blank = FALSE, size = deprecated()) {
 
   if (lifecycle::is_present(size)) {
-    lifecycle::deprecate_warn("3.4.0", "element_line(size)", "element_line(linewidth)")
+    deprecate_soft0("3.4.0", "element_line(size)", "element_line(linewidth)")
     linewidth <- size
   }
 
@@ -215,7 +215,7 @@ element_grob.element_rect <- function(element, x = 0.5, y = 0.5,
   fill = NULL, colour = NULL, linewidth = NULL, linetype = NULL, ..., size = deprecated()) {
 
   if (lifecycle::is_present(size)) {
-    lifecycle::deprecate_warn("3.4.0", "element_grob.element_rect(size)", "element_grob.element_rect(linewidth)")
+    deprecate_soft0("3.4.0", "element_grob.element_rect(size)", "element_grob.element_rect(linewidth)")
     linewidth <- size
   }
 
@@ -264,7 +264,7 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
   default.units = "npc", id.lengths = NULL, ..., size = deprecated()) {
 
   if (lifecycle::is_present(size)) {
-    lifecycle::deprecate_warn("3.4.0", "element_grob.element_line(size)", "element_grob.element_line(linewidth)")
+    deprecate_soft0("3.4.0", "element_grob.element_line(size)", "element_grob.element_line(linewidth)")
     linewidth <- size
   }
 

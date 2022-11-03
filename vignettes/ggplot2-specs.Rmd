@@ -43,7 +43,7 @@ Almost every geom has either colour, fill, or both. Colours and fills can be spe
 
 ## Lines
 
-As well as `colour`, the appearance of a line is affected by `size`, `linetype`, `linejoin` and `lineend`.
+As well as `colour`, the appearance of a line is affected by `linewidth`, `linetype`, `linejoin` and `lineend`.
 
 ### Line type {#sec:line-type-spec}
 
@@ -91,7 +91,9 @@ Line types can be specified with:
 
 ### Linewidth
 
-The `linewidth` of a line is its width in mm.
+Due to a historical error, the unit of linewidth is roughly 0.75 mm. Making it 
+exactly 1 mm would change a very large number of existing plots, so we're stuck 
+with this mistake.
 
 ### Line end/join paramters
 

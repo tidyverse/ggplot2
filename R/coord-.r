@@ -62,7 +62,7 @@ Coord <- ggproto("Coord",
   labels = function(self, labels, panel_params) {
     # If panel params contains guides information, use it.
     # Otherwise use the labels as is, for backward-compatibility
-    if (is.null(panel_params$guide)) {
+    if (is.null(panel_params$guides)) {
       return(labels)
     }
 

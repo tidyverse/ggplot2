@@ -54,8 +54,9 @@ geom_hex <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomHex <- ggproto("GeomHex", Geom,
-  draw_group = function(data, panel_params, coord, lineend = "butt",
+  draw_group = function(self, data, panel_params, coord, lineend = "butt",
                         linejoin = "mitre", linemitre = 10) {
+    data <- check_linewidth(data, snake_class(self))
     if (empty(data)) {
       return(zeroGrob())
     }
