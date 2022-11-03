@@ -79,6 +79,30 @@ test_that("Inf is squished to range", {
   expect_equal(d[[3]]$theta, mapped_discrete(0))
 })
 
+test_that("polar_bbox() gives correct bounds", {
+
+  # Full circle
+  bounds <- polar_bbox(c(0, 2 * pi))
+  expect_equal(bounds, list(x = c(0, 1), y = c(0, 1)))
+
+  # Overshoot
+  bounds <- polar_bbox(c(-3, 3) * pi)
+  expect_equal(bounds, list(x = c(0, 1), y = c(0, 1)))
+
+  # Half circle
+  bounds <- polar_bbox(c(0.5, 1.5) * pi)
+  expect_equal(bounds, list(x = c(0, 1), y = c(0, 0.55)))
+
+  # Quarter circle
+  bounds <- polar_bbox(c(0, 0.5 * pi))
+  expect_equal(bounds, list(x = c(0.45, 1), y = c(0.45, 1)))
+
+  # Quarter circle at 45 degrees
+  bounds <- polar_bbox(c(0.25, 0.75) * pi)
+  expect_equal(bounds, list(x = c(0.45, 1),
+                            y = 0.5 + cos(c(0.75, 0.25) * pi) * 0.5))
+
+})
 
 # Visual tests ------------------------------------------------------------
 

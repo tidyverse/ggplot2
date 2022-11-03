@@ -312,3 +312,30 @@ r_rescale <- function(coord, x, range) {
   x <- squish_infinite(x, range)
   rescale(x, c(0, 0.4), range)
 }
+
+# Calculate bounding box for the sector of the circle
+# Takes `theta_range` as a vector of two angles in radians
+polar_bbox <- function(theta_range) {
+
+  # X and Y positions of the sector arc ends
+  x <- 0.5 * sin(theta_range) + 0.5
+  y <- 0.5 * cos(theta_range) + 0.5
+
+  # Check for top, right, bottom and left if it falls in sector
+  pos_theta <- seq(0, 1.5 * pi, length.out = 4)
+  theta_range <- theta_range %% (2 * pi)
+
+  in_sector <- if (theta_range[1] < theta_range[2]) {
+      pos_theta >= theta_range[1] & pos_theta <= theta_range[2]
+  } else {
+    !(pos_theta <  theta_range[1] & pos_theta >  theta_range[2])
+  }
+
+  # If position is in sector, take extreme bounds
+  # If not, choose center (+/- 0.05 buffer) or sector arc ends
+  bounds <- ifelse(
+    in_sector,
+    c(1, 1, 0, 0),
+    c(max(y, 0.55), max(x, 0.55), min(y, 0.45), min(x, 0.45))
+  )
+  list(x = c(bounds[4], bounds[2]), y = c(bounds[3], bounds[1]))
