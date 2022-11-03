@@ -104,6 +104,83 @@ test_that("polar_bbox() gives correct bounds", {
 
 })
 
+test_that("axis placement is appropriate", {
+
+  p <- ggplot_build(
+    ggplot(data.frame(x = 1:4), aes(x, x)) +
+      geom_point() +
+      scale_y_continuous(breaks = 1:4) +
+      coord_polar() +
+      theme_test()
+  )
+
+  get_breaks <- function(axis, var = "x") {
+    is_gt <- which(vapply(axis$children, inherits, logical(1), "gtable"))
+    if (length(is_gt) == 0) {
+      return(NULL)
+    }
+    axis <- axis$children[[is_gt[[1]]]]
+    is_txt <- which(vapply(axis$grobs, inherits, logical(1), "titleGrob"))
+    if (length(is_txt) == 0) {
+      return(NULL)
+    }
+    axis <- axis$grobs[[is_txt[[1]]]]
+    if (length(axis$children) == 0) {
+      return(NULL)
+    }
+    axis <- axis$children[[1]]
+    as.numeric(axis[[var]])
+  }
+
+  params <- p$layout$panel_params[[1]]
+  breaks <- (0:3/3) * 0.4 + 0.5
+
+  # Full circle, should have left axis
+  axis_h <- p$layout$coord$render_axis_h(params, p$plot$theme)
+  axis_v <- p$layout$coord$render_axis_v(params, p$plot$theme)
+
+  expect_null(get_breaks(axis_h$top, "x"))
+  expect_equal(get_breaks(axis_h$bottom, "x"), NA_real_)
+  expect_equal(get_breaks(axis_v$left, "y"), breaks)
+  expect_null(get_breaks(axis_v$right, "y"))
+
+  # Bottom half-circle, should have reverse y-axis
+  params$arc <- c(0.5, 1.5) * pi
+  axis_h <- p$layout$coord$render_axis_h(params, p$plot$theme)
+  axis_v <- p$layout$coord$render_axis_v(params, p$plot$theme)
+
+  expect_null(get_breaks(axis_h$top, "x"))
+  expect_equal(get_breaks(axis_h$bottom, "x"), NA_real_)
+  expect_equal(get_breaks(axis_v$left, "y"), 1 - breaks) # opposite
+  expect_null(get_breaks(axis_v$right, "y"))
+
+  # Right quarter circle, should have x-axis
+  params$arc <- c(0.25, 0.75) * pi
+  axis_h <- p$layout$coord$render_axis_h(params, p$plot$theme)
+  axis_v <- p$layout$coord$render_axis_v(params, p$plot$theme)
+
+  expect_null(get_breaks(axis_h$top, "x"))
+  expect_equal(get_breaks(axis_h$bottom, "x"), breaks)
+  expect_equal(get_breaks(axis_v$left, "y"), NA_real_)
+  expect_null(get_breaks(axis_v$right, "y"))
+
+  # Left quarter circle, should have reverse x-axis
+  params$arc <- c(1.25, 1.75) * pi
+  axis_h <- p$layout$coord$render_axis_h(params, p$plot$theme)
+  axis_v <- p$layout$coord$render_axis_v(params, p$plot$theme)
+
+  expect_null(get_breaks(axis_h$top, "x"))
+  expect_equal(get_breaks(axis_h$bottom, "x"), 1 - breaks)
+  expect_equal(get_breaks(axis_v$left, "y"), NA_real_)
+  expect_null(get_breaks(axis_v$right, "y"))
+
+  params$arc <- c(0.1, 0.4) * pi
+  expect_message(
+    p$layout$coord$render_axis_h(params, p$plot$theme),
+    "appropriate placement"
+  )
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("polar coordinates draw correctly", {
