@@ -58,11 +58,12 @@
 #' doh + geom_bar(width = 0.9, position = "fill") + coord_polar(theta = "y")
 #' }
 #' }
-coord_polar <- function(theta = "x", start = 0, end = 2 * pi,
+coord_polar <- function(theta = "x", start = 0, end = NULL,
                         direction = 1, clip = "on") {
   theta <- arg_match0(theta, c("x", "y"))
   r <- if (theta == "x") "y" else "x"
 
+  end <- end %||% (start + 2 * pi)
   if (start > end) {
     n_rotate <- ((start - end) %/% (2 * pi)) + 1
     start <- start - n_rotate * 2 * pi
