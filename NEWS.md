@@ -1,5 +1,8 @@
 
 * `geom_label()` now uses the `angle` aesthetic (@teunbrand, #2785)
+* 'lines' units in `geom_label()`, often used in the `label.padding` argument, 
+  are now are relative to the text size. This causes a visual change, but fixes 
+  a misalignment issue between the textbox and text (@teunbrand, #4753)
 
 # ggplot2 3.4.0
 This is a minor release focusing on tightening up the internals and ironing out
