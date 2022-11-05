@@ -148,10 +148,11 @@ makeContent.labelgrob <- function(x) {
     gp = x$text.gp,
     name = "text"
   )
+  desc <- grobDescent(t)
 
-  r <- roundrectGrob(x$x, x$y, default.units = "native",
+  r <- roundrectGrob(x$x, x$y - 0.5 * desc, default.units = "native",
     width = grobWidth(t) + 2 * x$padding,
-    height = grobHeight(t) + 2 * x$padding,
+    height = grobHeight(t) + 2 * x$padding + desc,
     just = c(hj, vj),
     r = x$r,
     gp = x$rect.gp,
