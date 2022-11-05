@@ -125,7 +125,8 @@ labelGrob <- function(label, x = unit(0.5, "npc"), y = unit(0.5, "npc"),
   if (!is.null(angle) & is.null(vp)) {
     vp <- viewport(
       angle = angle, x = x, y = y,
-      width = unit(0, "cm"), height = unit(0, "cm")
+      width = unit(0, "cm"), height = unit(0, "cm"),
+      gp = gpar(fontsize = text.gp$fontsize)
     )
     x <- unit(rep(0.5, length(x)), "npc")
     y <- unit(rep(0.5, length(y)), "npc")
