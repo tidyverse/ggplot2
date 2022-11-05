@@ -153,9 +153,9 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 
 \section{\code{geom_label()}}{
 
-Currently \code{geom_label()} does not support the \code{check_overlap} argument
-or the \code{angle} aesthetic. Also, it is considerably slower than \code{geom_text()}.
-The \code{fill} aesthetic controls the background colour of the label.
+Currently \code{geom_label()} does not support the \code{check_overlap} argument. Also,
+it is considerably slower than \code{geom_text()}. The \code{fill} aesthetic controls
+the background colour of the label.
 }
 
 \section{Alignment}{
