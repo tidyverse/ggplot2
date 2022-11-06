@@ -609,7 +609,14 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     pal <- self$palette(uniq)
     scaled <- pal[match(x, uniq)]
 
-    ifelse(!is.na(scaled), scaled, self$na.value)
+    # A specific palette can have as attribute "may_return_NA = FALSE"
+    # If it has such attribute, we will skip the ifelse(!is.na(scaled), ...)
+    pal_may_return_na <- ggproto_attr(self$palette, "may_return_NA", default = TRUE)
+    if (pal_may_return_na) {
+      scaled <- ifelse(!is.na(scaled), scaled, self$na.value)
+    }
+
+    scaled
   },
 
   rescale = function(self, x, limits = self$get_limits(), range = limits) {
