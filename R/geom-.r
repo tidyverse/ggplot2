@@ -202,8 +202,20 @@ Geom <- ggproto("Geom",
   },
 
   # Should the geom rename size to linewidth?
-  rename_size = FALSE
-
+  rename_size = FALSE,
+  # Parameters to pass to scale$map() for each aesthetic:
+  # This can be either a named list (names are aesthetics, values are lists of parameters)
+  # or a function that takes a list of geom parameters as input and returns the list.
+  # The scale_params can be used to tell the scale map function a mapping method.
+  #   e.g. scale_params = list(fill = list(mapping_method = "raw"))
+  # See the map method for ScaleContinuous in R/scale-.r for further details.
+  #
+  # The scale_params will be used to tell the scale map function the expected colour
+  # format, in case the geom prefers native colours (because it uses nativeRaster objects)
+  # instead of the default character vector:
+  #   e.g. scale_params = list(fill = list("color_fmt" = "character")) # "#00FF00"
+  #   e.g. scale_params = list(fill = list("color_fmt" = "native"))    # from nativeRaster
+  scale_params = list()
 )
 
 
