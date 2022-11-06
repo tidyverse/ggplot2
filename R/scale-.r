@@ -642,7 +642,17 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     }
     # Geom prefers native color format:
     geom_prefers_native <- identical(scale_params[["color_fmt"]], "native")
-    if (geom_prefers_native) {
+    # Palette capability: Accepts native output
+    #  A specific palette can have as attribute "accepts_native_output = TRUE".
+    #  Then, self$palette must have an additional argument (besides x) named
+    #  `color_fmt = "character"`. If we pass `color_fmt = "native"`, it will
+    #  return colors in native format.
+    pal_accepts_native <- ggproto_attr(self$palette, "accepts_native_output", default = FALSE)
+
+    if (geom_prefers_native && pal_accepts_native) {
+      palette <- function(x) self$palette(x, color_fmt = "native")
+      na.value <- farver::encode_native(self$na.value)
+    } else if (geom_prefers_native) {
       palette <- function(x) farver::encode_native(self$palette(x))
       na.value <- farver::encode_native(self$na.value)
     } else {
