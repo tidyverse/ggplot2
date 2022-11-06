@@ -70,10 +70,23 @@ scales_train_df <- function(scales, df, drop = FALSE) {
 }
 
 # Map values from a data.frame. Returns data.frame
-scales_map_df <- function(scales, df) {
+scales_map_df <- function(scales, df, scale_params = NULL) {
   if (empty(df) || length(scales$scales) == 0) return(df)
 
-  mapped <- unlist(lapply(scales$scales, function(scale) scale$map_df(df = df)), recursive = FALSE)
+  mapped <- unlist(
+    lapply(
+      scales$scales,
+      function(scale) {
+        if ("scale_params" %in% names(ggproto_formals(self$map_df))) {
+          scale$map_df(df = df, scale_params = scale_params)
+        } else {
+          # Eventually warn if scale$map_df() does not accept scale_params
+          scale$map_df(df = df)
+        }
+      }
+    ),
+    recursive = FALSE
+  )
 
   data_frame0(!!!mapped, df[setdiff(names(df), names(mapped))])
 }
