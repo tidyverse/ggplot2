@@ -640,12 +640,22 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
       ))
       mapping_method <- "unique"
     }
+    # Geom prefers native color format:
+    geom_prefers_native <- identical(scale_params[["color_fmt"]], "native")
+    if (geom_prefers_native) {
+      palette <- function(x) farver::encode_native(self$palette(x))
+      na.value <- farver::encode_native(self$na.value)
+    } else {
+      palette <- self$palette
+      na.value <- self$na.value
+    }
+
     if (mapping_method == "unique") {
       uniq <- unique0(x)
-      pal <- self$palette(uniq)
+      pal <- palette(uniq)
       scaled <- pal[match(x, uniq)]
     } else if (mapping_method == "raw") {
-      scaled <- self$palette(x)
+      scaled <- palette(x)
     } else if (mapping_method == "binned") {
       mapping_method_bins <- scale_params[["mapping_method_bins"]]
       if (is.null(mapping_method_bins)) {
@@ -653,7 +663,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
       }
       mapping_method_bins <- as.integer(mapping_method_bins[1L])
       breaks <- seq(from = 0, to = 1, length.out = mapping_method_bins + 1L)
-      colormap <- c(self$na.value, self$palette(breaks), self$na.value)
+      colormap <- c(na.value, palette(breaks), na.value)
       # values below 0 belong to the first bucket, but zero belongs to the second bucket:
       breaks[1] <- -.Machine$double.eps
       scaled <- colormap[findInterval(x, breaks, rightmost.closed = TRUE) + 1L]
@@ -663,7 +673,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     # If it has such attribute, we will skip the ifelse(!is.na(scaled), ...)
     pal_may_return_na <- ggproto_attr(self$palette, "may_return_NA", default = TRUE)
     if (pal_may_return_na) {
-      scaled <- ifelse(!is.na(scaled), scaled, self$na.value)
+      scaled <- ifelse(!is.na(scaled), scaled, na.value)
     }
 
     scaled
