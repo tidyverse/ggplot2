@@ -391,6 +391,14 @@ Layer <- ggproto("Layer", NULL,
     self$geom$setup_data(data, self$computed_geom_params)
   },
 
+  get_scale_params = function(self) {
+    if (is.function(self$geom$scale_params)) {
+      self$geom$scale_params(params = self$computed_geom_params)
+    } else {
+      self$geom$scale_params
+    }
+  },
+
   compute_position = function(self, data, layout) {
     if (empty(data)) return(data_frame0())
 
