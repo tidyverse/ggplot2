@@ -458,9 +458,12 @@ Scale <- ggproto("Scale", NULL,
     cli::cli_abort("Not implemented")
   },
 
-  map_df = function(self, df, i = NULL) {
+  map_df = function(self, df, i = NULL, scale_params = NULL) {
     if (empty(df)) {
       return()
+    }
+    if (is.null(scale_params)) {
+      scale_params <- list()
     }
 
     aesthetics <- intersect(self$aesthetics, names(df))
@@ -469,14 +472,24 @@ Scale <- ggproto("Scale", NULL,
       return()
     }
 
-    if (is.null(i)) {
-      lapply(aesthetics, function(j) self$map(df[[j]]))
+    if ("scale_params" %in% names(ggproto_formals(self$map))) {
+      if (is.null(i)) {
+        lapply(aesthetics, function(j) self$map(df[[j]], scale_params = scale_params[[j]]))
+      } else {
+        lapply(aesthetics, function(j) self$map(df[[j]][i], scale_params = scale_params[[j]]))
+      }
     } else {
-      lapply(aesthetics, function(j) self$map(df[[j]][i]))
+      # Eventually warn if self$map() does not accept scale_params
+      if (is.null(i)) {
+        lapply(aesthetics, function(j) self$map(df[[j]]))
+      } else {
+        lapply(aesthetics, function(j) self$map(df[[j]][i]))
+      }
+
     }
   },
 
-  map = function(self, x, limits = self$get_limits()) {
+  map = function(self, x, limits = self$get_limits(), scale_params = NULL) {
     cli::cli_abort("Not implemented")
   },
 
