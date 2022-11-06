@@ -54,4 +54,3 @@ test_that("scale_params mapping_method supports binned", {
   only_two <- sc$map(x, limits = c(0, 1), scale_params = list(mapping_method = "binned", mapping_method_bins = 2))
   expect_equal(length(unique(only_two)), 2L)
 })
-
