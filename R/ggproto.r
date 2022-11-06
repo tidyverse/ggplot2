@@ -351,3 +351,7 @@ format.ggproto_method <- function(x, ...) {
 
 # proto2 TODO: better way of getting formals for self$draw
 ggproto_formals <- function(x) formals(environment(x)$f)
+
+ggproto_attr <- function(x, which, default = NULL) {
+  attr(environment(x)$f, which = which, exact = TRUE) %||% default
+}
