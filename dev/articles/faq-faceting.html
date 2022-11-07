@@ -36,7 +36,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">3.3.6.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">3.4.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -132,35 +132,53 @@
 <h2 id="panes">Panes<a class="anchor" aria-label="anchor" href="#panes"></a>
 </h2>
 <div class="section level3">
-<h3 id="what-is-the-difference-between-facet_wrap-and-facet_grid">What is the difference between <code>facet_wrap()</code> and <code>facet_grid()</code>?<a class="anchor" aria-label="anchor" href="#what-is-the-difference-between-facet_wrap-and-facet_grid"></a>
+<h3 id="what-is-the-difference-between-facet_wrap-and-facet_grid">What is the difference between <code>facet_wrap()</code> and
+<code>facet_grid()</code>?<a class="anchor" aria-label="anchor" href="#what-is-the-difference-between-facet_wrap-and-facet_grid"></a>
 </h3>
-<p>The simplest answer is that you should use <code><a href="../reference/facet_wrap.html">facet_wrap()</a></code> when faceting by a single variable and <code><a href="../reference/facet_grid.html">facet_grid()</a></code> when faceting by two variables and want to create a grid of panes.</p>
+<p>The simplest answer is that you should use <code><a href="../reference/facet_wrap.html">facet_wrap()</a></code>
+when faceting by a single variable and <code><a href="../reference/facet_grid.html">facet_grid()</a></code> when
+faceting by two variables and want to create a grid of panes.</p>
 <details><summary>
 See example
-</summary><p><code><a href="../reference/facet_wrap.html">facet_wrap()</a></code> is most commonly used to facet by a plot by a single categorical variable.</p>
+</summary><p><code><a href="../reference/facet_wrap.html">facet_wrap()</a></code> is most commonly used to facet by a plot by
+a single categorical variable.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cty</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">drv</span><span class="op">)</span></span>
 <span><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></span></code></pre></div>
 <p><img src="faq-faceting_files/figure-html/unnamed-chunk-2-1.png" width="80%"></p>
-<p>And <code><a href="../reference/facet_grid.html">facet_grid()</a></code> is commonly used to facet by a plot by two categorical variables.</p>
+<p>And <code><a href="../reference/facet_grid.html">facet_grid()</a></code> is commonly used to facet by a plot by
+two categorical variables.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cty</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">cyl</span> <span class="op">~</span> <span class="va">drv</span><span class="op">)</span></span>
 <span><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></span></code></pre></div>
 <p><img src="faq-faceting_files/figure-html/unnamed-chunk-3-1.png" width="80%"></p>
-<p>Notice that this results in some empty panes (e.g. 4-wheel drive and 5 cylinders) as there are no cars in the <code>mpg</code> dataset that fall into such categories.</p>
-<p>You can also use <code><a href="../reference/facet_wrap.html">facet_wrap()</a></code> with to facet by two categorical variables. This will only create facets for combinations of the levels of variables for which data exists.</p>
+<p>Notice that this results in some empty panes (e.g. 4-wheel drive and
+5 cylinders) as there are no cars in the <code>mpg</code> dataset that
+fall into such categories.</p>
+<p>You can also use <code><a href="../reference/facet_wrap.html">facet_wrap()</a></code> with to facet by two
+categorical variables. This will only create facets for combinations of
+the levels of variables for which data exists.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cty</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="va">cyl</span> <span class="op">~</span> <span class="va">drv</span><span class="op">)</span></span>
 <span><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></span></code></pre></div>
 <p><img src="faq-faceting_files/figure-html/unnamed-chunk-4-1.png" width="80%"></p>
-<p>In <code><a href="../reference/facet_wrap.html">facet_wrap()</a></code> you can control the number of rows and/or columns of the resulting plot layout using the <code>nrow</code> and <code>ncol</code> arguments, respectively. In <code><a href="../reference/facet_grid.html">facet_grid()</a></code> these values are determined by the number of levels of the variables you’re faceting by.</p>
-<p>Similarly, you can also use <code><a href="../reference/facet_grid.html">facet_grid()</a></code> to facet by a single categorical variable as well. In the formula notation, you use a <code>.</code> to indicate that no faceting should be done along that axis, i.e. <code>cyl ~ .</code> facets across the y-axis (within a column) while <code>. ~ cyl</code> facets across the x-axis (within a row).</p>
+<p>In <code><a href="../reference/facet_wrap.html">facet_wrap()</a></code> you can control the number of rows
+and/or columns of the resulting plot layout using the <code>nrow</code>
+and <code>ncol</code> arguments, respectively. In
+<code><a href="../reference/facet_grid.html">facet_grid()</a></code> these values are determined by the number of
+levels of the variables you’re faceting by.</p>
+<p>Similarly, you can also use <code><a href="../reference/facet_grid.html">facet_grid()</a></code> to facet by a
+single categorical variable as well. In the formula notation, you use a
+<code>.</code> to indicate that no faceting should be done along that
+axis, i.e. <code>cyl ~ .</code> facets across the y-axis (within a
+column) while <code>. ~ cyl</code> facets across the x-axis (within a
+row).</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cty</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -177,12 +195,18 @@ See example
 </details>
 </div>
 <div class="section level3">
-<h3 id="how-can-i-place-a-vertical-lines-geom_vline-in-each-pane-of-a-faceted-plot">How can I place a vertical lines (<code>geom_vline()</code>) in each pane of a faceted plot?<a class="anchor" aria-label="anchor" href="#how-can-i-place-a-vertical-lines-geom_vline-in-each-pane-of-a-faceted-plot"></a>
+<h3 id="how-can-i-place-a-vertical-lines-geom_vline-in-each-pane-of-a-faceted-plot">How can I place a vertical lines (<code>geom_vline()</code>) in each
+pane of a faceted plot?<a class="anchor" aria-label="anchor" href="#how-can-i-place-a-vertical-lines-geom_vline-in-each-pane-of-a-faceted-plot"></a>
 </h3>
-<p>First, calculate where the lines should be placed and save this information in a separate data frame. Then, add a <code><a href="../reference/geom_abline.html">geom_vline()</a></code> layer to your plot that uses the summarized data.</p>
+<p>First, calculate where the lines should be placed and save this
+information in a separate data frame. Then, add a
+<code><a href="../reference/geom_abline.html">geom_vline()</a></code> layer to your plot that uses the summarized
+data.</p>
 <details><summary>
 See example
-</summary><p>Suppose you have the following plot, and you want to add a vertical line at the mean value of <code>hwy</code> (highway mileage) for each pane.</p>
+</summary><p>Suppose you have the following plot, and you want to add a vertical
+line at the mean value of <code>hwy</code> (highway mileage) for each
+pane.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">+</span></span>
@@ -211,7 +235,8 @@ See example
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 4         19.2</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> f         28.2</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> r         21</span></span></code></pre></div>
-<p>Then, add a <code><a href="../reference/geom_abline.html">geom_vline()</a></code> layer to your plot that uses the summary data.</p>
+<p>Then, add a <code><a href="../reference/geom_abline.html">geom_vline()</a></code> layer to your plot that uses
+the summary data.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">+</span></span>
@@ -227,22 +252,33 @@ See example
 <div class="section level3">
 <h3 id="how-can-i-set-individual-axis-limits-for-facets">How can I set individual axis limits for facets?<a class="anchor" aria-label="anchor" href="#how-can-i-set-individual-axis-limits-for-facets"></a>
 </h3>
-<p>Either let ggplot2 determine custom axis limits for the facets based on the range of the data you’re plotting using the <code>scales</code> argument in <code><a href="../reference/facet_wrap.html">facet_wrap()</a></code> or <code><a href="../reference/facet_grid.html">facet_grid()</a></code> or, if that is not sufficient, use <code><a href="../reference/expand_limits.html">expand_limits()</a></code> to ensure limits include a single value or a range of values.</p>
+<p>Either let ggplot2 determine custom axis limits for the facets based
+on the range of the data you’re plotting using the <code>scales</code>
+argument in <code><a href="../reference/facet_wrap.html">facet_wrap()</a></code> or <code><a href="../reference/facet_grid.html">facet_grid()</a></code> or,
+if that is not sufficient, use <code><a href="../reference/expand_limits.html">expand_limits()</a></code> to ensure
+limits include a single value or a range of values.</p>
 <details><summary>
 See example
-</summary><p>Suppose you have the following faceted plot. By default, both x and y scales are shared across the facets.</p>
+</summary><p>Suppose you have the following faceted plot. By default, both x and y
+scales are shared across the facets.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cty</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">cyl</span> <span class="op">~</span> <span class="va">drv</span><span class="op">)</span></span></code></pre></div>
 <p><img src="faq-faceting_files/figure-html/unnamed-chunk-9-1.png" width="80%"></p>
-<p>You can control this behaviour with the <code>scales</code> argument of faceting functions: varying scales across rows (<code>"free_x"</code>), columns (<code>"free_y"</code>), or both rows and columns (<code>"free"</code>), e.g.</p>
+<p>You can control this behaviour with the <code>scales</code> argument
+of faceting functions: varying scales across rows
+(<code>"free_x"</code>), columns (<code>"free_y"</code>), or both rows
+and columns (<code>"free"</code>), e.g.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cty</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">cyl</span> <span class="op">~</span> <span class="va">drv</span>, scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span> </span></code></pre></div>
 <p><img src="faq-faceting_files/figure-html/unnamed-chunk-10-1.png" width="80%"></p>
-<p>If you also want to make sure that a particular value or range is included in each of the facets, you can set this with <code><a href="../reference/expand_limits.html">expand_limits()</a></code>, e.g. ensure that 10 is included in the x-axis and values between 20 to 25 are included in the y-axis:</p>
+<p>If you also want to make sure that a particular value or range is
+included in each of the facets, you can set this with
+<code><a href="../reference/expand_limits.html">expand_limits()</a></code>, e.g. ensure that 10 is included in the
+x-axis and values between 20 to 25 are included in the y-axis:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cty</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -258,17 +294,21 @@ See example
 <div class="section level3">
 <h3 id="how-can-i-remove-the-facet-labels-entirely">How can I remove the facet labels entirely?<a class="anchor" aria-label="anchor" href="#how-can-i-remove-the-facet-labels-entirely"></a>
 </h3>
-<p>Set the <code>strip.text</code> element in <code><a href="../reference/theme.html">theme()</a></code> to <code><a href="../reference/element.html">element_blank()</a></code>.</p>
+<p>Set the <code>strip.text</code> element in <code><a href="../reference/theme.html">theme()</a></code> to
+<code><a href="../reference/element.html">element_blank()</a></code>.</p>
 <details><summary>
 See example
-</summary><p>Setting <code>strip.text</code> to <code><a href="../reference/element.html">element_blank()</a></code> will remove all facet labels.</p>
+</summary><p>Setting <code>strip.text</code> to <code><a href="../reference/element.html">element_blank()</a></code> will
+remove all facet labels.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cty</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">cyl</span> <span class="op">~</span> <span class="va">drv</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/theme.html">theme</a></span><span class="op">(</span>strip.text <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="faq-faceting_files/figure-html/unnamed-chunk-12-1.png" width="80%"></p>
-<p>You can also remove the labels across rows only with <code>strip.x.text</code> or across columns only with <code>strip.y.text</code>.</p>
+<p>You can also remove the labels across rows only with
+<code>strip.x.text</code> or across columns only with
+<code>strip.y.text</code>.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cty</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -278,12 +318,20 @@ See example
 </details>
 </div>
 <div class="section level3">
-<h3 id="the-facet-labels-in-my-plot-are-too-long-so-they-get-cut-off--how-can-i-wrap-facet-label-text-so-that-long-labels-are-spread-across-two-rows">The facet labels in my plot are too long so they get cut off. How can I wrap facet label text so that long labels are spread across two rows?<a class="anchor" aria-label="anchor" href="#the-facet-labels-in-my-plot-are-too-long-so-they-get-cut-off--how-can-i-wrap-facet-label-text-so-that-long-labels-are-spread-across-two-rows"></a>
+<h3 id="the-facet-labels-in-my-plot-are-too-long-so-they-get-cut-off--how-can-i-wrap-facet-label-text-so-that-long-labels-are-spread-across-two-rows">The facet labels in my plot are too long so they get cut off. How
+can I wrap facet label text so that long labels are spread across two
+rows?<a class="anchor" aria-label="anchor" href="#the-facet-labels-in-my-plot-are-too-long-so-they-get-cut-off--how-can-i-wrap-facet-label-text-so-that-long-labels-are-spread-across-two-rows"></a>
 </h3>
-<p>Use <code><a href="../reference/labellers.html">label_wrap_gen()</a></code> in the <code>labeller</code> argument of your faceting function and set a <code>width</code> (number of characters) for the maximum number of characters before wrapping the strip.</p>
+<p>Use <code><a href="../reference/labellers.html">label_wrap_gen()</a></code> in the <code>labeller</code>
+argument of your faceting function and set a <code>width</code> (number
+of characters) for the maximum number of characters before wrapping the
+strip.</p>
 <details><summary>
 See example
-</summary><p>In the data frame below we have 100 observations, 50 of them come from one group and 50 from another. These groups have very long names, and so when you facet the ploy by group, the facet labels (strips) get cut off.</p>
+</summary><p>In the data frame below we have 100 observations, 50 of them come
+from one group and 50 from another. These groups have very long names,
+and so when you facet the ploy by group, the facet labels (strips) get
+cut off.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>,</span>
@@ -295,7 +343,10 @@ See example
 <span>  <span class="fu"><a href="../reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">group</span><span class="op">)</span></span></code></pre></div>
 <p><img src="faq-faceting_files/figure-html/unnamed-chunk-14-1.png" width="80%"></p>
-<p>You can control the maximum width of the facet label by setting the <code>width</code> in the <code><a href="../reference/labellers.html">label_wrap_gen()</a></code> function, which is then passed to the <code>labeller</code> argument of your faceting function.</p>
+<p>You can control the maximum width of the facet label by setting the
+<code>width</code> in the <code><a href="../reference/labellers.html">label_wrap_gen()</a></code> function, which
+is then passed to the <code>labeller</code> argument of your faceting
+function.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span></span>
@@ -306,10 +357,16 @@ See example
 <div class="section level3">
 <h3 id="how-can-i-set-different-axis-labels-for-facets">How can I set different axis labels for facets?<a class="anchor" aria-label="anchor" href="#how-can-i-set-different-axis-labels-for-facets"></a>
 </h3>
-<p>Use <code><a href="../reference/as_labeller.html">as_labeller()</a></code> in the <code>labeller</code> argument of your faceting function and then set <code>strip.background</code> and <code>strip.placement</code> elements in the <code><a href="../reference/theme.html">theme()</a></code> to place the facet labels where axis labels would go. This is a particularly useful solution for plotting data on different scales without the use of double y-axes.</p>
+<p>Use <code><a href="../reference/as_labeller.html">as_labeller()</a></code> in the <code>labeller</code> argument
+of your faceting function and then set <code>strip.background</code> and
+<code>strip.placement</code> elements in the <code><a href="../reference/theme.html">theme()</a></code> to
+place the facet labels where axis labels would go. This is a
+particularly useful solution for plotting data on different scales
+without the use of double y-axes.</p>
 <details><summary>
 See example
-</summary><p>Suppose you have data price data on a given item over a few years from two countries with very different currency scales.</p>
+</summary><p>Suppose you have data price data on a given item over a few years
+from two countries with very different currency scales.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  year <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2016</span><span class="op">:</span><span class="fl">2021</span>, <span class="fl">2</span><span class="op">)</span>,</span>
@@ -331,7 +388,9 @@ See example
 <span><span class="co">#&gt; 10 2019  1050   Japan</span></span>
 <span><span class="co">#&gt; 11 2020  1105   Japan</span></span>
 <span><span class="co">#&gt; 12 2021  1300   Japan</span></span></code></pre></div>
-<p>You can plot <code>price</code> versus <code>time</code> and facet by <code>country</code>, but the resulting plot can be a bit difficult to read due to the shared y-axis label.</p>
+<p>You can plot <code>price</code> versus <code>time</code> and facet by
+<code>country</code>, but the resulting plot can be a bit difficult to
+read due to the shared y-axis label.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">year</span>, y <span class="op">=</span> <span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -339,7 +398,10 @@ See example
 <span>  <span class="fu"><a href="../reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fl">2011</span><span class="op">:</span><span class="fl">2020</span><span class="op">)</span></span>
 <span><span class="co">#&gt; `geom_smooth()` using method = 'loess' and formula = 'y ~ x'</span></span></code></pre></div>
 <p><img src="faq-faceting_files/figure-html/unnamed-chunk-17-1.png" width="80%"></p>
-<p>With the following you can customize the facet labels first with <code><a href="../reference/as_labeller.html">as_labeller()</a></code>, turn off the default y-axis label, and then place the facet labels where the y-axis label goes (<code>"outside"</code> and on the <code>"left"</code>).</p>
+<p>With the following you can customize the facet labels first with
+<code><a href="../reference/as_labeller.html">as_labeller()</a></code>, turn off the default y-axis label, and then
+place the facet labels where the y-axis label goes
+(<code>"outside"</code> and on the <code>"left"</code>).</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">year</span>, y <span class="op">=</span> <span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>

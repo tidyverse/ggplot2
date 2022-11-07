@@ -36,7 +36,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">3.3.6.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">3.4.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -134,16 +134,20 @@
 <div class="section level3">
 <h3 id="how-can-i-change-the-legend-title">How can I change the legend title?<a class="anchor" aria-label="anchor" href="#how-can-i-change-the-legend-title"></a>
 </h3>
-<p>Change the label for the aesthetic the legend is drawn for in <code><a href="../reference/labs.html">labs()</a></code>.</p>
+<p>Change the label for the aesthetic the legend is drawn for in
+<code><a href="../reference/labs.html">labs()</a></code>.</p>
 <details><summary>
 See example
-</summary><p>By default your legend label will be the name of the variable that is mapped to the aesthetic the legend is drawn for. You can change the title of your legend using <code><a href="../reference/labs.html">labs()</a></code>.</p>
+</summary><p>By default your legend label will be the name of the variable that is
+mapped to the aesthetic the legend is drawn for. You can change the
+title of your legend using <code><a href="../reference/labs.html">labs()</a></code>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hwy</span>, y <span class="op">=</span> <span class="va">cty</span>, color <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/labs.html">labs</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"Drive train"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="faq-customising_files/figure-html/unnamed-chunk-2-1.png" width="80%"></p>
-<p>If a legend is drawn for multiple aesthetics, you’ll want to update the title for all of them.</p>
+<p>If a legend is drawn for multiple aesthetics, you’ll want to update
+the title for all of them.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># not this</span></span>
 <span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hwy</span>, y <span class="op">=</span> <span class="va">cty</span>, color <span class="op">=</span> <span class="va">drv</span>, shape <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -162,10 +166,18 @@ See example
 <div class="section level3">
 <h3 id="how-can-i-increase-the-spacing-between-legend-keys">How can I increase the spacing between legend keys?<a class="anchor" aria-label="anchor" href="#how-can-i-increase-the-spacing-between-legend-keys"></a>
 </h3>
-<p>Increase the horizontal space between legend keys with <code>legend.spacing.x</code> in <code><a href="../reference/theme.html">theme()</a></code>. This argument takes a unit object created with <code><a href="https://rdrr.io/r/grid/unit.html" class="external-link">grid::unit()</a></code>.</p>
+<p>Increase the horizontal space between legend keys with
+<code>legend.spacing.x</code> in <code><a href="../reference/theme.html">theme()</a></code>. This argument
+takes a unit object created with <code><a href="https://rdrr.io/r/grid/unit.html" class="external-link">grid::unit()</a></code>.</p>
 <details><summary>
 See example
-</summary><p>If you have a horizontal legend, generally placed on top or bottom of the plot with <code>legend.position = "top"</code> or <code>"bottom"</code>, you can change the spacing between legend keys with <code>legend.spacing.x</code>. You can supply a unit object to this argument, e.g. <code>unit(1.0, "cm")</code> for 1 cm space between legend keys. See the documentation for <code><a href="https://rdrr.io/r/grid/unit.html" class="external-link">grid::unit()</a></code> for more options for units.</p>
+</summary><p>If you have a horizontal legend, generally placed on top or bottom of
+the plot with <code>legend.position = "top"</code> or
+<code>"bottom"</code>, you can change the spacing between legend keys
+with <code>legend.spacing.x</code>. You can supply a unit object to this
+argument, e.g. <code>unit(1.0, "cm")</code> for 1 cm space between
+legend keys. See the documentation for <code><a href="https://rdrr.io/r/grid/unit.html" class="external-link">grid::unit()</a></code> for
+more options for units.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hwy</span>, y <span class="op">=</span> <span class="va">cty</span>, color <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -174,13 +186,17 @@ See example
 <span>    legend.spacing.x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">1.0</span>, <span class="st">"cm"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span></code></pre></div>
 <p><img src="faq-customising_files/figure-html/unnamed-chunk-4-1.png" width="80%"></p>
-<p>For vertical legends changing <code>legend.spacing.y</code> changes the space between the legend title and the keys, but not between the keys, e.g. see the large space between the legend title and keys.</p>
+<p>For vertical legends changing <code>legend.spacing.y</code> changes
+the space between the legend title and the keys, but not between the
+keys, e.g. see the large space between the legend title and keys.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hwy</span>, y <span class="op">=</span> <span class="va">cty</span>, color <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/theme.html">theme</a></span><span class="op">(</span>legend.spacing.y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">3.0</span>, <span class="st">"cm"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="faq-customising_files/figure-html/unnamed-chunk-5-1.png" width="80%"></p>
-<p>In order to change the space between the legend keys, you can first make the key size bigger with <code>legend.key.size</code> and then remove the grey background color with <code>legend.key</code>.</p>
+<p>In order to change the space between the legend keys, you can first
+make the key size bigger with <code>legend.key.size</code> and then
+remove the grey background color with <code>legend.key</code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hwy</span>, y <span class="op">=</span> <span class="va">cty</span>, color <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -189,7 +205,9 @@ See example
 <span>    legend.key <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_rect</a></span><span class="op">(</span>color <span class="op">=</span> <span class="cn">NA</span>, fill <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span></code></pre></div>
 <p><img src="faq-customising_files/figure-html/unnamed-chunk-6-1.png" width="80%"></p>
-<p>Note that the legend title is no longer aligned with the keys with this approach. You can also shift it over with <code>legend.title.align</code>.</p>
+<p>Note that the legend title is no longer aligned with the keys with
+this approach. You can also shift it over with
+<code>legend.title.align</code>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hwy</span>, y <span class="op">=</span> <span class="va">cty</span>, color <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -204,10 +222,19 @@ See example
 <div class="section level3">
 <h3 id="how-can-i-change-the-key-labels-in-the-legend">How can I change the key labels in the legend?<a class="anchor" aria-label="anchor" href="#how-can-i-change-the-key-labels-in-the-legend"></a>
 </h3>
-<p>If you don’t want to change the levels of the variable the legend is being drawn for, you can change the key labels at the time of drawing the plot using the <code>labels</code> argument in the appropriate <code>scale_*()</code> function, e.g. <code><a href="../reference/scale_colour_discrete.html">scale_colour_discrete()</a></code> if the legend is for a discrete variable mapped to the fill aesthetic.</p>
+<p>If you don’t want to change the levels of the variable the legend is
+being drawn for, you can change the key labels at the time of drawing
+the plot using the <code>labels</code> argument in the appropriate
+<code>scale_*()</code> function,
+e.g. <code><a href="../reference/scale_colour_discrete.html">scale_colour_discrete()</a></code> if the legend is for a
+discrete variable mapped to the fill aesthetic.</p>
 <details><summary>
 See example
-</summary><p>The <code>labels</code> argument of <code>scale_*</code> functions takes named vectors, which what we would recommend using for relabeling keys in a legend. Using named lists allows you to declare explicitly which label is assigned to which level, without having to keep track of level order.</p>
+</summary><p>The <code>labels</code> argument of <code>scale_*</code> functions
+takes named vectors, which what we would recommend using for relabeling
+keys in a legend. Using named lists allows you to declare explicitly
+which label is assigned to which level, without having to keep track of
+level order.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hwy</span>, y <span class="op">=</span> <span class="va">cty</span>, color <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -222,10 +249,19 @@ See example
 <div class="section level3">
 <h3 id="how-can-i-change-the-font-sizes-in-the-legend">How can I change the font sizes in the legend?<a class="anchor" aria-label="anchor" href="#how-can-i-change-the-font-sizes-in-the-legend"></a>
 </h3>
-<p>Set your preference in <code>legend.text</code> for key labels and <code>legend.title</code> in <code><a href="../reference/theme.html">theme()</a></code>. In both cases, set font size in the <code>size</code> argument of <code><a href="../reference/element.html">element_text()</a></code>, e.g. <code>legend.text = element_text(size = 14)</code>.</p>
+<p>Set your preference in <code>legend.text</code> for key labels and
+<code>legend.title</code> in <code><a href="../reference/theme.html">theme()</a></code>. In both cases, set
+font size in the <code>size</code> argument of
+<code><a href="../reference/element.html">element_text()</a></code>,
+e.g. <code>legend.text = element_text(size = 14)</code>.</p>
 <details><summary>
 See example
-</summary><p>Font characteristics of a legend can be controlled with the <code>legend.text</code> and <code>legend.title</code> elements of <code><a href="../reference/theme.html">theme()</a></code>. You can use the following for 14 pts text for legend key labels and 10 pts text for legend title. (Note that this doesn’t result in a visually pleasing legend, by default ggplot2 uses a larger font size for the legend title than the legend text.)</p>
+</summary><p>Font characteristics of a legend can be controlled with the
+<code>legend.text</code> and <code>legend.title</code> elements of
+<code><a href="../reference/theme.html">theme()</a></code>. You can use the following for 14 pts text for
+legend key labels and 10 pts text for legend title. (Note that this
+doesn’t result in a visually pleasing legend, by default ggplot2 uses a
+larger font size for the legend title than the legend text.)</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hwy</span>, y <span class="op">=</span> <span class="va">cty</span>, color <span class="op">=</span> <span class="va">class</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -234,7 +270,9 @@ See example
 <span>    legend.title <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="faq-customising_files/figure-html/unnamed-chunk-9-1.png" width="80%"></p>
-<p>For further customization of legend text, see the documentation for <code><a href="../reference/element.html">element_text()</a></code>, e.g. you can change font colors or font face as well.</p>
+<p>For further customization of legend text, see the documentation for
+<code><a href="../reference/element.html">element_text()</a></code>, e.g. you can change font colors or font
+face as well.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hwy</span>, y <span class="op">=</span> <span class="va">cty</span>, color <span class="op">=</span> <span class="va">class</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -252,22 +290,33 @@ See example
 <div class="section level3">
 <h3 id="how-can-i-change-the-background-colour-of-plot">How can I change the background colour of plot?<a class="anchor" aria-label="anchor" href="#how-can-i-change-the-background-colour-of-plot"></a>
 </h3>
-<p>Set the color in <code>panel.background</code> element of <code><a href="../reference/theme.html">theme()</a></code> with <code><a href="../reference/element.html">element_rect()</a></code>, which takes arguments like <code>fill</code> (for background fill color) and <code>colour</code> (for background border color.</p>
+<p>Set the color in <code>panel.background</code> element of
+<code><a href="../reference/theme.html">theme()</a></code> with <code><a href="../reference/element.html">element_rect()</a></code>, which takes
+arguments like <code>fill</code> (for background fill color) and
+<code>colour</code> (for background border color.</p>
 <details><summary>
 See example
-</summary><p>You can set the background colour of the plot with <code>panel.background</code> in <code><a href="../reference/theme.html">theme()</a></code>. In the following example the border is made thicker with <code>linewidth = 3</code> to</p>
+</summary><p>You can set the background colour of the plot with
+<code>panel.background</code> in <code><a href="../reference/theme.html">theme()</a></code>. In the following
+example the border is made thicker with <code>linewidth = 3</code>
+to</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hwy</span>, y <span class="op">=</span> <span class="va">cty</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/theme.html">theme</a></span><span class="op">(</span>panel.background <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"lightblue"</span>, colour <span class="op">=</span> <span class="st">"red"</span>, linewidth <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="faq-customising_files/figure-html/unnamed-chunk-11-1.png" width="80%"></p>
-<p>If you want to change the colour of the plotting area but not the panel where the panel, you can so the same thing with <code>plot.background</code>.</p>
+<p>If you want to change the colour of the plotting area but not the
+panel where the panel, you can so the same thing with
+<code>plot.background</code>.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hwy</span>, y <span class="op">=</span> <span class="va">cty</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/theme.html">theme</a></span><span class="op">(</span>plot.background <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"lightblue"</span>, colour <span class="op">=</span> <span class="st">"red"</span>, linewidth <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="faq-customising_files/figure-html/unnamed-chunk-12-1.png" width="80%"></p>
-<p>Note that ggplot2 has a variety of <a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">complete themes</a> that might already do what you’re hoping to accomplish. For example, if you prefer a more minimal look to your plots, without the grey background, you might try <code><a href="../reference/ggtheme.html">theme_minimal()</a></code>.</p>
+<p>Note that ggplot2 has a variety of <a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">complete
+themes</a> that might already do what you’re hoping to accomplish. For
+example, if you prefer a more minimal look to your plots, without the
+grey background, you might try <code><a href="../reference/ggtheme.html">theme_minimal()</a></code>.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hwy</span>, y <span class="op">=</span> <span class="va">cty</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -280,16 +329,21 @@ See example
 <span>  <span class="fu"><a href="../reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/theme.html">theme</a></span><span class="op">(</span>plot.background <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_rect</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"red"</span>, linewidth <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="faq-customising_files/figure-html/unnamed-chunk-14-1.png" width="80%"></p>
-<p>You might also find the <a href="https://rstudio.github.io/thematic/" class="external-link"><strong>thematic</strong></a> package useful for simplified theming of your plots.</p>
+<p>You might also find the <a href="https://rstudio.github.io/thematic/" class="external-link"><strong>thematic</strong></a>
+package useful for simplified theming of your plots.</p>
 </details>
 </div>
 <div class="section level3">
 <h3 id="how-can-i-change-the-colour-nas-are-represented-with-in-a-plot">How can I change the colour NAs are represented with in a plot?<a class="anchor" aria-label="anchor" href="#how-can-i-change-the-colour-nas-are-represented-with-in-a-plot"></a>
 </h3>
-<p>You can set the color of <code>NA</code> with the <code>na.value</code> argument in the appropriate <code>scale_*()</code> function, e.g. <code>scale_fill_discrete(na.value = "purple")</code> to make <code>NA</code>s purple.</p>
+<p>You can set the color of <code>NA</code> with the
+<code>na.value</code> argument in the appropriate <code>scale_*()</code>
+function, e.g. <code>scale_fill_discrete(na.value = "purple")</code> to
+make <code>NA</code>s purple.</p>
 <details><summary>
 See example
-</summary><p>Suppose you have the following data frame with two discrete variables, one of which has an <code>NA</code>.</p>
+</summary><p>Suppose you have the following data frame with two discrete
+variables, one of which has an <code>NA</code>.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span>
 <span>  <span class="op">~</span><span class="va">group</span>, <span class="op">~</span><span class="va">outcome</span>,</span>
@@ -305,13 +359,20 @@ See example
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">group</span>, fill <span class="op">=</span> <span class="va">outcome</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="faq-customising_files/figure-html/unnamed-chunk-16-1.png" width="80%"></p>
-<p>You can change the color of <code>NA</code> with <code><a href="../reference/scale_colour_discrete.html">scale_fill_discrete()</a></code> in this case, e.g. make it purple.</p>
+<p>You can change the color of <code>NA</code> with
+<code><a href="../reference/scale_colour_discrete.html">scale_fill_discrete()</a></code> in this case, e.g. make it
+purple.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">group</span>, fill <span class="op">=</span> <span class="va">outcome</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_colour_discrete.html">scale_fill_discrete</a></span><span class="op">(</span>na.value <span class="op">=</span> <span class="st">"purple"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="faq-customising_files/figure-html/unnamed-chunk-17-1.png" width="80%"></p>
-<p>You can also set the color to <code>"transparent"</code>. In the plot below this is shown with <code><a href="../reference/ggtheme.html">theme_minimal()</a></code> to demonstrate how that looks on a plot with a transparent background. Note that while this is possible, setting the colour to transparent as such wouldn’t be recommended in this particular case as it gives the appearance of a floating bar.</p>
+<p>You can also set the color to <code>"transparent"</code>. In the plot
+below this is shown with <code><a href="../reference/ggtheme.html">theme_minimal()</a></code> to demonstrate how
+that looks on a plot with a transparent background. Note that while this
+is possible, setting the colour to transparent as such wouldn’t be
+recommended in this particular case as it gives the appearance of a
+floating bar.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">group</span>, fill <span class="op">=</span> <span class="va">outcome</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -327,16 +388,22 @@ See example
 <div class="section level3">
 <h3 id="how-can-i-change-the-default-font-size-in-ggplot2">How can I change the default font size in ggplot2?<a class="anchor" aria-label="anchor" href="#how-can-i-change-the-default-font-size-in-ggplot2"></a>
 </h3>
-<p>Set <code>base_size</code> in the theme you’re using, which is <code><a href="../reference/ggtheme.html">theme_gray()</a></code> by default.</p>
+<p>Set <code>base_size</code> in the theme you’re using, which is
+<code><a href="../reference/ggtheme.html">theme_gray()</a></code> by default.</p>
 <details><summary>
 See example
-</summary><p>The base font size is 11 pts by default. You can change it with the <code>base_size</code> argument in the theme you’re using. See the <a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">complete theme documentation</a> for more high level options you can set.</p>
+</summary><p>The base font size is 11 pts by default. You can change it with the
+<code>base_size</code> argument in the theme you’re using. See the <a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">complete
+theme documentation</a> for more high level options you can set.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hwy</span>, y <span class="op">=</span> <span class="va">cty</span>, color <span class="op">=</span> <span class="va">class</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/ggtheme.html">theme_gray</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">18</span><span class="op">)</span></span></code></pre></div>
 <p><img src="faq-customising_files/figure-html/unnamed-chunk-19-1.png" width="80%"></p>
-<p>If you would like all plots within a session/document to use a particular base size, you can set it with <code><a href="../reference/theme_get.html">theme_set()</a></code>. Run the following at the beginning of your session or include on top of your R Markdown document.</p>
+<p>If you would like all plots within a session/document to use a
+particular base size, you can set it with <code><a href="../reference/theme_get.html">theme_set()</a></code>. Run
+the following at the beginning of your session or include on top of your
+R Markdown document.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/theme_get.html">theme_set</a></span><span class="op">(</span><span class="fu"><a href="../reference/ggtheme.html">theme_gray</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">18</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </details>
@@ -344,10 +411,17 @@ See example
 <div class="section level3">
 <h3 id="how-can-i-change-the-font-size-of-the-plot-title-and-subtitle">How can I change the font size of the plot title and subtitle?<a class="anchor" aria-label="anchor" href="#how-can-i-change-the-font-size-of-the-plot-title-and-subtitle"></a>
 </h3>
-<p>Set your preference in <code>plot.title</code> and <code>plot.subtitle</code> in <code><a href="../reference/theme.html">theme()</a></code>. In both cases, set font size in the <code>size</code> argument of <code><a href="../reference/element.html">element_text()</a></code>, e.g. <code>plot.title = element_text(size = 20)</code>.</p>
+<p>Set your preference in <code>plot.title</code> and
+<code>plot.subtitle</code> in <code><a href="../reference/theme.html">theme()</a></code>. In both cases, set
+font size in the <code>size</code> argument of
+<code><a href="../reference/element.html">element_text()</a></code>,
+e.g. <code>plot.title = element_text(size = 20)</code>.</p>
 <details><summary>
 See example
-</summary><p>Font characteristics of plot titles and subtitles can be controlled with the <code>plot.title</code> and <code>plot.subtitle</code> elements of <code><a href="../reference/theme.html">theme()</a></code>. You can use the following for 20 pts text for the plot title and 15 pts text for the plot subtitle.</p>
+</summary><p>Font characteristics of plot titles and subtitles can be controlled
+with the <code>plot.title</code> and <code>plot.subtitle</code> elements
+of <code><a href="../reference/theme.html">theme()</a></code>. You can use the following for 20 pts text for
+the plot title and 15 pts text for the plot subtitle.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hwy</span>, y <span class="op">=</span> <span class="va">cty</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -360,7 +434,9 @@ See example
 <span>    plot.subtitle <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">15</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="faq-customising_files/figure-html/unnamed-chunk-21-1.png" width="80%"></p>
-<p>For further customization of plot title and subtitle, see the documentation for <code><a href="../reference/element.html">element_text()</a></code>, e.g. you can change font colors or font face as well.</p>
+<p>For further customization of plot title and subtitle, see the
+documentation for <code><a href="../reference/element.html">element_text()</a></code>, e.g. you can change font
+colors or font face as well.</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hwy</span>, y <span class="op">=</span> <span class="va">cty</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -378,10 +454,16 @@ See example
 <div class="section level3">
 <h3 id="how-can-i-change-the-font-size-of-axis-labels">How can I change the font size of axis labels?<a class="anchor" aria-label="anchor" href="#how-can-i-change-the-font-size-of-axis-labels"></a>
 </h3>
-<p>Set your preference in <code>axis.title</code>. <code>axis.title.x</code>, or <code>axis.title.y</code> in <code><a href="../reference/theme.html">theme()</a></code>. In both cases, set font size in the <code>size</code> argument of <code><a href="../reference/element.html">element_text()</a></code>, e.g. <code>axis.text = element_text(size = 14)</code>.</p>
+<p>Set your preference in <code>axis.title</code>.
+<code>axis.title.x</code>, or <code>axis.title.y</code> in
+<code><a href="../reference/theme.html">theme()</a></code>. In both cases, set font size in the
+<code>size</code> argument of <code><a href="../reference/element.html">element_text()</a></code>,
+e.g. <code>axis.text = element_text(size = 14)</code>.</p>
 <details><summary>
 See example
-</summary><p>Font characteristics of axis labels can be controlled with <code>axis.title.x</code> or <code>axis.title.y</code> (or <code>axis.title</code> if you the same settings for both axes).</p>
+</summary><p>Font characteristics of axis labels can be controlled with
+<code>axis.title.x</code> or <code>axis.title.y</code> (or
+<code>axis.title</code> if you the same settings for both axes).</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hwy</span>, y <span class="op">=</span> <span class="va">cty</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -394,7 +476,9 @@ See example
 <span>    axis.title.y <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="faq-customising_files/figure-html/unnamed-chunk-23-1.png" width="80%"></p>
-<p>For further customization of plot title and subtitle, see the documentation for <code><a href="../reference/element.html">element_text()</a></code>, e.g. you can change font colors or font face as well.</p>
+<p>For further customization of plot title and subtitle, see the
+documentation for <code><a href="../reference/element.html">element_text()</a></code>, e.g. you can change font
+colors or font face as well.</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hwy</span>, y <span class="op">=</span> <span class="va">cty</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -407,7 +491,9 @@ See example
 <span>    axis.title.y <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">10</span>, face <span class="op">=</span> <span class="st">"bold.italic"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="faq-customising_files/figure-html/unnamed-chunk-24-1.png" width="80%"></p>
-<p>You can also change the size of the axis text (e.g. numbers at the axis ticks) using <code>axis.text</code> (or <code>axis.text.x</code> and <code>axis.text.y</code> if you want to set different sizes).</p>
+<p>You can also change the size of the axis text (e.g. numbers at the
+axis ticks) using <code>axis.text</code> (or <code>axis.text.x</code>
+and <code>axis.text.y</code> if you want to set different sizes).</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hwy</span>, y <span class="op">=</span> <span class="va">cty</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -423,13 +509,17 @@ See example
 </details>
 </div>
 <div class="section level3">
-<h3 id="what-is-the-default-size-of-geom_text-and-how-can-i-change-the-font-size-of-geom_text">What is the default size of <code>geom_text()</code> and how can I change the font size of <code>geom_text()</code>?<a class="anchor" aria-label="anchor" href="#what-is-the-default-size-of-geom_text-and-how-can-i-change-the-font-size-of-geom_text"></a>
+<h3 id="what-is-the-default-size-of-geom_text-and-how-can-i-change-the-font-size-of-geom_text">What is the default size of <code>geom_text()</code> and how can I
+change the font size of <code>geom_text()</code>?<a class="anchor" aria-label="anchor" href="#what-is-the-default-size-of-geom_text-and-how-can-i-change-the-font-size-of-geom_text"></a>
 </h3>
 <p>The default font size of <code><a href="../reference/geom_text.html">geom_text()</a></code> is 3.88.</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">GeomLabel</span><span class="op">$</span><span class="va">default_aes</span><span class="op">$</span><span class="va">size</span></span>
 <span><span class="co">#&gt; [1] 3.88</span></span></code></pre></div>
-<p>You can change the size using the <code>size</code> argument in <code><a href="../reference/geom_text.html">geom_text()</a></code> for a single plot. If you want to use the same updated size, you can set this with <code><a href="../reference/update_defaults.html">update_geom_defaults()</a></code>, e.g. <code>update_geom_defaults("text", list(size = 6))</code>.</p>
+<p>You can change the size using the <code>size</code> argument in
+<code><a href="../reference/geom_text.html">geom_text()</a></code> for a single plot. If you want to use the same
+updated size, you can set this with <code><a href="../reference/update_defaults.html">update_geom_defaults()</a></code>,
+e.g. <code>update_geom_defaults("text", list(size = 6))</code>.</p>
 <details><summary>
 See example
 </summary><p>Suppose you have the following data frame and visualization.</p>
@@ -449,13 +539,19 @@ See example
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, label <span class="op">=</span> <span class="va">name</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_text.html">geom_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span></code></pre></div>
 <p><img src="faq-customising_files/figure-html/unnamed-chunk-28-1.png" width="80%"></p>
-<p>Or you can map it to the <code>size</code> <code>aes</code>thetic. In the following size is determined by the <code>x</code> value with <code><a href="../reference/scale_identity.html">scale_size_identity()</a></code>.</p>
+<p>Or you can map it to the <code>size</code> <code>aes</code>thetic. In
+the following size is determined by the <code>x</code> value with
+<code><a href="../reference/scale_identity.html">scale_size_identity()</a></code>.</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, label <span class="op">=</span> <span class="va">name</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>size <span class="op">=</span> <span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_identity.html">scale_size_identity</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="faq-customising_files/figure-html/unnamed-chunk-29-1.png" width="80%"></p>
-<p>If you want to use the same updated size for <code><a href="../reference/geom_text.html">geom_text()</a></code> in a series of plots in a session/R Markdown document, you can set use <code><a href="../reference/update_defaults.html">update_geom_defaults()</a></code> to update the default size, e.g. if you want the size for all <code><a href="../reference/geom_text.html">geom_text()</a></code> to be 6, use <code>update_geom_defaults("text", list(size = 6))</code>.</p>
+<p>If you want to use the same updated size for <code><a href="../reference/geom_text.html">geom_text()</a></code>
+in a series of plots in a session/R Markdown document, you can set use
+<code><a href="../reference/update_defaults.html">update_geom_defaults()</a></code> to update the default size, e.g. if
+you want the size for all <code><a href="../reference/geom_text.html">geom_text()</a></code> to be 6, use
+<code>update_geom_defaults("text", list(size = 6))</code>.</p>
 </details>
 </div>
 </div>

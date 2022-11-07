@@ -36,7 +36,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">3.3.6.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">3.4.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -129,12 +129,16 @@
   }
 </style>
 <div class="section level3">
-<h3 id="why-is-annotation-created-with-geom_text-pixellated-how-can-i-make-it-more-crisp">Why is annotation created with <code>geom_text()</code> pixellated? How can I make it more crisp?<a class="anchor" aria-label="anchor" href="#why-is-annotation-created-with-geom_text-pixellated-how-can-i-make-it-more-crisp"></a>
+<h3 id="why-is-annotation-created-with-geom_text-pixellated-how-can-i-make-it-more-crisp">Why is annotation created with <code>geom_text()</code> pixellated?
+How can I make it more crisp?<a class="anchor" aria-label="anchor" href="#why-is-annotation-created-with-geom_text-pixellated-how-can-i-make-it-more-crisp"></a>
 </h3>
-<p>You should use <code>annotate(geom = "text")</code> instead of <code><a href="../reference/geom_text.html">geom_text()</a></code> for annotation.</p>
+<p>You should use <code>annotate(geom = "text")</code> instead of
+<code><a href="../reference/geom_text.html">geom_text()</a></code> for annotation.</p>
 <details><summary>
 See example
-</summary><p>In the following visualisation we have annotated a histogram with a red line and red text to mark the mean. Note that both the line and the text appears pixellated/fuzzy.</p>
+</summary><p>In the following visualisation we have annotated a histogram with a
+red line and red text to mark the mean. Note that both the line and the
+text appears pixellated/fuzzy.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mean_hwy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">mpg</span><span class="op">$</span><span class="va">hwy</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span></span>
 <span></span>
@@ -151,7 +155,11 @@ See example
 <span>    color <span class="op">=</span> <span class="st">"red"</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="faq-annotation_files/figure-html/unnamed-chunk-2-1.png" width="80%"></p>
-<p>This is because <code><a href="../reference/geom_text.html">geom_text()</a></code> draws the geom once per each row of the data frame, and plotting these on top of each other. For annotation (as opposed to plotting the data using text as geometric objects to represent each observation) use <code><a href="../reference/annotate.html">annotate()</a></code> instead.</p>
+<p>This is because <code><a href="../reference/geom_text.html">geom_text()</a></code> draws the geom once per each
+row of the data frame, and plotting these on top of each other. For
+annotation (as opposed to plotting the data using text as geometric
+objects to represent each observation) use <code><a href="../reference/annotate.html">annotate()</a></code>
+instead.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
@@ -168,12 +176,15 @@ See example
 </details>
 </div>
 <div class="section level3">
-<h3 id="how-can-i-make-sure-all-annotation-created-with-geom_text-fits-in-the-bounds-of-the-plot">How can I make sure all annotation created with <code>geom_text()</code> fits in the bounds of the plot?<a class="anchor" aria-label="anchor" href="#how-can-i-make-sure-all-annotation-created-with-geom_text-fits-in-the-bounds-of-the-plot"></a>
+<h3 id="how-can-i-make-sure-all-annotation-created-with-geom_text-fits-in-the-bounds-of-the-plot">How can I make sure all annotation created with
+<code>geom_text()</code> fits in the bounds of the plot?<a class="anchor" aria-label="anchor" href="#how-can-i-make-sure-all-annotation-created-with-geom_text-fits-in-the-bounds-of-the-plot"></a>
 </h3>
-<p>Set <code>vjust = "inward"</code> and <code>hjust = "inward"</code> in <code><a href="../reference/geom_text.html">geom_text()</a></code>.</p>
+<p>Set <code>vjust = "inward"</code> and <code>hjust = "inward"</code>
+in <code><a href="../reference/geom_text.html">geom_text()</a></code>.</p>
 <details><summary>
 See example
-</summary><p>Suppose you have the following data frame and visualization. The labels at the edges of the plot are cut off slightly.</p>
+</summary><p>Suppose you have the following data frame and visualization. The
+labels at the edges of the plot are cut off slightly.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span>
 <span>  <span class="op">~</span><span class="va">x</span>, <span class="op">~</span><span class="va">y</span>, <span class="op">~</span><span class="va">name</span>,</span>
@@ -185,7 +196,9 @@ See example
 <span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, label <span class="op">=</span> <span class="va">name</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_text.html">geom_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code></pre></div>
 <p><img src="faq-annotation_files/figure-html/unnamed-chunk-4-1.png" width="80%"></p>
-<p>You could manually extend axis limits to avoid this, but a more straightforward approach is to set <code>vjust = "inward"</code> and <code>hjust = "inward"</code> in <code><a href="../reference/geom_text.html">geom_text()</a></code>.</p>
+<p>You could manually extend axis limits to avoid this, but a more
+straightforward approach is to set <code>vjust = "inward"</code> and
+<code>hjust = "inward"</code> in <code><a href="../reference/geom_text.html">geom_text()</a></code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, label <span class="op">=</span> <span class="va">name</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_text.html">geom_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">10</span>, vjust <span class="op">=</span> <span class="st">"inward"</span>, hjust <span class="op">=</span> <span class="st">"inward"</span><span class="op">)</span></span></code></pre></div>
@@ -195,15 +208,23 @@ See example
 <div class="section level3">
 <h3 id="how-can-i-annotate-my-bar-plot-to-display-counts-for-each-bar">How can I annotate my bar plot to display counts for each bar?<a class="anchor" aria-label="anchor" href="#how-can-i-annotate-my-bar-plot-to-display-counts-for-each-bar"></a>
 </h3>
-<p>Either calculate the counts ahead of time and place them on bars using <code><a href="../reference/geom_text.html">geom_text()</a></code> or let <code><a href="../reference/ggplot.html">ggplot()</a></code> calculate them for you and then add them to the plot using <code>stat_coun()</code> with <code>geom = "text"</code>.</p>
+<p>Either calculate the counts ahead of time and place them on bars
+using <code><a href="../reference/geom_text.html">geom_text()</a></code> or let <code><a href="../reference/ggplot.html">ggplot()</a></code> calculate
+them for you and then add them to the plot using
+<code>stat_coun()</code> with <code>geom = "text"</code>.</p>
 <details><summary>
 See example
-</summary><p>Suppose you have the following bar plot and you want to add the number of cars that fall into each <code>drv</code> level on their respective bars.</p>
+</summary><p>Suppose you have the following bar plot and you want to add the
+number of cars that fall into each <code>drv</code> level on their
+respective bars.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="faq-annotation_files/figure-html/unnamed-chunk-6-1.png" width="80%"></p>
-<p>One option is to calculate the counts with <code><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">dplyr::count()</a></code> and then pass them to the <code>label</code> mapping in <code><a href="../reference/geom_text.html">geom_text()</a></code>. Note that we expanded the y axis limit to get the numbers to fit on the plot.</p>
+<p>One option is to calculate the counts with
+<code><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">dplyr::count()</a></code> and then pass them to the <code>label</code>
+mapping in <code><a href="../reference/geom_text.html">geom_text()</a></code>. Note that we expanded the y axis
+limit to get the numbers to fit on the plot.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mpg</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">drv</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
@@ -212,21 +233,29 @@ See example
 <span>  <span class="fu"><a href="../reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">n</span><span class="op">)</span>, vjust <span class="op">=</span> <span class="op">-</span><span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span>ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">110</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="faq-annotation_files/figure-html/unnamed-chunk-7-1.png" width="80%"></p>
-<p>Another option is to let <code><a href="../reference/ggplot.html">ggplot()</a></code> do the counting for you, and access these counts with <code>..count..</code> that is mapped to the labels to be placed on the plot with <code><a href="../reference/geom_bar.html">stat_count()</a></code>.</p>
+<p>Another option is to let <code><a href="../reference/ggplot.html">ggplot()</a></code> do the counting for
+you, and access these counts with <code>..count..</code> that is mapped
+to the labels to be placed on the plot with
+<code><a href="../reference/geom_bar.html">stat_count()</a></code>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">stat_count</a></span><span class="op">(</span>geom <span class="op">=</span> <span class="st">"text"</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">..count..</span><span class="op">)</span>, vjust <span class="op">=</span> <span class="op">-</span><span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span>ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">110</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: The dot-dot notation (`..count..`) was deprecated in ggplot2 3.4.0.</span></span>
-<span><span class="co">#&gt; Please use `after_stat(count)` instead.</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Please use `after_stat(count)` instead.</span></span></code></pre></div>
 <p><img src="faq-annotation_files/figure-html/unnamed-chunk-8-1.png" width="80%"></p>
 </details>
 </div>
 <div class="section level3">
-<h3 id="how-can-i-annotate-my-stacked-bar-plot-to-display-counts-for-each-segment">How can I annotate my stacked bar plot to display counts for each segment?<a class="anchor" aria-label="anchor" href="#how-can-i-annotate-my-stacked-bar-plot-to-display-counts-for-each-segment"></a>
+<h3 id="how-can-i-annotate-my-stacked-bar-plot-to-display-counts-for-each-segment">How can I annotate my stacked bar plot to display counts for each
+segment?<a class="anchor" aria-label="anchor" href="#how-can-i-annotate-my-stacked-bar-plot-to-display-counts-for-each-segment"></a>
 </h3>
-<p>First calculate the counts for each segment (e.g. with <code><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">dplyr::count()</a></code>) and then place them on the bars with <code><a href="../reference/geom_text.html">geom_text()</a></code> using <code>position_stack(vjust = 0.5)</code> in the <code>position</code> argument to place the values in the middle of the segments.</p>
+<p>First calculate the counts for each segment (e.g. with
+<code><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">dplyr::count()</a></code>) and then place them on the bars with
+<code><a href="../reference/geom_text.html">geom_text()</a></code> using <code>position_stack(vjust = 0.5)</code>
+in the <code>position</code> argument to place the values in the middle
+of the segments.</p>
 <details><summary>
 See example
 </summary><p>Suppose you have the following stacked bar plot.</p>
@@ -234,7 +263,9 @@ See example
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">class</span>, fill <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="faq-annotation_files/figure-html/unnamed-chunk-9-1.png" width="80%"></p>
-<p>You can first calculate the counts for each segment with <code><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">dplyr::count()</a></code>, which will place these values in a column called <code>n</code>.</p>
+<p>You can first calculate the counts for each segment with
+<code><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">dplyr::count()</a></code>, which will place these values in a column
+called <code>n</code>.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mpg</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">count</span><span class="op">(</span><span class="va">class</span>, <span class="va">drv</span><span class="op">)</span> </span>
@@ -253,7 +284,11 @@ See example
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> subcompact r         9</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> suv        4        51</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> suv        r        11</span></span></code></pre></div>
-<p>You can then pass this result directly to <code><a href="../reference/ggplot.html">ggplot()</a></code>, draw the segments with appropriate heights with <code>y = n</code> in the <code>aes</code>thetic mapping and <code><a href="../reference/geom_bar.html">geom_col()</a></code> to draw the bars, and finally place the counts on the plot with <code><a href="../reference/geom_text.html">geom_text()</a></code>.</p>
+<p>You can then pass this result directly to <code><a href="../reference/ggplot.html">ggplot()</a></code>, draw
+the segments with appropriate heights with <code>y = n</code> in the
+<code>aes</code>thetic mapping and <code><a href="../reference/geom_bar.html">geom_col()</a></code> to draw the
+bars, and finally place the counts on the plot with
+<code><a href="../reference/geom_text.html">geom_text()</a></code>.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mpg</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">count</span><span class="op">(</span><span class="va">class</span>, <span class="va">drv</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
@@ -264,17 +299,25 @@ See example
 </details>
 </div>
 <div class="section level3">
-<h3 id="how-can-i-display-proportions-relative-frequencies-instead-of-counts-on-a-bar-plot">How can I display proportions (relative frequencies) instead of counts on a bar plot?<a class="anchor" aria-label="anchor" href="#how-can-i-display-proportions-relative-frequencies-instead-of-counts-on-a-bar-plot"></a>
+<h3 id="how-can-i-display-proportions-relative-frequencies-instead-of-counts-on-a-bar-plot">How can I display proportions (relative frequencies) instead of
+counts on a bar plot?<a class="anchor" aria-label="anchor" href="#how-can-i-display-proportions-relative-frequencies-instead-of-counts-on-a-bar-plot"></a>
 </h3>
-<p>Either calculate the prpportions ahead of time and place them on bars using <code><a href="../reference/geom_text.html">geom_text()</a></code> or let <code><a href="../reference/ggplot.html">ggplot()</a></code> calculate them for you and then add them to the plot using <code>stat_coun()</code> with <code>geom = "text"</code>.</p>
+<p>Either calculate the prpportions ahead of time and place them on bars
+using <code><a href="../reference/geom_text.html">geom_text()</a></code> or let <code><a href="../reference/ggplot.html">ggplot()</a></code> calculate
+them for you and then add them to the plot using
+<code>stat_coun()</code> with <code>geom = "text"</code>.</p>
 <details><summary>
 See example
-</summary><p>Suppose you have the following bar plot but you want to display the proportion of cars that fall into each <code>drv</code> level, instead of the count.</p>
+</summary><p>Suppose you have the following bar plot but you want to display the
+proportion of cars that fall into each <code>drv</code> level, instead
+of the count.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="faq-annotation_files/figure-html/unnamed-chunk-12-1.png" width="80%"></p>
-<p>One option is to calculate the proportions with <code><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">dplyr::count()</a></code> and then use <code><a href="../reference/geom_bar.html">geom_col()</a></code> to draw the bars</p>
+<p>One option is to calculate the proportions with
+<code><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">dplyr::count()</a></code> and then use <code><a href="../reference/geom_bar.html">geom_col()</a></code> to draw
+the bars</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mpg</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">drv</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
@@ -282,7 +325,10 @@ See example
 <span>  <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span>, y <span class="op">=</span> <span class="va">prop</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_col</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="faq-annotation_files/figure-html/unnamed-chunk-13-1.png" width="80%"></p>
-<p>Another option is to let <code><a href="../reference/ggplot.html">ggplot()</a></code> do the calculation of proportions for you, and access these counts with <code>..prop..</code>. Note that we also need to the <code>group = 1</code> mapping for this option.</p>
+<p>Another option is to let <code><a href="../reference/ggplot.html">ggplot()</a></code> do the calculation of
+proportions for you, and access these counts with <code>..prop..</code>.
+Note that we also need to the <code>group = 1</code> mapping for this
+option.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span>, y <span class="op">=</span> <span class="va">..prop..</span>, group <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>

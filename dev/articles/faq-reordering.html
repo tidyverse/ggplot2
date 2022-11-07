@@ -36,7 +36,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">3.3.6.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">3.4.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -134,10 +134,16 @@
 <div class="section level3">
 <h3 id="how-can-i-reorder-the-bars-in-a-bar-plot-by-their-value">How can I reorder the bars in a bar plot by their value?<a class="anchor" aria-label="anchor" href="#how-can-i-reorder-the-bars-in-a-bar-plot-by-their-value"></a>
 </h3>
-<p>Change the order of the levels of the factor variable you’re creating the bar plot for in the <code>aes</code>thetic <code>mapping</code>. The forcats package offers a variety of options for doing this, such as <code><a href="https://forcats.tidyverse.org/reference/fct_inorder.html" class="external-link">forcats::fct_infreq()</a></code> for ordering by the number of observations within each level.</p>
+<p>Change the order of the levels of the factor variable you’re creating
+the bar plot for in the <code>aes</code>thetic <code>mapping</code>. The
+forcats package offers a variety of options for doing this, such as
+<code><a href="https://forcats.tidyverse.org/reference/fct_inorder.html" class="external-link">forcats::fct_infreq()</a></code> for ordering by the number of
+observations within each level.</p>
 <details><summary>
 See example
-</summary><p>The following bar plot shows the number of cars that fall into each <code>class</code> category. Classes are ordered alphabetically. You might prefer them to be ordered by the number of cars in each class.</p>
+</summary><p>The following bar plot shows the number of cars that fall into each
+<code>class</code> category. Classes are ordered alphabetically. You
+might prefer them to be ordered by the number of cars in each class.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">class</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -147,7 +153,9 @@ See example
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="fu">forcats</span><span class="fu">::</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_inorder.html" class="external-link">fct_infreq</a></span><span class="op">(</span><span class="va">class</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="faq-reordering_files/figure-html/unnamed-chunk-3-1.png" width="80%"></p>
-<p>If you’d like to plot the highest value first, you can also reverse the order with <code><a href="https://forcats.tidyverse.org/reference/fct_rev.html" class="external-link">forcats::fct_rev()</a></code>. You might also want to simplify the axis label.</p>
+<p>If you’d like to plot the highest value first, you can also reverse
+the order with <code><a href="https://forcats.tidyverse.org/reference/fct_rev.html" class="external-link">forcats::fct_rev()</a></code>. You might also want to
+simplify the axis label.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="fu">forcats</span><span class="fu">::</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_rev.html" class="external-link">fct_rev</a></span><span class="op">(</span><span class="fu">forcats</span><span class="fu">::</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_inorder.html" class="external-link">fct_infreq</a></span><span class="op">(</span><span class="va">class</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -158,15 +166,23 @@ See example
 <div class="section level3">
 <h3 id="how-can-i-reorder-the-stacks-in-a-stacked-bar-plot">How can I reorder the stacks in a stacked bar plot?<a class="anchor" aria-label="anchor" href="#how-can-i-reorder-the-stacks-in-a-stacked-bar-plot"></a>
 </h3>
-<p>Change the order of the levels of the factor variable you’re creating the stacks with in the <code>aes</code>thetic <code>mapping</code>. The forcats package offers a variety of options for doing this, such as <code><a href="https://forcats.tidyverse.org/reference/fct_reorder.html" class="external-link">forcats::fct_reorder()</a></code> to reorder the levels or <code><a href="https://forcats.tidyverse.org/reference/fct_rev.html" class="external-link">forcats::fct_rev()</a></code> to reverse their order.</p>
+<p>Change the order of the levels of the factor variable you’re creating
+the stacks with in the <code>aes</code>thetic <code>mapping</code>. The
+forcats package offers a variety of options for doing this, such as
+<code><a href="https://forcats.tidyverse.org/reference/fct_reorder.html" class="external-link">forcats::fct_reorder()</a></code> to reorder the levels or
+<code><a href="https://forcats.tidyverse.org/reference/fct_rev.html" class="external-link">forcats::fct_rev()</a></code> to reverse their order.</p>
 <details><summary>
 See example
-</summary><p>Suppose you have the following stacked bar plot of <code>clarity</code> of <code>diamonds</code> by their <code>cut</code>.</p>
+</summary><p>Suppose you have the following stacked bar plot of
+<code>clarity</code> of <code>diamonds</code> by their
+<code>cut</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cut</span>, fill <span class="op">=</span> <span class="va">clarity</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="faq-reordering_files/figure-html/unnamed-chunk-5-1.png" width="80%"></p>
-<p>You can revers the order <code>clarity</code> levels are displayed in the bars with <code><a href="https://forcats.tidyverse.org/reference/fct_rev.html" class="external-link">forcats::fct_rev()</a></code>. This will also change the order they’re presented in the legend so the two orders match.</p>
+<p>You can revers the order <code>clarity</code> levels are displayed in
+the bars with <code><a href="https://forcats.tidyverse.org/reference/fct_rev.html" class="external-link">forcats::fct_rev()</a></code>. This will also change the
+order they’re presented in the legend so the two orders match.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cut</span>, fill <span class="op">=</span> <span class="fu">forcats</span><span class="fu">::</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_rev.html" class="external-link">fct_rev</a></span><span class="op">(</span><span class="va">clarity</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -179,17 +195,28 @@ See example
 <h2 id="box-plots">Box plots<a class="anchor" aria-label="anchor" href="#box-plots"></a>
 </h2>
 <div class="section level3">
-<h3 id="how-can-i-control-the-order-of-boxes-in-a-side-by-side-box-plot">How can I control the order of boxes in a side-by-side box plot?<a class="anchor" aria-label="anchor" href="#how-can-i-control-the-order-of-boxes-in-a-side-by-side-box-plot"></a>
+<h3 id="how-can-i-control-the-order-of-boxes-in-a-side-by-side-box-plot">How can I control the order of boxes in a side-by-side box
+plot?<a class="anchor" aria-label="anchor" href="#how-can-i-control-the-order-of-boxes-in-a-side-by-side-box-plot"></a>
 </h3>
-<p>Change the order of the levels of the factor variable you’re faceting by. The forcats package offers a variety of options for doing this, such as <code><a href="https://forcats.tidyverse.org/reference/fct_relevel.html" class="external-link">forcats::fct_relevel()</a></code> for manual reordering or <code><a href="https://forcats.tidyverse.org/reference/fct_reorder.html" class="external-link">forcats::fct_reorder()</a></code> for ordering by a particular value, e.g. group median.</p>
+<p>Change the order of the levels of the factor variable you’re faceting
+by. The forcats package offers a variety of options for doing this, such
+as <code><a href="https://forcats.tidyverse.org/reference/fct_relevel.html" class="external-link">forcats::fct_relevel()</a></code> for manual reordering or
+<code><a href="https://forcats.tidyverse.org/reference/fct_reorder.html" class="external-link">forcats::fct_reorder()</a></code> for ordering by a particular value,
+e.g. group median.</p>
 <details><summary>
 See example
-</summary><p>The order of the boxes is determined by the order of the levels of the variable you’re grouping by. If the faceting variable is character, this order is alphabetical by default.</p>
+</summary><p>The order of the boxes is determined by the order of the levels of
+the variable you’re grouping by. If the faceting variable is character,
+this order is alphabetical by default.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">class</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="faq-reordering_files/figure-html/unnamed-chunk-7-1.png" width="80%"></p>
-<p>Suppose you’d like the boxes to be ordered in ascending order of their medians. You can do this in a data transformation step prior to plotting (e.g. with <code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">dplyr::mutate()</a></code>) or you can do it directly in the plotting code as shown below. You might then want to customize the x-axis label as well.</p>
+<p>Suppose you’d like the boxes to be ordered in ascending order of
+their medians. You can do this in a data transformation step prior to
+plotting (e.g. with <code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">dplyr::mutate()</a></code>) or you can do it
+directly in the plotting code as shown below. You might then want to
+customize the x-axis label as well.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu">forcats</span><span class="fu">::</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_reorder.html" class="external-link">fct_reorder</a></span><span class="op">(</span><span class="va">class</span>, <span class="va">hwy</span>, .fun <span class="op">=</span> <span class="va">median</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -202,18 +229,28 @@ See example
 <h2 id="facets">Facets<a class="anchor" aria-label="anchor" href="#facets"></a>
 </h2>
 <div class="section level3">
-<h3 id="how-can-i-control-the-order-of-panes-created-with-facet_wrap-or-facet_grid">How can I control the order of panes created with <code>facet_wrap()</code> or <code>facet_grid()</code>?<a class="anchor" aria-label="anchor" href="#how-can-i-control-the-order-of-panes-created-with-facet_wrap-or-facet_grid"></a>
+<h3 id="how-can-i-control-the-order-of-panes-created-with-facet_wrap-or-facet_grid">How can I control the order of panes created with
+<code>facet_wrap()</code> or <code>facet_grid()</code>?<a class="anchor" aria-label="anchor" href="#how-can-i-control-the-order-of-panes-created-with-facet_wrap-or-facet_grid"></a>
 </h3>
-<p>Change the order of the levels of the factor variable you’re faceting by. The forcats package offers a variety of options for doing this, such as <code><a href="https://forcats.tidyverse.org/reference/fct_relevel.html" class="external-link">forcats::fct_relevel()</a></code>.</p>
+<p>Change the order of the levels of the factor variable you’re faceting
+by. The forcats package offers a variety of options for doing this, such
+as <code><a href="https://forcats.tidyverse.org/reference/fct_relevel.html" class="external-link">forcats::fct_relevel()</a></code>.</p>
 <details><summary>
 See example
-</summary><p>The order of the panes is determined by the order of the levels of the variable you’re faceting by. If the faceting variable is character, this order is alphabetical by default.</p>
+</summary><p>The order of the panes is determined by the order of the levels of
+the variable you’re faceting by. If the faceting variable is character,
+this order is alphabetical by default.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">drv</span><span class="op">)</span></span></code></pre></div>
 <p><img src="faq-reordering_files/figure-html/unnamed-chunk-9-1.png" width="80%"></p>
-<p>Suppose you’d like the panes to be in the order <code>"r"</code>, <code>"f"</code> , <code>"4"</code>. You can use <code><a href="https://forcats.tidyverse.org/reference/fct_relevel.html" class="external-link">forcats::fct_relevel()</a></code> to reorder the levels of <code>drv</code>. You can do this in a data transformation step prior to plotting (e.g. with <code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">dplyr::mutate()</a></code>) or you can do it directly in the plotting code as shown below.</p>
+<p>Suppose you’d like the panes to be in the order <code>"r"</code>,
+<code>"f"</code> , <code>"4"</code>. You can use
+<code><a href="https://forcats.tidyverse.org/reference/fct_relevel.html" class="external-link">forcats::fct_relevel()</a></code> to reorder the levels of
+<code>drv</code>. You can do this in a data transformation step prior to
+plotting (e.g. with <code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">dplyr::mutate()</a></code>) or you can do it
+directly in the plotting code as shown below.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -228,7 +265,9 @@ See example
 <div class="section level3">
 <h3 id="how-can-i-control-the-order-of-the-points-plotted">How can I control the order of the points plotted?<a class="anchor" aria-label="anchor" href="#how-can-i-control-the-order-of-the-points-plotted"></a>
 </h3>
-<p>If there is a specific point (or group of points) you want to make sure is plotted on top of others, subset the data for those observations and add as a new layer to your plot.</p>
+<p>If there is a specific point (or group of points) you want to make
+sure is plotted on top of others, subset the data for those observations
+and add as a new layer to your plot.</p>
 <details><summary>
 See example
 </summary><p>Suppose you have the following data frame.</p>
@@ -240,14 +279,20 @@ See example
 <span>  <span class="fl">3</span>,   <span class="fl">0.99</span>, <span class="fl">0</span>,  <span class="st">"asterisk"</span>,        <span class="st">"black"</span>,</span>
 <span>  <span class="fl">4</span>,   <span class="fl">0</span>,    <span class="fl">0</span>,  <span class="st">"triangle filled"</span>, <span class="st">"yellow"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>By default, this is how a scatterplot of these looks. Note that the blue circle is partially covered by the yellow triangle since that observation comes later in the dataset. Similarly the black asterisk appears on top of the red square.</p>
+<p>By default, this is how a scatterplot of these looks. Note that the
+blue circle is partially covered by the yellow triangle since that
+observation comes later in the dataset. Similarly the black asterisk
+appears on top of the red square.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">fill</span>, shape <span class="op">=</span> <span class="va">shape</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">8</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_identity.html">scale_shape_identity</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_identity.html">scale_fill_identity</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="faq-reordering_files/figure-html/unnamed-chunk-12-1.png" width="80%"></p>
-<p>Suppose you arranged your data in ascending order of the x-coordinates and plotted again. Now the blue circle is over the yellow triangle since 0.01 comes after 0 and similarly the red square is over the black asterisk since 1 comes after 0.99.</p>
+<p>Suppose you arranged your data in ascending order of the
+x-coordinates and plotted again. Now the blue circle is over the yellow
+triangle since 0.01 comes after 0 and similarly the red square is over
+the black asterisk since 1 comes after 0.99.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df_arranged</span> <span class="op">&lt;-</span> <span class="va">df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span></span>
@@ -257,7 +302,10 @@ See example
 <span>  <span class="fu"><a href="../reference/scale_identity.html">scale_shape_identity</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_identity.html">scale_fill_identity</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="faq-reordering_files/figure-html/unnamed-chunk-13-1.png" width="80%"></p>
-<p>If you wanted to make sure that the observation identified with an asterisk is always plotted on top, regardless of how the data are arranged in the data frame, you can create an additional layer for that observation.</p>
+<p>If you wanted to make sure that the observation identified with an
+asterisk is always plotted on top, regardless of how the data are
+arranged in the data frame, you can create an additional layer for that
+observation.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">fill</span>, shape <span class="op">=</span> <span class="va">shape</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">shape</span> <span class="op">!=</span> <span class="st">"asterisk"</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">8</span><span class="op">)</span> <span class="op">+</span></span>

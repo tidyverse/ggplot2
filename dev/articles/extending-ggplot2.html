@@ -38,7 +38,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">3.3.6.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">3.4.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -121,14 +121,39 @@
 
     
     
-<p>This vignette documents the official extension mechanism provided in ggplot2 2.0.0. This vignette is a high-level adjunct to the low-level details found in <code><a href="../reference/ggplot2-ggproto.html">?Stat</a></code>, <code><a href="../reference/ggplot2-ggproto.html">?Geom</a></code> and <code><a href="../reference/theme.html">?theme</a></code>. You’ll learn how to extend ggplot2 by creating a new stat, geom, or theme.</p>
-<p>As you read this document, you’ll see many things that will make you scratch your head and wonder why on earth is it designed this way? Mostly it’s historical accident - I wasn’t a terribly good R programmer when I started writing ggplot2 and I made a lot of questionable decisions. We cleaned up as many of those issues as possible in the 2.0.0 release, but some fixes simply weren’t worth the effort.</p>
+<p>This vignette documents the official extension mechanism provided in
+ggplot2 2.0.0. This vignette is a high-level adjunct to the low-level
+details found in <code><a href="../reference/ggplot2-ggproto.html">?Stat</a></code>, <code><a href="../reference/ggplot2-ggproto.html">?Geom</a></code> and
+<code><a href="../reference/theme.html">?theme</a></code>. You’ll learn how to extend ggplot2 by creating a
+new stat, geom, or theme.</p>
+<p>As you read this document, you’ll see many things that will make you
+scratch your head and wonder why on earth is it designed this way?
+Mostly it’s historical accident - I wasn’t a terribly good R programmer
+when I started writing ggplot2 and I made a lot of questionable
+decisions. We cleaned up as many of those issues as possible in the
+2.0.0 release, but some fixes simply weren’t worth the effort.</p>
 <div class="section level2">
 <h2 id="ggproto">ggproto<a class="anchor" aria-label="anchor" href="#ggproto"></a>
 </h2>
-<p>All ggplot2 objects are built using the ggproto system of object oriented programming. This OO system is used only in one place: ggplot2. This is mostly historical accident: ggplot2 started off using <a href="https://cran.r-project.org/package=proto" class="external-link">proto</a> because I needed mutable objects. This was well before the creation of (the briefly lived) <a href="http://vita.had.co.nz/papers/mutatr.html" class="external-link">mutatr</a>, reference classes and R6: proto was the only game in town.</p>
-<p>But why ggproto? Well when we turned to add an official extension mechanism to ggplot2, we found a major problem that caused problems when proto objects were extended in a different package (methods were evaluated in ggplot2, not the package where the extension was added). We tried converting to R6, but it was a poor fit for the needs of ggplot2. We could’ve modified proto, but that would’ve first involved understanding exactly how proto worked, and secondly making sure that the changes didn’t affect other users of proto.</p>
-<p>It’s strange to say, but this is a case where inventing a new OO system was actually the right answer to the problem! Fortunately Winston is now very good at creating OO systems, so it only took him a day to come up with ggproto: it maintains all the features of proto that ggplot2 needs, while allowing cross package inheritance to work.</p>
+<p>All ggplot2 objects are built using the ggproto system of object
+oriented programming. This OO system is used only in one place: ggplot2.
+This is mostly historical accident: ggplot2 started off using <a href="https://cran.r-project.org/package=proto" class="external-link">proto</a> because I
+needed mutable objects. This was well before the creation of (the
+briefly lived) <a href="http://vita.had.co.nz/papers/mutatr.html" class="external-link">mutatr</a>, reference
+classes and R6: proto was the only game in town.</p>
+<p>But why ggproto? Well when we turned to add an official extension
+mechanism to ggplot2, we found a major problem that caused problems when
+proto objects were extended in a different package (methods were
+evaluated in ggplot2, not the package where the extension was added). We
+tried converting to R6, but it was a poor fit for the needs of ggplot2.
+We could’ve modified proto, but that would’ve first involved
+understanding exactly how proto worked, and secondly making sure that
+the changes didn’t affect other users of proto.</p>
+<p>It’s strange to say, but this is a case where inventing a new OO
+system was actually the right answer to the problem! Fortunately Winston
+is now very good at creating OO systems, so it only took him a day to
+come up with ggproto: it maintains all the features of proto that
+ggplot2 needs, while allowing cross package inheritance to work.</p>
 <p>Here’s a quick demo of ggproto in action:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">A</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggproto.html">ggproto</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="cn">NULL</span>,</span>
@@ -146,8 +171,12 @@
 <span><span class="va">A</span><span class="op">$</span><span class="fu">inc</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">A</span><span class="op">$</span><span class="va">x</span></span>
 <span><span class="co">#&gt; [1] 4</span></span></code></pre></div>
-<p>The majority of ggplot2 classes are immutable and static: the methods neither use nor modify state in the class. They’re mostly used as a convenient way of bundling related methods together.</p>
-<p>To create a new geom or stat, you will just create a new ggproto that inherits from <code>Stat</code>, <code>Geom</code> and override the methods described below.</p>
+<p>The majority of ggplot2 classes are immutable and static: the methods
+neither use nor modify state in the class. They’re mostly used as a
+convenient way of bundling related methods together.</p>
+<p>To create a new geom or stat, you will just create a new ggproto that
+inherits from <code>Stat</code>, <code>Geom</code> and override the
+methods described below.</p>
 </div>
 <div class="section level2">
 <h2 id="creating-a-new-stat">Creating a new stat<a class="anchor" aria-label="anchor" href="#creating-a-new-stat"></a>
@@ -155,7 +184,9 @@
 <div class="section level3">
 <h3 id="the-simplest-stat">The simplest stat<a class="anchor" aria-label="anchor" href="#the-simplest-stat"></a>
 </h3>
-<p>We’ll start by creating a very simple stat: one that gives the convex hull (the <em>c</em> hull) of a set of points. First we create a new ggproto object that inherits from <code>Stat</code>:</p>
+<p>We’ll start by creating a very simple stat: one that gives the convex
+hull (the <em>c</em> hull) of a set of points. First we create a new
+ggproto object that inherits from <code>Stat</code>:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">StatChull</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggproto.html">ggproto</a></span><span class="op">(</span><span class="st">"StatChull"</span>, <span class="va">Stat</span>,</span>
 <span>  compute_group <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">scales</span><span class="op">)</span> <span class="op">{</span></span>
@@ -164,9 +195,23 @@
 <span>  </span>
 <span>  required_aes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>The two most important components are the <code>compute_group()</code> method (which does the computation), and the <code>required_aes</code> field, which lists which aesthetics must be present in order for the stat to work.</p>
-<p>Next we write a layer function. Unfortunately, due to an early design mistake I called these either <code>stat_()</code> or <code>geom_()</code>. A better decision would have been to call them <code>layer_()</code> functions: that’s a more accurate description because every layer involves a stat <em>and</em> a geom.</p>
-<p>All layer functions follow the same form - you specify defaults in the function arguments and then call the <code><a href="../reference/layer.html">layer()</a></code> function, sending <code>...</code> into the <code>params</code> argument. The arguments in <code>...</code> will either be arguments for the geom (if you’re making a stat wrapper), arguments for the stat (if you’re making a geom wrapper), or aesthetics to be set. <code><a href="../reference/layer.html">layer()</a></code> takes care of teasing the different parameters apart and making sure they’re stored in the right place:</p>
+<p>The two most important components are the
+<code>compute_group()</code> method (which does the computation), and
+the <code>required_aes</code> field, which lists which aesthetics must
+be present in order for the stat to work.</p>
+<p>Next we write a layer function. Unfortunately, due to an early design
+mistake I called these either <code>stat_()</code> or
+<code>geom_()</code>. A better decision would have been to call them
+<code>layer_()</code> functions: that’s a more accurate description
+because every layer involves a stat <em>and</em> a geom.</p>
+<p>All layer functions follow the same form - you specify defaults in
+the function arguments and then call the <code><a href="../reference/layer.html">layer()</a></code> function,
+sending <code>...</code> into the <code>params</code> argument. The
+arguments in <code>...</code> will either be arguments for the geom (if
+you’re making a stat wrapper), arguments for the stat (if you’re making
+a geom wrapper), or aesthetics to be set. <code><a href="../reference/layer.html">layer()</a></code> takes
+care of teasing the different parameters apart and making sure they’re
+stored in the right place:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">stat_chull</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">mapping</span> <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">data</span> <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">geom</span> <span class="op">=</span> <span class="st">"polygon"</span>,</span>
 <span>                       <span class="va">position</span> <span class="op">=</span> <span class="st">"identity"</span>, <span class="va">na.rm</span> <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">show.legend</span> <span class="op">=</span> <span class="cn">NA</span>, </span>
@@ -177,21 +222,27 @@
 <span>    params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>na.rm <span class="op">=</span> <span class="va">na.rm</span>, <span class="va">...</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<p>(Note that if you’re writing this in your own package, you’ll either need to call <code><a href="../reference/layer.html">ggplot2::layer()</a></code> explicitly, or import the <code><a href="../reference/layer.html">layer()</a></code> function into your package namespace.)</p>
+<p>(Note that if you’re writing this in your own package, you’ll either
+need to call <code><a href="../reference/layer.html">ggplot2::layer()</a></code> explicitly, or import the
+<code><a href="../reference/layer.html">layer()</a></code> function into your package namespace.)</p>
 <p>Once we have a layer function we can try our new stat:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">stat_chull</span><span class="op">(</span>fill <span class="op">=</span> <span class="cn">NA</span>, colour <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;"></p>
-<p>(We’ll see later how to change the defaults of the geom so that you don’t need to specify <code>fill = NA</code> every time.)</p>
-<p>Once we’ve written this basic object, ggplot2 gives a lot for free. For example, ggplot2 automatically preserves aesthetics that are constant within each group:</p>
+<p>(We’ll see later how to change the defaults of the geom so that you
+don’t need to specify <code>fill = NA</code> every time.)</p>
+<p>Once we’ve written this basic object, ggplot2 gives a lot for free.
+For example, ggplot2 automatically preserves aesthetics that are
+constant within each group:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span>, colour <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">stat_chull</span><span class="op">(</span>fill <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span></code></pre></div>
 <p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;"></p>
-<p>We can also override the default geom to display the convex hull in a different way:</p>
+<p>We can also override the default geom to display the convex hull in a
+different way:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">stat_chull</span><span class="op">(</span>geom <span class="op">=</span> <span class="st">"point"</span>, size <span class="op">=</span> <span class="fl">4</span>, colour <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -201,7 +252,10 @@
 <div class="section level3">
 <h3 id="stat-parameters">Stat parameters<a class="anchor" aria-label="anchor" href="#stat-parameters"></a>
 </h3>
-<p>A more complex stat will do some computation. Let’s implement a simple version of <code><a href="../reference/geom_smooth.html">geom_smooth()</a></code> that adds a line of best fit to a plot. We create a <code>StatLm</code> that inherits from <code>Stat</code> and a layer function, <code>stat_lm()</code>:</p>
+<p>A more complex stat will do some computation. Let’s implement a
+simple version of <code><a href="../reference/geom_smooth.html">geom_smooth()</a></code> that adds a line of best
+fit to a plot. We create a <code>StatLm</code> that inherits from
+<code>Stat</code> and a layer function, <code>stat_lm()</code>:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">StatLm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggproto.html">ggproto</a></span><span class="op">(</span><span class="st">"StatLm"</span>, <span class="va">Stat</span>, </span>
 <span>  required_aes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span>,</span>
@@ -231,7 +285,10 @@
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">stat_lm</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;"></p>
-<p><code>StatLm</code> is inflexible because it has no parameters. We might want to allow the user to control the model formula and the number of points used to generate the grid. To do so, we add arguments to the <code>compute_group()</code> method and our wrapper function:</p>
+<p><code>StatLm</code> is inflexible because it has no parameters. We
+might want to allow the user to control the model formula and the number
+of points used to generate the grid. To do so, we add arguments to the
+<code>compute_group()</code> method and our wrapper function:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">StatLm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggproto.html">ggproto</a></span><span class="op">(</span><span class="st">"StatLm"</span>, <span class="va">Stat</span>, </span>
 <span>  required_aes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span>,</span>
@@ -263,7 +320,13 @@
 <span>  <span class="fu">stat_lm</span><span class="op">(</span>formula <span class="op">=</span> <span class="va">y</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/poly.html" class="external-link">poly</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">stat_lm</span><span class="op">(</span>formula <span class="op">=</span> <span class="va">y</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/poly.html" class="external-link">poly</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">10</span><span class="op">)</span>, geom <span class="op">=</span> <span class="st">"point"</span>, colour <span class="op">=</span> <span class="st">"red"</span>, n <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span></code></pre></div>
 <p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;"></p>
-<p>Note that we don’t <em>have</em> to explicitly include the new parameters in the arguments for the layer, <code>...</code> will get passed to the right place anyway. But you’ll need to document them somewhere so the user knows about them. Here’s a brief example. Note <code>@inheritParams ggplot2::stat_identity</code>: that will automatically inherit documentation for all the parameters also defined for <code><a href="../reference/stat_identity.html">stat_identity()</a></code>.</p>
+<p>Note that we don’t <em>have</em> to explicitly include the new
+parameters in the arguments for the layer, <code>...</code> will get
+passed to the right place anyway. But you’ll need to document them
+somewhere so the user knows about them. Here’s a brief example. Note
+<code>@inheritParams ggplot2::stat_identity</code>: that will
+automatically inherit documentation for all the parameters also defined
+for <code><a href="../reference/stat_identity.html">stat_identity()</a></code>.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#' @export</span></span>
 <span><span class="co">#' @inheritParams ggplot2::stat_identity</span></span>
@@ -280,13 +343,24 @@
 <span>    params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="va">n</span>, formula <span class="op">=</span> <span class="va">formula</span>, na.rm <span class="op">=</span> <span class="va">na.rm</span>, <span class="va">...</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<p><code>stat_lm()</code> must be exported if you want other people to use it. You could also consider exporting <code>StatLm</code> if you want people to extend the underlying object; this should be done with care.</p>
+<p><code>stat_lm()</code> must be exported if you want other people to
+use it. You could also consider exporting <code>StatLm</code> if you
+want people to extend the underlying object; this should be done with
+care.</p>
 </div>
 <div class="section level3">
 <h3 id="picking-defaults">Picking defaults<a class="anchor" aria-label="anchor" href="#picking-defaults"></a>
 </h3>
-<p>Sometimes you have calculations that should be performed once for the complete dataset, not once for each group. This is useful for picking sensible default values. For example, if we want to do a density estimate, it’s reasonable to pick one bandwidth for the whole plot. The following Stat creates a variation of the <code><a href="../reference/geom_density.html">stat_density()</a></code> that picks one bandwidth for all groups by choosing the mean of the “best” bandwidth for each group (I have no theoretical justification for this, but it doesn’t seem unreasonable).</p>
-<p>To do this we override the <code>setup_params()</code> method. It’s passed the data and a list of params, and returns an updated list.</p>
+<p>Sometimes you have calculations that should be performed once for the
+complete dataset, not once for each group. This is useful for picking
+sensible default values. For example, if we want to do a density
+estimate, it’s reasonable to pick one bandwidth for the whole plot. The
+following Stat creates a variation of the <code><a href="../reference/geom_density.html">stat_density()</a></code>
+that picks one bandwidth for all groups by choosing the mean of the
+“best” bandwidth for each group (I have no theoretical justification for
+this, but it doesn’t seem unreasonable).</p>
+<p>To do this we override the <code>setup_params()</code> method. It’s
+passed the data and a list of params, and returns an updated list.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">StatDensityCommon</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggproto.html">ggproto</a></span><span class="op">(</span><span class="st">"StatDensityCommon"</span>, <span class="va">Stat</span>, </span>
 <span>  required_aes <span class="op">=</span> <span class="st">"x"</span>,</span>
@@ -330,12 +404,21 @@
 <span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, colour <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">stat_density_common</span><span class="op">(</span>bandwidth <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span></code></pre></div>
 <p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-9-2.png" width="672" style="display: block; margin: auto;"></p>
-<p>I recommend using <code>NULL</code> as a default value. If you pick important parameters automatically, it’s a good idea to <code><a href="https://rdrr.io/r/base/message.html" class="external-link">message()</a></code> to the user (and when printing a floating point parameter, using <code><a href="https://rdrr.io/r/base/Round.html" class="external-link">signif()</a></code> to show only a few significant digits).</p>
+<p>I recommend using <code>NULL</code> as a default value. If you pick
+important parameters automatically, it’s a good idea to
+<code><a href="https://rdrr.io/r/base/message.html" class="external-link">message()</a></code> to the user (and when printing a floating point
+parameter, using <code><a href="https://rdrr.io/r/base/Round.html" class="external-link">signif()</a></code> to show only a few significant
+digits).</p>
 </div>
 <div class="section level3">
 <h3 id="variable-names-and-default-aesthetics">Variable names and default aesthetics<a class="anchor" aria-label="anchor" href="#variable-names-and-default-aesthetics"></a>
 </h3>
-<p>This stat illustrates another important point. If we want to make this stat usable with other geoms, we should return a variable called <code>density</code> instead of <code>y</code>. Then we can set up the <code>default_aes</code> to automatically map <code>density</code> to <code>y</code>, which allows the user to override it to use with different geoms:</p>
+<p>This stat illustrates another important point. If we want to make
+this stat usable with other geoms, we should return a variable called
+<code>density</code> instead of <code>y</code>. Then we can set up the
+<code>default_aes</code> to automatically map <code>density</code> to
+<code>y</code>, which allows the user to override it to use with
+different geoms:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">StatDensityCommon</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggproto.html">ggproto</a></span><span class="op">(</span><span class="st">"StatDensity2"</span>, <span class="va">Stat</span>, </span>
 <span>  required_aes <span class="op">=</span> <span class="st">"x"</span>,</span>
@@ -350,14 +433,17 @@
 <span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">drv</span>, colour <span class="op">=</span> <span class="fu"><a href="../reference/aes_eval.html">stat</a></span><span class="op">(</span><span class="va">density</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">stat_density_common</span><span class="op">(</span>bandwidth <span class="op">=</span> <span class="fl">1</span>, geom <span class="op">=</span> <span class="st">"point"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: `stat(density)` was deprecated in ggplot2 3.4.0.</span></span>
-<span><span class="co">#&gt; Please use `after_stat(density)` instead.</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Please use `after_stat(density)` instead.</span></span></code></pre></div>
 <p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;"></p>
-<p>However, using this stat with the area geom doesn’t work quite right. The areas don’t stack on top of each other:</p>
+<p>However, using this stat with the area geom doesn’t work quite right.
+The areas don’t stack on top of each other:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, fill <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">stat_density_common</span><span class="op">(</span>bandwidth <span class="op">=</span> <span class="fl">1</span>, geom <span class="op">=</span> <span class="st">"area"</span>, position <span class="op">=</span> <span class="st">"stack"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;"></p>
-<p>This is because each density is computed independently, and the estimated <code>x</code>s don’t line up. We can resolve that issue by computing the range of the data once in <code>setup_params()</code>.</p>
+<p>This is because each density is computed independently, and the
+estimated <code>x</code>s don’t line up. We can resolve that issue by
+computing the range of the data once in <code>setup_params()</code>.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">StatDensityCommon</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggproto.html">ggproto</a></span><span class="op">(</span><span class="st">"StatDensityCommon"</span>, <span class="va">Stat</span>, </span>
 <span>  required_aes <span class="op">=</span> <span class="st">"x"</span>,</span>
@@ -393,23 +479,44 @@
 <h3 id="exercises">Exercises<a class="anchor" aria-label="anchor" href="#exercises"></a>
 </h3>
 <ol style="list-style-type: decimal">
-<li><p>Extend <code>stat_chull</code> to compute the alpha hull, as from the <a href="https://cran.r-project.org/package=alphahull" class="external-link">alphahull</a> package. Your new stat should take an <code>alpha</code> argument.</p></li>
+<li><p>Extend <code>stat_chull</code> to compute the alpha hull, as from
+the <a href="https://cran.r-project.org/package=alphahull" class="external-link">alphahull</a>
+package. Your new stat should take an <code>alpha</code>
+argument.</p></li>
 <li>
-<p>Modify the final version of <code>StatDensityCommon</code> to allow the user to specify the <code>min</code> and <code>max</code> parameters. You’ll need to modify both the layer function and the <code>compute_group()</code> method.</p>
-<p>Note: be careful when adding parameters to a layer function. The following names <em>col</em>, <em>color</em>, <em>pch</em>, <em>cex</em>, <em>lty</em>, <em>lwd</em>, <em>srt</em>, <em>adj</em>, <em>bg</em>, <em>fg</em>, <em>min</em>, and <em>max</em> are intentionally renamed to accomodate base graphical parameter names. For example, a value passed as <em>min</em> to a layer appears as <em>ymin</em> in the <code>setup_params</code> list of params. It is recommended you avoid using these names for layer parameters.</p>
+<p>Modify the final version of <code>StatDensityCommon</code> to
+allow the user to specify the <code>min</code> and <code>max</code>
+parameters. You’ll need to modify both the layer function and the
+<code>compute_group()</code> method.</p>
+<p>Note: be careful when adding parameters to a layer function. The
+following names <em>col</em>, <em>color</em>, <em>pch</em>,
+<em>cex</em>, <em>lty</em>, <em>lwd</em>, <em>srt</em>, <em>adj</em>,
+<em>bg</em>, <em>fg</em>, <em>min</em>, and <em>max</em> are
+intentionally renamed to accomodate base graphical parameter names. For
+example, a value passed as <em>min</em> to a layer appears as
+<em>ymin</em> in the <code>setup_params</code> list of params. It is
+recommended you avoid using these names for layer parameters.</p>
 </li>
-<li><p>Compare and contrast <code>StatLm</code> to <code><a href="../reference/ggplot2-ggproto.html">ggplot2::StatSmooth</a></code>. What key differences make <code>StatSmooth</code> more complex than <code>StatLm</code>?</p></li>
+<li><p>Compare and contrast <code>StatLm</code> to
+<code><a href="../reference/ggplot2-ggproto.html">ggplot2::StatSmooth</a></code>. What key differences make
+<code>StatSmooth</code> more complex than <code>StatLm</code>?</p></li>
 </ol>
 </div>
 </div>
 <div class="section level2">
 <h2 id="creating-a-new-geom">Creating a new geom<a class="anchor" aria-label="anchor" href="#creating-a-new-geom"></a>
 </h2>
-<p>It’s harder to create a new geom than a new stat because you also need to know some grid. ggplot2 is built on top of grid, so you’ll need to know the basics of drawing with grid. If you’re serious about adding a new geom, I’d recommend buying <a href="https://www.amazon.com/dp/B00I60M26G/ref=cm_sw_su_dp" class="external-link">R graphics</a> by Paul Murrell. It tells you everything you need to know about drawing with grid.</p>
+<p>It’s harder to create a new geom than a new stat because you also
+need to know some grid. ggplot2 is built on top of grid, so you’ll need
+to know the basics of drawing with grid. If you’re serious about adding
+a new geom, I’d recommend buying <a href="https://www.amazon.com/dp/B00I60M26G/ref=cm_sw_su_dp" class="external-link">R
+graphics</a> by Paul Murrell. It tells you everything you need to know
+about drawing with grid.</p>
 <div class="section level3">
 <h3 id="a-simple-geom">A simple geom<a class="anchor" aria-label="anchor" href="#a-simple-geom"></a>
 </h3>
-<p>It’s easiest to start with a simple example. The code below is a simplified version of <code><a href="../reference/geom_point.html">geom_point()</a></code>:</p>
+<p>It’s easiest to start with a simple example. The code below is a
+simplified version of <code><a href="../reference/geom_point.html">geom_point()</a></code>:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">GeomSimplePoint</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggproto.html">ggproto</a></span><span class="op">(</span><span class="st">"GeomSimplePoint"</span>, <span class="va">Geom</span>,</span>
 <span>  required_aes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span>,</span>
@@ -439,26 +546,51 @@
 <span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">geom_simple_point</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="extending-ggplot2_files/figure-html/GeomSimplePoint-1.png" width="672" style="display: block; margin: auto;"></p>
-<p>This is very similar to defining a new stat. You always need to provide fields/methods for the four pieces shown above:</p>
+<p>This is very similar to defining a new stat. You always need to
+provide fields/methods for the four pieces shown above:</p>
 <ul>
-<li><p><code>required_aes</code> is a character vector which lists all the aesthetics that the user must provide.</p></li>
-<li><p><code>default_aes</code> lists the aesthetics that have default values.</p></li>
-<li><p><code>draw_key</code> provides the function used to draw the key in the legend. You can see a list of all the build in key functions in <code><a href="../reference/draw_key.html">?draw_key</a></code></p></li>
-<li><p><code>draw_panel()</code> is where the magic happens. This function takes three arguments and returns a grid grob. It is called once for each panel. It’s the most complicated part and is described in more detail below.</p></li>
+<li><p><code>required_aes</code> is a character vector which lists all
+the aesthetics that the user must provide.</p></li>
+<li><p><code>default_aes</code> lists the aesthetics that have default
+values.</p></li>
+<li><p><code>draw_key</code> provides the function used to draw the key
+in the legend. You can see a list of all the build in key functions in
+<code><a href="../reference/draw_key.html">?draw_key</a></code></p></li>
+<li><p><code>draw_panel()</code> is where the magic happens. This
+function takes three arguments and returns a grid grob. It is called
+once for each panel. It’s the most complicated part and is described in
+more detail below.</p></li>
 </ul>
 <p><code>draw_panel()</code> has three arguments:</p>
 <ul>
-<li><p><code>data</code>: a data frame with one column for each aesthetic.</p></li>
-<li><p><code>panel_params</code>: a list of per-panel parameters generated by the coord. You should consider this an opaque data structure: don’t look inside it, just pass along to <code>coord</code> methods.</p></li>
-<li><p><code>coord</code>: an object describing the coordinate system.</p></li>
+<li><p><code>data</code>: a data frame with one column for each
+aesthetic.</p></li>
+<li><p><code>panel_params</code>: a list of per-panel parameters
+generated by the coord. You should consider this an opaque data
+structure: don’t look inside it, just pass along to <code>coord</code>
+methods.</p></li>
+<li><p><code>coord</code>: an object describing the coordinate
+system.</p></li>
 </ul>
-<p>You need to use <code>panel_params</code> and <code>coord</code> together to transform the data <code>coords &lt;- coord$transform(data, panel_params)</code>. This creates a data frame where position variables are scaled to the range 0–1. You then take this data and call a grid grob function. (Transforming for non-Cartesian coordinate systems is quite complex - you’re best off transforming your data to the form accepted by an existing ggplot2 geom and passing it.)</p>
+<p>You need to use <code>panel_params</code> and <code>coord</code>
+together to transform the data
+<code>coords &lt;- coord$transform(data, panel_params)</code>. This
+creates a data frame where position variables are scaled to the range
+0–1. You then take this data and call a grid grob function.
+(Transforming for non-Cartesian coordinate systems is quite complex -
+you’re best off transforming your data to the form accepted by an
+existing ggplot2 geom and passing it.)</p>
 </div>
 <div class="section level3">
 <h3 id="collective-geoms">Collective geoms<a class="anchor" aria-label="anchor" href="#collective-geoms"></a>
 </h3>
-<p>Overriding <code>draw_panel()</code> is most appropriate if there is one graphic element per row. In other cases, you want graphic element per group. For example, take polygons: each row gives one vertex of a polygon. In this case, you should instead override <code>draw_group()</code>.</p>
-<p>The following code makes a simplified version of <code>GeomPolygon</code>:</p>
+<p>Overriding <code>draw_panel()</code> is most appropriate if there is
+one graphic element per row. In other cases, you want graphic element
+per group. For example, take polygons: each row gives one vertex of a
+polygon. In this case, you should instead override
+<code>draw_group()</code>.</p>
+<p>The following code makes a simplified version of
+<code>GeomPolygon</code>:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">GeomSimplePolygon</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggproto.html">ggproto</a></span><span class="op">(</span><span class="st">"GeomPolygon"</span>, <span class="va">Geom</span>,</span>
 <span>  required_aes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span>,</span>
@@ -506,16 +638,34 @@
 <p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>There are a few things to note here:</p>
 <ul>
-<li><p>We override <code>draw_group()</code> instead of <code>draw_panel()</code> because we want one polygon per group, not one polygon per row.</p></li>
-<li><p>If the data contains two or fewer points, there’s no point trying to draw a polygon, so we return a <code>nullGrob()</code>. This is the graphical equivalent of <code>NULL</code>: it’s a grob that doesn’t draw anything and doesn’t take up any space.</p></li>
-<li><p>Note the units: <code>x</code> and <code>y</code> should always be drawn in “native” units. (The default units for <code>pointGrob()</code> is a native, so we didn’t need to change it there). <code>lwd</code> is measured in points, but ggplot2 uses mm, so we need to multiply it by the adjustment factor <code>.pt</code>.</p></li>
+<li><p>We override <code>draw_group()</code> instead of
+<code>draw_panel()</code> because we want one polygon per group, not one
+polygon per row.</p></li>
+<li><p>If the data contains two or fewer points, there’s no point trying
+to draw a polygon, so we return a <code>nullGrob()</code>. This is the
+graphical equivalent of <code>NULL</code>: it’s a grob that doesn’t draw
+anything and doesn’t take up any space.</p></li>
+<li><p>Note the units: <code>x</code> and <code>y</code> should always
+be drawn in “native” units. (The default units for
+<code>pointGrob()</code> is a native, so we didn’t need to change it
+there). <code>lwd</code> is measured in points, but ggplot2 uses mm, so
+we need to multiply it by the adjustment factor
+<code>.pt</code>.</p></li>
 </ul>
-<p>You might want to compare this to the real <code>GeomPolygon</code>. You’ll see it overrides <code>draw_panel()</code> because it uses some tricks to make <code>polygonGrob()</code> produce multiple polygons in one call. This is considerably more complicated, but gives better performance.</p>
+<p>You might want to compare this to the real <code>GeomPolygon</code>.
+You’ll see it overrides <code>draw_panel()</code> because it uses some
+tricks to make <code>polygonGrob()</code> produce multiple polygons in
+one call. This is considerably more complicated, but gives better
+performance.</p>
 </div>
 <div class="section level3">
 <h3 id="inheriting-from-an-existing-geom">Inheriting from an existing Geom<a class="anchor" aria-label="anchor" href="#inheriting-from-an-existing-geom"></a>
 </h3>
-<p>Sometimes you just want to make a small modification to an existing geom. In this case, rather than inheriting from <code>Geom</code> you can inherit from an existing subclass. For example, we might want to change the defaults for <code>GeomPolygon</code> to work better with <code>StatChull</code>:</p>
+<p>Sometimes you just want to make a small modification to an existing
+geom. In this case, rather than inheriting from <code>Geom</code> you
+can inherit from an existing subclass. For example, we might want to
+change the defaults for <code>GeomPolygon</code> to work better with
+<code>StatChull</code>:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">GeomPolygonHollow</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggproto.html">ggproto</a></span><span class="op">(</span><span class="st">"GeomPolygonHollow"</span>, <span class="va">GeomPolygon</span>,</span>
 <span>  default_aes <span class="op">=</span> <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"black"</span>, fill <span class="op">=</span> <span class="cn">NA</span>, linewidth <span class="op">=</span> <span class="fl">0.5</span>, linetype <span class="op">=</span> <span class="fl">1</span>,</span>
@@ -535,25 +685,42 @@
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">geom_chull</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;"></p>
-<p>This doesn’t allow you to use different geoms with the stat, but that seems appropriate here since the convex hull is primarily a polygonal feature.</p>
+<p>This doesn’t allow you to use different geoms with the stat, but that
+seems appropriate here since the convex hull is primarily a polygonal
+feature.</p>
 </div>
 <div class="section level3">
 <h3 id="exercises-1">Exercises<a class="anchor" aria-label="anchor" href="#exercises-1"></a>
 </h3>
 <ol style="list-style-type: decimal">
-<li><p>Compare and contrast <code>GeomPoint</code> with <code>GeomSimplePoint</code>.</p></li>
-<li><p>Compare and contrast <code>GeomPolygon</code> with <code>GeomSimplePolygon</code>.</p></li>
+<li><p>Compare and contrast <code>GeomPoint</code> with
+<code>GeomSimplePoint</code>.</p></li>
+<li><p>Compare and contrast <code>GeomPolygon</code> with
+<code>GeomSimplePolygon</code>.</p></li>
 </ol>
 </div>
 </div>
 <div class="section level2">
 <h2 id="geoms-and-stats-with-multiple-orientation">Geoms and Stats with multiple orientation<a class="anchor" aria-label="anchor" href="#geoms-and-stats-with-multiple-orientation"></a>
 </h2>
-<p>Some layers have a specific orientation. <code><a href="../reference/geom_bar.html">geom_bar()</a></code> e.g. have the bars along one axis, <code><a href="../reference/geom_path.html">geom_line()</a></code> will sort the input by one axis, etc. The original approach to using these geoms in the other orientation was to add <code><a href="../reference/coord_flip.html">coord_flip()</a></code> to the plot to switch the position of the x and y axes. Following ggplot2 v3.3 all the geoms will natively work in both orientations without <code><a href="../reference/coord_flip.html">coord_flip()</a></code>. The mechanism is that the layer will try to guess the orientation from the mapped data, or take direction from the user using the <code>orientation</code> parameter. To replicate this functionality in new stats and geoms there’s a few steps to take. We will look at the boxplot layer as an example instead of creating a new one from scratch.</p>
+<p>Some layers have a specific orientation. <code><a href="../reference/geom_bar.html">geom_bar()</a></code>
+e.g. have the bars along one axis, <code><a href="../reference/geom_path.html">geom_line()</a></code> will sort
+the input by one axis, etc. The original approach to using these geoms
+in the other orientation was to add <code><a href="../reference/coord_flip.html">coord_flip()</a></code> to the
+plot to switch the position of the x and y axes. Following ggplot2 v3.3
+all the geoms will natively work in both orientations without
+<code><a href="../reference/coord_flip.html">coord_flip()</a></code>. The mechanism is that the layer will try to
+guess the orientation from the mapped data, or take direction from the
+user using the <code>orientation</code> parameter. To replicate this
+functionality in new stats and geoms there’s a few steps to take. We
+will look at the boxplot layer as an example instead of creating a new
+one from scratch.</p>
 <div class="section level3">
 <h3 id="omnidirectional-stats">Omnidirectional stats<a class="anchor" aria-label="anchor" href="#omnidirectional-stats"></a>
 </h3>
-<p>The actual guessing of orientation will happen in <code>setup_params()</code> using the <code><a href="../reference/bidirection.html">has_flipped_aes()</a></code> helper:</p>
+<p>The actual guessing of orientation will happen in
+<code>setup_params()</code> using the <code><a href="../reference/bidirection.html">has_flipped_aes()</a></code>
+helper:</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">StatBoxplot</span><span class="op">$</span><span class="va">setup_params</span></span>
 <span><span class="co">#&gt; &lt;ggproto method&gt;</span></span>
@@ -574,14 +741,17 @@
 <span><span class="co">#&gt;     }</span></span>
 <span><span class="co">#&gt;     params$width &lt;- params$width %||% (resolution(data$x %||% </span></span>
 <span><span class="co">#&gt;         0) * 0.75)</span></span>
-<span><span class="co">#&gt;     if (is.double(data$x) &amp;&amp; !has_groups(data) &amp;&amp; any(data$x != </span></span>
-<span><span class="co">#&gt;         data$x[1L])) {</span></span>
+<span><span class="co">#&gt;     if (!is_mapped_discrete(data$x) &amp;&amp; is.double(data$x) &amp;&amp; !has_groups(data) &amp;&amp; </span></span>
+<span><span class="co">#&gt;         any(data$x != data$x[1L])) {</span></span>
 <span><span class="co">#&gt;         cli::cli_warn(c("Continuous {.field {flipped_names(params$flipped_aes)$x}} aesthetic", </span></span>
 <span><span class="co">#&gt;             i = "did you forget {.code aes(group = ...)}?"))</span></span>
 <span><span class="co">#&gt;     }</span></span>
 <span><span class="co">#&gt;     params</span></span>
 <span><span class="co">#&gt; }</span></span></code></pre></div>
-<p>Following this is a call to <code><a href="../reference/bidirection.html">flip_data()</a></code> which will make sure the data is in horizontal orientation. The rest of the code can then simply assume that the data is in a specific orientation. The same thing happens in <code>setup_data()</code>:</p>
+<p>Following this is a call to <code><a href="../reference/bidirection.html">flip_data()</a></code> which will make
+sure the data is in horizontal orientation. The rest of the code can
+then simply assume that the data is in a specific orientation. The same
+thing happens in <code>setup_data()</code>:</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">StatBoxplot</span><span class="op">$</span><span class="va">setup_data</span></span>
 <span><span class="co">#&gt; &lt;ggproto method&gt;</span></span>
@@ -598,13 +768,26 @@
 <span><span class="co">#&gt;         name = "stat_boxplot")</span></span>
 <span><span class="co">#&gt;     flip_data(data, params$flipped_aes)</span></span>
 <span><span class="co">#&gt; }</span></span></code></pre></div>
-<p>The data is flipped (if needed), manipulated, and flipped back as it is returned.</p>
-<p>During the computation, this sandwiching between <code><a href="../reference/bidirection.html">flip_data()</a></code> is used as well, but right before the data is returned it will also get a <code>flipped_aes</code> column denoting if the data is flipped or not. This allows the stat to communicate to the geom that orientation has already been determined.</p>
+<p>The data is flipped (if needed), manipulated, and flipped back as it
+is returned.</p>
+<p>During the computation, this sandwiching between
+<code><a href="../reference/bidirection.html">flip_data()</a></code> is used as well, but right before the data is
+returned it will also get a <code>flipped_aes</code> column denoting if
+the data is flipped or not. This allows the stat to communicate to the
+geom that orientation has already been determined.</p>
 </div>
 <div class="section level3">
 <h3 id="omnidirecitonal-geoms">Omnidirecitonal geoms<a class="anchor" aria-label="anchor" href="#omnidirecitonal-geoms"></a>
 </h3>
-<p>The setup for geoms is pretty much the same, with a few twists. <code><a href="../reference/bidirection.html">has_flipped_aes()</a></code> is also used in <code>setup_params()</code>, where it will usually be picked up from the <code>flipped_aes</code> column given by the stat. In <code>setup_data()</code> you will often see that <code>flipped_aes</code> is reassigned, to make sure it exist prior to position adjustment. This is needed if the geom is used together with a stat that doesn’t handle orientation (often <code><a href="../reference/stat_identity.html">stat_identity()</a></code>):</p>
+<p>The setup for geoms is pretty much the same, with a few twists.
+<code><a href="../reference/bidirection.html">has_flipped_aes()</a></code> is also used in
+<code>setup_params()</code>, where it will usually be picked up from the
+<code>flipped_aes</code> column given by the stat. In
+<code>setup_data()</code> you will often see that
+<code>flipped_aes</code> is reassigned, to make sure it exist prior to
+position adjustment. This is needed if the geom is used together with a
+stat that doesn’t handle orientation (often
+<code><a href="../reference/stat_identity.html">stat_identity()</a></code>):</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">GeomBoxplot</span><span class="op">$</span><span class="va">setup_data</span></span>
 <span><span class="co">#&gt; &lt;ggproto method&gt;</span></span>
@@ -642,22 +825,40 @@
 <span><span class="co">#&gt;         data$relvarwidth &lt;- NULL</span></span>
 <span><span class="co">#&gt;     flip_data(data, params$flipped_aes)</span></span>
 <span><span class="co">#&gt; }</span></span></code></pre></div>
-<p>In the <code>draw_*()</code> method you will once again sandwich any data manipulation between <code><a href="../reference/bidirection.html">flip_data()</a></code> calls. It is important to make sure that the data is flipped back prior to creating the grob or calling draw methods from other geoms.</p>
+<p>In the <code>draw_*()</code> method you will once again sandwich any
+data manipulation between <code><a href="../reference/bidirection.html">flip_data()</a></code> calls. It is
+important to make sure that the data is flipped back prior to creating
+the grob or calling draw methods from other geoms.</p>
 </div>
 <div class="section level3">
 <h3 id="dealing-with-required-aesthetics">Dealing with required aesthetics<a class="anchor" aria-label="anchor" href="#dealing-with-required-aesthetics"></a>
 </h3>
-<p>Omnidirectional layers usually have two different sets of required aesthetics. Which set is used is often how it knows the orientation. To handle this gracefully the <code>required_aes</code> field of <code>Stat</code> and <code>Geom</code> classes understands the <code>|</code> (or) operator. Looking at <code>GeomBoxplot</code> we can see how it is used:</p>
+<p>Omnidirectional layers usually have two different sets of required
+aesthetics. Which set is used is often how it knows the orientation. To
+handle this gracefully the <code>required_aes</code> field of
+<code>Stat</code> and <code>Geom</code> classes understands the
+<code>|</code> (or) operator. Looking at <code>GeomBoxplot</code> we can
+see how it is used:</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">GeomBoxplot</span><span class="op">$</span><span class="va">required_aes</span></span>
 <span><span class="co">#&gt; [1] "x|y"            "lower|xlower"   "upper|xupper"   "middle|xmiddle"</span></span>
 <span><span class="co">#&gt; [5] "ymin|xmin"      "ymax|xmax"</span></span></code></pre></div>
-<p>This tells ggplot2 that either all the aesthetics before <code>|</code> are required or all the aesthetics after are required.</p>
+<p>This tells ggplot2 that either all the aesthetics before
+<code>|</code> are required or all the aesthetics after are
+required.</p>
 </div>
 <div class="section level3">
 <h3 id="ambiguous-layers">Ambiguous layers<a class="anchor" aria-label="anchor" href="#ambiguous-layers"></a>
 </h3>
-<p>Some layers will not have a clear interpretation of their data in terms of orientation. A classic example is <code><a href="../reference/geom_path.html">geom_line()</a></code> which just by convention runs along the x-axis. There is nothing in the data itself that indicates that. For these geoms the user must indicate a flipped orientation by setting <code>orientation = "y"</code>. The stat or geom will then call <code><a href="../reference/bidirection.html">has_flipped_aes()</a></code> with <code>ambiguous = TRUE</code> to cancel any guessing based on data format. As an example we can see the <code>setup_params()</code> method of <code>GeomLine</code>:</p>
+<p>Some layers will not have a clear interpretation of their data in
+terms of orientation. A classic example is <code><a href="../reference/geom_path.html">geom_line()</a></code>
+which just by convention runs along the x-axis. There is nothing in the
+data itself that indicates that. For these geoms the user must indicate
+a flipped orientation by setting <code>orientation = "y"</code>. The
+stat or geom will then call <code><a href="../reference/bidirection.html">has_flipped_aes()</a></code> with
+<code>ambiguous = TRUE</code> to cancel any guessing based on data
+format. As an example we can see the <code>setup_params()</code> method
+of <code>GeomLine</code>:</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">GeomLine</span><span class="op">$</span><span class="va">setup_params</span></span>
 <span><span class="co">#&gt; &lt;ggproto method&gt;</span></span>
@@ -676,16 +877,20 @@
 <div class="section level2">
 <h2 id="creating-your-own-theme">Creating your own theme<a class="anchor" aria-label="anchor" href="#creating-your-own-theme"></a>
 </h2>
-<p>If you’re going to create your own complete theme, there are a few things you need to know:</p>
+<p>If you’re going to create your own complete theme, there are a few
+things you need to know:</p>
 <ul>
 <li>Overriding existing elements, rather than modifying them</li>
-<li>The four global elements that affect (almost) every other theme element</li>
+<li>The four global elements that affect (almost) every other theme
+element</li>
 <li>Complete vs. incomplete elements</li>
 </ul>
 <div class="section level3">
 <h3 id="overriding-elements">Overriding elements<a class="anchor" aria-label="anchor" href="#overriding-elements"></a>
 </h3>
-<p>By default, when you add a new theme element, it inherits values from the existing theme. For example, the following code sets the key colour to red, but it inherits the existing fill colour:</p>
+<p>By default, when you add a new theme element, it inherits values from
+the existing theme. For example, the following code sets the key colour
+to red, but it inherits the existing fill colour:</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggtheme.html">theme_grey</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">legend.key</span></span>
 <span><span class="co">#&gt; List of 5</span></span>
@@ -705,7 +910,8 @@
 <span><span class="co">#&gt;  $ linetype     : NULL</span></span>
 <span><span class="co">#&gt;  $ inherit.blank: logi FALSE</span></span>
 <span><span class="co">#&gt;  - attr(*, "class")= chr [1:2] "element_rect" "element"</span></span></code></pre></div>
-<p>To override it completely, use <code>%+replace%</code> instead of <code>+</code>:</p>
+<p>To override it completely, use <code>%+replace%</code> instead of
+<code>+</code>:</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">new_theme</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggtheme.html">theme_grey</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/theme_get.html">%+replace%</a></span> <span class="fu"><a href="../reference/theme.html">theme</a></span><span class="op">(</span>legend.key <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_rect</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">new_theme</span><span class="op">$</span><span class="va">legend.key</span></span>
@@ -720,8 +926,14 @@
 <div class="section level3">
 <h3 id="global-elements">Global elements<a class="anchor" aria-label="anchor" href="#global-elements"></a>
 </h3>
-<p>There are four elements that affect the global appearance of the plot:</p>
+<p>There are four elements that affect the global appearance of the
+plot:</p>
 <table class="table">
+<colgroup>
+<col width="23%">
+<col width="33%">
+<col width="42%">
+</colgroup>
 <thead><tr class="header">
 <th>Element</th>
 <th>Theme function</th>
@@ -750,7 +962,9 @@
 </tr>
 </tbody>
 </table>
-<p>These set default properties that are inherited by more specific settings. These are most useful for setting an overall “background” colour and overall font settings (e.g. family and size).</p>
+<p>These set default properties that are inherited by more specific
+settings. These are most useful for setting an overall “background”
+colour and overall font settings (e.g. family and size).</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, y <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span></span>
 <span><span class="va">base</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -762,51 +976,97 @@
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">base</span> <span class="op">+</span> <span class="fu"><a href="../reference/theme.html">theme</a></span><span class="op">(</span>text <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_text</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="extending-ggplot2_files/figure-html/axis-line-ex-2.png" width="672" style="display: block; margin: auto;"></p>
-<p>You should generally start creating a theme by modifying these values.</p>
+<p>You should generally start creating a theme by modifying these
+values.</p>
 </div>
 <div class="section level3">
 <h3 id="complete-vs-incomplete">Complete vs incomplete<a class="anchor" aria-label="anchor" href="#complete-vs-incomplete"></a>
 </h3>
-<p>It is useful to understand the difference between complete and incomplete theme objects. A <em>complete</em> theme object is one produced by calling a theme function with the attribute <code>complete = TRUE</code>.</p>
-<p>Theme functions <code><a href="../reference/ggtheme.html">theme_grey()</a></code> and <code><a href="../reference/ggtheme.html">theme_bw()</a></code> are examples of complete theme functions. Calls to <code><a href="../reference/theme.html">theme()</a></code> produce <em>incomplete</em> theme objects, since they represent (local) modifications to a theme object rather than returning a complete theme object per se. When adding an incomplete theme to a complete one, the result is a complete theme.</p>
-<p>Complete and incomplete themes behave somewhat differently when added to a ggplot object:</p>
+<p>It is useful to understand the difference between complete and
+incomplete theme objects. A <em>complete</em> theme object is one
+produced by calling a theme function with the attribute
+<code>complete = TRUE</code>.</p>
+<p>Theme functions <code><a href="../reference/ggtheme.html">theme_grey()</a></code> and <code><a href="../reference/ggtheme.html">theme_bw()</a></code>
+are examples of complete theme functions. Calls to <code><a href="../reference/theme.html">theme()</a></code>
+produce <em>incomplete</em> theme objects, since they represent (local)
+modifications to a theme object rather than returning a complete theme
+object per se. When adding an incomplete theme to a complete one, the
+result is a complete theme.</p>
+<p>Complete and incomplete themes behave somewhat differently when added
+to a ggplot object:</p>
 <ul>
-<li><p>Adding an incomplete theme augments the current theme object, replacing only those properties of elements defined in the call to <code><a href="../reference/theme.html">theme()</a></code>.</p></li>
-<li><p>Adding a complete theme wipes away the existing theme and applies the new theme.</p></li>
+<li><p>Adding an incomplete theme augments the current theme object,
+replacing only those properties of elements defined in the call to
+<code><a href="../reference/theme.html">theme()</a></code>.</p></li>
+<li><p>Adding a complete theme wipes away the existing theme and applies
+the new theme.</p></li>
 </ul>
 </div>
 </div>
 <div class="section level2">
 <h2 id="creating-a-new-faceting">Creating a new faceting<a class="anchor" aria-label="anchor" href="#creating-a-new-faceting"></a>
 </h2>
-<p>One of the more daunting exercises in ggplot2 extensions is to create a new faceting system. The reason for this is that when creating new facetings you take on the responsibility of how (almost) everything is drawn on the screen, and many do not have experience with directly using <a href="https://cran.r-project.org/package=gtable" class="external-link">gtable</a> and <a href="https://cran.r-project.org/package=grid" class="external-link">grid</a> upon which the ggplot2 rendering is built. If you decide to venture into faceting extensions, it is highly recommended to gain proficiency with the above-mentioned packages.</p>
-<p>The <code>Facet</code> class in ggplot2 is very powerful as it takes on responsibility of a wide range of tasks. The main tasks of a <code>Facet</code> object are:</p>
+<p>One of the more daunting exercises in ggplot2 extensions is to create
+a new faceting system. The reason for this is that when creating new
+facetings you take on the responsibility of how (almost) everything is
+drawn on the screen, and many do not have experience with directly using
+<a href="https://cran.r-project.org/package=gtable" class="external-link">gtable</a> and <a href="https://cran.r-project.org/package=grid" class="external-link">grid</a> upon which the
+ggplot2 rendering is built. If you decide to venture into faceting
+extensions, it is highly recommended to gain proficiency with the
+above-mentioned packages.</p>
+<p>The <code>Facet</code> class in ggplot2 is very powerful as it takes
+on responsibility of a wide range of tasks. The main tasks of a
+<code>Facet</code> object are:</p>
 <ul>
-<li><p>Define a layout; that is, a partitioning of the data into different plot areas (panels) as well as which panels share position scales.</p></li>
-<li><p>Map plot data into the correct panels, potentially duplicating data if it should exist in multiple panels (e.g. margins in <code><a href="../reference/facet_grid.html">facet_grid()</a></code>).</p></li>
-<li><p>Assemble all panels into a final gtable, adding axes, strips and decorations in the process.</p></li>
+<li><p>Define a layout; that is, a partitioning of the data into
+different plot areas (panels) as well as which panels share position
+scales.</p></li>
+<li><p>Map plot data into the correct panels, potentially duplicating
+data if it should exist in multiple panels (e.g. margins in
+<code><a href="../reference/facet_grid.html">facet_grid()</a></code>).</p></li>
+<li><p>Assemble all panels into a final gtable, adding axes, strips and
+decorations in the process.</p></li>
 </ul>
-<p>Apart from these three tasks, for which functionality must be implemented, there are a couple of additional extension points where sensible defaults have been provided. These can generally be ignored, but adventurous developers can override them for even more control:</p>
+<p>Apart from these three tasks, for which functionality must be
+implemented, there are a couple of additional extension points where
+sensible defaults have been provided. These can generally be ignored,
+but adventurous developers can override them for even more control:</p>
 <ul>
-<li><p>Initialization and training of positional scales for each panel.</p></li>
+<li><p>Initialization and training of positional scales for each
+panel.</p></li>
 <li><p>Decoration in front of and behind each panel.</p></li>
 <li><p>Drawing of axis labels</p></li>
 </ul>
-<p>To show how a new faceting class is created we will start simple and go through each of the required methods in turn to build up <code>facet_duplicate()</code> that simply duplicate our plot into two panels. After this we will tinker with it a bit to show some of the more powerful possibilities.</p>
+<p>To show how a new faceting class is created we will start simple and
+go through each of the required methods in turn to build up
+<code>facet_duplicate()</code> that simply duplicate our plot into two
+panels. After this we will tinker with it a bit to show some of the more
+powerful possibilities.</p>
 <div class="section level3">
 <h3 id="creating-a-layout-specification">Creating a layout specification<a class="anchor" aria-label="anchor" href="#creating-a-layout-specification"></a>
 </h3>
-<p>A layout in the context of facets is a <code>data.frame</code> that defines a mapping between data and the panels it should reside in as well as which positional scales should be used. The output should at least contain the columns <code>PANEL</code>, <code>SCALE_X</code>, and <code>SCALE_Y</code>, but will often contain more to help assign data to the correct panel (<code><a href="../reference/facet_grid.html">facet_grid()</a></code> will e.g. also return the faceting variables associated with each panel). Let’s make a function that defines a duplicate layout:</p>
+<p>A layout in the context of facets is a <code>data.frame</code> that
+defines a mapping between data and the panels it should reside in as
+well as which positional scales should be used. The output should at
+least contain the columns <code>PANEL</code>, <code>SCALE_X</code>, and
+<code>SCALE_Y</code>, but will often contain more to help assign data to
+the correct panel (<code><a href="../reference/facet_grid.html">facet_grid()</a></code> will e.g. also return the
+faceting variables associated with each panel). Let’s make a function
+that defines a duplicate layout:</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">layout</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">params</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>PANEL <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1L</span>, <span class="fl">2L</span><span class="op">)</span>, SCALE_X <span class="op">=</span> <span class="fl">1L</span>, SCALE_Y <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<p>This is quite simple as the faceting should just define two panels irrespectively of the input data and parameters.</p>
+<p>This is quite simple as the faceting should just define two panels
+irrespectively of the input data and parameters.</p>
 </div>
 <div class="section level3">
 <h3 id="mapping-data-into-panels">Mapping data into panels<a class="anchor" aria-label="anchor" href="#mapping-data-into-panels"></a>
 </h3>
-<p>In order for ggplot2 to know which data should go where it needs the data to be assigned to a panel. The purpose of the mapping step is to assign a <code>PANEL</code> column to the layer data identifying which panel it belongs to.</p>
+<p>In order for ggplot2 to know which data should go where it needs the
+data to be assigned to a panel. The purpose of the mapping step is to
+assign a <code>PANEL</code> column to the layer data identifying which
+panel it belongs to.</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mapping</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">layout</span>, <span class="va">params</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">||</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span></span>
@@ -817,12 +1077,17 @@
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">data</span>, PANEL <span class="op">=</span> <span class="fl">2L</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<p>here we first investigate whether we have gotten an empty <code>data.frame</code> and if not we duplicate the data and assign the original data to the first panel and the new data to the second panel.</p>
+<p>here we first investigate whether we have gotten an empty
+<code>data.frame</code> and if not we duplicate the data and assign the
+original data to the first panel and the new data to the second
+panel.</p>
 </div>
 <div class="section level3">
 <h3 id="laying-out-the-panels">Laying out the panels<a class="anchor" aria-label="anchor" href="#laying-out-the-panels"></a>
 </h3>
-<p>While the two functions above have been deceivingly simple, this last one is going to take some more work. Our goal is to draw two panels beside (or above) each other with axes etc.</p>
+<p>While the two functions above have been deceivingly simple, this last
+one is going to take some more work. Our goal is to draw two panels
+beside (or above) each other with axes etc.</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">render</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">panels</span>, <span class="va">layout</span>, <span class="va">x_scales</span>, <span class="va">y_scales</span>, <span class="va">ranges</span>, <span class="va">coord</span>, <span class="va">data</span>,</span>
 <span>                   <span class="va">theme</span>, <span class="va">params</span><span class="op">)</span> <span class="op">{</span></span>
@@ -830,7 +1095,7 @@
 <span>  <span class="kw">if</span> <span class="op">(</span><span class="va">params</span><span class="op">$</span><span class="va">horizontal</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="co"># Put panels in matrix and convert to a gtable</span></span>
 <span>    <span class="va">panels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="va">panels</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span>    <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gtable/man/gtable_matrix.html" class="external-link">gtable_matrix</a></span><span class="op">(</span><span class="st">"layout"</span>, <span class="va">panels</span>, </span>
+<span>    <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://gtable.r-lib.org/reference/gtable_matrix.html" class="external-link">gtable_matrix</a></span><span class="op">(</span><span class="st">"layout"</span>, <span class="va">panels</span>, </span>
 <span>      widths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, <span class="st">"null"</span><span class="op">)</span>, heights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">1</span>, <span class="st">"null"</span><span class="op">)</span>, clip <span class="op">=</span> <span class="st">"on"</span><span class="op">)</span></span>
 <span>    <span class="co"># Add spacing according to theme</span></span>
 <span>    <span class="va">panel_spacing</span> <span class="op">&lt;-</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">theme</span><span class="op">$</span><span class="va">panel.spacing.x</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
@@ -838,17 +1103,17 @@
 <span>    <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
 <span>      <span class="va">theme</span><span class="op">$</span><span class="va">panel.spacing.x</span></span>
 <span>    <span class="op">}</span></span>
-<span>    <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gtable/man/gtable_add_space.html" class="external-link">gtable_add_col_space</a></span><span class="op">(</span><span class="va">panel_table</span>, <span class="va">panel_spacing</span><span class="op">)</span></span>
+<span>    <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://gtable.r-lib.org/reference/gtable_add_space.html" class="external-link">gtable_add_col_space</a></span><span class="op">(</span><span class="va">panel_table</span>, <span class="va">panel_spacing</span><span class="op">)</span></span>
 <span>  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
 <span>    <span class="va">panels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="va">panels</span>, ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span>    <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gtable/man/gtable_matrix.html" class="external-link">gtable_matrix</a></span><span class="op">(</span><span class="st">"layout"</span>, <span class="va">panels</span>, </span>
+<span>    <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://gtable.r-lib.org/reference/gtable_matrix.html" class="external-link">gtable_matrix</a></span><span class="op">(</span><span class="st">"layout"</span>, <span class="va">panels</span>, </span>
 <span>      widths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">1</span>, <span class="st">"null"</span><span class="op">)</span>, heights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, <span class="st">"null"</span><span class="op">)</span>, clip <span class="op">=</span> <span class="st">"on"</span><span class="op">)</span></span>
 <span>    <span class="va">panel_spacing</span> <span class="op">&lt;-</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">theme</span><span class="op">$</span><span class="va">panel.spacing.y</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>      <span class="va">theme</span><span class="op">$</span><span class="va">panel.spacing</span></span>
 <span>    <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
 <span>      <span class="va">theme</span><span class="op">$</span><span class="va">panel.spacing.y</span></span>
 <span>    <span class="op">}</span></span>
-<span>    <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gtable/man/gtable_add_space.html" class="external-link">gtable_add_row_space</a></span><span class="op">(</span><span class="va">panel_table</span>, <span class="va">panel_spacing</span><span class="op">)</span></span>
+<span>    <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://gtable.r-lib.org/reference/gtable_add_space.html" class="external-link">gtable_add_row_space</a></span><span class="op">(</span><span class="va">panel_table</span>, <span class="va">panel_spacing</span><span class="op">)</span></span>
 <span>  <span class="op">}</span></span>
 <span>  <span class="co"># Name panel grobs so they can be found later</span></span>
 <span>  <span class="va">panel_table</span><span class="op">$</span><span class="va">layout</span><span class="op">$</span><span class="va">name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"panel-"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
@@ -866,12 +1131,12 @@
 <span>    <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/grobWidth.html" class="external-link">grobWidth</a></span><span class="op">(</span><span class="va">axes</span><span class="op">$</span><span class="va">y</span><span class="op">$</span><span class="va">right</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>, <span class="st">"cm"</span>, <span class="cn">TRUE</span><span class="op">)</span>, <span class="st">"cm"</span><span class="op">)</span></span>
 <span>  <span class="co">## We do it reverse so we don't change the position of panels when we add axes</span></span>
 <span>  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="va">panel_pos_h</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gtable/man/gtable_add_cols.html" class="external-link">gtable_add_cols</a></span><span class="op">(</span><span class="va">panel_table</span>, <span class="va">axis_width_r</span>, <span class="va">i</span><span class="op">)</span></span>
-<span>    <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gtable/man/gtable_add_grob.html" class="external-link">gtable_add_grob</a></span><span class="op">(</span><span class="va">panel_table</span>, </span>
+<span>    <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://gtable.r-lib.org/reference/gtable_add_cols.html" class="external-link">gtable_add_cols</a></span><span class="op">(</span><span class="va">panel_table</span>, <span class="va">axis_width_r</span>, <span class="va">i</span><span class="op">)</span></span>
+<span>    <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://gtable.r-lib.org/reference/gtable_add_grob.html" class="external-link">gtable_add_grob</a></span><span class="op">(</span><span class="va">panel_table</span>, </span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">axes</span><span class="op">$</span><span class="va">y</span><span class="op">$</span><span class="va">right</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">panel_pos_v</span><span class="op">)</span><span class="op">)</span>, t <span class="op">=</span> <span class="va">panel_pos_v</span>, l <span class="op">=</span> <span class="va">i</span> <span class="op">+</span> <span class="fl">1</span>, </span>
 <span>      clip <span class="op">=</span> <span class="st">"off"</span><span class="op">)</span></span>
-<span>    <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gtable/man/gtable_add_cols.html" class="external-link">gtable_add_cols</a></span><span class="op">(</span><span class="va">panel_table</span>, <span class="va">axis_width_l</span>, <span class="va">i</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span></span>
-<span>    <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gtable/man/gtable_add_grob.html" class="external-link">gtable_add_grob</a></span><span class="op">(</span><span class="va">panel_table</span>, </span>
+<span>    <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://gtable.r-lib.org/reference/gtable_add_cols.html" class="external-link">gtable_add_cols</a></span><span class="op">(</span><span class="va">panel_table</span>, <span class="va">axis_width_l</span>, <span class="va">i</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>    <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://gtable.r-lib.org/reference/gtable_add_grob.html" class="external-link">gtable_add_grob</a></span><span class="op">(</span><span class="va">panel_table</span>, </span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">axes</span><span class="op">$</span><span class="va">y</span><span class="op">$</span><span class="va">left</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">panel_pos_v</span><span class="op">)</span><span class="op">)</span>, t <span class="op">=</span> <span class="va">panel_pos_v</span>, l <span class="op">=</span> <span class="va">i</span>, </span>
 <span>      clip <span class="op">=</span> <span class="st">"off"</span><span class="op">)</span></span>
 <span>  <span class="op">}</span></span>
@@ -883,12 +1148,12 @@
 <span>  <span class="va">axis_height_b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/grid.convert.html" class="external-link">convertHeight</a></span><span class="op">(</span></span>
 <span>    <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/grobWidth.html" class="external-link">grobHeight</a></span><span class="op">(</span><span class="va">axes</span><span class="op">$</span><span class="va">x</span><span class="op">$</span><span class="va">bottom</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>, <span class="st">"cm"</span>, <span class="cn">TRUE</span><span class="op">)</span>, <span class="st">"cm"</span><span class="op">)</span></span>
 <span>  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="va">panel_pos_v</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gtable/man/gtable_add_rows.html" class="external-link">gtable_add_rows</a></span><span class="op">(</span><span class="va">panel_table</span>, <span class="va">axis_height_b</span>, <span class="va">i</span><span class="op">)</span></span>
-<span>    <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gtable/man/gtable_add_grob.html" class="external-link">gtable_add_grob</a></span><span class="op">(</span><span class="va">panel_table</span>, </span>
+<span>    <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://gtable.r-lib.org/reference/gtable_add_rows.html" class="external-link">gtable_add_rows</a></span><span class="op">(</span><span class="va">panel_table</span>, <span class="va">axis_height_b</span>, <span class="va">i</span><span class="op">)</span></span>
+<span>    <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://gtable.r-lib.org/reference/gtable_add_grob.html" class="external-link">gtable_add_grob</a></span><span class="op">(</span><span class="va">panel_table</span>, </span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">axes</span><span class="op">$</span><span class="va">x</span><span class="op">$</span><span class="va">bottom</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">panel_pos_h</span><span class="op">)</span><span class="op">)</span>, t <span class="op">=</span> <span class="va">i</span> <span class="op">+</span> <span class="fl">1</span>, l <span class="op">=</span> <span class="va">panel_pos_h</span>, </span>
 <span>      clip <span class="op">=</span> <span class="st">"off"</span><span class="op">)</span></span>
-<span>    <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gtable/man/gtable_add_rows.html" class="external-link">gtable_add_rows</a></span><span class="op">(</span><span class="va">panel_table</span>, <span class="va">axis_height_t</span>, <span class="va">i</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span></span>
-<span>    <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gtable/man/gtable_add_grob.html" class="external-link">gtable_add_grob</a></span><span class="op">(</span><span class="va">panel_table</span>, </span>
+<span>    <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://gtable.r-lib.org/reference/gtable_add_rows.html" class="external-link">gtable_add_rows</a></span><span class="op">(</span><span class="va">panel_table</span>, <span class="va">axis_height_t</span>, <span class="va">i</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>    <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://gtable.r-lib.org/reference/gtable_add_grob.html" class="external-link">gtable_add_grob</a></span><span class="op">(</span><span class="va">panel_table</span>, </span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">axes</span><span class="op">$</span><span class="va">x</span><span class="op">$</span><span class="va">top</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">panel_pos_h</span><span class="op">)</span><span class="op">)</span>, t <span class="op">=</span> <span class="va">i</span>, l <span class="op">=</span> <span class="va">panel_pos_h</span>, </span>
 <span>      clip <span class="op">=</span> <span class="st">"off"</span><span class="op">)</span></span>
 <span>  <span class="op">}</span></span>
@@ -898,7 +1163,11 @@
 <div class="section level3">
 <h3 id="assembling-the-facet-class">Assembling the Facet class<a class="anchor" aria-label="anchor" href="#assembling-the-facet-class"></a>
 </h3>
-<p>Usually all methods are defined within the class definition in the same way as is done for <code>Geom</code> and <code>Stat</code>. Here we have split it out so we could go through each in turn. All that remains is to assign our functions to the correct methods as well as making a constructor</p>
+<p>Usually all methods are defined within the class definition in the
+same way as is done for <code>Geom</code> and <code>Stat</code>. Here we
+have split it out so we could go through each in turn. All that remains
+is to assign our functions to the correct methods as well as making a
+constructor</p>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Constructor: shrink is required to govern whether scales are trained on </span></span>
 <span><span class="co"># Stat-transformed data or not.</span></span>
@@ -928,7 +1197,9 @@
 <div class="section level3">
 <h3 id="doing-more-with-facets">Doing more with facets<a class="anchor" aria-label="anchor" href="#doing-more-with-facets"></a>
 </h3>
-<p>The example above was pretty useless and we’ll now try to expand on it to add some actual usability. We are going to make a faceting that adds panels with y-transformed axes:</p>
+<p>The example above was pretty useless and we’ll now try to expand on
+it to add some actual usability. We are going to make a faceting that
+adds panels with y-transformed axes:</p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://scales.r-lib.org" class="external-link">scales</a></span><span class="op">)</span></span>
 <span></span>
@@ -1008,7 +1279,7 @@
 <span>    <span class="kw">if</span> <span class="op">(</span><span class="va">params</span><span class="op">$</span><span class="va">horizontal</span><span class="op">)</span> <span class="op">{</span></span>
 <span>      <span class="co"># Put panels in matrix and convert to a gtable</span></span>
 <span>      <span class="va">panels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="va">panels</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span>      <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gtable/man/gtable_matrix.html" class="external-link">gtable_matrix</a></span><span class="op">(</span><span class="st">"layout"</span>, <span class="va">panels</span>, </span>
+<span>      <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://gtable.r-lib.org/reference/gtable_matrix.html" class="external-link">gtable_matrix</a></span><span class="op">(</span><span class="st">"layout"</span>, <span class="va">panels</span>, </span>
 <span>        widths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, <span class="st">"null"</span><span class="op">)</span>, heights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">1</span>, <span class="st">"null"</span><span class="op">)</span>, clip <span class="op">=</span> <span class="st">"on"</span><span class="op">)</span></span>
 <span>      <span class="co"># Add spacing according to theme</span></span>
 <span>      <span class="va">panel_spacing</span> <span class="op">&lt;-</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">theme</span><span class="op">$</span><span class="va">panel.spacing.x</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
@@ -1016,17 +1287,17 @@
 <span>      <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
 <span>        <span class="va">theme</span><span class="op">$</span><span class="va">panel.spacing.x</span></span>
 <span>      <span class="op">}</span></span>
-<span>      <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gtable/man/gtable_add_space.html" class="external-link">gtable_add_col_space</a></span><span class="op">(</span><span class="va">panel_table</span>, <span class="va">panel_spacing</span><span class="op">)</span></span>
+<span>      <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://gtable.r-lib.org/reference/gtable_add_space.html" class="external-link">gtable_add_col_space</a></span><span class="op">(</span><span class="va">panel_table</span>, <span class="va">panel_spacing</span><span class="op">)</span></span>
 <span>    <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
 <span>      <span class="va">panels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="va">panels</span>, ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span>      <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gtable/man/gtable_matrix.html" class="external-link">gtable_matrix</a></span><span class="op">(</span><span class="st">"layout"</span>, <span class="va">panels</span>, </span>
+<span>      <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://gtable.r-lib.org/reference/gtable_matrix.html" class="external-link">gtable_matrix</a></span><span class="op">(</span><span class="st">"layout"</span>, <span class="va">panels</span>, </span>
 <span>        widths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">1</span>, <span class="st">"null"</span><span class="op">)</span>, heights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, <span class="st">"null"</span><span class="op">)</span>, clip <span class="op">=</span> <span class="st">"on"</span><span class="op">)</span></span>
 <span>      <span class="va">panel_spacing</span> <span class="op">&lt;-</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">theme</span><span class="op">$</span><span class="va">panel.spacing.y</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>        <span class="va">theme</span><span class="op">$</span><span class="va">panel.spacing</span></span>
 <span>      <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
 <span>        <span class="va">theme</span><span class="op">$</span><span class="va">panel.spacing.y</span></span>
 <span>      <span class="op">}</span></span>
-<span>      <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gtable/man/gtable_add_space.html" class="external-link">gtable_add_row_space</a></span><span class="op">(</span><span class="va">panel_table</span>, <span class="va">panel_spacing</span><span class="op">)</span></span>
+<span>      <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://gtable.r-lib.org/reference/gtable_add_space.html" class="external-link">gtable_add_row_space</a></span><span class="op">(</span><span class="va">panel_table</span>, <span class="va">panel_spacing</span><span class="op">)</span></span>
 <span>    <span class="op">}</span></span>
 <span>    <span class="co"># Name panel grobs so they can be found later</span></span>
 <span>    <span class="va">panel_table</span><span class="op">$</span><span class="va">layout</span><span class="op">$</span><span class="va">name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"panel-"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
@@ -1049,23 +1320,23 @@
 <span>    <span class="co">## We do it reverse so we don't change the position of panels when we add axes</span></span>
 <span>    <span class="kw">if</span> <span class="op">(</span><span class="va">params</span><span class="op">$</span><span class="va">horizontal</span><span class="op">)</span> <span class="op">{</span></span>
 <span>      <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">panel_pos_h</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>        <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gtable/man/gtable_add_cols.html" class="external-link">gtable_add_cols</a></span><span class="op">(</span><span class="va">panel_table</span>, <span class="va">axis_width_r</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, <span class="va">panel_pos_h</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span></span>
-<span>        <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gtable/man/gtable_add_grob.html" class="external-link">gtable_add_grob</a></span><span class="op">(</span><span class="va">panel_table</span>,</span>
+<span>        <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://gtable.r-lib.org/reference/gtable_add_cols.html" class="external-link">gtable_add_cols</a></span><span class="op">(</span><span class="va">panel_table</span>, <span class="va">axis_width_r</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, <span class="va">panel_pos_h</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span></span>
+<span>        <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://gtable.r-lib.org/reference/gtable_add_grob.html" class="external-link">gtable_add_grob</a></span><span class="op">(</span><span class="va">panel_table</span>,</span>
 <span>          <span class="va">axes</span><span class="op">$</span><span class="va">y</span><span class="op">$</span><span class="va">right</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, t <span class="op">=</span> <span class="va">panel_pos_v</span>, l <span class="op">=</span> <span class="va">panel_pos_h</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">+</span> <span class="fl">1</span>,</span>
 <span>          clip <span class="op">=</span> <span class="st">"off"</span><span class="op">)</span></span>
 <span></span>
-<span>        <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gtable/man/gtable_add_cols.html" class="external-link">gtable_add_cols</a></span><span class="op">(</span><span class="va">panel_table</span>, <span class="va">axis_width_l</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, <span class="va">panel_pos_h</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span></span>
-<span>        <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gtable/man/gtable_add_grob.html" class="external-link">gtable_add_grob</a></span><span class="op">(</span><span class="va">panel_table</span>,</span>
+<span>        <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://gtable.r-lib.org/reference/gtable_add_cols.html" class="external-link">gtable_add_cols</a></span><span class="op">(</span><span class="va">panel_table</span>, <span class="va">axis_width_l</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, <span class="va">panel_pos_h</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>        <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://gtable.r-lib.org/reference/gtable_add_grob.html" class="external-link">gtable_add_grob</a></span><span class="op">(</span><span class="va">panel_table</span>,</span>
 <span>          <span class="va">axes</span><span class="op">$</span><span class="va">y</span><span class="op">$</span><span class="va">left</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, t <span class="op">=</span> <span class="va">panel_pos_v</span>, l <span class="op">=</span> <span class="va">panel_pos_h</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>,</span>
 <span>          clip <span class="op">=</span> <span class="st">"off"</span><span class="op">)</span></span>
 <span>      <span class="op">}</span></span>
 <span>    <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
-<span>        <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gtable/man/gtable_add_cols.html" class="external-link">gtable_add_cols</a></span><span class="op">(</span><span class="va">panel_table</span>, <span class="va">axis_width_r</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">panel_pos_h</span><span class="op">)</span></span>
-<span>        <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gtable/man/gtable_add_grob.html" class="external-link">gtable_add_grob</a></span><span class="op">(</span><span class="va">panel_table</span>,</span>
+<span>        <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://gtable.r-lib.org/reference/gtable_add_cols.html" class="external-link">gtable_add_cols</a></span><span class="op">(</span><span class="va">panel_table</span>, <span class="va">axis_width_r</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">panel_pos_h</span><span class="op">)</span></span>
+<span>        <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://gtable.r-lib.org/reference/gtable_add_grob.html" class="external-link">gtable_add_grob</a></span><span class="op">(</span><span class="va">panel_table</span>,</span>
 <span>          <span class="va">axes</span><span class="op">$</span><span class="va">y</span><span class="op">$</span><span class="va">right</span>, t <span class="op">=</span> <span class="va">panel_pos_v</span>, l <span class="op">=</span> <span class="va">panel_pos_h</span> <span class="op">+</span> <span class="fl">1</span>,</span>
 <span>          clip <span class="op">=</span> <span class="st">"off"</span><span class="op">)</span></span>
-<span>        <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gtable/man/gtable_add_cols.html" class="external-link">gtable_add_cols</a></span><span class="op">(</span><span class="va">panel_table</span>, <span class="va">axis_width_l</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">panel_pos_h</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span></span>
-<span>        <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gtable/man/gtable_add_grob.html" class="external-link">gtable_add_grob</a></span><span class="op">(</span><span class="va">panel_table</span>,</span>
+<span>        <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://gtable.r-lib.org/reference/gtable_add_cols.html" class="external-link">gtable_add_cols</a></span><span class="op">(</span><span class="va">panel_table</span>, <span class="va">axis_width_l</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">panel_pos_h</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>        <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://gtable.r-lib.org/reference/gtable_add_grob.html" class="external-link">gtable_add_grob</a></span><span class="op">(</span><span class="va">panel_table</span>,</span>
 <span>          <span class="va">axes</span><span class="op">$</span><span class="va">y</span><span class="op">$</span><span class="va">left</span>, t <span class="op">=</span> <span class="va">panel_pos_v</span>, l <span class="op">=</span> <span class="va">panel_pos_h</span>,</span>
 <span>          clip <span class="op">=</span> <span class="st">"off"</span><span class="op">)</span></span>
 <span>      <span class="op">}</span></span>
@@ -1078,12 +1349,12 @@
 <span>    <span class="va">axis_height_b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/grid.convert.html" class="external-link">convertHeight</a></span><span class="op">(</span></span>
 <span>      <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/grobWidth.html" class="external-link">grobHeight</a></span><span class="op">(</span><span class="va">axes</span><span class="op">$</span><span class="va">x</span><span class="op">$</span><span class="va">bottom</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>, <span class="st">"cm"</span>, <span class="cn">TRUE</span><span class="op">)</span>, <span class="st">"cm"</span><span class="op">)</span></span>
 <span>    <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="va">panel_pos_v</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>      <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gtable/man/gtable_add_rows.html" class="external-link">gtable_add_rows</a></span><span class="op">(</span><span class="va">panel_table</span>, <span class="va">axis_height_b</span>, <span class="va">i</span><span class="op">)</span></span>
-<span>      <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gtable/man/gtable_add_grob.html" class="external-link">gtable_add_grob</a></span><span class="op">(</span><span class="va">panel_table</span>, </span>
+<span>      <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://gtable.r-lib.org/reference/gtable_add_rows.html" class="external-link">gtable_add_rows</a></span><span class="op">(</span><span class="va">panel_table</span>, <span class="va">axis_height_b</span>, <span class="va">i</span><span class="op">)</span></span>
+<span>      <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://gtable.r-lib.org/reference/gtable_add_grob.html" class="external-link">gtable_add_grob</a></span><span class="op">(</span><span class="va">panel_table</span>, </span>
 <span>        <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">axes</span><span class="op">$</span><span class="va">x</span><span class="op">$</span><span class="va">bottom</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">panel_pos_h</span><span class="op">)</span><span class="op">)</span>, t <span class="op">=</span> <span class="va">i</span> <span class="op">+</span> <span class="fl">1</span>, l <span class="op">=</span> <span class="va">panel_pos_h</span>, </span>
 <span>        clip <span class="op">=</span> <span class="st">"off"</span><span class="op">)</span></span>
-<span>      <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gtable/man/gtable_add_rows.html" class="external-link">gtable_add_rows</a></span><span class="op">(</span><span class="va">panel_table</span>, <span class="va">axis_height_t</span>, <span class="va">i</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span></span>
-<span>      <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gtable/man/gtable_add_grob.html" class="external-link">gtable_add_grob</a></span><span class="op">(</span><span class="va">panel_table</span>, </span>
+<span>      <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://gtable.r-lib.org/reference/gtable_add_rows.html" class="external-link">gtable_add_rows</a></span><span class="op">(</span><span class="va">panel_table</span>, <span class="va">axis_height_t</span>, <span class="va">i</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>      <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://gtable.r-lib.org/reference/gtable_add_grob.html" class="external-link">gtable_add_grob</a></span><span class="op">(</span><span class="va">panel_table</span>, </span>
 <span>        <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">axes</span><span class="op">$</span><span class="va">x</span><span class="op">$</span><span class="va">top</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">panel_pos_h</span><span class="op">)</span><span class="op">)</span>, t <span class="op">=</span> <span class="va">i</span>, l <span class="op">=</span> <span class="va">panel_pos_h</span>, </span>
 <span>        clip <span class="op">=</span> <span class="st">"off"</span><span class="op">)</span></span>
 <span>    <span class="op">}</span></span>
@@ -1098,12 +1369,12 @@
 <span>    <span class="va">strip_height</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/grid.convert.html" class="external-link">convertHeight</a></span><span class="op">(</span></span>
 <span>      <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/grobWidth.html" class="external-link">grobHeight</a></span><span class="op">(</span><span class="va">strips</span><span class="op">$</span><span class="va">x</span><span class="op">$</span><span class="va">top</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>, <span class="st">"cm"</span>, <span class="cn">TRUE</span><span class="op">)</span>, <span class="st">"cm"</span><span class="op">)</span></span>
 <span>    <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">panel_pos_v</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>      <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gtable/man/gtable_add_rows.html" class="external-link">gtable_add_rows</a></span><span class="op">(</span><span class="va">panel_table</span>, <span class="va">strip_height</span>, <span class="va">panel_pos_v</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>      <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://gtable.r-lib.org/reference/gtable_add_rows.html" class="external-link">gtable_add_rows</a></span><span class="op">(</span><span class="va">panel_table</span>, <span class="va">strip_height</span>, <span class="va">panel_pos_v</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span></span>
 <span>      <span class="kw">if</span> <span class="op">(</span><span class="va">params</span><span class="op">$</span><span class="va">horizontal</span><span class="op">)</span> <span class="op">{</span></span>
-<span>        <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gtable/man/gtable_add_grob.html" class="external-link">gtable_add_grob</a></span><span class="op">(</span><span class="va">panel_table</span>, <span class="va">strips</span><span class="op">$</span><span class="va">x</span><span class="op">$</span><span class="va">top</span>, </span>
+<span>        <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://gtable.r-lib.org/reference/gtable_add_grob.html" class="external-link">gtable_add_grob</a></span><span class="op">(</span><span class="va">panel_table</span>, <span class="va">strips</span><span class="op">$</span><span class="va">x</span><span class="op">$</span><span class="va">top</span>, </span>
 <span>          t <span class="op">=</span> <span class="va">panel_pos_v</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, l <span class="op">=</span> <span class="va">panel_pos_h</span>, clip <span class="op">=</span> <span class="st">"off"</span><span class="op">)</span></span>
 <span>      <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
-<span>        <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gtable/man/gtable_add_grob.html" class="external-link">gtable_add_grob</a></span><span class="op">(</span><span class="va">panel_table</span>, <span class="va">strips</span><span class="op">$</span><span class="va">x</span><span class="op">$</span><span class="va">top</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, </span>
+<span>        <span class="va">panel_table</span> <span class="op">&lt;-</span> <span class="fu">gtable</span><span class="fu">::</span><span class="fu"><a href="https://gtable.r-lib.org/reference/gtable_add_grob.html" class="external-link">gtable_add_grob</a></span><span class="op">(</span><span class="va">panel_table</span>, <span class="va">strips</span><span class="op">$</span><span class="va">x</span><span class="op">$</span><span class="va">top</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, </span>
 <span>          t <span class="op">=</span> <span class="va">panel_pos_v</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, l <span class="op">=</span> <span class="va">panel_pos_h</span>, clip <span class="op">=</span> <span class="st">"off"</span><span class="op">)</span></span>
 <span>      <span class="op">}</span></span>
 <span>    <span class="op">}</span></span>
@@ -1112,8 +1383,14 @@
 <span>    <span class="va">panel_table</span></span>
 <span>  <span class="op">}</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>As is very apparent, the <code>draw_panel</code> method can become very unwieldy once it begins to take multiple possibilities into account. The fact that we want to support both horizontal and vertical layout leads to a lot of if/else blocks in the above code. In general, this is the big challenge when writing facet extensions so be prepared to be very meticulous when writing these methods.</p>
-<p>Enough talk - lets see if our new and powerful faceting extension works:</p>
+<p>As is very apparent, the <code>draw_panel</code> method can become
+very unwieldy once it begins to take multiple possibilities into
+account. The fact that we want to support both horizontal and vertical
+layout leads to a lot of if/else blocks in the above code. In general,
+this is the big challenge when writing facet extensions so be prepared
+to be very meticulous when writing these methods.</p>
+<p>Enough talk - lets see if our new and powerful faceting extension
+works:</p>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hp</span>, y <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu">facet_trans</span><span class="op">(</span><span class="st">'sqrt'</span><span class="op">)</span></span></code></pre></div>
 <p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;"></p>
@@ -1122,7 +1399,11 @@
 <div class="section level2">
 <h2 id="extending-existing-facet-function">Extending existing facet function<a class="anchor" aria-label="anchor" href="#extending-existing-facet-function"></a>
 </h2>
-<p>As the rendering part of a facet class is often the difficult development step, it is possible to piggyback on the existing faceting classes to achieve a range of new facetings. Below we will subclass <code><a href="../reference/facet_wrap.html">facet_wrap()</a></code> to make a <code>facet_bootstrap()</code> class that splits the input data into a number of panels at random.</p>
+<p>As the rendering part of a facet class is often the difficult
+development step, it is possible to piggyback on the existing faceting
+classes to achieve a range of new facetings. Below we will subclass
+<code><a href="../reference/facet_wrap.html">facet_wrap()</a></code> to make a <code>facet_bootstrap()</code> class
+that splits the input data into a number of panels at random.</p>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">facet_bootstrap</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span> <span class="op">=</span> <span class="fl">9</span>, <span class="va">prop</span> <span class="op">=</span> <span class="fl">0.2</span>, <span class="va">nrow</span> <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">ncol</span> <span class="op">=</span> <span class="cn">NULL</span>, </span>
 <span>  <span class="va">scales</span> <span class="op">=</span> <span class="st">"fixed"</span>, <span class="va">shrink</span> <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">strip.position</span> <span class="op">=</span> <span class="st">"top"</span><span class="op">)</span> <span class="op">{</span></span>
@@ -1176,14 +1457,27 @@
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">facet_bootstrap</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">9</span>, prop <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span></code></pre></div>
 <p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;"></p>
-<p>What we are doing above is to intercept the <code>compute_layout</code> and <code>map_data</code> methods and instead of dividing the data by a variable we randomly assigns rows to a panel based on the sampling parameters (<code>n</code> determines the number of panels, <code>prop</code> determines the proportion of data in each panel). It is important here that the layout returned by <code>compute_layout</code> is a valid layout for <code>FacetWrap</code> as we are counting on the <code>draw_panel</code> method from <code>FacetWrap</code> to do all the work for us. Thus if you want to subclass FacetWrap or FacetGrid, make sure you understand the nature of their layout specification.</p>
+<p>What we are doing above is to intercept the
+<code>compute_layout</code> and <code>map_data</code> methods and
+instead of dividing the data by a variable we randomly assigns rows to a
+panel based on the sampling parameters (<code>n</code> determines the
+number of panels, <code>prop</code> determines the proportion of data in
+each panel). It is important here that the layout returned by
+<code>compute_layout</code> is a valid layout for <code>FacetWrap</code>
+as we are counting on the <code>draw_panel</code> method from
+<code>FacetWrap</code> to do all the work for us. Thus if you want to
+subclass FacetWrap or FacetGrid, make sure you understand the nature of
+their layout specification.</p>
 <div class="section level3">
 <h3 id="exercises-2">Exercises<a class="anchor" aria-label="anchor" href="#exercises-2"></a>
 </h3>
 <ol style="list-style-type: decimal">
-<li>Rewrite FacetTrans to take a vector of transformations and create an additional panel for each transformation.</li>
-<li>Based on the FacetWrap implementation rewrite FacetTrans to take the strip.placement theme setting into account.</li>
-<li>Think about which caveats there are in FacetBootstrap specifically related to adding multiple layers with the same data.</li>
+<li>Rewrite FacetTrans to take a vector of transformations and create an
+additional panel for each transformation.</li>
+<li>Based on the FacetWrap implementation rewrite FacetTrans to take the
+strip.placement theme setting into account.</li>
+<li>Think about which caveats there are in FacetBootstrap specifically
+related to adding multiple layers with the same data.</li>
 </ol>
 </div>
 </div>
