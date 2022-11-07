@@ -1,3 +1,4 @@
+# ggplot2 (development version)
 
 * `geom_label()` now uses the `angle` aesthetic (@teunbrand, #2785)
 * 'lines' units in `geom_label()`, often used in the `label.padding` argument, 
