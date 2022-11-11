@@ -80,19 +80,19 @@ GeomHex <- ggproto("GeomHex", Geom,
 
     n <- nrow(data)
 
-    data <- data[rep(seq_len(n), each = 6), ]
-    data$x <- rep.int(hexC$x, n) + data$x
-    data$y <- rep.int(hexC$y, n) + data$y
+    hexdata <- data[rep(seq_len(n), each = 6), c("x", "y")]
+    hexdata$x <- rep.int(hexC$x, n) + hexdata$x
+    hexdata$y <- rep.int(hexC$y, n) + hexdata$y
 
-    coords <- coord$transform(data, panel_params)
+    coords <- coord$transform(hexdata, panel_params)
 
     ggname("geom_hex", polygonGrob(
       coords$x, coords$y,
       gp = gpar(
-        col = coords$colour,
-        fill = alpha(coords$fill, coords$alpha),
-        lwd = coords$linewidth * .pt,
-        lty = coords$linetype,
+        col = data$colour,
+        fill = alpha(data$fill, data$alpha),
+        lwd = data$linewidth * .pt,
+        lty = data$linetype,
         lineend = lineend,
         linejoin = linejoin,
         linemitre = linemitre
