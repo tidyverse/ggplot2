@@ -124,8 +124,7 @@ Guide <- ggproto(
   # TODO: Maybe we only need the hash on demand during merging?
   extract_params = function(scale, params, hashables, ...) {
     # Make hash
-    mask <- new_data_mask(as_environment(params))
-    params$hash <- hash(lapply(unname(hashables), eval_tidy, data = mask))
+    params$hash <- hash(lapply(unname(hashables), eval_tidy, data = params))
     params
   },
 
@@ -143,8 +142,8 @@ Guide <- ggproto(
     key$.value <- breaks
     key$.label <- labels
 
-    if (is.numeric(key$.value)) {
-      key[is.finite(key$.value), , drop = FALSE]
+    if (is.numeric(breaks)) {
+      key[is.finite(breaks), , drop = FALSE]
     } else {
       key
     }

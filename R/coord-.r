@@ -100,11 +100,18 @@ Coord <- ggproto("Coord",
 
     # TODO: This should ideally happen in the `guides()` function or earlier.
     if (!inherits(guides, "Guides")) {
-      guides <- guides_list(guides)
+      guides <- guides_list(
+        guides,
+        .missing = params$guide_missing %||% guide_none()
+      )
     }
 
     # Do guide setup
-    guides <- guides$setup(panel_params, aesthetics, default = guide_axis())
+    guides <- guides$setup(
+      panel_params, aesthetics,
+      default = params$guide_default %||% guide_axis(),
+      missing = params$guide_missing %||% guide_none()
+    )
     guide_params <- guides$get_params(aesthetics)
 
     # Resolve positions
@@ -140,16 +147,22 @@ Coord <- ggproto("Coord",
     # If the panel_params doesn't contain the scale, there's no guide for the aesthetic
     aesthetics <- intersect(aesthetics, names(panel_params$guides$aesthetics))
 
-    guide_params <- lapply(aesthetics, function(aesthetic) {
+    guides <- panel_params$guides$get_guide(aesthetics)
+    empty  <- vapply(guides, inherits, logical(1), "GuideNone")
+    guide_params <- panel_params$guides$get_params(aesthetics)
+    aesthetics <- aesthetics[!empty]
 
-      guide  <- panel_params$guides$get_guide(aesthetic)
-      params <- panel_params$guides$get_params(aesthetic)
-
-      params <- guide$train(params, panel_params[[aesthetic]])
-      params <- guide$transform(params, self, panel_params)
-      params <- guide$geom(params, layers, default_mapping)
-      params
-    })
+    guide_params[!empty] <- Map(
+      function(guide, guide_param, scale) {
+        guide_param <- guide$train(guide_param, scale)
+        guide_param <- guide$transform(guide_param, self, panel_params)
+        guide_param <- guide$geom(guide_param, layers, default_mapping)
+        guide_param
+      },
+      guide = guides[!empty],
+      guide_param = guide_params[!empty],
+      scale = panel_params[aesthetics]
+    )
 
     panel_params$guides$update_params(guide_params)
 
@@ -167,7 +180,10 @@ Coord <- ggproto("Coord",
   is_free = function() FALSE,
 
   setup_params = function(data) {
-    list()
+    list(
+      guide_default = guide_axis(),
+      guide_missing = guide_none()
+    )
   },
 
   setup_data = function(data, params = list()) {
