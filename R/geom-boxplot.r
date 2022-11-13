@@ -212,6 +212,7 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
                         outlier.size = 1.5, outlier.stroke = 0.5,
                         outlier.alpha = NULL, notch = FALSE, notchwidth = 0.5,
                         varwidth = FALSE, flipped_aes = FALSE) {
+    data <- check_linewidth(data, snake_class(self))
     data <- flip_data(data, flipped_aes)
     # this may occur when using geom_boxplot(stat = "identity")
     if (nrow(data) != 1) {

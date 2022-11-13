@@ -173,7 +173,7 @@ Stat <- ggproto("Stat",
     }
 
     # Finally, combine the results and drop columns that are not constant.
-    data_new <- vec_rbind(!!!stats)
+    data_new <- vec_rbind0(!!!stats)
     data_new[, !names(data_new) %in% non_constant_columns, drop = FALSE]
   },
 

@@ -368,28 +368,28 @@ theme <- function(line,
   elements <- find_args(..., complete = NULL, validate = NULL)
 
   if (!is.null(elements$axis.ticks.margin)) {
-    lifecycle::deprecate_warn(
+    deprecate_warn0(
       "2.0.0", "theme(axis.ticks.margin)",
       details = "Please set `margin` property of `axis.text` instead"
     )
     elements$axis.ticks.margin <- NULL
   }
   if (!is.null(elements$panel.margin)) {
-    lifecycle::deprecate_warn(
+    deprecate_warn0(
       "2.2.0", "theme(panel.margin)", "theme(panel.spacing)"
     )
     elements$panel.spacing <- elements$panel.margin
     elements$panel.margin <- NULL
   }
   if (!is.null(elements$panel.margin.x)) {
-    lifecycle::deprecate_warn(
+    deprecate_warn0(
       "2.2.0", "theme(panel.margin.x)", "theme(panel.spacing.x)"
     )
     elements$panel.spacing.x <- elements$panel.margin.x
     elements$panel.margin.x <- NULL
   }
   if (!is.null(elements$panel.margin.y)) {
-    lifecycle::deprecate_warn(
+    deprecate_warn0(
       "2.2.0", "theme(panel.margin.y)", "theme(panel.spacing.y)"
     )
     elements$panel.spacing.y <- elements$panel.margin.y

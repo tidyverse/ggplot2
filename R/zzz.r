@@ -22,7 +22,9 @@ random_tip <- function() {
 }
 
 # To avoid namespace clash with dplyr.
-vars <- NULL
+vars <- function(...) {
+  quos(...)
+}
 on_load(
   if (requireNamespace("dplyr", quietly = TRUE)) {
     vars <- dplyr::vars

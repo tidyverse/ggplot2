@@ -52,7 +52,9 @@ GeomErrorbar <- ggproto("GeomErrorbar", Geom,
     flip_data(data, params$flipped_aes)
   },
 
-  draw_panel = function(data, panel_params, coord, lineend = "butt", width = NULL, flipped_aes = FALSE) {
+  draw_panel = function(self, data, panel_params, coord, lineend = "butt",
+                        width = NULL, flipped_aes = FALSE) {
+    data <- check_linewidth(data, snake_class(self))
     data <- flip_data(data, flipped_aes)
     x <- vec_interleave(data$xmin, data$xmax, NA, data$x,    data$x,    NA, data$xmin, data$xmax)
     y <- vec_interleave(data$ymax, data$ymax, NA, data$ymax, data$ymin, NA, data$ymin, data$ymin)

@@ -88,8 +88,9 @@ geom_rug <- function(mapping = NULL, data = NULL,
 GeomRug <- ggproto("GeomRug", Geom,
   optional_aes = c("x", "y"),
 
-  draw_panel = function(data, panel_params, coord, lineend = "butt", sides = "bl",
-                        outside = FALSE, length = unit(0.03, "npc")) {
+  draw_panel = function(self, data, panel_params, coord, lineend = "butt",
+                        sides = "bl", outside = FALSE, length = unit(0.03, "npc")) {
+    data <- check_linewidth(data, snake_class(self))
     if (!inherits(length, "unit")) {
       cli::cli_abort("{.arg length} must be a {.cls unit} object.")
     }

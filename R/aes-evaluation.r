@@ -115,7 +115,7 @@ is_calculated <- function(x, warn = FALSE) {
       what <- I(glue("The dot-dot notation (`{x}`)"))
       var <- gsub(match_calculated_aes, "\\1", as.character(x))
       with <- I(glue("`after_stat({var})`"))
-      lifecycle::deprecate_warn("3.4.0", what, with, id = "ggplot-warn-aes-dot-dot")
+      deprecate_warn0("3.4.0", what, with, id = "ggplot-warn-aes-dot-dot")
     }
     res
   } else if (is_quosure(x)) {
@@ -126,7 +126,7 @@ is_calculated <- function(x, warn = FALSE) {
         what <- I(glue("`{expr_deparse(x)}`"))
         x[[1]] <- quote(after_stat)
         with <- I(glue("`{expr_deparse(x)}`"))
-        lifecycle::deprecate_warn("3.4.0", what, with, id = "ggplot-warn-aes-stat")
+        deprecate_warn0("3.4.0", what, with, id = "ggplot-warn-aes-stat")
       }
       TRUE
     } else {

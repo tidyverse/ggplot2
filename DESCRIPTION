@@ -1,5 +1,5 @@
 Package: ggplot2
-Version: 3.3.6.9000
+Version: 3.4.0.9000
 Title: Create Elegant Data Visualisations Using the Grammar of Graphics
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", role = "aut",
@@ -43,7 +43,7 @@ Imports:
     scales (>= 1.2.0),
     stats,
     tibble,
-    vctrs (>= 0.4.1),
+    vctrs (>= 0.5.0),
     withr (>= 2.5.0)
 Suggests:
     covr,
@@ -71,8 +71,6 @@ Suggests:
     testthat (>= 3.1.2),
     vdiffr (>= 1.0.0),
     xml2
-Remotes:
-    r-lib/lifecycle
 Enhances: 
     sp
 VignetteBuilder: 

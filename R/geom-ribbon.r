@@ -119,15 +119,16 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     data
   },
 
-  draw_group = function(data, panel_params, coord, lineend = "butt",
+  draw_group = function(self, data, panel_params, coord, lineend = "butt",
                         linejoin = "round", linemitre = 10, na.rm = FALSE,
                         flipped_aes = FALSE, outline.type = "both") {
+    data <- check_linewidth(data, snake_class(self))
     data <- flip_data(data, flipped_aes)
     if (na.rm) data <- data[stats::complete.cases(data[c("x", "ymin", "ymax")]), ]
     data <- data[order(data$group), ]
 
     # Check that aesthetics are constant
-    aes <- unique0(data[c("colour", "fill", "linewidth", "linetype", "alpha")])
+    aes <- unique0(data[names(data) %in% c("colour", "fill", "linewidth", "linetype", "alpha")])
     if (nrow(aes) > 1) {
       cli::cli_abort("Aesthetics can not vary along a ribbon")
     }
@@ -168,7 +169,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     munched_upper <- coord_munch(coord, positions_upper, panel_params)
     munched_lower <- coord_munch(coord, positions_lower, panel_params)
 
-    munched_poly <- vec_rbind(munched_upper, munched_lower)
+    munched_poly <- vec_rbind0(munched_upper, munched_lower)
 
     is_full_outline <- identical(outline.type, "full")
     g_poly <- polygonGrob(
@@ -193,7 +194,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     munched_lower$id <- munched_lower$id + max(ids, na.rm = TRUE)
 
     munched_lines <- switch(outline.type,
-      both = vec_rbind(munched_upper, munched_lower),
+      both = vec_rbind0(munched_upper, munched_lower),
       upper = munched_upper,
       lower = munched_lower,
       cli::cli_abort(c(

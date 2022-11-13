@@ -88,5 +88,7 @@ StatCount <- ggproto("StatCount", Stat,
       .size = length(count)
     )
     flip_data(bars, flipped_aes)
-  }
+  },
+
+  dropped_aes = "weight"
 )
