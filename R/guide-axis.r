@@ -81,10 +81,10 @@ GuideAxis <- ggproto(
   hashables = exprs(title, key$.value, key$.label, name),
 
   elements = list(
-    line  = "axis.line.{aes}.{position}",
-    text  = "axis.text.{aes}.{position}",
-    ticks = "axis.ticks.{aes}.{position}",
-    ticks_length = "axis.ticks.length.{aes}.{position}"
+    line  = "axis.line",
+    text  = "axis.text",
+    ticks = "axis.ticks",
+    ticks_length = "axis.ticks.length"
   ),
 
   extract_params = function(scale, params, hashables, ...) {
@@ -145,6 +145,18 @@ GuideAxis <- ggproto(
       ))
     }
     return(list(guide = self, params = params))
+  },
+
+  setup_elements = function(params, elements, theme) {
+    axis_elem <- c("line", "text", "ticks", "ticks_length")
+    is_char  <- vapply(elements[axis_elem], is.character, logical(1))
+    axis_elem <- axis_elem[is_char]
+    elements[axis_elem] <- paste(
+      unlist(elements[axis_elem]),
+      params$aes, params$position, sep = "."
+    )
+    elements[is_char] <- lapply(elements[is_char], calc_element, theme = theme)
+    elements
   },
 
   override_elements = function(params, elements, theme) {

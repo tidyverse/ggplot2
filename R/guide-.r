@@ -191,8 +191,6 @@ Guide <- ggproto(
   # `element_grob()`. String-interpolates aesthetic/position dependent elements.
   setup_elements = function(params, elements, theme) {
     is_char  <- vapply(elements, is.character, logical(1))
-    elements[is_char] <- lapply(elements[is_char], glue,
-                                .envir = params[c("aes", "position")])
     elements[is_char] <- lapply(elements[is_char], calc_element, theme = theme)
     elements
   },
