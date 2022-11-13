@@ -107,15 +107,23 @@ Geom <- ggproto("Geom",
 
   # Combine data with defaults and set aesthetics from parameters
   use_defaults = function(self, data, params = list(), modifiers = aes()) {
+    default_aes <- self$default_aes
+
     # Inherit size as linewidth if no linewidth aesthetic and param exist
     if (self$rename_size && is.null(data$linewidth) && is.null(params$linewidth)) {
       data$linewidth <- data$size
       params$linewidth <- params$size
     }
+    # Take care of subclasses setting the wrong default when inheriting from
+    # a geom with rename_size = TRUE
+    if (self$rename_size && is.null(default_aes$linewidth)) {
+      deprecate_soft0("3.4.0", I("Using the `size` aesthetic in this geom"), I("`linewidth` in the `default_aes` field and elsewhere"))
+      default_aes$linewidth <- default_aes$size
+    }
     # Fill in missing aesthetics with their defaults
-    missing_aes <- setdiff(names(self$default_aes), names(data))
+    missing_aes <- setdiff(names(default_aes), names(data))
 
-    missing_eval <- lapply(self$default_aes[missing_aes], eval_tidy)
+    missing_eval <- lapply(default_aes[missing_aes], eval_tidy)
     # Needed for geoms with defaults set to NULL (e.g. GeomSf)
     missing_eval <- compact(missing_eval)
 
@@ -228,4 +236,12 @@ check_aesthetics <- function(x, n) {
     "Aesthetics must be either length 1 or the same as the data ({n})",
     "x" = "Fix the following mappings: {.col {names(which(!good))}}"
   ))
+}
+
+check_linewidth <- function(data, name) {
+  if (is.null(data$linewidth) && !is.null(data$size)) {
+    deprecate_soft0("3.4.0", I(paste0("Using the `size` aesthietic with ", name)), I("the `linewidth` aesthetic"))
+    data$linewidth <- data$size
+  }
+  data
 }

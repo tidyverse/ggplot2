@@ -96,7 +96,7 @@ StatQuantile <- ggproto("StatQuantile", Stat,
       grid = grid,
       method.args = method.args
     )
-    vec_rbind(!!!result)
+    vec_rbind0(!!!result)
   }
 )
 

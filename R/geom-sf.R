@@ -185,7 +185,7 @@ sf_grob <- function(x, lineend = "butt", linejoin = "round", linemitre = 10,
   defaults <- list(
     GeomPoint$default_aes,
     GeomLine$default_aes,
-    modify_list(GeomPolygon$default_aes, list(fill = "grey90", colour = "grey35"))
+    modify_list(GeomPolygon$default_aes, list(fill = "grey90", colour = "grey35", linewidth = 0.2))
   )
   defaults[[4]] <- modify_list(
     defaults[[3]],

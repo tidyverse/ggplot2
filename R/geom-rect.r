@@ -34,6 +34,7 @@ GeomRect <- ggproto("GeomRect", Geom,
   required_aes = c("xmin", "xmax", "ymin", "ymax"),
 
   draw_panel = function(self, data, panel_params, coord, lineend = "butt", linejoin = "mitre") {
+    data <- check_linewidth(data, snake_class(self))
     if (!coord$is_linear()) {
       aesthetics <- setdiff(
         names(data), c("x", "y", "xmin", "xmax", "ymin", "ymax")

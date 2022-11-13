@@ -75,6 +75,7 @@ layer <- function(geom = NULL, stat = NULL,
                   inherit.aes = TRUE, check.aes = TRUE, check.param = TRUE,
                   show.legend = NA, key_glyph = NULL, layer_class = Layer) {
   call_env <- caller_env()
+  user_env <- caller_env(2)
   if (is.null(geom))
     cli::cli_abort("Can't create layer without a geom.", call = call_env)
   if (is.null(stat))
@@ -84,7 +85,7 @@ layer <- function(geom = NULL, stat = NULL,
 
   # Handle show_guide/show.legend
   if (!is.null(params$show_guide)) {
-    lifecycle::deprecate_warn("2.0.0", "layer(show_guide)", "layer(show.legend)")
+    deprecate_warn0("2.0.0", "layer(show_guide)", "layer(show.legend)", user_env = user_env)
     show.legend <- params$show_guide
     params$show_guide <- NULL
   }
@@ -129,7 +130,7 @@ layer <- function(geom = NULL, stat = NULL,
   if (geom$rename_size && "size" %in% extra_param && !"linewidth" %in% mapped_aesthetics(mapping)) {
     aes_params <- c(aes_params, params["size"])
     extra_param <- setdiff(extra_param, "size")
-    lifecycle::deprecate_warn("3.4.0", I("Using `size` aesthetic for lines"), I("`linewidth`"))
+    deprecate_soft0("3.4.0", I("Using `size` aesthetic for lines"), I("`linewidth`"), user_env = user_env)
   }
   if (check.param && length(extra_param) > 0) {
     cli::cli_warn("Ignoring unknown parameters: {.arg {extra_param}}", call = call_env)
@@ -142,7 +143,7 @@ layer <- function(geom = NULL, stat = NULL,
   # Take care of size->linewidth aes renaming
   if (geom$rename_size && "size" %in% extra_aes && !"linewidth" %in% mapped_aesthetics(mapping)) {
     extra_aes <- setdiff(extra_aes, "size")
-    lifecycle::deprecate_warn("3.4.0", I("Using `size` aesthetic for lines"), I("`linewidth`"))
+    deprecate_soft0("3.4.0", I("Using `size` aesthetic for lines"), I("`linewidth`"), user_env = user_env)
   }
   if (check.aes && length(extra_aes) > 0) {
     cli::cli_warn("Ignoring unknown aesthetics: {.field {extra_aes}}", call = call_env)
@@ -171,7 +172,9 @@ layer <- function(geom = NULL, stat = NULL,
 validate_mapping <- function(mapping, call = caller_env()) {
   if (!inherits(mapping, "uneval")) {
     msg <- paste0("{.arg mapping} must be created by {.fn aes}")
-    if (inherits(mapping, "ggplot")) {
+    # Native pipe have higher precedence than + so any type of gg object can be
+    # expected here, not just ggplot
+    if (inherits(mapping, "gg")) {
       msg <- c(msg, "i" = "Did you use {.code %>%} or {.code |>} instead of {.code +}?")
     }
 
@@ -239,7 +242,7 @@ Layer <- ggproto("Layer", NULL,
           !"linewidth" %in% names(self$computed_mapping) &&
           "linewidth" %in% self$geom$aesthetics()) {
         self$computed_mapping$size <- plot$mapping$size
-        lifecycle::deprecate_warn("3.4.0", I("Using `size` aesthetic for lines"), I("`linewidth`"))
+        deprecate_soft0("3.4.0", I("Using `size` aesthetic for lines"), I("`linewidth`"))
       }
       # defaults() strips class, but it needs to be preserved for now
       class(self$computed_mapping) <- "uneval"

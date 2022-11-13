@@ -73,7 +73,7 @@ guides <- function(...) {
 
   idx_false <- vapply(args, isFALSE, FUN.VALUE = logical(1L))
   if (isTRUE(any(idx_false))) {
-    lifecycle::deprecate_warn("3.3.4", "guides(`<scale>` = 'cannot be `FALSE`. Use \"none\" instead')")
+    deprecate_warn0("3.3.4", "guides(`<scale>` = 'cannot be `FALSE`. Use \"none\" instead')")
     args[idx_false] <- "none"
   }
 
@@ -362,11 +362,7 @@ Guides <- ggproto(
       )
 
       if (isFALSE(guide)) {
-        # TODO: update to lifecycle after next lifecycle release
-        cli::cli_warn(c(
-          "{.code guide = FALSE} is deprecated",
-          "i" = 'Please use {.code guide = "none"} instead.'
-        ))
+        deprecate_warn0("3.3.4", I("The `guide` argument in `scale_*()` cannot be `FALSE`. This "), I('"none"'))
         guide <- "none"
       }
 

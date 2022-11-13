@@ -198,7 +198,7 @@ draw_key_linerange <- function(data, params, size) {
 draw_key_pointrange <- function(data, params, size) {
   grobTree(
     draw_key_linerange(data, params, size),
-    draw_key_point(transform(data, params, size = (data$size %||% 1.5) * 4))
+    draw_key_point(transform(data, size = (data$size %||% 1.5) * 4), params)
   )
 }
 
