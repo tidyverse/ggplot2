@@ -243,8 +243,8 @@ include_layer_in_guide <- function(layer, matched) {
 # Class -------------------------------------------------------------------
 
 # Guides object encapsulates multiple guides and their state.
-guides_list <- function(guides) {
-  ggproto(NULL, Guides, guides = guides)
+guides_list <- function(guides, .missing = guide_none()) {
+  ggproto(NULL, Guides, guides = guides, missing = .missing)
 }
 
 Guides <- ggproto(
@@ -252,6 +252,9 @@ Guides <- ggproto(
 
   # A list of guides to be updated by 'add' or populated upon construction.
   guides = list(),
+
+  # How to treat missing guides
+  missing = NULL,
 
   # An index parallel to `guides` for matching guides with scales
   # Currently not used, but should be useful for non-position training etc.
@@ -277,7 +280,7 @@ Guides <- ggproto(
 
     # Set empty parameter guides to `guide_none`. Don't overwrite parameters,
     # because things like 'position' are relevant.
-    self$guides[is_empty] <- list(guide_none())
+    self$guides[is_empty] <- list(self$missing)
     return(NULL)
   },
 
@@ -326,7 +329,9 @@ Guides <- ggproto(
   # Setup routine for resolving and validating guides based on paired scales.
   setup = function(
     self, scales, aesthetics = NULL,
-    default = "none", keep_none = TRUE
+    default = guide_none(),
+    missing = guide_none(),
+    keep_none = TRUE
   ) {
 
     if (is.null(aesthetics)) {
@@ -353,7 +358,7 @@ Guides <- ggproto(
         scale     = scales[[idx]],
         guides    = guides,
         default   = default,
-        null      = guide_none()
+        null      = missing
       )
 
       if (isFALSE(guide)) {
@@ -385,7 +390,7 @@ Guides <- ggproto(
                  "{.or {.field {head(scales[[idx]]$aesthetics, 4)}}}."),
           i = "Use {?one of} {.or {.field {warn_aes}}} instead."
         ))
-        guide <- guide_none()
+        guide <- missing
       }
 
       guide
