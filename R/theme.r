@@ -374,8 +374,7 @@ theme <- function(line,
                   strip.switch.pad.wrap,
                   ...,
                   complete = FALSE,
-                  validate = TRUE
-) {
+                  validate = TRUE) {
   elements <- find_args(..., complete = NULL, validate = NULL)
 
   if (!is.null(elements$axis.ticks.margin)) {
