@@ -268,7 +268,7 @@ aes_ <- function(x, y, ...) {
   deprecate_soft0(
     "3.0.0",
     "aes_()",
-    details = "Please use tidy evaluation ideoms with `aes()`"
+    details = "Please use tidy evaluation idioms with `aes()`"
   )
   mapping <- list(...)
   if (!missing(x)) mapping["x"] <- list(x)
