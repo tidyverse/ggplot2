@@ -34,7 +34,7 @@ ggplot_global$all_aesthetics <- .all_aesthetics
   "pch"   = "shape",
   "cex"   = "size",
   "lty"   = "linetype",
-  "lwd"   = "size",
+  "lwd"   = "linewidth",
   "srt"   = "angle",
   "adj"   = "hjust",
   "bg"    = "fill",
