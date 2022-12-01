@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Fixed spurious warning when `weight` aesthetic was used in `stat_smooth()` 
+  (@teunbrand based on @clauswilke's suggestion, #5053).
+
 # ggplot2 3.4.0
 This is a minor release focusing on tightening up the internals and ironing out
 some inconsistencies in the API. The biggest change is the addition of the 
