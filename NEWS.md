@@ -2,6 +2,8 @@
 
 * The `lwd` alias now correctly replaced by `linewidth` instead of `size` 
   (@teunbrand based on @clauswilke's suggestion #5051).
+* When `geom_path()` has aesthetics varying within groups, the `arrow()` is
+  applied to groups instead of individual segments (@teunbrand, #4935).
 
 # ggplot2 3.4.0
 This is a minor release focusing on tightening up the internals and ironing out
