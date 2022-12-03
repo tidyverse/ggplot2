@@ -285,14 +285,14 @@ datetime_scale <- function(aesthetics, trans, palette,
 
 
   # Backward compatibility
-  if (is.character(breaks)) breaks <- date_breaks(breaks)
-  if (is.character(minor_breaks)) minor_breaks <- date_breaks(minor_breaks)
+  if (is.character(breaks)) breaks <- breaks_width(breaks)
+  if (is.character(minor_breaks)) minor_breaks <- breaks_width(minor_breaks)
 
   if (!is.waive(date_breaks)) {
-    breaks <- date_breaks(date_breaks)
+    breaks <- breaks_width(date_breaks)
   }
   if (!is.waive(date_minor_breaks)) {
-    minor_breaks <- date_breaks(date_minor_breaks)
+    minor_breaks <- breaks_width(date_minor_breaks)
   }
   if (!is.waive(date_labels)) {
     labels <- function(self, x) {
