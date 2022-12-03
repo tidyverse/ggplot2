@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* A function can be provided to `labs(alt = <...>)` that takes the plot as input
+  and returns text as output (@teunbrand, #4795).
 * Fixed spurious warning when `weight` aesthetic was used in `stat_smooth()` 
   (@teunbrand based on @clauswilke's suggestion, #5053).
 * The `lwd` alias now correctly replaced by `linewidth` instead of `size` 
