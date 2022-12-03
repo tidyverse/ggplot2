@@ -11,8 +11,12 @@
 #' @param segment_length Target segment length
 #' @keywords internal
 #' @export
-coord_munch <- function(coord, data, range, segment_length = 0.01) {
+coord_munch <- function(coord, data, range, segment_length = 0.01, make_closed = FALSE) {
   if (coord$is_linear()) return(coord$transform(data, range))
+
+  if (make_closed) {
+    data <- close_poly(data)
+  }
 
   # range has theta and r values; get corresponding x and y values
   ranges <- coord$backtransform_range(range)
@@ -203,4 +207,20 @@ spiral_arc_length <- function(a, theta1, theta2) {
   0.5 * a * (
     (theta1 * sqrt(1 + theta1 * theta1) + asinh(theta1)) -
     (theta2 * sqrt(1 + theta2 * theta2) + asinh(theta2)))
+}
+
+# Closes a polygon type data structure by repeating the first-in-group after
+# the last-in-group
+close_poly <- function(data) {
+  n <- nrow(data)
+  group <- vec_group_id(
+    data[, intersect(names(data), c("group", "subgroup"))]
+  )
+  if (length(group) != n) group <- rep(1L, n)
+  first <- which(c(TRUE, group[-1] != group[-n]))
+  index <- unlist(vec_interleave(
+    split(seq_len(n), group),
+    as.list(first)
+  ))
+  data[index, , drop = FALSE]
 }
