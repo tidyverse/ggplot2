@@ -141,11 +141,13 @@ get_alt_text <- function(p, ...) {
 #' @export
 get_alt_text.ggplot <- function(p, ...) {
   alt <- p$labels[["alt"]] %||% ""
+  p$labels[["alt"]] <- NULL
   if (is.function(alt)) alt(p) else alt
 }
 #' @export
 get_alt_text.ggplot_built <- function(p, ...) {
   alt <- p$plot$labels[["alt"]] %||% ""
+  p$plot$labels[["alt"]] <- NULL
   if (is.function(alt)) alt(p$plot) else alt
 }
 #' @export
