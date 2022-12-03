@@ -15,10 +15,13 @@
 #'   - A function that takes the limits as input and returns breaks as output
 #' @param date_breaks A string giving the distance between breaks like "2
 #'   weeks", or "10 years". If both `breaks` and `date_breaks` are
-#'   specified, `date_breaks` wins.
+#'   specified, `date_breaks` wins. Valid specifications are 'sec', 'min',
+#'   'hour', 'day', 'week', 'month' or 'year', optionally followed by 's'.
 #' @param date_minor_breaks A string giving the distance between minor breaks
 #'   like "2 weeks", or "10 years". If both `minor_breaks` and
-#'   `date_minor_breaks` are specified, `date_minor_breaks` wins.
+#'   `date_minor_breaks` are specified, `date_minor_breaks` wins. Valid
+#'   specifications are 'sec', 'min', 'hour', 'day', 'week', 'month' or 'year',
+#'   optionally followed by 's'.
 #' @param minor_breaks One of:
 #'   - `NULL` for no breaks
 #'   - `waiver()` for the breaks specified by `date_minor_breaks`
