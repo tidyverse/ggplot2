@@ -219,10 +219,12 @@ close_poly <- function(data) {
     data[, intersect(names(data), c("group", "subgroup"))]
   )
   if (length(group) != n) group <- rep(1L, n)
+  order <- order(group)
+  group <- group[order]
   first <- which(c(TRUE, group[-1] != group[-n]))
   index <- unlist(vec_interleave(
     split(seq_len(n), group),
     as.list(first)
   ))
-  data[index, , drop = FALSE]
+  data[order[index], , drop = FALSE]
 }
