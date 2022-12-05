@@ -1,5 +1,7 @@
 # ggplot2 (development version)
-
+* Fixed a regression in `Coord::train_panel_guides()` where names of guides were 
+  dropped (@maxsutton, #5063)
+  
 # ggplot2 3.4.0
 This is a minor release focusing on tightening up the internals and ironing out
 some inconsistencies in the API. The biggest change is the addition of the 
