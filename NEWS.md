@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* ggplot2 now uses `scales::DiscreteRange` and `scales::ContinuousRange`, which
+  are available to write scale extensions from scratch (@teunbrand, #2710).
 * Fixed spurious warning when `weight` aesthetic was used in `stat_smooth()` 
   (@teunbrand based on @clauswilke's suggestion, #5053).
 * The `lwd` alias now correctly replaced by `linewidth` instead of `size` 
