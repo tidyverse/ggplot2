@@ -182,5 +182,7 @@ StatSmooth <- ggproto("StatSmooth", Stat,
     flip_data(prediction, flipped_aes)
   },
 
+  dropped_aes = c("weight"),
+
   required_aes = c("x", "y")
 )
