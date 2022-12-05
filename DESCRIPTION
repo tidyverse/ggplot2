@@ -205,7 +205,6 @@ Collate:
     'position-nudge.R'
     'position-stack.r'
     'quick-plot.r'
-    'range.r'
     'reshape-add-margins.R'
     'save.r'
     'scale-.r'
