@@ -74,6 +74,7 @@ test_that("uses 7x7 if no graphics device open", {
 test_that("warned about large plot unless limitsize = FALSE", {
   expect_error(plot_dim(c(50, 50)), "exceed 50 inches")
   expect_equal(plot_dim(c(50, 50), limitsize = FALSE), c(50, 50))
+  expect_error(plot_dim(c(15000, 15000), units = "px"), "in pixels).")
 })
 
 test_that("scale multiplies height & width", {
