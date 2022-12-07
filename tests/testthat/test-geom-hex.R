@@ -17,8 +17,8 @@ test_that("size and linetype are applied", {
     geom_hex(color = "red", linewidth = 4, linetype = 2)
 
   gpar <- layer_grob(plot)[[1]]$children[[1]]$gp
-  expect_equal(gpar$lwd, rep(4, 12) * .pt, tolerance = 1e-7)
-  expect_equal(gpar$lty, rep(2, 12), tolerance = 1e-7)
+  expect_equal(gpar$lwd, rep(4, 2) * .pt, tolerance = 1e-7)
+  expect_equal(gpar$lty, rep(2, 2), tolerance = 1e-7)
 })
 
 test_that("bin size are picked up from stat", {

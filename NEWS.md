@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Fixed a regression in `geom_hex()` where aesthetics were replicated across 
+  bins (@thomasp85, #5037 and #5044)
 * Fixed spurious warning when `weight` aesthetic was used in `stat_smooth()` 
   (@teunbrand based on @clauswilke's suggestion, #5053).
 * The `lwd` alias now correctly replaced by `linewidth` instead of `size` 
