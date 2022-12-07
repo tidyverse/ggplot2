@@ -1,3 +1,5 @@
+skip_if_not_installed("hexbin")
+
 test_that("density and value summaries are available", {
   df <- data_frame(x = c(1, 1, 1, 2), y = c(1, 1, 1, 2))
   base <- ggplot(df, aes(x, y)) +
