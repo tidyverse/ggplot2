@@ -240,6 +240,99 @@ test_that("colorsteps and bins checks the breaks format", {
   expect_snapshot_error(suppressWarnings(ggplotGrob(p)))
 })
 
+test_that("guide_data retrieves appropriate data", {
+
+  p <- ggplot(mtcars) +
+    aes(mpg, disp, colour = drat, size = drat, fill = wt) +
+    geom_point(shape = 21) +
+    facet_wrap(vars(cyl), scales = "free_x") +
+    guides(colour = guide_legend())
+  b <- ggplot_build(p)
+
+  # Can we retrieve facetted panel labels?
+  test <- guide_data(b, "x", i = 1, j = 2)
+  expect_equal(test[[1]]$.label, c("18", "19", "20", "21"))
+
+  # Can we retrieve legend guide keys?
+  test <- guide_data(b, "fill")
+  expect_equal(test[[1]]$.label, c("2", "3", "4", "5"))
+
+  # Do we get merged keys when appropriate?
+  test <- guide_data(b, "colour")
+  expect_true(all(c("colour", "size") %in% colnames(test[[1]])))
+
+  # Does it warns for aesthetics that aren't mapped?
+  expect_warning(
+    test <- guide_data(b, "shape"),
+    "No scale"
+  )
+  expect_null(test)
+
+  # Does it warn for unsuitable panels?
+  expect_warning(
+    test <- guide_data(b, "x", i = 2, j = 2),
+    "no suitable panels"
+  )
+  expect_null(test)
+
+  # When `position = "none"` should return NULL
+  b$plot$theme$legend.position <- "none"
+  test <- guide_data(b, "fill")
+  expect_null(test)
+
+  # Should abort when making a typo
+  expect_error(
+    guide_data(b, 1),
+    "must be"
+  )
+})
+
+test_that("guide_data can retrieve axis information for different coords", {
+
+  p <- ggplot(mtcars, aes(mpg, disp)) + geom_point()
+
+  b <- ggplot_build(p + coord_polar())
+
+  # Should get theta labels for x
+  test <- guide_data(b, "x")
+  expect_equal(colnames(test[[1]]), c("theta.major", "theta.labels"))
+
+  # Should get r labels for x when theta = "y"
+  b$layout$coord$theta <- "y"
+  test <- guide_data(b, "x")
+  expect_equal(colnames(test[[1]]), c("r.major", "r.labels"))
+
+  # Should be able to get r/theta labels directly
+  test <- guide_data(b, "theta")
+  expect_equal(colnames(test[[1]]), c("theta.major", "theta.labels"))
+  test <- guide_data(b, "r")
+  expect_equal(colnames(test[[1]]), c("r.major", "r.labels"))
+
+  # Should work with coord_flip
+  test <- guide_data(p + coord_flip(), "x")
+  expect_equal(test[[1]]$.label, c("100", "200", "300", "400"))
+
+  skip_if_not_installed("sf")
+  nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE)
+  p <- ggplot(nc) +
+    geom_sf() +
+    coord_sf(label_axes = c("ENEN"))
+  b <- ggplot_build(p)
+
+  # Should extract graticule information
+  test <- guide_data(b, "x.sec")
+  expect_equal(test[[1]]$.value, seq(-84, -76, by = 2))
+
+  test <- guide_data(b, "y.sec")
+  expect_equal(test[[1]]$.value, seq(34, 36.5, by = 0.5))
+
+  # Should error when aesthetic is inappropriate
+  expect_error(
+    guide_data(b, "theta"),
+    "Cannot extract"
+  )
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("axis guides are drawn correctly", {
