@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* New `guide_data()` function to programmatically access information about the
+  guides, such as axes and legends, for a final plot (@teunbrand, #5004).
 * Fixed spurious warning when `weight` aesthetic was used in `stat_smooth()` 
   (@teunbrand based on @clauswilke's suggestion, #5053).
 * The `lwd` alias now correctly replaced by `linewidth` instead of `size` 

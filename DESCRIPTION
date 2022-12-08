@@ -177,6 +177,7 @@ Collate:
     'guide-bins.R'
     'guide-colorbar.r'
     'guide-colorsteps.R'
+    'guide-data.r'
     'guide-legend.r'
     'guides-.r'
     'guides-axis.r'
