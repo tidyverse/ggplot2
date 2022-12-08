@@ -10,7 +10,8 @@ update_geom_defaults(geom, new)
 update_stat_defaults(stat, new)
 }
 \arguments{
-\item{new}{Named list of aesthetics.}
+\item{new}{Named list of aesthetics. Alternatively, \code{NULL} to reset the
+defaults.}
 
 \item{stat, geom}{Name of geom/stat to modify (like \code{"point"} or
 \code{"bin"}), or a Geom/Stat object (like \code{GeomPoint} or
@@ -22,6 +23,7 @@ Modify geom/stat aesthetic defaults for future plots
 \examples{
 update_geom_defaults("point", list(colour = "darkblue"))
 ggplot(mtcars, aes(mpg, wt)) + geom_point()
-update_geom_defaults("point", list(colour = "black"))
+# Reset defaults by using `new = NULL`
+update_geom_defaults("point", NULL)
 }
 \keyword{internal}
