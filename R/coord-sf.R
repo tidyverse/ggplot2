@@ -320,34 +320,12 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     graticule <- panel_params$graticule
 
     # top axis
-    id1 <- id2 <- integer(0)
-    # labels based on panel side
-    id1 <- c(id1, which(graticule$type == panel_params$label_axes$top & graticule$y_start > 0.999))
-    id2 <- c(id2, which(graticule$type == panel_params$label_axes$top & graticule$y_end > 0.999))
+    key <- graticule_to_ticks(graticule, panel_params, "top")
 
-    # labels based on graticule direction
-    if ("S" %in% panel_params$label_graticule) {
-      id1 <- c(id1, which(graticule$type == "E" & graticule$y_start > 0.999))
-    }
-    if ("N" %in% panel_params$label_graticule) {
-      id2 <- c(id2, which(graticule$type == "E" & graticule$y_end > 0.999))
-    }
-    if ("W" %in% panel_params$label_graticule) {
-      id1 <- c(id1, which(graticule$type == "N" & graticule$y_start > 0.999))
-    }
-    if ("E" %in% panel_params$label_graticule) {
-      id2 <- c(id2, which(graticule$type == "N" & graticule$y_end > 0.999))
-    }
-
-    ticks1 <- graticule[unique0(id1), ]
-    ticks2 <- graticule[unique0(id2), ]
-    tick_positions <- c(ticks1$x_start, ticks2$x_end)
-    tick_labels <- c(ticks1$degree_label, ticks2$degree_label)
-
-    if (length(tick_positions) > 0) {
+    if (!is.null(key)) {
       top <- draw_axis(
-        tick_positions,
-        tick_labels,
+        key$x,
+        key$.label,
         axis_position = "top",
         theme = theme
       )
@@ -356,34 +334,12 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     }
 
     # bottom axis
-    id1 <- id2 <- integer(0)
-    # labels based on panel side
-    id1 <- c(id1, which(graticule$type == panel_params$label_axes$bottom & graticule$y_start < 0.001))
-    id2 <- c(id2, which(graticule$type == panel_params$label_axes$bottom & graticule$y_end < 0.001))
+    key <- graticule_to_ticks(graticule, panel_params, "bottom")
 
-    # labels based on graticule direction
-    if ("S" %in% panel_params$label_graticule) {
-      id1 <- c(id1, which(graticule$type == "E" & graticule$y_start < 0.001))
-    }
-    if ("N" %in% panel_params$label_graticule) {
-      id2 <- c(id2, which(graticule$type == "E" & graticule$y_end < 0.001))
-    }
-    if ("W" %in% panel_params$label_graticule) {
-      id1 <- c(id1, which(graticule$type == "N" & graticule$y_start < 0.001))
-    }
-    if ("E" %in% panel_params$label_graticule) {
-      id2 <- c(id2, which(graticule$type == "N" & graticule$y_end < 0.001))
-    }
-
-    ticks1 <- graticule[unique0(id1), ]
-    ticks2 <- graticule[unique0(id2), ]
-    tick_positions <- c(ticks1$x_start, ticks2$x_end)
-    tick_labels <- c(ticks1$degree_label, ticks2$degree_label)
-
-    if (length(tick_positions) > 0) {
+    if (!is.null(key)) {
       bottom <- draw_axis(
-        tick_positions,
-        tick_labels,
+        key$x,
+        key$.label,
         axis_position = "bottom",
         theme = theme
       )
@@ -397,35 +353,12 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
   render_axis_v = function(self, panel_params, theme) {
     graticule <- panel_params$graticule
 
-    # right axis
-    id1 <- id2 <- integer(0)
-    # labels based on panel side
-    id1 <- c(id1, which(graticule$type == panel_params$label_axes$right & graticule$x_end > 0.999))
-    id2 <- c(id2, which(graticule$type == panel_params$label_axes$right & graticule$x_start > 0.999))
+    key <- graticule_to_ticks(graticule, panel_params, "right")
 
-    # labels based on graticule direction
-    if ("N" %in% panel_params$label_graticule) {
-      id1 <- c(id1, which(graticule$type == "E" & graticule$x_end > 0.999))
-    }
-    if ("S" %in% panel_params$label_graticule) {
-      id2 <- c(id2, which(graticule$type == "E" & graticule$x_start > 0.999))
-    }
-    if ("E" %in% panel_params$label_graticule) {
-      id1 <- c(id1, which(graticule$type == "N" & graticule$x_end > 0.999))
-    }
-    if ("W" %in% panel_params$label_graticule) {
-      id2 <- c(id2, which(graticule$type == "N" & graticule$x_start > 0.999))
-    }
-
-    ticks1 <- graticule[unique0(id1), ]
-    ticks2 <- graticule[unique0(id2), ]
-    tick_positions <- c(ticks1$y_end, ticks2$y_start)
-    tick_labels <- c(ticks1$degree_label, ticks2$degree_label)
-
-    if (length(tick_positions) > 0) {
+    if (!is.null(key)) {
       right <- draw_axis(
-        tick_positions,
-        tick_labels,
+        key$y,
+        key$.label,
         axis_position = "right",
         theme = theme
       )
@@ -433,35 +366,12 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       right <- zeroGrob()
     }
 
-    # left axis
-    id1 <- id2 <- integer(0)
-    # labels based on panel side
-    id1 <- c(id1, which(graticule$type == panel_params$label_axes$left & graticule$x_end < 0.001))
-    id2 <- c(id2, which(graticule$type == panel_params$label_axes$left & graticule$x_start < 0.001))
+    key <- graticule_to_ticks(graticule, panel_params, "left")
 
-    # labels based on graticule direction
-    if ("N" %in% panel_params$label_graticule) {
-      id1 <- c(id1, which(graticule$type == "E" & graticule$x_end < 0.001))
-    }
-    if ("S" %in% panel_params$label_graticule) {
-      id2 <- c(id2, which(graticule$type == "E" & graticule$x_start < 0.001))
-    }
-    if ("E" %in% panel_params$label_graticule) {
-      id1 <- c(id1, which(graticule$type == "N" & graticule$x_end < 0.001))
-    }
-    if ("W" %in% panel_params$label_graticule) {
-      id2 <- c(id2, which(graticule$type == "N" & graticule$x_start < 0.001))
-    }
-
-    ticks1 <- graticule[unique0(id1), ]
-    ticks2 <- graticule[unique0(id2), ]
-    tick_positions <- c(ticks1$y_end, ticks2$y_start)
-    tick_labels <- c(ticks1$degree_label, ticks2$degree_label)
-
-    if (length(tick_positions) > 0) {
+    if (!is.null(key)) {
       left <- draw_axis(
-        tick_positions,
-        tick_labels,
+        key$y,
+        key$.label,
         axis_position = "left",
         theme = theme
       )
@@ -715,4 +625,71 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
 parse_axes_labeling <- function(x) {
   labs = unlist(strsplit(x, ""))
   list(top = labs[1], right = labs[2], bottom = labs[3], left = labs[4])
+}
+
+# In essence what guide_train + guide_transform does for sf graticules
+graticule_to_ticks <- function(graticule, panel, position) {
+
+  position  <- arg_match0(position, c("top", "bottom", "left", "right"))
+  aesthetic <- if (position %in% c("top", "bottom")) "x" else "y"
+
+  pos_check <- graticule$type == panel$label_axes[[position]]
+  thres <- if (position %in% c("bottom", "left")) 0.001 else 0.999
+  switch(
+    position,
+    "top" = {
+      start_check <- graticule$y_start > thres
+      end_check   <- graticule$y_end   > thres
+    },
+    "bottom" = {
+      start_check <- graticule$y_start < thres
+      end_check   <- graticule$y_end   < thres
+    },
+    # vertical ticks have flipped start/end logic here
+    "right" = {
+      start_check <- graticule$x_end   > thres
+      end_check   <- graticule$x_start > thres
+    },
+    "left" = {
+      start_check <- graticule$x_end   < thres
+      end_check   <- graticule$x_start < thres
+    }
+  )
+
+  id1 <- id2 <- integer(0)
+  id1 <- c(id1, which(pos_check & start_check))
+  id2 <- c(id2, which(pos_check & end_check))
+
+  if ("N" %in% panel$label_graticule) {
+    id1 <- c(id1, which(graticule$type == "E" & start_check))
+  }
+  if ("S" %in% panel$label_graticule) {
+    id2 <- c(id2, which(graticule$type == "E" & end_check))
+  }
+  if ("E" %in% panel$label_graticule) {
+    id1 <- c(id1, which(graticule$type == "N" & start_check))
+  }
+  if ("W" %in% panel$label_graticule) {
+    id2 <- c(id2, which(graticule$type == "N" & end_check))
+  }
+
+  ticks1 <- graticule[unique0(id1), ]
+  ticks2 <- graticule[unique0(id2), ]
+
+  if (position %in% c("top", "bottom")) {
+    tick_positions <- c(ticks1$x_start, ticks2$x_end)
+  } else {
+    tick_positions <- c(ticks1$y_end, ticks2$y_start)
+  }
+  if (length(tick_positions) == 0) {
+    return(NULL)
+  }
+
+  key <- data_frame(tick_positions, .name_repair = ~ aesthetic)
+  key$.value <- c(ticks1$degree, ticks2$degree)
+  key$.label <- c(ticks1$degree_label, ticks2$degree_label)
+  key[[setdiff(c("x", "y"), aesthetic)]] <- switch(
+    position, "top" = 1, "bottom" = 0, "left" = 0, "right" = 1
+  )
+  key
 }
