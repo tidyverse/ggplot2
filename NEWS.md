@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* `update_geom_defaults()` and `update_stat_defaults()` can now use `new = NULL`
+  to reset the original defaults (@teunbrand, #4993).
 * Fixed a regression in `geom_hex()` where aesthetics were replicated across 
   bins (@thomasp85, #5037 and #5044)
 * Fixed spurious warning when `weight` aesthetic was used in `stat_smooth()` 
