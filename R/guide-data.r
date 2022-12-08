@@ -32,10 +32,10 @@
 #' guide_data(p, "x", i = 1, j = 2)
 #'
 #' # Getting guide data for a legend
-#' guide_data(plot, "size")
+#' guide_data(p, "size")
 #'
 #' # If guides are merged, `guide_data()` reports merged guide data
-#' guide_data(plot + guides(colour = "legend"), "size")
+#' guide_data(p + guides(colour = "legend"), "size")
 guide_data <- function(
   plot = last_plot(), aesthetic, i = 1L, j = 1L
 ) {
