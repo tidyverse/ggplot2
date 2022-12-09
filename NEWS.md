@@ -4,7 +4,7 @@
   (@teunbrand based on @clauswilke's suggestion, #5053).
 * The `lwd` alias now correctly replaced by `linewidth` instead of `size` 
   (@teunbrand based on @clauswilke's suggestion #5051).
-* Fixed a regression in `Coord::train_panel_guides()` where names of guides were 
+* Fixed a regression in `Coord$train_panel_guides()` where names of guides were 
   dropped (@maxsutton, #5063)
   
 # ggplot2 3.4.0
