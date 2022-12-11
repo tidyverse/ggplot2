@@ -37,6 +37,6 @@ test_that("guide names are not removed by `train_panel_guides()`", {
   layout$setup_panel_guides(plot$guides, plot$layers, plot$mapping)
 
   # Line showing change in outcome
-  expect_equal(names(layout$panel_params[[1]]$guides),
+  expect_equal(names(layout$panel_params[[1]]$guides$aesthetics),
                c("x", "y", "x.sec", "y.sec"))
 })
