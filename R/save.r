@@ -147,8 +147,24 @@ plot_dim <- function(dim = c(NA, NA), scale = 1, units = "in",
   }
 
   if (limitsize && any(dim >= 50)) {
+    units <- switch(
+      units,
+      "in" = "inches",
+      "cm" = "centimeters",
+      "mm" = "millimeters",
+      "px" = "pixels"
+    )
+    msg <- paste0(
+      "Dimensions exceed 50 inches ({.arg height} and {.arg width} are ",
+      "specified in {.emph {units}}"
+    )
+    if (units == "pixels") {
+      msg <- paste0(msg, ").")
+    } else {
+      msg <- paste0(msg, " not pixels).")
+    }
     cli::cli_abort(c(
-      "Dimensions exceed 50 inches ({.arg height} and {.arg width} are specified in {.emph {units}} not pixels).",
+      msg,
       "i" = "If you're sure you want a plot that big, use {.code limitsize = FALSE}.
     "), call = call)
   }
