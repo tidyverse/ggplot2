@@ -1075,10 +1075,13 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
       # Ensure terminal bins are same width if limits not set
       if (is.null(self$limits)) {
         # Remove calculated breaks if they coincide with limits
-        breaks <- setdiff(breaks, limits)
+        breaks <- breaks[!breaks %in% limits]
         nbreaks <- length(breaks)
         if (nbreaks >= 2) {
-          new_limits <- c(2 * breaks[1] - breaks[2], 2 * breaks[nbreaks] - breaks[nbreaks - 1])
+          new_limits <- c(
+            breaks[1] + (breaks[1] - breaks[2]),
+            breaks[nbreaks] + (breaks[nbreaks] - breaks[nbreaks - 1])
+          )
           if (breaks[nbreaks] > limits[2]) {
             new_limits[2] <- breaks[nbreaks]
             breaks <- breaks[-nbreaks]
