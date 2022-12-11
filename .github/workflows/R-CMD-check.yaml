@@ -62,11 +62,8 @@ jobs:
           cache-version: 2
           extra-packages: >
             any::rcmdcheck,
-            maps=?ignore-before-r=3.5.0,
             Hmisc=?ignore-before-r=3.6.0,
-            mapproj=?ignore-before-r=3.5.0,
-            multcomp=?ignore-before-r=3.5.0,
-            quantreg=?ignore-before-r=3.5.0,
+            quantreg=?ignore-before-r=3.6.0,
           needs: check
 
       - uses: r-lib/actions/check-r-package@v2

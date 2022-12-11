@@ -1,4 +1,5 @@
 test_that("geom_quantile matches quantile regression", {
+  skip_if(packageVersion("base") < "3.6.0") # warnPartialMatchArgs didn't accept FALSE
   withr::local_options(
     warnPartialMatchArgs = FALSE,
     warnPartialMatchDollar = FALSE
