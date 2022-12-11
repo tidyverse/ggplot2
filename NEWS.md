@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Automatic breaks in `scale_*_binned()` should no longer be out-of-bounds,
+  and automatic limits expand to include these (@teunbrand, #5095, #5100).
 * Fixed a regression in `geom_hex()` where aesthetics were replicated across 
   bins (@thomasp85, #5037 and #5044)
 * Fixed spurious warning when `weight` aesthetic was used in `stat_smooth()` 
