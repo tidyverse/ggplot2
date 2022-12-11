@@ -1,5 +1,5 @@
-geom_defaults_cache <- new.env(parent = emptyenv())
-stat_defaults_cache <- new.env(parent = emptyenv())
+cache_geom_defaults <- new.env(parent = emptyenv())
+cache_stats_defaults <- new.env(parent = emptyenv())
 
 #' Modify geom/stat aesthetic defaults for future plots
 #'
@@ -20,10 +20,10 @@ update_geom_defaults <- function(geom, new) {
   if (is.null(new)) {
 
     vec_assert(geom, character(), 1)
-    old <- geom_defaults_cache[[geom]]
+    old <- cache_geom_defaults[[geom]]
     if (!is.null(old)) {
       new <- update_geom_defaults(geom, old)
-      env_unbind(geom_defaults_cache, geom)
+      env_unbind(cache_geom_defaults, geom)
     }
     invisible(new)
 
@@ -32,8 +32,8 @@ update_geom_defaults <- function(geom, new) {
     g <- check_subclass(geom, "Geom", env = parent.frame())
     old <- g$default_aes
     # Only update cache the first time
-    if (!geom %in% ls(geom_defaults_cache)) {
-      geom_defaults_cache[[geom]] <- old
+    if (!geom %in% ls(cache_geom_defaults)) {
+      cache_geom_defaults[[geom]] <- old
     }
     g$default_aes <- defaults(rename_aes(new), old)
     invisible(old)
@@ -47,10 +47,10 @@ update_stat_defaults <- function(stat, new) {
   if (is.null(new)) {
 
     vec_assert(stat, character(), 1)
-    old <- stat_defaults_cache[[stat]]
+    old <- cache_stats_defaults[[stat]]
     if (!is.null(old)) {
-      new <- update_geom_defaults(stat, old)
-      env_unbind(geom_defaults_cache, stat)
+      new <- update_stat_defaults(stat, old)
+      env_unbind(cache_stats_defaults, stat)
     }
     invisible(new)
 
@@ -59,8 +59,8 @@ update_stat_defaults <- function(stat, new) {
     g <- check_subclass(stat, "Stat", env = parent.frame())
     old <- g$default_aes
     # Only update cache the first time
-    if (!stat %in% ls(stat_defaults_cache)) {
-      stat_defaults_cache[[stat]] <- old
+    if (!stat %in% ls(cache_stats_defaults)) {
+      cache_stats_defaults[[stat]] <- old
     }
     g$default_aes <- defaults(rename_aes(new), old)
     invisible(old)
