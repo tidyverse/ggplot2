@@ -143,9 +143,10 @@ Coord <- ggproto("Coord",
   train_panel_guides = function(self, panel_params, layers, default_mapping, params = list()) {
 
     aesthetics <- c("x", "y", "x.sec", "y.sec")
-    names(aesthetics) <- aesthetics
+
     # If the panel_params doesn't contain the scale, there's no guide for the aesthetic
     aesthetics <- intersect(aesthetics, names(panel_params$guides$aesthetics))
+    names(aesthetics) <- aesthetics
 
     guides <- panel_params$guides$get_guide(aesthetics)
     empty  <- vapply(guides, inherits, logical(1), "GuideNone")

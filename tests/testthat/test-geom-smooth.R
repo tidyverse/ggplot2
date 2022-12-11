@@ -22,6 +22,7 @@ test_that("geom_smooth works in both directions", {
 })
 
 test_that("default smoothing methods for small and large data sets work", {
+  skip_if(packageVersion("base") < "3.6.0") # warnPartialMatchArgs didn't accept FALSE
   withr::local_options(warnPartialMatchArgs = FALSE)
   # Numeric differences on the MLK machine on CRAN makes these test fail
   # on that particular machine

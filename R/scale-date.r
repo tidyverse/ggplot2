@@ -15,10 +15,13 @@
 #'   - A function that takes the limits as input and returns breaks as output
 #' @param date_breaks A string giving the distance between breaks like "2
 #'   weeks", or "10 years". If both `breaks` and `date_breaks` are
-#'   specified, `date_breaks` wins.
+#'   specified, `date_breaks` wins. Valid specifications are 'sec', 'min',
+#'   'hour', 'day', 'week', 'month' or 'year', optionally followed by 's'.
 #' @param date_minor_breaks A string giving the distance between minor breaks
 #'   like "2 weeks", or "10 years". If both `minor_breaks` and
-#'   `date_minor_breaks` are specified, `date_minor_breaks` wins.
+#'   `date_minor_breaks` are specified, `date_minor_breaks` wins. Valid
+#'   specifications are 'sec', 'min', 'hour', 'day', 'week', 'month' or 'year',
+#'   optionally followed by 's'.
 #' @param minor_breaks One of:
 #'   - `NULL` for no breaks
 #'   - `waiver()` for the breaks specified by `date_minor_breaks`
@@ -282,14 +285,14 @@ datetime_scale <- function(aesthetics, trans, palette,
 
 
   # Backward compatibility
-  if (is.character(breaks)) breaks <- date_breaks(breaks)
-  if (is.character(minor_breaks)) minor_breaks <- date_breaks(minor_breaks)
+  if (is.character(breaks)) breaks <- breaks_width(breaks)
+  if (is.character(minor_breaks)) minor_breaks <- breaks_width(minor_breaks)
 
   if (!is.waive(date_breaks)) {
-    breaks <- date_breaks(date_breaks)
+    breaks <- breaks_width(date_breaks)
   }
   if (!is.waive(date_minor_breaks)) {
-    minor_breaks <- date_breaks(date_minor_breaks)
+    minor_breaks <- breaks_width(date_minor_breaks)
   }
   if (!is.waive(date_labels)) {
     labels <- function(self, x) {
