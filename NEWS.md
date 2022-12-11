@@ -2,11 +2,15 @@
 
 * Fixed misbehaviour of `draw_key_boxplot()` and `draw_key_crossbar()` with 
   skewed key aspect ratio (@teunbrand, #5082).
+* Fixed a regression in `geom_hex()` where aesthetics were replicated across 
+  bins (@thomasp85, #5037 and #5044)
 * Fixed spurious warning when `weight` aesthetic was used in `stat_smooth()` 
   (@teunbrand based on @clauswilke's suggestion, #5053).
 * The `lwd` alias now correctly replaced by `linewidth` instead of `size` 
   (@teunbrand based on @clauswilke's suggestion #5051).
-
+* Fixed a regression in `Coord$train_panel_guides()` where names of guides were 
+  dropped (@maxsutton, #5063)
+  
 # ggplot2 3.4.0
 This is a minor release focusing on tightening up the internals and ironing out
 some inconsistencies in the API. The biggest change is the addition of the 
