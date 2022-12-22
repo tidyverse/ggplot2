@@ -89,7 +89,7 @@ and will be output on the unused one.
 \section{Computed variables}{
 
 \describe{
-\item{y}{cumulative density corresponding x}
+\item{ecdf}{cumulative density corresponding x}
 }
 }
 
