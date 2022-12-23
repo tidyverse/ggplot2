@@ -6,11 +6,14 @@
 #' @export
 #' @rdname geom_bin_2d
 #' @section Computed variables:
+#' These are calculated by the 'stat' part of layers and can be accessed with
+#' [delayed evaluation][aes_eval].
 #' \describe{
-#'   \item{count}{number of points in bin}
-#'   \item{density}{density of points in bin, scaled to integrate to 1}
-#'   \item{ncount}{count, scaled to maximum of 1}
-#'   \item{ndensity}{density, scaled to maximum of 1}
+#'   \item{`after_stat(count)`}{number of points in bin}
+#'   \item{`after_stat(density)`}{density of points in bin, scaled to integrate
+#'     to 1}
+#'   \item{`after_stat(ncount)`}{count, scaled to maximum of 1}
+#'   \item{`after_stat(ndensity)`}{density, scaled to maximum of 1}
 #' }
 stat_bin_2d <- function(mapping = NULL, data = NULL,
                         geom = "tile", position = "identity",

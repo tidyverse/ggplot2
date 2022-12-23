@@ -5,14 +5,17 @@
 #'   the tails). If "count", areas are scaled proportionally to the number of
 #'   observations. If "width", all violins have the same maximum width.
 #' @section Computed variables:
+#' These are calculated by the 'stat' part of layers and can be accessed with
+#' [delayed evaluation][aes_eval].
 #' \describe{
-#'   \item{density}{density estimate}
-#'   \item{scaled}{density estimate, scaled to maximum of 1}
-#'   \item{count}{density * number of points - probably useless for violin plots}
-#'   \item{violinwidth}{density scaled for the violin plot, according to area, counts
-#'                      or to a constant maximum width}
-#'   \item{n}{number of points}
-#'   \item{width}{width of violin bounding box}
+#'   \item{`after_stat(density)`}{density estimate}
+#'   \item{`after_stat(scaled)`}{density estimate, scaled to maximum of 1}
+#'   \item{`after_stat(count)`}{density * number of points - probably useless
+#'     for violin plots}
+#'   \item{`after_stat(violinwidth)`}{density scaled for the violin plot,
+#'     according to area, counts or to a constant maximum width}
+#'   \item{`after_stat(n)`}{number of points}
+#'   \item{`after_stat(width)`}{width of violin bounding box}
 #' }
 #' @seealso [geom_violin()] for examples, and [stat_density()]
 #'   for examples with data along the x axis.

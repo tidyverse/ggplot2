@@ -21,13 +21,15 @@
 #'   reflecting tails outside `bounds` around their closest edge. Data points
 #'   outside of bounds are removed with a warning.
 #' @section Computed variables:
+#' These are calculated by the 'stat' part of layers and can be accessed with
+#' [delayed evaluation][aes_eval].
 #' \describe{
-#'   \item{density}{density estimate}
-#'   \item{count}{density * number of points - useful for stacked density
-#'      plots}
-#'   \item{scaled}{density estimate, scaled to maximum of 1}
-#'   \item{n}{number of points}
-#'   \item{ndensity}{alias for `scaled`, to mirror the syntax of
+#'   \item{`after_stat(density)`}{density estimate}
+#'   \item{`after_stat(count)`}{density * number of points - useful for stacked
+#'     density plots}
+#'   \item{`after_stat(scaled)`}{density estimate, scaled to maximum of 1}
+#'   \item{`after_stat(n)`}{number of points}
+#'   \item{`after_stat(ndensity)`}{alias for `scaled`, to mirror the syntax of
 #'    [`stat_bin()`]}
 #' }
 #' @export

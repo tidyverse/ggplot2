@@ -175,12 +175,15 @@ This geom treats each axis differently and, thus, can thus have two orientations
 
 \section{Computed variables}{
 
+These are calculated by the 'stat' part of layers and can be accessed with
+\link[=aes_eval]{delayed evaluation}.
 \describe{
-\item{\code{count}}{number of points in bin}
-\item{\code{density}}{density of points in bin, scaled to integrate to 1}
-\item{\code{ncount}}{count, scaled to maximum of 1}
-\item{\code{ndensity}}{density, scaled to maximum of 1}
-\item{\code{width}}{widths of bins}
+\item{\code{after_stat(count)}}{number of points in bin}
+\item{\code{after_stat(density)}}{density of points in bin, scaled to integrate
+to 1}
+\item{\code{after_stat(ncount)}}{count, scaled to maximum of 1}
+\item{\code{after_stat(ndensity)}}{density, scaled to maximum of 1}
+\item{\code{after_stat(width)}}{widths of bins}
 }
 }
 

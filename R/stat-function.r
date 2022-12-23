@@ -6,10 +6,12 @@
 #' @param args List of additional arguments passed on to the function defined by `fun`.
 #' @param xlim Optionally, specify the range of the function.
 #' @section Computed variables:
-#' `stat_function()` computes the following variables:
+#' These are calculated by the 'stat' part of layers and can be accessed with
+#' [delayed evaluation][aes_eval]. `stat_function()` computes the following
+#' variables:
 #' \describe{
-#'   \item{x}{x values along a grid}
-#'   \item{y}{value of the function evaluated at corresponding x}
+#'   \item{`after_stat(x)`}{x values along a grid}
+#'   \item{`after_stat(y)`}{value of the function evaluated at corresponding x}
 #' }
 #' @seealso [rlang::as_function()]
 #' @export

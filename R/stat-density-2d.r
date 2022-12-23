@@ -14,15 +14,17 @@
 #'    using the a bandwidth estimator. For example, `adjust = 1/2` means
 #'    use half of the default bandwidth.
 #' @section Computed variables:
-#' `stat_density_2d()` and `stat_density_2d_filled()` compute different
-#' variables depending on whether contouring is turned on or off. With
-#' contouring off (`contour = FALSE`), both stats behave the same, and the
-#' following variables are provided:
+#' These are calculated by the 'stat' part of layers and can be accessed with
+#' [delayed evaluation][aes_eval]. `stat_density_2d()` and
+#' `stat_density_2d_filled()` compute different variables depending on whether
+#' contouring is turned on or off. With contouring off (`contour = FALSE`), both
+#' stats behave the same, and the following variables are provided:
 #' \describe{
-#'   \item{`density`}{The density estimate.}
-#'   \item{`ndensity`}{Density estimate, scaled to a maximum of 1.}
-#'   \item{`count`}{Density estimate * number of observations in group.}
-#'   \item{`n`}{Number of observations in each group.}
+#'   \item{`after_stat(density)`}{The density estimate.}
+#'   \item{`after_stat(ndensity)`}{Density estimate, scaled to a maximum of 1.}
+#'   \item{`after_stat(count)`}{Density estimate * number of observations in
+#'     group.}
+#'   \item{`after_stat(n)`}{Number of observations in each group.}
 #' }
 #'
 #' With contouring on (`contour = TRUE`), either [stat_contour()] or

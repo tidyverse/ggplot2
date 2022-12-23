@@ -21,8 +21,10 @@
 #' @param pad If `TRUE`, pad the ecdf with additional points (-Inf, 0)
 #'   and (Inf, 1)
 #' @section Computed variables:
+#' These are calculated by the 'stat' part of layers and can be accessed with
+#' [delayed evaluation][aes_eval].
 #' \describe{
-#'   \item{y}{cumulative density corresponding x}
+#'   \item{`after_stat(y)`}{cumulative density corresponding x}
 #' }
 #' @export
 #' @examples

@@ -28,12 +28,15 @@
 #' @param pad If `TRUE`, adds empty bins at either end of x. This ensures
 #'   frequency polygons touch 0. Defaults to `FALSE`.
 #' @section Computed variables:
+#' These are calculated by the 'stat' part of layers and can be accessed with
+#' [delayed evaluation][aes_eval].
 #' \describe{
-#'   \item{`count`}{number of points in bin}
-#'   \item{`density`}{density of points in bin, scaled to integrate to 1}
-#'   \item{`ncount`}{count, scaled to maximum of 1}
-#'   \item{`ndensity`}{density, scaled to maximum of 1}
-#'   \item{`width`}{widths of bins}
+#'   \item{`after_stat(count)`}{number of points in bin}
+#'   \item{`after_stat(density)`}{density of points in bin, scaled to integrate
+#'     to 1}
+#'   \item{`after_stat(ncount)`}{count, scaled to maximum of 1}
+#'   \item{`after_stat(ndensity)`}{density, scaled to maximum of 1}
+#'   \item{`after_stat(width)`}{widths of bins}
 #' }
 #'
 #' @section Dropped variables:

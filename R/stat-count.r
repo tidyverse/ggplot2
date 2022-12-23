@@ -1,7 +1,9 @@
 #' @section Computed variables:
+#' These are calculated by the 'stat' part of layers and can be accessed with
+#' [delayed evaluation][aes_eval].
 #' \describe{
-#'   \item{count}{number of points in bin}
-#'   \item{prop}{groupwise proportion}
+#'   \item{`after_stat(count)`}{number of points in bin}
+#'   \item{`after_stat(prop)`}{groupwise proportion}
 #' }
 #' @seealso [stat_bin()], which bins data in ranges and counts the
 #'   cases in each range. It differs from `stat_count()`, which counts the

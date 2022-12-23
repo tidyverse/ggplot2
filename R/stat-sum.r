@@ -1,9 +1,11 @@
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @section Computed variables:
+#' These are calculated by the 'stat' part of layers and can be accessed with
+#' [delayed evaluation][aes_eval].
 #' \describe{
-#'  \item{n}{number of observations at position}
-#'  \item{prop}{percent of points in that panel at that position}
+#'  \item{`after_stat(n)`}{number of observations at position}
+#'  \item{`after_stat(prop)`}{percent of points in that panel at that position}
 #' }
 #' @export
 #' @rdname geom_count
