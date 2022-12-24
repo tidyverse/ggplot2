@@ -74,7 +74,7 @@ stat_ecdf <- function(mapping = NULL, data = NULL,
 StatEcdf <- ggproto("StatEcdf", Stat,
   required_aes = c("x|y"),
 
-  default_aes = aes(y = after_stat(y)),
+  default_aes = aes(y = after_stat(y), weight = NULL),
 
   setup_params = function(self, data, params) {
     params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = FALSE, main_is_continuous = TRUE)
@@ -100,7 +100,11 @@ StatEcdf <- ggproto("StatEcdf", Stat,
     if (pad) {
       x <- c(-Inf, x, Inf)
     }
-    data_ecdf <- ecdf(data$x)(x)
+    if (is.null(data$weight)) {
+      data_ecdf <- ecdf(data$x)(x)
+    } else {
+      data_ecdf <- wecdf(data$x, data$weight)(x)
+    }
 
     df_ecdf <- data_frame0(
       x = x,
@@ -109,6 +113,63 @@ StatEcdf <- ggproto("StatEcdf", Stat,
     )
     df_ecdf$flipped_aes <- flipped_aes
     flip_data(df_ecdf, flipped_aes)
-  }
+  },
+
+  dropped_aes = "weight"
 )
 
+# Weighted eCDF function
+wecdf <- function(x, weights = NULL) {
+  if (is.null(weights)) {
+    return(ecdf(x))
+  }
+  weights <- vec_recycle(weights, length(x))
+
+  # Sort vectors
+  ord <- order(x, na.last = NA)
+  x <- x[ord]
+  weights <- weights[ord]
+
+  if (any(!is.finite(weights))) {
+    cli::cli_warn(c(paste0(
+      "The {.field weight} aesthetic does not support non-finite or ",
+      "{.code NA} values."
+    ), "i" = "These weights were replaced by {.val 0}."))
+    weights[!is.finite(weights)] <- 0
+  }
+
+  # `total` replaces `length(x)`
+  total <- sum(weights)
+
+  if (abs(total) < 1000 * .Machine$double.eps) {
+    if (total == 0) {
+      cli::cli_abort(paste0(
+        "Cannot compute eCDF when the {.field weight} aesthetic sums up to ",
+        "{.val 0}."
+      ))
+    }
+    cli::cli_warn(c(
+      "The sum of the {.field weight} aesthetic is close to {.val 0}.",
+      "i" = "Computed eCDF might be unstable."
+    ))
+  }
+
+  # Link each observation to unique value
+  vals <- unique0(x)
+  matched <- match(x, vals)
+
+  # Instead of tabulating `matched`, as we would for unweighted `ecdf(x)`,
+  # we sum weights per unique value of `x`
+  agg_weights <- vapply(
+    split(weights, matched),
+    sum, numeric(1)
+  )
+
+  # Like `ecdf(x)`, we return an approx function
+  approxfun(
+    vals,
+    cumsum(agg_weights) / total,
+    method = "constant",
+    yleft = 0, yright = 1,
+    f = 0, ties = "ordered"
+  )
