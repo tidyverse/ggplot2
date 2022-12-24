@@ -86,10 +86,29 @@ use as the input and which to use as the output. Either x or y must be provided
 and one of them must be unused. The ECDF will be calculated on the given aesthetic
 and will be output on the unused one.
 }
+\section{Aesthetics}{
+
+\code{stat_ecdf()} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+\item \strong{\code{x} \emph{or} \code{y}}
+\item \code{group}
+\item \code{weight}
+}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
+}
+
 \section{Computed variables}{
 
 \describe{
 \item{y}{cumulative density corresponding x}
+}
+}
+
+\section{Dropped variables}{
+
+\describe{
+\item{weight}{After calculation, weights of individiual observations (if
+supplied), are no longer available.}
 }
 }
 
@@ -109,4 +128,15 @@ ggplot(df, aes(x)) +
 # Multiple ECDFs
 ggplot(df, aes(x, colour = g)) +
   stat_ecdf()
+
+# Using weighted eCDF
+weighted <- data.frame(x = 1:10, weights = c(1:5, 5:1))
+plain <- data.frame(x = rep(weighted$x, weighted$weights))
+
+ggplot(plain, aes(x)) +
+  stat_ecdf(linewidth = 1) +
+  stat_ecdf(
+    aes(weight = weights),
+    data = weighted, colour = "green"
+  )
 }

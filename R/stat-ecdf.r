@@ -20,9 +20,15 @@
 #'   of points to interpolate with.
 #' @param pad If `TRUE`, pad the ecdf with additional points (-Inf, 0)
 #'   and (Inf, 1)
+#' @eval rd_aesthetics("stat", "ecdf")
 #' @section Computed variables:
 #' \describe{
 #'   \item{y}{cumulative density corresponding x}
+#' }
+#' @section Dropped variables:
+#' \describe{
+#'   \item{weight}{After calculation, weights of individual observations (if
+#'     supplied), are no longer available.}
 #' }
 #' @export
 #' @examples
@@ -41,6 +47,17 @@
 #' # Multiple ECDFs
 #' ggplot(df, aes(x, colour = g)) +
 #'   stat_ecdf()
+#'
+#' # Using weighted eCDF
+#' weighted <- data.frame(x = 1:10, weights = c(1:5, 5:1))
+#' plain <- data.frame(x = rep(weighted$x, weighted$weights))
+#'
+#' ggplot(plain, aes(x)) +
+#'   stat_ecdf(linewidth = 1) +
+#'   stat_ecdf(
+#'     aes(weight = weights),
+#'     data = weighted, colour = "green"
+#'   )
 stat_ecdf <- function(mapping = NULL, data = NULL,
                       geom = "step", position = "identity",
                       ...,
@@ -173,3 +190,4 @@ wecdf <- function(x, weights = NULL) {
     yleft = 0, yright = 1,
     f = 0, ties = "ordered"
   )
+}
