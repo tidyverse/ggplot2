@@ -15,3 +15,44 @@ test_that("stat_ecdf works in both directions", {
   expect_snapshot_error(ggplot_build(p))
 })
 
+test_that("weighted ecdf computes sensible results", {
+
+  set.seed(42)
+  x <- rpois(100, 5)
+  ux <- sort(unique0(x))
+
+  # Uniform weights should be the same as the original
+  expect_equal(
+    ecdf(x)(ux),
+    wecdf(x, 10)(ux)
+  )
+
+  # Tabulated weights should be the same as the original
+  tab   <- as.data.frame(table(x), stringsAsFactors = FALSE)
+  tab$x <- as.numeric(tab$x)
+  expect_equal(
+    ecdf(x)(ux),
+    wecdf(tab$x, tab$Freq)(ux)
+  )
+})
+
+test_that("weighted ecdf wanrss about weird weights", {
+
+  # Should warn when provided with illegal weights
+  expect_warning(
+    wecdf(1:10, c(NA, rep(1, 9))),
+    "does not support non-finite"
+  )
+
+  # Should warn when provided with near-0 weights
+  expect_warning(
+    wecdf(1:10, .Machine$double.eps),
+    "might be unstable"
+  )
+
+  # Should error when weights sum to 0
+  expect_error(
+    wecdf(1:10, rep(c(-1, 1), 5)),
+    "Cannot compute eCDF"
+  )
+})
