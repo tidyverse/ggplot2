@@ -78,7 +78,7 @@ Geom <- ggproto("Geom",
     # Trim off extra parameters
     params <- params[intersect(names(params), self$parameters())]
 
-    if (length(levels(data$PANEL)) > 1L) {
+    if (nlevels(as.factor(data$PANEL)) > 1L) {
       data_panels <- split(data, data$PANEL)
     } else {
       data_panels <- list(data)
