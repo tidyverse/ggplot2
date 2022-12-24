@@ -1,5 +1,6 @@
 # ggplot2 (development version)
 
+* `stat_ecdf()` now has an optional `weight` aesthetic (@teunbrand, #5058).
 * Fixed a regression in `geom_hex()` where aesthetics were replicated across 
   bins (@thomasp85, #5037 and #5044)
 * Fixed spurious warning when `weight` aesthetic was used in `stat_smooth()` 
