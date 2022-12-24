@@ -90,16 +90,15 @@
 #' ggplot(mpg, aes(class, hwy)) +
 #'   geom_boxplot(aes(fill = stage(class, after_scale = alpha(fill, 0.4))))
 #'
-#' # Using data for computing summary, but placing label elsewhere, as well as
-#' # using the computed 'y' as part of the label.
+#' # Using data for computing summary, but placing label elsewhere.
+#' # Also, we're making our own computed variable to use for the label.
 #' ggplot(mpg, aes(class, displ)) +
 #'   geom_violin() +
 #'   stat_summary(
 #'     aes(y = stage(displ, after_stat = 8),
-#'         label = after_stat(paste(y, ymax, sep = " ± "))),
+#'         label = after_stat(paste(mean, "±", sd))),
 #'     geom = "text",
-#'     fun = ~ round(mean(.x), 2),
-#'     fun.max = ~ round(sd(.x), 2)
+#'     fun.data = ~ round(data.frame(mean = mean(.x), sd = sd(.x)), 2)
 #'   )
 #' ```
 #'
