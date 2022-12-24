@@ -36,7 +36,7 @@ test_that("weighted ecdf computes sensible results", {
   )
 })
 
-test_that("weighted ecdf wanrss about weird weights", {
+test_that("weighted ecdf warns about weird weights", {
 
   # Should warn when provided with illegal weights
   expect_warning(
