@@ -33,10 +33,11 @@ expression using variables calculated by the stat.}
 expression using layer aesthetics.}
 }
 \description{
-Most aesthetics are mapped from variables found in the data. Sometimes,
-however, you want to delay the mapping until later in the rendering process.
-ggplot2 has three stages of the data that you can map aesthetics from, and
-three functions to control at which stage aesthetics should be evaluated.
+Most \link[=aes]{aesthetics} are mapped from variables found in the data.
+Sometimes, however, you want to delay the mapping until later in the
+rendering process. ggplot2 has three stages of the data that you can map
+aesthetics from, and three functions to control at which stage aesthetics
+should be evaluated.
 }
 \note{
 \code{after_stat()} replaces the old approaches of using either \code{stat()}, e.g.
