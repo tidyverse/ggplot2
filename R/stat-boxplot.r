@@ -1,28 +1,21 @@
 #' @rdname geom_boxplot
 #' @param coef Length of the whiskers as multiple of IQR. Defaults to 1.5.
 #' @inheritParams stat_identity
-#' @section Computed variables:
-#' These are calculated by the 'stat' part of layers and can be accessed with
-#' [delayed evaluation][aes_eval]. `stat_boxplot()` provides the following
-#' variables, some of which depend on the orientation:
-#' \describe{
-#'   \item{`after_stat(width)`}{width of boxplot}
-#'   \item{`after_stat(ymin)` *or* `after_stat(xmin)`}{lower whisker = smallest
-#'     observation greater than or equal to lower hinge - 1.5 * IQR}
-#'   \item{`after_stat(lower)` *or* `after_stat(xlower)`}{lower hinge, 25%
-#'     quantile}
-#'   \item{`after_stat(notchlower)`}{lower edge of notch =
-#'     median - 1.58 * IQR / sqrt(n)}
-#'   \item{`after_stat(middle)` *or* `after_stat(xmiddle)`}{median,
-#'     50% quantile}
-#'   \item{`after_stat(notchupper)`}{upper edge of notch =
-#'     median + 1.58 * IQR / sqrt(n)}
-#'   \item{`after_stat(upper)` *or* `after_stat(xupper)`}{upper hinge, 75%
-#'     quantile}
-#'   \item{`after_stat(ymax)` *or* `after_stat(xmax)`}{upper whisker = largest
-#'     observation less than or equal to upper hinge + 1.5 * IQR}
-#' }
 #' @export
+#' @eval rd_computed_vars(
+#'   .details = "`stat_boxplot()` provides the following variables, some of
+#'   which depend on the orientation:",
+#'   width = "width of boxplot.",
+#'   "ymin|xmin" = "lower whisker = smallest observation greater than or equal
+#'   to lower hinger - 1.5 * IQR.",
+#'   "lower|xlower" = "lower hinge, 25% quantile.",
+#'   notchlower = "lower edge of notch = median - 1.58 * IQR / sqrt(n).",
+#'   "middle|xmiddle" = "median, 50% quantile.",
+#'   notchupper = "upper edge of notch = median + 1.58 * IQR / sqrt(n).",
+#'   "upper|xupper" = "upper hinge, 75% quantile.",
+#'   "ymax|xmax" = "upper whisker = largest observation less than or equal to
+#'   upper hinger + 1.5 * IQR."
+#' )
 stat_boxplot <- function(mapping = NULL, data = NULL,
                          geom = "boxplot", position = "dodge2",
                          ...,

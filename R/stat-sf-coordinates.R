@@ -24,13 +24,10 @@
 #' otherwise `sf::st_point_on_surface()` may fail when the geometries have M
 #' dimension.
 #'
-#' @section Computed variables:
-#' These are calculated by the 'stat' part of layers and can be accessed with
-#' [delayed evaluation][aes_eval].
-#' \describe{
-#'   \item{`after_stat(x)`}{X dimension of the simple feature}
-#'   \item{`after_stat(y)`}{Y dimension of the simple feature}
-#' }
+#' @eval rd_computed_vars(
+#'  x = "X dimension of the simple feature.",
+#'  y = "Y dimension of the simple feature."
+#' )
 #'
 #' @examples
 #' if (requireNamespace("sf", quietly = TRUE)) {

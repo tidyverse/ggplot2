@@ -10,13 +10,11 @@
 #'  - `x`: horizontal position
 #'  - `y`: vertical position
 #'  - `z`: value passed to the summary function
-#' @section Computed variables:
-#' These are calculated by the 'stat' part of layers and can be accessed with
-#' [delayed evaluation][aes_eval].
-#' \describe{
-#'   \item{`after_stat(x)`,`after_stat(y)`}{Location}
-#'   \item{`after_stat(value)`}{Value of summary statistic.}
-#' }
+#'
+#' @eval rd_computed_vars(
+#'   "x,y" = "Location.",
+#'   value = "Value of summary statistic."
+#' )
 #'
 #' @section Dropped variables:
 #' \describe{

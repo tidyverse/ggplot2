@@ -20,12 +20,9 @@
 #'   of points to interpolate with.
 #' @param pad If `TRUE`, pad the ecdf with additional points (-Inf, 0)
 #'   and (Inf, 1)
-#' @section Computed variables:
-#' These are calculated by the 'stat' part of layers and can be accessed with
-#' [delayed evaluation][aes_eval].
-#' \describe{
-#'   \item{`after_stat(y)`}{cumulative density corresponding x}
-#' }
+#' @eval rd_computed_vars(
+#'   y = "Cumulative density corresponding to `x`."
+#' )
 #' @export
 #' @examples
 #' set.seed(1)

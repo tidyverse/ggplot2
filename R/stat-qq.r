@@ -11,21 +11,20 @@
 #'   function.
 #' @inheritParams layer
 #' @inheritParams geom_point
-#' @section Computed variables:
-#' These are calculated by the 'stat' part of layers and can be accessed with
-#' [delayed evaluation][aes_eval].
-#' Variables computed by `stat_qq()`:
-#' \describe{
-#'   \item{`after_stat(sample)`}{sample quantiles}
-#'   \item{`after_stat(theoretical)`}{theoretical quantiles}
-#' }
-#' Variables computed by `stat_qq_line()`:
-#' \describe{
-#'   \item{`after_stat(x)`}{x-coordinates of the endpoints of the line segment
-#'     connecting the points at the chosen quantiles of the theoretical and the
-#'     sample distributions}
-#'   \item{`after_stat(y)`}{y-coordinates of the endpoints}
-#' }
+#' @eval rd_computed_vars(
+#'  .details = "\\cr Variables computed by `stat_qq()`:",
+#'  sample      = "Sample quantiles.",
+#'  theoretical = "Theoretical quantiles."
+#' )
+#' @eval rd_computed_vars(
+#'   .skip_intro = TRUE,
+#'   .details = "Variables computed by `stat_qq_line()`:",
+#'   x = "x-coordinates of the endpoints of the line segment connecting the
+#'   points at the chosen quantiles of the theoretical and the sample
+#'   distributions.",
+#'   y = "y-coordinates of the endpoints."
+#' )
+#'
 #' @export
 #' @examples
 #' \donttest{

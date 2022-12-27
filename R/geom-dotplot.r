@@ -17,21 +17,17 @@
 #' to match the number of dots.
 #'
 #' @eval rd_aesthetics("geom", "dotplot")
-#' @section Computed variables:
-#' These are calculated by the 'stat' part of layers and can be accessed with
-#' [delayed evaluation][aes_eval].
-#' \describe{
-#'   \item{`after_stat(x)`}{center of each bin, if binaxis is "x"}
-#'   \item{`after_stat(y)`}{center of each bin, if binaxis is "x"}
-#'   \item{`after_stat(binwidth)`}{max width of each bin if method is
-#'     "dotdensity"; width of each bin if method is "histodot"}
-#'   \item{`after_stat(count)`}{number of points in bin}
-#'   \item{`after_stat(ncount)`}{count, scaled to maximum of 1}
-#'   \item{`after_stat(density)`}{density of points in bin, scaled to integrate
-#'     to 1, if method is "histodot"}
-#'   \item{`after_stat(ndensity)`}{density, scaled to maximum of 1, if method is
-#'     "histodot"}
-#' }
+#' @eval rd_computed_vars(
+#'   x = 'center of each bin, if `binaxis` is `"x"`.',
+#'   y = 'center of each bin, if `binaxis` is `"x"`.',
+#'   binwidth = 'maximum width of each bin if method is `"dotdensity"`;
+#'   width of each bin if method is `"histodot"`.',
+#'   count   = "number of points in bin.",
+#'   ncount  = "count, scaled to a maximum of 1.",
+#'   density = 'density of points in bin, scaled to integrate to 1, if method
+#'   is `"histodot"`.',
+#'   ndensity = 'density, scaled to maximum of 1, if method is `"histodot"`.'
+#' )
 #'
 #' @inheritParams layer
 #' @inheritParams geom_point

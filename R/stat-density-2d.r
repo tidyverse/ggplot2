@@ -13,20 +13,18 @@
 #'    'NULL'. This makes it possible to adjust the bandwidth while still
 #'    using the a bandwidth estimator. For example, `adjust = 1/2` means
 #'    use half of the default bandwidth.
-#' @section Computed variables:
-#' These are calculated by the 'stat' part of layers and can be accessed with
-#' [delayed evaluation][aes_eval]. `stat_density_2d()` and
-#' `stat_density_2d_filled()` compute different variables depending on whether
-#' contouring is turned on or off. With contouring off (`contour = FALSE`), both
-#' stats behave the same, and the following variables are provided:
-#' \describe{
-#'   \item{`after_stat(density)`}{The density estimate.}
-#'   \item{`after_stat(ndensity)`}{Density estimate, scaled to a maximum of 1.}
-#'   \item{`after_stat(count)`}{Density estimate * number of observations in
-#'     group.}
-#'   \item{`after_stat(n)`}{Number of observations in each group.}
-#' }
+#' @eval rd_computed_vars(
+#'   .details = "`stat_density_2d()` and `stat_density_2d_filled()` compute
+#'   different variables depending on whether contouring is turned on or off.
+#'   With contouring off (`contour = FALSE`), both stats behave the same, and
+#'   the following variables are provided:",
+#'   density  = "The density estimate.",
+#'   ndensity = "Density estimate, scaled to a maximum of 1.",
+#'   count    = "Density estimate * number of observations in group.",
+#'   n        = "Number of observations in each group."
+#' )
 #'
+#' @section Computed variables:
 #' With contouring on (`contour = TRUE`), either [stat_contour()] or
 #' [stat_contour_filled()] (for contour lines or contour bands,
 #' respectively) is run after the density estimate has been obtained,

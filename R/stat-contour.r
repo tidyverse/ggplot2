@@ -3,24 +3,21 @@
 #' @export
 #' @eval rd_aesthetics("stat", "contour")
 #' @eval rd_aesthetics("stat", "contour_filled")
-#' @section Computed variables:
-#' These are calculated by the 'stat' part of layers and can be accessed with
-#' [delayed evaluation][aes_eval]. The computed variables differ somewhat for
-#' contour lines (computed by `stat_contour()`) and contour bands (filled
-#' contours, computed by `stat_contour_filled()`). The variables `nlevel` and
-#' `piece` are available for both, whereas `level_low`, `level_high`, and
-#' `level_mid` are only available for bands. The variable `level` is a numeric
-#' or a factor depending on whether lines or bands are calculated.
-#' \describe{
-#'  \item{`after_stat(level)`}{Height of contour. For contour lines, this is
-#'    numeric vector that represents bin boundaries. For contour bands, this is
-#'    an ordered factor that represents bin ranges.}
-#'  \item{`after_stat(level_low)`, `after_stat(level_high)`,
-#'    `after_stat(level_mid)`}{(contour bands only) Lower and upper bin
-#'    boundaries for each band, as well the mid point between the boundaries.}
-#'  \item{`after_stat(nlevel)`}{Height of contour, scaled to maximum of 1.}
-#'  \item{`after_stat(piece)`}{Contour piece (an integer).}
-#' }
+#' @eval rd_computed_vars(
+#'   .details = "The computed variables differ somewhat for contour lines
+#'   (compbuted by `stat_contour()`) and contour bands (filled contours,
+#'   computed by `stat_contour_filled()`). The variables `nlevel` and `piece`
+#'   are available for both, whereas `level_low`, `level_high`, and `level_mid`
+#'   are only available for bands. The variable `level` is a numeric or a factor
+#'   depending on whether lines or bands are calculated.",
+#'   level = "Height of contour. For contour lines, this is a numeric vector
+#'   that represents bin boundaries. For contour bands, this is an ordered
+#'   factor that represents bin ranges.",
+#'   "level_low,level_high,level_mid" = "(contour bands only) Lower and upper
+#'   bin boundaries for each band, as well as the mid point between boundaries.",
+#'   nlevel = "Height of contour, scaled to a maximum of 1.",
+#'   piece = "Contour piece (an integer)."
+#' )
 #'
 #' @section Dropped variables:
 #' \describe{

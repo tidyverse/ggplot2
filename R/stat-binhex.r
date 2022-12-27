@@ -1,16 +1,12 @@
 #' @export
 #' @rdname geom_hex
 #' @inheritParams stat_bin_2d
-#' @section Computed variables:
-#' These are calculated by the 'stat' part of layers and can be accessed with
-#' [delayed evaluation][aes_eval].
-#' \describe{
-#'   \item{`after_stat(count)`}{number of points in bin}
-#'   \item{`after_stat(density)`}{density of points in bin, scaled to integrate
-#'     to 1}
-#'   \item{`after_stat(ncount)`}{count, scaled to maximum of 1}
-#'   \item{`after_stat(ndensity)`}{density, scaled to maximum of 1}
-#' }
+#' @eval rd_computed_vars(
+#'   count    = "number of points in bin.",
+#'   density  = "density of points in bin, scaled to integrate to 1.",
+#'   ncount   = "count, scaled to maximum of 1.",
+#'   ndensity = "density, scaled to maximum of 1."
+#' )
 stat_bin_hex <- function(mapping = NULL, data = NULL,
                          geom = "hex", position = "identity",
                          ...,

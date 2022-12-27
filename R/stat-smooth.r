@@ -32,18 +32,15 @@
 #' @param n Number of points at which to evaluate smoother.
 #' @param method.args List of additional arguments passed on to the modelling
 #'   function defined by `method`.
-#' @section Computed variables:
-#' These are calculated by the 'stat' part of layers and can be accessed with
-#' [delayed evaluation][aes_eval]. `stat_smooth()` provides the following
-#' variables, some of which depend on the orientation:
-#' \describe{
-#'   \item{`after_stat(y)` *or* `after_stat(x)`}{predicted value}
-#'   \item{`after_stat(ymin)` *or* `after_stat(xmin)`}{lower pointwise
-#'     confidence interval around the mean}
-#'   \item{`after_stat(ymax)` *or* `after_stat(xmax)`}{upper pointwise
-#'     confidence interval around the mean}
-#'   \item{`after_stat(se)`}{standard error}
-#' }
+#'
+#' @eval rd_computed_vars(
+#'   .details = "`stat_smooth()` provides the following variables, some of
+#'   which depend on the orientation:",
+#'   "y|x" = "Predicted value.",
+#'   "ymin|xmin" = "Lower pointwise confidence interval around the mean.",
+#'   "ymax|xmax" = "Upper pointwise confidence interval around the mean.",
+#'   "se" = "Standard error."
+#' )
 #' @export
 #' @rdname geom_smooth
 stat_smooth <- function(mapping = NULL, data = NULL,
