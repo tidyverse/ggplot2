@@ -6,7 +6,8 @@
 #' three functions to control at which stage aesthetics should be evaluated.
 #'
 #' @usage # These functions can be used inside the `aes()` function
-#' # used as the `mapping` argument in layers.
+#' # used as the `mapping` argument in layers, for example:
+#' # geom_density(mapping = aes(y = after_stat(scaled)))
 #'
 #' @param x <[`data-masking`][rlang::topic-data-mask]> An aesthetic expression
 #'   using variables calculated by the stat (`after_stat()`) or layer aesthetics
@@ -18,39 +19,36 @@
 #' @param after_scale <[`data-masking`][rlang::topic-data-mask]> An aesthetic
 #'   expression using layer aesthetics.
 #'
-#' @note
-#' `after_stat()` replaces the old approaches of using either `stat()` or
-#' surrounding the variable names with `..`.
-#'
-#' @section Staging:
+#' @details
+#' # Staging
 #' Below follows an overview of the three stages of evaluation and how aesthetic
 #' evaluation can be controlled.
 #'
 #' ## Stage 1: direct input
-#'   The default is to map at the beginning, using the layer data provided by
-#'   the user. If you want to map directly from the layer data you should not do
-#'   anything special. This is the only stage where the original layer data can
-#'   be accessed.
+#' The default is to map at the beginning, using the layer data provided by
+#' the user. If you want to map directly from the layer data you should not do
+#' anything special. This is the only stage where the original layer data can
+#' be accessed.
 #'
-#' ```{r direct_input, eval = FALSE}
+#' ```r
 #' # 'x' and 'y' are mapped directly
 #' ggplot(mtcars) + geom_point(aes(x = mpg, y = disp))
 #' ```
 #'
 #' ## Stage 2: after stat transformation
-#'   The second stage is after the data has been transformed by the layer
-#'   stat. The most common example of mapping from stat transformed data is the
-#'   height of bars in [geom_histogram()]: the height does not come from a
-#'   variable in the underlying data, but is instead mapped to the `count`
-#'   computed by [stat_bin()]. In order to map from stat transformed data you
-#'   should use the `after_stat()` function to flag that evaluation of the
-#'   aesthetic mapping should be postponed until after stat transformation.
-#'   Evaluation after stat transformation will have access to the variables
-#'   calculated by the stat, not the original mapped values. The 'computed
-#'   variables' section in each stat lists which variables are available to
-#'   access.
+#' The second stage is after the data has been transformed by the layer
+#' stat. The most common example of mapping from stat transformed data is the
+#' height of bars in [geom_histogram()]: the height does not come from a
+#' variable in the underlying data, but is instead mapped to the `count`
+#' computed by [stat_bin()]. In order to map from stat transformed data you
+#' should use the `after_stat()` function to flag that evaluation of the
+#' aesthetic mapping should be postponed until after stat transformation.
+#' Evaluation after stat transformation will have access to the variables
+#' calculated by the stat, not the original mapped values. The 'computed
+#' variables' section in each stat lists which variables are available to
+#' access.
 #'
-#' ```{r after_stat_transformation, eval = FALSE}
+#' ```r
 #' # The 'y' values for the histogram are computed by the stat
 #' ggplot(faithful, aes(x = waiting)) +
 #'   geom_histogram()
@@ -63,14 +61,14 @@
 #' ```
 #'
 #' ## Stage 3: after scale transformation
-#'   The third and last stage is after the data has been transformed and
-#'   mapped by the plot scales. An example of mapping from scaled data could
-#'   be to use a desaturated version of the stroke colour for fill. You should
-#'   use `after_scale()` to flag evaluation of mapping for after data has been
-#'   scaled. Evaluation after scaling will only have access to the final
-#'   aesthetics of the layer (including non-mapped, default aesthetics).
+#' The third and last stage is after the data has been transformed and
+#' mapped by the plot scales. An example of mapping from scaled data could
+#' be to use a desaturated version of the stroke colour for fill. You should
+#' use `after_scale()` to flag evaluation of mapping for after data has been
+#' scaled. Evaluation after scaling will only have access to the final
+#' aesthetics of the layer (including non-mapped, default aesthetics).
 #'
-#' ```{r after_scale_transformation, eval = FALSE}
+#' ```r
 #' # The exact colour is known after scale transformation
 #' ggplot(mpg, aes(cty, colour = factor(cyl))) +
 #'   geom_density()
@@ -85,7 +83,7 @@
 #'   data column for the stat, but remap it for the geom, you can use the
 #'   `stage()` function to collect multiple mappings.
 #'
-#' ```{r complex_staging, eval = FALSE}
+#' ```r
 #' # Use stage to modify the scaled fill
 #' ggplot(mpg, aes(class, hwy)) +
 #'   geom_boxplot(aes(fill = stage(class, after_scale = alpha(fill, 0.4))))
@@ -95,13 +93,18 @@
 #' ggplot(mpg, aes(class, displ)) +
 #'   geom_violin() +
 #'   stat_summary(
-#'     aes(y = stage(displ, after_stat = 8),
-#'         label = after_stat(paste(mean, "±", sd))),
+#'     aes(
+#'       y = stage(displ, after_stat = 8),
+#'       label = after_stat(paste(mean, "±", sd))
+#'     ),
 #'     geom = "text",
 #'     fun.data = ~ round(data.frame(mean = mean(.x), sd = sd(.x)), 2)
 #'   )
 #' ```
-#'
+#' @note
+#' `after_stat()` replaces the old approaches of using either `stat()`, e.g.
+#' `stat(density)`, or surrounding the variable names with `..`, e.g.
+#' `..density..`.
 #' @rdname aes_eval
 #' @name aes_eval
 #'
@@ -125,9 +128,11 @@
 #' # Making a proportional stacked density plot
 #' ggplot(mpg, aes(cty)) +
 #'   geom_density(
-#'     aes(colour = factor(cyl),
-#'         fill = after_scale(alpha(colour, 0.3)),
-#'         y = after_stat(count / sum(n[!duplicated(group)]))),
+#'     aes(
+#'       colour = factor(cyl),
+#'       fill = after_scale(alpha(colour, 0.3)),
+#'       y = after_stat(count / sum(n[!duplicated(group)]))
+#'     ),
 #'     position = "stack", bw = 1
 #'   ) +
 #'   geom_density(bw = 1)
@@ -136,17 +141,21 @@
 #' ggplot(mpg, aes(cty, colour = factor(cyl))) +
 #'   geom_ribbon(
 #'     stat = "density", outline.type = "upper",
-#'     aes(fill = after_scale(alpha(colour, 0.3)),
-#'         ymin = after_stat(group),
-#'         ymax = after_stat(group + ndensity))
+#'     aes(
+#'       fill = after_scale(alpha(colour, 0.3)),
+#'       ymin = after_stat(group),
+#'       ymax = after_stat(group + ndensity)
+#'     )
 #'   )
 #'
 #' # Labelling a bar plot
 #' ggplot(mpg, aes(class)) +
 #'   geom_bar() +
 #'   geom_text(
-#'     aes(y = after_stat(count + 2),
-#'         label = after_stat(count)),
+#'     aes(
+#'       y = after_stat(count + 2),
+#'       label = after_stat(count)
+#'     ),
 #'     stat = "count"
 #'   )
 #'
@@ -155,8 +164,10 @@
 #' ggplot(mpg, aes(displ, class)) +
 #'   geom_boxplot(outlier.shape = NA) +
 #'   geom_text(
-#'     aes(label = after_stat(xmax),
-#'         x = stage(displ, after_stat = xmax)),
+#'     aes(
+#'       label = after_stat(xmax),
+#'       x = stage(displ, after_stat = xmax)
+#'     ),
 #'     stat = "boxplot", hjust = -0.5
 #'   )
 NULL

@@ -9,7 +9,8 @@
 \title{Control aesthetic evaluation}
 \usage{
 # These functions can be used inside the `aes()` function
-# used as the `mapping` argument in layers.
+# used as the `mapping` argument in layers, for example:
+# geom_density(mapping = aes(y = after_stat(scaled)))
 
 after_stat(x)
 
@@ -38,11 +39,11 @@ ggplot2 has three stages of the data that you can map aesthetics from, and
 three functions to control at which stage aesthetics should be evaluated.
 }
 \note{
-\code{after_stat()} replaces the old approaches of using either \code{stat()} or
-surrounding the variable names with \code{..}.
+\code{after_stat()} replaces the old approaches of using either \code{stat()}, e.g.
+\code{stat(density)}, or surrounding the variable names with \code{..}, e.g.
+\code{..density..}.
 }
 \section{Staging}{
-
 Below follows an overview of the three stages of evaluation and how aesthetic
 evaluation can be controlled.
 \subsection{Stage 1: direct input}{
@@ -117,8 +118,10 @@ ggplot(mpg, aes(class, hwy)) +
 ggplot(mpg, aes(class, displ)) +
   geom_violin() +
   stat_summary(
-    aes(y = stage(displ, after_stat = 8),
-        label = after_stat(paste(mean, "±", sd))),
+    aes(
+      y = stage(displ, after_stat = 8),
+      label = after_stat(paste(mean, "±", sd))
+    ),
     geom = "text",
     fun.data = ~ round(data.frame(mean = mean(.x), sd = sd(.x)), 2)
   )
@@ -146,9 +149,11 @@ ggplot(mpg, aes(class, hwy)) +
 # Making a proportional stacked density plot
 ggplot(mpg, aes(cty)) +
   geom_density(
-    aes(colour = factor(cyl),
-        fill = after_scale(alpha(colour, 0.3)),
-        y = after_stat(count / sum(n[!duplicated(group)]))),
+    aes(
+      colour = factor(cyl),
+      fill = after_scale(alpha(colour, 0.3)),
+      y = after_stat(count / sum(n[!duplicated(group)]))
+    ),
     position = "stack", bw = 1
   ) +
   geom_density(bw = 1)
@@ -157,17 +162,21 @@ ggplot(mpg, aes(cty)) +
 ggplot(mpg, aes(cty, colour = factor(cyl))) +
   geom_ribbon(
     stat = "density", outline.type = "upper",
-    aes(fill = after_scale(alpha(colour, 0.3)),
-        ymin = after_stat(group),
-        ymax = after_stat(group + ndensity))
+    aes(
+      fill = after_scale(alpha(colour, 0.3)),
+      ymin = after_stat(group),
+      ymax = after_stat(group + ndensity)
+    )
   )
 
 # Labelling a bar plot
 ggplot(mpg, aes(class)) +
   geom_bar() +
   geom_text(
-    aes(y = after_stat(count + 2),
-        label = after_stat(count)),
+    aes(
+      y = after_stat(count + 2),
+      label = after_stat(count)
+    ),
     stat = "count"
   )
 
@@ -176,8 +185,10 @@ ggplot(mpg, aes(class)) +
 ggplot(mpg, aes(displ, class)) +
   geom_boxplot(outlier.shape = NA) +
   geom_text(
-    aes(label = after_stat(xmax),
-        x = stage(displ, after_stat = xmax)),
+    aes(
+      label = after_stat(xmax),
+      x = stage(displ, after_stat = xmax)
+    ),
     stat = "boxplot", hjust = -0.5
   )
 }
