@@ -12,6 +12,12 @@
 #' `xmin`, `xmax`, `ymin`  and `ymax` can be used to specify the position of
 #' annotations and to represent rectangular areas.
 #'
+#' In addition, there are position aesthetics that are contextual to the
+#' geometry that they're used in. These are `xintercept`, `yintercept`,
+#' `xmin_final`, `ymin_final`, `xmax_final`, `ymax_final`, `xlower`, `lower`,
+#' `xmiddle`, `middle`, `xupper`, `upper`, `x0` and `y0`. Many of these are used
+#' and automatically computed in [`geom_boxplot()`].
+#'
 #' @name aes_position
 #' @aliases x y xmin xmax ymin ymax xend yend
 #'
@@ -20,6 +26,8 @@
 #' [geom_curve()], [geom_errorbar()], [geom_line()], [geom_linerange()],
 #' [geom_path()], [geom_point()], [geom_pointrange()], [geom_rect()],
 #' [geom_segment()]
+#' * Scales that can be used to modify positions: [scale_continuous()],
+#'   [scale_discrete()], [scale_binned()], [scale_date()].
 #' * See also [annotate()] for placing annotations.
 #' @examples
 #'

@@ -8,6 +8,12 @@
 #'
 #' @section Colour and fill:
 #'
+#' The `colour` aesthetic is used to draw lines and strokes, such as in
+#' [`geom_point()`] and [`geom_line()`], but also the line contours of
+#' [`geom_rect()`] and [`geom_polygon()`]. The `fill` aesthetic is used to
+#' colour the inside areas of geoms, such as [`geom_rect()`] and
+#' [`geom_polygon()`], but also the insides of shapes 21-25 of [`geom_point()`].
+#'
 #' Colours and fills can be specified in the following ways:
 #' * A name, e.g., `"red"`. R has 657 built-in named colours, which can be
 #' listed with [grDevices::colors()].
