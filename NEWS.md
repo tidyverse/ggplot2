@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* The default width of `geom_bar()` is now based on panel-wise resolution of
+  the data, rather than global resolution (@teunbrand, #4336).
 * `ggsave()` warns when multiple `filename`s are given, and only writes to the
   first file (@teunbrand, #5114).
 * Fixed a regression in `geom_hex()` where aesthetics were replicated across 
