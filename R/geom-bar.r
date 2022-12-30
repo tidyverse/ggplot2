@@ -144,7 +144,10 @@ GeomBar <- ggproto("GeomBar", GeomRect,
     data$flipped_aes <- params$flipped_aes
     data <- flip_data(data, params$flipped_aes)
     data$width <- data$width %||%
-      params$width %||% (resolution(data$x, FALSE) * 0.9)
+      params$width %||% (min(vapply(
+        split(data$x, data$PANEL),
+        resolution, numeric(1), zero = FALSE
+      )) * 0.9)
     data$just <- params$just %||% 0.5
     data <- transform(data,
       ymin = pmin(y, 0), ymax = pmax(y, 0),
