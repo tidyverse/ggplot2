@@ -30,8 +30,9 @@
 #'
 #' @seealso
 #' * Geoms commonly used with groups: [geom_bar()], [geom_histogram()], [geom_line()]
-#' * Run `vignette("ggplot2-specs")` to see an overview of other aesthestics that
+#' * Run `vignette("ggplot2-specs")` to see an overview of other aesthetics that
 #' can be modified.
+#' @family aesthetics documentation
 #'
 #' @examples
 #' \donttest{

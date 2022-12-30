@@ -31,6 +31,10 @@ NULL
 #'   are typically omitted because they are so common; all other aesthetics must be named.
 #' @seealso [vars()] for another quoting function designed for
 #'   faceting specifications.
+#'
+#'   Run `vignette("ggplot2-specs")` to see an overview of other aesthetics
+#'   that can be modified.
+#' @family aesthetics documentation
 #' @return A list with class `uneval`. Components of the list are either
 #'   quosures or constants.
 #' @export

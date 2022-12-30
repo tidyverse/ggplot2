@@ -38,8 +38,11 @@
 #'  with these aesthetics.
 #' * [aes_group_order()] for using `linetype`, `size`, or
 #' `shape` for grouping.
-#' * Run `vignette("ggplot2-specs")` to see an overview of other aesthestics that
+#' * Scales that can be used to modify these aesthetics: [`scale_linetype()`],
+#'   [`scale_linewidth()`], [`scale_size()`], and [`scale_shape()`].
+#' * Run `vignette("ggplot2-specs")` to see an overview of other aesthetics that
 #' can be modified.
+#' @family aesthetics documentation
 #' @name aes_linetype_size_shape
 #' @aliases linetype size shape
 #' @examples

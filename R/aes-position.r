@@ -29,6 +29,7 @@
 #' * Scales that can be used to modify positions: [scale_continuous()],
 #'   [scale_discrete()], [scale_binned()], [scale_date()].
 #' * See also [annotate()] for placing annotations.
+#' @family aesthetics documentation
 #' @examples
 #'
 #' # Generate data: means and standard errors of means for prices

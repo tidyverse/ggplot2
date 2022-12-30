@@ -44,9 +44,11 @@
 #' [scale_fill_gradient()], [scale_fill_grey()],
 #' [scale_fill_hue()], [scale_fill_identity()],
 #' [scale_fill_manual()], [scale_fill_viridis_d()]
-#' * Other options for modifying alpha: [scale_alpha()]
-#' * Run `vignette("ggplot2-specs")` to see an overview of other aesthestics that
+#' * Other options for modifying alpha:
+#' [scale_alpha()], [scale_alpha_manual()], [scale_alpha_identity()]
+#' * Run `vignette("ggplot2-specs")` to see an overview of other aesthetics that
 #' can be modified.
+#' @family aesthetics documentation
 #'
 #' @name aes_colour_fill_alpha
 #' @aliases colour color fill
