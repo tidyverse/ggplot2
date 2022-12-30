@@ -59,7 +59,7 @@ rd_match_docpage <- function(aes) {
     "]{", flat[!no_match], "}"
   )
   docpage[no_match] <- flat[no_match]
-  docpage <- relist(docpage, split)
+  docpage <- split(docpage, rep(seq_along(split), lengths(split, FALSE)))
   vapply(docpage, paste, character(1), collapse = "} \\emph{or} \\code{")
 }
 
