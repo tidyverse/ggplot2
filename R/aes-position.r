@@ -26,8 +26,11 @@
 #' [geom_curve()], [geom_errorbar()], [geom_line()], [geom_linerange()],
 #' [geom_path()], [geom_point()], [geom_pointrange()], [geom_rect()],
 #' [geom_segment()]
-#' * Scales that can be used to modify positions: [scale_continuous()],
-#'   [scale_discrete()], [scale_binned()], [scale_date()].
+#' * Scales that can be used to modify positions:
+#'   [`scale_continuous()`][scale_x_continuous()],
+#'   [`scale_discrete()`][scale_x_discrete()],
+#'   [`scale_binned()`][scale_x_binned()],
+#'   [`scale_date()`][scale_x_date()].
 #' * See also [annotate()] for placing annotations.
 #' @family aesthetics documentation
 #' @examples
