@@ -86,4 +86,14 @@ scatter_by(mtcars, cut3(disp), drat)
 \seealso{
 \code{\link[=vars]{vars()}} for another quoting function designed for
 faceting specifications.
+
+Run \code{vignette("ggplot2-specs")} to see an overview of other aesthetics
+that can be modified.
+
+Other aesthetics documentation: 
+\code{\link{aes_colour_fill_alpha}},
+\code{\link{aes_group_order}},
+\code{\link{aes_linetype_size_shape}},
+\code{\link{aes_position}}
 }
+\concept{aesthetics documentation}

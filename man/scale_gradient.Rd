@@ -277,12 +277,16 @@ ggplot(df_na, aes(x = value, y)) +
 \code{\link[scales:seq_gradient_pal]{scales::seq_gradient_pal()}} for details on underlying
 palette, \code{\link[=scale_colour_steps]{scale_colour_steps()}} for binned variants of these scales.
 
+The documentation on \link[=aes_colour_fill_alpha]{colour aesthetics}.
+
 Other colour scales: 
 \code{\link{scale_alpha}()},
 \code{\link{scale_colour_brewer}()},
 \code{\link{scale_colour_continuous}()},
 \code{\link{scale_colour_grey}()},
 \code{\link{scale_colour_hue}()},
+\code{\link{scale_colour_identity}()},
+\code{\link{scale_colour_manual}()},
 \code{\link{scale_colour_steps}()},
 \code{\link{scale_colour_viridis_d}()}
 }

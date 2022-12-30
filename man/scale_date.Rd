@@ -228,6 +228,8 @@ base + scale_x_date(limits = c(Sys.Date() - 7, NA))
 \seealso{
 \code{\link[=sec_axis]{sec_axis()}} for how to specify secondary axes
 
+The \link[=aes_position]{position documentation}.
+
 Other position scales: 
 \code{\link{scale_x_binned}()},
 \code{\link{scale_x_continuous}()},

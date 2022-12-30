@@ -97,3 +97,8 @@ ggplot(df_lines) +
   facet_grid(linetype ~ .) +
   theme_void(20)
 }
+\seealso{
+The documentation for \link[=aes_linetype_size_shape]{differentiation related aesthetics}.
+
+Other linetype scales: \code{\link[=scale_linetype_manual]{scale_linetype_manual()}}, \code{\link[=scale_linetype_identity]{scale_linetype_identity()}}.
+}

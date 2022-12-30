@@ -148,9 +148,9 @@ This geom treats each axis differently and, thus, can thus have two orientations
 
 \code{stat_summary()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
-\item \strong{\code{x}}
-\item \strong{\code{y}}
-\item \code{group}
+\item \strong{\code{\link[=aes_position]{x}}}
+\item \strong{\code{\link[=aes_position]{y}}}
+\item \code{\link[=aes_group_order]{group}}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

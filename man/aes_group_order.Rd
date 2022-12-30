@@ -17,6 +17,16 @@ discrete variables to \code{x}, \code{y}, \code{colour}, \code{fill}, \code{alph
 and/or \code{linetype}. This is demonstrated in the examples below.
 
 There are three common cases where the default does not display the data correctly.
+\enumerate{
+\item \code{geom_line()} where there are multiple individuals and the plot tries to
+connect every observation, even across individuals, with a line.
+\item \code{geom_line()} where a discrete x-position implies groups, whereas observations
+span the discrete x-positions.
+\item When the grouping needs to be different over different layers, for example
+when computing a statistic on all observations when another layer shows
+individuals.
+}
+
 The examples below use a longitudinal dataset, \code{Oxboys}, from the nlme package to demonstrate
 these cases. \code{Oxboys} records the heights (height) and centered ages (age) of 26 boys (Subject),
 measured on nine occasions (Occasion).
@@ -77,7 +87,14 @@ p + geom_line(aes(group = Subject), colour = "blue")
 \seealso{
 \itemize{
 \item Geoms commonly used with groups: \code{\link[=geom_bar]{geom_bar()}}, \code{\link[=geom_histogram]{geom_histogram()}}, \code{\link[=geom_line]{geom_line()}}
-\item Run \code{vignette("ggplot2-specs")} to see an overview of other aesthestics that
+\item Run \code{vignette("ggplot2-specs")} to see an overview of other aesthetics that
 can be modified.
 }
+
+Other aesthetics documentation: 
+\code{\link{aes_colour_fill_alpha}},
+\code{\link{aes_linetype_size_shape}},
+\code{\link{aes_position}},
+\code{\link{aes}()}
 }
+\concept{aesthetics documentation}

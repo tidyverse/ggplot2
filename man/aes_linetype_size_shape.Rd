@@ -7,25 +7,46 @@
 \alias{shape}
 \title{Differentiation related aesthetics: linetype, size, shape}
 \description{
-The \code{linetype}, \code{size}, and \code{shape} aesthetics modify the appearance of
-lines and/or points. They also apply to the outlines of polygons (\code{linetype}
-and \code{size}) or to text (\code{size}).
+The \code{linetype}, \code{linewidth}, \code{size}, and \code{shape} aesthetics modify the
+appearance of lines and/or points. They also apply to the outlines of
+polygons (\code{linetype} and \code{linewidth}) or to text (\code{size}).
+}
+\section{Linetype}{
 
 The \code{linetype} aesthetic can be specified with either an integer (0-6), a
 name (0 = blank, 1 = solid, 2 = dashed, 3 = dotted, 4 = dotdash, 5 = longdash,
 6 = twodash), a mapping to a discrete variable, or a string of an even number
 (up to eight) of hexadecimal digits which give the lengths in consecutive
 positions in the string. See examples for a hex string demonstration.
-
-The \code{size} aesthetic can be specified with a numerical value (in millimetres)
-or via a mapping to a continuous variable.
-
-The \code{shape} aesthetic can be specified with an integer (between 0 and 25),
-a single character (which uses that character as the plotting symbol),
-a \code{.} to draw the smallest rectangle that is visible (i.e., about one pixel),
-an \code{NA} to draw nothing, or a mapping to a discrete variable. Symbols and
-filled shapes are described in the examples below.
 }
+
+\section{Linewidth and stroke}{
+
+The \code{linewidth} aesthetic sets the widths of lines, and can be specified
+with a numeric value (for historical reasons, these units are about 0.75
+millimetres). Alternatively, they can also be set via mapping to a continuous
+variable. The \code{stroke} aesthetic serves the same role for points, but is
+distinct for discriminating points from lines in geoms such as
+\code{\link[=geom_pointrange]{geom_pointrange()}}.
+}
+
+\section{Size}{
+
+The \code{size} aesthetic control the size of points and text, and can be
+specified with a numerical value (in millimetres) or via a mapping to a
+continuous variable.
+}
+
+\section{Shape}{
+
+The \code{shape} aesthetic controls the symbols of points, and can be specified
+with an integer (between 0 and 25), a single character (which uses that
+character as the plotting symbol), a \code{.} to draw the smallest rectangle that
+is visible (i.e., about one pixel), an \code{NA} to draw nothing, or a mapping to
+a discrete variable. Symbols and filled shapes are described in the examples
+below.
+}
+
 \examples{
 
 df <- data.frame(x = 1:10 , y = 1:10)
@@ -41,6 +62,12 @@ p + geom_line(linetype = "3313")
 # Mapping line type from a grouping variable
 ggplot(economics_long, aes(date, value01)) +
   geom_line(aes(linetype = variable))
+
+# Linewidth examples
+ggplot(economics, aes(date, unemploy)) +
+  geom_line(linewidth = 2, lineend = "round")
+ggplot(economics, aes(date, unemploy)) +
+  geom_line(aes(linewidth = uempmed), lineend = "round")
 
 # Size examples
 p <- ggplot(mtcars, aes(wt, mpg))
@@ -75,7 +102,16 @@ p + geom_point(aes(shape = z), size = 4, colour = "Red", fill = "Black") +
 with these aesthetics.
 \item \code{\link[=aes_group_order]{aes_group_order()}} for using \code{linetype}, \code{size}, or
 \code{shape} for grouping.
-\item Run \code{vignette("ggplot2-specs")} to see an overview of other aesthestics that
+\item Scales that can be used to modify these aesthetics: \code{\link[=scale_linetype]{scale_linetype()}},
+\code{\link[=scale_linewidth]{scale_linewidth()}}, \code{\link[=scale_size]{scale_size()}}, and \code{\link[=scale_shape]{scale_shape()}}.
+\item Run \code{vignette("ggplot2-specs")} to see an overview of other aesthetics that
 can be modified.
 }
+
+Other aesthetics documentation: 
+\code{\link{aes_colour_fill_alpha}},
+\code{\link{aes_group_order}},
+\code{\link{aes_position}},
+\code{\link{aes}()}
 }
+\concept{aesthetics documentation}

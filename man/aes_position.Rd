@@ -24,6 +24,12 @@ segment and curve geometries.
 
 \code{xmin}, \code{xmax}, \code{ymin}  and \code{ymax} can be used to specify the position of
 annotations and to represent rectangular areas.
+
+In addition, there are position aesthetics that are contextual to the
+geometry that they're used in. These are \code{xintercept}, \code{yintercept},
+\code{xmin_final}, \code{ymin_final}, \code{xmax_final}, \code{ymax_final}, \code{xlower}, \code{lower},
+\code{xmiddle}, \code{middle}, \code{xupper}, \code{upper}, \code{x0} and \code{y0}. Many of these are used
+and automatically computed in \code{\link[=geom_boxplot]{geom_boxplot()}}.
 }
 \examples{
 
@@ -83,6 +89,18 @@ ggplot(counts, aes(x = x, y = Freq)) +
 \code{\link[=geom_curve]{geom_curve()}}, \code{\link[=geom_errorbar]{geom_errorbar()}}, \code{\link[=geom_line]{geom_line()}}, \code{\link[=geom_linerange]{geom_linerange()}},
 \code{\link[=geom_path]{geom_path()}}, \code{\link[=geom_point]{geom_point()}}, \code{\link[=geom_pointrange]{geom_pointrange()}}, \code{\link[=geom_rect]{geom_rect()}},
 \code{\link[=geom_segment]{geom_segment()}}
+\item Scales that can be used to modify positions:
+\code{\link[=scale_x_continuous]{scale_continuous()}},
+\code{\link[=scale_x_discrete]{scale_discrete()}},
+\code{\link[=scale_x_binned]{scale_binned()}},
+\code{\link[=scale_x_date]{scale_date()}}.
 \item See also \code{\link[=annotate]{annotate()}} for placing annotations.
 }
+
+Other aesthetics documentation: 
+\code{\link{aes_colour_fill_alpha}},
+\code{\link{aes_group_order}},
+\code{\link{aes_linetype_size_shape}},
+\code{\link{aes}()}
 }
+\concept{aesthetics documentation}
