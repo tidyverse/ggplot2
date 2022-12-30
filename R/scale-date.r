@@ -34,7 +34,10 @@
 #' @param timezone The timezone to use for display on the axes. The default
 #'   (`NULL`) uses the timezone encoded in the data.
 #' @family position scales
-#' @seealso [sec_axis()] for how to specify secondary axes
+#' @seealso
+#' [sec_axis()] for how to specify secondary axes
+#'
+#' The [position documentation][aes_position].
 #' @examples
 #' last_month <- Sys.Date() - 0:29
 #' set.seed(1)
