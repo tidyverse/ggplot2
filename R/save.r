@@ -77,6 +77,17 @@ ggsave <- function(filename, plot = last_plot(),
                    device = NULL, path = NULL, scale = 1,
                    width = NA, height = NA, units = c("in", "cm", "mm", "px"),
                    dpi = 300, limitsize = TRUE, bg = NULL, ...) {
+  if (length(filename) != 1) {
+    if (length(filename) == 0) {
+      cli::cli_abort("{.arg filename} cannot be empty.")
+    }
+    len <- length(filename)
+    filename <- filename[1]
+    cli::cli_warn(c(
+      "{.arg filename} must have length 1, not length {len}.",
+      "!" = "Only the first, {.file {filename}}, will be used."
+    ))
+  }
 
   dpi <- parse_dpi(dpi)
   dev <- plot_dev(device, filename, dpi = dpi)
@@ -147,8 +158,24 @@ plot_dim <- function(dim = c(NA, NA), scale = 1, units = "in",
   }
 
   if (limitsize && any(dim >= 50)) {
+    units <- switch(
+      units,
+      "in" = "inches",
+      "cm" = "centimeters",
+      "mm" = "millimeters",
+      "px" = "pixels"
+    )
+    msg <- paste0(
+      "Dimensions exceed 50 inches ({.arg height} and {.arg width} are ",
+      "specified in {.emph {units}}"
+    )
+    if (units == "pixels") {
+      msg <- paste0(msg, ").")
+    } else {
+      msg <- paste0(msg, " not pixels).")
+    }
     cli::cli_abort(c(
-      "Dimensions exceed 50 inches ({.arg height} and {.arg width} are specified in {.emph {units}} not pixels).",
+      msg,
       "i" = "If you're sure you want a plot that big, use {.code limitsize = FALSE}.
     "), call = call)
   }
