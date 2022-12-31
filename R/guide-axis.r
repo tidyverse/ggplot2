@@ -151,11 +151,13 @@ GuideAxis <- ggproto(
     axis_elem <- c("line", "text", "ticks", "ticks_length")
     is_char  <- vapply(elements[axis_elem], is.character, logical(1))
     axis_elem <- axis_elem[is_char]
-    elements[axis_elem] <- paste(
-      unlist(elements[axis_elem]),
-      params$aes, params$position, sep = "."
+    elements[axis_elem] <- lapply(
+      paste(
+        unlist(elements[axis_elem]),
+        params$aes, params$position, sep = "."
+      ),
+      calc_element, theme = theme
     )
-    elements[is_char] <- lapply(elements[is_char], calc_element, theme = theme)
     elements
   },
 
