@@ -77,12 +77,16 @@ guides <- function(...) {
     args[idx_false] <- "none"
   }
 
-  structure(args, class = "guides")
+  guides_list(guides = args)
 }
 
 update_guides <- function(p, guides) {
   p <- plot_clone(p)
-  p$guides <- defaults(guides, p$guides)
+  if (inherits(p$guides, "Guides")) {
+    p$guides$add(guides)
+  } else {
+    p$guides <- guides
+  }
   p
 }
 
