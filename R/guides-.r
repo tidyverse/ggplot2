@@ -597,5 +597,30 @@ Guides <- ggproto(
     )
     guides$name <- "guide-box"
     guides
+  },
+
+  print = function(self) {
+
+    guides <- self$guides
+    header <- paste0("<Guides[", length(guides), "] ggproto object>\n")
+
+    if (length(guides) == 0) {
+      content <- "<empty>"
+    } else {
+      content <- lapply(guides, function(g) {
+        if (is.character(g)) {
+          paste0('"', g, '"')
+        } else {
+          paste0("<", class(g)[[1]], ">")
+        }
+      })
+      nms <- names(content)
+      nms <- format(nms, justify = "right")
+      content <- unlist(content, FALSE, FALSE)
+      content <- format(content, justify = "left")
+      content <- paste0(nms, " : ", content)
+    }
+    cat(c(header, content), sep = "\n")
+    invisible(self)
   }
 )
