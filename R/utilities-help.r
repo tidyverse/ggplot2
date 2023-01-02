@@ -86,20 +86,20 @@ rd_computed_vars <- function(..., .details = "", .skip_intro = FALSE) {
   header <- "@section Computed variables: "
   intro  <- paste0(
     "These are calculated by the 'stat' part of layers and can be accessed ",
-    "with \\link[=aes_eval]{delayed evaluation}. "
+    "with [delayed evaluation][aes_eval]. "
   )
   if (.skip_intro) intro <- ""
   preamble <- c(header, paste0(intro, gsub("\n", "", .details)))
 
   # Format items
-  fmt_items <- gsub(",", ")}, \\code{after_stat(", items, fixed = TRUE)
-  fmt_items <- gsub("|", ")} \\emph{or} \\code{after_stat(",
+  fmt_items <- gsub(",", ")`, `after_stat(", items, fixed = TRUE)
+  fmt_items <- gsub("|", ")` *or* `after_stat(",
                     fmt_items, fixed = TRUE)
-  fmt_items <- paste0("\\item{\\code{after_stat(", fmt_items, ")}")
+  fmt_items <- paste0("*  `after_stat(", fmt_items, ")`")
 
   # Compose item-list
-  fmt_descr <- paste0(gsub("\n", "", descr), "}")
-  fmt_list  <- paste(fmt_items, fmt_descr, sep = "\\cr ")
+  fmt_descr <- gsub("\n", "", descr)
+  fmt_list  <- paste(fmt_items, fmt_descr, sep = ": ")
 
-  c(preamble, "\\itemize{", fmt_list, "}")
+  c(preamble, fmt_list)
 }
