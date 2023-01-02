@@ -64,7 +64,6 @@
 #'  )
 #' }
 guides <- function(...) {
-  # TODO: Somehow unify the `guides_list()` function with this one
   args <- list2(...)
   if (length(args) > 0) {
     if (is.list(args[[1]]) && !inherits(args[[1]], "guide")) args <- args[[1]]
@@ -75,6 +74,25 @@ guides <- function(...) {
   if (isTRUE(any(idx_false))) {
     deprecate_warn0("3.3.4", "guides(`<scale>` = 'cannot be `FALSE`. Use \"none\" instead')")
     args[idx_false] <- "none"
+  }
+
+  if (!is_named(args)) {
+    nms <- names(args)
+    if (is.null(nms)) {
+      msg <- "All guides are unnamed."
+    } else {
+      unnamed <- which(is.na(nms) | nms == "")
+      if (length(unnamed) == length(args)) {
+        msg <- "All guides are unnamed."
+      } else {
+        unnamed <- label_ordinal()(unnamed)
+        msg <- "The {.and {unnamed}} guide{?s} {?is/are} unnamed."
+      }
+    }
+    cli::cli_abort(c(
+      "Guides provided to {.fun guides} must be named.",
+      i = msg
+    ))
   }
 
   guides_list(guides = args)
