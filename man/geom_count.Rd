@@ -101,8 +101,8 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 
 These are calculated by the 'stat' part of layers and can be accessed with \link[=aes_eval]{delayed evaluation}.
 \itemize{
-\item{\code{after_stat(n)}\cr Number of observations at position.}
-\item{\code{after_stat(prop)}\cr Percent of points in that panel at that position.}
+\item \code{after_stat(n)}: Number of observations at position.
+\item \code{after_stat(prop)}: Percent of points in that panel at that position.
 }
 }
 

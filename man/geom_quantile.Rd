@@ -122,7 +122,7 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 
 These are calculated by the 'stat' part of layers and can be accessed with \link[=aes_eval]{delayed evaluation}.
 \itemize{
-\item{\code{after_stat(quantile)}\cr Quantile of distribution.}
+\item \code{after_stat(quantile)}: Quantile of distribution.
 }
 }
 

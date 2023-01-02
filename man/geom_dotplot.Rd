@@ -145,13 +145,13 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 
 These are calculated by the 'stat' part of layers and can be accessed with \link[=aes_eval]{delayed evaluation}.
 \itemize{
-\item{\code{after_stat(x)}\cr center of each bin, if \code{binaxis} is \code{"x"}.}
-\item{\code{after_stat(y)}\cr center of each bin, if \code{binaxis} is \code{"x"}.}
-\item{\code{after_stat(binwidth)}\cr maximum width of each bin if method is \code{"dotdensity"};  width of each bin if method is \code{"histodot"}.}
-\item{\code{after_stat(count)}\cr number of points in bin.}
-\item{\code{after_stat(ncount)}\cr count, scaled to a maximum of 1.}
-\item{\code{after_stat(density)}\cr density of points in bin, scaled to integrate to 1, if method  is \code{"histodot"}.}
-\item{\code{after_stat(ndensity)}\cr density, scaled to maximum of 1, if method is \code{"histodot"}.}
+\item \code{after_stat(x)}: center of each bin, if \code{binaxis} is \code{"x"}.
+\item \code{after_stat(y)}: center of each bin, if \code{binaxis} is \code{"x"}.
+\item \code{after_stat(binwidth)}: maximum width of each bin if method is \code{"dotdensity"};  width of each bin if method is \code{"histodot"}.
+\item \code{after_stat(count)}: number of points in bin.
+\item \code{after_stat(ncount)}: count, scaled to a maximum of 1.
+\item \code{after_stat(density)}: density of points in bin, scaled to integrate to 1, if method  is \code{"histodot"}.
+\item \code{after_stat(ndensity)}: density, scaled to maximum of 1, if method is \code{"histodot"}.
 }
 }
 

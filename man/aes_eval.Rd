@@ -38,8 +38,7 @@ Sometimes, however, you want to delay the mapping until later in the
 rendering process. ggplot2 has three stages of the data that you can map
 aesthetics from, and three functions to control at which stage aesthetics
 should be evaluated.
-}
-\note{
+
 \code{after_stat()} replaces the old approaches of using either \code{stat()}, e.g.
 \code{stat(density)}, or surrounding the variable names with \code{..}, e.g.
 \code{..density..}.

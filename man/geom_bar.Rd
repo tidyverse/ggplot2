@@ -181,8 +181,8 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 
 These are calculated by the 'stat' part of layers and can be accessed with \link[=aes_eval]{delayed evaluation}.
 \itemize{
-\item{\code{after_stat(count)}\cr number of points in bin.}
-\item{\code{after_stat(prop)}\cr groupwise proportion}
+\item \code{after_stat(count)}: number of points in bin.
+\item \code{after_stat(prop)}: groupwise proportion
 }
 }
 
