@@ -632,61 +632,72 @@ GuideLegend <- ggproto(
     )
 
     # Add background
-    gt <- gtable_add_grob(
-      gt, elements$background,
-      name = "background", clip = "off",
-      t = 1, r = -1, b = -1, l =1
-    )
+    if (!is.zero(elements$background)) {
+      gt <- gtable_add_grob(
+        gt, elements$background,
+        name = "background", clip = "off",
+        t = 1, r = -1, b = -1, l =1
+      )
+    }
 
     # Add title
-    gt <- gtable_add_grob(
-      gt,
-      justify_grobs(
-        grobs$title,
-        hjust = elements$title$hjust,
-        vjust = elements$title$vjust,
-        int_angle = elements$title$angle,
-        debug = elements$title$debug
-      ),
-      name = "title", clip = "off",
-      t = min(layout$title_row), r = max(layout$title_col),
-      b = max(layout$title_row), l = min(layout$title_col)
-    )
+    if (!is.zero(grobs$title)) {
+      gt <- gtable_add_grob(
+        gt,
+        justify_grobs(
+          grobs$title,
+          hjust = elements$title$hjust,
+          vjust = elements$title$vjust,
+          int_angle = elements$title$angle,
+          debug = elements$title$debug
+        ),
+        name = "title", clip = "off",
+        t = min(layout$title_row), r = max(layout$title_col),
+        b = max(layout$title_row), l = min(layout$title_col)
+      )
+    }
 
     # Extract appropriate part of layout
     layout   <- layout$layout
-    n_key_layers <- params$n_key_layers %||% 1L
-    key_cols <- rep(layout$key_col, each = n_key_layers)
-    key_rows <- rep(layout$key_row, each = n_key_layers)
 
     # Add keys
-    gt <- gtable_add_grob(
-      gt, grobs$decor,
-      name = names(grobs$decor) %||%
-        paste("key", key_rows, key_cols, c("bg", seq_len(n_key_layers - 1)),
-              sep = "-"),
-      clip = "off",
-      t = key_rows, r = key_cols, b = key_rows, l = key_cols
-    )
+    if (!is.zero(grobs$decor)) {
+      n_key_layers <- params$n_key_layers %||% 1L
+      key_cols <- rep(layout$key_col, each = n_key_layers)
+      key_rows <- rep(layout$key_row, each = n_key_layers)
 
-    labels <- if (params$rejust_labels %||% TRUE) {
-      justify_grobs(
-        grobs$labels,
-        hjust = elements$text$hjust, vjust = elements$text$vjust,
-        int_angle = elements$text$angle, debug = elements$text$debug
+      # Add keys
+      gt <- gtable_add_grob(
+        gt, grobs$decor,
+        name = names(grobs$decor) %||%
+          paste("key", key_rows, key_cols, c("bg", seq_len(n_key_layers - 1)),
+                sep = "-"),
+        clip = "off",
+        t = key_rows, r = key_cols, b = key_rows, l = key_cols
       )
-    } else {
-      grobs$labels
     }
 
-    gt <- gtable_add_grob(
-      gt, labels,
-      name = names(labels) %||%
-        paste("label", layout$label_row, layout$label_col, sep = "-"),
-      clip = "off",
-      t = layout$label_row, r = layout$label_col,
-      b = layout$label_row, l = layout$label_col
-    )
+    if (!is.zero(grobs$labels)) {
+      labels <- if (params$rejust_labels %||% TRUE) {
+        justify_grobs(
+          grobs$labels,
+          hjust = elements$text$hjust, vjust = elements$text$vjust,
+          int_angle = elements$text$angle, debug = elements$text$debug
+        )
+      } else {
+        grobs$labels
+      }
+
+      gt <- gtable_add_grob(
+        gt, labels,
+        name = names(labels) %||%
+          paste("label", layout$label_row, layout$label_col, sep = "-"),
+        clip = "off",
+        t = layout$label_row, r = layout$label_col,
+        b = layout$label_row, l = layout$label_col
+      )
+    }
+
     gt
   }
 )
