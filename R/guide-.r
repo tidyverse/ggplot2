@@ -46,7 +46,7 @@ new_guide <- function(..., available_aes = "any", super) {
   if (length(missing_params) > 0) {
     cli::cli_abort(paste0(
       "The following parameter{?s} {?is/are} required for setting up a guide, ",
-      "but are missing: {.field {missing_params}}"
+      "but {?is/are} missing: {.field {missing_params}}"
     ))
   }
 
