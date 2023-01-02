@@ -1,12 +1,19 @@
 #' Control aesthetic evaluation
 #'
+#' @description
 #' Most [aesthetics][aes()] are mapped from variables found in the data.
 #' Sometimes, however, you want to delay the mapping until later in the
 #' rendering process. ggplot2 has three stages of the data that you can map
 #' aesthetics from, and three functions to control at which stage aesthetics
 #' should be evaluated.
 #'
-#' @usage # These functions can be used inside the `aes()` function
+#' @description
+#' `after_stat()` replaces the old approaches of using either `stat()`, e.g.
+#' `stat(density)`, or surrounding the variable names with `..`, e.g.
+#' `..density..`.
+#'
+#' @usage
+#' # These functions can be used inside the `aes()` function
 #' # used as the `mapping` argument in layers, for example:
 #' # geom_density(mapping = aes(y = after_stat(scaled)))
 #'
@@ -80,9 +87,9 @@
 #' ```
 #'
 #' ## Complex staging
-#'   If you want to map the same aesthetic multiple times, e.g. map `x` to a
-#'   data column for the stat, but remap it for the geom, you can use the
-#'   `stage()` function to collect multiple mappings.
+#' If you want to map the same aesthetic multiple times, e.g. map `x` to a
+#' data column for the stat, but remap it for the geom, you can use the
+#' `stage()` function to collect multiple mappings.
 #'
 #' ```r
 #' # Use stage to modify the scaled fill
@@ -102,10 +109,6 @@
 #'     fun.data = ~ round(data.frame(mean = mean(.x), sd = sd(.x)), 2)
 #'   )
 #' ```
-#' @note
-#' `after_stat()` replaces the old approaches of using either `stat()`, e.g.
-#' `stat(density)`, or surrounding the variable names with `..`, e.g.
-#' `..density..`.
 #' @rdname aes_eval
 #' @name aes_eval
 #'
