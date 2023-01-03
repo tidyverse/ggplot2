@@ -91,10 +91,18 @@ the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
-\item{position}{Position adjustment, either as a string naming the adjustment
-(e.g. \code{"jitter"} to use \code{position_jitter}), or the result of a call to a
-position adjustment function. Use the latter if you need to change the
-settings of the adjustment.}
+\item{position}{A position adjustment to use on the data for this layer. This
+can be used in various ways, including to prevent overplotting and
+improving the display. The \code{position} argument accepts the following:
+\itemize{
+\item The result of calling a position function, such as \code{position_jitter()}.
+This method allows for passing extra arguments to the position.
+\item A string naming the position adjustment. To give the position as a
+string, strip the function name of the \code{position_} prefix. For example,
+to use \code{position_jitter()}, give the position as \code{"jitter"}.
+\item For more information and other ways to specify the position, see the
+\link[=layer_positions]{layer position} documentation.
+}}
 
 \item{...}{
   Arguments passed on to \code{\link[=geom_contour]{geom_contour}}
@@ -138,7 +146,9 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
 \item{geom, stat}{Use to override the default connection between
-\code{geom_density_2d()} and \code{stat_density_2d()}.}
+\code{geom_density_2d()} and \code{stat_density_2d()}. For more information at
+overriding these connections, see how the \link[=layer_stats]{stat} and
+\link[=layer_geoms]{geom} arguments work.}
 
 \item{contour}{If \code{TRUE}, contour the results of the 2d density
 estimation.}
