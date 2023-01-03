@@ -20,16 +20,13 @@
 #'   finite, boundary effect of default density estimation will be corrected by
 #'   reflecting tails outside `bounds` around their closest edge. Data points
 #'   outside of bounds are removed with a warning.
-#' @section Computed variables:
-#' \describe{
-#'   \item{density}{density estimate}
-#'   \item{count}{density * number of points - useful for stacked density
-#'      plots}
-#'   \item{scaled}{density estimate, scaled to maximum of 1}
-#'   \item{n}{number of points}
-#'   \item{ndensity}{alias for `scaled`, to mirror the syntax of
-#'    [`stat_bin()`]}
-#' }
+#' @eval rd_computed_vars(
+#'  density  = "density estimate.",
+#'  count    = "density * number of points - useful for stacked density plots.",
+#'  scaled   = "density estimate, scaled to maximum of 1.",
+#'  n        = "number of points.",
+#'  ndensity = "alias for `scaled`, to mirror the syntax of [`stat_bin()`]."
+#' )
 #' @export
 #' @rdname geom_density
 stat_density <- function(mapping = NULL, data = NULL,

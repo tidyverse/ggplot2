@@ -56,6 +56,21 @@ test_that("ggsave can handle blank background", {
   expect_true(grepl("fill: none", bg))
 })
 
+test_that("ggsave warns about empty or multiple filenames", {
+  filenames <- c("plot1.png", "plot2.png")
+  plot <- ggplot(mtcars, aes(disp, mpg)) + geom_point()
+
+  withr::with_file(filenames, {
+    expect_warning(
+      suppressMessages(ggsave(filenames, plot)),
+      "`filename` must have length 1"
+    )
+    expect_error(
+      ggsave(character(), plot),
+      "`filename` cannot be empty."
+    )
+  })
+})
 
 # plot_dim ---------------------------------------------------------------
 
@@ -74,6 +89,7 @@ test_that("uses 7x7 if no graphics device open", {
 test_that("warned about large plot unless limitsize = FALSE", {
   expect_error(plot_dim(c(50, 50)), "exceed 50 inches")
   expect_equal(plot_dim(c(50, 50), limitsize = FALSE), c(50, 50))
+  expect_error(plot_dim(c(15000, 15000), units = "px"), "in pixels).")
 })
 
 test_that("scale multiplies height & width", {
