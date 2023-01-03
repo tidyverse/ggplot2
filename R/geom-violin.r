@@ -15,7 +15,9 @@
 #' @param trim If `TRUE` (default), trim the tails of the violins
 #'   to the range of the data. If `FALSE`, don't trim the tails.
 #' @param geom,stat Use to override the default connection between
-#'   `geom_violin()` and `stat_ydensity()`.
+#'   `geom_violin()` and `stat_ydensity()`. For more information about
+#'   overriding these connections, see how the [stat][layer_stats] and
+#'   [geom][layer_geoms] arguments work.
 #' @export
 #' @references Hintze, J. L., Nelson, R. D. (1998) Violin Plots: A Box
 #' Plot-Density Trace Synergism. The American Statistician 52, 181-184.
