@@ -120,6 +120,7 @@ Collate:
     'coord-sf.R'
     'coord-transform.r'
     'data.R'
+    'docs_layer.R'
     'facet-.r'
     'facet-grid-.r'
     'facet-null.r'
