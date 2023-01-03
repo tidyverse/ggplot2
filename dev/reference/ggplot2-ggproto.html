@@ -254,7 +254,7 @@ override one or more of the following:</p><ul><li><p>One of :
 <code>compute_layer(self, data, scales, ...)</code>,
 <code>compute_panel(self, data, scales, ...)</code>, or
 <code>compute_group(self, data, scales, ...)</code>.</p>
-<p><code>compute_layer()</code> is called once per layer, <code>compute_panel_()</code>
+<p><code>compute_layer()</code> is called once per layer, <code>compute_panel()</code>
 is called once per panel, and <code>compute_group()</code> is called once per
 group. All must return a data frame.</p>
 <p>It's usually best to start by overriding <code>compute_group</code>: if
