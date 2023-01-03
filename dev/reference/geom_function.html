@@ -218,14 +218,9 @@ be vectorised.</p></dd>
     <h2 id="computed-variables">Computed variables<a class="anchor" aria-label="anchor" href="#computed-variables"></a></h2>
     
 
-<p><code>stat_function()</code> computes the following variables:</p><dl><dt>x</dt>
-<dd><p>x values along a grid</p></dd>
-
-<dt>y</dt>
-<dd><p>value of the function evaluated at corresponding x</p></dd>
-
-
-</dl></div>
+<p>These are calculated by the 'stat' part of layers and can be accessed with <a href="aes_eval.html">delayed evaluation</a>.</p><ul><li><p><code>after_stat(x)</code><br><code>x</code> values along a grid.</p></li>
+<li><p><code>after_stat(y)</code><br> values of the function evaluated at corresponding <code>x</code>.</p></li>
+</ul></div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">rlang::as_function()</a></code></p></div>

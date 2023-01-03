@@ -282,32 +282,15 @@ See McGill et al. (1978) for more details.</p>
     <h2 id="computed-variables">Computed variables<a class="anchor" aria-label="anchor" href="#computed-variables"></a></h2>
     
 
-<p><code>stat_boxplot()</code> provides the following variables, some of which depend on the orientation:</p><dl><dt>width</dt>
-<dd><p>width of boxplot</p></dd>
-
-<dt>ymin <em>or</em> xmin</dt>
-<dd><p>lower whisker = smallest observation greater than or equal to lower hinge - 1.5 * IQR</p></dd>
-
-<dt>lower <em>or</em> xlower</dt>
-<dd><p>lower hinge, 25% quantile</p></dd>
-
-<dt>notchlower</dt>
-<dd><p>lower edge of notch = median - 1.58 * IQR / sqrt(n)</p></dd>
-
-<dt>middle <em>or</em> xmiddle</dt>
-<dd><p>median, 50% quantile</p></dd>
-
-<dt>notchupper</dt>
-<dd><p>upper edge of notch = median + 1.58 * IQR / sqrt(n)</p></dd>
-
-<dt>upper <em>or</em> xupper</dt>
-<dd><p>upper hinge, 75% quantile</p></dd>
-
-<dt>ymax <em>or</em> xmax</dt>
-<dd><p>upper whisker = largest observation less than or equal to upper hinge + 1.5 * IQR</p></dd>
-
-
-</dl></div>
+<p>These are calculated by the 'stat' part of layers and can be accessed with <a href="aes_eval.html">delayed evaluation</a>. <code>stat_boxplot()</code> provides the following variables, some of  which depend on the orientation:</p><ul><li><p><code>after_stat(width)</code><br> width of boxplot.</p></li>
+<li><p><code>after_stat(ymin)</code> <em>or</em> <code>after_stat(xmin)</code><br> lower whisker = smallest observation greater than or equal  to lower hinger - 1.5 * IQR.</p></li>
+<li><p><code>after_stat(lower)</code> <em>or</em> <code>after_stat(xlower)</code><br> lower hinge, 25% quantile.</p></li>
+<li><p><code>after_stat(notchlower)</code><br> lower edge of notch = median - 1.58 * IQR / sqrt(n).</p></li>
+<li><p><code>after_stat(middle)</code> <em>or</em> <code>after_stat(xmiddle)</code><br> median, 50% quantile.</p></li>
+<li><p><code>after_stat(notchupper)</code><br> upper edge of notch = median + 1.58 * IQR / sqrt(n).</p></li>
+<li><p><code>after_stat(upper)</code> <em>or</em> <code>after_stat(xupper)</code><br> upper hinge, 75% quantile.</p></li>
+<li><p><code>after_stat(ymax)</code> <em>or</em> <code>after_stat(xmax)</code><br> upper whisker = largest observation less than or equal to  upper hinger + 1.5 * IQR.</p></li>
+</ul></div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>McGill, R., Tukey, J. W. and Larsen, W. A. (1978) Variations of

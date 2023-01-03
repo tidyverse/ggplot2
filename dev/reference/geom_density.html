@@ -264,25 +264,12 @@ outside of bounds are removed with a warning.</p></dd>
     <h2 id="computed-variables">Computed variables<a class="anchor" aria-label="anchor" href="#computed-variables"></a></h2>
     
 
-<dl><dt>density</dt>
-<dd><p>density estimate</p></dd>
-
-<dt>count</dt>
-<dd><p>density * number of points - useful for stacked density
-plots</p></dd>
-
-<dt>scaled</dt>
-<dd><p>density estimate, scaled to maximum of 1</p></dd>
-
-<dt>n</dt>
-<dd><p>number of points</p></dd>
-
-<dt>ndensity</dt>
-<dd><p>alias for <code>scaled</code>, to mirror the syntax of
-<code><a href="geom_histogram.html">stat_bin()</a></code></p></dd>
-
-
-</dl></div>
+<p>These are calculated by the 'stat' part of layers and can be accessed with <a href="aes_eval.html">delayed evaluation</a>.</p><ul><li><p><code>after_stat(density)</code><br> density estimate.</p></li>
+<li><p><code>after_stat(count)</code><br> density * number of points - useful for stacked density plots.</p></li>
+<li><p><code>after_stat(scaled)</code><br> density estimate, scaled to maximum of 1.</p></li>
+<li><p><code>after_stat(n)</code><br> number of points.</p></li>
+<li><p><code>after_stat(ndensity)</code><br> alias for <code>scaled</code>, to mirror the syntax of <code><a href="geom_histogram.html">stat_bin()</a></code>.</p></li>
+</ul></div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>See <code><a href="geom_histogram.html">geom_histogram()</a></code>, <code><a href="geom_histogram.html">geom_freqpoly()</a></code> for

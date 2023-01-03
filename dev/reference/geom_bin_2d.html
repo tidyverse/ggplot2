@@ -212,20 +212,11 @@ horizontal directions. Overrides <code>bins</code> if both set.</p></dd>
     <h2 id="computed-variables">Computed variables<a class="anchor" aria-label="anchor" href="#computed-variables"></a></h2>
     
 
-<dl><dt>count</dt>
-<dd><p>number of points in bin</p></dd>
-
-<dt>density</dt>
-<dd><p>density of points in bin, scaled to integrate to 1</p></dd>
-
-<dt>ncount</dt>
-<dd><p>count, scaled to maximum of 1</p></dd>
-
-<dt>ndensity</dt>
-<dd><p>density, scaled to maximum of 1</p></dd>
-
-
-</dl></div>
+<p>These are calculated by the 'stat' part of layers and can be accessed with <a href="aes_eval.html">delayed evaluation</a>.</p><ul><li><p><code>after_stat(count)</code><br> number of points in bin.</p></li>
+<li><p><code>after_stat(density)</code><br> density of points in bin, scaled to integrate to 1.</p></li>
+<li><p><code>after_stat(ncount)</code><br> count, scaled to maximum of 1.</p></li>
+<li><p><code>after_stat(ndensity)</code><br> density, scaled to a maximum of 1.</p></li>
+</ul></div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="geom_hex.html">stat_binhex()</a></code> for hexagonal binning</p></div>

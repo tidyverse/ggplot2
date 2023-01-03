@@ -196,14 +196,9 @@ the default plot specification, e.g. <code><a href="borders.html">borders()</a><
     <h2 id="computed-variables">Computed variables<a class="anchor" aria-label="anchor" href="#computed-variables"></a></h2>
     
 
-<dl><dt>n</dt>
-<dd><p>number of observations at position</p></dd>
-
-<dt>prop</dt>
-<dd><p>percent of points in that panel at that position</p></dd>
-
-
-</dl></div>
+<p>These are calculated by the 'stat' part of layers and can be accessed with <a href="aes_eval.html">delayed evaluation</a>.</p><ul><li><p><code>after_stat(n)</code><br> Number of observations at position.</p></li>
+<li><p><code>after_stat(prop)</code><br> Percent of points in that panel at that position.</p></li>
+</ul></div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>For continuous <code>x</code> and <code>y</code>, use <code><a href="geom_bin_2d.html">geom_bin2d()</a></code>.</p></div>

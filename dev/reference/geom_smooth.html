@@ -292,20 +292,11 @@ scale and then back-transformed to the response scale.</p>
     <h2 id="computed-variables">Computed variables<a class="anchor" aria-label="anchor" href="#computed-variables"></a></h2>
     
 
-<p><code>stat_smooth()</code> provides the following variables, some of which depend on the orientation:</p><dl><dt>y <em>or</em> x</dt>
-<dd><p>predicted value</p></dd>
-
-<dt>ymin <em>or</em> xmin</dt>
-<dd><p>lower pointwise confidence interval around the mean</p></dd>
-
-<dt>ymax <em>or</em> xmax</dt>
-<dd><p>upper pointwise confidence interval around the mean</p></dd>
-
-<dt>se</dt>
-<dd><p>standard error</p></dd>
-
-
-</dl></div>
+<p>These are calculated by the 'stat' part of layers and can be accessed with <a href="aes_eval.html">delayed evaluation</a>. <code>stat_smooth()</code> provides the following variables, some of  which depend on the orientation:</p><ul><li><p><code>after_stat(y)</code> <em>or</em> <code>after_stat(x)</code><br> Predicted value.</p></li>
+<li><p><code>after_stat(ymin)</code> <em>or</em> <code>after_stat(xmin)</code><br> Lower pointwise confidence interval around the mean.</p></li>
+<li><p><code>after_stat(ymax)</code> <em>or</em> <code>after_stat(xmax)</code><br> Upper pointwise confidence interval around the mean.</p></li>
+<li><p><code>after_stat(se)</code><br> Standard error.</p></li>
+</ul></div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>See individual modelling functions for more details:

@@ -299,23 +299,11 @@ use half of the default bandwidth.</p></dd>
     <h2 id="computed-variables">Computed variables<a class="anchor" aria-label="anchor" href="#computed-variables"></a></h2>
     
 
-<p><code>stat_density_2d()</code> and <code>stat_density_2d_filled()</code> compute different
-variables depending on whether contouring is turned on or off. With
-contouring off (<code>contour = FALSE</code>), both stats behave the same, and the
-following variables are provided:</p><dl><dt><code>density</code></dt>
-<dd><p>The density estimate.</p></dd>
-
-<dt><code>ndensity</code></dt>
-<dd><p>Density estimate, scaled to a maximum of 1.</p></dd>
-
-<dt><code>count</code></dt>
-<dd><p>Density estimate * number of observations in group.</p></dd>
-
-<dt><code>n</code></dt>
-<dd><p>Number of observations in each group.</p></dd>
-
-
-</dl><p>With contouring on (<code>contour = TRUE</code>), either <code><a href="geom_contour.html">stat_contour()</a></code> or
+<p>These are calculated by the 'stat' part of layers and can be accessed with <a href="aes_eval.html">delayed evaluation</a>. <code>stat_density_2d()</code> and <code>stat_density_2d_filled()</code> compute  different variables depending on whether contouring is turned on or off.  With contouring off (<code>contour = FALSE</code>), both stats behave the same, and  the following variables are provided:</p><ul><li><p><code>after_stat(density)</code><br> The density estimate.</p></li>
+<li><p><code>after_stat(ndensity)</code><br> Density estimate, scaled to a maximum of 1.</p></li>
+<li><p><code>after_stat(count)</code><br> Density estimate * number of observations in group.</p></li>
+<li><p><code>after_stat(n)</code><br> Number of observations in each group.</p></li>
+</ul><p>With contouring on (<code>contour = TRUE</code>), either <code><a href="geom_contour.html">stat_contour()</a></code> or
 <code><a href="geom_contour.html">stat_contour_filled()</a></code> (for contour lines or contour bands,
 respectively) is run after the density estimate has been obtained,
 and the computed variables are determined by these stats.

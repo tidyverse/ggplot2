@@ -263,31 +263,14 @@ to match the number of dots.</p>
     <h2 id="computed-variables">Computed variables<a class="anchor" aria-label="anchor" href="#computed-variables"></a></h2>
     
 
-<dl><dt>x</dt>
-<dd><p>center of each bin, if binaxis is "x"</p></dd>
-
-<dt>y</dt>
-<dd><p>center of each bin, if binaxis is "x"</p></dd>
-
-<dt>binwidth</dt>
-<dd><p>max width of each bin if method is "dotdensity";
-width of each bin if method is "histodot"</p></dd>
-
-<dt>count</dt>
-<dd><p>number of points in bin</p></dd>
-
-<dt>ncount</dt>
-<dd><p>count, scaled to maximum of 1</p></dd>
-
-<dt>density</dt>
-<dd><p>density of points in bin, scaled to integrate to 1,
-if method is "histodot"</p></dd>
-
-<dt>ndensity</dt>
-<dd><p>density, scaled to maximum of 1, if method is "histodot"</p></dd>
-
-
-</dl></div>
+<p>These are calculated by the 'stat' part of layers and can be accessed with <a href="aes_eval.html">delayed evaluation</a>.</p><ul><li><p><code>after_stat(x)</code><br> center of each bin, if <code>binaxis</code> is <code>"x"</code>.</p></li>
+<li><p><code>after_stat(y)</code><br> center of each bin, if <code>binaxis</code> is <code>"x"</code>.</p></li>
+<li><p><code>after_stat(binwidth)</code><br> maximum width of each bin if method is <code>"dotdensity"</code>;  width of each bin if method is <code>"histodot"</code>.</p></li>
+<li><p><code>after_stat(count)</code><br> number of points in bin.</p></li>
+<li><p><code>after_stat(ncount)</code><br> count, scaled to a maximum of 1.</p></li>
+<li><p><code>after_stat(density)</code><br> density of points in bin, scaled to integrate to 1, if method  is <code>"histodot"</code>.</p></li>
+<li><p><code>after_stat(ndensity)</code><br> density, scaled to maximum of 1, if method is <code>"histodot"</code>.</p></li>
+</ul></div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>Wilkinson, L. (1999) Dot plots. The American Statistician,
