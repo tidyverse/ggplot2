@@ -152,10 +152,14 @@
 #'   to the extend of the strip background? Options are `"on"` to clip, `"off"`
 #'   to disable clipping or `"inherit"` (default) to take the clipping setting
 #'   from the parent viewport.
-#' @param strip.text,strip.text.x,strip.text.y facet labels ([element_text()];
-#'   inherits from  `text`). Horizontal facet labels (`strip.text.x`) & vertical
+#' @param strip.text,strip.text.x,strip.text.y,strip.text.x.top,strip.text.x.bottom,strip.text.y.left,strip.text.y.right
+#'   facet labels ([element_text()]; inherits from  `text`). Horizontal facet labels (`strip.text.x`) & vertical
 #'   facet labels (`strip.text.y`) inherit from `strip.text` or can be specified
-#'   separately
+#'   separately. Facet strips have dedicated position-dependent theme elements
+#'   (`strip.text.x.top`, `strip.text.x.bottom`, `strip.text.y.left`, `strip.text.y.right`)
+#'   that inherit from `strip.text.x` and `strip.text.y`, respectively.
+#'   As a consequence, some theme stylings need to be applied to
+#'   the position-dependent elements rather than to the parent elements
 #' @param strip.switch.pad.grid space between strips and axes when strips are
 #'   switched (`unit`)
 #' @param strip.switch.pad.wrap space between strips and axes when strips are
@@ -266,6 +270,9 @@
 #'
 #' p3 + theme(strip.background = element_rect(colour = "black", fill = "white"))
 #' p3 + theme(strip.text.x = element_text(colour = "white", face = "bold"))
+#' # More direct strip.text.x here for top
+#' # as in the facet_wrap the default strip.position is "top"
+#' p3 + theme(strip.text.x.top = element_text(colour = "white", face = "bold"))
 #' p3 + theme(panel.spacing = unit(1, "lines"))
 #' }
 theme <- function(line,
@@ -358,13 +365,16 @@ theme <- function(line,
                   strip.placement,
                   strip.text,
                   strip.text.x,
+                  strip.text.x.bottom,
+                  strip.text.x.top,
                   strip.text.y,
+                  strip.text.y.left,
+                  strip.text.y.right,
                   strip.switch.pad.grid,
                   strip.switch.pad.wrap,
                   ...,
                   complete = FALSE,
-                  validate = TRUE
-                  ) {
+                  validate = TRUE) {
   elements <- find_args(..., complete = NULL, validate = NULL)
 
   if (!is.null(elements$axis.ticks.margin)) {
