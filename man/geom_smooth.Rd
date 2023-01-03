@@ -177,10 +177,10 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 
 These are calculated by the 'stat' part of layers and can be accessed with \link[=aes_eval]{delayed evaluation}. \code{stat_smooth()} provides the following variables, some of  which depend on the orientation:
 \itemize{
-\item \code{after_stat(y)} \emph{or} \code{after_stat(x)}: Predicted value.
-\item \code{after_stat(ymin)} \emph{or} \code{after_stat(xmin)}: Lower pointwise confidence interval around the mean.
-\item \code{after_stat(ymax)} \emph{or} \code{after_stat(xmax)}: Upper pointwise confidence interval around the mean.
-\item \code{after_stat(se)}: Standard error.
+\item \code{after_stat(y)} \emph{or} \code{after_stat(x)}\cr Predicted value.
+\item \code{after_stat(ymin)} \emph{or} \code{after_stat(xmin)}\cr Lower pointwise confidence interval around the mean.
+\item \code{after_stat(ymax)} \emph{or} \code{after_stat(xmax)}\cr Upper pointwise confidence interval around the mean.
+\item \code{after_stat(se)}\cr Standard error.
 }
 }
 

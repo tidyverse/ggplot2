@@ -102,8 +102,8 @@ dimension.
 
 These are calculated by the 'stat' part of layers and can be accessed with \link[=aes_eval]{delayed evaluation}.
 \itemize{
-\item \code{after_stat(x)}: X dimension of the simple feature.
-\item \code{after_stat(y)}: Y dimension of the simple feature.
+\item \code{after_stat(x)}\cr X dimension of the simple feature.
+\item \code{after_stat(y)}\cr Y dimension of the simple feature.
 }
 }
 

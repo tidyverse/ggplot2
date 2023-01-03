@@ -143,12 +143,12 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 
 These are calculated by the 'stat' part of layers and can be accessed with \link[=aes_eval]{delayed evaluation}.
 \itemize{
-\item \code{after_stat(density)}: Density estimate.
-\item \code{after_stat(scaled)}: Density estimate, scaled to a maximum of 1.
-\item \code{after_stat(count)}: Density * number of points - probably useless for violin  plots.
-\item \code{after_stat(violinwidth)}: Density scaled for the violin plot, according to area,  counts or to a constant maximum width.
-\item \code{after_stat(n)}: Number of points.
-\item \code{after_stat(width)}: Width of violin bounding box.
+\item \code{after_stat(density)}\cr Density estimate.
+\item \code{after_stat(scaled)}\cr Density estimate, scaled to a maximum of 1.
+\item \code{after_stat(count)}\cr Density * number of points - probably useless for violin  plots.
+\item \code{after_stat(violinwidth)}\cr Density scaled for the violin plot, according to area,  counts or to a constant maximum width.
+\item \code{after_stat(n)}\cr Number of points.
+\item \code{after_stat(width)}\cr Width of violin bounding box.
 }
 }
 

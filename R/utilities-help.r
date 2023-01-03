@@ -99,7 +99,7 @@ rd_computed_vars <- function(..., .details = "", .skip_intro = FALSE) {
 
   # Compose item-list
   fmt_descr <- gsub("\n", "", descr)
-  fmt_list  <- paste(fmt_items, fmt_descr, sep = ": ")
+  fmt_list  <- paste(fmt_items, fmt_descr, sep = "\\cr ")
 
   c(preamble, fmt_list)
 }
