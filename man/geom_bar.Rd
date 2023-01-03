@@ -179,9 +179,10 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 
 \section{Computed variables}{
 
-\describe{
-\item{count}{number of points in bin}
-\item{prop}{groupwise proportion}
+These are calculated by the 'stat' part of layers and can be accessed with \link[=aes_eval]{delayed evaluation}.
+\itemize{
+\item \code{after_stat(count)}\cr number of points in bin.
+\item \code{after_stat(prop)}\cr groupwise proportion
 }
 }
 
