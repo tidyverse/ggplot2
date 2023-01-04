@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* To apply dodging more consistently in violin plots, `stat_ydensity()` now
+  has a `drop` argument to keep or discard groups with 1 observation.
 * `ggsave()` warns when multiple `filename`s are given, and only writes to the
   first file (@teunbrand, #5114).
 * Fixed a regression in `geom_hex()` where aesthetics were replicated across 
