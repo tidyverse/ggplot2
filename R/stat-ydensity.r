@@ -72,8 +72,8 @@ StatYdensity <- ggproto("StatYdensity", Stat,
   compute_group = function(self, data, scales, width = NULL, bw = "nrd0", adjust = 1,
                        kernel = "gaussian", trim = TRUE, na.rm = FALSE, flipped_aes = FALSE) {
     if (nrow(data) < 2) {
-      cli::cli_warn("Groups with fewer than two data points have been dropped.")
-      return(data_frame0())
+      ans <- data_frame0(x = data$x, n = nrow(data))
+      return(ans)
     }
     range <- range(data$y, na.rm = TRUE)
     modifier <- if (trim) 0 else 3
@@ -101,15 +101,21 @@ StatYdensity <- ggproto("StatYdensity", Stat,
       data, scales, width = width, bw = bw, adjust = adjust, kernel = kernel,
       trim = trim, na.rm = na.rm
     )
+    if (any(data$n < 2)) {
+      cli::cli_warn(
+        "Cannot compute density for groups with fewer than two data points."
+      )
+    }
 
     # choose how violins are scaled relative to each other
     data$violinwidth <- switch(scale,
       # area : keep the original densities but scale them to a max width of 1
       #        for plotting purposes only
-      area = data$density / max(data$density),
+      area = data$density / max(data$density, na.rm = TRUE),
       # count: use the original densities scaled to a maximum of 1 (as above)
       #        and then scale them according to the number of observations
-      count = data$density / max(data$density) * data$n / max(data$n),
+      count = data$density / max(data$density, na.rm = TRUE) *
+        data$n / max(data$n),
       # width: constant width (density scaled to a maximum of 1)
       width = data$scaled
     )
