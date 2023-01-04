@@ -1,8 +1,7 @@
-#' @section Computed variables:
-#' \describe{
-#'   \item{count}{number of points in bin}
-#'   \item{prop}{groupwise proportion}
-#' }
+#' @eval rd_computed_vars(
+#'   count = "number of points in bin.",
+#'   prop  = "groupwise proportion"
+#' )
 #' @seealso [stat_bin()], which bins data in ranges and counts the
 #'   cases in each range. It differs from `stat_count()`, which counts the
 #'   number of cases at each `x` position (without binning into ranges).

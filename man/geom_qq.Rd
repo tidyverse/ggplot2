@@ -152,17 +152,17 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 
 \section{Computed variables}{
 
-Variables computed by \code{stat_qq()}:
-\describe{
-\item{sample}{sample quantiles}
-\item{theoretical}{theoretical quantiles}
+These are calculated by the 'stat' part of layers and can be accessed with \link[=aes_eval]{delayed evaluation}. \cr Variables computed by \code{stat_qq()}:
+\itemize{
+\item \code{after_stat(sample)}\cr Sample quantiles.
+\item \code{after_stat(theoretical)}\cr Theoretical quantiles.
 }
+
+
 Variables computed by \code{stat_qq_line()}:
-\describe{
-\item{x}{x-coordinates of the endpoints of the line segment connecting the
-points at the chosen quantiles of the theoretical and the sample
-distributions}
-\item{y}{y-coordinates of the endpoints}
+\itemize{
+\item \code{after_stat(x)}\cr x-coordinates of the endpoints of the line segment connecting the  points at the chosen quantiles of the theoretical and the sample  distributions.
+\item \code{after_stat(y)}\cr y-coordinates of the endpoints.
 }
 }
 

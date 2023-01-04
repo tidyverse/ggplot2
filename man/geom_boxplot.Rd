@@ -175,16 +175,16 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 
 \section{Computed variables}{
 
-\code{stat_boxplot()} provides the following variables, some of which depend on the orientation:
-\describe{
-\item{width}{width of boxplot}
-\item{ymin \emph{or} xmin}{lower whisker = smallest observation greater than or equal to lower hinge - 1.5 * IQR}
-\item{lower \emph{or} xlower}{lower hinge, 25\% quantile}
-\item{notchlower}{lower edge of notch = median - 1.58 * IQR / sqrt(n)}
-\item{middle \emph{or} xmiddle}{median, 50\% quantile}
-\item{notchupper}{upper edge of notch = median + 1.58 * IQR / sqrt(n)}
-\item{upper \emph{or} xupper}{upper hinge, 75\% quantile}
-\item{ymax \emph{or} xmax}{upper whisker = largest observation less than or equal to upper hinge + 1.5 * IQR}
+These are calculated by the 'stat' part of layers and can be accessed with \link[=aes_eval]{delayed evaluation}. \code{stat_boxplot()} provides the following variables, some of  which depend on the orientation:
+\itemize{
+\item \code{after_stat(width)}\cr width of boxplot.
+\item \code{after_stat(ymin)} \emph{or} \code{after_stat(xmin)}\cr lower whisker = smallest observation greater than or equal  to lower hinger - 1.5 * IQR.
+\item \code{after_stat(lower)} \emph{or} \code{after_stat(xlower)}\cr lower hinge, 25\% quantile.
+\item \code{after_stat(notchlower)}\cr lower edge of notch = median - 1.58 * IQR / sqrt(n).
+\item \code{after_stat(middle)} \emph{or} \code{after_stat(xmiddle)}\cr median, 50\% quantile.
+\item \code{after_stat(notchupper)}\cr upper edge of notch = median + 1.58 * IQR / sqrt(n).
+\item \code{after_stat(upper)} \emph{or} \code{after_stat(xupper)}\cr upper hinge, 75\% quantile.
+\item \code{after_stat(ymax)} \emph{or} \code{after_stat(xmax)}\cr upper whisker = largest observation less than or equal to  upper hinger + 1.5 * IQR.
 }
 }
 
