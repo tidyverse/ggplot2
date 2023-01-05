@@ -57,7 +57,7 @@
 #' # positions.
 #' ggplot(sample_df, aes(x = group, y = value)) +
 #'   geom_point() +
-#'   geom_point(group_means_df, aes(y = group_mean), colour = 'red', size = 3)
+#'   geom_point(group_means_df, aes(y = group_mean, colour = 'red', size = 3))
 #' 
 #' # Pattern 2
 #' # Same plot as above, declaring only the data frame in ggplot().
@@ -65,15 +65,14 @@
 #' # each geom_point() layer.
 #' ggplot(sample_df) +
 #'   geom_point(aes(x = group, y = value)) +
-#'   geom_point(group_means_df, aes(x = group, y = group_mean), colour = 'red', size = 3)
+#'   geom_point(group_means_df, aes(x = group, y = group_mean, colour = 'red', size = 3))
 #' 
 #' # Pattern 3
 #' # Alternatively, we can fully specify the plot in each layer. This
 #' # can be particularly useful when working with complex, multi-dataset graphics.
 #' ggplot() +
 #'  geom_point(sample_df, aes(x = group, y = value)) +
-#'  geom_point(group_means_df, aes(x = group, y = group_mean), colour = 'red', size = 3)
-#' }
+#'  geom_point(group_means_df, aes(x = group, y = group_mean, colour = 'red', size = 3))
 ggplot <- function(data = NULL, mapping = aes(), ...,
                    environment = parent.frame()) {
   UseMethod("ggplot")
