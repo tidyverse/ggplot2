@@ -11,19 +11,20 @@
 #'   function.
 #' @inheritParams layer
 #' @inheritParams geom_point
-#' @section Computed variables:
-#' Variables computed by `stat_qq()`:
-#' \describe{
-#'   \item{sample}{sample quantiles}
-#'   \item{theoretical}{theoretical quantiles}
-#' }
-#' Variables computed by `stat_qq_line()`:
-#' \describe{
-#'   \item{x}{x-coordinates of the endpoints of the line segment connecting the
-#'            points at the chosen quantiles of the theoretical and the sample
-#'            distributions}
-#'   \item{y}{y-coordinates of the endpoints}
-#' }
+#' @eval rd_computed_vars(
+#'  .details = "\\cr Variables computed by `stat_qq()`:",
+#'  sample      = "Sample quantiles.",
+#'  theoretical = "Theoretical quantiles."
+#' )
+#' @eval rd_computed_vars(
+#'   .skip_intro = TRUE,
+#'   .details = "Variables computed by `stat_qq_line()`:",
+#'   x = "x-coordinates of the endpoints of the line segment connecting the
+#'   points at the chosen quantiles of the theoretical and the sample
+#'   distributions.",
+#'   y = "y-coordinates of the endpoints."
+#' )
+#'
 #' @export
 #' @examples
 #' \donttest{

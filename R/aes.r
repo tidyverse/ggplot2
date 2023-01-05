@@ -31,6 +31,8 @@ NULL
 #'   are typically omitted because they are so common; all other aesthetics must be named.
 #' @seealso [vars()] for another quoting function designed for
 #'   faceting specifications.
+#'
+#'   [Delayed evaluation][aes_eval] for working with computed variables.
 #' @return A list with class `uneval`. Components of the list are either
 #'   quosures or constants.
 #' @export

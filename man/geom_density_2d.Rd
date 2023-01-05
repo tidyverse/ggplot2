@@ -192,16 +192,14 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 
 \section{Computed variables}{
 
-\code{stat_density_2d()} and \code{stat_density_2d_filled()} compute different
-variables depending on whether contouring is turned on or off. With
-contouring off (\code{contour = FALSE}), both stats behave the same, and the
-following variables are provided:
-\describe{
-\item{\code{density}}{The density estimate.}
-\item{\code{ndensity}}{Density estimate, scaled to a maximum of 1.}
-\item{\code{count}}{Density estimate * number of observations in group.}
-\item{\code{n}}{Number of observations in each group.}
+These are calculated by the 'stat' part of layers and can be accessed with \link[=aes_eval]{delayed evaluation}. \code{stat_density_2d()} and \code{stat_density_2d_filled()} compute  different variables depending on whether contouring is turned on or off.  With contouring off (\code{contour = FALSE}), both stats behave the same, and  the following variables are provided:
+\itemize{
+\item \code{after_stat(density)}\cr The density estimate.
+\item \code{after_stat(ndensity)}\cr Density estimate, scaled to a maximum of 1.
+\item \code{after_stat(count)}\cr Density estimate * number of observations in group.
+\item \code{after_stat(n)}\cr Number of observations in each group.
 }
+
 
 With contouring on (\code{contour = TRUE}), either \code{\link[=stat_contour]{stat_contour()}} or
 \code{\link[=stat_contour_filled]{stat_contour_filled()}} (for contour lines or contour bands,

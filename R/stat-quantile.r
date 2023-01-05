@@ -4,10 +4,9 @@
 #'    [`quantreg::rq()`]) and `"rqss"` (for [`quantreg::rqss()`]).
 #' @inheritParams layer
 #' @inheritParams geom_point
-#' @section Computed variables:
-#' \describe{
-#'   \item{quantile}{quantile of distribution}
-#' }
+#' @eval rd_computed_vars(
+#'   quantile = "Quantile of distribution."
+#' )
 #' @export
 #' @rdname geom_quantile
 stat_quantile <- function(mapping = NULL, data = NULL,
