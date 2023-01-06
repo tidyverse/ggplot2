@@ -77,6 +77,17 @@ ggsave <- function(filename, plot = last_plot(),
                    device = NULL, path = NULL, scale = 1,
                    width = NA, height = NA, units = c("in", "cm", "mm", "px"),
                    dpi = 300, limitsize = TRUE, bg = NULL, ...) {
+  if (length(filename) != 1) {
+    if (length(filename) == 0) {
+      cli::cli_abort("{.arg filename} cannot be empty.")
+    }
+    len <- length(filename)
+    filename <- filename[1]
+    cli::cli_warn(c(
+      "{.arg filename} must have length 1, not length {len}.",
+      "!" = "Only the first, {.file {filename}}, will be used."
+    ))
+  }
 
   dpi <- parse_dpi(dpi)
   dev <- plot_dev(device, filename, dpi = dpi)

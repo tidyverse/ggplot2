@@ -86,4 +86,6 @@ scatter_by(mtcars, cut3(disp), drat)
 \seealso{
 \code{\link[=vars]{vars()}} for another quoting function designed for
 faceting specifications.
+
+\link[=aes_eval]{Delayed evaluation} for working with computed variables.
 }

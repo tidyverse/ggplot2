@@ -20,10 +20,9 @@
 #'   of points to interpolate with.
 #' @param pad If `TRUE`, pad the ecdf with additional points (-Inf, 0)
 #'   and (Inf, 1)
-#' @section Computed variables:
-#' \describe{
-#'   \item{ecdf}{cumulative density corresponding x}
-#' }
+#' @eval rd_computed_vars(
+#'   ecdf = "Cumulative density corresponding to `x`."
+#' )
 #' @export
 #' @examples
 #' set.seed(1)

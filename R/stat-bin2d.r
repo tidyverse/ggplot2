@@ -5,13 +5,12 @@
 #' @param drop if `TRUE` removes all cells with 0 counts.
 #' @export
 #' @rdname geom_bin_2d
-#' @section Computed variables:
-#' \describe{
-#'   \item{count}{number of points in bin}
-#'   \item{density}{density of points in bin, scaled to integrate to 1}
-#'   \item{ncount}{count, scaled to maximum of 1}
-#'   \item{ndensity}{density, scaled to maximum of 1}
-#' }
+#' @eval rd_computed_vars(
+#'   count    = "number of points in bin.",
+#'   density  = "density of points in bin, scaled to integrate to 1.",
+#'   ncount   = "count, scaled to maximum of 1.",
+#'   ndensity = "density, scaled to a maximum of 1."
+#' )
 stat_bin_2d <- function(mapping = NULL, data = NULL,
                         geom = "tile", position = "identity",
                         ...,

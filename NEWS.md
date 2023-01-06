@@ -2,6 +2,8 @@
 
 * Renamed computed aesthetic in `stat_ecdf()` to `ecdf`, to prevent incorrect
   scale transformations (@teunbrand, #5113 and #5112).
+* `ggsave()` warns when multiple `filename`s are given, and only writes to the
+  first file (@teunbrand, #5114)
 * Fixed a regression in `geom_hex()` where aesthetics were replicated across 
   bins (@thomasp85, #5037 and #5044)
 * Fixed spurious warning when `weight` aesthetic was used in `stat_smooth()` 
