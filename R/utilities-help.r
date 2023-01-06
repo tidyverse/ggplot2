@@ -49,3 +49,57 @@ rd_orientation <- function() {
     )
   )
 }
+
+#' Format 'Computed variables' section
+#'
+#' This is a helper function that helps format the 'Computed variables' section
+#' of stat documentation pages. Briefly, it points to the delayed evaluation
+#' documentation and it wraps the variable names in
+#' 'after_stat()'.
+#'
+#' @param ... Named variable - description pairs. Variable names get wrapped in
+#'   `after_stat()`. Variable names may be of the form "x|y" or "x,y" to format
+#'   as "`after_stat(x)` or `after_stat(y)`" and
+#'   "`after_stat(x)`, `after_stat(y)`" respectively.
+#' @param .details Additional details to include in the preamble.
+#' @param .skip_intro A logical, which if `TRUE` omits the link to the delayed
+#'   evaluation docs. Can be useful when documenting two stat functions on the
+#'   same page with different arguments, but no need to repeat the introduction
+#'   in the second stat function (see e.g. `?stat_qq`).
+#'
+#' @return Formatted code that can be inserted into a .rd file.
+#' @keywords internal
+#' @noRd
+#' @examples
+#' rd_computed_vars(
+#'   .details = "`stat_foobar()` computes the following variables:",
+#'   "foo|bar" = "foobar",
+#'   "bar,qux" = "quux",
+#'   corge = "grault"
+#' )
+rd_computed_vars <- function(..., .details = "", .skip_intro = FALSE) {
+  args  <- list(...)
+  items <- names(args)
+  descr <- unname(args)
+
+  # Format preamble
+  header <- "@section Computed variables: "
+  intro  <- paste0(
+    "These are calculated by the 'stat' part of layers and can be accessed ",
+    "with [delayed evaluation][aes_eval]. "
+  )
+  if (.skip_intro) intro <- ""
+  preamble <- c(header, paste0(intro, gsub("\n", "", .details)))
+
+  # Format items
+  fmt_items <- gsub(",", ")`, `after_stat(", items, fixed = TRUE)
+  fmt_items <- gsub("|", ")` *or* `after_stat(",
+                    fmt_items, fixed = TRUE)
+  fmt_items <- paste0("*  `after_stat(", fmt_items, ")`")
+
+  # Compose item-list
+  fmt_descr <- gsub("\n", "", descr)
+  fmt_list  <- paste(fmt_items, fmt_descr, sep = "\\cr ")
+
+  c(preamble, fmt_list)
+}

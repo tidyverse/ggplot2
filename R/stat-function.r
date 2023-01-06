@@ -5,12 +5,10 @@
 #' @param n Number of points to interpolate along the x axis.
 #' @param args List of additional arguments passed on to the function defined by `fun`.
 #' @param xlim Optionally, specify the range of the function.
-#' @section Computed variables:
-#' `stat_function()` computes the following variables:
-#' \describe{
-#'   \item{x}{x values along a grid}
-#'   \item{y}{value of the function evaluated at corresponding x}
-#' }
+#' @eval rd_computed_vars(
+#'   x = "`x` values along a grid.",
+#'   y = "values of the function evaluated at corresponding `x`."
+#' )
 #' @seealso [rlang::as_function()]
 #' @export
 #' @rdname geom_function

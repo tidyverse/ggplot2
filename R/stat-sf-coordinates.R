@@ -24,11 +24,10 @@
 #' otherwise `sf::st_point_on_surface()` may fail when the geometries have M
 #' dimension.
 #'
-#' @section Computed variables:
-#' \describe{
-#'   \item{x}{X dimension of the simple feature}
-#'   \item{y}{Y dimension of the simple feature}
-#' }
+#' @eval rd_computed_vars(
+#'  x = "X dimension of the simple feature.",
+#'  y = "Y dimension of the simple feature."
+#' )
 #'
 #' @examples
 #' if (requireNamespace("sf", quietly = TRUE)) {
