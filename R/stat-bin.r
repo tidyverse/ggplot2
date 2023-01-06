@@ -123,9 +123,6 @@ StatBin <- ggproto("StatBin", Stat,
       params$closed <- if (params$right) "right" else "left"
       params$right <- NULL
     }
-    if (!is.null(params$width)) {
-      deprecate_warn0("2.1.0", "stat_bin(width)", "geom_bar()")
-    }
     if (!is.null(params$boundary) && !is.null(params$center)) {
       cli::cli_abort("Only one of {.arg boundary} and {.arg center} may be specified in {.fn {snake_class(self)}}.")
     }
@@ -146,8 +143,7 @@ StatBin <- ggproto("StatBin", Stat,
                            breaks = NULL, flipped_aes = FALSE,
                            # The following arguments are not used, but must
                            # be listed so parameters are computed correctly
-                           origin = NULL, right = NULL, drop = NULL,
-                           width = NULL) {
+                           origin = NULL, right = NULL, drop = NULL) {
     x <- flipped_names(flipped_aes)$x
     if (!is.null(breaks)) {
       if (!scales[[x]]$is_discrete()) {
