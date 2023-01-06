@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Binned scales are now compatible with `trans = "date"` and `trans = "time"` 
+  (@teunbrand, #4217).
 * `ggsave()` warns when multiple `filename`s are given, and only writes to the
   first file (@teunbrand, #5114).
 * Fixed a regression in `geom_hex()` where aesthetics were replicated across 
