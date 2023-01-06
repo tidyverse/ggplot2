@@ -117,9 +117,10 @@ are summarised with \code{fun}.
 
 \section{Computed variables}{
 
-\describe{
-\item{x,y}{Location}
-\item{value}{Value of summary statistic.}
+These are calculated by the 'stat' part of layers and can be accessed with \link[=aes_eval]{delayed evaluation}.
+\itemize{
+\item \code{after_stat(x)}, \code{after_stat(y)}\cr Location.
+\item \code{after_stat(value)}\cr Value of summary statistic.
 }
 }
 

@@ -208,19 +208,12 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 
 \section{Computed variables}{
 
-The computed variables differ somewhat for contour lines (computed by
-\code{stat_contour()}) and contour bands (filled contours, computed by \code{stat_contour_filled()}).
-The variables \code{nlevel} and \code{piece} are available for both, whereas \code{level_low}, \code{level_high},
-and \code{level_mid} are only available for bands. The variable \code{level} is a numeric or a factor
-depending on whether lines or bands are calculated.
-\describe{
-\item{\code{level}}{Height of contour. For contour lines, this is numeric vector that
-represents bin boundaries. For contour bands, this is an ordered factor that
-represents bin ranges.}
-\item{\code{level_low}, \code{level_high}, \code{level_mid}}{(contour bands only) Lower and upper
-bin boundaries for each band, as well the mid point between the boundaries.}
-\item{\code{nlevel}}{Height of contour, scaled to maximum of 1.}
-\item{\code{piece}}{Contour piece (an integer).}
+These are calculated by the 'stat' part of layers and can be accessed with \link[=aes_eval]{delayed evaluation}. The computed variables differ somewhat for contour lines  (compbuted by \code{stat_contour()}) and contour bands (filled contours,  computed by \code{stat_contour_filled()}). The variables \code{nlevel} and \code{piece}  are available for both, whereas \code{level_low}, \code{level_high}, and \code{level_mid}  are only available for bands. The variable \code{level} is a numeric or a factor  depending on whether lines or bands are calculated.
+\itemize{
+\item \code{after_stat(level)}\cr Height of contour. For contour lines, this is a numeric vector  that represents bin boundaries. For contour bands, this is an ordered  factor that represents bin ranges.
+\item \code{after_stat(level_low)}, \code{after_stat(level_high)}, \code{after_stat(level_mid)}\cr (contour bands only) Lower and upper  bin boundaries for each band, as well as the mid point between boundaries.
+\item \code{after_stat(nlevel)}\cr Height of contour, scaled to a maximum of 1.
+\item \code{after_stat(piece)}\cr Contour piece (an integer).
 }
 }
 
