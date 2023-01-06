@@ -81,7 +81,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="ggplot2-development-version">ggplot2 (development version)<a class="anchor" aria-label="anchor" href="#ggplot2-development-version"></a></h2>
-<ul><li>
+<ul><li>Fixed misbehaviour of <code><a href="../reference/draw_key.html">draw_key_boxplot()</a></code> and <code><a href="../reference/draw_key.html">draw_key_crossbar()</a></code> with skewed key aspect ratio (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5082" class="external-link">#5082</a>).</li>
+<li>
 <code>scale_*_binned()</code> handles zero-range limits more gracefully (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5066" class="external-link">#5066</a>)</li>
 <li>Binned scales are now compatible with <code>trans = "date"</code> and <code>trans = "time"</code> (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/4217" class="external-link">#4217</a>).</li>
 <li>
