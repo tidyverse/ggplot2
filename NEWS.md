@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Fixed misbehaviour of `draw_key_boxplot()` and `draw_key_crossbar()` with 
+  skewed key aspect ratio (@teunbrand, #5082).
 * `scale_*_binned()` handles zero-range limits more gracefully (@teunbrand, 
   #5066)
 * Binned scales are now compatible with `trans = "date"` and `trans = "time"` 
