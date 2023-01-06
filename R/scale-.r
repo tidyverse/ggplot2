@@ -1021,16 +1021,22 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
       x <- self$rescale(self$oob(x, range = limits), limits)
       breaks <- self$rescale(breaks, limits)
 
-      x_binned <- cut(x, breaks,
-        labels = FALSE,
-        include.lowest = TRUE,
-        right = self$right
-      )
+      if (length(breaks) > 1) {
+        x_binned <- cut(x, breaks,
+          labels = FALSE,
+          include.lowest = TRUE,
+          right = self$right
+        )
+        midpoints <- breaks[-1] - diff(breaks) / 2
+      } else {
+        x_binned  <- 1L
+        midpoints <- 0.5
+      }
 
       if (!is.null(self$palette.cache)) {
         pal <- self$palette.cache
       } else {
-        pal <- self$palette(breaks[-1] - diff(breaks) / 2)
+        pal <- self$palette(midpoints)
         self$palette.cache <- pal
       }
 
