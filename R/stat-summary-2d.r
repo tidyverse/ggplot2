@@ -10,11 +10,11 @@
 #'  - `x`: horizontal position
 #'  - `y`: vertical position
 #'  - `z`: value passed to the summary function
-#' @section Computed variables:
-#' \describe{
-#'   \item{x,y}{Location}
-#'   \item{value}{Value of summary statistic.}
-#' }
+#'
+#' @eval rd_computed_vars(
+#'   "x,y" = "Location.",
+#'   value = "Value of summary statistic."
+#' )
 #'
 #' @section Dropped variables:
 #' \describe{
