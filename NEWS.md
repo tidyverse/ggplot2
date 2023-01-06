@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Added `scale_linewidth_manual()` and `scale_linewidth_identity()` to support
+  the `linewidth` aesthetic (@teunbrand, #5050).
 * `scale_*_binned()` handles zero-range limits more gracefully (@teunbrand, 
   #5066)
 * Binned scales are now compatible with `trans = "date"` and `trans = "time"` 
