@@ -8,10 +8,11 @@
 #' `ggplot()` is used to construct the initial plot object,
 #' and is almost always followed by a plus sign (`+`) to add
 #' components to the plot.
+#'
 #' There are three common patterns used to invoke `ggplot()`:
 #'
-#' * `ggplot(df, aes(x, y, other aesthetics))`
-#' * `ggplot(df)`
+#' * `ggplot(data = df, mapping = aes(x, y, other aesthetics))`
+#' * `ggplot(data = df)`
 #' * `ggplot()`
 #'
 #' The first pattern is recommended if all layers use the same
@@ -22,12 +23,17 @@
 #' The second pattern specifies the default data frame to use
 #' for the plot, but no aesthetics are defined up front. This
 #' is useful when one data frame is used predominantly for the
-#' plot, but the aesthetics may vary from one layer to another. 
+#' plot, but the aesthetics vary from one layer to another. 
 #'
 #' The third pattern initializes a skeleton `ggplot` object, which
 #' is fleshed out as layers are added. This is useful when
 #' multiple data frames are used to produce different layers, as
 #' is often the case in complex graphics.
+#'
+#' The `data =` and `mapping =` specifications in the arguments are optional
+#' (and are often omitted in practice), so long as the data and the mapping
+#' values are passed into the function in the right order. In the examples
+#' below, however, they are left in place for clarity.
 #'
 #' @param data Default dataset to use for plot. If not already a data.frame,
 #'   will be converted to one by [fortify()]. If not specified,
@@ -40,39 +46,55 @@
 #' @export
 #' @examples
 #' # Create a data frame with some sample data, then create a data frame
-#' # containing the mean for each group in the sample data.
+#' # containing the mean value for each group in the sample data.
 #' set.seed(1)
+#' 
 #' sample_df <- data.frame(
 #'   group = factor(rep(letters[1:3], each = 10)),
 #'   value = rnorm(30)
 #' )
-#' group_means_df <- do.call(rbind, lapply(split(sample_df, sample_df$group), function(d) {
-#'   data.frame(group_mean = mean(d$value), group = d$group)
-#' }))
+#' 
+#' group_means_df <- setNames(
+#'   aggregate(value ~ group, sample_df, mean),
+#'   c("group", "group_mean")
+#' )
+#' 
+#' # The following three code blocks create the same graphic, each using one
+#' # of the three patterns specified above. In each graphic, the group means
+#' # data frame is used to plot larger red points on top of the sample data.
 #' 
 #' # Pattern 1
-#' # The group means data frame is used to plot larger red points on top
-#' # of the sample data. Note that we don't need to supply `data =` or `mapping =`
-#' # in each layer because the arguments are passed into ggplot() in the default
-#' # positions.
-#' ggplot(sample_df, aes(x = group, y = value)) +
+#' # Both the `data` and the `mapping` arguments are passed into the `ggplot()`
+#' # call. Note that we don't need to supply `mapping` or `data` arguments in
+#' # the first `geom_point()` layer because those arguments get passed along
+#' # from the `ggplot()` call.
+#' ggplot(data = sample_df, mapping = aes(x = group, y = value)) +
 #'   geom_point() +
-#'   geom_point(group_means_df, aes(y = group_mean), colour = 'red', size = 3)
+#'   geom_point(mapping = aes(x = group, y = group_mean), data = group_means_df,
+#'              colour = 'red', size = 3
+#'     )
 #' 
 #' # Pattern 2
-#' # Same plot as above, declaring only the data frame in ggplot().
-#' # Note how the x and y aesthetics must now be declared in
-#' # each geom_point() layer.
-#' ggplot(sample_df) +
-#'   geom_point(aes(x = group, y = value)) +
-#'   geom_point(group_means_df, aes(x = group, y = group_mean), colour = 'red', size = 3)
+#' # Same plot as above, passing in only the `data` argument in the `ggplot()`
+#' # call. Note how the `mapping` arguments must now be passed in for each
+#' # `geom_point()` layer because there are no `mapping` arguments passed
+#' # along from the `ggplot()` call.
+#' ggplot(data = sample_df) +
+#'   geom_point(mapping = aes(x = group, y = value)) +
+#'   geom_point(mapping = aes(x = group, y = group_mean), data = group_means_df,
+#'              colour = 'red', size = 3
+#'   )
 #' 
 #' # Pattern 3
-#' # Alternatively, we can fully specify the plot in each layer. This
-#' # can be particularly useful when working with complex, multi-dataset graphics.
+#' # Same plot as above, passing in neither the `data` or `mapping` arguments
+#' # to the `ggplot()` call. Both those arguments must then be fully specified
+#' # in each layer. This pattern can be particularly useful when creating more
+#' # complex graphics.
 #' ggplot() +
-#'  geom_point(sample_df, aes(x = group, y = value)) +
-#'  geom_point(group_means_df, aes(x = group, y = group_mean), colour = 'red', size = 3)
+#'   geom_point(mapping = aes(x = group, y = value), data = sample_df) +
+#'   geom_point(mapping = aes(x = group, y = group_mean), data = group_means_df,
+#'              colour = 'red', size = 3
+#'   )
 ggplot <- function(data = NULL, mapping = aes(), ...,
                    environment = parent.frame()) {
   UseMethod("ggplot")
