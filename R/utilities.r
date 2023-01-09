@@ -628,13 +628,19 @@ with_ordered_restart <- function(expr, .call) {
       class_y <- class(y)[1]
 
       restart <- FALSE
+      warn    <- TRUE
+      two_ordered <- FALSE
 
       if (is.ordered(x) || is.ordered(y)) {
         restart <- TRUE
-        if (is.ordered(x)) {
+        x_is_ordered <- is.ordered(x)
+        y_is_ordered <- is.ordered(y)
+        # Check whether vec_cast should emit warning
+        two_ordered  <- x_is_ordered && y_is_ordered
+        if (x_is_ordered) {
           x <- factor(as.character(x), levels = levels(x))
         }
-        if (is.ordered(y)) {
+        if (y_is_ordered) {
           y <- factor(as.character(y), levels = levels(y))
         }
       } else if (is.character(x) || is.character(y)) {
@@ -668,8 +674,11 @@ with_ordered_restart <- function(expr, .call) {
         format_error_call(.call),
         ")"
       )
-
-      if (inherits(cnd, "vctrs_error_ptype2")) {
+      if (inherits(cnd, "vctrs_error_cast")) {
+        # Should be FALSE when vec_ptype2 has seen two ordered factors
+        warn <- attr(y, "warn") %||% TRUE
+      }
+      if (warn) {
         deprecate_soft0(
           "3.4.0",
           I(msg),
@@ -684,6 +693,8 @@ with_ordered_restart <- function(expr, .call) {
       # Recurse with factor methods and restart with the result
       if (inherits(cnd, "vctrs_error_ptype2")) {
         out <- vec_ptype2(x, y, x_arg = x_arg, y_arg = y_arg, call = call)
+        # Set warn attribute to forward to vec_cast
+        attr(out, "warn") <- !two_ordered
         restart <- "vctrs_restart_ptype2"
       } else if (inherits(cnd, "vctrs_error_cast")) {
         out <- vec_cast(x, y, x_arg = x_arg, to_arg = y_arg, call = call)
