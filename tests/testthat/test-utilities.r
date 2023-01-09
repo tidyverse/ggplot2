@@ -127,3 +127,16 @@ test_that("cut_*() checks its input and output", {
 test_that("interleave() checks the vector lengths", {
   expect_snapshot_error(interleave(1:4, numeric()))
 })
+
+test_that("vec_rbind0 can combined ordered factors with warning", {
+  # Should give exactly 1 warning, not multiple
+  expect_silent(
+    expect_warning(
+      vec_rbind0(
+        data_frame0(a = factor(c("A", "B"), ordered = TRUE)),
+        data_frame0(a = factor(c("B", "C"), ordered = TRUE))
+      ),
+      "Combining variables of class <ordered> and <ordered> was deprecated"
+    )
+  )
+})
