@@ -216,8 +216,11 @@ breaks are given explicitly.</p></dd>
 
 
 <dt>right</dt>
-<dd><p>Should values on the border between bins be part of the right
-(upper) bin?</p></dd>
+<dd><p>Should the intervals be closed on the right (<code>TRUE</code>, default) or
+should the intervals be closed on the left (<code>FALSE</code>)? 'Closed on the right'
+means that values at break positions are part of the lower bin (open on the
+left), whereas they are part of the upper bin when intervals are closed on
+the left (open on the right).</p></dd>
 
 
 <dt>trans</dt>
