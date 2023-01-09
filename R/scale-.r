@@ -1077,6 +1077,7 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
         breaks <- seq(limits[1], limits[2], length.out = n.breaks + 2)
         breaks <- breaks[-c(1, length(breaks))]
       }
+      breaks <- oob_discard(breaks, limits)
 
       # Ensure terminal bins are same width if limits not set
       if (is.null(self$limits)) {

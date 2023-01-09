@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Automatic breaks in `scale_*_binned()` should no longer be out-of-bounds,
+  and automatic limits expand to include these (@teunbrand, #5095, #5100).
 * Renamed computed aesthetic in `stat_ecdf()` to `ecdf`, to prevent incorrect
   scale transformations (@teunbrand, #5113 and #5112).
 * Fixed misbehaviour of `draw_key_boxplot()` and `draw_key_crossbar()` with 

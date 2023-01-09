@@ -70,6 +70,7 @@ ScaleBinnedPosition <- ggproto("ScaleBinnedPosition", ScaleBinned,
 
   map = function(self, x, limits = self$get_limits()) {
     breaks <- self$get_breaks(limits)
+    limits <- self$get_limits() # get_breaks() may have updated this
     all_breaks <- unique0(sort(c(limits[1], breaks, limits[2])))
 
     if (self$after.stat) {
