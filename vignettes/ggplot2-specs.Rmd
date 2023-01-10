@@ -172,13 +172,13 @@ Shapes take five types of values:
       "diamond", paste("diamond", c("open", "filled", "plus")),
       "triangle", paste("triangle", c("open", "filled", "square")),
       paste("triangle down", c("open", "filled")),
-      "plus", "cross", "asterisk"
+      "plus", "cross", "asterisk", "dot", "blank"
     )
     
     shapes <- data.frame(
       shape_names = shape_names,
-      x = c(1:7, 1:6, 1:3, 5, 1:3, 6, 2:3, 1:3),
-      y = -rep(1:6, c(7, 6, 4, 4, 2, 3))
+      x = c(1:7, 1:6, 1:3, 5, 1:3, 6, 2:3, 1:5),
+      y = -rep(1:6, c(7, 6, 4, 4, 2, 5))
     )
     
     ggplot(shapes, aes(x, y)) +
