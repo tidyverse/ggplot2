@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Using two ordered factors as facetting variables in 
+  `facet_grid(..., as.table = FALSE)` now throws a warning instead of an
+  error (@teunbrand, #5109).
 * `scale_*_binned()` handles zero-range limits more gracefully (@teunbrand, 
   #5066)
 * Binned scales are now compatible with `trans = "date"` and `trans = "time"` 
