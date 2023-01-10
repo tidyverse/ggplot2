@@ -3,12 +3,20 @@
 * Using two ordered factors as facetting variables in 
   `facet_grid(..., as.table = FALSE)` now throws a warning instead of an
   error (@teunbrand, #5109).
+* Added `scale_linewidth_manual()` and `scale_linewidth_identity()` to support
+  the `linewidth` aesthetic (@teunbrand, #5050).
+* Automatic breaks in `scale_*_binned()` should no longer be out-of-bounds,
+  and automatic limits expand to include these (@teunbrand, #5095, #5100).
+* Renamed computed aesthetic in `stat_ecdf()` to `ecdf`, to prevent incorrect
+  scale transformations (@teunbrand, #5113 and #5112).
+* Fixed misbehaviour of `draw_key_boxplot()` and `draw_key_crossbar()` with 
+  skewed key aspect ratio (@teunbrand, #5082).
 * `scale_*_binned()` handles zero-range limits more gracefully (@teunbrand, 
   #5066)
 * Binned scales are now compatible with `trans = "date"` and `trans = "time"` 
   (@teunbrand, #4217).
 * `ggsave()` warns when multiple `filename`s are given, and only writes to the
-  first file (@teunbrand, #5114).
+  first file (@teunbrand, #5114)
 * Fixed a regression in `geom_hex()` where aesthetics were replicated across 
   bins (@thomasp85, #5037 and #5044)
 * Fixed spurious warning when `weight` aesthetic was used in `stat_smooth()` 
