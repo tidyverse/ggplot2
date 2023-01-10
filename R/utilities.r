@@ -669,13 +669,11 @@ with_ordered_restart <- function(expr, .call) {
         ")"
       )
 
-      if (inherits(cnd, "vctrs_error_ptype2")) {
-        deprecate_soft0(
-          "3.4.0",
-          I(msg),
-          details = desc
-        )
-      }
+      deprecate_soft0(
+        "3.4.0",
+        I(msg),
+        details = desc
+      )
 
       x_arg <- cnd[["x_arg"]]
       y_arg <- cnd[["y_arg"]]
