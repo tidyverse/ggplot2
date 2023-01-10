@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Added `"dot"` and `"blank"` to list of named shapes, representing 
+  `shape = "."` and `shape = NA` respectively (@teunbrand, #5088).
 * Using two ordered factors as facetting variables in 
   `facet_grid(..., as.table = FALSE)` now throws a warning instead of an
   error (@teunbrand, #5109).
