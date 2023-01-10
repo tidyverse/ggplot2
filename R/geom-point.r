@@ -176,7 +176,9 @@ translate_shape_string <- function(shape_string) {
     "square filled"         = 22,
     "diamond filled"        = 23,
     "triangle filled"       = 24,
-    "triangle down filled"  = 25
+    "triangle down filled"  = 25,
+    "dot"                   = 46,
+    "blank"                 = NA
   )
 
   shape_match <- charmatch(shape_string, names(pch_table))
