@@ -15,6 +15,7 @@ update_geom_defaults <- function(geom, new) {
   g <- check_subclass(geom, "Geom", env = parent.frame())
   old <- g$default_aes
   g$default_aes <- defaults(rename_aes(new), old)
+  class(g$default_aes) <- "uneval"
   invisible()
 }
 
@@ -24,5 +25,6 @@ update_stat_defaults <- function(stat, new) {
   g <- check_subclass(stat, "Stat", env = parent.frame())
   old <- g$default_aes
   g$default_aes <- defaults(rename_aes(new), old)
+  class(g$default_aes) <- "uneval"
   invisible()
 }
