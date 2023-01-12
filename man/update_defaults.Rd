@@ -20,7 +20,9 @@ update_stat_defaults(stat, new)
 Modify geom/stat aesthetic defaults for future plots
 }
 \examples{
-update_geom_defaults("point", list(colour = "darkblue"))
+GeomPoint$default_aes
+update_geom_defaults("point", list(color = "red"))
+GeomPoint$default_aes
 ggplot(mtcars, aes(mpg, wt)) + geom_point()
 update_geom_defaults("point", list(colour = "black"))
 }

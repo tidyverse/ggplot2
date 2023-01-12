@@ -7,15 +7,16 @@
 #' @keywords internal
 #' @export
 #' @examples
-#' update_geom_defaults("point", list(colour = "darkblue"))
+#' GeomPoint$default_aes
+#' update_geom_defaults("point", list(color = "red"))
+#' GeomPoint$default_aes
 #' ggplot(mtcars, aes(mpg, wt)) + geom_point()
 #' update_geom_defaults("point", list(colour = "black"))
 #' @rdname update_defaults
 update_geom_defaults <- function(geom, new) {
   g <- check_subclass(geom, "Geom", env = parent.frame())
   old <- g$default_aes
-  g$default_aes <- defaults(rename_aes(new), old)
-  class(g$default_aes) <- "uneval"
+  g$default_aes[] <- defaults(rename_aes(new), old)[names(g$default_aes)]
   invisible()
 }
 
@@ -24,7 +25,6 @@ update_geom_defaults <- function(geom, new) {
 update_stat_defaults <- function(stat, new) {
   g <- check_subclass(stat, "Stat", env = parent.frame())
   old <- g$default_aes
-  g$default_aes <- defaults(rename_aes(new), old)
-  class(g$default_aes) <- "uneval"
+  g$default_aes[] <- defaults(rename_aes(new), old)[names(g$default_aes)]
   invisible()
 }
