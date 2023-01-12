@@ -60,40 +60,46 @@
 #' )
 #' 
 #' # The following three code blocks create the same graphic, each using one
-#' # of the three patterns specified above. In each graphic, the group means
-#' # data frame is used to plot larger red points on top of the sample data.
+#' # of the three patterns specified above. In each graphic, the sample data
+#' # are plotted in the first layer and the group means data frame is used to
+#' # plot larger red points on top of the sample data in the second layer.
 #' 
 #' # Pattern 1
-#' # Both the `data` and the `mapping` arguments are passed into the `ggplot()`
-#' # call. Note that we don't need to supply `mapping` or `data` arguments in
-#' # the first `geom_point()` layer because those arguments get passed along
-#' # from the `ggplot()` call.
+#' # Both the `data` and `mapping` arguments are passed into the `ggplot()`
+#' # call. Those arguments are omitted in the first `geom_point()` layer
+#' # because they get passed along from the `ggplot()` call. Note that the
+#' # second `geom_point()` layer re-uses the `x = group` aesthetic through
+#' # that mechanism but overrides the y-position aesthetic.
 #' ggplot(data = sample_df, mapping = aes(x = group, y = value)) +
 #'   geom_point() +
-#'   geom_point(mapping = aes(x = group, y = group_mean), data = group_means_df,
-#'              colour = 'red', size = 3
-#'     )
+#'   geom_point(
+#'     mapping = aes(y = group_mean), data = group_means_df,
+#'     colour = 'red', size = 3
+#'   )
 #' 
 #' # Pattern 2
-#' # Same plot as above, passing in only the `data` argument in the `ggplot()`
-#' # call. Note how the `mapping` arguments must now be passed in for each
-#' # `geom_point()` layer because there are no `mapping` arguments passed
-#' # along from the `ggplot()` call.
+#' # Same plot as above, passing only the `data` argument into the `ggplot()`
+#' # call. The `mapping` arguments are now required in each `geom_point()`
+#' # layer because there is no `mapping` argument passed along from the
+#' # `ggplot()` call.
 #' ggplot(data = sample_df) +
 #'   geom_point(mapping = aes(x = group, y = value)) +
-#'   geom_point(mapping = aes(x = group, y = group_mean), data = group_means_df,
-#'              colour = 'red', size = 3
+#'   geom_point(
+#'     mapping = aes(x = group, y = group_mean), data = group_means_df,
+#'     colour = 'red', size = 3
 #'   )
 #' 
 #' # Pattern 3
-#' # Same plot as above, passing in neither the `data` or `mapping` arguments
-#' # to the `ggplot()` call. Both those arguments must then be fully specified
-#' # in each layer. This pattern can be particularly useful when creating more
-#' # complex graphics.
+#' # Same plot as above, passing neither the `data` or `mapping` arguments
+#' # into the `ggplot()` call. Both those arguments are now required in
+#' # each `geom_point()` layer. This pattern can be particularly useful when
+#' # creating more complex graphics with many layers using data from multiple
+#' # data frames.
 #' ggplot() +
 #'   geom_point(mapping = aes(x = group, y = value), data = sample_df) +
-#'   geom_point(mapping = aes(x = group, y = group_mean), data = group_means_df,
-#'              colour = 'red', size = 3
+#'   geom_point(
+#'     mapping = aes(x = group, y = group_mean), data = group_means_df,
+#'     colour = 'red', size = 3
 #'   )
 ggplot <- function(data = NULL, mapping = aes(), ...,
                    environment = parent.frame()) {
