@@ -21,7 +21,8 @@
 #' @param pad If `TRUE`, pad the ecdf with additional points (-Inf, 0)
 #'   and (Inf, 1)
 #' @eval rd_computed_vars(
-#'   ecdf = "Cumulative density corresponding to `x`."
+#'   ecdf = "Cumulative density corresponding to `x`.",
+#'   y    = "For backward compatibility. Not recommended to use."
 #' )
 #' @export
 #' @examples
@@ -103,6 +104,7 @@ StatEcdf <- ggproto("StatEcdf", Stat,
 
     df_ecdf <- data_frame0(
       x = x,
+      y = data_ecdf,
       ecdf = data_ecdf,
       .size = length(x)
     )
