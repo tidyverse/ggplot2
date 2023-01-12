@@ -2,11 +2,11 @@
 
 <details>
 
-* Version: 1.2.7
+* Version: 1.3.0
 * GitHub: NA
 * Source code: https://github.com/cran/CausalImpact
-* Date/Publication: 2021-06-07 06:40:02 UTC
-* Number of recursive dependencies: 72
+* Date/Publication: 2022-11-09 08:40:40 UTC
+* Number of recursive dependencies: 78
 
 Run `cloud_details(, "CausalImpact")` for more info
 
@@ -23,7 +23,7 @@ Run `cloud_details(, "CausalImpact")` for more info
 * using session charset: UTF-8
 * using option ‘--no-manual’
 * checking for file ‘CausalImpact/DESCRIPTION’ ... OK
-* this is package ‘CausalImpact’ version ‘1.2.7’
+* this is package ‘CausalImpact’ version ‘1.3.0’
 * checking package namespace information ... OK
 * checking package dependencies ... ERROR
 Packages required but not available: 'bsts', 'Boom'
@@ -47,10 +47,78 @@ Status: 1 ERROR
 * using session charset: UTF-8
 * using option ‘--no-manual’
 * checking for file ‘CausalImpact/DESCRIPTION’ ... OK
-* this is package ‘CausalImpact’ version ‘1.2.7’
+* this is package ‘CausalImpact’ version ‘1.3.0’
 * checking package namespace information ... OK
 * checking package dependencies ... ERROR
 Packages required but not available: 'bsts', 'Boom'
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+```
+# cinaR
+
+<details>
+
+* Version: 0.2.3
+* GitHub: https://github.com/eonurk/cinaR
+* Source code: https://github.com/cran/cinaR
+* Date/Publication: 2022-05-18 14:00:09 UTC
+* Number of recursive dependencies: 179
+
+Run `cloud_details(, "cinaR")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+* using log directory ‘/tmp/workdir/cinaR/new/cinaR.Rcheck’
+* using R version 4.1.1 (2021-08-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘cinaR/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘cinaR’ version ‘0.2.3’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package required but not available: ‘ChIPseeker’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+```
+### CRAN
+
+```
+* using log directory ‘/tmp/workdir/cinaR/old/cinaR.Rcheck’
+* using R version 4.1.1 (2021-08-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘cinaR/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘cinaR’ version ‘0.2.3’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package required but not available: ‘ChIPseeker’
 
 See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
 manual.
@@ -101,10 +169,10 @@ Run `cloud_details(, "NA")` for more info
 
 <details>
 
-* Version: 3.7.1
+* Version: 3.7.2
 * GitHub: https://github.com/cdriveraus/ctsem
 * Source code: https://github.com/cran/ctsem
-* Date/Publication: 2022-08-08 14:00:02 UTC
+* Date/Publication: 2022-11-06 05:10:11 UTC
 * Number of recursive dependencies: 135
 
 Run `cloud_details(, "ctsem")` for more info
@@ -245,26 +313,96 @@ Run `cloud_details(, "NA")` for more info
 
 
 ```
-# expss
+# NA
 
 <details>
 
-* Version: 0.11.2
-* GitHub: https://github.com/gdemin/expss
-* Source code: https://github.com/cran/expss
-* Date/Publication: 2022-10-16 02:52:38 UTC
-* Number of recursive dependencies: 89
+* Version: NA
+* GitHub: NA
+* Source code: https://github.com/cran/NA
+* Number of recursive dependencies: 0
 
-Run `cloud_details(, "expss")` for more info
+Run `cloud_details(, "NA")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# NA
+
+<details>
+
+* Version: NA
+* GitHub: NA
+* Source code: https://github.com/cran/NA
+* Number of recursive dependencies: 0
+
+Run `cloud_details(, "NA")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# EpiEstim
+
+<details>
+
+* Version: 2.2-4
+* GitHub: https://github.com/mrc-ide/EpiEstim
+* Source code: https://github.com/cran/EpiEstim
+* Date/Publication: 2021-01-07 16:20:10 UTC
+* Number of recursive dependencies: 90
+
+Run `cloud_details(, "EpiEstim")` for more info
 
 </details>
 
 ## In both
 
-*   checking whether package ‘expss’ can be installed ... ERROR
+*   checking whether package ‘EpiEstim’ can be installed ... ERROR
     ```
     Installation failed.
-    See ‘/tmp/workdir/expss/new/expss.Rcheck/00install.out’ for details.
+    See ‘/tmp/workdir/EpiEstim/new/EpiEstim.Rcheck/00install.out’ for details.
     ```
 
 ## Installation
@@ -272,50 +410,300 @@ Run `cloud_details(, "expss")` for more info
 ### Devel
 
 ```
-* installing *source* package ‘expss’ ...
-** package ‘expss’ successfully unpacked and MD5 sums checked
+* installing *source* package ‘EpiEstim’ ...
+** package ‘EpiEstim’ successfully unpacked and MD5 sums checked
 ** using staged installation
 ** R
 ** data
-*** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-** help
-*** installing help indices
-** building package indices
-** installing vignettes
-** testing if installed package can be loaded from temporary location
-Error: package or namespace load failed for ‘expss’:
- object 'mtfrm' not found whilst loading namespace 'expss'
-Error: loading failed
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  there is no package called ‘SparseM’
+Calls: <Anonymous> ... loadNamespace -> withRestarts -> withOneRestart -> doWithOneRestart
 Execution halted
-ERROR: loading failed
-* removing ‘/tmp/workdir/expss/new/expss.Rcheck/expss’
+ERROR: lazy loading failed for package ‘EpiEstim’
+* removing ‘/tmp/workdir/EpiEstim/new/EpiEstim.Rcheck/EpiEstim’
 
 
 ```
 ### CRAN
 
 ```
-* installing *source* package ‘expss’ ...
-** package ‘expss’ successfully unpacked and MD5 sums checked
+* installing *source* package ‘EpiEstim’ ...
+** package ‘EpiEstim’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** data
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  there is no package called ‘SparseM’
+Calls: <Anonymous> ... loadNamespace -> withRestarts -> withOneRestart -> doWithOneRestart
+Execution halted
+ERROR: lazy loading failed for package ‘EpiEstim’
+* removing ‘/tmp/workdir/EpiEstim/old/EpiEstim.Rcheck/EpiEstim’
+
+
+```
+# NA
+
+<details>
+
+* Version: NA
+* GitHub: NA
+* Source code: https://github.com/cran/NA
+* Number of recursive dependencies: 0
+
+Run `cloud_details(, "NA")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# ExPanDaR
+
+<details>
+
+* Version: 0.5.3
+* GitHub: https://github.com/joachim-gassen/ExPanDaR
+* Source code: https://github.com/cran/ExPanDaR
+* Date/Publication: 2020-12-06 23:50:03 UTC
+* Number of recursive dependencies: 156
+
+Run `cloud_details(, "ExPanDaR")` for more info
+
+</details>
+
+## In both
+
+*   checking whether package ‘ExPanDaR’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/ExPanDaR/new/ExPanDaR.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘ExPanDaR’ ...
+** package ‘ExPanDaR’ successfully unpacked and MD5 sums checked
 ** using staged installation
 ** R
 ** data
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-** help
-*** installing help indices
-** building package indices
-** installing vignettes
-** testing if installed package can be loaded from temporary location
-Error: package or namespace load failed for ‘expss’:
- object 'mtfrm' not found whilst loading namespace 'expss'
-Error: loading failed
+Error: .onLoad failed in loadNamespace() for 'shinycssloaders', details:
+  call: loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]])
+  error: there is no package called ‘Rcpp’
 Execution halted
-ERROR: loading failed
-* removing ‘/tmp/workdir/expss/old/expss.Rcheck/expss’
+ERROR: lazy loading failed for package ‘ExPanDaR’
+* removing ‘/tmp/workdir/ExPanDaR/new/ExPanDaR.Rcheck/ExPanDaR’
+
+
+```
+### CRAN
+
+```
+* installing *source* package ‘ExPanDaR’ ...
+** package ‘ExPanDaR’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error: .onLoad failed in loadNamespace() for 'shinycssloaders', details:
+  call: loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]])
+  error: there is no package called ‘Rcpp’
+Execution halted
+ERROR: lazy loading failed for package ‘ExPanDaR’
+* removing ‘/tmp/workdir/ExPanDaR/old/ExPanDaR.Rcheck/ExPanDaR’
+
+
+```
+# FactoInvestigate
+
+<details>
+
+* Version: 1.8
+* GitHub: NA
+* Source code: https://github.com/cran/FactoInvestigate
+* Date/Publication: 2022-04-26 20:50:14 UTC
+* Number of recursive dependencies: 105
+
+Run `cloud_details(, "FactoInvestigate")` for more info
+
+</details>
+
+## In both
+
+*   checking whether package ‘FactoInvestigate’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/FactoInvestigate/new/FactoInvestigate.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘FactoInvestigate’ ...
+** package ‘FactoInvestigate’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
+  there is no package called ‘Rcpp’
+Calls: <Anonymous> ... loadNamespace -> withRestarts -> withOneRestart -> doWithOneRestart
+Execution halted
+ERROR: lazy loading failed for package ‘FactoInvestigate’
+* removing ‘/tmp/workdir/FactoInvestigate/new/FactoInvestigate.Rcheck/FactoInvestigate’
+
+
+```
+### CRAN
+
+```
+* installing *source* package ‘FactoInvestigate’ ...
+** package ‘FactoInvestigate’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
+  there is no package called ‘Rcpp’
+Calls: <Anonymous> ... loadNamespace -> withRestarts -> withOneRestart -> doWithOneRestart
+Execution halted
+ERROR: lazy loading failed for package ‘FactoInvestigate’
+* removing ‘/tmp/workdir/FactoInvestigate/old/FactoInvestigate.Rcheck/FactoInvestigate’
+
+
+```
+# NA
+
+<details>
+
+* Version: NA
+* GitHub: NA
+* Source code: https://github.com/cran/NA
+* Number of recursive dependencies: 0
+
+Run `cloud_details(, "NA")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# genekitr
+
+<details>
+
+* Version: 1.0.8
+* GitHub: https://github.com/GangLiLab/genekitr
+* Source code: https://github.com/cran/genekitr
+* Date/Publication: 2022-11-23 11:30:02 UTC
+* Number of recursive dependencies: 200
+
+Run `cloud_details(, "genekitr")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+* using log directory ‘/tmp/workdir/genekitr/new/genekitr.Rcheck’
+* using R version 4.1.1 (2021-08-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘genekitr/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘genekitr’ version ‘1.0.8’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package required but not available: ‘clusterProfiler’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+```
+### CRAN
+
+```
+* using log directory ‘/tmp/workdir/genekitr/old/genekitr.Rcheck’
+* using R version 4.1.1 (2021-08-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘genekitr/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘genekitr’ version ‘1.0.8’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package required but not available: ‘clusterProfiler’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
 
 
 ```
@@ -349,7 +737,7 @@ Run `cloud_details(, "ggPMX")` for more info
 * checking package namespace information ... OK
 * checking package dependencies ... NOTE
 ...
-  [ FAIL 1 | WARN 13 | SKIP 8 | PASS 327 ]
+  [ FAIL 1 | WARN 14 | SKIP 8 | PASS 327 ]
   Error: Test failures
   Execution halted
 * checking for unstated dependencies in vignettes ... OK
@@ -379,7 +767,7 @@ Status: 1 ERROR, 2 NOTEs
 * checking package namespace information ... OK
 * checking package dependencies ... NOTE
 ...
-  [ FAIL 1 | WARN 11 | SKIP 8 | PASS 327 ]
+  [ FAIL 1 | WARN 14 | SKIP 8 | PASS 327 ]
   Error: Test failures
   Execution halted
 * checking for unstated dependencies in vignettes ... OK
@@ -395,224 +783,335 @@ Status: 1 ERROR, 2 NOTEs
 
 
 ```
-# ggprism
+# grandR
+
+<details>
+
+* Version: 0.2.0
+* GitHub: https://github.com/erhard-lab/grandR
+* Source code: https://github.com/cran/grandR
+* Date/Publication: 2022-09-20 07:56:10 UTC
+* Number of recursive dependencies: 250
+
+Run `cloud_details(, "grandR")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+* using log directory ‘/tmp/workdir/grandR/new/grandR.Rcheck’
+* using R version 4.1.1 (2021-08-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘grandR/DESCRIPTION’ ... OK
+* this is package ‘grandR’ version ‘0.2.0’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... NOTE
+...
+* checking installed files from ‘inst/doc’ ... OK
+* checking files in ‘vignettes’ ... OK
+* checking examples ... OK
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... NONE
+  ‘getting-started.Rmd’ using ‘UTF-8’... OK
+* checking re-building of vignette outputs ... OK
+* DONE
+Status: 3 NOTEs
+
+
+
+
+
+```
+### CRAN
+
+```
+* using log directory ‘/tmp/workdir/grandR/old/grandR.Rcheck’
+* using R version 4.1.1 (2021-08-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘grandR/DESCRIPTION’ ... OK
+* this is package ‘grandR’ version ‘0.2.0’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... NOTE
+...
+* checking installed files from ‘inst/doc’ ... OK
+* checking files in ‘vignettes’ ... OK
+* checking examples ... OK
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... NONE
+  ‘getting-started.Rmd’ using ‘UTF-8’... OK
+* checking re-building of vignette outputs ... OK
+* DONE
+Status: 3 NOTEs
+
+
+
+
+
+```
+# healthfinance
+
+<details>
+
+* Version: 0.1.0
+* GitHub: https://github.com/rrrlw/healthfinance
+* Source code: https://github.com/cran/healthfinance
+* Date/Publication: 2020-10-24 09:00:02 UTC
+* Number of recursive dependencies: 79
+
+Run `cloud_details(, "healthfinance")` for more info
+
+</details>
+
+## In both
+
+*   checking whether package ‘healthfinance’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/healthfinance/new/healthfinance.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘healthfinance’ ...
+** package ‘healthfinance’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  there is no package called ‘fastmap’
+Calls: <Anonymous> ... loadNamespace -> withRestarts -> withOneRestart -> doWithOneRestart
+Execution halted
+ERROR: lazy loading failed for package ‘healthfinance’
+* removing ‘/tmp/workdir/healthfinance/new/healthfinance.Rcheck/healthfinance’
+
+
+```
+### CRAN
+
+```
+* installing *source* package ‘healthfinance’ ...
+** package ‘healthfinance’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  there is no package called ‘fastmap’
+Calls: <Anonymous> ... loadNamespace -> withRestarts -> withOneRestart -> doWithOneRestart
+Execution halted
+ERROR: lazy loading failed for package ‘healthfinance’
+* removing ‘/tmp/workdir/healthfinance/old/healthfinance.Rcheck/healthfinance’
+
+
+```
+# hrbrthemes
+
+<details>
+
+* Version: 0.8.0
+* GitHub: https://github.com/hrbrmstr/hrbrthemes
+* Source code: https://github.com/cran/hrbrthemes
+* Date/Publication: 2020-03-06 18:50:02 UTC
+* Number of recursive dependencies: 81
+
+Run `cloud_details(, "hrbrthemes")` for more info
+
+</details>
+
+## In both
+
+*   checking whether package ‘hrbrthemes’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/hrbrthemes/new/hrbrthemes.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘hrbrthemes’ ...
+** package ‘hrbrthemes’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  there is no package called ‘fastmap’
+Calls: <Anonymous> ... loadNamespace -> withRestarts -> withOneRestart -> doWithOneRestart
+Execution halted
+ERROR: lazy loading failed for package ‘hrbrthemes’
+* removing ‘/tmp/workdir/hrbrthemes/new/hrbrthemes.Rcheck/hrbrthemes’
+
+
+```
+### CRAN
+
+```
+* installing *source* package ‘hrbrthemes’ ...
+** package ‘hrbrthemes’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  there is no package called ‘fastmap’
+Calls: <Anonymous> ... loadNamespace -> withRestarts -> withOneRestart -> doWithOneRestart
+Execution halted
+ERROR: lazy loading failed for package ‘hrbrthemes’
+* removing ‘/tmp/workdir/hrbrthemes/old/hrbrthemes.Rcheck/hrbrthemes’
+
+
+```
+# immcp
 
 <details>
 
 * Version: 1.0.3
-* GitHub: https://github.com/csdaw/ggprism
-* Source code: https://github.com/cran/ggprism
-* Date/Publication: 2021-06-08 11:40:02 UTC
-* Number of recursive dependencies: 104
+* GitHub: https://github.com/YuanlongHu/immcp
+* Source code: https://github.com/cran/immcp
+* Date/Publication: 2022-05-12 05:50:02 UTC
+* Number of recursive dependencies: 194
 
-Run `cloud_details(, "ggprism")` for more info
+Run `cloud_details(, "immcp")` for more info
 
 </details>
 
-## Newly broken
-
-*   checking whether package ‘ggprism’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/ggprism/new/ggprism.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
+## Error before installation
 
 ### Devel
 
 ```
-* installing *source* package ‘ggprism’ ...
-** package ‘ggprism’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error in get(x, envir = ns, inherits = FALSE) : 
-  object 'new_data_frame' not found
-Error: unable to load R code in package ‘ggprism’
-Execution halted
-ERROR: lazy loading failed for package ‘ggprism’
-* removing ‘/tmp/workdir/ggprism/new/ggprism.Rcheck/ggprism’
+* using log directory ‘/tmp/workdir/immcp/new/immcp.Rcheck’
+* using R version 4.1.1 (2021-08-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘immcp/DESCRIPTION’ ... OK
+* this is package ‘immcp’ version ‘1.0.3’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package required but not available: ‘clusterProfiler’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
 
 
 ```
 ### CRAN
 
 ```
-* installing *source* package ‘ggprism’ ...
-** package ‘ggprism’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-** help
-*** installing help indices
-*** copying figures
-** building package indices
-** installing vignettes
-** testing if installed package can be loaded from temporary location
-** testing if installed package can be loaded from final location
-** testing if installed package keeps a record of temporary installation path
-* DONE (ggprism)
+* using log directory ‘/tmp/workdir/immcp/old/immcp.Rcheck’
+* using R version 4.1.1 (2021-08-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘immcp/DESCRIPTION’ ... OK
+* this is package ‘immcp’ version ‘1.0.3’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package required but not available: ‘clusterProfiler’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
 
 
 ```
-# ggshadow
+# NA
 
 <details>
 
-* Version: 0.0.2
-* GitHub: https://github.com/marcmenem/ggshadow
-* Source code: https://github.com/cran/ggshadow
-* Date/Publication: 2021-01-22 08:50:03 UTC
-* Number of recursive dependencies: 49
-
-Run `cloud_details(, "ggshadow")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking whether package ‘ggshadow’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/ggshadow/new/ggshadow.Rcheck/00install.out’ for details.
-    ```
-
-## Newly fixed
-
-*   checking LazyData ... NOTE
-    ```
-      'LazyData' is specified without a 'data' directory
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘ggshadow’ ...
-** package ‘ggshadow’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-Error in get(x, envir = ns, inherits = FALSE) : 
-  object 'new_data_frame' not found
-Error: unable to load R code in package ‘ggshadow’
-Execution halted
-ERROR: lazy loading failed for package ‘ggshadow’
-* removing ‘/tmp/workdir/ggshadow/new/ggshadow.Rcheck/ggshadow’
-
-
-```
-### CRAN
-
-```
-* installing *source* package ‘ggshadow’ ...
-** package ‘ggshadow’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-** help
-*** installing help indices
-** building package indices
-** installing vignettes
-** testing if installed package can be loaded from temporary location
-** testing if installed package can be loaded from final location
-** testing if installed package keeps a record of temporary installation path
-* DONE (ggshadow)
-
-
-```
-# ggtern
-
-<details>
-
-* Version: 3.3.5
+* Version: NA
 * GitHub: NA
-* Source code: https://github.com/cran/ggtern
-* Date/Publication: 2021-07-23 05:20:02 UTC
-* Number of recursive dependencies: 43
+* Source code: https://github.com/cran/NA
+* Number of recursive dependencies: 0
 
-Run `cloud_details(, "ggtern")` for more info
+Run `cloud_details(, "NA")` for more info
 
 </details>
 
-## Newly broken
-
-*   checking whether package ‘ggtern’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/ggtern/new/ggtern.Rcheck/00install.out’ for details.
-    ```
-
-## Newly fixed
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘hexbin’
-      All declared Imports should be used.
-    ```
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Package unavailable to check Rd xrefs: ‘chemometrics’
-    ```
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package which this enhances but not available for checking: ‘sp’
-    ```
-
-## Installation
+## Error before installation
 
 ### Devel
 
 ```
-* installing *source* package ‘ggtern’ ...
-** package ‘ggtern’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** data
-** demo
-** inst
-** byte-compile and prepare package for lazy loading
-Error in get(x, envir = ns, inherits = FALSE) : 
-  object 'message_wrap' not found
-Error: unable to load R code in package ‘ggtern’
-Execution halted
-ERROR: lazy loading failed for package ‘ggtern’
-* removing ‘/tmp/workdir/ggtern/new/ggtern.Rcheck/ggtern’
+
+
+
+
 
 
 ```
 ### CRAN
 
 ```
-* installing *source* package ‘ggtern’ ...
-** package ‘ggtern’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** data
-** demo
-** inst
-** byte-compile and prepare package for lazy loading
-** help
-*** installing help indices
-** building package indices
-** testing if installed package can be loaded from temporary location
-** testing if installed package can be loaded from final location
-** testing if installed package keeps a record of temporary installation path
-* DONE (ggtern)
+
+
+
+
+
+
+```
+# NA
+
+<details>
+
+* Version: NA
+* GitHub: NA
+* Source code: https://github.com/cran/NA
+* Number of recursive dependencies: 0
+
+Run `cloud_details(, "NA")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
 
 
 ```
@@ -655,10 +1154,10 @@ Run `cloud_details(, "NA")` for more info
 
 <details>
 
-* Version: 1.3.2
+* Version: 1.3.3
 * GitHub: https://github.com/great-northern-diver/loon.ggplot
 * Source code: https://github.com/cran/loon.ggplot
-* Date/Publication: 2022-10-03 14:50:02 UTC
+* Date/Publication: 2022-11-12 22:30:02 UTC
 * Number of recursive dependencies: 104
 
 Run `cloud_details(, "loon.ggplot")` for more info
@@ -677,7 +1176,7 @@ Run `cloud_details(, "loon.ggplot")` for more info
 * using option ‘--no-manual’
 * checking for file ‘loon.ggplot/DESCRIPTION’ ... OK
 * checking extension type ... Package
-* this is package ‘loon.ggplot’ version ‘1.3.2’
+* this is package ‘loon.ggplot’ version ‘1.3.3’
 * package encoding: UTF-8
 * checking package namespace information ... OK
 * checking package dependencies ... ERROR
@@ -705,7 +1204,7 @@ Status: 1 ERROR
 * using option ‘--no-manual’
 * checking for file ‘loon.ggplot/DESCRIPTION’ ... OK
 * checking extension type ... Package
-* this is package ‘loon.ggplot’ version ‘1.3.2’
+* this is package ‘loon.ggplot’ version ‘1.3.3’
 * package encoding: UTF-8
 * checking package namespace information ... OK
 * checking package dependencies ... ERROR
@@ -752,6 +1251,292 @@ Run `cloud_details(, "NA")` for more info
 
 ```
 
+
+
+
+
+
+```
+# manymodelr
+
+<details>
+
+* Version: 0.3.7
+* GitHub: https://github.com/Nelson-Gon/manymodelr
+* Source code: https://github.com/cran/manymodelr
+* Date/Publication: 2021-11-15 09:20:09 UTC
+* Number of recursive dependencies: 122
+
+Run `cloud_details(, "manymodelr")` for more info
+
+</details>
+
+## In both
+
+*   checking whether package ‘manymodelr’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/manymodelr/new/manymodelr.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘manymodelr’ ...
+** package ‘manymodelr’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  there is no package called ‘nloptr’
+Calls: <Anonymous> ... loadNamespace -> withRestarts -> withOneRestart -> doWithOneRestart
+Execution halted
+ERROR: lazy loading failed for package ‘manymodelr’
+* removing ‘/tmp/workdir/manymodelr/new/manymodelr.Rcheck/manymodelr’
+
+
+```
+### CRAN
+
+```
+* installing *source* package ‘manymodelr’ ...
+** package ‘manymodelr’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  there is no package called ‘nloptr’
+Calls: <Anonymous> ... loadNamespace -> withRestarts -> withOneRestart -> doWithOneRestart
+Execution halted
+ERROR: lazy loading failed for package ‘manymodelr’
+* removing ‘/tmp/workdir/manymodelr/old/manymodelr.Rcheck/manymodelr’
+
+
+```
+# MARVEL
+
+<details>
+
+* Version: 1.4.0
+* GitHub: NA
+* Source code: https://github.com/cran/MARVEL
+* Date/Publication: 2022-10-31 10:22:50 UTC
+* Number of recursive dependencies: 235
+
+Run `cloud_details(, "MARVEL")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+* using log directory ‘/tmp/workdir/MARVEL/new/MARVEL.Rcheck’
+* using R version 4.1.1 (2021-08-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘MARVEL/DESCRIPTION’ ... OK
+* this is package ‘MARVEL’ version ‘1.4.0’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... NOTE
+...
+* checking installed files from ‘inst/doc’ ... OK
+* checking files in ‘vignettes’ ... OK
+* checking examples ... OK
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... NONE
+  ‘MARVEL.Rmd’ using ‘UTF-8’... OK
+* checking re-building of vignette outputs ... OK
+* DONE
+Status: 1 NOTE
+
+
+
+
+
+```
+### CRAN
+
+```
+* using log directory ‘/tmp/workdir/MARVEL/old/MARVEL.Rcheck’
+* using R version 4.1.1 (2021-08-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘MARVEL/DESCRIPTION’ ... OK
+* this is package ‘MARVEL’ version ‘1.4.0’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... NOTE
+...
+* checking installed files from ‘inst/doc’ ... OK
+* checking files in ‘vignettes’ ... OK
+* checking examples ... OK
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... NONE
+  ‘MARVEL.Rmd’ using ‘UTF-8’... OK
+* checking re-building of vignette outputs ... OK
+* DONE
+Status: 1 NOTE
+
+
+
+
+
+```
+# NA
+
+<details>
+
+* Version: NA
+* GitHub: NA
+* Source code: https://github.com/cran/NA
+* Number of recursive dependencies: 0
+
+Run `cloud_details(, "NA")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# NA
+
+<details>
+
+* Version: NA
+* GitHub: NA
+* Source code: https://github.com/cran/NA
+* Number of recursive dependencies: 0
+
+Run `cloud_details(, "NA")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# MOCHA
+
+<details>
+
+* Version: 0.1.0
+* GitHub: NA
+* Source code: https://github.com/cran/MOCHA
+* Date/Publication: 2022-12-06 13:42:38 UTC
+* Number of recursive dependencies: 203
+
+Run `cloud_details(, "MOCHA")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+* using log directory ‘/tmp/workdir/MOCHA/new/MOCHA.Rcheck’
+* using R version 4.1.1 (2021-08-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘MOCHA/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘MOCHA’ version ‘0.1.0’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+...
+* checking tests ... OK
+  Running ‘testthat.R’
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... NONE
+  ‘COVID-walkthrough.Rmd’ using ‘UTF-8’... OK
+  ‘Comparing-Cell-Populations.Rmd’ using ‘UTF-8’... OK
+* checking re-building of vignette outputs ... OK
+* DONE
+Status: 2 NOTEs
+
+
+
+
+
+```
+### CRAN
+
+```
+* using log directory ‘/tmp/workdir/MOCHA/old/MOCHA.Rcheck’
+* using R version 4.1.1 (2021-08-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘MOCHA/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘MOCHA’ version ‘0.1.0’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+...
+* checking tests ... OK
+  Running ‘testthat.R’
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... NONE
+  ‘COVID-walkthrough.Rmd’ using ‘UTF-8’... OK
+  ‘Comparing-Cell-Populations.Rmd’ using ‘UTF-8’... OK
+* checking re-building of vignette outputs ... OK
+* DONE
+Status: 2 NOTEs
 
 
 
@@ -935,7 +1720,7 @@ Status: 1 ERROR
 * GitHub: https://github.com/nlmixr2/nlmixr2plot
 * Source code: https://github.com/cran/nlmixr2plot
 * Date/Publication: 2022-10-20 03:12:36 UTC
-* Number of recursive dependencies: 160
+* Number of recursive dependencies: 166
 
 Run `cloud_details(, "nlmixr2plot")` for more info
 
@@ -993,6 +1778,142 @@ Status: 1 ERROR
 
 
 ```
+# nlmixr2rpt
+
+<details>
+
+* Version: 0.1.0
+* GitHub: https://github.com/nlmixr2/nlmixr2rpt
+* Source code: https://github.com/cran/nlmixr2rpt
+* Date/Publication: 2022-12-05 10:40:02 UTC
+* Number of recursive dependencies: 204
+
+Run `cloud_details(, "nlmixr2rpt")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+* using log directory ‘/tmp/workdir/nlmixr2rpt/new/nlmixr2rpt.Rcheck’
+* using R version 4.1.1 (2021-08-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘nlmixr2rpt/DESCRIPTION’ ... OK
+* this is package ‘nlmixr2rpt’ version ‘0.1.0’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Packages required but not available: 'nlmixr2extra', 'xpose.nlmixr2'
+
+Package suggested but not available for checking: ‘nlmixr2’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+```
+### CRAN
+
+```
+* using log directory ‘/tmp/workdir/nlmixr2rpt/old/nlmixr2rpt.Rcheck’
+* using R version 4.1.1 (2021-08-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘nlmixr2rpt/DESCRIPTION’ ... OK
+* this is package ‘nlmixr2rpt’ version ‘0.1.0’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Packages required but not available: 'nlmixr2extra', 'xpose.nlmixr2'
+
+Package suggested but not available for checking: ‘nlmixr2’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+```
+# numbat
+
+<details>
+
+* Version: 1.2.1
+* GitHub: https://github.com/kharchenkolab/numbat
+* Source code: https://github.com/cran/numbat
+* Date/Publication: 2023-01-11 00:20:02 UTC
+* Number of recursive dependencies: 132
+
+Run `cloud_details(, "numbat")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+* using log directory ‘/tmp/workdir/numbat/new/numbat.Rcheck’
+* using R version 4.1.1 (2021-08-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘numbat/DESCRIPTION’ ... OK
+* this is package ‘numbat’ version ‘1.2.1’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Packages required but not available: 'ggtree', 'scistreer'
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+```
+### CRAN
+
+```
+* using log directory ‘/tmp/workdir/numbat/old/numbat.Rcheck’
+* using R version 4.1.1 (2021-08-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘numbat/DESCRIPTION’ ... OK
+* this is package ‘numbat’ version ‘1.2.1’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Packages required but not available: 'ggtree', 'scistreer'
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+```
 # NA
 
 <details>
@@ -1022,6 +1943,82 @@ Run `cloud_details(, "NA")` for more info
 
 ```
 
+
+
+
+
+
+```
+# OlinkAnalyze
+
+<details>
+
+* Version: 3.2.2
+* GitHub: NA
+* Source code: https://github.com/cran/OlinkAnalyze
+* Date/Publication: 2022-11-16 00:30:05 UTC
+* Number of recursive dependencies: 202
+
+Run `cloud_details(, "OlinkAnalyze")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+* using log directory ‘/tmp/workdir/OlinkAnalyze/new/OlinkAnalyze.Rcheck’
+* using R version 4.1.1 (2021-08-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘OlinkAnalyze/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘OlinkAnalyze’ version ‘3.2.2’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+...
+* checking for unstated dependencies in ‘tests’ ... OK
+* checking tests ... OK
+  Running ‘testthat.R’
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... NONE
+  ‘Vignett.Rmd’ using ‘UTF-8’... OK
+* checking re-building of vignette outputs ... OK
+* DONE
+Status: 1 NOTE
+
+
+
+
+
+```
+### CRAN
+
+```
+* using log directory ‘/tmp/workdir/OlinkAnalyze/old/OlinkAnalyze.Rcheck’
+* using R version 4.1.1 (2021-08-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘OlinkAnalyze/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘OlinkAnalyze’ version ‘3.2.2’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+...
+* checking for unstated dependencies in ‘tests’ ... OK
+* checking tests ... OK
+  Running ‘testthat.R’
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... NONE
+  ‘Vignett.Rmd’ using ‘UTF-8’... OK
+* checking re-building of vignette outputs ... OK
+* DONE
+Status: 1 NOTE
 
 
 
@@ -1112,7 +2109,7 @@ Status: 4 NOTEs
 * GitHub: NA
 * Source code: https://github.com/cran/Platypus
 * Date/Publication: 2022-08-15 07:20:20 UTC
-* Number of recursive dependencies: 353
+* Number of recursive dependencies: 356
 
 Run `cloud_details(, "Platypus")` for more info
 
@@ -1134,16 +2131,16 @@ Run `cloud_details(, "Platypus")` for more info
 * package encoding: UTF-8
 * checking package namespace information ... OK
 ...
-* checking installed files from ‘inst/doc’ ... OK
-* checking files in ‘vignettes’ ... OK
-* checking examples ... OK
-* checking for unstated dependencies in vignettes ... OK
-* checking package vignettes in ‘inst/doc’ ... OK
-* checking running R code from vignettes ... NONE
-  ‘PlatypusV3_agedCNS.Rmd’ using ‘UTF-8’... OK
-* checking re-building of vignette outputs ... OK
+* checking package dependencies ... ERROR
+Package required but not available: ‘ggtree’
+
+Packages suggested but not available for checking:
+  'Matrix.utils', 'monocle3', 'ProjecTILs', 'SeuratWrappers'
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
 * DONE
-Status: 1 NOTE
+Status: 1 ERROR
 
 
 
@@ -1164,16 +2161,16 @@ Status: 1 NOTE
 * package encoding: UTF-8
 * checking package namespace information ... OK
 ...
-* checking installed files from ‘inst/doc’ ... OK
-* checking files in ‘vignettes’ ... OK
-* checking examples ... OK
-* checking for unstated dependencies in vignettes ... OK
-* checking package vignettes in ‘inst/doc’ ... OK
-* checking running R code from vignettes ... NONE
-  ‘PlatypusV3_agedCNS.Rmd’ using ‘UTF-8’... OK
-* checking re-building of vignette outputs ... OK
+* checking package dependencies ... ERROR
+Package required but not available: ‘ggtree’
+
+Packages suggested but not available for checking:
+  'Matrix.utils', 'monocle3', 'ProjecTILs', 'SeuratWrappers'
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
 * DONE
-Status: 1 NOTE
+Status: 1 ERROR
 
 
 
@@ -1258,7 +2255,7 @@ Run `cloud_details(, "NA")` for more info
 * GitHub: NA
 * Source code: https://github.com/cran/RcppCensSpatial
 * Date/Publication: 2022-06-27 23:00:02 UTC
-* Number of recursive dependencies: 64
+* Number of recursive dependencies: 63
 
 Run `cloud_details(, "RcppCensSpatial")` for more info
 
@@ -1353,6 +2350,41 @@ Run `cloud_details(, "NA")` for more info
 
 
 ```
+# NA
+
+<details>
+
+* Version: NA
+* GitHub: NA
+* Source code: https://github.com/cran/NA
+* Number of recursive dependencies: 0
+
+Run `cloud_details(, "NA")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
 # rPBK
 
 <details>
@@ -1361,7 +2393,7 @@ Run `cloud_details(, "NA")` for more info
 * GitHub: NA
 * Source code: https://github.com/cran/rPBK
 * Date/Publication: 2022-09-01 15:10:02 UTC
-* Number of recursive dependencies: 77
+* Number of recursive dependencies: 78
 
 Run `cloud_details(, "rPBK")` for more info
 
@@ -1405,123 +2437,180 @@ ERROR: configuration failed for package ‘rPBK’
 
 
 ```
-# simpr
+# RVA
 
 <details>
 
-* Version: 0.2.2
-* GitHub: https://github.com/statisfactions/simpr
-* Source code: https://github.com/cran/simpr
-* Date/Publication: 2022-02-13 00:40:02 UTC
-* Number of recursive dependencies: 77
+* Version: 0.0.5
+* GitHub: https://github.com/THERMOSTATS/RVA
+* Source code: https://github.com/cran/RVA
+* Date/Publication: 2021-11-01 21:40:02 UTC
+* Number of recursive dependencies: 208
 
-Run `cloud_details(, "simpr")` for more info
+Run `cloud_details(, "RVA")` for more info
 
 </details>
 
-## In both
-
-*   checking whether package ‘simpr’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/simpr/new/simpr.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
+## Error before installation
 
 ### Devel
 
 ```
-* installing *source* package ‘simpr’ ...
-** package ‘simpr’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘listenv’
-Calls: <Anonymous> ... loadNamespace -> withRestarts -> withOneRestart -> doWithOneRestart
-Execution halted
-ERROR: lazy loading failed for package ‘simpr’
-* removing ‘/tmp/workdir/simpr/new/simpr.Rcheck/simpr’
+* using log directory ‘/tmp/workdir/RVA/new/RVA.Rcheck’
+* using R version 4.1.1 (2021-08-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘RVA/DESCRIPTION’ ... OK
+* this is package ‘RVA’ version ‘0.0.5’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package required but not available: ‘clusterProfiler’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
 
 
 ```
 ### CRAN
 
 ```
-* installing *source* package ‘simpr’ ...
-** package ‘simpr’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘listenv’
-Calls: <Anonymous> ... loadNamespace -> withRestarts -> withOneRestart -> doWithOneRestart
-Execution halted
-ERROR: lazy loading failed for package ‘simpr’
-* removing ‘/tmp/workdir/simpr/old/simpr.Rcheck/simpr’
+* using log directory ‘/tmp/workdir/RVA/old/RVA.Rcheck’
+* using R version 4.1.1 (2021-08-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘RVA/DESCRIPTION’ ... OK
+* this is package ‘RVA’ version ‘0.0.5’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package required but not available: ‘clusterProfiler’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
 
 
 ```
-# Sofi
+# NA
 
 <details>
 
-* Version: 0.16.4.8
-* GitHub: https://github.com/loerasg/Sofi
-* Source code: https://github.com/cran/Sofi
-* Date/Publication: 2016-04-10 00:49:47
-* Number of recursive dependencies: 63
+* Version: NA
+* GitHub: NA
+* Source code: https://github.com/cran/NA
+* Number of recursive dependencies: 0
 
-Run `cloud_details(, "Sofi")` for more info
+Run `cloud_details(, "NA")` for more info
 
 </details>
 
-## In both
-
-*   checking whether package ‘Sofi’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/Sofi/new/Sofi.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
+## Error before installation
 
 ### Devel
 
 ```
-* installing *source* package ‘Sofi’ ...
-** package ‘Sofi’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** data
-** inst
-** byte-compile and prepare package for lazy loading
-Error: package or namespace load failed for ‘shiny’ in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
- there is no package called ‘fastmap’
-Execution halted
-ERROR: lazy loading failed for package ‘Sofi’
-* removing ‘/tmp/workdir/Sofi/new/Sofi.Rcheck/Sofi’
+
+
+
+
 
 
 ```
 ### CRAN
 
 ```
-* installing *source* package ‘Sofi’ ...
-** package ‘Sofi’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** data
-** inst
-** byte-compile and prepare package for lazy loading
-Error: package or namespace load failed for ‘shiny’ in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
- there is no package called ‘fastmap’
-Execution halted
-ERROR: lazy loading failed for package ‘Sofi’
-* removing ‘/tmp/workdir/Sofi/old/Sofi.Rcheck/Sofi’
+
+
+
+
+
+
+```
+# SCpubr
+
+<details>
+
+* Version: 1.1.0
+* GitHub: https://github.com/enblacar/SCpubr
+* Source code: https://github.com/cran/SCpubr
+* Date/Publication: 2023-01-11 14:20:02 UTC
+* Number of recursive dependencies: 289
+
+Run `cloud_details(, "SCpubr")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+* using log directory ‘/tmp/workdir/SCpubr/new/SCpubr.Rcheck’
+* using R version 4.1.1 (2021-08-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘SCpubr/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘SCpubr’ version ‘1.1.0’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+...
+  [ FAIL 2 | WARN 0 | SKIP 346 | PASS 322 ]
+  Error: Test failures
+  Execution halted
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... NONE
+  ‘reference_manual.Rmd’ using ‘UTF-8’... OK
+* checking re-building of vignette outputs ... OK
+* DONE
+Status: 1 ERROR, 1 WARNING, 2 NOTEs
+
+
+
+
+
+```
+### CRAN
+
+```
+* using log directory ‘/tmp/workdir/SCpubr/old/SCpubr.Rcheck’
+* using R version 4.1.1 (2021-08-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘SCpubr/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘SCpubr’ version ‘1.1.0’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+...
+  [ FAIL 2 | WARN 0 | SKIP 346 | PASS 322 ]
+  Error: Test failures
+  Execution halted
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... NONE
+  ‘reference_manual.Rmd’ using ‘UTF-8’... OK
+* checking re-building of vignette outputs ... OK
+* DONE
+Status: 1 ERROR, 1 WARNING, 2 NOTEs
+
+
+
 
 
 ```
@@ -1702,6 +2791,74 @@ Run `cloud_details(, "NA")` for more info
 
 
 ```
+# tinyarray
+
+<details>
+
+* Version: 2.2.7
+* GitHub: https://github.com/xjsun1221/tinyarray
+* Source code: https://github.com/cran/tinyarray
+* Date/Publication: 2021-11-08 10:00:02 UTC
+* Number of recursive dependencies: 228
+
+Run `cloud_details(, "tinyarray")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+* using log directory ‘/tmp/workdir/tinyarray/new/tinyarray.Rcheck’
+* using R version 4.1.1 (2021-08-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘tinyarray/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘tinyarray’ version ‘2.2.7’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package required but not available: ‘clusterProfiler’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+```
+### CRAN
+
+```
+* using log directory ‘/tmp/workdir/tinyarray/old/tinyarray.Rcheck’
+* using R version 4.1.1 (2021-08-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘tinyarray/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘tinyarray’ version ‘2.2.7’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package required but not available: ‘clusterProfiler’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+```
 # valse
 
 <details>
@@ -1710,7 +2867,7 @@ Run `cloud_details(, "NA")` for more info
 * GitHub: NA
 * Source code: https://github.com/cran/valse
 * Date/Publication: 2021-05-31 08:00:02 UTC
-* Number of recursive dependencies: 52
+* Number of recursive dependencies: 51
 
 Run `cloud_details(, "valse")` for more info
 
@@ -1858,7 +3015,7 @@ Run `cloud_details(, "NA")` for more info
 * GitHub: NA
 * Source code: https://github.com/cran/vivid
 * Date/Publication: 2021-11-20 01:30:02 UTC
-* Number of recursive dependencies: 202
+* Number of recursive dependencies: 206
 
 Run `cloud_details(, "vivid")` for more info
 
@@ -1961,6 +3118,41 @@ Run `cloud_details(, "NA")` for more info
 
 
 ```
+# NA
+
+<details>
+
+* Version: NA
+* GitHub: NA
+* Source code: https://github.com/cran/NA
+* Number of recursive dependencies: 0
+
+Run `cloud_details(, "NA")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
 # xpose.nlmixr2
 
 <details>
@@ -1969,7 +3161,7 @@ Run `cloud_details(, "NA")` for more info
 * GitHub: NA
 * Source code: https://github.com/cran/xpose.nlmixr2
 * Date/Publication: 2022-06-08 09:10:02 UTC
-* Number of recursive dependencies: 154
+* Number of recursive dependencies: 161
 
 Run `cloud_details(, "xpose.nlmixr2")` for more info
 
