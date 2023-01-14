@@ -22,7 +22,7 @@
 #'   and (Inf, 1)
 #' @eval rd_computed_vars(
 #'   ecdf = "Cumulative density corresponding to `x`.",
-#'   y    = "For backward compatibility. Not recommended to use."
+#'   y    = "`r lifecycle::badge('superseded')` For backward compatibility."
 #' )
 #' @export
 #' @examples
