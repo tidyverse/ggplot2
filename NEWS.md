@@ -4,6 +4,8 @@
 * 'lines' units in `geom_label()`, often used in the `label.padding` argument, 
   are now are relative to the text size. This causes a visual change, but fixes 
   a misalignment issue between the textbox and text (@teunbrand, #4753)
+* The `label.padding` argument in `geom_label()` now supports inputs created
+  with the `margin()` function (#5030).
 * Using two ordered factors as facetting variables in 
   `facet_grid(..., as.table = FALSE)` now throws a warning instead of an
   error (@teunbrand, #5109).
