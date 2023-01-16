@@ -160,30 +160,3 @@ labelGrob <- function(label, x = unit(0.5, "npc"), y = unit(0.5, "npc"),
 
   gTree(children = gList(box, text), name = name, vp = vp)
 }
-
-#' @export
-makeContent.labelgrob <- function(x) {
-  hj <- resolveHJust(x$just, NULL)
-  vj <- resolveVJust(x$just, NULL)
-
-  t <- textGrob(
-    x$label,
-    x$x + 2 * (0.5 - hj) * x$padding,
-    x$y + 2 * (0.5 - vj) * x$padding,
-    just = c(hj, vj),
-    gp = x$text.gp,
-    name = "text"
-  )
-  desc <- grobDescent(t)
-
-  r <- roundrectGrob(x$x, x$y - 0.5 * desc, default.units = "native",
-    width = grobWidth(t) + 2 * x$padding,
-    height = grobHeight(t) + 2 * x$padding + desc,
-    just = c(hj, vj),
-    r = x$r,
-    gp = x$rect.gp,
-    name = "box"
-  )
-
-  setChildren(x, gList(r, t))
-}
