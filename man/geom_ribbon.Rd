@@ -118,7 +118,10 @@ An area plot is the continuous analogue of a stacked bar chart (see
 whole varies over the range of x. Choosing the order in which different
 components is stacked is very important, as it becomes increasing hard to
 see the individual pattern as you move up the stack. See
-\code{\link[=position_stack]{position_stack()}} for the details of stacking algorithm.
+\code{\link[=position_stack]{position_stack()}} for the details of stacking algorithm. To facilitate
+stacking, the default \code{stat = "align"} interpolates groups to a common set
+of x-coordinates. To turn off this interpolation, \code{stat = "identity"} can
+be used instead.
 }
 \section{Orientation}{
 
@@ -174,6 +177,10 @@ a + geom_point(size = 8) + facet_grid(g ~ .)
 # stat_align() interpolates and aligns the value so that the areas can stack
 # properly.
 a + geom_point(stat = "align", position = "stack", size = 8)
+
+# To turn off the alignment, the stat can be set to "identity"
+ggplot(df, aes(x, y, fill = g)) +
+  geom_area(stat = "identity")
 }
 \seealso{
 \code{\link[=geom_bar]{geom_bar()}} for discrete intervals (bars),

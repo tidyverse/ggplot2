@@ -21,7 +21,7 @@
 #' @param pad If `TRUE`, pad the ecdf with additional points (-Inf, 0)
 #'   and (Inf, 1)
 #' @eval rd_computed_vars(
-#'   y = "Cumulative density corresponding to `x`."
+#'   ecdf = "Cumulative density corresponding to `x`."
 #' )
 #' @export
 #' @examples
@@ -73,7 +73,7 @@ stat_ecdf <- function(mapping = NULL, data = NULL,
 StatEcdf <- ggproto("StatEcdf", Stat,
   required_aes = c("x|y"),
 
-  default_aes = aes(y = after_stat(y)),
+  default_aes = aes(x = after_stat(ecdf), y = after_stat(ecdf)),
 
   setup_params = function(self, data, params) {
     params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = FALSE, main_is_continuous = TRUE)
@@ -103,7 +103,7 @@ StatEcdf <- ggproto("StatEcdf", Stat,
 
     df_ecdf <- data_frame0(
       x = x,
-      y = data_ecdf,
+      ecdf = data_ecdf,
       .size = length(x)
     )
     df_ecdf$flipped_aes <- flipped_aes

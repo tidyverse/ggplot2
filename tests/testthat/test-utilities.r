@@ -127,3 +127,34 @@ test_that("cut_*() checks its input and output", {
 test_that("interleave() checks the vector lengths", {
   expect_snapshot_error(interleave(1:4, numeric()))
 })
+
+test_that("vec_rbind0 can combined ordered factors", {
+
+  withr::local_options(lifecycle_verbosity = "warning")
+
+  # Ideally code below throws just 1 warning (the <ordered> and <ordered> one)
+  # However, it was technically challenging to reduce the numbers of warnings
+  # See #5139 for more details
+
+  expect_warning(
+    expect_warning(
+      expect_warning(
+        {
+          test <- vec_rbind0(
+            data_frame0(a = factor(c("A", "B"), ordered = TRUE)),
+            data_frame0(a = factor(c("B", "C"), ordered = TRUE))
+          )
+        },
+        "<ordered> and <ordered>", class = "lifecycle_warning_deprecated"
+      ),
+      "<ordered> and <factor>", class = "lifecycle_warning_deprecated"
+    ),
+    "<ordered> and <factor>", class = "lifecycle_warning_deprecated"
+  )
+
+  # Should be <factor> not <ordered/factor>, hence the 'exact'
+  expect_s3_class(test$a, "factor", exact = TRUE)
+  # Test levels are combined sensibly
+  expect_equal(levels(test$a), c("A", "B", "C"))
+
+})

@@ -90,7 +90,7 @@ and will be output on the unused one.
 
 These are calculated by the 'stat' part of layers and can be accessed with \link[=aes_eval]{delayed evaluation}.
 \itemize{
-\item \code{after_stat(y)}\cr Cumulative density corresponding to \code{x}.
+\item \code{after_stat(ecdf)}\cr Cumulative density corresponding to \code{x}.
 }
 }
 

@@ -112,6 +112,12 @@ scale_linetype_manual <- function(..., values, breaks = waiver(), na.value = "bl
 
 #' @rdname scale_manual
 #' @export
+scale_linewidth_manual <- function(..., values, breaks = waiver(), na.value = NA) {
+  manual_scale("linewidth", values, breaks, ..., na.value = na.value)
+}
+
+#' @rdname scale_manual
+#' @export
 scale_alpha_manual <- function(..., values, breaks = waiver(), na.value = NA) {
   manual_scale("alpha", values, breaks, ..., na.value = na.value)
 }
@@ -121,7 +127,6 @@ scale_alpha_manual <- function(..., values, breaks = waiver(), na.value = NA) {
 scale_discrete_manual <- function(aesthetics, ..., values, breaks = waiver()) {
   manual_scale(aesthetics, values, breaks, ...)
 }
-
 
 manual_scale <- function(aesthetic, values = NULL, breaks = waiver(), ..., limits = NULL) {
   # check for missing `values` parameter, in lieu of providing
