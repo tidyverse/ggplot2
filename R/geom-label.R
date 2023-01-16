@@ -138,10 +138,14 @@ labelGrob <- function(label, x = unit(0.5, "npc"), y = unit(0.5, "npc"),
   hjust <- resolveHJust(just, NULL)
   vjust <- resolveVJust(just, NULL)
 
+  if (!inherits(padding, "margin")) {
+    padding <- rep(padding, length.out = 4)
+  }
+
   text <- titleGrob(
     label = label, hjust = hjust, vjust = vjust,
-    x = x + 2 * (0.5 - hjust) * padding,
-    y = y + 2 * (0.5 - vjust) * padding,
+    x = x + (0.5 - hjust) * sum(padding[c(2, 4)]),
+    y = y + (0.5 - vjust) * sum(padding[c(1, 3)]),
     margin = padding, margin_x = TRUE, margin_y = TRUE,
     gp = text.gp
   )
