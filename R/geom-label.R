@@ -132,8 +132,29 @@ labelGrob <- function(label, x = unit(0.5, "npc"), y = unit(0.5, "npc"),
     y <- unit(rep(0.5, length(y)), "npc")
   }
 
-  gTree(label = label, x = x, y = y, just = just, padding = padding, r = r,
-    name = name, text.gp = text.gp, rect.gp = rect.gp, vp = vp, cl = "labelgrob")
+  descent <- font_descent(
+    text.gp$fontfamily, text.gp$fontface, text.gp$fontsize, text.gp$cex
+  )
+  hjust <- resolveHJust(just, NULL)
+  vjust <- resolveVJust(just, NULL)
+
+  text <- titleGrob(
+    label = label, hjust = hjust, vjust = vjust,
+    x = x + 2 * (0.5 - hjust) * padding,
+    y = y + 2 * (0.5 - vjust) * padding,
+    margin = padding, margin_x = TRUE, margin_y = TRUE,
+    gp = text.gp
+  )
+
+  box <- roundrectGrob(
+    x = x, y = y - 0.5 * descent,
+    width  = grobWidth(text),
+    height = grobHeight(text),
+    just   = c(hjust, vjust),
+    r = r, gp = rect.gp, name = "box"
+  )
+
+  gTree(children = gList(box, text), name = name, vp = vp)
 }
 
 #' @export
