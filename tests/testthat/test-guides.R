@@ -257,6 +257,21 @@ test_that("legend reverse argument reverses the key", {
   expect_equal(fwd$colour, rev(rev$colour))
 })
 
+test_that("guide_coloursteps and guide_bins return ordered breaks", {
+  scale <- scale_colour_viridis_c(breaks = c(2, 3, 1))
+  scale$train(c(0, 4))
+
+  # Coloursteps guide is increasing order
+  g <- guide_colorsteps()
+  key <- g$train(scale = scale, aesthetic = "colour")$key
+  expect_true(all(diff(key$.value) > 0))
+
+  # Bins guide is decreasing order
+  g <- guide_bins()
+  key <- g$train(scale = scale, aesthetics = "colour", direction = "vertical")$key
+  expect_true(all(diff(key$.value) < 0))
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("axis guides are drawn correctly", {

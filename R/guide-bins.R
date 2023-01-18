@@ -422,6 +422,7 @@ parse_binned_breaks = function(scale, breaks = scale$get_breaks(),
   if (length(breaks) == 0) {
     return(NULL)
   }
+  breaks <- sort(breaks)
   if (is.numeric(breaks)) {
     limits <- scale$get_limits()
     if (!is.numeric(scale$breaks)) {
