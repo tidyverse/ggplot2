@@ -97,6 +97,15 @@ scale_linetype_identity <- function(..., guide = "none") {
 
 #' @rdname scale_identity
 #' @export
+scale_linewidth_identity <- function(..., guide = "none") {
+  sc <- continuous_scale("linewidth", "identity", identity_pal(), ...,
+                         guide = guide, super = ScaleContinuousIdentity)
+
+  sc
+}
+
+#' @rdname scale_identity
+#' @export
 scale_alpha_identity <- function(..., guide = "none") {
   sc <- continuous_scale("alpha", "identity", identity_pal(), ..., guide = guide,
     super = ScaleContinuousIdentity)

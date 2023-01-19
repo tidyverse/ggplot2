@@ -106,10 +106,10 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 
 \section{Computed variables}{
 
-\code{stat_function()} computes the following variables:
-\describe{
-\item{x}{x values along a grid}
-\item{y}{value of the function evaluated at corresponding x}
+These are calculated by the 'stat' part of layers and can be accessed with \link[=aes_eval]{delayed evaluation}.
+\itemize{
+\item \code{after_stat(x)}\cr \code{x} values along a grid.
+\item \code{after_stat(y)}\cr values of the function evaluated at corresponding \code{x}.
 }
 }
 
