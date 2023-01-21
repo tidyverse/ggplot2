@@ -1,5 +1,9 @@
 # ggplot2 (development version)
 
+* You can now omit either `xend` or `yend` from `geom_segment()` as only one
+  of these is now required. If one is missing, it will be filled from the `x`
+  and `y` aesthetics respectively. This makes drawing horizontal or vertical
+  segments a little bit more convenient (@teunbrand, #5140).
 * Using two ordered factors as facetting variables in 
   `facet_grid(..., as.table = FALSE)` now throws a warning instead of an
   error (@teunbrand, #5109).
