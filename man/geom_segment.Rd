@@ -125,8 +125,7 @@ need to connect points across multiple cases.
 \itemize{
 \item \strong{\code{x}}
 \item \strong{\code{y}}
-\item \strong{\code{xend}}
-\item \strong{\code{yend}}
+\item \strong{\code{xend} \emph{or} \code{yend}}
 \item \code{alpha}
 \item \code{colour}
 \item \code{group}
