@@ -185,9 +185,10 @@ Facet <- ggproto("Facet", NULL,
 #' represents or the results of the expressions) are used to form
 #' faceting groups.
 #'
-#' @param ... Variables or expressions automatically quoted. These are
-#'   evaluated in the context of the data to form faceting groups. Can
-#'   be named (the names are passed to a [labeller][labellers]).
+#' @param ... <[`data-masking`][rlang::topic-data-mask]> Variables or
+#'   expressions automatically quoted. These are evaluated in the context of the
+#'   data to form faceting groups. Can be named (the names are passed to a
+#'   [labeller][labellers]).
 #'
 #' @seealso [aes()], [facet_wrap()], [facet_grid()]
 #' @export
