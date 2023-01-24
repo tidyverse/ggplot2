@@ -18,10 +18,6 @@
 #' # reset default
 #' update_geom_defaults("point", list(colour = "black"))
 #'
-#' # note: adding default aesthetics is possible
-#' # update_geom_defaults("point", list(foo = "bar"))
-#' # GeomPoint$default_aes
-#'
 #'
 #' # updating a stat's default aesthetic settings
 #' # example: change stat_bin()'s default y-axis to the density scale
