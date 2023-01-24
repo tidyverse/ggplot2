@@ -548,14 +548,14 @@ has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA,
   if (group_has_equal) {
     if (has_x) {
       if (length(x) == 1) return(FALSE)
-      x_groups <- vapply(split(data$x, data$group), function(x) length(unique0(x)), integer(1))
+      x_groups <- vapply(split(data$x, data$group), vec_unique_count, integer(1))
       if (all(x_groups == 1)) {
         return(FALSE)
       }
     }
     if (has_y) {
       if (length(y) == 1) return(TRUE)
-      y_groups <- vapply(split(data$y, data$group), function(x) length(unique0(x)), integer(1))
+      y_groups <- vapply(split(data$y, data$group), vec_unique_count, integer(1))
       if (all(y_groups == 1)) {
         return(TRUE)
       }
