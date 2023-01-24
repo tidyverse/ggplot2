@@ -61,7 +61,7 @@ clist <- function(l) {
 #
 # @keyword internal
 uniquecols <- function(df) {
-  df <- df[1, sapply(df, function(x) length(unique0(x)) == 1), drop = FALSE]
+  df <- df[1, sapply(df, is_unique), drop = FALSE]
   rownames(df) <- 1:nrow(df)
   df
 }
@@ -353,6 +353,9 @@ data_frame0 <- function(...) data_frame(..., .name_repair = "minimal")
 
 # Wrapping unique0() to accept NULL
 unique0 <- function(x, ...) if (is.null(x)) x else vec_unique(x, ...)
+
+# Code readability checking for uniqueness
+is_unique <- function(x) vec_unique_count(x) == 1L
 
 # Check inputs with tibble but allow column vectors (see #2609 and #2374)
 as_gg_data_frame <- function(x) {
