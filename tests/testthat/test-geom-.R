@@ -12,7 +12,7 @@ test_that("updating geom aesthetic defaults preserves class and order", {
 
   original_defaults <- GeomPoint$default_aes
 
-  update_geom_defaults("point", list(color = "red"))
+  update_geom_defaults("point", aes(color = "red"))
 
   updated_defaults <- GeomPoint$default_aes
 
@@ -34,7 +34,7 @@ test_that("updating stat aesthetic defaults preserves class and order", {
 
   original_defaults <- StatBin$default_aes
 
-  update_stat_defaults("bin", list(y = expr(after_stat(density))))
+  update_stat_defaults("bin", aes(y = after_stat(density)))
 
   updated_defaults <- StatBin$default_aes
 
@@ -42,6 +42,7 @@ test_that("updating stat aesthetic defaults preserves class and order", {
 
   intended_defaults <- original_defaults
   intended_defaults[["y"]] <- expr(after_stat(density))
+  attr(intended_defaults[["y"]], ".Environment") <- attr(updated_defaults[["y"]], ".Environment")
 
   expect_equal(updated_defaults, intended_defaults)
 
