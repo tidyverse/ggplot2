@@ -4,7 +4,7 @@ output: rmarkdown::html_vignette
 description: |
   An overview of the layered grammar of graphics.
 vignette: >
-  %\VignetteIndexEntry{Extending ggplot2}
+  %\VignetteIndexEntry{Introduction to ggplot2}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
