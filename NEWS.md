@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* `geom_text()` drops observations where `angle = NA` instead of throwing an
+  error (@teunbrand, #2757).
 * Using two ordered factors as facetting variables in 
   `facet_grid(..., as.table = FALSE)` now throws a warning instead of an
   error (@teunbrand, #5109).
