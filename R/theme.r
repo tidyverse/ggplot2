@@ -565,7 +565,16 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
   # it is of the class specified in element_tree
   if (!is.null(el_out) &&
       !inherits(el_out, element_tree[[element]]$class)) {
-    cli::cli_abort("Theme element {.var {element}} must have class {.cls {ggplot_global$element_tree[[element]]$class}}", call = call)
+    msg <- "Theme element {.var {element}} must have class {.cls {ggplot_global$element_tree[[element]]$class}}"
+
+    # 'character' is keyword that may also mean 'numeric', see ?el_def
+    if (element_tree[[element]]$class == "character") {
+      if (!is.numeric(el_out)) {
+        cli::cli_abort(msg, call = call)
+      }
+    } else {
+      cli::cli_abort(msg, call = call)
+    }
   }
 
   # Get the names of parents from the inheritance tree
