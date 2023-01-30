@@ -134,9 +134,10 @@
 #' @param plot.tag upper-left label to identify a plot (text appearance)
 #'   ([element_text()]; inherits from `title`) left-aligned by default
 #' @param plot.tag.position The position of the tag as a string ("topleft",
-#'   "top", "topright", "left", "right", "bottomleft", "bottom", "bottomright)
-#'   or a coordinate. If a string, extra space will be added to accommodate the
-#'   tag.
+#'   "top", "topright", "left", "right", "bottomleft", "bottom", "bottomright")
+#'   or a coordinate. If a character, can contain "panel" to place the tag
+#'   relative to the panels instead of plotting area. If a string and not at
+#'   panel, extra space will be added to accommodate the tag.
 #' @param plot.margin margin around entire plot (`unit` with the sizes of
 #'   the top, right, bottom, and left margins)
 #'
