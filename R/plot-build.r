@@ -269,11 +269,6 @@ ggplot_gtable.ggplot_built <- function(data) {
   subtitle <- element_render(theme, "plot.subtitle", plot$labels$subtitle, margin_y = TRUE)
   subtitle_height <- grobHeight(subtitle)
 
-  # Tag
-  tag <- element_render(theme, "plot.tag", plot$labels$tag, margin_y = TRUE, margin_x = TRUE)
-  tag_height <- grobHeight(tag)
-  tag_width <- grobWidth(tag)
-
   # whole plot annotation
   caption <- element_render(theme, "plot.caption", plot$labels$caption, margin_y = TRUE)
   caption_height <- grobHeight(caption)
@@ -319,75 +314,7 @@ ggplot_gtable.ggplot_built <- function(data) {
   plot_table <- gtable_add_grob(plot_table, caption, name = "caption",
     t = -1, b = -1, l = caption_l, r = caption_r, clip = "off")
 
-  plot_table <- gtable_add_rows(plot_table, unit(0, 'pt'), pos = 0)
-  plot_table <- gtable_add_cols(plot_table, unit(0, 'pt'), pos = 0)
-  plot_table <- gtable_add_rows(plot_table, unit(0, 'pt'), pos = -1)
-  plot_table <- gtable_add_cols(plot_table, unit(0, 'pt'), pos = -1)
-
-  tag_pos <- theme$plot.tag.position %||% "topleft"
-  if (length(tag_pos) == 2) tag_pos <- "manual"
-  valid_pos <- c("topleft", "top", "topright", "left", "right", "bottomleft",
-                 "bottom", "bottomright")
-
-  if (!(tag_pos == "manual" || tag_pos %in% valid_pos)) {
-    cli::cli_abort("{.arg plot.tag.position} should be a coordinate or one of {.or {.val {valid_pos}}}")
-  }
-
-  if (tag_pos == "manual") {
-    xpos <- theme$plot.tag.position[1]
-    ypos <- theme$plot.tag.position[2]
-    tag_parent <- justify_grobs(tag, x = xpos, y = ypos,
-                                hjust = theme$plot.tag$hjust,
-                                vjust = theme$plot.tag$vjust,
-                                int_angle = theme$plot.tag$angle,
-                                debug = theme$plot.tag$debug)
-    plot_table <- gtable_add_grob(plot_table, tag_parent, name = "tag", t = 1,
-                                  b = nrow(plot_table), l = 1,
-                                  r = ncol(plot_table), clip = "off")
-  } else {
-    # Widths and heights are reassembled below instead of assigning into them
-    # in order to avoid bug in grid 3.2 and below.
-    if (tag_pos == "topleft") {
-      plot_table$widths <- unit.c(tag_width, plot_table$widths[-1])
-      plot_table$heights <- unit.c(tag_height, plot_table$heights[-1])
-      plot_table <- gtable_add_grob(plot_table, tag, name = "tag",
-                                    t = 1, l = 1, clip = "off")
-    } else if (tag_pos == "top") {
-      plot_table$heights <- unit.c(tag_height, plot_table$heights[-1])
-      plot_table <- gtable_add_grob(plot_table, tag, name = "tag",
-                                    t = 1, l = 1, r = ncol(plot_table),
-                                    clip = "off")
-    } else if (tag_pos == "topright") {
-      plot_table$widths <- unit.c(plot_table$widths[-ncol(plot_table)], tag_width)
-      plot_table$heights <- unit.c(tag_height, plot_table$heights[-1])
-      plot_table <- gtable_add_grob(plot_table, tag, name = "tag",
-                                    t = 1, l = ncol(plot_table), clip = "off")
-    } else if (tag_pos == "left") {
-      plot_table$widths <- unit.c(tag_width, plot_table$widths[-1])
-      plot_table <- gtable_add_grob(plot_table, tag, name = "tag",
-                                    t = 1, b = nrow(plot_table), l = 1,
-                                    clip = "off")
-    } else if (tag_pos == "right") {
-      plot_table$widths <- unit.c(plot_table$widths[-ncol(plot_table)], tag_width)
-      plot_table <- gtable_add_grob(plot_table, tag, name = "tag",
-                                    t = 1, b = nrow(plot_table), l = ncol(plot_table),
-                                    clip = "off")
-    } else if (tag_pos == "bottomleft") {
-      plot_table$widths <- unit.c(tag_width, plot_table$widths[-1])
-      plot_table$heights <- unit.c(plot_table$heights[-nrow(plot_table)], tag_height)
-      plot_table <- gtable_add_grob(plot_table, tag, name = "tag",
-                                    t = nrow(plot_table), l = 1, clip = "off")
-    } else if (tag_pos == "bottom") {
-      plot_table$heights <- unit.c(plot_table$heights[-nrow(plot_table)], tag_height)
-      plot_table <- gtable_add_grob(plot_table, tag, name = "tag",
-                                    t = nrow(plot_table), l = 1, r = ncol(plot_table), clip = "off")
-    } else if (tag_pos == "bottomright") {
-      plot_table$widths <- unit.c(plot_table$widths[-ncol(plot_table)], tag_width)
-      plot_table$heights <- unit.c(plot_table$heights[-nrow(plot_table)], tag_height)
-      plot_table <- gtable_add_grob(plot_table, tag, name = "tag",
-                                    t = nrow(plot_table), l = ncol(plot_table), clip = "off")
-    }
-  }
+  plot_table <- table_add_tag(plot_table, plot$labels$tag, theme)
 
   # Margins
   plot_table <- gtable_add_rows(plot_table, theme$plot.margin[1], pos = 0)
