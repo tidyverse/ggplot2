@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* The `plot.tag.position` in `theme()` can now accept `"panel"` to set the tag
+  relative to the panel area instead of the plot area (#4297).
 * `geom_text()` drops observations where `angle = NA` instead of throwing an
   error (@teunbrand, #2757).
 * Using two ordered factors as facetting variables in 
