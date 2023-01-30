@@ -432,3 +432,91 @@ by_layer <- function(f, layers, data, step = NULL) {
   )
   out
 }
+
+# Add the tag element to the gtable
+table_add_tag <- function(table, label, theme) {
+  # Initialise the tag margins
+  table <- gtable_add_rows(table, unit(0, "pt"), pos = 0)
+  table <- gtable_add_cols(table, unit(0, "pt"), pos = 0)
+  table <- gtable_add_cols(table, unit(0, "pt"), pos = -1)
+  table <- gtable_add_rows(table, unit(0, "pt"), pos = -1)
+
+  # Early exit when label is absent or element is blank
+  if (length(label) < 1) {
+    return(table)
+  }
+  element <- calc_element("plot.tag", theme)
+  if (inherits(element, "element_blank")) {
+    return(table)
+  }
+
+  # Resolve tag and sizes
+  tag <- element_grob(element, label = label, margin_y = TRUE, margin_x = TRUE)
+  height <- grobHeight(tag)
+  width  <- grobWidth(tag)
+
+  # Resolve position
+  position <- calc_element("plot.tag.position", theme) %||% "topleft"
+  place_in_panel <- "panel" %in% position
+  position <- position[!(position %in% c("panel", "plot"))]
+  if (length(position) == 0) {
+    position <- "topleft"
+  }
+
+  if (length(position) == 2) {
+    # Do manual placement of tag
+    tag <- justify_grobs(
+      tag, x = position[1], y = position[2],
+      hjust = element$hjust, vjust = element$vjust,
+      int_angle = element$angle, debug = element$debug
+    )
+    table <- gtable_add_grob(
+      table, tag, name = "tag", clip = "off",
+      t = 1, b = nrow(table), l = 1, r = ncol(table)
+    )
+    return(table)
+  }
+
+  # Break position into top/left/right/bottom
+  position <- arg_match0(
+    position,
+    c("topleft", "top", "topright", "left",
+      "right", "bottomleft", "bottom", "bottomright"),
+    arg_nm = "plot.tag.position"
+  )
+  top    <- position %in% c("topleft",    "top",    "topright")
+  left   <- position %in% c("topleft",    "left",   "bottomleft")
+  right  <- position %in% c("topright",   "right",  "bottomright")
+  bottom <- position %in% c("bottomleft", "bottom", "bottomright")
+
+  if (place_in_panel) {
+    # Rejustify tag to position
+    tag   <- justify_grobs(
+      tag,
+      hjust = if (left)   0 else if (right) 1 else element$hjust,
+      vjust = if (bottom) 0 else if (top)   1 else element$vjust,
+      int_angle = element$angle, debug = element$debug
+    )
+    place <- find_panel(table)
+  } else {
+    n_col <- ncol(table)
+    n_row <- nrow(table)
+    # Actually fill margin with relevant units
+    if (top)    table$heights <- unit.c(height, table$heights[-1])
+    if (left)   table$widths  <- unit.c(width,  table$widths[-1])
+    if (right)  table$widths  <- unit.c(table$widths[-n_col],  width)
+    if (bottom) table$heights <- unit.c(table$heights[-n_row], height)
+    place <- data_frame0(t = 1L, r = n_col, b = n_row, l = 1L)
+  }
+
+  # Shrink placement to position
+  if (top)    place$b <- place$t
+  if (left)   place$r <- place$l
+  if (right)  place$l <- place$r
+  if (bottom) place$t <- place$b
+
+  gtable_add_grob(
+    table, tag, name = "tag", clip = "off",
+    t = place$t, l = place$l, b = place$b, r = place$r
+  )
+}
