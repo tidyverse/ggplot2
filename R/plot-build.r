@@ -390,7 +390,7 @@ table_add_tag <- function(table, label, theme) {
     position <- "topleft"
   }
 
-  if (length(position) == 2) {
+  if (length(position) == 2 && is.numeric(position)) {
     # Do manual placement of tag
     tag <- justify_grobs(
       tag, x = position[1], y = position[2],
@@ -406,7 +406,7 @@ table_add_tag <- function(table, label, theme) {
 
   # Break position into top/left/right/bottom
   position <- arg_match0(
-    position,
+    position[1],
     c("topleft", "top", "topright", "left",
       "right", "bottomleft", "bottom", "bottomright"),
     arg_nm = "plot.tag.position"
