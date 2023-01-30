@@ -363,10 +363,7 @@ by_layer <- function(f, layers, data, step = NULL) {
 # Add the tag element to the gtable
 table_add_tag <- function(table, label, theme) {
   # Initialise the tag margins
-  table <- gtable_add_rows(table, unit(0, "pt"), pos = 0)
-  table <- gtable_add_cols(table, unit(0, "pt"), pos = 0)
-  table <- gtable_add_cols(table, unit(0, "pt"), pos = -1)
-  table <- gtable_add_rows(table, unit(0, "pt"), pos = -1)
+  table <- gtable_add_padding(table, unit(0, "pt"))
 
   # Early exit when label is absent or element is blank
   if (length(label) < 1) {
