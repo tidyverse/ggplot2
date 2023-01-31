@@ -27,14 +27,13 @@
 #'   or left edges of bins are included in the bin.
 #' @param pad If `TRUE`, adds empty bins at either end of x. This ensures
 #'   frequency polygons touch 0. Defaults to `FALSE`.
-#' @section Computed variables:
-#' \describe{
-#'   \item{`count`}{number of points in bin}
-#'   \item{`density`}{density of points in bin, scaled to integrate to 1}
-#'   \item{`ncount`}{count, scaled to maximum of 1}
-#'   \item{`ndensity`}{density, scaled to maximum of 1}
-#'   \item{`width`}{widths of bins}
-#' }
+#' @eval rd_computed_vars(
+#'   count    = "number of points in bin.",
+#'   density  = "density of points in bin, scaled to integrate to 1.",
+#'   ncount   = "count, scaled to a maximum of 1.",
+#'   ndensity = "density, scaled to a maximum of 1.",
+#'   width    = "widths of bins."
+#' )
 #'
 #' @section Dropped variables:
 #' \describe{
@@ -124,9 +123,6 @@ StatBin <- ggproto("StatBin", Stat,
       params$closed <- if (params$right) "right" else "left"
       params$right <- NULL
     }
-    if (!is.null(params$width)) {
-      deprecate_warn0("2.1.0", "stat_bin(width)", "geom_bar()")
-    }
     if (!is.null(params$boundary) && !is.null(params$center)) {
       cli::cli_abort("Only one of {.arg boundary} and {.arg center} may be specified in {.fn {snake_class(self)}}.")
     }
@@ -147,8 +143,7 @@ StatBin <- ggproto("StatBin", Stat,
                            breaks = NULL, flipped_aes = FALSE,
                            # The following arguments are not used, but must
                            # be listed so parameters are computed correctly
-                           origin = NULL, right = NULL, drop = NULL,
-                           width = NULL) {
+                           origin = NULL, right = NULL, drop = NULL) {
     x <- flipped_names(flipped_aes)$x
     if (!is.null(breaks)) {
       if (!scales[[x]]$is_discrete()) {

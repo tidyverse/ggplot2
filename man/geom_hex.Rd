@@ -108,11 +108,12 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 
 \section{Computed variables}{
 
-\describe{
-\item{count}{number of points in bin}
-\item{density}{density of points in bin, scaled to integrate to 1}
-\item{ncount}{count, scaled to maximum of 1}
-\item{ndensity}{density, scaled to maximum of 1}
+These are calculated by the 'stat' part of layers and can be accessed with \link[=aes_eval]{delayed evaluation}.
+\itemize{
+\item \code{after_stat(count)}\cr number of points in bin.
+\item \code{after_stat(density)}\cr density of points in bin, scaled to integrate to 1.
+\item \code{after_stat(ncount)}\cr count, scaled to maximum of 1.
+\item \code{after_stat(ndensity)}\cr density, scaled to maximum of 1.
 }
 }
 

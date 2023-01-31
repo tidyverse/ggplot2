@@ -237,8 +237,11 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 #'   the scale will ask the transformation object to create breaks, and this
 #'   may result in a different number of breaks than requested. Ignored if
 #'   breaks are given explicitly.
-#' @param right Should values on the border between bins be part of the right
-#'   (upper) bin?
+#' @param right Should the intervals be closed on the right (`TRUE`, default) or
+#'   should the intervals be closed on the left (`FALSE`)? 'Closed on the right'
+#'   means that values at break positions are part of the lower bin (open on the
+#'   left), whereas they are part of the upper bin when intervals are closed on
+#'   the left (open on the right).
 #' @param show.limits should the limits of the scale appear as ticks
 #' @keywords internal
 binned_scale <- function(aesthetics, scale_name, palette, name = waiver(),
@@ -1021,16 +1024,22 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
       x <- self$rescale(self$oob(x, range = limits), limits)
       breaks <- self$rescale(breaks, limits)
 
-      x_binned <- cut(x, breaks,
-        labels = FALSE,
-        include.lowest = TRUE,
-        right = self$right
-      )
+      if (length(breaks) > 1) {
+        x_binned <- cut(x, breaks,
+          labels = FALSE,
+          include.lowest = TRUE,
+          right = self$right
+        )
+        midpoints <- breaks[-1] - diff(breaks) / 2
+      } else {
+        x_binned  <- 1L
+        midpoints <- 0.5
+      }
 
       if (!is.null(self$palette.cache)) {
         pal <- self$palette.cache
       } else {
-        pal <- self$palette(breaks[-1] - diff(breaks) / 2)
+        pal <- self$palette(midpoints)
         self$palette.cache <- pal
       }
 
@@ -1071,14 +1080,18 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
         breaks <- seq(limits[1], limits[2], length.out = n.breaks + 2)
         breaks <- breaks[-c(1, length(breaks))]
       }
+      breaks <- oob_discard(breaks, limits)
 
       # Ensure terminal bins are same width if limits not set
       if (is.null(self$limits)) {
         # Remove calculated breaks if they coincide with limits
-        breaks <- setdiff(breaks, limits)
+        breaks <- breaks[!breaks %in% limits]
         nbreaks <- length(breaks)
         if (nbreaks >= 2) {
-          new_limits <- c(2 * breaks[1] - breaks[2], 2 * breaks[nbreaks] - breaks[nbreaks - 1])
+          new_limits <- c(
+            breaks[1] + (breaks[1] - breaks[2]),
+            breaks[nbreaks] + (breaks[nbreaks] - breaks[nbreaks - 1])
+          )
           if (breaks[nbreaks] > limits[2]) {
             new_limits[2] <- breaks[nbreaks]
             breaks <- breaks[-nbreaks]

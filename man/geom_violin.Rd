@@ -141,14 +141,14 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 
 \section{Computed variables}{
 
-\describe{
-\item{density}{density estimate}
-\item{scaled}{density estimate, scaled to maximum of 1}
-\item{count}{density * number of points - probably useless for violin plots}
-\item{violinwidth}{density scaled for the violin plot, according to area, counts
-or to a constant maximum width}
-\item{n}{number of points}
-\item{width}{width of violin bounding box}
+These are calculated by the 'stat' part of layers and can be accessed with \link[=aes_eval]{delayed evaluation}.
+\itemize{
+\item \code{after_stat(density)}\cr Density estimate.
+\item \code{after_stat(scaled)}\cr Density estimate, scaled to a maximum of 1.
+\item \code{after_stat(count)}\cr Density * number of points - probably useless for violin  plots.
+\item \code{after_stat(violinwidth)}\cr Density scaled for the violin plot, according to area,  counts or to a constant maximum width.
+\item \code{after_stat(n)}\cr Number of points.
+\item \code{after_stat(width)}\cr Width of violin bounding box.
 }
 }
 

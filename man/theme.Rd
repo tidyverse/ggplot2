@@ -95,7 +95,11 @@ theme(
   strip.placement,
   strip.text,
   strip.text.x,
+  strip.text.x.bottom,
+  strip.text.x.top,
   strip.text.y,
+  strip.text.y.left,
+  strip.text.y.right,
   strip.switch.pad.grid,
   strip.switch.pad.wrap,
   ...,
@@ -265,10 +269,13 @@ from the parent viewport.}
 either "inside" or "outside". Only important when axes and strips are
 on the same side of the plot.}
 
-\item{strip.text, strip.text.x, strip.text.y}{facet labels (\code{\link[=element_text]{element_text()}};
-inherits from  \code{text}). Horizontal facet labels (\code{strip.text.x}) & vertical
+\item{strip.text, strip.text.x, strip.text.y, strip.text.x.top, strip.text.x.bottom, strip.text.y.left, strip.text.y.right}{facet labels (\code{\link[=element_text]{element_text()}}; inherits from  \code{text}). Horizontal facet labels (\code{strip.text.x}) & vertical
 facet labels (\code{strip.text.y}) inherit from \code{strip.text} or can be specified
-separately}
+separately. Facet strips have dedicated position-dependent theme elements
+(\code{strip.text.x.top}, \code{strip.text.x.bottom}, \code{strip.text.y.left}, \code{strip.text.y.right})
+that inherit from \code{strip.text.x} and \code{strip.text.y}, respectively.
+As a consequence, some theme stylings need to be applied to
+the position-dependent elements rather than to the parent elements}
 
 \item{strip.switch.pad.grid}{space between strips and axes when strips are
 switched (\code{unit})}
@@ -400,6 +407,9 @@ p3
 
 p3 + theme(strip.background = element_rect(colour = "black", fill = "white"))
 p3 + theme(strip.text.x = element_text(colour = "white", face = "bold"))
+# More direct strip.text.x here for top
+# as in the facet_wrap the default strip.position is "top"
+p3 + theme(strip.text.x.top = element_text(colour = "white", face = "bold"))
 p3 + theme(panel.spacing = unit(1, "lines"))
 }
 }
