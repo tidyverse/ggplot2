@@ -1,75 +1,66 @@
 ## revdepcheck results
 
-We checked 4349 reverse dependencies (4324 from CRAN + 25 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
+We checked 4375 reverse dependencies (4350 from CRAN + 25 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 9 new problems
- * We failed to check 34 packages
+ * We saw 2 new problems
+ * We failed to check 46 packages
 
 Issues with CRAN packages are summarised below.
 
 ### New problems
 (This reports the first line of each new failure)
 
-* APCI
-  checking tests ... ERROR
-
-* BNPdensity
-  checking examples ... ERROR
-
-* gamlss.ggplots
-  checking examples ... ERROR
-
-* Hapi
-  checking examples ... ERROR
-
 * listdown
   checking tests ... ERROR
-
-* openalexR
-  checking re-building of vignette outputs ... WARNING
-
-* RMixtComp
-  checking re-building of vignette outputs ... WARNING
-
-* rxode2
-  checking examples ... ERROR
 
 * xpose
   checking tests ... ERROR
 
 ### Failed to check
 
-* CausalImpact     (NA)
-* cinaR            (NA)
-* ctsem            (NA)
-* EpiEstim         (NA)
-* ExPanDaR         (NA)
-* FactoInvestigate (NA)
-* genekitr         (NA)
-* ggPMX            (NA)
-* grandR           (NA)
-* healthfinance    (NA)
-* hrbrthemes       (NA)
-* immcp            (NA)
-* loon.ggplot      (NA)
-* manymodelr       (NA)
-* MARVEL           (NA)
-* MOCHA            (NA)
-* nlmixr2          (NA)
-* nlmixr2extra     (NA)
-* nlmixr2plot      (NA)
-* nlmixr2rpt       (NA)
-* numbat           (NA)
-* OlinkAnalyze     (NA)
-* OpenMx           (NA)
-* Platypus         (NA)
-* RcppCensSpatial  (NA)
-* rPBK             (NA)
-* RVA              (NA)
-* SCpubr           (NA)
-* SSVS             (NA)
-* tidySEM          (NA)
-* tinyarray        (NA)
-* valse            (NA)
-* vivid            (NA)
-* xpose.nlmixr2    (NA)
+* AFM                     (NA)
+* AssetCorr               (NA)
+* bayesnec                (NA)
+* bayesrules              (NA)
+* cinaR                   (NA)
+* eefAnalytics            (NA)
+* escalation              (NA)
+* ESTER                   (NA)
+* genekitr                (NA)
+* ggPMX                   (NA)
+* grandR                  (NA)
+* hmmTMB                  (NA)
+* immcp                   (NA)
+* INSPECTumours           (NA)
+* IRexamples              (NA)
+* loon.ggplot             (NA)
+* MarketMatching          (NA)
+* MARVEL                  (NA)
+* multilevelcoda          (NA)
+* nestedcv                (NA)
+* nlmixr2                 (NA)
+* nlmixr2extra            (NA)
+* nlmixr2plot             (NA)
+* nlmixr2rpt              (NA)
+* numbat                  (NA)
+* OlinkAnalyze            (NA)
+* OpenMx                  (NA)
+* ordbetareg              (NA)
+* PFIM                    (NA)
+* PlasmaMutationDetector2 (NA)
+* Platypus                (NA)
+* RcppCensSpatial         (NA)
+* rdddr                   (NA)
+* rdss                    (NA)
+* rstan                   (NA)
+* RVA                     (NA)
+* SCpubr                  (NA)
+* tidyposterior           (NA)
+* tidySEM                 (NA)
+* tinyarray               (NA)
+* TVMM                    (NA)
+* valse                   (NA)
+* vivid                   (NA)
+* wearables               (NA)
+* webSDM                  (NA)
+* xpose.nlmixr2           (NA)
