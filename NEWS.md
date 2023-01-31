@@ -1,7 +1,7 @@
 # ggplot2 (development version)
 
-* `stat_sf()` is now computed per panel instead of per group, the prevent
-  changing the plotting order (@teunbrand, #4340).
+* To prevent changing the plotting order, `stat_sf()` is now computed per panel 
+  instead of per group (@teunbrand, #4340).
 * `geom_text()` drops observations where `angle = NA` instead of throwing an
   error (@teunbrand, #2757).
 * Using two ordered factors as facetting variables in 
