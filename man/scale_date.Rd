@@ -119,7 +119,8 @@ omitted.}
 
 \item{date_breaks}{A string giving the distance between breaks like "2
 weeks", or "10 years". If both \code{breaks} and \code{date_breaks} are
-specified, \code{date_breaks} wins.}
+specified, \code{date_breaks} wins. Valid specifications are 'sec', 'min',
+'hour', 'day', 'week', 'month' or 'year', optionally followed by 's'.}
 
 \item{labels}{One of:
 \itemize{
@@ -148,7 +149,9 @@ output
 
 \item{date_minor_breaks}{A string giving the distance between minor breaks
 like "2 weeks", or "10 years". If both \code{minor_breaks} and
-\code{date_minor_breaks} are specified, \code{date_minor_breaks} wins.}
+\code{date_minor_breaks} are specified, \code{date_minor_breaks} wins. Valid
+specifications are 'sec', 'min', 'hour', 'day', 'week', 'month' or 'year',
+optionally followed by 's'.}
 
 \item{limits}{One of:
 \itemize{

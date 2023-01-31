@@ -14,7 +14,7 @@
 #'     `compute_panel(self, data, scales, ...)`, or
 #'     `compute_group(self, data, scales, ...)`.
 #'
-#'     `compute_layer()` is called once per layer, `compute_panel_()`
+#'     `compute_layer()` is called once per layer, `compute_panel()`
 #'     is called once per panel, and `compute_group()` is called once per
 #'     group. All must return a data frame.
 #'
