@@ -20,8 +20,29 @@ update_stat_defaults(stat, new)
 Modify geom/stat aesthetic defaults for future plots
 }
 \examples{
-update_geom_defaults("point", list(colour = "darkblue"))
+
+# updating a geom's default aesthetic settings
+# example: change geom_point()'s default color
+GeomPoint$default_aes
+update_geom_defaults("point", aes(color = "red"))
+GeomPoint$default_aes
 ggplot(mtcars, aes(mpg, wt)) + geom_point()
-update_geom_defaults("point", list(colour = "black"))
+
+# reset default
+update_geom_defaults("point", aes(color = "black"))
+
+
+# updating a stat's default aesthetic settings
+# example: change stat_bin()'s default y-axis to the density scale
+StatBin$default_aes
+update_stat_defaults("bin", aes(y = after_stat(density)))
+StatBin$default_aes
+ggplot(data.frame(x = rnorm(1e3)), aes(x)) +
+  geom_histogram() +
+  geom_function(fun = dnorm, color = "red")
+
+# reset default
+update_stat_defaults("bin", aes(y = after_stat(count)))
+
 }
 \keyword{internal}

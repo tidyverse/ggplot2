@@ -5,6 +5,7 @@
 \alias{scale_fill_identity}
 \alias{scale_shape_identity}
 \alias{scale_linetype_identity}
+\alias{scale_linewidth_identity}
 \alias{scale_alpha_identity}
 \alias{scale_size_identity}
 \alias{scale_discrete_identity}
@@ -19,6 +20,8 @@ scale_fill_identity(..., guide = "none", aesthetics = "fill")
 scale_shape_identity(..., guide = "none")
 
 scale_linetype_identity(..., guide = "none")
+
+scale_linewidth_identity(..., guide = "none")
 
 scale_alpha_identity(..., guide = "none")
 

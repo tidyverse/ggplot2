@@ -10,7 +10,10 @@
 #' whole varies over the range of x. Choosing the order in which different
 #' components is stacked is very important, as it becomes increasing hard to
 #' see the individual pattern as you move up the stack. See
-#' [position_stack()] for the details of stacking algorithm.
+#' [position_stack()] for the details of stacking algorithm. To facilitate
+#' stacking, the default `stat = "align"` interpolates groups to a common set
+#' of x-coordinates. To turn off this interpolation, `stat = "identity"` can
+#' be used instead.
 #'
 #' @eval rd_orientation()
 #'
@@ -57,6 +60,10 @@
 #' # stat_align() interpolates and aligns the value so that the areas can stack
 #' # properly.
 #' a + geom_point(stat = "align", position = "stack", size = 8)
+#'
+#' # To turn off the alignment, the stat can be set to "identity"
+#' ggplot(df, aes(x, y, fill = g)) +
+#'   geom_area(stat = "identity")
 geom_ribbon <- function(mapping = NULL, data = NULL,
                         stat = "identity", position = "identity",
                         ...,

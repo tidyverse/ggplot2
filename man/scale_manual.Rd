@@ -6,6 +6,7 @@
 \alias{scale_size_manual}
 \alias{scale_shape_manual}
 \alias{scale_linetype_manual}
+\alias{scale_linewidth_manual}
 \alias{scale_alpha_manual}
 \alias{scale_discrete_manual}
 \alias{scale_color_manual}
@@ -32,6 +33,8 @@ scale_size_manual(..., values, breaks = waiver(), na.value = NA)
 scale_shape_manual(..., values, breaks = waiver(), na.value = NA)
 
 scale_linetype_manual(..., values, breaks = waiver(), na.value = "blank")
+
+scale_linewidth_manual(..., values, breaks = waiver(), na.value = NA)
 
 scale_alpha_manual(..., values, breaks = waiver(), na.value = NA)
 
