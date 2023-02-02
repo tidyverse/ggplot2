@@ -479,9 +479,9 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   legend.text.align   = el_def("character"),
   legend.title        = el_def("element_text", "title"),
   legend.title.align  = el_def("character"),
-  legend.position     = el_def("character"),  # Need to also accept numbers
+  legend.position     = el_def(c("character", "numeric")),
   legend.direction    = el_def("character"),
-  legend.justification = el_def("character"),
+  legend.justification = el_def(c("character", "numeric")),
   legend.box          = el_def("character"),
   legend.box.just     = el_def("character"),
   legend.box.margin   = el_def("margin"),
@@ -522,7 +522,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   plot.caption        = el_def("element_text", "title"),
   plot.caption.position = el_def("character"),
   plot.tag            = el_def("element_text", "title"),
-  plot.tag.position   = el_def("character"),  # Need to also accept numbers
+  plot.tag.position   = el_def(c("character", "numeric")),  # Need to also accept numbers
   plot.margin         = el_def("margin"),
 
   aspect.ratio        = el_def("character")
