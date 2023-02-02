@@ -525,7 +525,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   plot.tag.position   = el_def(c("character", "numeric")),  # Need to also accept numbers
   plot.margin         = el_def("margin"),
 
-  aspect.ratio        = el_def("character")
+  aspect.ratio        = el_def("numeric")
 )
 
 # Check that an element object has the proper class
