@@ -135,3 +135,4 @@ expand the scale by 5\% on each side for continuous variables, and by
 \description{
 Date/time scale constructor
 }
+\keyword{internal}
