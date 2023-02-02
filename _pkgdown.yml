@@ -243,6 +243,7 @@ articles:
 - title: Building plots
   navbar: ~
   contents:
+  - intro
   - ggplot2-specs
 
 - title: Developer
