@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* The `datetime_scale()` scale constructor is now exported for use in extension
+  packages (@teunbrand, #4701).
 * `geom_text()` drops observations where `angle = NA` instead of throwing an
   error (@teunbrand, #2757).
 * Using two ordered factors as facetting variables in 
