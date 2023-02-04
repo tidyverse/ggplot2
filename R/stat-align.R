@@ -49,7 +49,7 @@ StatAlign <- ggproto("StatAlign", Stat,
     adjust <- diff(range(unique_loc, na.rm = TRUE)) * 0.001
     adjust <- min(adjust, min(diff(unique_loc))/3)
     unique_loc <- sort(c(unique_loc - adjust, unique_loc, unique_loc + adjust))
-    params$unique_loc <- unique_loc
+    params$unique_loc <- unique0(unique_loc)
     params$adjust <- adjust
     params
   },
