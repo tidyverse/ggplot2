@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Fixed bug in `coord_sf()` where graticule lines didn't obey 
+  `panel.grid.major`'s linewidth setting (#5179)
 * `geom_text()` drops observations where `angle = NA` instead of throwing an
   error (@teunbrand, #2757).
 * Using two ordered factors as facetting variables in 
