@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Fixed bug in `coord_sf()` where graticule lines didn't obey 
+  `panel.grid.major`'s linewidth setting (@teunbrand, #5179)
 * The `datetime_scale()` scale constructor is now exported for use in extension
   packages (@teunbrand, #4701).
 * `geom_text()` drops observations where `angle = NA` instead of throwing an
