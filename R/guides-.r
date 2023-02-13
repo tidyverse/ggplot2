@@ -601,6 +601,77 @@ Guides <- ggproto(
     guides
   },
 
+  # building non-position guides - called in ggplotGrob (plot-build.r)
+  #
+  # the procedure is as follows:
+  #
+  # 1. guides$setup()
+  #      generates a guide object for every scale-aesthetic pair
+  #
+  # 2. guides$train()
+  #      train each scale and generate guide definition for all guides
+  #      here, one guide object for one scale
+  #
+  # 2. guides$merge()
+  #      merge guide objects if they are overlayed
+  #      number of guide objects may be less than number of scales
+  #
+  # 3. guides$process_layers()
+  #      process layer information and generate geom info.
+  #
+  # 4. guides$draw()
+  #      generate guide grob from each guide object
+  #      one guide grob for one guide object
+  #
+  # 5. guides$assemble()
+  #      arrange all guide grobs
+
+  build = function(self, scales, layers, default_mapping,
+                   position, theme, labels) {
+
+    position  <- legend_position(position)
+    no_guides <- zeroGrob()
+    if (position == "none") {
+      return(no_guides)
+    }
+
+    theme$legend.key.width  <- theme$legend.key.width  %||% theme$legend.key.size
+    theme$legend.key.height <- theme$legend.key.height %||% theme$legend.key.size
+
+
+    direction <- if (position == "inside") "vertical" else position
+    theme$legend.box       <- theme$legend.box       %||% direction
+    theme$legend.direction <- theme$legend.direction %||% direction
+    theme$legend.box.just  <- theme$legend.box.just  %||% switch(
+      position,
+      inside     = c("center", "center"),
+      vertical   = c("left",   "top"),
+      horizontal = c("center", "top")
+    )
+
+    # Setup and train on scales
+    scales <- scales$non_position_scales()$scales
+    if (length(scales) == 0) {
+      return(no_guides)
+    }
+    guides <- self$setup(scales, keep_none = FALSE)
+    guides$train(scales, theme$legend.direction, labels)
+    if (length(guides$guides) == 0) {
+      return(no_guides)
+    }
+
+    # Merge and process layers
+    guides$merge()
+    guides$process_layers(layers, default_mapping)
+    if (length(guides$guides) == 0) {
+      return(no_guides)
+    }
+
+    # Draw and assemble
+    grobs <- guides$draw(theme)
+    guides$assemble(grobs, theme)
+  },
+
   print = function(self) {
 
     guides <- self$guides
