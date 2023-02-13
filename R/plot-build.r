@@ -181,11 +181,9 @@ ggplot_gtable.ggplot_built <- function(data) {
     position <- "manual"
   }
 
-  legend_box <- if (position != "none") {
-    build_guides(plot$scales, plot$layers, plot$mapping, position, theme, plot$guides, plot$labels)
-  } else {
-    zeroGrob()
-  }
+  legend_box <- guides$build(
+    plot$scales, plot$layers, plot$mapping, position, theme, plot$labels
+  )
 
   if (is.zero(legend_box)) {
     position <- "none"

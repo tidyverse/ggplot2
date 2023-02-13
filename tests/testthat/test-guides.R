@@ -113,13 +113,13 @@ test_that("guide_none() can be used in non-position scales", {
 
   built <- ggplot_build(p)
   plot <- built$plot
-  guides <- build_guides(
+  guides <- guides_list(plot$guides)
+  guides <- guides$build(
     plot$scales,
     plot$layers,
     plot$mapping,
     "right",
     theme_gray(),
-    plot$guides,
     plot$labels
   )
 
