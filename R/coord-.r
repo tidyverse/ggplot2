@@ -98,14 +98,6 @@ Coord <- ggproto("Coord",
     names(aesthetics) <- aesthetics
     is_sec <- grepl("sec$", aesthetics)
 
-    # TODO: This should ideally happen in the `guides()` function or earlier.
-    if (!inherits(guides, "Guides")) {
-      guides <- guides_list(
-        guides,
-        .missing = params$guide_missing %||% guide_none()
-      )
-    }
-
     # Do guide setup
     guides <- guides$setup(
       panel_params, aesthetics,
