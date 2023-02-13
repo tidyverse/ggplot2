@@ -76,26 +76,28 @@ guides <- function(...) {
     args[idx_false] <- "none"
   }
 
-  if (!is_named(args)) {
-    nms <- names(args)
-    if (is.null(nms)) {
-      msg <- "All guides are unnamed."
-    } else {
-      unnamed <- which(is.na(nms) | nms == "")
-      if (length(unnamed) == length(args)) {
-        msg <- "All guides are unnamed."
-      } else {
-        unnamed <- label_ordinal()(unnamed)
-        msg <- "The {.and {unnamed}} guide{?s} {?is/are} unnamed."
-      }
-    }
-    cli::cli_abort(c(
-      "Guides provided to {.fun guides} must be named.",
-      i = msg
-    ))
+  # The good path
+  if (is_named(args)) {
+    return(guides_list(guides = args))
   }
 
-  guides_list(guides = args)
+  # Raise error about unnamed guides
+  nms <- names(args)
+  if (is.null(nms)) {
+    msg <- "All guides are unnamed."
+  } else {
+    unnamed <- which(is.na(nms) | nms == "")
+    if (length(unnamed) == length(args)) {
+      msg <- "All guides are unnamed."
+    } else {
+      unnamed <- label_ordinal()(unnamed)
+      msg <- "The {.and {unnamed}} guide{?s} {?is/are} unnamed."
+    }
+  }
+  cli::cli_abort(c(
+    "Guides provided to {.fun guides} must be named.",
+    i = msg
+  ))
 }
 
 update_guides <- function(p, guides) {
