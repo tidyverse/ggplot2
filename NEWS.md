@@ -1,7 +1,28 @@
 # ggplot2 (development version)
 
+* Fixed bug in `coord_sf()` where graticule lines didn't obey 
+  `panel.grid.major`'s linewidth setting (@teunbrand, #5179)
+* The `datetime_scale()` scale constructor is now exported for use in extension
+  packages (@teunbrand, #4701).
+* `geom_text()` drops observations where `angle = NA` instead of throwing an
+  error (@teunbrand, #2757).
+* Using two ordered factors as facetting variables in 
+  `facet_grid(..., as.table = FALSE)` now throws a warning instead of an
+  error (@teunbrand, #5109).
+* Added `scale_linewidth_manual()` and `scale_linewidth_identity()` to support
+  the `linewidth` aesthetic (@teunbrand, #5050).
+* Automatic breaks in `scale_*_binned()` should no longer be out-of-bounds,
+  and automatic limits expand to include these (@teunbrand, #5095, #5100).
+* Renamed computed aesthetic in `stat_ecdf()` to `ecdf`, to prevent incorrect
+  scale transformations (@teunbrand, #5113 and #5112).
+* Fixed misbehaviour of `draw_key_boxplot()` and `draw_key_crossbar()` with 
+  skewed key aspect ratio (@teunbrand, #5082).
+* `scale_*_binned()` handles zero-range limits more gracefully (@teunbrand, 
+  #5066)
+* Binned scales are now compatible with `trans = "date"` and `trans = "time"` 
+  (@teunbrand, #4217).
 * `ggsave()` warns when multiple `filename`s are given, and only writes to the
-  first file (@teunbrand, #5114).
+  first file (@teunbrand, #5114)
 * Fixed a regression in `geom_hex()` where aesthetics were replicated across 
   bins (@thomasp85, #5037 and #5044)
 * Fixed spurious warning when `weight` aesthetic was used in `stat_smooth()` 
@@ -10,7 +31,9 @@
   (@teunbrand based on @clauswilke's suggestion #5051).
 * Fixed a regression in `Coord$train_panel_guides()` where names of guides were 
   dropped (@maxsutton, #5063)
-  
+* `update_geom_defaults()` and `update_stat_defaults()` now return properly 
+  classed objects and have updated docs (@dkahle, #5146)
+
 # ggplot2 3.4.0
 This is a minor release focusing on tightening up the internals and ironing out
 some inconsistencies in the API. The biggest change is the addition of the 

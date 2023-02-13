@@ -78,7 +78,12 @@ Geom <- ggproto("Geom",
     # Trim off extra parameters
     params <- params[intersect(names(params), self$parameters())]
 
-    lapply(split(data, data$PANEL), function(data) {
+    if (nlevels(as.factor(data$PANEL)) > 1L) {
+      data_panels <- split(data, data$PANEL)
+    } else {
+      data_panels <- list(data)
+    }
+    lapply(data_panels, function(data) {
       if (empty(data)) return(zeroGrob())
 
       panel_params <- layout$panel_params[[data$PANEL[1]]]
