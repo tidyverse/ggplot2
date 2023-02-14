@@ -130,7 +130,7 @@ is_finite <- function(x) {
   if (typeof(x) == "list") {
     !vapply(x, is.null, logical(1))
   } else if (typeof(x) == "character") {
-    is.na(x)
+    !is.na(x)
   } else {
     is.finite(x)
   }

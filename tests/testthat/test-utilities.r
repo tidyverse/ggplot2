@@ -107,7 +107,7 @@ test_that("remove_missing checks input", {
 test_that("characters survive remove_missing", {
   data <- data_frame0(x = c("A", NA))
   expect_warning(
-    new <- remove_missing(data)
+    new <- remove_missing(data, finite = TRUE)
   )
   expect_equal(new, data_frame0(x = "A"))
 })
