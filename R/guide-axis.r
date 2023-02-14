@@ -227,7 +227,7 @@ GuideAxis <- ggproto(
   },
 
   # The decor in the axis guide is the axis line
-  build_decor = function(decor, ticks, elements, params) {
+  build_decor = function(decor, grobs, elements, params) {
     exec(
       element_grob,
       element = elements$line,

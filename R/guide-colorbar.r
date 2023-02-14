@@ -453,7 +453,7 @@ GuideColourbar <- ggproto(
     )
   },
 
-  build_decor = function(decor, ticks, elements, params) {
+  build_decor = function(decor, grobs, elements, params) {
 
     if (params$raster) {
       image <- switch(
@@ -492,7 +492,7 @@ GuideColourbar <- ggproto(
 
     frame <- element_grob(elements$frame, fill = NA)
 
-    list(bar = grob, frame = frame, ticks = ticks)
+    list(bar = grob, frame = frame, ticks = grobs$ticks)
   },
 
   measure_grobs = function(grobs, params, elements) {

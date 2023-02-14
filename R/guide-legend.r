@@ -465,7 +465,7 @@ GuideLegend <- ggproto(
     zeroGrob()
   },
 
-  build_decor = function(decor, ticks, elements, params) {
+  build_decor = function(decor, grobs, elements, params) {
 
     key_size <- c(elements$key.width, elements$key.height) * 10
 

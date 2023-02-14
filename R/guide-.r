@@ -224,7 +224,7 @@ Guide <- ggproto(
       labels = self$build_labels(key, elems, params),
       ticks  = self$build_ticks(key, elems, params)
     )
-    grobs$decor <- self$build_decor(params$decor, grobs$ticks, elems, params)
+    grobs$decor <- self$build_decor(params$decor, grobs, elems, params)
 
     # Arrange and assemble grobs
     sizes  <- self$measure_grobs(grobs, params, elems)
@@ -268,8 +268,8 @@ Guide <- ggproto(
   },
 
   # Renders 'decor', which can have different meanings for different guides.
-  # Ticks are provided because they may need to be combined with decor.
-  build_decor = function(decor, ticks, elements, params) {
+  # The other grobs are provided, as a colourbar might use the ticks for example
+  build_decor = function(decor, grobs, elements, params) {
     zeroGrob()
   },
 

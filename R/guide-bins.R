@@ -364,7 +364,7 @@ GuideBins <- ggproto(
     Guide$build_ticks(key$.value, elements, params, params$label.position)
   },
 
-  build_decor = function(decor, ticks, elements, params) {
+  build_decor = function(decor, grobs, elements, params) {
     params$n_breaks <- nkeys <- nrow(params$key) - 1
 
     dim <- if (params$direction == "vertical") c(nkeys, 1) else c(1, nkeys)
@@ -376,7 +376,7 @@ GuideBins <- ggproto(
     )
     sizes <- lapply(sizes, function(x) rep_len(max(x), length(x)))
 
-    decor <- GuideLegend$build_decor(decor, ticks, elements, params)
+    decor <- GuideLegend$build_decor(decor, grobs, elements, params)
     n_layers <- length(decor) / nkeys
     key_id <- rep(seq_len(nkeys), each = n_layers)
     key_nm <- paste("key", key_id, c("bg", seq_len(n_layers - 1)))
@@ -403,7 +403,7 @@ GuideBins <- ggproto(
     )
     axis <- element_grob(elements$line, x = axis$x, y = axis$y)
 
-    list(keys = gt, axis_line = axis, ticks = ticks)
+    list(keys = gt, axis_line = axis, ticks = grobs$ticks)
   },
 
   measure_grobs = function(grobs, params, elements) {
