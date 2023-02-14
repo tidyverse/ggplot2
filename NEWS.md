@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* The `layer_data()`, `layer_scales()` and `layer_grob()` now have the default
+  `plot = last_plot()` (@teunbrand, #5166).
 * `geom_text()` drops observations where `angle = NA` instead of throwing an
   error (@teunbrand, #2757).
 * Using two ordered factors as facetting variables in 
