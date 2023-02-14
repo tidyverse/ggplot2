@@ -92,4 +92,10 @@ scale_type.Date <- function(x) c("date", "continuous")
 scale_type.numeric <- function(x) "continuous"
 
 #' @export
+scale_type.integer <- function(x) "continuous"
+
+#' @export
+scale_type.double <- function(x) "continuous"
+
+#' @export
 scale_type.hms <- function(x) "time"

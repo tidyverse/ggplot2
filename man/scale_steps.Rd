@@ -89,8 +89,11 @@ instead of exactly evenly spaced between the limits. If \code{TRUE} (default)
 the scale will ask the transformation object to create breaks, and this
 may result in a different number of breaks than requested. Ignored if
 breaks are given explicitly.}
-    \item{\code{right}}{Should values on the border between bins be part of the right
-(upper) bin?}
+    \item{\code{right}}{Should the intervals be closed on the right (\code{TRUE}, default) or
+should the intervals be closed on the left (\code{FALSE})? 'Closed on the right'
+means that values at break positions are part of the lower bin (open on the
+left), whereas they are part of the upper bin when intervals are closed on
+the left (open on the right).}
     \item{\code{show.limits}}{should the limits of the scale appear as ticks}
     \item{\code{name}}{The name of the scale. Used as the axis or legend title. If
 \code{waiver()}, the default, the name of the scale is taken from the first

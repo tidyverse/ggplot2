@@ -633,7 +633,8 @@ with_ordered_restart <- function(expr, .call) {
         restart <- TRUE
         if (is.ordered(x)) {
           x <- factor(as.character(x), levels = levels(x))
-        } else {
+        }
+        if (is.ordered(y)) {
           y <- factor(as.character(y), levels = levels(y))
         }
       } else if (is.character(x) || is.character(y)) {

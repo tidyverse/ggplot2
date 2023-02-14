@@ -98,39 +98,58 @@ draw_key_blank <- function(data, params, size) {
 #' @export
 #' @rdname draw_key
 draw_key_boxplot <- function(data, params, size) {
-  grobTree(
-    linesGrob(0.5, c(0.1, 0.25)),
-    linesGrob(0.5, c(0.75, 0.9)),
-    rectGrob(height = 0.5, width = 0.75),
-    linesGrob(c(0.125, 0.875), 0.5),
-    gp = gpar(
-      col = data$colour %||% "grey20",
-      fill = alpha(data$fill %||% "white", data$alpha),
-      lwd = (data$linewidth %||% 0.5) * .pt,
-      lty = data$linetype %||% 1,
-      lineend = params$lineend %||% "butt",
-      linejoin = params$linejoin %||% "mitre"
-    ),
-    vp = if (isTRUE(params$flipped_aes)) viewport(angle = -90)
+  gp <- gpar(
+    col = data$colour %||% "grey20",
+    fill = alpha(data$fill %||% "white", data$alpha),
+    lwd = (data$linewidth %||% 0.5) * .pt,
+    lty = data$linetype %||% 1,
+    lineend = params$lineend %||% "butt",
+    linejoin = params$linejoin %||% "mitre"
   )
+
+  if (isTRUE(params$flipped_aes)) {
+    grobTree(
+      linesGrob(c(0.1, 0.25), 0.5),
+      linesGrob(c(0.75, 0.9), 0.5),
+      rectGrob(width = 0.5, height = 0.75),
+      linesGrob(0.5, c(0.125, 0.875)),
+      gp = gp
+    )
+  } else {
+    grobTree(
+      linesGrob(0.5, c(0.1, 0.25)),
+      linesGrob(0.5, c(0.75, 0.9)),
+      rectGrob(height = 0.5, width = 0.75),
+      linesGrob(c(0.125, 0.875), 0.5),
+      gp = gp
+    )
+  }
 }
 
 #' @export
 #' @rdname draw_key
 draw_key_crossbar <- function(data, params, size) {
-  grobTree(
-    rectGrob(height = 0.5, width = 0.75),
-    linesGrob(c(0.125, 0.875), 0.5),
-    gp = gpar(
-      col = data$colour %||% "grey20",
-      fill = alpha(data$fill %||% "white", data$alpha),
-      lwd = (data$linewidth %||% 0.5) * .pt,
-      lty = data$linetype %||% 1,
-      lineend = params$lineend %||% "butt",
-      linejoin = params$linejoin %||% "mitre"
-    ),
-    vp = if (isTRUE(params$flipped_aes)) viewport(angle = -90)
+  gp <- gpar(
+    col = data$colour %||% "grey20",
+    fill = alpha(data$fill %||% "white", data$alpha),
+    lwd = (data$linewidth %||% 0.5) * .pt,
+    lty = data$linetype %||% 1,
+    lineend = params$lineend %||% "butt",
+    linejoin = params$linejoin %||% "mitre"
   )
+  if (isTRUE(params$flipped_aes)) {
+    grobTree(
+      rectGrob(height = 0.75, width = 0.5),
+      linesGrob(0.5, c(0.125, 0.875)),
+      gp = gp
+    )
+  } else {
+    grobTree(
+      rectGrob(height = 0.5, width = 0.75),
+      linesGrob(c(0.125, 0.875), 0.5),
+      gp = gp
+    )
+  }
 }
 
 #' @export
