@@ -2,6 +2,10 @@
 
 * To prevent changing the plotting order, `stat_sf()` is now computed per panel 
   instead of per group (@teunbrand, #4340).
+* Fixed bug in `coord_sf()` where graticule lines didn't obey 
+  `panel.grid.major`'s linewidth setting (@teunbrand, #5179)
+* The `datetime_scale()` scale constructor is now exported for use in extension
+  packages (@teunbrand, #4701).
 * `geom_text()` drops observations where `angle = NA` instead of throwing an
   error (@teunbrand, #2757).
 * Using two ordered factors as facetting variables in 
