@@ -1,3 +1,5 @@
+# ggplot2 (development version)
+
 # ggplot2 3.4.1
 This is a small release focusing on fixing regressions in the 3.4.0 release
 and minor polishes.
