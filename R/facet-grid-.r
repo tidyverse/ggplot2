@@ -57,7 +57,7 @@ NULL
 #'   default). If `TRUE`, margins are included for all faceting
 #'   variables. If specified as a character vector, it is the names of
 #'   variables for which margins are to be created.
-#' @param facets This argument is soft-deprecated, please use `rows`
+#' @param facets `r lifecycle::badge("deprecated")` Please use `rows`
 #'   and `cols` instead.
 #' @export
 #' @examples
