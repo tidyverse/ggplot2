@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* The `translate_shape_string()` internal function is now exported for use in
+  extensions of point layers (@teunbrand, #5191).
 * Fixed bug in `coord_sf()` where graticule lines didn't obey 
   `panel.grid.major`'s linewidth setting (@teunbrand, #5179)
 * The `datetime_scale()` scale constructor is now exported for use in extension
