@@ -119,10 +119,10 @@ Facet <- ggproto("Facet", NULL,
     }
   },
   draw_back = function(data, layout, x_scales, y_scales, theme, params) {
-    rep(list(zeroGrob()), length(unique0(layout$PANEL)))
+    rep(list(zeroGrob()), vec_unique_count(layout$PANEL))
   },
   draw_front = function(data, layout, x_scales, y_scales, theme, params) {
-    rep(list(zeroGrob()), length(unique0(layout$PANEL)))
+    rep(list(zeroGrob()), vec_unique_count(layout$PANEL))
   },
   draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
     cli::cli_abort("Not implemented")
