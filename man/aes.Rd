@@ -7,13 +7,14 @@
 aes(x, y, ...)
 }
 \arguments{
-\item{x, y, ...}{List of name-value pairs in the form \code{aesthetic = variable}
-describing which variables in the layer data should be mapped to which
-aesthetics used by the paired geom/stat. The expression \code{variable} is
-evaluated within the layer data, so there is no need to refer to
-the original dataset (i.e., use \code{ggplot(df, aes(variable))}
-instead of \code{ggplot(df, aes(df$variable))}). The names for x and y aesthetics
-are typically omitted because they are so common; all other aesthetics must be named.}
+\item{x, y, ...}{<\code{\link[rlang:topic-data-mask]{data-masking}}> List of name-value
+pairs in the form \code{aesthetic = variable} describing which variables in the
+layer data should be mapped to which aesthetics used by the paired
+geom/stat. The expression \code{variable} is evaluated within the layer data, so
+there is no need to refer to the original dataset (i.e., use
+\code{ggplot(df, aes(variable))} instead of \code{ggplot(df, aes(df$variable))}).
+The names for x and y aesthetics are typically omitted because they are so
+common; all other aesthetics must be named.}
 }
 \value{
 A list with class \code{uneval}. Components of the list are either
