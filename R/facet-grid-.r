@@ -57,7 +57,7 @@ NULL
 #'   default). If `TRUE`, margins are included for all faceting
 #'   variables. If specified as a character vector, it is the names of
 #'   variables for which margins are to be created.
-#' @param facets This argument is soft-deprecated, please use `rows`
+#' @param facets `r lifecycle::badge("deprecated")` Please use `rows`
 #'   and `cols` instead.
 #' @export
 #' @examples
@@ -112,11 +112,13 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
                        space = "fixed", shrink = TRUE,
                        labeller = "label_value", as.table = TRUE,
                        switch = NULL, drop = TRUE, margins = FALSE,
-                       facets = NULL) {
-  # `facets` is soft-deprecated and renamed to `rows`
-  if (!is.null(facets)) {
-    rows <- facets
+                       facets = deprecated()) {
+  # `facets` is deprecated and renamed to `rows`
+  if (lifecycle::is_present(facets)) {
+    deprecate_warn0("2.2.0", "facet_grid(facets)", "facet_grid(rows)")
+    row <- facets
   }
+
   # Should become a warning in a future release
   if (is.logical(cols)) {
     margins <- cols

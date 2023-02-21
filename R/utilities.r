@@ -61,7 +61,7 @@ clist <- function(l) {
 #
 # @keyword internal
 uniquecols <- function(df) {
-  df <- df[1, sapply(df, function(x) length(unique0(x)) == 1), drop = FALSE]
+  df <- df[1, sapply(df, is_unique), drop = FALSE]
   rownames(df) <- 1:nrow(df)
   df
 }
@@ -90,7 +90,7 @@ remove_missing <- function(df, na.rm = FALSE, vars = names(df), name = "",
   missing <- detect_missing(df, vars, finite)
 
   if (any(missing)) {
-    df <- df[!missing, ]
+    df <- df[!missing, , drop = FALSE]
     if (!na.rm) {
       if (name != "") name <- paste(" ({.fn ", name, "})", sep = "")
       msg <- paste0(
@@ -125,10 +125,12 @@ cases <- function(x, fun) {
   }
 }
 
-# Wrapper around is.finite to handle list cols
+# Wrapper around is.finite to handle list and character cols
 is_finite <- function(x) {
   if (typeof(x) == "list") {
     !vapply(x, is.null, logical(1))
+  } else if (typeof(x) == "character") {
+    !is.na(x)
   } else {
     is.finite(x)
   }
@@ -354,6 +356,9 @@ data_frame0 <- function(...) data_frame(..., .name_repair = "minimal")
 # Wrapping unique0() to accept NULL
 unique0 <- function(x, ...) if (is.null(x)) x else vec_unique(x, ...)
 
+# Code readability checking for uniqueness
+is_unique <- function(x) vec_unique_count(x) == 1L
+
 # Check inputs with tibble but allow column vectors (see #2609 and #2374)
 as_gg_data_frame <- function(x) {
   x <- lapply(x, validate_column_vec)
@@ -545,14 +550,14 @@ has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA,
   if (group_has_equal) {
     if (has_x) {
       if (length(x) == 1) return(FALSE)
-      x_groups <- vapply(split(data$x, data$group), function(x) length(unique0(x)), integer(1))
+      x_groups <- vapply(split(data$x, data$group), vec_unique_count, integer(1))
       if (all(x_groups == 1)) {
         return(FALSE)
       }
     }
     if (has_y) {
       if (length(y) == 1) return(TRUE)
-      y_groups <- vapply(split(data$y, data$group), function(x) length(unique0(x)), integer(1))
+      y_groups <- vapply(split(data$y, data$group), vec_unique_count, integer(1))
       if (all(y_groups == 1)) {
         return(TRUE)
       }

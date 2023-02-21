@@ -193,12 +193,12 @@ test_that("facets with free scales scale independently", {
   l2 <- p + facet_grid(. ~ z, scales = "free")
   d2 <- cdata(l2)[[1]]
   expect_true(sd(d2$x) < 1e-10)
-  expect_equal(length(unique(d2$y)), 3)
+  expect_length(unique(d2$y), 3)
 
   # LHS of facet_grid()
   l3 <- p + facet_grid(z ~ ., scales = "free")
   d3 <- cdata(l3)[[1]]
-  expect_equal(length(unique(d3$x)), 3)
+  expect_length(unique(d3$x), 3)
   expect_true(sd(d3$y) < 1e-10)
 })
 

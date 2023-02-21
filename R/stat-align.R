@@ -56,7 +56,7 @@ StatAlign <- ggproto("StatAlign", Stat,
 
   compute_group = function(data, scales, flipped_aes = NA, unique_loc = NULL, adjust = 0) {
     data <- flip_data(data, flipped_aes)
-    if (length(unique(data$x)) == 1) {
+    if (is_unique(data$x)) {
       # Not enough data to align
       return(new_data_frame())
     }

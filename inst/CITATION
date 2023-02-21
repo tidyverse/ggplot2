@@ -1,11 +1,11 @@
-citHeader("To cite ggplot2 in publications, please use:")
-
-citEntry(entry = "book",
+bibentry(
+  bibtype = "Book",
+  textVersion = "H. Wickham. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York, 2016.",
+  header = "To cite ggplot2 in publications, please use",
   author = "Hadley Wickham",
   title = "ggplot2: Elegant Graphics for Data Analysis",
   publisher = "Springer-Verlag New York",
   year = "2016",
   isbn = "978-3-319-24277-4",
   url = "https://ggplot2.tidyverse.org",
-  textVersion = "H. Wickham. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York, 2016."
 )
