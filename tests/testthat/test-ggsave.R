@@ -27,6 +27,7 @@ test_that("ggsave restores previous graphics device", {
 })
 
 test_that("ggsave uses theme background as image background", {
+  skip_if_not_installed("svglite")
   skip_if_not_installed("xml2")
 
   path <- tempfile()
@@ -43,6 +44,7 @@ test_that("ggsave uses theme background as image background", {
 })
 
 test_that("ggsave can handle blank background", {
+  skip_if_not_installed("svglite")
   skip_if_not_installed("xml2")
 
   path <- tempfile()
