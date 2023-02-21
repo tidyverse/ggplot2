@@ -143,7 +143,7 @@ Stat <- ggproto("Stat",
 
       # Then, check whether the rest of the columns have constant values (type 2)
       # or not (type 3).
-      non_constant <- vapply(old, function(x) length(unique0(x)) > 1, logical(1L))
+      non_constant <- vapply(old, vec_unique_count, integer(1)) > 1L
 
       # Record the non-constant columns.
       non_constant_columns <<- c(non_constant_columns, names(old)[non_constant])
