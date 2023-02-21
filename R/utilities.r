@@ -90,7 +90,7 @@ remove_missing <- function(df, na.rm = FALSE, vars = names(df), name = "",
   missing <- detect_missing(df, vars, finite)
 
   if (any(missing)) {
-    df <- df[!missing, ]
+    df <- df[!missing, , drop = FALSE]
     if (!na.rm) {
       if (name != "") name <- paste(" ({.fn ", name, "})", sep = "")
       msg <- paste0(
@@ -125,10 +125,12 @@ cases <- function(x, fun) {
   }
 }
 
-# Wrapper around is.finite to handle list cols
+# Wrapper around is.finite to handle list and character cols
 is_finite <- function(x) {
   if (typeof(x) == "list") {
     !vapply(x, is.null, logical(1))
+  } else if (typeof(x) == "character") {
+    !is.na(x)
   } else {
     is.finite(x)
   }

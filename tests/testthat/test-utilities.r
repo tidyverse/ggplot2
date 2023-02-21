@@ -104,6 +104,14 @@ test_that("remove_missing checks input", {
   expect_snapshot_error(remove_missing(na.rm = 1:5))
 })
 
+test_that("characters survive remove_missing", {
+  data <- data_frame0(x = c("A", NA))
+  expect_warning(
+    new <- remove_missing(data, finite = TRUE)
+  )
+  expect_equal(new, data_frame0(x = "A"))
+})
+
 test_that("tolower() and toupper() has been masked", {
   expect_snapshot_error(tolower())
   expect_snapshot_error(toupper())

@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* For the purposes of checking required or non-missing aesthetics, character 
+  vectors are no longer considered non-finite (@teunbrand, @4284).
 * Fixed bug in `coord_sf()` where graticule lines didn't obey 
   `panel.grid.major`'s linewidth setting (@teunbrand, #5179)
 * The `datetime_scale()` scale constructor is now exported for use in extension
