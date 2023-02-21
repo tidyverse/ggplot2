@@ -476,12 +476,12 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   legend.key.height   = el_def("unit", "legend.key.size"),
   legend.key.width    = el_def("unit", "legend.key.size"),
   legend.text         = el_def("element_text", "text"),
-  legend.text.align   = el_def("character"),
+  legend.text.align   = el_def("numeric"),
   legend.title        = el_def("element_text", "title"),
-  legend.title.align  = el_def("character"),
-  legend.position     = el_def("character"),  # Need to also accept numbers
+  legend.title.align  = el_def("numeric"),
+  legend.position     = el_def(c("character", "numeric")),
   legend.direction    = el_def("character"),
-  legend.justification = el_def("character"),
+  legend.justification = el_def(c("character", "numeric")),
   legend.box          = el_def("character"),
   legend.box.just     = el_def("character"),
   legend.box.margin   = el_def("margin"),
@@ -522,10 +522,10 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   plot.caption        = el_def("element_text", "title"),
   plot.caption.position = el_def("character"),
   plot.tag            = el_def("element_text", "title"),
-  plot.tag.position   = el_def("character"),  # Need to also accept numbers
+  plot.tag.position   = el_def(c("character", "numeric")),  # Need to also accept numbers
   plot.margin         = el_def("margin"),
 
-  aspect.ratio        = el_def("character")
+  aspect.ratio        = el_def("numeric")
 )
 
 # Check that an element object has the proper class
@@ -549,12 +549,7 @@ validate_element <- function(el, elname, element_tree, call = caller_env()) {
   # NULL values for elements are OK
   if (is.null(el)) return()
 
-  if (eldef$class == "character") {
-    # Need to be a bit looser here since sometimes it's a string like "top"
-    # but sometimes its a vector like c(0,0)
-    if (!is.character(el) && !is.numeric(el))
-      cli::cli_abort("The {.var {elname}} theme element must be a character or numeric vector.", call = call)
-  } else if (eldef$class == "margin") {
+  if ("margin" %in% eldef$class) {
     if (!is.unit(el) && length(el) == 4)
       cli::cli_abort("The {.var {elname}} theme element must be a {.cls unit} vector of length 4.", call = call)
   } else if (!inherits(el, eldef$class) && !inherits(el, "element_blank")) {
