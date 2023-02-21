@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* To prevent changing the plotting order, `stat_sf()` is now computed per panel 
+  instead of per group (@teunbrand, #4340).
 * ggplot2 now uses `scales::DiscreteRange` and `scales::ContinuousRange`, which
   are available to write scale extensions from scratch (@teunbrand, #2710).
 * For the purposes of checking required or non-missing aesthetics, character 
