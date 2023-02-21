@@ -298,7 +298,10 @@ aes_string <- function(x, y, ...) {
   deprecate_soft0(
     "3.0.0",
     "aes_string()",
-    details = "Please use tidy evaluation ideoms with `aes()`"
+    details = c(
+      "Please use tidy evaluation idioms with `aes()`. ",
+      'See also `vignette("ggplot2-in-packages")` for more information.'
+    )
   )
   mapping <- list(...)
   if (!missing(x)) mapping["x"] <- list(x)
