@@ -36,7 +36,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">3.4.0.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">3.4.1.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -644,14 +644,14 @@ since that padding is in the vertical direction.</p>
 <span>  <span class="fu"><a href="../reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="faq-axes_files/figure-html/unnamed-chunk-29-1.png" width="80%"></p>
 <p>However note that this removes the padding at the bottom of the bars
-as well as on top. By default, ggplot2 The expands the scale by 5% on
-each side for continuous variables and by 0.6 units on each side for
-discrete variables. To keep the default expansion on top while removing
-it at the bottom, you can use the following. The <code>mult</code>
-argument in <code><a href="../reference/expansion.html">expansion()</a></code> takes a multiplicative range
-expansion factors. Given a vector of length 2, the lower limit is
-expanded by <code>mult[1]</code> (in this case 0) and the upper limit is
-expanded by <code>mult[2]</code> (in this case 0.05).</p>
+as well as on top. By default, ggplot2 expands the scale by 5% on each
+side for continuous variables and by 0.6 units on each side for discrete
+variables. To keep the default expansion on top while removing it at the
+bottom, you can use the following. The <code>mult</code> argument in
+<code><a href="../reference/expansion.html">expansion()</a></code> takes a multiplicative range expansion factors.
+Given a vector of length 2, the lower limit is expanded by
+<code>mult[1]</code> (in this case 0) and the upper limit is expanded by
+<code>mult[2]</code> (in this case 0.05).</p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
