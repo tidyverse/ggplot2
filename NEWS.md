@@ -6,6 +6,8 @@
   `panel.grid.major`'s linewidth setting (@teunbrand, #5179)
 * The `datetime_scale()` scale constructor is now exported for use in extension
   packages (@teunbrand, #4701).
+* The `plot.tag.position` in `theme()` can now accept `"panel"` to set the tag
+  relative to the panel area instead of the plot area (#4297).
 * `geom_text()` drops observations where `angle = NA` instead of throwing an
   error (@teunbrand, #2757).
 * `update_geom_defaults()` and `update_stat_defaults()` now return properly 

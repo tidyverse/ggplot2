@@ -78,5 +78,6 @@ test_that("tags are drawn correctly", {
 
   expect_doppelganger("defaults", p)
   expect_doppelganger("Other position", p + theme(plot.tag.position = 'bottom'))
+  expect_doppelganger("Panel", p + theme(plot.tag.position = c("topright", "panel")))
   expect_doppelganger("Manual", p + theme(plot.tag.position = c(0.05, 0.05)))
 })
