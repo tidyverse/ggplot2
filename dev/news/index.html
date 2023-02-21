@@ -81,7 +81,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="ggplot2-development-version">ggplot2 (development version)<a class="anchor" aria-label="anchor" href="#ggplot2-development-version"></a></h2>
-<ul><li>Fixed bug in <code><a href="../reference/ggsf.html">coord_sf()</a></code> where graticule lines didn’t obey <code>panel.grid.major</code>’s linewidth setting (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5179" class="external-link">#5179</a>)</li>
+<ul><li>For the purposes of checking required or non-missing aesthetics, character vectors are no longer considered non-finite (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/4284" class="external-link">@4284</a>).</li>
+<li>Fixed bug in <code><a href="../reference/ggsf.html">coord_sf()</a></code> where graticule lines didn’t obey <code>panel.grid.major</code>’s linewidth setting (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5179" class="external-link">#5179</a>)</li>
 <li>The <code><a href="../reference/datetime_scale.html">datetime_scale()</a></code> scale constructor is now exported for use in extension packages (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/4701" class="external-link">#4701</a>).</li>
 <li>
 <code><a href="../reference/geom_text.html">geom_text()</a></code> drops observations where <code>angle = NA</code> instead of throwing an error (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/2757" class="external-link">#2757</a>).</li>
