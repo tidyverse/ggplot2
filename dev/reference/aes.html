@@ -98,13 +98,14 @@ properties (aesthetics) of geoms. Aesthetic mappings can be set in
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>x, y, ...</dt>
-<dd><p>List of name-value pairs in the form <code>aesthetic = variable</code>
-describing which variables in the layer data should be mapped to which
-aesthetics used by the paired geom/stat. The expression <code>variable</code> is
-evaluated within the layer data, so there is no need to refer to
-the original dataset (i.e., use <code>ggplot(df, aes(variable))</code>
-instead of <code>ggplot(df, aes(df$variable))</code>). The names for x and y aesthetics
-are typically omitted because they are so common; all other aesthetics must be named.</p></dd>
+<dd><p>&lt;<code><a href="https://rlang.r-lib.org/reference/topic-data-mask.html" class="external-link">data-masking</a></code>&gt; List of name-value
+pairs in the form <code>aesthetic = variable</code> describing which variables in the
+layer data should be mapped to which aesthetics used by the paired
+geom/stat. The expression <code>variable</code> is evaluated within the layer data, so
+there is no need to refer to the original dataset (i.e., use
+<code>ggplot(df, aes(variable))</code> instead of <code>ggplot(df, aes(df$variable))</code>).
+The names for x and y aesthetics are typically omitted because they are so
+common; all other aesthetics must be named.</p></dd>
 
 </dl></div>
     <div class="section level2">
