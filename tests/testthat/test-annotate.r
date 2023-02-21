@@ -29,6 +29,7 @@ test_that("segment annotations transform with scales", {
 })
 
 test_that("annotation_* has dummy data assigned and don't inherit aes", {
+  skip_if_not_installed("maps")
   skip_if(packageVersion("base") < "3.5.0")
   custom <- annotation_custom(zeroGrob())
   logtick <- annotation_logticks()
