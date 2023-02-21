@@ -126,7 +126,7 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
     scale_name = scale_name,
     palette = palette,
 
-    range = continuous_range(),
+    range = ContinuousRange$new(),
     limits = limits,
     trans = trans,
     na.value = na.value,
@@ -211,7 +211,7 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
     scale_name = scale_name,
     palette = palette,
 
-    range = discrete_range(),
+    range = DiscreteRange$new(),
     limits = limits,
     na.value = na.value,
     na.translate = na.translate,
@@ -280,7 +280,7 @@ binned_scale <- function(aesthetics, scale_name, palette, name = waiver(),
     scale_name = scale_name,
     palette = palette,
 
-    range = continuous_range(),
+    range = ContinuousRange$new(),
     limits = limits,
     trans = trans,
     na.value = na.value,
@@ -406,7 +406,7 @@ Scale <- ggproto("Scale", NULL,
     cli::cli_abort("Not implemented")
   },
 
-  range = ggproto(NULL, Range),
+  range = Range$new(),
   limits = NULL,
   na.value = NA,
   expand = waiver(),
@@ -580,7 +580,7 @@ has_default_transform <- function(scale) {
 #' @usage NULL
 #' @export
 ScaleContinuous <- ggproto("ScaleContinuous", Scale,
-  range = continuous_range(),
+  range = ContinuousRange$new(),
   na.value = NA_real_,
   rescaler = rescale,
   oob = censor,
@@ -763,7 +763,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
 
   clone = function(self) {
     new <- ggproto(NULL, self)
-    new$range <- continuous_range()
+    new$range <- ContinuousRange$new()
     new
   },
 
@@ -951,7 +951,7 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
 
   clone = function(self) {
     new <- ggproto(NULL, self)
-    new$range <- discrete_range()
+    new$range <- DiscreteRange$new()
     new
   },
 
@@ -989,7 +989,7 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
 #' @usage NULL
 #' @export
 ScaleBinned <- ggproto("ScaleBinned", Scale,
-  range = continuous_range(),
+  range = ContinuousRange$new(),
   na.value = NA_real_,
   rescaler = rescale,
   oob = squish,
@@ -1155,7 +1155,7 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
 
   clone = function(self) {
     new <- ggproto(NULL, self)
-    new$range <- continuous_range()
+    new$range <- ContinuousRange$new()
     new
   },
 

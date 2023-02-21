@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* ggplot2 now uses `scales::DiscreteRange` and `scales::ContinuousRange`, which
+  are available to write scale extensions from scratch (@teunbrand, #2710).
 * For the purposes of checking required or non-missing aesthetics, character 
   vectors are no longer considered non-finite (@teunbrand, @4284).
 * Fixed bug in `coord_sf()` where graticule lines didn't obey 

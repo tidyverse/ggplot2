@@ -1,5 +1,5 @@
 test_that("continuous ranges expand as expected", {
-  r <- continuous_range()
+  r <- ContinuousRange$new()
 
   r$train(1)
   expect_equal(r$range, c(1, 1))
@@ -9,7 +9,7 @@ test_that("continuous ranges expand as expected", {
 })
 
 test_that("discrete ranges expand as expected", {
-  r <- discrete_range()
+  r <- DiscreteRange$new()
 
   r$train("a")
   expect_equal(r$range, "a")
