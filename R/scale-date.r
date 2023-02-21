@@ -275,7 +275,16 @@ scale_y_time <- function(name = waiver(),
   )
 }
 
-## rename to datetime_scale
+#' Date/time scale constructor
+#'
+#' @inheritParams scale_x_datetime
+#' @inheritParams continuous_scale
+#' @param trans For date/time scales, the name of a date/time transformation or
+#'   the object itself. Built-in transformations include "hms", "date" and "time".
+#' @inheritDotParams continuous_scale -aesthetics -trans -palette -breaks -minor_breaks -labels -guide
+#'
+#' @export
+#' @keywords internal
 datetime_scale <- function(aesthetics, trans, palette,
                            breaks = pretty_breaks(), minor_breaks = waiver(),
                            labels = waiver(), date_breaks = waiver(),

@@ -7,9 +7,10 @@
 vars(...)
 }
 \arguments{
-\item{...}{Variables or expressions automatically quoted. These are
-evaluated in the context of the data to form faceting groups. Can
-be named (the names are passed to a \link[=labellers]{labeller}).}
+\item{...}{<\code{\link[rlang:topic-data-mask]{data-masking}}> Variables or
+expressions automatically quoted. These are evaluated in the context of the
+data to form faceting groups. Can be named (the names are passed to a
+\link[=labellers]{labeller}).}
 }
 \description{
 Just like \code{\link[=aes]{aes()}}, \code{vars()} is a \link[rlang:topic-defuse]{quoting function}

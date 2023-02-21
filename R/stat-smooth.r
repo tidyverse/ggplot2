@@ -130,7 +130,7 @@ StatSmooth <- ggproto("StatSmooth", Stat,
                            xseq = NULL, level = 0.95, method.args = list(),
                            na.rm = FALSE, flipped_aes = NA) {
     data <- flip_data(data, flipped_aes)
-    if (length(unique0(data$x)) < 2) {
+    if (vec_unique_count(data$x) < 2) {
       # Not enough data to perform fit
       return(data_frame0())
     }
