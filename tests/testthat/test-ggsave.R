@@ -59,19 +59,19 @@ test_that("ggsave can handle blank background", {
 })
 
 test_that("ggsave warns about empty or multiple filenames", {
-  filenames <- c("plot1.png", "plot2.png")
   plot <- ggplot(mtcars, aes(disp, mpg)) + geom_point()
 
-  withr::with_file(filenames, {
+  withr::with_tempfile(c("file1", "file2"), fileext = ".png", {
     expect_warning(
-      suppressMessages(ggsave(filenames, plot)),
+      suppressMessages(ggsave(c(file1, file2), plot)),
       "`filename` must have length 1"
     )
-    expect_error(
-      ggsave(character(), plot),
-      "`filename` cannot be empty."
-    )
   })
+
+  expect_error(
+    ggsave(character(), plot),
+    "`filename` cannot be empty."
+  )
 })
 
 # plot_dim ---------------------------------------------------------------
