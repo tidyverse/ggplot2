@@ -1,4 +1,5 @@
 test_that("USA state map drawn", {
+  skip_if_not_installed("mapproj") # required for coord_map()
   skip_if_not_installed("maps") # required for map_data()
   skip_if(packageVersion("base") < "3.5.0")
   us_map <- map_data("usa")
@@ -12,6 +13,7 @@ test_that("USA state map drawn", {
 })
 
 test_that("coord_map scale position can be switched", {
+  skip_if_not_installed("mapproj") # required for coord_map()
   skip_if_not_installed("maps") # required for map_data()
   skip_if(packageVersion("base") < "3.5.0")
   us_map <- map_data("usa")
@@ -27,6 +29,7 @@ test_that("coord_map scale position can be switched", {
 })
 
 test_that("Inf is squished to range", {
+  skip_if_not_installed("mapproj") # required for coord_map()
   skip_if_not_installed("maps") # required for mproject()
   skip_if(packageVersion("base") < "3.5.0")
   d <- cdata(
