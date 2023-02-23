@@ -22,13 +22,14 @@ NULL
 #' programming vignette](https://dplyr.tidyverse.org/articles/programming.html)
 #' to learn more about these techniques.
 #'
-#' @param x,y,... List of name-value pairs in the form `aesthetic = variable`
-#'   describing which variables in the layer data should be mapped to which
-#'   aesthetics used by the paired geom/stat. The expression `variable` is
-#'   evaluated within the layer data, so there is no need to refer to
-#'   the original dataset (i.e., use `ggplot(df, aes(variable))`
-#'   instead of `ggplot(df, aes(df$variable))`). The names for x and y aesthetics
-#'   are typically omitted because they are so common; all other aesthetics must be named.
+#' @param x,y,... <[`data-masking`][rlang::topic-data-mask]> List of name-value
+#'   pairs in the form `aesthetic = variable` describing which variables in the
+#'   layer data should be mapped to which aesthetics used by the paired
+#'   geom/stat. The expression `variable` is evaluated within the layer data, so
+#'   there is no need to refer to the original dataset (i.e., use
+#'   `ggplot(df, aes(variable))` instead of `ggplot(df, aes(df$variable))`).
+#'   The names for x and y aesthetics are typically omitted because they are so
+#'   common; all other aesthetics must be named.
 #' @seealso [vars()] for another quoting function designed for
 #'   faceting specifications.
 #'
@@ -297,7 +298,10 @@ aes_string <- function(x, y, ...) {
   deprecate_soft0(
     "3.0.0",
     "aes_string()",
-    details = "Please use tidy evaluation ideoms with `aes()`"
+    details = c(
+      "Please use tidy evaluation idioms with `aes()`. ",
+      'See also `vignette("ggplot2-in-packages")` for more information.'
+    )
   )
   mapping <- list(...)
   if (!missing(x)) mapping["x"] <- list(x)
