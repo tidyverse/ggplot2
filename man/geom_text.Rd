@@ -64,7 +64,7 @@ stat stripped of the \code{stat_} prefix (e.g. \code{"count"} rather than
 \code{"stat_count"})}
 
 \item{position}{Position adjustment, either as a string, or the result of
-a call to a position adjustment function. Cannot be jointy specified with
+a call to a position adjustment function. Cannot be jointly specified with
 \code{nudge_x} or \code{nudge_y}.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
@@ -132,7 +132,7 @@ package.
 }
 \section{Aesthetics}{
 
-\code{geom_text()} understands the following aesthetics (required aesthetics are in bold):
+\code{geom_text()} understands the following aesthetics (required aesthetics are in \strong{bold}):
 \itemize{
 \item \strong{\code{x}}
 \item \strong{\code{y}}
@@ -241,7 +241,7 @@ ggplot(data = df, aes(x, y, group = grp)) +
 ggplot(data = df, aes(x, y, group = grp)) +
   geom_col(aes(fill = grp), position = "dodge") +
   geom_text(aes(label = y), position = position_dodge(0.9))
-# Use you can't nudge and dodge text, so instead adjust the y position
+# You can't nudge and dodge text, so instead adjust the y position
 ggplot(data = df, aes(x, y, group = grp)) +
   geom_col(aes(fill = grp), position = "dodge") +
   geom_text(
