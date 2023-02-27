@@ -27,7 +27,7 @@ check_required_aesthetics <- function(required, present, name, call = caller_env
   if (is.null(required)) return()
 
   required <- strsplit(required, "|", fixed = TRUE)
-  if (any(vapply(required, length, integer(1)) > 1)) {
+  if (any(lengths(required) > 1)) {
     required <- lapply(required, rep_len, 2)
     required <- list(
       vapply(required, `[`, character(1), 1),
@@ -37,7 +37,7 @@ check_required_aesthetics <- function(required, present, name, call = caller_env
     required <- list(unlist(required))
   }
   missing_aes <- lapply(required, setdiff, present)
-  if (any(vapply(missing_aes, length, integer(1)) == 0)) return()
+  if (any(lengths(missing_aes) == 0)) return()
   message <- "{.fn {name}} requires the following missing aesthetics: {.field {missing_aes[[1]]}}"
   if (length(missing_aes) > 1) {
     message <- paste0(message, " {.strong or} {.field {missing_aes[[2]]}}")

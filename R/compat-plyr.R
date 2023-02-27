@@ -91,7 +91,7 @@ id <- function(.variables, drop = FALSE) {
     nrows <- nrow(.variables)
     .variables <- unclass(.variables)
   }
-  lengths <- vapply(.variables, length, integer(1))
+  lengths <- lengths(.variables)
   .variables <- .variables[lengths != 0]
   if (length(.variables) == 0) {
     n <- nrows %||% 0L

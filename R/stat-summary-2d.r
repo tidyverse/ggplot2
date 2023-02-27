@@ -134,7 +134,7 @@ tapply_df <- function(x, index, fun, ..., drop = TRUE) {
   out$value <- unlist(lapply(grps, fun, ...))
 
   if (drop) {
-    n <- vapply(grps, length, integer(1))
+    n <- lengths(grps)
     out <- out[n > 0, , drop = FALSE]
   }
 

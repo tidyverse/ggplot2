@@ -56,7 +56,7 @@ annotate <- function(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
   aesthetics <- c(position, list(...))
 
   # Check that all aesthetic have compatible lengths
-  lengths <- vapply(aesthetics, length, integer(1))
+  lengths <- lengths(aesthetics)
   n <- unique0(lengths)
 
   # if there is more than one unique length, ignore constants

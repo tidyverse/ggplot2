@@ -176,7 +176,7 @@ qualitative_pal <- function(type, h, c, l, h.start, direction) {
     if (!all(vapply(type_list, is.character, logical(1)))) {
       cli::cli_abort("{.arg type} must be a character vector or a list of character vectors")
     }
-    type_lengths <- vapply(type_list, length, integer(1))
+    type_lengths <- lengths(type_list)
     # If there are more levels than color codes default to hue_pal()
     if (max(type_lengths) < n) {
       return(scales::hue_pal(h, c, l, h.start, direction)(n))
