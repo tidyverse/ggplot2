@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* The `layer_data()`, `layer_scales()` and `layer_grob()` now have the default
+  `plot = last_plot()` (@teunbrand, #5166).
 * To prevent changing the plotting order, `stat_sf()` is now computed per panel 
   instead of per group (@teunbrand, #4340).
 * ggplot2 now uses `scales::DiscreteRange` and `scales::ContinuousRange`, which
