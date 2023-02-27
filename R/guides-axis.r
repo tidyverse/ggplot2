@@ -440,7 +440,7 @@ warn_for_guide_position <- function(guide) {
     return()
   }
 
-  if (length(unique0(guide$key[[position_aes]][breaks_are_unique])) == 1) {
+  if (is_unique(guide$key[[position_aes]][breaks_are_unique])) {
     cli::cli_warn(c(
       "Position guide is perpendicular to the intended axis",
       "i" = "Did you mean to specify a different guide {.arg position}?"

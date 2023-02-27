@@ -144,7 +144,7 @@ PositionDodge <- ggproto("PositionDodge", Position,
 # Assumes that each set has the same horizontal position.
 pos_dodge <- function(df, width, n = NULL) {
   if (is.null(n)) {
-    n <- length(unique0(df$group))
+    n <- vec_unique_count(df$group)
   }
 
   if (n == 1)

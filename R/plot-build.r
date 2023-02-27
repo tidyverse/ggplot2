@@ -111,13 +111,13 @@ ggplot_build.ggplot <- function(plot) {
 
 #' @export
 #' @rdname ggplot_build
-layer_data <- function(plot, i = 1L) {
+layer_data <- function(plot = last_plot(), i = 1L) {
   ggplot_build(plot)$data[[i]]
 }
 
 #' @export
 #' @rdname ggplot_build
-layer_scales <- function(plot, i = 1L, j = 1L) {
+layer_scales <- function(plot = last_plot(), i = 1L, j = 1L) {
   b <- ggplot_build(plot)
 
   layout <- b$layout$layout
@@ -131,7 +131,7 @@ layer_scales <- function(plot, i = 1L, j = 1L) {
 
 #' @export
 #' @rdname ggplot_build
-layer_grob <- function(plot, i = 1L) {
+layer_grob <- function(plot = last_plot(), i = 1L) {
   b <- ggplot_build(plot)
 
   b$plot$layers[[i]]$draw_geom(b$data[[i]], b$layout)

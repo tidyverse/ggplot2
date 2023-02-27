@@ -63,7 +63,7 @@ scale_x_discrete <- function(..., expand = waiver(), guide = waiver(), position 
   sc <- discrete_scale(c("x", "xmin", "xmax", "xend"), "position_d", identity, ...,
     expand = expand, guide = guide, position = position, super = ScaleDiscretePosition)
 
-  sc$range_c <- continuous_range()
+  sc$range_c <- ContinuousRange$new()
   sc
 }
 #' @rdname scale_discrete
@@ -72,7 +72,7 @@ scale_y_discrete <- function(..., expand = waiver(), guide = waiver(), position 
   sc <- discrete_scale(c("y", "ymin", "ymax", "yend"), "position_d", identity, ...,
     expand = expand, guide = guide, position = position, super = ScaleDiscretePosition)
 
-  sc$range_c <- continuous_range()
+  sc$range_c <- ContinuousRange$new()
   sc
 }
 
@@ -135,8 +135,8 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
 
   clone = function(self) {
     new <- ggproto(NULL, self)
-    new$range <- discrete_range()
-    new$range_c <- continuous_range()
+    new$range <- DiscreteRange$new()
+    new$range_c <- ContinuousRange$new()
     new
   }
 )
