@@ -48,7 +48,7 @@ collide <- function(data, width = NULL, name, strategy,
   intervals <- as.numeric(t(unique0(data[c("xmin", "xmax")])))
   intervals <- intervals[!is.na(intervals)]
 
-  if (length(unique0(intervals)) > 1 & any(diff(scale(intervals)) < -1e-6)) {
+  if (vec_unique_count(intervals) > 1 & any(diff(scale(intervals)) < -1e-6)) {
     cli::cli_warn("{.fn {name}} requires non-overlapping {.field x} intervals")
     # This is where the algorithm from [L. Wilkinson. Dot plots.
     # The American Statistician, 1999.] should be used

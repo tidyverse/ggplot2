@@ -5,7 +5,7 @@ df <- data_frame(
 )
 
 group <- function(x) as.vector(layer_data(x, 1)$group)
-groups <- function(x) length(unique(group(x)))
+groups <- function(x) vec_unique_count(group(x))
 
 
 test_that("one group per combination of discrete vars", {

@@ -238,6 +238,9 @@ plot_dev <- function(device, filename = NULL, dpi = 300, call = caller_env()) {
 
   if (is.null(device)) {
     device <- to_lower_ascii(tools::file_ext(filename))
+    if (identical(device, "")) {
+      cli::cli_abort("{.arg filename} has no file extension and {.arg device} is {.val NULL}.", call = call)
+    }
   }
 
   if (!is.character(device) || length(device) != 1) {

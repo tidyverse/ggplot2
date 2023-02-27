@@ -473,7 +473,7 @@ ggplot(mpg, aes(drv)) +
 ```
 
 However note that this removes the padding at the bottom of the bars as well as on top.
-By default, ggplot2 The expands the scale by 5% on each side for continuous variables and by 0.6 units on each side for discrete variables.
+By default, ggplot2 expands the scale by 5% on each side for continuous variables and by 0.6 units on each side for discrete variables.
 To keep the default expansion on top while removing it at the bottom, you can use the following.
 The `mult` argument in `expansion()` takes a multiplicative range expansion factors.
 Given a vector of length 2, the lower limit is expanded by `mult[1]` (in this case 0) and the upper limit is expanded by `mult[2]` (in this case 0.05).

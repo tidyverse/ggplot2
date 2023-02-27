@@ -45,7 +45,7 @@
 #'   Useful for offsetting text from points, particularly on discrete scales.
 #'   Cannot be jointly specified with `position`.
 #' @param position Position adjustment, either as a string, or the result of
-#'  a call to a position adjustment function. Cannot be jointy specified with
+#'  a call to a position adjustment function. Cannot be jointly specified with
 #'  `nudge_x` or `nudge_y`.
 #' @param check_overlap If `TRUE`, text that overlaps previous text in the
 #'   same layer will not be plotted. `check_overlap` happens at draw time and in
@@ -126,7 +126,7 @@
 #' ggplot(data = df, aes(x, y, group = grp)) +
 #'   geom_col(aes(fill = grp), position = "dodge") +
 #'   geom_text(aes(label = y), position = position_dodge(0.9))
-#' # Use you can't nudge and dodge text, so instead adjust the y position
+#' # You can't nudge and dodge text, so instead adjust the y position
 #' ggplot(data = df, aes(x, y, group = grp)) +
 #'   geom_col(aes(fill = grp), position = "dodge") +
 #'   geom_text(
