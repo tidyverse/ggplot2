@@ -152,16 +152,16 @@
 <rect x='40.13' y='48.19' width='674.39' height='496.92' style='stroke-width: 1.07;' />
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
+<polyline points='70.79,45.45 70.79,48.19 ' style='stroke-width: 0.53; stroke-linecap: butt;' />
+<polyline points='172.97,45.45 172.97,48.19 ' style='stroke-width: 0.53; stroke-linecap: butt;' />
+<polyline points='275.15,45.45 275.15,48.19 ' style='stroke-width: 0.53; stroke-linecap: butt;' />
+<polyline points='377.33,45.45 377.33,48.19 ' style='stroke-width: 0.53; stroke-linecap: butt;' />
+<polyline points='479.51,45.45 479.51,48.19 ' style='stroke-width: 0.53; stroke-linecap: butt;' />
 <text x='70.79' y='43.26' text-anchor='middle' style='font-size: 8.80px; font-family: sans;' textLength='22.51px' lengthAdjust='spacingAndGlyphs'>1e-01</text>
 <text x='172.97' y='43.26' text-anchor='middle' style='font-size: 8.80px; font-family: sans;' textLength='24.72px' lengthAdjust='spacingAndGlyphs'>1e+00</text>
 <text x='275.15' y='43.26' text-anchor='middle' style='font-size: 8.80px; font-family: sans;' textLength='24.72px' lengthAdjust='spacingAndGlyphs'>1e+01</text>
 <text x='377.33' y='43.26' text-anchor='middle' style='font-size: 8.80px; font-family: sans;' textLength='24.72px' lengthAdjust='spacingAndGlyphs'>1e+02</text>
 <text x='479.51' y='43.26' text-anchor='middle' style='font-size: 8.80px; font-family: sans;' textLength='24.72px' lengthAdjust='spacingAndGlyphs'>1e+03</text>
-<polyline points='70.79,48.19 70.79,45.45 ' style='stroke-width: 0.53; stroke-linecap: butt;' />
-<polyline points='172.97,48.19 172.97,45.45 ' style='stroke-width: 0.53; stroke-linecap: butt;' />
-<polyline points='275.15,48.19 275.15,45.45 ' style='stroke-width: 0.53; stroke-linecap: butt;' />
-<polyline points='377.33,48.19 377.33,45.45 ' style='stroke-width: 0.53; stroke-linecap: butt;' />
-<polyline points='479.51,48.19 479.51,45.45 ' style='stroke-width: 0.53; stroke-linecap: butt;' />
 <text x='35.20' y='526.01' text-anchor='end' style='font-size: 8.80px; font-family: sans;' textLength='17.13px' lengthAdjust='spacingAndGlyphs'>0.00</text>
 <text x='35.20' y='412.84' text-anchor='end' style='font-size: 8.80px; font-family: sans;' textLength='17.13px' lengthAdjust='spacingAndGlyphs'>0.25</text>
 <text x='35.20' y='299.68' text-anchor='end' style='font-size: 8.80px; font-family: sans;' textLength='17.13px' lengthAdjust='spacingAndGlyphs'>0.50</text>

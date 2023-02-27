@@ -125,7 +125,7 @@ ggplot_add.labels <- function(object, plot, object_name) {
   update_labels(plot, object)
 }
 #' @export
-ggplot_add.guides <- function(object, plot, object_name) {
+ggplot_add.Guides <- function(object, plot, object_name) {
   update_guides(plot, object)
 }
 #' @export

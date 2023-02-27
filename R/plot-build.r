@@ -167,7 +167,12 @@ ggplot_gtable.ggplot_built <- function(data) {
   theme <- plot_theme(plot)
 
   geom_grobs <- by_layer(function(l, d) l$draw_geom(d, layout), plot$layers, data, "converting geom to grob")
-  layout$setup_panel_guides(plot$guides, plot$layers, plot$mapping)
+
+  guides <- plot$guides
+  if (!inherits(guides, "Guides")) {
+    guides <- guides_list(guides)
+  }
+  layout$setup_panel_guides(guides, plot$layers, plot$mapping)
   plot_table <- layout$render(geom_grobs, data, theme, plot$labels)
 
   # Legends
@@ -176,11 +181,9 @@ ggplot_gtable.ggplot_built <- function(data) {
     position <- "manual"
   }
 
-  legend_box <- if (position != "none") {
-    build_guides(plot$scales, plot$layers, plot$mapping, position, theme, plot$guides, plot$labels)
-  } else {
-    zeroGrob()
-  }
+  legend_box <- guides$build(
+    plot$scales, plot$layers, plot$mapping, position, theme, plot$labels
+  )
 
   if (is.zero(legend_box)) {
     position <- "none"

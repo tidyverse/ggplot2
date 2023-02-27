@@ -56,20 +56,20 @@
 <text x='349.41' y='568.24' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='5.50px' lengthAdjust='spacingAndGlyphs'>x</text>
 <text transform='translate(13.05,283.95) rotate(-90)' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='5.50px' lengthAdjust='spacingAndGlyphs'>x</text>
 <rect x='672.10' y='134.43' width='42.42' height='131.62' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
+<text x='693.31' y='173.03' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='5.50px' lengthAdjust='spacingAndGlyphs'>x</text>
 <image width='17.28' height='86.40' x='672.10' y='179.65' preserveAspectRatio='none' xlink:href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAEsCAYAAAACUNnVAAAAmElEQVQ4ja2UQRLDMAgDd3hk/tnX5agcknFaCoa0vnkMCEnGsL12GQhDYDpPwoDrpBFlRDWi/9Wu6AHC9FkLYLrzlhD3oJ3mDvRHRYy7IC8A7bCK8gpWKYDzeQVArDcDyD2YAnSofZvzaOA6Q7Oahp/dmRuVTQ0xU5TGP2o8Waool1obVuv1q8qP9xPvg633XlGLDtfIhNUBcBeA5ss0BXMAAAAASUVORK5CYII='/>
+<polyline points='689.38,245.03 685.92,245.03 ' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
+<polyline points='689.38,223.29 685.92,223.29 ' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
+<polyline points='689.38,201.54 685.92,201.54 ' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
+<polyline points='689.38,179.80 685.92,179.80 ' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
+<polyline points='672.10,245.03 675.55,245.03 ' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
+<polyline points='672.10,223.29 675.55,223.29 ' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
+<polyline points='672.10,201.54 675.55,201.54 ' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
+<polyline points='672.10,179.80 675.55,179.80 ' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
 <text x='714.52' y='248.06' text-anchor='end' style='font-size: 8.80px; font-family: sans;' textLength='9.79px' lengthAdjust='spacingAndGlyphs'>25</text>
 <text x='714.52' y='226.31' text-anchor='end' style='font-size: 8.80px; font-family: sans;' textLength='9.79px' lengthAdjust='spacingAndGlyphs'>50</text>
 <text x='714.52' y='204.57' text-anchor='end' style='font-size: 8.80px; font-family: sans;' textLength='9.79px' lengthAdjust='spacingAndGlyphs'>75</text>
 <text x='714.52' y='182.82' text-anchor='end' style='font-size: 8.80px; font-family: sans;' textLength='14.68px' lengthAdjust='spacingAndGlyphs'>100</text>
-<text x='693.31' y='173.03' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='5.50px' lengthAdjust='spacingAndGlyphs'>x</text>
-<line x1='672.10' y1='245.03' x2='675.55' y2='245.03' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
-<line x1='672.10' y1='223.29' x2='675.55' y2='223.29' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
-<line x1='672.10' y1='201.54' x2='675.55' y2='201.54' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
-<line x1='672.10' y1='179.80' x2='675.55' y2='179.80' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
-<line x1='685.92' y1='245.03' x2='689.38' y2='245.03' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
-<line x1='685.92' y1='223.29' x2='689.38' y2='223.29' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
-<line x1='685.92' y1='201.54' x2='689.38' y2='201.54' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
-<line x1='685.92' y1='179.80' x2='689.38' y2='179.80' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
 <rect x='672.10' y='277.01' width='42.42' height='156.45' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
 <text x='693.31' y='315.61' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='5.50px' lengthAdjust='spacingAndGlyphs'>x</text>
 <rect x='672.10' y='322.23' width='17.28' height='27.81' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
