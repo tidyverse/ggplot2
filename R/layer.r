@@ -433,7 +433,7 @@ check_subclass <- function(x, subclass,
                            call = caller_env()) {
   if (inherits(x, subclass)) {
     x
-  } else if (is.character(x) && length(x) == 1) {
+  } else if (is_scalar_character(x)) {
     name <- paste0(subclass, camelize(x, first = TRUE))
     obj <- find_global(name, env = env)
 

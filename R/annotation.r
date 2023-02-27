@@ -42,7 +42,7 @@ annotate <- function(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
                      ymin = NULL, ymax = NULL, xend = NULL, yend = NULL, ...,
                      na.rm = FALSE) {
 
-  if (is.character(geom) && geom %in% c("abline", "hline", "vline")) {
+  if (is_string(geom, c("abline", "hline", "vline"))) {
     cli::cli_warn(c(
       "{.arg geom} must not be {.val {geom}}.",
       "i" = "Please use {.fn {paste0('geom_', geom)}} directly instead."

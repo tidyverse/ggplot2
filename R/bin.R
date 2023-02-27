@@ -56,10 +56,7 @@ bin_breaks_width <- function(x_range, width = NULL, center = NULL,
     cli::cli_abort("{.arg x_range} must have two elements")
   }
 
-  # if (length(x_range) == 0) {
-  #   return(bin_params(numeric()))
-  # }
-  if (!(is.numeric(width) && length(width) == 1)) {
+  if (!is_scalar_numeric(width)) {
     cli::cli_abort("{.arg width} must be a number")
   }
   if (width <= 0) {
