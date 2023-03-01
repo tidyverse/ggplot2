@@ -189,7 +189,7 @@ expand_limits <- function(...) {
   data <- unlist(c(list(data[!data_dfs]), data[data_dfs]), recursive = FALSE)
 
   # Repeat vectors up to max length and collect to data frame
-  n_rows <- max(vapply(data, length, integer(1)))
+  n_rows <- max(lengths(data))
   data <- lapply(data, rep, length.out = n_rows)
   data <- data_frame0(!!!data)
 

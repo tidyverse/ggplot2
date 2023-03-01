@@ -297,7 +297,7 @@ Layer <- ggproto("Layer", NULL,
       if (length(evaled) == 0) {
         n <- 0
       } else {
-        aes_n <- vapply(evaled, length, integer(1))
+        aes_n <- lengths(evaled)
         n <- if (min(aes_n) == 0) 0L else max(aes_n)
       }
     }
