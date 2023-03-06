@@ -90,7 +90,8 @@ StatContour <- ggproto("StatContour", Stat,
 
   required_aes = c("x", "y", "z"),
   default_aes = aes(order = after_stat(level)),
-  dropped_aes = "z", # z gets dropped during statistical transformation
+  # z and weight get dropped during statistical transformation
+  dropped_aes = c("z", "weight"),
 
   setup_params = function(data, params) {
     params$z.range <- range(data$z, na.rm = TRUE, finite = TRUE)
@@ -120,7 +121,8 @@ StatContourFilled <- ggproto("StatContourFilled", Stat,
 
   required_aes = c("x", "y", "z"),
   default_aes = aes(order = after_stat(level), fill = after_stat(level)),
-  dropped_aes = "z", # z gets dropped during statistical transformation
+  # z and weight get dropped during statistical transformation
+  dropped_aes = c("z", "weight"),
 
   setup_params = function(data, params) {
     params$z.range <- range(data$z, na.rm = TRUE, finite = TRUE)
