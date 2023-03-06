@@ -75,7 +75,7 @@
 #'
 scale_colour_gradient <- function(..., low = "#132B43", high = "#56B1F7", space = "Lab",
                                   na.value = "grey50", guide = "colourbar", aesthetics = "colour") {
-  continuous_scale(aesthetics, "gradient", seq_gradient_pal(low, high, space),
+  continuous_scale(aesthetics, "gradient", seq_gradient_pal(low, high, space, na.color = na.value),
     na.value = na.value, guide = guide, ...)
 }
 
@@ -83,7 +83,7 @@ scale_colour_gradient <- function(..., low = "#132B43", high = "#56B1F7", space 
 #' @export
 scale_fill_gradient <- function(..., low = "#132B43", high = "#56B1F7", space = "Lab",
                                 na.value = "grey50", guide = "colourbar", aesthetics = "fill") {
-  continuous_scale(aesthetics, "gradient", seq_gradient_pal(low, high, space),
+  continuous_scale(aesthetics, "gradient", seq_gradient_pal(low, high, space, na.color = na.value),
     na.value = na.value, guide = guide, ...)
 }
 
@@ -96,7 +96,7 @@ scale_colour_gradient2 <- function(..., low = muted("red"), mid = "white", high 
                                    midpoint = 0, space = "Lab", na.value = "grey50", guide = "colourbar",
                                    aesthetics = "colour") {
   continuous_scale(aesthetics, "gradient2",
-    div_gradient_pal(low, mid, high, space), na.value = na.value, guide = guide, ...,
+    div_gradient_pal(low, mid, high, space, na.color = na.value), na.value = na.value, guide = guide, ...,
     rescaler = mid_rescaler(mid = midpoint))
 }
 
@@ -106,7 +106,7 @@ scale_fill_gradient2 <- function(..., low = muted("red"), mid = "white", high = 
                                  midpoint = 0, space = "Lab", na.value = "grey50", guide = "colourbar",
                                  aesthetics = "fill") {
   continuous_scale(aesthetics, "gradient2",
-    div_gradient_pal(low, mid, high, space), na.value = na.value, guide = guide, ...,
+    div_gradient_pal(low, mid, high, space, na.color = na.value), na.value = na.value, guide = guide, ...,
     rescaler = mid_rescaler(mid = midpoint))
 }
 
@@ -125,7 +125,7 @@ scale_colour_gradientn <- function(..., colours, values = NULL, space = "Lab", n
   colours <- if (missing(colours)) colors else colours
 
   continuous_scale(aesthetics, "gradientn",
-    gradient_n_pal(colours, values, space), na.value = na.value, guide = guide, ...)
+    gradient_n_pal(colours, values, space, na.color = na.value), na.value = na.value, guide = guide, ...)
 }
 #' @rdname scale_gradient
 #' @export
@@ -134,5 +134,5 @@ scale_fill_gradientn <- function(..., colours, values = NULL, space = "Lab", na.
   colours <- if (missing(colours)) colors else colours
 
   continuous_scale(aesthetics, "gradientn",
-    gradient_n_pal(colours, values, space), na.value = na.value, guide = guide, ...)
+    gradient_n_pal(colours, values, space, na.color = na.value), na.value = na.value, guide = guide, ...)
 }
