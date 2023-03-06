@@ -461,9 +461,12 @@ Scale <- ggproto("Scale", NULL,
     cli::cli_abort("Not implemented")
   },
 
-  map_df = function(self, df, i = NULL) {
+  map_df = function(self, df, i = NULL, scale_params = NULL) {
     if (empty(df)) {
       return()
+    }
+    if (is.null(scale_params)) {
+      scale_params <- list()
     }
 
     aesthetics <- intersect(self$aesthetics, names(df))
@@ -472,14 +475,24 @@ Scale <- ggproto("Scale", NULL,
       return()
     }
 
-    if (is.null(i)) {
-      lapply(aesthetics, function(j) self$map(df[[j]]))
+    if ("scale_params" %in% names(ggproto_formals(self$map))) {
+      if (is.null(i)) {
+        lapply(aesthetics, function(j) self$map(df[[j]], scale_params = scale_params[[j]]))
+      } else {
+        lapply(aesthetics, function(j) self$map(df[[j]][i], scale_params = scale_params[[j]]))
+      }
     } else {
-      lapply(aesthetics, function(j) self$map(df[[j]][i]))
+      # Eventually warn if self$map() does not accept scale_params
+      if (is.null(i)) {
+        lapply(aesthetics, function(j) self$map(df[[j]]))
+      } else {
+        lapply(aesthetics, function(j) self$map(df[[j]][i]))
+      }
+
     }
   },
 
-  map = function(self, x, limits = self$get_limits()) {
+  map = function(self, x, limits = self$get_limits(), scale_params = NULL) {
     cli::cli_abort("Not implemented")
   },
 
@@ -605,14 +618,78 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
 
   transform = default_transform,
 
-  map = function(self, x, limits = self$get_limits()) {
+  map = function(self, x, limits = self$get_limits(), scale_params = NULL) {
     x <- self$rescale(self$oob(x, range = limits), limits)
+    if (is.null(scale_params)) {
+      scale_params <- list()
+    }
+    # A mapping method maps the x values in [0-1] range to a continuous aesthetic.
+    # "unique": The default. Find unique values in x, map the unique values to colours,
+    #           match the mapped colours to original x values.
+    # "raw": just map all x values to colours. More efficient if we know there are not
+    #        many repeated values. Usually less efficient if there are some repeated
+    #        values.
+    # "binned": Bin `x` into `mapping_method_bins` levels. Map those levels to colours.
+    #           Assign the colour to each value corresponding to their bin.
+    #           This approach is faster with large vectors, but is lossy.
+    mapping_method <- scale_params[["mapping_method"]]
+    if (is.null(mapping_method)) {
+      mapping_method <- "unique"
+    }
+    if (is.character(mapping_method) && !mapping_method %in% c("unique", "raw", "binned")) {
+      cli::cli_warn(c(
+        "ScaleContinous does not support the mapping method {mapping_method}",
+        "i" = "Using 'unique' instead."
+      ))
+      mapping_method <- "unique"
+    }
+    # Geom prefers native color format:
+    geom_prefers_native <- identical(scale_params[["color_fmt"]], "native")
+    # Palette capability: Accepts native output
+    #  A specific palette can have as attribute "accepts_native_output = TRUE".
+    #  Then, self$palette must have an additional argument (besides x) named
+    #  `color_fmt = "character"`. If we pass `color_fmt = "native"`, it will
+    #  return colors in native format.
+    pal_accepts_native <- ggproto_attr(self$palette, "accepts_native_output", default = FALSE)
 
-    uniq <- unique0(x)
-    pal <- self$palette(uniq)
-    scaled <- pal[match(x, uniq)]
+    if (geom_prefers_native && pal_accepts_native) {
+      palette <- function(x) self$palette(x, color_fmt = "native")
+      na.value <- farver::encode_native(self$na.value)
+    } else if (geom_prefers_native) {
+      palette <- function(x) farver::encode_native(self$palette(x))
+      na.value <- farver::encode_native(self$na.value)
+    } else {
+      palette <- self$palette
+      na.value <- self$na.value
+    }
 
-    ifelse(!is.na(scaled), scaled, self$na.value)
+    if (mapping_method == "unique") {
+      uniq <- unique0(x)
+      pal <- palette(uniq)
+      scaled <- pal[match(x, uniq)]
+    } else if (mapping_method == "raw") {
+      scaled <- palette(x)
+    } else if (mapping_method == "binned") {
+      mapping_method_bins <- scale_params[["mapping_method_bins"]]
+      if (is.null(mapping_method_bins)) {
+        mapping_method_bins <- 1024L
+      }
+      mapping_method_bins <- as.integer(mapping_method_bins[1L])
+      breaks <- seq(from = 0, to = 1, length.out = mapping_method_bins + 1L)
+      colormap <- c(na.value, palette(breaks), na.value)
+      # values below 0 belong to the first bucket, but zero belongs to the second bucket:
+      breaks[1] <- -.Machine$double.eps
+      scaled <- colormap[findInterval(x, breaks, rightmost.closed = TRUE) + 1L]
+    }
+
+    # A specific palette can have as attribute "may_return_NA = FALSE"
+    # If it has such attribute, we will skip the ifelse(!is.na(scaled), ...)
+    pal_may_return_na <- ggproto_attr(self$palette, "may_return_NA", default = TRUE)
+    if (pal_may_return_na) {
+      scaled <- ifelse(!is.na(scaled), scaled, na.value)
+    }
+
+    scaled
   },
 
   rescale = function(self, x, limits = self$get_limits(), range = limits) {

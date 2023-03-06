@@ -88,7 +88,8 @@ ggplot_build.ggplot <- function(plot) {
   npscales <- scales$non_position_scales()
   if (npscales$n() > 0) {
     lapply(data, scales_train_df, scales = npscales)
-    data <- lapply(data, scales_map_df, scales = npscales)
+    scale_params <- by_layer(function(l, d) l$get_scale_params(), layers, data, "getting scale_params")
+    data <- mapply(scales_map_df, df = data, scale_params = scale_params, MoreArgs = list(scales = npscales), SIMPLIFY = FALSE)
   }
 
   # Fill in defaults etc.
