@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Fixed spurious warnings when the `weight` was used in `stat_bin_2d()`, 
+  `stat_boxplot()`, `stat_contour()`, `stat_bin_hex()` and `stat_quantile()`
+  (@teunbrand, #5216).
 * The `layer_data()`, `layer_scales()` and `layer_grob()` now have the default
   `plot = last_plot()` (@teunbrand, #5166).
 * To prevent changing the plotting order, `stat_sf()` is now computed per panel 
