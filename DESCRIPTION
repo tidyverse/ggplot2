@@ -39,7 +39,7 @@ Imports:
     lifecycle (> 1.0.1),
     MASS,
     mgcv,
-    rlang (>= 1.0.0),
+    rlang (>= 1.1.0),
     scales (>= 1.2.0),
     stats,
     tibble,
