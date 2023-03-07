@@ -18,7 +18,7 @@ Authors@R: c(
            comment = c(ORCID = "0000-0002-3385-7233")),
     person("Dewey", "Dunnington", role = "aut",
            comment = c(ORCID = "0000-0002-9415-4582")),
-    person("RStudio", role = c("cph", "fnd"))
+    person("Posit, PBC", role = c("cph", "fnd"))
   )
 Description: A system for 'declaratively' creating graphics, based on "The
     Grammar of Graphics". You provide the data, tell 'ggplot2' how to map

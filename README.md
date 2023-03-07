@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ggplot2 <img src="man/figures/logo.png" align="right" width="120" />
+# ggplot2 <a href="https://ggplot2.tidyverse.org"><img src="man/figures/logo.png" align="right" height="138" /></a>
 
 <!-- badges: start -->
 
@@ -29,8 +29,8 @@ install.packages("tidyverse")
 install.packages("ggplot2")
 
 # Or the development version from GitHub:
-# install.packages("devtools")
-devtools::install_github("tidyverse/ggplot2")
+# install.packages("pak")
+pak::pak("tidyverse/ggplot2")
 ```
 
 ## Cheatsheet
