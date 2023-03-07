@@ -721,6 +721,10 @@ attach_plot_env <- function(env) {
   withr::defer_parent(options(ggplot2_plot_env = old_env))
 }
 
+as_cli <- function(..., env = caller_env()) {
+  cli::cli_fmt(cli::cli_text(..., .envir = env))
+}
+
 deprecate_soft0 <- function(..., user_env = NULL) {
   user_env <- user_env %||% getOption("ggplot2_plot_env") %||% caller_env(2)
   lifecycle::deprecate_soft(..., user_env = user_env)
