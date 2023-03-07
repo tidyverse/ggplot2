@@ -182,10 +182,7 @@ grid_as_facets_list <- function(rows, cols) {
     return(facets)
   }
 
-  is_cols_vars <- is.null(cols) || is_quosures(cols)
-  if (!is_cols_vars) {
-    cli::cli_abort("{.arg cols} must be {.val NULL} or a {.fn vars} specification")
-  }
+  check_object(cols, is_quosures, "a {.fn vars} specification", allow_null = TRUE)
 
   list(
     rows = compact_facets(as_facets_list(rows)),

@@ -63,7 +63,7 @@ StatBindot <- ggproto("StatBindot", Stat,
                            right = TRUE) {
     # Check that weights are whole numbers (for dots, weights must be whole)
     if (!is.null(data$weight) && !(is_integerish(data$weight) && all(data$weight >= 0))) {
-      cli::cli_abort("Weights must be nonnegative integers.")
+      stop_input_type(data$weight, "nonnegative integers", arg = "weight")
     }
 
     if (binaxis == "x") {

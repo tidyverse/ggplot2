@@ -132,7 +132,7 @@ parse_dpi <- function(dpi, call = caller_env()) {
   } else if (is_scalar_numeric(dpi)) {
     dpi
   } else {
-    cli::cli_abort("{.arg dpi} must be a single number or string", call = call)
+    stop_input_type(dpi, "a single number or string", call = call)
   }
 }
 
@@ -244,7 +244,7 @@ plot_dev <- function(device, filename = NULL, dpi = 300, call = caller_env()) {
   }
 
   if (!is.character(device) || length(device) != 1) {
-    cli::cli_abort("{.arg device} must be {.val NULL}, a string or a function.", call = call)
+    stop_input_type(device, "a string, function", allow_null = TRUE, call = call)
   }
 
   dev <- devices[[device]]

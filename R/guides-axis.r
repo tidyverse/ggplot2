@@ -386,9 +386,7 @@ axis_label_element_overrides <- function(axis_position, angle = NULL) {
   }
 
   # it is not worth the effort to align upside-down labels properly
-  if (angle > 90 || angle < -90) {
-    cli::cli_abort("{.arg angle} must be between 90 and -90")
-  }
+  check_number_decimal(angle, min = -90, max = 90)
 
   if (axis_position == "bottom") {
     element_text(

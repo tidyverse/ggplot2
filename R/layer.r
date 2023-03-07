@@ -443,8 +443,7 @@ check_subclass <- function(x, subclass,
       obj
     }
   } else {
-    msg <- paste0("{argname} must be either a string or a {.cls {subclass}} object, not ", obj_desc(x))
-    cli::cli_abort(msg, call = call)
+    stop_input_type(x, as_cli("either a string or a {.cls {subclass}} object"))
   }
 }
 

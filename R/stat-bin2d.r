@@ -123,16 +123,12 @@ bin2d_breaks <- function(scale, breaks = NULL, origin = NULL, binwidth = NULL,
   if (is.null(binwidth) || identical(binwidth, NA)) {
     binwidth <- diff(range) / bins
   }
-  if (!is_scalar_numeric(binwidth)) {
-    cli::cli_abort("{.arg binwidth} must be a number")
-  }
+  check_number_decimal(binwidth)
 
   if (is.null(origin) || identical(origin, NA)) {
     origin <- round_any(range[1], binwidth, floor)
   }
-  if (!is_scalar_numeric(origin)) {
-    cli::cli_abort("{.arg origin} must be a number")
-  }
+  check_number_decimal(origin)
 
   breaks <- seq(origin, range[2] + binwidth, binwidth)
 
