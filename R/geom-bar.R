@@ -124,7 +124,7 @@ geom_bar <- function(mapping = NULL, data = NULL,
 #' @format NULL
 #' @usage NULL
 #' @export
-#' @include geom-rect.r
+#' @include geom-rect.R
 GeomBar <- ggproto("GeomBar", GeomRect,
   required_aes = c("x", "y"),
 

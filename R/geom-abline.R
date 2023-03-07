@@ -1,4 +1,4 @@
-#' @include stat-.r
+#' @include stat-.R
 NULL
 
 #' Reference lines: horizontal, vertical, and diagonal

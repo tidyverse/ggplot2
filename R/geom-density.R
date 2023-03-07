@@ -88,7 +88,7 @@ geom_density <- function(mapping = NULL, data = NULL,
 #' @format NULL
 #' @usage NULL
 #' @export
-#' @include geom-ribbon.r
+#' @include geom-ribbon.R
 GeomDensity <- ggproto("GeomDensity", GeomArea,
   default_aes = defaults(
     aes(fill = NA, weight = 1, colour = "black", alpha = NA),

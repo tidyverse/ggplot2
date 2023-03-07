@@ -1,4 +1,4 @@
-#' @include ggproto.r
+#' @include ggproto.R
 NULL
 
 #' @section Facets:

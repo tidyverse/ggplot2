@@ -95,7 +95,7 @@ geom_tile <- function(mapping = NULL, data = NULL,
 #' @format NULL
 #' @usage NULL
 #' @export
-#' @include geom-rect.r
+#' @include geom-rect.R
 GeomTile <- ggproto("GeomTile", GeomRect,
   extra_params = c("na.rm"),
 

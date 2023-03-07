@@ -1,4 +1,4 @@
-#' @include facet-.r
+#' @include facet-.R
 NULL
 
 #' Lay out panels in a grid

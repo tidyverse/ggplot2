@@ -30,6 +30,6 @@ geom_col <- function(mapping = NULL, data = NULL,
 #' @format NULL
 #' @usage NULL
 #' @export
-#' @include geom-rect.r
+#' @include geom-rect.R
 # TODO: deprecate this
 GeomCol <- ggproto("GeomCol", GeomBar)

@@ -1,4 +1,4 @@
-#' @include facet-.r
+#' @include facet-.R
 NULL
 
 #' Wrap a 1d ribbon of panels into 2d
