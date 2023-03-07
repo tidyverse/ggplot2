@@ -1,4 +1,4 @@
-#' @include geom-map.r
+#' @include geom-map.R
 NULL
 
 #' Annotation: a map

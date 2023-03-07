@@ -142,6 +142,6 @@ geom_density2d_filled <- geom_density_2d_filled
 #' @format NULL
 #' @usage NULL
 #' @export
-#' @include geom-polygon.r
+#' @include geom-polygon.R
 GeomDensity2dFilled <- ggproto("GeomDensity2dFilled", GeomPolygon)
 

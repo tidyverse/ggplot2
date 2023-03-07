@@ -1,4 +1,4 @@
-#' @include facet-.r
+#' @include facet-.R
 NULL
 
 #' Facet specification: a single panel.
