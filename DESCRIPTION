@@ -183,6 +183,8 @@ Collate:
     'guides-grid.r'
     'guides-none.r'
     'hexbin.R'
+    'import-standalone-obj-type.R'
+    'import-standalone-types-check.R'
     'labeller.r'
     'labels.r'
     'layer.r'
