@@ -272,7 +272,7 @@ ggplot(mpg, aes(y = drv)) +
 ggplot(mpg, aes(y = drv)) +
   geom_bar() +
   scale_y_discrete(
-    labels = c("Front wheel drive", "Rear wheel drive", "Four wheel drive")
+    labels = c("Four wheel drive", "Front wheel drive", "Rear wheel drive")
   )
 ```
 
@@ -400,14 +400,6 @@ ggplot(economics, aes(x = date, y = psavert, group = 1)) +
 ```
 
 where the `accuracy` argument indicates the number to round to, e.g. 0.1 to show 1 decimal place, 0.0001 to show 4 decimal places, etc.
-
-```{r}
-library(scales)
-ggplot(seals, aes(x = delta_long, y = delta_lat)) +
-  geom_point() +
-  scale_x_continuous(labels = label_number(accuracy = 0.1)) +
-  scale_y_continuous(labels = label_number(accuracy = 0.0001))
-```
 
 </details>
 

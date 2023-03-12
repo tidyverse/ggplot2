@@ -120,7 +120,7 @@ ggplot(df, aes(x = x, y = y, label = name)) +
 
 ### How can I annotate my bar plot to display counts for each bar?
 
-Either calculate the counts ahead of time and place them on bars using `geom_text()` or let `ggplot()` calculate them for you and then add them to the plot using `stat_coun()` with `geom = "text"`.
+Either calculate the counts ahead of time and place them on bars using `geom_text()` or let `ggplot()` calculate them for you and then add them to the plot using `stat_count()` with `geom = "text"`.
 
 <details>
 
@@ -149,7 +149,7 @@ mpg %>%
   coord_cartesian(ylim = c(0, 110))
 ```
 
-Another option is to let `ggplot()` do the counting for you, and access these counts with `..count..` that is mapped to the labels to be placed on the plot with `stat_count()`.
+Another option is to let `ggplot()` do the counting for you, and access these counts with `after_stat(count)` that is mapped to the labels to be placed on the plot with `stat_count()`.
 
 ```{r}
 #| fig.alt = "A bar chart showing the number of cars for each of three types

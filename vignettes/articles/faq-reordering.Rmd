@@ -95,7 +95,7 @@ ggplot(diamonds, aes(x = cut, fill = clarity)) +
   geom_bar()
 ```
 
-You can revers the order `clarity` levels are displayed in the bars with `forcats::fct_rev()`.
+You can reverse the order `clarity` levels are displayed in the bars with `forcats::fct_rev()`.
 This will also change the order they're presented in the legend so the two orders match.
 
 ```{r}
