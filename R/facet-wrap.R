@@ -103,13 +103,6 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
   check_number_whole(ncol, allow_null = TRUE, min = 1)
   check_number_whole(nrow, allow_null = TRUE, min = 1)
 
-  # if (!(is.null(ncol) || (is_integerish(ncol, 1) && ncol > 0))) {
-  #   cli::cli_abort("{.arg ncol} must be a positive scalar integer or {.val NULL}")
-  # }
-  # if (!(is.null(nrow) || (is_integerish(nrow, 1) && nrow > 0))) {
-  #   cli::cli_abort("{.arg nrow} must be a positive scalar integer or {.val NULL}")
-  # }
-
   if (identical(dir, "v")) {
     # swap
     tmp <- ncol
