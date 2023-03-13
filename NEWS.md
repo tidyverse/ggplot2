@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* `annotation_logticks()` skips drawing ticks when the scale range is non-finite
+  instead of throwing an error (@teunbrand, #5229).
 * The `layer_data()`, `layer_scales()` and `layer_grob()` now have the default
   `plot = last_plot()` (@teunbrand, #5166).
 * To prevent changing the plotting order, `stat_sf()` is now computed per panel 
