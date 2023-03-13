@@ -5,12 +5,21 @@
 # ---
 # repo: r-lib/rlang
 # file: standalone-types-check.R
-# last-updated: 2023-02-15
+# last-updated: 2023-03-13
 # license: https://unlicense.org
 # dependencies: standalone-obj-type.R
+# imports: rlang (>= 1.1.0)
 # ---
 #
 # ## Changelog
+#
+# 2023-03-13:
+# - Improved error messages of number checkers (@teunbrand)
+# - Added `allow_infinite` argument to `check_number_whole()` (@mgirlich).
+# - Added `check_data_frame()` (@mgirlich).
+#
+# 2023-03-07:
+# - Added dependency on rlang (>= 1.1.0).
 #
 # 2023-02-15:
 # - Added `check_logical()`.
@@ -198,6 +207,7 @@ check_number_whole <- function(x,
                                ...,
                                min = NULL,
                                max = NULL,
+                               allow_infinite = FALSE,
                                allow_na = FALSE,
                                allow_null = FALSE,
                                arg = caller_arg(x),
@@ -210,7 +220,7 @@ check_number_whole <- function(x,
     allow_decimal = FALSE,
     min,
     max,
-    allow_infinite = FALSE,
+    allow_infinite,
     allow_na,
     allow_null
   ))) {
@@ -241,23 +251,25 @@ check_number_whole <- function(x,
                              allow_null,
                              arg,
                              call) {
+  if (allow_decimal) {
+    what <- "a number"
+  } else {
+    what <- "a whole number"
+  }
+
   if (exit_code == IS_NUMBER_oob) {
     min <- min %||% -Inf
     max <- max %||% Inf
 
     if (min > -Inf && max < Inf) {
-      what <- sprintf("a number between %s and %s", min, max)
+      what <- sprintf("%s between %s and %s", what, min, max)
     } else if (x < min) {
-      what <- sprintf("a number larger than %s", min)
+      what <- sprintf("%s larger than or equal to %s", what, min)
     } else if (x > max) {
-      what <- sprintf("a number smaller than %s", max)
+      what <- sprintf("%s smaller than or equal to %s", what, max)
     } else {
       abort("Unexpected state in OOB check", .internal = TRUE)
     }
-  } else if (allow_decimal) {
-    what <- "a number"
-  } else {
-    what <- "a whole number"
   }
 
   stop_input_type(
@@ -289,6 +301,7 @@ check_symbol <- function(x,
     x,
     "a symbol",
     ...,
+    allow_na = FALSE,
     allow_null = allow_null,
     arg = arg,
     call = call
@@ -313,6 +326,7 @@ check_arg <- function(x,
     x,
     "an argument name",
     ...,
+    allow_na = FALSE,
     allow_null = allow_null,
     arg = arg,
     call = call
@@ -337,6 +351,7 @@ check_call <- function(x,
     x,
     "a defused call",
     ...,
+    allow_na = FALSE,
     allow_null = allow_null,
     arg = arg,
     call = call
@@ -361,6 +376,7 @@ check_environment <- function(x,
     x,
     "an environment",
     ...,
+    allow_na = FALSE,
     allow_null = allow_null,
     arg = arg,
     call = call
@@ -385,6 +401,7 @@ check_function <- function(x,
     x,
     "a function",
     ...,
+    allow_na = FALSE,
     allow_null = allow_null,
     arg = arg,
     call = call
@@ -409,6 +426,7 @@ check_closure <- function(x,
     x,
     "an R function",
     ...,
+    allow_na = FALSE,
     allow_null = allow_null,
     arg = arg,
     call = call
@@ -433,6 +451,7 @@ check_formula <- function(x,
     x,
     "a formula",
     ...,
+    allow_na = FALSE,
     allow_null = allow_null,
     arg = arg,
     call = call
@@ -460,6 +479,7 @@ check_character <- function(x,
     x,
     "a character vector",
     ...,
+    allow_na = FALSE,
     allow_null = allow_null,
     arg = arg,
     call = call
@@ -483,6 +503,31 @@ check_logical <- function(x,
   stop_input_type(
     x,
     "a logical vector",
+    ...,
+    allow_na = FALSE,
+    allow_null = allow_null,
+    arg = arg,
+    call = call
+  )
+}
+
+check_data_frame <- function(x,
+                             ...,
+                             allow_null = FALSE,
+                             arg = caller_arg(x),
+                             call = caller_env()) {
+  if (!missing(x)) {
+    if (is.data.frame(x)) {
+      return(invisible(NULL))
+    }
+    if (allow_null && is_null(x)) {
+      return(invisible(NULL))
+    }
+  }
+
+  stop_input_type(
+    x,
+    "a data frame",
     ...,
     allow_null = allow_null,
     arg = arg,

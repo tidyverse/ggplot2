@@ -7,6 +7,7 @@
 # file: standalone-obj-type.R
 # last-updated: 2022-10-04
 # license: https://unlicense.org
+# imports: rlang (>= 1.1.0)
 # ---
 #
 # ## Changelog
