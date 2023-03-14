@@ -83,10 +83,7 @@ uniquecols <- function(df) {
 #' @export
 remove_missing <- function(df, na.rm = FALSE, vars = names(df), name = "",
                            finite = FALSE) {
-  if (!is.logical(na.rm)) {
-    cli::cli_abort("{.arg na.rm} must be logical scalar")
-  }
-
+  check_bool(na.rm)
   missing <- detect_missing(df, vars, finite)
 
   if (any(missing)) {
@@ -359,6 +356,8 @@ unique0 <- function(x, ...) if (is.null(x)) x else vec_unique(x, ...)
 # Code readability checking for uniqueness
 is_unique <- function(x) vec_unique_count(x) == 1L
 
+is_scalar_numeric <- function(x) is_bare_numeric(x, n = 1L)
+
 # Check inputs with tibble but allow column vectors (see #2609 and #2374)
 as_gg_data_frame <- function(x) {
   x <- lapply(x, validate_column_vec)
@@ -385,9 +384,7 @@ is_column_vec <- function(x) {
 # #> expression(alpha, NA, gamma)
 #
 parse_safe <- function(text) {
-  if (!is.character(text)) {
-    cli::cli_abort("{.arg text} must be a character vector")
-  }
+  check_character(text)
   out <- vector("expression", length(text))
   for (i in seq_along(text)) {
     expr <- parse(text = text[[i]])
@@ -717,6 +714,10 @@ attach_plot_env <- function(env) {
   old_env <- getOption("ggplot2_plot_env")
   options(ggplot2_plot_env = env)
   withr::defer_parent(options(ggplot2_plot_env = old_env))
+}
+
+as_cli <- function(..., env = caller_env()) {
+  cli::cli_fmt(cli::cli_text(..., .envir = env))
 }
 
 deprecate_soft0 <- function(..., user_env = NULL) {

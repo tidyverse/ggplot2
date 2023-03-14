@@ -91,9 +91,7 @@ GeomRug <- ggproto("GeomRug", Geom,
   draw_panel = function(self, data, panel_params, coord, lineend = "butt",
                         sides = "bl", outside = FALSE, length = unit(0.03, "npc")) {
     data <- check_linewidth(data, snake_class(self))
-    if (!inherits(length, "unit")) {
-      cli::cli_abort("{.arg length} must be a {.cls unit} object.")
-    }
+    check_inherits(length, "unit")
     rugs <- list()
     data <- coord$transform(data, panel_params)
 

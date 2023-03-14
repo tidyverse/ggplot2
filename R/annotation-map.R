@@ -58,9 +58,7 @@ NULL
 #' }}}
 annotation_map <- function(map, ...) {
   # Get map input into correct form
-  if (!is.data.frame(map)) {
-    cli::cli_abort("{.arg map} must be a {.cls data.frame}")
-  }
+  check_data_frame(map)
   if (!is.null(map$lat)) map$y <- map$lat
   if (!is.null(map$long)) map$x <- map$long
   if (!is.null(map$region)) map$id <- map$region

@@ -39,7 +39,7 @@ Imports:
     lifecycle (> 1.0.1),
     MASS,
     mgcv,
-    rlang (>= 1.0.0),
+    rlang (>= 1.1.0),
     scales (>= 1.2.0),
     stats,
     tibble,
@@ -93,6 +93,7 @@ Collate:
     'compat-plyr.R'
     'utilities.R'
     'aes.R'
+    'utilities-checks.R'
     'legend-draw.R'
     'geom-.R'
     'annotation-custom.R'
@@ -183,6 +184,8 @@ Collate:
     'guides-grid.R'
     'guides-none.R'
     'hexbin.R'
+    'import-standalone-obj-type.R'
+    'import-standalone-types-check.R'
     'labeller.R'
     'labels.R'
     'layer.R'
