@@ -35,7 +35,10 @@ fortify.grouped_df <- function(model, data, ...) {
 }
 #' @export
 fortify.default <- function(model, data, ...) {
-  msg <- glue("{{.arg data}} must be a {{.cls data.frame}}, or an object coercible by `fortify()`, not {obj_desc(model)}.")
+  msg <- glue(
+    "{{.arg data}} must be a {{.cls data.frame}}, ",
+    "or an object coercible by `fortify()`, not {obj_type_friendly(model)}."
+  )
   if (inherits(model, "uneval")) {
     msg <- c(
       msg,

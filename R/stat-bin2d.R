@@ -84,7 +84,9 @@ StatBin2d <- ggproto("StatBin2d", Stat,
     out$density <- out$count / sum(out$count, na.rm = TRUE)
     out$ndensity <- out$density / max(out$density, na.rm = TRUE)
     out
-  }
+  },
+
+  dropped_aes = "weight" # No longer available after transformation
 )
 
 dual_param <- function(x, default = list(x = NULL, y = NULL)) {
@@ -123,16 +125,12 @@ bin2d_breaks <- function(scale, breaks = NULL, origin = NULL, binwidth = NULL,
   if (is.null(binwidth) || identical(binwidth, NA)) {
     binwidth <- diff(range) / bins
   }
-  if (!(is.numeric(binwidth) && length(binwidth) == 1)) {
-    cli::cli_abort("{.arg binwidth} must be a number")
-  }
+  check_number_decimal(binwidth)
 
   if (is.null(origin) || identical(origin, NA)) {
     origin <- round_any(range[1], binwidth, floor)
   }
-  if (!(is.numeric(origin) && length(origin) == 1)) {
-    cli::cli_abort("{.arg origin} must be a number")
-  }
+  check_number_decimal(origin)
 
   breaks <- seq(origin, range[2] + binwidth, binwidth)
 

@@ -25,7 +25,7 @@ dotstackGrob <- function(
 is_npc <- function(x) isTRUE(grepl('^[^+^-^\\*]*[^s]npc$', as.character(x)))
 
 #' @export
-makeContext.dotstackGrob <- function(x, recording = TRUE) {
+makeContext.dotstackGrob <- function(x) {
   # Need absolute coordinates because when using npc coords with circleGrob,
   # the radius is in the _smaller_ of the two axes. We need the radius
   # to instead be defined in terms of the non-stack axis.

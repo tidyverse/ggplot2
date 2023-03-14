@@ -96,7 +96,10 @@ StatQuantile <- ggproto("StatQuantile", Stat,
       method.args = method.args
     )
     vec_rbind0(!!!result)
-  }
+  },
+
+  # weight is no longer available after transformation
+  dropped_aes = "weight"
 )
 
 quant_pred <- function(quantile, data, method, formula, weight, grid,
