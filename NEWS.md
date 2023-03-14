@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `coord_flip()` has been marked as superseded. The recommended alternative is
+  to swap the `x` and `y` aesthetic and/or using the `orientation` argument in
+  a layer (@teunbrand, #5130).
 * The `layer_data()`, `layer_scales()` and `layer_grob()` now have the default
   `plot = last_plot()` (@teunbrand, #5166).
 * To prevent changing the plotting order, `stat_sf()` is now computed per panel 

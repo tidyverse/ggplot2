@@ -1,11 +1,15 @@
 #' Cartesian coordinates with x and y flipped
 #'
-#' Flip Cartesian coordinates so that horizontal becomes vertical, and
-#' vertical, horizontal. In many cases, `coord_flip()` can easily be replaced by
-#' swapping the x and y aesthetics or optionally setting the `orientation`
-#' argument in geom and stat layers. `coord_flip()` is useful for geoms and
-#' statistics that do not support the `orientation` setting, and converting the
-#' display of y conditional on x, to x conditional on y.
+#' @description
+#' `r lifecycle::badge("superseded")`
+#'
+#' This function is superseded because in many cases, `coord_flip()` can easily
+#' be replaced by swapping the x and y aesthetics, or optionally setting the
+#' `orientation` argument in geom and stat layers.
+#'
+#' `coord_flip()` is useful for geoms and statistics that do not support
+#' the `orientation` setting, and converting the display of y conditional on x,
+#' to x conditional on y.
 #'
 #' @export
 #' @inheritParams coord_cartesian

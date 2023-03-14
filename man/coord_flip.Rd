@@ -23,12 +23,15 @@ limits, then those data points may show up in places such as the axes, the
 legend, the plot title, or the plot margins.}
 }
 \description{
-Flip Cartesian coordinates so that horizontal becomes vertical, and
-vertical, horizontal. In many cases, \code{coord_flip()} can easily be replaced by
-swapping the x and y aesthetics or optionally setting the \code{orientation}
-argument in geom and stat layers. \code{coord_flip()} is useful for geoms and
-statistics that do not support the \code{orientation} setting, and converting the
-display of y conditional on x, to x conditional on y.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}}
+
+This function is superseded because in many cases, \code{coord_flip()} can easily
+be replaced by swapping the x and y aesthetics, or optionally setting the
+\code{orientation} argument in geom and stat layers.
+
+\code{coord_flip()} is useful for geoms and statistics that do not support
+the \code{orientation} setting, and converting the display of y conditional on x,
+to x conditional on y.
 }
 \examples{
 # The preferred method of creating horizontal instead of vertical boxplots
