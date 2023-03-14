@@ -84,7 +84,9 @@ StatBin2d <- ggproto("StatBin2d", Stat,
     out$density <- out$count / sum(out$count, na.rm = TRUE)
     out$ndensity <- out$density / max(out$density, na.rm = TRUE)
     out
-  }
+  },
+
+  dropped_aes = "weight" # No longer available after transformation
 )
 
 dual_param <- function(x, default = list(x = NULL, y = NULL)) {

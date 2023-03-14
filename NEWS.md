@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Fixed spurious warnings when the `weight` was used in `stat_bin_2d()`, 
+  `stat_boxplot()`, `stat_contour()`, `stat_bin_hex()` and `stat_quantile()`
+  (@teunbrand, #5216).
 * Various type checks and their messages have been standardised 
   (@teunbrand, #4834).
 * The `layer_data()`, `layer_scales()` and `layer_grob()` now have the default
