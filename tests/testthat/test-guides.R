@@ -59,8 +59,8 @@ test_that("axis_label_overlap_priority always returns the correct number of elem
 
 test_that("axis_label_element_overrides errors when angles are outside the range [0, 90]", {
   expect_s3_class(axis_label_element_overrides("bottom", 0), "element")
-  expect_error(axis_label_element_overrides("bottom", 91), "`angle` must")
-  expect_error(axis_label_element_overrides("bottom", -91), "`angle` must")
+  expect_snapshot_error(axis_label_element_overrides("bottom", 91))
+  expect_snapshot_error(axis_label_element_overrides("bottom", -91))
   expect_snapshot_error(axis_label_element_overrides("test", 0))
 })
 
