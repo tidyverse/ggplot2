@@ -21,7 +21,7 @@ test_that("coord_flip flips the rugs", {
 
 test_that("Rug length needs unit object", {
   p <- ggplot(df, aes(x,y))
-  expect_error(print(p + geom_rug(length = 0.01)))
+  expect_snapshot_error(print(p + geom_rug(length = 0.01)))
 })
 
 test_that("Rug lengths are correct", {

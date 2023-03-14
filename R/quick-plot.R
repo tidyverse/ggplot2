@@ -68,9 +68,7 @@ qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
 
   if (lifecycle::is_present(stat)) lifecycle::deprecate_stop("2.0.0", "qplot(stat)")
   if (lifecycle::is_present(position)) lifecycle::deprecate_stop("2.0.0", "qplot(position)")
-  if (!is.character(geom)) {
-    cli::cli_abort("{.arg geom} must be a character vector")
-  }
+  check_character(geom)
 
   exprs <- enquos(x = x, y = y, ...)
 

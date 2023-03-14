@@ -193,7 +193,7 @@ revalue <- function(x, replace) {
     lev[match(names(replace), lev)] <- replace
     levels(x) <- lev
   } else if (!is.null(x)) {
-    cli::cli_abort("{.arg x} must be a factor or character vector")
+    stop_input_type(x, "a factor or character vector")
   }
   x
 }
@@ -246,9 +246,7 @@ as.quoted <- function(x, env = parent.frame()) {
 }
 # round a number to a given precision
 round_any <- function(x, accuracy, f = round) {
-  if (!is.numeric(x)) {
-    cli::cli_abort("{.arg x} must be numeric")
-  }
+  check_numeric(x)
   f(x/accuracy) * accuracy
 }
 

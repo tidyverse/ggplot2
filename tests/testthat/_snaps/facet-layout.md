@@ -1,26 +1,26 @@
 # facet_wrap throws errors at bad layout specs
 
-    `ncol` must be a positive scalar integer or "NULL"
+    `ncol` must be a whole number or `NULL`, not an integer vector.
 
 ---
 
-    `ncol` must be a positive scalar integer or "NULL"
+    `ncol` must be a whole number larger than or equal to 1 or `NULL`, not the number -1.
 
 ---
 
-    `ncol` must be a positive scalar integer or "NULL"
+    `ncol` must be a whole number or `NULL`, not the number 1.5.
 
 ---
 
-    `nrow` must be a positive scalar integer or "NULL"
+    `nrow` must be a whole number or `NULL`, not an integer vector.
 
 ---
 
-    `nrow` must be a positive scalar integer or "NULL"
+    `nrow` must be a whole number larger than or equal to 1 or `NULL`, not the number -1.
 
 ---
 
-    `nrow` must be a positive scalar integer or "NULL"
+    `nrow` must be a whole number or `NULL`, not the number 1.5.
 
 ---
 

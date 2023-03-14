@@ -332,7 +332,14 @@ validate_facets <- function(x) {
 
 # Flatten a list of quosures objects to a quosures object, and compact it
 compact_facets <- function(x) {
-  x <- flatten_if(x, is_list)
+
+  proxy   <- vec_proxy(x)
+  is_list <- vapply(proxy, vec_is_list, logical(1))
+  proxy[is_list]  <- lapply(proxy[is_list],  unclass)
+  proxy[!is_list] <- lapply(proxy[!is_list], list)
+  new <- list_unchop(proxy, ptype = list(), name_spec = "{outer}_{inner}")
+  x <- vec_restore(new, x)
+
   null_or_missing <- vapply(x, function(x) quo_is_null(x) || quo_is_missing(x), logical(1))
   new_quosures(x[!null_or_missing])
 }

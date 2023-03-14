@@ -4,7 +4,7 @@
 
 # can't pass formulas to `cols`
 
-    `cols` must be "NULL" or a `vars()` specification
+    `cols` must be a `vars()` specification or `NULL`, not a <formula> object.
 
 # facet gives clear error if 
 
@@ -22,7 +22,7 @@
 
 ---
 
-    `cols` must be "NULL" or a `vars()` specification
+    `cols` must be a `vars()` specification or `NULL`, not the string "free".
 
 # at least one layer must contain all facet variables in combine_vars()
 
