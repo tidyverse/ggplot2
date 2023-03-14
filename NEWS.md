@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* When `geom_path()` has aesthetics varying within groups, the `arrow()` is
+  applied to groups instead of individual segments (@teunbrand, #4935).
 * The `layer_data()`, `layer_scales()` and `layer_grob()` now have the default
   `plot = last_plot()` (@teunbrand, #5166).
 * To prevent changing the plotting order, `stat_sf()` is now computed per panel 
@@ -51,8 +53,6 @@ and minor polishes.
   
 * The `lwd` alias is now correctly replaced by `linewidth` instead of `size` 
   (@teunbrand based on @clauswilke's suggestion #5051).
-* When `geom_path()` has aesthetics varying within groups, the `arrow()` is
-  applied to groups instead of individual segments (@teunbrand, #4935).
   
 * Fixed a regression in `Coord$train_panel_guides()` where names of guides were 
   dropped (@maxsutton, #5063).
