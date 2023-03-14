@@ -27,6 +27,8 @@ test_that("check h/v/abline transformed on basic projections", {
 })
 
 test_that("curved lines in map projections", {
+  skip_if_not_installed("mapproj") # required for coord_map()
+  skip_if_not_installed("maps") # required for map_data()
   skip_if(packageVersion("base") < "3.5.0")
   nz <- subset(map_data("nz"), region == "North.Island ")
   nzmap <- ggplot(nz, aes(long, lat, group = group)) +
