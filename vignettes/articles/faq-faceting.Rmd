@@ -38,7 +38,7 @@ The simplest answer is that you should use `facet_wrap()` when faceting by a sin
 
 ```{r}
 #| fig.alt = "A histogram showing the city miles per gallon distribution for 
-#|  three types of drive train, each in their own panel in a 1 row, 3 column 
+#|  three types of drive train, each in their own panel in a 1-row, 3-column 
 #|  layout."
 ggplot(mpg, aes(x = cty)) +
   geom_histogram() +
@@ -49,7 +49,7 @@ And `facet_grid()` is commonly used to facet by a plot by two categorical variab
 
 ```{r}
 #| fig.alt = "A histogram showing the city miles per gallon distribution. The 
-#|  plot has twelve panels in a 4 row, 3 column layout, showing three types of 
+#|  plot has twelve panels in a 4-row, 3-column layout, showing three types of 
 #|  drive train in the horizontal direction, and four numbers of cylinders 
 #|  in the vertical direction. Several panels have no data."
 ggplot(mpg, aes(x = cty)) +
@@ -64,7 +64,7 @@ This will only create facets for combinations of the levels of variables for whi
 
 ```{r}
 #| fig.alt = "A histogram showing the city miles per gallon distribution. The 
-#|  plot has nine panels in a 3 row, 3 column layout, showing all existing 
+#|  plot has nine panels in a 3-row, 3-column layout, showing all existing 
 #|  combinations of three types of drive train, and four numbers of cylinders."
 ggplot(mpg, aes(x = cty)) +
   geom_histogram() +
@@ -80,9 +80,9 @@ In the formula notation, you use a `.` to indicate that no faceting should be do
 ```{r out.width = "50%"}
 #| fig.alt = c(
 #| "A histogram showing the city miles per gallon distribution. The plot has 
-#|  four panels in a 4 row, 1 column layout, showing four numbers of cylinders.",
+#|  four panels in a 4-row, 1-column layout, showing four numbers of cylinders.",
 #| "A histogram showing the city miles per gallon distribution. The plot has 
-#|  four panels in a 1 row, 4 column layout, showing four numbers of cylinders."
+#|  four panels in a 1-row, 4-column layout, showing four numbers of cylinders."
 #| )
 ggplot(mpg, aes(x = cty)) +
   geom_histogram() +
@@ -108,7 +108,7 @@ Suppose you have the following plot, and you want to add a vertical line at the 
 
 ```{r}
 #| fig.alt = "A histogram showing the highway miles per gallon distribution for 
-#|  three types of drive train, each in their own panel in a 1 row, 3 column 
+#|  three types of drive train, each in their own panel in a 1-row, 3-column 
 #|  layout."
 ggplot(mpg, aes(x = hwy)) +
   geom_histogram(binwidth = 5) +
@@ -131,7 +131,7 @@ Then, add a `geom_vline()` layer to your plot that uses the summary data.
 
 ```{r}
 #| fig.alt = "A histogram showing the highway miles per gallon distribution for 
-#|  three types of drive train, each in their own panel in a 1 row, 3 column 
+#|  three types of drive train, each in their own panel in a 1-row, 3-column 
 #|  layout. Each panel has a vertical black line indicating the mean of the 
 #|  distribution."
 ggplot(mpg, aes(x = hwy)) +
@@ -158,7 +158,7 @@ By default, both x and y scales are shared across the facets.
 ```{r}
 #| fig.alt = "A scatter plot showing city miles per gallon on the x-axis and 
 #|  highway miles per gallon on the y-axis. The plot has twelve panels in a 
-#|  4 row, 3 column layout, showing three types of drive train in the 
+#|  4-row, 3-column layout, showing three types of drive train in the 
 #|  horizontal direction and four numbers of cylinders in the vertical 
 #|  direction. Several panels are empty. Every row has the same y-axis range, 
 #|  and every column has the same x-axis range."
@@ -172,7 +172,7 @@ You can control this behaviour with the `scales` argument of faceting functions:
 ```{r}
 #| fig.alt = "A scatter plot showing city miles per gallon on the x-axis and 
 #|  highway miles per gallon on the y-axis. The plot has twelve panels in a 
-#|  4 row, 3 column layout, showing three types of drive train in the 
+#|  4-row, 3-column layout, showing three types of drive train in the 
 #|  horizontal direction and four numbers of cylinders in the vertical 
 #|  direction. Several panels are empty. Every row in the layout has an 
 #|  independent y-axis range. Every column in the layout has an independent 
@@ -187,7 +187,7 @@ If you also want to make sure that a particular value or range is included in ea
 ```{r}
 #| fig.alt = "A scatter plot showing city miles per gallon on the x-axis and 
 #|  highway miles per gallon on the y-axis. The plot has twelve panels in a 
-#|  4 row, 3 column layout, showing three types of drive train in the 
+#|  4-row, 3-column layout, showing three types of drive train in the 
 #|  horizontal direction and four numbers of cylinders in the vertical 
 #|  direction. Several panels are empty. Every row in the layout has an 
 #|  independent y-axis range, but all include the 20-25 interval. Every column 
@@ -215,7 +215,7 @@ Setting `strip.text` to `element_blank()` will remove all facet labels.
 ```{r}
 #| fig.alt = "A scatter plot showing city miles per gallon on the x-axis and 
 #|  highway miles per gallon on the y-axis. The plot has twelve panels in a 
-#|  4 row, 3 column layout. The strips, or panel layout titles and 
+#|  4-row, 3-column layout. The strips, or panel layout titles and 
 #|  their backgrounds, are missing."
 ggplot(mpg, aes(x = cty, y = hwy)) +
   geom_point() +
@@ -228,7 +228,7 @@ You can also remove the labels across rows only with `strip.x.text` or across co
 ```{r}
 #| fig.alt = "A scatter plot showing city miles per gallon on the x-axis and 
 #|  highway miles per gallon on the y-axis. The plot has twelve panels in a 
-#|  4 row, 3 column layout. In the vertical direction, the panels indicate four 
+#|  4-row, 3-column layout. In the vertical direction, the panels indicate four 
 #|  numbers of cylinders. The strips of the horizontal direction are missing."
 ggplot(mpg, aes(x = cty, y = hwy)) +
   geom_point() +
@@ -250,7 +250,7 @@ In the data frame below we have 100 observations, 50 of them come from one group
 These groups have very long names, and so when you facet the ploy by group, the facet labels (strips) get cut off.
 
 ```{r}
-#| fig.alt = "A histogram with two panels in a 1 row, 2 column layout of random 
+#| fig.alt = "A histogram with two panels in a 1-row, 2-column layout of random 
 #|  data. The first panel has as title 'A long group name for the first group'.
 #|  The second panel has a title 'A muuuuuuuuuuuuuch longer group name for the 
 #|  second group'. However, the second title is clipped to the panel width and
@@ -269,7 +269,7 @@ ggplot(df, aes(x = x)) +
 You can control the maximum width of the facet label by setting the `width` in the `label_wrap_gen()` function, which is then passed to the `labeller` argument of your faceting function.
 
 ```{r}
-#| fig.alt = "A histogram with two panels in a 1 row, 2 column layout of random 
+#| fig.alt = "A histogram with two panels in a 1-row, 2-column layout of random 
 #|  data. The first panel has as title 'A long group name for the first group'
 #|  in two lines of text. The second panel has a title 'A muuuuuuuuuuuuuch 
 #|  longer group name for the second group' in three lines of text. The width
@@ -306,7 +306,7 @@ You can plot `price` versus `time` and facet by `country`, but the resulting plo
 
 ```{r warning = FALSE}
 #| fig.alt = "A timeseries plot showing price over time for two countries, Japan
-#|  and the US, in two panels in a 2 row, 1 column layout. The countries are
+#|  and the US, in two panels in a 2-row, 1-column layout. The countries are
 #|  indicated at the top of each panel. The two y-axes have different ranges."
 ggplot(df, aes(x = year, y = price)) +
   geom_smooth() +
@@ -319,7 +319,7 @@ With the following you can customize the facet labels first with `as_labeller()`
 ```{r}
 #| fig.alt = "A timeseries plot showing price over time for two countries and 
 #|  their currencies, the Japanese Yen and the US Dollar, in two panels in a 
-#|  2 row, 1 column layout. The countries and currency units are indicated at 
+#|  2-row, 1-column layout. The countries and currency units are indicated at 
 #|  the left of each panel. The two y-axes have different ranges."
 ggplot(df, aes(x = year, y = price)) +
   geom_smooth() +

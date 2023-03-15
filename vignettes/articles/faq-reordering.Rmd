@@ -165,7 +165,7 @@ If the faceting variable is character, this order is alphabetical by default.
 ```{r}
 #| fig.alt = "A scatter plot showing the engine displacement on the x-axis and
 #|  highway miles per gallon on the y-axis of 234 cars. The plot has three 
-#|  panels in a 1 row, 3 column layout for three types of drive train. The drive
+#|  panels in a 1-row, 3-column layout for three types of drive train. The drive
 #|  trains are ordered alphabetically in the horizontal direction."
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() +
@@ -179,7 +179,7 @@ You can do this in a data transformation step prior to plotting (e.g. with `dply
 ```{r}
 #| fig.alt = "A scatter plot showing the engine displacement on the x-axis and
 #|  highway miles per gallon on the y-axis of 234 cars. The plot has three 
-#|  panels in a 1 row, 3 column layout for three types of drive train. The drive
+#|  panels in a 1-row, 3-column layout for three types of drive train. The drive
 #|  trains are in the order 'r', 'f' and '4' from left to right."
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() +

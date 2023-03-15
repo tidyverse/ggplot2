@@ -256,7 +256,7 @@ Suppose you want to give more informative labels for the type of drive train.
 
 ```{r}
 #| fig.alt = "A horizontal bar chart showing the number of cars on the x-axis
-#|  for each of three types of drive trains on the y-axis. The tree drive trains
+#|  for each of three types of drive trains on the y-axis. The three drive trains
 #|  are labelled from top-to-bottom as 'r', 'f' and '4'."
 ggplot(mpg, aes(y = drv)) +
   geom_bar()
@@ -266,7 +266,7 @@ ggplot(mpg, aes(y = drv)) +
 
 ```{r}
 #| fig.alt = "A horizontal bar chart showing the number of cars on the x-axis
-#|  for each of three types of drive trains on the y-axis. The tree drive trains
+#|  for each of three types of drive trains on the y-axis. The three drive trains
 #|  are labelled from top-to-bottom as 'Rear wheel drive', 'Front wheel drive' 
 #|  and 'Four wheel drive'."
 ggplot(mpg, aes(y = drv)) +
@@ -280,7 +280,7 @@ ggplot(mpg, aes(y = drv)) +
 
 ```{r}
 #| fig.alt = "A horizontal bar chart showing the number of cars on the x-axis
-#|  for each of three types of drive trains on the y-axis. The tree drive trains
+#|  for each of three types of drive trains on the y-axis. The three drive trains
 #|  are labelled from top-to-bottom as 'Rear wheel drive', 'Front wheel drive' 
 #|  and 'Four wheel drive'."
 ggplot(mpg, aes(y = drv)) +
