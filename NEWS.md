@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* `annotation_logticks()` skips drawing ticks when the scale range is non-finite
+  instead of throwing an error (@teunbrand, #5229).
 * Fixed spurious warnings when the `weight` was used in `stat_bin_2d()`, 
   `stat_boxplot()`, `stat_contour()`, `stat_bin_hex()` and `stat_quantile()`
   (@teunbrand, #5216).

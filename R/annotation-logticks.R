@@ -135,7 +135,7 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
     mid   <- convertUnit(mid,   "cm", valueOnly = TRUE)
     long  <- convertUnit(long,  "cm", valueOnly = TRUE)
 
-    if (grepl("[b|t]", sides)) {
+    if (grepl("[b|t]", sides) && all(is.finite(panel_params$x.range))) {
 
       # Get positions of x tick marks
       xticks <- calc_logticks(
@@ -175,7 +175,7 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
       }
     }
 
-    if (grepl("[l|r]", sides)) {
+    if (grepl("[l|r]", sides) && all(is.finite(panel_params$y.range))) {
       yticks <- calc_logticks(
         base = base,
         minpow = floor(panel_params$y.range[1]),
