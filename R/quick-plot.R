@@ -142,7 +142,7 @@ qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
   } else if (is.formula(facets) && length(facets) == 2) {
     p <- p + facet_wrap(facets)
   } else {
-    p <- p + facet_grid(facets = deparse(facets), margins = margins)
+    p <- p + facet_grid(rows = deparse(facets), margins = margins)
   }
 
   if (!is.null(main)) p <- p + ggtitle(main)
