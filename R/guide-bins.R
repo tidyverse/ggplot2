@@ -240,7 +240,7 @@ guide_geom.bins <- function(guide, layers, default_mapping) {
 
     if (length(matched) > 0) {
       # Filter out set aesthetics that can't be applied to the legend
-      n <- vapply(layer$aes_params, length, integer(1))
+      n <- lengths(layer$aes_params)
       params <- layer$aes_params[n == 1]
 
       aesthetics <- layer$computed_mapping

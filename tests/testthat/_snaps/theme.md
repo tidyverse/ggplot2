@@ -26,7 +26,7 @@
 
 ---
 
-    The `blablabla` theme element must be a character or numeric vector.
+    The `blablabla` theme element must be a <character> object.
 
 ---
 

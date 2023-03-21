@@ -1,5 +1,18 @@
 # ggplot2 (development version)
 
+* `annotation_logticks()` skips drawing ticks when the scale range is non-finite
+  instead of throwing an error (@teunbrand, #5229).
+* Fixed spurious warnings when the `weight` was used in `stat_bin_2d()`, 
+  `stat_boxplot()`, `stat_contour()`, `stat_bin_hex()` and `stat_quantile()`
+  (@teunbrand, #5216).
+* Various type checks and their messages have been standardised 
+  (@teunbrand, #4834).
+* The `layer_data()`, `layer_scales()` and `layer_grob()` now have the default
+  `plot = last_plot()` (@teunbrand, #5166).
+* To prevent changing the plotting order, `stat_sf()` is now computed per panel 
+  instead of per group (@teunbrand, #4340).
+* ggplot2 now uses `scales::DiscreteRange` and `scales::ContinuousRange`, which
+  are available to write scale extensions from scratch (@teunbrand, #2710).
 * For the purposes of checking required or non-missing aesthetics, character 
   vectors are no longer considered non-finite (@teunbrand, @4284).
 * Fixed bug in `coord_sf()` where graticule lines didn't obey 
