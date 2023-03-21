@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* `stat_contour()` and `stat_contour_filled()` now warn about and remove
+  duplicated coordinates (@teunbrand, #5215).
 * `annotation_logticks()` skips drawing ticks when the scale range is non-finite
   instead of throwing an error (@teunbrand, #5229).
 * Fixed spurious warnings when the `weight` was used in `stat_bin_2d()`, 
