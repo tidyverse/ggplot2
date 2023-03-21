@@ -52,7 +52,6 @@ Suggests:
     hexbin,
     Hmisc,
     knitr,
-    lattice,
     mapproj,
     maps,
     maptools,
