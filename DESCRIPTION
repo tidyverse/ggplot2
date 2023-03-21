@@ -63,7 +63,6 @@ Suggests:
     quantreg,
     ragg,
     RColorBrewer,
-    rgeos,
     rmarkdown,
     rpart,
     sf (>= 0.7-3),
