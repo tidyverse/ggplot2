@@ -68,7 +68,8 @@ test_that("do not use stop()", {
 })
 
 test_that("do not use abort()", {
-  aborts <- vapply(R_files, get_n_abort, integer(1))
+  files <- R_files[!grepl("^import-standalone-", basename(R_files))]
+  aborts <- vapply(files, get_n_abort, integer(1))
   expect_equal(sum(aborts), 0)
 })
 

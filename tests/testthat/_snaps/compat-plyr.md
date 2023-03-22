@@ -4,7 +4,7 @@
 
 ---
 
-    `x` must be a factor or character vector
+    `x` must be a factor or character vector, not an integer vector.
 
 ---
 
@@ -12,5 +12,5 @@
 
 ---
 
-    `x` must be numeric
+    `x` must be a <numeric> vector, not a character vector.
 

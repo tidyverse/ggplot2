@@ -8,5 +8,5 @@
 
 ---
 
-    `_inherit` must be a <ggproto> object.
+    `_inherit` must be a <ggproto> object, not a <data.frame> object.
 

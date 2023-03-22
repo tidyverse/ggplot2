@@ -51,7 +51,7 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
   non_missing_aes = "weight",
   # either the x or y aesthetic will get dropped during
   # statistical transformation, depending on the orientation
-  dropped_aes = c("x", "y"),
+  dropped_aes = c("x", "y", "weight"),
   setup_data = function(self, data, params) {
     data <- flip_data(data, params$flipped_aes)
     data$x <- data$x %||% 0

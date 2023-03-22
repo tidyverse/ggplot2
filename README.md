@@ -53,7 +53,7 @@ ggplot(mpg, aes(displ, hwy, colour = class)) +
   geom_point()
 ```
 
-![](man/figures/README-example-1.png)<!-- -->
+<img src="man/figures/README-example-1.png" alt="Scatterplot of engine displacement versus highway miles per gallon, for 234 cars coloured by 7 'types' of car. The displacement and miles per gallon are inversely correlated."  />
 
 ## Lifecycle
 
