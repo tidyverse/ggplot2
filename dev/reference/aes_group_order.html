@@ -102,8 +102,14 @@ for each group.</p>
     <p>For most applications the grouping is set implicitly by mapping one or more
 discrete variables to <code>x</code>, <code>y</code>, <code>colour</code>, <code>fill</code>, <code>alpha</code>, <code>shape</code>, <code>size</code>,
 and/or <code>linetype</code>. This is demonstrated in the examples below.</p>
-<p>There are three common cases where the default does not display the data correctly.
-The examples below use a longitudinal dataset, <code>Oxboys</code>, from the nlme package to demonstrate
+<p>There are three common cases where the default does not display the data correctly.</p><ol><li><p><code><a href="geom_path.html">geom_line()</a></code> where there are multiple individuals and the plot tries to
+connect every observation, even across individuals, with a line.</p></li>
+<li><p><code><a href="geom_path.html">geom_line()</a></code> where a discrete x-position implies groups, whereas observations
+span the discrete x-positions.</p></li>
+<li><p>When the grouping needs to be different over different layers, for example
+when computing a statistic on all observations when another layer shows
+individuals.</p></li>
+</ol><p>The examples below use a longitudinal dataset, <code>Oxboys</code>, from the nlme package to demonstrate
 these cases. <code>Oxboys</code> records the heights (height) and centered ages (age) of 26 boys (Subject),
 measured on nine occasions (Occasion).</p>
     </div>
@@ -111,9 +117,13 @@ measured on nine occasions (Occasion).</p>
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index">
 <ul><li><p>Geoms commonly used with groups: <code><a href="geom_bar.html">geom_bar()</a></code>, <code><a href="geom_histogram.html">geom_histogram()</a></code>, <code><a href="geom_path.html">geom_line()</a></code></p></li>
-<li><p>Run <code><a href="../articles/ggplot2-specs.html">vignette("ggplot2-specs")</a></code> to see an overview of other aesthestics that
+<li><p>Run <code><a href="../articles/ggplot2-specs.html">vignette("ggplot2-specs")</a></code> to see an overview of other aesthetics that
 can be modified.</p></li>
-</ul></div>
+</ul><p>Other aesthetics documentation: 
+<code><a href="aes_colour_fill_alpha.html">aes_colour_fill_alpha</a></code>,
+<code><a href="aes_linetype_size_shape.html">aes_linetype_size_shape</a></code>,
+<code><a href="aes_position.html">aes_position</a></code>,
+<code><a href="aes.html">aes</a>()</code></p></div>
     </div>
 
     <div class="section level2">

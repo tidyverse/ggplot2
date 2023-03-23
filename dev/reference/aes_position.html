@@ -96,6 +96,11 @@ or path.</p>
 segment and curve geometries.</p>
 <p><code>xmin</code>, <code>xmax</code>, <code>ymin</code>  and <code>ymax</code> can be used to specify the position of
 annotations and to represent rectangular areas.</p>
+<p>In addition, there are position aesthetics that are contextual to the
+geometry that they're used in. These are <code>xintercept</code>, <code>yintercept</code>,
+<code>xmin_final</code>, <code>ymin_final</code>, <code>xmax_final</code>, <code>ymax_final</code>, <code>xlower</code>, <code>lower</code>,
+<code>xmiddle</code>, <code>middle</code>, <code>xupper</code>, <code>upper</code>, <code>x0</code> and <code>y0</code>. Many of these are used
+and automatically computed in <code><a href="geom_boxplot.html">geom_boxplot()</a></code>.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -104,8 +109,17 @@ annotations and to represent rectangular areas.</p>
 <code><a href="geom_segment.html">geom_curve()</a></code>, <code><a href="geom_linerange.html">geom_errorbar()</a></code>, <code><a href="geom_path.html">geom_line()</a></code>, <code><a href="geom_linerange.html">geom_linerange()</a></code>,
 <code><a href="geom_path.html">geom_path()</a></code>, <code><a href="geom_point.html">geom_point()</a></code>, <code><a href="geom_linerange.html">geom_pointrange()</a></code>, <code><a href="geom_tile.html">geom_rect()</a></code>,
 <code><a href="geom_segment.html">geom_segment()</a></code></p></li>
+<li><p>Scales that can be used to modify positions:
+<code><a href="scale_continuous.html">scale_continuous()</a></code>,
+<code><a href="scale_discrete.html">scale_discrete()</a></code>,
+<code><a href="scale_binned.html">scale_binned()</a></code>,
+<code><a href="scale_date.html">scale_date()</a></code>.</p></li>
 <li><p>See also <code><a href="annotate.html">annotate()</a></code> for placing annotations.</p></li>
-</ul></div>
+</ul><p>Other aesthetics documentation: 
+<code><a href="aes_colour_fill_alpha.html">aes_colour_fill_alpha</a></code>,
+<code><a href="aes_group_order.html">aes_group_order</a></code>,
+<code><a href="aes_linetype_size_shape.html">aes_linetype_size_shape</a></code>,
+<code><a href="aes.html">aes</a>()</code></p></div>
     </div>
 
     <div class="section level2">

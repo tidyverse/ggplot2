@@ -81,7 +81,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="ggplot2-development-version">ggplot2 (development version)<a class="anchor" aria-label="anchor" href="#ggplot2-development-version"></a></h2>
-<ul><li>
+<ul><li>Aesthetics listed in <code>geom_*()</code> and <code>stat_*()</code> layers now point to relevant documentation (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5123" class="external-link">#5123</a>).</li>
+<li>
 <code><a href="../reference/coord_flip.html">coord_flip()</a></code> has been marked as superseded. The recommended alternative is to swap the <code>x</code> and <code>y</code> aesthetic and/or using the <code>orientation</code> argument in a layer (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5130" class="external-link">#5130</a>).</li>
 <li>
 <code><a href="../reference/geom_ribbon.html">stat_align()</a></code> is now applied per panel instead of globally, preventing issues when facets have different ranges (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5227" class="external-link">#5227</a>).</li>
