@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* To apply dodging more consistently in violin plots, `stat_ydensity()` now
+  has a `drop` argument to keep or discard groups with 1 observation.
 * Aesthetics listed in `geom_*()` and `stat_*()` layers now point to relevant
   documentation (@teunbrand, #5123).
 * `coord_flip()` has been marked as superseded. The recommended alternative is
