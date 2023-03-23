@@ -2,6 +2,22 @@ test_that("geom_text() checks input", {
   expect_snapshot_error(geom_text(position = "jitter", nudge_x = 0.5))
 })
 
+test_that("geom_text() drops missing angles", {
+
+  df <- data_frame0(x = 1, y = 1, label = "A", angle = 0)
+  geom <- geom_text()
+
+  expect_silent(
+    geom$geom$handle_na(df, geom$geom_params)
+  )
+
+  df$angle <- NA
+  expect_warning(
+    geom$geom$handle_na(df, geom$geom_params),
+    "Removed 1 row"
+  )
+})
+
 # compute_just ------------------------------------------------------------
 
 test_that("vertical and horizontal positions are equivalent", {

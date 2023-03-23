@@ -2,17 +2,87 @@
 
 * To apply dodging more consistently in violin plots, `stat_ydensity()` now
   has a `drop` argument to keep or discard groups with 1 observation.
+* `coord_flip()` has been marked as superseded. The recommended alternative is
+  to swap the `x` and `y` aesthetic and/or using the `orientation` argument in
+  a layer (@teunbrand, #5130).
+* `stat_align()` is now applied per panel instead of globally, preventing issues
+  when facets have different ranges (@teunbrand, #5227).
+* A stacking bug in `stat_align()` was fixed (@teunbrand, #5176).
+* `stat_contour()` and `stat_contour_filled()` now warn about and remove
+  duplicated coordinates (@teunbrand, #5215).
+* `annotation_logticks()` skips drawing ticks when the scale range is non-finite
+  instead of throwing an error (@teunbrand, #5229).
+* Fixed spurious warnings when the `weight` was used in `stat_bin_2d()`, 
+  `stat_boxplot()`, `stat_contour()`, `stat_bin_hex()` and `stat_quantile()`
+  (@teunbrand, #5216).
+* Various type checks and their messages have been standardised 
+  (@teunbrand, #4834).
+* The `layer_data()`, `layer_scales()` and `layer_grob()` now have the default
+  `plot = last_plot()` (@teunbrand, #5166).
+* To prevent changing the plotting order, `stat_sf()` is now computed per panel 
+  instead of per group (@teunbrand, #4340).
+* ggplot2 now uses `scales::DiscreteRange` and `scales::ContinuousRange`, which
+  are available to write scale extensions from scratch (@teunbrand, #2710).
+* For the purposes of checking required or non-missing aesthetics, character 
+  vectors are no longer considered non-finite (@teunbrand, @4284).
+* Fixed bug in `coord_sf()` where graticule lines didn't obey 
+  `panel.grid.major`'s linewidth setting (@teunbrand, #5179)
+* The `datetime_scale()` scale constructor is now exported for use in extension
+  packages (@teunbrand, #4701).
+* `geom_text()` drops observations where `angle = NA` instead of throwing an
+  error (@teunbrand, #2757).
+* `update_geom_defaults()` and `update_stat_defaults()` now return properly 
+  classed objects and have updated docs (@dkahle, #5146)
+  
+# ggplot2 3.4.1
+This is a small release focusing on fixing regressions in the 3.4.0 release
+and minor polishes.
+
+## Breaking changes
+
+* The computed variable `y` in `stat_ecdf()` has been superseded by `ecdf` to 
+  prevent incorrect scale transformations (@teunbrand, #5113 and #5112).
+  
+## New features
+
+* Added `scale_linewidth_manual()` and `scale_linewidth_identity()` to support
+  the `linewidth` aesthetic (@teunbrand, #5050).
+  
 * `ggsave()` warns when multiple `filename`s are given, and only writes to the
   first file (@teunbrand, #5114).
+
+## Bug fixes
+
 * Fixed a regression in `geom_hex()` where aesthetics were replicated across 
-  bins (@thomasp85, #5037 and #5044)
+  bins (@thomasp85, #5037 and #5044).
+  
+* Using two ordered factors as facetting variables in 
+  `facet_grid(..., as.table = FALSE)` now throws a warning instead of an
+  error (@teunbrand, #5109).
+  
+* Fixed misbehaviour of `draw_key_boxplot()` and `draw_key_crossbar()` with 
+  skewed key aspect ratio (@teunbrand, #5082).
+  
 * Fixed spurious warning when `weight` aesthetic was used in `stat_smooth()` 
   (@teunbrand based on @clauswilke's suggestion, #5053).
-* The `lwd` alias now correctly replaced by `linewidth` instead of `size` 
-  (@teunbrand based on @clauswilke's suggestion #5051).
-* Fixed a regression in `Coord$train_panel_guides()` where names of guides were 
-  dropped (@maxsutton, #5063)
   
+* The `lwd` alias is now correctly replaced by `linewidth` instead of `size` 
+  (@teunbrand based on @clauswilke's suggestion #5051).
+  
+* Fixed a regression in `Coord$train_panel_guides()` where names of guides were 
+  dropped (@maxsutton, #5063).
+
+In binned scales:
+
+* Automatic breaks should no longer be out-of-bounds, and automatic limits are
+  adjusted to include breaks (@teunbrand, #5082).
+  
+* Zero-range limits no longer throw an error and are treated akin to continuous
+  scales with zero-range limits (@teunbrand, #5066).
+  
+* The `trans = "date"` and `trans = "time"` transformations were made compatible
+  (@teunbrand, #4217).
+
 # ggplot2 3.4.0
 This is a minor release focusing on tightening up the internals and ironing out
 some inconsistencies in the API. The biggest change is the addition of the 

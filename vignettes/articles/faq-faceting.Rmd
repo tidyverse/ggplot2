@@ -37,6 +37,9 @@ The simplest answer is that you should use `facet_wrap()` when faceting by a sin
 `facet_wrap()` is most commonly used to facet by a plot by a single categorical variable.
 
 ```{r}
+#| fig.alt = "A histogram showing the city miles per gallon distribution for 
+#|  three types of drive train, each in their own panel in a 1-row, 3-column 
+#|  layout."
 ggplot(mpg, aes(x = cty)) +
   geom_histogram() +
   facet_wrap(~ drv)
@@ -45,6 +48,10 @@ ggplot(mpg, aes(x = cty)) +
 And `facet_grid()` is commonly used to facet by a plot by two categorical variables.
 
 ```{r}
+#| fig.alt = "A histogram showing the city miles per gallon distribution. The 
+#|  plot has twelve panels in a 4-row, 3-column layout, showing three types of 
+#|  drive train in the horizontal direction, and four numbers of cylinders 
+#|  in the vertical direction. Several panels have no data."
 ggplot(mpg, aes(x = cty)) +
   geom_histogram() +
   facet_grid(cyl ~ drv)
@@ -56,6 +63,9 @@ You can also use `facet_wrap()` with to facet by two categorical variables.
 This will only create facets for combinations of the levels of variables for which data exists.
 
 ```{r}
+#| fig.alt = "A histogram showing the city miles per gallon distribution. The 
+#|  plot has nine panels in a 3-row, 3-column layout, showing all existing 
+#|  combinations of three types of drive train, and four numbers of cylinders."
 ggplot(mpg, aes(x = cty)) +
   geom_histogram() +
   facet_wrap(cyl ~ drv)
@@ -68,6 +78,12 @@ Similarly, you can also use `facet_grid()` to facet by a single categorical vari
 In the formula notation, you use a `.` to indicate that no faceting should be done along that axis, i.e. `cyl ~ .` facets across the y-axis (within a column) while `. ~ cyl` facets across the x-axis (within a row).
 
 ```{r out.width = "50%"}
+#| fig.alt = c(
+#| "A histogram showing the city miles per gallon distribution. The plot has 
+#|  four panels in a 4-row, 1-column layout, showing four numbers of cylinders.",
+#| "A histogram showing the city miles per gallon distribution. The plot has 
+#|  four panels in a 1-row, 4-column layout, showing four numbers of cylinders."
+#| )
 ggplot(mpg, aes(x = cty)) +
   geom_histogram() +
   facet_grid(cyl ~ .)
@@ -91,6 +107,9 @@ Then, add a `geom_vline()` layer to your plot that uses the summarized data.
 Suppose you have the following plot, and you want to add a vertical line at the mean value of `hwy` (highway mileage) for each pane.
 
 ```{r}
+#| fig.alt = "A histogram showing the highway miles per gallon distribution for 
+#|  three types of drive train, each in their own panel in a 1-row, 3-column 
+#|  layout."
 ggplot(mpg, aes(x = hwy)) +
   geom_histogram(binwidth = 5) +
   facet_wrap(~ drv)
@@ -111,6 +130,10 @@ mpg_summary
 Then, add a `geom_vline()` layer to your plot that uses the summary data.
 
 ```{r}
+#| fig.alt = "A histogram showing the highway miles per gallon distribution for 
+#|  three types of drive train, each in their own panel in a 1-row, 3-column 
+#|  layout. Each panel has a vertical black line indicating the mean of the 
+#|  distribution."
 ggplot(mpg, aes(x = hwy)) +
   geom_histogram(binwidth = 5) +
   facet_wrap(~ drv) +
@@ -133,6 +156,12 @@ Suppose you have the following faceted plot.
 By default, both x and y scales are shared across the facets.
 
 ```{r}
+#| fig.alt = "A scatter plot showing city miles per gallon on the x-axis and 
+#|  highway miles per gallon on the y-axis. The plot has twelve panels in a 
+#|  4-row, 3-column layout, showing three types of drive train in the 
+#|  horizontal direction and four numbers of cylinders in the vertical 
+#|  direction. Several panels are empty. Every row has the same y-axis range, 
+#|  and every column has the same x-axis range."
 ggplot(mpg, aes(x = cty, y = hwy)) +
   geom_point() +
   facet_grid(cyl ~ drv)
@@ -141,6 +170,13 @@ ggplot(mpg, aes(x = cty, y = hwy)) +
 You can control this behaviour with the `scales` argument of faceting functions: varying scales across rows (`"free_x"`), columns (`"free_y"`), or both rows and columns (`"free"`), e.g.
 
 ```{r}
+#| fig.alt = "A scatter plot showing city miles per gallon on the x-axis and 
+#|  highway miles per gallon on the y-axis. The plot has twelve panels in a 
+#|  4-row, 3-column layout, showing three types of drive train in the 
+#|  horizontal direction and four numbers of cylinders in the vertical 
+#|  direction. Several panels are empty. Every row in the layout has an 
+#|  independent y-axis range. Every column in the layout has an independent 
+#|  x-axis range."
 ggplot(mpg, aes(x = cty, y = hwy)) +
   geom_point() +
   facet_grid(cyl ~ drv, scales = "free") 
@@ -149,6 +185,13 @@ ggplot(mpg, aes(x = cty, y = hwy)) +
 If you also want to make sure that a particular value or range is included in each of the facets, you can set this with `expand_limits()`, e.g. ensure that 10 is included in the x-axis and values between 20 to 25 are included in the y-axis:
 
 ```{r}
+#| fig.alt = "A scatter plot showing city miles per gallon on the x-axis and 
+#|  highway miles per gallon on the y-axis. The plot has twelve panels in a 
+#|  4-row, 3-column layout, showing three types of drive train in the 
+#|  horizontal direction and four numbers of cylinders in the vertical 
+#|  direction. Several panels are empty. Every row in the layout has an 
+#|  independent y-axis range, but all include the 20-25 interval. Every column 
+#|  in the layout has an independent x-axis range, but all include 10."
 ggplot(mpg, aes(x = cty, y = hwy)) +
   geom_point() +
   facet_grid(cyl ~ drv, scales = "free") +
@@ -170,6 +213,10 @@ Set the `strip.text` element in `theme()` to `element_blank()`.
 Setting `strip.text` to `element_blank()` will remove all facet labels.
 
 ```{r}
+#| fig.alt = "A scatter plot showing city miles per gallon on the x-axis and 
+#|  highway miles per gallon on the y-axis. The plot has twelve panels in a 
+#|  4-row, 3-column layout. The strips, or panel layout titles and 
+#|  their backgrounds, are missing."
 ggplot(mpg, aes(x = cty, y = hwy)) +
   geom_point() +
   facet_grid(cyl ~ drv) +
@@ -179,6 +226,10 @@ ggplot(mpg, aes(x = cty, y = hwy)) +
 You can also remove the labels across rows only with `strip.x.text` or across columns only with `strip.y.text`.
 
 ```{r}
+#| fig.alt = "A scatter plot showing city miles per gallon on the x-axis and 
+#|  highway miles per gallon on the y-axis. The plot has twelve panels in a 
+#|  4-row, 3-column layout. In the vertical direction, the panels indicate four 
+#|  numbers of cylinders. The strips of the horizontal direction are missing."
 ggplot(mpg, aes(x = cty, y = hwy)) +
   geom_point() +
   facet_grid(cyl ~ drv) +
@@ -199,6 +250,11 @@ In the data frame below we have 100 observations, 50 of them come from one group
 These groups have very long names, and so when you facet the ploy by group, the facet labels (strips) get cut off.
 
 ```{r}
+#| fig.alt = "A histogram with two panels in a 1-row, 2-column layout of random 
+#|  data. The first panel has as title 'A long group name for the first group'.
+#|  The second panel has a title 'A muuuuuuuuuuuuuch longer group name for the 
+#|  second group'. However, the second title is clipped to the panel width and
+#|  doesn't show all the text."
 df <- data.frame(
   x = rnorm(100),
   group = c(rep("A long group name for the first group", 50),
@@ -213,6 +269,11 @@ ggplot(df, aes(x = x)) +
 You can control the maximum width of the facet label by setting the `width` in the `label_wrap_gen()` function, which is then passed to the `labeller` argument of your faceting function.
 
 ```{r}
+#| fig.alt = "A histogram with two panels in a 1-row, 2-column layout of random 
+#|  data. The first panel has as title 'A long group name for the first group'
+#|  in two lines of text. The second panel has a title 'A muuuuuuuuuuuuuch 
+#|  longer group name for the second group' in three lines of text. The width
+#|  of the second title now fits within the panel width."
 ggplot(df, aes(x = x)) +
   geom_histogram(binwidth = 0.5) +
   facet_wrap(~ group, labeller = labeller(group = label_wrap_gen(width = 25)))
@@ -244,6 +305,9 @@ df
 You can plot `price` versus `time` and facet by `country`, but the resulting plot can be a bit difficult to read due to the shared y-axis label.
 
 ```{r warning = FALSE}
+#| fig.alt = "A timeseries plot showing price over time for two countries, Japan
+#|  and the US, in two panels in a 2-row, 1-column layout. The countries are
+#|  indicated at the top of each panel. The two y-axes have different ranges."
 ggplot(df, aes(x = year, y = price)) +
   geom_smooth() +
   facet_wrap(~ country, ncol = 1, scales = "free_y") +
@@ -253,6 +317,10 @@ ggplot(df, aes(x = year, y = price)) +
 With the following you can customize the facet labels first with `as_labeller()`, turn off the default y-axis label, and then place the facet labels where the y-axis label goes (`"outside"` and on the `"left"`).
 
 ```{r}
+#| fig.alt = "A timeseries plot showing price over time for two countries and 
+#|  their currencies, the Japanese Yen and the US Dollar, in two panels in a 
+#|  2-row, 1-column layout. The countries and currency units are indicated at 
+#|  the left of each panel. The two y-axes have different ranges."
 ggplot(df, aes(x = year, y = price)) +
   geom_smooth() +
   facet_wrap(~ country, ncol = 1, scales = "free_y", 
