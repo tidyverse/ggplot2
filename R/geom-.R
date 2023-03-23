@@ -1,4 +1,5 @@
 #' @include legend-draw.R
+#' @include utilities-checks.R
 NULL
 
 #' @section Geoms:

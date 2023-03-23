@@ -433,7 +433,7 @@ check_subclass <- function(x, subclass,
                            call = caller_env()) {
   if (inherits(x, subclass)) {
     x
-  } else if (is.character(x) && length(x) == 1) {
+  } else if (is_scalar_character(x)) {
     name <- paste0(subclass, camelize(x, first = TRUE))
     obj <- find_global(name, env = env)
 
@@ -443,33 +443,7 @@ check_subclass <- function(x, subclass,
       obj
     }
   } else {
-    msg <- paste0("{argname} must be either a string or a {.cls {subclass}} object, not ", obj_desc(x))
-    cli::cli_abort(msg, call = call)
-  }
-}
-
-obj_desc <- function(x) {
-  if (isS4(x)) {
-    paste0("an S4 object with class {.cls ", class(x)[[1]], "}")
-  } else if (is.object(x)) {
-    if (is.data.frame(x)) {
-      "a {.cls data.frame}"
-    } else if (is.factor(x)) {
-      "a {.cls factor}"
-    } else {
-      paste0("an S3 object with class ", paste(paste0("{.cls ", class(x), "}"), collapse = "/"))
-    }
-  } else {
-    switch(typeof(x),
-      "NULL" = "a {.val NULL}",
-      character = "a character vector",
-      integer = "an integer vector",
-      logical = "a logical vector",
-      double = "a numeric vector",
-      list = "a list",
-      closure = "a {.cls function}",
-      paste0("a base object of type {.cls ", typeof(x), "}")
-    )
+    stop_input_type(x, as_cli("either a string or a {.cls {subclass}} object"))
   }
 }
 

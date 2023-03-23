@@ -24,3 +24,27 @@ test_that("geom_bar works in both directions", {
   y$flipped_aes <- NULL
   expect_identical(x, flip_data(y, TRUE))
 })
+
+test_that("geom_bar default widths considers panels", {
+
+  dat <- data_frame0(x = c(1:2, 1:2 + 0.1), y = 1,
+                    PANEL = factor(rep(1:2, each = 2)))
+
+  layer  <- geom_bar()
+  params <- layer$geom_params
+
+  # Default should be panel-wise resolution (0.9), not data-wise resolution (0.1)
+  new <- layer$geom$setup_data(dat, params)
+  expect_equal(
+    new$xmax - new$xmin,
+    rep(0.9, 4)
+  )
+
+  # Check that default can still be overridden
+  params$width <- 0.5
+  new <- layer$geom$setup_data(dat, params)
+  expect_equal(
+    new$xmax - new$xmin,
+    rep(0.5, 4)
+  )
+})

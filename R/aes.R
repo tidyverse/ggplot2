@@ -33,7 +33,12 @@ NULL
 #' @seealso [vars()] for another quoting function designed for
 #'   faceting specifications.
 #'
+#'   Run `vignette("ggplot2-specs")` to see an overview of other aesthetics
+#'   that can be modified.
+#'
 #'   [Delayed evaluation][aes_eval] for working with computed variables.
+#'
+#' @family aesthetics documentation
 #' @return A list with class `uneval`. Components of the list are either
 #'   quosures or constants.
 #' @export
@@ -115,9 +120,7 @@ new_aesthetic <- function(x, env = globalenv()) {
   x
 }
 new_aes <- function(x, env = globalenv()) {
-  if (!is.list(x)) {
-    cli::cli_abort("{.arg x} must be a list")
-  }
+  check_object(x, is.list, "a {.cls list}")
   x <- lapply(x, new_aesthetic, env = env)
   structure(x, class = "uneval")
 }

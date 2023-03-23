@@ -39,7 +39,7 @@ Imports:
     lifecycle (> 1.0.1),
     MASS,
     mgcv,
-    rlang (>= 1.0.0),
+    rlang (>= 1.1.0),
     scales (>= 1.2.0),
     stats,
     tibble,
@@ -52,7 +52,6 @@ Suggests:
     hexbin,
     Hmisc,
     knitr,
-    lattice,
     mapproj,
     maps,
     maptools,
@@ -63,7 +62,6 @@ Suggests:
     quantreg,
     ragg,
     RColorBrewer,
-    rgeos,
     rmarkdown,
     rpart,
     sf (>= 0.7-3),
@@ -93,6 +91,7 @@ Collate:
     'compat-plyr.R'
     'utilities.R'
     'aes.R'
+    'utilities-checks.R'
     'legend-draw.R'
     'geom-.R'
     'annotation-custom.R'
@@ -183,6 +182,8 @@ Collate:
     'guides-grid.R'
     'guides-none.R'
     'hexbin.R'
+    'import-standalone-obj-type.R'
+    'import-standalone-types-check.R'
     'labeller.R'
     'labels.R'
     'layer.R'

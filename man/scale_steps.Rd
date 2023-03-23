@@ -232,6 +232,8 @@ ggplot(df, aes(x, y)) +
 \code{\link[scales:seq_gradient_pal]{scales::seq_gradient_pal()}} for details on underlying
 palette, \code{\link[=scale_colour_gradient]{scale_colour_gradient()}} for continuous scales without binning.
 
+The documentation on \link[=aes_colour_fill_alpha]{colour aesthetics}.
+
 Other colour scales: 
 \code{\link{scale_alpha}()},
 \code{\link{scale_colour_brewer}()},
@@ -239,6 +241,8 @@ Other colour scales:
 \code{\link{scale_colour_gradient}()},
 \code{\link{scale_colour_grey}()},
 \code{\link{scale_colour_hue}()},
+\code{\link{scale_colour_identity}()},
+\code{\link{scale_colour_manual}()},
 \code{\link{scale_colour_viridis_d}()}
 }
 \concept{colour scales}

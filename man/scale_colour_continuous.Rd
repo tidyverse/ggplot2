@@ -102,12 +102,16 @@ options(ggplot2.continuous.fill = tmp) # restore previous setting
 \code{\link[=scale_colour_steps]{scale_colour_steps()}}, \code{\link[=scale_colour_viridis_b]{scale_colour_viridis_b()}}, \code{\link[=scale_fill_gradient]{scale_fill_gradient()}},
 \code{\link[=scale_fill_viridis_c]{scale_fill_viridis_c()}}, \code{\link[=scale_fill_steps]{scale_fill_steps()}}, and \code{\link[=scale_fill_viridis_b]{scale_fill_viridis_b()}}
 
+The documentation on \link[=aes_colour_fill_alpha]{colour aesthetics}.
+
 Other colour scales: 
 \code{\link{scale_alpha}()},
 \code{\link{scale_colour_brewer}()},
 \code{\link{scale_colour_gradient}()},
 \code{\link{scale_colour_grey}()},
 \code{\link{scale_colour_hue}()},
+\code{\link{scale_colour_identity}()},
+\code{\link{scale_colour_manual}()},
 \code{\link{scale_colour_steps}()},
 \code{\link{scale_colour_viridis_d}()}
 }

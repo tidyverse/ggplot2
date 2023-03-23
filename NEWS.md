@@ -2,6 +2,27 @@
 
 * When `geom_path()` has aesthetics varying within groups, the `arrow()` is
   applied to groups instead of individual segments (@teunbrand, #4935).
+* The default width of `geom_bar()` is now based on panel-wise resolution of
+  the data, rather than global resolution (@teunbrand, #4336).
+* To apply dodging more consistently in violin plots, `stat_ydensity()` now
+  has a `drop` argument to keep or discard groups with 1 observation.
+* Aesthetics listed in `geom_*()` and `stat_*()` layers now point to relevant
+  documentation (@teunbrand, #5123).
+* `coord_flip()` has been marked as superseded. The recommended alternative is
+  to swap the `x` and `y` aesthetic and/or using the `orientation` argument in
+  a layer (@teunbrand, #5130).
+* `stat_align()` is now applied per panel instead of globally, preventing issues
+  when facets have different ranges (@teunbrand, #5227).
+* A stacking bug in `stat_align()` was fixed (@teunbrand, #5176).
+* `stat_contour()` and `stat_contour_filled()` now warn about and remove
+  duplicated coordinates (@teunbrand, #5215).
+* `annotation_logticks()` skips drawing ticks when the scale range is non-finite
+  instead of throwing an error (@teunbrand, #5229).
+* Fixed spurious warnings when the `weight` was used in `stat_bin_2d()`, 
+  `stat_boxplot()`, `stat_contour()`, `stat_bin_hex()` and `stat_quantile()`
+  (@teunbrand, #5216).
+* Various type checks and their messages have been standardised 
+  (@teunbrand, #4834).
 * The `layer_data()`, `layer_scales()` and `layer_grob()` now have the default
   `plot = last_plot()` (@teunbrand, #5166).
 * To prevent changing the plotting order, `stat_sf()` is now computed per panel 

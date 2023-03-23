@@ -9,6 +9,10 @@
 #' @inheritDotParams discrete_scale -expand -position -na.value
 #' @param na.value The linetype to use for `NA` values.
 #' @rdname scale_linetype
+#' @seealso
+#' The documentation for [differentiation related aesthetics][aes_linetype_size_shape].
+#'
+#' Other linetype scales: [scale_linetype_manual()], [scale_linetype_identity()].
 #' @export
 #' @examples
 #' base <- ggplot(economics_long, aes(date, value01))

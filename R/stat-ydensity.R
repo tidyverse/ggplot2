@@ -4,6 +4,9 @@
 #' @param scale if "area" (default), all violins have the same area (before trimming
 #'   the tails). If "count", areas are scaled proportionally to the number of
 #'   observations. If "width", all violins have the same maximum width.
+#' @param drop Whether to discard groups with less than 2 observations
+#'   (`TRUE`, default) or keep such groups for position adjustment purposes
+#'   (`FALSE`).
 #'
 #' @eval rd_computed_vars(
 #'   density = "Density estimate.",
@@ -28,6 +31,7 @@ stat_ydensity <- function(mapping = NULL, data = NULL,
                           kernel = "gaussian",
                           trim = TRUE,
                           scale = "area",
+                          drop  = TRUE,
                           na.rm = FALSE,
                           orientation = NA,
                           show.legend = NA,
@@ -48,6 +52,7 @@ stat_ydensity <- function(mapping = NULL, data = NULL,
       kernel = kernel,
       trim = trim,
       scale = scale,
+      drop  = drop,
       na.rm = na.rm,
       ...
     )
@@ -72,10 +77,20 @@ StatYdensity <- ggproto("StatYdensity", Stat,
   extra_params = c("na.rm", "orientation"),
 
   compute_group = function(self, data, scales, width = NULL, bw = "nrd0", adjust = 1,
-                       kernel = "gaussian", trim = TRUE, na.rm = FALSE, flipped_aes = FALSE) {
+                       kernel = "gaussian", trim = TRUE, na.rm = FALSE,
+                       drop = TRUE, flipped_aes = FALSE) {
     if (nrow(data) < 2) {
-      cli::cli_warn("Groups with fewer than two data points have been dropped.")
-      return(data_frame0())
+      if (isTRUE(drop)) {
+        cli::cli_warn(c(
+          "Groups with fewer than two datapoints have been dropped.",
+          i = paste0(
+            "Set {.code drop = FALSE} to consider such groups for position ",
+            "adjustment purposes."
+        )))
+        return(data_frame0())
+      }
+      ans <- data_frame0(x = data$x, n = nrow(data))
+      return(ans)
     }
     range <- range(data$y, na.rm = TRUE)
     modifier <- if (trim) 0 else 3
@@ -97,21 +112,27 @@ StatYdensity <- ggproto("StatYdensity", Stat,
 
   compute_panel = function(self, data, scales, width = NULL, bw = "nrd0", adjust = 1,
                            kernel = "gaussian", trim = TRUE, na.rm = FALSE,
-                           scale = "area", flipped_aes = FALSE) {
+                           scale = "area", flipped_aes = FALSE, drop = TRUE) {
     data <- flip_data(data, flipped_aes)
     data <- ggproto_parent(Stat, self)$compute_panel(
       data, scales, width = width, bw = bw, adjust = adjust, kernel = kernel,
-      trim = trim, na.rm = na.rm
+      trim = trim, na.rm = na.rm, drop = drop
     )
+    if (!drop && any(data$n < 2)) {
+      cli::cli_warn(
+        "Cannot compute density for groups with fewer than two datapoints."
+      )
+    }
 
     # choose how violins are scaled relative to each other
     data$violinwidth <- switch(scale,
       # area : keep the original densities but scale them to a max width of 1
       #        for plotting purposes only
-      area = data$density / max(data$density),
+      area = data$density / max(data$density, na.rm = TRUE),
       # count: use the original densities scaled to a maximum of 1 (as above)
       #        and then scale them according to the number of observations
-      count = data$density / max(data$density) * data$n / max(data$n),
+      count = data$density / max(data$density, na.rm = TRUE) *
+        data$n / max(data$n),
       # width: constant width (density scaled to a maximum of 1)
       width = data$scaled
     )

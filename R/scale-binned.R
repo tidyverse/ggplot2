@@ -8,6 +8,8 @@
 #' @inheritParams binned_scale
 #'
 #' @family position scales
+#' @seealso
+#' The [position documentation][aes_position].
 #' @name scale_binned
 #' @aliases NULL
 #'

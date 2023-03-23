@@ -1,8 +1,6 @@
 bins <- function(breaks, closed = "right",
                  fuzz = 1e-08 * stats::median(diff(breaks))) {
-  if (!is.numeric(breaks)) {
-    cli::cli_abort("{.arg breaks} must be a numeric vector")
-  }
+  check_numeric(breaks)
   closed <- arg_match0(closed, c("right", "left"))
 
   breaks <- sort(breaks)
@@ -56,12 +54,7 @@ bin_breaks_width <- function(x_range, width = NULL, center = NULL,
     cli::cli_abort("{.arg x_range} must have two elements")
   }
 
-  # if (length(x_range) == 0) {
-  #   return(bin_params(numeric()))
-  # }
-  if (!(is.numeric(width) && length(width) == 1)) {
-    cli::cli_abort("{.arg width} must be a number")
-  }
+  check_number_decimal(width)
   if (width <= 0) {
     cli::cli_abort("{.arg binwidth} must be positive")
   }
@@ -115,10 +108,8 @@ bin_breaks_bins <- function(x_range, bins = 30, center = NULL,
     cli::cli_abort("{.arg x_range} must have two elements")
   }
 
-  bins <- as.integer(bins)
-  if (bins < 1) {
-    cli::cli_abort("{.arg bins} must be 1 or greater")
-  } else if (zero_range(x_range)) {
+  check_number_whole(bins, min = 1)
+  if (zero_range(x_range)) {
     # 0.1 is the same width as the expansion `default_expansion()` gives for 0-width data
     width <- 0.1
   } else if (bins == 1) {
@@ -136,9 +127,7 @@ bin_breaks_bins <- function(x_range, bins = 30, center = NULL,
 # Compute bins ------------------------------------------------------------
 
 bin_vector <- function(x, bins, weight = NULL, pad = FALSE) {
-  if (!is_bins(bins)) {
-    cli::cli_abort("{.arg bins} must be a {.cls ggplot2_bins} object")
-  }
+  check_object(bins, is_bins, "a {.cls ggplot2_bins} object")
 
   if (all(is.na(x))) {
     return(bin_out(length(x), NA, NA, xmin = NA, xmax = NA))

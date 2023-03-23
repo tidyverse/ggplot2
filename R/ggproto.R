@@ -78,9 +78,7 @@ ggproto <- function(`_class` = NULL, `_inherit` = NULL, ...) {
 
   super <- find_super()
   if (!is.null(super)) {
-    if (!is.ggproto(super)) {
-      cli::cli_abort("{.arg _inherit} must be a {.cls ggproto} object.")
-    }
+    check_object(super, is.ggproto, "a {.cls ggproto} object", arg = "_inherit")
     e$super <- find_super
     class(e) <- c(`_class`, class(super))
   } else {
