@@ -8,6 +8,8 @@
 #' @name scale_linewidth
 #' @inheritParams continuous_scale
 #' @inheritParams binned_scale
+#' @seealso
+#' The documentation for [differentiation related aesthetics][aes_linetype_size_shape].
 #' @param range a numeric vector of length 2 that specifies the minimum and
 #'   maximum size of the plotting symbol after transformation.
 #' @examples

@@ -10,6 +10,9 @@
 #'
 #' @inheritParams continuous_scale
 #' @family position scales
+#' @seealso
+#' The [position documentation][aes_position].
+#'
 #' @param ... Other arguments passed on to `scale_(x|y)_continuous()`
 #' @examples
 #' p1 <- ggplot(mpg, aes(displ, hwy)) +

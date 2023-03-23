@@ -104,3 +104,8 @@ ggplot(df_shapes, aes(0, 0, shape = shape)) +
   facet_wrap(~shape) +
   theme_void()
 }
+\seealso{
+The documentation for \link[=aes_linetype_size_shape]{differentiation related aesthetics}.
+
+Other shape scales: \code{\link[=scale_shape_manual]{scale_shape_manual()}}, \code{\link[=scale_shape_identity]{scale_shape_identity()}}.
+}

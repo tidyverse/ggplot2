@@ -134,18 +134,18 @@ package.
 
 \code{geom_text()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
-\item \strong{\code{x}}
-\item \strong{\code{y}}
+\item \strong{\code{\link[=aes_position]{x}}}
+\item \strong{\code{\link[=aes_position]{y}}}
 \item \strong{\code{label}}
-\item \code{alpha}
+\item \code{\link[=aes_colour_fill_alpha]{alpha}}
 \item \code{angle}
-\item \code{colour}
+\item \code{\link[=aes_colour_fill_alpha]{colour}}
 \item \code{family}
 \item \code{fontface}
-\item \code{group}
+\item \code{\link[=aes_group_order]{group}}
 \item \code{hjust}
 \item \code{lineheight}
-\item \code{size}
+\item \code{\link[=aes_linetype_size_shape]{size}}
 \item \code{vjust}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.

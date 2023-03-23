@@ -8,6 +8,12 @@
 #'
 #' @section Colour and fill:
 #'
+#' The `colour` aesthetic is used to draw lines and strokes, such as in
+#' [`geom_point()`] and [`geom_line()`], but also the line contours of
+#' [`geom_rect()`] and [`geom_polygon()`]. The `fill` aesthetic is used to
+#' colour the inside areas of geoms, such as [`geom_rect()`] and
+#' [`geom_polygon()`], but also the insides of shapes 21-25 of [`geom_point()`].
+#'
 #' Colours and fills can be specified in the following ways:
 #' * A name, e.g., `"red"`. R has 657 built-in named colours, which can be
 #' listed with [grDevices::colors()].
@@ -38,9 +44,11 @@
 #' [scale_fill_gradient()], [scale_fill_grey()],
 #' [scale_fill_hue()], [scale_fill_identity()],
 #' [scale_fill_manual()], [scale_fill_viridis_d()]
-#' * Other options for modifying alpha: [scale_alpha()]
-#' * Run `vignette("ggplot2-specs")` to see an overview of other aesthestics that
+#' * Other options for modifying alpha:
+#' [scale_alpha()], [scale_alpha_manual()], [scale_alpha_identity()]
+#' * Run `vignette("ggplot2-specs")` to see an overview of other aesthetics that
 #' can be modified.
+#' @family aesthetics documentation
 #'
 #' @name aes_colour_fill_alpha
 #' @aliases colour color fill

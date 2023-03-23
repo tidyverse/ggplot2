@@ -133,9 +133,9 @@ points at specified quartiles of the theoretical and sample distributions.
 \code{stat_qq()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{sample}}
-\item \code{group}
-\item \code{x}
-\item \code{y}
+\item \code{\link[=aes_group_order]{group}}
+\item \code{\link[=aes_position]{x}}
+\item \code{\link[=aes_position]{y}}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 
@@ -143,9 +143,9 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 \code{stat_qq_line()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{sample}}
-\item \code{group}
-\item \code{x}
-\item \code{y}
+\item \code{\link[=aes_group_order]{group}}
+\item \code{\link[=aes_position]{x}}
+\item \code{\link[=aes_position]{y}}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

@@ -220,6 +220,8 @@ p1 + scale_y_continuous(trans = scales::reciprocal_trans())
 
 }
 \seealso{
+The \link[=aes_position]{position documentation}.
+
 Other position scales: 
 \code{\link{scale_x_binned}()},
 \code{\link{scale_x_date}()},

@@ -22,6 +22,8 @@
 #' @seealso [scale_size_area()] if you want 0 values to be mapped
 #'   to points with size 0. [scale_linewidth()] if you want to scale the width
 #'   of lines.
+#'
+#'   The documentation for [differentiation related aesthetics][aes_linetype_size_shape].
 #' @examples
 #' p <- ggplot(mpg, aes(displ, hwy, size = hwy)) +
 #'    geom_point()
