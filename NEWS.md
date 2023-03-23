@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `coord_flip()` has been marked as superseded. The recommended alternative is
+  to swap the `x` and `y` aesthetic and/or using the `orientation` argument in
+  a layer (@teunbrand, #5130).
 * `stat_align()` is now applied per panel instead of globally, preventing issues
   when facets have different ranges (@teunbrand, #5227).
 * A stacking bug in `stat_align()` was fixed (@teunbrand, #5176).
