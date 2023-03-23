@@ -72,15 +72,15 @@ A rotated version of \code{\link[=geom_errorbar]{geom_errorbar()}}.
 
 \code{geom_errorbarh()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
-\item \strong{\code{xmin}}
-\item \strong{\code{xmax}}
-\item \strong{\code{y}}
-\item \code{alpha}
-\item \code{colour}
-\item \code{group}
+\item \strong{\code{\link[=aes_position]{xmin}}}
+\item \strong{\code{\link[=aes_position]{xmax}}}
+\item \strong{\code{\link[=aes_position]{y}}}
+\item \code{\link[=aes_colour_fill_alpha]{alpha}}
+\item \code{\link[=aes_colour_fill_alpha]{colour}}
+\item \code{\link[=aes_group_order]{group}}
 \item \code{height}
-\item \code{linetype}
-\item \code{linewidth}
+\item \code{\link[=aes_linetype_size_shape]{linetype}}
+\item \code{\link[=aes_linetype_size_shape]{linewidth}}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

@@ -14,6 +14,8 @@
 #' @inheritParams discrete_scale
 #' @rdname scale_discrete
 #' @family position scales
+#' @seealso
+#' The [position documentation][aes_position].
 #' @export
 #' @examples
 #' ggplot(diamonds, aes(cut)) + geom_bar()

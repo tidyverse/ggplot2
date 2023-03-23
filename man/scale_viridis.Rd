@@ -183,6 +183,8 @@ v + scale_fill_viridis_b()
 
 }
 \seealso{
+The documentation on \link[=aes_colour_fill_alpha]{colour aesthetics}.
+
 Other colour scales: 
 \code{\link{scale_alpha}()},
 \code{\link{scale_colour_brewer}()},
@@ -190,6 +192,8 @@ Other colour scales:
 \code{\link{scale_colour_gradient}()},
 \code{\link{scale_colour_grey}()},
 \code{\link{scale_colour_hue}()},
+\code{\link{scale_colour_identity}()},
+\code{\link{scale_colour_manual}()},
 \code{\link{scale_colour_steps}()}
 }
 \concept{colour scales}

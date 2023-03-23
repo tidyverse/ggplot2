@@ -16,14 +16,23 @@
 #' and/or `linetype`. This is demonstrated in the examples below.
 #'
 #' There are three common cases where the default does not display the data correctly.
+#' 1. `geom_line()` where there are multiple individuals and the plot tries to
+#'   connect every observation, even across individuals, with a line.
+#' 1. `geom_line()` where a discrete x-position implies groups, whereas observations
+#'   span the discrete x-positions.
+#' 1. When the grouping needs to be different over different layers, for example
+#'   when computing a statistic on all observations when another layer shows
+#'   individuals.
+#'
 #' The examples below use a longitudinal dataset, `Oxboys`, from the nlme package to demonstrate
 #' these cases. `Oxboys` records the heights (height) and centered ages (age) of 26 boys (Subject),
 #' measured on nine occasions (Occasion).
 #'
 #' @seealso
 #' * Geoms commonly used with groups: [geom_bar()], [geom_histogram()], [geom_line()]
-#' * Run `vignette("ggplot2-specs")` to see an overview of other aesthestics that
+#' * Run `vignette("ggplot2-specs")` to see an overview of other aesthetics that
 #' can be modified.
+#' @family aesthetics documentation
 #'
 #' @examples
 #' \donttest{

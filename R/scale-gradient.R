@@ -19,6 +19,8 @@
 #' @inheritDotParams continuous_scale -na.value -guide -aesthetics
 #' @seealso [scales::seq_gradient_pal()] for details on underlying
 #'   palette, [scale_colour_steps()] for binned variants of these scales.
+#'
+#'   The documentation on [colour aesthetics][aes_colour_fill_alpha].
 #' @family colour scales
 #' @rdname scale_gradient
 #' @export

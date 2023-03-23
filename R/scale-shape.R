@@ -12,6 +12,10 @@
 #' @inheritParams scale_x_discrete
 #' @inheritDotParams discrete_scale -expand -position
 #' @rdname scale_shape
+#' @seealso
+#' The documentation for [differentiation related aesthetics][aes_linetype_size_shape].
+#'
+#' Other shape scales: [scale_shape_manual()], [scale_shape_identity()].
 #' @export
 #' @examples
 #' set.seed(596)
