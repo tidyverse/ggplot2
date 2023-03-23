@@ -81,7 +81,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="ggplot2-development-version">ggplot2 (development version)<a class="anchor" aria-label="anchor" href="#ggplot2-development-version"></a></h2>
-<ul><li>To apply dodging more consistently in violin plots, <code><a href="../reference/geom_violin.html">stat_ydensity()</a></code> now has a <code>drop</code> argument to keep or discard groups with 1 observation.</li>
+<ul><li>The default width of <code><a href="../reference/geom_bar.html">geom_bar()</a></code> is now based on panel-wise resolution of the data, rather than global resolution (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/4336" class="external-link">#4336</a>).</li>
+<li>To apply dodging more consistently in violin plots, <code><a href="../reference/geom_violin.html">stat_ydensity()</a></code> now has a <code>drop</code> argument to keep or discard groups with 1 observation.</li>
 <li>Aesthetics listed in <code>geom_*()</code> and <code>stat_*()</code> layers now point to relevant documentation (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5123" class="external-link">#5123</a>).</li>
 <li>
 <code><a href="../reference/coord_flip.html">coord_flip()</a></code> has been marked as superseded. The recommended alternative is to swap the <code>x</code> and <code>y</code> aesthetic and/or using the <code>orientation</code> argument in a layer (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5130" class="external-link">#5130</a>).</li>
