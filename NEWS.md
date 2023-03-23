@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* The default width of `geom_bar()` is now based on panel-wise resolution of
+  the data, rather than global resolution (@teunbrand, #4336).
 * To apply dodging more consistently in violin plots, `stat_ydensity()` now
   has a `drop` argument to keep or discard groups with 1 observation.
 * Aesthetics listed in `geom_*()` and `stat_*()` layers now point to relevant
