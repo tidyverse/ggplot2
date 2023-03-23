@@ -4,7 +4,7 @@
 #' extension developers who are writing new sf-based geoms or stats.
 #' The sf layer checks whether the data contains a geometry column, and
 #' if one is found it is automatically mapped to the `geometry` aesthetic.
-#' @include layer.r
+#' @include layer.R
 #' @inheritParams layer
 #' @keywords internal
 #' @export

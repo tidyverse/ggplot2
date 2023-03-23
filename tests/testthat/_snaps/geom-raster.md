@@ -1,18 +1,18 @@
 # geom_raster() checks input and coordinate system
 
-    `hjust` must be a number
+    `hjust` must be a number, not a double vector.
 
 ---
 
-    `hjust` must be a number
+    `hjust` must be a number, not the string "a".
 
 ---
 
-    `vjust` must be a number
+    `vjust` must be a number, not a double vector.
 
 ---
 
-    `vjust` must be a number
+    `vjust` must be a number, not the string "a".
 
 ---
 
