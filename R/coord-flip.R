@@ -1,30 +1,48 @@
 #' Cartesian coordinates with x and y flipped
 #'
-#' Flip cartesian coordinates so that horizontal becomes vertical, and
-#' vertical, horizontal. This is primarily useful for converting geoms and
-#' statistics which display y conditional on x, to x conditional on y.
+#' @description
+#' `r lifecycle::badge("superseded")`
+#'
+#' This function is superseded because in many cases, `coord_flip()` can easily
+#' be replaced by swapping the x and y aesthetics, or optionally setting the
+#' `orientation` argument in geom and stat layers.
+#'
+#' `coord_flip()` is useful for geoms and statistics that do not support
+#' the `orientation` setting, and converting the display of y conditional on x,
+#' to x conditional on y.
 #'
 #' @export
 #' @inheritParams coord_cartesian
 #' @examples
-#' # Very useful for creating boxplots, and other interval
-#' # geoms in the horizontal instead of vertical position.
+#' # The preferred method of creating horizontal instead of vertical boxplots
+#' ggplot(diamonds, aes(price, cut)) +
+#'   geom_boxplot()
 #'
+#' # Using `coord_flip()` to make the same plot
 #' ggplot(diamonds, aes(cut, price)) +
 #'   geom_boxplot() +
 #'   coord_flip()
 #'
-#' h <- ggplot(diamonds, aes(carat)) +
-#'   geom_histogram()
-#' h
-#' h + coord_flip()
-#' h + coord_flip() + scale_x_reverse()
+#' # With swapped aesthetics, the y-scale controls the left axis
+#' ggplot(diamonds, aes(y = carat)) +
+#'   geom_histogram() +
+#'   scale_y_reverse()
 #'
-#' # You can also use it to flip line and area plots:
-#' df <- data.frame(x = 1:5, y = (1:5) ^ 2)
-#' ggplot(df, aes(x, y)) +
-#'   geom_area()
-#' last_plot() + coord_flip()
+#' # In `coord_flip()`, the x-scale controls the left axis
+#' ggplot(diamonds, aes(carat)) +
+#'   geom_histogram() +
+#'   coord_flip() +
+#'   scale_x_reverse()
+#'
+#' # In line and area plots, swapped aesthetics require an explicit orientation
+#' df <- data.frame(a = 1:5, b = (1:5) ^ 2)
+#' ggplot(df, aes(b, a)) +
+#'   geom_area(orientation = "y")
+#'
+#' # The same plot with `coord_flip()`
+#' ggplot(df, aes(a, b)) +
+#'   geom_area() +
+#'   coord_flip()
 coord_flip <- function(xlim = NULL, ylim = NULL, expand = TRUE, clip = "on") {
   ggproto(NULL, CoordFlip,
     limits = list(x = xlim, y = ylim),
