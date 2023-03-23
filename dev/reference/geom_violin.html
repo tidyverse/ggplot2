@@ -121,6 +121,7 @@ boxplot.</p>
 <span>  kernel <span class="op">=</span> <span class="st">"gaussian"</span>,</span>
 <span>  trim <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  scale <span class="op">=</span> <span class="st">"area"</span>,</span>
+<span>  drop <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  orientation <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
@@ -229,6 +230,12 @@ For example, <code>adjust = 1/2</code> means use half of the default bandwidth.<
 <dt>kernel</dt>
 <dd><p>Kernel. See list of available kernels in <code><a href="https://rdrr.io/r/stats/density.html" class="external-link">density()</a></code>.</p></dd>
 
+
+<dt>drop</dt>
+<dd><p>Whether to discard groups with less than 2 observations
+(<code>TRUE</code>, default) or keep such groups for position adjustment purposes
+(<code>FALSE</code>).</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="orientation">Orientation<a class="anchor" aria-label="anchor" href="#orientation"></a></h2>
@@ -312,7 +319,9 @@ for examples with data along the x axis.</p></div>
 <span class="r-in"><span><span class="va">p</span> <span class="op">+</span> <span class="fu">geom_violin</span><span class="op">(</span><span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="geom_violin-9.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">+</span> <span class="fu">geom_violin</span><span class="op">(</span><span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">vs</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Groups with fewer than two data points have been dropped.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Groups with fewer than two datapoints have been dropped.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Set `drop = FALSE` to consider such groups for position adjustment</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   purposes.</span>
 <span class="r-plt img"><img src="geom_violin-10.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">+</span> <span class="fu">geom_violin</span><span class="op">(</span><span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">am</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="geom_violin-11.png" alt="" width="700" height="433"></span>
@@ -350,7 +359,9 @@ for examples with data along the x axis.</p></div>
 <span class="r-in"><span>  <span class="fu">geom_violin</span><span class="op">(</span><span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>group <span class="op">=</span> <span class="fu"><a href="cut_interval.html">cut_width</a></span><span class="op">(</span><span class="va">year</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span>, scale <span class="op">=</span> <span class="st">"width"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 53573 rows containing non-finite values (`stat_ydensity()`).</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Groups with fewer than two data points have been dropped.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Groups with fewer than two datapoints have been dropped.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Set `drop = FALSE` to consider such groups for position adjustment</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   purposes.</span>
 <span class="r-plt img"><img src="geom_violin-14.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
