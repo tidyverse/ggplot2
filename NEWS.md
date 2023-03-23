@@ -3,6 +3,11 @@
 * `coord_flip()` has been marked as superseded. The recommended alternative is
   to swap the `x` and `y` aesthetic and/or using the `orientation` argument in
   a layer (@teunbrand, #5130).
+* `stat_align()` is now applied per panel instead of globally, preventing issues
+  when facets have different ranges (@teunbrand, #5227).
+* A stacking bug in `stat_align()` was fixed (@teunbrand, #5176).
+* `stat_contour()` and `stat_contour_filled()` now warn about and remove
+  duplicated coordinates (@teunbrand, #5215).
 * `annotation_logticks()` skips drawing ticks when the scale range is non-finite
   instead of throwing an error (@teunbrand, #5229).
 * Fixed spurious warnings when the `weight` was used in `stat_bin_2d()`, 
