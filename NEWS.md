@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* To improve `width` calculation in bar plots with empty factor levels, 
+  `resolution()` considers `mapped_discrete` values as having resolution 1 
+  (@teunbrand, #5211)
 * `coord_flip()` has been marked as superseded. The recommended alternative is
   to swap the `x` and `y` aesthetic and/or using the `orientation` argument in
   a layer (@teunbrand, #5130).
