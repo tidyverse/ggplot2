@@ -21,6 +21,7 @@
 #'   example, to apply colour settings to the `colour` and `fill` aesthetics at the
 #'   same time, via `aesthetics = c("colour", "fill")`.
 #' @param guide Guide to use for this scale. Defaults to `"none"`.
+#' @family colour scales
 #' @examples
 #' ggplot(luv_colours, aes(u, v)) +
 #'   geom_point(aes(colour = col), size = 3) +
@@ -78,6 +79,8 @@ scale_fill_identity <- function(..., guide = "none", aesthetics = "fill") {
 }
 
 #' @rdname scale_identity
+#' @seealso
+#' Other shape scales: [scale_shape()], [scale_shape_manual()].
 #' @export
 scale_shape_identity <- function(..., guide = "none") {
   sc <- continuous_scale("shape", "identity", identity_pal(), ..., guide = guide,
@@ -87,6 +90,8 @@ scale_shape_identity <- function(..., guide = "none") {
 }
 
 #' @rdname scale_identity
+#' @seealso
+#' Other linetype scales: [scale_linetype()], [scale_linetype_manual()].
 #' @export
 scale_linetype_identity <- function(..., guide = "none") {
   sc <- discrete_scale("linetype", "identity", identity_pal(), ..., guide = guide,
@@ -96,6 +101,8 @@ scale_linetype_identity <- function(..., guide = "none") {
 }
 
 #' @rdname scale_identity
+#' @seealso
+#' Other alpha scales: [scale_alpha()], [scale_alpha_manual()].
 #' @export
 scale_linewidth_identity <- function(..., guide = "none") {
   sc <- continuous_scale("linewidth", "identity", identity_pal(), ...,
@@ -114,6 +121,8 @@ scale_alpha_identity <- function(..., guide = "none") {
 }
 
 #' @rdname scale_identity
+#' @seealso
+#' Other size scales: [scale_size()], [scale_size_manual()].
 #' @export
 scale_size_identity <- function(..., guide = "none") {
   sc <- continuous_scale("size", "identity", identity_pal(), ..., guide = guide,

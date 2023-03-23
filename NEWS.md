@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Aesthetics listed in `geom_*()` and `stat_*()` layers now point to relevant
+  documentation (@teunbrand, #5123).
 * `coord_flip()` has been marked as superseded. The recommended alternative is
   to swap the `x` and `y` aesthetic and/or using the `orientation` argument in
   a layer (@teunbrand, #5130).

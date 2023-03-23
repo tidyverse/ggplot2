@@ -115,15 +115,15 @@ performance special case for when all the tiles are the same size.
 
 \code{geom_tile()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
-\item \strong{\code{x}}
-\item \strong{\code{y}}
-\item \code{alpha}
-\item \code{colour}
-\item \code{fill}
-\item \code{group}
+\item \strong{\code{\link[=aes_position]{x}}}
+\item \strong{\code{\link[=aes_position]{y}}}
+\item \code{\link[=aes_colour_fill_alpha]{alpha}}
+\item \code{\link[=aes_colour_fill_alpha]{colour}}
+\item \code{\link[=aes_colour_fill_alpha]{fill}}
+\item \code{\link[=aes_group_order]{group}}
 \item \code{height}
-\item \code{linetype}
-\item \code{linewidth}
+\item \code{\link[=aes_linetype_size_shape]{linetype}}
+\item \code{\link[=aes_linetype_size_shape]{linewidth}}
 \item \code{width}
 }
 Note that \code{geom_raster()} ignores \code{colour}.
