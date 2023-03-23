@@ -81,7 +81,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="ggplot2-development-version">ggplot2 (development version)<a class="anchor" aria-label="anchor" href="#ggplot2-development-version"></a></h2>
-<ul><li>The default width of <code><a href="../reference/geom_bar.html">geom_bar()</a></code> is now based on panel-wise resolution of the data, rather than global resolution (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/4336" class="external-link">#4336</a>).</li>
+<ul><li>When <code><a href="../reference/geom_path.html">geom_path()</a></code> has aesthetics varying within groups, the <code><a href="https://rdrr.io/r/grid/arrow.html" class="external-link">arrow()</a></code> is applied to groups instead of individual segments (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/4935" class="external-link">#4935</a>).</li>
+<li>The default width of <code><a href="../reference/geom_bar.html">geom_bar()</a></code> is now based on panel-wise resolution of the data, rather than global resolution (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/4336" class="external-link">#4336</a>).</li>
 <li>To apply dodging more consistently in violin plots, <code><a href="../reference/geom_violin.html">stat_ydensity()</a></code> now has a <code>drop</code> argument to keep or discard groups with 1 observation.</li>
 <li>Aesthetics listed in <code>geom_*()</code> and <code>stat_*()</code> layers now point to relevant documentation (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5123" class="external-link">#5123</a>).</li>
 <li>
