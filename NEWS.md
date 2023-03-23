@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `stat_align()` is now applied per panel instead of globally, preventing issues
+  when facets have different ranges (@teunbrand, #5227).
+* A stacking bug in `stat_align()` was fixed (@teunbrand, #5176).
 * `stat_contour()` and `stat_contour_filled()` now warn about and remove
   duplicated coordinates (@teunbrand, #5215).
 * `annotation_logticks()` skips drawing ticks when the scale range is non-finite
