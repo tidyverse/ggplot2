@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* When `geom_path()` has aesthetics varying within groups, the `arrow()` is
+  applied to groups instead of individual segments (@teunbrand, #4935).
 * The default width of `geom_bar()` is now based on panel-wise resolution of
   the data, rather than global resolution (@teunbrand, #4336).
 * To apply dodging more consistently in violin plots, `stat_ydensity()` now
