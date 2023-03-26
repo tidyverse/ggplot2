@@ -188,6 +188,9 @@ GeomPath <- ggproto("GeomPath", Geom,
     end <-   c(group_diff, TRUE)
 
     if (!constant) {
+
+      arrow <- repair_segment_arrow(arrow, munched$group)
+
       segmentsGrob(
         munched$x[!end], munched$y[!end], munched$x[!start], munched$y[!start],
         default.units = "native", arrow = arrow,
@@ -362,4 +365,41 @@ stairstep <- function(data, direction = "hv") {
   }
 
   data_frame0(x = x, y = y, data_attr)
+}
+
+repair_segment_arrow <- function(arrow, group) {
+  # Early exit if there is no arrow
+  if (is.null(arrow)) {
+    return(arrow)
+  }
+
+  # Get group parameters
+  rle       <- vec_group_rle(group) # handles NAs better than base::rle()
+  n_groups  <- length(rle)
+  rle_len   <- field(rle, "length") - 1 # segments have 1 member less than lines
+  rle_end   <- cumsum(rle_len)
+  rle_start <- rle_end - rle_len + 1
+
+  # Recycle ends and lengths
+  ends <- rep(rep(arrow$ends,   length.out = n_groups), rle_len)
+  len  <- rep(rep(arrow$length, length.out = n_groups), rle_len)
+
+  # Repair ends
+  # Convert 'both' ends to first/last in multi-member groups
+  is_both <- which(ends == 3)
+  ends[setdiff(intersect(rle_start, is_both), rle_end)] <- 1L
+  ends[setdiff(intersect(rle_end, is_both), rle_start)] <- 2L
+  arrow$ends <- ends
+
+  # Repair lengths
+  zero <- unit(0, "mm")
+  # Set length of first segment to zero when ends is 'last'
+  len[intersect(setdiff(rle_start, rle_end), which(ends == 2))] <- zero
+  # Set length of last segment to zero when ends is 'first'
+  len[intersect(setdiff(rle_end, rle_start), which(ends == 1))] <- zero
+  # Set length of middle pieces to zero
+  len[setdiff(seq_along(len), c(rle_start, rle_end))] <- zero
+  arrow$length <- len
+
+  return(arrow)
 }

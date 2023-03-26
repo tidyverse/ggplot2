@@ -3,6 +3,12 @@
 * To improve `width` calculation in bar plots with empty factor levels, 
   `resolution()` considers `mapped_discrete` values as having resolution 1 
   (@teunbrand, #5211)
+* When `geom_path()` has aesthetics varying within groups, the `arrow()` is
+  applied to groups instead of individual segments (@teunbrand, #4935).
+* The default width of `geom_bar()` is now based on panel-wise resolution of
+  the data, rather than global resolution (@teunbrand, #4336).
+* To apply dodging more consistently in violin plots, `stat_ydensity()` now
+  has a `drop` argument to keep or discard groups with 1 observation.
 * Aesthetics listed in `geom_*()` and `stat_*()` layers now point to relevant
   documentation (@teunbrand, #5123).
 * `coord_flip()` has been marked as superseded. The recommended alternative is

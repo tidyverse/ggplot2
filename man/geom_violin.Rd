@@ -31,6 +31,7 @@ stat_ydensity(
   kernel = "gaussian",
   trim = TRUE,
   scale = "area",
+  drop = TRUE,
   na.rm = FALSE,
   orientation = NA,
   show.legend = NA,
@@ -110,6 +111,10 @@ to adjust the bandwidth while still using the a bandwidth estimator.
 For example, \code{adjust = 1/2} means use half of the default bandwidth.}
 
 \item{kernel}{Kernel. See list of available kernels in \code{\link[=density]{density()}}.}
+
+\item{drop}{Whether to discard groups with less than 2 observations
+(\code{TRUE}, default) or keep such groups for position adjustment purposes
+(\code{FALSE}).}
 }
 \description{
 A violin plot is a compact display of a continuous distribution. It is a
