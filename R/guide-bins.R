@@ -109,13 +109,13 @@ guide_bins <- function(
   ...
 ) {
 
-  if (!inherits(keywidth, c("NULL", "unit"))) {
+  if (!(is.null(keywidth) || is.unit(keywidth))) {
     keywidth <- unit(keywidth, default.unit)
   }
-  if (!inherits(keyheight, c("NULL", "unit"))) {
+  if (!(is.null(keyheight) || is.unit(keyheight))) {
     keyheight <- unit(keyheight, default.unit)
   }
-  if (!inherits(ticks.length, "unit")) {
+  if (!is.unit(ticks.length)) {
     ticks.length <- unit(ticks.length, default.unit)
   }
   if (!is.null(title.position)) {

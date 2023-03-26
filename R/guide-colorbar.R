@@ -158,13 +158,13 @@ guide_colourbar <- function(
   available_aes = c("colour", "color", "fill"),
   ...
 ) {
-  if (!inherits(barwidth, c("NULL", "unit"))) {
+  if (!(is.null(barwidth) || is.unit(barwidth))) {
     barwidth <- unit(barwidth, default.unit)
   }
-  if (!inherits(barheight, c("NULL", "unit"))) {
+  if (!(is.null(barheight) || is.unit(barheight))) {
     barheight <- unit(barheight, default.unit)
   }
-  if (!inherits(ticks.length, "unit")) {
+  if (!is.unit(ticks.length)) {
     ticks.length <- unit(ticks.length, default.unit)
   }
 
