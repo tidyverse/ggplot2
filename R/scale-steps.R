@@ -17,6 +17,8 @@
 #'
 #' @seealso [scales::seq_gradient_pal()] for details on underlying
 #'   palette, [scale_colour_gradient()] for continuous scales without binning.
+#'
+#'   The documentation on [colour aesthetics][aes_colour_fill_alpha].
 #' @family colour scales
 #' @export
 #' @examples

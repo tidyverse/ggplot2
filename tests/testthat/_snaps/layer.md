@@ -25,7 +25,7 @@
 
 ---
 
-    geom must be either a string or a <geom> object, not a base object of type <environment>
+    `x` must be either a string or a <geom> object, not an environment.
 
 # invalid aesthetics throws errors
 
