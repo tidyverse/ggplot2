@@ -12,6 +12,10 @@
 #' and one of them must be unused. The ECDF will be calculated on the given aesthetic
 #' and will be output on the unused one.
 #'
+#' If the `weight` aesthetic is provided, a weighted ECDF will be computed. In
+#' this case, the ECDF is incremented by `weight / sum(weight)` instead of
+#' `1 / length(x)` for each observation.
+#'
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @param na.rm If `FALSE` (the default), removes missing values with

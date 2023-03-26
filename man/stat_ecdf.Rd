@@ -85,13 +85,17 @@ The statistic relies on the aesthetics assignment to guess which variable to
 use as the input and which to use as the output. Either x or y must be provided
 and one of them must be unused. The ECDF will be calculated on the given aesthetic
 and will be output on the unused one.
+
+If the \code{weight} aesthetic is provided, a weighted ECDF will be computed. In
+this case, the ECDF is incremented by \code{weight / sum(weight)} instead of
+\code{1 / length(x)} for each observation.
 }
 \section{Aesthetics}{
 
 \code{stat_ecdf()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
-\item \strong{\code{x} \emph{or} \code{y}}
-\item \code{group}
+\item \strong{\code{\link[=aes_position]{x}} \emph{or} \code{\link[=aes_position]{y}}}
+\item \code{\link[=aes_group_order]{group}}
 \item \code{weight}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
@@ -109,7 +113,7 @@ These are calculated by the 'stat' part of layers and can be accessed with \link
 \section{Dropped variables}{
 
 \describe{
-\item{weight}{After calculation, weights of individiual observations (if
+\item{weight}{After calculation, weights of individual observations (if
 supplied), are no longer available.}
 }
 }
