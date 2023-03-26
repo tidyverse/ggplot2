@@ -1,4 +1,4 @@
-#' @include guide-legend.r
+#' @include guide-legend.R
 NULL
 
 #' A binned version of guide_legend

@@ -33,25 +33,41 @@ StatAlign <- ggproto("StatAlign", Stat,
 
   setup_params = function(data, params) {
     params$flipped_aes <- has_flipped_aes(data, params, ambiguous = TRUE)
-    x_name <- flipped_names(params$flipped_aes)$x
-    y_name <- flipped_names(params$flipped_aes)$y
-    x_cross <- dapply(data, "group", function(d) {
-      pivots <- cumsum(rle(d[[y_name]] < 0)$lengths)
-      pivots <- pivots[-length(pivots)]
-      cross <- vapply(pivots, function(i) {
-        y <- d[[y_name]][c(i, i+1)]
-        x <- d[[x_name]][c(i, i+1)]
-        -y[1]*diff(x)/diff(y) + x[1]
-      }, numeric(1))
-      data_frame(cross = cross)
-    })
-    unique_loc <- unique(sort(c(data[[x_name]], x_cross$cross)))
-    adjust <- diff(range(unique_loc, na.rm = TRUE)) * 0.001
-    adjust <- min(adjust, min(diff(unique_loc))/3)
-    unique_loc <- sort(c(unique_loc - adjust, unique_loc, unique_loc + adjust))
-    params$unique_loc <- unique_loc
-    params$adjust <- adjust
     params
+  },
+
+  compute_panel = function(self, data, scales, flipped_aes, ...) {
+    if (empty(data)) {
+      return(data_frame0())
+    }
+
+    names <- flipped_names(flipped_aes)
+    x <- data[[names$x]]
+    y <- data[[names$y]]
+
+    if (is_unique(data$group)) {
+      # No need for interpolation
+      cross <- x[0]
+    } else {
+      # Find positions where 0 is crossed
+      pivot <- vec_unrep(data_frame0(group = data$group, y = y < 0))
+      group_ends <- cumsum(vec_unrep(pivot$key$group)$times)
+      pivot <- cumsum(pivot$times)[-group_ends]
+      cross <- -y[pivot] * (x[pivot + 1] - x[pivot]) /
+        (y[pivot + 1] - y[pivot]) + x[pivot]
+    }
+
+    unique_loc <- unique(sort(c(x, cross)))
+    adjust     <- diff(range(unique_loc, na.rm = TRUE)) * 0.001
+    adjust     <- min(adjust, min(diff(unique_loc)) / 3)
+    unique_loc <- unique(sort(c(
+      unique_loc - adjust, unique_loc, unique_loc + adjust
+    )))
+
+    ggproto_parent(Stat, self)$compute_panel(
+      data, scales, flipped_aes = flipped_aes, unique_loc = unique_loc,
+      adjust = adjust, ...
+    )
   },
 
   compute_group = function(data, scales, flipped_aes = NA, unique_loc = NULL, adjust = 0) {

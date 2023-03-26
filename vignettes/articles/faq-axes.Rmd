@@ -37,6 +37,9 @@ Set the angle of the text in the `axis.text.x` or `axis.text.y` components of th
 In the following plot the labels on the x-axis are overlapping.
 
 ```{r msleep-order-sleep-total}
+#| fig.alt = "A boxplot showing the total amount of sleep on the y-axis for 19 
+#|  taxonomical orders of mammals on the x-axis. The horizontal labels on the 
+#|  x-axis for the orders overlap and are unreadable."
 ggplot(msleep, aes(x = order, y = sleep_total)) +
   geom_boxplot()
 ```
@@ -44,6 +47,9 @@ ggplot(msleep, aes(x = order, y = sleep_total)) +
 -   Rotate axis labels: We can do this by components of the `theme()`, specifically the `axis.text.x` component. Applying some vertical and horizontal justification to the labels centers them at the axis ticks. The `angle` can be set as desired within the 0 to 360 degree range, here we set it to 90 degrees.
 
 ```{r msleep-order-sleep-total-rotate}
+#| fig.alt = "A boxplot showing the total amount of sleep on the y-axis for 19 
+#|  taxonomical orders of mammals on the x-axis. The x-axis labels are oriented
+#|  vertically and are readable."
 ggplot(msleep, aes(x = order, y = sleep_total)) +
   geom_boxplot() +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
@@ -52,6 +58,9 @@ ggplot(msleep, aes(x = order, y = sleep_total)) +
 -   Flip the axes: Use the y-axis for long labels.
 
 ```{r msleep-order-sleep-total-flip}
+#| fig.alt = "A boxplot showing the total amount of sleep on the x-axis for 19
+#|  taxonomical orders of mammals on the y-axis. The y-axis labels are oriented
+#|  horizontally and are readable."
 ggplot(msleep, aes(y = order, x = sleep_total)) +
   geom_boxplot()
 ```
@@ -59,6 +68,9 @@ ggplot(msleep, aes(y = order, x = sleep_total)) +
 -   Dodge axis labels: Add a `scale_*()` layer, e.g. `scale_x_continuous()`, `scale_y_discrete()`, etc., and customise the `guide` argument with the `guide_axis()` function. In this case we want to customise the x-axis, and the variable on the x-axis is discrete, so we'll use `scale_x_continuous()`. In the `guide` argument we use the `guide_axis()` and specify how many rows to dodge the labels into with `n.dodge`. This is likely a trial-and-error exercise, depending on the lengths of your labels and the width of your plot. In this case we've settled on 3 rows to render the labels.
 
 ```{r msleep-order-sleep-total-dodge}
+#| fig.alt = "A boxplot showing the total amount of sleep on the y-axis for 19 
+#|  taxonomical orders of mammals on the x-axis. The horizontal labels on the 
+#|  x-axis are dodged to three levels so that they remain readable."
 ggplot(msleep, aes(x = order, y = sleep_total)) +
   geom_boxplot() +
   scale_x_discrete(guide = guide_axis(n.dodge = 3))
@@ -67,6 +79,9 @@ ggplot(msleep, aes(x = order, y = sleep_total)) +
 -   Omit overlapping labels: Alternatively, you can set `guide_axis(check.overlap = TRUE)` to omit axis labels that overlap. ggplot2 will prioritize the first, last, and middle labels. Note that this option might be more preferable for axes representing variables that have an inherent ordering that is obvious to the audience of the plot, so that it's trivial to guess what the missing labels are. (This is not the case for the following plot.)
 
 ```{r msleep-order-sleep-total-check-overlap}
+#| fig.alt = "A boxplot showing the total amount of sleep on the y-axis for 19 
+#|  taxonomical orders of mammals on the x-axis. Several of the x-axis labels
+#|  have been omitted, but the one that remain are readable and don't overlap."
 ggplot(msleep, aes(x = order, y = sleep_total)) +
   geom_boxplot() +
   scale_x_discrete(guide = guide_axis(check.overlap = TRUE))
@@ -85,11 +100,17 @@ Add a `theme()` layer and set relevant arguments, e.g. `axis.title.x`, `axis.tex
 Suppose we want to remove the axis labels entirely.
 
 ```{r ref.label="msleep-order-sleep-total"}
+#| fig.alt = "A boxplot showing the total amount of sleep on the y-axis for 19 
+#|  taxonomical orders of mammals on the x-axis. The horizontal labels on the 
+#|  x-axis for the orders overlap and are unreadable."
 ```
 
 -   Remove x or y axis labels: If you want to modify just one of the axes, you can do so by modifying the components of the `theme()`, setting the elements you want to remove to `element_blank()`. You would replace `x` with `y` for applying the same update to the y-axis. Note the distinction between `axis.title` and `axis.ticks` -- `axis.title` is the name of the variable and `axis.text` is the text accompanying each of the ticks.
 
 ```{r}
+#| fig.alt = "A boxplot showing the total amount of sleep on the y-axis for 19 
+#|  taxonomical orders of mammals on the x-axis. The annotation on the x-axis
+#|  is abent."
 ggplot(msleep, aes(x = order, y = sleep_total)) +
   geom_boxplot() +
   theme(
@@ -102,6 +123,9 @@ ggplot(msleep, aes(x = order, y = sleep_total)) +
 -   Remove all axis labels: You can use `theme_void()` to remove all theming elements. Note that this might remove more features than you like. For finer control over the theme, see below.
 
 ```{r}
+#| fig.alt = "A boxplot showing the total amount of sleep on the y-axis for 19 
+#|  taxonomical orders of mammals on the x-axis. The plot has no axes, 
+#|  gridlines or background panel."
 ggplot(msleep, aes(x = order, y = sleep_total)) +
   geom_boxplot() + 
   theme_void()
@@ -138,6 +162,9 @@ sales <- tribble(
 You can create a line plot of these data and facet by `year` to group the quarters for each year together.
 
 ```{r}
+#| fig.alt = "A line plot with two panels showing value on the y-axis and four
+#|  quarters on the x-axis. The left panel is labelled '2020' and the right
+#|  panel is labelled '2021'."
 ggplot(sales, aes(x = quarter, y = value, group = 1)) +
   geom_line() +
   facet_wrap(~year)
@@ -148,6 +175,8 @@ However it might be preferable to plot all points in a single plot and indicate 
 To achieve this, map the `interaction()` of `quarter` and `year` to the `x` aesthetic.
 
 ```{r}
+#| fig.alt = "A line plot with one panel showing value on the y-axis and eight
+#|  quarters on the x-axis. The years are appended after each quarter label."
 ggplot(sales, aes(x = interaction(quarter, year), y = value, group = 1)) +
   geom_line()
 ```
@@ -157,6 +186,9 @@ To clean this up (1) clip the plotting area with `coord_cartesian()`, (2) remove
 Note that the x-coordinates of the year labels are manually assigned here, but if you had many more years, you might write some logic to calculate their placement.
 
 ```{r}
+#| fig.alt = "A line plot with one panel showing value on the y-axis and eight
+#|  quarters on the x-axis. The years are shown in the middle of the first four
+#|  and last four quarters. The line touches the panel on the left and right."
 ggplot(sales, aes(x = interaction(quarter, year), y = value, group = 1)) +
   geom_line() +
   coord_cartesian(ylim = c(9, 32), expand = FALSE, clip = "off") +
@@ -173,6 +205,10 @@ This approach works with other geoms as well.
 For example, you might can create a bar plot representing the same data using the following.
 
 ```{r}
+#| fig.alt = "A bar chart with one panel showing value on the y-axis and eight
+#|  quarters on the x-axis. The years are shown in the middle of the first four
+#|  and last four quarters. The outer bars touch the panel on the left and 
+#|  right."
 ggplot(sales, aes(x = interaction(quarter, year), y = value)) +
   geom_col() +
   coord_cartesian(ylim = c(0, 32), expand = FALSE, clip = "off") +
@@ -189,6 +225,10 @@ If it's undesirable to have the bars flush against the edges of the plot, a simi
 However note that the space between the bars for 2020 Q4 and 2021 Q1 is greater than the space between the other bars.
 
 ```{r}
+#| fig.alt = "A bar chart showing value on the y-axis and eight
+#|  quarters on the x-axis. The chart appears as a single panel. The years are 
+#|  shown in the middle of the first four and last four quarters. The outer bars 
+#|  do not touch the panel on the left and right."
 ggplot(sales, aes(x = quarter, y = value)) +
   geom_col() +
   facet_wrap(~year, strip.position = "bottom") +
@@ -215,6 +255,9 @@ Add a `scale_*()` layer, e.g. `scale_x_continuous()`, `scale_y_discrete()`, etc.
 Suppose you want to give more informative labels for the type of drive train.
 
 ```{r}
+#| fig.alt = "A horizontal bar chart showing the number of cars on the x-axis
+#|  for each of three types of drive trains on the y-axis. The three drive trains
+#|  are labelled from top-to-bottom as 'r', 'f' and '4'."
 ggplot(mpg, aes(y = drv)) +
   geom_bar()
 ```
@@ -222,16 +265,24 @@ ggplot(mpg, aes(y = drv)) +
 -   Use the `labels` argument in the appropriate `scale_*()` function. You can find a list of these functions [here](https://ggplot2.tidyverse.org/reference/index.html#section-scales). Type of drive train (`drv`) is a discrete variable on the y-axis, so we'll adjust the labels in `scale_y_discrete()`. One option is to list the labels in the same order as the levels. Note that we start from the bottom and go up, just like we would if the variable was numeric/continuous.
 
 ```{r}
+#| fig.alt = "A horizontal bar chart showing the number of cars on the x-axis
+#|  for each of three types of drive trains on the y-axis. The three drive trains
+#|  are labelled from top-to-bottom as 'Rear wheel drive', 'Front wheel drive' 
+#|  and 'Four wheel drive'."
 ggplot(mpg, aes(y = drv)) +
   geom_bar() +
   scale_y_discrete(
-    labels = c("Front wheel drive", "Rear wheel drive", "Four wheel drive")
+    labels = c("Four wheel drive", "Front wheel drive", "Rear wheel drive")
   )
 ```
 
 -   Another approach is to use a named list. This approach not only makes the relabelling more explicit, but it also means you don't need to worry about the order of the levels.
 
 ```{r}
+#| fig.alt = "A horizontal bar chart showing the number of cars on the x-axis
+#|  for each of three types of drive trains on the y-axis. The three drive trains
+#|  are labelled from top-to-bottom as 'Rear wheel drive', 'Front wheel drive' 
+#|  and 'Four wheel drive'."
 ggplot(mpg, aes(y = drv)) +
   geom_bar() +
   scale_y_discrete(
@@ -257,6 +308,9 @@ You will first need to add a `scale_*()` layer (e.g. `scale_x_continuous()`, `sc
 By default, large numbers on the axis labels in the following plot are shown in scientific notation.
 
 ```{r}
+#| fig.alt = "A scatter plot showing the median sale price of housing in Texas
+#|  on the x-axis and the total volume of sales on the y-axis. The labels of
+#|  both axes are in scientific notation, for example: '1e+09'."
 ggplot(txhousing, aes(x = median, y = volume)) +
   geom_point()
 ```
@@ -265,6 +319,11 @@ The [**scales**](https://scales.r-lib.org/) package offers a large number of fun
 Use `scales::label_number()` to force decimal display of numbers rather than using scientific notation or use `scales::label_comma()` to insert a comma every three digits.
 
 ```{r}
+#| fig.alt = "A scatter plot showing the median sale price of housing in Texas
+#|  on the x-axis and the total volume of sales on the y-axis. The labels of
+#|  the y-axis are written out in full, with commas marking groups of three 
+#|  zeroes. The x-axis labels are written out in full, with spaces marking 
+#|  groups of three zeroes."
 library(scales)
 ggplot(txhousing, aes(x = median, y = volume)) +
   geom_point() +
@@ -286,6 +345,10 @@ You will first need to add a `scale_*()` layer (e.g. `scale_x_continuous()`, `sc
 Suppose you want to increase/decrease the number of decimal spaces shown in the axis text in the following plot.
 
 ```{r}
+#| fig.alt = "A scatter plot showing the difference in longitude on the x-axis
+#|  and difference in latitude on the y-axis for seal movements. The x-axis
+#|  labels have one digit after the decimal place. The y-axis labels have two 
+#|  digits after the decimal place."
 ggplot(seals, aes(x = delta_long, y = delta_lat)) +
   geom_point()
 ```
@@ -294,6 +357,10 @@ The [**scales**](https://scales.r-lib.org/) package offers a large number of fun
 Use `scales::label_number()` where the `accuracy` argument indicates the number to round to, e.g. 0.1 to show 1 decimal place, 0.0001 to show 4 decimal places, etc.
 
 ```{r}
+#| fig.alt = "A scatter plot showing the difference in longitude on the x-axis
+#|  and difference in latitude on the y-axis for seal movements. The x-axis
+#|  labels have one digit after the decimal place. The y-axis labels have four 
+#|  digits after the decimal place."
 library(scales)
 ggplot(seals, aes(x = delta_long, y = delta_lat)) +
   geom_point() +
@@ -316,6 +383,8 @@ You will first need to add a `scale_*()` layer (e.g. `scale_x_continuous()`, `sc
 The variable on the y-axis of the following line plot (`psavert`) indicates the personal savings rate, which is in percentages.
 
 ```{r}
+#| fig.alt = "A lineplot showing the personal savings rate over time from 1967
+#|   to 2015."
 ggplot(economics, aes(x = date, y = psavert, group = 1)) +
   geom_line()
 ```
@@ -323,20 +392,14 @@ ggplot(economics, aes(x = date, y = psavert, group = 1)) +
 With `scales::label_percent()` you can add `%`s after the numbers shown on the axis to make the units more clear.
 
 ```{r}
+#| fig.alt = "A lineplot showing the personal savings rate over time from 1967
+#|   to 2015. The y-axis labels are appended by percentage signs."
 ggplot(economics, aes(x = date, y = psavert, group = 1)) +
   geom_line() +
   scale_y_continuous(labels = scales::label_percent(scale = 1, accuracy = 1))
 ```
 
 where the `accuracy` argument indicates the number to round to, e.g. 0.1 to show 1 decimal place, 0.0001 to show 4 decimal places, etc.
-
-```{r}
-library(scales)
-ggplot(seals, aes(x = delta_long, y = delta_lat)) +
-  geom_point() +
-  scale_x_continuous(labels = label_number(accuracy = 0.1)) +
-  scale_y_continuous(labels = label_number(accuracy = 0.0001))
-```
 
 </details>
 
@@ -351,6 +414,9 @@ You can either use `bquote()` to parse mathematical expressions or use the [**gg
 In the following plot `cty` is squared and `hwy` is log transformed.
 
 ```{r}
+#| fig.alt = "A scatter plot showing the squared city miles per gallon on the 
+#|  x-axis versus the logarithm of highway miles per gallon on the y-axis for 
+#|  234 cars."
 ggplot(mpg, aes(x = cty^2, y = log(hwy))) +
   geom_point()
 ```
@@ -358,6 +424,11 @@ ggplot(mpg, aes(x = cty^2, y = log(hwy))) +
 -   Use `bquote()` function to parse mathematical expressions.
 
 ```{r}
+#| fig.alt = "A scatter plot showing the squared city miles per gallon on the 
+#|  x-axis versus the base 10 logarithm of highway miles per gallon on the 
+#|  y-axis for 234 cars. In the axis titles, the base 10 is indicated in 
+#|  subscript on the y-axis and the power 2 is is indicated in superscript on
+#|  the x-axis."
 ggplot(mpg, aes(x = cty^2, y = log(hwy, base = 10))) +
   geom_point() +
   labs(
@@ -369,6 +440,11 @@ ggplot(mpg, aes(x = cty^2, y = log(hwy, base = 10))) +
 -   If you're already familiar with Markdown and HTML, you might prefer using the [ggtext](https://wilkelab.org/ggtext/) package instead. In Markdown we can write the axis labels as `cty<sup>2</sup>` and `log<sub>10</sub>(hwy)` for x and y axes, respectively. Then, we tell ggplot2 to interpret the axis labels as Markdown and not as plain text by setting `axis.title.x` and `axis.title.y` to `ggtext::element_markdown()`.
 
 ```{r}
+#| fig.alt = "A scatter plot showing the squared city miles per gallon on the 
+#|  x-axis versus the base 10 logarithm of highway miles per gallon on the 
+#|  y-axis for 234 cars. In the axis titles, the base 10 is indicated in 
+#|  subscript on the y-axis and the power 2 is is indicated in superscript on
+#|  the x-axis."
 ggplot(mpg, aes(x = cty^2, y = log(hwy, base = 10))) +
   geom_point() +
   labs(
@@ -396,6 +472,9 @@ Customise the `breaks` and `minor_breaks` in `scale_x_continuous()`, `scale_y_co
 Suppose you want to customise the major and minor grid lines on both the x and the y axes of the following plot.
 
 ```{r}
+#| fig.alt = "A scatter plot showing city miles per gallon on the x-axis versus 
+#|  the highway miles per gallon on the y-axis for 234 cars. The distance
+#|  between axis ticks is constant within each axis."
 ggplot(mpg, aes(x = cty, y = hwy)) +
   geom_point()
 ```
@@ -404,6 +483,11 @@ You can set `breaks` and `minor_breaks` in `scale_x_continuous()` and `scale_y_c
 For example, on the x-axis we have major and minor grid breaks defined as a sequence and on the y-axis we have explicitly stated where major breaks should appear as a vector (the value stated are randomly selected for illustrative purposes only, they don't follow a best practice) and we have completely turned off minor grid lines by setting `minor_breaks` to `NULL`.
 
 ```{r}
+#| fig.alt = "A scatter plot showing city miles per gallon on the x-axis versus 
+#|  the highway miles per gallon on the y-axis for 234 cars. The distance
+#|  between axis ticks varies within the y-axis. There are no minor horizontal
+#|  grid lines, and there are three minor vertical gridlines between major 
+#|  ones."
 ggplot(mpg, aes(x = cty, y = hwy)) +
   geom_point() +
   scale_x_continuous(
@@ -444,6 +528,9 @@ Remove the padding around the data entirely using by setting `expand = c(0, 0)` 
 -   Remove all padding: Suppose you want to remove the padding around the heat map so it's flush against the axes.
 
 ```{r}
+#| fig.alt = "A heatmap showing a 2D density estimate of the waiting and 
+#|  eruption times of the Old Faithful geyser. The heatmap does not touch the
+#|  panel edges."
 ggplot(faithfuld, aes(waiting, eruptions)) +
   geom_raster(aes(fill = density))
 ```
@@ -451,6 +538,9 @@ ggplot(faithfuld, aes(waiting, eruptions)) +
 Since both x and y variables are continuous, we set `expand = c(0, 0)` in both `scale_x_continuous()` and `scale_y_continuous()`.
 
 ```{r}
+#| fig.alt = "A heatmap showing a 2D density estimate of the waiting and 
+#|  eruption times of the Old Faithful geyser. The heatmap touches the panel 
+#|  edges."
 ggplot(faithfuld, aes(waiting, eruptions)) +
   geom_raster(aes(fill = density)) +
   scale_x_continuous(expand = c(0, 0)) +
@@ -460,6 +550,8 @@ ggplot(faithfuld, aes(waiting, eruptions)) +
 -   Remove some of the padding: Suppose you want to remove the padding below the bars and the x-axis only.
 
 ```{r}
+#| fig.alt = "A bar chart showing the number of cars for each of three types
+#|  of drive train. No parts of the bars touch the panel edges."
 ggplot(mpg, aes(drv)) +
   geom_bar()
 ```
@@ -467,6 +559,9 @@ ggplot(mpg, aes(drv)) +
 You would make this adjustment on `scale_y_continuous()` since that padding is in the vertical direction.
 
 ```{r}
+#| fig.alt = "A bar chart showing the number of cars for each of three types
+#|  of drive train. All bars touch the bottom of the panel, and the highest bar 
+#|  touches the top of the panel."
 ggplot(mpg, aes(drv)) +
   geom_bar() +
   scale_y_continuous(expand = c(0, 0))
@@ -479,6 +574,9 @@ The `mult` argument in `expansion()` takes a multiplicative range expansion fact
 Given a vector of length 2, the lower limit is expanded by `mult[1]` (in this case 0) and the upper limit is expanded by `mult[2]` (in this case 0.05).
 
 ```{r}
+#| fig.alt = "A bar chart showing the number of cars for each of three types
+#|  of drive train. All bars touch the bottom of the panel, and no bar touches 
+#|  the top of the panel."
 ggplot(mpg, aes(drv)) +
   geom_bar() +
   scale_y_continuous(expand = expansion(mult = c(0, 0.05)))
