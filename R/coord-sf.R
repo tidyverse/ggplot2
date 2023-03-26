@@ -305,7 +305,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     } else {
       line_gp <- gpar(
         col = el$colour,
-        lwd = len0_null(el$size*.pt),
+        lwd = len0_null(el$linewidth * .pt),
         lty = el$linetype
       )
       grobs <- c(

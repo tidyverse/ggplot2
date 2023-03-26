@@ -25,7 +25,7 @@
 
     Computation failed in `stat_bin()`
     Caused by error in `bins()`:
-    ! `breaks` must be a numeric vector
+    ! `breaks` must be a <numeric> vector, not a character vector.
 
 ---
 
@@ -35,7 +35,7 @@
 
     Computation failed in `stat_bin()`
     Caused by error in `bin_breaks_width()`:
-    ! `width` must be a number
+    ! `width` must be a number, not a character vector.
 
 ---
 
@@ -51,7 +51,7 @@
 
     Computation failed in `stat_bin()`
     Caused by error in `bin_breaks_bins()`:
-    ! `bins` must be 1 or greater
+    ! `bins` must be a whole number larger than or equal to 1, not the number -4.
 
 # stat_count throws error when both x and y aesthetic present
 
