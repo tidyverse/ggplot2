@@ -110,7 +110,9 @@ Coord <- ggproto("Coord",
     scale_position <- lapply(panel_params[aesthetics], `[[`, "position")
     guide_position <- lapply(guide_params, `[[`, "position")
     guide_position[!is_sec] <- Map(
-      `%|W|%`, guide_position[!is_sec], scale_position[!is_sec]
+      function(guide, scale) guide %|W|% scale,
+      guide = guide_position[!is_sec],
+      scale = scale_position[!is_sec]
     )
     opposite <- c(
       "top"  = "bottom", "bottom" = "top",
@@ -122,7 +124,12 @@ Coord <- ggproto("Coord",
       prim = guide_position[!is_sec]
     )
     guide_params <- Map(
-      `[[<-`, x = guide_params, value = "position", i = guide_position
+      function(params, pos) {
+        params[["position"]] <- pos
+        params
+      },
+      params = guide_params,
+      pos    = guide_position
     )
 
     # Update positions
