@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* To improve `width` calculation in bar plots with empty factor levels, 
+  `resolution()` considers `mapped_discrete` values as having resolution 1 
+  (@teunbrand, #5211)
 * When `geom_path()` has aesthetics varying within groups, the `arrow()` is
   applied to groups instead of individual segments (@teunbrand, #4935).
 * The default width of `geom_bar()` is now based on panel-wise resolution of
