@@ -145,8 +145,9 @@ view_scales_from_scale <- function(scale, coord_limits = NULL, expand = TRUE) {
 }
 
 panel_guides_grob <- function(guides, position, theme) {
-  guide <- guide_for_position(guides, position) %||% list(guide = guide_none())
-  guide$guide$draw(theme, guide$params)
+  pair <- guide_for_position(guides, position) %||%
+    list(guide = guide_none(), params = NULL)
+  pair$guide$draw(theme, pair$params)
 }
 
 guide_for_position <- function(guides, position) {

@@ -485,9 +485,9 @@ Guides <- ggproto(
     theme$legend.key.height <- theme$legend.key.height %||% theme$legend.key.size
 
 
-    direction <- if (position == "inside") "vertical" else position
-    theme$legend.box       <- theme$legend.box       %||% direction
-    theme$legend.direction <- theme$legend.direction %||% direction
+    default_direction <- if (position == "inside") "vertical" else position
+    theme$legend.box       <- theme$legend.box       %||% default_direction
+    theme$legend.direction <- theme$legend.direction %||% default_direction
     theme$legend.box.just  <- theme$legend.box.just  %||% switch(
       position,
       inside     = c("center", "center"),
