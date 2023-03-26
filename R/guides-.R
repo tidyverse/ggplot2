@@ -352,7 +352,7 @@ Guides <- ggproto(
   # Loop over guides to let them extract information from layers
   process_layers = function(self, layers, default_mapping) {
     params <- Map(
-      function(guide, param) guide$geom(param, layers, default_mapping),
+      function(guide, param) guide$get_layer_key(param, layers, default_mapping),
       guide = self$guides,
       param = self$params
     )

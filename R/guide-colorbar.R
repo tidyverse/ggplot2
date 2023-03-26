@@ -373,7 +373,7 @@ GuideColourbar <- ggproto(
     return(list(guide = self, params = params))
   },
 
-  geom = function(params, layers, default_mapping) {
+  get_layer_key = function(params, layers, default_mapping) {
 
     guide_layers <- lapply(layers, function(layer) {
 
