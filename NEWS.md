@@ -1,5 +1,6 @@
 # ggplot2 (development version)
 
+* `stat_ecdf()` now has an optional `weight` aesthetic (@teunbrand, #5058).
 * To improve `width` calculation in bar plots with empty factor levels, 
   `resolution()` considers `mapped_discrete` values as having resolution 1 
   (@teunbrand, #5211)
