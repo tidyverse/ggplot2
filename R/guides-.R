@@ -113,7 +113,7 @@ update_guides <- function(p, guides) {
 # Class -------------------------------------------------------------------
 
 # Guides object encapsulates multiple guides and their state.
-guides_list <- function(guides, .missing = guide_none()) {
+guides_list <- function(guides = NULL, .missing = guide_none()) {
   ggproto(NULL, Guides, guides = guides, missing = .missing)
 }
 
