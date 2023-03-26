@@ -137,9 +137,8 @@ StatEcdf <- ggproto("StatEcdf", Stat,
 
 # Weighted eCDF function
 wecdf <- function(x, weights = NULL) {
-  if (is.null(weights)) {
-    return(ecdf(x))
-  }
+
+  weights <- weights %||% 1
   weights <- vec_recycle(weights, length(x))
 
   # Sort vectors

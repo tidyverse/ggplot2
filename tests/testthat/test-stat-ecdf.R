@@ -21,10 +21,16 @@ test_that("weighted ecdf computes sensible results", {
   x <- rpois(100, 5)
   ux <- sort(unique0(x))
 
+  # Absent weights should be the same as the original
+  expect_equal(
+    ecdf(x)(ux),
+    wecdf(x, NULL)(ux)
+  )
+
   # Uniform weights should be the same as the original
   expect_equal(
     ecdf(x)(ux),
-    wecdf(x, 10)(ux)
+    wecdf(x, pi)(ux)
   )
 
   # Tabulated weights should be the same as the original
