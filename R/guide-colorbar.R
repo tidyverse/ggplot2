@@ -200,7 +200,7 @@ guide_colourbar <- function(
     # the ticks
     ticks <- if (ticks) element_line() else element_blank()
   }
-  if (!inherits(ticks, "element_blank")) {
+  if (inherits(ticks, "element_line")) {
     ticks$colour    <- ticks.colour    %||% ticks$colour    %||% "white"
     ticks$linewidth <- ticks.linewidth %||% ticks$linewidth %||% (0.5 / .pt)
   }

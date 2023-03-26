@@ -114,7 +114,7 @@ Guide <- ggproto(
     params$aesthetic <- aesthetic %||% scale$aesthetics[1]
     params$key   <- inject(self$extract_key(scale, !!!params))
     if (is.null(params$key)) {
-      return(params$key)
+      return(NULL)
     }
     params$decor <- inject(self$extract_decor(scale, !!!params))
     self$extract_params(scale, params, self$hashables, ...)
