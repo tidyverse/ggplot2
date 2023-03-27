@@ -374,23 +374,68 @@ table_add_tag <- function(table, label, theme) {
     return(table)
   }
 
+  # Resolve position
+  position <- calc_element("plot.tag.position", theme) %||% "topleft"
+  place_panel  <- "panel"  %in% position
+  place_plot   <- "plot"   %in% position || is.numeric(position)
+  place_margin <- "margin" %in% position || !(place_panel || place_plot)
+  position <- position[!(position %in% c("panel", "plot", "margin"))]
+
+  if (length(position) == 0) {
+    position <- "topleft"
+  }
+  if (is.numeric(position)) {
+    if (length(position) != 2) {
+      cli::cli_abort(paste0(
+        "A {.cls numeric} {.arg plot.tag.position} ",
+        "theme setting must have length 2."
+      ))
+    }
+    top <- left <- right <- bottom <- FALSE
+  } else {
+    # Break position into top/left/right/bottom
+    position <- arg_match0(
+      position[1],
+      c("topleft", "top", "topright", "left",
+        "right", "bottomleft", "bottom", "bottomright"),
+      arg_nm = "plot.tag.position"
+    )
+    top    <- position %in% c("topleft",    "top",    "topright")
+    left   <- position %in% c("topleft",    "left",   "bottomleft")
+    right  <- position %in% c("topright",   "right",  "bottomright")
+    bottom <- position %in% c("bottomleft", "bottom", "bottomright")
+  }
+
   # Resolve tag and sizes
   tag <- element_grob(element, label = label, margin_y = TRUE, margin_x = TRUE)
   height <- grobHeight(tag)
   width  <- grobWidth(tag)
 
-  # Resolve position
-  position <- calc_element("plot.tag.position", theme) %||% "topleft"
-  place_in_panel <- "panel" %in% position
-  position <- position[!(position %in% c("panel", "plot"))]
-  if (length(position) == 0) {
-    position <- "topleft"
-  }
-
-  if (length(position) == 2 && is.numeric(position)) {
+  if (place_plot) {
+    if (!is.numeric(position)) {
+      if (right || left) {
+        x <- (1 - element$hjust) * width
+        if (right) {
+          x <- unit(1, "npc") - x
+        }
+      } else {
+        x <- unit(element$hjust, "npc")
+      }
+      if (top || bottom) {
+        y <- (1 - element$vjust) * height
+        if (top) {
+          y <- unit(1, "npc") - y
+        }
+      } else {
+        y <- unit(element$vjust, "npc")
+      }
+    } else {
+      x <- unit(position[1], "npc")
+      y <- unit(position[2], "npc")
+    }
     # Do manual placement of tag
     tag <- justify_grobs(
-      tag, x = position[1], y = position[2],
+      tag, x = x, y = y,
       hjust = element$hjust, vjust = element$vjust,
       int_angle = element$angle, debug = element$debug
     )
@@ -401,19 +446,7 @@ table_add_tag <- function(table, label, theme) {
     return(table)
   }
 
-  # Break position into top/left/right/bottom
-  position <- arg_match0(
-    position[1],
-    c("topleft", "top", "topright", "left",
-      "right", "bottomleft", "bottom", "bottomright"),
-    arg_nm = "plot.tag.position"
-  )
-  top    <- position %in% c("topleft",    "top",    "topright")
-  left   <- position %in% c("topleft",    "left",   "bottomleft")
-  right  <- position %in% c("topright",   "right",  "bottomright")
-  bottom <- position %in% c("bottomleft", "bottom", "bottomright")
-
-  if (place_in_panel) {
+  if (place_panel) {
     # Rejustify tag to position
     tag   <- justify_grobs(
       tag,

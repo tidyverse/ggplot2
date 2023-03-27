@@ -249,9 +249,11 @@ inherits from \code{title}) left-aligned by default}
 
 \item{plot.tag.position}{The position of the tag as a string ("topleft",
 "top", "topright", "left", "right", "bottomleft", "bottom", "bottomright")
-or a coordinate. If a character, can contain "panel" to place the tag
-relative to the panels instead of plotting area. If a string and not at
-panel, extra space will be added to accommodate the tag.}
+or a coordinate. If a character, the addition of "panel", "plot", or
+"margin" (default) will respectively place the tag inside the panel,
+inside the whole plot or in a margin with extra space to accommodate the
+tag. Alternatively, can be a numeric vector of length 2 to set the
+x,y-coordinate relative to the whole plot.}
 
 \item{plot.margin}{margin around entire plot (\code{unit} with the sizes of
 the top, right, bottom, and left margins)}
