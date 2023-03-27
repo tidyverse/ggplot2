@@ -69,6 +69,21 @@ test_that("alt text is returned", {
   expect_equal(get_alt_text(p), "An alt text")
 })
 
+test_that("plot.tag.position rejects invalid input", {
+  p <- ggplot(mtcars, aes(mpg, disp)) + geom_point() + labs(tag = "Fig. A)")
+
+  expect_error_snapshot(
+    ggplotGrob(p + theme(plot.tag.position = TRUE))
+  )
+  expect_error_snapshot(
+    ggplotGrob(p + theme(plot.tag.position = "foobar"))
+  )
+  expect_error(
+    ggplotGrob(p + theme(plot.tag.position = c(0, 0.5, 1))),
+    "must have length 2"
+  )
+})
+
 
 # Visual tests ------------------------------------------------------------
 
@@ -77,7 +92,7 @@ test_that("tags are drawn correctly", {
   p <- ggplot(dat, aes(x = x, y = y)) + geom_point() + labs(tag = "Fig. A)")
 
   expect_doppelganger("defaults", p)
-  expect_doppelganger("Other position", p + theme(plot.tag.position = 'bottom'))
-  expect_doppelganger("Panel", p + theme(plot.tag.position = c("topright", "panel")))
-  expect_doppelganger("Manual", p + theme(plot.tag.position = c(0.05, 0.05)))
+  expect_doppelganger("Margin", p + theme(plot.tag.position = 'bottom'))
+  expect_doppelganger("Panel",  p + theme(plot.tag.position = c("topright", "panel")))
+  expect_doppelganger("Plot",   p + theme(plot.tag.position = c(0.05, 0.05)))
 })
