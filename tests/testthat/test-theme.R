@@ -264,6 +264,7 @@ test_that("incorrect theme specifications throw meaningful errors", {
   expect_snapshot_error(calc_element("line", theme(line = element_rect())))
   register_theme_elements(element_tree = list(test = el_def("element_rect")))
   expect_snapshot_error(calc_element("test", theme_gray() + theme(test = element_rect())))
+  expect_snapshot_error(theme_set("foo"))
 })
 
 test_that("element tree can be modified", {
