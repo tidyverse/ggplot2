@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* `geom_text()` and `geom_label()` gained a `size_unit` parameter that can
+  switch between millimetres and points for the text size (@teunbrand, #3799).
 * To improve `width` calculation in bar plots with empty factor levels, 
   `resolution()` considers `mapped_discrete` values as having resolution 1 
   (@teunbrand, #5211)
