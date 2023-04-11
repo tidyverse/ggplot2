@@ -24,7 +24,7 @@
 #'  density  = "density estimate.",
 #'  count    = "density * number of points - useful for stacked density plots.",
 #'  wdensity = "density * sum of weights. In absence of weights, the same as
-#'  `count`",
+#'  `count`.",
 #'  scaled   = "density estimate, scaled to maximum of 1.",
 #'  n        = "number of points.",
 #'  ndensity = "alias for `scaled`, to mirror the syntax of [`stat_bin()`]."
