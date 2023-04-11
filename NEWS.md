@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* `stat_density()` has the new computed variable: `wdensity`, which is
+  calculated as the density times the sum of weights (@teunbrand, #4176).
 * To improve `width` calculation in bar plots with empty factor levels, 
   `resolution()` considers `mapped_discrete` values as having resolution 1 
   (@teunbrand, #5211)

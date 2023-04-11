@@ -17,19 +17,24 @@ test_that("stat_density actually computes density", {
 
 test_that("stat_density can make weighted density estimation", {
   df <- mtcars
-  df$weight <- mtcars$cyl / sum(mtcars$cyl)
+  df$weight <- mtcars$cyl
 
-  dens <- stats::density(df$mpg, weights = df$weight)
+  dens <- stats::density(df$mpg, weights = df$weight / sum(df$weight))
   expected_density_fun <- stats::approxfun(data.frame(x = dens$x, y = dens$y))
 
-  plot <- ggplot(df, aes(mpg, weight = weight)) + stat_density()
-  actual_density_fun <- stats::approxfun(layer_data(plot)[, c("x", "y")])
+  plot <- layer_data(ggplot(df, aes(mpg, weight = weight)) + stat_density())
+  actual_density_fun <- stats::approxfun(plot[, c("x", "y")])
 
   test_sample <- unique(df$mpg)
   expect_equal(
     expected_density_fun(test_sample),
     actual_density_fun(test_sample),
     tolerance = 1e-3
+  )
+
+  expect_equal(
+    plot$wdensity,
+    plot$density * sum(mtcars$cyl)
   )
 })
 
@@ -115,6 +120,6 @@ test_that("compute_density returns useful df and throws warning when <2 values",
   expect_warning(dens <- compute_density(1, NULL, from = 0, to = 0))
 
   expect_equal(nrow(dens), 1)
-  expect_equal(names(dens), c("x", "density", "scaled", "ndensity", "count", "n"))
+  expect_equal(names(dens), c("x", "density", "scaled", "ndensity", "count", "wdensity", "n"))
   expect_type(dens$x, "double")
 })
