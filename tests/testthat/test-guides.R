@@ -1,5 +1,35 @@
 skip_on_cran() # This test suite is long-running (on cran) and is skipped
 
+test_that("plotting does not induce state changes in guides", {
+
+  guides <- list(
+    x      = guide_axis(title = "X-axis"),
+    colour = guide_colourbar(title = "Colourbar"),
+    shape  = guide_legend(title = "Legend"),
+    size   = guide_bins(title = "Bins")
+  )
+  # If rendering a plot with these guides induces a state change,
+  # the hash of these guides should change
+  hashes <- vapply(guides, hash, character(1))
+
+  # Now render a plot using these guides
+  p <- ggplot(mpg, aes(displ, hwy, colour = cty, shape = factor(cyl),
+                       size = cyl)) +
+    geom_point() +
+    scale_size_binned() +
+    guides(!!!guides)
+  grob <- ggplotGrob(p)
+
+  # Test: has the hash changed?
+  new_hashes <- vapply(guides, hash, character(1))
+  expect_equal(hashes, new_hashes)
+
+  # Negative control: we are able to detect changes through hashes
+  guides$colour$nonsense <- "foobar"
+  new_hashes <- vapply(guides, hash, character(1))
+  expect_false(all(hashes == new_hashes))
+})
+
 test_that("colourbar trains without labels", {
   g <- guide_colorbar()
   sc <- scale_colour_continuous(limits = c(0, 4), labels = NULL)
