@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Fixed bug in `annotation_logticks()` when no suitable tick positions could
+  be found (@teunbrand, #5248).
 * To improve `width` calculation in bar plots with empty factor levels, 
   `resolution()` considers `mapped_discrete` values as having resolution 1 
   (@teunbrand, #5211)
