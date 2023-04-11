@@ -116,7 +116,7 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
   # `facets` is deprecated and renamed to `rows`
   if (lifecycle::is_present(facets)) {
     deprecate_warn0("2.2.0", "facet_grid(facets)", "facet_grid(rows)")
-    row <- facets
+    rows <- facets
   }
 
   # Should become a warning in a future release
