@@ -86,7 +86,7 @@
 
 # layer warns for constant aesthetics
 
-    All aesthetics have length 1, but the data has 32 rows in `geom_point()`.
+    All aesthetics have length 1, but the data has 32 rows.
     i Did you mean to use `annotate()`?
 
 # layer_data returns a data.frame

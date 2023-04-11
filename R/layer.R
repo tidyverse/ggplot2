@@ -304,10 +304,9 @@ Layer <- ggproto("Layer", NULL,
     if ((self$geom$check_constant_aes %||% TRUE)
         && length(aes_n) > 0 && all(aes_n == 1) && n > 1) {
       cli::cli_warn(c(
-        paste0("All aesthetics have length 1, but the data has {n} rows ",
-               "in {.fn {self$constructor[1]}}."),
+        "All aesthetics have length 1, but the data has {n} rows.",
         i = "Did you mean to use {.fn annotate}?"
-      ))
+      ), call = self$constructor)
     }
     check_aesthetics(evaled, n)
 
