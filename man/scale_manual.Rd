@@ -171,3 +171,28 @@ p + scale_colour_manual(
 p + scale_colour_manual(values = cols, limits = c("4", "8"))
 p + scale_colour_manual(values = cols, limits = c("4", "6", "8", "10"))
 }
+\seealso{
+The documentation for \link[=aes_linetype_size_shape]{differentiation related aesthetics}.
+
+The documentation on \link[=aes_colour_fill_alpha]{colour aesthetics}.
+
+Other size scales: \code{\link[=scale_size]{scale_size()}}, \code{\link[=scale_size_identity]{scale_size_identity()}}.
+
+Other shape scales: \code{\link[=scale_shape]{scale_shape()}}, \code{\link[=scale_shape_identity]{scale_shape_identity()}}.
+
+Other linetype scales: \code{\link[=scale_linetype]{scale_linetype()}}, \code{\link[=scale_linetype_identity]{scale_linetype_identity()}}.
+
+Other alpha scales: \code{\link[=scale_alpha]{scale_alpha()}}, \code{\link[=scale_alpha_identity]{scale_alpha_identity()}}.
+
+Other colour scales: 
+\code{\link{scale_alpha}()},
+\code{\link{scale_colour_brewer}()},
+\code{\link{scale_colour_continuous}()},
+\code{\link{scale_colour_gradient}()},
+\code{\link{scale_colour_grey}()},
+\code{\link{scale_colour_hue}()},
+\code{\link{scale_colour_identity}()},
+\code{\link{scale_colour_steps}()},
+\code{\link{scale_colour_viridis_d}()}
+}
+\concept{colour scales}

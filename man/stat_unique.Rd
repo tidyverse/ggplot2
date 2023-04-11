@@ -71,7 +71,7 @@ Remove duplicates
 
 \code{stat_unique()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
-\item \code{group}
+\item \code{\link[=aes_group_order]{group}}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

@@ -10,6 +10,11 @@
 #'   breaks, labels and so forth.
 #' @param range Output range of alpha values. Must lie between 0 and 1.
 #' @family colour scales
+#' @family alpha scales
+#' @seealso
+#' The documentation on [colour aesthetics][aes_colour_fill_alpha].
+#'
+#' Other alpha scales: [scale_alpha_manual()], [scale_alpha_identity()].
 #' @export
 #' @examples
 #' p <- ggplot(mpg, aes(displ, hwy)) +

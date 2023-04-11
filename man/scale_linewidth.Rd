@@ -120,3 +120,6 @@ p + scale_linewidth(range = c(0, 4))
 p + scale_linewidth_binned()
 
 }
+\seealso{
+The documentation for \link[=aes_linetype_size_shape]{differentiation related aesthetics}.
+}
