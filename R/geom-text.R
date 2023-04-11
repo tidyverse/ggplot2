@@ -52,7 +52,7 @@
 #'   the order of the data. Therefore data should be arranged by the label
 #'   column before calling `geom_text()`. Note that this argument is not
 #'   supported by `geom_label()`.
-#' @param size_unit How the `size` aesthetic is interpreted: as millimetres
+#' @param size.unit How the `size` aesthetic is interpreted: as millimetres
 #'   (`"mm"`, default) or points (`"pt"`).
 #' @export
 #' @examples
@@ -161,7 +161,7 @@ geom_text <- function(mapping = NULL, data = NULL,
                       nudge_x = 0,
                       nudge_y = 0,
                       check_overlap = FALSE,
-                      size_unit = "mm",
+                      size.unit = "mm",
                       na.rm = FALSE,
                       show.legend = NA,
                       inherit.aes = TRUE)
@@ -188,7 +188,7 @@ geom_text <- function(mapping = NULL, data = NULL,
     params = list2(
       parse = parse,
       check_overlap = check_overlap,
-      size_unit = size_unit,
+      size.unit = size.unit,
       na.rm = na.rm,
       ...
     )
@@ -211,7 +211,7 @@ GeomText <- ggproto("GeomText", Geom,
 
   draw_panel = function(data, panel_params, coord, parse = FALSE,
                         na.rm = FALSE, check_overlap = FALSE,
-                        size_unit = "mm") {
+                        size.unit = "mm") {
     lab <- data$label
     if (parse) {
       lab <- parse_safe(as.character(lab))
@@ -226,8 +226,8 @@ GeomText <- ggproto("GeomText", Geom,
       data$hjust <- compute_just(data$hjust, data$x, data$y, data$angle)
     }
 
-    size_unit <- arg_match0(size_unit, c("mm", "pt"))
-    size_unit <- if (size_unit == "mm") .pt else 1
+    size.unit <- arg_match0(size.unit, c("mm", "pt"))
+    size.unit <- if (size.unit == "mm") .pt else 1
 
     textGrob(
       lab,
@@ -236,7 +236,7 @@ GeomText <- ggproto("GeomText", Geom,
       rot = data$angle,
       gp = gpar(
         col = alpha(data$colour, data$alpha),
-        fontsize = data$size * size_unit,
+        fontsize = data$size * size.unit,
         fontfamily = data$family,
         fontface = data$fontface,
         lineheight = data$lineheight

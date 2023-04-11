@@ -17,7 +17,7 @@ geom_label(
   label.padding = unit(0.25, "lines"),
   label.r = unit(0.15, "lines"),
   label.size = 0.25,
-  size_unit = "mm",
+  size.unit = "mm",
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -33,7 +33,7 @@ geom_text(
   nudge_x = 0,
   nudge_y = 0,
   check_overlap = FALSE,
-  size_unit = "mm",
+  size.unit = "mm",
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -87,7 +87,7 @@ Cannot be jointly specified with \code{position}.}
 
 \item{label.size}{Size of label border, in mm.}
 
-\item{size_unit}{How the \code{size} aesthetic is interpreted: as millimetres
+\item{size.unit}{How the \code{size} aesthetic is interpreted: as millimetres
 (\code{"mm"}, default) or points (\code{"pt"}).}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with

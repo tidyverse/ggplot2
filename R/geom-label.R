@@ -12,7 +12,7 @@ geom_label <- function(mapping = NULL, data = NULL,
                        label.padding = unit(0.25, "lines"),
                        label.r = unit(0.15, "lines"),
                        label.size = 0.25,
-                       size_unit = "mm",
+                       size.unit = "mm",
                        na.rm = FALSE,
                        show.legend = NA,
                        inherit.aes = TRUE) {
@@ -40,7 +40,7 @@ geom_label <- function(mapping = NULL, data = NULL,
       label.padding = label.padding,
       label.r = label.r,
       label.size = label.size,
-      size_unit = size_unit,
+      size.unit = size.unit,
       na.rm = na.rm,
       ...
     )
@@ -66,7 +66,7 @@ GeomLabel <- ggproto("GeomLabel", Geom,
                         label.padding = unit(0.25, "lines"),
                         label.r = unit(0.15, "lines"),
                         label.size = 0.25,
-                        size_unit = "mm") {
+                        size.unit = "mm") {
     lab <- data$label
     if (parse) {
       lab <- parse_safe(as.character(lab))
@@ -80,8 +80,8 @@ GeomLabel <- ggproto("GeomLabel", Geom,
       data$hjust <- compute_just(data$hjust, data$x)
     }
 
-    size_unit <- arg_match0(size_unit, c("mm", "pt"))
-    size_unit <- if (size_unit == "mm") .pt else 1
+    size.unit <- arg_match0(size.unit, c("mm", "pt"))
+    size.unit <- if (size.unit == "mm") .pt else 1
 
     grobs <- lapply(1:nrow(data), function(i) {
       row <- data[i, , drop = FALSE]
@@ -93,7 +93,7 @@ GeomLabel <- ggproto("GeomLabel", Geom,
         r = label.r,
         text.gp = gpar(
           col = row$colour,
-          fontsize = row$size * size_unit,
+          fontsize = row$size * size.unit,
           fontfamily = row$family,
           fontface = row$fontface,
           lineheight = row$lineheight
