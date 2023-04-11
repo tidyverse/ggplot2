@@ -13,9 +13,6 @@
     <loc>https://ggplot2.tidyverse.org/GOVERNANCE.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/ISSUE_TEMPLATE.html</loc>
-  </url>
-  <url>
     <loc>https://ggplot2.tidyverse.org/LICENSE-text.html</loc>
   </url>
   <url>
@@ -167,6 +164,9 @@
   </url>
   <url>
     <loc>https://ggplot2.tidyverse.org/reference/cut_interval.html</loc>
+  </url>
+  <url>
+    <loc>https://ggplot2.tidyverse.org/reference/datetime_scale.html</loc>
   </url>
   <url>
     <loc>https://ggplot2.tidyverse.org/reference/diamonds.html</loc>

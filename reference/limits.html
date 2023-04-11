@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">3.4.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">3.4.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,7 +76,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Generate correct scale type for specified limits</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/HEAD/R/limits.r" class="external-link"><code>R/limits.r</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/HEAD/R/limits.R" class="external-link"><code>R/limits.R</code></a></small>
       <div class="d-none name"><code>limits.Rd</code></div>
     </div>
 
@@ -142,16 +142,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>     palette: function</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     palette.cache: NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     position: bottom</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     range: &lt;ggproto object: Class RangeDiscrete, Range, gg&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         range: NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         reset: function</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         train: function</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         super:  &lt;ggproto object: Class RangeDiscrete, Range, gg&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     range_c: &lt;ggproto object: Class RangeContinuous, Range, gg&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         range: NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         reset: function</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         train: function</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         super:  &lt;ggproto object: Class RangeContinuous, Range, gg&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     range: environment</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     range_c: environment</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     rescale: function</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     reset: function</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     scale_name: position_d</span>
@@ -192,11 +184,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>     palette: function</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     palette.cache: NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     position: left</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     range: &lt;ggproto object: Class RangeDiscrete, Range, gg&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         range: NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         reset: function</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         train: function</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         super:  &lt;ggproto object: Class RangeDiscrete, Range, gg&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     range: environment</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     rescale: function</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     reset: function</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     scale_name: hue</span>
@@ -218,7 +206,7 @@
    </div>
   <footer><div class="container">
   <div class="pkgdown-footer-left">
-  <p></p><p>Developed by <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://github.com/wch" class="external-link">Winston Chang</a>, <a href="https://github.com/lionel-" class="external-link">Lionel Henry</a>, <a href="https://data-imaginist.com" class="external-link">Thomas Lin Pedersen</a>, Kohske Takahashi, <a href="https://clauswilke.com" class="external-link">Claus Wilke</a>, <a href="https://karawoo.com" class="external-link">Kara Woo</a>, <a href="https://yutani.rbind.io" class="external-link">Hiroaki Yutani</a>, <a href="https://fishandwhistle.net" class="external-link">Dewey Dunnington</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" width="72"></a>.</p>
+  <p></p><p>Developed by <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://github.com/wch" class="external-link">Winston Chang</a>, <a href="https://github.com/lionel-" class="external-link">Lionel Henry</a>, <a href="https://data-imaginist.com" class="external-link">Thomas Lin Pedersen</a>, Kohske Takahashi, <a href="https://clauswilke.com" class="external-link">Claus Wilke</a>, <a href="https://karawoo.com" class="external-link">Kara Woo</a>, <a href="https://yutani.rbind.io" class="external-link">Hiroaki Yutani</a>, <a href="https://fishandwhistle.net" class="external-link">Dewey Dunnington</a>, <a href="https://www.posit.co" class="external-link"><img src="https://www.tidyverse.org/posit-logo.svg" alt="Posit" height="16" style="margin-bottom: 3px;"></a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">

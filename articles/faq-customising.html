@@ -35,7 +35,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">3.4.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">3.4.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -144,7 +144,7 @@ title of your legend using <code><a href="../reference/labs.html">labs()</a></co
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hwy</span>, y <span class="op">=</span> <span class="va">cty</span>, color <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/labs.html">labs</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"Drive train"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-customising_files/figure-html/unnamed-chunk-2-1.png" width="80%"></p>
+<p><img src="faq-customising_files/figure-html/unnamed-chunk-2-1.png" alt="A scatter plot showing the highway miles per gallon on the x-axis and city miles per gallon on the y-axis. The points are coloured by three types of drive train, which is displayed in a legend with the title 'Drive train'." width="80%"></p>
 <p>If a legend is drawn for multiple aesthetics, you’ll want to update
 the title for all of them.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -152,14 +152,14 @@ the title for all of them.</p>
 <span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hwy</span>, y <span class="op">=</span> <span class="va">cty</span>, color <span class="op">=</span> <span class="va">drv</span>, shape <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/labs.html">labs</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"Drive train"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-customising_files/figure-html/unnamed-chunk-3-1.png" width="80%"></p>
+<p><img src="faq-customising_files/figure-html/unnamed-chunk-3-1.png" alt="A scatter plot showing the highway miles per gallon on the x-axis and city miles per gallon on the y-axis. The point shapes and colours indicate three types of drive train. The shapes and colours are displayed in separate legends titled 'drv' and 'Drive train' respectively." width="80%"></p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># but this</span></span>
 <span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hwy</span>, y <span class="op">=</span> <span class="va">cty</span>, color <span class="op">=</span> <span class="va">drv</span>, shape <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/labs.html">labs</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"Drive train"</span>, shape <span class="op">=</span> <span class="st">"Drive train"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-customising_files/figure-html/unnamed-chunk-3-2.png" width="80%"></p>
+<p><img src="faq-customising_files/figure-html/unnamed-chunk-3-2.png" alt="A scatter plot showing the highway miles per gallon on the x-axis and city miles per gallon on the y-axis. The point shapes and colours indicate three types of drive train. The shapes and colours are displayed in a single legend titled 'Drive train'." width="80%"></p>
 </details>
 </div>
 <div class="section level3">
@@ -184,7 +184,7 @@ more options for units.</p>
 <span>    legend.position <span class="op">=</span> <span class="st">"bottom"</span>, </span>
 <span>    legend.spacing.x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">1.0</span>, <span class="st">"cm"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span></code></pre></div>
-<p><img src="faq-customising_files/figure-html/unnamed-chunk-4-1.png" width="80%"></p>
+<p><img src="faq-customising_files/figure-html/unnamed-chunk-4-1.png" alt="A scatter plot showing the highway miles per gallon on the x-axis and city miles per gallon on the y-axis. The points are coloured by three types of drive train, which is displayed in a legend at the bottom of the plot in a horizontal orientation. Legend elements are spaced widely apart." width="80%"></p>
 <p>For vertical legends changing <code>legend.spacing.y</code> changes
 the space between the legend title and the keys, but not between the
 keys, e.g. see the large space between the legend title and keys.</p>
@@ -192,7 +192,7 @@ keys, e.g. see the large space between the legend title and keys.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hwy</span>, y <span class="op">=</span> <span class="va">cty</span>, color <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/theme.html">theme</a></span><span class="op">(</span>legend.spacing.y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">3.0</span>, <span class="st">"cm"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-customising_files/figure-html/unnamed-chunk-5-1.png" width="80%"></p>
+<p><img src="faq-customising_files/figure-html/unnamed-chunk-5-1.png" alt="A scatter plot showing the highway miles per gallon on the x-axis and city miles per gallon on the y-axis. The points are coloured by three types of drive train, which is displayed in a legend at the right of the plot. In the legend, there is a large space between the title and keys." width="80%"></p>
 <p>In order to change the space between the legend keys, you can first
 make the key size bigger with <code>legend.key.size</code> and then
 remove the grey background color with <code>legend.key</code>.</p>
@@ -203,7 +203,7 @@ remove the grey background color with <code>legend.key</code>.</p>
 <span>    legend.key.size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">1.5</span>, <span class="st">"cm"</span><span class="op">)</span>,</span>
 <span>    legend.key <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_rect</a></span><span class="op">(</span>color <span class="op">=</span> <span class="cn">NA</span>, fill <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span></code></pre></div>
-<p><img src="faq-customising_files/figure-html/unnamed-chunk-6-1.png" width="80%"></p>
+<p><img src="faq-customising_files/figure-html/unnamed-chunk-6-1.png" alt="A scatter plot showing the highway miles per gallon on the x-axis and city miles per gallon on the y-axis. The points are coloured by three types of drive train, which is displayed in a legend at the right of the plot. In the legend, elements are placed widely apart and the title is to the left of the keys." width="80%"></p>
 <p>Note that the legend title is no longer aligned with the keys with
 this approach. You can also shift it over with
 <code>legend.title.align</code>.</p>
@@ -215,7 +215,7 @@ this approach. You can also shift it over with
 <span>    legend.key <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_rect</a></span><span class="op">(</span>color <span class="op">=</span> <span class="cn">NA</span>, fill <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>,</span>
 <span>    legend.title.align <span class="op">=</span> <span class="fl">0.5</span></span>
 <span>    <span class="op">)</span></span></code></pre></div>
-<p><img src="faq-customising_files/figure-html/unnamed-chunk-7-1.png" width="80%"></p>
+<p><img src="faq-customising_files/figure-html/unnamed-chunk-7-1.png" alt="A scatter plot showing the highway miles per gallon on the x-axis and city miles per gallon on the y-axis. The points are coloured by three types of drive train, which is displayed in a legend at the right of the plot. In the legend, elements are placed widely apart and the title is aligned with the keys." width="80%"></p>
 </details>
 </div>
 <div class="section level3">
@@ -242,7 +242,7 @@ level order.</p>
 <span>               <span class="st">"f"</span> <span class="op">=</span> <span class="st">"Front-wheel drive"</span>, </span>
 <span>               <span class="st">"r"</span> <span class="op">=</span> <span class="st">"Rear-wheel drive"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span></code></pre></div>
-<p><img src="faq-customising_files/figure-html/unnamed-chunk-8-1.png" width="80%"></p>
+<p><img src="faq-customising_files/figure-html/unnamed-chunk-8-1.png" alt="A scatter plot showing the highway miles per gallon on the x-axis and city miles per gallon on the y-axis. The points are coloured by three types of drive train, which is displayed in a legend at the right of the plot. The legend items are name '4-wheel drive', 'Front-wheel drive' and 'Rear-wheel drive' from top to bottom." width="80%"></p>
 </details>
 </div>
 <div class="section level3">
@@ -268,7 +268,7 @@ larger font size for the legend title than the legend text.)</p>
 <span>    legend.text <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">14</span><span class="op">)</span>,</span>
 <span>    legend.title <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="faq-customising_files/figure-html/unnamed-chunk-9-1.png" width="80%"></p>
+<p><img src="faq-customising_files/figure-html/unnamed-chunk-9-1.png" alt="A scatter plot showing the highway miles per gallon on the x-axis and city miles per gallon on the y-axis. The points are coloured by seven types of cars, which is displayed in the legend on the right of the plot. The labels in the legend have a larger font size than the title." width="80%"></p>
 <p>For further customization of legend text, see the documentation for
 <code><a href="../reference/element.html">element_text()</a></code>, e.g. you can change font colors or font
 face as well.</p>
@@ -279,7 +279,7 @@ face as well.</p>
 <span>    legend.text <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">14</span>, color <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span>,</span>
 <span>    legend.title <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">10</span>, face <span class="op">=</span> <span class="st">"bold.italic"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="faq-customising_files/figure-html/unnamed-chunk-10-1.png" width="80%"></p>
+<p><img src="faq-customising_files/figure-html/unnamed-chunk-10-1.png" alt="A scatter plot showing the highway miles per gallon on the x-axis and city miles per gallon on the y-axis. The points are coloured by seven types of cars, which is displayed in the legend on the right of the plot. The labels in the legends have a large, red font. The title has a smaller, black font and is in bold and italic." width="80%"></p>
 </details>
 </div>
 </div>
@@ -303,7 +303,7 @@ to</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hwy</span>, y <span class="op">=</span> <span class="va">cty</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/theme.html">theme</a></span><span class="op">(</span>panel.background <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"lightblue"</span>, colour <span class="op">=</span> <span class="st">"red"</span>, linewidth <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-customising_files/figure-html/unnamed-chunk-11-1.png" width="80%"></p>
+<p><img src="faq-customising_files/figure-html/unnamed-chunk-11-1.png" alt="A scatter plot showing the highway miles per gallon on the x-axis and city miles per gallon on the y-axis. The panel background of the plot is light blue and is outlined in red with a thick stroke." width="80%"></p>
 <p>If you want to change the colour of the plotting area but not the
 panel where the panel, you can so the same thing with
 <code>plot.background</code>.</p>
@@ -311,7 +311,7 @@ panel where the panel, you can so the same thing with
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hwy</span>, y <span class="op">=</span> <span class="va">cty</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/theme.html">theme</a></span><span class="op">(</span>plot.background <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"lightblue"</span>, colour <span class="op">=</span> <span class="st">"red"</span>, linewidth <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-customising_files/figure-html/unnamed-chunk-12-1.png" width="80%"></p>
+<p><img src="faq-customising_files/figure-html/unnamed-chunk-12-1.png" alt="A scatter plot showing the highway miles per gallon on the x-axis and city miles per gallon on the y-axis. The plot background is light blue and is outlined in red with a thick stroke. The panel background remains grey." width="80%"></p>
 <p>Note that ggplot2 has a variety of <a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">complete
 themes</a> that might already do what you’re hoping to accomplish. For
 example, if you prefer a more minimal look to your plots, without the
@@ -320,14 +320,14 @@ grey background, you might try <code><a href="../reference/ggtheme.html">theme_m
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hwy</span>, y <span class="op">=</span> <span class="va">cty</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-customising_files/figure-html/unnamed-chunk-13-1.png" width="80%"></p>
+<p><img src="faq-customising_files/figure-html/unnamed-chunk-13-1.png" alt="A scatter plot showing the highway miles per gallon on the x-axis and city miles per gallon on the y-axis. There is no visible panel background and grid lines are in light grey." width="80%"></p>
 <p>And you can continue customization based on one of these themes.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hwy</span>, y <span class="op">=</span> <span class="va">cty</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/theme.html">theme</a></span><span class="op">(</span>plot.background <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_rect</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"red"</span>, linewidth <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-customising_files/figure-html/unnamed-chunk-14-1.png" width="80%"></p>
+<p><img src="faq-customising_files/figure-html/unnamed-chunk-14-1.png" alt="A scatter plot showing the highway miles per gallon on the x-axis and city miles per gallon on the y-axis. There is no visible panel background and grid lines are in light grey. The plot as a whole is outlined by a thick red line." width="80%"></p>
 <p>You might also find the <a href="https://rstudio.github.io/thematic/" class="external-link"><strong>thematic</strong></a>
 package useful for simplified theming of your plots.</p>
 </details>
@@ -357,7 +357,7 @@ variables, one of which has an <code>NA</code>.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">group</span>, fill <span class="op">=</span> <span class="va">outcome</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-customising_files/figure-html/unnamed-chunk-16-1.png" width="80%"></p>
+<p><img src="faq-customising_files/figure-html/unnamed-chunk-16-1.png" alt="A stacked bar chart showing two groups on the x-axis and counts on the y-axis. Within a stacked bar, two different outcomes and 'NA's are distinguished by fill colour." width="80%"></p>
 <p>You can change the color of <code>NA</code> with
 <code><a href="../reference/scale_colour_discrete.html">scale_fill_discrete()</a></code> in this case, e.g. make it
 purple.</p>
@@ -365,7 +365,7 @@ purple.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">group</span>, fill <span class="op">=</span> <span class="va">outcome</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_colour_discrete.html">scale_fill_discrete</a></span><span class="op">(</span>na.value <span class="op">=</span> <span class="st">"purple"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-customising_files/figure-html/unnamed-chunk-17-1.png" width="80%"></p>
+<p><img src="faq-customising_files/figure-html/unnamed-chunk-17-1.png" alt="A stacked bar chart showing two groups on the x-axis and counts on the y-axis. Within a stacked bar, two different outcomes and 'NA's are distinguished by fill colour. The 'NA' fill colour is purple." width="80%"></p>
 <p>You can also set the color to <code>"transparent"</code>. In the plot
 below this is shown with <code><a href="../reference/ggtheme.html">theme_minimal()</a></code> to demonstrate how
 that looks on a plot with a transparent background. Note that while this
@@ -377,7 +377,7 @@ floating bar.</p>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_colour_discrete.html">scale_fill_discrete</a></span><span class="op">(</span>na.value <span class="op">=</span> <span class="st">"transparent"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-customising_files/figure-html/unnamed-chunk-18-1.png" width="80%"></p>
+<p><img src="faq-customising_files/figure-html/unnamed-chunk-18-1.png" alt="A stacked bar chart showing two groups on the x-axis and counts on the y-axis. Within a stacked bar, two different outcomes and 'NA's are distinguished by fill colour. The 'NA' fill colour is transparent, giving the appearance that one of the stacked bars is floating." width="80%"></p>
 </details>
 </div>
 </div>
@@ -398,7 +398,7 @@ theme documentation</a> for more high level options you can set.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hwy</span>, y <span class="op">=</span> <span class="va">cty</span>, color <span class="op">=</span> <span class="va">class</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/ggtheme.html">theme_gray</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">18</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-customising_files/figure-html/unnamed-chunk-19-1.png" width="80%"></p>
+<p><img src="faq-customising_files/figure-html/unnamed-chunk-19-1.png" alt="A scatter plot showing the highway miles per gallon on the x-axis and city miles per gallon on the y-axis. The points are coloured by seven types of car. All text sizes in the axes and legend are large." width="80%"></p>
 <p>If you would like all plots within a session/document to use a
 particular base size, you can set it with <code><a href="../reference/theme_get.html">theme_set()</a></code>. Run
 the following at the beginning of your session or include on top of your
@@ -432,7 +432,7 @@ the plot title and 15 pts text for the plot subtitle.</p>
 <span>    plot.title <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>,</span>
 <span>    plot.subtitle <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">15</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="faq-customising_files/figure-html/unnamed-chunk-21-1.png" width="80%"></p>
+<p><img src="faq-customising_files/figure-html/unnamed-chunk-21-1.png" alt="A scatter plot showing the highway miles per gallon on the x-axis and city miles per gallon on the y-axis. The plot has a large title displaying 'This is the plot title' and a less large subtitle displaying 'And this is the subtitle' at the top of the plot." width="80%"></p>
 <p>For further customization of plot title and subtitle, see the
 documentation for <code><a href="../reference/element.html">element_text()</a></code>, e.g. you can change font
 colors or font face as well.</p>
@@ -447,7 +447,7 @@ colors or font face as well.</p>
 <span>    plot.title <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">20</span>, color <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span>,</span>
 <span>    plot.subtitle <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">15</span>, face <span class="op">=</span> <span class="st">"bold.italic"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="faq-customising_files/figure-html/unnamed-chunk-22-1.png" width="80%"></p>
+<p><img src="faq-customising_files/figure-html/unnamed-chunk-22-1.png" alt="A scatter plot showing the highway miles per gallon on the x-axis and city miles per gallon on the y-axis. The plot has a large red title displaying 'This is the plot title' and a less large subtitle in bold and italic displaying 'And this is the subtitle' at the top of the plot." width="80%"></p>
 </details>
 </div>
 <div class="section level3">
@@ -474,7 +474,7 @@ See example
 <span>    axis.title.x <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>,</span>
 <span>    axis.title.y <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="faq-customising_files/figure-html/unnamed-chunk-23-1.png" width="80%"></p>
+<p><img src="faq-customising_files/figure-html/unnamed-chunk-23-1.png" alt="A scatter plot showing the highway miles per gallon on the x-axis and city miles per gallon on the y-axis. The x-axis title displays 'This is HUGE' in a large font size, and the y-axis title displays 'This is small' in a smaller font size." width="80%"></p>
 <p>For further customization of plot title and subtitle, see the
 documentation for <code><a href="../reference/element.html">element_text()</a></code>, e.g. you can change font
 colors or font face as well.</p>
@@ -489,7 +489,7 @@ colors or font face as well.</p>
 <span>    axis.title.x <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">20</span>, color <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span>,</span>
 <span>    axis.title.y <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">10</span>, face <span class="op">=</span> <span class="st">"bold.italic"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="faq-customising_files/figure-html/unnamed-chunk-24-1.png" width="80%"></p>
+<p><img src="faq-customising_files/figure-html/unnamed-chunk-24-1.png" alt="A scatter plot showing the highway miles per gallon on the x-axis and city miles per gallon on the y-axis. The x-axis title displays 'This is HUGE' in a large, red font, and the y-axis title displays 'This is tiny' in a smaller, bold and italic font." width="80%"></p>
 <p>You can also change the size of the axis text (e.g. numbers at the
 axis ticks) using <code>axis.text</code> (or <code>axis.text.x</code>
 and <code>axis.text.y</code> if you want to set different sizes).</p>
@@ -504,7 +504,7 @@ and <code>axis.text.y</code> if you want to set different sizes).</p>
 <span>    axis.title <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">16</span><span class="op">)</span>,</span>
 <span>    axis.text <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">20</span>, color <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="faq-customising_files/figure-html/unnamed-chunk-25-1.png" width="80%"></p>
+<p><img src="faq-customising_files/figure-html/unnamed-chunk-25-1.png" alt="A scatter plot showing the highway miles per gallon on the x-axis and city miles per gallon on the y-axis. Both the x and the y axis titles display 'The axis labels are the same size' in a large font. Both axis labels are displayed in a larger, blue font." width="80%"></p>
 </details>
 </div>
 <div class="section level3">
@@ -532,12 +532,12 @@ See example
 <span></span>
 <span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, label <span class="op">=</span> <span class="va">name</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-customising_files/figure-html/unnamed-chunk-27-1.png" width="80%"></p>
+<p><img src="faq-customising_files/figure-html/unnamed-chunk-27-1.png" alt="A plot showing text at diagonal positions with the labels 'two','three' and 'four'." width="80%"></p>
 <p>You can set the size of the text with the following.</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, label <span class="op">=</span> <span class="va">name</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_text.html">geom_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-customising_files/figure-html/unnamed-chunk-28-1.png" width="80%"></p>
+<p><img src="faq-customising_files/figure-html/unnamed-chunk-28-1.png" alt="A plot showing larger text at diagonal positions with the labels'two', 'three' and 'four'." width="80%"></p>
 <p>Or you can map it to the <code>size</code> <code>aes</code>thetic. In
 the following size is determined by the <code>x</code> value with
 <code><a href="../reference/scale_identity.html">scale_size_identity()</a></code>.</p>
@@ -545,7 +545,7 @@ the following size is determined by the <code>x</code> value with
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, label <span class="op">=</span> <span class="va">name</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>size <span class="op">=</span> <span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_identity.html">scale_size_identity</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-customising_files/figure-html/unnamed-chunk-29-1.png" width="80%"></p>
+<p><img src="faq-customising_files/figure-html/unnamed-chunk-29-1.png" alt="A plot showing text at diagonal positions with the labels 'two', 'three' and 'four' that increase in size from left to right." width="80%"></p>
 <p>If you want to use the same updated size for <code><a href="../reference/geom_text.html">geom_text()</a></code>
 in a series of plots in a session/R Markdown document, you can set use
 <code><a href="../reference/update_defaults.html">update_geom_defaults()</a></code> to update the default size, e.g. if
@@ -564,7 +564,7 @@ you want the size for all <code><a href="../reference/geom_text.html">geom_text(
   <footer><div class="container">
   <div class="pkgdown-footer-left">
   <p></p>
-<p>Developed by <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://github.com/wch" class="external-link">Winston Chang</a>, <a href="https://github.com/lionel-" class="external-link">Lionel Henry</a>, <a href="https://data-imaginist.com" class="external-link">Thomas Lin Pedersen</a>, Kohske Takahashi, <a href="https://clauswilke.com" class="external-link">Claus Wilke</a>, <a href="https://karawoo.com" class="external-link">Kara Woo</a>, <a href="https://yutani.rbind.io" class="external-link">Hiroaki Yutani</a>, <a href="https://fishandwhistle.net" class="external-link">Dewey Dunnington</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" width="72"></a>.</p>
+<p>Developed by <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://github.com/wch" class="external-link">Winston Chang</a>, <a href="https://github.com/lionel-" class="external-link">Lionel Henry</a>, <a href="https://data-imaginist.com" class="external-link">Thomas Lin Pedersen</a>, Kohske Takahashi, <a href="https://clauswilke.com" class="external-link">Claus Wilke</a>, <a href="https://karawoo.com" class="external-link">Kara Woo</a>, <a href="https://yutani.rbind.io" class="external-link">Hiroaki Yutani</a>, <a href="https://fishandwhistle.net" class="external-link">Dewey Dunnington</a>, <a href="https://www.posit.co" class="external-link"><img src="https://www.tidyverse.org/posit-logo.svg" alt="Posit" height="16" style="margin-bottom: 3px;"></a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">
