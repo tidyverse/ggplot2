@@ -137,6 +137,7 @@ to match the number of dots.
 \item \code{\link[=aes_group_order]{group}}
 \item \code{\link[=aes_linetype_size_shape]{linetype}}
 \item \code{stroke}
+\item \code{weight}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
