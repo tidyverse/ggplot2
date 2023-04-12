@@ -8,9 +8,8 @@ test_that("plotting does not induce state changes in guides", {
     shape  = guide_legend(title = "Legend"),
     size   = guide_bins(title = "Bins")
   )
-  # If rendering a plot with these guides induces a state change,
-  # the hash of these guides should change
-  hashes <- vapply(guides, hash, character(1))
+  # We take an immutable copy of the guides by serialising them
+  snap_old <- serialize(guides, NULL)
 
   # Now render a plot using these guides
   p <- ggplot(mpg, aes(displ, hwy, colour = cty, shape = factor(cyl),
@@ -20,14 +19,12 @@ test_that("plotting does not induce state changes in guides", {
     guides(!!!guides)
   grob <- ggplotGrob(p)
 
-  # Test: has the hash changed?
-  new_hashes <- vapply(guides, hash, character(1))
-  expect_equal(hashes, new_hashes)
+  # Test: have the guides changed by rendering the plot?
+  expect_identical(guides, unserialize(snap_old))
 
-  # Negative control: we are able to detect changes through hashes
+  # Negative control: if they would have changed, we'd detect it
   guides$colour$nonsense <- "foobar"
-  new_hashes <- vapply(guides, hash, character(1))
-  expect_false(all(hashes == new_hashes))
+  expect_false(isTRUE(all.equal(guides, unserialize(snap_old))))
 })
 
 test_that("colourbar trains without labels", {
