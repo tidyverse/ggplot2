@@ -151,7 +151,7 @@ GeomPoint <- ggproto("GeomPoint", Geom,
 #'
 #' @param shape_string A character vector giving point shapes.
 #'
-#' @return An integer vector with translated shapes
+#' @return An integer vector with translated shapes.
 #' @export
 #' @keywords internal
 #'
