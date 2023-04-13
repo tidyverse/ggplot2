@@ -1,6 +1,6 @@
 # NA's result in warning from stat_bindot
 
-    Removed 2 rows containing missing values (`stat_bindot()`).
+    Removed 2 rows containing missing or excluded values (`stat_bindot()`).
 
 # weight aesthetic is checked
 
