@@ -16,5 +16,5 @@
 
 # new_aes() checks its inputs
 
-    `x` must be a list
+    `x` must be a <list>, not an integer vector.
 
