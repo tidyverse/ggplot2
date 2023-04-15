@@ -1,5 +1,9 @@
 # ggplot2 (development version)
 
+* The `translate_shape_string()` internal function is now exported for use in
+  extensions of point layers (@teunbrand, #5191).
+* Fixed bug in `coord_sf()` where graticule lines didn't obey 
+  `panel.grid.major`'s linewidth setting (@teunbrand, #5179)
 * Fixed bug in `annotation_logticks()` when no suitable tick positions could
   be found (@teunbrand, #5248).
 * To improve `width` calculation in bar plots with empty factor levels, 
