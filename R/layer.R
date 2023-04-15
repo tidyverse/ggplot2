@@ -292,14 +292,21 @@ Layer <- ggproto("Layer", NULL,
     }
 
     n <- nrow(data)
+    aes_n <- lengths(evaled)
     if (n == 0) {
       # No data, so look at longest evaluated aesthetic
       if (length(evaled) == 0) {
         n <- 0
       } else {
-        aes_n <- lengths(evaled)
         n <- if (min(aes_n) == 0) 0L else max(aes_n)
       }
+    }
+    if ((self$geom$check_constant_aes %||% TRUE)
+        && length(aes_n) > 0 && all(aes_n == 1) && n > 1) {
+      cli::cli_warn(c(
+        "All aesthetics have length 1, but the data has {n} rows.",
+        i = "Did you mean to use {.fn annotate}?"
+      ), call = self$constructor)
     }
     check_aesthetics(evaled, n)
 
