@@ -12,6 +12,14 @@
 #' @inheritParams geom_point
 #' @inheritParams geom_segment
 #' @export
+#'
+#' @details
+#' `geom_rect()` and `geom_tile()`'s respond differently to scale
+#' transformations due to their parametrisation. In `geom_rect()`, the scale
+#' transformation is applied to the corners of the rectangles. In `geom_tile()`,
+#' the transformation is applied only to the centres and its size is determined
+#' after transformation.
+#'
 #' @examples
 #' # The most common use for rectangles is to draw a surface. You always want
 #' # to use geom_raster here because it's so much faster, and produces
