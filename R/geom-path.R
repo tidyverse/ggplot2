@@ -141,8 +141,8 @@ GeomPath <- ggproto("GeomPath", Geom,
 
     if (!all(kept) && !params$na.rm) {
       cli::cli_warn(paste0(
-        "Removed {sum(!kept)} row{?s} containing missing ",
-        "or excluded values ({.fn {snake_class(self)}})."
+        "Removed {sum(!kept)} row{?s} containing missing values or values ",
+        "outside the scale range ({.fn {snake_class(self)}})."
       ))
     }
 

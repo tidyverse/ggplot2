@@ -177,8 +177,8 @@ sf_grob <- function(x, lineend = "butt", linejoin = "round", linemitre = 10,
   if (any(remove)) {
     if (!na.rm) {
       cli::cli_warn(paste0(
-        "Removed {sum(remove)} row{?s} containing missing ",
-        "or excluded values ({.fn geom_sf})."
+        "Removed {sum(remove)} row{?s} containing missing values or values ",
+        "outside the scale range ({.fn geom_sf})."
       ))
     }
     x <- x[!remove, , drop = FALSE]

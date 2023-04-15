@@ -112,9 +112,9 @@ test_that("oob affects position values", {
   base + scale_y_continuous(limits = c(-0,5))
 
   expect_warning(low_censor <- cdata(base + y_scale(c(0, 5), censor)),
-    "Removed 1 row containing missing or excluded values")
+    "Removed 1 row containing missing values or values outside the scale range")
   expect_warning(mid_censor <- cdata(base + y_scale(c(3, 7), censor)),
-    "Removed 2 rows containing missing or excluded values")
+    "Removed 2 rows containing missing values or values outside the scale range")
 
   low_squish <- cdata(base + y_scale(c(0, 5), squish))
   mid_squish <- cdata(base + y_scale(c(3, 7), squish))
