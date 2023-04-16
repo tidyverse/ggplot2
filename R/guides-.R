@@ -126,9 +126,6 @@ Guides <- ggproto(
   # How to treat missing guides
   missing = NULL,
 
-  # An index parallel to `guides` for matching guides with scales
-  # Currently not used, but should be useful for non-position training etc.
-  scale_index = integer(),
 
   # A vector of aesthetics parallel to `guides` tracking which guide belongs to
   # which aesthetic. Used in `get_guide()` and `get_params()` method
@@ -200,8 +197,7 @@ Guides <- ggproto(
   setup = function(
     self, scales, aesthetics = NULL,
     default = guide_none(),
-    missing = guide_none(),
-    keep_none = TRUE
+    missing = guide_none()
   ) {
 
     if (is.null(aesthetics)) {
@@ -262,21 +258,12 @@ Guides <- ggproto(
       guide
     })
 
-    # Non-position guides drop `GuideNone`
-    if (!keep_none) {
-      is_none <- vapply(new_guides, inherits, logical(1), what = "GuideNone")
-      new_guides <- new_guides[!is_none]
-      scale_idx  <- scale_idx[!is_none]
-      aesthetics <- aesthetics[!is_none]
-    }
-
     # Create updated child
     ggproto(
       NULL, self,
-      guides      = new_guides,
-      scale_index = scale_idx,
-      aesthetics  = aesthetics,
-      params      = lapply(new_guides, `[[`, "params")
+      guides     = new_guides,
+      aesthetics = aesthetics,
+      params     = lapply(new_guides, `[[`, "params")
     )
   },
 
@@ -284,7 +271,6 @@ Guides <- ggproto(
   drop_none = function(self) {
     is_none <- vapply(self$guides, inherits, logical(1), what = "GuideNone")
     self$guides      <- self$guides[!is_none]
-    self$scale_index <- self$scale_index[!is_none]
     self$aesthetics  <- self$aesthetics[!is_none]
     self$params      <- self$params[!is_none]
     return()
@@ -304,7 +290,7 @@ Guides <- ggproto(
       guide = self$guides,
       param = self$params,
       aes   = self$aesthetics,
-      scale = scales[self$scale_index]
+      scale = scales
     )
     self$update_params(params)
     self$drop_none()
@@ -345,7 +331,6 @@ Guides <- ggproto(
     self$guides <- lapply(groups, `[[`, "guide")
     self$params <- lapply(groups, `[[`, "params")
     self$aesthetics  <- self$aesthetics[indices]
-    self$scale_index <- self$scale_index[indices]
     return()
   },
 
@@ -360,7 +345,6 @@ Guides <- ggproto(
     self$guides <- self$guides[keep]
     self$params <- params[keep]
     self$aesthetics  <- self$aesthetics[keep]
-    self$scale_index <- self$scale_index[keep]
     return()
   },
 
@@ -500,7 +484,7 @@ Guides <- ggproto(
     if (length(scales) == 0) {
       return(no_guides)
     }
-    guides <- self$setup(scales, keep_none = FALSE)
+    guides <- self$setup(scales)
     guides$train(scales, theme$legend.direction, labels)
     if (length(guides$guides) == 0) {
       return(no_guides)

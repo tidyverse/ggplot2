@@ -166,7 +166,7 @@ test_that("guide merging for guide_legend() works as expected", {
     scales$add(scale2)
 
     guides <- guides_list(NULL)
-    guides <- guides$setup(scales$scales, keep_none = FALSE)
+    guides <- guides$setup(scales$scales)
     guides$train(scales$scales, "vertical", labs())
     guides$merge()
     guides$params
