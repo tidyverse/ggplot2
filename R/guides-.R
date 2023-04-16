@@ -614,7 +614,7 @@ validate_guide <- function(guide) {
     fun <- find_global(paste0("guide_", guide), env = global_env(),
                        mode = "function")
     if (is.function(fun)) {
-      return(fun())
+      guide <- fun()
     }
   }
   if (inherits(guide, "Guide")) {
