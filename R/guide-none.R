@@ -1,3 +1,5 @@
+#' @include layer.R
+NULL
 
 #' Empty guide
 #'

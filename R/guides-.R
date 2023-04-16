@@ -1,3 +1,6 @@
+#' @include guide-none.R
+NULL
+
 #' Set guides for each scale
 #'
 #' Guides for each scale can be set scale-by-scale with the `guide`
@@ -113,8 +116,8 @@ update_guides <- function(p, guides) {
 # Class -------------------------------------------------------------------
 
 # Guides object encapsulates multiple guides and their state.
-guides_list <- function(guides = NULL, .missing = guide_none()) {
-  ggproto(NULL, Guides, guides = guides, missing = .missing)
+guides_list <- function(guides = NULL) {
+  ggproto(NULL, Guides, guides = guides)
 }
 
 Guides <- ggproto(
@@ -123,16 +126,16 @@ Guides <- ggproto(
   # A list of guides to be updated by 'add' or populated upon construction.
   guides = list(),
 
-  # How to treat missing guides
-  missing = NULL,
-
+  # To avoid repeatedly calling `guide_none()` to substitute missing guides,
+  # we include its result as a field in the `Guides` class.
+  missing = guide_none(),
 
   # A vector of aesthetics parallel to `guides` tracking which guide belongs to
   # which aesthetic. Used in `get_guide()` and `get_params()` method
   aesthetics = character(),
 
   # Updates the parameters of the guides. NULL parameters indicate switch to
-  # `guide_none()`.
+  # `guide_none()` from `Guide$missing` field.
   update_params = function(self, params) {
     if (length(params) != length(self$params)) {
       cli::cli_abort(paste0(
@@ -196,8 +199,8 @@ Guides <- ggproto(
   # Setup routine for resolving and validating guides based on paired scales.
   setup = function(
     self, scales, aesthetics = NULL,
-    default = guide_none(),
-    missing = guide_none()
+    default = self$missing,
+    missing = self$missing
   ) {
 
     if (is.null(aesthetics)) {
