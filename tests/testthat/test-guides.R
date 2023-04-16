@@ -2,29 +2,23 @@ skip_on_cran() # This test suite is long-running (on cran) and is skipped
 
 test_that("plotting does not induce state changes in guides", {
 
-  guides <- list(
+  guides <- guides(
     x      = guide_axis(title = "X-axis"),
     colour = guide_colourbar(title = "Colourbar"),
     shape  = guide_legend(title = "Legend"),
     size   = guide_bins(title = "Bins")
   )
-  # We take an immutable copy of the guides by serialising them
-  snap_old <- serialize(guides, NULL)
 
-  # Now render a plot using these guides
   p <- ggplot(mpg, aes(displ, hwy, colour = cty, shape = factor(cyl),
                        size = cyl)) +
     geom_point() +
-    scale_size_binned() +
-    guides(!!!guides)
+    guides
+
+  snapshot <- serialize(as.list(p$guides), NULL)
+
   grob <- ggplotGrob(p)
 
-  # Test: have the guides changed by rendering the plot?
-  expect_identical(guides, unserialize(snap_old))
-
-  # Negative control: if they would have changed, we'd detect it
-  guides$colour$nonsense <- "foobar"
-  expect_false(isTRUE(all.equal(guides, unserialize(snap_old))))
+  expect_identical(as.list(p$guides), unserialize(snapshot))
 })
 
 test_that("colourbar trains without labels", {
