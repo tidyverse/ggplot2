@@ -139,7 +139,7 @@ Coord <- ggproto("Coord",
     panel_params
   },
 
-  train_panel_guides = function(self, panel_params, layers, default_mapping, params = list()) {
+  train_panel_guides = function(self, panel_params, layers, params = list()) {
 
     aesthetics <- c("x", "y", "x.sec", "y.sec")
 
@@ -156,7 +156,7 @@ Coord <- ggproto("Coord",
       function(guide, guide_param, scale) {
         guide_param <- guide$train(guide_param, scale)
         guide_param <- guide$transform(guide_param, self, panel_params)
-        guide_param <- guide$get_layer_key(guide_param, layers, default_mapping)
+        guide_param <- guide$get_layer_key(guide_param, layers)
         guide_param
       },
       guide = guides[!empty],

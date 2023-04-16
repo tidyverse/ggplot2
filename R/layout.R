@@ -212,7 +212,7 @@ Layout <- ggproto("Layout", NULL,
     invisible()
   },
 
-  setup_panel_guides = function(self, guides, layers, default_mapping) {
+  setup_panel_guides = function(self, guides, layers) {
     self$panel_params <- lapply(
       self$panel_params,
       self$coord$setup_panel_guides,
@@ -224,7 +224,6 @@ Layout <- ggproto("Layout", NULL,
       self$panel_params,
       self$coord$train_panel_guides,
       layers,
-      default_mapping,
       self$coord_params
     )
 

@@ -100,7 +100,7 @@ test_that("position axis label hierarchy works as intended", {
   # Guide titles overrule scale names
   p$layout$setup_panel_guides(
     guides_list(list(x = guide_axis("quuX"), y = guide_axis("corgE"))),
-    p$plot$layers, p$plot$mapping
+    p$plot$layers
   )
   expect_identical(
     p$layout$resolve_label(scale_x_continuous("Baz"), p$plot$labels),
@@ -127,7 +127,7 @@ test_that("position axis label hierarchy works as intended", {
   p$layout$setup_panel_guides(
     guides_list(list(x = guide_axis("quuX"), y = guide_axis("corgE"),
                      x.sec = guide_axis("waldo"), y.sec = guide_axis("fred"))),
-    p$plot$layers, p$plot$mapping
+    p$plot$layers
   )
   expect_identical(
     p$layout$resolve_label(xsec, p$plot$labels),
@@ -154,7 +154,7 @@ test_that("moving guide positions lets titles follow", {
       list(x = guide_axis("baz", position = "bottom"),
            y = guide_axis("qux", position = "left"))
     ),
-    p$plot$layers, p$plot$mapping
+    p$plot$layers
   )
   expect_identical(
     p$layout$resolve_label(p$layout$panel_scales_x[[1]], p$plot$labels),
@@ -171,7 +171,7 @@ test_that("moving guide positions lets titles follow", {
       list(x = guide_axis("baz", position = "top"),
            y = guide_axis("qux", position = "right"))
     ),
-    p$plot$layers, p$plot$mapping
+    p$plot$layers
   )
   expect_identical(
     p$layout$resolve_label(p$layout$panel_scales_x[[1]], p$plot$labels),
@@ -191,7 +191,7 @@ test_that("moving guide positions lets titles follow", {
            x.sec = guide_axis("quux"),
            y.sec = guide_axis("corge"))
     ),
-    p$plot$layers, p$plot$mapping
+    p$plot$layers
   )
   expect_identical(
     p$layout$resolve_label(p$layout$panel_scales_x[[1]], p$plot$labels),

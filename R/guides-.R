@@ -350,16 +350,16 @@ Guides <- ggproto(
   },
 
   # Loop over guides to let them extract information from layers
-  process_layers = function(self, layers, default_mapping) {
+  process_layers = function(self, layers) {
     params <- Map(
-      function(guide, param) guide$get_layer_key(param, layers, default_mapping),
+      function(guide, param) guide$get_layer_key(param, layers),
       guide = self$guides,
       param = self$params
     )
     keep <- !vapply(params, is.null, logical(1))
     self$guides <- self$guides[keep]
     self$params <- params[keep]
-    self$aesthetics <- self$aesthetics[keep]
+    self$aesthetics  <- self$aesthetics[keep]
     self$scale_index <- self$scale_index[keep]
     return()
   },
@@ -508,7 +508,7 @@ Guides <- ggproto(
 
     # Merge and process layers
     guides$merge()
-    guides$process_layers(layers, default_mapping)
+    guides$process_layers(layers)
     if (length(guides$guides) == 0) {
       return(no_guides)
     }

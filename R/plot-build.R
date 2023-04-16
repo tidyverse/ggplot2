@@ -168,7 +168,7 @@ ggplot_gtable.ggplot_built <- function(data) {
 
   geom_grobs <- by_layer(function(l, d) l$draw_geom(d, layout), plot$layers, data, "converting geom to grob")
 
-  layout$setup_panel_guides(plot$guides, plot$layers, plot$mapping)
+  layout$setup_panel_guides(plot$guides, plot$layers)
   plot_table <- layout$render(geom_grobs, data, theme, plot$labels)
 
   # Legends
