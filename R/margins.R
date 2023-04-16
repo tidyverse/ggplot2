@@ -177,6 +177,81 @@ add_margins <- function(grob, height, width, margin = NULL,
 titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
                       margin = NULL, margin_x = FALSE, margin_y = FALSE,
                       debug = FALSE, check.overlap = FALSE) {
+  if (is.null(label)) {
+    return(zeroGrob())
+  }
+
+  just <- rotate_just(angle, hjust, vjust)
+
+  n <- max(length(x), length(y), 1)
+  x <- x %||% unit(rep(just$hjust, n), "npc")
+  y <- y %||% unit(rep(just$vjust, n), "npc")
+  if (!is.unit(x)) {
+    x <- unit(x, "npc")
+  }
+  if (!is.unit(y)) {
+    y <- unit(y, "npc")
+  }
+
+  grob <- textGrob(
+    label, x, y,
+    hjust = hjust, vjust = vjust,
+    rot = angle, gp = gp, check.overlap = check.overlap
+  )
+
+  rad <- (angle[1] %% 360) / 180 * pi
+  descent   <- font_descent(gp$fontfamily, gp$fontface, gp$fontsize, gp$cex)
+  x_descent <- abs(sin(rad)) * descent
+  y_descent <- abs(cos(rad)) * descent
+
+  width  <- unit(1, "grobwidth",  grob) + x_descent
+  height <- unit(1, "grobheight", grob) + y_descent
+
+  if (is.null(margin)) {
+    margin <- margin(0, 0, 0, 0)
+  }
+  margin_x <- isTRUE(margin_x)
+  margin_y <- isTRUE(margin_y)
+
+  new_x <- new_y <- new_width <- new_height <- NULL
+
+  if (margin_x) {
+    new_width  <- unit.c(margin[4], width, margin[2])
+    new_x <- unit.pmax(
+      unit.pmin(unit(1, "npc") - margin[2], x),
+                unit(0, "npc") + margin[4]
+    )
+  }
+
+  if (margin_y) {
+    new_height <- unit.c(margin[1], height, margin[3])
+    new_y <- unit.pmax(
+      unit.pmin(unit(1, "npc") - margin[1], y),
+      margin[3]
+    )
+  }
+
+  if (xor(margin_x, margin_y)) {
+    new_width  <- new_width  %||% unit(1, "null")
+    new_height <- new_height %||% unit(1, "null")
+    new_x <- new_x %||% x
+    new_y <- new_y %||% y
+  }
+
+  grob$x <- new_x %||% x
+  grob$y <- new_y %||% y
+
+  gTree(
+    children = gList(grob),
+    widths   = new_width  %||% width,
+    heights  = new_height %||% height,
+    cl = "titleGrob"
+  )
+}
+
+titleGrob_old <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
+                      margin = NULL, margin_x = FALSE, margin_y = FALSE,
+                      debug = FALSE, check.overlap = FALSE) {
 
   if (is.null(label))
     return(zeroGrob())
