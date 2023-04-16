@@ -123,16 +123,31 @@ guides_list <- function(guides = NULL) {
 Guides <- ggproto(
   "Guides", NULL,
 
-  # A list of guides to be updated by 'add' or populated upon construction.
+  ## Fields --------------------------------------------------------------------
+
+  # `guides` is the only initially mutable field.
+  # It gets populated as a user adds `+ guides(...)` to a plot by the
+  # `Guides$add()` method.
   guides = list(),
 
   # To avoid repeatedly calling `guide_none()` to substitute missing guides,
-  # we include its result as a field in the `Guides` class.
+  # we include its result as a field in the `Guides` class. This field is
+  # never updated.
   missing = guide_none(),
 
-  # A vector of aesthetics parallel to `guides` tracking which guide belongs to
-  # which aesthetic. Used in `get_guide()` and `get_params()` method
-  aesthetics = character(),
+  ## Setters -------------------------------------------------------------------
+
+  # Function for adding new guides provided by user
+  add = function(self, guides) {
+    if (is.null(guides)) {
+      return(invisible())
+    }
+    if (inherits(guides, "Guides")) {
+      guides <- guides$guides
+    }
+    self$guides <- defaults(guides, self$guides)
+    invisible()
+  },
 
   # Updates the parameters of the guides. NULL parameters indicate switch to
   # `guide_none()` from `Guide$missing` field.
@@ -151,20 +166,19 @@ Guides <- ggproto(
     # Set empty parameter guides to `guide_none`. Don't overwrite parameters,
     # because things like 'position' are relevant.
     self$guides[is_empty] <- list(self$missing)
-    return(NULL)
+    invisible()
   },
 
-  # Function for adding new guides
-  add = function(self, guides) {
-    if (is.null(guides)) {
-      return()
-    }
-    if (inherits(guides, "Guides")) {
-      guides <- guides$guides
-    }
-    self$guides <- defaults(guides, self$guides)
-    return()
+  # Function for dropping GuideNone objects from the Guides object. Typically
+  # called after training the guides on scales.
+  subset_guides = function(self, i) {
+    self$guides     <- self$guides[i]
+    self$aesthetics <- self$aesthetics[i]
+    self$params     <- self$params[i]
+    invisible()
   },
+
+  ## Getters -------------------------------------------------------------------
 
   # Function for retrieving guides by index or aesthetic
   get_guide = function(self, index) {
@@ -196,7 +210,96 @@ Guides <- ggproto(
     }
   },
 
+  ## Building ------------------------------------------------------------------
+
+  # The `Guides$build()` method is called in ggplotGrob (plot-build.R) and makes
+  # the guide box for *non-position* scales.
+  # Note that position scales are handled in `Coord`s, which have their own
+  # procedures to do equivalent steps.
+  #
+  # The procedure is as follows:
+  #
+  # 1. Guides$setup()
+  #      generates a guide object for every scale-aesthetic pair
+  #
+  # 2. Guides$train()
+  #      train each scale and generate guide definition for all guides
+  #      here, one guide object for one scale
+  #
+  # 2. Guides$merge()
+  #      merge guide objects if they are overlayed
+  #      number of guide objects may be less than number of scales
+  #
+  # 3. Guides$process_layers()
+  #      process layer information and generate geom info.
+  #
+  # 4. Guides$draw()
+  #      generate guide grob from each guide object
+  #      one guide grob for one guide object
+  #
+  # 5. Guides$assemble()
+  #      arrange all guide grobs
+
+  build = function(self, scales, layers, default_mapping,
+                   position, theme, labels) {
+
+    position  <- legend_position(position)
+    no_guides <- zeroGrob()
+    if (position == "none") {
+      return(no_guides)
+    }
+
+    theme$legend.key.width  <- theme$legend.key.width  %||% theme$legend.key.size
+    theme$legend.key.height <- theme$legend.key.height %||% theme$legend.key.size
+
+
+    default_direction <- if (position == "inside") "vertical" else position
+    theme$legend.box       <- theme$legend.box       %||% default_direction
+    theme$legend.direction <- theme$legend.direction %||% default_direction
+    theme$legend.box.just  <- theme$legend.box.just  %||% switch(
+      position,
+      inside     = c("center", "center"),
+      vertical   = c("left",   "top"),
+      horizontal = c("center", "top")
+    )
+
+    # Setup and train on scales
+    scales <- scales$non_position_scales()$scales
+    if (length(scales) == 0) {
+      return(no_guides)
+    }
+    guides <- self$setup(scales)
+    guides$train(scales, theme$legend.direction, labels)
+    if (length(guides$guides) == 0) {
+      return(no_guides)
+    }
+
+    # Merge and process layers
+    guides$merge()
+    guides$process_layers(layers)
+    if (length(guides$guides) == 0) {
+      return(no_guides)
+    }
+
+    # Draw and assemble
+    grobs <- guides$draw(theme)
+    guides$assemble(grobs, theme)
+  },
+
   # Setup routine for resolving and validating guides based on paired scales.
+  #
+  # The output of the setup is a child `Guides` class with two additional
+  # mutable fields, both of which are parallel to the child's `Guides$guides`
+  # field.
+  #
+  # 1. The child's `Guides$params` manages all parameters of a guide that may
+  # need to be updated during subsequent steps. This ensures that we never need
+  # to update the `Guide` itself and risk reference class shenanigans.
+  #
+  # 2. The child's `Guides$aesthetics` holds the aesthetic name of the scale
+  # that spawned the guide. The `Coord`'s own build methods need this to
+  # correctly pick the primary and secondary guides.
+
   setup = function(
     self, scales, aesthetics = NULL,
     default = self$missing,
@@ -265,21 +368,14 @@ Guides <- ggproto(
     ggproto(
       NULL, self,
       guides     = new_guides,
-      aesthetics = aesthetics,
-      params     = lapply(new_guides, `[[`, "params")
+      # Extract the guide's params to manage separately
+      params     = lapply(new_guides, `[[`, "params"),
+      aesthetics = aesthetics
     )
   },
 
-  # Function for dropping GuideNone objects from the Guides object
-  drop_none = function(self) {
-    is_none <- vapply(self$guides, inherits, logical(1), what = "GuideNone")
-    self$guides      <- self$guides[!is_none]
-    self$aesthetics  <- self$aesthetics[!is_none]
-    self$params      <- self$params[!is_none]
-    return()
-  },
-
   # Loop over every guide-scale combination to perform training
+  # A strong assumption here is that `scales` is parallel to the guides
   train = function(self, scales, direction, labels) {
 
     params <- Map(
@@ -296,7 +392,8 @@ Guides <- ggproto(
       scale = scales
     )
     self$update_params(params)
-    self$drop_none()
+    is_none <- vapply(self$guides, inherits, logical(1), what = "GuideNone")
+    self$subset_guides(!is_none)
   },
 
   # Function to merge guides that encode the same information
@@ -334,21 +431,19 @@ Guides <- ggproto(
     self$guides <- lapply(groups, `[[`, "guide")
     self$params <- lapply(groups, `[[`, "params")
     self$aesthetics  <- self$aesthetics[indices]
-    return()
+    invisible()
   },
 
   # Loop over guides to let them extract information from layers
   process_layers = function(self, layers) {
-    params <- Map(
+    self$params <- Map(
       function(guide, param) guide$get_layer_key(param, layers),
       guide = self$guides,
       param = self$params
     )
-    keep <- !vapply(params, is.null, logical(1))
-    self$guides <- self$guides[keep]
-    self$params <- params[keep]
-    self$aesthetics  <- self$aesthetics[keep]
-    return()
+    keep <- !vapply(self$params, is.null, logical(1))
+    self$subset_guides(keep)
+    invisible()
   },
 
   # Loop over every guide, let them draw their grobs
@@ -360,6 +455,7 @@ Guides <- ggproto(
     )
   },
 
+  # Combining multiple guides in a guide box
   assemble = function(grobs, theme) {
     # Set spacing
     theme$legend.spacing   <- theme$legend.spacing    %||% unit(0.5, "lines")
@@ -434,76 +530,7 @@ Guides <- ggproto(
     guides
   },
 
-  # building non-position guides - called in ggplotGrob (plot-build.r)
-  #
-  # the procedure is as follows:
-  #
-  # 1. guides$setup()
-  #      generates a guide object for every scale-aesthetic pair
-  #
-  # 2. guides$train()
-  #      train each scale and generate guide definition for all guides
-  #      here, one guide object for one scale
-  #
-  # 2. guides$merge()
-  #      merge guide objects if they are overlayed
-  #      number of guide objects may be less than number of scales
-  #
-  # 3. guides$process_layers()
-  #      process layer information and generate geom info.
-  #
-  # 4. guides$draw()
-  #      generate guide grob from each guide object
-  #      one guide grob for one guide object
-  #
-  # 5. guides$assemble()
-  #      arrange all guide grobs
-
-  build = function(self, scales, layers, default_mapping,
-                   position, theme, labels) {
-
-    position  <- legend_position(position)
-    no_guides <- zeroGrob()
-    if (position == "none") {
-      return(no_guides)
-    }
-
-    theme$legend.key.width  <- theme$legend.key.width  %||% theme$legend.key.size
-    theme$legend.key.height <- theme$legend.key.height %||% theme$legend.key.size
-
-
-    default_direction <- if (position == "inside") "vertical" else position
-    theme$legend.box       <- theme$legend.box       %||% default_direction
-    theme$legend.direction <- theme$legend.direction %||% default_direction
-    theme$legend.box.just  <- theme$legend.box.just  %||% switch(
-      position,
-      inside     = c("center", "center"),
-      vertical   = c("left",   "top"),
-      horizontal = c("center", "top")
-    )
-
-    # Setup and train on scales
-    scales <- scales$non_position_scales()$scales
-    if (length(scales) == 0) {
-      return(no_guides)
-    }
-    guides <- self$setup(scales)
-    guides$train(scales, theme$legend.direction, labels)
-    if (length(guides$guides) == 0) {
-      return(no_guides)
-    }
-
-    # Merge and process layers
-    guides$merge()
-    guides$process_layers(layers)
-    if (length(guides$guides) == 0) {
-      return(no_guides)
-    }
-
-    # Draw and assemble
-    grobs <- guides$draw(theme)
-    guides$assemble(grobs, theme)
-  },
+  ## Utilities -----------------------------------------------------------------
 
   print = function(self) {
 
