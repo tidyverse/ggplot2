@@ -181,6 +181,8 @@ titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
     return(zeroGrob())
   }
 
+  # We rotate the justifiation values to obtain the correct x and y reference point,
+  # since hjust and vjust are applied relative to the rotated text frame in textGrob
   just <- rotate_just(angle, hjust, vjust)
 
   n <- max(length(x), length(y), 1)
@@ -199,45 +201,64 @@ titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
     rot = angle, gp = gp, check.overlap = check.overlap
   )
 
-  rad <- (angle[1] %% 360) / 180 * pi
+  # The grob dimensions don't include the text descenders, so these need to be added
+  # manually. Because descentDetails calculates the actual descenders of the specific
+  # text label, which depends on the label content, we replace the label with one that
+  # has the common letters with descenders. This guarantees that the grob always has
+  # the same height regardless of whether the text actually contains letters with
+  # descenders or not. The same happens automatically with ascenders already.
   descent   <- font_descent(gp$fontfamily, gp$fontface, gp$fontsize, gp$cex)
+
+  # Use trigonometry to calculate grobheight and width for rotated grobs. This is only
+  # exactly correct when vjust = 1. We need to take the absolute value so we don't make
+  # the grob smaller when it's flipped over.
+  rad <- (angle[1] %% 360) / 180 * pi
   x_descent <- abs(sin(rad)) * descent
   y_descent <- abs(cos(rad)) * descent
 
+  # Set text size to actual size including descenders
   width  <- unit(1, "grobwidth",  grob) + x_descent
   height <- unit(1, "grobheight", grob) + y_descent
 
+  # Resolve margin
   if (is.null(margin)) {
     margin <- margin(0, 0, 0, 0)
   }
   margin_x <- isTRUE(margin_x)
   margin_y <- isTRUE(margin_y)
 
+  # Initialise new values for position and dimensions
   new_x <- new_y <- new_width <- new_height <- NULL
 
+  # Calculate new x/width
   if (margin_x) {
     new_width  <- unit.c(margin[4], width, margin[2])
     new_x <- x - margin[2] * just$hjust + margin[4] * (1 - just$hjust)
   }
 
+  # Calculate new y/height
   if (margin_y) {
     new_height <- unit.c(margin[1], height, margin[3])
     new_y <- y - margin[1] * just$vjust + margin[3] * (1 - just$vjust)
   }
 
+  # If only one margin is set, the other dimension is a null unit
   if (xor(margin_x, margin_y)) {
     new_width  <- new_width  %||% unit(1, "null")
     new_height <- new_height %||% unit(1, "null")
   }
 
+  # If we haven't touched the new positions/dimensions, use the previous ones
   new_width  <- new_width  %||% width
   new_height <- new_height %||% height
   x <- new_x %||% x
   y <- new_y %||% y
 
+  # Adjust the grob
   grob$x <- x
   grob$y <- y
 
+  # Add debug rectangles/points if necessary
   if (isTRUE(debug)) {
     children <- gList(
       rectGrob(
