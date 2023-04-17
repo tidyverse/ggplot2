@@ -217,25 +217,17 @@ titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
 
   if (margin_x) {
     new_width  <- unit.c(margin[4], width, margin[2])
-    new_x <- unit.pmax(
-      unit.pmin(unit(1, "npc") - margin[2], x),
-                unit(0, "npc") + margin[4]
-    )
+    new_x <- x - margin[2] * just$hjust + margin[4] * (1 - just$hjust)
   }
 
   if (margin_y) {
     new_height <- unit.c(margin[1], height, margin[3])
-    new_y <- unit.pmax(
-      unit.pmin(unit(1, "npc") - margin[1], y),
-      margin[3]
-    )
+    new_y <- y - margin[1] * just$vjust + margin[3] * (1 - just$vjust)
   }
 
   if (xor(margin_x, margin_y)) {
     new_width  <- new_width  %||% unit(1, "null")
     new_height <- new_height %||% unit(1, "null")
-    new_x <- new_x %||% x
-    new_y <- new_y %||% y
   }
 
   grob$x <- new_x %||% x
