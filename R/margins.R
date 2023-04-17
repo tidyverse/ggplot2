@@ -230,13 +230,32 @@ titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
     new_height <- new_height %||% unit(1, "null")
   }
 
-  grob$x <- new_x %||% x
-  grob$y <- new_y %||% y
+  new_width  <- new_width  %||% width
+  new_height <- new_height %||% height
+  x <- new_x %||% x
+  y <- new_y %||% y
+
+  grob$x <- x
+  grob$y <- y
+
+  if (isTRUE(debug)) {
+    children <- gList(
+      rectGrob(
+        x = x, y = y, width = width, height = height,
+        hjust = just$hjust, vjust = just$vjust,
+        gp = gpar(fill = "cornsilk", col = NA)
+      ),
+      pointsGrob(x, y, pch = 20, gp = gpar(col = "gold")),
+      grob
+    )
+  } else {
+    children <- gList(grob)
+  }
 
   gTree(
-    children = gList(grob),
-    widths   = new_width  %||% width,
-    heights  = new_height %||% height,
+    children = children,
+    widths   = new_width,
+    heights  = new_height,
     cl = "titleGrob"
   )
 }
