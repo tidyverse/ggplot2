@@ -126,7 +126,7 @@ StatBindot <- ggproto("StatBindot", Stat,
     return(data)
   },
 
-  dropped_aes = "weight"
+  dropped_aes = c("weight", "bin", "bincenter")
 )
 
 
