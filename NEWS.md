@@ -1,5 +1,6 @@
 # ggplot2 (development version)
 
+* As an internal change, the `titleGrob()` has been refactored to be faster.
 * The `translate_shape_string()` internal function is now exported for use in
   extensions of point layers (@teunbrand, #5191).
 * Fixed bug in `coord_sf()` where graticule lines didn't obey 
