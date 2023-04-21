@@ -88,7 +88,8 @@ Cannot be jointly specified with \code{position}.}
 \item{label.size}{Size of label border, in mm.}
 
 \item{size.unit}{How the \code{size} aesthetic is interpreted: as millimetres
-(\code{"mm"}, default) or points (\code{"pt"}).}
+(\code{"mm"}, default), points (\code{"pt"}), centimetres (\code{"cm"}), inches (\code{"in"}),
+or picas (\code{"pc"}).}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}

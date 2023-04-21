@@ -80,8 +80,7 @@ GeomLabel <- ggproto("GeomLabel", Geom,
       data$hjust <- compute_just(data$hjust, data$x)
     }
 
-    size.unit <- arg_match0(size.unit, c("mm", "pt"))
-    size.unit <- if (size.unit == "mm") .pt else 1
+    size.unit <- resolve_text_unit(size.unit)
 
     grobs <- lapply(1:nrow(data), function(i) {
       row <- data[i, , drop = FALSE]

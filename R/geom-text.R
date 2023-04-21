@@ -53,7 +53,8 @@
 #'   column before calling `geom_text()`. Note that this argument is not
 #'   supported by `geom_label()`.
 #' @param size.unit How the `size` aesthetic is interpreted: as millimetres
-#'   (`"mm"`, default) or points (`"pt"`).
+#'   (`"mm"`, default), points (`"pt"`), centimetres (`"cm"`), inches (`"in"`),
+#'   or picas (`"pc"`).
 #' @export
 #' @examples
 #' p <- ggplot(mtcars, aes(wt, mpg, label = rownames(mtcars)))
@@ -226,8 +227,7 @@ GeomText <- ggproto("GeomText", Geom,
       data$hjust <- compute_just(data$hjust, data$x, data$y, data$angle)
     }
 
-    size.unit <- arg_match0(size.unit, c("mm", "pt"))
-    size.unit <- if (size.unit == "mm") .pt else 1
+    size.unit <- resolve_text_unit(size.unit)
 
     textGrob(
       lab,
@@ -283,4 +283,16 @@ just_dir <- function(x, tol = 0.001) {
   out[x < 0.5 - tol] <- 1L
   out[x > 0.5 + tol] <- 3L
   out
+}
+
+resolve_text_unit <- function(unit) {
+  unit <- arg_match0(unit, c("mm", "pt", "cm", "in", "pc"))
+  switch(
+    unit,
+    "mm" = .pt,
+    "cm" = .pt * 10,
+    "in" = 72.27,
+    "pc" = 12,
+    1
+  )
 }
