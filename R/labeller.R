@@ -557,31 +557,12 @@ assemble_strips <- function(grobs, theme, horizontal = TRUE, clip) {
     return(grobs)
   }
 
-  # Add margins to non-titleGrobs so they behave eqivalently
-  grobs[] <- lapply(grobs, function(g) {
-    if (inherits(g, "titleGrob")) return(g)
-    add_margins(gList(g), grobHeight(g), grobWidth(g), margin_x = TRUE, margin_y = TRUE)
-  })
-
   if (horizontal) {
-    height <- max_height(lapply(grobs, function(x) x$heights[2]))
+    height <- max_height(grobs)
     width <- unit(1, "null")
   } else {
     height <- unit(1, "null")
-    width <- max_width(lapply(grobs, function(x) x$widths[2]))
-  }
-  grobs[] <- lapply(grobs, function(x) {
-    # Avoid unit subset assignment to support R 3.2
-    x$widths <- unit.c(x$widths[1], width, x$widths[c(-1, -2)])
-    x$heights <- unit.c(x$heights[1], height, x$heights[c(-1, -2)])
-    x$vp$parent$layout$widths <- unit.c(x$vp$parent$layout$widths[1], width, x$vp$parent$layout$widths[c(-1, -2)])
-    x$vp$parent$layout$heights <- unit.c(x$vp$parent$layout$heights[1], height, x$vp$parent$layout$heights[c(-1, -2)])
-    x
-  })
-  if (horizontal) {
-    height <- sum(grobs[[1]]$heights)
-  } else {
-    width <- sum(grobs[[1]]$widths)
+    width <- max_width(grobs)
   }
 
   background <- if (horizontal) "strip.background.x" else "strip.background.y"

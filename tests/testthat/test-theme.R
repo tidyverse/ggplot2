@@ -660,6 +660,8 @@ test_that("Strips can render custom elements", {
   element_grob.element_test <- function(element, label = "", x = NULL, y = NULL, ...) {
     rectGrob(width = unit(1, "cm"), height = unit(1, "cm"))
   }
+  registerS3method("element_grob", "element_test", element_grob.element_test)
+
   df <- data_frame(x = 1:3, y = 1:3, a = letters[1:3])
   plot <- ggplot(df, aes(x, y)) +
     geom_point() +

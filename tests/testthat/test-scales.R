@@ -112,9 +112,9 @@ test_that("oob affects position values", {
   base + scale_y_continuous(limits = c(-0,5))
 
   expect_warning(low_censor <- cdata(base + y_scale(c(0, 5), censor)),
-    "Removed 1 rows containing missing values")
+    "Removed 1 row containing missing values or values outside the scale range")
   expect_warning(mid_censor <- cdata(base + y_scale(c(3, 7), censor)),
-    "Removed 2 rows containing missing values")
+    "Removed 2 rows containing missing values or values outside the scale range")
 
   low_squish <- cdata(base + y_scale(c(0, 5), squish))
   mid_squish <- cdata(base + y_scale(c(3, 7), squish))
@@ -467,4 +467,68 @@ test_that("staged aesthetics are backtransformed properly (#4155)", {
 
   # x / 2 should be 16 / 2 = 8, thus the result should be sqrt(8) on scale_x_sqrt()
   expect_equal(layer_data(p)$x, sqrt(8))
+})
+
+test_that("numeric scale transforms can produce breaks", {
+
+  test_breaks <- function(trans, limits) {
+    scale <- scale_x_continuous(trans = trans)
+    scale$train(scale$transform(limits))
+    view <- view_scale_primary(scale)
+    scale$trans$inverse(view$get_breaks())
+  }
+
+  expect_equal(test_breaks("asn", limits = c(0, 1)),
+               seq(0, 1, by = 0.25))
+
+  expect_equal(test_breaks("sqrt", limits = c(0, 10)),
+               seq(0, 10, by = 2.5))
+
+  expect_equal(test_breaks("atanh", limits = c(-0.9, 0.9)),
+               c(NA, -0.5, 0, 0.5, NA))
+
+  # Broken, should fix on {scale}'s side
+  # expect_equal(test_breaks(boxcox_trans(0), limits = c(0, 10)), ...)
+
+  expect_equal(test_breaks(modulus_trans(0), c(-10, 10)),
+               seq(-10, 10, by = 5))
+
+  expect_equal(test_breaks(yj_trans(0), c(-10, 10)),
+               seq(-10, 10, by = 5))
+
+  expect_equal(test_breaks("exp", c(-10, 10)),
+               seq(-10, 10, by = 5))
+
+  expect_equal(test_breaks("identity", limits = c(-10, 10)),
+               seq(-10, 10, by = 5))
+
+  # irrational numbers, so snapshot values
+  expect_snapshot(test_breaks("log", limits = c(0.1, 1000)))
+
+  expect_equal(test_breaks("log10", limits = c(0.1, 1000)),
+               10 ^ seq(-1, 3))
+
+  expect_equal(test_breaks("log2", limits = c(0.5, 32)),
+               c(0.5, 2, 8, 32))
+
+  expect_equal(test_breaks("log1p", limits = c(0, 10)),
+               seq(0, 10, by = 2.5))
+
+  expect_equal(test_breaks("pseudo_log", limits = c(-10, 10)),
+               seq(-10, 10, by = 5))
+
+  expect_equal(test_breaks("logit", limits = c(0.001, 0.999)),
+               c(NA, 0.25, 0.5, 0.75, NA))
+
+  expect_equal(test_breaks("probit", limits = c(0.001, 0.999)),
+               c(NA, 0.25, 0.5, 0.75, NA))
+
+  expect_equal(test_breaks("reciprocal", limits = c(1, 10)),
+               c(NA, 2.5, 5, 7.5, 10))
+
+  expect_equal(test_breaks("reverse", limits = c(-10, 10)),
+               seq(-10, 10, by = 5))
+
+  expect_equal(test_breaks("sqrt", limits = c(0, 10)),
+               seq(0, 10, by = 2.5))
 })

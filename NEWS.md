@@ -6,6 +6,7 @@
   a misalignment issue between the textbox and text (@teunbrand, #4753)
 * The `label.padding` argument in `geom_label()` now supports inputs created
   with the `margin()` function (#5030).
+* As an internal change, the `titleGrob()` has been refactored to be faster.
 * The `translate_shape_string()` internal function is now exported for use in
   extensions of point layers (@teunbrand, #5191).
 * Fixed bug in `coord_sf()` where graticule lines didn't obey 
