@@ -76,6 +76,9 @@ GeomLabel <- ggproto("GeomLabel", Geom,
     if (is.character(data$hjust)) {
       data$hjust <- compute_just(data$hjust, data$x)
     }
+    if (!inherits(label.padding, "margin")) {
+      label.padding <- rep(label.padding, length.out = 4)
+    }
 
     grobs <- lapply(1:nrow(data), function(i) {
       row <- data[i, , drop = FALSE]
@@ -138,22 +141,16 @@ labelGrob <- function(label, x = unit(0.5, "npc"), y = unit(0.5, "npc"),
   hjust <- resolveHJust(just, NULL)
   vjust <- resolveVJust(just, NULL)
 
-  if (!inherits(padding, "margin")) {
-    padding <- rep(padding, length.out = 4)
-  }
-
   text <- titleGrob(
-    label = label, hjust = hjust, vjust = vjust,
-    x = x + (0.5 - hjust) * sum(padding[c(2, 4)]),
-    y = y + (0.5 - vjust) * sum(padding[c(1, 3)]),
+    label = label, hjust = hjust, vjust = vjust, x = x, y = y,
     margin = padding, margin_x = TRUE, margin_y = TRUE,
     gp = text.gp
   )
 
   box <- roundrectGrob(
-    x = x, y = y - 0.5 * descent,
-    width  = grobWidth(text),
-    height = grobHeight(text),
+    x = x, y = y - (1 - vjust) * descent,
+    width  = widthDetails(text),
+    height = heightDetails(text),
     just   = c(hjust, vjust),
     r = r, gp = rect.gp, name = "box"
   )
