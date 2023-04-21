@@ -355,23 +355,11 @@ to match the number of dots.</p>
 <span class="r-in"><span>  <span class="fu">geom_dotplot</span><span class="op">(</span>binaxis <span class="op">=</span> <span class="st">"y"</span>, stackdir <span class="op">=</span> <span class="st">"center"</span>, binpositions<span class="op">=</span><span class="st">"all"</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Bin width defaults to 1/30 of the range of the data. Pick better value</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> with `binwidth`.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The following aesthetics were dropped during statistical transformation:</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">bin, bincenter</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> This can happen when ggplot fails to infer the correct grouping</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span>   structure in the data.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Did you forget to specify a `group` aesthetic or to convert a numerical</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span>   variable into a factor?</span>
 <span class="r-plt img"><img src="geom_dotplot-14.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Stacking multiple groups, with different fill</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_dotplot</span><span class="op">(</span>stackgroups <span class="op">=</span> <span class="cn">TRUE</span>, binwidth <span class="op">=</span> <span class="fl">1</span>, binpositions <span class="op">=</span> <span class="st">"all"</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The following aesthetics were dropped during statistical transformation:</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">bin, bincenter</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> This can happen when ggplot fails to infer the correct grouping</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span>   structure in the data.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Did you forget to specify a `group` aesthetic or to convert a numerical</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span>   variable into a factor?</span>
 <span class="r-plt img"><img src="geom_dotplot-15.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>

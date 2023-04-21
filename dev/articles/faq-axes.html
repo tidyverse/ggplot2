@@ -405,8 +405,8 @@ are shown in scientific notation.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">txhousing</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">median</span>, y <span class="op">=</span> <span class="va">volume</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Removed 617 rows containing missing values</span></span>
-<span><span class="co">#&gt; (`geom_point()`).</span></span></code></pre></div>
+<span><span class="co">#&gt; Warning: Removed 617 rows containing missing values or values outside the scale</span></span>
+<span><span class="co">#&gt; range (`geom_point()`).</span></span></code></pre></div>
 <p><img src="faq-axes_files/figure-html/unnamed-chunk-14-1.png" alt="A scatter plot showing the median sale price of housing in Texas on the x-axis and the total volume of sales on the y-axis. The labels of both axes are in scientific notation, for example: '1e+09'." width="80%"></p>
 <p>The <a href="https://scales.r-lib.org/" class="external-link"><strong>scales</strong></a>
 package offers a large number of functions to control the formatting of
@@ -420,8 +420,8 @@ digits.</p>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/label_number.html" class="external-link">label_number</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/label_number.html" class="external-link">label_comma</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Removed 617 rows containing missing values</span></span>
-<span><span class="co">#&gt; (`geom_point()`).</span></span></code></pre></div>
+<span><span class="co">#&gt; Warning: Removed 617 rows containing missing values or values outside the scale</span></span>
+<span><span class="co">#&gt; range (`geom_point()`).</span></span></code></pre></div>
 <p><img src="faq-axes_files/figure-html/unnamed-chunk-15-1.png" alt="A scatter plot showing the median sale price of housing in Texas on the x-axis and the total volume of sales on the y-axis. The labels of the y-axis are written out in full, with commas marking groups of three zeroes. The x-axis labels are written out in full, with spaces marking groups of three zeroes." width="80%"></p>
 </details>
 </div>

@@ -358,7 +358,8 @@ for examples with data along the x axis.</p></div>
 <span class="r-in"><span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">movies</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">budget</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_violin</span><span class="op">(</span><span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>group <span class="op">=</span> <span class="fu"><a href="cut_interval.html">cut_width</a></span><span class="op">(</span><span class="va">year</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span>, scale <span class="op">=</span> <span class="st">"width"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 53573 rows containing non-finite values (`stat_ydensity()`).</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 53573 rows containing non-finite outside the scale range</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> (`stat_ydensity()`).</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Groups with fewer than two datapoints have been dropped.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Set `drop = FALSE` to consider such groups for position adjustment</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span>   purposes.</span>
