@@ -25,9 +25,9 @@
 #'
 #' @eval rd_aesthetics("geom", "text")
 #' @section `geom_label()`:
-#' Currently `geom_label()` does not support the `check_overlap` argument
-#' or the `angle` aesthetic. Also, it is considerably slower than `geom_text()`.
-#' The `fill` aesthetic controls the background colour of the label.
+#' Currently `geom_label()` does not support the `check_overlap` argument. Also,
+#' it is considerably slower than `geom_text()`. The `fill` aesthetic controls
+#' the background colour of the label.
 #'
 #' @section Alignment:
 #' You can modify text alignment with the `vjust` and `hjust`

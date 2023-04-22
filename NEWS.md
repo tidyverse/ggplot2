@@ -1,5 +1,11 @@
 # ggplot2 (development version)
 
+* `geom_label()` now uses the `angle` aesthetic (@teunbrand, #2785)
+* 'lines' units in `geom_label()`, often used in the `label.padding` argument, 
+  are now are relative to the text size. This causes a visual change, but fixes 
+  a misalignment issue between the textbox and text (@teunbrand, #4753)
+* The `label.padding` argument in `geom_label()` now supports inputs created
+  with the `margin()` function (#5030).
 * As an internal change, the `titleGrob()` has been refactored to be faster.
 * The `translate_shape_string()` internal function is now exported for use in
   extensions of point layers (@teunbrand, #5191).
