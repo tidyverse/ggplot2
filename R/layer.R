@@ -268,7 +268,7 @@ Layer <- ggproto("Layer", NULL,
       aesthetics[["group"]] <- self$aes_params$group
     }
 
-    scales_add_defaults(plot$scales, data, aesthetics, plot$plot_env)
+    plot$scales$add_defaults(data, aesthetics, plot$plot_env)
 
     # Evaluate aesthetics
     env <- child_env(baseenv(), stage = stage)
@@ -348,7 +348,7 @@ Layer <- ggproto("Layer", NULL,
     if (length(new) == 0) return(data)
 
     # data needs to be non-scaled
-    data_orig <- scales_backtransform_df(plot$scales, data)
+    data_orig <- plot$scales$backtransform_df(data)
 
     # Add map stat output to aesthetics
     env <- child_env(baseenv(), stat = stat, after_stat = after_stat)
@@ -376,11 +376,11 @@ Layer <- ggproto("Layer", NULL,
     stat_data <- data_frame0(!!!compact(stat_data))
 
     # Add any new scales, if needed
-    scales_add_defaults(plot$scales, data, new, plot$plot_env)
+    plot$scales$add_defaults(data, new, plot$plot_env)
     # Transform the values, if the scale say it's ok
     # (see stat_spoke for one exception)
     if (self$stat$retransform) {
-      stat_data <- scales_transform_df(plot$scales, stat_data)
+      stat_data <- plot$scales$transform_df(stat_data)
     }
 
     cunion(stat_data, data)
