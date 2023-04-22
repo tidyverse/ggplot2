@@ -96,7 +96,8 @@ upper and lower lines, \code{"upper"}/\code{"lower"} draws the respective lines 
 \item{bw}{The smoothing bandwidth to be used.
 If numeric, the standard deviation of the smoothing kernel.
 If character, a rule to choose the bandwidth, as listed in
-\code{\link[stats:bandwidth]{stats::bw.nrd()}}.}
+\code{\link[stats:bandwidth]{stats::bw.nrd()}}. Note that automatic calculation of the bandwidth does
+not take weights into account.}
 
 \item{adjust}{A multiplicate bandwidth adjustment. This makes it possible
 to adjust the bandwidth while still using the a bandwidth estimator.
