@@ -217,7 +217,9 @@ reflect_density <- function(dens, bounds, from, to) {
   list(x = out_x, y = out_y)
 }
 
-# Similar on stats::density.default
+# Similar to stats::density.default
+# Once R4.3.0 is the lowest supported version, this function can be replaced by
+# using `density(..., warnWbw = FALSE)`.
 precompute_bw = function(x, bw = "nrd0") {
   bw <- bw[1]
   if (is.character(bw)) {
