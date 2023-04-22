@@ -81,7 +81,11 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="ggplot2-development-version">ggplot2 (development version)<a class="anchor" aria-label="anchor" href="#ggplot2-development-version"></a></h2>
-<ul><li>As an internal change, the <code>titleGrob()</code> has been refactored to be faster.</li>
+<ul><li>
+<code><a href="../reference/geom_text.html">geom_label()</a></code> now uses the <code>angle</code> aesthetic (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/2785" class="external-link">#2785</a>)</li>
+<li>‘lines’ units in <code><a href="../reference/geom_text.html">geom_label()</a></code>, often used in the <code>label.padding</code> argument, are now are relative to the text size. This causes a visual change, but fixes a misalignment issue between the textbox and text (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/4753" class="external-link">#4753</a>)</li>
+<li>The <code>label.padding</code> argument in <code><a href="../reference/geom_text.html">geom_label()</a></code> now supports inputs created with the <code><a href="../reference/element.html">margin()</a></code> function (<a href="https://github.com/tidyverse/ggplot2/issues/5030" class="external-link">#5030</a>).</li>
+<li>As an internal change, the <code>titleGrob()</code> has been refactored to be faster.</li>
 <li>The <code><a href="../reference/translate_shape_string.html">translate_shape_string()</a></code> internal function is now exported for use in extensions of point layers (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5191" class="external-link">#5191</a>).</li>
 <li>Fixed bug in <code><a href="../reference/ggsf.html">coord_sf()</a></code> where graticule lines didn’t obey <code>panel.grid.major</code>’s linewidth setting (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5179" class="external-link">#5179</a>)</li>
 <li>Fixed bug in <code><a href="../reference/annotation_logticks.html">annotation_logticks()</a></code> when no suitable tick positions could be found (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5248" class="external-link">#5248</a>).</li>
