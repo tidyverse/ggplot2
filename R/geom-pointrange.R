@@ -47,14 +47,22 @@ GeomPointrange <- ggproto("GeomPointrange", Geom,
     GeomLinerange$setup_data(data, params)
   },
 
-  draw_panel = function(data, panel_params, coord, lineend = "butt", fatten = 4, flipped_aes = FALSE) {
+  draw_panel = function(data, panel_params, coord, lineend = "butt", fatten = 4,
+                        flipped_aes = FALSE, na.rm = FALSE) {
+    line_grob <- GeomLinerange$draw_panel(
+      data, panel_params, coord, lineend = lineend, flipped_aes = flipped_aes,
+      na.rm = na.rm
+    )
     if (is.null(data[[flipped_names(flipped_aes)$y]]))
-      return(GeomLinerange$draw_panel(data, panel_params, coord, lineend = lineend, flipped_aes = flipped_aes))
+      return(line_grob)
 
     ggname("geom_pointrange",
       gTree(children = gList(
-        GeomLinerange$draw_panel(data, panel_params, coord, lineend = lineend, flipped_aes = flipped_aes),
-        GeomPoint$draw_panel(transform(data, size = size * fatten), panel_params, coord)
+        line_grob,
+        GeomPoint$draw_panel(
+          transform(data, size = size * fatten),
+          panel_params, coord, na.rm = na.rm
+        )
       ))
     )
   }

@@ -159,6 +159,14 @@ test_that("padding is only added if axis is present", {
   pg <- ggplotGrob(p + scale_x_continuous(position = "top"))
   expect_equal(length(pg$heights), 14)
   expect_equal(as.character(pg$heights[7]), "1cm")
+
+  # Also add padding with negative ticks and no text (#5251)
+  pg <- ggplotGrob(
+    p + scale_x_continuous(labels = NULL, position = "top") +
+      theme(axis.ticks.length.x.top = unit(-2, "mm"))
+  )
+  expect_equal(length(pg$heights), 14)
+  expect_equal(as.character(pg$heights[7]), "1cm")
 })
 
 test_that("y strip labels are rotated when strips are switched", {

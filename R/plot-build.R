@@ -53,7 +53,7 @@ ggplot_build.ggplot <- function(plot) {
   data <- by_layer(function(l, d) l$compute_aesthetics(d, plot), layers, data, "computing aesthetics")
 
   # Transform all scales
-  data <- lapply(data, scales_transform_df, scales = scales)
+  data <- lapply(data, scales$transform_df)
 
   # Map and train positions so that statistics have access to ranges
   # and all positions are numeric
@@ -68,7 +68,7 @@ ggplot_build.ggplot <- function(plot) {
   data <- by_layer(function(l, d) l$map_statistic(d, plot), layers, data, "mapping stat to aesthetics")
 
   # Make sure missing (but required) aesthetics are added
-  scales_add_missing(plot, c("x", "y"), plot$plot_env)
+  plot$scales$add_missing(c("x", "y"), plot$plot_env)
 
   # Reparameterise geoms from (e.g.) y and width to ymin and ymax
   data <- by_layer(function(l, d) l$compute_geom_1(d), layers, data, "setting up geom")
@@ -87,8 +87,8 @@ ggplot_build.ggplot <- function(plot) {
   # Train and map non-position scales
   npscales <- scales$non_position_scales()
   if (npscales$n() > 0) {
-    lapply(data, scales_train_df, scales = npscales)
-    data <- lapply(data, scales_map_df, scales = npscales)
+    lapply(data, npscales$train_df)
+    data <- lapply(data, npscales$map_df)
   }
 
   # Fill in defaults etc.

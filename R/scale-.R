@@ -648,7 +648,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     domain <- suppressWarnings(self$trans$transform(self$trans$domain))
     domain <- sort(domain)
     # To avoid NaN causing issues. NaN are dropped by the sort()
-    if (length(domain) == 2) {
+    if (length(domain) == 2 && !zero_range(domain)) {
       limits <- oob_squish(limits, domain)
     }
 

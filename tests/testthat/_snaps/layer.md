@@ -84,6 +84,11 @@
     ! Can only draw one boxplot per group
     i Did you forget `aes(group = ...)`?
 
+# layer warns for constant aesthetics
+
+    All aesthetics have length 1, but the data has 32 rows.
+    i Did you mean to use `annotate()`?
+
 # layer_data returns a data.frame
 
     `layer_data()` must return a <data.frame>

@@ -111,6 +111,13 @@ corners (\code{xmin}, \code{xmax}, \code{ymin} and \code{ymax}), while
 \code{y}, \code{width}, \code{height}). \code{geom_raster()} is a high
 performance special case for when all the tiles are the same size.
 }
+\details{
+\code{geom_rect()} and \code{geom_tile()}'s respond differently to scale
+transformations due to their parametrisation. In \code{geom_rect()}, the scale
+transformation is applied to the corners of the rectangles. In \code{geom_tile()},
+the transformation is applied only to the centres and its size is determined
+after transformation.
+}
 \section{Aesthetics}{
 
 \code{geom_tile()} understands the following aesthetics (required aesthetics are in bold):

@@ -91,9 +91,9 @@ remove_missing <- function(df, na.rm = FALSE, vars = names(df), name = "",
     if (!na.rm) {
       if (name != "") name <- paste(" ({.fn ", name, "})", sep = "")
       msg <- paste0(
-        "Removed {sum(missing)} rows containing ",
-        if (finite) "non-finite" else "missing",
-        " values", name, "."
+        "Removed {sum(missing)} row{?s} containing ",
+        if (finite) "non-finite" else "missing values or values",
+        " outside the scale range", name, "."
       )
       cli::cli_warn(msg)
     }
