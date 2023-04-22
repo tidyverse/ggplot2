@@ -226,13 +226,13 @@ precompute_bw = function(x, bw = "nrd0") {
     bw <- arg_match0(bw, c("nrd0", "nrd", "ucv", "bcv", "sj", "sj-ste", "sj-dpi"))
     bw <- switch(
       to_lower_ascii(bw),
-      nrd0 = bw.nrd0(x),
-      nrd  = bw.nrd(x),
-      ucv  = bw.ucv(x),
-      bcv  = bw.bcv(x),
+      nrd0 = stats::bw.nrd0(x),
+      nrd  = stats::bw.nrd(x),
+      ucv  = stats::bw.ucv(x),
+      bcv  = stats::bw.bcv(x),
       sj   = ,
-      `sj-ste` = bw.SJ(x, method = "ste"),
-      `sj-dpi` = bw.SJ(x, method = "dpi")
+      `sj-ste` = stats::bw.SJ(x, method = "ste"),
+      `sj-dpi` = stats::bw.SJ(x, method = "dpi")
     )
   }
   if (!is.numeric(bw) || bw <= 0 || !is.finite(bw)) {
