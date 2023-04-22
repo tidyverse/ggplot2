@@ -1,5 +1,13 @@
 # axis_label_element_overrides errors when angles are outside the range [0, 90]
 
+    `angle` must be a number between -90 and 90, not the number 91.
+
+---
+
+    `angle` must be a number between -90 and 90, not the number -91.
+
+---
+
     Unrecognized `axis_position`: "test"
     i Use one of "top", "bottom", "left" or "right"
 

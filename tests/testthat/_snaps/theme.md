@@ -20,13 +20,17 @@
 
     Theme element `test` has "NULL" property without default: fill, colour, linewidth, and linetype
 
+---
+
+    `new` must be a <theme> object, not the string "foo".
+
 # element tree can be modified
 
     The `blablabla` theme element is not defined in the element hierarchy.
 
 ---
 
-    The `blablabla` theme element must be a character or numeric vector.
+    The `blablabla` theme element must be a <character> object.
 
 ---
 
