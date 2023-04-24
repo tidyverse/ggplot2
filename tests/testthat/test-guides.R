@@ -555,10 +555,10 @@ test_that("guides title and text are positioned correctly", {
       scale_fill_continuous(name = "the\ncontinuous\ncolorscale")
   )
   expect_doppelganger("vertical gap of 1cm between guide title and guide",
-    p + theme(legend.spacing.y = grid::unit(1, "cm"))
+    p + theme(legend.title = element_text(margin = margin(0, 0, 1, 0, "cm")))
   )
   expect_doppelganger("horizontal gap of 1cm between guide and guide text",
-    p + theme(legend.spacing.x = grid::unit(1, "cm"))
+    p + theme(legend.text = element_text(margin = margin(0, 0, 0, 1, "cm")))
   )
 
   # now test label positioning, alignment, etc
