@@ -138,8 +138,9 @@ StatYdensity <- ggproto("StatYdensity", Stat,
     )
     data$flipped_aes <- flipped_aes
     flip_data(data, flipped_aes)
-  }
+  },
 
+  dropped_aes = "weight"
 )
 
 calc_bw <- function(x, bw) {

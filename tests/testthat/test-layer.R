@@ -123,6 +123,14 @@ test_that("layer reports the error with correct index etc", {
   expect_snapshot_error(ggplotGrob(p))
 })
 
+test_that("layer warns for constant aesthetics", {
+  p <- ggplot(mtcars, aes(x = seq_along(mpg))) + geom_point(aes(y = 2))
+  expect_silent(ggplot_build(p))
+
+  p <- ggplot(mtcars, aes(x = 1)) + geom_point(aes(y = 2))
+  expect_snapshot_warning(ggplot_build(p))
+})
+
 # Data extraction ---------------------------------------------------------
 
 test_that("layer_data returns a data.frame", {

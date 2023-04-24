@@ -102,17 +102,17 @@ test_that("geom_sf() removes rows containing missing aes", {
   p <- ggplot(pts)
   expect_warning(
     expect_identical(grob_xy_length(p + geom_sf(aes(size = size))), c(1L, 1L)),
-    "Removed 1 row containing missing values"
+    "Removed 1 row containing missing values or values outside the scale range"
   )
   expect_warning(
     expect_identical(grob_xy_length(p + geom_sf(aes(shape = shape))), c(1L, 1L)),
-    "Removed 1 row containing missing values"
+    "Removed 1 row containing missing values or values outside the scale range"
   )
   # default colour scale maps a colour even to a NA, so identity scale is needed to see if NA is removed
   expect_warning(
     expect_identical(grob_xy_length(p + geom_sf(aes(colour = colour)) + scale_colour_identity()),
                      c(1L, 1L)),
-    "Removed 1 row containing missing values"
+    "Removed 1 row containing missing values or values outside the scale range"
   )
 })
 
