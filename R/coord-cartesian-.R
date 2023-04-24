@@ -144,24 +144,38 @@ view_scales_from_scale <- function(scale, coord_limits = NULL, expand = TRUE) {
   view_scales
 }
 
-panel_guide_label <- function(guides, position, default_label) {
-  guide <- guide_for_position(guides, position) %||% guide_none(title = waiver())
-  guide$title %|W|% default_label
-}
-
 panel_guides_grob <- function(guides, position, theme) {
-  guide <- guide_for_position(guides, position) %||% guide_none()
-  guide_gengrob(guide, theme)
+  pair <- guide_for_position(guides, position) %||%
+    list(guide = guide_none(), params = NULL)
+  pair$guide$draw(theme, pair$params)
 }
 
 guide_for_position <- function(guides, position) {
+  params <- guides$params
   has_position <- vapply(
-    guides,
-    function(guide) identical(guide$position, position),
-    logical(1)
+    params, function(p) identical(p$position, position), logical(1)
   )
+  if (!any(has_position)) {
+    return(NULL)
+  }
 
-  guides <- guides[has_position]
-  guides_order <- vapply(guides, function(guide) as.numeric(guide$order)[1], numeric(1))
-  Reduce(guide_merge, guides[order(guides_order)])
+  # Subset guides and parameters
+  guides <- guides$get_guide(has_position)
+  params <- params[has_position]
+  # Pair up guides with parameters
+  pairs <- Map(list, guide = guides, params = params)
+
+  # Early exit, nothing to merge
+  if (length(pairs) == 1) {
+    return(pairs[[1]])
+  }
+
+  # TODO: There must be a smarter way to merge these
+  order <- order(vapply(params, function(p) as.numeric(p$order), numeric(1)))
+  Reduce(
+    function(old, new) {
+      old$guide$merge(old$params, new$guide, new$params)
+    },
+    pairs[order]
+  )
 }

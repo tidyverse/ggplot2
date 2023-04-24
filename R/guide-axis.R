@@ -1,0 +1,498 @@
+
+#' Axis guide
+#'
+#' Axis guides are the visual representation of position scales like those
+#' created with [scale_(x|y)_continuous()][scale_x_continuous()] and
+#' [scale_(x|y)_discrete()][scale_x_discrete()].
+#'
+#' @inheritParams guide_legend
+#' @param check.overlap silently remove overlapping labels,
+#'   (recursively) prioritizing the first, last, and middle labels.
+#' @param angle Compared to setting the angle in [theme()] / [element_text()],
+#'   this also uses some heuristics to automatically pick the `hjust` and `vjust` that
+#'   you probably want.
+#' @param n.dodge The number of rows (for vertical axes) or columns (for
+#'   horizontal axes) that should be used to render the labels. This is
+#'   useful for displaying labels that would otherwise overlap.
+#' @param order A positive `integer` of length 1 that specifies the order of
+#'   this guide among multiple guides. This controls in which order guides are
+#'   merged if there are multiple guides for the same position. If 0 (default),
+#'   the order is determined by a secret algorithm.
+#' @param position Where this guide should be drawn: one of top, bottom,
+#'   left, or right.
+#'
+#' @export
+#'
+#' @examples
+#' # plot with overlapping text
+#' p <- ggplot(mpg, aes(cty * 100, hwy * 100)) +
+#'   geom_point() +
+#'   facet_wrap(vars(class))
+#'
+#' # axis guides can be customized in the scale_* functions or
+#' # using guides()
+#' p + scale_x_continuous(guide = guide_axis(n.dodge = 2))
+#' p + guides(x = guide_axis(angle = 90))
+#'
+#' # can also be used to add a duplicate guide
+#' p + guides(x = guide_axis(n.dodge = 2), y.sec = guide_axis())
+guide_axis <- function(title = waiver(), check.overlap = FALSE, angle = NULL,
+                       n.dodge = 1, order = 0, position = waiver()) {
+  new_guide(
+    title = title,
+
+    # customisations
+    check.overlap = check.overlap,
+    angle = angle,
+    n.dodge = n.dodge,
+
+    # parameter
+    available_aes = c("x", "y"),
+
+    # general
+    order = order,
+    position = position,
+    name = "axis",
+    super = GuideAxis
+  )
+}
+
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+GuideAxis <- ggproto(
+  "GuideAxis", Guide,
+
+  params = list(
+    title     = waiver(),
+    name      = "axis",
+    hash      = character(),
+    position  = waiver(),
+    direction = NULL,
+    angle     = NULL,
+    n.dodge   = 1,
+    order     = 0,
+    check.overlap = FALSE
+  ),
+
+  available_aes = c("x", "y"),
+
+  hashables = exprs(title, key$.value, key$.label, name),
+
+  elements = list(
+    line  = "axis.line",
+    text  = "axis.text",
+    ticks = "axis.ticks",
+    ticks_length = "axis.ticks.length"
+  ),
+
+  extract_params = function(scale, params, hashables, ...) {
+    params$name <- paste0(params$name, "_", params$aesthetic)
+    Guide$extract_params(scale, params, hashables)
+  },
+
+  transform = function(self, params, coord, panel_params) {
+    key <- params$key
+    position <- params$position
+
+    if (is.null(position) || nrow(key) == 0) {
+      return(params)
+    }
+
+    aesthetics <- names(key)[!grepl("^\\.", names(key))]
+    if (!all(c("x", "y") %in% aesthetics)) {
+      other_aesthetic <- setdiff(c("x", "y"), aesthetics)
+      override_value <- if (position %in% c("bottom", "left")) -Inf else Inf
+      key[[other_aesthetic]] <- override_value
+    }
+    key <- coord$transform(key, panel_params)
+    params$key <- key
+
+    # Ported over from `warn_for_position_guide`
+    # This is trying to catch when a user specifies a position perpendicular
+    # to the direction of the axis (e.g., a "y" axis on "top").
+    # The strategy is to check that two or more unique breaks are mapped
+    # to the same value along the axis.
+    breaks_are_unique <- !duplicated(key$.value)
+    if (empty(key) || sum(breaks_are_unique) == 1) {
+      return(params)
+    }
+
+    if (position %in% c("top", "bottom")) {
+      position_aes <- "x"
+    } else if (position %in% c("left", "right")) {
+      position_aes <- "y"
+    } else {
+      return(params)
+    }
+
+    if (length(unique(key[[position_aes]][breaks_are_unique])) == 1) {
+      cli::cli_warn(c(
+        "Position guide is perpendicular to the intended axis.",
+        "i" = "Did you mean to specify a different guide {.arg position}?"
+      ))
+    }
+
+    return(params)
+  },
+
+  merge = function(self, params, new_guide, new_params) {
+    if (!inherits(new_guide, "GuideNone")) {
+      cli::cli_warn(c(
+        "{.fn {snake_class(self)}}: Discarding guide on merge.",
+        "i" = "Do you have more than one guide with the same {.arg position}?"
+      ))
+    }
+    return(list(guide = self, params = params))
+  },
+
+  setup_elements = function(params, elements, theme) {
+    axis_elem <- c("line", "text", "ticks", "ticks_length")
+    is_char  <- vapply(elements[axis_elem], is.character, logical(1))
+    axis_elem <- axis_elem[is_char]
+    elements[axis_elem] <- lapply(
+      paste(
+        unlist(elements[axis_elem]),
+        params$aes, params$position, sep = "."
+      ),
+      calc_element, theme = theme
+    )
+    elements
+  },
+
+  override_elements = function(params, elements, theme) {
+    label <- elements$text
+    if (!inherits(label, "element_text")) {
+      return(elements)
+    }
+    label_overrides <- axis_label_element_overrides(
+      params$position, params$angle
+    )
+    # label_overrides is an element_text, but label_element may not be;
+    # to merge the two elements, we just copy angle, hjust, and vjust
+    # unless their values are NULL
+    label$angle <- label_overrides$angle %||% label$angle
+    label$hjust <- label_overrides$hjust %||% label$hjust
+    label$vjust <- label_overrides$vjust %||% label$vjust
+
+    elements$text <- label
+    return(elements)
+  },
+
+  setup_params = function(params) {
+    position  <- arg_match0(params$position, .trbl)
+    direction <- if (position %in% c("left", "right")) {
+      "vertical"
+    } else {
+      "horizontal"
+    }
+
+    # TODO: delete following comment at some point:
+    # I found the 'position_*'/'non-position_*' and '*_dim' names confusing.
+    # For my own understanding, these have been renamed as follows:
+    # * 'aes' and 'orth_aes' for the aesthetic direction and the direction
+    #   orthogonal to the aesthetic direction, respectively.
+    # * 'para_sizes' and 'orth_size(s)' for the dimension parallel to the
+    #   aesthetic and orthogonal to the aesthetic respectively.
+    # I also tried to trim down the verbosity of the variable names a bit
+
+    new_params <- c("aes", "orth_aes", "para_sizes", "orth_size", "orth_sizes",
+                    "vertical", "measure_gtable", "measure_text")
+    if (direction == "vertical") {
+      params[new_params] <- list(
+        "y", "x", "heights", "width", "widths",
+        TRUE, gtable_width, grobWidth
+      )
+    } else {
+      params[new_params] <- list(
+        "x", "y", "widths", "height", "heights",
+        FALSE, gtable_height, grobHeight
+      )
+    }
+
+    new_params <- list(
+      opposite  = unname(setNames(.trbl, .trbl[c(3,4,1,2)])[position]),
+      secondary = position %in% c("top", "right"),
+      lab_first = position %in% c("top", "left"),
+      orth_side = if (position %in% c("top", "right")) 0 else 1,
+      direction = direction,
+      position  = position
+    )
+    c(params, new_params)
+  },
+
+  build_title = function(label, elements, params) {
+    zeroGrob()
+  },
+
+  # The decor in the axis guide is the axis line
+  build_decor = function(decor, grobs, elements, params) {
+    exec(
+      element_grob,
+      element = elements$line,
+      !!params$aes := unit(c(0, 1), "npc"),
+      !!params$orth_aes := unit(rep(params$orth_side, 2), "npc")
+    )
+  },
+
+  build_labels = function(key, elements, params) {
+    labels <- key$.label
+    n_labels <- length(labels)
+
+    if (n_labels < 1) {
+      return(list(zeroGrob()))
+    }
+
+    pos    <- key[[params$aes]]
+
+    if (is.list(labels)) {
+      if (any(vapply(labels, is.language, logical(1)))) {
+        labels <- do.call(expression, labels)
+      } else {
+        labels <- unlist(labels)
+      }
+    }
+
+    dodge_pos     <- rep(seq_len(params$n.dodge %||% 1), length.out = n_labels)
+    dodge_indices <- unname(split(seq_len(n_labels), dodge_pos))
+
+    lapply(dodge_indices, function(indices) {
+      draw_axis_labels(
+        break_positions = pos[indices],
+        break_labels    = labels[indices],
+        label_element   = elements$text,
+        is_vertical     = params$vertical,
+        check.overlap   = params$check.overlap %||% FALSE
+      )
+    })
+  },
+
+  measure_grobs = function(grobs, params, elements) {
+
+    # Below, we include a spacer measurement. This measurement is used
+    # to offset subsequent rows/columns in the gtable in case the tick length is
+    # negative. This causes the text to align nicely at panel borders.
+    # In case tick length is positive, this will just be a 0-size empty row
+    # or column.
+
+    measure <- params$measure_text
+
+    length <- elements$ticks_length
+    spacer <- max(unit(0, "pt"), -1 * length)
+    labels <- do.call(unit.c, lapply(grobs$label, measure))
+    title  <- measure(grobs$title)
+
+    sizes <- unit.c(length, spacer, labels, title)
+    if (params$lab_first) {
+      sizes <- rev(sizes)
+    }
+    sizes
+  },
+
+  arrange_layout = function(key, sizes, params) {
+
+    layout <- seq_along(sizes)
+
+    if (params$lab_first) {
+      layout <- rev(layout)
+    }
+    # Set gap for spacer
+    layout <- layout[-2]
+
+    layout <- list(1, -1, layout, layout)
+    nms <- if (params$vertical) c("t", "b", "l", "r") else c("l", "r", "t", "b")
+    setNames(layout, nms)
+  },
+
+  assemble_drawing = function(grobs, layout, sizes, params, elements) {
+
+    axis_line <- grobs$decor
+
+    # Unlist the 'label' grobs
+    z <- if (params$position == "left") c(2, 1, 3) else 1:3
+    z <- rep(z, c(1, length(grobs$label), 1))
+    grobs  <- c(list(grobs$ticks), grobs$label, list(grobs$title))
+
+    # Initialise empty gtable
+    gt <- exec(
+      gtable,
+      !!params$orth_sizes := sizes,
+      !!params$para_sizes := unit(1, "npc"),
+      name = "axis"
+    )
+
+    # Add grobs
+    gt <- gtable_add_grob(
+      gt, grobs,
+      t = layout$t, b = layout$b, l = layout$l, r = layout$r,
+      clip = "off", z = z
+    )
+
+    # Set justification viewport
+    vp <- exec(
+      viewport,
+      !!params$orth_aes := unit(params$orth_side, "npc"),
+      !!params$orth_size := params$measure_gtable(gt),
+      just = params$opposite
+    )
+
+    # Assemble with axis line
+    absoluteGrob(
+      gList(axis_line, gt),
+      width  = gtable_width(gt),
+      height = gtable_height(gt),
+      vp = vp
+    )
+  },
+
+  draw_early_exit = function(self, params, elements) {
+    line <- self$build_decor(elements = elements, params = params)
+    absoluteGrob(
+      gList(line),
+      width  = grobWidth(line),
+      height = grobHeight(line)
+    )
+  }
+)
+
+# TODO: If #3972 gets implemented, reconsider the usefulness of this function.
+# We still need the `draw_axis` function because most coords other than
+# `coord_cartesian()` ignore guides. See #3972
+
+#' Grob for axes
+#'
+#' @param break_position position of ticks
+#' @param break_labels labels at ticks
+#' @param axis_position position of axis (top, bottom, left or right)
+#' @param theme A complete [theme()] object
+#' @param check.overlap silently remove overlapping labels,
+#'   (recursively) prioritizing the first, last, and middle labels.
+#' @param angle Compared to setting the angle in [theme()] / [element_text()],
+#'   this also uses some heuristics to automatically pick the `hjust` and `vjust` that
+#'   you probably want.
+#' @param n.dodge The number of rows (for vertical axes) or columns (for
+#'   horizontal axes) that should be used to render the labels. This is
+#'   useful for displaying labels that would otherwise overlap.
+#'
+#' @noRd
+#'
+draw_axis <- function(break_positions, break_labels, axis_position, theme,
+                      check.overlap = FALSE, angle = NULL, n.dodge = 1) {
+  guide <- guide_axis(check.overlap = check.overlap,
+                      angle = angle,
+                      n.dodge = n.dodge,
+                      position = axis_position)
+  params <- guide$params
+  aes <- if (axis_position %in% c("top", "bottom")) "x" else "y"
+  key <- data_frame(
+    break_positions, break_positions, break_labels,
+    .name_repair = ~ c(aes, ".value", ".label")
+  )
+  params$key <- key
+  guide$draw(theme, params)
+}
+
+draw_axis_labels <- function(break_positions, break_labels, label_element, is_vertical,
+                             check.overlap = FALSE) {
+
+  position_dim <- if (is_vertical) "y" else "x"
+  label_margin_name <- if (is_vertical) "margin_x" else "margin_y"
+
+  n_breaks <- length(break_positions)
+  break_positions <- unit(break_positions, "native")
+
+  if (check.overlap) {
+    priority <- axis_label_priority(n_breaks)
+    break_labels <- break_labels[priority]
+    break_positions <- break_positions[priority]
+  }
+
+  labels_grob <- exec(
+    element_grob, label_element,
+    !!position_dim := break_positions,
+    !!label_margin_name := TRUE,
+    label = break_labels,
+    check.overlap = check.overlap
+  )
+}
+
+#' Determine the label priority for a given number of labels
+#'
+#' @param n The number of labels
+#'
+#' @return The vector `seq_len(n)` arranged such that the
+#'   first, last, and middle elements are recursively
+#'   placed at the beginning of the vector.
+#' @noRd
+#'
+axis_label_priority <- function(n) {
+  if (n <= 0) {
+    return(numeric(0))
+  }
+
+  c(1, n, axis_label_priority_between(1, n))
+}
+
+axis_label_priority_between <- function(x, y) {
+  n <- y - x + 1
+  if (n <= 2) {
+    return(numeric(0))
+  }
+
+  mid <- x - 1 + (n + 1) %/% 2
+  c(
+    mid,
+    axis_label_priority_between(x, mid),
+    axis_label_priority_between(mid, y)
+  )
+}
+
+#' Override axis text angle and alignment
+#'
+#' @param axis_position One of bottom, left, top, or right
+#' @param angle The text angle, or NULL to override nothing
+#'
+#' @return An [element_text()] that contains parameters that should be
+#'   overridden from the user- or theme-supplied element.
+#' @noRd
+#'
+axis_label_element_overrides <- function(axis_position, angle = NULL) {
+  if (is.null(angle)) {
+    return(element_text(angle = NULL, hjust = NULL, vjust = NULL))
+  }
+
+  # it is not worth the effort to align upside-down labels properly
+  check_number_decimal(angle, min = -90, max = 90)
+
+  if (axis_position == "bottom") {
+    element_text(
+      angle = angle,
+      hjust = if (angle > 0) 1 else if (angle < 0) 0 else 0.5,
+      vjust = if (abs(angle) == 90) 0.5 else 1
+    )
+  } else if (axis_position == "left") {
+    element_text(
+      angle = angle,
+      hjust = if (abs(angle) == 90) 0.5 else 1,
+      vjust = if (angle > 0) 0 else if (angle < 0) 1 else 0.5,
+    )
+  } else if (axis_position == "top") {
+    element_text(
+      angle = angle,
+      hjust = if (angle > 0) 0 else if (angle < 0) 1 else 0.5,
+      vjust = if (abs(angle) == 90) 0.5 else 0
+    )
+  } else if (axis_position == "right") {
+    element_text(
+      angle = angle,
+      hjust = if (abs(angle) == 90) 0.5 else 0,
+      vjust = if (angle > 0) 1 else if (angle < 0) 0 else 0.5,
+    )
+  } else {
+    cli::cli_abort(c(
+      "Unrecognized {.arg axis_position}: {.val {axis_position}}",
+      "i" = "Use one of {.val top}, {.val bottom}, {.val left} or {.val right}"
+    ))
+  }
+}

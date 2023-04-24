@@ -60,31 +60,7 @@ Coord <- ggproto("Coord",
   aspect = function(ranges) NULL,
 
   labels = function(self, labels, panel_params) {
-    # If panel params contains guides information, use it.
-    # Otherwise use the labels as is, for backward-compatibility
-    if (is.null(panel_params$guides)) {
-      return(labels)
-    }
-
-    positions_x <- c("top", "bottom")
-    positions_y <- c("left", "right")
-
-    list(
-      x = lapply(c(1, 2), function(i) {
-        panel_guide_label(
-          panel_params$guides,
-          position = positions_x[[i]],
-          default_label = labels$x[[i]]
-        )
-      }),
-      y = lapply(c(1, 2), function(i) {
-        panel_guide_label(
-          panel_params$guides,
-          position = positions_y[[i]],
-          default_label = labels$y[[i]]
-        )
-      })
-    )
+    labels
   },
 
   render_fg = function(panel_params, theme) element_render(theme, "panel.border"),
@@ -120,58 +96,75 @@ Coord <- ggproto("Coord",
   setup_panel_guides = function(self, panel_params, guides, params = list()) {
     aesthetics <- c("x", "y", "x.sec", "y.sec")
     names(aesthetics) <- aesthetics
+    is_sec <- grepl("sec$", aesthetics)
 
-    # If the panel_params doesn't contain the scale, do not use a guide for that aesthetic
-    idx <- vapply(aesthetics, function(aesthetic) {
-      scale <- panel_params[[aesthetic]]
-      !is.null(scale) && inherits(scale, "ViewScale")
-    }, logical(1L))
-    aesthetics <- aesthetics[idx]
+    # Do guide setup
+    guides <- guides$setup(
+      panel_params, aesthetics,
+      default = params$guide_default %||% guide_axis(),
+      missing = params$guide_missing %||% guide_none()
+    )
+    guide_params <- guides$get_params(aesthetics)
 
-    # resolve the specified guide from the scale and/or guides
-    guides <- lapply(aesthetics, function(aesthetic) {
-      resolve_guide(
-        aesthetic,
-        panel_params[[aesthetic]],
-        guides,
-        default = guide_axis(),
-        null = guide_none()
-      )
-    })
+    # Resolve positions
+    scale_position <- lapply(panel_params[aesthetics], `[[`, "position")
+    guide_position <- lapply(guide_params, `[[`, "position")
+    guide_position[!is_sec] <- Map(
+      function(guide, scale) guide %|W|% scale,
+      guide = guide_position[!is_sec],
+      scale = scale_position[!is_sec]
+    )
+    opposite <- c(
+      "top"  = "bottom", "bottom" = "top",
+      "left" = "right",   "right" = "left"
+    )
+    guide_position[is_sec] <- Map(
+      function(sec, prim) sec %|W|% unname(opposite[prim]),
+      sec  = guide_position[is_sec],
+      prim = guide_position[!is_sec]
+    )
+    guide_params <- Map(
+      function(params, pos) {
+        params[["position"]] <- pos
+        params
+      },
+      params = guide_params,
+      pos    = guide_position
+    )
 
-    # resolve the guide definition as a "guide" S3
-    guides <- lapply(guides, validate_guide)
-
-    # if there is a "position" specification in the scale, pass this on to the guide
-    # ideally, this should be specified in the guide
-    guides <- lapply(aesthetics, function(aesthetic) {
-      guide <- guides[[aesthetic]]
-      scale <- panel_params[[aesthetic]]
-      # position could be NULL here for an empty scale
-      guide$position <- guide$position %|W|% scale$position
-      guide
-    })
+    # Update positions
+    guides$update_params(guide_params)
 
     panel_params$guides <- guides
     panel_params
   },
 
-  train_panel_guides = function(self, panel_params, layers, default_mapping, params = list()) {
+  train_panel_guides = function(self, panel_params, layers, params = list()) {
+
     aesthetics <- c("x", "y", "x.sec", "y.sec")
 
     # If the panel_params doesn't contain the scale, there's no guide for the aesthetic
-    aesthetics <- intersect(aesthetics, names(panel_params$guides))
-    
+    aesthetics <- intersect(aesthetics, names(panel_params$guides$aesthetics))
     names(aesthetics) <- aesthetics
 
-    panel_params$guides <- lapply(aesthetics, function(aesthetic) {
-      axis <- substr(aesthetic, 1, 1)
-      guide <- panel_params$guides[[aesthetic]]
-      guide <- guide_train(guide, panel_params[[aesthetic]])
-      guide <- guide_transform(guide, self, panel_params)
-      guide <- guide_geom(guide, layers, default_mapping)
-      guide
-    })
+    guides <- panel_params$guides$get_guide(aesthetics)
+    empty  <- vapply(guides, inherits, logical(1), "GuideNone")
+    guide_params <- panel_params$guides$get_params(aesthetics)
+    aesthetics <- aesthetics[!empty]
+
+    guide_params[!empty] <- Map(
+      function(guide, guide_param, scale) {
+        guide_param <- guide$train(guide_param, scale)
+        guide_param <- guide$transform(guide_param, self, panel_params)
+        guide_param <- guide$get_layer_key(guide_param, layers)
+        guide_param
+      },
+      guide = guides[!empty],
+      guide_param = guide_params[!empty],
+      scale = panel_params[aesthetics]
+    )
+
+    panel_params$guides$update_params(guide_params)
 
     panel_params
   },
@@ -187,7 +180,10 @@ Coord <- ggproto("Coord",
   is_free = function() FALSE,
 
   setup_params = function(data) {
-    list()
+    list(
+      guide_default = guide_axis(),
+      guide_missing = guide_none()
+    )
   },
 
   setup_data = function(data, params = list()) {

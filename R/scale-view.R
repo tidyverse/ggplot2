@@ -136,7 +136,7 @@ ViewScale <- ggproto("ViewScale", NULL,
     if (self$is_discrete()) {
       self$scale$map(x, self$limits)
     } else {
-      self$scale$map(x, self$continuous_range)
+      x
     }
   },
   make_title = function(self, title) {

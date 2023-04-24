@@ -200,17 +200,6 @@ test_that("scales warn when transforms introduces non-finite values", {
   expect_warning(ggplot_build(p), "Transformation introduced infinite values")
 })
 
-test_that("scales get their correct titles through layout", {
-  df <- data_frame(x = c(1e1, 1e5), y = c(0, 100))
-
-  p <- ggplot(df, aes(x, y)) +
-    geom_point(size = 5)
-
-  p <- ggplot_build(p)
-  expect_identical(p$layout$xlabel(p$plot$labels)$primary, "x")
-  expect_identical(p$layout$ylabel(p$plot$labels)$primary, "y")
-})
-
 test_that("size and alpha scales throw appropriate warnings for factors", {
   df <- data_frame(
     x = 1:3,

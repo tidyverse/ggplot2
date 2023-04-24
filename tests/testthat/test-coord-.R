@@ -34,9 +34,9 @@ test_that("guide names are not removed by `train_panel_guides()`", {
   layout <- data$layout
   data <- data$data
 
-  layout$setup_panel_guides(plot$guides, plot$layers, plot$mapping)
+  layout$setup_panel_guides(guides_list(NULL), plot$layers)
 
   # Line showing change in outcome
-  expect_equal(names(layout$panel_params[[1]]$guides),
+  expect_equal(names(layout$panel_params[[1]]$guides$aesthetics),
                c("x", "y", "x.sec", "y.sec"))
 })

@@ -1,10 +1,49 @@
 skip_on_cran() # This test suite is long-running (on cran) and is skipped
 
+test_that("plotting does not induce state changes in guides", {
+
+  guides <- guides(
+    x      = guide_axis(title = "X-axis"),
+    colour = guide_colourbar(title = "Colourbar"),
+    shape  = guide_legend(title = "Legend"),
+    size   = guide_bins(title = "Bins")
+  )
+
+  p <- ggplot(mpg, aes(displ, hwy, colour = cty, shape = factor(cyl),
+                       size = cyl)) +
+    geom_point() +
+    guides
+
+  snapshot <- serialize(as.list(p$guides), NULL)
+
+  grob <- ggplotGrob(p)
+
+  expect_identical(as.list(p$guides), unserialize(snapshot))
+})
+
+test_that("adding guides doesn't change plot state", {
+
+  p1 <- ggplot(mtcars, aes(disp, mpg))
+
+  expect_length(p1$guides$guides, 0)
+
+  p2 <- p1 + guides(y = guide_axis(angle = 45))
+
+  expect_length(p1$guides$guides, 0)
+  expect_length(p2$guides$guides, 1)
+
+  p3 <- p2 + guides(y = guide_axis(angle = 90))
+
+  expect_length(p3$guides$guides, 1)
+  expect_equal(p3$guides$guides[[1]]$params$angle, 90)
+  expect_equal(p2$guides$guides[[1]]$params$angle, 45)
+})
+
 test_that("colourbar trains without labels", {
   g <- guide_colorbar()
   sc <- scale_colour_continuous(limits = c(0, 4), labels = NULL)
 
-  out <- guide_train(g, sc)
+  out <- g$train(scale = sc)
   expect_equal(names(out$key), c("colour", ".value"))
 })
 
@@ -113,13 +152,13 @@ test_that("guide_none() can be used in non-position scales", {
 
   built <- ggplot_build(p)
   plot <- built$plot
-  guides <- build_guides(
+  guides <- guides_list(plot$guides)
+  guides <- guides$build(
     plot$scales,
     plot$layers,
     plot$mapping,
     "right",
     theme_gray(),
-    plot$guides,
     plot$labels
   )
 
@@ -132,7 +171,7 @@ test_that("Using non-position guides for position scales results in an informati
     scale_x_continuous(guide = guide_legend())
 
   built <- ggplot_build(p)
-  expect_snapshot_error(ggplot_gtable(built))
+  expect_snapshot_warning(ggplot_gtable(built))
 })
 
 test_that("guide merging for guide_legend() works as expected", {
@@ -144,8 +183,11 @@ test_that("guide merging for guide_legend() works as expected", {
     scales$add(scale1)
     scales$add(scale2)
 
-    guide_list <- guides_train(scales, theme = theme_gray(), labels = labs(), guides = guides())
-    guides_merge(guide_list)
+    guides <- guides_list(NULL)
+    guides <- guides$setup(scales$scales)
+    guides$train(scales$scales, "vertical", labs())
+    guides$merge()
+    guides$params
   }
 
   different_limits <- merge_test_guides(
@@ -202,27 +244,22 @@ test_that("guide specifications are properly checked", {
     geom_point(aes(mpg, disp, shape = factor(gear))) +
     guides(shape = "colourbar")
 
-  expect_snapshot_error(ggplotGrob(p))
+  expect_snapshot_warning(ggplotGrob(p))
 
-  p <- p + guides(shape = guide_legend(title.position = "leftish"))
+  expect_snapshot_error(guide_legend(title.position = "leftish"))
 
-  expect_snapshot_error(ggplotGrob(p))
-
-  expect_snapshot_error(guide_transform(guide_colorbar()))
+  expect_snapshot_error(guide_colourbar()$transform())
 
   p <- ggplot(mtcars) +
     geom_point(aes(mpg, disp, colour = gear)) +
-    guides(colour = guide_colorbar(label.position = "top"))
+    guides(colour = guide_colourbar(label.position = "top"))
   expect_snapshot_error(ggplotGrob(p))
   p <- ggplot(mtcars) +
     geom_point(aes(mpg, disp, colour = gear)) +
-    guides(colour = guide_colorbar(direction = "horizontal", label.position = "left"))
+    guides(colour = guide_colourbar(direction = "horizontal", label.position = "left"))
   expect_snapshot_error(ggplotGrob(p))
 
-  p <- ggplot(mtcars) +
-    geom_point(aes(mpg, disp, colour = gear)) +
-    guides(colour = guide_legend(label.position = "test"))
-  expect_snapshot_error(ggplotGrob(p))
+  expect_snapshot_error(guide_legend(label.position = "test"))
   p <- ggplot(mtcars) +
     geom_point(aes(mpg, disp, colour = gear)) +
     guides(colour = guide_legend(nrow = 2, ncol = 2))
@@ -238,6 +275,40 @@ test_that("colorsteps and bins checks the breaks format", {
     geom_point(aes(mpg, disp, colour = paste("A", gear))) +
     guides(colour = "bins")
   expect_snapshot_error(suppressWarnings(ggplotGrob(p)))
+})
+
+test_that("legend reverse argument reverses the key", {
+
+  scale <- scale_colour_discrete()
+  scale$train(LETTERS[1:4])
+
+  guides <- guides_list(NULL)
+  guides <- guides$setup(list(scale))
+
+  guides$params[[1]]$reverse <- FALSE
+  guides$train(list(scale), "horizontal", labels = labs())
+  fwd <- guides$get_params(1)$key
+
+  guides$params[[1]]$reverse <- TRUE
+  guides$train(list(scale), "horizontal", labels = labs())
+  rev <- guides$get_params(1)$key
+
+  expect_equal(fwd$colour, rev(rev$colour))
+})
+
+test_that("guide_coloursteps and guide_bins return ordered breaks", {
+  scale <- scale_colour_viridis_c(breaks = c(2, 3, 1))
+  scale$train(c(0, 4))
+
+  # Coloursteps guide is increasing order
+  g <- guide_colorsteps()
+  key <- g$train(scale = scale, aesthetic = "colour")$key
+  expect_true(all(diff(key$.value) > 0))
+
+  # Bins guide is decreasing order
+  g <- guide_bins()
+  key <- g$train(scale = scale, aesthetics = "colour", direction = "vertical")$key
+  expect_true(all(diff(key$.value) < 0))
 })
 
 # Visual tests ------------------------------------------------------------
@@ -549,7 +620,7 @@ test_that("colorbar can be styled", {
     p + scale_color_gradient(
           low = 'white', high = 'red',
           guide = guide_colorbar(
-            frame.colour = "green",
+            frame = element_rect(colour = "green"),
             frame.linewidth = 1.5 / .pt,
             ticks.colour = "black",
             ticks.linewidth = 2.5 / .pt
@@ -668,10 +739,21 @@ test_that("a warning is generated when guides(<scale> = FALSE) is specified", {
 
   # warn on guide(<scale> = FALSE)
   expect_warning(g <- guides(colour = FALSE), "The `<scale>` argument of `guides()` cannot be `FALSE`. Use \"none\" instead as of ggplot2 3.3.4.", fixed = TRUE)
-  expect_equal(g[["colour"]], "none")
+  expect_equal(g$guides[["colour"]], "none")
 
   # warn on scale_*(guide = FALSE)
   p <- ggplot(df, aes(x, y, colour = x)) + scale_colour_continuous(guide = FALSE)
   built <- expect_silent(ggplot_build(p))
   expect_snapshot_warning(ggplot_gtable(built))
+})
+
+test_that("guides() errors if unnamed guides are provided", {
+  expect_error(
+    guides("axis"),
+    "All guides are unnamed."
+  )
+  expect_error(
+    guides(x = "axis", "axis"),
+    "The 2nd guide is unnamed"
+  )
 })
