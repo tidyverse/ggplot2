@@ -17,6 +17,7 @@ geom_label(
   label.padding = unit(0.25, "lines"),
   label.r = unit(0.15, "lines"),
   label.size = 0.25,
+  size.unit = "mm",
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -32,6 +33,7 @@ geom_text(
   nudge_x = 0,
   nudge_y = 0,
   check_overlap = FALSE,
+  size.unit = "mm",
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -84,6 +86,10 @@ Cannot be jointly specified with \code{position}.}
 \item{label.r}{Radius of rounded corners. Defaults to 0.15 lines.}
 
 \item{label.size}{Size of label border, in mm.}
+
+\item{size.unit}{How the \code{size} aesthetic is interpreted: as millimetres
+(\code{"mm"}, default), points (\code{"pt"}), centimetres (\code{"cm"}), inches (\code{"in"}),
+or picas (\code{"pc"}).}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}

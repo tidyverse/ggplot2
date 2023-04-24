@@ -52,6 +52,9 @@
 #'   the order of the data. Therefore data should be arranged by the label
 #'   column before calling `geom_text()`. Note that this argument is not
 #'   supported by `geom_label()`.
+#' @param size.unit How the `size` aesthetic is interpreted: as millimetres
+#'   (`"mm"`, default), points (`"pt"`), centimetres (`"cm"`), inches (`"in"`),
+#'   or picas (`"pc"`).
 #' @export
 #' @examples
 #' p <- ggplot(mtcars, aes(wt, mpg, label = rownames(mtcars)))
@@ -159,6 +162,7 @@ geom_text <- function(mapping = NULL, data = NULL,
                       nudge_x = 0,
                       nudge_y = 0,
                       check_overlap = FALSE,
+                      size.unit = "mm",
                       na.rm = FALSE,
                       show.legend = NA,
                       inherit.aes = TRUE)
@@ -185,6 +189,7 @@ geom_text <- function(mapping = NULL, data = NULL,
     params = list2(
       parse = parse,
       check_overlap = check_overlap,
+      size.unit = size.unit,
       na.rm = na.rm,
       ...
     )
@@ -206,7 +211,8 @@ GeomText <- ggproto("GeomText", Geom,
   ),
 
   draw_panel = function(data, panel_params, coord, parse = FALSE,
-                        na.rm = FALSE, check_overlap = FALSE) {
+                        na.rm = FALSE, check_overlap = FALSE,
+                        size.unit = "mm") {
     lab <- data$label
     if (parse) {
       lab <- parse_safe(as.character(lab))
@@ -221,6 +227,8 @@ GeomText <- ggproto("GeomText", Geom,
       data$hjust <- compute_just(data$hjust, data$x, data$y, data$angle)
     }
 
+    size.unit <- resolve_text_unit(size.unit)
+
     textGrob(
       lab,
       data$x, data$y, default.units = "native",
@@ -228,7 +236,7 @@ GeomText <- ggproto("GeomText", Geom,
       rot = data$angle,
       gp = gpar(
         col = alpha(data$colour, data$alpha),
-        fontsize = data$size * .pt,
+        fontsize = data$size * size.unit,
         fontfamily = data$family,
         fontface = data$fontface,
         lineheight = data$lineheight
@@ -275,4 +283,16 @@ just_dir <- function(x, tol = 0.001) {
   out[x < 0.5 - tol] <- 1L
   out[x > 0.5 + tol] <- 3L
   out
+}
+
+resolve_text_unit <- function(unit) {
+  unit <- arg_match0(unit, c("mm", "pt", "cm", "in", "pc"))
+  switch(
+    unit,
+    "mm" = .pt,
+    "cm" = .pt * 10,
+    "in" = 72.27,
+    "pc" = 12,
+    1
+  )
 }

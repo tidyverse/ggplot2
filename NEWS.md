@@ -1,5 +1,9 @@
 # ggplot2 (development version)
 
+* `geom_text()` and `geom_label()` gained a `size.unit` parameter that set the 
+  text size to millimetres, points, centimetres, inches or picas 
+  (@teunbrand, #3799).
+
 * The guide system, as the last remaining chunk of ggplot2, has been rewritten 
   in ggproto. The axes and legends now inherit from a <Guide> class, which makes
   them extensible in the same manner as geoms, stats, facets and coords 
