@@ -116,8 +116,10 @@ guide if they are mapped in the same way.</p>
 <span>  keyheight <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  axis <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  axis.colour <span class="op">=</span> <span class="st">"black"</span>,</span>
-<span>  axis.linewidth <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>  axis.linewidth <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  axis.arrow <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ticks <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ticks.length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="st">"npc"</span><span class="op">)</span>,</span>
 <span>  direction <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  default.unit <span class="op">=</span> <span class="st">"line"</span>,</span>
 <span>  override.aes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
@@ -200,7 +202,11 @@ the height of the legend key. Default value is <code>legend.key.height</code> or
 
 
 <dt>axis</dt>
-<dd><p>Logical. Should a small axis be drawn along the guide</p></dd>
+<dd><p>A theme object for rendering a small axis along the guide.
+Usually, the object of <code><a href="element.html">element_line()</a></code> is expected (default). If
+<code><a href="element.html">element_blank()</a></code>, no axis is drawn. For backward compatibility, can also
+be a logical which translates <code>TRUE</code> to <code><a href="element.html">element_line()</a></code> and <code>FALSE</code> to
+<code><a href="element.html">element_blank()</a></code>.</p></dd>
 
 
 <dt>axis.colour, axis.linewidth</dt>
@@ -211,6 +217,18 @@ axis.</p></dd>
 <dt>axis.arrow</dt>
 <dd><p>A call to <code><a href="https://rdrr.io/r/grid/arrow.html" class="external-link">arrow()</a></code> to specify arrows at the end of the
 axis line, thus showing an open interval.</p></dd>
+
+
+<dt>ticks</dt>
+<dd><p>A theme object for rendering tick marks at the colourbar.
+Usually, the object of <code><a href="element.html">element_line()</a></code> is expected. If <code><a href="element.html">element_blank()</a></code>,
+no tick marks are drawn. If <code>NULL</code> (default), the <code>axis</code> argument is
+re-used as <code>ticks</code> argument (without arrow).</p></dd>
+
+
+<dt>ticks.length</dt>
+<dd><p>A numeric or a <code><a href="https://rdrr.io/r/grid/unit.html" class="external-link">grid::unit()</a></code> object specifying the
+length of tick marks between the keys.</p></dd>
 
 
 <dt>direction</dt>

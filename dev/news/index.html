@@ -81,7 +81,20 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="ggplot2-development-version">ggplot2 (development version)<a class="anchor" aria-label="anchor" href="#ggplot2-development-version"></a></h2>
-<ul><li>
+<ul><li>The guide system, as the last remaining chunk of ggplot2, has been rewritten in ggproto. The axes and legends now inherit from a <guide> class, which makes them extensible in the same manner as geoms, stats, facets and coords (<a href="https://github.com/tidyverse/ggplot2/issues/3329" class="external-link">#3329</a>, <a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>). In addition, the following changes were made:
+<ul><li>Styling theme parts of the guide now inherit from the plot’s theme (<a href="https://github.com/tidyverse/ggplot2/issues/2728" class="external-link">#2728</a>).</li>
+<li>Styling non-theme parts of the guides accept <element> objects, so that the following is possible: <code>guide_colourbar(frame = element_rect(...))</code>.</element></li>
+<li>Primary axis titles are now placed at the primary guide, so that <code>guides(x = guide_axis(position = "top"))</code> will display the title at the top by default (<a href="https://github.com/tidyverse/ggplot2/issues/4650" class="external-link">#4650</a>).</li>
+<li>Unknown secondary axis guide positions are now inferred as the opposite of the primary axis guide when the latter has a known <code>position</code> (<a href="https://github.com/tidyverse/ggplot2/issues/4650" class="external-link">#4650</a>).</li>
+<li>
+<code><a href="../reference/guide_colourbar.html">guide_colourbar()</a></code>, <code><a href="../reference/guide_coloursteps.html">guide_coloursteps()</a></code> and <code><a href="../reference/guide_bins.html">guide_bins()</a></code> gain a <code>ticks.length</code> argument.</li>
+<li>In <code><a href="../reference/guide_bins.html">guide_bins()</a></code>, the title no longer arbitrarily becomes offset from the guide when it has long labels.</li>
+<li>The <code>order</code> argument of guides now strictly needs to be a length-1 integer (<a href="https://github.com/tidyverse/ggplot2/issues/4958" class="external-link">#4958</a>).</li>
+<li>More informative error for mismatched <code>direction</code>/<code>theme(legend.direction = ...)</code> arguments (<a href="https://github.com/tidyverse/ggplot2/issues/4364" class="external-link">#4364</a>, <a href="https://github.com/tidyverse/ggplot2/issues/4930" class="external-link">#4930</a>).</li>
+<li>
+<code><a href="../reference/guide_coloursteps.html">guide_coloursteps()</a></code> and <code><a href="../reference/guide_bins.html">guide_bins()</a></code> sort breaks (<a href="https://github.com/tidyverse/ggplot2/issues/5152" class="external-link">#5152</a>).</li>
+</ul></guide></li>
+<li>
 <code><a href="../reference/geom_text.html">geom_label()</a></code> now uses the <code>angle</code> aesthetic (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/2785" class="external-link">#2785</a>)</li>
 <li>‘lines’ units in <code><a href="../reference/geom_text.html">geom_label()</a></code>, often used in the <code>label.padding</code> argument, are now are relative to the text size. This causes a visual change, but fixes a misalignment issue between the textbox and text (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/4753" class="external-link">#4753</a>)</li>
 <li>The <code>label.padding</code> argument in <code><a href="../reference/geom_text.html">geom_label()</a></code> now supports inputs created with the <code><a href="../reference/element.html">margin()</a></code> function (<a href="https://github.com/tidyverse/ggplot2/issues/5030" class="external-link">#5030</a>).</li>
@@ -513,7 +526,7 @@ when appropriate (<a href="https://github.com/teunbrand" class="external-link">@
 </li>
 <li>
 <p>Error: unused argument (output)</p>
-<p>The function <code><a href="../reference/guide-exts.html">guide_train()</a></code> now has an optional parameter <code>aesthetic</code> that allows you to override the <code>aesthetic</code> setting in the scale. To make your code work with the both released and development versions of ggplot2 appropriate, add <code>aesthetic = NULL</code> to the <code><a href="../reference/guide-exts.html">guide_train()</a></code> method signature.</p>
+<p>The function <code>guide_train()</code> now has an optional parameter <code>aesthetic</code> that allows you to override the <code>aesthetic</code> setting in the scale. To make your code work with the both released and development versions of ggplot2 appropriate, add <code>aesthetic = NULL</code> to the <code>guide_train()</code> method signature.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># old</span></span>
@@ -612,7 +625,7 @@ to determine which elements overlap, and spreads overlapping elements evenly wit
 <p>What was formerly called <code>scale_details</code> (in coords), <code>panel_ranges</code> (in layout) and <code>panel_scales</code> (in geoms) are now consistently called <code>panel_params</code> (<a href="https://github.com/tidyverse/ggplot2/issues/1311" class="external-link">#1311</a>). These are parameters of the coord that vary from panel to panel.</p>
 </li>
 <li><p><code><a href="../reference/ggplot_build.html">ggplot_build()</a></code> and <code><a href="../reference/ggplot_gtable.html">ggplot_gtable()</a></code> are now generics, so ggplot-subclasses can define additional behavior during the build stage.</p></li>
-<li><p><code><a href="../reference/guide-exts.html">guide_train()</a></code>, <code><a href="../reference/guide-exts.html">guide_merge()</a></code>, <code><a href="../reference/guide-exts.html">guide_geom()</a></code>, and <code><a href="../reference/guide-exts.html">guide_gengrob()</a></code> are now exported as they are needed if you want to design your own guide. They are not currently documented; use at your own risk (<a href="https://github.com/tidyverse/ggplot2/issues/2528" class="external-link">#2528</a>).</p></li>
+<li><p><code>guide_train()</code>, <code>guide_merge()</code>, <code>guide_geom()</code>, and <code>guide_gengrob()</code> are now exported as they are needed if you want to design your own guide. They are not currently documented; use at your own risk (<a href="https://github.com/tidyverse/ggplot2/issues/2528" class="external-link">#2528</a>).</p></li>
 <li><p><code><a href="../reference/scale_type.html">scale_type()</a></code> generic is now exported and documented. Use this if you want to extend ggplot2 to work with a new type of vector.</p></li>
 </ul></div>
 <div class="section level3">

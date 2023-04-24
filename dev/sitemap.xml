@@ -358,9 +358,6 @@
     <loc>https://ggplot2.tidyverse.org/dev/reference/graphical-units.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/dev/reference/guide-exts.html</loc>
-  </url>
-  <url>
     <loc>https://ggplot2.tidyverse.org/dev/reference/guide_axis.html</loc>
   </url>
   <url>
@@ -452,6 +449,9 @@
   </url>
   <url>
     <loc>https://ggplot2.tidyverse.org/dev/reference/msleep.html</loc>
+  </url>
+  <url>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/new_guide.html</loc>
   </url>
   <url>
     <loc>https://ggplot2.tidyverse.org/dev/reference/position_dodge.html</loc>

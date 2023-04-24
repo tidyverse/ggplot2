@@ -92,9 +92,19 @@ the gradient known from the colourbar counterpart.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">guide_coloursteps</span><span class="op">(</span>even.steps <span class="op">=</span> <span class="cn">TRUE</span>, show.limits <span class="op">=</span> <span class="cn">NULL</span>, ticks <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">guide_coloursteps</span><span class="op">(</span></span>
+<span>  even.steps <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  show.limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ticks <span class="op">=</span> <span class="fu"><a href="element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">guide_colorsteps</span><span class="op">(</span>even.steps <span class="op">=</span> <span class="cn">TRUE</span>, show.limits <span class="op">=</span> <span class="cn">NULL</span>, ticks <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">guide_colorsteps</span><span class="op">(</span></span>
+<span>  even.steps <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  show.limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ticks <span class="op">=</span> <span class="fu"><a href="element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -113,8 +123,11 @@ shown irrespective of the value of <code>show.limits</code>.</p></dd>
 
 
 <dt>ticks</dt>
-<dd><p>A logical specifying if tick marks on the colourbar should be
-visible.</p></dd>
+<dd><p>A theme object for rendering tick marks at the colourbar.
+Usually, the object of <code><a href="element.html">element_line()</a></code> is expected. If <code><a href="element.html">element_blank()</a></code>
+(default), no tick marks are drawn. For backward compatability, can also
+be a logical which translates <code>TRUE</code> to <code><a href="element.html">element_line()</a></code> and <code>FALSE</code> to
+<code><a href="element.html">element_blank()</a></code>.</p></dd>
 
 
 <dt>...</dt>
@@ -128,9 +141,15 @@ the width of the colourbar. Default value is <code>legend.key.width</code> or
 the height of the colourbar. Default value is <code>legend.key.height</code> or
 <code>legend.key.size</code> in <code><a href="theme.html">theme()</a></code> or theme.</p></dd>
 
+    <dt><code>frame</code></dt>
+<dd><p>A theme object for rendering a frame drawn around the bar.
+Usually, the object of <code><a href="element.html">element_rect()</a></code> is expected. If <code><a href="element.html">element_blank()</a></code>
+(default), no frame is drawn.</p></dd>
+
     <dt><code>frame.colour</code></dt>
 <dd><p>A string specifying the colour of the frame
-drawn around the bar. If <code>NULL</code> (the default), no frame is drawn.</p></dd>
+drawn around the bar. For backward compatibility, if this argument is
+not <code>NULL</code>, the <code>frame</code> argument will be set to <code><a href="element.html">element_rect()</a></code>.</p></dd>
 
     <dt><code>frame.linewidth</code></dt>
 <dd><p>A numeric specifying the width of the frame
@@ -146,6 +165,10 @@ drawn around the bar.</p></dd>
     <dt><code>ticks.linewidth</code></dt>
 <dd><p>A numeric specifying the width of the tick marks in
 millimetres.</p></dd>
+
+    <dt><code>ticks.length</code></dt>
+<dd><p>A numeric or a <code><a href="https://rdrr.io/r/grid/unit.html" class="external-link">grid::unit()</a></code> object specifying the
+length of tick marks at the colourbar.</p></dd>
 
     <dt><code>draw.ulim</code></dt>
 <dd><p>A logical specifying if the upper limit tick marks should
@@ -284,7 +307,6 @@ may be needed.</p>
 <span class="r-in"><span><span class="co"># (can also be set in the scale)</span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="scale_colour_continuous.html">scale_fill_binned</a></span><span class="op">(</span>show.limits <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="guide_coloursteps-5.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
