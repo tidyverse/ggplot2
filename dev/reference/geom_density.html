@@ -203,7 +203,8 @@ upper and lower lines, <code>"upper"</code>/<code>"lower"</code> draws the respe
 <dd><p>The smoothing bandwidth to be used.
 If numeric, the standard deviation of the smoothing kernel.
 If character, a rule to choose the bandwidth, as listed in
-<code><a href="https://rdrr.io/r/stats/bandwidth.html" class="external-link">stats::bw.nrd()</a></code>.</p></dd>
+<code><a href="https://rdrr.io/r/stats/bandwidth.html" class="external-link">stats::bw.nrd()</a></code>. Note that automatic calculation of the bandwidth does
+not take weights into account.</p></dd>
 
 
 <dt>adjust</dt>
