@@ -435,12 +435,13 @@ GuideLegend <- ggproto(
     }
 
     # Spacing
-    gap <- title$size %||% elements$theme.title$size %||%
+    tgap <- title$size %||% elements$theme.title$size %||%
       elements$text$size %||% 11
-    gap <- unit(gap * 0.5, "pt")
-    # Should maybe be elements$spacing.{x/y} instead of the theme's spacing?
-    elements$hgap <- width_cm( theme$legend.spacing.x %||% gap)
-    elements$vgap <- height_cm(theme$legend.spacing.y %||% gap)
+    tgap <- unit(tgap * 0.5, "pt")
+    elements$hgap <- width_cm( elements$spacing.x %||% tgap)
+    elements$vgap <- height_cm(elements$spacing.y %||% tgap)
+    elements$tgap <- convertUnit(tgap, "cm", valueOnly = TRUE)
+
     elements$padding <- convertUnit(
       elements$margin %||% margin(),
       "cm", valueOnly = TRUE
@@ -520,23 +521,23 @@ GuideLegend <- ggproto(
     ), 1, max)
 
     # Interleave gaps between keys and labels, which depends on the label
-    # position. For unclear reasons, we need to adjust some gaps based on the
-    # `byrow` parameter (see also #4352).
+    # position.
     hgap <- elements$hgap %||% 0
+    tgap <- elements$tgap %||% 0
     widths <- switch(
       params$label.position,
-      "left"   = list(label_widths, hgap, widths, hgap),
-      "right"  = list(widths, hgap, label_widths, hgap),
-      list(pmax(label_widths, widths), hgap * (!byrow))
+      "left"   = list(label_widths, tgap, widths, hgap),
+      "right"  = list(widths, tgap, label_widths, hgap),
+      list(pmax(label_widths, widths), hgap)
     )
     widths  <- head(vec_interleave(!!!widths),  -1)
 
     vgap <- elements$vgap %||% 0
     heights <- switch(
       params$label.position,
-      "top"    = list(label_heights, vgap, heights, vgap),
-      "bottom" = list(heights, vgap, label_heights, vgap),
-      list(pmax(label_heights, heights), vgap * (byrow))
+      "top"    = list(label_heights, tgap, heights, vgap),
+      "bottom" = list(heights, tgap, label_heights, vgap),
+      list(pmax(label_heights, heights), vgap)
     )
     heights <- head(vec_interleave(!!!heights), -1)
 
@@ -547,14 +548,14 @@ GuideLegend <- ggproto(
     # Combine title with rest of the sizes based on its position
     widths <- switch(
       params$title.position,
-      "left"  = c(title_width, hgap, widths),
-      "right" = c(widths, hgap, title_width),
+      "left"  = c(title_width, tgap, widths),
+      "right" = c(widths, tgap, title_width),
       c(widths, max(0, title_width - sum(widths)))
     )
     heights <- switch(
       params$title.position,
-      "top"    = c(title_height, vgap, heights),
-      "bottom" = c(heights, vgap, title_height),
+      "top"    = c(title_height, tgap, heights),
+      "bottom" = c(heights, tgap, title_height),
       c(heights, max(0, title_height - sum(heights)))
     )
 
