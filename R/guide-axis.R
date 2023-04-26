@@ -212,15 +212,6 @@ GuideAxis <- ggproto(
       "horizontal"
     }
 
-    # TODO: delete following comment at some point:
-    # I found the 'position_*'/'non-position_*' and '*_dim' names confusing.
-    # For my own understanding, these have been renamed as follows:
-    # * 'aes' and 'orth_aes' for the aesthetic direction and the direction
-    #   orthogonal to the aesthetic direction, respectively.
-    # * 'para_sizes' and 'orth_size(s)' for the dimension parallel to the
-    #   aesthetic and orthogonal to the aesthetic respectively.
-    # I also tried to trim down the verbosity of the variable names a bit
-
     new_params <- c("aes", "orth_aes", "para_sizes", "orth_size", "orth_sizes",
                     "vertical", "measure_gtable", "measure_text")
     if (direction == "vertical") {
@@ -328,8 +319,12 @@ GuideAxis <- ggproto(
 
     measure <- params$measure_text
 
-    length <- elements$ticks_length
-    spacer <- max(unit(0, "pt"), -1 * length)
+    # Ticks
+    range  <- range(0, params$major.length, params$minor.length)
+    length <- elements$ticks_length * range[2]
+    spacer <- max(unit(0, "pt"), -1 * elements$ticks_length * diff(range))
+
+    # Text
     labels <- do.call(unit.c, lapply(grobs$label, measure))
     title  <- measure(grobs$title)
 
