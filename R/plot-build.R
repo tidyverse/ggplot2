@@ -375,15 +375,16 @@ table_add_tag <- function(table, label, theme) {
 
   # Resolve position
   position <- calc_element("plot.tag.position", theme) %||% "topleft"
-  place_panel  <- "panel"  %in% position
-  place_plot   <- "plot"   %in% position || is.numeric(position)
-  place_margin <- "margin" %in% position || !(place_panel || place_plot)
-  position <- position[!(position %in% c("panel", "plot", "margin"))]
+  location <- calc_element("plot.tag.location", theme) %||%
+    (if (is.numeric(position)) "plot" else "margin")
 
-  if (length(position) == 0) {
-    position <- "topleft"
-  }
   if (is.numeric(position)) {
+    if (location == "margin") {
+      cli::cli_abort(paste0(
+        "A {.cls numeric} {.arg plot.tag.position} cannot be used with ",
+        "{.code \"margin\"} as {.arg plot.tag.location}."
+      ))
+    }
     if (length(position) != 2) {
       cli::cli_abort(paste0(
         "A {.cls numeric} {.arg plot.tag.position} ",
@@ -410,7 +411,7 @@ table_add_tag <- function(table, label, theme) {
   height <- grobHeight(tag)
   width  <- grobWidth(tag)
 
-  if (place_plot) {
+  if (location %in% c("plot", "panel")) {
     if (!is.numeric(position)) {
       if (right || left) {
         x <- (1 - element$hjust) * width
@@ -438,21 +439,16 @@ table_add_tag <- function(table, label, theme) {
       hjust = element$hjust, vjust = element$vjust,
       int_angle = element$angle, debug = element$debug
     )
-    table <- gtable_add_grob(
-      table, tag, name = "tag", clip = "off",
-      t = 1, b = nrow(table), l = 1, r = ncol(table)
-    )
-    return(table)
+    if (location == "plot") {
+      table <- gtable_add_grob(
+        table, tag, name = "tag", clip = "off",
+        t = 1, b = nrow(table), l = 1, r = ncol(table)
+      )
+      return(table)
+    }
   }
 
-  if (place_panel) {
-    # Rejustify tag to position
-    tag   <- justify_grobs(
-      tag,
-      hjust = if (left)   0 else if (right) 1 else element$hjust,
-      vjust = if (bottom) 0 else if (top)   1 else element$vjust,
-      int_angle = element$angle, debug = element$debug
-    )
+  if (location == "panel") {
     place <- find_panel(table)
   } else {
     n_col <- ncol(table)
