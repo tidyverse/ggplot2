@@ -83,6 +83,11 @@ test_that("plot.tag.position rejects invalid input", {
     ggplotGrob(p + theme(plot.tag.position = c(0, 0.5, 1))),
     "must have length 2"
   )
+  expect_error(
+    ggplotGrob(p + theme(plot.tag.position = c(0, 0), plot.tag.location = "margin")),
+    "cannot be used with `\"margin\""
+  )
+
 })
 
 test_that("position axis label hierarchy works as intended", {
@@ -226,7 +231,24 @@ test_that("tags are drawn correctly", {
   p <- ggplot(dat, aes(x = x, y = y)) + geom_point() + labs(tag = "Fig. A)")
 
   expect_doppelganger("defaults", p)
-  expect_doppelganger("Margin", p + theme(plot.tag.position = 'bottom'))
-  expect_doppelganger("Panel",  p + theme(plot.tag.position = c("topright", "panel")))
-  expect_doppelganger("Plot",   p + theme(plot.tag.position = c(0.05, 0.05)))
+  expect_doppelganger(
+    "Tag in margin",
+    p + theme(plot.tag.position = "bottom", plot.tag.location = "margin")
+  )
+  expect_doppelganger(
+    "Tag in panel, as character",
+    p + theme(plot.tag.position = "topright", plot.tag.location = "panel")
+  )
+  expect_doppelganger(
+    "Tag in panel, as numeric",
+    p + theme(plot.tag.position = c(0.25, 0.25), plot.tag.location = "panel")
+  )
+  expect_doppelganger(
+    "Tag in plot, as character",
+    p + theme(plot.tag.position = "bottomleft", plot.tag.location = "plot")
+  )
+  expect_doppelganger(
+    "Tag in plot, as numeric",
+    p + theme(plot.tag.position = c(0.05, 0.05), plot.tag.location = "plot")
+  )
 })
