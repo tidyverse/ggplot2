@@ -26,6 +26,9 @@
     * More informative error for mismatched 
      `direction`/`theme(legend.direction = ...)` arguments (#4364, #4930).
     * `guide_coloursteps()` and `guide_bins()` sort breaks (#5152).
+    * `guide_axis()` gains a `minor.ticks` argument to draw minor ticks.
+      The `major.length` and `minor.length` arguments control the relative
+      lengths of the ticks (#4387).
 
 * `geom_label()` now uses the `angle` aesthetic (@teunbrand, #2785)
 * 'lines' units in `geom_label()`, often used in the `label.padding` argument, 
