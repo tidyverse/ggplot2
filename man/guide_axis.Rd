@@ -9,6 +9,9 @@ guide_axis(
   check.overlap = FALSE,
   angle = NULL,
   n.dodge = 1,
+  major.length = 1,
+  minor.length = 0.75,
+  minor.ticks = element_blank(),
   order = 0,
   position = waiver()
 )
@@ -29,6 +32,15 @@ you probably want.}
 \item{n.dodge}{The number of rows (for vertical axes) or columns (for
 horizontal axes) that should be used to render the labels. This is
 useful for displaying labels that would otherwise overlap.}
+
+\item{major.length, minor.length}{A \code{numeric} of length 1 giving the length
+of major and minor tick marks relative to the theme's setting.}
+
+\item{minor.ticks}{A theme element inheriting from \code{element_line} or
+\code{element_blank} for drawing minor ticks. Alternatively, a \code{logical} of
+length 1 as shorthand for \code{element_line()} (\code{TRUE}) or \code{element_blank()}
+(\code{FALSE}). \code{minor.ticks = element_line(...)} can be used to style the
+minor ticks.}
 
 \item{order}{A positive \code{integer} of length 1 that specifies the order of
 this guide among multiple guides. This controls in which order guides are
