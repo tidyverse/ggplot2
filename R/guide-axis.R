@@ -14,6 +14,11 @@
 #' @param n.dodge The number of rows (for vertical axes) or columns (for
 #'   horizontal axes) that should be used to render the labels. This is
 #'   useful for displaying labels that would otherwise overlap.
+#' @param cap A `character` to cut the axis line back to the last breaks. Can
+#'   be `"none"` (default) to draw the axis line along the whole panel, or
+#'   `"upper"` and `"lower"` to draw the axis to the upper or lower break, or
+#'   `"both"` to only draw the line in between the most extreme breaks. `TRUE`
+#'   and `FALSE` are shorthand for `"both"` and `"none"` respectively.
 #' @param order A positive `integer` of length 1 that specifies the order of
 #'   this guide among multiple guides. This controls in which order guides are
 #'   merged if there are multiple guides for the same position. If 0 (default),
