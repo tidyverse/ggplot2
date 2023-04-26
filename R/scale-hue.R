@@ -13,6 +13,8 @@
 #' @rdname scale_hue
 #' @export
 #' @family colour scales
+#' @seealso
+#' The documentation on [colour aesthetics][aes_colour_fill_alpha].
 #' @examples
 #' \donttest{
 #' set.seed(596)

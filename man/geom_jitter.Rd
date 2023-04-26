@@ -86,14 +86,14 @@ overplotting caused by discreteness in smaller datasets.
 
 \code{geom_point()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
-\item \strong{\code{x}}
-\item \strong{\code{y}}
-\item \code{alpha}
-\item \code{colour}
-\item \code{fill}
-\item \code{group}
-\item \code{shape}
-\item \code{size}
+\item \strong{\code{\link[=aes_position]{x}}}
+\item \strong{\code{\link[=aes_position]{y}}}
+\item \code{\link[=aes_colour_fill_alpha]{alpha}}
+\item \code{\link[=aes_colour_fill_alpha]{colour}}
+\item \code{\link[=aes_colour_fill_alpha]{fill}}
+\item \code{\link[=aes_group_order]{group}}
+\item \code{\link[=aes_linetype_size_shape]{shape}}
+\item \code{\link[=aes_linetype_size_shape]{size}}
 \item \code{stroke}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.

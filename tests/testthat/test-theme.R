@@ -264,6 +264,7 @@ test_that("incorrect theme specifications throw meaningful errors", {
   expect_snapshot_error(calc_element("line", theme(line = element_rect())))
   register_theme_elements(element_tree = list(test = el_def("element_rect")))
   expect_snapshot_error(calc_element("test", theme_gray() + theme(test = element_rect())))
+  expect_snapshot_error(theme_set("foo"))
 })
 
 test_that("element tree can be modified", {
@@ -660,6 +661,8 @@ test_that("Strips can render custom elements", {
   element_grob.element_test <- function(element, label = "", x = NULL, y = NULL, ...) {
     rectGrob(width = unit(1, "cm"), height = unit(1, "cm"))
   }
+  registerS3method("element_grob", "element_test", element_grob.element_test)
+
   df <- data_frame(x = 1:3, y = 1:3, a = letters[1:3])
   plot <- ggplot(df, aes(x, y)) +
     geom_point() +

@@ -113,7 +113,7 @@ StatSmooth <- ggproto("StatSmooth", Stat,
       msg <- c(msg, paste0("formula = '", deparse(params$formula), "'"))
     }
     if (identical(params$method, "gam")) {
-      params$method <- mgcv::gam
+      params$method <- gam_method()
     }
 
     if (length(msg) > 0) {
@@ -161,13 +161,13 @@ StatSmooth <- ggproto("StatSmooth", Stat,
 
     if (is.character(method)) {
       if (identical(method, "gam")) {
-        method <- mgcv::gam
+        method <- gam_method()
       } else {
         method <- match.fun(method)
       }
     }
     # If gam and gam's method is not specified by the user then use REML
-    if (identical(method, mgcv::gam) && is.null(method.args$method)) {
+    if (identical(method, gam_method()) && is.null(method.args$method)) {
       method.args$method <- "REML"
     }
 
@@ -187,3 +187,6 @@ StatSmooth <- ggproto("StatSmooth", Stat,
 
   required_aes = c("x", "y")
 )
+
+# This function exists to silence an undeclared import warning
+gam_method <- function() mgcv::gam

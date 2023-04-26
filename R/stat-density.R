@@ -1,7 +1,8 @@
 #' @param bw The smoothing bandwidth to be used.
 #'   If numeric, the standard deviation of the smoothing kernel.
 #'   If character, a rule to choose the bandwidth, as listed in
-#'   [stats::bw.nrd()].
+#'   [stats::bw.nrd()]. Note that automatic calculation of the bandwidth does
+#'   not take weights into account.
 #' @param adjust A multiplicate bandwidth adjustment. This makes it possible
 #'    to adjust the bandwidth while still using the a bandwidth estimator.
 #'    For example, `adjust = 1/2` means use half of the default bandwidth.
@@ -139,6 +140,7 @@ compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
     ))
   }
 
+  bw <- precompute_bw(x, bw)
   # Decide whether to use boundary correction
   if (any(is.finite(bounds))) {
     dens <- stats::density(x, weights = w, bw = bw, adjust = adjust,
@@ -213,4 +215,30 @@ reflect_density <- function(dens, bounds, from, to) {
   out_y <- f_dens(out_x) + left_reflection + right_reflection
 
   list(x = out_x, y = out_y)
+}
+
+# Similar to stats::density.default
+# Once R4.3.0 is the lowest supported version, this function can be replaced by
+# using `density(..., warnWbw = FALSE)`.
+precompute_bw = function(x, bw = "nrd0") {
+  bw <- bw[1]
+  if (is.character(bw)) {
+    bw <- arg_match0(bw, c("nrd0", "nrd", "ucv", "bcv", "sj", "sj-ste", "sj-dpi"))
+    bw <- switch(
+      to_lower_ascii(bw),
+      nrd0 = stats::bw.nrd0(x),
+      nrd  = stats::bw.nrd(x),
+      ucv  = stats::bw.ucv(x),
+      bcv  = stats::bw.bcv(x),
+      sj   = ,
+      `sj-ste` = stats::bw.SJ(x, method = "ste"),
+      `sj-dpi` = stats::bw.SJ(x, method = "dpi")
+    )
+  }
+  if (!is.numeric(bw) || bw <= 0 || !is.finite(bw)) {
+    cli::cli_abort(
+      "{.arg bw} must be a finite, positive number, not {obj_type_friendly(bw)}."
+    )
+  }
+  bw
 }

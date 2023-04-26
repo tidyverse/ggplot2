@@ -16,6 +16,12 @@ often especially when a plot graphs more than two variables.
 \section{Colour and fill}{
 
 
+The \code{colour} aesthetic is used to draw lines and strokes, such as in
+\code{\link[=geom_point]{geom_point()}} and \code{\link[=geom_line]{geom_line()}}, but also the line contours of
+\code{\link[=geom_rect]{geom_rect()}} and \code{\link[=geom_polygon]{geom_polygon()}}. The \code{fill} aesthetic is used to
+colour the inside areas of geoms, such as \code{\link[=geom_rect]{geom_rect()}} and
+\code{\link[=geom_polygon]{geom_polygon()}}, but also the insides of shapes 21-25 of \code{\link[=geom_point]{geom_point()}}.
+
 Colours and fills can be specified in the following ways:
 \itemize{
 \item A name, e.g., \code{"red"}. R has 657 built-in named colours, which can be
@@ -109,8 +115,16 @@ p + scale_fill_manual(values = alpha(c("blue", "red"), .3))
 \code{\link[=scale_fill_gradient]{scale_fill_gradient()}}, \code{\link[=scale_fill_grey]{scale_fill_grey()}},
 \code{\link[=scale_fill_hue]{scale_fill_hue()}}, \code{\link[=scale_fill_identity]{scale_fill_identity()}},
 \code{\link[=scale_fill_manual]{scale_fill_manual()}}, \code{\link[=scale_fill_viridis_d]{scale_fill_viridis_d()}}
-\item Other options for modifying alpha: \code{\link[=scale_alpha]{scale_alpha()}}
-\item Run \code{vignette("ggplot2-specs")} to see an overview of other aesthestics that
+\item Other options for modifying alpha:
+\code{\link[=scale_alpha]{scale_alpha()}}, \code{\link[=scale_alpha_manual]{scale_alpha_manual()}}, \code{\link[=scale_alpha_identity]{scale_alpha_identity()}}
+\item Run \code{vignette("ggplot2-specs")} to see an overview of other aesthetics that
 can be modified.
 }
+
+Other aesthetics documentation: 
+\code{\link{aes_group_order}},
+\code{\link{aes_linetype_size_shape}},
+\code{\link{aes_position}},
+\code{\link{aes}()}
 }
+\concept{aesthetics documentation}

@@ -29,6 +29,11 @@
 #'   - A function that takes the limits as input and returns breaks
 #'     as output
 #' @param na.value The aesthetic value to use for missing (`NA`) values
+#' @family colour scales
+#' @seealso
+#' The documentation for [differentiation related aesthetics][aes_linetype_size_shape].
+#'
+#' The documentation on [colour aesthetics][aes_colour_fill_alpha].
 #'
 #' @section Color Blindness:
 #' Many color palettes derived from RGB combinations (like the "rainbow" color
@@ -93,24 +98,32 @@ scale_fill_manual <- function(..., values, aesthetics = "fill", breaks = waiver(
 }
 
 #' @rdname scale_manual
+#' @seealso
+#' Other size scales: [scale_size()], [scale_size_identity()].
 #' @export
 scale_size_manual <- function(..., values, breaks = waiver(), na.value = NA) {
   manual_scale("size", values, breaks, ..., na.value = na.value)
 }
 
 #' @rdname scale_manual
+#' @seealso
+#' Other shape scales: [scale_shape()], [scale_shape_identity()].
 #' @export
 scale_shape_manual <- function(..., values, breaks = waiver(), na.value = NA) {
   manual_scale("shape", values, breaks, ..., na.value = na.value)
 }
 
 #' @rdname scale_manual
+#' @seealso
+#' Other linetype scales: [scale_linetype()], [scale_linetype_identity()].
 #' @export
 scale_linetype_manual <- function(..., values, breaks = waiver(), na.value = "blank") {
   manual_scale("linetype", values, breaks, ..., na.value = na.value)
 }
 
 #' @rdname scale_manual
+#' @seealso
+#' Other alpha scales: [scale_alpha()], [scale_alpha_identity()].
 #' @export
 scale_linewidth_manual <- function(..., values, breaks = waiver(), na.value = NA) {
   manual_scale("linewidth", values, breaks, ..., na.value = na.value)

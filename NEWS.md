@@ -1,30 +1,109 @@
 # ggplot2 (development version)
 
+* The `plot.tag.position` in `theme()` can now accept `"panel"` to set the tag
+  relative to the panel area instead of the plot area (#4297).
+
+* `geom_text()` and `geom_label()` gained a `size.unit` parameter that set the 
+  text size to millimetres, points, centimetres, inches or picas 
+  (@teunbrand, #3799).
+
+* The guide system, as the last remaining chunk of ggplot2, has been rewritten 
+  in ggproto. The axes and legends now inherit from a <Guide> class, which makes
+  them extensible in the same manner as geoms, stats, facets and coords 
+  (#3329, @teunbrand). In addition, the following changes were made:
+    * Styling theme parts of the guide now inherit from the plot's theme 
+      (#2728). 
+    * Styling non-theme parts of the guides accept <element> objects, so that
+      the following is possible: `guide_colourbar(frame = element_rect(...))`.
+    * Primary axis titles are now placed at the primary guide, so that
+      `guides(x = guide_axis(position = "top"))` will display the title at the
+      top by default (#4650).
+    * Unknown secondary axis guide positions are now inferred as the opposite 
+      of the primary axis guide when the latter has a known `position` (#4650).
+    * `guide_colourbar()`, `guide_coloursteps()` and `guide_bins()` gain a
+      `ticks.length` argument.
+    * In `guide_bins()`, the title no longer arbitrarily becomes offset from
+      the guide when it has long labels.
+    * The `order` argument of guides now strictly needs to be a length-1 
+      integer (#4958).
+    * More informative error for mismatched 
+     `direction`/`theme(legend.direction = ...)` arguments (#4364, #4930).
+    * `guide_coloursteps()` and `guide_bins()` sort breaks (#5152).
+
+* `geom_label()` now uses the `angle` aesthetic (@teunbrand, #2785)
+* 'lines' units in `geom_label()`, often used in the `label.padding` argument, 
+  are now are relative to the text size. This causes a visual change, but fixes 
+  a misalignment issue between the textbox and text (@teunbrand, #4753)
+* The `label.padding` argument in `geom_label()` now supports inputs created
+  with the `margin()` function (#5030).
+* As an internal change, the `titleGrob()` has been refactored to be faster.
+* The `translate_shape_string()` internal function is now exported for use in
+  extensions of point layers (@teunbrand, #5191).
+* Fixed bug in `coord_sf()` where graticule lines didn't obey 
+  `panel.grid.major`'s linewidth setting (@teunbrand, #5179)
+* Fixed bug in `annotation_logticks()` when no suitable tick positions could
+  be found (@teunbrand, #5248).
+* To improve `width` calculation in bar plots with empty factor levels, 
+  `resolution()` considers `mapped_discrete` values as having resolution 1 
+  (@teunbrand, #5211)
+* When `geom_path()` has aesthetics varying within groups, the `arrow()` is
+  applied to groups instead of individual segments (@teunbrand, #4935).
+* The default width of `geom_bar()` is now based on panel-wise resolution of
+  the data, rather than global resolution (@teunbrand, #4336).
+* To apply dodging more consistently in violin plots, `stat_ydensity()` now
+  has a `drop` argument to keep or discard groups with 1 observation.
+* Aesthetics listed in `geom_*()` and `stat_*()` layers now point to relevant
+  documentation (@teunbrand, #5123).
+* `coord_flip()` has been marked as superseded. The recommended alternative is
+  to swap the `x` and `y` aesthetic and/or using the `orientation` argument in
+  a layer (@teunbrand, #5130).
+* `stat_align()` is now applied per panel instead of globally, preventing issues
+  when facets have different ranges (@teunbrand, #5227).
+* A stacking bug in `stat_align()` was fixed (@teunbrand, #5176).
+* `stat_contour()` and `stat_contour_filled()` now warn about and remove
+  duplicated coordinates (@teunbrand, #5215).
+
+# ggplot2 3.4.2
+This is a hotfix release anticipating changes in r-devel, but folds in upkeep
+changes and a few bug fixes as well.
+
+## Minor improvements
+
+* Various type checks and their messages have been standardised 
+  (@teunbrand, #4834).
+  
+* ggplot2 now uses `scales::DiscreteRange` and `scales::ContinuousRange`, which
+  are available to write scale extensions from scratch (@teunbrand, #2710).
+  
+* The `layer_data()`, `layer_scales()` and `layer_grob()` now have the default
+  `plot = last_plot()` (@teunbrand, #5166).
+  
+* The `datetime_scale()` scale constructor is now exported for use in extension
+  packages (@teunbrand, #4701).
+  
+## Bug fixes
+
+* `update_geom_defaults()` and `update_stat_defaults()` now return properly 
+  classed objects and have updated docs (@dkahle, #5146).
+
+* For the purposes of checking required or non-missing aesthetics, character 
+  vectors are no longer considered non-finite (@teunbrand, @4284).
+
 * `annotation_logticks()` skips drawing ticks when the scale range is non-finite
   instead of throwing an error (@teunbrand, #5229).
+  
 * Fixed spurious warnings when the `weight` was used in `stat_bin_2d()`, 
   `stat_boxplot()`, `stat_contour()`, `stat_bin_hex()` and `stat_quantile()`
   (@teunbrand, #5216).
-* Various type checks and their messages have been standardised 
-  (@teunbrand, #4834).
-* The `layer_data()`, `layer_scales()` and `layer_grob()` now have the default
-  `plot = last_plot()` (@teunbrand, #5166).
+
 * To prevent changing the plotting order, `stat_sf()` is now computed per panel 
   instead of per group (@teunbrand, #4340).
-* ggplot2 now uses `scales::DiscreteRange` and `scales::ContinuousRange`, which
-  are available to write scale extensions from scratch (@teunbrand, #2710).
-* For the purposes of checking required or non-missing aesthetics, character 
-  vectors are no longer considered non-finite (@teunbrand, @4284).
+
 * Fixed bug in `coord_sf()` where graticule lines didn't obey 
-  `panel.grid.major`'s linewidth setting (@teunbrand, #5179)
-* The `datetime_scale()` scale constructor is now exported for use in extension
-  packages (@teunbrand, #4701).
-* The `plot.tag.position` in `theme()` can now accept `"panel"` to set the tag
-  relative to the panel area instead of the plot area (#4297).
+  `panel.grid.major`'s linewidth setting (@teunbrand, #5179).
+
 * `geom_text()` drops observations where `angle = NA` instead of throwing an
   error (@teunbrand, #2757).
-* `update_geom_defaults()` and `update_stat_defaults()` now return properly 
-  classed objects and have updated docs (@dkahle, #5146)
   
 # ggplot2 3.4.1
 This is a small release focusing on fixing regressions in the 3.4.0 release
