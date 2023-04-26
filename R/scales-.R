@@ -65,17 +65,18 @@ ScalesList <- ggproto("ScalesList", NULL,
     if (empty(df) || length(self$scales) == 0) {
       return()
     }
-    lapply(self$scales, function(scale) scale$train_df(df = df))
+    ignore <- vapply(df, inherits, what = "AsIs", logical(1))
+    lapply(self$scales, function(scale) scale$train_df(df = df[!ignore]))
   },
 
   map_df = function(self, df) {
     if (empty(df) || length(self$scales) == 0) {
       return(df)
     }
-
+    ignore <- vapply(df, inherits, what = "AsIs", logical(1))
     mapped <- unlist(lapply(
       self$scales,
-      function(scale) scale$map_df(df = df)
+      function(scale) scale$map_df(df = df[!ignore])
     ), recursive = FALSE)
 
     data_frame0(!!!mapped, df[setdiff(names(df), names(mapped))])
@@ -98,9 +99,10 @@ ScalesList <- ggproto("ScalesList", NULL,
       return(df)
     }
 
+    ignore <- vapply(df, inherits, what = "AsIs", logical(1))
     transformed <- unlist(lapply(
       scales,
-      function(scale) scale$transform_df(df = df)
+      function(scale) scale$transform_df(df = df[!ignore])
     ), recursive = FALSE)
 
     data_frame0(!!!transformed, df[setdiff(names(df), names(transformed))])
@@ -122,10 +124,11 @@ ScalesList <- ggproto("ScalesList", NULL,
       return(df)
     }
 
+    ignore <- vapply(df, inherits, what = "AsIs", logical(1))
     backtransformed <- unlist(lapply(
       scales,
       function(scale) {
-        aesthetics <- intersect(scale$aesthetics, names(df))
+        aesthetics <- intersect(scale$aesthetics, names(df[!ignore]))
         if (length(aesthetics) == 0) {
           return()
         }
