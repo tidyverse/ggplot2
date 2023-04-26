@@ -14,6 +14,13 @@
 #' @param n.dodge The number of rows (for vertical axes) or columns (for
 #'   horizontal axes) that should be used to render the labels. This is
 #'   useful for displaying labels that would otherwise overlap.
+#' @param major.length,minor.length A `numeric` of length 1 giving the length
+#'   of major and minor tick marks relative to the theme's setting.
+#' @param minor.ticks A theme element inheriting from `element_line` or
+#'   `element_blank` for drawing minor ticks. Alternatively, a `logical` of
+#'   length 1 as shorthand for `element_line()` (`TRUE`) or `element_blank()`
+#'   (`FALSE`). `minor.ticks = element_line(...)` can be used to style the
+#'   minor ticks.
 #' @param order A positive `integer` of length 1 that specifies the order of
 #'   this guide among multiple guides. This controls in which order guides are
 #'   merged if there are multiple guides for the same position. If 0 (default),
@@ -40,6 +47,15 @@ guide_axis <- function(title = waiver(), check.overlap = FALSE, angle = NULL,
                        n.dodge = 1, major.length = 1, minor.length = 0.75,
                        minor.ticks = element_blank(),
                        order = 0, position = waiver()) {
+  if (is.logical(minor.ticks)) {
+    check_bool(minor.ticks)
+    minor.ticks <- if (minor.ticks) element_line() else element_blank()
+  }
+  check_inherits(minor.ticks, c("element_line", "element_blank"))
+  if (inherits(minor.ticks, "element_blank")) {
+    minor.length <- 0
+  }
+
   new_guide(
     title = title,
 
@@ -542,3 +558,4 @@ axis_label_element_overrides <- function(axis_position, angle = NULL) {
   }
 }
 
+.no_labels = function(...) NULL
