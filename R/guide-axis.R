@@ -286,6 +286,7 @@ GuideAxis <- ggproto(
   },
 
   build_labels = function(key, elements, params) {
+    key <- vec_slice(key, !is.na(key$.label %||% NA))
     labels <- key$.label
     n_labels <- length(labels)
 
@@ -545,3 +546,4 @@ axis_label_element_overrides <- function(axis_position, angle = NULL) {
     ))
   }
 }
+
