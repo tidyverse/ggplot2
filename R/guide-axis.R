@@ -37,7 +37,9 @@
 #' # can also be used to add a duplicate guide
 #' p + guides(x = guide_axis(n.dodge = 2), y.sec = guide_axis())
 guide_axis <- function(title = waiver(), check.overlap = FALSE, angle = NULL,
-                       n.dodge = 1, order = 0, position = waiver()) {
+                       n.dodge = 1, major.length = 1, minor.length = 0.75,
+                       minor.ticks = element_blank(),
+                       order = 0, position = waiver()) {
   new_guide(
     title = title,
 
@@ -45,6 +47,9 @@ guide_axis <- function(title = waiver(), check.overlap = FALSE, angle = NULL,
     check.overlap = check.overlap,
     angle = angle,
     n.dodge = n.dodge,
+    major.length = major.length,
+    minor.length = minor.length,
+    minor.ticks  = minor.ticks,
 
     # parameter
     available_aes = c("x", "y"),
@@ -72,6 +77,9 @@ GuideAxis <- ggproto(
     direction = NULL,
     angle     = NULL,
     n.dodge   = 1,
+    major.length = 1,
+    minor.length = 0.75,
+    minor.ticks  = NULL,
     order     = 0,
     check.overlap = FALSE
   ),
@@ -158,6 +166,7 @@ GuideAxis <- ggproto(
       ),
       calc_element, theme = theme
     )
+    elements$minor_ticks <- combine_elements(params$minor.ticks, elements$ticks)
     elements
   },
 
