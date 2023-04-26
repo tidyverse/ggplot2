@@ -524,7 +524,7 @@ test_that("numeric scale transforms can produce breaks", {
 
 test_that("scales ignore I()/AsIs vectors", {
   set.seed(42)
-  df <- data.frame(
+  df <- data_frame0(
     x = runif(20),
     y = runif(20),
     colour = sample(rainbow(20)),
