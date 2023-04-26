@@ -541,3 +541,11 @@ test_that("scales ignore I()/AsIs vectors", {
 
   expect_doppelganger("scales ignore I()", p)
 })
+
+test_that("discrete I() objects are rejected as position aesthetics", {
+
+  p <- ggplot(mapping = aes(x = I("foo"), y = I("bar"))) +
+    geom_point()
+  expect_snapshot_error(ggplotGrob(p))
+
+})

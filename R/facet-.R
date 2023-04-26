@@ -103,7 +103,8 @@ Facet <- ggproto("Facet", NULL,
     for (layer_data in data) {
       match_id <- match(layer_data$PANEL, layout$PANEL)
       names <- names(layer_data)
-      names <- names[!vapply(layer_data, inherits, what = "AsIs", logical(1))]
+      ignore <- vapply(layer_data, inherits, what = "AsIs", logical(1))
+      names <- names[!ignore]
 
       if (!is.null(x_scales)) {
         x_vars <- intersect(x_scales[[1]]$aesthetics, names)
@@ -117,6 +118,19 @@ Facet <- ggproto("Facet", NULL,
         SCALE_Y <- layout$SCALE_Y[match_id]
 
         scale_apply(layer_data, y_vars, "train", SCALE_Y, y_scales)
+      }
+
+      # Check if AsIs variables
+      if (any(ignore)) {
+        position_aes <- union(ggplot_global$x_aes, ggplot_global$y_aes)
+        ignored <- intersect(names(ignore)[ignore], position_aes)
+        is_discrete <- vapply(layer_data[ignored], is.discrete, logical(1))
+        if (any(is_discrete)) {
+          cli::cli_abort(paste0(
+            "Position aesthetic{?s} {.field {ignored[is_discrete]}} provided ",
+            "as {.cls AsIs} object{?s} cannot be discrete."
+          ))
+        }
       }
     }
   },

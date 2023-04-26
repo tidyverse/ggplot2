@@ -49,3 +49,7 @@
     Output
       [1]        NA   1.00000  20.08554 403.42879
 
+# discrete I() objects are rejected as position aesthetics
+
+    Position aesthetics x and y provided as <AsIs> objects cannot be discrete.
+
