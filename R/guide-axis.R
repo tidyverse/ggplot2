@@ -95,6 +95,21 @@ GuideAxis <- ggproto(
     ticks_length = "axis.ticks.length"
   ),
 
+  extract_key = function(scale, aesthetic, minor.ticks, ...) {
+    major <- Guide$extract_key(scale, aesthetic, ...)
+    if (inherits(minor.ticks, "element_blank")) {
+      return(major)
+    }
+    if (!is.null(major)) {
+      major$.type <- "major"
+    }
+    minor <- setdiff(scale$get_breaks_minor(), major$.value)
+    new_scale <- ggproto(NULL, scale, breaks = minor, get_labels = .no_labels)
+    minor <- Guide$extract_key(new_scale, aesthetic, ...)
+    minor$.type <- "minor"
+    vec_rbind(major, minor)
+  },
+
   extract_params = function(scale, params, hashables, ...) {
     params$name <- paste0(params$name, "_", params$aesthetic)
     Guide$extract_params(scale, params, hashables)
