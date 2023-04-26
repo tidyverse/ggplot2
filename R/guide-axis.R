@@ -37,7 +37,16 @@
 #' # can also be used to add a duplicate guide
 #' p + guides(x = guide_axis(n.dodge = 2), y.sec = guide_axis())
 guide_axis <- function(title = waiver(), check.overlap = FALSE, angle = NULL,
-                       n.dodge = 1, order = 0, position = waiver()) {
+                       n.dodge = 1, cap = "none", order = 0,
+                       position = waiver()) {
+
+  if (is.logical(cap)) {
+    check_bool(cap)
+    cap <- if (cap) "both" else "none"
+  }
+  cap <- arg_match0(cap, c("none", "both", "upper", "lower"))
+
+
   new_guide(
     title = title,
 
@@ -45,6 +54,7 @@ guide_axis <- function(title = waiver(), check.overlap = FALSE, angle = NULL,
     check.overlap = check.overlap,
     angle = angle,
     n.dodge = n.dodge,
+    cap = cap,
 
     # parameter
     available_aes = c("x", "y"),
@@ -72,6 +82,7 @@ GuideAxis <- ggproto(
     direction = NULL,
     angle     = NULL,
     n.dodge   = 1,
+    cap       = "none",
     order     = 0,
     check.overlap = FALSE
   ),
