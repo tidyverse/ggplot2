@@ -260,6 +260,31 @@ GuideAxis <- ggproto(
     )
   },
 
+  build_ticks = function(key, elements, params, position = params$opposite) {
+    if (!".type" %in% names(key)) {
+      ticks <- Guide$build_ticks(
+        key, elements, params, position,
+        elements$ticks_length * params$major.length
+      )
+      return(ticks)
+    }
+    major <- vec_slice(key, key$.type == "major")
+    major <- Guide$build_ticks(
+      major, elements, params, position,
+      elements$ticks_length * params$major.length
+    )
+    if (inherits(elements$minor_ticks, "element_blank")) {
+      return(major)
+    }
+    elements$ticks <- elements$minor_ticks
+    minor <- vec_slice(key, key$.type == "minor")
+    minor <- Guide$build_ticks(
+      minor, elements, params, position,
+      elements$ticks_length * params$minor.length
+    )
+    grobTree(major, minor, name = "ticks")
+  },
+
   build_labels = function(key, elements, params) {
     labels <- key$.label
     n_labels <- length(labels)
