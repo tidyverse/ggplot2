@@ -239,10 +239,17 @@ GuideAxis <- ggproto(
 
   # The decor in the axis guide is the axis line
   build_decor = function(decor, grobs, elements, params) {
+    x <- c(0, 1)
+    if (params$cap %in% c("both", "upper")) {
+      x[2] <- max(params$key[[params$aes]], na.rm = TRUE)
+    }
+    if (params$cap %in% c("both", "lower")) {
+      x[1] <- min(params$key[[params$aes]], na.rm = TRUE)
+    }
     exec(
       element_grob,
       element = elements$line,
-      !!params$aes := unit(c(0, 1), "npc"),
+      !!params$aes := unit(x, "npc"),
       !!params$orth_aes := unit(rep(params$orth_side, 2), "npc")
     )
   },
