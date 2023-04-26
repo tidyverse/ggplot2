@@ -1,5 +1,10 @@
 # ggplot2 (development version)
 
+* Plot scales now ignore `AsIs` objects constructed with `I(x)`, instead of
+  invoking the identity scale. This allows these columns to co-exist with other
+  layers that need a non-identity scale for the same aesthetic. Also, it makes
+  it easy to specify relative positions (@teunbrand, #5142).
+
 * `geom_text()` and `geom_label()` gained a `size.unit` parameter that set the 
   text size to millimetres, points, centimetres, inches or picas 
   (@teunbrand, #3799).
