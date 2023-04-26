@@ -297,7 +297,7 @@ Guide <- ggproto(
     pos <- unname(c(top = 1, bottom = 0, left = 0, right = 1)[position])
     dir <- -2 * pos + 1
     pos <- unit(rep(pos, 2 * n_breaks), "npc")
-    dir <- rep(vec_interleave(0, dir), n_breaks) * tick_len
+    dir <- rep(vec_interleave(dir, 0), n_breaks) * tick_len
     tick <- pos + dir
 
     # Build grob
