@@ -521,3 +521,23 @@ test_that("numeric scale transforms can produce breaks", {
   expect_equal(test_breaks("sqrt", limits = c(0, 10)),
                seq(0, 10, by = 2.5))
 })
+
+test_that("scales ignore I()/AsIs vectors", {
+  set.seed(42)
+  df <- data.frame(
+    x = runif(20),
+    y = runif(20),
+    colour = sample(rainbow(20)),
+    shape = 1:20
+  )
+
+  p <- ggplot(df, aes(I(x), I(y), colour = I(colour), shape = I(shape))) +
+    geom_point()
+  data <- layer_data(p)
+  expect_identical(df$x, unclass(data$x))
+  expect_identical(df$y, unclass(data$y))
+  expect_identical(df$colour, unclass(data$colour))
+  expect_identical(df$shape, unclass(data$shape))
+
+  expect_doppelganger("scales ignore I()", p)
+})
