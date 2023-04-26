@@ -1,7 +1,7 @@
 # ggplot2 (development version)
 
-* The `plot.tag.position` in `theme()` can now accept `"panel"` to set the tag
-  relative to the panel area instead of the plot area (#4297).
+* New `plot.tag.location` in `theme()` can control placement of the plot tag
+  in the `"margin"`, `"plot"` or the new `"panel"` option (#4297).
 
 * `geom_text()` and `geom_label()` gained a `size.unit` parameter that set the 
   text size to millimetres, points, centimetres, inches or picas 
