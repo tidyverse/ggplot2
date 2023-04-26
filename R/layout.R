@@ -152,16 +152,18 @@ Layout <- ggproto("Layout", NULL,
 
     lapply(data, function(layer_data) {
       match_id <- match(layer_data$PANEL, layout$PANEL)
+      names <- names(layer_data)
+      names <- names[!vapply(layer_data, inherits, what = "AsIs", logical(1))]
 
       # Loop through each variable, mapping across each scale, then joining
       # back together
-      x_vars <- intersect(self$panel_scales_x[[1]]$aesthetics, names(layer_data))
+      x_vars <- intersect(self$panel_scales_x[[1]]$aesthetics, names)
       names(x_vars) <- x_vars
       SCALE_X <- layout$SCALE_X[match_id]
       new_x <- scale_apply(layer_data, x_vars, "map", SCALE_X, self$panel_scales_x)
       layer_data[, x_vars] <- new_x
 
-      y_vars <- intersect(self$panel_scales_y[[1]]$aesthetics, names(layer_data))
+      y_vars <- intersect(self$panel_scales_y[[1]]$aesthetics, names)
       names(y_vars) <- y_vars
       SCALE_Y <- layout$SCALE_Y[match_id]
       new_y <- scale_apply(layer_data, y_vars, "map", SCALE_Y, self$panel_scales_y)

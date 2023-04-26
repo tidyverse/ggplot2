@@ -79,6 +79,7 @@ transform_position <- function(df, trans_x = NULL, trans_y = NULL, ...) {
   oldclass <- class(df)
   df <- unclass(df)
   scales <- aes_to_scale(names(df))
+  scales[vapply(df, inherits, what = "AsIs", logical(1))] <- "ignored"
 
   if (!is.null(trans_x)) {
     df[scales == "x"] <- lapply(df[scales == "x"], trans_x, ...)
