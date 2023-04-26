@@ -68,7 +68,7 @@ scale_type.default <- function(x) {
 scale_type.list <- function(x) "identity"
 
 #' @export
-scale_type.AsIs <- function(x) "identity"
+scale_type.AsIs <- function(x) NULL
 
 #' @export
 scale_type.logical <- function(x) "discrete"
