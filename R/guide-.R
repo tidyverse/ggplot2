@@ -273,7 +273,8 @@ Guide <- ggproto(
   },
 
   # Renders tickmarks
-  build_ticks = function(key, elements, params, position = params$position) {
+  build_ticks = function(key, elements, params, position = params$position,
+                         length = elements$ticks_length) {
 
     if (!is.list(key)) {
       breaks <- key
@@ -287,8 +288,7 @@ Guide <- ggproto(
       return(zeroGrob())
     }
 
-    tick_len <- rep(elements$ticks_length %||% unit(0.2, "npc"),
-                    length.out = n_breaks)
+    tick_len <- rep(length %||% unit(0.2, "npc"), length.out = n_breaks)
 
     # Resolve mark
     mark <- unit(rep(breaks, each = 2), "npc")
