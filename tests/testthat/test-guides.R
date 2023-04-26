@@ -462,6 +462,24 @@ test_that("Axis titles won't be blown away by coord_*()", {
   # expect_doppelganger("guide titles with coord_sf()", plot + coord_sf())
 })
 
+test_that("guide_axis() draws minor ticks correctly", {
+  p <- ggplot(mtcars, aes(wt, disp)) +
+    geom_point() +
+    theme(axis.ticks.length = unit(1, "cm"),
+          axis.ticks.x.bottom = element_line(linetype = 2)) +
+    guides(
+      # Test for styling and style inheritance
+      x = guide_axis(minor.ticks = element_line(colour = "red")),
+      # Test for opposed lengths
+      y = guide_axis(minor.ticks = TRUE, minor.length = -0.5),
+      # Test for flipped lenghts
+      x.sec = guide_axis(minor.ticks = TRUE, major.length = -0.5, minor.length = -0.5),
+      # Test that minor.length doesn't influence spacing when no minor ticks are drawn
+      y.sec = guide_axis(minor.ticks = FALSE, minor.length = 5)
+    )
+  expect_doppelganger("guides with minor ticks", p)
+})
+
 test_that("guides are positioned correctly", {
   df <- data_frame(x = 1, y = 1, z = factor("a"))
 
