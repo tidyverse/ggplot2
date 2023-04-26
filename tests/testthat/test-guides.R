@@ -467,6 +467,7 @@ test_that("guide_axis() draws minor ticks correctly", {
     geom_point() +
     theme(axis.ticks.length = unit(1, "cm"),
           axis.ticks.x.bottom = element_line(linetype = 2)) +
+    scale_x_continuous(labels = math_format()) +
     guides(
       # Test for styling and style inheritance
       x = guide_axis(minor.ticks = element_line(colour = "red")),

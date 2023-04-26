@@ -113,6 +113,9 @@ GuideAxis <- ggproto(
 
   extract_key = function(scale, aesthetic, minor.ticks, ...) {
     major <- Guide$extract_key(scale, aesthetic, ...)
+    if (is.expression(major$.label)) {
+      major$.label <- as.list(major$.label)
+    }
     if (inherits(minor.ticks, "element_blank")) {
       return(major)
     }
@@ -293,7 +296,7 @@ GuideAxis <- ggproto(
   },
 
   build_labels = function(key, elements, params) {
-    key <- vec_slice(key, !is.na(key$.label %||% NA))
+    key <- vec_slice(key, !vec_detect_missing(key$.label %||% NA))
     labels <- key$.label
     n_labels <- length(labels)
 
