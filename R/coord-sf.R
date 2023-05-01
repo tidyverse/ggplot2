@@ -262,6 +262,11 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     )
   },
 
+  setup_panel_guides = function(self, panel_params, guides, params = list()) {
+    params <- Coord$setup_panel_guides(panel_params$viewscales, guides, params)
+    c(params, panel_params)
+  },
+
   backtransform_range = function(self, panel_params) {
     target_crs <- panel_params$default_crs
     source_crs <- panel_params$crs
