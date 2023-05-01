@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `coord_sf()` now uses customisable guides provided in the scales or 
+  `guides()` function (@teunbrand).
+
 * `geom_text()` and `geom_label()` gained a `size.unit` parameter that set the 
   text size to millimetres, points, centimetres, inches or picas 
   (@teunbrand, #3799).
