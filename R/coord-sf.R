@@ -655,6 +655,9 @@ view_scales_from_graticule <- function(graticule, scale, aesthetic,
   ticks2 <- vec_slice(graticule, unique0(id2))
   positions <- c(field(ticks1, aes_start), field(ticks2, aes_end))
   labels    <- c(ticks1$degree_label, ticks2$degree_label)
+  ord       <- order(positions) # for dodging, order needs to be correct
+  positions <- positions[ord]
+  labels    <- labels[ord]
 
   # Resolve guides
   if (scale$position != position) {
