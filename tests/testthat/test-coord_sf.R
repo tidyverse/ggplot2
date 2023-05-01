@@ -299,3 +299,26 @@ test_that("sf_transform_xy() works", {
   expect_true(all(abs(out2$y - data$y) < .01))
 
 })
+
+test_that("coord_sf() uses the guide system", {
+  polygon <- sf::st_sfc(
+    sf::st_polygon(list(matrix(c(-80, -76, -76, -80, -80, 35, 35, 40, 40, 35), ncol = 2))),
+    crs = 4326 # basic long-lat crs
+  )
+  polygon <- sf::st_transform(polygon, crs = 3347)
+
+  p <- ggplot(polygon) + geom_sf(fill = NA) +
+    coord_sf(label_graticule = "NSWE") + # All of the labels
+    scale_x_continuous(guide = guide_none("guide_none() with title")) +
+    scale_y_continuous(guide = guide_axis(angle = 45),
+                       name = "title from scale") +
+    guides(
+      x.sec = guide_axis(angle = -45),
+      y.sec = guide_axis(n.dodge = 2, title = "Secondary guide via `guides()`")
+    )
+
+  expect_doppelganger(
+    "coord_sf() with custom guides",
+    p
+  )
+})
