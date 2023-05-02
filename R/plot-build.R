@@ -277,12 +277,14 @@ ggplot_gtable.ggplot_built <- function(data) {
   #   "panel" means align to the panel(s)
   #   "plot" means align to the entire plot (except margins and tag)
   title_pos <- theme$plot.title.position %||% "panel"
+
   if (!(title_pos %in% c("panel", "plot"))) {
-    cli::cli_abort('{.var plot.title.position} should be either {.val "panel"} or {.val "plot"}.')
+    cli::cli_abort('{.var plot.title.position} should be either {.val panel} or {.val plot}.', call = frame_call())
   }
+
   caption_pos <- theme$plot.caption.position %||% "panel"
   if (!(caption_pos %in% c("panel", "plot"))) {
-    cli::cli_abort('{.var plot.caption.position} should be either {.val "panel"} or {.val "plot"}.')
+    cli::cli_abort('{.var plot.caption.position} should be either {.val panel} or {.val plot}.')
   }
 
   pans <- plot_table$layout[grepl("^panel", plot_table$layout$name), , drop = FALSE]
