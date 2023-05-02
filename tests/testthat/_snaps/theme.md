@@ -42,11 +42,11 @@
 
 # Theme elements are checked during build
 
-    `plot.title.position` should be either "\"panel\"" or "\"plot\"".
+    `plot.title.position` should be either "panel" or "plot".
 
 ---
 
-    `plot.caption.position` should be either "\"panel\"" or "\"plot\"".
+    `plot.caption.position` should be either "panel" or "plot".
 
 ---
 
