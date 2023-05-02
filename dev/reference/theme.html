@@ -187,6 +187,7 @@ together according to inheritance, read more about theme inheritance below.</p>
 <span>  <span class="va">plot.caption.position</span>,</span>
 <span>  <span class="va">plot.tag</span>,</span>
 <span>  <span class="va">plot.tag.position</span>,</span>
+<span>  <span class="va">plot.tag.location</span>,</span>
 <span>  <span class="va">plot.margin</span>,</span>
 <span>  <span class="va">strip.background</span>,</span>
 <span>  <span class="va">strip.background.x</span>,</span>
@@ -427,9 +428,17 @@ inherits from <code>title</code>) left-aligned by default</p></dd>
 
 <dt>plot.tag.position</dt>
 <dd><p>The position of the tag as a string ("topleft",
-"top", "topright", "left", "right", "bottomleft", "bottom", "bottomright)
-or a coordinate. If a string, extra space will be added to accommodate the
-tag.</p></dd>
+"top", "topright", "left", "right", "bottomleft", "bottom", "bottomright")
+or a coordinate. If a coordinate, can be a numeric vector of length 2 to
+set the x,y-coordinate relative to the whole plot. The coordinate option
+is unavailable for <code>plot.tag.location = "margin"</code>.</p></dd>
+
+
+<dt>plot.tag.location</dt>
+<dd><p>The placement of the tag as a string, one of
+<code>"panel"</code>, <code>"plot"</code> or <code>"margin"</code>. Respectively, these will place the tag
+inside the panel space, anywhere in the plot as a whole, or in the margin
+around the panel space.</p></dd>
 
 
 <dt>plot.margin</dt>
