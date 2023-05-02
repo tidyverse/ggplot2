@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* New `plot.tag.location` in `theme()` can control placement of the plot tag
+  in the `"margin"`, `"plot"` or the new `"panel"` option (#4297).
+
 * `geom_text()` and `geom_label()` gained a `size.unit` parameter that set the 
   text size to millimetres, points, centimetres, inches or picas 
   (@teunbrand, #3799).
@@ -98,7 +101,7 @@ changes and a few bug fixes as well.
 
 * Fixed bug in `coord_sf()` where graticule lines didn't obey 
   `panel.grid.major`'s linewidth setting (@teunbrand, #5179).
-  
+
 * `geom_text()` drops observations where `angle = NA` instead of throwing an
   error (@teunbrand, #2757).
   

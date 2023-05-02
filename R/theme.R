@@ -133,10 +133,15 @@
 #'   for margins and plot tag).
 #' @param plot.tag upper-left label to identify a plot (text appearance)
 #'   ([element_text()]; inherits from `title`) left-aligned by default
+#' @param plot.tag.location The placement of the tag as a string, one of
+#'   `"panel"`, `"plot"` or `"margin"`. Respectively, these will place the tag
+#'   inside the panel space, anywhere in the plot as a whole, or in the margin
+#'   around the panel space.
 #' @param plot.tag.position The position of the tag as a string ("topleft",
-#'   "top", "topright", "left", "right", "bottomleft", "bottom", "bottomright)
-#'   or a coordinate. If a string, extra space will be added to accommodate the
-#'   tag.
+#'   "top", "topright", "left", "right", "bottomleft", "bottom", "bottomright")
+#'   or a coordinate. If a coordinate, can be a numeric vector of length 2 to
+#'   set the x,y-coordinate relative to the whole plot. The coordinate option
+#'   is unavailable for `plot.tag.location = "margin"`.
 #' @param plot.margin margin around entire plot (`unit` with the sizes of
 #'   the top, right, bottom, and left margins)
 #'
@@ -357,6 +362,7 @@ theme <- function(line,
                   plot.caption.position,
                   plot.tag,
                   plot.tag.position,
+                  plot.tag.location,
                   plot.margin,
                   strip.background,
                   strip.background.x,
