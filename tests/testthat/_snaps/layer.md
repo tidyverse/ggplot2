@@ -25,7 +25,7 @@
 
 ---
 
-    geom must be either a string or a <geom> object, not a base object of type <environment>
+    `x` must be either a string or a <geom> object, not an environment.
 
 # invalid aesthetics throws errors
 
@@ -83,6 +83,11 @@
     Caused by error in `draw_group()`:
     ! Can only draw one boxplot per group
     i Did you forget `aes(group = ...)`?
+
+# layer warns for constant aesthetics
+
+    All aesthetics have length 1, but the data has 32 rows.
+    i Did you mean to use `annotate()`?
 
 # layer_data returns a data.frame
 

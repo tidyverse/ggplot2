@@ -106,8 +106,8 @@ Layout <- ggproto("Layout", NULL,
     # Draw individual labels, then add to gtable
     labels <- self$coord$labels(
       list(
-        x = self$xlabel(labels),
-        y = self$ylabel(labels)
+        x = self$resolve_label(self$panel_scales_x[[1]], labels),
+        y = self$resolve_label(self$panel_scales_y[[1]], labels)
       ),
       self$panel_params[[1]]
     )
@@ -212,7 +212,7 @@ Layout <- ggproto("Layout", NULL,
     invisible()
   },
 
-  setup_panel_guides = function(self, guides, layers, default_mapping) {
+  setup_panel_guides = function(self, guides, layers) {
     self$panel_params <- lapply(
       self$panel_params,
       self$coord$setup_panel_guides,
@@ -224,37 +224,41 @@ Layout <- ggproto("Layout", NULL,
       self$panel_params,
       self$coord$train_panel_guides,
       layers,
-      default_mapping,
       self$coord_params
     )
 
     invisible()
   },
 
-  xlabel = function(self, labels) {
-    primary <- self$panel_scales_x[[1]]$name %|W|% labels$x
-    primary <- self$panel_scales_x[[1]]$make_title(primary)
-    secondary <- if (is.null(self$panel_scales_x[[1]]$secondary.axis)) {
+  resolve_label = function(self, scale, labels) {
+    # General order is: guide title > scale name > labels
+    aes       <- scale$aesthetics[[1]]
+    primary   <- scale$name %|W|% labels[[aes]]
+    secondary <- if (is.null(scale$secondary.axis)) {
       waiver()
     } else {
-      self$panel_scales_x[[1]]$sec_name()
-    } %|W|% labels$sec.x
+      scale$sec_name()
+    } %|W|% labels[[paste0("sec.", aes)]]
     if (is.derived(secondary)) secondary <- primary
-    secondary <- self$panel_scales_x[[1]]$make_sec_title(secondary)
-    list(primary = primary, secondary = secondary)[self$panel_scales_x[[1]]$axis_order()]
-  },
+    order <- scale$axis_order()
 
-  ylabel = function(self, labels) {
-    primary <- self$panel_scales_y[[1]]$name %|W|% labels$y
-    primary <- self$panel_scales_y[[1]]$make_title(primary)
-    secondary <- if (is.null(self$panel_scales_y[[1]]$secondary.axis)) {
-      waiver()
-    } else {
-      self$panel_scales_y[[1]]$sec_name()
-    } %|W|% labels$sec.y
-    if (is.derived(secondary)) secondary <- primary
-    secondary <- self$panel_scales_y[[1]]$make_sec_title(secondary)
-    list(primary = primary, secondary = secondary)[self$panel_scales_y[[1]]$axis_order()]
+    if (!is.null(self$panel_params[[1]]$guides)) {
+      if ((scale$position) %in% c("left", "right")) {
+        guides <- c("y", "y.sec")
+      } else {
+        guides <- c("x", "x.sec")
+      }
+      params    <- self$panel_params[[1]]$guides$get_params(guides)
+      primary   <- params[[1]]$title %|W|% primary
+      secondary <- params[[2]]$title %|W|% secondary
+      position  <- params[[1]]$position %||% scale$position
+      if (position != scale$position) {
+        order <- rev(order)
+      }
+    }
+    primary   <- scale$make_title(primary)
+    secondary <- scale$make_sec_title(secondary)
+    list(primary = primary, secondary = secondary)[order]
   },
 
   render_labels = function(self, labels, theme) {

@@ -20,6 +20,10 @@
 
     Theme element `test` has "NULL" property without default: fill, colour, linewidth, and linetype
 
+---
+
+    `new` must be a <theme> object, not the string "foo".
+
 # element tree can be modified
 
     The `blablabla` theme element is not defined in the element hierarchy.
@@ -46,5 +50,6 @@
 
 ---
 
-    `plot.tag.position` should be a coordinate or one of "topleft", "top", "topright", "left", "right", "bottomleft", "bottom", or "bottomright"
+    `plot.tag.position` must be one of "topleft", "top", "topright", "left", "right", "bottomleft", "bottom", or "bottomright", not "test".
+    i Did you mean "left"?
 

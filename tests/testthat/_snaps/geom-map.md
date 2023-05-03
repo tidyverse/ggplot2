@@ -1,6 +1,6 @@
 # geom_map() checks its input
 
-    `map` must be a <data.frame>
+    `map` must be a data frame, not a character vector.
 
 ---
 

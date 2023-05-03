@@ -149,6 +149,8 @@ ggplot(mtcars) +
   scale_x_binned()
 }
 \seealso{
+The \link[=aes_position]{position documentation}.
+
 Other position scales: 
 \code{\link{scale_x_continuous}()},
 \code{\link{scale_x_date}()},
