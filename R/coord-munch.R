@@ -9,14 +9,13 @@
 #'   All other variables are duplicated as needed.
 #' @param range Panel range specification.
 #' @param segment_length Target segment length
-#' @param make_closed Whether data should be converted to closed polygons before
-#'   munching.
+#' @param is_closed Whether data should be considered as a closed polygon.
 #' @keywords internal
 #' @export
-coord_munch <- function(coord, data, range, segment_length = 0.01, make_closed = FALSE) {
+coord_munch <- function(coord, data, range, segment_length = 0.01, is_closed = FALSE) {
   if (coord$is_linear()) return(coord$transform(data, range))
 
-  if (make_closed) {
+  if (is_closed) {
     data <- close_poly(data)
   }
 
