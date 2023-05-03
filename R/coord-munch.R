@@ -213,17 +213,21 @@ spiral_arc_length <- function(a, theta1, theta2) {
 # Closes a polygon type data structure by repeating the first-in-group after
 # the last-in-group
 close_poly <- function(data) {
-  n <- nrow(data)
-  group <- vec_group_id(
-    data[, intersect(names(data), c("group", "subgroup"))]
-  )
-  if (length(group) != n) group <- rep(1L, n)
-  order <- order(group)
-  group <- group[order]
-  first <- which(c(TRUE, group[-1] != group[-n]))
-  index <- unlist(vec_interleave(
-    split(seq_len(n), group),
-    as.list(first)
-  ))
-  data[order[index], , drop = FALSE]
+  # Sort by group
+  groups <- data[, intersect(c("group", "subgroup"), names(data)), drop = FALSE]
+  ord <- vec_order(groups)
+
+  # Run length encoding stats
+  runs <- vec_run_sizes(vec_slice(groups, ord))
+  ends <- cumsum(runs)
+  starts <- ends - runs + 1
+
+  # Repeat 1st row of group after every group
+  index <- seq_len(nrow(data))
+  insert <- ends + seq_along(ends)
+  new_index <- integer(length(index) + length(runs))
+  new_index[-insert] <- index
+  new_index[insert] <- starts
+
+  vec_slice(data, ord[new_index])
 }
