@@ -39,6 +39,11 @@ coord_munch <- function(coord, data, range, segment_length = 0.01, is_closed = F
 
   # Munch and then transform result
   munched <- munch_data(data, dist, segment_length)
+  if (is_closed) {
+    group_cols <- intersect(c("group", "subgroup"), names(munched))
+    runs <- vec_run_sizes(munched[, group_cols, drop = FALSE])
+    munched <- vec_slice(munched, -(cumsum(runs)))
+  }
   coord$transform(munched, range)
 }
 
