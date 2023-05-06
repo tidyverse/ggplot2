@@ -46,7 +46,7 @@ fill_alpha <- function(fill, alpha) {
     fill <- try_fetch(
       Map(alpha, colour = fill, alpha = alpha),
       error = function(cnd) {
-        cli::cli_abort(msg)
+        cli::cli_abort(msg, call = expr(fill_alpha()))
       }
     )
     # `length(input)` must be same as `length(output)`
