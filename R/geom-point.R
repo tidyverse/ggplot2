@@ -131,7 +131,7 @@ GeomPoint <- ggproto("GeomPoint", Geom,
         pch = coords$shape,
         gp = gpar(
           col = alpha(coords$colour, coords$alpha),
-          fill = alpha(coords$fill, coords$alpha),
+          fill = fill_alpha(coords$fill, coords$alpha),
           # Stroke is added around the outside of the point
           fontsize = coords$size * .pt + stroke_size * .stroke / 2,
           lwd = coords$stroke * .stroke / 2

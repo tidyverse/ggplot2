@@ -90,7 +90,7 @@ GeomHex <- ggproto("GeomHex", Geom,
       coords$x, coords$y,
       gp = gpar(
         col = data$colour,
-        fill = alpha(data$fill, data$alpha),
+        fill = fill_alpha(data$fill, data$alpha),
         lwd = data$linewidth * .pt,
         lty = data$linetype,
         lineend = lineend,

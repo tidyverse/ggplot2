@@ -226,7 +226,7 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
       colour = data$colour,
       linewidth = data$linewidth,
       linetype = data$linetype,
-      fill = alpha(data$fill, data$alpha),
+      fill = fill_alpha(data$fill, data$alpha),
       group = data$group
     )
 
