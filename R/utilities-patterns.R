@@ -12,13 +12,16 @@
 #'
 #' @return A `character` vector of colours, or list of `<GridPattern>` objects.
 #' @export
+#' @keywords internal
 #'
 #' @examples
 #' # Typical colour input
 #' fill_alpha("red", 0.5)
 #'
-#' # Pattern input
-#' fill_alpha(list(linearGradient()), 0.5)
+#' if (utils::packageVersion("grid") > "4.2") {
+#'   # Pattern input
+#'   fill_alpha(list(grid::linearGradient()), 0.5)
+#' }
 fill_alpha <- function(fill, alpha) {
   if (!is.list(fill)) {
     # Happy path for no patterns

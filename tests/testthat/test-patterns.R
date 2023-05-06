@@ -1,5 +1,13 @@
 test_that("fill_alpha works as expected", {
 
+  expect_snapshot_error(
+    fill_alpha(data.frame(x = 1:10, y = LETTERS[1:10]), 0.5)
+  )
+
+  expect_snapshot_error(
+    fill_alpha(list(list("red", "blue"), list("green", "orange")), 0.5)
+  )
+
   # Vector input
   expect_identical(
     fill_alpha(c("red", "green"), 0.5),
@@ -11,6 +19,8 @@ test_that("fill_alpha works as expected", {
     fill_alpha(list("red", "green"), 0.5),
     c("#FF000080", "#00FF0080")
   )
+
+  skip_if_not_installed("grid", "4.2.0")
 
   # Linear gradients
   expect_identical(
@@ -40,15 +50,6 @@ test_that("fill_alpha works as expected", {
   expect_s3_class(environment(ans[[1]]$f)$grob$vp$mask, "GridMask")
   # Should not have altered original environment
   expect_null(environment(pat$f)$grob$vp)
-
-
-  expect_snapshot_error(
-    fill_alpha(data.frame(x = 1:10, y = LETTERS[1:10]), 0.5)
-  )
-
-  expect_snapshot_error(
-    fill_alpha(list(list("red", "blue"), list("green", "orange")), 0.5)
-  )
 })
 
 test_that("geoms can use pattern fills", {

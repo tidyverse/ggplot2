@@ -25,6 +25,9 @@ the transparency of \verb{<GridPattern>} objects.
 # Typical colour input
 fill_alpha("red", 0.5)
 
-# Pattern input
-fill_alpha(list(linearGradient()), 0.5)
+if (utils::packageVersion("grid") > "4.2") {
+  # Pattern input
+  fill_alpha(list(grid::linearGradient()), 0.5)
 }
+}
+\keyword{internal}
