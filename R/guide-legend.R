@@ -322,7 +322,7 @@ GuideLegend <- ggproto(
               "Failed to apply {.fn after_scale} modifications to legend",
               parent = cnd
             )
-            layer$geom$use_defaults(params$key[matched], layer_params, list())
+            layer$geom$use_defaults(params$key[matched_aes], layer_params, list())
           }
         )
       } else {
