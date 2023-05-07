@@ -244,7 +244,7 @@ Guides <- ggproto(
   #      arrange all guide grobs
 
   build = function(self, scales, layers, default_mapping,
-                   position, theme, labels) {
+                   position, theme, labels, key_data) {
 
     position  <- legend_position(position)
     no_guides <- zeroGrob()
@@ -279,7 +279,7 @@ Guides <- ggproto(
 
     # Merge and process layers
     guides$merge()
-    guides$process_layers(layers)
+    guides$process_layers(layers, key_data)
     if (length(guides$guides) == 0) {
       return(no_guides)
     }
@@ -438,9 +438,9 @@ Guides <- ggproto(
   },
 
   # Loop over guides to let them extract information from layers
-  process_layers = function(self, layers) {
+  process_layers = function(self, layers, key_data) {
     self$params <- Map(
-      function(guide, param) guide$get_layer_key(param, layers),
+      function(guide, param) guide$get_layer_key(param, layers, key_data),
       guide = self$guides,
       param = self$params
     )

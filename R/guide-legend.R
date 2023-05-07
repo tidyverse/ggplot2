@@ -294,7 +294,7 @@ GuideLegend <- ggproto(
   },
 
   # Arrange common data for vertical and horizontal legends
-  get_layer_key = function(params, layers) {
+  get_layer_key = function(params, layers, key_data) {
 
     decor <- lapply(layers, function(layer) {
 

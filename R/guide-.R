@@ -175,7 +175,7 @@ Guide <- ggproto(
 
   # Function for extracting information from the layers.
   # Mostly applies to `guide_legend()` and `guide_binned()`
-  get_layer_key = function(params, layers) {
+  get_layer_key = function(params, layers, key_data) {
     return(params)
   },
 
