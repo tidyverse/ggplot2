@@ -296,7 +296,7 @@ GuideLegend <- ggproto(
   # Arrange common data for vertical and horizontal legends
   get_layer_key = function(params, layers, key_data) {
 
-    decor <- lapply(layers, function(layer) {
+    decor <- Map(function(layer, index) {
 
       matched_aes <- matched_aes(layer, params)
 
@@ -325,6 +325,8 @@ GuideLegend <- ggproto(
             layer$geom$use_defaults(params$key[matched_aes], layer_params, list())
           }
         )
+        data$.draw <- trim_key_data(params$key, key_data, matched_aes,
+                                    layer$show.legend, index)
       } else {
         reps <- rep(1, nrow(params$key))
         data <- layer$geom$use_defaults(NULL, layer$aes_params)[reps, ]
@@ -341,7 +343,7 @@ GuideLegend <- ggproto(
         data     = data,
         params   = c(layer$computed_geom_params, layer$computed_stat_params)
       )
-    })
+    }, layer = layers, index = seq_along(layers))
 
     # Remove NULL geoms
     params$decor <- compact(decor)
@@ -753,4 +755,33 @@ measure_legend_keys <- function(decor, n, dim, byrow = FALSE,
     widths  = pmax(default_width,  apply(size, 2, max)),
     heights = pmax(default_height, apply(size, 1, max))
   )
+}
+
+trim_key_data <- function(key, data, aes, show, index) {
+  if (is_named(show)) {
+    trim <- is.na(show[aes])
+    aes  <- aes[trim]
+    if (length(aes) == 0) {
+      return(TRUE)
+    }
+    trim <- any(trim)
+  } else {
+    trim <- is.na(show[1])
+  }
+  if (!trim) {
+    return(TRUE)
+  }
+  match <- lapply(data, function(x) {which(aes %in% x$aesthetics)})
+  lengs <- lengths(match)
+  if (sum(lengs) == 0) {
+    return(TRUE)
+  }
+  data  <- data[lengs > 0]
+  match <- unlist(match[lengs > 0])
+  data  <- lapply(data, `[[`, "data")[match]
+  for (i in seq_along(aes)) {
+    keep <- data[[i]]$pal %in% key[[aes[i]]]
+    data[[i]] <- vec_slice(data[[i]]$member, keep)[, index]
+  }
+  Reduce(`|`, data)
 }
