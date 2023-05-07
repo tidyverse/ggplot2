@@ -472,7 +472,12 @@ GuideLegend <- ggproto(
     draw <- function(i) {
       bg <- elements$key
       keys <- lapply(decor, function(g) {
-        g$draw_key(vec_slice(g$data, i), g$params, key_size)
+        data <- vec_slice(g$data, i)
+        if (data$.draw %||% TRUE) {
+          g$draw_key(data, g$params, key_size)
+        } else {
+          zeroGrob()
+        }
       })
       c(list(bg), keys)
     }
