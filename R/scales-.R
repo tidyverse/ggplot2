@@ -81,6 +81,37 @@ ScalesList <- ggproto("ScalesList", NULL,
     data_frame0(!!!mapped, df[setdiff(names(df), names(mapped))])
   },
 
+  key_data = function(self, data) {
+
+    scales <- self$scales
+
+    lapply(scales, function(s) {
+      if (!s$is_discrete()) {
+        return(NULL)
+      }
+      n <- s$n.breaks.cache %||% sum(!is.na(s$limits %|W|% s$get_limits()))
+      if (n < 1) {
+        return(NULL)
+      }
+      pal <- s$palette.cache %||% s$palette(n)
+      pal <- c(pal, s$na.value)
+      aes <- s$aesthetics
+      out <- vapply(data, function(d) {
+        if (!any(aes %in% names(d))) {
+          return(rep.int(FALSE, length(pal)))
+        }
+        present <- vapply(aes, function(a) {
+          vec_in(pal, d[[a]])
+        }, logical(length(pal)))
+        if (length(dim(present)) > 1) {
+          present <- rowSums(present) > 0
+        }
+        present
+      }, logical(length(pal)))
+      list(aesthetics = aes, data = data_frame0(pal = pal, member = out))
+    })
+  },
+
   transform_df = function(self, df) {
     if (empty(df)) {
       return(df)
