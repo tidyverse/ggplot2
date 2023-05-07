@@ -108,6 +108,25 @@ GuideAxis <- ggproto(
     Guide$extract_params(scale, params, hashables)
   },
 
+  extract_decor = function(scale, aesthetic, position, key, cap = "none", ...) {
+
+    value <- c(-Inf, Inf)
+    if (cap %in% c("both", "upper")) {
+      value[2] <- max(key[[aesthetic]])
+    }
+    if (cap %in% c("both", "lower")) {
+      value[1] <- min(key[[aesthetic]])
+    }
+
+    opposite <- setdiff(c("x", "y"), aesthetic)
+    opposite_value <- if (position %in% c("top", "right")) -Inf else Inf
+
+    data_frame(
+      !!aesthetic := value,
+      !!opposite  := opposite_value
+    )
+  },
+
   transform = function(self, params, coord, panel_params) {
     key <- params$key
     position <- params$position
@@ -124,6 +143,8 @@ GuideAxis <- ggproto(
     }
     key <- coord$transform(key, panel_params)
     params$key <- key
+
+    params$decor <- coord_munch(coord, params$decor, panel_params)
 
     # Ported over from `warn_for_position_guide`
     # This is trying to catch when a user specifies a position perpendicular
@@ -244,18 +265,13 @@ GuideAxis <- ggproto(
 
   # The decor in the axis guide is the axis line
   build_decor = function(decor, grobs, elements, params) {
-    x <- c(0, 1)
-    if (params$cap %in% c("both", "upper")) {
-      x[2] <- max(params$key[[params$aes]], na.rm = TRUE)
+    if (empty(decor)) {
+      return(zeroGrob())
     }
-    if (params$cap %in% c("both", "lower")) {
-      x[1] <- min(params$key[[params$aes]], na.rm = TRUE)
-    }
-    exec(
-      element_grob,
-      element = elements$line,
-      !!params$aes := unit(x, "npc"),
-      !!params$orth_aes := unit(rep(params$orth_side, 2), "npc")
+    element_grob(
+      elements$line,
+      x = unit(decor$x, "npc"),
+      y = unit(decor$y, "npc")
     )
   },
 
@@ -370,7 +386,8 @@ GuideAxis <- ggproto(
   },
 
   draw_early_exit = function(self, params, elements) {
-    line <- self$build_decor(elements = elements, params = params)
+    line <- self$build_decor(decor = params$decor, elements = elements,
+                             params = params)
     absoluteGrob(
       gList(line),
       width  = grobWidth(line),
@@ -408,11 +425,17 @@ draw_axis <- function(break_positions, break_labels, axis_position, theme,
                       position = axis_position)
   params <- guide$params
   aes <- if (axis_position %in% c("top", "bottom")) "x" else "y"
+  opp <- setdiff(c("x", "y"), aes)
+  opp_value <- if (axis_position %in% c("top", "right")) 0 else 1
   key <- data_frame(
     break_positions, break_positions, break_labels,
     .name_repair = ~ c(aes, ".value", ".label")
   )
   params$key <- key
+  params$decor <- data_frame0(
+    !!aes := c(0, 1),
+    !!opp := opp_value
+  )
   guide$draw(theme, params)
 }
 
