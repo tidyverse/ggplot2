@@ -89,6 +89,7 @@ ggplot_build.ggplot <- function(plot) {
   if (npscales$n() > 0) {
     lapply(data, npscales$train_df)
     data <- lapply(data, npscales$map_df)
+    plot$key_data <- npscales$key_data(data)
   }
 
   # Fill in defaults etc.
@@ -178,7 +179,8 @@ ggplot_gtable.ggplot_built <- function(data) {
   }
 
   legend_box <- plot$guides$build(
-    plot$scales, plot$layers, plot$mapping, position, theme, plot$labels
+    plot$scales, plot$layers, plot$mapping, position, theme, plot$labels,
+    plot$key_data
   )
 
   if (is.zero(legend_box)) {
