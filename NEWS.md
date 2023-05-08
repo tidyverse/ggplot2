@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* `coord_munch()` can now close polygon shapes (@teunbrand, #3271)
+
 * You can now omit either `xend` or `yend` from `geom_segment()` as only one
   of these is now required. If one is missing, it will be filled from the `x`
   and `y` aesthetics respectively. This makes drawing horizontal or vertical

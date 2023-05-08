@@ -135,7 +135,7 @@ GeomMap <- ggproto("GeomMap", GeomPolygon,
 
     # Munch, then set up id variable for polygonGrob -
     # must be sequential integers
-    coords <- coord_munch(coord, map, panel_params)
+    coords <- coord_munch(coord, map, panel_params, is_closed = TRUE)
     coords$group <- coords$group %||% coords$id
     grob_id <- match(coords$group, unique0(coords$group))
 
