@@ -46,7 +46,6 @@ update_geom_defaults <- function(geom, new) {
     old <- cache_geom_defaults[[geom]]
     if (!is.null(old)) {
       new <- update_geom_defaults(geom, old)
-      env_unbind(cache_geom_defaults, geom)
     }
     invisible(new)
 
@@ -81,7 +80,6 @@ update_stat_defaults <- function(stat, new) {
     old <- cache_stats_defaults[[stat]]
     if (!is.null(old)) {
       new <- update_stat_defaults(stat, old)
-      env_unbind(cache_stats_defaults, stat)
     }
     invisible(new)
 
