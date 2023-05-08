@@ -37,7 +37,12 @@ cache_stats_defaults <- new.env(parent = emptyenv())
 update_geom_defaults <- function(geom, new) {
   if (is.null(new)) {
 
-    vec_assert(geom, character(), 1)
+    if (!inherits(geom, "Geom")) {
+      check_string(geom)
+    } else {
+      geom <- check_subclass(geom, "Geom", env = parent.frame())
+      geom <- gsub("^geom_", "", snake_class(geom))
+    }
     old <- cache_geom_defaults[[geom]]
     if (!is.null(old)) {
       new <- update_geom_defaults(geom, old)
@@ -67,7 +72,12 @@ update_geom_defaults <- function(geom, new) {
 update_stat_defaults <- function(stat, new) {
   if (is.null(new)) {
 
-    vec_assert(stat, character(), 1)
+    if (!inherits(stat, "Stat")) {
+      check_string(stat)
+    } else {
+      stat <- check_subclass(stat, "Stat", env = parent.frame())
+      stat <- gsub("^stat_", "", snake_class(stat))
+    }
     old <- cache_stats_defaults[[stat]]
     if (!is.null(old)) {
       new <- update_stat_defaults(stat, old)
