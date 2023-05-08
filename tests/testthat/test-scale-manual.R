@@ -12,6 +12,13 @@ test_that("names of values used in manual scales", {
    s3$train(c("4", "8", NA))
    expect_equal(s3$map(c("4", "6", "8")), c("a", "x", "c"))
    expect_equal(s3$get_limits(), c("4", "8", NA))
+
+   # Names do not match data
+   s <- scale_colour_manual(values = c("foo" = "x", "bar" = "y"))
+   s$train(c("A", "B"))
+   expect_snapshot_warning(
+     expect_equal(s$get_limits(), character())
+   )
 })
 
 

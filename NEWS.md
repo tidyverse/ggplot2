@@ -1,7 +1,11 @@
 # ggplot2 (development version)
 
 * Legends in `scale_*_manual()` can show `NA` values again when the `values` is
-  a named vector (@teunbran, #5214, #5286)
+  a named vector (@teunbrand, #5214, #5286).
+  
+* `scale_*_manual()` with a named `values` argument now emits a warning when
+  none of those names match the values found in the data (@teunbrand, #5298).
+  
 * `geom_text()` and `geom_label()` gained a `size.unit` parameter that set the 
   text size to millimetres, points, centimetres, inches or picas 
   (@teunbrand, #3799).
