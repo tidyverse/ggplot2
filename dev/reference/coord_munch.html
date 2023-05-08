@@ -89,7 +89,7 @@ so they can be transformed independently. Used inside geom functions.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">coord_munch</span><span class="op">(</span><span class="va">coord</span>, <span class="va">data</span>, <span class="va">range</span>, segment_length <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">coord_munch</span><span class="op">(</span><span class="va">coord</span>, <span class="va">data</span>, <span class="va">range</span>, segment_length <span class="op">=</span> <span class="fl">0.01</span>, is_closed <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -110,6 +110,10 @@ All other variables are duplicated as needed.</p></dd>
 
 <dt>segment_length</dt>
 <dd><p>Target segment length</p></dd>
+
+
+<dt>is_closed</dt>
+<dd><p>Whether data should be considered as a closed polygon.</p></dd>
 
 </dl></div>
 
