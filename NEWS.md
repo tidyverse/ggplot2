@@ -1,5 +1,10 @@
 # ggplot2 (development version)
 
+* You can now omit either `xend` or `yend` from `geom_segment()` as only one
+  of these is now required. If one is missing, it will be filled from the `x`
+  and `y` aesthetics respectively. This makes drawing horizontal or vertical
+  segments a little bit more convenient (@teunbrand, #5140).
+  
 * New `plot.tag.location` in `theme()` can control placement of the plot tag
   in the `"margin"`, `"plot"` or the new `"panel"` option (#4297).
 
