@@ -19,7 +19,7 @@ test_that("stat_density can make weighted density estimation", {
   df <- mtcars
   df$weight <- mtcars$cyl / sum(mtcars$cyl)
 
-  dens <- stats::density(df$mpg, weights = df$weight)
+  dens <- stats::density(df$mpg, weights = df$weight, bw = bw.nrd0(df$mpg))
   expected_density_fun <- stats::approxfun(data.frame(x = dens$x, y = dens$y))
 
   plot <- ggplot(df, aes(mpg, weight = weight)) + stat_density()
@@ -117,4 +117,11 @@ test_that("compute_density returns useful df and throws warning when <2 values",
   expect_equal(nrow(dens), 1)
   expect_equal(names(dens), c("x", "density", "scaled", "ndensity", "count", "n"))
   expect_type(dens$x, "double")
+})
+
+test_that("precompute_bandwidth() errors appropriately", {
+  expect_silent(precompute_bw(1:10))
+  expect_equal(precompute_bw(1:10, 5), 5)
+  expect_snapshot_error(precompute_bw(1:10, bw = "foobar"))
+  expect_snapshot_error(precompute_bw(1:10, bw = Inf))
 })
