@@ -1,10 +1,12 @@
 # ggplot2 (development version)
 
 * `coord_munch()` can now close polygon shapes (@teunbrand, #3271)
-* The `layer_data()`, `layer_scales()` and `layer_grob()` now have the default
-  `plot = last_plot()` (@teunbrand, #5166).
-* To prevent changing the plotting order, `stat_sf()` is now computed per panel 
-  instead of per group (@teunbrand, #4340).
+
+* You can now omit either `xend` or `yend` from `geom_segment()` as only one
+  of these is now required. If one is missing, it will be filled from the `x`
+  and `y` aesthetics respectively. This makes drawing horizontal or vertical
+  segments a little bit more convenient (@teunbrand, #5140).
+  
 * New `plot.tag.location` in `theme()` can control placement of the plot tag
   in the `"margin"`, `"plot"` or the new `"panel"` option (#4297).
 
