@@ -2,7 +2,9 @@
 
 * `update_geom_defaults()` and `update_stat_defaults()` can now use `new = NULL`
   to reset the original defaults (@teunbrand, #4993).
-  
+
+* `coord_munch()` can now close polygon shapes (@teunbrand, #3271)
+
 * You can now omit either `xend` or `yend` from `geom_segment()` as only one
   of these is now required. If one is missing, it will be filled from the `x`
   and `y` aesthetics respectively. This makes drawing horizontal or vertical
