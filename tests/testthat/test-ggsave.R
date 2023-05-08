@@ -27,6 +27,7 @@ test_that("ggsave restores previous graphics device", {
 })
 
 test_that("ggsave uses theme background as image background", {
+  skip_if_not_installed("svglite")
   skip_if_not_installed("xml2")
 
   path <- tempfile()
@@ -43,6 +44,7 @@ test_that("ggsave uses theme background as image background", {
 })
 
 test_that("ggsave can handle blank background", {
+  skip_if_not_installed("svglite")
   skip_if_not_installed("xml2")
 
   path <- tempfile()
@@ -57,19 +59,27 @@ test_that("ggsave can handle blank background", {
 })
 
 test_that("ggsave warns about empty or multiple filenames", {
-  filenames <- c("plot1.png", "plot2.png")
   plot <- ggplot(mtcars, aes(disp, mpg)) + geom_point()
 
-  withr::with_file(filenames, {
+  withr::with_tempfile(c("file1", "file2"), fileext = ".png", {
     expect_warning(
-      suppressMessages(ggsave(filenames, plot)),
+      suppressMessages(ggsave(c(file1, file2), plot)),
       "`filename` must have length 1"
     )
-    expect_error(
-      ggsave(character(), plot),
-      "`filename` cannot be empty."
-    )
   })
+
+  expect_error(
+    ggsave(character(), plot),
+    "`filename` cannot be empty."
+  )
+})
+
+test_that("ggsave fails informatively for no-extension filenames", {
+  plot <- ggplot(mtcars, aes(disp, mpg)) + geom_point()
+  expect_error(
+    ggsave(tempfile(), plot),
+    '`filename` has no file extension and `device` is "NULL"'
+  )
 })
 
 # plot_dim ---------------------------------------------------------------

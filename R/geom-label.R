@@ -12,6 +12,7 @@ geom_label <- function(mapping = NULL, data = NULL,
                        label.padding = unit(0.25, "lines"),
                        label.r = unit(0.15, "lines"),
                        label.size = 0.25,
+                       size.unit = "mm",
                        na.rm = FALSE,
                        show.legend = NA,
                        inherit.aes = TRUE) {
@@ -39,6 +40,7 @@ geom_label <- function(mapping = NULL, data = NULL,
       label.padding = label.padding,
       label.r = label.r,
       label.size = label.size,
+      size.unit = size.unit,
       na.rm = na.rm,
       ...
     )
@@ -63,7 +65,8 @@ GeomLabel <- ggproto("GeomLabel", Geom,
                         na.rm = FALSE,
                         label.padding = unit(0.25, "lines"),
                         label.r = unit(0.15, "lines"),
-                        label.size = 0.25) {
+                        label.size = 0.25,
+                        size.unit = "mm") {
     lab <- data$label
     if (parse) {
       lab <- parse_safe(as.character(lab))
@@ -76,6 +79,11 @@ GeomLabel <- ggproto("GeomLabel", Geom,
     if (is.character(data$hjust)) {
       data$hjust <- compute_just(data$hjust, data$x)
     }
+    if (!inherits(label.padding, "margin")) {
+      label.padding <- rep(label.padding, length.out = 4)
+    }
+
+    size.unit <- resolve_text_unit(size.unit)
 
     grobs <- lapply(1:nrow(data), function(i) {
       row <- data[i, , drop = FALSE]
@@ -85,9 +93,10 @@ GeomLabel <- ggproto("GeomLabel", Geom,
         just = c(row$hjust, row$vjust),
         padding = label.padding,
         r = label.r,
+        angle = row$angle,
         text.gp = gpar(
           col = row$colour,
-          fontsize = row$size * .pt,
+          fontsize = row$size * size.unit,
           fontfamily = row$family,
           fontface = row$fontface,
           lineheight = row$lineheight
@@ -109,7 +118,7 @@ GeomLabel <- ggproto("GeomLabel", Geom,
 
 labelGrob <- function(label, x = unit(0.5, "npc"), y = unit(0.5, "npc"),
                       just = "center", padding = unit(0.25, "lines"), r = unit(0.1, "snpc"),
-                      default.units = "npc", name = NULL,
+                      angle = NULL, default.units = "npc", name = NULL,
                       text.gp = gpar(), rect.gp = gpar(fill = "white"), vp = NULL) {
 
   if (length(label) != 1) {
@@ -121,32 +130,35 @@ labelGrob <- function(label, x = unit(0.5, "npc"), y = unit(0.5, "npc"),
   if (!is.unit(y))
     y <- unit(y, default.units)
 
-  gTree(label = label, x = x, y = y, just = just, padding = padding, r = r,
-    name = name, text.gp = text.gp, rect.gp = rect.gp, vp = vp, cl = "labelgrob")
-}
+  if (!is.null(angle) & is.null(vp)) {
+    vp <- viewport(
+      angle = angle, x = x, y = y,
+      width = unit(0, "cm"), height = unit(0, "cm"),
+      gp = gpar(fontsize = text.gp$fontsize)
+    )
+    x <- unit(rep(0.5, length(x)), "npc")
+    y <- unit(rep(0.5, length(y)), "npc")
+  }
 
-#' @export
-makeContent.labelgrob <- function(x) {
-  hj <- resolveHJust(x$just, NULL)
-  vj <- resolveVJust(x$just, NULL)
+  descent <- font_descent(
+    text.gp$fontfamily, text.gp$fontface, text.gp$fontsize, text.gp$cex
+  )
+  hjust <- resolveHJust(just, NULL)
+  vjust <- resolveVJust(just, NULL)
 
-  t <- textGrob(
-    x$label,
-    x$x + 2 * (0.5 - hj) * x$padding,
-    x$y + 2 * (0.5 - vj) * x$padding,
-    just = c(hj, vj),
-    gp = x$text.gp,
-    name = "text"
+  text <- titleGrob(
+    label = label, hjust = hjust, vjust = vjust, x = x, y = y,
+    margin = padding, margin_x = TRUE, margin_y = TRUE,
+    gp = text.gp
   )
 
-  r <- roundrectGrob(x$x, x$y, default.units = "native",
-    width = grobWidth(t) + 2 * x$padding,
-    height = grobHeight(t) + 2 * x$padding,
-    just = c(hj, vj),
-    r = x$r,
-    gp = x$rect.gp,
-    name = "box"
+  box <- roundrectGrob(
+    x = x, y = y - (1 - vjust) * descent,
+    width  = widthDetails(text),
+    height = heightDetails(text),
+    just   = c(hjust, vjust),
+    r = r, gp = rect.gp, name = "box"
   )
 
-  setChildren(x, gList(r, t))
+  gTree(children = gList(box, text), name = name, vp = vp)
 }
