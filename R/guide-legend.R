@@ -325,7 +325,7 @@ GuideLegend <- ggproto(
             layer$geom$use_defaults(params$key[matched_aes], layer_params, list())
           }
         )
-        data$.draw <- trim_key_data(params$key, key_data, matched_aes,
+        data$.draw <- keep_key_data(params$key, key_data, matched_aes,
                                     layer$show.legend, index)
       } else {
         reps <- rep(1, nrow(params$key))
@@ -757,11 +757,16 @@ measure_legend_keys <- function(decor, n, dim, byrow = FALSE,
   )
 }
 
-trim_key_data <- function(key, data, aes, show, index) {
+# The `keep_key_data` function is for deciding whether keys should be drawn or
+# not based on key data collected by the scales.
+keep_key_data <- function(key, data, aes, show, index) {
+  # Figure out whether the layer should have trimmed keys based on the
+  # `show`, i.e. `layer$show.legend` parameter.
   if (is_named(show)) {
     trim <- is.na(show[aes])
     aes  <- aes[trim]
     if (length(aes) == 0) {
+      # No matching aesthetic, probably should keep everything
       return(TRUE)
     }
     trim <- any(trim)
@@ -769,19 +774,29 @@ trim_key_data <- function(key, data, aes, show, index) {
     trim <- is.na(show[1])
   }
   if (!trim) {
+    # No matching aesthetic, probably should keep everything
     return(TRUE)
   }
+  # Figure out if we have matching key data
   match <- lapply(data, function(x) {which(aes %in% x$aesthetics)})
   lengs <- lengths(match)
   if (sum(lengs) == 0) {
+    # We don't have matching key data, probably should keep everything
     return(TRUE)
   }
+
+  # Subset for cases where we *do* have key data
   data  <- data[lengs > 0]
   match <- unlist(match[lengs > 0])
   data  <- lapply(data, `[[`, "data")[match]
+
+  # Lookup if we have entries for the keys
   for (i in seq_along(aes)) {
     keep <- data[[i]]$pal %in% key[[aes[i]]]
     data[[i]] <- vec_slice(data[[i]]$member, keep)[, index]
   }
+
+  # If we have multiple matching aesthetics, either one of them is good enough
+  # to keep the data
   Reduce(`|`, data)
 }
