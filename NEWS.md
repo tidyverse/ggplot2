@@ -29,6 +29,11 @@
     * More informative error for mismatched 
      `direction`/`theme(legend.direction = ...)` arguments (#4364, #4930).
     * `guide_coloursteps()` and `guide_bins()` sort breaks (#5152).
+    * `guide_legend()` now omits inappropriate key glyphs: if there isn't any
+      layer data matching a key value, the key isn't drawn. To show keys in the
+      legend regardless of whether the value occurs in the data 
+      (the old behaviour), you can use `show.legend = c({aesthetic} = TRUE)` 
+      (@teunbrand, #3648).
 
 * `geom_label()` now uses the `angle` aesthetic (@teunbrand, #2785)
 * 'lines' units in `geom_label()`, often used in the `label.padding` argument, 
