@@ -18,6 +18,88 @@ test_that("alternative key glyphs work", {
   )
 })
 
+test_that("keep_key_data give expected output", {
+
+  key <- data_frame0(
+    colour = c("red", "green", "blue"),
+    label = c("A", "B", "C")
+  )
+
+  data <- list(
+    list(
+      aesthetics = "colour",
+      data = data_frame0(
+        pal = c("red", "green", "blue", "orange"),
+        member = matrix(c(
+          TRUE, TRUE, FALSE, FALSE,
+          FALSE, TRUE, TRUE, TRUE
+        ), 4, 2)
+      )
+    )
+  )
+
+  expect_equal( # show = TRUE, so keep everything
+    keep_key_data(key, data, "colour", show = TRUE, index = 1),
+    TRUE
+  )
+  expect_equal( # check for first index
+    keep_key_data(key, data, "colour", show = NA, index = 1),
+    c(TRUE, TRUE, FALSE)
+  )
+  expect_equal( # check for second index
+    keep_key_data(key, data, "colour", show = NA, index = 2),
+    c(FALSE, TRUE, TRUE)
+  )
+  expect_equal( # colour = TRUE, not NA, so keep everything
+    keep_key_data(key, data, "colour", show = c(label = NA, colour = TRUE), index = 1),
+    TRUE
+  )
+  expect_equal( # colour = NA, so check for colour matches
+    keep_key_data(key, data, "colour", show = c(label = TRUE, colour = NA), index = 1),
+    c(TRUE, TRUE, FALSE)
+  )
+  expect_equal( # No relevant key data, keep everything
+    keep_key_data(key, data, "label", show = c(label = NA), index = 1),
+    TRUE
+  )
+  data[[2]] <- list(
+    aesthetics = "label",
+    data = data_frame0(
+      pal = c("A", "B", "C"),
+      member = matrix(c(
+        TRUE,  FALSE, TRUE,
+        FALSE, FALSE, TRUE
+      ), 3, 2)
+    )
+  )
+  expect_equal( # All keys: colour matches first two, label the third key
+    keep_key_data(key, data, c("colour", "label"), show = NA, index = 1),
+    c(TRUE, TRUE, TRUE)
+  )
+  expect_equal( # First key matches neither, so give 1st FALSE
+    keep_key_data(key, data, c("colour", "label"), show = NA, index = 2),
+    c(FALSE, TRUE, TRUE)
+  )
+})
+
+test_that("key selection works appropriately", {
+
+  data46 <- subset(mtcars, cyl %in% c(4, 6))
+  data68 <- subset(mtcars, cyl %in% c(6, 8))
+
+  p <- ggplot(mapping = aes(disp, mpg, colour = factor(cyl))) +
+    geom_point(data = data46) +
+    geom_path(data  = data68)
+
+  expect_doppelganger("legend key selection", p)
+
+  p <- ggplot(mapping = aes(disp, mpg, colour = factor(cyl))) +
+    geom_point(data = data46, show.legend = TRUE) +
+    geom_path(data  = data68)
+
+  expect_doppelganger("partial legend key selection", p)
+})
+
 # Orientation-aware key glyphs --------------------------------------------
 
 test_that("horizontal key glyphs work", {
