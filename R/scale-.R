@@ -663,6 +663,8 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
       cli::cli_abort("Invalid {.arg breaks} specification. Use {.val NULL}, not {.val NA}")
     }
 
+    # Compute `zero_range()` in transformed space in case `limits` in data space
+    # don't support conversion to numeric (#5304)
     if (zero_range(as.numeric(self$trans$transform(limits)))) {
       breaks <- limits[1]
     } else if (is.waive(self$breaks)) {
