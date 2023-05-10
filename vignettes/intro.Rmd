@@ -102,16 +102,14 @@ Every layer consists of three important parts:
 1. The [**statistical transformation**](https://ggplot2-book.org/statistical-summaries.html) that may compute new variables from the data and affect *what* of the data is displayed.
 1. The [**position adjustment**](https://ggplot2-book.org/layers.html#position) that primarily determines *where* a piece of data is being displayed.
 
-A layer can be constructed using the `geom_*()` and `stat_*()` functions. These functions often determine one of the three parts of a layer, while the other two can still be specified. Here is how we can use layers to display the `cty` and `hwy` columns of the `mpg` dataset.
+A layer can be constructed using the `geom_*()` and `stat_*()` functions. These functions often determine one of the three parts of a layer, while the other two can still be specified. Here is how we can use layers to display the `cty` and `hwy` columns of the `mpg` dataset as points and stack a trendline layer on top.
 
 ```{r example_layer, fig.show='hold'}
-# To display a scatterplot
 ggplot(mpg, aes(cty, hwy)) +
-  geom_point()
-
-# To fit a loess trendline to the data
-ggplot(mpg, aes(cty, hwy)) +
-  stat_smooth(formula = y ~ x, method = "loess")
+  # To display a scatterplot
+  geom_point() +
+  # To fit a loess trendline to the data
+  stat_smooth(formula = y ~ x, method = "lm")
 ```
 
 ## Scales
