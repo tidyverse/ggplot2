@@ -75,8 +75,7 @@ A mapping can be made by using the `aes()` function to make pairs of graphical a
 If we want the `displ` and `hwy` columns to be displayed as the x- and y-coordinates in the plot, we can do that as follows:
 
 ```{r example_mapping, fig.show='hide'}
-ggplot(mpg) +
-  aes(x = displ, y = hwy)
+ggplot(mpg, mapping = aes(x = displ, y = hwy))
 ```
 
 ## Layers
@@ -110,8 +109,7 @@ Scales are responsible for updating the limits of a plot, setting the breaks, fo
 To use scales, one can use one of the scale functions that are patterned as `scale_{aesthetic}_{type}()` functions, where `{aesthetic}` is one of the pairings made in the mapping part of a plot. To map the `class` column in the `mpg` dataset to the viridis colour palette, we can write the following:
 
 ```{r example_scales}
-ggplot(mpg) +
-  aes(x = displ, y = hwy, colour = class) +
+ggplot(mpg, aes(x = displ, y = hwy, colour = class)) +
   geom_point() +
   scale_colour_viridis_d()
 ```
@@ -126,8 +124,7 @@ The facets have their own mapping that can be given to the `vars()` function.
 To show the `mpg` dataset by the `drv` and `year` columns, we can use `facet_grid()` as follows:
 
 ```{r example_facets}
-ggplot(mpg) +
-  aes(x = displ, y = hwy) +
+ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() +
   facet_grid(rows = vars(year), cols = vars(drv))
 ```
@@ -140,8 +137,7 @@ While typically Cartesian coordinates are used, the coordinate system powers the
 To show the `mpg` dataset in polar coordinates instead of Cartesian ones, one can use `coord_polar()` to determine what should be mapped to the angle (theta) or radius.
 
 ```{r example_coords}
-ggplot(mpg) +
-  aes(x = displ, y = hwy) +
+ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() +
   coord_polar(theta = "y")
 ```
@@ -153,8 +149,7 @@ The [theme](https://ggplot2-book.org/polishing.html) system controls almost any 
 To tweak the visuals of the plot, one can use many of the built-in `theme_*()` functions and/or detail specific aspects with the `theme()` function. The `element_*()` functions control the graphical attributes of theme parts.
 
 ```{r example_theme}
-ggplot(mpg) +
-  aes(x = displ, y = hwy, colour = class) +
+ggplot(mpg, aes(x = displ, y = hwy, colour = class)) +
   geom_point() +
   theme_minimal() +
   theme(
