@@ -1,6 +1,6 @@
 bins <- function(breaks, closed = "right",
                  fuzz = 1e-08 * stats::median(diff(breaks))) {
-  if (!is.numeric(breaks)) abort("`breaks` must be a numeric vector")
+  check_numeric(breaks)
   closed <- arg_match0(closed, c("right", "left"))
 
   breaks <- sort(breaks)
@@ -50,18 +50,17 @@ bin_breaks <- function(breaks, closed = c("right", "left")) {
 
 bin_breaks_width <- function(x_range, width = NULL, center = NULL,
                              boundary = NULL, closed = c("right", "left")) {
-  if (length(x_range) != 2) abort("`x_range` must have two elements")
+  if (length(x_range) != 2) {
+    cli::cli_abort("{.arg x_range} must have two elements")
+  }
 
-  # if (length(x_range) == 0) {
-  #   return(bin_params(numeric()))
-  # }
-  if (!(is.numeric(width) && length(width) == 1)) abort("`width` must be a numeric scalar")
+  check_number_decimal(width)
   if (width <= 0) {
-    abort("`binwidth` must be positive")
+    cli::cli_abort("{.arg binwidth} must be positive")
   }
 
   if (!is.null(boundary) && !is.null(center)) {
-    abort("Only one of 'boundary' and 'center' may be specified.")
+    cli::cli_abort("Only one of {.arg boundary} and {.arg center} may be specified.")
   } else if (is.null(boundary)) {
     if (is.null(center)) {
       # If neither edge nor center given, compute both using tile layer's
@@ -87,7 +86,10 @@ bin_breaks_width <- function(x_range, width = NULL, center = NULL,
   max_x <- x_range[2] + (1 - 1e-08) * width
 
   if (isTRUE((max_x - origin) / width > 1e6)) {
-    abort("The number of histogram bins must be less than 1,000,000.\nDid you make `binwidth` too small?")
+    cli::cli_abort(c(
+      "The number of histogram bins must be less than 1,000,000.",
+      "i" = "Did you make {.arg binwidth} too small?"
+    ))
   }
   breaks <- seq(origin, max_x, width)
 
@@ -102,12 +104,12 @@ bin_breaks_width <- function(x_range, width = NULL, center = NULL,
 
 bin_breaks_bins <- function(x_range, bins = 30, center = NULL,
                             boundary = NULL, closed = c("right", "left")) {
-  if (length(x_range) != 2) abort("`x_range` must have two elements")
+  if (length(x_range) != 2) {
+    cli::cli_abort("{.arg x_range} must have two elements")
+  }
 
-  bins <- as.integer(bins)
-  if (bins < 1) {
-    abort("Need at least one bin.")
-  } else if (zero_range(x_range)) {
+  check_number_whole(bins, min = 1)
+  if (zero_range(x_range)) {
     # 0.1 is the same width as the expansion `default_expansion()` gives for 0-width data
     width <- 0.1
   } else if (bins == 1) {
@@ -125,7 +127,7 @@ bin_breaks_bins <- function(x_range, bins = 30, center = NULL,
 # Compute bins ------------------------------------------------------------
 
 bin_vector <- function(x, bins, weight = NULL, pad = FALSE) {
-  if (!is_bins(bins)) abort("`bins` must be a ggplot2_bins object")
+  check_object(bins, is_bins, "a {.cls ggplot2_bins} object")
 
   if (all(is.na(x))) {
     return(bin_out(length(x), NA, NA, xmin = NA, xmax = NA))
@@ -170,7 +172,7 @@ bin_out <- function(count = integer(0), x = numeric(0), width = numeric(0),
   xmin = x - width / 2, xmax = x + width / 2) {
   density <- count / width / sum(abs(count))
 
-  new_data_frame(list(
+  data_frame0(
     count = count,
     x = x,
     xmin = xmin,
@@ -178,6 +180,7 @@ bin_out <- function(count = integer(0), x = numeric(0), width = numeric(0),
     width = width,
     density = density,
     ncount = count / max(abs(count)),
-    ndensity = density / max(abs(density))
-  ), n = length(count))
+    ndensity = density / max(abs(density)),
+    .size = length(count)
+  )
 }

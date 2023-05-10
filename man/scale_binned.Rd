@@ -110,8 +110,11 @@ bounds values with \code{NA}.
 
 \item{na.value}{Missing values will be replaced with this value.}
 
-\item{right}{Should values on the border between bins be part of the right
-(upper) bin?}
+\item{right}{Should the intervals be closed on the right (\code{TRUE}, default) or
+should the intervals be closed on the left (\code{FALSE})? 'Closed on the right'
+means that values at break positions are part of the lower bin (open on the
+left), whereas they are part of the upper bin when intervals are closed on
+the left (open on the right).}
 
 \item{show.limits}{should the limits of the scale appear as ticks}
 
@@ -146,6 +149,8 @@ ggplot(mtcars) +
   scale_x_binned()
 }
 \seealso{
+The \link[=aes_position]{position documentation}.
+
 Other position scales: 
 \code{\link{scale_x_continuous}()},
 \code{\link{scale_x_date}()},

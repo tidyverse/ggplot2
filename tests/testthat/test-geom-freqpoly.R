@@ -5,6 +5,6 @@ test_that("can do frequency polygon with categorical x", {
   d <- layer_data(p)
 
   expect_s3_class(d$x, "mapped_discrete")
-  expect_equal(d$x, new_mapped_discrete(1:3))
+  expect_equal(d$x, mapped_discrete(1:3))
   expect_equal(d$y, 3:1)
 })

@@ -87,13 +87,10 @@ test_that("boxes in facetted plots keep the correct width", {
 })
 
 test_that("width of groups is computed per facet", {
-  df <- tibble::tribble(
-    ~g1, ~g2,  ~y,
-    "x", "a",  1,
-    "x", "b",  2,
-    "y", "a",  3,
-    "y", "b",  4,
-    "y", "c",  3,
+  df <- data_frame(
+    g1 = c("x", "x", "y", "y", "y"),
+    g2 = c("a", "b", "a", "b", "c"),
+    y = c(1, 2, 3, 4, 3)
   )
 
   p <- ggplot(df, aes("x", y, fill = g2)) +
@@ -112,4 +109,12 @@ test_that("NA values are given their own group", {
     xmax = c(1, 2, NA, NA)
   )
   expect_equal(find_x_overlaps(df), seq_len(4))
+})
+
+test_that("groups are different when two blocks have externall touching point",{
+  df1 <- data.frame(
+    xmin = c(0.5, 1.5),
+    xmax = c(1.5, 2.5)
+  )
+  expect_equal(find_x_overlaps(df1), seq_len(2))
 })

@@ -5,6 +5,26 @@ test_that("keep_mid_true drops leading/trailing FALSE", {
   expect_equal(keep_mid_true(c(F, T, F, T, T)), c(F, T, T, T, T))
 })
 
+test_that("geom_path() throws meaningful error on bad combination of varying aesthetics", {
+  p <- ggplot(economics, aes(unemploy/pop, psavert, colour = pop)) + geom_path(linetype = 2)
+  expect_snapshot_error(ggplotGrob(p))
+})
+
+test_that("repair_segment_arrow() repairs sensibly", {
+  group <- c(1,1,1,1,2,2)
+
+  ans <- repair_segment_arrow(arrow(ends = "last"), group)
+  expect_equal(ans$ends, rep(2L, 4))
+  expect_equal(as.numeric(ans$length), c(0, 0, 0.25, 0.25))
+
+  ans <- repair_segment_arrow(arrow(ends = "first"), group)
+  expect_equal(ans$ends, rep(1L, 4))
+  expect_equal(as.numeric(ans$length), c(0.25, 0, 0, 0.25))
+
+  ans <- repair_segment_arrow(arrow(ends = "both"), group)
+  expect_equal(ans$ends, c(1L, 3L, 2L, 3L))
+  expect_equal(as.numeric(ans$length), c(0.25, 0, 0.25, 0.25))
+})
 
 # Tests on stairstep() ------------------------------------------------------------
 
@@ -75,6 +95,6 @@ test_that("NA linetype is dropped with warning", {
       "NA linetype",
       ggplot(df, aes(x, y)) + geom_path(linetype = NA)
     ),
-    "containing missing values"
+    "containing missing values or values outside the scale range"
   )
 })

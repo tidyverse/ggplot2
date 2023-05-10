@@ -8,6 +8,8 @@
 #' @inheritParams binned_scale
 #'
 #' @family position scales
+#' @seealso
+#' The [position documentation][aes_position].
 #' @name scale_binned
 #' @aliases NULL
 #'
@@ -61,7 +63,7 @@ ScaleBinnedPosition <- ggproto("ScaleBinnedPosition", ScaleBinned,
 
   train = function(self, x) {
     if (!is.numeric(x)) {
-      abort("Binned scales only support continuous data")
+      cli::cli_abort("Binned scales only support continuous data")
     }
 
     if (length(x) == 0 || self$after.stat) return()
@@ -70,7 +72,8 @@ ScaleBinnedPosition <- ggproto("ScaleBinnedPosition", ScaleBinned,
 
   map = function(self, x, limits = self$get_limits()) {
     breaks <- self$get_breaks(limits)
-    all_breaks <- unique(sort(c(limits[1], breaks, limits[2])))
+    limits <- self$get_limits() # get_breaks() may have updated this
+    all_breaks <- unique0(sort(c(limits[1], breaks, limits[2])))
 
     if (self$after.stat) {
       # Backtransform to original scale
@@ -103,7 +106,7 @@ ScaleBinnedPosition <- ggproto("ScaleBinnedPosition", ScaleBinned,
   get_breaks = function(self, limits = self$get_limits()) {
     breaks <- ggproto_parent(ScaleBinned, self)$get_breaks(limits)
     if (self$show.limits) {
-      breaks <- sort(unique(c(self$get_limits(), breaks)))
+      breaks <- sort(unique0(c(self$get_limits(), breaks)))
     }
     breaks
   }

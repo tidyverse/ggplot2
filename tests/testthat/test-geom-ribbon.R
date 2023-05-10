@@ -1,3 +1,18 @@
+test_that("geom_ribbon() checks the aesthetics", {
+  huron <- data.frame(year = 1875:1972, level = as.vector(LakeHuron))
+  p <- ggplot(huron) +
+    geom_ribbon(aes(year, ymin = level - 5, ymax = level + 5), orientation = "y")
+  expect_snapshot_error(ggplotGrob(p))
+  p <- ggplot(huron) +
+    geom_ribbon(aes(y = year, xmin = level - 5, xmax = level + 5), orientation = "x")
+  expect_snapshot_error(ggplotGrob(p))
+  p <- ggplot(huron) +
+    geom_ribbon(aes(year, ymin = level - 5, ymax = level + 5, fill = year))
+  expect_snapshot_error(ggplotGrob(p))
+
+  expect_snapshot_error(geom_ribbon(aes(year, ymin = level - 5, ymax = level + 5), outline.type = "test"))
+})
+
 test_that("NAs are not dropped from the data", {
   df <- data_frame(x = 1:5, y = c(1, 1, NA, 1, 1))
 
@@ -34,7 +49,7 @@ test_that("outline.type option works", {
   g_ribbon_upper   <- layer_grob(p + geom_ribbon(outline.type = "upper"))[[1]]
   g_ribbon_lower   <- layer_grob(p + geom_ribbon(outline.type = "lower"))[[1]]
   g_ribbon_full    <- layer_grob(p + geom_ribbon(outline.type = "full"))[[1]]
-  g_area_default   <- layer_grob(ggplot(df, aes(x, y)) + geom_area())[[1]]
+  g_area_default   <- layer_grob(ggplot(df, aes(x, y)) + geom_area(stat = "identity"))[[1]]
 
   # default
   expect_s3_class(g_ribbon_default$children[[1]]$children[[1]], "polygon")

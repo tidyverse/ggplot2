@@ -5,19 +5,35 @@
 \alias{guide_colorsteps}
 \title{Discretized colourbar guide}
 \usage{
-guide_coloursteps(even.steps = TRUE, show.limits = NULL, ticks = FALSE, ...)
+guide_coloursteps(
+  even.steps = TRUE,
+  show.limits = NULL,
+  ticks = element_blank(),
+  ...
+)
 
-guide_colorsteps(even.steps = TRUE, show.limits = NULL, ticks = FALSE, ...)
+guide_colorsteps(
+  even.steps = TRUE,
+  show.limits = NULL,
+  ticks = element_blank(),
+  ...
+)
 }
 \arguments{
 \item{even.steps}{Should the rendered size of the bins be equal, or should
 they be proportional to their length in the data space? Defaults to \code{TRUE}}
 
-\item{show.limits}{Should labels for the outer limits of the bins be printed?
-Default is \code{NULL} which makes the guide use the setting from the scale}
+\item{show.limits}{Logical. Should the limits of the scale be shown with
+labels and ticks. Default is \code{NULL} meaning it will take the value from the
+scale. This argument is ignored if \code{labels} is given as a vector of
+values. If one or both of the limits is also given in \code{breaks} it will be
+shown irrespective of the value of \code{show.limits}.}
 
-\item{ticks}{A logical specifying if tick marks on the colourbar should be
-visible.}
+\item{ticks}{A theme object for rendering tick marks at the colourbar.
+Usually, the object of \code{element_line()} is expected. If \code{element_blank()}
+(default), no tick marks are drawn. For backward compatability, can also
+be a logical which translates \code{TRUE} to \code{element_line()} and \code{FALSE} to
+\code{element_blank()}.}
 
 \item{...}{
   Arguments passed on to \code{\link[=guide_colourbar]{guide_colourbar}}
@@ -28,14 +44,21 @@ the width of the colourbar. Default value is \code{legend.key.width} or
     \item{\code{barheight}}{A numeric or a \code{\link[grid:unit]{grid::unit()}} object specifying
 the height of the colourbar. Default value is \code{legend.key.height} or
 \code{legend.key.size} in \code{\link[=theme]{theme()}} or theme.}
+    \item{\code{frame}}{A theme object for rendering a frame drawn around the bar.
+Usually, the object of \code{element_rect()} is expected. If \code{element_blank()}
+(default), no frame is drawn.}
     \item{\code{frame.colour}}{A string specifying the colour of the frame
-drawn around the bar. If \code{NULL} (the default), no frame is drawn.}
+drawn around the bar. For backward compatibility, if this argument is
+not \code{NULL}, the \code{frame} argument will be set to \code{element_rect()}.}
     \item{\code{frame.linewidth}}{A numeric specifying the width of the frame
-drawn around the bar.}
+drawn around the bar in millimetres.}
     \item{\code{frame.linetype}}{A numeric specifying the linetype of the frame
 drawn around the bar.}
     \item{\code{ticks.colour}}{A string specifying the colour of the tick marks.}
-    \item{\code{ticks.linewidth}}{A numeric specifying the width of the tick marks.}
+    \item{\code{ticks.linewidth}}{A numeric specifying the width of the tick marks in
+millimetres.}
+    \item{\code{ticks.length}}{A numeric or a \code{\link[grid:unit]{grid::unit()}} object specifying the
+length of tick marks at the colourbar.}
     \item{\code{draw.ulim}}{A logical specifying if the upper limit tick marks should
 be visible.}
     \item{\code{draw.llim}}{A logical specifying if the lower limit tick marks should
@@ -69,7 +92,8 @@ label. One of "top", "bottom" (default for horizontal guide), "left", or
 object of \code{\link[=element_text]{element_text()}} is expected. By default, the theme is
 specified by \code{legend.text} in \code{\link[=theme]{theme()}}.}
     \item{\code{label.hjust}}{A numeric specifying horizontal justification of the
-label text.}
+label text. The default for standard text is 0 (left-aligned) and 1
+(right-aligned) for expressions.}
     \item{\code{label.vjust}}{A numeric specifying vertical justification of the label
 text.}
     \item{\code{order}}{positive integer less than 99 that specifies the order of
@@ -124,7 +148,6 @@ p + scale_fill_binned(guide = guide_coloursteps(show.limits = TRUE))
 
 # (can also be set in the scale)
 p + scale_fill_binned(show.limits = TRUE)
-
 }
 \seealso{
 Other guides: 

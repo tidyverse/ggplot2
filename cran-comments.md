@@ -1,7 +1,73 @@
-This is a very quick patch release addressing some unforeseen issues with the 
-latest release. It does not contain any breaking changes and no changes to worse
-in the reverse dependencies was detected.
+This is a patch release responding to a request from CRAN about new warnings in 
+R-devel. It also includes a small batch of of bug fixes since last release. 
+There are no user facing changes.
 
-## R CMD check results
+All breaking reverse dependencies have been notified.
 
-0 errors | 0 warnings | 0 note
+## revdepcheck results
+
+We checked 4503 reverse dependencies (4468 from CRAN + 35 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
+
+ * We saw 8 new problems
+ * We failed to check 29 packages
+
+Issues with CRAN packages are summarised below.
+
+### New problems
+(This reports the first line of each new failure)
+
+* afex
+  checking re-building of vignette outputs ... WARNING
+
+* dalmatian
+  checking re-building of vignette outputs ... WARNING
+
+* DriveML
+  checking re-building of vignette outputs ... WARNING
+
+* EcoEnsemble
+  checking re-building of vignette outputs ... WARNING
+
+* ggtern
+  checking Rd files ... WARNING
+
+* siland
+  checking re-building of vignette outputs ... WARNING
+
+* TCIU
+  checking re-building of vignette outputs ... WARNING
+
+* xpose
+  checking tests ... ERROR
+
+### Failed to check
+
+* beadplexr       (NA)
+* CausalImpact    (NA)
+* CensMFM         (NA)
+* cinaR           (NA)
+* ctsem           (NA)
+* genekitr        (NA)
+* ggh4x           (NA)
+* glmmPen         (NA)
+* grandR          (NA)
+* immcp           (NA)
+* loon.ggplot     (NA)
+* MACP            (NA)
+* MarketMatching  (NA)
+* MARVEL          (NA)
+* nlmixr2rpt      (NA)
+* numbat          (NA)
+* OlinkAnalyze    (NA)
+* OpenMx          (NA)
+* Platypus        (NA)
+* PsychWordVec    (NA)
+* RcppCensSpatial (NA)
+* rstan           (NA)
+* RVA             (NA)
+* rxode2          (NA)
+* SCpubr          (NA)
+* tidySEM         (NA)
+* tinyarray       (NA)
+* valse           (NA)
+* vivid           (NA)

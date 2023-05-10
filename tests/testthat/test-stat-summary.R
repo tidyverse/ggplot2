@@ -68,6 +68,7 @@ test_that("stat_summary_(2d|hex) work with lambda expressions", {
 
   # stat_summary_hex
   # this plot is a bit funky, but easy to reason through
+  skip_if_not_installed("hexbin")
   p1 <- ggplot(dat, aes(x, y, z = z)) +
     stat_summary_hex(fun = function(x) mean(x))
 

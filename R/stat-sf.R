@@ -9,7 +9,7 @@ StatSf <- ggproto("StatSf", Stat,
     ggproto_parent(Stat, self)$compute_layer(data, params, layout)
   },
 
-  compute_group = function(data, scales, coord) {
+  compute_panel = function(data, scales, coord) {
     geometry_data <- data[[ geom_column(data) ]]
     geometry_crs <- sf::st_crs(geometry_data)
 
@@ -70,7 +70,7 @@ stat_sf <- function(mapping = NULL, data = NULL, geom = "rect",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       na.rm = na.rm,
       ...
     )

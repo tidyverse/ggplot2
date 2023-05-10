@@ -1,11 +1,14 @@
 #' Compute normal data ellipses
 #'
 #' The method for calculating the ellipses has been modified from
-#' `car::dataEllipse` (Fox and Weisberg, 2011)
+#' `car::dataEllipse` (Fox and Weisberg 2011, Friendly and Monette 2013)
 #'
 #' @references John Fox and Sanford Weisberg (2011). An \R Companion to
 #'   Applied Regression, Second Edition. Thousand Oaks CA: Sage. URL:
 #'   \url{https://socialsciences.mcmaster.ca/jfox/Books/Companion/}
+#' @references Michael Friendly. Georges Monette. John Fox. "Elliptical Insights: Understanding Statistical Methods through Elliptical Geometry."
+#' Statist. Sci. 28 (1) 1 - 39, February 2013. URL: \url{https://projecteuclid.org/journals/statistical-science/volume-28/issue-1/Elliptical-Insights-Understanding-Statistical-Methods-through-Elliptical-Geometry/10.1214/12-STS402.full}
+#'
 #' @param level The level at which to draw an ellipse,
 #'   or, if `type="euclid"`, the radius of the circle to be drawn.
 #' @param type The type of ellipse.
@@ -57,7 +60,7 @@ stat_ellipse <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       type = type,
       level = level,
       segments = segments,
@@ -86,11 +89,11 @@ calculate_ellipse <- function(data, vars, type, level, segments){
   dfd <- nrow(data) - 1
 
   if (!type %in% c("t", "norm", "euclid")) {
-    message("Unrecognized ellipse type")
-    ellipse <- rbind(as.numeric(c(NA, NA)))
+    cli::cli_inform("Unrecognized ellipse type")
+    ellipse <- matrix(NA_real_, ncol = 2)
   } else if (dfd < 3) {
-    message("Too few points to calculate an ellipse")
-    ellipse <- rbind(as.numeric(c(NA, NA)))
+    cli::cli_inform("Too few points to calculate an ellipse")
+    ellipse <- matrix(NA_real_, ncol = 2)
   } else {
     if (type == "t") {
       v <- MASS::cov.trob(data[,vars])

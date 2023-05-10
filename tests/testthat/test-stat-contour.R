@@ -65,7 +65,7 @@ test_that("geom_contour() and stat_contour() result in identical layer data", {
 
 test_that("basic stat_contour() plot builds", {
   p <- ggplot(faithfuld, aes(waiting, eruptions)) +
-    geom_contour(aes(z = density, col = factor(stat(level))))
+    geom_contour(aes(z = density, col = factor(after_stat(level))))
 
   # stat_contour() visual tests are unstable due to the
   # implementation in isoband
@@ -80,3 +80,23 @@ test_that("basic stat_contour_filled() plot builds", {
   # implementation in isoband
   expect_silent(ggplot_build(p))
 })
+
+test_that("stat_contour() removes duplicated coordinates", {
+
+  df <- data_frame0(
+    x = c(1, 1, 2, 2, 1, 1, 2, 2),
+    y = c(1, 2, 1, 2, 1, 2, 1, 2),
+    z = c(1, 0, 0, 1, 1, 0, 0, 1),
+    group = c(1, 1, 1, 1, 2, 2, 2, 2)
+  )
+
+  layer <- stat_contour()
+
+  expect_silent(layer$stat$setup_data(df))
+  expect_warning(
+    new <- layer$stat$setup_data(transform(df, group = 1)),
+    "has duplicated"
+  )
+  expect_equal(new, df[1:4,], ignore_attr = TRUE)
+})
+

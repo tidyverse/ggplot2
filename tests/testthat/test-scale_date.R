@@ -12,12 +12,12 @@ test_that("date scale draws correctly", {
   )
   df <- df[order(df$dx), ]
 
-  dt <- qplot(dx, price, data = df, geom = "line")
+  dt <- ggplot(df, aes(dx, price)) + geom_line()
   expect_doppelganger("dates along x, default breaks",
     dt
   )
-  expect_doppelganger("scale_x_date(breaks = date_breaks(\"2 weeks\"))",
-    dt + scale_x_date(breaks = date_breaks("2 weeks"))
+  expect_doppelganger("scale_x_date(breaks = breaks_width(\"2 weeks\"))",
+    dt + scale_x_date(breaks = breaks_width("2 weeks"))
   )
   expect_doppelganger("scale_x_date(breaks = \"3 weeks\")",
     dt + scale_x_date(date_breaks = "3 weeks")
@@ -29,10 +29,10 @@ test_that("date scale draws correctly", {
     dt + scale_x_date(labels = date_format("%W"), "week")
   )
 
-  dt <- qplot(price, dx, data = df, geom = "line")
+  dt <- ggplot(df, aes(price, dx)) + geom_line()
   expect_doppelganger("dates along y, default breaks", dt)
-  expect_doppelganger("scale_y_date(breaks = date_breaks(\"2 weeks\"))",
-    dt + scale_y_date(breaks = date_breaks("2 weeks"))
+  expect_doppelganger("scale_y_date(breaks = breaks_width(\"2 weeks\"))",
+    dt + scale_y_date(breaks = breaks_width("2 weeks"))
   )
   expect_doppelganger("scale_y_date(breaks = \"3 weeks\")",
     dt + scale_y_date(date_breaks = "3 weeks")

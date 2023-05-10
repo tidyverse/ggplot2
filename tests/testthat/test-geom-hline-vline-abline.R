@@ -27,6 +27,8 @@ test_that("check h/v/abline transformed on basic projections", {
 })
 
 test_that("curved lines in map projections", {
+  skip_if_not_installed("mapproj") # required for coord_map()
+  skip_if_not_installed("maps") # required for map_data()
   skip_if(packageVersion("base") < "3.5.0")
   nz <- subset(map_data("nz"), region == "North.Island ")
   nzmap <- ggplot(nz, aes(long, lat, group = group)) +
@@ -45,76 +47,13 @@ test_that("curved lines in map projections", {
 
 # Warning tests ------------------------------------------------------------
 
-test_that("warn_overwritten_args() produces gramatically correct error messages", {
-  expect_warning(
-    warn_overwritten_args("fun_test", "is_overwritten", "provided"),
-    "fun_test: Ignoring `is_overwritten` because `provided` was provided."
-  )
-  expect_warning(
-    warn_overwritten_args("fun_test", "is_overwritten", c("provided1", "provided2")),
-    "fun_test: Ignoring `is_overwritten` because `provided1` and/or `provided2` were provided."
-  )
-  expect_warning(
-    warn_overwritten_args("fun_test", "is_overwritten", c("provided1", "provided2", "provided3")),
-    "fun_test: Ignoring `is_overwritten` because `provided1`, `provided2`, and/or `provided3` were provided."
-  )
-})
-
-test_that("Warning if a supplied mapping is going to be overwritten", {
-
-  expect_warning(
-    geom_vline(xintercept = 3, aes(colour = colour)),
-    "Ignoring `mapping`"
-  )
-
-  expect_warning(
-    geom_hline(yintercept = 3, aes(colour = colour)),
-    "Ignoring `mapping`"
-  )
-
-  expect_warning(
-    geom_abline(intercept = 3, aes(colour = colour)),
-    "Ignoring `mapping`"
-  )
-
-  expect_warning(
-    geom_abline(intercept = 3, slope = 0.5, aes(colour = colour)),
-    "Ignoring `mapping`"
-  )
-
-  expect_warning(
-    geom_abline(slope = 0.5, aes(colour = colour)),
-    "Ignoring `mapping`"
-  )
-})
-
-
-test_that("Warning if supplied data is going to be overwritten", {
-
-  sample_data <- data_frame(x = 1)
-
-  expect_warning(
-    geom_vline(xintercept = 3, data = sample_data),
-    "Ignoring `data`"
-  )
-
-  expect_warning(
-    geom_hline(yintercept = 3, data = sample_data),
-    "Ignoring `data`"
-  )
-
-  expect_warning(
-    geom_abline(intercept = 3, data = sample_data),
-    "Ignoring `data`"
-  )
-
-  expect_warning(
-    geom_abline(intercept = 3, slope = 0.5, data = sample_data),
-    "Ignoring `data`"
-  )
-
-  expect_warning(
-    geom_abline(slope = 0.5, data = sample_data),
-    "Ignoring `data`"
-  )
+test_that("warnings are thrown when parameters cause mapping and data to be ignored", {
+  expect_snapshot_warning(geom_vline(aes(), xintercept = 2))
+  expect_snapshot_warning(geom_vline(data = mtcars, xintercept = 2))
+  expect_snapshot_warning(geom_hline(aes(), yintercept = 2))
+  expect_snapshot_warning(geom_hline(data = mtcars, yintercept = 2))
+  expect_snapshot_warning(geom_abline(aes(), slope = 2))
+  expect_snapshot_warning(geom_abline(aes(), intercept = 2))
+  expect_snapshot_warning(geom_abline(data = mtcars, slope = 2))
+  expect_snapshot_warning(geom_abline(data = mtcars, intercept = 2))
 })

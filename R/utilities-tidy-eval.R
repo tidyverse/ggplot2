@@ -1,42 +1,102 @@
 #' Tidy eval helpers
 #'
 #' @description
+#' This page lists the tidy eval tools reexported in this package from
+#' rlang. To learn about using tidy eval in scripts and packages at a
+#' high level, see the [dplyr programming
+#' vignette](https://dplyr.tidyverse.org/articles/programming.html)
+#' and the [ggplot2 in packages
+#' vignette](https://ggplot2.tidyverse.org/articles/ggplot2-in-packages.html).
+#' The [Metaprogramming
+#' section](https://adv-r.hadley.nz/metaprogramming.html) of [Advanced
+#' R](https://adv-r.hadley.nz) may also be useful for a deeper dive.
 #'
-#' * \code{\link[rlang]{sym}()} creates a symbol from a string and
-#'   \code{\link[rlang:sym]{syms}()} creates a list of symbols from a
-#'   character vector.
+#' * The tidy eval operators `{{`, `!!`, and `!!!` are syntactic
+#'   constructs which are specially interpreted by tidy eval functions.
+#'   You will mostly need `{{`, as `!!` and `!!!` are more advanced
+#'   operators which you should not have to use in simple cases.
 #'
-#' * \code{\link[rlang:nse-defuse]{enquo}()} and
-#'   \code{\link[rlang:nse-defuse]{enquos}()} delay the execution of one or
-#'   several function arguments. \code{enquo()} returns a single quoted
-#'   expression, which is like a blueprint for the delayed computation.
-#'   \code{enquos()} returns a list of such quoted expressions.
+#'   The curly-curly operator `{{` allows you to tunnel data-variables
+#'   passed from function arguments inside other tidy eval functions.
+#'   `{{` is designed for individual arguments. To pass multiple
+#'   arguments contained in dots, use `...` in the normal way.
 #'
-#' * \code{\link[rlang:nse-defuse]{expr}()} quotes a new expression _locally_. It
-#'   is mostly useful to build new expressions around arguments
-#'   captured with [enquo()] or [enquos()]:
-#'   \code{expr(mean(!!enquo(arg), na.rm = TRUE))}.
+#'   ```
+#'   my_function <- function(data, var, ...) {
+#'     data %>%
+#'       group_by(...) %>%
+#'       summarise(mean = mean({{ var }}))
+#'   }
+#'   ```
 #'
-#' * \code{\link[rlang]{as_name}()} transforms a quoted variable name
-#'   into a string. Supplying something else than a quoted variable
-#'   name is an error.
+#' * [enquo()] and [enquos()] delay the execution of one or several
+#'   function arguments. The former returns a single expression, the
+#'   latter returns a list of expressions. Once defused, expressions
+#'   will no longer evaluate on their own. They must be injected back
+#'   into an evaluation context with `!!` (for a single expression) and
+#'   `!!!` (for a list of expressions).
 #'
-#'   That's unlike \code{\link[rlang]{as_label}()} which also returns
-#'   a single string but supports any kind of R object as input,
-#'   including quoted function calls and vectors. Its purpose is to
-#'   summarise that object into a single label. That label is often
-#'   suitable as a default name.
+#'   ```
+#'   my_function <- function(data, var, ...) {
+#'     # Defuse
+#'     var <- enquo(var)
+#'     dots <- enquos(...)
 #'
-#'   If you don't know what a quoted expression contains (for instance
-#'   expressions captured with \code{enquo()} could be a variable
-#'   name, a call to a function, or an unquoted constant), then use
-#'   \code{as_label()}. If you know you have quoted a simple variable
-#'   name, or would like to enforce this, use \code{as_name()}.
+#'     # Inject
+#'     data %>%
+#'       group_by(!!!dots) %>%
+#'       summarise(mean = mean(!!var))
+#'   }
+#'   ```
 #'
-#' To learn more about tidy eval and how to use these tools, visit
-#' \url{https://tidyeval.tidyverse.org} and the
-#' \href{https://adv-r.hadley.nz/metaprogramming.html}{Metaprogramming
-#' section} of \href{https://adv-r.hadley.nz}{Advanced R}.
+#'   In this simple case, the code is equivalent to the usage of `{{`
+#'   and `...` above. Defusing with `enquo()` or `enquos()` is only
+#'   needed in more complex cases, for instance if you need to inspect
+#'   or modify the expressions in some way.
+#'
+#' * The `.data` pronoun is an object that represents the current
+#'   slice of data. If you have a variable name in a string, use the
+#'   `.data` pronoun to subset that variable with `[[`.
+#'
+#'   ```
+#'   my_var <- "disp"
+#'   mtcars %>% summarise(mean = mean(.data[[my_var]]))
+#'   ```
+#'
+#' * Another tidy eval operator is `:=`. It makes it possible to use
+#'   glue and curly-curly syntax on the LHS of `=`. For technical
+#'   reasons, the R language doesn't support complex expressions on
+#'   the left of `=`, so we use `:=` as a workaround.
+#'
+#'   ```
+#'   my_function <- function(data, var, suffix = "foo") {
+#'     # Use `{{` to tunnel function arguments and the usual glue
+#'     # operator `{` to interpolate plain strings.
+#'     data %>%
+#'       summarise("{{ var }}_mean_{suffix}" := mean({{ var }}))
+#'   }
+#'   ```
+#'
+#' * Many tidy eval functions like `dplyr::mutate()` or
+#'   `dplyr::summarise()` give an automatic name to unnamed inputs. If
+#'   you need to create the same sort of automatic names by yourself,
+#'   use `as_label()`. For instance, the glue-tunnelling syntax above
+#'   can be reproduced manually with:
+#'
+#'   ```
+#'   my_function <- function(data, var, suffix = "foo") {
+#'     var <- enquo(var)
+#'     prefix <- as_label(var)
+#'     data %>%
+#'       summarise("{prefix}_mean_{suffix}" := mean(!!var))
+#'   }
+#'   ```
+#'
+#'   Expressions defused with `enquo()` (or tunnelled with `{{`) need
+#'   not be simple column names, they can be arbitrarily complex.
+#'   `as_label()` handles those cases gracefully. If your code assumes
+#'   a simple column name, use `as_name()` instead. This is safer
+#'   because it throws an error if the input is not a name as expected.
 #'
 #' @md
 #' @name tidyeval

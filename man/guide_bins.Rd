@@ -19,8 +19,10 @@ guide_bins(
   keyheight = NULL,
   axis = TRUE,
   axis.colour = "black",
-  axis.linewidth = 0.5,
+  axis.linewidth = NULL,
   axis.arrow = NULL,
+  ticks = NULL,
+  ticks.length = unit(0.2, "npc"),
   direction = NULL,
   default.unit = "line",
   override.aes = list(),
@@ -62,7 +64,8 @@ object of \code{\link[=element_text]{element_text()}} is expected. By default, t
 specified by \code{legend.text} in \code{\link[=theme]{theme()}}.}
 
 \item{label.hjust}{A numeric specifying horizontal justification of the
-label text.}
+label text. The default for standard text is 0 (left-aligned) and 1
+(right-aligned) for expressions.}
 
 \item{label.vjust}{A numeric specifying vertical justification of the label
 text.}
@@ -75,13 +78,25 @@ the width of the legend key. Default value is \code{legend.key.width} or
 the height of the legend key. Default value is \code{legend.key.height} or
 \code{legend.key.size} in \code{\link[=theme]{theme()}}.}
 
-\item{axis}{Logical. Should a small axis be drawn along the guide}
+\item{axis}{A theme object for rendering a small axis along the guide.
+Usually, the object of \code{element_line()} is expected (default). If
+\code{element_blank()}, no axis is drawn. For backward compatibility, can also
+be a logical which translates \code{TRUE} to \code{element_line()} and \code{FALSE} to
+\code{element_blank()}.}
 
 \item{axis.colour, axis.linewidth}{Graphic specifications for the look of the
 axis.}
 
 \item{axis.arrow}{A call to \code{arrow()} to specify arrows at the end of the
 axis line, thus showing an open interval.}
+
+\item{ticks}{A theme object for rendering tick marks at the colourbar.
+Usually, the object of \code{element_line()} is expected. If \code{element_blank()},
+no tick marks are drawn. If \code{NULL} (default), the \code{axis} argument is
+re-used as \code{ticks} argument (without arrow).}
+
+\item{ticks.length}{A numeric or a \code{\link[grid:unit]{grid::unit()}} object specifying the
+length of tick marks between the keys.}
 
 \item{direction}{A character string indicating the direction of the guide.
 One of "horizontal" or "vertical."}
@@ -100,7 +115,10 @@ multiple guides are displayed, not the contents of the guide itself.
 If 0 (default), the order is determined by a secret algorithm.}
 
 \item{show.limits}{Logical. Should the limits of the scale be shown with
-labels and ticks.}
+labels and ticks. Default is \code{NULL} meaning it will take the value from the
+scale. This argument is ignored if \code{labels} is given as a vector of
+values. If one or both of the limits is also given in \code{breaks} it will be
+shown irrespective of the value of \code{show.limits}.}
 
 \item{...}{ignored.}
 }

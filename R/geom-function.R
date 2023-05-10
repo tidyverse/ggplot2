@@ -51,6 +51,16 @@
 #'
 #' base + geom_function(fun = f)
 #'
+#' # Using xlim to restrict the range of function
+#' ggplot(data.frame(x = rnorm(100)), aes(x)) +
+#' geom_density() +
+#' geom_function(fun = dnorm, colour = "red", xlim=c(-1, 1))
+#'
+#' # Using xlim to widen the range of function
+#' ggplot(data.frame(x = rnorm(100)), aes(x)) +
+#' geom_density() +
+#' geom_function(fun = dnorm, colour = "red", xlim=c(-7, 7))
+#'
 #' @export
 geom_function <- function(mapping = NULL, data = NULL, stat = "function",
                           position = "identity", ..., na.rm = FALSE,
@@ -67,7 +77,7 @@ geom_function <- function(mapping = NULL, data = NULL, stat = "function",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       na.rm = na.rm,
       ...
     )
@@ -78,14 +88,17 @@ geom_function <- function(mapping = NULL, data = NULL, stat = "function",
 #' @format NULL
 #' @usage NULL
 #' @export
-#' @include geom-path.r
+#' @include geom-path.R
 GeomFunction <- ggproto("GeomFunction", GeomPath,
   draw_panel = function(self, data, panel_params, coord, arrow = NULL,
                         lineend = "butt", linejoin = "round", linemitre = 10,
                         na.rm = FALSE) {
-    groups <- unique(data$group)
+    groups <- unique0(data$group)
     if (length(groups) > 1) {
-      warn("Multiple drawing groups in `geom_function()`. Did you use the correct `group`, `colour`, or `fill` aesthetics?")
+      cli::cli_warn(c(
+        "Multiple drawing groups in {.fn {snake_class(self)}}",
+        "i" = "Did you use the correct {.field group}, {.field colour}, or {.field fill} aesthetics?"
+      ))
     }
 
     ggproto_parent(GeomPath, self)$draw_panel(

@@ -24,11 +24,10 @@
 #' otherwise `sf::st_point_on_surface()` may fail when the geometries have M
 #' dimension.
 #'
-#' @section Computed variables:
-#' \describe{
-#'   \item{x}{X dimension of the simple feature}
-#'   \item{y}{Y dimension of the simple feature}
-#' }
+#' @eval rd_computed_vars(
+#'  x = "X dimension of the simple feature.",
+#'  y = "Y dimension of the simple feature."
+#' )
 #'
 #' @examples
 #' if (requireNamespace("sf", quietly = TRUE)) {
@@ -70,7 +69,7 @@ stat_sf_coordinates <- function(mapping = aes(), data = NULL, geom = "point",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       na.rm = na.rm,
       fun.geometry = fun.geometry,
       ...
