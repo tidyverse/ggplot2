@@ -18,9 +18,24 @@ knitr::opts_chunk$set(
 
 ggplot2 is an R package for producing visualizations of data. 
 Unlike many graphics packages, ggplot2 uses a conceptual framework based on the grammar of graphics.
-This allows you to 'speak' a graph from composable elements, instead of being limited to a predefined set of charts. 
+This allows you to 'speak' a graph from composable elements, instead of being limited to a predefined set of charts.
 
-While more complete information about how to use ggplot2 can be found in the [book](https://ggplot2-book.org/), a brief overview of the plot components and some terse examples can be found here. For structure, we go over the 7 composable parts that come together as a set of instructions on how to draw a chart.
+More complete information about how to use ggplot2 can be found in the [book](https://ggplot2-book.org/), but here you'll find a brief overview of the plot components and some terse examples to build a plot like this: 
+
+```{r cake, echo = FALSE}
+ggplot(mpg, aes(cty, hwy)) +
+  geom_point(aes(colour = displ)) +
+  geom_smooth(formula = y ~ x, method = "lm") +
+  scale_colour_viridis_c() +
+  facet_grid(year ~ drv) +
+  coord_fixed() +
+  theme_minimal() +
+  theme(
+    panel.grid.minor = element_blank()
+  )
+```
+
+For structure, we go over the 7 composable parts that come together as a set of instructions on how to draw a chart.
 
 ```{r overview_graphic, echo=FALSE}
 library(ggplot2)
@@ -156,3 +171,22 @@ ggplot(mpg, aes(cty, hwy, colour = class)) +
     axis.line.x.bottom = element_line(colour = "blue")
   )
 ```
+
+## Combining
+
+As mentioned at the start, you can combine all the parts of the grammar of graphics to build a customised plot of your data. The plot showed at the beginning is simply a combination of the parts illustrated above:
+
+```{r outro}
+ggplot(mpg, aes(cty, hwy)) +
+  geom_point(mapping = aes(colour = displ)) +
+  geom_smooth(formula = y ~ x, method = "lm") +
+  scale_colour_viridis_c() +
+  facet_grid(year ~ drv) +
+  coord_fixed() +
+  theme_minimal() +
+  theme(
+    panel.grid.minor = element_blank()
+  )
+```
+
+If you want to learn more, be sure to take a look at the [ggplot2 book](https://ggplot2-book.org/).
