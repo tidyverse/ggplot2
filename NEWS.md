@@ -69,6 +69,7 @@
 * A stacking bug in `stat_align()` was fixed (@teunbrand, #5176).
 * `stat_contour()` and `stat_contour_filled()` now warn about and remove
   duplicated coordinates (@teunbrand, #5215).
+* Improve performance of layers without positional scales (@zeehio, #4990)
 
 # ggplot2 3.4.2
 This is a hotfix release anticipating changes in r-devel, but folds in upkeep
