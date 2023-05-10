@@ -663,7 +663,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
       cli::cli_abort("Invalid {.arg breaks} specification. Use {.val NULL}, not {.val NA}")
     }
 
-    if (zero_range(as.numeric(limits))) {
+    if (zero_range(as.numeric(self$trans$transform(limits)))) {
       breaks <- limits[1]
     } else if (is.waive(self$breaks)) {
       if (!is.null(self$n.breaks) && trans_support_nbreaks(self$trans)) {
