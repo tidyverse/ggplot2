@@ -79,12 +79,12 @@ As the first step in many plots, you would pass the data to the `ggplot()` funct
 ```{r example_data, fig.show='hide'}
 library(ggplot2)
 
-ggplot(mpg)
+ggplot(data = mpg)
 ```
 
 ## Mapping
 
-The [mapping](https://ggplot2-book.org/getting-started.html#aesthetics) of a plot is a set of instructions on how parts of the data are mapped onto aesthetic attributes of geometric objects. It allows any tidy data to be understood by the graphics system.
+The [mapping](https://ggplot2-book.org/getting-started.html#aesthetics) of a plot is a set of instructions on how parts of the data are mapped onto aesthetic attributes of geometric objects. It is the 'dictionary' to translate tidy data to the graphics system. 
 
 A mapping can be made by using the `aes()` function to make pairs of graphical attributes and parts of the data.
 If we want the `cty` and `hwy` columns to map to the x- and y-coordinates in the plot, we can do that as follows:
