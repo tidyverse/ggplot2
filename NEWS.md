@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `ScaleContinuous$get_breaks()` now only calls `scales::zero_range()` on limits
+  in transformed space, rather than in data space (#5304).
+
 * `coord_munch()` can now close polygon shapes (@teunbrand, #3271)
 
 * You can now omit either `xend` or `yend` from `geom_segment()` as only one
