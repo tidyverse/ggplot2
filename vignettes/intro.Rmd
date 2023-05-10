@@ -139,7 +139,7 @@ To show the `mpg` dataset by the `drv` and `year` columns, we can use `facet_gri
 ```{r example_facets}
 ggplot(mpg, aes(cty, hwy)) +
   geom_point() +
-  facet_grid(rows = vars(year), cols = vars(drv))
+  facet_grid(year ~ drv)
 ```
 
 ## Coordinates
