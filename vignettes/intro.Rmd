@@ -147,12 +147,12 @@ ggplot(mpg, aes(cty, hwy)) +
 You can view the [coordinates](https://ggplot2-book.org/coord.html) part of the plot as an interpreter of positional aesthetics. 
 While typically Cartesian coordinates are used, the coordinate system powers the display of [map](https://ggplot2-book.org/maps.html) projections and [polar](https://ggplot2-book.org/coord.html#polar-coordinates-with-coord_polar) plots.
 
-To show the `mpg` dataset in polar coordinates instead of Cartesian ones, one can use `coord_polar()` to determine what should be mapped to the angle (theta) or radius.
+We can also use coordinates to display a plot with a fixed aspect ratio, so that one unit has the same length in both the x and y direction. The `coord_fixed()` function sets this ratio automatically.
 
 ```{r example_coords}
 ggplot(mpg, aes(cty, hwy)) +
   geom_point() +
-  coord_polar(theta = "y")
+  coord_fixed()
 ```
 
 ## Theme
