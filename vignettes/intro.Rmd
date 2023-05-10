@@ -23,6 +23,7 @@ This allows you to 'speak' a graph from composable elements, instead of being li
 More complete information about how to use ggplot2 can be found in the [book](https://ggplot2-book.org/), but here you'll find a brief overview of the plot components and some terse examples to build a plot like this: 
 
 ```{r cake, echo = FALSE}
+library(ggplot2)
 ggplot(mpg, aes(cty, hwy)) +
   geom_point(aes(colour = displ)) +
   geom_smooth(formula = y ~ x, method = "lm") +
@@ -30,9 +31,7 @@ ggplot(mpg, aes(cty, hwy)) +
   facet_grid(year ~ drv) +
   coord_fixed() +
   theme_minimal() +
-  theme(
-    panel.grid.minor = element_blank()
-  )
+  theme(panel.grid.minor = element_blank())
 ```
 
 For structure, we go over the 7 composable parts that come together as a set of instructions on how to draw a chart.
@@ -102,7 +101,7 @@ Every layer consists of three important parts:
 1. The [**statistical transformation**](https://ggplot2-book.org/statistical-summaries.html) that may compute new variables from the data and affect *what* of the data is displayed.
 1. The [**position adjustment**](https://ggplot2-book.org/layers.html#position) that primarily determines *where* a piece of data is being displayed.
 
-A layer can be constructed using the `geom_*()` and `stat_*()` functions. These functions often determine one of the three parts of a layer, while the other two can still be specified. Here is how we can use layers to display the `cty` and `hwy` columns of the `mpg` dataset as points and stack a trendline layer on top.
+A layer can be constructed using the `geom_*()` and `stat_*()` functions. These functions often determine one of the three parts of a layer, while the other two can still be specified. Here is how we can use two layers to display the `cty` and `hwy` columns of the `mpg` dataset as points and stack a trend line on top.
 
 ```{r example_layer, fig.show='hold'}
 ggplot(mpg, aes(cty, hwy)) +
@@ -142,7 +141,7 @@ ggplot(mpg, aes(cty, hwy)) +
 
 ## Coordinates
 
-You can view the [coordinates](https://ggplot2-book.org/coord.html) part of the plot as an interpreter of positional aesthetics. 
+You can view the [coordinates](https://ggplot2-book.org/coord.html) part of the plot as an interpreter of position aesthetics. 
 While typically Cartesian coordinates are used, the coordinate system powers the display of [map](https://ggplot2-book.org/maps.html) projections and [polar](https://ggplot2-book.org/coord.html#polar-coordinates-with-coord_polar) plots.
 
 We can also use coordinates to display a plot with a fixed aspect ratio, so that one unit has the same length in both the x and y direction. The `coord_fixed()` function sets this ratio automatically.
@@ -172,7 +171,7 @@ ggplot(mpg, aes(cty, hwy, colour = class)) +
 
 ## Combining
 
-As mentioned at the start, you can combine all the parts of the grammar of graphics to build a customised plot of your data. The plot showed at the beginning is simply a combination of the parts illustrated above:
+As mentioned at the start, you can combine all the parts of the grammar of graphics to build a customised plot of your data. The plot showed at the beginning is a combination of the parts illustrated above:
 
 ```{r outro}
 ggplot(mpg, aes(cty, hwy)) +
@@ -182,9 +181,7 @@ ggplot(mpg, aes(cty, hwy)) +
   facet_grid(year ~ drv) +
   coord_fixed() +
   theme_minimal() +
-  theme(
-    panel.grid.minor = element_blank()
-  )
+  theme(panel.grid.minor = element_blank())
 ```
 
 If you want to learn more, be sure to take a look at the [ggplot2 book](https://ggplot2-book.org/).
