@@ -72,10 +72,10 @@ ggplot(mpg)
 The [mapping](https://ggplot2-book.org/getting-started.html#aesthetics) of a plot is a set of instructions on how parts of the data are mapped onto aesthetic attributes of geometric objects. It allows any tidy data to be understood by the graphics system.
 
 A mapping can be made by using the `aes()` function to make pairs of graphical attributes and parts of the data.
-If we want the `displ` and `hwy` columns to be displayed as the x- and y-coordinates in the plot, we can do that as follows:
+If we want the `cty` and `hwy` columns to map to the x- and y-coordinates in the plot, we can do that as follows:
 
 ```{r example_mapping, fig.show='hide'}
-ggplot(mpg, mapping = aes(x = displ, y = hwy))
+ggplot(mpg, mapping = aes(x = cty, y = hwy))
 ```
 
 ## Layers
@@ -87,17 +87,15 @@ Every layer consists of three important parts:
 1. The [**statistical transformation**](https://ggplot2-book.org/statistical-summaries.html) that may compute new variables from the data and affect *what* of the data is displayed.
 1. The [**position adjustment**](https://ggplot2-book.org/layers.html#position) that primarily determines *where* a piece of data is being displayed.
 
-A layer can be constructed using the `geom_*()` and `stat_*()` functions. These functions often determine one of the three parts of a layer, while the other two can still be specified. Here is how we can use layers to display the `displ` and `hwy` columns of the `mpg` dataset.
+A layer can be constructed using the `geom_*()` and `stat_*()` functions. These functions often determine one of the three parts of a layer, while the other two can still be specified. Here is how we can use layers to display the `cty` and `hwy` columns of the `mpg` dataset.
 
 ```{r example_layer, fig.show='hold'}
 # To display a scatterplot
-ggplot(mpg) +
-  aes(x = displ, y = hwy) +
+ggplot(mpg, aes(cty, hwy)) +
   geom_point()
 
 # To fit a loess trendline to the data
-ggplot(mpg) +
-  aes(x = displ, y = hwy) +
+ggplot(mpg, aes(cty, hwy)) +
   stat_smooth(formula = y ~ x, method = "loess")
 ```
 
@@ -109,7 +107,7 @@ Scales are responsible for updating the limits of a plot, setting the breaks, fo
 To use scales, one can use one of the scale functions that are patterned as `scale_{aesthetic}_{type}()` functions, where `{aesthetic}` is one of the pairings made in the mapping part of a plot. To map the `class` column in the `mpg` dataset to the viridis colour palette, we can write the following:
 
 ```{r example_scales}
-ggplot(mpg, aes(x = displ, y = hwy, colour = class)) +
+ggplot(mpg, aes(cty, hwy, colour = class)) +
   geom_point() +
   scale_colour_viridis_d()
 ```
@@ -124,7 +122,7 @@ The facets have their own mapping that can be given to the `vars()` function.
 To show the `mpg` dataset by the `drv` and `year` columns, we can use `facet_grid()` as follows:
 
 ```{r example_facets}
-ggplot(mpg, aes(x = displ, y = hwy)) +
+ggplot(mpg, aes(cty, hwy)) +
   geom_point() +
   facet_grid(rows = vars(year), cols = vars(drv))
 ```
@@ -137,7 +135,7 @@ While typically Cartesian coordinates are used, the coordinate system powers the
 To show the `mpg` dataset in polar coordinates instead of Cartesian ones, one can use `coord_polar()` to determine what should be mapped to the angle (theta) or radius.
 
 ```{r example_coords}
-ggplot(mpg, aes(x = displ, y = hwy)) +
+ggplot(mpg, aes(cty, hwy)) +
   geom_point() +
   coord_polar(theta = "y")
 ```
@@ -149,7 +147,7 @@ The [theme](https://ggplot2-book.org/polishing.html) system controls almost any 
 To tweak the visuals of the plot, one can use many of the built-in `theme_*()` functions and/or detail specific aspects with the `theme()` function. The `element_*()` functions control the graphical attributes of theme parts.
 
 ```{r example_theme}
-ggplot(mpg, aes(x = displ, y = hwy, colour = class)) +
+ggplot(mpg, aes(cty, hwy, colour = class)) +
   geom_point() +
   theme_minimal() +
   theme(
