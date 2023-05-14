@@ -23,6 +23,10 @@ This allows you to 'speak' a graph from composable elements, instead of being li
 More complete information about how to use ggplot2 can be found in the [book](https://ggplot2-book.org/), but here you'll find a brief overview of the plot components and some terse examples to build a plot like this: 
 
 ```{r cake, echo = FALSE}
+#| fig.alt = "Scatterplot of city versus highway miles per gallon, for 234 cars
+#|  coloured by engine displacement. The plot has six panels in a 2-row, 
+#|  3-column layout, showing the combinations of three types of drive train and
+#|  year of manifacture. Every panel has an individual trendline."
 library(ggplot2)
 ggplot(mpg, aes(cty, hwy)) +
   geom_point(aes(colour = displ)) +
@@ -37,6 +41,9 @@ ggplot(mpg, aes(cty, hwy)) +
 For structure, we go over the 7 composable parts that come together as a set of instructions on how to draw a chart.
 
 ```{r overview_graphic, echo=FALSE}
+#| fig.alt = "A schematic displaying seven overlaying rhombuses indicating the
+#|  different composable parts. From bottom to top, the labels read 'Data', 
+#|  'Mapping', 'Layers', 'Scales', 'Facets', 'Coordinates' and 'Theme'."
 library(ggplot2)
 n <- 7
 x <- outer(c(-2, 0, 2, 0), rep(1, n))
@@ -104,6 +111,8 @@ Every layer consists of three important parts:
 A layer can be constructed using the `geom_*()` and `stat_*()` functions. These functions often determine one of the three parts of a layer, while the other two can still be specified. Here is how we can use two layers to display the `cty` and `hwy` columns of the `mpg` dataset as points and stack a trend line on top.
 
 ```{r example_layer, fig.show='hold'}
+#| fig.alt = "A scatterplot showing city versus highway miles per gallon for 
+#|  234 cars. The plot has a blue trendline with a positive slope."
 ggplot(mpg, aes(cty, hwy)) +
   # To display a scatterplot
   geom_point() +
@@ -119,6 +128,8 @@ Scales are responsible for updating the limits of a plot, setting the breaks, fo
 To use scales, one can use one of the scale functions that are patterned as `scale_{aesthetic}_{type}()` functions, where `{aesthetic}` is one of the pairings made in the mapping part of a plot. To map the `class` column in the `mpg` dataset to the viridis colour palette, we can write the following:
 
 ```{r example_scales}
+#| fig.alt = "A scatterplot showing city versus highway miles per gallon for 
+#|  234 cars. The points are coloured according to seven classes of cars."
 ggplot(mpg, aes(cty, hwy, colour = class)) +
   geom_point() +
   scale_colour_viridis_d()
@@ -134,6 +145,9 @@ The facets have their own mapping that can be given to the `vars()` function.
 To show the `mpg` dataset by the `drv` and `year` columns, we can use `facet_grid()` as follows:
 
 ```{r example_facets}
+#| fig.alt = "Scatterplot of city versus highway miles per gallon, for 234 cars.
+#|  The plot has six panels in a 2-row, 3-column layout, showing the 
+#|  combinations of three types of drive train and year of manifacture."
 ggplot(mpg, aes(cty, hwy)) +
   geom_point() +
   facet_grid(year ~ drv)
@@ -147,6 +161,9 @@ While typically Cartesian coordinates are used, the coordinate system powers the
 We can also use coordinates to display a plot with a fixed aspect ratio, so that one unit has the same length in both the x and y direction. The `coord_fixed()` function sets this ratio automatically.
 
 ```{r example_coords}
+#| fig.alt = "A scatterplot showing city versus highway miles per gallon for 
+#|  234 cars. The aspect ratio of the plot is such that units on the x-axis
+#|  have the same length as units on the y-axis."
 ggplot(mpg, aes(cty, hwy)) +
   geom_point() +
   coord_fixed()
@@ -159,6 +176,10 @@ The [theme](https://ggplot2-book.org/polishing.html) system controls almost any 
 To tweak the visuals of the plot, one can use many of the built-in `theme_*()` functions and/or detail specific aspects with the `theme()` function. The `element_*()` functions control the graphical attributes of theme parts.
 
 ```{r example_theme}
+#| fig.alt = "A scatterplot showing city versus highway miles per gallon for 
+#|  234 cars. The points are coloured according to seven classes of cars. The
+#|  legend of the colour is displayed on top of the plot. The plot has thick
+#|  axis lines and the bottom axis line is blue."
 ggplot(mpg, aes(cty, hwy, colour = class)) +
   geom_point() +
   theme_minimal() +
@@ -174,6 +195,10 @@ ggplot(mpg, aes(cty, hwy, colour = class)) +
 As mentioned at the start, you can combine all the parts of the grammar of graphics to build a customised plot of your data. The plot showed at the beginning is a combination of the parts illustrated above:
 
 ```{r outro}
+#| fig.alt = "Scatterplot of city versus highway miles per gallon, for 234 cars
+#|  coloured by engine displacement. The plot has six panels in a 2-row, 
+#|  3-column layout, showing the combinations of three types of drive train and
+#|  year of manifacture. Every panel has an individual trendline."
 ggplot(mpg, aes(cty, hwy)) +
   geom_point(mapping = aes(colour = displ)) +
   geom_smooth(formula = y ~ x, method = "lm") +
