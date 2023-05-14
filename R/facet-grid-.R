@@ -377,13 +377,6 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       theme$panel.spacing.y %||% theme$panel.spacing)
 
     # Add axes
-    panel_table <- gtable_add_rows(panel_table, max_height(axes$x$top),     0)
-    panel_table <- gtable_add_rows(panel_table, max_height(axes$x$bottom), -1)
-    panel_table <- gtable_add_cols(panel_table, max_width(axes$y$left),     0)
-    panel_table <- gtable_add_cols(panel_table, max_width(axes$y$right),   -1)
-    panel_pos_col <- panel_cols(panel_table)
-    panel_pos_rows <- panel_rows(panel_table)
-
     if (params$draw_axes$x) {
       # Take facet_wrap approach to axis placement
       axes$x$top <- matrix(axes$x$top[layout$COL],
@@ -401,8 +394,8 @@ FacetGrid <- ggproto("FacetGrid", Facet,
         name = "axis-b", z = 3
       )
     } else {
-      panel_table <- gtable_add_rows(panel_table, axis_height_top, 0)
-      panel_table <- gtable_add_rows(panel_table, axis_height_bottom, -1)
+      panel_table <- gtable_add_rows(panel_table, max_height(axes$x$top), 0)
+      panel_table <- gtable_add_rows(panel_table, max_height(axes$x$bottom), -1)
       panel_pos_col <- panel_cols(panel_table)
       panel_table <- gtable_add_grob(panel_table, axes$x$top, 1, panel_pos_col$l, clip = "off", name = paste0("axis-t-", seq_along(axes$x$top)), z = 3)
       panel_table <- gtable_add_grob(panel_table, axes$x$bottom, -1, panel_pos_col$l, clip = "off", name = paste0("axis-b-", seq_along(axes$x$bottom)), z = 3)
@@ -425,8 +418,8 @@ FacetGrid <- ggproto("FacetGrid", Facet,
         name = "axis-r", z = 3
       )
     } else {
-      panel_table <- gtable_add_cols(panel_table, axis_width_left, 0)
-      panel_table <- gtable_add_cols(panel_table, axis_width_right, -1)
+      panel_table <- gtable_add_cols(panel_table, max_width(axes$y$left), 0)
+      panel_table <- gtable_add_cols(panel_table, max_width(axes$y$right), -1)
       panel_pos_rows <- panel_rows(panel_table)
       panel_table <- gtable_add_grob(panel_table, axes$y$left, panel_pos_rows$t, 1, clip = "off", name = paste0("axis-l-", seq_along(axes$y$left)), z = 3)
       panel_table <- gtable_add_grob(panel_table, axes$y$right, panel_pos_rows$t, -1, clip = "off", name = paste0("axis-r-", seq_along(axes$y$right)), z= 3)
