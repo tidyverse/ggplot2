@@ -486,7 +486,7 @@ small selection of feature refinements.
   (@thomasp85, #4149)
 
 * Fix bug in `scale_[x|y]_date()` where custom breaks functions that resulted in
-  fracional dates would get misaligned (@thomasp85, #3965)
+  fractional dates would get misaligned (@thomasp85, #3965)
   
 * Fix bug in `scale_[x|y]_datetime()` where a specified timezone would be 
   ignored by the scale (@thomasp85, #4007)
@@ -512,7 +512,7 @@ small selection of feature refinements.
   and plots are faceted with multi-layered strips (@teunbrand, #4384).
   
 * Using `theme(aspect.ratio = ...)` together with free space in `facet_grid()`
-  now crrectly throws an error (@thomasp85, #3834)
+  now correctly throws an error (@thomasp85, #3834)
 
 * Fixed a bug in `labeller()` so that `.default` is passed to `as_labeller()`
   when labellers are specified by naming faceting variables. (@waltersom, #4031)
@@ -781,7 +781,7 @@ fixing some unit tests that broke due to upstream changes.
   with ribbons that spanned `y = 0` (#3471)
 * Using `qplot()` with a single positional aesthetic will no longer title the
   non-specified scale as `"NULL"` (#3473)
-* Fixes unit tests for sf graticule labels caused by chages to sf
+* Fixes unit tests for sf graticule labels caused by changes to sf
 
 # ggplot2 3.2.0
 
@@ -1127,7 +1127,7 @@ accompanying issue #2890.
 *   Error: `data` must be uniquely named but has duplicate columns
   
     If layer data contains columns with identical names an error will be 
-    thrown. In earlier versions the first occuring column was chosen silently,
+    thrown. In earlier versions the first occurring column was chosen silently,
     potentially masking that the wrong data was chosen.
 
 *   Error: Aesthetics must be either length 1 or the same as the data
@@ -1615,7 +1615,7 @@ The facet system, as well as the internal panel class, has been rewritten in
 ggproto. Facets are now extendable in the same manner as geoms and stats, as 
 described in `vignette("extending-ggplot2")`.
 
-We have also added the following new fatures.
+We have also added the following new features.
   
 * `facet_grid()` and `facet_wrap()` now allow expressions in their faceting 
   formulas (@DanRuderman, #1596).
@@ -1665,7 +1665,7 @@ re-installation of all extension packages.
 ### Date time
 
 * `scale_*_datetime()` now supports time zones. It will use the timezone 
-  attached to the varaible by default, but can be overridden with the 
+  attached to the variable by default, but can be overridden with the 
   `timezone` argument.
 
 * New `scale_x_time()` and `scale_y_time()` generate reasonable default
@@ -1691,7 +1691,7 @@ Compared to the previous version of ggplot2, there are three main changes:
 1.  `scale_x_discrete()` and `scale_y_discrete()` always show discrete NA,
     regardless of their source
 
-1.  If present, `NA`s are shown in discete legends.
+1.  If present, `NA`s are shown in discrete legends.
 
 1.  All discrete scales gain a `na.translate` argument that allows you to 
     control whether `NA`s are translated to something that can be visualised,
@@ -1772,7 +1772,7 @@ There were a number of tweaks to the theme elements that control legends:
 
 * `geom_contour()` more clearly describes what inputs it needs (#1577).
 
-* `geom_curve()` respects the `lineend` paramater (#1852).
+* `geom_curve()` respects the `lineend` parameter (#1852).
 
 * `geom_histogram()` and `stat_bin()` understand the `breaks` parameter once 
   more. (#1665). The floating point adjustment for histogram bins is now 
@@ -2259,7 +2259,7 @@ version of ggplot.
   inline with the 2nd edition of the ggplot2 box, which minimises the use of 
   `qplot()` in favour of `ggplot()`.
 
-* Tighly linked geoms and stats (e.g. `geom_boxplot()` and `stat_boxplot()`) 
+* Tightly linked geoms and stats (e.g. `geom_boxplot()` and `stat_boxplot()`) 
   are now documented in the same file so you can see all the arguments in one
   place. Variations of the same idea (e.g. `geom_path()`, `geom_line()`, and
   `geom_step()`) are also documented together.
@@ -2362,7 +2362,7 @@ version of ggplot.
 * `geom_segment()` annotations were not transforming with scales 
   (@BrianDiggs, #859).
 
-* `geom_smooth()` is no longer so chatty. If you want to know what the deafult
+* `geom_smooth()` is no longer so chatty. If you want to know what the default
   smoothing method is, look it up in the documentation! (#1247)
 
 * `geom_violin()` now has the ability to draw quantile lines (@DanRuderman).
@@ -2394,7 +2394,7 @@ version of ggplot.
 
 * You can now suppress the appearance of an axis/legend title (and the space
   that would allocated for it) with `NULL` in the `scale_` function. To
-  use the default lable, use `waiver()` (#1145).
+  use the default label, use `waiver()` (#1145).
 
 * Position adjustments no longer warn about potentially varying ranges
   because the problem rarely occurs in practice and there are currently a
