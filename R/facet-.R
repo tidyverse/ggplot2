@@ -694,3 +694,26 @@ render_strips <- function(x = NULL, y = NULL, labeller, theme) {
     y = build_strip(y, labeller, theme, FALSE)
   )
 }
+
+
+censor_labels <- function(ranges, layout, labels) {
+  if (labels$x && labels$y) {
+    return(ranges)
+  }
+
+  draw <- matrix(TRUE, length(ranges), 4,
+                 dimnames = list(NULL, c("top", "bottom", "left", "right")))
+
+  if (!labels$x) {
+    draw[which(layout$ROW != max(layout$ROW)), "bottom"] <- FALSE
+    draw[which(layout$ROW != 1), "top"] <- FALSE
+  }
+  if (!labels$y) {
+    draw[which(layout$COL != max(layout$COL)), "right"] <- FALSE
+    draw[which(layout$COL != 1), "left"] <- FALSE
+  }
+  for (i in seq_along(ranges)) {
+    ranges[[i]]$draw_labels <- as.list(draw[i, ])
+  }
+  ranges
+}
