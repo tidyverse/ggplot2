@@ -53,7 +53,7 @@ PositionJitterdodge <- ggproto("PositionJitterdodge", Position,
       cli::cli_abort("{.fn position_jitterdodge} requires at least one aesthetic to dodge by")
     }
     ndodge    <- lapply(data[dodgecols], levels)  # returns NULL for numeric, i.e. non-dodge layers
-    ndodge    <- length(unique0(unlist(ndodge)))
+    ndodge    <- vec_unique_count(unlist(ndodge))
 
     list(
       dodge.width = self$dodge.width,

@@ -22,7 +22,7 @@ reshape_add_margins <- function(df, vars, margins = TRUE) {
     df
   })
 
-  vec_rbind(!!!margin_dfs)
+  vec_rbind0(!!!margin_dfs)
 }
 
 reshape_margins <- function(vars, margins = NULL) {

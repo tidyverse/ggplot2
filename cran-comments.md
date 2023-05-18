@@ -1,36 +1,73 @@
-This is a small release as requested by CRAN to remove a call to the deprecated
-`default.stringsAsFactors()` in base. This patch contains no user facing changes
-and no breaking changes.
+This is a patch release responding to a request from CRAN about new warnings in 
+R-devel. It also includes a small batch of of bug fixes since last release. 
+There are no user facing changes.
 
-## R CMD check results
-
-0 errors | 0 warnings | 0 note
+All breaking reverse dependencies have been notified.
 
 ## revdepcheck results
 
-We checked 3967 reverse dependencies, comparing R CMD check results across CRAN 
-and dev versions of this package.
+We checked 4503 reverse dependencies (4468 from CRAN + 35 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 2 new problems
- * We failed to check 6 packages
+ * We saw 8 new problems
+ * We failed to check 29 packages
 
-Issues with CRAN packages are summarised below. Looking into the 2 problems, 
-none of them are related to ggplot2.
+Issues with CRAN packages are summarised below.
 
 ### New problems
 (This reports the first line of each new failure)
 
-* eurlex
+* afex
   checking re-building of vignette outputs ... WARNING
 
-* gggrid
+* dalmatian
   checking re-building of vignette outputs ... WARNING
+
+* DriveML
+  checking re-building of vignette outputs ... WARNING
+
+* EcoEnsemble
+  checking re-building of vignette outputs ... WARNING
+
+* ggtern
+  checking Rd files ... WARNING
+
+* siland
+  checking re-building of vignette outputs ... WARNING
+
+* TCIU
+  checking re-building of vignette outputs ... WARNING
+
+* xpose
+  checking tests ... ERROR
 
 ### Failed to check
 
-* CausalImpact (NA)
-* ctsem        (NA)
-* loon.ggplot  (NA)
-* SSVS         (NA)
-* valse        (NA)
-* vivid        (NA)
+* beadplexr       (NA)
+* CausalImpact    (NA)
+* CensMFM         (NA)
+* cinaR           (NA)
+* ctsem           (NA)
+* genekitr        (NA)
+* ggh4x           (NA)
+* glmmPen         (NA)
+* grandR          (NA)
+* immcp           (NA)
+* loon.ggplot     (NA)
+* MACP            (NA)
+* MarketMatching  (NA)
+* MARVEL          (NA)
+* nlmixr2rpt      (NA)
+* numbat          (NA)
+* OlinkAnalyze    (NA)
+* OpenMx          (NA)
+* Platypus        (NA)
+* PsychWordVec    (NA)
+* RcppCensSpatial (NA)
+* rstan           (NA)
+* RVA             (NA)
+* rxode2          (NA)
+* SCpubr          (NA)
+* tidySEM         (NA)
+* tinyarray       (NA)
+* valse           (NA)
+* vivid           (NA)

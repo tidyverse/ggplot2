@@ -5,11 +5,11 @@ test_that("geom_col removes columns with parts outside the plot limits", {
 
   expect_warning( # warning created at render stage
     ggplotGrob(p + ylim(0.5, 4)),
-    "Removed 3 rows containing missing values"
+    "Removed 3 rows containing missing values or values outside the scale range"
   )
   expect_warning( # warning created at build stage
     ggplot_build(p + ylim(0, 2.5)),
-    "Removed 1 rows containing missing values"
+    "Removed 1 row containing missing values or values outside the scale range"
   )
 })
 
@@ -37,12 +37,12 @@ test_that("geom_col supports alignment of columns", {
   expect_equal(as.numeric(y$xmin), c(0.55, 1.55))
   expect_equal(as.numeric(y$xmax), c(1.45, 2.45))
 
-  p <- ggplot(dat, aes(x, y)) + geom_col(just = 0.0)
+  p <- ggplot(dat, aes(x, y)) + geom_col(just = 1.0)
   y <- layer_data(p)
   expect_equal(as.numeric(y$xmin), c(0.1, 1.1))
   expect_equal(as.numeric(y$xmax), c(1.0, 2.0))
 
-  p <- ggplot(dat, aes(x, y)) + geom_col(just = 1.0)
+  p <- ggplot(dat, aes(x, y)) + geom_col(just = 0.0)
   y <- layer_data(p)
   expect_equal(as.numeric(y$xmin), c(1.0, 2.0))
   expect_equal(as.numeric(y$xmax), c(1.9, 2.9))

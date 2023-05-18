@@ -4,7 +4,7 @@ test_that("can do frequency polygon with categorical x", {
   p <- ggplot(df, aes(x)) + geom_freqpoly(stat = "count")
   d <- layer_data(p)
 
-  expect_s3_class(d$x, "ggplot2_mapped_discrete")
+  expect_s3_class(d$x, "mapped_discrete")
   expect_equal(d$x, mapped_discrete(1:3))
   expect_equal(d$y, 3:1)
 })

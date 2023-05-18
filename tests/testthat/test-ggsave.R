@@ -27,6 +27,7 @@ test_that("ggsave restores previous graphics device", {
 })
 
 test_that("ggsave uses theme background as image background", {
+  skip_if_not_installed("svglite")
   skip_if_not_installed("xml2")
 
   path <- tempfile()
@@ -43,6 +44,7 @@ test_that("ggsave uses theme background as image background", {
 })
 
 test_that("ggsave can handle blank background", {
+  skip_if_not_installed("svglite")
   skip_if_not_installed("xml2")
 
   path <- tempfile()
@@ -56,6 +58,29 @@ test_that("ggsave can handle blank background", {
   expect_true(grepl("fill: none", bg))
 })
 
+test_that("ggsave warns about empty or multiple filenames", {
+  plot <- ggplot(mtcars, aes(disp, mpg)) + geom_point()
+
+  withr::with_tempfile(c("file1", "file2"), fileext = ".png", {
+    expect_warning(
+      suppressMessages(ggsave(c(file1, file2), plot)),
+      "`filename` must have length 1"
+    )
+  })
+
+  expect_error(
+    ggsave(character(), plot),
+    "`filename` cannot be empty."
+  )
+})
+
+test_that("ggsave fails informatively for no-extension filenames", {
+  plot <- ggplot(mtcars, aes(disp, mpg)) + geom_point()
+  expect_error(
+    ggsave(tempfile(), plot),
+    '`filename` has no file extension and `device` is "NULL"'
+  )
+})
 
 # plot_dim ---------------------------------------------------------------
 
@@ -74,6 +99,7 @@ test_that("uses 7x7 if no graphics device open", {
 test_that("warned about large plot unless limitsize = FALSE", {
   expect_error(plot_dim(c(50, 50)), "exceed 50 inches")
   expect_equal(plot_dim(c(50, 50), limitsize = FALSE), c(50, 50))
+  expect_error(plot_dim(c(15000, 15000), units = "px"), "in pixels).")
 })
 
 test_that("scale multiplies height & width", {

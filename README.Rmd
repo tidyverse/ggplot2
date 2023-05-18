@@ -12,10 +12,10 @@ knitr::opts_chunk$set(
 )
 ```
 
-# ggplot2 <img src="man/figures/logo.png" align="right" width="120" />
+# ggplot2 <a href="https://ggplot2.tidyverse.org"><img src="man/figures/logo.png" align="right" height="138" /></a>
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/tidyverse/ggplot2/workflows/R-CMD-check/badge.svg)](https://github.com/tidyverse/ggplot2/actions)
+[![R-CMD-check](https://github.com/tidyverse/ggplot2/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/tidyverse/ggplot2/actions/workflows/R-CMD-check.yaml)
 [![Codecov test coverage](https://codecov.io/gh/tidyverse/ggplot2/branch/main/graph/badge.svg)](https://app.codecov.io/gh/tidyverse/ggplot2?branch=main)
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/ggplot2)](https://cran.r-project.org/package=ggplot2)
 <!-- badges: end -->
@@ -34,8 +34,8 @@ install.packages("tidyverse")
 install.packages("ggplot2")
 
 # Or the development version from GitHub:
-# install.packages("devtools")
-devtools::install_github("tidyverse/ggplot2")
+# install.packages("pak")
+pak::pak("tidyverse/ggplot2")
 ```
 
 ## Cheatsheet
@@ -47,6 +47,9 @@ devtools::install_github("tidyverse/ggplot2")
 It's hard to succinctly describe how ggplot2 works because it embodies a deep philosophy of visualisation. However, in most cases you start with `ggplot()`, supply a dataset and aesthetic mapping (with `aes()`). You then add on layers (like `geom_point()` or `geom_histogram()`), scales (like `scale_colour_brewer()`), faceting specifications (like `facet_wrap()`) and coordinate systems (like `coord_flip()`).
 
 ```{r example}
+#| fig.alt = "Scatterplot of engine displacement versus highway miles per
+#|  gallon, for 234 cars coloured by 7 'types' of car. The displacement and miles
+#|  per gallon are inversely correlated."
 library(ggplot2)
 
 ggplot(mpg, aes(displ, hwy, colour = class)) + 

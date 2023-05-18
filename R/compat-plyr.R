@@ -91,7 +91,7 @@ id <- function(.variables, drop = FALSE) {
     nrows <- nrow(.variables)
     .variables <- unclass(.variables)
   }
-  lengths <- vapply(.variables, length, integer(1))
+  lengths <- lengths(.variables)
   .variables <- .variables[lengths != 0]
   if (length(.variables) == 0) {
     n <- nrows %||% 0L
@@ -159,7 +159,7 @@ count <- function(df, vars = NULL, wt_var = NULL) {
 # Create a shared unique id across two data frames such that common variable
 # combinations in the two data frames gets the same id
 join_keys <- function(x, y, by) {
-  joint <- vec_rbind(x[by], y[by])
+  joint <- vec_rbind0(x[by], y[by])
   keys <- id(joint, drop = TRUE)
   n_x <- nrow(x)
   n_y <- nrow(y)
@@ -193,7 +193,7 @@ revalue <- function(x, replace) {
     lev[match(names(replace), lev)] <- replace
     levels(x) <- lev
   } else if (!is.null(x)) {
-    cli::cli_abort("{.arg x} must be a factor or character vector")
+    stop_input_type(x, "a factor or character vector")
   }
   x
 }
@@ -246,9 +246,7 @@ as.quoted <- function(x, env = parent.frame()) {
 }
 # round a number to a given precision
 round_any <- function(x, accuracy, f = round) {
-  if (!is.numeric(x)) {
-    cli::cli_abort("{.arg x} must be numeric")
-  }
+  check_numeric(x)
   f(x/accuracy) * accuracy
 }
 
@@ -298,7 +296,7 @@ dapply <- function(df, by, fun, ..., drop = TRUE) {
     cur_data <- df_rows(df, group_rows[[i]])
     apply_fun(cur_data)
   })
-  vec_rbind(!!!result)
+  vec_rbind0(!!!result)
 }
 
 single_value <- function(x, ...) {
