@@ -38,7 +38,7 @@ titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
     return(zeroGrob())
   }
 
-  # We rotate the justifiation values to obtain the correct x and y reference point,
+  # We rotate the justification values to obtain the correct x and y reference point,
   # since hjust and vjust are applied relative to the rotated text frame in textGrob
   just <- rotate_just(angle, hjust, vjust)
 

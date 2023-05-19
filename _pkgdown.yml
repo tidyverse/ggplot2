@@ -32,7 +32,7 @@ reference:
 - title: Plot basics
   desc: >
     All ggplot2 plots begin with a call to `ggplot()`, supplying default data and
-    aesthethic mappings, specified by `aes()`. You then add layers, scales,
+    aesthetic mappings, specified by `aes()`. You then add layers, scales,
     coords and facets with `+`. To save a plot to disk, use `ggsave()`.
   contents:
   - ggplot
@@ -231,7 +231,7 @@ reference:
     for package authors to add methods that work like the base `plot()`
     function, generating useful default plots with little user interaction.
     `fortify()` turns objects into tidy data frames: it has largely been
-    superceded by the [broom package](https://github.com/tidyverse/broom).
+    superseded by the [broom package](https://github.com/tidyverse/broom).
   contents:
   - autoplot
   - autolayer

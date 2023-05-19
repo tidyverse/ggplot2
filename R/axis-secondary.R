@@ -96,7 +96,7 @@
 #' @export
 sec_axis <- function(trans = NULL, name = waiver(), breaks = waiver(), labels = waiver(),
                      guide = waiver()) {
-  # sec_axis() historically accpeted two-sided formula, so be permissive.
+  # sec_axis() historically accepted two-sided formula, so be permissive.
   if (length(trans) > 2) trans <- trans[c(1,3)]
 
   trans <- as_function(trans)
