@@ -235,6 +235,20 @@ test_that("facet gives clear error if ", {
   expect_snapshot_error(print(ggplot(df, aes(x)) + facet_grid(vars(x), "free")))
 })
 
+test_that("facet_grid `axis_labels` argument can be overruled", {
+
+  f <- facet_grid(vars(cyl), axes = "all", axis_labels = "all")
+  expect_equal(f$params$axis_labels, list(x = TRUE, y = TRUE))
+
+  f <- facet_grid(vars(cyl), axes = "all", axis_labels = "margins")
+  expect_equal(f$params$axis_labels, list(x = FALSE, y = FALSE))
+
+  # Overrule when only drawing at margins
+  f <- facet_grid(vars(cyl), axes = "margins", axis_labels = "margins")
+  expect_equal(f$params$axis_labels, list(x = TRUE, y = TRUE))
+
+})
+
 test_that("facet_grid `axes` can draw inner axes.", {
   df <- data_frame(
     x = 1:4, y = 1:4,
