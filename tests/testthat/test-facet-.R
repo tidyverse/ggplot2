@@ -249,6 +249,33 @@ test_that("facet_grid `axis_labels` argument can be overruled", {
 
 })
 
+test_that("facet_wrap `axis_labels` argument can be overruled", {
+
+  # The folllowing three should all draw axis labels
+  f <- facet_wrap(vars(cyl), scales = "fixed", axes = "all", axis_labels = "all")
+  expect_equal(f$params$axis_labels, list(x = TRUE, y = TRUE))
+
+  f <- facet_wrap(vars(cyl), scales = "free", axes = "all", axis_labels = "all")
+  expect_equal(f$params$axis_labels, list(x = TRUE, y = TRUE))
+
+  f <- facet_wrap(vars(cyl), scales = "fixed", axes = "margins", axis_labels = "all")
+  expect_equal(f$params$axis_labels, list(x = TRUE, y = TRUE))
+
+  # The only case when labels shouldn't be drawn is when scales are fixed but
+  # the axes are to be drawn
+  f <- facet_wrap(vars(cyl), scales = "fixed", axes = "all", axis_labels = "margins")
+  expect_equal(f$params$axis_labels, list(x = FALSE, y = FALSE))
+
+  # Should draw labels because scales are free
+  f <- facet_wrap(vars(cyl), scales = "free", axes = "all", axis_labels = "margins")
+  expect_equal(f$params$axis_labels, list(x = TRUE, y = TRUE))
+
+  # Should draw labels because only drawing at margins
+  f <- facet_wrap(vars(cyl), scales = "fixed", axes = "margins", axis_labels = "margins")
+  expect_equal(f$params$axis_labels, list(x = TRUE, y = TRUE))
+
+})
+
 test_that("facet_grid `axes` can draw inner axes.", {
   df <- data_frame(
     x = 1:4, y = 1:4,
