@@ -1,5 +1,10 @@
 # ggplot2 (development version)
 
+* The new argument `axes` in `facet_grid()` and `facet_wrap()` controls the
+  display of axes at interior panel positions. Additionally, the `axis_labels`
+  argument can be used to only draw tick marks or fully labelled axes 
+  (@teunbrand, #4064).
+
 * You can now omit either `xend` or `yend` from `geom_segment()` as only one
   of these is now required. If one is missing, it will be filled from the `x`
   and `y` aesthetics respectively. This makes drawing horizontal or vertical
