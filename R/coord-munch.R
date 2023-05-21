@@ -9,10 +9,15 @@
 #'   All other variables are duplicated as needed.
 #' @param range Panel range specification.
 #' @param segment_length Target segment length
+#' @param is_closed Whether data should be considered as a closed polygon.
 #' @keywords internal
 #' @export
-coord_munch <- function(coord, data, range, segment_length = 0.01) {
+coord_munch <- function(coord, data, range, segment_length = 0.01, is_closed = FALSE) {
   if (coord$is_linear()) return(coord$transform(data, range))
+
+  if (is_closed) {
+    data <- close_poly(data)
+  }
 
   # range has theta and r values; get corresponding x and y values
   ranges <- coord$backtransform_range(range)
@@ -34,6 +39,11 @@ coord_munch <- function(coord, data, range, segment_length = 0.01) {
 
   # Munch and then transform result
   munched <- munch_data(data, dist, segment_length)
+  if (is_closed) {
+    group_cols <- intersect(c("group", "subgroup"), names(munched))
+    runs <- vec_run_sizes(munched[, group_cols, drop = FALSE])
+    munched <- vec_slice(munched, -(cumsum(runs)))
+  }
   coord$transform(munched, range)
 }
 
@@ -203,4 +213,26 @@ spiral_arc_length <- function(a, theta1, theta2) {
   0.5 * a * (
     (theta1 * sqrt(1 + theta1 * theta1) + asinh(theta1)) -
     (theta2 * sqrt(1 + theta2 * theta2) + asinh(theta2)))
+}
+
+# Closes a polygon type data structure by repeating the first-in-group after
+# the last-in-group
+close_poly <- function(data) {
+  # Sort by group
+  groups <- data[, intersect(c("group", "subgroup"), names(data)), drop = FALSE]
+  ord <- vec_order(groups)
+
+  # Run length encoding stats
+  runs <- vec_run_sizes(vec_slice(groups, ord))
+  ends <- cumsum(runs)
+  starts <- ends - runs + 1
+
+  # Repeat 1st row of group after every group
+  index <- seq_len(nrow(data))
+  insert <- ends + seq_along(ends)
+  new_index <- integer(length(index) + length(runs))
+  new_index[-insert] <- index
+  new_index[insert] <- starts
+
+  vec_slice(data, ord[new_index])
 }
