@@ -503,3 +503,20 @@ test_that("facet labels respect both justification and margin arguments", {
   expect_doppelganger("left justified facet labels with margins", p1)
   expect_doppelganger("left justified rotated facet labels with margins", p2)
 })
+
+test_that("facet's 'axis_labels' argument correctly omits labels", {
+
+  base <- ggplot(mtcars, aes(mpg, disp)) +
+    geom_point() +
+    guides(x = "axis", y = "axis", x.sec = "axis", y.sec = "axis")
+
+  expect_doppelganger(
+    "facet_grid with omitted inner axis labels",
+    base + facet_grid(vars(cyl), vars(vs), axes = "all", axis_labels = "margins")
+  )
+
+  expect_doppelganger(
+    "facet_wrap with omitted inner axis labels",
+    base + facet_wrap(vars(cyl, vs), axes = "all", axis_labels = "margins")
+  )
+})
