@@ -16,7 +16,8 @@ facet_grid(
   drop = TRUE,
   margins = FALSE,
   facets = deprecated(),
-  axes = "margins"
+  axes = "margins",
+  axis_labels = "all"
 )
 }
 \arguments{
@@ -85,6 +86,13 @@ and \code{cols} instead.}
 (default), axes will be drawn at the exterior margins. \code{"all_x"} and
 \code{"all_y"} will draw the respective axes at the interior panels too, whereas
 \code{"all"} will draw all axes at all panels.}
+
+\item{axis_labels}{Determines whether to draw labels for interior axes when
+the \code{axes} argument is not \code{"margins"}. When \code{"all"} (default), all
+interior axes get labels. When \code{"margins"}, only the exterior axes get
+labels and the interior axes get none. When \code{"all_x"} or \code{"all_y"}, only
+draws the labels at the interior axes in the x- or y-direction
+respectively.}
 }
 \description{
 \code{facet_grid()} forms a matrix of panels defined by row and column
