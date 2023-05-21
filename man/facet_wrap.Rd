@@ -16,7 +16,8 @@ facet_wrap(
   drop = TRUE,
   dir = "h",
   strip.position = "top",
-  axes = "margins"
+  axes = "margins",
+  axis_labels = "all"
 )
 }
 \arguments{
@@ -75,6 +76,13 @@ either of the four sides by setting \code{strip.position = c("top",
 When \code{"margins"} (default), axes will be drawn at the exterior margins.
 \code{"all_x"} and \code{"all_y"} will draw the respective axes at the interior
 panels too, whereas \code{"all"} will draw all axes at all panels.}
+
+\item{axis_labels}{Determines whether to draw labels for interior axes when
+the scale is fixed and the \code{axis} argument is not \code{"margins"}. When
+\code{"all"} (default), all interior axes get labels. When \code{"margins"}, only
+the exterior axes get labels, and the interior axes get none. When
+\code{"all_x"} or \code{"all_y"}, only draws the labels at the interior axes in the
+x- or y-direction respectively.}
 }
 \description{
 \code{facet_wrap()} wraps a 1d sequence of panels into 2d. This is generally
