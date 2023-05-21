@@ -113,7 +113,7 @@ performance special case for when all the tiles are the same size.
 }
 \details{
 \code{geom_rect()} and \code{geom_tile()}'s respond differently to scale
-transformations due to their parametrisation. In \code{geom_rect()}, the scale
+transformations due to their parameterisation. In \code{geom_rect()}, the scale
 transformation is applied to the corners of the rectangles. In \code{geom_tile()},
 the transformation is applied only to the centres and its size is determined
 after transformation.

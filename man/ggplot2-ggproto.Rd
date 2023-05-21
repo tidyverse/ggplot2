@@ -491,7 +491,7 @@ These methods are only valid for position (x and y) scales:
 \item \code{dimension()} For continuous scales, the dimension is the same concept as the limits.
 For discrete scales, \code{dimension()} returns a continuous range, where the limits
 would be placed at integer positions. \code{dimension()} optionally expands
-this range given an expantion of length 4 (see \code{\link[=expansion]{expansion()}}).
+this range given an expansion of length 4 (see \code{\link[=expansion]{expansion()}}).
 \item \code{break_info()} Returns a \code{list()} with calculated values needed for the \code{Coord}
 to transform values in transformed data space. Axis and grid guides also use
 these values to draw guides. This is called with

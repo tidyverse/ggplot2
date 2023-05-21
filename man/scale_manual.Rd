@@ -125,7 +125,7 @@ Many color palettes derived from RGB combinations (like the "rainbow" color
 palette) are not suitable to support all viewers, especially those with
 color vision deficiencies. Using \code{viridis} type, which is perceptually
 uniform in both colour and black-and-white display is an easy option to
-ensure good perceptive properties of your visulizations.
+ensure good perceptive properties of your visualizations.
 The colorspace package offers functionalities
 \itemize{
 \item to generate color palettes with good perceptive properties,

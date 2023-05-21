@@ -40,7 +40,7 @@
 #' palette) are not suitable to support all viewers, especially those with
 #' color vision deficiencies. Using `viridis` type, which is perceptually
 #' uniform in both colour and black-and-white display is an easy option to
-#' ensure good perceptive properties of your visulizations.
+#' ensure good perceptive properties of your visualizations.
 #' The colorspace package offers functionalities
 #' - to generate color palettes with good perceptive properties,
 #' - to analyse a given color palette, like emulating color blindness,

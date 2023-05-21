@@ -60,7 +60,7 @@ p + coord_cartesian(xlim = c(325, 500))
 # limits. You can set the limits precisely by setting expand = FALSE
 p + coord_cartesian(xlim = c(325, 500), expand = FALSE)
 
-# Simiarly, we can use expand = FALSE to turn off expansion with the
+# Similarly, we can use expand = FALSE to turn off expansion with the
 # default limits
 p + coord_cartesian(expand = FALSE)
 
