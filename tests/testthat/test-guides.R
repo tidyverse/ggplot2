@@ -462,6 +462,19 @@ test_that("Axis titles won't be blown away by coord_*()", {
   # expect_doppelganger("guide titles with coord_sf()", plot + coord_sf())
 })
 
+test_that("axis guides can be capped", {
+  p <- ggplot(mtcars, aes(hp, disp)) +
+    geom_point() +
+    theme(axis.line = element_line()) +
+    guides(
+      x = guide_axis(cap = "both"),
+      y = guide_axis(cap = "upper"),
+      y.sec = guide_axis(cap = "lower"),
+      x.sec = guide_axis(cap = "none")
+    )
+  expect_doppelganger("axis guides with capped ends", p)
+})
+
 test_that("guides are positioned correctly", {
   df <- data_frame(x = 1, y = 1, z = factor("a"))
 
