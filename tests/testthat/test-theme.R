@@ -487,7 +487,8 @@ test_that("Theme elements are checked during build", {
   p <- ggplot(mtcars) + geom_point(aes(disp, mpg)) + theme(plot.caption.position = "test")
   expect_snapshot_error(ggplotGrob(p))
 
-  p <- ggplot(mtcars) + geom_point(aes(disp, mpg)) + theme(plot.tag.position = "test")
+  p <- ggplot(mtcars) + geom_point(aes(disp, mpg)) +
+    theme(plot.tag.position = "test") + labs(tag = "test")
   expect_snapshot_error(ggplotGrob(p))
 })
 

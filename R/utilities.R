@@ -276,7 +276,7 @@ is.discrete <- function(x) {
 # the names of any columns that are not.
 # We define "data" as atomic types or lists, not functions or otherwise.
 # The `inherits(x, "Vector")` check is for checking S4 classes from Bioconductor
-# and wether they can be expected to follow behavior typical of vectors. See
+# and whether they can be expected to follow behavior typical of vectors. See
 # also #3835
 check_nondata_cols <- function(x) {
   idx <- (vapply(x, function(x) {
@@ -513,7 +513,7 @@ has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA,
   xmax <- data$xmax %||% params$xmax
   ymax <- data$ymax %||% params$ymax
 
-  # Does a single x or y aesthetic corespond to a specific orientation
+  # Does a single x or y aesthetic correspond to a specific orientation
   if (!is.na(main_is_orthogonal) && xor(is.null(x), is.null(y))) {
     return(is.null(y) == main_is_orthogonal)
   }

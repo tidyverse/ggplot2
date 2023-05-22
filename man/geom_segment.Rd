@@ -125,8 +125,7 @@ need to connect points across multiple cases.
 \itemize{
 \item \strong{\code{\link[=aes_position]{x}}}
 \item \strong{\code{\link[=aes_position]{y}}}
-\item \strong{\code{\link[=aes_position]{xend}}}
-\item \strong{\code{\link[=aes_position]{yend}}}
+\item \strong{\code{\link[=aes_position]{xend}} \emph{or} \code{\link[=aes_position]{yend}}}
 \item \code{\link[=aes_colour_fill_alpha]{alpha}}
 \item \code{\link[=aes_colour_fill_alpha]{colour}}
 \item \code{\link[=aes_group_order]{group}}
