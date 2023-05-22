@@ -1,5 +1,11 @@
 # ggplot2 (development version)
 
+* Legends in `scale_*_manual()` can show `NA` values again when the `values` is
+  a named vector (@teunbrand, #5214, #5286).
+  
+* `scale_*_manual()` with a named `values` argument now emits a warning when
+  none of those names match the values found in the data (@teunbrand, #5298).
+
 * `coord_munch()` can now close polygon shapes (@teunbrand, #3271)
 
 * You can now omit either `xend` or `yend` from `geom_segment()` as only one
