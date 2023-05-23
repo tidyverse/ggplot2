@@ -230,7 +230,7 @@ Guides <- ggproto(
   #      here, one guide object for one scale
   #
   # 2. Guides$merge()
-  #      merge guide objects if they are overlayed
+  #      merge guide objects if they are overlaid
   #      number of guide objects may be less than number of scales
   #
   # 3. Guides$process_layers()

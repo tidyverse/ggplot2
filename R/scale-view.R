@@ -5,7 +5,7 @@
 #' limits, dimension, breaks, labels, and minor breaks. They are used as
 #' the immutable result of the trained scales that have been assigned
 #' `limits` and a `continuous_range` from the coordinate system's
-#' implementation of scale expantion.
+#' implementation of scale expansion.
 #'
 #' @param scale The scale from which to construct a view scale.
 #' @param limits The final scale limits

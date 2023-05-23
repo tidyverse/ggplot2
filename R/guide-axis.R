@@ -14,6 +14,11 @@
 #' @param n.dodge The number of rows (for vertical axes) or columns (for
 #'   horizontal axes) that should be used to render the labels. This is
 #'   useful for displaying labels that would otherwise overlap.
+#' @param cap A `character` to cut the axis line back to the last breaks. Can
+#'   be `"none"` (default) to draw the axis line along the whole panel, or
+#'   `"upper"` and `"lower"` to draw the axis to the upper or lower break, or
+#'   `"both"` to only draw the line in between the most extreme breaks. `TRUE`
+#'   and `FALSE` are shorthand for `"both"` and `"none"` respectively.
 #' @param order A positive `integer` of length 1 that specifies the order of
 #'   this guide among multiple guides. This controls in which order guides are
 #'   merged if there are multiple guides for the same position. If 0 (default),
@@ -37,7 +42,16 @@
 #' # can also be used to add a duplicate guide
 #' p + guides(x = guide_axis(n.dodge = 2), y.sec = guide_axis())
 guide_axis <- function(title = waiver(), check.overlap = FALSE, angle = NULL,
-                       n.dodge = 1, order = 0, position = waiver()) {
+                       n.dodge = 1, cap = "none", order = 0,
+                       position = waiver()) {
+
+  if (is.logical(cap)) {
+    check_bool(cap)
+    cap <- if (cap) "both" else "none"
+  }
+  cap <- arg_match0(cap, c("none", "both", "upper", "lower"))
+
+
   new_guide(
     title = title,
 
@@ -45,6 +59,7 @@ guide_axis <- function(title = waiver(), check.overlap = FALSE, angle = NULL,
     check.overlap = check.overlap,
     angle = angle,
     n.dodge = n.dodge,
+    cap = cap,
 
     # parameter
     available_aes = c("x", "y"),
@@ -72,6 +87,7 @@ GuideAxis <- ggproto(
     direction = NULL,
     angle     = NULL,
     n.dodge   = 1,
+    cap       = "none",
     order     = 0,
     check.overlap = FALSE
   ),
@@ -90,6 +106,25 @@ GuideAxis <- ggproto(
   extract_params = function(scale, params, hashables, ...) {
     params$name <- paste0(params$name, "_", params$aesthetic)
     Guide$extract_params(scale, params, hashables)
+  },
+
+  extract_decor = function(scale, aesthetic, position, key, cap = "none", ...) {
+
+    value <- c(-Inf, Inf)
+    if (cap %in% c("both", "upper")) {
+      value[2] <- max(key[[aesthetic]])
+    }
+    if (cap %in% c("both", "lower")) {
+      value[1] <- min(key[[aesthetic]])
+    }
+
+    opposite <- setdiff(c("x", "y"), aesthetic)
+    opposite_value <- if (position %in% c("top", "right")) -Inf else Inf
+
+    data_frame(
+      !!aesthetic := value,
+      !!opposite  := opposite_value
+    )
   },
 
   transform = function(self, params, coord, panel_params) {
@@ -113,6 +148,8 @@ GuideAxis <- ggproto(
     }
     key <- coord$transform(key, panel_params)
     params$key <- key
+
+    params$decor <- coord_munch(coord, params$decor, panel_params)
 
     # Ported over from `warn_for_position_guide`
     # This is trying to catch when a user specifies a position perpendicular
@@ -233,11 +270,13 @@ GuideAxis <- ggproto(
 
   # The decor in the axis guide is the axis line
   build_decor = function(decor, grobs, elements, params) {
-    exec(
-      element_grob,
-      element = elements$line,
-      !!params$aes := unit(c(0, 1), "npc"),
-      !!params$orth_aes := unit(rep(params$orth_side, 2), "npc")
+    if (empty(decor)) {
+      return(zeroGrob())
+    }
+    element_grob(
+      elements$line,
+      x = unit(decor$x, "npc"),
+      y = unit(decor$y, "npc")
     )
   },
 
@@ -352,7 +391,8 @@ GuideAxis <- ggproto(
   },
 
   draw_early_exit = function(self, params, elements) {
-    line <- self$build_decor(elements = elements, params = params)
+    line <- self$build_decor(decor = params$decor, elements = elements,
+                             params = params)
     absoluteGrob(
       gList(line),
       width  = grobWidth(line),
@@ -390,11 +430,17 @@ draw_axis <- function(break_positions, break_labels, axis_position, theme,
                       position = axis_position)
   params <- guide$params
   aes <- if (axis_position %in% c("top", "bottom")) "x" else "y"
+  opp <- setdiff(c("x", "y"), aes)
+  opp_value <- if (axis_position %in% c("top", "right")) 0 else 1
   key <- data_frame(
     break_positions, break_positions, break_labels,
     .name_repair = ~ c(aes, ".value", ".label")
   )
   params$key <- key
+  params$decor <- data_frame0(
+    !!aes := c(0, 1),
+    !!opp := opp_value
+  )
   guide$draw(theme, params)
 }
 

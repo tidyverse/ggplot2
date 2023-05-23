@@ -69,6 +69,27 @@ test_that("alt text is returned", {
   expect_equal(get_alt_text(p), "An alt text")
 })
 
+
+test_that("plot.tag.position rejects invalid input", {
+  p <- ggplot(mtcars, aes(mpg, disp)) + geom_point() + labs(tag = "Fig. A)")
+
+  expect_snapshot_error(
+    ggplotGrob(p + theme(plot.tag.position = TRUE))
+  )
+  expect_snapshot_error(
+    ggplotGrob(p + theme(plot.tag.position = "foobar"))
+  )
+  expect_error(
+    ggplotGrob(p + theme(plot.tag.position = c(0, 0.5, 1))),
+    "must have length 2"
+  )
+  expect_error(
+    ggplotGrob(p + theme(plot.tag.position = c(0, 0), plot.tag.location = "margin")),
+    "cannot be used with `\"margin\""
+  )
+
+})
+
 test_that("position axis label hierarchy works as intended", {
   df <- data_frame(foo = c(1e1, 1e5), bar = c(0, 100))
 
@@ -210,6 +231,24 @@ test_that("tags are drawn correctly", {
   p <- ggplot(dat, aes(x = x, y = y)) + geom_point() + labs(tag = "Fig. A)")
 
   expect_doppelganger("defaults", p)
-  expect_doppelganger("Other position", p + theme(plot.tag.position = 'bottom'))
-  expect_doppelganger("Manual", p + theme(plot.tag.position = c(0.05, 0.05)))
+  expect_doppelganger(
+    "Tag in margin",
+    p + theme(plot.tag.position = "bottom", plot.tag.location = "margin")
+  )
+  expect_doppelganger(
+    "Tag in panel, as character",
+    p + theme(plot.tag.position = "topright", plot.tag.location = "panel")
+  )
+  expect_doppelganger(
+    "Tag in panel, as numeric",
+    p + theme(plot.tag.position = c(0.25, 0.25), plot.tag.location = "panel")
+  )
+  expect_doppelganger(
+    "Tag in plot, as character",
+    p + theme(plot.tag.position = "bottomleft", plot.tag.location = "plot")
+  )
+  expect_doppelganger(
+    "Tag in plot, as numeric",
+    p + theme(plot.tag.position = c(0.05, 0.05), plot.tag.location = "plot")
+  )
 })

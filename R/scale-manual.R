@@ -141,7 +141,8 @@ scale_discrete_manual <- function(aesthetics, ..., values, breaks = waiver()) {
   manual_scale(aesthetics, values, breaks, ...)
 }
 
-manual_scale <- function(aesthetic, values = NULL, breaks = waiver(), ..., limits = NULL) {
+manual_scale <- function(aesthetic, values = NULL, breaks = waiver(), ...,
+                         limits = NULL) {
   # check for missing `values` parameter, in lieu of providing
   # a default to all the different scale_*_manual() functions
   if (is_missing(values)) {
@@ -152,7 +153,17 @@ manual_scale <- function(aesthetic, values = NULL, breaks = waiver(), ..., limit
 
   if (is.null(limits) && !is.null(names(values))) {
     # Limits as function to access `values` names later on (#4619)
-    limits <- function(x) intersect(x, names(values)) %||% character()
+    force(aesthetic)
+    limits <- function(x) {
+      x <- intersect(x, c(names(values), NA)) %||% character()
+      if (length(x) < 1) {
+        cli::cli_warn(paste0(
+          "No shared levels found between {.code names(values)} of the manual ",
+          "scale and the data's {.field {aesthetic}} values."
+        ))
+      }
+      x
+    }
   }
 
   # order values according to breaks
