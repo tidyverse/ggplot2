@@ -599,6 +599,9 @@ parse_axes_labeling <- function(x) {
 view_scales_from_graticule <- function(graticule, scale, aesthetic,
                                        label, label_graticule, bbox) {
 
+  # Setup position specific parameters
+  # Note that top/bottom doesn't necessarily mean to label the meridians and
+  # left/right doesn't necessarily mean to label the parallels.
   position <- switch(
     arg_match0(aesthetic, c("x", "x.sec", "y", "y.sec")),
     "x"     = "bottom",
@@ -608,20 +611,25 @@ view_scales_from_graticule <- function(graticule, scale, aesthetic,
   )
   axis <- gsub("\\.sec$", "", aesthetic)
   if (axis == "x") {
-    orth  <- "y"
-    thres <- bbox[c(2, 4)]
-    range <- bbox[c(1, 3)]
+    orth   <- "y"
+    thres  <- bbox[c(2, 4)] # To determine graticule is close to axis
+    limits <- bbox[c(1, 3)] # To use as scale limits
   } else {
-    orth  <- "x"
-    thres <- bbox[c(1, 3)]
-    range <- bbox[c(2, 4)]
+    orth   <- "x"
+    thres  <- bbox[c(1, 3)]
+    limits <- bbox[c(2, 4)]
   }
 
-  aes_start  <- paste0(axis, "_start")
-  aes_end    <- paste0(axis, "_end")
+  # Determine what columns in the graticule contain the starts and ends of the
+  # axis direction and the orthogonal direction.
+  axis_start <- paste0(axis, "_start")
+  axis_end   <- paste0(axis, "_end")
   orth_start <- paste0(orth, "_start")
   orth_end   <- paste0(orth, "_end")
 
+  # Find the start and endpoints in the graticule that are in close proximity
+  # to the axis position to generate 'accepted' starts and ends. Close proximity
+  # here is defined as within 1% of the scale range of the *orthogonal* scale.
   if (position %in% c("top", "right")) {
     thres <- thres[1] + 0.999 * diff(thres)
     accept_start <- graticule[[orth_start]] > thres
@@ -632,35 +640,44 @@ view_scales_from_graticule <- function(graticule, scale, aesthetic,
     accept_end   <- graticule[[orth_end]]   < thres
   }
 
+  # Parsing the information of the `label_axes` argument:
+  # should we label the meridians ("E") or parallels ("N")?
   type <- graticule$type
-  id1  <- id2 <- integer(0)
-  id1  <- c(id1, which(type == label & accept_start))
-  id2  <- c(id2, which(type == label & accept_end))
+  idx_start <- idx_end <- integer(0)
+  idx_start <- c(idx_start, which(type == label & accept_start))
+  idx_end   <- c(idx_end,   which(type == label & accept_end))
 
+  # Parsing the information of the `label_graticule` argument. Because
+  # geometry can be rotated, not all meridians are guaranteed to intersect the
+  # top/bottom axes and likewise not all parallels are guaranteed to intersect
+  # the left/right axes.
   if ("S" %in% label_graticule) {
-    id1 <- c(id1, which(type == "E" & accept_start))
+    idx_start <- c(idx_start, which(type == "E" & accept_start))
   }
   if ("N" %in% label_graticule) {
-    id2 <- c(id2, which(type == "E" & accept_end))
+    idx_end   <- c(idx_end,   which(type == "E" & accept_end))
   }
   if ("W" %in% label_graticule) {
-    id1 <- c(id1, which(type == "N" & accept_start))
+    idx_start <- c(idx_start, which(type == "N" & accept_start))
   }
   if ("E" %in% label_graticule) {
-    id2 <- c(id2, which(type == "N" & accept_end))
+    idx_end   <- c(idx_end,   which(type == "N" & accept_end))
   }
 
-  # Assemble ticks / labels
-  ticks1 <- vec_slice(graticule, unique0(id1))
-  ticks2 <- vec_slice(graticule, unique0(id2))
-  positions <- c(field(ticks1, aes_start), field(ticks2, aes_end))
-  labels    <- c(ticks1$degree_label, ticks2$degree_label)
-  ord       <- order(positions) # for dodging, order needs to be correct
+  # Combine start and end positions for tick marks and labels
+  tick_start <- vec_slice(graticule, unique0(idx_start))
+  tick_end   <- vec_slice(graticule, unique0(idx_end))
+  positions  <- c(field(tick_start, axis_start), field(tick_end, axis_end))
+  labels     <- c(tick_start$degree_label, tick_end$degree_label)
+
+  # The positions/labels need to be ordered for axis dodging
+  ord       <- order(positions)
   positions <- positions[ord]
   labels    <- labels[ord]
 
-  # Resolve guides
+  # Find out if the scale has defined guides
   if (scale$position != position) {
+    # Try to use secondary axis' guide
     guide <- scale$secondary.axis$guide %||% waiver()
     if (is.derived(guide)) {
       guide <- scale$guide
@@ -668,6 +685,7 @@ view_scales_from_graticule <- function(graticule, scale, aesthetic,
   } else {
     guide <- scale$guide
   }
+  # Instruct default guides: no ticks or labels should default to no guide
   if (length(positions) > 0) {
     guide <- guide %|W|% "axis"
   } else {
@@ -682,12 +700,13 @@ view_scales_from_graticule <- function(graticule, scale, aesthetic,
     aesthetics = scale$aesthetics,
     name = scale$name,
     scale_is_discrete = scale$is_discrete(),
-    limits = range,
-    continuous_range = range,
+    limits = limits,
+    continuous_range = limits,
     breaks = positions,
     minor_breaks = NULL,
 
-    # This viewscale has fixed labels, not dynamic ones
+    # This viewscale has fixed labels, not dynamic ones as other viewscales
+    # might have.
     labels = labels,
     get_labels = function(self, breaks = self$get_breaks()) {
       self$labels
