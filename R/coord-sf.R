@@ -241,8 +241,11 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       scale = list(x = scale_x, y = scale_y, x.sec = scale_x, y.sec = scale_y),
       aesthetic = c("x", "y", "x.sec", "y.sec"),
       label = self$label_axes[c("bottom", "left", "top", "right")],
-      MoreArgs = list(graticule = graticule, bbox = bbox,
-                      label_graticule = self$label_graticule)
+      MoreArgs = list(
+        graticule = graticule,
+        bbox = bbox,
+        label_graticule = self$label_graticule
+      )
     )
 
     # Rescale graticule for panel grid
@@ -629,7 +632,7 @@ view_scales_from_graticule <- function(graticule, scale, aesthetic,
 
   # Find the start and endpoints in the graticule that are in close proximity
   # to the axis position to generate 'accepted' starts and ends. Close proximity
-  # here is defined as within 1% of the scale range of the *orthogonal* scale.
+  # here is defined as within 0.1% of the scale range of the *orthogonal* scale.
   if (position %in% c("top", "right")) {
     thres <- thres[1] + 0.999 * diff(thres)
     accept_start <- graticule[[orth_start]] > thres
