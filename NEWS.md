@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `coord_sf()` now uses customisable guides provided in the scales or 
+  `guides()` function (@teunbrand).
+
 * Legends in `scale_*_manual()` can show `NA` values again when the `values` is
   a named vector (@teunbrand, #5214, #5286).
   

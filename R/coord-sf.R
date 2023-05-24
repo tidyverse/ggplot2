@@ -235,6 +235,20 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     # override graticule labels provided by sf::st_graticule() if necessary
     graticule <- self$fixup_graticule_labels(graticule, scale_x, scale_y, params)
 
+    # Convert graticule to viewscales for axis guides
+    viewscales <- Map(
+      view_scales_from_graticule,
+      scale = list(x = scale_x, y = scale_y, x.sec = scale_x, y.sec = scale_y),
+      aesthetic = c("x", "y", "x.sec", "y.sec"),
+      label = self$label_axes[c("bottom", "left", "top", "right")],
+      MoreArgs = list(
+        graticule = graticule,
+        bbox = bbox,
+        label_graticule = self$label_graticule
+      )
+    )
+
+    # Rescale graticule for panel grid
     sf::st_geometry(graticule) <- sf_rescale01(sf::st_geometry(graticule), x_range, y_range)
     graticule$x_start <- sf_rescale01_x(graticule$x_start, x_range)
     graticule$x_end <- sf_rescale01_x(graticule$x_end, x_range)
@@ -247,9 +261,13 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       graticule = graticule,
       crs = params$crs,
       default_crs = params$default_crs,
-      label_axes = self$label_axes,
-      label_graticule = self$label_graticule
+      viewscales = viewscales
     )
+  },
+
+  setup_panel_guides = function(self, panel_params, guides, params = list()) {
+    params <- Coord$setup_panel_guides(panel_params$viewscales, guides, params)
+    c(params, panel_params)
   },
 
   backtransform_range = function(self, panel_params) {
@@ -314,162 +332,6 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       )
     }
     ggname("grill", inject(grobTree(!!!grobs)))
-  },
-
-  render_axis_h = function(self, panel_params, theme) {
-    graticule <- panel_params$graticule
-
-    # top axis
-    id1 <- id2 <- integer(0)
-    # labels based on panel side
-    id1 <- c(id1, which(graticule$type == panel_params$label_axes$top & graticule$y_start > 0.999))
-    id2 <- c(id2, which(graticule$type == panel_params$label_axes$top & graticule$y_end > 0.999))
-
-    # labels based on graticule direction
-    if ("S" %in% panel_params$label_graticule) {
-      id1 <- c(id1, which(graticule$type == "E" & graticule$y_start > 0.999))
-    }
-    if ("N" %in% panel_params$label_graticule) {
-      id2 <- c(id2, which(graticule$type == "E" & graticule$y_end > 0.999))
-    }
-    if ("W" %in% panel_params$label_graticule) {
-      id1 <- c(id1, which(graticule$type == "N" & graticule$y_start > 0.999))
-    }
-    if ("E" %in% panel_params$label_graticule) {
-      id2 <- c(id2, which(graticule$type == "N" & graticule$y_end > 0.999))
-    }
-
-    ticks1 <- graticule[unique0(id1), ]
-    ticks2 <- graticule[unique0(id2), ]
-    tick_positions <- c(ticks1$x_start, ticks2$x_end)
-    tick_labels <- c(ticks1$degree_label, ticks2$degree_label)
-
-    if (length(tick_positions) > 0) {
-      top <- draw_axis(
-        tick_positions,
-        tick_labels,
-        axis_position = "top",
-        theme = theme
-      )
-    } else {
-      top <- zeroGrob()
-    }
-
-    # bottom axis
-    id1 <- id2 <- integer(0)
-    # labels based on panel side
-    id1 <- c(id1, which(graticule$type == panel_params$label_axes$bottom & graticule$y_start < 0.001))
-    id2 <- c(id2, which(graticule$type == panel_params$label_axes$bottom & graticule$y_end < 0.001))
-
-    # labels based on graticule direction
-    if ("S" %in% panel_params$label_graticule) {
-      id1 <- c(id1, which(graticule$type == "E" & graticule$y_start < 0.001))
-    }
-    if ("N" %in% panel_params$label_graticule) {
-      id2 <- c(id2, which(graticule$type == "E" & graticule$y_end < 0.001))
-    }
-    if ("W" %in% panel_params$label_graticule) {
-      id1 <- c(id1, which(graticule$type == "N" & graticule$y_start < 0.001))
-    }
-    if ("E" %in% panel_params$label_graticule) {
-      id2 <- c(id2, which(graticule$type == "N" & graticule$y_end < 0.001))
-    }
-
-    ticks1 <- graticule[unique0(id1), ]
-    ticks2 <- graticule[unique0(id2), ]
-    tick_positions <- c(ticks1$x_start, ticks2$x_end)
-    tick_labels <- c(ticks1$degree_label, ticks2$degree_label)
-
-    if (length(tick_positions) > 0) {
-      bottom <- draw_axis(
-        tick_positions,
-        tick_labels,
-        axis_position = "bottom",
-        theme = theme
-      )
-    } else {
-      bottom <- zeroGrob()
-    }
-
-    list(top = top, bottom = bottom)
-  },
-
-  render_axis_v = function(self, panel_params, theme) {
-    graticule <- panel_params$graticule
-
-    # right axis
-    id1 <- id2 <- integer(0)
-    # labels based on panel side
-    id1 <- c(id1, which(graticule$type == panel_params$label_axes$right & graticule$x_end > 0.999))
-    id2 <- c(id2, which(graticule$type == panel_params$label_axes$right & graticule$x_start > 0.999))
-
-    # labels based on graticule direction
-    if ("N" %in% panel_params$label_graticule) {
-      id1 <- c(id1, which(graticule$type == "E" & graticule$x_end > 0.999))
-    }
-    if ("S" %in% panel_params$label_graticule) {
-      id2 <- c(id2, which(graticule$type == "E" & graticule$x_start > 0.999))
-    }
-    if ("E" %in% panel_params$label_graticule) {
-      id1 <- c(id1, which(graticule$type == "N" & graticule$x_end > 0.999))
-    }
-    if ("W" %in% panel_params$label_graticule) {
-      id2 <- c(id2, which(graticule$type == "N" & graticule$x_start > 0.999))
-    }
-
-    ticks1 <- graticule[unique0(id1), ]
-    ticks2 <- graticule[unique0(id2), ]
-    tick_positions <- c(ticks1$y_end, ticks2$y_start)
-    tick_labels <- c(ticks1$degree_label, ticks2$degree_label)
-
-    if (length(tick_positions) > 0) {
-      right <- draw_axis(
-        tick_positions,
-        tick_labels,
-        axis_position = "right",
-        theme = theme
-      )
-    } else {
-      right <- zeroGrob()
-    }
-
-    # left axis
-    id1 <- id2 <- integer(0)
-    # labels based on panel side
-    id1 <- c(id1, which(graticule$type == panel_params$label_axes$left & graticule$x_end < 0.001))
-    id2 <- c(id2, which(graticule$type == panel_params$label_axes$left & graticule$x_start < 0.001))
-
-    # labels based on graticule direction
-    if ("N" %in% panel_params$label_graticule) {
-      id1 <- c(id1, which(graticule$type == "E" & graticule$x_end < 0.001))
-    }
-    if ("S" %in% panel_params$label_graticule) {
-      id2 <- c(id2, which(graticule$type == "E" & graticule$x_start < 0.001))
-    }
-    if ("E" %in% panel_params$label_graticule) {
-      id1 <- c(id1, which(graticule$type == "N" & graticule$x_end < 0.001))
-    }
-    if ("W" %in% panel_params$label_graticule) {
-      id2 <- c(id2, which(graticule$type == "N" & graticule$x_start < 0.001))
-    }
-
-    ticks1 <- graticule[unique0(id1), ]
-    ticks2 <- graticule[unique0(id2), ]
-    tick_positions <- c(ticks1$y_end, ticks2$y_start)
-    tick_labels <- c(ticks1$degree_label, ticks2$degree_label)
-
-    if (length(tick_positions) > 0) {
-      left <- draw_axis(
-        tick_positions,
-        tick_labels,
-        axis_position = "left",
-        theme = theme
-      )
-    } else {
-      left <- zeroGrob()
-    }
-
-    list(left = left, right = right)
   }
 )
 
@@ -715,4 +577,142 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
 parse_axes_labeling <- function(x) {
   labs = unlist(strsplit(x, ""))
   list(top = labs[1], right = labs[2], bottom = labs[3], left = labs[4])
+}
+
+
+#' ViewScale from graticule
+#'
+#' This function converts a graticule and other CoordSf's settings to a
+#' ViewScale with the appropriate `breaks` and `labels` to be rendered by a
+#' guide.
+#'
+#' @param graticule A graticule as produced by `sf::st_graticule()`.
+#' @param scale An x or y position scale for a panel.
+#' @param aesthetic One of `"x"`, `"y"`, `"x.sec"` or `"y.sec'` specifying the
+#'   plot position of the guide.
+#' @param label One of `"E"` for meridians or `"N"` for parallels. If neither,
+#'   no tick information will be produced.
+#' @param label_graticule See `?coord_sf`.
+#' @param bbox A `numeric(4)` bounding box with 'xmin', 'ymin', 'xmax' and
+#'   'ymax' positions.
+#'
+#' @return A `ViewScale` object.
+#' @noRd
+#' @keywords internal
+view_scales_from_graticule <- function(graticule, scale, aesthetic,
+                                       label, label_graticule, bbox) {
+
+  # Setup position specific parameters
+  # Note that top/bottom doesn't necessarily mean to label the meridians and
+  # left/right doesn't necessarily mean to label the parallels.
+  position <- switch(
+    arg_match0(aesthetic, c("x", "x.sec", "y", "y.sec")),
+    "x"     = "bottom",
+    "x.sec" = "top",
+    "y"     = "left",
+    "y.sec" = "right"
+  )
+  axis <- gsub("\\.sec$", "", aesthetic)
+  if (axis == "x") {
+    orth   <- "y"
+    thres  <- bbox[c(2, 4)] # To determine graticule is close to axis
+    limits <- bbox[c(1, 3)] # To use as scale limits
+  } else {
+    orth   <- "x"
+    thres  <- bbox[c(1, 3)]
+    limits <- bbox[c(2, 4)]
+  }
+
+  # Determine what columns in the graticule contain the starts and ends of the
+  # axis direction and the orthogonal direction.
+  axis_start <- paste0(axis, "_start")
+  axis_end   <- paste0(axis, "_end")
+  orth_start <- paste0(orth, "_start")
+  orth_end   <- paste0(orth, "_end")
+
+  # Find the start and endpoints in the graticule that are in close proximity
+  # to the axis position to generate 'accepted' starts and ends. Close proximity
+  # here is defined as within 0.1% of the scale range of the *orthogonal* scale.
+  if (position %in% c("top", "right")) {
+    thres <- thres[1] + 0.999 * diff(thres)
+    accept_start <- graticule[[orth_start]] > thres
+    accept_end   <- graticule[[orth_end]]   > thres
+  } else {
+    thres <- thres[1] + 0.001 * diff(thres)
+    accept_start <- graticule[[orth_start]] < thres
+    accept_end   <- graticule[[orth_end]]   < thres
+  }
+
+  # Parsing the information of the `label_axes` argument:
+  # should we label the meridians ("E") or parallels ("N")?
+  type <- graticule$type
+  idx_start <- idx_end <- integer(0)
+  idx_start <- c(idx_start, which(type == label & accept_start))
+  idx_end   <- c(idx_end,   which(type == label & accept_end))
+
+  # Parsing the information of the `label_graticule` argument. Because
+  # geometry can be rotated, not all meridians are guaranteed to intersect the
+  # top/bottom axes and likewise not all parallels are guaranteed to intersect
+  # the left/right axes.
+  if ("S" %in% label_graticule) {
+    idx_start <- c(idx_start, which(type == "E" & accept_start))
+  }
+  if ("N" %in% label_graticule) {
+    idx_end   <- c(idx_end,   which(type == "E" & accept_end))
+  }
+  if ("W" %in% label_graticule) {
+    idx_start <- c(idx_start, which(type == "N" & accept_start))
+  }
+  if ("E" %in% label_graticule) {
+    idx_end   <- c(idx_end,   which(type == "N" & accept_end))
+  }
+
+  # Combine start and end positions for tick marks and labels
+  tick_start <- vec_slice(graticule, unique0(idx_start))
+  tick_end   <- vec_slice(graticule, unique0(idx_end))
+  positions  <- c(field(tick_start, axis_start), field(tick_end, axis_end))
+  labels     <- c(tick_start$degree_label, tick_end$degree_label)
+
+  # The positions/labels need to be ordered for axis dodging
+  ord       <- order(positions)
+  positions <- positions[ord]
+  labels    <- labels[ord]
+
+  # Find out if the scale has defined guides
+  if (scale$position != position) {
+    # Try to use secondary axis' guide
+    guide <- scale$secondary.axis$guide %||% waiver()
+    if (is.derived(guide)) {
+      guide <- scale$guide
+    }
+  } else {
+    guide <- scale$guide
+  }
+  # Instruct default guides: no ticks or labels should default to no guide
+  if (length(positions) > 0) {
+    guide <- guide %|W|% "axis"
+  } else {
+    guide <- guide %|W|% "none"
+  }
+
+  ggproto(
+    NULL, ViewScale,
+    scale = scale,
+    guide = guide,
+    position = position,
+    aesthetics = scale$aesthetics,
+    name = scale$name,
+    scale_is_discrete = scale$is_discrete(),
+    limits = limits,
+    continuous_range = limits,
+    breaks = positions,
+    minor_breaks = NULL,
+
+    # This viewscale has fixed labels, not dynamic ones as other viewscales
+    # might have.
+    labels = labels,
+    get_labels = function(self, breaks = self$get_breaks()) {
+      self$labels
+    }
+  )
 }
