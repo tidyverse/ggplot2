@@ -324,7 +324,7 @@ GuideAxis <- ggproto(
 
     length <- elements$ticks_length
     spacer <- max(unit(0, "pt"), -1 * length)
-    labels <- do.call(unit.c, lapply(grobs$label, measure))
+    labels <- do.call(unit.c, lapply(grobs$labels, measure))
     title  <- measure(grobs$title)
 
     sizes <- unit.c(length, spacer, labels, title)
@@ -355,8 +355,8 @@ GuideAxis <- ggproto(
 
     # Unlist the 'label' grobs
     z <- if (params$position == "left") c(2, 1, 3) else 1:3
-    z <- rep(z, c(1, length(grobs$label), 1))
-    grobs  <- c(list(grobs$ticks), grobs$label, list(grobs$title))
+    z <- rep(z, c(1, length(grobs$labels), 1))
+    grobs  <- c(list(grobs$ticks), grobs$labels, list(grobs$title))
 
     # Initialise empty gtable
     gt <- exec(
