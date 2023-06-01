@@ -79,10 +79,11 @@
 #'
 #' ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
 #'   geom_bar(position = position_dodge2(preserve = "total"))
-position_dodge <- function(width = NULL, preserve = "total") {
+position_dodge <- function(width = NULL, preserve = "total", stackOverlap = "no") {
   ggproto(NULL, PositionDodge,
     width = width,
-    preserve = arg_match0(preserve, c("total", "single"))
+    preserve = arg_match0(preserve, c("total", "single")),
+    stackOverlap = arg_match0(stackOverlap, c("no","byExtent","byCenter"))
   )
 }
 
@@ -93,6 +94,7 @@ position_dodge <- function(width = NULL, preserve = "total") {
 PositionDodge <- ggproto("PositionDodge", Position,
   width = NULL,
   preserve = "total",
+  stackOverlap = "no",
   setup_params = function(self, data) {
     flipped_aes <- has_flipped_aes(data)
     data <- flip_data(data, flipped_aes)
@@ -113,6 +115,7 @@ PositionDodge <- ggproto("PositionDodge", Position,
 
     list(
       width = self$width,
+      stackOverlap = self$stackOverlap,
       n = n,
       flipped_aes = flipped_aes
     )
@@ -134,6 +137,7 @@ PositionDodge <- ggproto("PositionDodge", Position,
       name = "position_dodge",
       strategy = pos_dodge,
       n = params$n,
+      stackOverlap = params$stackOverlap,
       check.width = FALSE
     )
     flip_data(collided, params$flipped_aes)
@@ -142,7 +146,7 @@ PositionDodge <- ggproto("PositionDodge", Position,
 
 # Dodge overlapping interval.
 # Assumes that each set has the same horizontal position.
-pos_dodge <- function(df, width, n = NULL) {
+pos_dodge <- function(df, width, n = NULL, stackOverlap = "no") {
   if (is.null(n)) {
     n <- vec_unique_count(df$group)
   }
@@ -165,6 +169,16 @@ pos_dodge <- function(df, width, n = NULL) {
   df$x <- df$x + width * ((groupidx - 0.5) / n - .5)
   df$xmin <- df$x - d_width / n / 2
   df$xmax <- df$x + d_width / n / 2
+  
+  if (stackOverlap == "byExtent") {
+    tmp = df %>% group_by(group) %>% mutate(ymaxx = cumsum(ymax)) %>% mutate(ymin = ymaxx-ymax, ymax = ymaxx)
+    df$ymin = tmp$ymin
+    df$ymax = tmp$ymax
+  } else if (stackOverlap == "byCenter") {
+    tmp = df %>% group_by(group) %>% mutate(extent = ymax-ymin, ymaxx = cumsum((ymax+ymin)/2)) %>% mutate(ymin = ymaxx-extent/2, ymax = ymaxx+extent/2)
+    df$ymin = tmp$ymin
+    df$ymax = tmp$ymax
+  }
 
   df
 }
