@@ -27,6 +27,13 @@
   in ggproto. The axes and legends now inherit from a <Guide> class, which makes
   them extensible in the same manner as geoms, stats, facets and coords 
   (#3329, @teunbrand). In addition, the following changes were made:
+    * A fallback for old S3 guides is encapsulated in the `GuideOld` ggproto
+      class, which mostly just calls the old S3 generics.
+    * While the S3 guide generics are still in place, the S3 methods for 
+      `guide_train()`, `guide_merge()`, `guide_geom()`, `guide_transform()`,
+      `guide_gengrob()` have been superseded by the respective ggproto methods.
+      In practise, this will mean that `NextMethod()` or sub-classing ggplot2's
+      guides with the S3 system will no longer work.
     * Styling theme parts of the guide now inherit from the plot's theme 
       (#2728). 
     * Styling non-theme parts of the guides accept <element> objects, so that
