@@ -770,3 +770,56 @@ test_that("guides() errors if unnamed guides are provided", {
     "The 2nd guide is unnamed"
   )
 })
+
+test_that("old S3 guides can be implemented", {
+
+  my_env <- env()
+  my_env$guide_circle <- function() {
+    structure(
+      list(available_aes = c("x", "y"), position = "bottom"),
+      class = c("guide", "circle")
+    )
+  }
+
+  registerS3method(
+    "guide_train", "circle",
+    function(guide, ...) guide,
+    envir = my_env
+  )
+  registerS3method(
+    "guide_transform", "circle",
+    function(guide, ...) guide,
+    envir = my_env
+  )
+  registerS3method(
+    "guide_merge", "circle",
+    function(guide, ...) guide,
+    envir = my_env
+  )
+  registerS3method(
+    "guide_geom", "circle",
+    function(guide, ...) guide,
+    envir = my_env
+  )
+  registerS3method(
+    "guide_gengrob", "circle",
+    function(guide, ...) {
+      absoluteGrob(
+        gList(circleGrob()),
+        height = unit(1, "cm"), width = unit(1, "cm")
+      )
+    },
+    envir = my_env
+  )
+
+  withr::local_environment(my_env)
+
+  expect_snapshot_warning(
+    expect_doppelganger(
+      "old S3 guide drawing a circle",
+      ggplot(mtcars, aes(disp, mpg)) +
+        geom_point() +
+        guides(x = "circle")
+    )
+  )
+})
