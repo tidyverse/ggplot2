@@ -4,17 +4,17 @@
 %   R/geom-raster.R, R/annotation-raster.R, R/axis-secondary.R, R/coord-.R,
 %   R/coord-cartesian-.R, R/coord-fixed.R, R/coord-flip.R, R/coord-map.R,
 %   R/coord-polar.R, R/coord-quickmap.R, R/coord-transform.R, R/facet-.R,
-%   R/facet-grid-.R, R/facet-null.R, R/facet-wrap.R, R/stat-.R,
-%   R/geom-abline.R, R/geom-rect.R, R/geom-bar.R, R/geom-blank.R,
-%   R/geom-boxplot.R, R/geom-col.R, R/geom-path.R, R/geom-contour.R,
-%   R/geom-crossbar.R, R/geom-segment.R, R/geom-curve.R, R/geom-ribbon.R,
-%   R/geom-density.R, R/geom-density2d.R, R/geom-dotplot.R, R/geom-errorbar.R,
-%   R/geom-errorbarh.R, R/geom-function.R, R/geom-hex.R, R/geom-hline.R,
-%   R/geom-label.R, R/geom-linerange.R, R/geom-point.R, R/geom-pointrange.R,
-%   R/geom-quantile.R, R/geom-rug.R, R/geom-smooth.R, R/geom-spoke.R,
-%   R/geom-text.R, R/geom-tile.R, R/geom-violin.R, R/geom-vline.R, R/guide-.R,
-%   R/guide-axis.R, R/guide-legend.R, R/guide-bins.R, R/guide-colorbar.R,
-%   R/guide-colorsteps.R, R/guide-none.R, R/layout.R, R/position-.R,
+%   R/facet-grid-.R, R/facet-null.R, R/facet-wrap.R, R/stat-.R, R/geom-abline.R,
+%   R/geom-rect.R, R/geom-bar.R, R/geom-blank.R, R/geom-boxplot.R, R/geom-col.R,
+%   R/geom-path.R, R/geom-contour.R, R/geom-crossbar.R, R/geom-segment.R,
+%   R/geom-curve.R, R/geom-ribbon.R, R/geom-density.R, R/geom-density2d.R,
+%   R/geom-dotplot.R, R/geom-errorbar.R, R/geom-errorbarh.R, R/geom-function.R,
+%   R/geom-hex.R, R/geom-hline.R, R/geom-label.R, R/geom-linerange.R,
+%   R/geom-point.R, R/geom-pointrange.R, R/geom-quantile.R, R/geom-rug.R,
+%   R/geom-smooth.R, R/geom-spoke.R, R/geom-text.R, R/geom-tile.R,
+%   R/geom-violin.R, R/geom-vline.R, R/guide-.R, R/guide-axis.R,
+%   R/guide-legend.R, R/guide-bins.R, R/guide-colorbar.R, R/guide-colorsteps.R,
+%   R/guide-none.R, R/guide-old.R, R/layout.R, R/position-.R,
 %   R/position-dodge.R, R/position-dodge2.R, R/position-identity.R,
 %   R/position-jitter.R, R/position-jitterdodge.R, R/position-nudge.R,
 %   R/position-stack.R, R/scale-.R, R/scale-binned.R, R/scale-continuous.R,
@@ -94,6 +94,7 @@
 \alias{GuideColourbar}
 \alias{GuideColoursteps}
 \alias{GuideNone}
+\alias{GuideOld}
 \alias{Layout}
 \alias{Position}
 \alias{PositionDodge}

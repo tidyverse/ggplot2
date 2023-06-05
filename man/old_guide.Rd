@@ -18,6 +18,8 @@ guide_geom(guide, layers, default_mapping = NULL)
 guide_transform(guide, coord, panel_params)
 
 guide_gengrob(guide, theme)
+
+old_guide(guide)
 }
 \arguments{
 \item{guide}{An old guide object}

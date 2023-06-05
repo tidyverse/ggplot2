@@ -62,3 +62,58 @@ guide_gengrob <- function(guide, theme) {
 #' @export
 guide_gengrob.default <- guide_train.default
 
+#' @export
+#' @rdname old_guide
+old_guide <- function(guide) {
+  deprecate_warn0(
+    when = "3.5.0",
+    what = I("The S3 guide system"),
+    details = c(
+      i = "It has been replaced by a ggproto system that can be extended."
+    )
+  )
+
+  ggproto(
+    NULL, GuideOld,
+    params = guide,
+    available_aes = guide$available_aes %||% NULL
+  )
+}
+
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+GuideOld <- ggproto(
+  "GuideOld", Guide,
+
+  train = function(self, params, scale, aesthetic = NULL,
+                   title = NULL, direction = NULL) {
+    params <- guide_train(params, scale, aesthetic)
+    params$title <- params$title %|W|% title
+    params$direction <- params$direction %||% direction
+    params
+  },
+
+  merge = function(self, params, new_guide, new_params) {
+    guide_merge(params, new_params)
+  },
+
+  transform = function(self, params, coord, panel_params, ...) {
+    guide_transform(params, coord, panel_params)
+  },
+
+  get_layer_key = function(params, layers) {
+    guide_geom(params, layers, default_mapping = NULL)
+  },
+
+  draw = function(self, theme, params) {
+    params$title.position <- params$title.position %||% switch(
+      params$direction %||% "placeholder",
+      vertical = "top", horizontal = "left",
+      NULL
+    )
+    guide_gengrob(params, theme)
+  }
+)
+
