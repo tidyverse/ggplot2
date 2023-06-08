@@ -635,8 +635,10 @@ validate_guide <- function(guide) {
     }
   }
   if (inherits(guide, "Guide")) {
-    guide
-  } else {
-    cli::cli_abort("Unknown guide: {guide}")
+    return(guide)
   }
+  if (inherits(guide, "guide") && is.list(guide)) {
+    return(old_guide(guide))
+  }
+  cli::cli_abort("Unknown guide: {guide}")
 }

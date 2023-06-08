@@ -80,3 +80,8 @@
     The `guide` argument in `scale_*()` cannot be `FALSE`. This was deprecated in ggplot2 3.3.4.
     i Please use "none" instead.
 
+# old S3 guides can be implemented
+
+    The S3 guide system was deprecated in ggplot2 3.5.0.
+    i It has been replaced by a ggproto system that can be extended.
+
