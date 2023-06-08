@@ -191,7 +191,7 @@ or <code><a href="https://r-spatial.github.io/sf/reference/geos_unary.html" clas
 </ol><p>For the first step, you can use an arbitrary function via <code>fun.geometry</code>.
 By default, <code>function(x) sf::st_point_on_surface(sf::st_zm(x))</code> is used;
 <code><a href="https://r-spatial.github.io/sf/reference/geos_unary.html" class="external-link">sf::st_point_on_surface()</a></code> seems more appropriate than <code><a href="https://r-spatial.github.io/sf/reference/geos_unary.html" class="external-link">sf::st_centroid()</a></code>
-since lables and text usually are intended to be put within the polygon or
+since labels and text usually are intended to be put within the polygon or
 the line. <code><a href="https://r-spatial.github.io/sf/reference/st_zm.html" class="external-link">sf::st_zm()</a></code> is needed to drop Z and M dimension beforehand,
 otherwise <code><a href="https://r-spatial.github.io/sf/reference/geos_unary.html" class="external-link">sf::st_point_on_surface()</a></code> may fail when the geometries have M
 dimension.</p>
