@@ -44,9 +44,9 @@ test_that("Inf is squished to range", {
 })
 
 test_that("coord map throws error when limits are badly specified", {
-  # throws error when xlim is environment
+  # throws error when limit is a Scale object instead of vector
   expect_snapshot_error(ggplot() + coord_map(xlim=xlim(1,1)))
 
-  # throws error when ylim is environment
+  # throws error when limit's length is different than two
   expect_snapshot_error(ggplot() + coord_cartesian(ylim=1:3))
 })
