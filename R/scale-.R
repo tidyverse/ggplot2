@@ -375,7 +375,7 @@ binned_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 #' - `dimension()` For continuous scales, the dimension is the same concept as the limits.
 #'   For discrete scales, `dimension()` returns a continuous range, where the limits
 #'   would be placed at integer positions. `dimension()` optionally expands
-#'   this range given an expantion of length 4 (see [expansion()]).
+#'   this range given an expansion of length 4 (see [expansion()]).
 #'
 #' - `break_info()` Returns a `list()` with calculated values needed for the `Coord`
 #'   to transform values in transformed data space. Axis and grid guides also use

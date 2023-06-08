@@ -49,7 +49,7 @@
 #' # the order of colour can be reversed
 #' p + scale_fill_viridis_d(direction = -1)
 #'
-#' # Use viridis_c with continous data
+#' # Use viridis_c with continuous data
 #' (v <- ggplot(faithfuld) +
 #'   geom_tile(aes(waiting, eruptions, fill = density)))
 #' v + scale_fill_viridis_c()

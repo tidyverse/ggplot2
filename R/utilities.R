@@ -429,11 +429,11 @@ switch_orientation <- function(aesthetics) {
 #' features in the data correspond to:
 #'
 #' - `main_is_orthogonal`: This argument controls how the existence of only a `x`
-#'   or `y` aesthetic is understood. If `TRUE` then the exisiting aesthetic
+#'   or `y` aesthetic is understood. If `TRUE` then the existing aesthetic
 #'   would be then secondary axis. This behaviour is present in [stat_ydensity()]
-#'   and [stat_boxplot()]. If `FALSE` then the exisiting aesthetic is the main
+#'   and [stat_boxplot()]. If `FALSE` then the existing aesthetic is the main
 #'   axis as seen in e.g. [stat_bin()], [geom_count()], and [stat_density()].
-#' - `range_is_orthogonal`: This argument controls whether the existance of
+#' - `range_is_orthogonal`: This argument controls whether the existence of
 #'   range-like aesthetics (e.g. `xmin` and `xmax`) represents the main or
 #'   secondary axis. If `TRUE` then the range is given for the secondary axis as
 #'   seen in e.g. [geom_ribbon()] and [geom_linerange()].
