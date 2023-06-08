@@ -42,3 +42,11 @@ test_that("Inf is squished to range", {
   expect_equal(d[[2]]$x, 0)
   expect_equal(d[[2]]$y, 1)
 })
+
+test_that("coord map throws error when limits are badly specified", {
+  # throws error when xlim is environment
+  expect_snapshot_error(ggplot() + coord_map(xlim=xlim(1,1)))
+
+  # throws error when ylim is environment
+  expect_snapshot_error(ggplot() + coord_cartesian(ylim=1:3))
+})

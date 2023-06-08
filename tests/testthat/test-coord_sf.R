@@ -322,3 +322,11 @@ test_that("coord_sf() uses the guide system", {
     p
   )
 })
+
+test_that("coord_sf() throws error when limits are badly specified", {
+  # throws error when xlim is environment
+  expect_snapshot_error(ggplot() + coord_sf(xlim(1,1)))
+
+  # throws error when ylim is environment
+  expect_snapshot_error(ggplot() + coord_sf(ylim=1:3))
+})

@@ -559,6 +559,9 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
     lims_method <- arg_match0(lims_method, c("cross", "box", "orthogonal", "geometry_bbox"))
   }
 
+  check_coord_limits(xlim)
+  check_coord_limits(ylim)
+
   ggproto(NULL, CoordSf,
     limits = list(x = xlim, y = ylim),
     lims_method = lims_method,

@@ -123,3 +123,11 @@ test_that("second axes display in coord_trans()", {
       coord_trans(y = "log2")
   )
 })
+
+test_that("coord_trans() throws error when limits are badly specified", {
+  # throws error when xlim is environment
+  expect_snapshot_error(ggplot() + coord_trans(xlim=xlim(1,1)))
+
+  # throws error when ylim is environment
+  expect_snapshot_error(ggplot() + coord_trans(ylim=1:3))
+})
