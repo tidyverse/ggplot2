@@ -54,7 +54,6 @@ Suggests:
     knitr,
     mapproj,
     maps,
-    maptools,
     multcomp,
     munsell,
     nlme,
