@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* The `size` argument in `annotation_logticks()` has been deprecated in favour
+  of the `linewidth` argument (#5292).
+
 * `coord_sf()` now uses customisable guides provided in the scales or 
   `guides()` function (@teunbrand).
 
