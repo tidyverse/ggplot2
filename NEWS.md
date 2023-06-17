@@ -88,6 +88,11 @@
 * `stat_contour()` and `stat_contour_filled()` now warn about and remove
   duplicated coordinates (@teunbrand, #5215).
 * Improve performance of layers without positional scales (@zeehio, #4990)
+* `fortify()` for sp objects (e.g., `SpatialPolygonsDataFrame`) is now deprecated
+  and will be removed soon in support of [the upcoming retirement of rproj, rgeos,
+  and maptools](https://r-spatial.org/r/2023/05/15/evolution4.html). In advance
+  of the whole removal, `fortify(<SpatialPolygonsDataFrame>, region = ...)`
+  no longer works as of this version (@yutannihilation, #5244).
 
 # ggplot2 3.4.2
 This is a hotfix release anticipating changes in r-devel, but folds in upkeep
