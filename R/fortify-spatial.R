@@ -15,6 +15,11 @@ NULL
 #' @export
 #' @method fortify SpatialPolygonsDataFrame
 fortify.SpatialPolygonsDataFrame <- function(model, data, region = NULL, ...) {
+  deprecate_warn0("3.4.3",
+    I("`fortify(<SpatialPolygonsDataFrame>)`"),
+    details = "Please migrate to sf."
+  )
+
   attr <- as.data.frame(model)
   # If not specified, split into regions based on polygons
   if (is.null(region)) {
@@ -23,7 +28,7 @@ fortify.SpatialPolygonsDataFrame <- function(model, data, region = NULL, ...) {
     cli::cli_inform("Regions defined for each Polygons")
   } else {
     lifecycle::deprecate_stop("3.4.3",
-      "fortify(`<model>` = 'cannot be `SpatialPolygonsDataFrame` with `region` specified')",
+      I("`fortify(<SpatialPolygonsDataFrame>, region = ...)` is defunct'"),
       details = "Please migrate to sf."
     )
   }
@@ -34,6 +39,11 @@ fortify.SpatialPolygonsDataFrame <- function(model, data, region = NULL, ...) {
 #' @export
 #' @method fortify SpatialPolygons
 fortify.SpatialPolygons <- function(model, data, ...) {
+  deprecate_warn0("3.4.3",
+    I("`fortify(<SpatialPolygons>)`"),
+    details = "Please migrate to sf."
+  )
+
   polys <- lapply(model@polygons, fortify)
   vec_rbind0(!!!polys)
 }
@@ -42,6 +52,11 @@ fortify.SpatialPolygons <- function(model, data, ...) {
 #' @export
 #' @method fortify Polygons
 fortify.Polygons <- function(model, data, ...) {
+  deprecate_warn0("3.4.3",
+    I("`fortify(<Polygons>)`"),
+    details = "Please migrate to sf."
+  )
+
   subpolys <- model@Polygons
   pieces <- lapply(seq_along(subpolys), function(i) {
     df <- fortify(subpolys[[model@plotOrder[i]]])
@@ -61,6 +76,11 @@ fortify.Polygons <- function(model, data, ...) {
 #' @export
 #' @method fortify Polygon
 fortify.Polygon <- function(model, data, ...) {
+  deprecate_warn0("3.4.3",
+    I("`fortify(<Polygon>)`"),
+    details = "Please migrate to sf."
+  )
+
   df <- as.data.frame(model@coords)
   names(df) <- c("long", "lat")
   df$order <- 1:nrow(df)
@@ -72,6 +92,11 @@ fortify.Polygon <- function(model, data, ...) {
 #' @export
 #' @method fortify SpatialLinesDataFrame
 fortify.SpatialLinesDataFrame <- function(model, data, ...) {
+  deprecate_warn0("3.4.3",
+    I("`fortify(<SpatialLinesDataFrame>)`"),
+    details = "Please migrate to sf."
+  )
+
   lines <- lapply(model@lines, fortify)
   vec_rbind0(!!!lines)
 }
@@ -80,6 +105,11 @@ fortify.SpatialLinesDataFrame <- function(model, data, ...) {
 #' @export
 #' @method fortify Lines
 fortify.Lines <- function(model, data, ...) {
+  deprecate_warn0("3.4.3",
+    I("`fortify(<Lines>)`"),
+    details = "Please migrate to sf."
+  )
+
   lines <- model@Lines
   pieces <- lapply(seq_along(lines), function(i) {
     df <- fortify(lines[[i]])
@@ -99,6 +129,11 @@ fortify.Lines <- function(model, data, ...) {
 #' @export
 #' @method fortify Line
 fortify.Line <- function(model, data, ...) {
+  deprecate_warn0("3.4.3",
+    I("`fortify(<Line>)`"),
+    details = "Please migrate to sf."
+  )
+
   df <- as.data.frame(model@coords)
   names(df) <- c("long", "lat")
   df$order <- 1:nrow(df)
