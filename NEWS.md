@@ -2,6 +2,101 @@
 
 This hotfix release addresses a version comparison change in r-devel. There are
 no user-facing or breaking changes.
+# ggplot2 (development version)
+
+* `coord_sf()` now uses customisable guides provided in the scales or 
+  `guides()` function (@teunbrand).
+
+* Legends in `scale_*_manual()` can show `NA` values again when the `values` is
+  a named vector (@teunbrand, #5214, #5286).
+  
+* `scale_*_manual()` with a named `values` argument now emits a warning when
+  none of those names match the values found in the data (@teunbrand, #5298).
+
+* `coord_munch()` can now close polygon shapes (@teunbrand, #3271)
+
+* You can now omit either `xend` or `yend` from `geom_segment()` as only one
+  of these is now required. If one is missing, it will be filled from the `x`
+  and `y` aesthetics respectively. This makes drawing horizontal or vertical
+  segments a little bit more convenient (@teunbrand, #5140).
+  
+* New `plot.tag.location` in `theme()` can control placement of the plot tag
+  in the `"margin"`, `"plot"` or the new `"panel"` option (#4297).
+
+* `geom_text()` and `geom_label()` gained a `size.unit` parameter that set the 
+  text size to millimetres, points, centimetres, inches or picas 
+  (@teunbrand, #3799).
+
+* The guide system, as the last remaining chunk of ggplot2, has been rewritten 
+  in ggproto. The axes and legends now inherit from a <Guide> class, which makes
+  them extensible in the same manner as geoms, stats, facets and coords 
+  (#3329, @teunbrand). In addition, the following changes were made:
+    * A fallback for old S3 guides is encapsulated in the `GuideOld` ggproto
+      class, which mostly just calls the old S3 generics.
+    * While the S3 guide generics are still in place, the S3 methods for 
+      `guide_train()`, `guide_merge()`, `guide_geom()`, `guide_transform()`,
+      `guide_gengrob()` have been superseded by the respective ggproto methods.
+      In practise, this will mean that `NextMethod()` or sub-classing ggplot2's
+      guides with the S3 system will no longer work.
+    * Styling theme parts of the guide now inherit from the plot's theme 
+      (#2728). 
+    * Styling non-theme parts of the guides accept <element> objects, so that
+      the following is possible: `guide_colourbar(frame = element_rect(...))`.
+    * Primary axis titles are now placed at the primary guide, so that
+      `guides(x = guide_axis(position = "top"))` will display the title at the
+      top by default (#4650).
+    * Unknown secondary axis guide positions are now inferred as the opposite 
+      of the primary axis guide when the latter has a known `position` (#4650).
+    * `guide_colourbar()`, `guide_coloursteps()` and `guide_bins()` gain a
+      `ticks.length` argument.
+    * In `guide_bins()`, the title no longer arbitrarily becomes offset from
+      the guide when it has long labels.
+    * The `order` argument of guides now strictly needs to be a length-1 
+      integer (#4958).
+    * More informative error for mismatched 
+     `direction`/`theme(legend.direction = ...)` arguments (#4364, #4930).
+    * `guide_coloursteps()` and `guide_bins()` sort breaks (#5152).
+    * `guide_axis()` gains a `cap` argument that can be used to trim the
+      axis line to extreme breaks (#4907).
+
+* `geom_label()` now uses the `angle` aesthetic (@teunbrand, #2785)
+* 'lines' units in `geom_label()`, often used in the `label.padding` argument, 
+  are now are relative to the text size. This causes a visual change, but fixes 
+  a misalignment issue between the textbox and text (@teunbrand, #4753)
+* The `label.padding` argument in `geom_label()` now supports inputs created
+  with the `margin()` function (#5030).
+* As an internal change, the `titleGrob()` has been refactored to be faster.
+* The `translate_shape_string()` internal function is now exported for use in
+  extensions of point layers (@teunbrand, #5191).
+* Fixed bug in `coord_sf()` where graticule lines didn't obey 
+  `panel.grid.major`'s linewidth setting (@teunbrand, #5179)
+* Fixed bug in `annotation_logticks()` when no suitable tick positions could
+  be found (@teunbrand, #5248).
+* To improve `width` calculation in bar plots with empty factor levels, 
+  `resolution()` considers `mapped_discrete` values as having resolution 1 
+  (@teunbrand, #5211)
+* When `geom_path()` has aesthetics varying within groups, the `arrow()` is
+  applied to groups instead of individual segments (@teunbrand, #4935).
+* The default width of `geom_bar()` is now based on panel-wise resolution of
+  the data, rather than global resolution (@teunbrand, #4336).
+* To apply dodging more consistently in violin plots, `stat_ydensity()` now
+  has a `drop` argument to keep or discard groups with 1 observation.
+* Aesthetics listed in `geom_*()` and `stat_*()` layers now point to relevant
+  documentation (@teunbrand, #5123).
+* `coord_flip()` has been marked as superseded. The recommended alternative is
+  to swap the `x` and `y` aesthetic and/or using the `orientation` argument in
+  a layer (@teunbrand, #5130).
+* `stat_align()` is now applied per panel instead of globally, preventing issues
+  when facets have different ranges (@teunbrand, #5227).
+* A stacking bug in `stat_align()` was fixed (@teunbrand, #5176).
+* `stat_contour()` and `stat_contour_filled()` now warn about and remove
+  duplicated coordinates (@teunbrand, #5215).
+* Improve performance of layers without positional scales (@zeehio, #4990)
+* `fortify()` for sp objects (e.g., `SpatialPolygonsDataFrame`) is now deprecated
+  and will be removed soon in support of [the upcoming retirement of rproj, rgeos,
+  and maptools](https://r-spatial.org/r/2023/05/15/evolution4.html). In advance
+  of the whole removal, `fortify(<SpatialPolygonsDataFrame>, region = ...)`
+  no longer works as of this version (@yutannihilation, #5244).
 
 # ggplot2 3.4.2
 This is a hotfix release anticipating changes in r-devel, but folds in upkeep
