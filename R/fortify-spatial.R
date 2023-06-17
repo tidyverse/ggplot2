@@ -9,13 +9,6 @@
 #' @param ... not used by this method
 #' @keywords internal
 #' @name fortify.sp
-#' @examples
-#' if (require("maptools")) {
-#'  sids <- system.file("shapes/sids.shp", package="maptools")
-#'  nc1 <- readShapePoly(sids,
-#'    proj4string = CRS("+proj=longlat +datum=NAD27"))
-#'  nc1_df <- fortify(nc1)
-#' }
 NULL
 
 #' @rdname fortify.sp
@@ -29,12 +22,10 @@ fortify.SpatialPolygonsDataFrame <- function(model, data, region = NULL, ...) {
     coords <- vec_rbind0(!!!coords)
     cli::cli_inform("Regions defined for each Polygons")
   } else {
-    cp <- sp::polygons(model)
-
-    # Union together all polygons that make up a region
-    unioned <- maptools::unionSpatialPolygons(cp, attr[, region])
-    coords <- fortify(unioned)
-    coords$order <- 1:nrow(coords)
+    lifecycle::deprecate_stop("3.4.3",
+      "fortify(`<model>` = 'cannot be `SpatialPolygonsDataFrame` with `region` specified')",
+      details = "Please migrate to sf."
+    )
   }
   coords
 }
