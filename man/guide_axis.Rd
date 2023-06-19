@@ -7,7 +7,7 @@
 guide_axis(
   title = waiver(),
   check.overlap = FALSE,
-  angle = NULL,
+  angle = waiver(),
   n.dodge = 1,
   cap = "none",
   order = 0,
@@ -25,7 +25,12 @@ specified in \code{\link[=labs]{labs()}} is used for the title.}
 
 \item{angle}{Compared to setting the angle in \code{\link[=theme]{theme()}} / \code{\link[=element_text]{element_text()}},
 this also uses some heuristics to automatically pick the \code{hjust} and \code{vjust} that
-you probably want.}
+you probably want. Can be one of the following:
+\itemize{
+\item \code{NULL} to take the angles and \code{hjust}/\code{vjust} directly from the theme.
+\item \code{waiver()} to allow reasonable defaults in special cases.
+\item A number representing the text angle in degrees.
+}}
 
 \item{n.dodge}{The number of rows (for vertical axes) or columns (for
 horizontal axes) that should be used to render the labels. This is

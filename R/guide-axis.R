@@ -10,7 +10,10 @@
 #'   (recursively) prioritizing the first, last, and middle labels.
 #' @param angle Compared to setting the angle in [theme()] / [element_text()],
 #'   this also uses some heuristics to automatically pick the `hjust` and `vjust` that
-#'   you probably want.
+#'   you probably want. Can be one of the following:
+#'   * `NULL` to take the angles and `hjust`/`vjust` directly from the theme.
+#'   * `waiver()` to allow reasonable defaults in special cases.
+#'   *  A number representing the text angle in degrees.
 #' @param n.dodge The number of rows (for vertical axes) or columns (for
 #'   horizontal axes) that should be used to render the labels. This is
 #'   useful for displaying labels that would otherwise overlap.
@@ -41,7 +44,7 @@
 #'
 #' # can also be used to add a duplicate guide
 #' p + guides(x = guide_axis(n.dodge = 2), y.sec = guide_axis())
-guide_axis <- function(title = waiver(), check.overlap = FALSE, angle = NULL,
+guide_axis <- function(title = waiver(), check.overlap = FALSE, angle = waiver(),
                        n.dodge = 1, cap = "none", order = 0,
                        position = waiver()) {
 
@@ -510,7 +513,7 @@ axis_label_priority_between <- function(x, y) {
 #'
 axis_label_element_overrides <- function(axis_position, angle = NULL) {
 
-  if (is.null(angle)) {
+  if (is.null(angle) || is.waive(angle)) {
     return(element_text(angle = NULL, hjust = NULL, vjust = NULL))
   }
 
