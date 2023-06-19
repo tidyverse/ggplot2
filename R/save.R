@@ -233,7 +233,8 @@ plot_dev <- function(device, filename = NULL, dpi = 300, call = caller_env()) {
     jpg =  function(...) jpeg_dev(..., res = dpi, units = "in"),
     jpeg = function(...) jpeg_dev(..., res = dpi, units = "in"),
     bmp =  function(...) grDevices::bmp(..., res = dpi, units = "in"),
-    tiff = function(...) tiff_dev(..., res = dpi, units = "in")
+    tiff = function(...) tiff_dev(..., res = dpi, units = "in"),
+    tif  = function(...) tiff_dev(..., res = dpi, units = "in")
   )
 
   if (is.null(device)) {
