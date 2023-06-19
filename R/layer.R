@@ -27,7 +27,7 @@
 #'   `ggproto` `Geom` subclass or as a string naming the geom stripped of the
 #'   `geom_` prefix (e.g. `"point"` rather than `"geom_point"`)
 #' @param stat The statistical transformation to use on the data for this
-#'    layer, either as a `ggproto` `Geom` subclass or as a string naming the
+#'    layer, either as a `ggproto` `Stat` subclass or as a string naming the
 #'    stat stripped of the `stat_` prefix (e.g. `"count"` rather than
 #'    `"stat_count"`)
 #' @param position Position adjustment, either as a string naming the adjustment
