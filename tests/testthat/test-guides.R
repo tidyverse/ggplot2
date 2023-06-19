@@ -96,13 +96,6 @@ test_that("axis_label_overlap_priority always returns the correct number of elem
   expect_setequal(axis_label_priority(100), seq_len(100))
 })
 
-test_that("axis_label_element_overrides errors when angles are outside the range [0, 90]", {
-  expect_s3_class(axis_label_element_overrides("bottom", 0), "element")
-  expect_snapshot_error(axis_label_element_overrides("bottom", 91))
-  expect_snapshot_error(axis_label_element_overrides("bottom", -91))
-  expect_snapshot_error(axis_label_element_overrides("test", 0))
-})
-
 test_that("a warning is generated when guides are drawn at a location that doesn't make sense", {
   plot <- ggplot(mpg, aes(class, hwy)) +
     geom_point() +

@@ -508,42 +508,44 @@ axis_label_priority_between <- function(x, y) {
 #'   overridden from the user- or theme-supplied element.
 #' @noRd
 #'
+#'
 axis_label_element_overrides <- function(axis_position, angle = NULL) {
+
   if (is.null(angle)) {
     return(element_text(angle = NULL, hjust = NULL, vjust = NULL))
   }
 
-  # it is not worth the effort to align upside-down labels properly
-  check_number_decimal(angle, min = -90, max = 90)
+  check_number_decimal(angle)
+  angle <- angle %% 360
 
   if (axis_position == "bottom") {
-    element_text(
-      angle = angle,
-      hjust = if (angle > 0) 1 else if (angle < 0) 0 else 0.5,
-      vjust = if (abs(angle) == 90) 0.5 else 1
-    )
+
+    hjust = if (angle %in% c(0, 180))  0.5 else if (angle < 180) 1 else 0
+    vjust = if (angle %in% c(90, 270)) 0.5 else if (angle > 90 & angle < 270) 0 else 1
+
   } else if (axis_position == "left") {
-    element_text(
-      angle = angle,
-      hjust = if (abs(angle) == 90) 0.5 else 1,
-      vjust = if (angle > 0) 0 else if (angle < 0) 1 else 0.5,
-    )
+
+    hjust = if (angle %in% c(90, 270)) 0.5 else if (angle > 90 & angle < 270) 0 else 1
+    vjust = if (angle %in% c(0, 180))  0.5 else if (angle < 180) 0 else 1
+
   } else if (axis_position == "top") {
-    element_text(
-      angle = angle,
-      hjust = if (angle > 0) 0 else if (angle < 0) 1 else 0.5,
-      vjust = if (abs(angle) == 90) 0.5 else 0
-    )
+
+    hjust = if (angle %in% c(0, 180))  0.5 else if (angle < 180) 0 else 1
+    vjust = if (angle %in% c(90, 270)) 0.5 else if (angle > 90 & angle < 270) 1 else 0
+
   } else if (axis_position == "right") {
-    element_text(
-      angle = angle,
-      hjust = if (abs(angle) == 90) 0.5 else 0,
-      vjust = if (angle > 0) 1 else if (angle < 0) 0 else 0.5,
-    )
+
+    hjust = if (angle %in% c(90, 270)) 0.5 else if (angle > 90 & angle < 270) 1 else 0
+    vjust = if (angle %in% c(0, 180))  0.5 else if (angle < 180) 1 else 0
+
   } else {
+
     cli::cli_abort(c(
       "Unrecognized {.arg axis_position}: {.val {axis_position}}",
       "i" = "Use one of {.val top}, {.val bottom}, {.val left} or {.val right}"
     ))
+
   }
+
+  element_text(angle = angle, hjust = hjust, vjust = vjust)
 }
