@@ -65,7 +65,7 @@ guide_axis_theta <- function(title = waiver(), angle = waiver(),
     minor.ticks  = minor.ticks,
 
     # parameter
-    available_aes = c("x", "y"),
+    available_aes = c("x", "y", "theta"),
 
     # general
     order = order,

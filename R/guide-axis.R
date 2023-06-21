@@ -65,7 +65,7 @@ guide_axis <- function(title = waiver(), check.overlap = FALSE, angle = waiver()
     cap = cap,
 
     # parameter
-    available_aes = c("x", "y"),
+    available_aes = c("x", "y", "r"),
 
     # general
     order = order,
