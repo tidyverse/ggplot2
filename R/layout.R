@@ -257,11 +257,13 @@ Layout <- ggproto("Layout", NULL,
         guides <- c("x", "x.sec")
       }
       params    <- self$panel_params[[1]]$guides$get_params(guides)
-      primary   <- params[[1]]$title %|W|% primary
-      secondary <- params[[2]]$title %|W|% secondary
-      position  <- params[[1]]$position %||% scale$position
-      if (position != scale$position) {
-        order <- rev(order)
+      if (!is.null(params)) {
+        primary   <- params[[1]]$title %|W|% primary
+        secondary <- params[[2]]$title %|W|% secondary
+        position  <- params[[1]]$position %||% scale$position
+        if (position != scale$position) {
+          order <- rev(order)
+        }
       }
     }
     primary   <- scale$make_title(primary)
