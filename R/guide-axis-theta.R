@@ -113,6 +113,15 @@ GuideAxisTheta <- ggproto(
   },
 
   transform = function(params, coord, panel_params) {
+
+    if (params$position != "theta") {
+      cli::cli_warn(c(paste0(
+        "{.fn guide_axis_theta} cannot be used for the ",
+        "{.field {params$position}} position."
+      ), i = "It requires the position to be {.field theta}."))
+      return(NULL)
+    }
+
     opposite <- setdiff(c("x", "y"), params$aesthetic)
     params$key[[opposite]] <- Inf
     params <- GuideAxis$transform(params, coord, panel_params)
