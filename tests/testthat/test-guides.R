@@ -481,6 +481,19 @@ test_that("guide_axis() draws minor ticks correctly", {
   expect_doppelganger("guides with minor ticks", p)
 })
 
+test_that("axis guides can be capped", {
+  p <- ggplot(mtcars, aes(hp, disp)) +
+    geom_point() +
+    theme(axis.line = element_line()) +
+    guides(
+      x = guide_axis(cap = "both"),
+      y = guide_axis(cap = "upper"),
+      y.sec = guide_axis(cap = "lower"),
+      x.sec = guide_axis(cap = "none")
+    )
+  expect_doppelganger("axis guides with capped ends", p)
+})
+
 test_that("guides are positioned correctly", {
   df <- data_frame(x = 1, y = 1, z = factor("a"))
 
@@ -774,5 +787,58 @@ test_that("guides() errors if unnamed guides are provided", {
   expect_error(
     guides(x = "axis", "axis"),
     "The 2nd guide is unnamed"
+  )
+})
+
+test_that("old S3 guides can be implemented", {
+
+  my_env <- env()
+  my_env$guide_circle <- function() {
+    structure(
+      list(available_aes = c("x", "y"), position = "bottom"),
+      class = c("guide", "circle")
+    )
+  }
+
+  registerS3method(
+    "guide_train", "circle",
+    function(guide, ...) guide,
+    envir = my_env
+  )
+  registerS3method(
+    "guide_transform", "circle",
+    function(guide, ...) guide,
+    envir = my_env
+  )
+  registerS3method(
+    "guide_merge", "circle",
+    function(guide, ...) guide,
+    envir = my_env
+  )
+  registerS3method(
+    "guide_geom", "circle",
+    function(guide, ...) guide,
+    envir = my_env
+  )
+  registerS3method(
+    "guide_gengrob", "circle",
+    function(guide, ...) {
+      absoluteGrob(
+        gList(circleGrob()),
+        height = unit(1, "cm"), width = unit(1, "cm")
+      )
+    },
+    envir = my_env
+  )
+
+  withr::local_environment(my_env)
+
+  expect_snapshot_warning(
+    expect_doppelganger(
+      "old S3 guide drawing a circle",
+      ggplot(mtcars, aes(disp, mpg)) +
+        geom_point() +
+        guides(x = "circle")
+    )
   )
 })

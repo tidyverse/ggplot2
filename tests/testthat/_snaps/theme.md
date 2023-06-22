@@ -42,13 +42,14 @@
 
 # Theme elements are checked during build
 
-    `plot.title.position` should be either "\"panel\"" or "\"plot\"".
+    `plot.title.position` must be one of "panel" or "plot", not "test".
 
 ---
 
-    `plot.caption.position` should be either "\"panel\"" or "\"plot\"".
+    `plot.caption.position` must be one of "panel" or "plot", not "test".
 
 ---
 
-    `plot.tag.position` should be a coordinate or one of "topleft", "top", "topright", "left", "right", "bottomleft", "bottom", or "bottomright"
+    `plot.tag.position` must be one of "topleft", "top", "topright", "left", "right", "bottomleft", "bottom", or "bottomright", not "test".
+    i Did you mean "left"?
 

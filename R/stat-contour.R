@@ -5,7 +5,7 @@
 #' @eval rd_aesthetics("stat", "contour_filled")
 #' @eval rd_computed_vars(
 #'   .details = "The computed variables differ somewhat for contour lines
-#'   (compbuted by `stat_contour()`) and contour bands (filled contours,
+#'   (computed by `stat_contour()`) and contour bands (filled contours,
 #'   computed by `stat_contour_filled()`). The variables `nlevel` and `piece`
 #'   are available for both, whereas `level_low`, `level_high`, and `level_mid`
 #'   are only available for bands. The variable `level` is a numeric or a factor

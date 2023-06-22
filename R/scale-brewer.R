@@ -69,7 +69,7 @@
 #'   theme_dark()
 #' }
 #'
-#' # Use distiller variant with continous data
+#' # Use distiller variant with continuous data
 #' v <- ggplot(faithfuld) +
 #'   geom_tile(aes(waiting, eruptions, fill = density))
 #' v

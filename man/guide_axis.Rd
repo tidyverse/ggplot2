@@ -12,6 +12,7 @@ guide_axis(
   major.length = 1,
   minor.length = 0.75,
   minor.ticks = element_blank(),
+  cap = "none",
   order = 0,
   position = waiver()
 )
@@ -41,6 +42,12 @@ of major and minor tick marks relative to the theme's setting.}
 length 1 as shorthand for \code{element_line()} (\code{TRUE}) or \code{element_blank()}
 (\code{FALSE}). \code{minor.ticks = element_line(...)} can be used to style the
 minor ticks.}
+
+\item{cap}{A \code{character} to cut the axis line back to the last breaks. Can
+be \code{"none"} (default) to draw the axis line along the whole panel, or
+\code{"upper"} and \code{"lower"} to draw the axis to the upper or lower break, or
+\code{"both"} to only draw the line in between the most extreme breaks. \code{TRUE}
+and \code{FALSE} are shorthand for \code{"both"} and \code{"none"} respectively.}
 
 \item{order}{A positive \code{integer} of length 1 that specifies the order of
 this guide among multiple guides. This controls in which order guides are

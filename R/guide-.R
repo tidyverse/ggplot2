@@ -1,6 +1,6 @@
 #' Guide constructor
 #'
-#' A constructor function for guides, which performs some standard compatability
+#' A constructor function for guides, which performs some standard compatibility
 #' checks between the guide and provided arguments.
 #'
 #' @param ... Named arguments that match the parameters of `super$params` or

@@ -87,6 +87,7 @@ theme(
   plot.caption.position,
   plot.tag,
   plot.tag.position,
+  plot.tag.location,
   plot.margin,
   strip.background,
   strip.background.x,
@@ -248,9 +249,15 @@ inherits from \code{title}) left-aligned by default}
 (\code{\link[=element_text]{element_text()}}; inherits from \code{title}) left-aligned by default}
 
 \item{plot.tag.position}{The position of the tag as a string ("topleft",
-"top", "topright", "left", "right", "bottomleft", "bottom", "bottomright)
-or a coordinate. If a string, extra space will be added to accommodate the
-tag.}
+"top", "topright", "left", "right", "bottomleft", "bottom", "bottomright")
+or a coordinate. If a coordinate, can be a numeric vector of length 2 to
+set the x,y-coordinate relative to the whole plot. The coordinate option
+is unavailable for \code{plot.tag.location = "margin"}.}
+
+\item{plot.tag.location}{The placement of the tag as a string, one of
+\code{"panel"}, \code{"plot"} or \code{"margin"}. Respectively, these will place the tag
+inside the panel space, anywhere in the plot as a whole, or in the margin
+around the panel space.}
 
 \item{plot.margin}{margin around entire plot (\code{unit} with the sizes of
 the top, right, bottom, and left margins)}

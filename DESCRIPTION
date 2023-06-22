@@ -181,6 +181,7 @@ Collate:
     'guide-colorsteps.R'
     'layer.R'
     'guide-none.R'
+    'guide-old.R'
     'guides-.R'
     'guides-grid.R'
     'hexbin.R'
