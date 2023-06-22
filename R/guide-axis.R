@@ -257,7 +257,7 @@ GuideAxis <- ggproto(
     }
 
     new_params <- list(
-      opposite  = unname(setNames(.trbl, .trbl[c(3,4,1,2)])[position]),
+      opposite  = opposite_position(position),
       secondary = position %in% c("top", "right"),
       lab_first = position %in% c("top", "left"),
       orth_side = if (position %in% c("top", "right")) 0 else 1,

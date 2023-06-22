@@ -342,3 +342,12 @@ flip_names = c(
 # Shortcut for position argument matching
 .trbl <- c("top", "right", "bottom", "left")
 
+opposite_position <- function(position) {
+  switch(
+    position,
+    top    = "bottom",
+    bottom = "top",
+    left   = "right",
+    right  = "left"
+  )
+}
