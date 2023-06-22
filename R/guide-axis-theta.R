@@ -114,14 +114,6 @@ GuideAxisTheta <- ggproto(
 
   transform = function(params, coord, panel_params) {
 
-    if (params$position != "theta") {
-      cli::cli_warn(c(paste0(
-        "{.fn guide_axis_theta} cannot be used for the ",
-        "{.field {params$position}} position."
-      ), i = "It requires the position to be {.field theta}."))
-      return(NULL)
-    }
-
     opposite <- setdiff(c("x", "y"), params$aesthetic)
     params$key[[opposite]] <- Inf
     params <- GuideAxis$transform(params, coord, panel_params)
@@ -129,18 +121,32 @@ GuideAxisTheta <- ggproto(
     key <- params$key
     n <- nrow(key)
 
-    ends_apart <- (key$theta[n] - key$theta[1]) %% (2 * pi)
-    if (n > 0 && ends_apart < 0.05 && !is.null(key$.label)) {
-      if (is.expression(key$.label)) {
-        combined <- substitute(
-          paste(a, "/", b),
-          list(a = key$.label[[1]], b = key$.label[[n]])
-        )
-      } else {
-        combined <- paste(key$.label[1], key$.label[n], sep = "/")
+    if (!("theta" %in% names(key))) {
+      # We likely have a linear coord, so we match the text angles to
+      # standard axes.
+      key$theta <- switch(
+        params$position,
+        top    = 0,
+        bottom = 1 * pi,
+        left   = 1.5 * pi,
+        right  = 0.5 * pi
+      )
+    } else {
+      # If the first and last positions are close together, we merge the
+      # labels of these positions
+      ends_apart <- (key$theta[n] - key$theta[1]) %% (2 * pi)
+      if (n > 0 && ends_apart < 0.05 && !is.null(key$.label)) {
+        if (is.expression(key$.label)) {
+          combined <- substitute(
+            paste(a, "/", b),
+            list(a = key$.label[[1]], b = key$.label[[n]])
+          )
+        } else {
+          combined <- paste(key$.label[1], key$.label[n], sep = "/")
+        }
+        key$.label[[n]] <- combined
+        key <- vec_slice(key, -1)
       }
-      key$.label[[n]] <- combined
-      key <- vec_slice(key, -1)
     }
 
     params$key <- key
@@ -194,11 +200,8 @@ GuideAxisTheta <- ggproto(
     theta <- key$theta
 
     # Offset distance to displace text away from outer circle line
-    offset <- max(0, params$major.length, params$minor.length)
-    offset  <- max(elements$ticks_length * offset, unit(0, "pt")) +
-      max(elements$text$margin)
-    xoffset <- offset * sin(theta)
-    yoffset <- offset * cos(theta)
+    xoffset <- elements$offset * sin(theta)
+    yoffset <- elements$offset * cos(theta)
 
     # Note that element_grob expects 1 angle for *all* labels, so we're
     # rendering one grob per label to propagate angle properly
@@ -274,6 +277,38 @@ GuideAxisTheta <- ggproto(
   },
 
   assemble_drawing = function(grobs, layout, sizes, params, elements) {
+    if (params$position != "theta") {
+      # As a fallback, we adjust the viewport to act like regular axes.
+      if (params$position %in% c("top", "bottom")) {
+        height <- sum(
+          elements$offset,
+          unit(max(height_cm(grobs$labels$children)), "cm")
+        )
+        vp <- viewport(
+          y = unit(as.numeric(params$position == "bottom"), "npc"),
+          height = height, width = unit(1, "npc"),
+          just = opposite_position(params$position)
+        )
+      } else {
+        width <- sum(
+          elements$offset,
+          unit(max(width_cm(grobs$labels$children)), "cm")
+        )
+        vp <- viewport(
+          x = unit(as.numeric(params$position == "left"), "npc"),
+          height = unit(1, "npc"), width = width,
+          just = opposite_position(params$position)
+        )
+      }
+
+      out <- absoluteGrob(
+        do.call(gList, grobs),
+        width  = vp$width,
+        height = vp$height,
+        vp = vp
+      )
+      return(out)
+    }
     do.call(grobTree, grobs)
   }
 
