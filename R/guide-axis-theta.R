@@ -127,7 +127,7 @@ GuideAxisTheta <- ggproto(
       key$theta <- switch(
         params$position,
         top    = 0,
-        bottom = 1 * pi,
+        bottom = 1   * pi,
         left   = 1.5 * pi,
         right  = 0.5 * pi
       )
@@ -154,6 +154,7 @@ GuideAxisTheta <- ggproto(
   },
 
   setup_params = function(params) {
+    # Theta axis doesn't need to setup any position specific parameters.
     params
   },
 
@@ -161,6 +162,9 @@ GuideAxisTheta <- ggproto(
     axis_elem <- c("line", "text", "ticks", "ticks_length")
     is_char <- vapply(elements[axis_elem], is.character, logical(1))
     axis_elem <- axis_elem[is_char]
+    # Note that we're taking the {element}.{aes} elements here and not the
+    # {element}.{aes}.{position} elements, as bottom/top/left/right have no
+    # meaning for a theta axis.
     elements[axis_elem] <- lapply(
       paste(
         unlist(elements[axis_elem]),
@@ -169,10 +173,18 @@ GuideAxisTheta <- ggproto(
       calc_element, theme = theme
     )
     elements$minor_ticks <- combine_elements(params$minor.ticks, elements$ticks)
+
+    # Offset distance from axis arc to text positions
+    offset <- max(0, params$major.length, params$minor.length)
+    offset <- max(elements$ticks_length * offset, unit(0, "pt")) +
+      max(elements$text$margin)
+    elements$offset <- offset
     elements
   },
 
   override_elements = function(params, elements, theme) {
+    # We don't override any label angles/hjust/vjust because these depend on
+    # theta of label.
     return(elements)
   },
 
@@ -190,12 +202,12 @@ GuideAxisTheta <- ggproto(
     if (is.waive(params$angle) || is.null(params$angle)) {
       angle <- elements$text$angle
     } else {
-      angle <- (360 - key$theta * 180 / pi + params$angle) %% 360
+      angle <- (360 - rad2deg(key$theta) + params$angle) %% 360
       flip <- angle > 90 & angle < 270
       angle[flip] <- angle[flip] + 180
     }
     # Text angle in radians
-    rad <- angle * pi / 180
+    rad <- deg2rad(angle)
     # Position angle in radians
     theta <- key$theta
 
@@ -227,42 +239,14 @@ GuideAxisTheta <- ggproto(
       minor <- NULL
     }
 
-    n_breaks <- nrow(major)
-
-    tick_len <- elements$ticks_length * params$major.length
-    tick_len <- rep(tick_len, length.out = n_breaks * 2)
-
-    angle <- rep(major$theta, each = 2)
-    x     <- rep(major$x, each = 2)
-    y     <- rep(major$y, each = 2)
-    end   <- rep(c(0, 1), n_breaks)
-
-    major <- element_grob(
-      elements$ticks,
-      x = unit(x, "npc") + sin(angle) * end * tick_len,
-      y = unit(y, "npc") + cos(angle) * end * tick_len,
-      id.lengths = rep(2, n_breaks)
+    major <- theta_tickmarks(
+      elements$ticks, major,
+      elements$ticks_length * params$major.length
     )
 
-    if (empty(minor) || inherits(elements$minor_ticks, "element_blank")) {
-      return(major)
-    }
-
-    n_breaks <- nrow(minor)
-
-    tick_len <- elements$ticks_length * params$minor.length
-    tick_len <- rep(tick_len, length.out = n_breaks * 2)
-
-    angle <- rep(minor$theta, each = 2)
-    x     <- rep(minor$x, each = 2)
-    y     <- rep(minor$y, each = 2)
-    end   <- rep(c(0, 1), n_breaks)
-
-    minor <- element_grob(
-      elements$minor_ticks,
-      x = unit(x, "npc") + sin(angle) * end * tick_len,
-      y = unit(y, "npc") + cos(angle) * end * tick_len,
-      id.lengths = rep(2, n_breaks)
+    minor <- theta_tickmarks(
+      elements$minor_ticks, minor,
+      elements$ticks_length * params$minor.length
     )
 
     grobTree(major, minor, name = "ticks")
@@ -277,40 +261,58 @@ GuideAxisTheta <- ggproto(
   },
 
   assemble_drawing = function(grobs, layout, sizes, params, elements) {
-    if (params$position != "theta") {
-      # As a fallback, we adjust the viewport to act like regular axes.
-      if (params$position %in% c("top", "bottom")) {
-        height <- sum(
-          elements$offset,
-          unit(max(height_cm(grobs$labels$children)), "cm")
-        )
-        vp <- viewport(
-          y = unit(as.numeric(params$position == "bottom"), "npc"),
-          height = height, width = unit(1, "npc"),
-          just = opposite_position(params$position)
-        )
-      } else {
-        width <- sum(
-          elements$offset,
-          unit(max(width_cm(grobs$labels$children)), "cm")
-        )
-        vp <- viewport(
-          x = unit(as.numeric(params$position == "left"), "npc"),
-          height = unit(1, "npc"), width = width,
-          just = opposite_position(params$position)
-        )
-      }
-
-      out <- absoluteGrob(
-        do.call(gList, grobs),
-        width  = vp$width,
-        height = vp$height,
-        vp = vp
-      )
-      return(out)
+    if (params$position == "theta") {
+      return(do.call(grobTree, grobs))
     }
-    do.call(grobTree, grobs)
-  }
 
+    # As a fallback, we adjust the viewport to act like regular axes.
+    if (params$position %in% c("top", "bottom")) {
+      height <- sum(
+        elements$offset,
+        unit(max(height_cm(grobs$labels$children)), "cm")
+      )
+      vp <- viewport(
+        y = unit(as.numeric(params$position == "bottom"), "npc"),
+        height = height, width = unit(1, "npc"),
+        just = opposite_position(params$position)
+      )
+    } else {
+      width <- sum(
+        elements$offset,
+        unit(max(width_cm(grobs$labels$children)), "cm")
+      )
+      vp <- viewport(
+        x = unit(as.numeric(params$position == "left"), "npc"),
+        height = unit(1, "npc"), width = width,
+        just = opposite_position(params$position)
+      )
+    }
+
+    absoluteGrob(
+      do.call(gList, grobs),
+      width  = vp$width,
+      height = vp$height,
+      vp = vp
+    )
+  }
 )
 
+theta_tickmarks <- function(element, key, length) {
+  n_breaks <- nrow(key)
+  if (n_breaks < 1 || inherits(element, "element_blank")) {
+    return(zeroGrob())
+  }
+
+  length <- rep(length, length.out = n_breaks * 2)
+  angle  <- rep(key$theta, each = 2)
+  x      <- rep(key$x,     each = 2)
+  y      <- rep(key$y,     each = 2)
+  length <- rep(c(0, 1),  times = n_breaks) * length
+
+  minor <- element_grob(
+    element,
+    x = unit(x, "npc") + sin(angle) * length,
+    y = unit(y, "npc") + cos(angle) * length,
+    id.lengths = rep(2, n_breaks)
+  )
+}
