@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Nicer error messages for xlim/ylim arguments in coord-* functions
+  (@92amartins, #4601, #5297).
+
 * `coord_sf()` now uses customisable guides provided in the scales or 
   `guides()` function (@teunbrand).
 

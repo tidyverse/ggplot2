@@ -218,3 +218,22 @@ render_axis <- function(panel_params, axis, scale, position, theme) {
     zeroGrob()
   }
 }
+
+# Utility function to check coord limits
+check_coord_limits <- function(
+    limits, arg = caller_arg(limits), call = caller_env()
+) {
+  if (is.null(limits)) {
+    return(invisible(NULL))
+  }
+  if (!obj_is_vector(limits) || length(limits) != 2) {
+    what <- "{.obj_type_friendly {limits}}"
+    if (is.vector(limits)) {
+      what <- paste0(what, " of length {length(limits)}")
+    }
+    cli::cli_abort(
+      paste0("{.arg {arg}} must be a vector of length 2, not ", what, "."),
+      call = call
+    )
+  }
+}
