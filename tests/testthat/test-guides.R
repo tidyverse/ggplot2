@@ -739,6 +739,37 @@ test_that("binning scales understand the different combinations of limits, break
   expect_snapshot_warning(ggplotGrob(p + scale_color_binned(labels = 1:4, show.limits = TRUE)))
 })
 
+test_that("guide_axis_theta sets relative angle", {
+
+  p <- ggplot(mtcars, aes(disp, mpg)) +
+    geom_point() +
+    scale_x_continuous(breaks = breaks_width(25)) +
+    coord_polar2(donut = 0.5) +
+    guides(
+      theta = guide_axis_theta(angle = 0, cap = "none"),
+      theta.sec = guide_axis_theta(angle = 90, cap = "both")
+    ) +
+    theme(axis.line = element_line(colour = "black"))
+
+  expect_doppelganger("guide_axis_theta with angle adapting to theta", p)
+})
+
+test_that("guide_axis_theta can be used in cartesian coordinates", {
+
+  p <- ggplot(mtcars, aes(disp, mpg)) +
+    geom_point() +
+    guides(x = "axis_theta", y = "axis_theta",
+           x.sec = "axis_theta", y.sec = "axis_theta") +
+    theme(
+      axis.line.x.bottom = element_line(colour = "tomato"),
+      axis.line.x.top    = element_line(colour = "limegreen"),
+      axis.line.y.left   = element_line(colour = "dodgerblue"),
+      axis.line.y.right  = element_line(colour = "orchid")
+    )
+
+  expect_doppelganger("guide_axis_theta in cartesian coordinates", p)
+})
+
 test_that("a warning is generated when guides(<scale> = FALSE) is specified", {
   df <- data_frame(x = c(1, 2, 4),
                    y = c(6, 5, 7))
