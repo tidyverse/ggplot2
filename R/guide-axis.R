@@ -154,6 +154,12 @@ GuideAxis <- ggproto(
 
     params$decor <- coord_munch(coord, params$decor, panel_params)
 
+    if (inherits(coord, "CoordPolar2")) {
+      # Radius axis that needs to correct the other aesthetic
+      # for having incorrect theta.
+      params$decor$x <- switch(position, left = 1, right = 0, params$decor$x)
+    }
+
     # Ported over from `warn_for_position_guide`
     # This is trying to catch when a user specifies a position perpendicular
     # to the direction of the axis (e.g., a "y" axis on "top").
