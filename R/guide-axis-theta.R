@@ -23,7 +23,7 @@ NULL
 #' @export
 #'
 #' @examples
-#' # A basic polar plot
+#' # A plot using coord_polar2
 #' p <- ggplot(mtcars, aes(disp, mpg)) +
 #'   geom_point() +
 #'   coord_polar2()
@@ -104,22 +104,28 @@ GuideAxisTheta <- ggproto(
     vec_rbind(major, minor)
   },
 
-  extract_decor = function(scale, aesthetic, key, cap = "none", ...) {
-    # We put position = "left" to get `Inf` on the opposite aesthetic
+  extract_decor = function(scale, aesthetic, key, cap = "none", position, ...) {
+    # For theta position, we pretend we're left/right because that will put
+    # the correct opposite aesthetic as the line coordinates.
+    position <- switch(position, theta = "left", theta.sec = "right", position)
+
     GuideAxis$extract_decor(
       scale = scale, aesthetic = aesthetic,
-      position = "left", key = key, cap = cap
+      position = position, key = key, cap = cap
     )
   },
 
   transform = function(params, coord, panel_params) {
 
     opposite <- setdiff(c("x", "y"), params$aesthetic)
-    params$key[[opposite]] <- Inf
+    params$key[[opposite]] <- switch(params$position, theta.sec = -Inf, Inf)
+
     params <- GuideAxis$transform(params, coord, panel_params)
 
     key <- params$key
     n <- nrow(key)
+
+    params$theme_aes <- coord$theta %||% params$aesthetic
 
     if (!("theta" %in% names(key))) {
       # We likely have a linear coord, so we match the text angles to
@@ -132,6 +138,10 @@ GuideAxisTheta <- ggproto(
         right  = 0.5 * pi
       )
     } else {
+      if (params$position == 'theta.sec') {
+        key$theta <- key$theta + pi
+      }
+
       # If the first and last positions are close together, we merge the
       # labels of these positions
       ends_apart <- (key$theta[n] - key$theta[1]) %% (2 * pi)
@@ -162,14 +172,16 @@ GuideAxisTheta <- ggproto(
     axis_elem <- c("line", "text", "ticks", "ticks_length")
     is_char <- vapply(elements[axis_elem], is.character, logical(1))
     axis_elem <- axis_elem[is_char]
-    # Note that we're taking the {element}.{aes} elements here and not the
-    # {element}.{aes}.{position} elements, as bottom/top/left/right have no
-    # meaning for a theta axis.
+
+    aes <- switch(
+      params$position,
+      theta     = "x.bottom",
+      theta.sec = "x.top",
+      paste0(params$aesthetic, ".", params$position)
+    )
+
     elements[axis_elem] <- lapply(
-      paste(
-        unlist(elements[axis_elem]),
-        params$aes, sep = "."
-      ),
+      paste(unlist(elements[axis_elem]), aes, sep = "."),
       calc_element, theme = theme
     )
     elements$minor_ticks <- combine_elements(params$minor.ticks, elements$ticks)
@@ -261,7 +273,7 @@ GuideAxisTheta <- ggproto(
   },
 
   assemble_drawing = function(grobs, layout, sizes, params, elements) {
-    if (params$position == "theta") {
+    if (params$position %in% c("theta", "theta.sec")) {
       return(do.call(grobTree, grobs))
     }
 
