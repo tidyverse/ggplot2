@@ -3,8 +3,8 @@
 %   R/annotation-logticks.R, R/geom-polygon.R, R/geom-map.R, R/annotation-map.R,
 %   R/geom-raster.R, R/annotation-raster.R, R/axis-secondary.R, R/coord-.R,
 %   R/coord-cartesian-.R, R/coord-fixed.R, R/coord-flip.R, R/coord-map.R,
-%   R/coord-polar.R, R/coord-quickmap.R, R/coord-transform.R, R/facet-.R,
-%   R/facet-grid-.R, R/facet-null.R, R/facet-wrap.R, R/stat-.R,
+%   R/coord-polar.R, R/coord-polar2.R, R/coord-quickmap.R, R/coord-transform.R,
+%   R/facet-.R, R/facet-grid-.R, R/facet-null.R, R/facet-wrap.R, R/stat-.R,
 %   R/geom-abline.R, R/geom-rect.R, R/geom-bar.R, R/geom-blank.R,
 %   R/geom-boxplot.R, R/geom-col.R, R/geom-path.R, R/geom-contour.R,
 %   R/geom-crossbar.R, R/geom-segment.R, R/geom-curve.R, R/geom-ribbon.R,
@@ -43,6 +43,7 @@
 \alias{CoordFlip}
 \alias{CoordMap}
 \alias{CoordPolar}
+\alias{CoordPolar2}
 \alias{CoordQuickmap}
 \alias{CoordTrans}
 \alias{Facet}

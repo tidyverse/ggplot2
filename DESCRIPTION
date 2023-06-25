@@ -115,6 +115,7 @@ Collate:
     'coord-map.R'
     'coord-munch.R'
     'coord-polar.R'
+    'coord-polar2.R'
     'coord-quickmap.R'
     'coord-sf.R'
     'coord-transform.R'
