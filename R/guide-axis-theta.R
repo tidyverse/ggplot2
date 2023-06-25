@@ -118,7 +118,11 @@ GuideAxisTheta <- ggproto(
   transform = function(params, coord, panel_params) {
 
     opposite <- setdiff(c("x", "y"), params$aesthetic)
-    params$key[[opposite]] <- switch(params$position, theta.sec = -Inf, Inf)
+    params$key[[opposite]] <- switch(params$position,
+                                     theta.sec = -Inf,
+                                     top = -Inf,
+                                     right = -Inf,
+                                     Inf)
 
     params <- GuideAxis$transform(params, coord, panel_params)
 
@@ -214,9 +218,7 @@ GuideAxisTheta <- ggproto(
     if (is.waive(params$angle) || is.null(params$angle)) {
       angle <- elements$text$angle
     } else {
-      angle <- (360 - rad2deg(key$theta) + params$angle) %% 360
-      flip <- angle > 90 & angle < 270
-      angle[flip] <- angle[flip] + 180
+      angle <- flip_text_angle(params$angle - rad2deg(key$theta))
     }
     # Text angle in radians
     rad <- deg2rad(angle)

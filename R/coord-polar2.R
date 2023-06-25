@@ -230,8 +230,7 @@ CoordPolar2 <- ggproto("CoordPolar2", Coord,
     data$y <- rescale(data$r * cos(data$theta) + 0.5, from = bbox$y)
 
     if (self$rotate_angle && "angle" %in% names(data)) {
-      offset     <- self$direction * arc[1]
-      data$angle <- flip_text_angle(data$angle - rad2deg(data$theta - offset))
+      data$angle <- flip_text_angle(data$angle - rad2deg(data$theta))
     }
 
     data
@@ -413,7 +412,7 @@ CoordPolar2 <- ggproto("CoordPolar2", Coord,
         "No appropriate placement found for {.arg r_axis_inside}.",
         i = "Axis will be placed at panel edge."
       ))
-      self$r_axis_inside <- FALSE
+      self$r_axis_inside <- TRUE
     }
     return(NULL)
   }
@@ -540,6 +539,7 @@ rotate_r_axis <- function(axis, angle, bbox, position = "left") {
 }
 
 flip_text_angle <- function(angle) {
+  angle <- angle %% 360
   flip <- angle > 90 & angle < 270
   angle[flip] <- angle[flip] + 180
   angle
