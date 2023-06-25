@@ -410,8 +410,8 @@ GuideColourbar <- ggproto(
     } else {
       elements$key.height <- elements$key.height * 5
     }
-    elements$ticks <- combine_elements(elements$ticks, theme$line)
-    elements$frame <- combine_elements(elements$frame, theme$rect)
+    elements$ticks <- combine_elements(elements$ticks, calc_element("line", theme))
+    elements$frame <- combine_elements(elements$frame, calc_element("rect", theme))
     GuideLegend$override_elements(params, elements, theme)
   },
 

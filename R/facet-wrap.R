@@ -257,7 +257,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
 
     # If user hasn't set aspect ratio, and we have fixed scales, then
     # ask the coordinate system if it wants to specify one
-    aspect_ratio <- theme$aspect.ratio
+    aspect_ratio <- calc_element("aspect.ratio", theme)
     if (is.null(aspect_ratio) && !params$free$x && !params$free$y) {
       aspect_ratio <- coord$aspect(ranges[[1]])
     }
@@ -279,9 +279,9 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     panel_table$layout$name <- paste0('panel-', rep(seq_len(ncol), nrow), '-', rep(seq_len(nrow), each = ncol))
 
     panel_table <- gtable_add_col_space(panel_table,
-      theme$panel.spacing.x %||% theme$panel.spacing)
+                                        calc_element("panel.spacing.x", theme))
     panel_table <- gtable_add_row_space(panel_table,
-      theme$panel.spacing.y %||% theme$panel.spacing)
+                                        calc_element("panel.spacing.y", theme))
 
     # Add axes
     axis_mat_x_top <- empty_table
@@ -320,7 +320,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     if (any(empties)) {
       row_ind <- row(empties)
       col_ind <- col(empties)
-      inside <- (theme$strip.placement %||% "inside") == "inside"
+      inside <- (calc_element("strip.placement", theme) %||% "inside") == "inside"
       empty_bottom <- apply(empties, 2, function(x) c(diff(x) == 1, FALSE))
       if (any(empty_bottom)) {
         pos <- which(empty_bottom)
@@ -403,12 +403,13 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     panel_table <- weave_tables_col(panel_table, axis_mat_y_left, -1, axis_width_left, "axis-l", 3)
     panel_table <- weave_tables_col(panel_table, axis_mat_y_right, 0, axis_width_right, "axis-r", 3)
 
-    strip_padding <- convertUnit(theme$strip.switch.pad.wrap, "cm")
+    strip_padding <- calc_element("strip.switch.pad.wrap", theme)
+    strip_padding <- convertUnit(strip_padding, "cm")
     strip_name <- paste0("strip-", substr(params$strip.position, 1, 1))
     strip_mat <- empty_table
     strip_mat[panel_pos] <- unlist(unname(strips), recursive = FALSE)[[params$strip.position]]
     if (params$strip.position %in% c("top", "bottom")) {
-      inside_x <- (theme$strip.placement.x %||% theme$strip.placement %||% "inside") == "inside"
+      inside_x <- (calc_element("strip.placement.x", theme) %||% "inside") == "inside"
       if (params$strip.position == "top") {
         placement <- if (inside_x) -1 else -2
         strip_pad <- axis_height_top
@@ -423,7 +424,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
         panel_table <- weave_tables_row(panel_table, row_shift = placement, row_height = strip_pad)
       }
     } else {
-      inside_y <- (theme$strip.placement.y %||% theme$strip.placement %||% "inside") == "inside"
+      inside_y <- (calc_element("strip.placement.y", theme) %||% "inside") == "inside"
       if (params$strip.position == "left") {
         placement <- if (inside_y) -1 else -2
         strip_pad <- axis_width_left

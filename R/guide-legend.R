@@ -414,11 +414,11 @@ GuideLegend <- ggproto(
         }
         # Breaking justification inheritance for intuition purposes.
         if (is.null(params$label.theme$hjust) &&
-            is.null(theme$legend.text$hjust)) {
+            is.null(theme[["legend.text"]]$hjust)) {
           label$hjust <- NULL
         }
         if (is.null(params$label.theme$vjust) &&
-            is.null(theme$legend.text$vjust)) {
+            is.null(theme[["legend.text"]]$vjust)) {
           label$vjust <- NULL
         }
         label$hjust <- params$label.hjust %||% elements$text.align %||%
@@ -439,8 +439,8 @@ GuideLegend <- ggproto(
       elements$text$size %||% 11
     gap <- unit(gap * 0.5, "pt")
     # Should maybe be elements$spacing.{x/y} instead of the theme's spacing?
-    elements$hgap <- width_cm( theme$legend.spacing.x %||% gap)
-    elements$vgap <- height_cm(theme$legend.spacing.y %||% gap)
+    elements$hgap <- width_cm( theme[["legend.spacing.x"]] %||% gap)
+    elements$vgap <- height_cm(theme[["legend.spacing.y"]] %||% gap)
     elements$padding <- convertUnit(
       elements$margin %||% margin(),
       "cm", valueOnly = TRUE

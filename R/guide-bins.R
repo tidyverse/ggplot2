@@ -334,8 +334,9 @@ GuideBins <- ggproto(
   },
 
   override_elements = function(params, elements, theme) {
-    elements$ticks <- combine_elements(elements$ticks, theme$line)
-    elements$line  <- combine_elements(elements$line,  theme$line)
+    line <- calc_element("line", theme)
+    elements$ticks <- combine_elements(elements$ticks, line)
+    elements$line  <- combine_elements(elements$line,  line)
     GuideLegend$override_elements(params, elements, theme)
   },
 

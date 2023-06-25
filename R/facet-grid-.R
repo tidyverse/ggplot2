@@ -319,7 +319,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     attr(row_vars, "facet") <- "grid"
     strips <- render_strips(col_vars, row_vars, params$labeller, theme)
 
-    aspect_ratio <- theme$aspect.ratio
+    aspect_ratio <- calc_element("aspect.ratio", theme)
     if (!is.null(aspect_ratio) && (params$space_free$x || params$space_free$y)) {
       cli::cli_abort("Free scales cannot be mixed with a fixed aspect ratio")
     }
@@ -362,9 +362,9 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     panel_table$layout$name <- paste0('panel-', rep(seq_len(nrow), ncol), '-', rep(seq_len(ncol), each = nrow))
 
     panel_table <- gtable_add_col_space(panel_table,
-      theme$panel.spacing.x %||% theme$panel.spacing)
+                                        calc_element("panel.spacing.x", theme))
     panel_table <- gtable_add_row_space(panel_table,
-      theme$panel.spacing.y %||% theme$panel.spacing)
+                                        calc_element("panel.spacing.y", theme))
 
     # Add axes
     panel_table <- gtable_add_rows(panel_table, max_height(axes$x$top),     0)
@@ -382,9 +382,10 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     # Add strips
     switch_x <- !is.null(params$switch) && params$switch %in% c("both", "x")
     switch_y <- !is.null(params$switch) && params$switch %in% c("both", "y")
-    inside_x <- (theme$strip.placement.x %||% theme$strip.placement %||% "inside") == "inside"
-    inside_y <- (theme$strip.placement.y %||% theme$strip.placement %||% "inside") == "inside"
-    strip_padding <- convertUnit(theme$strip.switch.pad.grid, "cm")
+    inside_x <- (calc_element("strip.placement.x", theme) %||% "inside") == "inside"
+    inside_y <- (calc_element("strip.placement.y", theme) %||% "inside") == "inside"
+    strip_padding <- calc_element("strip.switch.pad.grid", theme)
+    strip_padding <- convertUnit(strip_padding, "cm")
     panel_pos_col <- panel_cols(panel_table)
     if (switch_x) {
       if (!is.null(strips$x$bottom)) {

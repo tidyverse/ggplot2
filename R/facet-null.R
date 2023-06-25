@@ -44,7 +44,7 @@ FacetNull <- ggproto("FacetNull", Facet,
     range <- ranges[[1]]
 
     # Figure out aspect ratio
-    aspect_ratio <- theme$aspect.ratio %||% coord$aspect(range)
+    aspect_ratio <- calc_element("aspect.ratio", theme) %||% coord$aspect(range)
     if (is.null(aspect_ratio)) {
       aspect_ratio <- 1
       respect <- FALSE

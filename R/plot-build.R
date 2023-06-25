@@ -172,7 +172,7 @@ ggplot_gtable.ggplot_built <- function(data) {
   plot_table <- layout$render(geom_grobs, data, theme, plot$labels)
 
   # Legends
-  position <- theme$legend.position %||% "right"
+  position <- calc_element("legend.position", theme) %||% "right"
   if (length(position) == 2) {
     position <- "manual"
   }
@@ -190,13 +190,14 @@ ggplot_gtable.ggplot_built <- function(data) {
 
     # Set the justification of the legend box
     # First value is xjust, second value is yjust
-    just <- valid.just(theme$legend.justification)
+    just <- valid.just(calc_element("legend.justification", theme))
     xjust <- just[1]
     yjust <- just[2]
 
     if (position == "manual") {
-      xpos <- theme$legend.position[1]
-      ypos <- theme$legend.position[2]
+      pos  <- calc_element("legend.position", theme)
+      xpos <- pos[1]
+      ypos <- pos[2]
 
       # x and y are specified via theme$legend.position (i.e., coords)
       legend_box <- editGrob(
@@ -232,24 +233,24 @@ ggplot_gtable.ggplot_built <- function(data) {
   # for align-to-device, use this:
   # panel_dim <-  summarise(plot_table$layout, t = min(t), r = max(r), b = max(b), l = min(l))
 
-  theme$legend.box.spacing <- theme$legend.box.spacing %||% unit(0.2, 'cm')
+  legend.box.spacing <- calc_element("legend.box.spacing", theme) %||% unit(0.2, "cm")
   if (position == "left") {
-    plot_table <- gtable_add_cols(plot_table, theme$legend.box.spacing, pos = 0)
+    plot_table <- gtable_add_cols(plot_table, legend.box.spacing, pos = 0)
     plot_table <- gtable_add_cols(plot_table, legend_width, pos = 0)
     plot_table <- gtable_add_grob(plot_table, legend_box, clip = "off",
       t = panel_dim$t, b = panel_dim$b, l = 1, r = 1, name = "guide-box")
   } else if (position == "right") {
-    plot_table <- gtable_add_cols(plot_table, theme$legend.box.spacing, pos = -1)
+    plot_table <- gtable_add_cols(plot_table, legend.box.spacing, pos = -1)
     plot_table <- gtable_add_cols(plot_table, legend_width, pos = -1)
     plot_table <- gtable_add_grob(plot_table, legend_box, clip = "off",
       t = panel_dim$t, b = panel_dim$b, l = -1, r = -1, name = "guide-box")
   } else if (position == "bottom") {
-    plot_table <- gtable_add_rows(plot_table, theme$legend.box.spacing, pos = -1)
+    plot_table <- gtable_add_rows(plot_table, legend.box.spacing, pos = -1)
     plot_table <- gtable_add_rows(plot_table, legend_height, pos = -1)
     plot_table <- gtable_add_grob(plot_table, legend_box, clip = "off",
       t = -1, b = -1, l = panel_dim$l, r = panel_dim$r, name = "guide-box")
   } else if (position == "top") {
-    plot_table <- gtable_add_rows(plot_table, theme$legend.box.spacing, pos = 0)
+    plot_table <- gtable_add_rows(plot_table, legend.box.spacing, pos = 0)
     plot_table <- gtable_add_rows(plot_table, legend_height, pos = 0)
     plot_table <- gtable_add_grob(plot_table, legend_box, clip = "off",
       t = 1, b = 1, l = panel_dim$l, r = panel_dim$r, name = "guide-box")
@@ -277,14 +278,14 @@ ggplot_gtable.ggplot_built <- function(data) {
   #   "panel" means align to the panel(s)
   #   "plot" means align to the entire plot (except margins and tag)
   title_pos <- arg_match0(
-    theme$plot.title.position %||% "panel",
+    calc_element("plot.title.position", theme) %||% "panel",
     c("panel", "plot"),
     arg_nm = "plot.title.position",
     error_call = expr(theme())
   )
 
   caption_pos <- arg_match0(
-    theme$plot.caption.position %||% "panel",
+    calc_element("plot.caption.position", theme) %||% "panel",
     values = c("panel", "plot"),
     arg_nm = "plot.caption.position",
     error_call = expr(theme())
@@ -321,12 +322,13 @@ ggplot_gtable.ggplot_built <- function(data) {
   plot_table <- table_add_tag(plot_table, plot$labels$tag, theme)
 
   # Margins
-  plot_table <- gtable_add_rows(plot_table, theme$plot.margin[1], pos = 0)
-  plot_table <- gtable_add_cols(plot_table, theme$plot.margin[2])
-  plot_table <- gtable_add_rows(plot_table, theme$plot.margin[3])
-  plot_table <- gtable_add_cols(plot_table, theme$plot.margin[4], pos = 0)
+  plot.margin <- calc_element("plot.margin", theme)
+  plot_table <- gtable_add_rows(plot_table, plot.margin[1], pos = 0)
+  plot_table <- gtable_add_cols(plot_table, plot.margin[2])
+  plot_table <- gtable_add_rows(plot_table, plot.margin[3])
+  plot_table <- gtable_add_cols(plot_table, plot.margin[4], pos = 0)
 
-  if (inherits(theme$plot.background, "element")) {
+  if (inherits(calc_element("plot.background", theme), "element")) {
     plot_table <- gtable_add_grob(plot_table,
       element_render(theme, "plot.background"),
       t = 1, l = 1, b = -1, r = -1, name = "background", z = -Inf)

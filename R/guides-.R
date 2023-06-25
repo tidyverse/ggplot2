@@ -252,14 +252,14 @@ Guides <- ggproto(
       return(no_guides)
     }
 
-    theme$legend.key.width  <- theme$legend.key.width  %||% theme$legend.key.size
-    theme$legend.key.height <- theme$legend.key.height %||% theme$legend.key.size
+    theme[["legend.key.width"]]  <- calc_element("legend.key.width", theme)
+    theme[["legend.key.height"]] <- calc_element("legend.key.height", theme)
 
 
     default_direction <- if (position == "inside") "vertical" else position
-    theme$legend.box       <- theme$legend.box       %||% default_direction
-    theme$legend.direction <- theme$legend.direction %||% default_direction
-    theme$legend.box.just  <- theme$legend.box.just  %||% switch(
+    theme[["legend.box"]]       <- calc_element("legend.box", theme) %||% default_direction
+    theme[["legend.direction"]] <- calc_element("legend.direction", theme) %||% default_direction
+    theme[["legend.box.just"]]  <- calc_element("legend.box.just", theme)  %||% switch(
       position,
       inside     = c("center", "center"),
       vertical   = c("left",   "top"),
@@ -272,7 +272,7 @@ Guides <- ggproto(
       return(no_guides)
     }
     guides <- self$setup(scales)
-    guides$train(scales, theme$legend.direction, labels)
+    guides$train(scales, calc_element("legend.direction", theme), labels)
     if (length(guides$guides) == 0) {
       return(no_guides)
     }
@@ -461,9 +461,9 @@ Guides <- ggproto(
   # Combining multiple guides in a guide box
   assemble = function(grobs, theme) {
     # Set spacing
-    theme$legend.spacing   <- theme$legend.spacing    %||% unit(0.5, "lines")
-    theme$legend.spacing.y <- theme$legend.spacing.y  %||% theme$legend.spacing
-    theme$legend.spacing.x <- theme$legend.spacing.x  %||% theme$legend.spacing
+    theme[["legend.spacing"]]   <- calc_element("legend.spacing",   theme) %||% unit(0.5, "lines")
+    theme[["legend.spacing.y"]] <- calc_element("legend.spacing.y", theme)
+    theme[["legend.spacing.x"]] <- calc_element("legend.spacing.x", theme)
 
     # Measure guides
     widths  <- lapply(grobs, function(g) sum(g$widths))
@@ -473,12 +473,12 @@ Guides <- ggproto(
 
     # Set the justification of each legend within the legend box
     # First value is xjust, second value is yjust
-    just <- valid.just(theme$legend.box.just)
+    just <- valid.just(calc_element("legend.box.just", theme))
     xjust <- just[1]
     yjust <- just[2]
 
     # setting that is different for vertical and horizontal guide-boxes.
-    if (identical(theme$legend.box, "horizontal")) {
+    if (identical(calc_element("legend.box", theme), "horizontal")) {
       # Set justification for each legend
       for (i in seq_along(grobs)) {
         grobs[[i]] <- editGrob(
@@ -493,7 +493,7 @@ Guides <- ggproto(
                            widths = widths, height = max(heights))
 
       # add space between the guide-boxes
-      guides <- gtable_add_col_space(guides, theme$legend.spacing.x)
+      guides <- gtable_add_col_space(guides, calc_element("legend.spacing.x", theme))
 
     } else { # theme$legend.box == "vertical"
       # Set justification for each legend
@@ -510,18 +510,18 @@ Guides <- ggproto(
                            width = max(widths), heights = heights)
 
       # add space between the guide-boxes
-      guides <- gtable_add_row_space(guides, theme$legend.spacing.y)
+      guides <- gtable_add_row_space(guides, calc_element("legend.spacing.y", theme))
     }
 
     # Add margins around the guide-boxes.
-    margin <- theme$legend.box.margin %||% margin()
+    margin <- calc_element("legend.box.margin", theme) %||% margin()
     guides <- gtable_add_cols(guides, margin[4], pos = 0)
     guides <- gtable_add_cols(guides, margin[2], pos = ncol(guides))
     guides <- gtable_add_rows(guides, margin[1], pos = 0)
     guides <- gtable_add_rows(guides, margin[3], pos = nrow(guides))
 
     # Add legend box background
-    background <- element_grob(theme$legend.box.background %||% element_blank())
+    background <- element_render(theme, "legend.box.background")
 
     guides <- gtable_add_grob(
       guides, background,
