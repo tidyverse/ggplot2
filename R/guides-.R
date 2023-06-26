@@ -687,7 +687,7 @@ validate_guide <- function(guide) {
 #'
 #' # Coord polar doesn't support proper guides, so we get a list
 #' polar <- p + coord_polar()
-#' guide_data(theta, "theta", i = 1, j = 2)
+#' guide_data(polar, "theta", i = 1, j = 2)
 guide_data <- function(plot = last_plot(), aesthetic, i = 1L, j = 1L) {
 
   # Only handles a single aesthetic

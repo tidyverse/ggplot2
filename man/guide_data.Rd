@@ -45,6 +45,6 @@ guide_data(p, "x", i = 1, j = 2)
 
 # Coord polar doesn't support proper guides, so we get a list
 polar <- p + coord_polar()
-guide_data(theta, "theta", i = 1, j = 2)
+guide_data(polar, "theta", i = 1, j = 2)
 }
 \keyword{internal}
