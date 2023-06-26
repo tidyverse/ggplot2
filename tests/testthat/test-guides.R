@@ -311,6 +311,55 @@ test_that("guide_coloursteps and guide_bins return ordered breaks", {
   expect_true(all(diff(key$.value) < 0))
 })
 
+test_that("guide_data retrieves keys appropriately", {
+
+  p <- ggplot(mtcars, aes(mpg, disp, colour = drat, size = drat, fill = wt)) +
+    geom_point(shape = 21) +
+    facet_wrap(vars(cyl), scales = "free_x") +
+    guides(colour = "legend")
+  b <- ggplot_build(p)
+
+  # Test facetted panel
+  test <- guide_data(b, "x", i = 1, j = 2)
+  expect_equal(test$.label, c("18", "19", "20", "21"))
+
+  # Test plain legend
+  test <- guide_data(b, "fill")
+  expect_equal(test$.label, c("2", "3", "4", "5"))
+
+  # Test merged legend
+  test <- guide_data(b, "colour")
+  expect_true(all(c("colour", "size") %in% colnames(test)))
+
+  # Unmapped data
+  expect_null(guide_data(b, "shape"))
+
+  # Non-existent panels
+  expect_null(guide_data(b, "x", i = 2, j = 2))
+
+  expect_error(guide_data(b, 1), "must be a single string")
+  expect_error(guide_data(b, "x", i = "a"), "must be a whole number")
+})
+
+test_that("guide_data retrieves keys from exotic coords", {
+
+  p <- ggplot(mtcars, aes(mpg, disp)) + geom_point()
+
+  # Sanity check
+  test <- guide_data(p + coord_cartesian(), "x")
+  expect_equal(test$.label, c("10", "15", "20", "25", "30", "35"))
+
+  # We're not testing the formatting, so just testing output shape
+  test <- guide_data(p + coord_sf(crs = 3347), "y")
+  expect_equal(nrow(test), 5)
+  expect_true(all(c("x", ".value", ".label", "x") %in% colnames(test)))
+
+  # For coords that don't use guide system, we expect a list
+  test <- guide_data(p + coord_polar(), "theta")
+  expect_true(is.list(test) && !is.data.frame(test))
+  expect_equal(test$theta.labels, c("15", "20", "25", "30"))
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("axis guides are drawn correctly", {
