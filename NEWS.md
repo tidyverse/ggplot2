@@ -54,6 +54,8 @@
     * `guide_coloursteps()` and `guide_bins()` sort breaks (#5152).
     * `guide_axis()` gains a `cap` argument that can be used to trim the
       axis line to extreme breaks (#4907).
+    * The `guide_data()` function can be used to extract position and label
+      information from the plot (#5004).
 
 * `geom_label()` now uses the `angle` aesthetic (@teunbrand, #2785)
 * 'lines' units in `geom_label()`, often used in the `label.padding` argument, 
