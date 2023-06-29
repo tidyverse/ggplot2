@@ -89,9 +89,9 @@ GuideOld <- ggproto(
 
   train = function(self, params, scale, aesthetic = NULL,
                    title = NULL, direction = NULL) {
-    params <- guide_train(params, scale, aesthetic)
     params$title <- params$title %|W|% title
     params$direction <- params$direction %||% direction
+    params <- guide_train(params, scale, aesthetic)
     params
   },
 
