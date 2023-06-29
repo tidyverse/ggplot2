@@ -84,6 +84,11 @@ guides <- function(...) {
     return(guides_list(guides = args))
   }
 
+  # If there are no guides, do nothing
+  if (length(args) == 0) {
+    return(NULL)
+  }
+
   # Raise warning about unnamed guides
   nms <- names(args)
   if (is.null(nms)) {

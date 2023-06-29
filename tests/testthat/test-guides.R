@@ -769,6 +769,7 @@ test_that("guides() warns if unnamed guides are provided", {
     guides(x = "axis", "axis"),
     "The 2nd guide is unnamed"
   )
+  expect_null(guides())
 })
 
 test_that("old S3 guides can be implemented", {
