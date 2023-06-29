@@ -760,12 +760,12 @@ test_that("a warning is generated when guides(<scale> = FALSE) is specified", {
   expect_snapshot_warning(ggplot_gtable(built))
 })
 
-test_that("guides() errors if unnamed guides are provided", {
-  expect_error(
+test_that("guides() warns if unnamed guides are provided", {
+  expect_warning(
     guides("axis"),
     "All guides are unnamed."
   )
-  expect_error(
+  expect_warning(
     guides(x = "axis", "axis"),
     "The 2nd guide is unnamed"
   )

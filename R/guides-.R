@@ -84,7 +84,7 @@ guides <- function(...) {
     return(guides_list(guides = args))
   }
 
-  # Raise error about unnamed guides
+  # Raise warning about unnamed guides
   nms <- names(args)
   if (is.null(nms)) {
     msg <- "All guides are unnamed."
@@ -97,10 +97,11 @@ guides <- function(...) {
       msg <- "The {.and {unnamed}} guide{?s} {?is/are} unnamed."
     }
   }
-  cli::cli_abort(c(
+  cli::cli_warn(c(
     "Guides provided to {.fun guides} must be named.",
     i = msg
   ))
+  NULL
 }
 
 update_guides <- function(p, guides) {
