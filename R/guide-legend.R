@@ -480,6 +480,11 @@ GuideLegend <- ggproto(
   },
 
   build_labels = function(key, elements, params) {
+    n_labels <- length(key$.label)
+    if (n_labels < 1) {
+      out <- rep(list(zeroGrob()), nrow(key))
+      return(out)
+    }
     lapply(key$.label, function(lab) {
       ggname(
         "guide.label",

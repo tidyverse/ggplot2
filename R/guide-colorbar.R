@@ -416,6 +416,11 @@ GuideColourbar <- ggproto(
   },
 
   build_labels = function(key, elements, params) {
+    n_labels <- length(key$.label)
+    if (n_labels < 1) {
+      return(list(labels = zeroGrob()))
+    }
+
     just <- if (params$direction == "horizontal") {
       elements$text$vjust
     } else {

@@ -340,7 +340,11 @@ GuideBins <- ggproto(
   },
 
   build_labels = function(key, elements, params) {
-    key$.label[c(1, nrow(key))[!params$show.limits]] <- ""
+    n_labels <- length(key$.label)
+    if (n_labels < 1) {
+      return(list(labels = zeroGrob()))
+    }
+    key$.label[c(1, n_labels)[!params$show.limits]] <- ""
 
     just <- if (params$direction == "horizontal") {
       elements$text$vjust
