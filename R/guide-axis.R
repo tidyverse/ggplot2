@@ -432,9 +432,10 @@ draw_axis <- function(break_positions, break_labels, axis_position, theme,
   aes <- if (axis_position %in% c("top", "bottom")) "x" else "y"
   opp <- setdiff(c("x", "y"), aes)
   opp_value <- if (axis_position %in% c("top", "right")) 0 else 1
-  key <- data_frame(
-    break_positions, break_positions, break_labels,
-    .name_repair = ~ c(aes, ".value", ".label")
+  key <- data_frame0(
+    !!aes := break_positions,
+    .value = break_positions,
+    .label = break_labels
   )
   params$key <- key
   params$decor <- data_frame0(
