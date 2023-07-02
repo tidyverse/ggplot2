@@ -65,7 +65,7 @@ guide_gengrob.default <- guide_train.default
 #' @export
 #' @rdname old_guide
 old_guide <- function(guide) {
-  deprecate_warn0(
+  deprecate_soft0(
     when = "3.5.0",
     what = I("The S3 guide system"),
     details = c(
