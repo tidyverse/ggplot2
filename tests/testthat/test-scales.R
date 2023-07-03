@@ -642,7 +642,7 @@ test_that("scale functions accurately report their calls", {
   expect_equal(calls, construct)
 })
 
-test_that("training appropriately communicates the offenders", {
+test_that("training incorrectly appropriately communicates the offenders", {
 
   sc <- scale_colour_viridis_d()
   expect_snapshot_error(
@@ -653,4 +653,18 @@ test_that("training appropriately communicates the offenders", {
   expect_snapshot_error(
     sc$train(LETTERS[1:5])
   )
+})
+
+test_that("find_scale appends appropriate calls", {
+
+  expect_equal(
+    find_scale("x", 1)$call,
+    quote(scale_x_continuous())
+  )
+
+  expect_equal(
+    find_scale("colour", "A")$call,
+    quote(scale_colour_discrete())
+  )
+
 })
