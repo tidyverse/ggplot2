@@ -86,6 +86,7 @@
 #'   0.6 units on each side for discrete variables.
 #' @param position For position scales, The position of the axis.
 #' `left` or `right` for y axes, `top` or `bottom` for x axes.
+#' @param call The `call` used to construct the scale for reporting messages.
 #' @param super The super class to use for the constructed scale
 #' @keywords internal
 continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
@@ -93,7 +94,9 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
                              labels = waiver(), limits = NULL, rescaler = rescale,
                              oob = censor, expand = waiver(), na.value = NA_real_,
                              trans = "identity", guide = "legend", position = "left",
+                             call = caller_call(),
                              super = ScaleContinuous) {
+  call <- call %||% current_call()
 
   aesthetics <- standardise_aes_names(aesthetics)
 
@@ -120,7 +123,7 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
   minor_breaks <- allow_lambda(minor_breaks)
 
   ggproto(NULL, super,
-    call = match.call(),
+    call = call,
 
     aesthetics = aesthetics,
     scale_name = scale_name,
@@ -179,7 +182,10 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
                            breaks = waiver(), labels = waiver(), limits = NULL, expand = waiver(),
                            na.translate = TRUE, na.value = NA, drop = TRUE,
-                           guide = "legend", position = "left", super = ScaleDiscrete) {
+                           guide = "legend", position = "left",
+                           call = caller_call(),
+                           super = ScaleDiscrete) {
+  call <- call %||% current_call()
 
   aesthetics <- standardise_aes_names(aesthetics)
 
@@ -205,7 +211,7 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
   }
 
   ggproto(NULL, super,
-    call = match.call(),
+    call = call,
 
     aesthetics = aesthetics,
     scale_name = scale_name,
@@ -249,7 +255,10 @@ binned_scale <- function(aesthetics, scale_name, palette, name = waiver(),
                          rescaler = rescale, oob = squish, expand = waiver(),
                          na.value = NA_real_, n.breaks = NULL, nice.breaks = TRUE,
                          right = TRUE, trans = "identity", show.limits = FALSE,
-                         guide = "bins", position = "left", super = ScaleBinned) {
+                         guide = "bins", position = "left",
+                         call = caller_call(),
+                         super = ScaleBinned) {
+  call <- call %||% current_call()
 
   aesthetics <- standardise_aes_names(aesthetics)
 
@@ -274,7 +283,7 @@ binned_scale <- function(aesthetics, scale_name, palette, name = waiver(),
   oob      <- allow_lambda(oob)
 
   ggproto(NULL, super,
-    call = match.call(),
+    call = call,
 
     aesthetics = aesthetics,
     scale_name = scale_name,
