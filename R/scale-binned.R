@@ -63,7 +63,10 @@ ScaleBinnedPosition <- ggproto("ScaleBinnedPosition", ScaleBinned,
 
   train = function(self, x) {
     if (!is.numeric(x)) {
-      cli::cli_abort("Binned scales only support continuous data")
+      cli::cli_abort(
+        "Binned scales only support continuous data.",
+        call = self$call
+      )
     }
 
     if (length(x) == 0 || self$after.stat) return()
