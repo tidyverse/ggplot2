@@ -8,39 +8,39 @@
 
 ---
 
-    Invalid `breaks` specification. Use "NULL", not "NA"
+    Invalid `breaks` specification. Use "NULL", not "NA".
 
 ---
 
-    Invalid `minor_breaks` specification. Use "NULL", not "NA"
+    Invalid `minor_breaks` specification. Use "NULL", not "NA".
 
 ---
 
-    Invalid `labels` specification. Use "NULL", not "NA"
+    Invalid `labels` specification. Use "NULL", not "NA".
 
 ---
 
-    `breaks` and `labels` are different lengths
+    `breaks` and `labels` are different lengths.
 
 ---
 
-    Invalid `breaks` specification. Use "NULL", not "NA"
+    Invalid `breaks` specification. Use "NULL", not "NA".
 
 ---
 
-    Invalid `labels` specification. Use "NULL", not "NA"
+    Invalid `labels` specification. Use "NULL", not "NA".
 
 ---
 
-    Invalid `breaks` specification. Use "NULL", not "NA"
+    Invalid `breaks` specification. Use "NULL", not "NA".
 
 ---
 
-    Invalid `labels` specification. Use "NULL", not "NA"
+    Invalid `labels` specification. Use "NULL", not "NA".
 
 ---
 
-    `breaks` and `labels` are different lengths
+    `breaks` and `labels` are different lengths.
 
 # numeric scale transforms can produce breaks
 
