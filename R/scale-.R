@@ -100,7 +100,7 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 
   aesthetics <- standardise_aes_names(aesthetics)
 
-  check_breaks_labels(breaks, labels)
+  check_breaks_labels(breaks, labels, call = call)
 
   position <- arg_match0(position, c("left", "right", "top", "bottom"))
 
@@ -189,7 +189,7 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 
   aesthetics <- standardise_aes_names(aesthetics)
 
-  check_breaks_labels(breaks, labels)
+  check_breaks_labels(breaks, labels, call = call)
 
   # Convert formula input to function if appropriate
   limits <- allow_lambda(limits)
@@ -200,7 +200,7 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
     cli::cli_warn(c(
       "Continuous limits supplied to discrete scale.",
       "i" = "Did you mean {.code limits = factor(...)} or {.fn scale_*_continuous}?"
-    ))
+    ), call = call)
   }
 
   position <- arg_match0(position, c("left", "right", "top", "bottom"))
@@ -262,7 +262,7 @@ binned_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 
   aesthetics <- standardise_aes_names(aesthetics)
 
-  check_breaks_labels(breaks, labels)
+  check_breaks_labels(breaks, labels, call = call)
 
   position <- arg_match0(position, c("left", "right", "top", "bottom"))
 
@@ -555,7 +555,7 @@ Scale <- ggproto("Scale", NULL,
   }
 )
 
-check_breaks_labels <- function(breaks, labels) {
+check_breaks_labels <- function(breaks, labels, call = NULL) {
   if (is.null(breaks)) {
     return(TRUE)
   }
@@ -566,7 +566,10 @@ check_breaks_labels <- function(breaks, labels) {
   bad_labels <- is.atomic(breaks) && is.atomic(labels) &&
     length(breaks) != length(labels)
   if (bad_labels) {
-    cli::cli_abort("{.arg breaks} and {.arg labels} must have the same length")
+    cli::cli_abort(
+      "{.arg breaks} and {.arg labels} must have the same length",
+      call = call
+    )
   }
 
   TRUE
@@ -575,7 +578,7 @@ check_breaks_labels <- function(breaks, labels) {
 default_transform <- function(self, x) {
   new_x <- self$trans$transform(x)
   axis <- if ("x" %in% self$aesthetics) "x" else "y"
-  check_transformation(x, new_x, self$scale_name, axis)
+  check_transformation(x, new_x, self$scale_name, axis, self$call)
   new_x
 }
 
@@ -1249,7 +1252,7 @@ scale_flip_position <- function(scale) {
   invisible()
 }
 
-check_transformation <- function(x, transformed, name, axis) {
+check_transformation <- function(x, transformed, name, axis, call = NULL) {
   if (any(is.finite(x) != is.finite(transformed))) {
     type <- if (name == "position_b") {
       "binned"
@@ -1258,7 +1261,10 @@ check_transformation <- function(x, transformed, name, axis) {
     } else {
       "discrete"
     }
-    cli::cli_warn("Transformation introduced infinite values in {type} {axis}-axis")
+    cli::cli_warn(
+      "Transformation introduced infinite values in {type} {axis}-axis.",
+      call = call
+    )
   }
 }
 
