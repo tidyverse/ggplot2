@@ -545,6 +545,7 @@ test_that("scale functions accurately report their calls", {
     scale_colour_fermenter(),
     scale_colour_gradient(),
     scale_colour_gradient2(),
+    # Some scales have required arguments
     scale_colour_gradientn(colours = c("firebrick", "limegreen")),
     scale_colour_grey(),
     scale_colour_hue(),
@@ -621,19 +622,19 @@ test_that("scale functions accurately report their calls", {
     scale_x_date(),
     scale_x_datetime(),
     scale_x_discrete(),
-    # scale_x_log10(),
-    # scale_x_reverse(),
-    # scale_x_sqrt(),
-    # scale_x_time(),
+    scale_x_log10(),
+    scale_x_reverse(),
+    scale_x_sqrt(),
+    scale_x_time(),
     scale_y_binned(),
     scale_y_continuous(),
     scale_y_date(),
     scale_y_datetime(),
     scale_y_discrete(),
-    # scale_y_log10(),
-    # scale_y_reverse(),
-    # scale_y_sqrt(),
-    # scale_y_time()
+    scale_y_log10(),
+    scale_y_reverse(),
+    scale_y_sqrt(),
+    scale_y_time()
   )
   suppressWarnings(
     calls <- lapply(construct, function(x) eval(x)$call)
