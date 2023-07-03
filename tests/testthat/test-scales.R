@@ -641,3 +641,16 @@ test_that("scale functions accurately report their calls", {
   )
   expect_equal(calls, construct)
 })
+
+test_that("training appropriately communicates the offenders", {
+
+  sc <- scale_colour_viridis_d()
+  expect_snapshot_error(
+    sc$train(1:5)
+  )
+
+  sc <- scale_colour_viridis_c()
+  expect_snapshot_error(
+    sc$train(LETTERS[1:5])
+  )
+})

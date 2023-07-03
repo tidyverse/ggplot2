@@ -606,6 +606,14 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     if (length(x) == 0) {
       return()
     }
+    # Intercept error here to give examples and mention scale in call
+    if (is.factor(x) || !typeof(x) %in% c("integer", "double")) {
+      cli::cli_abort(
+        c("Discrete values supplied to continuous scale",
+          i = "Example values: {.and {.val {head(x, 5)}}}"),
+        call = self$call
+      )
+    }
     self$range$train(x)
   },
 
@@ -855,6 +863,14 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
   train = function(self, x) {
     if (length(x) == 0) {
       return()
+    }
+    # Intercept error here to give examples and mention scale in call
+    if (!is.discrete(x)) {
+      cli::cli_abort(
+        c("Continuous values supplied to discrete scale",
+          i = "Example values: {.and {.val {head(x, 5)}}}"),
+        call = self$call
+      )
     }
     self$range$train(x, drop = self$drop, na.rm = !self$na.translate)
   },
