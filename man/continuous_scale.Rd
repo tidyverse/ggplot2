@@ -21,6 +21,7 @@ continuous_scale(
   trans = "identity",
   guide = "legend",
   position = "left",
+  call = caller_call(),
   super = ScaleContinuous
 )
 }
@@ -134,6 +135,8 @@ transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
 
 \item{position}{For position scales, The position of the axis.
 \code{left} or \code{right} for y axes, \code{top} or \code{bottom} for x axes.}
+
+\item{call}{The \code{call} used to construct the scale for reporting messages.}
 
 \item{super}{The super class to use for the constructed scale}
 }

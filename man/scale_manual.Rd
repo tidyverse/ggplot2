@@ -81,6 +81,7 @@ notation.
 }}
     \item{\code{guide}}{A function used to create a guide or its name. See
 \code{\link[=guides]{guides()}} for more information.}
+    \item{\code{call}}{The \code{call} used to construct the scale for reporting messages.}
     \item{\code{super}}{The super class to use for the constructed scale}
   }}
 

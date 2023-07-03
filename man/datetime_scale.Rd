@@ -16,6 +16,7 @@ datetime_scale(
   date_minor_breaks = waiver(),
   timezone = NULL,
   guide = "legend",
+  call = caller_call(),
   ...
 )
 }
@@ -78,6 +79,8 @@ optionally followed by 's'.}
 
 \item{guide}{A function used to create a guide or its name. See
 \code{\link[=guides]{guides()}} for more information.}
+
+\item{call}{The \code{call} used to construct the scale for reporting messages.}
 
 \item{...}{
   Arguments passed on to \code{\link[=continuous_scale]{continuous_scale}}
