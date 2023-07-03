@@ -55,7 +55,9 @@ scale_linewidth_binned <- function(name = waiver(), breaks = waiver(), labels = 
 #' @usage NULL
 scale_linewidth_discrete <- function(...) {
   cli::cli_warn("Using {.field linewidth} for a discrete variable is not advised.")
-  scale_linewidth_ordinal(...)
+  args <- list2(...)
+  args$call <- args$call %||% current_call()
+  exec(scale_linewidth_ordinal, !!!args)
 }
 
 #' @rdname scale_linewidth

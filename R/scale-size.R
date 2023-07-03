@@ -86,7 +86,9 @@ scale_size_binned <- function(name = waiver(), breaks = waiver(), labels = waive
 #' @usage NULL
 scale_size_discrete <- function(...) {
   cli::cli_warn("Using {.field size} for a discrete variable is not advised.")
-  scale_size_ordinal(...)
+  args <- list2(...)
+  args$call <- args$call %||% current_call()
+  exec(scale_size_ordinal, !!!args)
 }
 
 #' @rdname scale_size

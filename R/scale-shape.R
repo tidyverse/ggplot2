@@ -60,7 +60,9 @@ scale_shape_discrete <- scale_shape
 #' @usage NULL
 scale_shape_ordinal <- function(...) {
   cli::cli_warn("Using shapes for an ordinal variable is not advised")
-  scale_shape(...)
+  args <- list2(...)
+  args$call <- args$call %||% current_call()
+  exec(scale_shape, !!!args)
 }
 
 #' @rdname scale_shape
