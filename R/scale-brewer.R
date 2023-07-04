@@ -146,9 +146,3 @@ scale_fill_fermenter <- function(..., type = "seq", palette = 1, direction = -1,
   }
   binned_scale(aesthetics, "fermenter", binned_pal(brewer_pal(type, palette, direction)), na.value = na.value, guide = guide, ...)
 }
-
-# icon.brewer <- function() {
-#   rectGrob(c(0.1, 0.3, 0.5, 0.7, 0.9), width = 0.21,
-#     gp = gpar(fill = RColorBrewer::brewer.pal(5, "PuOr"), col = NA)
-#   )
-# }
