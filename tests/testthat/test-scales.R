@@ -634,7 +634,9 @@ test_that("scale functions accurately report their calls", {
     scale_y_log10(),
     scale_y_reverse(),
     scale_y_sqrt(),
-    scale_y_time()
+    scale_y_time(),
+    xlim(10, 20),
+    ylim("A", "B")
   )
   suppressWarnings(
     calls <- lapply(construct, function(x) eval(x)$call)
