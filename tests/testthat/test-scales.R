@@ -625,7 +625,7 @@ test_that("scale functions accurately report their calls", {
     scale_x_log10(),
     scale_x_reverse(),
     scale_x_sqrt(),
-    scale_x_time(),
+    # scale_x_time(),
     scale_y_binned(),
     scale_y_continuous(),
     scale_y_date(),
@@ -634,10 +634,14 @@ test_that("scale functions accurately report their calls", {
     scale_y_log10(),
     scale_y_reverse(),
     scale_y_sqrt(),
-    scale_y_time(),
+    # scale_y_time(),
     xlim(10, 20),
     ylim("A", "B")
   )
+  if (is_installed("hms")) {
+    construct <- c(construct, exprs(scale_x_time(), scale_y_time()))
+  }
+
   suppressWarnings(
     calls <- lapply(construct, function(x) eval(x)$call)
   )
