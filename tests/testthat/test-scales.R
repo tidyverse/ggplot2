@@ -197,7 +197,7 @@ test_that("scales warn when transforms introduces non-finite values", {
     geom_point(size = 5) +
     scale_y_log10()
 
-  expect_warning(ggplot_build(p), "Transformation introduced infinite values")
+  expect_warning(ggplot_build(p), "log-10 transformation introduced infinite values.")
 })
 
 test_that("size and alpha scales throw appropriate warnings for factors", {

@@ -577,8 +577,7 @@ check_breaks_labels <- function(breaks, labels, call = NULL) {
 
 default_transform <- function(self, x) {
   new_x <- self$trans$transform(x)
-  axis <- if ("x" %in% self$aesthetics) "x" else "y"
-  check_transformation(x, new_x, self$scale_name, axis, self$call)
+  check_transformation(x, new_x, self$trans$name, self$call)
   new_x
 }
 
@@ -1268,17 +1267,10 @@ scale_flip_position <- function(scale) {
   invisible()
 }
 
-check_transformation <- function(x, transformed, name, axis, call = NULL) {
+check_transformation <- function(x, transformed, name, call = NULL) {
   if (any(is.finite(x) != is.finite(transformed))) {
-    type <- if (name == "position_b") {
-      "binned"
-    } else if (name == "position_c") {
-      "continuous"
-    } else {
-      "discrete"
-    }
     cli::cli_warn(
-      "Transformation introduced infinite values in {type} {axis}-axis.",
+      "{.field {name}} transformation introduced infinite values.",
       call = call
     )
   }

@@ -49,3 +49,13 @@
     Output
       [1]        NA   1.00000  20.08554 403.42879
 
+# training incorrectly appropriately communicates the offenders
+
+    Continuous values supplied to discrete scale
+    i Example values: 1, 2, 3, 4, and 5
+
+---
+
+    Discrete values supplied to continuous scale
+    i Example values: "A", "B", "C", "D", and "E"
+
