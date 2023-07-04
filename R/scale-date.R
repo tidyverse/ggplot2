@@ -313,11 +313,6 @@ datetime_scale <- function(aesthetics, trans, palette,
     }
   }
 
-  name <- switch(trans,
-    date = "date",
-    time = "datetime"
-  )
-
   # x/y position aesthetics should use ScaleContinuousDate or
   # ScaleContinuousDatetime; others use ScaleContinuous
   if (all(aesthetics %in% c("x", "xmin", "xmax", "xend", "y", "ymin", "ymax", "yend"))) {
@@ -337,7 +332,6 @@ datetime_scale <- function(aesthetics, trans, palette,
 
   sc <- continuous_scale(
     aesthetics,
-    name,
     palette = palette,
     breaks = breaks,
     minor_breaks = minor_breaks,

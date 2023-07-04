@@ -90,7 +90,7 @@ scale_x_continuous <- function(name = waiver(), breaks = waiver(),
   }
   sc <- continuous_scale(
     ggplot_global$x_aes,
-    "position_c", identity, name = name, breaks = breaks, n.breaks = n.breaks,
+    palette = identity, name = name, breaks = breaks, n.breaks = n.breaks,
     minor_breaks = minor_breaks, labels = labels, limits = limits,
     expand = expand, oob = oob, na.value = na.value, trans = trans,
     guide = guide, position = position, call = call,
@@ -116,7 +116,7 @@ scale_y_continuous <- function(name = waiver(), breaks = waiver(),
   }
   sc <- continuous_scale(
     ggplot_global$y_aes,
-    "position_c", identity, name = name, breaks = breaks, n.breaks = n.breaks,
+    palette = identity, name = name, breaks = breaks, n.breaks = n.breaks,
     minor_breaks = minor_breaks, labels = labels, limits = limits,
     expand = expand, oob = oob, na.value = na.value, trans = trans,
     guide = guide, position = position, call = call,

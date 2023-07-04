@@ -16,7 +16,6 @@ scale_colour_ordinal <- function(..., type = getOption("ggplot2.ordinal.colour",
     exec(
       discrete_scale,
       aesthetics = "colour",
-      scale_name = "ordinal",
       palette = ordinal_pal(type),
       !!!args
     )
@@ -95,7 +94,6 @@ scale_fill_ordinal <- function(..., type = getOption("ggplot2.ordinal.fill", get
     exec(
       discrete_scale,
       aesthetics = "fill",
-      scale_name = "ordinal",
       palette = ordinal_pal(type),
       !!!args
     )

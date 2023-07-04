@@ -46,7 +46,7 @@
 #' @rdname scale_steps
 scale_colour_steps <- function(..., low = "#132B43", high = "#56B1F7", space = "Lab",
                                na.value = "grey50", guide = "coloursteps", aesthetics = "colour") {
-  binned_scale(aesthetics, "steps", seq_gradient_pal(low, high, space),
+  binned_scale(aesthetics, palette = seq_gradient_pal(low, high, space),
                na.value = na.value, guide = guide, ...)
 }
 #' @rdname scale_steps
@@ -54,7 +54,7 @@ scale_colour_steps <- function(..., low = "#132B43", high = "#56B1F7", space = "
 scale_colour_steps2 <- function(..., low = muted("red"), mid = "white", high = muted("blue"),
                                 midpoint = 0, space = "Lab", na.value = "grey50", guide = "coloursteps",
                                 aesthetics = "colour") {
-  binned_scale(aesthetics, "steps2", div_gradient_pal(low, mid, high, space),
+  binned_scale(aesthetics, palette = div_gradient_pal(low, mid, high, space),
                na.value = na.value, guide = guide, rescaler = mid_rescaler(mid = midpoint), ...)
 }
 #' @rdname scale_steps
@@ -62,14 +62,14 @@ scale_colour_steps2 <- function(..., low = muted("red"), mid = "white", high = m
 scale_colour_stepsn <- function(..., colours, values = NULL, space = "Lab", na.value = "grey50",
                                 guide = "coloursteps", aesthetics = "colour", colors) {
   colours <- if (missing(colours)) colors else colours
-  binned_scale(aesthetics, "stepsn",
-               gradient_n_pal(colours, values, space), na.value = na.value, guide = guide, ...)
+  binned_scale(aesthetics, palette = gradient_n_pal(colours, values, space),
+               na.value = na.value, guide = guide, ...)
 }
 #' @rdname scale_steps
 #' @export
 scale_fill_steps <- function(..., low = "#132B43", high = "#56B1F7", space = "Lab",
                              na.value = "grey50", guide = "coloursteps", aesthetics = "fill") {
-  binned_scale(aesthetics, "steps", seq_gradient_pal(low, high, space),
+  binned_scale(aesthetics, palette = seq_gradient_pal(low, high, space),
                na.value = na.value, guide = guide, ...)
 }
 #' @rdname scale_steps
@@ -77,7 +77,7 @@ scale_fill_steps <- function(..., low = "#132B43", high = "#56B1F7", space = "La
 scale_fill_steps2 <- function(..., low = muted("red"), mid = "white", high = muted("blue"),
                               midpoint = 0, space = "Lab", na.value = "grey50", guide = "coloursteps",
                               aesthetics = "fill") {
-  binned_scale(aesthetics, "steps2", div_gradient_pal(low, mid, high, space),
+  binned_scale(aesthetics, palette = div_gradient_pal(low, mid, high, space),
                na.value = na.value, guide = guide, rescaler = mid_rescaler(mid = midpoint), ...)
 }
 #' @rdname scale_steps
@@ -85,6 +85,6 @@ scale_fill_steps2 <- function(..., low = muted("red"), mid = "white", high = mut
 scale_fill_stepsn <- function(..., colours, values = NULL, space = "Lab", na.value = "grey50",
                                 guide = "coloursteps", aesthetics = "fill", colors) {
   colours <- if (missing(colours)) colors else colours
-  binned_scale(aesthetics, "stepsn",
-               gradient_n_pal(colours, values, space), na.value = na.value, guide = guide, ...)
+  binned_scale(aesthetics, palette = gradient_n_pal(colours, values, space),
+               na.value = na.value, guide = guide, ...)
 }

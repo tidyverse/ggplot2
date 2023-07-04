@@ -288,7 +288,7 @@ test_that("multiple aesthetics can be set with one function call", {
 
 test_that("limits with NA are replaced with the min/max of the data for continuous scales", {
   make_scale <- function(limits = NULL, data = NULL) {
-    scale <- continuous_scale("aesthetic", scale_name = "test", palette = identity, limits = limits)
+    scale <- continuous_scale("aesthetic", palette = identity, limits = limits)
     if (!is.null(data)) {
       scale$train(data)
     }
