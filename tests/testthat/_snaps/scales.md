@@ -59,3 +59,15 @@
     Discrete values supplied to continuous scale
     i Example values: "A", "B", "C", "D", and "E"
 
+# Using `scale_name` prompts deprecation message
+
+    The `scale_name` argument of `continuous_scale()` is deprecated as of ggplot2 3.5.0.
+
+---
+
+    The `scale_name` argument of `discrete_scale()` is deprecated as of ggplot2 3.5.0.
+
+---
+
+    The `scale_name` argument of `binned_scale()` is deprecated as of ggplot2 3.5.0.
+
