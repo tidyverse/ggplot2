@@ -6,7 +6,7 @@
 \usage{
 discrete_scale(
   aesthetics,
-  scale_name,
+  scale_name = deprecated(),
   palette,
   name = waiver(),
   breaks = waiver(),
@@ -25,8 +25,8 @@ discrete_scale(
 \arguments{
 \item{aesthetics}{The names of the aesthetics that this scale works with.}
 
-\item{scale_name}{The name of the scale that should be used for error messages
-associated with this scale.}
+\item{scale_name}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} The name of the scale
+that should be used for error messages associated with this scale.}
 
 \item{palette}{A palette function that when called with a single integer
 argument (the number of levels in the scale) returns the values that

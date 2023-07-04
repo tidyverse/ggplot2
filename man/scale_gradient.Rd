@@ -88,8 +88,8 @@ scale_fill_gradientn(
 \item{...}{
   Arguments passed on to \code{\link[=continuous_scale]{continuous_scale}}
   \describe{
-    \item{\code{scale_name}}{The name of the scale that should be used for error messages
-associated with this scale.}
+    \item{\code{scale_name}}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} The name of the scale
+that should be used for error messages associated with this scale.}
     \item{\code{palette}}{A palette function that when called with a numeric vector with
 values between 0 and 1 returns the corresponding output values
 (e.g., \code{\link[scales:area_pal]{scales::area_pal()}}).}

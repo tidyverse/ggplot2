@@ -3,8 +3,8 @@
 #'
 #' @export
 #' @param aesthetics The names of the aesthetics that this scale works with.
-#' @param scale_name The name of the scale that should be used for error messages
-#'   associated with this scale.
+#' @param scale_name `r lifecycle::badge("deprecated")` The name of the scale
+#'   that should be used for error messages associated with this scale.
 #' @param palette A palette function that when called with a numeric vector with
 #'   values between 0 and 1 returns the corresponding output values
 #'   (e.g., [scales::area_pal()]).
@@ -89,7 +89,7 @@
 #' @param call The `call` used to construct the scale for reporting messages.
 #' @param super The super class to use for the constructed scale
 #' @keywords internal
-continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
+continuous_scale <- function(aesthetics, scale_name = deprecated(), palette, name = waiver(),
                              breaks = waiver(), minor_breaks = waiver(), n.breaks = NULL,
                              labels = waiver(), limits = NULL, rescaler = rescale,
                              oob = censor, expand = waiver(), na.value = NA_real_,
@@ -97,6 +97,9 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
                              call = caller_call(),
                              super = ScaleContinuous) {
   call <- call %||% current_call()
+  if (lifecycle::is_present(scale_name)) {
+    deprecate_soft0("3.5.0", "continuous_scale(scale_name)")
+  }
 
   aesthetics <- standardise_aes_names(aesthetics)
 
@@ -126,7 +129,6 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
     call = call,
 
     aesthetics = aesthetics,
-    scale_name = scale_name,
     palette = palette,
 
     range = ContinuousRange$new(),
@@ -179,13 +181,16 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 #'   missing values be displayed as? Does not apply to position scales
 #'   where `NA` is always placed at the far right.
 #' @keywords internal
-discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
+discrete_scale <- function(aesthetics, scale_name = deprecated(), palette, name = waiver(),
                            breaks = waiver(), labels = waiver(), limits = NULL, expand = waiver(),
                            na.translate = TRUE, na.value = NA, drop = TRUE,
                            guide = "legend", position = "left",
                            call = caller_call(),
                            super = ScaleDiscrete) {
   call <- call %||% current_call()
+  if (lifecycle::is_present(scale_name)) {
+    deprecate_soft0("3.5.0", "discrete_scale(scale_name)")
+  }
 
   aesthetics <- standardise_aes_names(aesthetics)
 
@@ -214,7 +219,6 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
     call = call,
 
     aesthetics = aesthetics,
-    scale_name = scale_name,
     palette = palette,
 
     range = DiscreteRange$new(),
@@ -250,7 +254,7 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 #'   the left (open on the right).
 #' @param show.limits should the limits of the scale appear as ticks
 #' @keywords internal
-binned_scale <- function(aesthetics, scale_name, palette, name = waiver(),
+binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = waiver(),
                          breaks = waiver(), labels = waiver(), limits = NULL,
                          rescaler = rescale, oob = squish, expand = waiver(),
                          na.value = NA_real_, n.breaks = NULL, nice.breaks = TRUE,
@@ -258,6 +262,9 @@ binned_scale <- function(aesthetics, scale_name, palette, name = waiver(),
                          guide = "bins", position = "left",
                          call = caller_call(),
                          super = ScaleBinned) {
+  if (lifecycle::is_present(scale_name)) {
+    deprecate_soft0("3.5.0", "binned_scale(scale_name)")
+  }
   call <- call %||% current_call()
 
   aesthetics <- standardise_aes_names(aesthetics)
@@ -286,7 +293,6 @@ binned_scale <- function(aesthetics, scale_name, palette, name = waiver(),
     call = call,
 
     aesthetics = aesthetics,
-    scale_name = scale_name,
     palette = palette,
 
     range = ContinuousRange$new(),
@@ -410,7 +416,6 @@ Scale <- ggproto("Scale", NULL,
 
   call = NULL,
   aesthetics = aes(),
-  scale_name = NULL,
   palette = function() {
     cli::cli_abort("Not implemented.")
   },
