@@ -137,13 +137,18 @@ Guide <- ggproto(
 
     mapped <- scale$map(breaks)
     labels <- scale$get_labels(breaks)
+    # {vctrs} doesn't play nice with expressions, convert to list.
+    # see also https://github.com/r-lib/vctrs/issues/559
+    if (is.expression(labels)) {
+      labels <- as.list(labels)
+    }
 
     key <- data_frame(mapped, .name_repair = ~ aesthetic)
     key$.value <- breaks
     key$.label <- labels
 
     if (is.numeric(breaks)) {
-      key[is.finite(breaks), , drop = FALSE]
+      vec_slice(key, is.finite(breaks))
     } else {
       key
     }
@@ -342,3 +347,14 @@ flip_names = c(
 # Shortcut for position argument matching
 .trbl <- c("top", "right", "bottom", "left")
 
+# Ensure that labels aren't a list of expressions, but proper expressions
+validate_labels <- function(labels) {
+  if (!is.list(labels)) {
+    return(labels)
+  }
+  if (any(vapply(labels, is.language, logical(1)))) {
+    do.call(expression, labels)
+  } else {
+    unlist(labels)
+  }
+}

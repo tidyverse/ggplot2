@@ -437,7 +437,7 @@ GuideColourbar <- ggproto(
 
     list(labels = flip_element_grob(
       elements$text,
-      label = key$.label,
+      label = validate_labels(key$.label),
       x = unit(key$.value, "npc"),
       y = rep(just, nrow(key)),
       margin_x = FALSE,

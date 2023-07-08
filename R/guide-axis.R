@@ -281,22 +281,14 @@ GuideAxis <- ggproto(
   },
 
   build_labels = function(key, elements, params) {
-    labels <- key$.label
+    labels   <- validate_labels(key$.label)
     n_labels <- length(labels)
 
     if (n_labels < 1) {
       return(list(zeroGrob()))
     }
 
-    pos    <- key[[params$aes]]
-
-    if (is.list(labels)) {
-      if (any(vapply(labels, is.language, logical(1)))) {
-        labels <- do.call(expression, labels)
-      } else {
-        labels <- unlist(labels)
-      }
-    }
+    pos <- key[[params$aes]]
 
     dodge_pos     <- rep(seq_len(params$n.dodge %||% 1), length.out = n_labels)
     dodge_indices <- unname(split(seq_len(n_labels), dodge_pos))
