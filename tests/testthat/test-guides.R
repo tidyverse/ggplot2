@@ -311,6 +311,16 @@ test_that("guide_coloursteps and guide_bins return ordered breaks", {
   expect_true(all(diff(key$.value) < 0))
 })
 
+test_that("guide_colourbar warns about discrete scales", {
+
+  g <- guide_colourbar()
+  s <- scale_colour_discrete()
+  s$train(LETTERS[1:3])
+
+  expect_warning(g <- g$train(g$params, s, "colour"), "needs continuous scales")
+  expect_null(g)
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("axis guides are drawn correctly", {

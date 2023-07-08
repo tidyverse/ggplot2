@@ -319,6 +319,14 @@ GuideColourbar <- ggproto(
     title.align = "legend.title.align"
   ),
 
+  extract_key = function(scale, aesthetic, ...) {
+    if (scale$is_discrete()) {
+      cli::cli_warn("{.fn guide_colourbar} needs continuous scales.")
+      return(NULL)
+    }
+    Guide$extract_key(scale, aesthetic, ...)
+  },
+
   extract_decor = function(scale, aesthetic, nbin = 300, reverse = FALSE, ...) {
 
     limits <- scale$get_limits()
