@@ -74,7 +74,7 @@ guide_colorsteps <- guide_coloursteps
 #' @usage NULL
 #' @export
 GuideColoursteps <- ggproto(
-  NULL, GuideColourbar,
+  "GuideColoursteps", GuideColourbar,
 
   params = c(
     list(even.steps = TRUE, show.limits = NULL),
