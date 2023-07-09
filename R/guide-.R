@@ -74,7 +74,79 @@ new_guide <- function(..., available_aes = "any", super) {
 #' To create a new type of Guide object, you typically will want to override
 #' one or more of the following:
 #'
-#'  TODO: Fill this in properly
+#' Properties:
+#'
+#' - `available_aes` A `character` vector with aesthetics that this guide
+#'   supports. The value `"any"` indicates all non-position aesthetics.
+#'
+#' - `params` A named `list` of parameters that the guide needs to function.
+#'   It has the following roles:
+#'
+#'   - `params` provides the defaults for a guide.
+#'   - `names(params)` determines what are valid arguments to `new_guide()`.
+#'   Some parameters are *required* to render the guide. These are: `title`,
+#'   `name`, `position`, `direction`, `order` and `hash`.
+#'   - During build stages, `params` holds information about the guide.
+#'
+#' - `elements` A named list of `character`s, giving the name of theme elements
+#'   that should be retrieved automatically, for example `"legend.text"`.
+#'
+#' - `hashables` An `expression` that can be evaluated in the context of
+#'   `params`. The hash of the evaluated expression determines the merge
+#'   compatibility of guides, and is stored in `params$hash`.
+#'
+#' Methods:
+#'
+#' - `extract_key()` Returns a `data.frame` with (mapped) breaks and labels
+#'   extracted from the scale, which will be stored in `params$key`.
+#'
+#' - `extract_decor()` Returns a `data.frame` containing other structured
+#'   information extracted from the scale, which will be stored in
+#'   `params$decor`. The `decor` has a guide-specific  meaning: it is the bar in
+#'   `guide_colourbar()`, but specifies the `axis.line` in `guide_axis()`.
+#'
+#' - `extract_params()` Updates the `params` with other, unstructured
+#'   information from the scale. An example of this is inheriting the guide's
+#'   title from the `scale$name` field.
+#'
+#' - `transform()` Updates the `params$key` based on the coordinates. This
+#'   applies to position guides, as it rescales the aesthetic to the \[0, 1\]
+#'   range.
+#'
+#' - `merge()` Combines information from multiple guides with the same
+#'   `params$hash`. This ensures that e.g. `guide_legend()` can display both
+#'   `shape` and `colour` in the same guide.
+#'
+#' - `get_layer_key()` Extract information from layers. This can be used to
+#'   check that the guide's aesthetic is actually in use, or to gather
+#'   information about how legend keys should be displayed.
+#'
+#' - `setup_params()` Set up parameters at the beginning of drawing stages.
+#'   It can be used to overrule user-supplied parameters or perform checks on
+#'   the `params` property.
+#'
+#' - `override_elements()` Take populated theme elements derived from the
+#'   `elements` property and allows overriding these theme settings.
+#'
+#' - `build_title()` Render the guide's title.
+#'
+#' - `build_labels()` Render the guide's labels.
+#'
+#' - `build_decor()` Render the `params$decor`, which is different for every
+#'   guide.
+#'
+#' - `build_ticks()` Render tick marks.
+#'
+#' - `measure_grobs()` Measure dimensions of the graphical objects produced
+#'   by the `build_*()` methods to be used in the layout or assembly.
+#'
+#' - `arrange_layout()` Set up a layout for how graphical objects produced by
+#'   the `build_*()` methods should be arranged.
+#'
+#' - `assemble_drawing()` Take the graphical objects produced by the `build_*()`
+#'   methods, the measurements from `measure_grobs()` and layout from
+#'   `arrange_layout()` to finalise the guide.
+#'
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
