@@ -189,14 +189,15 @@ Guide <- ggproto(
       return(NULL)
     }
     params$decor <- inject(self$extract_decor(scale, !!!params))
-    self$extract_params(scale, params, self$hashables, ...)
+    params <- self$extract_params(scale, params, ...)
+    # Make hash
+    # TODO: Maybe we only need the hash on demand during merging?
+    params$hash <- hash(lapply(unname(self$hashables), eval_tidy, data = params))
+    params
   },
 
   # Setup parameters that are only available after training
-  # TODO: Maybe we only need the hash on demand during merging?
-  extract_params = function(scale, params, hashables, ...) {
-    # Make hash
-    params$hash <- hash(lapply(unname(hashables), eval_tidy, data = params))
+  extract_params = function(scale, params, ...) {
     params
   },
 

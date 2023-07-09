@@ -261,7 +261,7 @@ GuideLegend <- ggproto(
     title.align = "legend.title.align"
   ),
 
-  extract_params = function(scale, params, hashables,
+  extract_params = function(scale, params,
                             title = waiver(), direction = NULL, ...) {
     params$title <- scale$make_title(
       params$title %|W|% scale$name %|W|% title
@@ -273,8 +273,7 @@ GuideLegend <- ggproto(
     if (isTRUE(params$reverse %||% FALSE)) {
       params$key <- params$key[nrow(params$key):1, , drop = FALSE]
     }
-
-    Guide$extract_params(scale, params, hashables)
+    params
   },
 
   merge = function(self, params, new_guide, new_params) {

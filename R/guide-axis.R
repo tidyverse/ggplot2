@@ -103,9 +103,9 @@ GuideAxis <- ggproto(
     ticks_length = "axis.ticks.length"
   ),
 
-  extract_params = function(scale, params, hashables, ...) {
+  extract_params = function(scale, params, ...) {
     params$name <- paste0(params$name, "_", params$aesthetic)
-    Guide$extract_params(scale, params, hashables)
+    params
   },
 
   extract_decor = function(scale, aesthetic, position, key, cap = "none", ...) {

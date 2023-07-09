@@ -345,7 +345,7 @@ GuideColourbar <- ggproto(
     return(bar)
   },
 
-  extract_params = function(scale, params, hashables,
+  extract_params = function(scale, params,
                             title  = waiver(), direction = "vertical", ...) {
     params$title <- scale$make_title(
       params$title %|W|% scale$name %|W|% title
@@ -374,7 +374,7 @@ GuideColourbar <- ggproto(
       c(0.5, params$nbin - 0.5) / params$nbin,
       limits
     )
-    Guide$extract_params(scale, params, hashables)
+    params
   },
 
   merge = function(self, params, new_guide, new_params) {

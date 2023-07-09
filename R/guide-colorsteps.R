@@ -135,7 +135,7 @@ GuideColoursteps <- ggproto(
     return(bar)
   },
 
-  extract_params = function(scale, params, hashables, ...) {
+  extract_params = function(scale, params, ...) {
 
     if (params$even.steps) {
       params$nbin <- nbin <- sum(!is.na(params$key[[1]])) + 1
@@ -177,6 +177,6 @@ GuideColoursteps <- ggproto(
       params$key <- key
     }
 
-    GuideColourbar$extract_params(scale, params, hashables, ...)
+    GuideColourbar$extract_params(scale, params, ...)
   }
 )

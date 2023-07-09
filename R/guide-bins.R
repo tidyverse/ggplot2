@@ -266,7 +266,7 @@ GuideBins <- ggproto(
     return(key)
   },
 
-  extract_params = function(scale, params, hashables,
+  extract_params = function(scale, params,
                             title = waiver(), direction = NULL, ...) {
 
     show.limits <- params$show.limits %||% scale$show.limits %||% FALSE
@@ -320,8 +320,7 @@ GuideBins <- ggproto(
         "not {.val {params$label.position}}."
       ))
     }
-
-    Guide$extract_params(scale, params, hashables)
+    params
   },
 
   setup_params = function(params) {

@@ -409,9 +409,9 @@ Methods:
 \item \code{extract_key()} Returns a \code{data.frame} with (mapped) breaks and labels
 extracted from the scale, which will be stored in \code{params$key}.
 \item \code{extract_decor()} Returns a \code{data.frame} containing other structured
-information extracted the scale, which will be stored in \code{params$decor}.
-The \code{decor} has a guide-specific  meaning: it is the bar in
-\code{guide_colourbar()} but specifies the \code{axis.line} in \code{guide_axis()}.
+information extracted from the scale, which will be stored in
+\code{params$decor}. The \code{decor} has a guide-specific  meaning: it is the bar in
+\code{guide_colourbar()}, but specifies the \code{axis.line} in \code{guide_axis()}.
 \item \code{extract_params()} Updates the \code{params} with other, unstructured
 information from the scale. An example of this is inheriting the guide's
 title from the \code{scale$name} field.
@@ -433,7 +433,7 @@ the \code{params} property.
 \item \code{build_labels()} Render the guide's labels.
 \item \code{build_decor()} Render the \code{params$decor}, which is different for every
 guide.
-\item \code{build_ticks()} Render axis tickmarks.
+\item \code{build_ticks()} Render tick marks.
 \item \code{measure_grobs()} Measure dimensions of the graphical objects produced
 by the \verb{build_*()} methods to be used in the layout or assembly.
 \item \code{arrange_layout()} Set up a layout for how graphical objects produced by
