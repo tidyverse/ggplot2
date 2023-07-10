@@ -332,10 +332,6 @@ GuideLegend <- ggproto(
 
       data <- modify_list(data, params$override.aes)
 
-      if (!is.null(data$size)) {
-        data$size[is.na(data$size)] <- 0
-      }
-
       list(
         draw_key = layer$geom$draw_key,
         data     = data,
@@ -728,15 +724,17 @@ measure_legend_keys <- function(decor, n, dim, byrow = FALSE,
   zeroes <- rep(0, prod(dim) - n)
 
   # For every layer, extract the size in cm
-  size <- lapply(decor, function(g) g$data$size / 10) # mm to cm
+  size <- lapply(decor, function(g) {
+    lwd <- g$data$linewidth %||% 0
+    lwd[is.na(lwd)] <- 0
+    size <- g$data$size %||% 0
+    size[is.na(size)] <- 0
+    vec_recycle((size + lwd) / 10, size = nrow(g$data))
+  })
   size <- inject(cbind(!!!size))
 
-  # Guard against layers with no size aesthetic
-  if (any(dim(size) == 0)) {
-    size <- matrix(0, ncol = 1, nrow = n)
-  } else {
-    size <- size[seq_len(n), , drop = FALSE]
-  }
+  # Binned legends may have `n + 1` breaks, but we need to display `n` keys.
+  size <- vec_slice(size, seq_len(n))
 
   # For every key, find maximum across all layers
   size <- apply(size, 1, max)
