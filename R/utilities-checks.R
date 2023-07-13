@@ -68,3 +68,297 @@ check_inherits <- function(x,
     call = call
   )
 }
+
+#' Check graphics device capabilities
+#'
+#' This function makes an attempt to estimate whether the graphics device is
+#' able to render newer graphics features.
+#'
+#' @param feature A string naming a graphics device feature. One of:
+#'   `"clippingPaths"`, `"alpha_masks"`, `"lumi_masks"`, `"compositing"`,
+#'   `"blending"`, `"transformations"`, `"gradients"`, `"patterns"`, `"paths"`
+#'   or `"glyphs"`. See the 'Features' section below for an explanation
+#'   of these terms.
+#' @param action A string for what action to take. One of:
+#'   * `"test"` returns `TRUE` or `FALSE` indicating support of the feature.
+#'   * `"warn"` also returns a logical, but throws an informative warning when
+#'   `FALSE`.
+#'   * `"abort"` throws an error when the device is estimated to not support
+#'   the feature.
+#' @param call The execution environment of a currently running function, e.g.
+#'   [`caller_env()`][rlang::caller_env()]. The function will be mentioned in
+#'   warnings and error messages as the source of the warning or error. See
+#'   the `call` argument of [`abort()`][rlang::abort()] for more information.
+#'
+#' @details
+#' The procedure for testing is as follows:
+#'
+#' * First, the \R version is checked against the version wherein a feature was
+#'   introduced.
+#' * Next, the [dev.capabilities()][grDevices::dev.capabilities()] function is
+#'   queried for support of the feature.
+#' * If that check is ambiguous, the \pkg{svglite} and \pkg{ragg} devices are
+#'   checked for known support.
+#' * Lastly, if there is no answer yet, it is checked whether the device is one
+#'   of the 'known' devices that supports a feature.
+#'
+#' @section Features:
+#' \describe{
+#'   \item{`"clippingPaths"`}{While most devices support rectangular clipping
+#'   regions, this feature is about the support for clipping to arbitrary paths.
+#'   It can be used to only display a part of a drawing.}
+#'   \item{`"alpha_masks"`}{Like clipping regions and paths, alpha masks can also
+#'   be used to only display a part of a drawing. In particular a
+#'   semi-transparent mask can be used to display a drawing in the opaque parts
+#'   of the mask and hide a drawing in transparent part of a mask.}
+#'   \item{`"lumi_masks`}{Similar to alpha masks, but using the mask's luminance
+#'   (greyscale value) to determine what is drawn. Light values are opaque and
+#'   dark values are transparent.}
+#'   \item{`"compositing"`}{Compositing allows one to control how to drawings
+#'   are drawn in relation to one another. By default, one drawing is drawn
+#'   'over' the previous one, but other operators are possible, like 'clear',
+#'   'in' and 'out'.}
+#'   \item{`"blending"`}{When placing one drawing atop of another, the blend
+#'   mode determines how the colours of the drawings relate to one another.}
+#'   \item{`"transformations"`}{Performing an affine transformation on a group
+#'   can be used to translate, rotate, scale, shear and flip the drawing.}
+#'   \item{`"gradients"`}{Gradients can be used to show a transition between
+#'   two or more colours as a fill in a drawing. The checks expects both linear
+#'   and radial gradients to be supported.}
+#'   \item{`"patterns"`}{Patterns can be used to display a repeated, tiled
+#'   drawing as a fill in another drawing.}
+#'   \item{`"paths"`}{Contrary to 'paths' as polyline or polygon drawings,
+#'   `"paths"` refers to the ability to fill and stroke collections of
+#'   drawings.}
+#'   \item{`"glyphs"`}{Refers to the advanced typesetting feature for
+#'   controlling the appearance of individual glyphs.}
+#' }
+#'
+#' @section Limitations:
+#'
+#' * On Windows machines, bitmap devices such as `png()` or `jpeg()` default
+#'   to `type = "windows"`, which at the time of writing don't support any
+#'   new features, instead of `type = "cairo"`, which does. Prior to \R version
+#'   4.2.0, the capabilities cannot be resolved and a conservative `FALSE` is
+#'   returned.
+#' * The \pkg{vdiffr}'s device name is the same as \pkg{svglite}'s device name,
+#'   but these devices differ in what features are supported. Their differences
+#'   cannot be resolved and it will be assumed that \pkg{svglite} was used.
+#' * With the exception of the \pkg{ragg} and \pkg{svglite} devices, if the
+#'   device doesn't report their capabilities via
+#'   [dev.capabilities()][grDevices::dev.capabilities()], or the \R version is
+#'   below 4.2.0, it is assumed that the feature is unsupported.
+#' * Even though patterns and gradients where introduced in \R 4.1.0, they
+#'   are considered unsupported because providing vectorised patterns and
+#'   gradients was only introduced later in \R 4.2.0.
+#'
+#' @return `TRUE` when the feature is thought to be supported and `FALSE`
+#'   otherwise.
+#' @export
+#' @keywords internal
+#'
+#' @examples
+#' # Typically you'd run `check_device()` inside a function that might produce
+#' # advanced graphics.
+#' # The check is designed for use in control flow statements in the test mode
+#' if (check_device("patterns", action = "test")) {
+#'   print("Yay")
+#' } else {
+#'   print("Nay")
+#' }
+#'
+#' # Automatically throw a warning when unavailable
+#' if (check_device("compositing", action = "warn")) {
+#'   print("Yay")
+#' } else {
+#'   print("Nay")
+#' }
+#'
+#' # Throw an error
+#' if (check_device("glyphs", action = "abort")) {
+#'   print("Yay")
+#' }
+check_device = function(feature, action = "warn",
+                        call = caller_env()) {
+
+  action <- arg_match0(action, c("test", "warn", "abort"))
+  action_fun <- switch(
+    action,
+    warn  = cli::cli_warn,
+    abort = cli::cli_abort,
+    function(...) invisible()
+  )
+
+  feature <- arg_match0(
+    feature,
+    c("clippingPaths", "alpha_masks", "lumi_masks", "compositing", "blending",
+      "transformations", "glyphs", "patterns", "gradients", "paths",
+      ".test_feature")
+  )
+  # Formatting prettier feature names
+  feat_name <- switch(
+    feature,
+    clippingPaths   = "clipping paths",
+    patterns        = "tiled patterns",
+    blending        = "blend modes",
+    gradients       = "colour gradients",
+    glyphs          = "typeset glyphs",
+    paths           = "stroking and filling paths",
+    transformations = "affine transformations",
+    alpha_masks     = "alpha masks",
+    lumi_masks      = "luminance masks",
+    feature
+  )
+
+  # Perform version check
+  version <- getRversion()
+  capable <- switch(
+    feature,
+    glyphs = version >= "4.3.0",
+    paths =, transformations =, compositing =,
+    patterns =, lumi_masks =, blending =,
+    gradients = version >= "4.2.0",
+    alpha_masks =,
+    clippingPaths = version >= "4.1.0",
+    TRUE
+  )
+  if (isFALSE(capable)) {
+    action_fun("R {version} does not support {.emph {feature}}.",
+               call = call)
+    return(FALSE)
+  }
+
+  dev_name <- names(grDevices::dev.cur())
+
+  # The dev.capabilities() approach may work from R 4.2.0 onwards
+  if (version >= "4.2.0") {
+    capa <- grDevices::dev.capabilities()
+
+    # Test if device explicitly states that it is capable of this feature
+    capable <- switch(
+      feature,
+      clippingPaths = isTRUE(capa$clippingPaths),
+      gradients = all(c("LinearGradient", "RadialGradient") %in% capa$patterns),
+      alpha_masks = "alpha" %in% capa$masks,
+      lumi_masks = "luminance" %in% capa$masks,
+      patterns = "TilingPattern" %in% capa$patterns,
+      compositing = all(.compo_ops %in% capa$compositing),
+      blending = all(.blend_ops %in% capa$compositing),
+      transformations = isTRUE(capa$transformations),
+      paths = isTRUE(capa$paths),
+      glyphs = isTRUE(capa$glyphs),
+      NA
+    )
+    if (isTRUE(capable)) {
+      return(TRUE)
+    }
+
+    # Test if device explicitly denies that it is capable of this feature
+    incapable <- switch(
+      feature,
+      clippingPaths = isFALSE(capa$clippingPaths),
+      gradients = !all(is.na(capa$patterns)) &&
+        !all(c("LinearGradient", "RadialGradient") %in% capa$patterns),
+      alpha_masks = !is.na(capa$masks) && !("alpha" %in% capa$masks),
+      lumi_masks  = !is.na(capa$masks) && !("luminance" %in% capa$masks),
+      patterns = !is.na(capa$patterns) && !("TilingPattern" %in% capa$patterns),
+      compositing = !all(is.na(capa$compositing)) &&
+        !all(.compo_ops %in% capa$compositing),
+      blending = !all(is.na(capa$compositing)) &&
+        !all(.blend_ops %in% capa$compositing),
+      transformations = isFALSE(capa$transformations),
+      paths = isFALSE(capa$paths),
+      glyphs = isFALSE(capa$glyphs),
+      NA
+    )
+
+    if (isTRUE(incapable)) {
+      action_fun(
+        "The {.field {dev_name}} device does not support {.emph {feat_name}}.",
+        call = call
+      )
+      return(FALSE)
+    }
+  }
+
+  # Test {ragg}'s capabilities
+  if (dev_name %in% c("agg_jpeg", "agg_ppm", "agg_png", "agg_tiff")) {
+    # We return ragg's version number if not installed, so we can suggest to
+    # install it.
+    capable <- switch(
+      feature,
+      clippingPaths =, alpha_masks =, gradients =,
+      patterns = if (is_installed("ragg", version = "1.2.0")) TRUE else "1.2.0",
+      FALSE
+    )
+    if (isTRUE(capable)) {
+      return(TRUE)
+    }
+    if (is.character(capable) && action != "test") {
+      check_installed(
+        "ragg", version = capable,
+        reason = paste0("for graphics support of ", feat_name, ".")
+      )
+    }
+    action_fun(paste0(
+      "The {.pkg ragg} package's {.field {dev_name}} device does not support ",
+      "{.emph {feat_name}}."
+    ), call = call)
+    return(FALSE)
+  }
+
+  # The same logic applies to {svglite} but is tested separately in case
+  # {ragg} and {svglite} diverge at some point.
+  if (dev_name == "devSVG") {
+    # We're ignoring here that {vdiffr} might be active, which has the same
+    # device name as {svglite}.
+    # We'll return a version number if not installed so we can suggest it
+    capable <- switch(
+      feature,
+      clippingPaths =, gradients =, alpha_masks =,
+      patterns = if (is_installed("svglite", version = "2.1.0")) TRUE else "2.1.0",
+      FALSE
+    )
+    if (isTRUE(capable)) {
+      return(TRUE)
+    }
+    if (is.character(capable) && action != "test") {
+      check_installed(
+        "svglite", version = capable,
+        reason = paste0("for graphics support of ", feat_name, ".")
+      )
+    }
+    action_fun(paste0(
+      "The {.pkg svglite} package's {.field {dev_name}} device does not ",
+      "support {.emph {feat_name}}.", call = call
+    ))
+    return(FALSE)
+  }
+
+  # Last resort: list of known support prior to R 4.2.0
+  supported <- c("pdf", "cairo_pdf", "cairo_ps", "svg")
+  if (feature == "compositing") {
+    supported <- setdiff(supported, "pdf")
+  }
+  if (.Platform$OS.type == "unix") {
+    # These devices *can* be supported on Windows, but would have to have
+    # type = "cairo", which we can't check.
+    supported <- c(supported, "bmp", "jpeg", "png", "tiff")
+  }
+  if (isTRUE(dev_name %in% supported)) {
+    return(TRUE)
+  }
+  action_fun(
+    "Unable to check the capabilities of the {.field {dev_name}} device.",
+    call = call
+  )
+  return(FALSE)
+}
+
+.compo_ops <- c("clear", "source", "over", "in", "out", "atop", "dest",
+                "dest.over", "dest.in", "dest.out", "dest.atop", "xor", "add",
+                "saturate")
+
+.blend_ops <- c("multiply", "screen", "overlay", "darken", "lighten",
+                "color.dodge", "color.burn", "hard.light", "soft.light",
+                "difference", "exclusion")
