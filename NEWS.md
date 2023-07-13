@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* New function `check_device()` for testing the availability of advanced 
+  graphics features introduced in R 4.1.0 onwards (@teunbrand, #5332).
+
 * Nicer error messages for xlim/ylim arguments in coord-* functions
   (@92amartins, #4601, #5297).
 
