@@ -42,8 +42,8 @@ test_that("check_device checks R versions correctly", {
 
 test_that("check_device finds device capabilities", {
   skip_if(
-    getRversion() < "4.1.0",
-    "R version < 4.1.0 does not have special graphics features."
+    getRversion() < "4.2.0",
+    "R version < 4.2.0 does doesn't have proper `dev.capabilities()`."
   )
   withr::local_pdf()
   with_mocked_bindings(
