@@ -120,9 +120,7 @@ if (check_device("compositing", action = "warn")) {
   print("Nay")
 }
 
-# Throw an error
-if (check_device("glyphs", action = "abort")) {
-  print("Yay")
-}
+# Possibly throw an error
+try(check_device("glyphs", action = "abort"))
 }
 \keyword{internal}

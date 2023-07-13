@@ -174,10 +174,8 @@ check_inherits <- function(x,
 #'   print("Nay")
 #' }
 #'
-#' # Throw an error
-#' if (check_device("glyphs", action = "abort")) {
-#'   print("Yay")
-#' }
+#' # Possibly throw an error
+#' try(check_device("glyphs", action = "abort"))
 check_device = function(feature, action = "warn",
                         call = caller_env()) {
 
