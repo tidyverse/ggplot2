@@ -79,6 +79,8 @@ CoordPolar <- ggproto("CoordPolar", Coord,
 
   aspect = function(details) 1,
 
+  is_free = function() TRUE,
+
   distance = function(self, x, y, details) {
     if (self$theta == "x") {
       r <- rescale(y, from = details$r.range)
