@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* `coord_polar()` can have free scales in facets (@teunbrand, #2815).
+
 * Nicer error messages for xlim/ylim arguments in coord-* functions
   (@92amartins, #4601, #5297).
 
