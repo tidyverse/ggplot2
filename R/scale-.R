@@ -1056,6 +1056,10 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
     expand_range4(self$get_limits(), expand)
   },
 
+  get_limits = function(self) {
+    ggproto_parent(ScaleContinuous, self)$get_limits()
+  },
+
   get_breaks = function(self, limits = self$get_limits()) {
     if (self$is_empty()) return(numeric())
 
