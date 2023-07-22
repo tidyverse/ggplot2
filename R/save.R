@@ -26,13 +26,16 @@
 #' @param plot Plot to save, defaults to last plot displayed.
 #' @param device Device to use. Can either be a device function
 #'   (e.g. [png]), or one of "eps", "ps", "tex" (pictex),
-#'   "pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only).
+#'   "pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only). If
+#'   `NULL` (default), the device is guessed based on the `filename` extension.
 #' @param path Path of the directory to save plot to: `path` and `filename`
 #'   are combined to create the fully qualified file name. Defaults to the
 #'   working directory.
 #' @param scale Multiplicative scaling factor.
-#' @param width,height,units Plot size in `units` ("in", "cm", "mm", or "px").
-#'   If not supplied, uses the size of current graphics device.
+#' @param width,height Plot size in units expressed by the `units` argument.
+#'   If not supplied, uses the size of the current graphics device.
+#' @param units One of the following units in which the `width` and `height`
+#'   arguments are expressed: `"in"`, `"cm"`, `"mm"` or `"px"`.
 #' @param dpi Plot resolution. Also accepts a string input: "retina" (320),
 #'   "print" (300), or "screen" (72). Applies only to raster output types.
 #' @param limitsize When `TRUE` (the default), `ggsave()` will not
@@ -48,11 +51,16 @@
 #' ggplot(mtcars, aes(mpg, wt)) +
 #'   geom_point()
 #'
+#' # here, the device is inferred from the filename extension
 #' ggsave("mtcars.pdf")
 #' ggsave("mtcars.png")
 #'
+#' # setting dimensions of the plot
 #' ggsave("mtcars.pdf", width = 4, height = 4)
 #' ggsave("mtcars.pdf", width = 20, height = 20, units = "cm")
+#'
+#' # passing device-specific arguments to '...'
+#' ggsave("mtcars.pdf", colormodel = "cmyk")
 #'
 #' # delete files with base::unlink()
 #' unlink("mtcars.pdf")
@@ -138,7 +146,6 @@ parse_dpi <- function(dpi, call = caller_env()) {
 
 plot_dim <- function(dim = c(NA, NA), scale = 1, units = "in",
                      limitsize = TRUE, dpi = 300, call = caller_env()) {
-
   units <- arg_match0(units, c("in", "cm", "mm", "px"))
   to_inches <- function(x) x / c(`in` = 1, cm = 2.54, mm = 2.54 * 10, px = dpi)[units]
   from_inches <- function(x) x * c(`in` = 1, cm = 2.54, mm = 2.54 * 10, px = dpi)[units]
