@@ -125,7 +125,8 @@ extension.</p>
 <dt>device</dt>
 <dd><p>Device to use. Can either be a device function
 (e.g. <a href="https://rdrr.io/r/grDevices/png.html" class="external-link">png</a>), or one of "eps", "ps", "tex" (pictex),
-"pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only).</p></dd>
+"pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only). If
+<code>NULL</code> (default), the device is guessed based on the <code>filename</code> extension.</p></dd>
 
 
 <dt>path</dt>
@@ -138,9 +139,14 @@ working directory.</p></dd>
 <dd><p>Multiplicative scaling factor.</p></dd>
 
 
-<dt>width, height, units</dt>
-<dd><p>Plot size in <code>units</code> ("in", "cm", "mm", or "px").
-If not supplied, uses the size of current graphics device.</p></dd>
+<dt>width, height</dt>
+<dd><p>Plot size in units expressed by the <code>units</code> argument.
+If not supplied, uses the size of the current graphics device.</p></dd>
+
+
+<dt>units</dt>
+<dd><p>One of the following units in which the <code>width</code> and <code>height</code>
+arguments are expressed: <code>"in"</code>, <code>"cm"</code>, <code>"mm"</code> or <code>"px"</code>.</p></dd>
 
 
 <dt>dpi</dt>
@@ -193,11 +199,16 @@ examples section.</p>
 <span class="r-in"><span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="va">wt</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># here, the device is inferred from the filename extension</span></span></span>
 <span class="r-in"><span><span class="fu">ggsave</span><span class="op">(</span><span class="st">"mtcars.pdf"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">ggsave</span><span class="op">(</span><span class="st">"mtcars.png"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># setting dimensions of the plot</span></span></span>
 <span class="r-in"><span><span class="fu">ggsave</span><span class="op">(</span><span class="st">"mtcars.pdf"</span>, width <span class="op">=</span> <span class="fl">4</span>, height <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">ggsave</span><span class="op">(</span><span class="st">"mtcars.pdf"</span>, width <span class="op">=</span> <span class="fl">20</span>, height <span class="op">=</span> <span class="fl">20</span>, units <span class="op">=</span> <span class="st">"cm"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># passing device-specific arguments to '...'</span></span></span>
+<span class="r-in"><span><span class="fu">ggsave</span><span class="op">(</span><span class="st">"mtcars.pdf"</span>, colormodel <span class="op">=</span> <span class="st">"cmyk"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># delete files with base::unlink()</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/unlink.html" class="external-link">unlink</a></span><span class="op">(</span><span class="st">"mtcars.pdf"</span><span class="op">)</span></span></span>
