@@ -15,15 +15,27 @@ to find a default scale. For example, if \code{scale_type()} returns
 \code{c("foo", "bar")} and the vector is used with the colour aesthetic,
 ggplot2 will first look for \code{scale_colour_foo} then
 \code{scale_colour_bar}.
+
+If the returned character vector has an attribute named \code{"env"},
+it is expected to be an environment or a list of environments.
+If it is provided, these environments are searched for scale functions,
+instead of the default of all loaded environments.
 }
 \description{
 You will need to define a method for this method if you want to extend
 ggplot2 to handle new types of data. If you simply want to pass the vector
 through as an additional aesthetic, return \code{"identity"}.
 }
+\details{
+Scale functions defined in other packages require special handling.
+For compatibility, since ggplot2 3.3.6, the default is to search for
+scale functions in all loaded namespaces. This behavior changes
+if the return value has an attribute named \code{"env"}.
+}
 \examples{
 scale_type(1:5)
 scale_type("test")
 scale_type(Sys.Date())
+scale_type(tibble::num(1:3))
 }
 \keyword{internal}
