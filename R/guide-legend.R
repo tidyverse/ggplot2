@@ -256,9 +256,7 @@ GuideLegend <- ggproto(
     key.height  = "legend.key.height",
     key.width   = "legend.key.width",
     text        = "legend.text",
-    text.align  = "legend.text.align",
-    theme.title = "legend.title",
-    title.align = "legend.title.align"
+    theme.title = "legend.title"
   ),
 
   extract_params = function(scale, params, hashables,
@@ -395,8 +393,7 @@ GuideLegend <- ggproto(
 
     # Title
     title <- combine_elements(params$title.theme, elements$theme.title)
-    title$hjust <- params$title.hjust %||% elements$title.align %||%
-      title$hjust %||% 0
+    title$hjust <- params$title.hjust %||% title$hjust %||% 0
     title$vjust <- params$title.vjust %||% title$vjust %||% 0.5
     elements$title <- title
 
@@ -421,8 +418,7 @@ GuideLegend <- ggproto(
             is.null(theme$legend.text$vjust)) {
           label$vjust <- NULL
         }
-        label$hjust <- params$label.hjust %||% elements$text.align %||%
-          label$hjust %||% hjust
+        label$hjust <- params$label.hjust %||% label$hjust %||% hjust
         label$vjust <- params$label.vjust %||% label$vjust %||% vjust
       }
       elements$text <- label
