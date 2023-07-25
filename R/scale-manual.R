@@ -180,7 +180,7 @@ manual_scale <- function(aesthetic, values = NULL, breaks = waiver(), ...,
     if (n > length(values)) {
       cli::cli_abort("Insufficient values in manual scale. {n} needed but only {length(values)} provided.")
     }
-    values
+    unname(values[seq_len(n)])
   }
   discrete_scale(aesthetic, "manual", pal, breaks = breaks, limits = limits, ...)
 }
