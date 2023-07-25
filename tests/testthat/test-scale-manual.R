@@ -23,7 +23,7 @@ test_that("names of values used in manual scales", {
 
 test_that("obtain expected quantity values from manual scale", {
   for (aesthetics in .all_aesthetics) {
-    s <- scale_discrete_manual(aesthetics = aesthetics, values = c("8" = "c", "4" = "a", "6" = "b"))
+    s <- scale_discrete_manual(aesthetics = aesthetics, values = c("c", "a", "b"))
     expect_equal(s$palette(1), c("c"))
     expect_equal(s$palette(2), c("c", "a"))
     expect_equal(s$palette(3), c("c", "a", "b"))
