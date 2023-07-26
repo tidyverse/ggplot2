@@ -19,6 +19,11 @@
 * A stacking bug in `stat_align()` was fixed (@teunbrand, #5176).
 * `stat_contour()` and `stat_contour_filled()` now warn about and remove
   duplicated coordinates (@teunbrand, #5215).
+  
+# ggplot2 3.4.3
+
+This hotfix release addresses a version comparison change in r-devel. There are
+no user-facing or breaking changes.
 
 # ggplot2 3.4.2
 This is a hotfix release anticipating changes in r-devel, but folds in upkeep
