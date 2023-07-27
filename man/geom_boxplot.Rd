@@ -20,6 +20,7 @@ geom_boxplot(
   outlier.alpha = NULL,
   notch = FALSE,
   notchwidth = 0.5,
+  staplewidth = 0,
   varwidth = FALSE,
   na.rm = FALSE,
   orientation = NA,
@@ -119,6 +120,9 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 \code{geom_boxplot()} and \code{stat_boxplot()}.}
 
 \item{coef}{Length of the whiskers as multiple of IQR. Defaults to 1.5.}
+
+\item{stablewidth}{The relative width of staples to the width of the box.
+Staples mark the ends of the whiskers with a line.}
 }
 \description{
 The boxplot compactly displays the distribution of a continuous variable.

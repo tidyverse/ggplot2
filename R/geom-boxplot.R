@@ -52,6 +52,8 @@
 #'   are significantly different.
 #' @param notchwidth For a notched box plot, width of the notch relative to
 #'   the body (defaults to `notchwidth = 0.5`).
+#' @param stablewidth The relative width of staples to the width of the box.
+#'   Staples mark the ends of the whiskers with a line.
 #' @param varwidth If `FALSE` (default) make a standard box plot. If
 #'   `TRUE`, boxes are drawn with widths proportional to the
 #'   square-roots of the number of observations in the groups (possibly
