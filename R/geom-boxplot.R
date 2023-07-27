@@ -136,6 +136,7 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
       position$preserve <- "single"
     }
   }
+  check_number_decimal(staplewidth)
 
   layer(
     data = data,
