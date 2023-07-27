@@ -92,6 +92,9 @@ are significantly different.}
 \item{notchwidth}{For a notched box plot, width of the notch relative to
 the body (defaults to \code{notchwidth = 0.5}).}
 
+\item{staplewidth}{The relative width of staples to the width of the box.
+Staples mark the ends of the whiskers with a line.}
+
 \item{varwidth}{If \code{FALSE} (default) make a standard box plot. If
 \code{TRUE}, boxes are drawn with widths proportional to the
 square-roots of the number of observations in the groups (possibly
@@ -120,9 +123,6 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 \code{geom_boxplot()} and \code{stat_boxplot()}.}
 
 \item{coef}{Length of the whiskers as multiple of IQR. Defaults to 1.5.}
-
-\item{stablewidth}{The relative width of staples to the width of the box.
-Staples mark the ends of the whiskers with a line.}
 }
 \description{
 The boxplot compactly displays the distribution of a continuous variable.
