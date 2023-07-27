@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Failing to fit or predict in `stat_smooth()` now gives a warning and omits
+  the failed group, instead of throwing an error (@teunbrand, #5352).
+
 * Nicer error messages for xlim/ylim arguments in coord-* functions
   (@92amartins, #4601, #5297).
 
