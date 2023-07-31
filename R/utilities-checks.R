@@ -368,8 +368,8 @@ check_device = function(feature, action = "warn", op = NULL,
     }
     action_fun(paste0(
       "The {.pkg {pkg}} package's {.field {dev_name}} device does not ",
-      "support {.emph {feat_name}}.", call = call
-    ))
+      "support {.emph {feat_name}}."), call = call
+    )
     return(FALSE)
   }
 
