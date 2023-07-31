@@ -86,6 +86,7 @@ test_that("check_device finds svglite capabilities", {
     "Cannot test {svglite} capabilities."
   )
   tmp <- withr::local_tempfile(fileext = ".svg")
+  withr::local_envvar(TESTTHAT = "false") # To not trigger vdiffr rules
   svglite::svglite(tmp)
 
   expect_true(check_device("gradients"))
