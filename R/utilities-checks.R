@@ -85,6 +85,9 @@ check_inherits <- function(x,
 #'   `FALSE`.
 #'   * `"abort"` throws an error when the device is estimated to not support
 #'   the feature.
+#' @param op A string for a specific operation to test for when `feature` is
+#'   either `"blending"` or `"compositing"`. If `NULL` (default), support for
+#'   all known blending or compositing operations is queried.
 #' @param call The execution environment of a currently running function, e.g.
 #'   [`caller_env()`][rlang::caller_env()]. The function will be mentioned in
 #'   warnings and error messages as the source of the warning or error. See
@@ -176,7 +179,7 @@ check_inherits <- function(x,
 #'
 #' # Possibly throw an error
 #' try(check_device("glyphs", action = "abort"))
-check_device = function(feature, action = "warn",
+check_device = function(feature, action = "warn", op = NULL,
                         call = caller_env()) {
 
   action <- arg_match0(action, c("test", "warn", "abort"))
@@ -238,6 +241,21 @@ check_device = function(feature, action = "warn",
     on.exit(grDevices::dev.set(dev_old), add = TRUE)
     dev_cur  <- grDevices::dev.set(grDevices::dev.next())
     dev_name <- names(dev_cur)
+  }
+
+  # For blending/compositing, maybe test a specific operation
+  if (!is.null(op)) {
+    if (feature == "blending") {
+      .blend_ops <- arg_match0(op, .blend_ops)
+    } else if (feature == "compositing") {
+      .compo_ops <- arg_match0(op, .compo_ops)
+    } else {
+      cli::cli_abort(paste0(
+        "The {.arg op} argument must be used with {.code feature = blending}",
+        " or {.code feature = compositing}."
+      ))
+    }
+    feat_name <- paste0("'", gsub("\\.", " ", op), "' ", feat_name)
   }
 
   # The dev.capabilities() approach may work from R 4.2.0 onwards
