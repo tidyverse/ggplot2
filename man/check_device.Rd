@@ -4,7 +4,7 @@
 \alias{check_device}
 \title{Check graphics device capabilities}
 \usage{
-check_device(feature, action = "warn", call = caller_env())
+check_device(feature, action = "warn", op = NULL, call = caller_env())
 }
 \arguments{
 \item{feature}{A string naming a graphics device feature. One of:
@@ -21,6 +21,10 @@ of these terms.}
 \item \code{"abort"} throws an error when the device is estimated to not support
 the feature.
 }}
+
+\item{op}{A string for a specific operation to test for when \code{feature} is
+either \code{"blending"} or \code{"compositing"}. If \code{NULL} (default), support for
+all known blending or compositing operations is queried.}
 
 \item{call}{The execution environment of a currently running function, e.g.
 \code{\link[rlang:stack]{caller_env()}}. The function will be mentioned in
@@ -92,7 +96,8 @@ new features, instead of \code{type = "cairo"}, which does. Prior to \R version
 returned.
 \item The \pkg{vdiffr}'s device name is the same as \pkg{svglite}'s device name,
 but these devices differ in what features are supported. Their differences
-cannot be resolved and it will be assumed that \pkg{svglite} was used.
+cannot be resolved and it will be assumed that \pkg{svglite} was used,
+unless the check is run in a \pkg{testthat} environment.
 \item With the exception of the \pkg{ragg} and \pkg{svglite} devices, if the
 device doesn't report their capabilities via
 \link[grDevices:dev.capabilities]{dev.capabilities()}, or the \R version is
