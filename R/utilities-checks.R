@@ -226,7 +226,19 @@ check_device = function(feature, action = "warn",
     return(FALSE)
   }
 
-  dev_name <- names(grDevices::dev.cur())
+  # Grab device for checking
+  dev_cur  <- grDevices::dev.cur()
+  dev_name <- names(dev_cur)
+
+  if (dev_name == "RStudioGD") {
+    # RStudio opens RStudioGD as the active graphics device, but the back-end
+    # appears to be the *next* device. Temporarily set the next device as the
+    # device to check capabilities.
+    dev_old <- dev_cur
+    on.exit(grDevices::dev.set(dev_old), add = TRUE)
+    dev_cur  <- grDevices::dev.set(grDevices::dev.next())
+    dev_name <- names(dev_cur)
+  }
 
   # The dev.capabilities() approach may work from R 4.2.0 onwards
   if (version >= "4.2.0") {
