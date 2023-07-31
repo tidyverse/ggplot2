@@ -146,7 +146,8 @@ check_inherits <- function(x,
 #'   returned.
 #' * The \pkg{vdiffr}'s device name is the same as \pkg{svglite}'s device name,
 #'   but these devices differ in what features are supported. Their differences
-#'   cannot be resolved and it will be assumed that \pkg{svglite} was used.
+#'   cannot be resolved and it will be assumed that \pkg{svglite} was used,
+#'   unless the check is run in a \pkg{testthat} environment.
 #' * With the exception of the \pkg{ragg} and \pkg{svglite} devices, if the
 #'   device doesn't report their capabilities via
 #'   [dev.capabilities()][grDevices::dev.capabilities()], or the \R version is
@@ -338,8 +339,6 @@ check_device = function(feature, action = "warn", op = NULL,
   # The same logic applies to {svglite} but is tested separately in case
   # {ragg} and {svglite} diverge at some point.
   if (dev_name == "devSVG") {
-    # We're ignoring here that {vdiffr} might be active, which has the same
-    # device name as {svglite}.
     # We'll return a version number if not installed so we can suggest it
     capable <- switch(
       feature,
@@ -347,6 +346,17 @@ check_device = function(feature, action = "warn", op = NULL,
       patterns = if (is_installed("svglite", version = "2.1.0")) TRUE else "2.1.0",
       FALSE
     )
+
+    # When we're in a testthat environment, we'll assume we're in vdiffr, which
+    # doesn't support newer features.
+    # Determining this is logic copied from `testthat::is_testing()`
+    if (identical(Sys.getenv("TESTTHAT"), "true")) {
+      capable <- FALSE
+      pkg <- "vdiffr"
+    } else {
+      pkg <- "svglite"
+    }
+
     if (isTRUE(capable)) {
       return(TRUE)
     }
@@ -357,7 +367,7 @@ check_device = function(feature, action = "warn", op = NULL,
       )
     }
     action_fun(paste0(
-      "The {.pkg svglite} package's {.field {dev_name}} device does not ",
+      "The {.pkg {pkg}} package's {.field {dev_name}} device does not ",
       "support {.emph {feat_name}}.", call = call
     ))
     return(FALSE)
