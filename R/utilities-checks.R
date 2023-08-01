@@ -88,6 +88,8 @@ check_inherits <- function(x,
 #' @param op A string for a specific operation to test for when `feature` is
 #'   either `"blending"` or `"compositing"`. If `NULL` (default), support for
 #'   all known blending or compositing operations is queried.
+#' @param maybe A logical of length 1 determining what the return value should
+#'   be in case the device capabilities cannot be assessed.
 #' @param call The execution environment of a currently running function, e.g.
 #'   [`caller_env()`][rlang::caller_env()]. The function will be mentioned in
 #'   warnings and error messages as the source of the warning or error. See
@@ -142,8 +144,8 @@ check_inherits <- function(x,
 #' * On Windows machines, bitmap devices such as `png()` or `jpeg()` default
 #'   to `type = "windows"`, which at the time of writing don't support any
 #'   new features, instead of `type = "cairo"`, which does. Prior to \R version
-#'   4.2.0, the capabilities cannot be resolved and a conservative `FALSE` is
-#'   returned.
+#'   4.2.0, the capabilities cannot be resolved and the value of the `maybe`
+#'   argument is returned.
 #' * The \pkg{vdiffr}'s device name is the same as \pkg{svglite}'s device name,
 #'   but these devices differ in what features are supported. Their differences
 #'   cannot be resolved and it will be assumed that \pkg{svglite} was used,
@@ -180,8 +182,10 @@ check_inherits <- function(x,
 #'
 #' # Possibly throw an error
 #' try(check_device("glyphs", action = "abort"))
-check_device = function(feature, action = "warn", op = NULL,
+check_device = function(feature, action = "warn", op = NULL, maybe = FALSE,
                         call = caller_env()) {
+
+  check_bool(maybe, allow_na = TRUE)
 
   action <- arg_match0(action, c("test", "warn", "abort"))
   action_fun <- switch(
@@ -390,7 +394,7 @@ check_device = function(feature, action = "warn", op = NULL,
     "Unable to check the capabilities of the {.field {dev_name}} device.",
     call = call
   )
-  return(FALSE)
+  return(maybe)
 }
 
 .compo_ops <- c("clear", "source", "over", "in", "out", "atop", "dest",

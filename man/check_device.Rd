@@ -4,7 +4,13 @@
 \alias{check_device}
 \title{Check graphics device capabilities}
 \usage{
-check_device(feature, action = "warn", op = NULL, call = caller_env())
+check_device(
+  feature,
+  action = "warn",
+  op = NULL,
+  maybe = FALSE,
+  call = caller_env()
+)
 }
 \arguments{
 \item{feature}{A string naming a graphics device feature. One of:
@@ -25,6 +31,9 @@ the feature.
 \item{op}{A string for a specific operation to test for when \code{feature} is
 either \code{"blending"} or \code{"compositing"}. If \code{NULL} (default), support for
 all known blending or compositing operations is queried.}
+
+\item{maybe}{A logical of length 1 determining what the return value should
+be in case the device capabilities cannot be assessed.}
 
 \item{call}{The execution environment of a currently running function, e.g.
 \code{\link[rlang:stack]{caller_env()}}. The function will be mentioned in
@@ -92,8 +101,8 @@ controlling the appearance of individual glyphs.}
 \item On Windows machines, bitmap devices such as \code{png()} or \code{jpeg()} default
 to \code{type = "windows"}, which at the time of writing don't support any
 new features, instead of \code{type = "cairo"}, which does. Prior to \R version
-4.2.0, the capabilities cannot be resolved and a conservative \code{FALSE} is
-returned.
+4.2.0, the capabilities cannot be resolved and the value of the \code{maybe}
+argument is returned.
 \item The \pkg{vdiffr}'s device name is the same as \pkg{svglite}'s device name,
 but these devices differ in what features are supported. Their differences
 cannot be resolved and it will be assumed that \pkg{svglite} was used,
