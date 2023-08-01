@@ -207,16 +207,16 @@ remove the grey background color with <code>legend.key</code>.</p>
 <span>    <span class="op">)</span></span></code></pre></div>
 <p><img src="faq-customising_files/figure-html/unnamed-chunk-6-1.png" alt="A scatter plot showing the highway miles per gallon on the x-axis and city miles per gallon on the y-axis. The points are coloured by three types of drive train, which is displayed in a legend at the right of the plot. In the legend, elements are placed widely apart and the title is to the left of the keys." width="80%"></p>
 <p>Note that the legend title is no longer aligned with the keys with
-this approach. You can also shift it over with
-<code>legend.title.align</code>.</p>
+this approach. You can also shift it over with the <code>hjust</code>
+setting of <code>legend.title</code>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hwy</span>, y <span class="op">=</span> <span class="va">cty</span>, color <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/theme.html">theme</a></span><span class="op">(</span></span>
 <span>    legend.key.size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">1.5</span>, <span class="st">"cm"</span><span class="op">)</span>,</span>
 <span>    legend.key <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_rect</a></span><span class="op">(</span>color <span class="op">=</span> <span class="cn">NA</span>, fill <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>,</span>
-<span>    legend.title.align <span class="op">=</span> <span class="fl">0.5</span></span>
-<span>    <span class="op">)</span></span></code></pre></div>
+<span>    legend.title <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_text</a></span><span class="op">(</span>hjust <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="faq-customising_files/figure-html/unnamed-chunk-7-1.png" alt="A scatter plot showing the highway miles per gallon on the x-axis and city miles per gallon on the y-axis. The points are coloured by three types of drive train, which is displayed in a legend at the right of the plot. In the legend, elements are placed widely apart and the title is aligned with the keys." width="80%"></p>
 </details>
 </div>
