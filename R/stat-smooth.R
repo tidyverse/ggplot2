@@ -171,7 +171,7 @@ StatSmooth <- ggproto("StatSmooth", Stat,
       method.args$method <- "REML"
     }
 
-    prediction <- tryCatch(
+    prediction <- try_fetch(
       {
         model <- inject(method(
           formula,

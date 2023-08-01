@@ -2,6 +2,7 @@
 
 * Failing to fit or predict in `stat_smooth()` now gives a warning and omits
   the failed group, instead of throwing an error (@teunbrand, #5352).
+  
 * Integers are once again valid input to theme arguments that expect numeric
   input (@teunbrand, #5369)
 
