@@ -1,12 +1,16 @@
 # ggplot2 (development version)
 
+* Binned scales now treat `NA`s in limits the same way continuous scales do 
+  (#5355).
+
+* Binned scales work better with `trans = "reverse"` (#5355).
+
 * The `legend.text.align` and `legend.title.align` arguments in `theme()` are 
   deprecated. The `hjust` setting of the `legend.text` and `legend.title` 
   elements continues to fulfil the role of text alignment (@teunbrand, #5347).
 
 * Integers are once again valid input to theme arguments that expect numeric
   input (@teunbrand, #5369)
-
 
 * Nicer error messages for xlim/ylim arguments in coord-* functions
   (@92amartins, #4601, #5297).

@@ -1057,10 +1057,16 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
     expand_range4(self$get_limits(), expand)
   },
 
+  get_limits = function(self) {
+    ggproto_parent(ScaleContinuous, self)$get_limits()
+  },
+
   get_breaks = function(self, limits = self$get_limits()) {
     if (self$is_empty()) return(numeric())
 
     limits <- self$trans$inverse(limits)
+    is_rev <- limits[2] < limits[1]
+    limits <- sort(limits)
 
     if (is.null(self$breaks)) {
       return(NULL)
@@ -1107,7 +1113,11 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
         }
         new_limits_trans <- suppressWarnings(self$trans$transform(new_limits))
         limits[is.finite(new_limits_trans)] <- new_limits[is.finite(new_limits_trans)]
-        self$limits <- self$trans$transform(limits)
+        if (is_rev) {
+          self$limits <- rev(self$trans$transform(limits))
+        } else {
+          self$limits <- self$trans$transform(limits)
+        }
       }
     } else if (is.function(self$breaks)) {
       if ("n.breaks" %in% names(formals(environment(self$breaks)$f))) {
@@ -1124,7 +1134,8 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
     }
 
     # Breaks must be within limits
-    breaks <- breaks[breaks >= limits[1] & breaks <= limits[2]]
+    breaks <- oob_discard(breaks, sort(limits))
+
     self$breaks <- breaks
 
     self$trans$transform(breaks)
