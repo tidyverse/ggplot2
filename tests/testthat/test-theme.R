@@ -492,6 +492,13 @@ test_that("Theme elements are checked during build", {
   expect_snapshot_error(ggplotGrob(p))
 })
 
+test_that("Theme validation behaves as expected", {
+  tree <- get_element_tree()
+  expect_silent(validate_element(1,  "aspect.ratio", tree))
+  expect_silent(validate_element(1L, "aspect.ratio", tree))
+  expect_snapshot_error(validate_element("A", "aspect.ratio", tree))
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("aspect ratio is honored", {
