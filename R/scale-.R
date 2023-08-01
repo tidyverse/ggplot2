@@ -73,9 +73,10 @@
 #'
 #'   A transformation object bundles together a transform, its inverse,
 #'   and methods for generating breaks and labels. Transformation objects
-#'   are defined in the scales package, and are called `<name>_trans` (e.g.,
-#'   [scales::boxcox_trans()]). You can create your own
-#'   transformation with [scales::trans_new()].
+#'   are defined in the scales package, and are called `<name>_trans`. If
+#'   transformations require arguments, you can call them from the scales
+#'   package, e.g. [`scales::boxcox_trans(p = 2)`][scales::boxcox_trans].
+#'   You can create your own transformation with [scales::trans_new()].
 #' @param guide A function used to create a guide or its name. See
 #'   [guides()] for more information.
 #' @param expand For position scales, a vector of range expansion constants used to add some
