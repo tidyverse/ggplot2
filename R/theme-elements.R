@@ -476,12 +476,10 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   legend.key.height   = el_def("unit", "legend.key.size"),
   legend.key.width    = el_def("unit", "legend.key.size"),
   legend.text         = el_def("element_text", "text"),
-  legend.text.align   = el_def("numeric"),
   legend.title        = el_def("element_text", "title"),
-  legend.title.align  = el_def("numeric"),
-  legend.position     = el_def(c("character", "numeric")),
+  legend.position     = el_def(c("character", "numeric", "integer")),
   legend.direction    = el_def("character"),
-  legend.justification = el_def(c("character", "numeric")),
+  legend.justification = el_def(c("character", "numeric", "integer")),
   legend.box          = el_def("character"),
   legend.box.just     = el_def("character"),
   legend.box.margin   = el_def("margin"),
@@ -522,11 +520,11 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   plot.caption        = el_def("element_text", "title"),
   plot.caption.position = el_def("character"),
   plot.tag            = el_def("element_text", "title"),
-  plot.tag.position   = el_def(c("character", "numeric")),  # Need to also accept numbers
+  plot.tag.position   = el_def(c("character", "numeric", "integer")),  # Need to also accept numbers
   plot.tag.location   = el_def("character"),
   plot.margin         = el_def("margin"),
 
-  aspect.ratio        = el_def("numeric")
+  aspect.ratio        = el_def(c("numeric", "integer"))
 )
 
 # Check that an element object has the proper class
