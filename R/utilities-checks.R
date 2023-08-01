@@ -249,17 +249,9 @@ check_device = function(feature, action = "warn", op = NULL, maybe = FALSE,
   }
 
   # For blending/compositing, maybe test a specific operation
-  if (!is.null(op)) {
-    if (feature == "blending") {
-      .blend_ops <- arg_match0(op, .blend_ops)
-    } else if (feature == "compositing") {
-      .compo_ops <- arg_match0(op, .compo_ops)
-    } else {
-      cli::cli_abort(paste0(
-        "The {.arg op} argument must be used with {.code feature = blending}",
-        " or {.code feature = compositing}."
-      ))
-    }
+  if (!is.null(op) && feature %in% c("blending", "compositing")) {
+    op <- arg_match0(op, c(.blend_ops, .compo_ops))
+    .blend_ops <- .compo_ops <- op
     feat_name <- paste0("'", gsub("\\.", " ", op), "' ", feat_name)
   }
 
