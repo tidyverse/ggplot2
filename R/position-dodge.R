@@ -151,8 +151,9 @@ pos_dodge <- function(df, width, n = NULL, stackOverlap = "no") {
     n <- vec_unique_count(df$group)
   }
 
-  if (n == 1)
-    return(df)
+  # even if it's a single group we might need to dodge stack
+  #if (n == 1)
+  #  return(df) 
 
   if (!all(c("xmin", "xmax") %in% names(df))) {
     df$xmin <- df$x
