@@ -1,5 +1,10 @@
 # ggplot2 (development version)
 
+* `geom_boxplot()` gains an `outliers` argument to switch outliers on or off,
+  in a manner that does affects the scale range. For hiding outliers that does
+  not affect the scale range, you can continue to use `outlier.shape = NA` 
+  (@teunbrand, #4892).
+
 * Integers are once again valid input to theme arguments that expect numeric
   input (@teunbrand, #5369)
 
