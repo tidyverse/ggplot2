@@ -314,9 +314,7 @@ GuideColourbar <- ggproto(
     key.height  = "legend.key.height",
     key.width   = "legend.key.width",
     text        = "legend.text",
-    text.align  = "legend.text.align",
-    theme.title = "legend.title",
-    title.align = "legend.title.align"
+    theme.title = "legend.title"
   ),
 
   extract_decor = function(scale, aesthetic, nbin = 300, reverse = FALSE, ...) {

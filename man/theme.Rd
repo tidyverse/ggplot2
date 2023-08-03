@@ -55,9 +55,7 @@ theme(
   legend.key.height,
   legend.key.width,
   legend.text,
-  legend.text.align,
   legend.title,
-  legend.title.align,
   legend.position,
   legend.direction,
   legend.justification,
@@ -167,14 +165,8 @@ inherits from \code{rect})}
 \item{legend.text}{legend item labels (\code{\link[=element_text]{element_text()}}; inherits from
 \code{text})}
 
-\item{legend.text.align}{alignment of legend labels (number from 0 (left) to
-1 (right))}
-
 \item{legend.title}{title of legend (\code{\link[=element_text]{element_text()}}; inherits from
 \code{title})}
-
-\item{legend.title.align}{alignment of legend title (number from 0 (left) to
-1 (right))}
 
 \item{legend.position}{the position of legends ("none", "left", "right",
 "bottom", "top", or two-element numeric vector)}
