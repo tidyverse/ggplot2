@@ -297,8 +297,56 @@ to actual values.</p>
 top-level <code>Guide</code>, and each implements their own methods for drawing.</p>
 <p>To create a new type of Guide object, you typically will want to override
 one or more of the following:</p>
-<p>TODO: Fill this in properly</p>
-    </div>
+<p>Properties:</p><ul><li><p><code>available_aes</code> A <code>character</code> vector with aesthetics that this guide
+supports. The value <code>"any"</code> indicates all non-position aesthetics.</p></li>
+<li><p><code>params</code> A named <code>list</code> of parameters that the guide needs to function.
+It has the following roles:</p><ul><li><p><code>params</code> provides the defaults for a guide.</p></li>
+<li><p><code>names(params)</code> determines what are valid arguments to <code><a href="new_guide.html">new_guide()</a></code>.
+Some parameters are <em>required</em> to render the guide. These are: <code>title</code>,
+<code>name</code>, <code>position</code>, <code>direction</code>, <code>order</code> and <code>hash</code>.</p></li>
+<li><p>During build stages, <code>params</code> holds information about the guide.</p></li>
+</ul></li>
+<li><p><code>elements</code> A named list of <code>character</code>s, giving the name of theme elements
+that should be retrieved automatically, for example <code>"legend.text"</code>.</p></li>
+<li><p><code>hashables</code> An <code>expression</code> that can be evaluated in the context of
+<code>params</code>. The hash of the evaluated expression determines the merge
+compatibility of guides, and is stored in <code>params$hash</code>.</p></li>
+</ul><p>Methods:</p><ul><li><p><code>extract_key()</code> Returns a <code>data.frame</code> with (mapped) breaks and labels
+extracted from the scale, which will be stored in <code>params$key</code>.</p></li>
+<li><p><code>extract_decor()</code> Returns a <code>data.frame</code> containing other structured
+information extracted from the scale, which will be stored in
+<code>params$decor</code>. The <code>decor</code> has a guide-specific  meaning: it is the bar in
+<code><a href="guide_colourbar.html">guide_colourbar()</a></code>, but specifies the <code>axis.line</code> in <code><a href="guide_axis.html">guide_axis()</a></code>.</p></li>
+<li><p><code>extract_params()</code> Updates the <code>params</code> with other, unstructured
+information from the scale. An example of this is inheriting the guide's
+title from the <code>scale$name</code> field.</p></li>
+<li><p><code><a href="https://rdrr.io/r/base/transform.html" class="external-link">transform()</a></code> Updates the <code>params$key</code> based on the coordinates. This
+applies to position guides, as it rescales the aesthetic to the [0, 1]
+range.</p></li>
+<li><p><code><a href="https://rdrr.io/pkg/sp/man/merge.html" class="external-link">merge()</a></code> Combines information from multiple guides with the same
+<code>params$hash</code>. This ensures that e.g. <code><a href="guide_legend.html">guide_legend()</a></code> can display both
+<code>shape</code> and <code>colour</code> in the same guide.</p></li>
+<li><p><code>get_layer_key()</code> Extract information from layers. This can be used to
+check that the guide's aesthetic is actually in use, or to gather
+information about how legend keys should be displayed.</p></li>
+<li><p><code>setup_params()</code> Set up parameters at the beginning of drawing stages.
+It can be used to overrule user-supplied parameters or perform checks on
+the <code>params</code> property.</p></li>
+<li><p><code>override_elements()</code> Take populated theme elements derived from the
+<code>elements</code> property and allows overriding these theme settings.</p></li>
+<li><p><code>build_title()</code> Render the guide's title.</p></li>
+<li><p><code>build_labels()</code> Render the guide's labels.</p></li>
+<li><p><code>build_decor()</code> Render the <code>params$decor</code>, which is different for every
+guide.</p></li>
+<li><p><code>build_ticks()</code> Render tick marks.</p></li>
+<li><p><code>measure_grobs()</code> Measure dimensions of the graphical objects produced
+by the <code>build_*()</code> methods to be used in the layout or assembly.</p></li>
+<li><p><code>arrange_layout()</code> Set up a layout for how graphical objects produced by
+the <code>build_*()</code> methods should be arranged.</p></li>
+<li><p><code>assemble_drawing()</code> Take the graphical objects produced by the <code>build_*()</code>
+methods, the measurements from <code>measure_grobs()</code> and layout from
+<code>arrange_layout()</code> to finalise the guide.</p></li>
+</ul></div>
     <div class="section level2">
     <h2 id="positions">Positions<a class="anchor" aria-label="anchor" href="#positions"></a></h2>
     
