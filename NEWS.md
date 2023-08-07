@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* The `size` argument in `annotation_logticks()` has been deprecated in favour
+  of the `linewidth` argument (#5292).
+
 * `geom_boxplot()` gains an `outliers` argument to switch outliers on or off,
   in a manner that does affects the scale range. For hiding outliers that does
   not affect the scale range, you can continue to use `outlier.shape = NA` 
@@ -13,7 +16,6 @@
 * The `legend.text.align` and `legend.title.align` arguments in `theme()` are 
   deprecated. The `hjust` setting of the `legend.text` and `legend.title` 
   elements continues to fulfil the role of text alignment (@teunbrand, #5347).
-
 
 * Integers are once again valid input to theme arguments that expect numeric
   input (@teunbrand, #5369)
