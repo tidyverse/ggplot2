@@ -627,6 +627,17 @@ test_that("guides title and text are positioned correctly", {
   expect_doppelganger("rotated guide titles and labels", p )
 })
 
+test_that("size and linewidth affect key size", {
+  df <- data_frame(x = c(0, 1, 2))
+  p  <- ggplot(df, aes(x, x)) +
+    geom_point(aes(size = x)) +
+    geom_line(aes(linewidth = 2 - x)) +
+    scale_size_continuous(range = c(1, 12)) +
+    scale_linewidth_continuous(range = c(1, 20))
+
+  expect_doppelganger("enlarged guides", p)
+})
+
 test_that("colorbar can be styled", {
   df <- data_frame(x = c(0, 1, 2))
   p <- ggplot(df, aes(x, x, color = x)) + geom_point()
