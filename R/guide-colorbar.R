@@ -317,6 +317,14 @@ GuideColourbar <- ggproto(
     theme.title = "legend.title"
   ),
 
+  extract_key = function(scale, aesthetic, ...) {
+    if (scale$is_discrete()) {
+      cli::cli_warn("{.fn guide_colourbar} needs continuous scales.")
+      return(NULL)
+    }
+    Guide$extract_key(scale, aesthetic, ...)
+  },
+
   extract_decor = function(scale, aesthetic, nbin = 300, reverse = FALSE, ...) {
 
     limits <- scale$get_limits()
@@ -335,7 +343,7 @@ GuideColourbar <- ggproto(
     return(bar)
   },
 
-  extract_params = function(scale, params, hashables,
+  extract_params = function(scale, params,
                             title  = waiver(), direction = "vertical", ...) {
     params$title <- scale$make_title(
       params$title %|W|% scale$name %|W|% title
@@ -364,7 +372,7 @@ GuideColourbar <- ggproto(
       c(0.5, params$nbin - 0.5) / params$nbin,
       limits
     )
-    Guide$extract_params(scale, params, hashables)
+    params
   },
 
   merge = function(self, params, new_guide, new_params) {
@@ -414,6 +422,11 @@ GuideColourbar <- ggproto(
   },
 
   build_labels = function(key, elements, params) {
+    n_labels <- length(key$.label)
+    if (n_labels < 1) {
+      return(list(labels = zeroGrob()))
+    }
+
     just <- if (params$direction == "horizontal") {
       elements$text$vjust
     } else {
@@ -422,7 +435,7 @@ GuideColourbar <- ggproto(
 
     list(labels = flip_element_grob(
       elements$text,
-      label = key$.label,
+      label = validate_labels(key$.label),
       x = unit(key$.value, "npc"),
       y = rep(just, nrow(key)),
       margin_x = FALSE,

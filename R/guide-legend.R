@@ -259,7 +259,7 @@ GuideLegend <- ggproto(
     theme.title = "legend.title"
   ),
 
-  extract_params = function(scale, params, hashables,
+  extract_params = function(scale, params,
                             title = waiver(), direction = NULL, ...) {
     params$title <- scale$make_title(
       params$title %|W|% scale$name %|W|% title
@@ -271,8 +271,7 @@ GuideLegend <- ggproto(
     if (isTRUE(params$reverse %||% FALSE)) {
       params$key <- params$key[nrow(params$key):1, , drop = FALSE]
     }
-
-    Guide$extract_params(scale, params, hashables)
+    params
   },
 
   merge = function(self, params, new_guide, new_params) {
@@ -476,6 +475,11 @@ GuideLegend <- ggproto(
   },
 
   build_labels = function(key, elements, params) {
+    n_labels <- length(key$.label)
+    if (n_labels < 1) {
+      out <- rep(list(zeroGrob()), nrow(key))
+      return(out)
+    }
     lapply(key$.label, function(lab) {
       ggname(
         "guide.label",

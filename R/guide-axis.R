@@ -103,9 +103,9 @@ GuideAxis <- ggproto(
     ticks_length = "axis.ticks.length"
   ),
 
-  extract_params = function(scale, params, hashables, ...) {
+  extract_params = function(scale, params, ...) {
     params$name <- paste0(params$name, "_", params$aesthetic)
-    Guide$extract_params(scale, params, hashables)
+    params
   },
 
   extract_decor = function(scale, aesthetic, position, key, cap = "none", ...) {
@@ -281,22 +281,14 @@ GuideAxis <- ggproto(
   },
 
   build_labels = function(key, elements, params) {
-    labels <- key$.label
+    labels   <- validate_labels(key$.label)
     n_labels <- length(labels)
 
     if (n_labels < 1) {
       return(list(zeroGrob()))
     }
 
-    pos    <- key[[params$aes]]
-
-    if (is.list(labels)) {
-      if (any(vapply(labels, is.language, logical(1)))) {
-        labels <- do.call(expression, labels)
-      } else {
-        labels <- unlist(labels)
-      }
-    }
+    pos <- key[[params$aes]]
 
     dodge_pos     <- rep(seq_len(params$n.dodge %||% 1), length.out = n_labels)
     dodge_indices <- unname(split(seq_len(n_labels), dodge_pos))
@@ -432,9 +424,10 @@ draw_axis <- function(break_positions, break_labels, axis_position, theme,
   aes <- if (axis_position %in% c("top", "bottom")) "x" else "y"
   opp <- setdiff(c("x", "y"), aes)
   opp_value <- if (axis_position %in% c("top", "right")) 0 else 1
-  key <- data_frame(
-    break_positions, break_positions, break_labels,
-    .name_repair = ~ c(aes, ".value", ".label")
+  key <- data_frame0(
+    !!aes := break_positions,
+    .value = break_positions,
+    .label = break_labels
   )
   params$key <- key
   params$decor <- data_frame0(
