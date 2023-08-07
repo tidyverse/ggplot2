@@ -99,11 +99,12 @@ These tick marks probably make sense only for base 10.</p>
 <span>  mid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="st">"cm"</span><span class="op">)</span>,</span>
 <span>  long <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.3</span>, <span class="st">"cm"</span><span class="op">)</span>,</span>
 <span>  colour <span class="op">=</span> <span class="st">"black"</span>,</span>
-<span>  size <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>  linewidth <span class="op">=</span> <span class="fl">0.5</span>,</span>
 <span>  linetype <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  alpha <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  color <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  <span class="va">...</span></span>
+<span>  <span class="va">...</span>,</span>
+<span>  size <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -151,7 +152,7 @@ long tick marks. In base 10, these are the "1" (or "10") ticks.</p></dd>
 <dd><p>Colour of the tick marks.</p></dd>
 
 
-<dt>size</dt>
+<dt>linewidth</dt>
 <dd><p>Thickness of tick marks, in mm.</p></dd>
 
 
@@ -169,6 +170,10 @@ long tick marks. In base 10, these are the "1" (or "10") ticks.</p></dd>
 
 <dt>...</dt>
 <dd><p>Other parameters passed on to the layer</p></dd>
+
+
+<dt>size</dt>
+<dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a></p></dd>
 
 </dl></div>
     <div class="section level2">
