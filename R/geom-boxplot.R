@@ -33,18 +33,18 @@
 #' @inheritParams geom_bar
 #' @param geom,stat Use to override the default connection between
 #'   `geom_boxplot()` and `stat_boxplot()`.
+#' @param outliers Whether to display (`TRUE`) or discard (`FALSE`) outliers
+#'   from the plot. Hiding or discarding outliers can be useful when, for
+#'   example, raw data points need to be displayed on top of the boxplot.
+#'   By discarding outliers, the axis limits will adapt to the box and whiskers
+#'   only, not the full data range. If outliers need to be hidden and the axes
+#'   needs to show the full data range, please use `outlier.shape = NA` instead.
 #' @param outlier.colour,outlier.color,outlier.fill,outlier.shape,outlier.size,outlier.stroke,outlier.alpha
 #'   Default aesthetics for outliers. Set to `NULL` to inherit from the
 #'   aesthetics used for the box.
 #'
 #'   In the unlikely event you specify both US and UK spellings of colour, the
 #'   US spelling will take precedence.
-#'
-#'   Sometimes it can be useful to hide the outliers, for example when overlaying
-#'   the raw data points on top of the boxplot. Hiding the outliers can be achieved
-#'   by setting `outlier.shape = NA`. Importantly, this does not remove the outliers,
-#'   it only hides them, so the range calculated for the y-axis will be the
-#'   same with outliers shown and outliers hidden.
 #'
 #' @param notch If `FALSE` (default) make a standard box plot. If
 #'   `TRUE`, make a notched box plot. Notches are used to compare groups;
@@ -109,6 +109,7 @@
 geom_boxplot <- function(mapping = NULL, data = NULL,
                          stat = "boxplot", position = "dodge2",
                          ...,
+                         outliers = TRUE,
                          outlier.colour = NULL,
                          outlier.color = NULL,
                          outlier.fill = NULL,
@@ -133,6 +134,7 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
       position$preserve <- "single"
     }
   }
+  check_bool(outliers)
 
   layer(
     data = data,
@@ -143,6 +145,7 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list2(
+      outliers = outliers,
       outlier.colour = outlier.color %||% outlier.colour,
       outlier.fill = outlier.fill,
       outlier.shape = outlier.shape,
@@ -167,7 +170,7 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
 
   # need to declare `width` here in case this geom is used with a stat that
   # doesn't have a `width` parameter (e.g., `stat_identity`).
-  extra_params = c("na.rm", "width", "orientation"),
+  extra_params = c("na.rm", "width", "orientation", "outliers"),
 
   setup_params = function(data, params) {
     params$flipped_aes <- has_flipped_aes(data, params)
@@ -179,6 +182,10 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
     data <- flip_data(data, params$flipped_aes)
     data$width <- data$width %||%
       params$width %||% (resolution(data$x, FALSE) * 0.9)
+
+    if (isFALSE(params$outliers)) {
+      data$outliers <- NULL
+    }
 
     if (!is.null(data$outliers)) {
       suppressWarnings({
