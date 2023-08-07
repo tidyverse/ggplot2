@@ -15,6 +15,7 @@
 #' The `brewer` scales were carefully designed and tested on discrete data.
 #' They were not designed to be extended to continuous data, but results often
 #' look good. Your mileage may vary.
+#' The `distiller` scales have a default direction = -1. To reverse, use direction = 1.
 #'
 #' @section Palettes:
 #' The following palettes are available for use with these scales:
@@ -75,6 +76,8 @@
 #' v
 #' v + scale_fill_distiller()
 #' v + scale_fill_distiller(palette = "Spectral")
+#' # the order of colour can be reversed, but with scale_*_distiller(), the default direction = -1, so to reverse, use direction = 1.
+#' v + scale_fill_distiller(palette = "Spectral", direction = 1)
 #'
 #' # or use blender variants to discretise continuous data
 #' v + scale_fill_fermenter()
