@@ -806,6 +806,9 @@ stat that doesn’t handle orientation (often
 <span><span class="co">#&gt;     data &lt;- flip_data(data, params$flipped_aes)</span></span>
 <span><span class="co">#&gt;     data$width &lt;- data$width %||% params$width %||% (resolution(data$x, </span></span>
 <span><span class="co">#&gt;         FALSE) * 0.9)</span></span>
+<span><span class="co">#&gt;     if (isFALSE(params$outliers)) {</span></span>
+<span><span class="co">#&gt;         data$outliers &lt;- NULL</span></span>
+<span><span class="co">#&gt;     }</span></span>
 <span><span class="co">#&gt;     if (!is.null(data$outliers)) {</span></span>
 <span><span class="co">#&gt;         suppressWarnings({</span></span>
 <span><span class="co">#&gt;             out_min &lt;- vapply(data$outliers, min, numeric(1))</span></span>
