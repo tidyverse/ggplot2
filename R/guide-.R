@@ -74,7 +74,79 @@ new_guide <- function(..., available_aes = "any", super) {
 #' To create a new type of Guide object, you typically will want to override
 #' one or more of the following:
 #'
-#'  TODO: Fill this in properly
+#' Properties:
+#'
+#' - `available_aes` A `character` vector with aesthetics that this guide
+#'   supports. The value `"any"` indicates all non-position aesthetics.
+#'
+#' - `params` A named `list` of parameters that the guide needs to function.
+#'   It has the following roles:
+#'
+#'   - `params` provides the defaults for a guide.
+#'   - `names(params)` determines what are valid arguments to `new_guide()`.
+#'   Some parameters are *required* to render the guide. These are: `title`,
+#'   `name`, `position`, `direction`, `order` and `hash`.
+#'   - During build stages, `params` holds information about the guide.
+#'
+#' - `elements` A named list of `character`s, giving the name of theme elements
+#'   that should be retrieved automatically, for example `"legend.text"`.
+#'
+#' - `hashables` An `expression` that can be evaluated in the context of
+#'   `params`. The hash of the evaluated expression determines the merge
+#'   compatibility of guides, and is stored in `params$hash`.
+#'
+#' Methods:
+#'
+#' - `extract_key()` Returns a `data.frame` with (mapped) breaks and labels
+#'   extracted from the scale, which will be stored in `params$key`.
+#'
+#' - `extract_decor()` Returns a `data.frame` containing other structured
+#'   information extracted from the scale, which will be stored in
+#'   `params$decor`. The `decor` has a guide-specific  meaning: it is the bar in
+#'   `guide_colourbar()`, but specifies the `axis.line` in `guide_axis()`.
+#'
+#' - `extract_params()` Updates the `params` with other, unstructured
+#'   information from the scale. An example of this is inheriting the guide's
+#'   title from the `scale$name` field.
+#'
+#' - `transform()` Updates the `params$key` based on the coordinates. This
+#'   applies to position guides, as it rescales the aesthetic to the \[0, 1\]
+#'   range.
+#'
+#' - `merge()` Combines information from multiple guides with the same
+#'   `params$hash`. This ensures that e.g. `guide_legend()` can display both
+#'   `shape` and `colour` in the same guide.
+#'
+#' - `get_layer_key()` Extract information from layers. This can be used to
+#'   check that the guide's aesthetic is actually in use, or to gather
+#'   information about how legend keys should be displayed.
+#'
+#' - `setup_params()` Set up parameters at the beginning of drawing stages.
+#'   It can be used to overrule user-supplied parameters or perform checks on
+#'   the `params` property.
+#'
+#' - `override_elements()` Take populated theme elements derived from the
+#'   `elements` property and allows overriding these theme settings.
+#'
+#' - `build_title()` Render the guide's title.
+#'
+#' - `build_labels()` Render the guide's labels.
+#'
+#' - `build_decor()` Render the `params$decor`, which is different for every
+#'   guide.
+#'
+#' - `build_ticks()` Render tick marks.
+#'
+#' - `measure_grobs()` Measure dimensions of the graphical objects produced
+#'   by the `build_*()` methods to be used in the layout or assembly.
+#'
+#' - `arrange_layout()` Set up a layout for how graphical objects produced by
+#'   the `build_*()` methods should be arranged.
+#'
+#' - `assemble_drawing()` Take the graphical objects produced by the `build_*()`
+#'   methods, the measurements from `measure_grobs()` and layout from
+#'   `arrange_layout()` to finalise the guide.
+#'
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
@@ -117,14 +189,15 @@ Guide <- ggproto(
       return(NULL)
     }
     params$decor <- inject(self$extract_decor(scale, !!!params))
-    self$extract_params(scale, params, self$hashables, ...)
+    params <- self$extract_params(scale, params, ...)
+    # Make hash
+    # TODO: Maybe we only need the hash on demand during merging?
+    params$hash <- hash(lapply(unname(self$hashables), eval_tidy, data = params))
+    params
   },
 
   # Setup parameters that are only available after training
-  # TODO: Maybe we only need the hash on demand during merging?
-  extract_params = function(scale, params, hashables, ...) {
-    # Make hash
-    params$hash <- hash(lapply(unname(hashables), eval_tidy, data = params))
+  extract_params = function(scale, params, ...) {
     params
   },
 
@@ -137,13 +210,18 @@ Guide <- ggproto(
 
     mapped <- scale$map(breaks)
     labels <- scale$get_labels(breaks)
+    # {vctrs} doesn't play nice with expressions, convert to list.
+    # see also https://github.com/r-lib/vctrs/issues/559
+    if (is.expression(labels)) {
+      labels <- as.list(labels)
+    }
 
     key <- data_frame(mapped, .name_repair = ~ aesthetic)
     key$.value <- breaks
     key$.label <- labels
 
     if (is.numeric(breaks)) {
-      key[is.finite(breaks), , drop = FALSE]
+      vec_slice(key, is.finite(breaks))
     } else {
       key
     }
@@ -342,3 +420,14 @@ flip_names = c(
 # Shortcut for position argument matching
 .trbl <- c("top", "right", "bottom", "left")
 
+# Ensure that labels aren't a list of expressions, but proper expressions
+validate_labels <- function(labels) {
+  if (!is.list(labels)) {
+    return(labels)
+  }
+  if (any(vapply(labels, is.language, logical(1)))) {
+    do.call(expression, labels)
+  } else {
+    unlist(labels)
+  }
+}

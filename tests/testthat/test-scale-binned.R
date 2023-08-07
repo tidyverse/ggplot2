@@ -44,6 +44,21 @@ test_that("binned limits should not compute out-of-bounds breaks", {
   ))
 })
 
+test_that("binned scales can use NAs in limits", {
+  scale <- scale_x_binned(limits = c(NA, 10))
+  scale$train(c(-20, 20))
+  expect_equal(scale$get_limits(), c(-20, 10))
+  scale <- scale_x_binned(limits = c(-10, NA))
+  scale$train(c(-20, 20))
+  expect_equal(scale$get_limits(), c(-10, 20))
+})
+
+test_that("binned scales can calculate breaks with reverse transformation", {
+  scale <- scale_x_binned(trans = "reverse")
+  scale$train(c(1, 9))
+  expect_equal(scale$get_breaks(), 8:2)
+})
+
 test_that('binned scales can calculate breaks on dates', {
 
   data <- seq(as.Date("2000-01-01"), as.Date("2020-01-01"), length.out = 100)

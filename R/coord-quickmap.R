@@ -2,6 +2,8 @@
 #' @export
 #' @rdname coord_map
 coord_quickmap <- function(xlim = NULL, ylim = NULL, expand = TRUE, clip = "on") {
+  check_coord_limits(xlim)
+  check_coord_limits(ylim)
   ggproto(NULL, CoordQuickmap,
     limits = list(x = xlim, y = ylim),
     expand = expand,
