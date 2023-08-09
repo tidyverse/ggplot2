@@ -77,6 +77,8 @@
     * `guide_coloursteps()` and `guide_bins()` sort breaks (#5152).
     * `guide_axis()` gains a `cap` argument that can be used to trim the
       axis line to extreme breaks (#4907).
+    * `guide_colourbar()` and `guide_coloursteps()` merge properly when one
+      of aesthetics is dropped (#5324).
     * Fixed regression in `guide_legend()` where the `linewidth` key size
       wasn't adapted to the width of the lines (#5160).
 

@@ -376,6 +376,8 @@ GuideColourbar <- ggproto(
   },
 
   merge = function(self, params, new_guide, new_params) {
+    new_params$key$.label <- new_params$key$.value <- NULL
+    params$key <- vec_cbind(params$key, new_params$key)
     return(list(guide = self, params = params))
   },
 

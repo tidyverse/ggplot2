@@ -307,6 +307,27 @@ test_that("guide_coloursteps and guide_bins return ordered breaks", {
   expect_true(all(diff(key$.value) < 0))
 })
 
+
+test_that("guide_colourbar merging preserves both aesthetics", {
+  # See issue 5324
+
+  scale1 <- scale_colour_viridis_c()
+  scale1$train(c(0, 2))
+
+  scale2 <- scale_fill_viridis_c()
+  scale2$train(c(0, 2))
+
+  g <- guide_colourbar()
+  p <- g$params
+
+  p1 <- g$train(p, scale1, "colour")
+  p2 <- g$train(p, scale2, "fill")
+
+  merged <- g$merge(p1, g, p2)
+
+  expect_true(all(c("colour", "fill") %in% names(merged$params$key)))
+})
+
 test_that("guide_colourbar warns about discrete scales", {
 
   g <- guide_colourbar()
@@ -315,6 +336,7 @@ test_that("guide_colourbar warns about discrete scales", {
 
   expect_warning(g <- g$train(g$params, s, "colour"), "needs continuous scales")
   expect_null(g)
+
 })
 
 # Visual tests ------------------------------------------------------------
