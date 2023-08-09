@@ -326,6 +326,7 @@ test_that("guide_colourbar merging preserves both aesthetics", {
   merged <- g$merge(p1, g, p2)
 
   expect_true(all(c("colour", "fill") %in% names(merged$params$key)))
+})
 
 test_that("guide_colourbar warns about discrete scales", {
 
