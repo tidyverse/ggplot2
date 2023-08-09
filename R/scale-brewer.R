@@ -8,14 +8,14 @@
 #'
 #' @note
 #' The `distiller` scales extend `brewer` scales by smoothly
-#' interpolating 7 colours from any palette to a continuous scale. The `fermenter`
-#' scales provide binned versions of the `brewer` scales.
+#' interpolating 7 colours from any palette to a continuous scale. 
+#' The `distiller` scales have a default direction = -1. To reverse, use direction = 1.
+#' The `fermenter` scales provide binned versions of the `brewer` scales.
 #'
 #' @details
 #' The `brewer` scales were carefully designed and tested on discrete data.
 #' They were not designed to be extended to continuous data, but results often
 #' look good. Your mileage may vary.
-#' The `distiller` scales have a default direction = -1. To reverse, use direction = 1.
 #'
 #' @section Palettes:
 #' The following palettes are available for use with these scales:
