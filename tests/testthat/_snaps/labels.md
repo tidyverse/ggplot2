@@ -1,6 +1,6 @@
 # plot.tag.position rejects invalid input
 
-    The `plot.tag.position` theme element must be a <character/numeric> object.
+    The `plot.tag.position` theme element must be a <character/numeric/integer> object.
 
 ---
 

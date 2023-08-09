@@ -147,37 +147,9 @@ view_scales_from_scale <- function(scale, coord_limits = NULL, expand = TRUE) {
 }
 
 panel_guides_grob <- function(guides, position, theme) {
-  pair <- guide_for_position(guides, position) %||%
-    list(guide = guide_none(), params = NULL)
+  if (!inherits(guides, "Guides")) {
+    return(zeroGrob())
+  }
+  pair <- guides$get_position(position)
   pair$guide$draw(theme, pair$params)
-}
-
-guide_for_position <- function(guides, position) {
-  params <- guides$params
-  has_position <- vapply(
-    params, function(p) identical(p$position, position), logical(1)
-  )
-  if (!any(has_position)) {
-    return(NULL)
-  }
-
-  # Subset guides and parameters
-  guides <- guides$get_guide(has_position)
-  params <- params[has_position]
-  # Pair up guides with parameters
-  pairs <- Map(list, guide = guides, params = params)
-
-  # Early exit, nothing to merge
-  if (length(pairs) == 1) {
-    return(pairs[[1]])
-  }
-
-  # TODO: There must be a smarter way to merge these
-  order <- order(vapply(params, function(p) as.numeric(p$order), numeric(1)))
-  Reduce(
-    function(old, new) {
-      old$guide$merge(old$params, new$guide, new$params)
-    },
-    pairs[order]
-  )
 }
