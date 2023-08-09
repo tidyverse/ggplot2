@@ -278,10 +278,14 @@ FacetWrap <- ggproto("FacetWrap", Facet,
      heights = unit(rep(abs(aspect_ratio), nrow), "null"), respect = respect, clip = coord$clip, z = matrix(1, ncol = ncol, nrow = nrow))
     panel_table$layout$name <- paste0('panel-', rep(seq_len(ncol), nrow), '-', rep(seq_len(nrow), each = ncol))
 
-    panel_table <- gtable_add_col_space(panel_table,
-                                        calc_element("panel.spacing.x", theme))
-    panel_table <- gtable_add_row_space(panel_table,
-                                        calc_element("panel.spacing.y", theme))
+    panel_table <- gtable_add_col_space(
+      panel_table,
+      calc_element("panel.spacing.x", theme)
+    )
+    panel_table <- gtable_add_row_space(
+      panel_table,
+      calc_element("panel.spacing.y", theme)
+    )
 
     # Add axes
     axis_mat_x_top <- empty_table
