@@ -101,6 +101,17 @@ scale_linetype_identity <- function(..., guide = "none") {
 }
 
 #' @rdname scale_identity
+#' @export
+scale_label_identity <- function(..., guide = "none") {
+  sc <- discrete_scale("label", "identity", identity_pal(), ...,
+    guide = guide,
+    super = ScaleDiscreteIdentity
+  )
+
+  sc
+}
+
+#' @rdname scale_identity
 #' @seealso
 #' Other alpha scales: [scale_alpha()], [scale_alpha_manual()].
 #' @export
