@@ -7,6 +7,8 @@
 #' @inheritParams scale_colour_hue
 #' @inheritDotParams discrete_scale
 #' @family colour scales
+#' @seealso
+#' The documentation on [colour aesthetics][aes_colour_fill_alpha].
 #' @rdname scale_grey
 #' @export
 #' @examples

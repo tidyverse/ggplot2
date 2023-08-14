@@ -35,6 +35,8 @@
 #' @seealso [scale_colour_gradient()], [scale_colour_viridis_c()],
 #'   [scale_colour_steps()], [scale_colour_viridis_b()], [scale_fill_gradient()],
 #'   [scale_fill_viridis_c()], [scale_fill_steps()], and [scale_fill_viridis_b()]
+#'
+#'   The documentation on [colour aesthetics][aes_colour_fill_alpha].
 #' @family colour scales
 #' @rdname scale_colour_continuous
 #' @section Color Blindness:
@@ -42,7 +44,7 @@
 #' palette) are not suitable to support all viewers, especially those with
 #' color vision deficiencies. Using `viridis` type, which is perceptually
 #' uniform in both colour and black-and-white display is an easy option to
-#' ensure good perceptive properties of your visulizations.
+#' ensure good perceptive properties of your visualizations.
 #' The colorspace package offers functionalities
 #' - to generate color palettes with good perceptive properties,
 #' - to analyse a given color palette, like emulating color blindness,

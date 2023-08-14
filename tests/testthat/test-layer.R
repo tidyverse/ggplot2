@@ -21,7 +21,7 @@ test_that("unknown params create warning", {
   expect_warning(geom_point(blah = "red"), "unknown parameters")
 })
 
-test_that("unknown aesthietcs create warning", {
+test_that("unknown aesthetics create warning", {
   expect_warning(geom_point(aes(blah = "red")), "unknown aesthetics")
 })
 
@@ -32,7 +32,7 @@ test_that("invalid aesthetics throws errors", {
   expect_snapshot_error(ggplot_build(p))
 })
 
-test_that("unknown NULL asthetic doesn't create warning (#1909)", {
+test_that("unknown NULL aesthetic doesn't create warning (#1909)", {
   expect_warning(geom_point(aes(blah = NULL)), NA)
 })
 
@@ -121,6 +121,14 @@ test_that("layer reports the error with correct index etc", {
     geom_boxplot(stat = "identity")
 
   expect_snapshot_error(ggplotGrob(p))
+})
+
+test_that("layer warns for constant aesthetics", {
+  p <- ggplot(mtcars, aes(x = seq_along(mpg))) + geom_point(aes(y = 2))
+  expect_silent(ggplot_build(p))
+
+  p <- ggplot(mtcars, aes(x = 1)) + geom_point(aes(y = 2))
+  expect_snapshot_warning(ggplot_build(p))
 })
 
 # Data extraction ---------------------------------------------------------

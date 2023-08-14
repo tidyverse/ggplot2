@@ -73,9 +73,10 @@
 #'
 #'   A transformation object bundles together a transform, its inverse,
 #'   and methods for generating breaks and labels. Transformation objects
-#'   are defined in the scales package, and are called `<name>_trans` (e.g.,
-#'   [scales::boxcox_trans()]). You can create your own
-#'   transformation with [scales::trans_new()].
+#'   are defined in the scales package, and are called `<name>_trans`. If
+#'   transformations require arguments, you can call them from the scales
+#'   package, e.g. [`scales::boxcox_trans(p = 2)`][scales::boxcox_trans].
+#'   You can create your own transformation with [scales::trans_new()].
 #' @param guide A function used to create a guide or its name. See
 #'   [guides()] for more information.
 #' @param expand For position scales, a vector of range expansion constants used to add some
@@ -375,7 +376,7 @@ binned_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 #' - `dimension()` For continuous scales, the dimension is the same concept as the limits.
 #'   For discrete scales, `dimension()` returns a continuous range, where the limits
 #'   would be placed at integer positions. `dimension()` optionally expands
-#'   this range given an expantion of length 4 (see [expansion()]).
+#'   this range given an expansion of length 4 (see [expansion()]).
 #'
 #' - `break_info()` Returns a `list()` with calculated values needed for the `Coord`
 #'   to transform values in transformed data space. Axis and grid guides also use
@@ -648,7 +649,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     domain <- suppressWarnings(self$trans$transform(self$trans$domain))
     domain <- sort(domain)
     # To avoid NaN causing issues. NaN are dropped by the sort()
-    if (length(domain) == 2) {
+    if (length(domain) == 2 && !zero_range(domain)) {
       limits <- oob_squish(limits, domain)
     }
 
@@ -1056,10 +1057,16 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
     expand_range4(self$get_limits(), expand)
   },
 
+  get_limits = function(self) {
+    ggproto_parent(ScaleContinuous, self)$get_limits()
+  },
+
   get_breaks = function(self, limits = self$get_limits()) {
     if (self$is_empty()) return(numeric())
 
     limits <- self$trans$inverse(limits)
+    is_rev <- limits[2] < limits[1]
+    limits <- sort(limits)
 
     if (is.null(self$breaks)) {
       return(NULL)
@@ -1106,7 +1113,11 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
         }
         new_limits_trans <- suppressWarnings(self$trans$transform(new_limits))
         limits[is.finite(new_limits_trans)] <- new_limits[is.finite(new_limits_trans)]
-        self$limits <- self$trans$transform(limits)
+        if (is_rev) {
+          self$limits <- rev(self$trans$transform(limits))
+        } else {
+          self$limits <- self$trans$transform(limits)
+        }
       }
     } else if (is.function(self$breaks)) {
       if ("n.breaks" %in% names(formals(environment(self$breaks)$f))) {
@@ -1123,7 +1134,8 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
     }
 
     # Breaks must be within limits
-    breaks <- breaks[breaks >= limits[1] & breaks <= limits[2]]
+    breaks <- oob_discard(breaks, sort(limits))
+
     self$breaks <- breaks
 
     self$trans$transform(breaks)

@@ -37,6 +37,8 @@
 #'   or [binned_scale()], for `brewer`, `distiller`, and `fermenter` variants
 #'   respectively, to control name, limits, breaks, labels and so forth.
 #' @family colour scales
+#' @seealso
+#' The documentation on [colour aesthetics][aes_colour_fill_alpha].
 #' @rdname scale_brewer
 #' @export
 #' @examples
@@ -67,7 +69,7 @@
 #'   theme_dark()
 #' }
 #'
-#' # Use distiller variant with continous data
+#' # Use distiller variant with continuous data
 #' v <- ggplot(faithfuld) +
 #'   geom_tile(aes(waiting, eruptions, fill = density))
 #' v

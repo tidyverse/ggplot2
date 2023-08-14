@@ -162,7 +162,7 @@ p +
   theme_dark()
 }
 
-# Use distiller variant with continous data
+# Use distiller variant with continuous data
 v <- ggplot(faithfuld) +
   geom_tile(aes(waiting, eruptions, fill = density))
 v
@@ -174,12 +174,16 @@ v + scale_fill_fermenter()
 
 }
 \seealso{
+The documentation on \link[=aes_colour_fill_alpha]{colour aesthetics}.
+
 Other colour scales: 
 \code{\link{scale_alpha}()},
 \code{\link{scale_colour_continuous}()},
 \code{\link{scale_colour_gradient}()},
 \code{\link{scale_colour_grey}()},
 \code{\link{scale_colour_hue}()},
+\code{\link{scale_colour_identity}()},
+\code{\link{scale_colour_manual}()},
 \code{\link{scale_colour_steps}()},
 \code{\link{scale_colour_viridis_d}()}
 }

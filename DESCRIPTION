@@ -52,7 +52,6 @@ Suggests:
     hexbin,
     Hmisc,
     knitr,
-    lattice,
     mapproj,
     maps,
     maptools,
@@ -63,7 +62,6 @@ Suggests:
     quantreg,
     ragg,
     RColorBrewer,
-    rgeos,
     rmarkdown,
     rpart,
     sf (>= 0.7-3),
@@ -175,20 +173,22 @@ Collate:
     'grob-dotstack.R'
     'grob-null.R'
     'grouping.R'
+    'guide-.R'
+    'guide-axis.R'
+    'guide-legend.R'
     'guide-bins.R'
     'guide-colorbar.R'
     'guide-colorsteps.R'
-    'guide-legend.R'
+    'layer.R'
+    'guide-none.R'
+    'guide-old.R'
     'guides-.R'
-    'guides-axis.R'
     'guides-grid.R'
-    'guides-none.R'
     'hexbin.R'
     'import-standalone-obj-type.R'
     'import-standalone-types-check.R'
     'labeller.R'
     'labels.R'
-    'layer.R'
     'layer-sf.R'
     'layout.R'
     'limits.R'

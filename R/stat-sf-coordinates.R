@@ -19,7 +19,7 @@
 #' For the first step, you can use an arbitrary function via `fun.geometry`.
 #' By default, `function(x) sf::st_point_on_surface(sf::st_zm(x))` is used;
 #' `sf::st_point_on_surface()` seems more appropriate than `sf::st_centroid()`
-#' since lables and text usually are intended to be put within the polygon or
+#' since labels and text usually are intended to be put within the polygon or
 #' the line. `sf::st_zm()` is needed to drop Z and M dimension beforehand,
 #' otherwise `sf::st_point_on_surface()` may fail when the geometries have M
 #' dimension.

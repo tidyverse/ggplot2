@@ -16,6 +16,8 @@
 #'   example, to apply colour settings to the `colour` and `fill` aesthetics at the
 #'   same time, via `aesthetics = c("colour", "fill")`.
 #' @family colour scales
+#' @seealso
+#' The documentation on [colour aesthetics][aes_colour_fill_alpha].
 #' @rdname scale_viridis
 #' @export
 #' @examples
@@ -47,7 +49,7 @@
 #' # the order of colour can be reversed
 #' p + scale_fill_viridis_d(direction = -1)
 #'
-#' # Use viridis_c with continous data
+#' # Use viridis_c with continuous data
 #' (v <- ggplot(faithfuld) +
 #'   geom_tile(aes(waiting, eruptions, fill = density)))
 #' v + scale_fill_viridis_c()

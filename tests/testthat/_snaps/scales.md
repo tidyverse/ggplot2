@@ -42,3 +42,10 @@
 
     `breaks` and `labels` are different lengths
 
+# numeric scale transforms can produce breaks
+
+    Code
+      test_breaks("log", limits = c(0.1, 1000))
+    Output
+      [1]        NA   1.00000  20.08554 403.42879
+

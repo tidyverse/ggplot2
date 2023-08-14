@@ -4,7 +4,7 @@
 \alias{coord_munch}
 \title{Munch coordinates data}
 \usage{
-coord_munch(coord, data, range, segment_length = 0.01)
+coord_munch(coord, data, range, segment_length = 0.01, is_closed = FALSE)
 }
 \arguments{
 \item{coord}{Coordinate system definition.}
@@ -16,6 +16,8 @@ All other variables are duplicated as needed.}
 \item{range}{Panel range specification.}
 
 \item{segment_length}{Target segment length}
+
+\item{is_closed}{Whether data should be considered as a closed polygon.}
 }
 \description{
 This function "munches" lines, dividing each line into many small pieces

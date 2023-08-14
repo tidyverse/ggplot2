@@ -113,7 +113,7 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
     n <- nrow(data)
     if (n == 1) return(zeroGrob())
 
-    munched <- coord_munch(coord, data, panel_params)
+    munched <- coord_munch(coord, data, panel_params, is_closed = TRUE)
 
     if (is.null(munched$subgroup)) {
       # Sort by group to make sure that colors, fill, etc. come in same order
