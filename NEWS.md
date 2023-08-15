@@ -116,6 +116,10 @@
   duplicated coordinates (@teunbrand, #5215).
 * Improve performance of layers without positional scales (@zeehio, #4990)
 
+# ggplot2 3.4.3
+This hotfix release addresses a version comparison change in r-devel. There are
+no user-facing or breaking changes.
+
 # ggplot2 3.4.2
 This is a hotfix release anticipating changes in r-devel, but folds in upkeep
 changes and a few bug fixes as well.
