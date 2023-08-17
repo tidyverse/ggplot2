@@ -93,4 +93,7 @@ test_that("boxplot draws correctly", {
   expect_doppelganger("outlier colours",
     ggplot(mtcars, aes(x = factor(cyl), y = drat, colour = factor(cyl))) + geom_boxplot(outlier.size = 5)
   )
+  expect_doppelganger("staples",
+    ggplot(mtcars, aes(x = factor(cyl), y = drat, colour = factor(cyl))) + geom_boxplot(staplewidth = 0.5)
+  )
 })

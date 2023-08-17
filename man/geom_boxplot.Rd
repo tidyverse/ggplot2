@@ -21,6 +21,7 @@ geom_boxplot(
   outlier.alpha = NULL,
   notch = FALSE,
   notchwidth = 0.5,
+  staplewidth = 0,
   varwidth = FALSE,
   na.rm = FALSE,
   orientation = NA,
@@ -92,6 +93,9 @@ are significantly different.}
 
 \item{notchwidth}{For a notched box plot, width of the notch relative to
 the body (defaults to \code{notchwidth = 0.5}).}
+
+\item{staplewidth}{The relative width of staples to the width of the box.
+Staples mark the ends of the whiskers with a line.}
 
 \item{varwidth}{If \code{FALSE} (default) make a standard box plot. If
 \code{TRUE}, boxes are drawn with widths proportional to the

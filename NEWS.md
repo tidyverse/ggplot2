@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `geom_boxplot()` gains a new argument, `staplewidth` that can draw staples
+  at the ends of whiskers (@teunbrand, #5126)
+
 * The `size` argument in `annotation_logticks()` has been deprecated in favour
   of the `linewidth` argument (#5292).
 

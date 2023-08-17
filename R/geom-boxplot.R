@@ -52,6 +52,8 @@
 #'   are significantly different.
 #' @param notchwidth For a notched box plot, width of the notch relative to
 #'   the body (defaults to `notchwidth = 0.5`).
+#' @param staplewidth The relative width of staples to the width of the box.
+#'   Staples mark the ends of the whiskers with a line.
 #' @param varwidth If `FALSE` (default) make a standard box plot. If
 #'   `TRUE`, boxes are drawn with widths proportional to the
 #'   square-roots of the number of observations in the groups (possibly
@@ -119,6 +121,7 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
                          outlier.alpha = NULL,
                          notch = FALSE,
                          notchwidth = 0.5,
+                         staplewidth = 0,
                          varwidth = FALSE,
                          na.rm = FALSE,
                          orientation = NA,
@@ -134,6 +137,8 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
       position$preserve <- "single"
     }
   }
+
+  check_number_decimal(staplewidth)
   check_bool(outliers)
 
   layer(
@@ -154,6 +159,7 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
       outlier.alpha = outlier.alpha,
       notch = notch,
       notchwidth = notchwidth,
+      staplewidth = staplewidth,
       varwidth = varwidth,
       na.rm = na.rm,
       orientation = orientation,
@@ -218,7 +224,7 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
                         outlier.fill = NULL, outlier.shape = 19,
                         outlier.size = 1.5, outlier.stroke = 0.5,
                         outlier.alpha = NULL, notch = FALSE, notchwidth = 0.5,
-                        varwidth = FALSE, flipped_aes = FALSE) {
+                        staplewidth = 0, varwidth = FALSE, flipped_aes = FALSE) {
     data <- check_linewidth(data, snake_class(self))
     data <- flip_data(data, flipped_aes)
     # this may occur when using geom_boxplot(stat = "identity")
@@ -282,8 +288,28 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
       outliers_grob <- NULL
     }
 
+    if (staplewidth != 0) {
+      staples <- data_frame0(
+        x    = rep((data$xmin - data$x) * staplewidth + data$x, 2),
+        xend = rep((data$xmax - data$x) * staplewidth + data$x, 2),
+        y    = c(data$ymax, data$ymin),
+        yend = c(data$ymax, data$ymin),
+        alpha = c(NA_real_, NA_real_),
+        !!!common,
+        .size = 2
+      )
+      staples <- flip_data(staples, flipped_aes)
+      staple_grob <- GeomSegment$draw_panel(
+        staples, panel_params, coord,
+        lineend = lineend
+      )
+    } else {
+      staple_grob <- NULL
+    }
+
     ggname("geom_boxplot", grobTree(
       outliers_grob,
+      staple_grob,
       GeomSegment$draw_panel(whiskers, panel_params, coord, lineend = lineend),
       GeomCrossbar$draw_panel(
         box,
