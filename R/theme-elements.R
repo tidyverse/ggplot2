@@ -441,12 +441,14 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   axis.line.y         = el_def("element_line", "axis.line"),
   axis.line.y.left    = el_def("element_line", "axis.line.y"),
   axis.line.y.right   = el_def("element_line", "axis.line.y"),
+
   axis.text.x         = el_def("element_text", "axis.text"),
   axis.text.x.top     = el_def("element_text", "axis.text.x"),
   axis.text.x.bottom  = el_def("element_text", "axis.text.x"),
   axis.text.y         = el_def("element_text", "axis.text"),
   axis.text.y.left    = el_def("element_text", "axis.text.y"),
   axis.text.y.right   = el_def("element_text", "axis.text.y"),
+
   axis.ticks.length   = el_def("unit"),
   axis.ticks.length.x = el_def("unit", "axis.ticks.length"),
   axis.ticks.length.x.top = el_def("unit", "axis.ticks.length.x"),
@@ -454,18 +456,33 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   axis.ticks.length.y  = el_def("unit", "axis.ticks.length"),
   axis.ticks.length.y.left = el_def("unit", "axis.ticks.length.y"),
   axis.ticks.length.y.right = el_def("unit", "axis.ticks.length.y"),
+
   axis.ticks.x        = el_def("element_line", "axis.ticks"),
   axis.ticks.x.top    = el_def("element_line", "axis.ticks.x"),
   axis.ticks.x.bottom = el_def("element_line", "axis.ticks.x"),
   axis.ticks.y        = el_def("element_line", "axis.ticks"),
   axis.ticks.y.left   = el_def("element_line", "axis.ticks.y"),
   axis.ticks.y.right  = el_def("element_line", "axis.ticks.y"),
+
   axis.title.x        = el_def("element_text", "axis.title"),
   axis.title.x.top    = el_def("element_text", "axis.title.x"),
   axis.title.x.bottom = el_def("element_text", "axis.title.x"),
   axis.title.y        = el_def("element_text", "axis.title"),
   axis.title.y.left   = el_def("element_text", "axis.title.y"),
   axis.title.y.right  = el_def("element_text", "axis.title.y"),
+
+  axis.minor.ticks.x.top    = el_def("element_line", "axis.ticks.x.top"),
+  axis.minor.ticks.x.bottom = el_def("element_line", "axis.ticks.x.bottom"),
+  axis.minor.ticks.y.left   = el_def("element_line", "axis.ticks.y.left"),
+  axis.minor.ticks.y.right  = el_def("element_line", "axis.ticks.y.right"),
+
+  axis.minor.ticks.length = el_def("unit"),
+  axis.minor.ticks.length.x = el_def("unit", "axis.minor.ticks.length"),
+  axis.minor.ticks.length.x.top = el_def("unit", "axis.minor.ticks.length.x"),
+  axis.minor.ticks.length.x.bottom = el_def("unit", "axis.minor.ticks.length.x"),
+  axis.minor.ticks.length.y = el_def("unit", "axis.minor.ticks.length"),
+  axis.minor.ticks.length.y.left = el_def("unit", "axis.minor.ticks.length.y"),
+  axis.minor.ticks.length.y.right = el_def("unit", "axis.minor.ticks.length.y"),
 
   legend.background   = el_def("element_rect", "rect"),
   legend.margin       = el_def("margin"),
