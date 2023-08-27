@@ -14,13 +14,8 @@
 #' @param n.dodge The number of rows (for vertical axes) or columns (for
 #'   horizontal axes) that should be used to render the labels. This is
 #'   useful for displaying labels that would otherwise overlap.
-#' @param major.length,minor.length A `numeric` of length 1 giving the length
-#'   of major and minor tick marks relative to the theme's setting.
-#' @param minor.ticks A theme element inheriting from `element_line` or
-#'   `element_blank` for drawing minor ticks. Alternatively, a `logical` of
-#'   length 1 as shorthand for `element_line()` (`TRUE`) or `element_blank()`
-#'   (`FALSE`). `minor.ticks = element_line(...)` can be used to style the
-#'   minor ticks.
+#' @param minor.ticks Whether to draw the minor ticks (`TRUE`) or not draw
+#'   minor ticks (`FALSE`, default).
 #' @param cap A `character` to cut the axis line back to the last breaks. Can
 #'   be `"none"` (default) to draw the axis line along the whole panel, or
 #'   `"upper"` and `"lower"` to draw the axis to the upper or lower break, or
@@ -49,17 +44,9 @@
 #' # can also be used to add a duplicate guide
 #' p + guides(x = guide_axis(n.dodge = 2), y.sec = guide_axis())
 guide_axis <- function(title = waiver(), check.overlap = FALSE, angle = NULL,
-                       n.dodge = 1, major.length = 1, minor.length = 0.75,
-                       minor.ticks = element_blank(), cap = "none",
+                       n.dodge = 1, minor.ticks = FALSE, cap = "none",
                        order = 0, position = waiver()) {
-  if (is.logical(minor.ticks)) {
-    check_bool(minor.ticks)
-    minor.ticks <- if (minor.ticks) element_line() else element_blank()
-  }
-  check_inherits(minor.ticks, c("element_line", "element_blank"))
-  if (inherits(minor.ticks, "element_blank")) {
-    minor.length <- 0
-  }
+  check_bool(minor.ticks)
   if (is.logical(cap)) {
     check_bool(cap)
     cap <- if (cap) "both" else "none"
@@ -73,9 +60,7 @@ guide_axis <- function(title = waiver(), check.overlap = FALSE, angle = NULL,
     check.overlap = check.overlap,
     angle = angle,
     n.dodge = n.dodge,
-    major.length = major.length,
-    minor.length = minor.length,
-    minor.ticks  = minor.ticks,
+    minor.ticks = minor.ticks,
     cap = cap,
 
     # parameter
@@ -104,9 +89,7 @@ GuideAxis <- ggproto(
     direction = NULL,
     angle     = NULL,
     n.dodge   = 1,
-    major.length = 1,
-    minor.length = 0.75,
-    minor.ticks  = NULL,
+    minor.ticks = FALSE,
     cap       = "none",
     order     = 0,
     check.overlap = FALSE
@@ -120,12 +103,14 @@ GuideAxis <- ggproto(
     line  = "axis.line",
     text  = "axis.text",
     ticks = "axis.ticks",
-    ticks_length = "axis.ticks.length"
+    minor = "axis.minor.ticks",
+    major_length = "axis.ticks.length",
+    minor_length = "axis.minor.ticks.length"
   ),
 
   extract_key = function(scale, aesthetic, minor.ticks, ...) {
     major <- Guide$extract_key(scale, aesthetic, ...)
-    if (inherits(minor.ticks, "element_blank")) {
+    if (!minor.ticks) {
       return(major)
     }
     if (!is.null(major)) {
@@ -225,7 +210,7 @@ GuideAxis <- ggproto(
   },
 
   setup_elements = function(params, elements, theme) {
-    axis_elem <- c("line", "text", "ticks", "ticks_length")
+    axis_elem <- c("line", "text", "ticks", "minor", "major_length", "minor_length")
     is_char  <- vapply(elements[axis_elem], is.character, logical(1))
     axis_elem <- axis_elem[is_char]
     elements[axis_elem] <- lapply(
@@ -235,7 +220,6 @@ GuideAxis <- ggproto(
       ),
       calc_element, theme = theme
     )
-    elements$minor_ticks <- combine_elements(params$minor.ticks, elements$ticks)
     elements
   },
 
@@ -308,26 +292,22 @@ GuideAxis <- ggproto(
   },
 
   build_ticks = function(key, elements, params, position = params$opposite) {
-    if (!".type" %in% names(key)) {
-      ticks <- Guide$build_ticks(
-        key, elements, params, position,
-        elements$ticks_length * params$major.length
-      )
-      return(ticks)
-    }
-    major <- vec_slice(key, key$.type == "major")
+
     major <- Guide$build_ticks(
-      major, elements, params, position,
-      elements$ticks_length * params$major.length
+      vec_slice(key, (key$.type %||% "major") == "major"),
+      elements, params, position,
+      elements$major_length
     )
-    if (inherits(elements$minor_ticks, "element_blank")) {
+
+    if (!params$minor.ticks || inherits(elements$minor, "element_blank")) {
       return(major)
     }
-    elements$ticks <- elements$minor_ticks
-    minor <- vec_slice(key, key$.type == "minor")
+
+    elements$ticks <- elements$minor
     minor <- Guide$build_ticks(
-      minor, elements, params, position,
-      elements$ticks_length * params$minor.length
+      vec_slice(key, (key$.type %||% "major") == "minor"),
+      elements, params, position,
+      elements$minor_length
     )
     grobTree(major, minor, name = "ticks")
   },
@@ -372,9 +352,17 @@ GuideAxis <- ggproto(
     measure <- params$measure_text
 
     # Ticks
-    range  <- range(0, params$major.length, params$minor.length)
-    length <- elements$ticks_length * range[2]
-    spacer <- max(unit(0, "pt"), -1 * elements$ticks_length * diff(range))
+    range <- range(
+      0, convertUnit(elements$major_length, "cm", valueOnly = TRUE)
+    )
+    if (params$minor.ticks && !inherits(elements$minor, "element_blank")) {
+      range <- range(
+        range, convertUnit(elements$minor_length, "cm", valueOnly = TRUE)
+      )
+    }
+
+    length <- unit(range[2], "cm")
+    spacer <- max(unit(0, "pt"), unit(-1 * diff(range), "cm"))
 
     # Text
     labels <- do.call(unit.c, lapply(grobs$label, measure))

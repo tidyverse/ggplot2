@@ -9,9 +9,7 @@ guide_axis(
   check.overlap = FALSE,
   angle = NULL,
   n.dodge = 1,
-  major.length = 1,
-  minor.length = 0.75,
-  minor.ticks = element_blank(),
+  minor.ticks = FALSE,
   cap = "none",
   order = 0,
   position = waiver()
@@ -34,14 +32,8 @@ you probably want.}
 horizontal axes) that should be used to render the labels. This is
 useful for displaying labels that would otherwise overlap.}
 
-\item{major.length, minor.length}{A \code{numeric} of length 1 giving the length
-of major and minor tick marks relative to the theme's setting.}
-
-\item{minor.ticks}{A theme element inheriting from \code{element_line} or
-\code{element_blank} for drawing minor ticks. Alternatively, a \code{logical} of
-length 1 as shorthand for \code{element_line()} (\code{TRUE}) or \code{element_blank()}
-(\code{FALSE}). \code{minor.ticks = element_line(...)} can be used to style the
-minor ticks.}
+\item{minor.ticks}{Whether to draw the minor ticks (\code{TRUE}) or not draw
+minor ticks (\code{FALSE}, default).}
 
 \item{cap}{A \code{character} to cut the axis line back to the last breaks. Can
 be \code{"none"} (default) to draw the axis line along the whole panel, or

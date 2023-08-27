@@ -494,17 +494,23 @@ test_that("guide_axis() draws minor ticks correctly", {
   p <- ggplot(mtcars, aes(wt, disp)) +
     geom_point() +
     theme(axis.ticks.length = unit(1, "cm"),
-          axis.ticks.x.bottom = element_line(linetype = 2)) +
+          axis.ticks.x.bottom = element_line(linetype = 2),
+          axis.ticks.length.x.top = unit(-0.5, "cm"),
+          axis.minor.ticks.x.bottom = element_line(colour = "red"),
+          axis.minor.ticks.length.y.left = unit(-0.5, "cm"),
+          axis.minor.ticks.length.x.top = unit(-0.5, "cm"),
+          axis.minor.ticks.length.x.bottom = unit(0.75, "cm"),
+          axis.minor.ticks.length.y.right = unit(5, "cm")) +
     scale_x_continuous(labels = math_format()) +
     guides(
       # Test for styling and style inheritance
-      x = guide_axis(minor.ticks = element_line(colour = "red")),
-      # Test for opposed lengths
-      y = guide_axis(minor.ticks = TRUE, minor.length = -0.5),
-      # Test for flipped lenghts
-      x.sec = guide_axis(minor.ticks = TRUE, major.length = -0.5, minor.length = -0.5),
-      # Test that minor.length doesn't influence spacing when no minor ticks are drawn
-      y.sec = guide_axis(minor.ticks = FALSE, minor.length = 5)
+      x = guide_axis(minor.ticks = TRUE),
+      # # Test for opposed lengths
+      y = guide_axis(minor.ticks = TRUE),
+      # # Test for flipped lenghts
+      x.sec = guide_axis(minor.ticks = TRUE),
+      # # Test that minor.length doesn't influence spacing when no minor ticks are drawn
+      y.sec = guide_axis(minor.ticks = FALSE)
     )
   expect_doppelganger("guides with minor ticks", p)
 })
