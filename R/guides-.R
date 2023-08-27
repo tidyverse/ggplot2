@@ -84,7 +84,12 @@ guides <- function(...) {
     return(guides_list(guides = args))
   }
 
-  # Raise error about unnamed guides
+  # If there are no guides, do nothing
+  if (length(args) == 0) {
+    return(NULL)
+  }
+
+  # Raise warning about unnamed guides
   nms <- names(args)
   if (is.null(nms)) {
     msg <- "All guides are unnamed."
@@ -97,10 +102,11 @@ guides <- function(...) {
       msg <- "The {.and {unnamed}} guide{?s} {?is/are} unnamed."
     }
   }
-  cli::cli_abort(c(
+  cli::cli_warn(c(
     "Guides provided to {.fun guides} must be named.",
     i = msg
   ))
+  NULL
 }
 
 update_guides <- function(p, guides) {
@@ -211,6 +217,35 @@ Guides <- ggproto(
     } else {
       self$params[index]
     }
+  },
+
+  get_position = function(self, position) {
+    check_string("position")
+
+    guide_positions <- lapply(self$params, `[[`, "position")
+    idx <- which(vapply(guide_positions, identical, logical(1), y = position))
+
+    if (length(idx) < 1) {
+      # No guide found for position, return missing (guide_none) guide
+      return(list(guide = self$missing, params = self$missing$params))
+    }
+    if (length(idx) == 1) {
+      # Happy path when nothing needs to merge
+      return(list(guide = self$guides[[idx]], params = self$params[[idx]]))
+    }
+
+    # Pair up guides and parameters
+    params <- self$params[idx]
+    pairs  <- Map(list, guide = self$guides[idx], params = params)
+
+    # Merge pairs sequentially
+    order <- order(vapply(params, function(p) as.numeric(p$order), numeric(1)))
+    Reduce(
+      function(old, new) {
+        old$guide$merge(old$params, new$guide, new$params)
+      },
+      pairs[order]
+    )
   },
 
   ## Building ------------------------------------------------------------------

@@ -130,7 +130,7 @@ ggplot(mpg, aes(x = hwy, y = cty, color = drv)) +
 ```
 
 Note that the legend title is no longer aligned with the keys with this approach.
-You can also shift it over with `legend.title.align`.
+You can also shift it over with the `hjust` setting of `legend.title`.
 
 ```{r}
 #| fig.alt = "A scatter plot showing the highway miles per gallon on the x-axis
@@ -143,8 +143,8 @@ ggplot(mpg, aes(x = hwy, y = cty, color = drv)) +
   theme(
     legend.key.size = unit(1.5, "cm"),
     legend.key = element_rect(color = NA, fill = NA),
-    legend.title.align = 0.5
-    )
+    legend.title = element_text(hjust = 0.5)
+  )
 ```
 
 </details>

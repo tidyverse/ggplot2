@@ -125,9 +125,6 @@ GuideAxis <- ggproto(
 
   extract_key = function(scale, aesthetic, minor.ticks, ...) {
     major <- Guide$extract_key(scale, aesthetic, ...)
-    if (is.expression(major$.label)) {
-      major$.label <- as.list(major$.label)
-    }
     if (inherits(minor.ticks, "element_blank")) {
       return(major)
     }
@@ -141,9 +138,9 @@ GuideAxis <- ggproto(
     vec_rbind(major, minor)
   },
 
-  extract_params = function(scale, params, hashables, ...) {
+  extract_params = function(scale, params, ...) {
     params$name <- paste0(params$name, "_", params$aesthetic)
-    Guide$extract_params(scale, params, hashables)
+    params
   },
 
   extract_decor = function(scale, aesthetic, position, key, cap = "none", ...) {
@@ -336,23 +333,19 @@ GuideAxis <- ggproto(
   },
 
   build_labels = function(key, elements, params) {
-    key <- vec_slice(key, !vec_detect_missing(key$.label %||% NA))
-    labels <- key$.label
+
+    if (".type" %in% names(key)) {
+      key <- vec_slice(key, key$.type == "major")
+    }
+
+    labels   <- validate_labels(key$.label)
     n_labels <- length(labels)
 
     if (n_labels < 1) {
       return(list(zeroGrob()))
     }
 
-    pos    <- key[[params$aes]]
-
-    if (is.list(labels)) {
-      if (any(vapply(labels, is.language, logical(1)))) {
-        labels <- do.call(expression, labels)
-      } else {
-        labels <- unlist(labels)
-      }
-    }
+    pos <- key[[params$aes]]
 
     dodge_pos     <- rep(seq_len(params$n.dodge %||% 1), length.out = n_labels)
     dodge_indices <- unname(split(seq_len(n_labels), dodge_pos))
@@ -492,9 +485,10 @@ draw_axis <- function(break_positions, break_labels, axis_position, theme,
   aes <- if (axis_position %in% c("top", "bottom")) "x" else "y"
   opp <- setdiff(c("x", "y"), aes)
   opp_value <- if (axis_position %in% c("top", "right")) 0 else 1
-  key <- data_frame(
-    break_positions, break_positions, break_labels,
-    .name_repair = ~ c(aes, ".value", ".label")
+  key <- data_frame0(
+    !!aes := break_positions,
+    .value = break_positions,
+    .label = break_labels
   )
   params$key <- key
   params$decor <- data_frame0(
