@@ -23,7 +23,7 @@ This allows you to 'speak' a graph from composable elements, instead of being li
 More complete information about how to use ggplot2 can be found in the [book](https://ggplot2-book.org/), but here you'll find a brief overview of the plot components and some terse examples to build a plot like this: 
 
 ```{r cake, echo = FALSE}
-#| fig.alt = "Scatterplot of city versus highway miles per gallon, for 234 cars
+#| fig.alt = "Scatterplot of city versus highway miles per gallon, for many cars
 #|  coloured by engine displacement. The plot has six panels in a 2-row, 
 #|  3-column layout, showing the combinations of three types of drive train and
 #|  year of manifacture. Every panel has an individual trendline."
@@ -44,7 +44,6 @@ For structure, we go over the 7 composable parts that come together as a set of 
 #| fig.alt = "A schematic displaying seven overlaying rhombuses indicating the
 #|  different composable parts. From bottom to top, the labels read 'Data', 
 #|  'Mapping', 'Layers', 'Scales', 'Facets', 'Coordinates' and 'Theme'."
-library(ggplot2)
 n <- 7
 x <- outer(c(-2, 0, 2, 0), rep(1, n))
 y <- outer(c(0, 1, 0, -1), seq(0, 2.309, length.out = n), FUN = `+`)
@@ -83,8 +82,6 @@ The system works best if the data is provided in a [tidy](https://tidyr.tidyvers
 As the first step in many plots, you would pass the data to the `ggplot()` function, which stores the data to be used later by other parts of the plotting system. For example, if we intend to make a graphic about the `mpg` dataset, we would start as follows:
 
 ```{r example_data, fig.show='hide'}
-library(ggplot2)
-
 ggplot(data = mpg)
 ```
 
@@ -112,12 +109,12 @@ A layer can be constructed using the `geom_*()` and `stat_*()` functions. These 
 
 ```{r example_layer, fig.show='hold'}
 #| fig.alt = "A scatterplot showing city versus highway miles per gallon for 
-#|  234 cars. The plot has a blue trendline with a positive slope."
+#|  many cars. The plot has a blue trendline with a positive slope."
 ggplot(mpg, aes(cty, hwy)) +
   # to create a scatterplot
   geom_point() +
   # to fit and overlay a loess trendline
-  stat_smooth(formula = y ~ x, method = "lm")
+  geom_smooth(formula = y ~ x, method = "lm")
 ```
 
 ## Scales
@@ -129,7 +126,7 @@ To use scales, one can use one of the scale functions that are patterned as `sca
 
 ```{r example_scales}
 #| fig.alt = "A scatterplot showing city versus highway miles per gallon for 
-#|  234 cars. The points are coloured according to seven classes of cars."
+#|  many cars. The points are coloured according to seven classes of cars."
 ggplot(mpg, aes(cty, hwy, colour = class)) +
   geom_point() +
   scale_colour_viridis_d()
@@ -139,13 +136,12 @@ ggplot(mpg, aes(cty, hwy, colour = class)) +
 
 [Facets](https://ggplot2-book.org/facet.html) can be used to separate small multiples, or different subsets of the data. 
 It is a powerful tool to quickly split up the data into smaller panels, based on one or more variables, to display patterns or trends (or the lack thereof) within the subsets.
-In addition, the layout can convey a pattern because more than one variable may be used to split the data.
 
-The facets have their own mapping that can be given to the `vars()` function. 
+The facets have their own mapping that can be given as a formula. 
 To plot subsets of the `mpg` dataset based on levels of the `drv` and `year` variables, we can use `facet_grid()` as follows:
 
 ```{r example_facets}
-#| fig.alt = "Scatterplot of city versus highway miles per gallon, for 234 cars.
+#| fig.alt = "Scatterplot of city versus highway miles per gallon, for many cars.
 #|  The plot has six panels in a 2-row, 3-column layout, showing the 
 #|  combinations of three types of drive train and year of manifacture."
 ggplot(mpg, aes(cty, hwy)) +
@@ -162,7 +158,7 @@ We can also use coordinates to display a plot with a fixed aspect ratio so that 
 
 ```{r example_coords}
 #| fig.alt = "A scatterplot showing city versus highway miles per gallon for 
-#|  234 cars. The aspect ratio of the plot is such that units on the x-axis
+#|  many cars. The aspect ratio of the plot is such that units on the x-axis
 #|  have the same length as units on the y-axis."
 ggplot(mpg, aes(cty, hwy)) +
   geom_point() +
@@ -177,7 +173,7 @@ To tweak the look of the plot, one can use many of the built-in `theme_*()` func
 
 ```{r example_theme}
 #| fig.alt = "A scatterplot showing city versus highway miles per gallon for 
-#|  234 cars. The points are coloured according to seven classes of cars. The
+#|  many cars. The points are coloured according to seven classes of cars. The
 #|  legend of the colour is displayed on top of the plot. The plot has thick
 #|  axis lines and the bottom axis line is blue."
 ggplot(mpg, aes(cty, hwy, colour = class)) +
@@ -195,7 +191,7 @@ ggplot(mpg, aes(cty, hwy, colour = class)) +
 As mentioned at the start, you can layer all of the pieces to build a customized plot of your data, like the one shown at the beginning of this vignette:
 
 ```{r outro}
-#| fig.alt = "Scatterplot of city versus highway miles per gallon, for 234 cars
+#| fig.alt = "Scatterplot of city versus highway miles per gallon, for many cars
 #|  coloured by engine displacement. The plot has six panels in a 2-row, 
 #|  3-column layout, showing the combinations of three types of drive train and
 #|  year of manifacture. Every panel has an individual trendline."
