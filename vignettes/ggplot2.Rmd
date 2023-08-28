@@ -73,7 +73,7 @@ ggplot(df, aes(x, y, group = group, fill = factor(group))) +
 
 ```
 
-Out of these components, ggplot2 needs at least the following three to produce a chart: data, a mapping and a layer. The scales, facets, coordinates and theme have sensible defaults that take away a lot of finicky work.
+Out of these components, ggplot2 needs at least the following three to produce a chart: data, a mapping, and a layer. The scales, facets, coordinates, and themes have sensible defaults that take away a lot of finicky work.
 
 ## Data
 
@@ -104,7 +104,7 @@ ggplot(mpg, mapping = aes(x = cty, y = hwy))
 The heart of any graphic is the [layers](https://ggplot2-book.org/toolbox.html). They take the mapped data and display it in something humans can understand as a representation of the data. 
 Every layer consists of three important parts:
 
-1. The [**geometry**](https://ggplot2-book.org/individual-geoms.html) that determines *how* data are displayed, such as points, lines or rectangles.
+1. The [**geometry**](https://ggplot2-book.org/individual-geoms.html) that determines *how* data are displayed, such as points, lines, or rectangles.
 1. The [**statistical transformation**](https://ggplot2-book.org/statistical-summaries.html) that may compute new variables from the data and affect *what* of the data is displayed.
 1. The [**position adjustment**](https://ggplot2-book.org/layers.html#position) that primarily determines *where* a piece of data is being displayed.
 
@@ -114,16 +114,16 @@ A layer can be constructed using the `geom_*()` and `stat_*()` functions. These 
 #| fig.alt = "A scatterplot showing city versus highway miles per gallon for 
 #|  234 cars. The plot has a blue trendline with a positive slope."
 ggplot(mpg, aes(cty, hwy)) +
-  # To display a scatterplot
+  # to create a scatterplot
   geom_point() +
-  # To fit a loess trendline to the data
+  # to fit and overlay a loess trendline
   stat_smooth(formula = y ~ x, method = "lm")
 ```
 
 ## Scales
 
 [Scales](https://ggplot2-book.org/scales-guides.html) are important for translating what is shown on the graph back to an understanding of the data. The scales typically form pairs with aesthetic attributes of the plots, and are represented in plots by guides, like axes or legends.
-Scales are responsible for updating the limits of a plot, setting the breaks, formatting the labels and possibly applying a transformation.
+Scales are responsible for updating the limits of a plot, setting the breaks, formatting the labels, and possibly applying a transformation.
 
 To use scales, one can use one of the scale functions that are patterned as `scale_{aesthetic}_{type}()` functions, where `{aesthetic}` is one of the pairings made in the mapping part of a plot. To map the `class` column in the `mpg` dataset to the viridis colour palette, we can write the following:
 
@@ -138,11 +138,11 @@ ggplot(mpg, aes(cty, hwy, colour = class)) +
 ## Facets
 
 [Facets](https://ggplot2-book.org/facet.html) can be used to separate small multiples, or different subsets of the data. 
-It is a powerful tool to quickly split up the data into smaller panels to look for meaning among the subsets.
+It is a powerful tool to quickly split up the data into smaller panels, based on one or more variables, to display patterns or trends (or the lack thereof) within the subsets.
 In addition, the layout can convey a pattern because more than one variable may be used to split the data.
 
 The facets have their own mapping that can be given to the `vars()` function. 
-To show the `mpg` dataset by the `drv` and `year` columns, we can use `facet_grid()` as follows:
+To plot subsets of the `mpg` dataset based on levels of the `drv` and `year` variables, we can use `facet_grid()` as follows:
 
 ```{r example_facets}
 #| fig.alt = "Scatterplot of city versus highway miles per gallon, for 234 cars.
@@ -158,7 +158,7 @@ ggplot(mpg, aes(cty, hwy)) +
 You can view the [coordinates](https://ggplot2-book.org/coord.html) part of the plot as an interpreter of position aesthetics. 
 While typically Cartesian coordinates are used, the coordinate system powers the display of [map](https://ggplot2-book.org/maps.html) projections and [polar](https://ggplot2-book.org/coord.html#polar-coordinates-with-coord_polar) plots.
 
-We can also use coordinates to display a plot with a fixed aspect ratio, so that one unit has the same length in both the x and y direction. The `coord_fixed()` function sets this ratio automatically.
+We can also use coordinates to display a plot with a fixed aspect ratio so that one unit has the same length in both the x and y directions. The `coord_fixed()` function sets this ratio automatically.
 
 ```{r example_coords}
 #| fig.alt = "A scatterplot showing city versus highway miles per gallon for 
@@ -171,9 +171,9 @@ ggplot(mpg, aes(cty, hwy)) +
 
 ## Theme
 
-The [theme](https://ggplot2-book.org/polishing.html) system controls almost any visuals of the plot that are not controlled by the data and is therefore important for the look and feel of the plot. You can use the theme for alterations ranging from determining the location of the legends to setting the horizontal text adjustment for the bottom x-axis specifically. Many elements in the theme are hierarchical in that setting the look of the general axis line affects those of the bottom and left axes simultaneously.
+The [theme](https://ggplot2-book.org/polishing.html) system controls almost any visuals of the plot that are not controlled by the data and is therefore important for the look and feel of the plot. You can use the theme for customizations ranging from changing the location of the legends to setting the background color of the plot. Many elements in the theme are hierarchical in that setting the look of the general axis line affects those of the x and y axes simultaneously.
 
-To tweak the visuals of the plot, one can use many of the built-in `theme_*()` functions and/or detail specific aspects with the `theme()` function. The `element_*()` functions control the graphical attributes of theme parts.
+To tweak the look of the plot, one can use many of the built-in `theme_*()` functions and/or detail specific aspects with the `theme()` function. The `element_*()` functions control the graphical attributes of theme components.
 
 ```{r example_theme}
 #| fig.alt = "A scatterplot showing city versus highway miles per gallon for 
@@ -192,7 +192,7 @@ ggplot(mpg, aes(cty, hwy, colour = class)) +
 
 ## Combining
 
-As mentioned at the start, you can combine all the parts of the grammar of graphics to build a customised plot of your data. The plot showed at the beginning is a combination of the parts illustrated above:
+As mentioned at the start, you can layer all of the pieces to build a customized plot of your data, like the one shown at the beginning of this vignette:
 
 ```{r outro}
 #| fig.alt = "Scatterplot of city versus highway miles per gallon, for 234 cars
