@@ -1,5 +1,9 @@
 # ggplot2 (development version)
 
+* `fortify.default()` now accepts a data-frame-like object granted the object
+  exhibits healthy `dim()`, `colnames()`, and `as.data.frame()` behaviors
+  (@hpages, #5390).
+
 * `geom_boxplot()` gains a new argument, `staplewidth` that can draw staples
   at the ends of whiskers (@teunbrand, #5126)
 
