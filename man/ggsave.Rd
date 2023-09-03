@@ -26,7 +26,8 @@ ggsave(
 
 \item{device}{Device to use. Can either be a device function
 (e.g. \link{png}), or one of "eps", "ps", "tex" (pictex),
-"pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only).}
+"pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only). If
+\code{NULL} (default), the device is guessed based on the \code{filename} extension.}
 
 \item{path}{Path of the directory to save plot to: \code{path} and \code{filename}
 are combined to create the fully qualified file name. Defaults to the
@@ -34,8 +35,11 @@ working directory.}
 
 \item{scale}{Multiplicative scaling factor.}
 
-\item{width, height, units}{Plot size in \code{units} ("in", "cm", "mm", or "px").
-If not supplied, uses the size of current graphics device.}
+\item{width, height}{Plot size in units expressed by the \code{units} argument.
+If not supplied, uses the size of the current graphics device.}
+
+\item{units}{One of the following units in which the \code{width} and \code{height}
+arguments are expressed: \code{"in"}, \code{"cm"}, \code{"mm"} or \code{"px"}.}
 
 \item{dpi}{Plot resolution. Also accepts a string input: "retina" (320),
 "print" (300), or "screen" (72). Applies only to raster output types.}
@@ -81,11 +85,16 @@ examples section.
 ggplot(mtcars, aes(mpg, wt)) +
   geom_point()
 
+# here, the device is inferred from the filename extension
 ggsave("mtcars.pdf")
 ggsave("mtcars.png")
 
+# setting dimensions of the plot
 ggsave("mtcars.pdf", width = 4, height = 4)
 ggsave("mtcars.pdf", width = 20, height = 20, units = "cm")
+
+# passing device-specific arguments to '...'
+ggsave("mtcars.pdf", colormodel = "cmyk")
 
 # delete files with base::unlink()
 unlink("mtcars.pdf")

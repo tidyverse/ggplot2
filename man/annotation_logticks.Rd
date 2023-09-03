@@ -13,11 +13,12 @@ annotation_logticks(
   mid = unit(0.2, "cm"),
   long = unit(0.3, "cm"),
   colour = "black",
-  size = 0.5,
+  linewidth = 0.5,
   linetype = 1,
   alpha = 1,
   color = NULL,
-  ...
+  ...,
+  size = deprecated()
 )
 }
 \arguments{
@@ -47,7 +48,7 @@ long tick marks. In base 10, these are the "1" (or "10") ticks.}
 
 \item{colour}{Colour of the tick marks.}
 
-\item{size}{Thickness of tick marks, in mm.}
+\item{linewidth}{Thickness of tick marks, in mm.}
 
 \item{linetype}{Linetype of tick marks (\code{solid}, \code{dashed}, etc.)}
 
@@ -56,6 +57,8 @@ long tick marks. In base 10, these are the "1" (or "10") ticks.}
 \item{color}{An alias for \code{colour}.}
 
 \item{...}{Other parameters passed on to the layer}
+
+\item{size}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}}
 }
 \description{
 This annotation adds log tick marks with diminishing spacing.

@@ -29,3 +29,8 @@
 
     Unequal parameter lengths: x (3), y (3), and fill (2)
 
+# annotation_logticks warns about deprecated `size` argument
+
+    Using the `size` aesthetic in this geom was deprecated in ggplot2 3.5.0.
+    i Please use `linewidth` instead.
+
