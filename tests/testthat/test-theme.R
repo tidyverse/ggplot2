@@ -178,8 +178,8 @@ test_that("calculating theme element inheritance works", {
           axis.ticks.length.x.bottom = rel(4))
 
   expect_equal(calc_element("axis.ticks.length.y.left", theme), unit(1, "cm"))
-  expect_equal(calc_element("axis.ticks.length.x.top", theme), unit(0.5, "cm"))
-  expect_equal(calc_element("axis.ticks.length.x.bottom", theme), unit(2, "cm"))
+  expect_equal(calc_element("axis.ticks.length.x.top", theme), unit(1, "cm") * 0.5)
+  expect_equal(calc_element("axis.ticks.length.x.bottom", theme), unit(1, "cm") * 0.5 * 4)
 })
 
 test_that("complete and non-complete themes interact correctly with each other", {
