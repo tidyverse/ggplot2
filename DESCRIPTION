@@ -1,5 +1,5 @@
 Package: ggplot2
-Version: 3.4.2.9000
+Version: 3.4.3.9000
 Title: Create Elegant Data Visualisations Using the Grammar of Graphics
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@posit.co", role = "aut",

@@ -1,6 +1,6 @@
 # Backport fix from R 3.3:
 # https://github.com/wch/r-source/commit/4efc81c98d262f93de9e7911aaa910f5c63cd00f
-if (getRversion() < 3.3) {
+if (getRversion() < "3.3") {
   absolute.units <- getFromNamespace("absolute.units", "grid")
   absolute.units.unit <- getFromNamespace("absolute.units.unit", "grid")
   absolute.units.unit.list <- getFromNamespace("absolute.units.unit.list", "grid")
@@ -18,7 +18,7 @@ if (getRversion() < 3.3) {
 on_load(backport_unit_methods())
 
 # isFALSE() and isTRUE() are available on R (>=3.5)
-if (getRversion() < 3.5) {
+if (getRversion() < "3.5") {
   isFALSE <- function(x) is.logical(x) && length(x) == 1L && !is.na(x) && !x
   isTRUE  <- function(x) is.logical(x) && length(x) == 1L && !is.na(x) &&  x
 }
