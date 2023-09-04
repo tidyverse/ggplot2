@@ -146,10 +146,6 @@ check_inherits <- function(x,
 #'   new features, instead of `type = "cairo"`, which does. Prior to \R version
 #'   4.2.0, the capabilities cannot be resolved and the value of the `maybe`
 #'   argument is returned.
-#' * The \pkg{vdiffr}'s device name is the same as \pkg{svglite}'s device name,
-#'   but these devices differ in what features are supported. Their differences
-#'   cannot be resolved and it will be assumed that \pkg{svglite} was used,
-#'   unless the check is run in a \pkg{testthat} environment.
 #' * With the exception of the \pkg{ragg} and \pkg{svglite} devices, if the
 #'   device doesn't report their capabilities via
 #'   [dev.capabilities()][grDevices::dev.capabilities()], or the \R version is
@@ -332,6 +328,16 @@ check_device = function(feature, action = "warn", op = NULL, maybe = FALSE,
     return(FALSE)
   }
 
+  # The vdiffr version of the SVG device is known to not support any newer
+  # features
+  if (dev_name == "devSVG_vdiffr") {
+    action_fun(
+      "The {.pkg vdiffr} package's device does not support {.emph {feat_name}}.",
+      call = call
+    )
+    return(FALSE)
+  }
+
   # The same logic applies to {svglite} but is tested separately in case
   # {ragg} and {svglite} diverge at some point.
   if (dev_name == "devSVG") {
@@ -342,16 +348,6 @@ check_device = function(feature, action = "warn", op = NULL, maybe = FALSE,
       patterns = if (is_installed("svglite", version = "2.1.0")) TRUE else "2.1.0",
       FALSE
     )
-
-    # When we're in a testthat environment, we'll assume we're in vdiffr, which
-    # doesn't support newer features.
-    # Determining this is logic copied from `testthat::is_testing()`
-    if (identical(Sys.getenv("TESTTHAT"), "true")) {
-      capable <- FALSE
-      pkg <- "vdiffr"
-    } else {
-      pkg <- "svglite"
-    }
 
     if (isTRUE(capable)) {
       return(TRUE)

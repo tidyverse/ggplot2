@@ -103,10 +103,6 @@ to \code{type = "windows"}, which at the time of writing don't support any
 new features, instead of \code{type = "cairo"}, which does. Prior to \R version
 4.2.0, the capabilities cannot be resolved and the value of the \code{maybe}
 argument is returned.
-\item The \pkg{vdiffr}'s device name is the same as \pkg{svglite}'s device name,
-but these devices differ in what features are supported. Their differences
-cannot be resolved and it will be assumed that \pkg{svglite} was used,
-unless the check is run in a \pkg{testthat} environment.
 \item With the exception of the \pkg{ragg} and \pkg{svglite} devices, if the
 device doesn't report their capabilities via
 \link[grDevices:dev.capabilities]{dev.capabilities()}, or the \R version is
