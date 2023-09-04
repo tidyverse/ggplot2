@@ -99,17 +99,20 @@ controlling the appearance of individual glyphs.}
 
 \itemize{
 \item On Windows machines, bitmap devices such as \code{png()} or \code{jpeg()} default
-to \code{type = "windows"}, which at the time of writing don't support any
-new features, instead of \code{type = "cairo"}, which does. Prior to \R version
-4.2.0, the capabilities cannot be resolved and the value of the \code{maybe}
-argument is returned.
+to \code{type = "windows"}. At the time of writing, these don't support any
+new features, in contrast to \code{type = "cairo"}, which does. Prior to \R
+version 4.2.0, the capabilities cannot be resolved and the value of the
+\code{maybe} argument is returned.
 \item With the exception of the \pkg{ragg} and \pkg{svglite} devices, if the
 device doesn't report their capabilities via
 \link[grDevices:dev.capabilities]{dev.capabilities()}, or the \R version is
-below 4.2.0, it is assumed that the feature is unsupported.
+below 4.2.0, the \code{maybe} value is returned.
 \item Even though patterns and gradients where introduced in \R 4.1.0, they
 are considered unsupported because providing vectorised patterns and
 gradients was only introduced later in \R 4.2.0.
+\item When using the RStudio graphics device, the back end is assumed to be the
+next device on the list. This assumption is typically met by default,
+unless the device list is purposefully rearranged.
 }
 }
 
