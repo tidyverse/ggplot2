@@ -8,8 +8,9 @@
 #'
 #' @note
 #' The `distiller` scales extend `brewer` scales by smoothly
-#' interpolating 7 colours from any palette to a continuous scale. The `fermenter`
-#' scales provide binned versions of the `brewer` scales.
+#' interpolating 7 colours from any palette to a continuous scale. 
+#' The `distiller` scales have a default direction = -1. To reverse, use direction = 1.
+#' The `fermenter` scales provide binned versions of the `brewer` scales.
 #'
 #' @details
 #' The `brewer` scales were carefully designed and tested on discrete data.
@@ -75,6 +76,8 @@
 #' v
 #' v + scale_fill_distiller()
 #' v + scale_fill_distiller(palette = "Spectral")
+#' # the order of colour can be reversed, but with scale_*_distiller(), the default direction = -1, so to reverse, use direction = 1.
+#' v + scale_fill_distiller(palette = "Spectral", direction = 1)
 #'
 #' # or use blender variants to discretise continuous data
 #' v + scale_fill_fermenter()
