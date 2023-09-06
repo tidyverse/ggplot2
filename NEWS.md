@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `stage()` now works correctly, even with aesthetics that do not have scales 
+  (#5408)
+
 * `geom_boxplot()` gains a new argument, `staplewidth` that can draw staples
   at the ends of whiskers (@teunbrand, #5126)
 
