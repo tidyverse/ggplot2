@@ -540,3 +540,51 @@ axis_label_element_overrides <- function(axis_position, angle = NULL) {
     ))
   }
 }
+
+function_as_trans <- function(fun, limits, scale_trans, detail = 1000) {
+  if (is.character(fun)) {
+    fun <- as.trans(fun)
+  }
+  if (is.trans(fun)) {
+    if (fun$name == "identity") {
+      return(NULL)
+    }
+    return(fun)
+  }
+  if (is.null(fun) || is.null(limits) || zero_range(limits)) {
+    return(NULL)
+  }
+  if (!is.function(fun)) {
+    cli::cli_abort(paste0(
+      "The {.arg trans} argument must be a {.cls trans} object, ",
+      "a {.field formula} or {.field function}, not {obj_type_friendly(fun)}."
+    ))
+  }
+
+  # Translation between primary and secondary ranges
+  limits_seq <- seq(limits[1], limits[2], length.out = detail)
+  origin_seq <- scale_trans$inverse(limits_seq)
+  trans_seq  <- fun(origin_seq)
+
+  # Test for monotonicity
+  if (!is_unique(sign(diff(trans_seq)))) {
+    cli::cli_abort("The {.arg trans} transformation must be monotonic.")
+  }
+
+  # Deduplicate in the expanded area of the range that can occur if the
+  # transformation is non-monotonic in the expansion. The split ensures
+  # that the middle duplicates are kept.
+  duplicates <- c(
+    !duplicated(trans_seq[seq_len(detail / 2)], fromLast = TRUE),
+    !duplicated(trans_seq[-seq_len(detail / 2)])
+  )
+  origin_seq <- origin_seq[duplicates]
+  trans_seq  <- trans_seq[duplicates]
+
+  trans_new(
+    "secondary_transformation",
+    transform = function(x) approx(trans_seq, origin_seq, x)$y,
+    inverse   = fun,
+    format    = format_format(digits = 3)
+  )
+}
