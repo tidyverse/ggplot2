@@ -55,6 +55,12 @@ guide_axis <- function(title = waiver(), check.overlap = FALSE, angle = NULL,
   new_guide(
     title = title,
 
+    # Override settings
+    breaks = breaks,
+    labels = labels,
+    minor.breaks = minor.breaks,
+    trans  = allow_lambda(trans),
+
     # customisations
     check.overlap = check.overlap,
     angle = angle,
@@ -81,6 +87,10 @@ GuideAxis <- ggproto(
 
   params = list(
     title     = waiver(),
+    breaks    = derive(),
+    labels    = derive(),
+    minor.breaks = NULL,
+    trans     = NULL,
     name      = "axis",
     hash      = character(),
     position  = waiver(),
