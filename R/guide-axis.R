@@ -113,6 +113,61 @@ GuideAxis <- ggproto(
     ticks_length = "axis.ticks.length"
   ),
 
+  extract_key = function(scale, aesthetic, breaks, labels, trans, ...) {
+    limits <- scale$continuous_range
+
+    # Resolve transformation
+    trans  <- function_as_trans(trans, limits, scale$scale$trans)
+    if (!is.null(trans) && scale$is_discrete()) {
+      cli::cli_warn("Cannot use axis transformation with discrete scales.")
+      trans <- NULL
+    }
+
+    if (!is.null(trans) || !is.derived(breaks) || !is.derived(labels)) {
+      # If anything needs to be computed that is not included in the viewscale,
+      # a temporary scale computes the necessary components
+      temp_scale <- ggproto(
+        NULL, scale$scale,
+        trans  = trans %||% scale$scale$trans,
+        limits = if (scale$is_discrete()) scale$get_limits() else limits,
+        breaks = if (is.derived(breaks))  scale$scale$breaks else breaks,
+        labels = if (is.derived(labels))  scale$scale$labels else labels
+      )
+      # Allow plain numeric breaks for discrete scales
+      if (!(scale$is_discrete() && is.numeric(breaks))) {
+        breaks <- temp_scale$get_breaks()
+      }
+    } else {
+      temp_scale <- NULL
+      breaks <- scale$get_breaks()
+    }
+
+    if (length(breaks) == 0) {
+      return(NULL)
+    }
+
+    mapped <- scale$map(breaks)
+
+    if (!is.null(temp_scale)) {
+      labels <- temp_scale$get_labels(breaks)
+    } else {
+      labels <- scale$get_labels(breaks)
+    }
+    if (is.expression(labels)) {
+      labels <- as.list(labels)
+    }
+
+    key <- data_frame(!!aesthetic := mapped)
+    key$.value <- breaks
+    key$.label <- labels
+
+    if (is.numeric(breaks)) {
+      vec_slice(key, is.finite(breaks))
+    } else {
+      key
+    }
+  },
+
   extract_params = function(scale, params, ...) {
     params$name <- paste0(params$name, "_", params$aesthetic)
     params
@@ -598,3 +653,4 @@ function_as_trans <- function(fun, limits, scale_trans, detail = 1000) {
     format    = format_format(digits = 3)
   )
 }
+
