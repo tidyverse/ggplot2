@@ -6,6 +6,10 @@
 \usage{
 guide_axis(
   title = waiver(),
+  breaks = derive(),
+  labels = derive(),
+  minor.breaks = NULL,
+  trans = NULL,
   check.overlap = FALSE,
   angle = NULL,
   n.dodge = 1,
@@ -19,6 +23,16 @@ guide_axis(
 If \code{NULL}, the title is not shown. By default
 (\code{\link[=waiver]{waiver()}}), the name of the scale object or the name
 specified in \code{\link[=labs]{labs()}} is used for the title.}
+
+\item{breaks, labels, minor.breaks}{Either \code{derive()} to indicate that the
+breaks, labels or minor breaks should be taken from the scale, or valid
+input to the scale's synonymous arguments to override the scale's settings.
+By default, \code{breaks} and \code{labels} are derived from the scale, whereas
+\code{minor.breaks} are omitted.}
+
+\item{trans}{A \code{function}, \code{formula} or \verb{<trans>} object that can perform
+the transformation for secondary axes. Note that discrete scales cannot
+be transformed. The default, \code{NULL}, will perform no transformation.}
 
 \item{check.overlap}{silently remove overlapping labels,
 (recursively) prioritizing the first, last, and middle labels.}

@@ -6,6 +6,14 @@
 #' [scale_(x|y)_discrete()][scale_x_discrete()].
 #'
 #' @inheritParams guide_legend
+#' @param breaks,labels,minor.breaks Either `derive()` to indicate that the
+#'   breaks, labels or minor breaks should be taken from the scale, or valid
+#'   input to the scale's synonymous arguments to override the scale's settings.
+#'   By default, `breaks` and `labels` are derived from the scale, whereas
+#'   `minor.breaks` are omitted.
+#' @param trans A `function`, `formula` or `<trans>` object that can perform
+#'   the transformation for secondary axes. Note that discrete scales cannot
+#'   be transformed. The default, `NULL`, will perform no transformation.
 #' @param check.overlap silently remove overlapping labels,
 #'   (recursively) prioritizing the first, last, and middle labels.
 #' @param angle Compared to setting the angle in [theme()] / [element_text()],
@@ -41,9 +49,19 @@
 #'
 #' # can also be used to add a duplicate guide
 #' p + guides(x = guide_axis(n.dodge = 2), y.sec = guide_axis())
-guide_axis <- function(title = waiver(), check.overlap = FALSE, angle = NULL,
-                       n.dodge = 1, cap = "none", order = 0,
-                       position = waiver()) {
+guide_axis <- function(
+  title = waiver(),
+  breaks = derive(),
+  labels = derive(),
+  minor.breaks = NULL,
+  trans = NULL,
+  check.overlap = FALSE,
+  angle = NULL,
+  n.dodge = 1,
+  cap = "none",
+  order = 0,
+  position = waiver()
+) {
 
   if (is.logical(cap)) {
     check_bool(cap)
