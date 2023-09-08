@@ -92,11 +92,12 @@ GeomRaster <- ggproto("GeomRaster", Geom,
         "{.fn {snake_class(self)}} only works with {.fn coord_cartesian}"
       ))
     }
-    data <- coord$transform(data, panel_params)
 
     # Convert vector of data to raster
     x_pos <- as.integer((data$x - min(data$x)) / resolution(data$x, FALSE))
     y_pos <- as.integer((data$y - min(data$y)) / resolution(data$y, FALSE))
+
+    data <- coord$transform(data, panel_params)
 
     nrow <- max(y_pos) + 1
     ncol <- max(x_pos) + 1
