@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `resolution()` has a small tolerance, preventing spuriously small resolutions 
+  due to rounding errors (@teunbrand, #2516).
+
 * `geom_boxplot()` gains a new argument, `staplewidth` that can draw staples
   at the ends of whiskers (@teunbrand, #5126)
 
