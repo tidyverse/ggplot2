@@ -384,7 +384,64 @@ top-level \code{Guide}, and each implements their own methods for drawing.
 To create a new type of Guide object, you typically will want to override
 one or more of the following:
 
-TODO: Fill this in properly
+Properties:
+\itemize{
+\item \code{available_aes} A \code{character} vector with aesthetics that this guide
+supports. The value \code{"any"} indicates all non-position aesthetics.
+\item \code{params} A named \code{list} of parameters that the guide needs to function.
+It has the following roles:
+\itemize{
+\item \code{params} provides the defaults for a guide.
+\item \code{names(params)} determines what are valid arguments to \code{new_guide()}.
+Some parameters are \emph{required} to render the guide. These are: \code{title},
+\code{name}, \code{position}, \code{direction}, \code{order} and \code{hash}.
+\item During build stages, \code{params} holds information about the guide.
+}
+\item \code{elements} A named list of \code{character}s, giving the name of theme elements
+that should be retrieved automatically, for example \code{"legend.text"}.
+\item \code{hashables} An \code{expression} that can be evaluated in the context of
+\code{params}. The hash of the evaluated expression determines the merge
+compatibility of guides, and is stored in \code{params$hash}.
+}
+
+Methods:
+\itemize{
+\item \code{extract_key()} Returns a \code{data.frame} with (mapped) breaks and labels
+extracted from the scale, which will be stored in \code{params$key}.
+\item \code{extract_decor()} Returns a \code{data.frame} containing other structured
+information extracted from the scale, which will be stored in
+\code{params$decor}. The \code{decor} has a guide-specific  meaning: it is the bar in
+\code{guide_colourbar()}, but specifies the \code{axis.line} in \code{guide_axis()}.
+\item \code{extract_params()} Updates the \code{params} with other, unstructured
+information from the scale. An example of this is inheriting the guide's
+title from the \code{scale$name} field.
+\item \code{transform()} Updates the \code{params$key} based on the coordinates. This
+applies to position guides, as it rescales the aesthetic to the [0, 1]
+range.
+\item \code{merge()} Combines information from multiple guides with the same
+\code{params$hash}. This ensures that e.g. \code{guide_legend()} can display both
+\code{shape} and \code{colour} in the same guide.
+\item \code{get_layer_key()} Extract information from layers. This can be used to
+check that the guide's aesthetic is actually in use, or to gather
+information about how legend keys should be displayed.
+\item \code{setup_params()} Set up parameters at the beginning of drawing stages.
+It can be used to overrule user-supplied parameters or perform checks on
+the \code{params} property.
+\item \code{override_elements()} Take populated theme elements derived from the
+\code{elements} property and allows overriding these theme settings.
+\item \code{build_title()} Render the guide's title.
+\item \code{build_labels()} Render the guide's labels.
+\item \code{build_decor()} Render the \code{params$decor}, which is different for every
+guide.
+\item \code{build_ticks()} Render tick marks.
+\item \code{measure_grobs()} Measure dimensions of the graphical objects produced
+by the \verb{build_*()} methods to be used in the layout or assembly.
+\item \code{arrange_layout()} Set up a layout for how graphical objects produced by
+the \verb{build_*()} methods should be arranged.
+\item \code{assemble_drawing()} Take the graphical objects produced by the \verb{build_*()}
+methods, the measurements from \code{measure_grobs()} and layout from
+\code{arrange_layout()} to finalise the guide.
+}
 }
 
 \section{Positions}{

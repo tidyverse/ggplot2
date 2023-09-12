@@ -5,6 +5,32 @@
 * The `scale_name` argument in `continuous_scale()`, `discrete_scale()` and
   `binned_scale()` is soft-deprecated (@teunbrand, #1312).
 
+* `stat_ydensity()` with incomplete groups calculates the default `width` 
+  parameter more stably (@teunbrand, #5396)
+
+* `geom_boxplot()` gains a new argument, `staplewidth` that can draw staples
+  at the ends of whiskers (@teunbrand, #5126)
+
+* The `size` argument in `annotation_logticks()` has been deprecated in favour
+  of the `linewidth` argument (#5292).
+
+* `geom_boxplot()` gains an `outliers` argument to switch outliers on or off,
+  in a manner that does affects the scale range. For hiding outliers that does
+  not affect the scale range, you can continue to use `outlier.shape = NA` 
+  (@teunbrand, #4892).
+
+* Binned scales now treat `NA`s in limits the same way continuous scales do 
+  (#5355).
+
+* Binned scales work better with `trans = "reverse"` (#5355).
+
+* The `legend.text.align` and `legend.title.align` arguments in `theme()` are 
+  deprecated. The `hjust` setting of the `legend.text` and `legend.title` 
+  elements continues to fulfil the role of text alignment (@teunbrand, #5347).
+
+* Integers are once again valid input to theme arguments that expect numeric
+  input (@teunbrand, #5369)
+
 * Nicer error messages for xlim/ylim arguments in coord-* functions
   (@92amartins, #4601, #5297).
 
@@ -62,6 +88,10 @@
     * `guide_coloursteps()` and `guide_bins()` sort breaks (#5152).
     * `guide_axis()` gains a `cap` argument that can be used to trim the
       axis line to extreme breaks (#4907).
+    * `guide_colourbar()` and `guide_coloursteps()` merge properly when one
+      of aesthetics is dropped (#5324).
+    * Fixed regression in `guide_legend()` where the `linewidth` key size
+      wasn't adapted to the width of the lines (#5160).
 
 * `geom_label()` now uses the `angle` aesthetic (@teunbrand, #2785)
 * 'lines' units in `geom_label()`, often used in the `label.padding` argument, 
@@ -96,6 +126,10 @@
 * `stat_contour()` and `stat_contour_filled()` now warn about and remove
   duplicated coordinates (@teunbrand, #5215).
 * Improve performance of layers without positional scales (@zeehio, #4990)
+
+# ggplot2 3.4.3
+This hotfix release addresses a version comparison change in r-devel. There are
+no user-facing or breaking changes.
 
 # ggplot2 3.4.2
 This is a hotfix release anticipating changes in r-devel, but folds in upkeep

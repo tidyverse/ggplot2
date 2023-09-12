@@ -71,12 +71,8 @@
 #'   `legend.key.size` or can be specified separately
 #' @param legend.text legend item labels ([element_text()]; inherits from
 #'   `text`)
-#' @param legend.text.align alignment of legend labels (number from 0 (left) to
-#'   1 (right))
 #' @param legend.title title of legend ([element_text()]; inherits from
 #'   `title`)
-#' @param legend.title.align alignment of legend title (number from 0 (left) to
-#'   1 (right))
 #' @param legend.position the position of legends ("none", "left", "right",
 #'   "bottom", "top", or two-element numeric vector)
 #' @param legend.direction layout of items in legends ("horizontal" or
@@ -330,9 +326,7 @@ theme <- function(line,
                   legend.key.height,
                   legend.key.width,
                   legend.text,
-                  legend.text.align,
                   legend.title,
-                  legend.title.align,
                   legend.position,
                   legend.direction,
                   legend.justification,
@@ -418,6 +412,32 @@ theme <- function(line,
     ))
     elements$legend.spacing <- elements$legend.margin
     elements$legend.margin <- margin()
+  }
+  if (!is.null(elements$legend.title.align)) {
+    deprecate_soft0(
+      "3.5.0", "theme(legend.title.align)",
+      I("theme(legend.title = element_text(hjust))")
+    )
+    if (is.null(elements[["legend.title"]])) {
+      elements$legend.title <- element_text(hjust = elements$legend.title.align)
+    } else {
+      elements$legend.title$hjust <- elements$legend.title$hjust %||%
+        elements$legend.title.align
+    }
+    elements$legend.title.align <- NULL
+  }
+  if (!is.null(elements$legend.text.align)) {
+    deprecate_soft0(
+      "3.5.0", "theme(legend.text.align)",
+      I("theme(legend.text = element_text(hjust))")
+    )
+    if (is.null(elements[["legend.text"]])) {
+      elements$legend.text <- element_text(hjust = elements$legend.text.align)
+    } else {
+      elements$legend.text$hjust <- elements$legend.text$hjust %||%
+        elements$legend.text.align
+    }
+    elements$legend.text.align <- NULL
   }
 
   # If complete theme set all non-blank elements to inherit from blanks

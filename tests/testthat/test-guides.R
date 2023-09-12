@@ -128,11 +128,7 @@ test_that("a warning is generated when more than one position guide is drawn at 
     )
   built <- expect_silent(ggplot_build(plot))
 
-  # TODO: These multiple warnings should be summarized nicely. Until this gets
-  #       fixed, this test ignores all the following errors than the first one.
-  suppressWarnings(
-    expect_warning(ggplot_gtable(built), "Discarding guide")
-  )
+  expect_warning(ggplot_gtable(built), "Discarding guide")
 })
 
 test_that("a warning is not generated when properly changing the position of a guide_axis()", {
@@ -309,6 +305,38 @@ test_that("guide_coloursteps and guide_bins return ordered breaks", {
   g <- guide_bins()
   key <- g$train(scale = scale, aesthetics = "colour", direction = "vertical")$key
   expect_true(all(diff(key$.value) < 0))
+})
+
+
+test_that("guide_colourbar merging preserves both aesthetics", {
+  # See issue 5324
+
+  scale1 <- scale_colour_viridis_c()
+  scale1$train(c(0, 2))
+
+  scale2 <- scale_fill_viridis_c()
+  scale2$train(c(0, 2))
+
+  g <- guide_colourbar()
+  p <- g$params
+
+  p1 <- g$train(p, scale1, "colour")
+  p2 <- g$train(p, scale2, "fill")
+
+  merged <- g$merge(p1, g, p2)
+
+  expect_true(all(c("colour", "fill") %in% names(merged$params$key)))
+})
+
+test_that("guide_colourbar warns about discrete scales", {
+
+  g <- guide_colourbar()
+  s <- scale_colour_discrete()
+  s$train(LETTERS[1:3])
+
+  expect_warning(g <- g$train(g$params, s, "colour"), "needs continuous scales")
+  expect_null(g)
+
 })
 
 # Visual tests ------------------------------------------------------------
@@ -621,6 +649,17 @@ test_that("guides title and text are positioned correctly", {
   expect_doppelganger("rotated guide titles and labels", p )
 })
 
+test_that("size and linewidth affect key size", {
+  df <- data_frame(x = c(0, 1, 2))
+  p  <- ggplot(df, aes(x, x)) +
+    geom_point(aes(size = x)) +
+    geom_line(aes(linewidth = 2 - x)) +
+    scale_size_continuous(range = c(1, 12)) +
+    scale_linewidth_continuous(range = c(1, 20))
+
+  expect_doppelganger("enlarged guides", p)
+})
+
 test_that("colorbar can be styled", {
   df <- data_frame(x = c(0, 1, 2))
   p <- ggplot(df, aes(x, x, color = x)) + geom_point()
@@ -760,15 +799,16 @@ test_that("a warning is generated when guides(<scale> = FALSE) is specified", {
   expect_snapshot_warning(ggplot_gtable(built))
 })
 
-test_that("guides() errors if unnamed guides are provided", {
-  expect_error(
+test_that("guides() warns if unnamed guides are provided", {
+  expect_warning(
     guides("axis"),
     "All guides are unnamed."
   )
-  expect_error(
+  expect_warning(
     guides(x = "axis", "axis"),
     "The 2nd guide is unnamed"
   )
+  expect_null(guides())
 })
 
 test_that("old S3 guides can be implemented", {
