@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `ScaleContinuous$get_breaks()` now only calls `scales::zero_range()` on limits
+  in transformed space, rather than in data space (#5304).
+
 * Scales throw more informative messages (@teunbrand, #4185, #4258)
 
 * The `scale_name` argument in `continuous_scale()`, `discrete_scale()` and

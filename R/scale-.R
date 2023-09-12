@@ -691,7 +691,9 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
       )
     }
 
-    if (zero_range(as.numeric(limits))) {
+    # Compute `zero_range()` in transformed space in case `limits` in data space
+    # don't support conversion to numeric (#5304)
+    if (zero_range(as.numeric(self$trans$transform(limits)))) {
       breaks <- limits[1]
     } else if (is.waive(self$breaks)) {
       if (!is.null(self$n.breaks) && trans_support_nbreaks(self$trans)) {
