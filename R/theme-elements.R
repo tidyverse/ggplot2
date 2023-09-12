@@ -476,13 +476,21 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   axis.minor.ticks.y.left   = el_def("element_line", "axis.ticks.y.left"),
   axis.minor.ticks.y.right  = el_def("element_line", "axis.ticks.y.right"),
 
-  axis.minor.ticks.length = el_def(c("unit", "rel"), "axis.ticks.length"),
+  axis.minor.ticks.length = el_def(c("unit", "rel")),
   axis.minor.ticks.length.x = el_def(c("unit", "rel"), "axis.minor.ticks.length"),
-  axis.minor.ticks.length.x.top = el_def(c("unit", "rel"), "axis.minor.ticks.length.x"),
-  axis.minor.ticks.length.x.bottom = el_def(c("unit", "rel"), "axis.minor.ticks.length.x"),
+  axis.minor.ticks.length.x.top = el_def(
+    c("unit", "rel"), c("axis.minor.ticks.length.x", "axis.ticks.length.x.top")
+  ),
+  axis.minor.ticks.length.x.bottom = el_def(
+    c("unit", "rel"), c("axis.minor.ticks.length.x", "axis.ticks.length.x.bottom")
+  ),
   axis.minor.ticks.length.y = el_def(c("unit", "rel"), "axis.minor.ticks.length"),
-  axis.minor.ticks.length.y.left = el_def(c("unit", "rel"), "axis.minor.ticks.length.y"),
-  axis.minor.ticks.length.y.right = el_def(c("unit", "rel"), "axis.minor.ticks.length.y"),
+  axis.minor.ticks.length.y.left = el_def(
+    c("unit", "rel"), c("axis.minor.ticks.length.y", "axis.ticks.length.y.left")
+  ),
+  axis.minor.ticks.length.y.right = el_def(
+    c("unit", "rel"), c("axis.minor.ticks.length.y", "axis.ticks.length.y.right")
+  ),
 
   legend.background   = el_def("element_rect", "rect"),
   legend.margin       = el_def("margin"),
