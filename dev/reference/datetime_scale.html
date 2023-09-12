@@ -102,6 +102,7 @@
 <span>  date_minor_breaks <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  timezone <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  guide <span class="op">=</span> <span class="st">"legend"</span>,</span>
+<span>  call <span class="op">=</span> <span class="fu">caller_call</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -183,10 +184,14 @@ optionally followed by 's'.</p></dd>
 <code><a href="guides.html">guides()</a></code> for more information.</p></dd>
 
 
+<dt>call</dt>
+<dd><p>The <code>call</code> used to construct the scale for reporting messages.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Arguments passed on to <code><a href="continuous_scale.html">continuous_scale</a></code></p><dl><dt><code>scale_name</code></dt>
-<dd><p>The name of the scale that should be used for error messages
-associated with this scale.</p></dd>
+<dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a> The name of the scale
+that should be used for error messages associated with this scale.</p></dd>
 
     <dt><code>name</code></dt>
 <dd><p>The name of the scale. Used as the axis or legend title. If

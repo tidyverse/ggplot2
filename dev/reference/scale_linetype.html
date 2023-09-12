@@ -148,8 +148,8 @@ from a discrete scale, specify <code>na.translate = FALSE</code>.</p></dd>
 <dd><p>The names of the aesthetics that this scale works with.</p></dd>
 
     <dt><code>scale_name</code></dt>
-<dd><p>The name of the scale that should be used for error messages
-associated with this scale.</p></dd>
+<dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a> The name of the scale
+that should be used for error messages associated with this scale.</p></dd>
 
     <dt><code>name</code></dt>
 <dd><p>The name of the scale. Used as the axis or legend title. If
@@ -171,6 +171,9 @@ notation.</p></li>
     <dt><code>guide</code></dt>
 <dd><p>A function used to create a guide or its name. See
 <code><a href="guides.html">guides()</a></code> for more information.</p></dd>
+
+    <dt><code>call</code></dt>
+<dd><p>The <code>call</code> used to construct the scale for reporting messages.</p></dd>
 
     <dt><code>super</code></dt>
 <dd><p>The super class to use for the constructed scale</p></dd>
