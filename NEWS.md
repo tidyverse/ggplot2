@@ -3,6 +3,9 @@
 * In `theme()`, some elements can be specified with `rel()` to inherit from
   `unit`-class objects in a relative fashion (@teunbrand, #3951).
 
+* `stat_ydensity()` with incomplete groups calculates the default `width` 
+  parameter more stably (@teunbrand, #5396)
+
 * `geom_boxplot()` gains a new argument, `staplewidth` that can draw staples
   at the ends of whiskers (@teunbrand, #5126)
 
