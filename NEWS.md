@@ -1,5 +1,10 @@
 # ggplot2 (development version)
 
+* Scales throw more informative messages (@teunbrand, #4185, #4258)
+
+* The `scale_name` argument in `continuous_scale()`, `discrete_scale()` and
+  `binned_scale()` is soft-deprecated (@teunbrand, #1312).
+
 * In `theme()`, some elements can be specified with `rel()` to inherit from
   `unit`-class objects in a relative fashion (@teunbrand, #3951).
 
