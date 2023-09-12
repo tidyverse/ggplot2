@@ -5,6 +5,9 @@
 * The `scale_name` argument in `continuous_scale()`, `discrete_scale()` and
   `binned_scale()` is soft-deprecated (@teunbrand, #1312).
 
+* In `theme()`, some elements can be specified with `rel()` to inherit from
+  `unit`-class objects in a relative fashion (@teunbrand, #3951).
+
 * `stat_ydensity()` with incomplete groups calculates the default `width` 
   parameter more stably (@teunbrand, #5396)
 
