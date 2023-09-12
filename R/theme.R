@@ -730,8 +730,9 @@ combine_elements <- function(e1, e2) {
     if (is.rel(e2)) {
       return(rel(unclass(e1) * unclass(e2)))
     }
-    # If e2 is a unit, return modified unit
-    if (is.unit(e2)) {
+    # If e2 is a unit/numeric, return modified unit/numeric
+    # Note that unit objects are considered numeric
+    if (is.numeric(e2) || is.unit(e2)) {
       return(unclass(e1) * e2)
     }
     return(e1)
