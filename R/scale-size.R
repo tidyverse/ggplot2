@@ -52,7 +52,7 @@ NULL
 scale_size_continuous <- function(name = waiver(), breaks = waiver(), labels = waiver(),
                                   limits = NULL, range = c(1, 6),
                                   trans = "identity", guide = "legend") {
-  continuous_scale("size", "area", area_pal(range), name = name,
+  continuous_scale("size", palette = area_pal(range), name = name,
     breaks = breaks, labels = labels, limits = limits, trans = trans,
     guide = guide)
 }
@@ -66,7 +66,7 @@ scale_size <- scale_size_continuous
 scale_radius <- function(name = waiver(), breaks = waiver(), labels = waiver(),
                          limits = NULL, range = c(1, 6),
                          trans = "identity", guide = "legend") {
-  continuous_scale("size", "radius", rescale_pal(range), name = name,
+  continuous_scale("size", palette = rescale_pal(range), name = name,
     breaks = breaks, labels = labels, limits = limits, trans = trans,
     guide = guide)
 }
@@ -76,7 +76,7 @@ scale_radius <- function(name = waiver(), breaks = waiver(), labels = waiver(),
 scale_size_binned <- function(name = waiver(), breaks = waiver(), labels = waiver(),
                               limits = NULL, range = c(1, 6), n.breaks = NULL,
                               nice.breaks = TRUE, trans = "identity", guide = "bins") {
-  binned_scale("size", "area_b", area_pal(range), name = name,
+  binned_scale("size", palette = area_pal(range), name = name,
                breaks = breaks, labels = labels, limits = limits, trans = trans,
                n.breaks = n.breaks, nice.breaks = nice.breaks, guide = guide)
 }
@@ -86,7 +86,9 @@ scale_size_binned <- function(name = waiver(), breaks = waiver(), labels = waive
 #' @usage NULL
 scale_size_discrete <- function(...) {
   cli::cli_warn("Using {.field size} for a discrete variable is not advised.")
-  scale_size_ordinal(...)
+  args <- list2(...)
+  args$call <- args$call %||% current_call()
+  exec(scale_size_ordinal, !!!args)
 }
 
 #' @rdname scale_size
@@ -97,8 +99,7 @@ scale_size_ordinal <- function(..., range = c(2, 6)) {
 
   discrete_scale(
     "size",
-    "size_d",
-    function(n) {
+    palette = function(n) {
       area <- seq(range[1] ^ 2, range[2] ^ 2, length.out = n)
       sqrt(area)
     },
@@ -111,7 +112,7 @@ scale_size_ordinal <- function(..., range = c(2, 6)) {
 #' @export
 #' @rdname scale_size
 scale_size_area <- function(..., max_size = 6) {
-  continuous_scale("size", "area",
+  continuous_scale("size",
     palette = abs_area(max_size),
     rescaler = rescale_max, ...)
 }
@@ -119,7 +120,7 @@ scale_size_area <- function(..., max_size = 6) {
 #' @export
 #' @rdname scale_size
 scale_size_binned_area <- function(..., max_size = 6) {
-  binned_scale("size", "area_b",
+  binned_scale("size",
                palette = abs_area(max_size),
                rescaler = rescale_max, ...)
 }

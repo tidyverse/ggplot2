@@ -23,6 +23,8 @@
 #'
 #' # Resize the plot to see that the specified aspect ratio is maintained
 coord_fixed <- function(ratio = 1, xlim = NULL, ylim = NULL, expand = TRUE, clip = "on") {
+  check_coord_limits(xlim)
+  check_coord_limits(ylim)
   ggproto(NULL, CoordFixed,
     limits = list(x = xlim, y = ylim),
     ratio = ratio,

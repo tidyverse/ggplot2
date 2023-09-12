@@ -44,6 +44,8 @@
 #'   geom_area() +
 #'   coord_flip()
 coord_flip <- function(xlim = NULL, ylim = NULL, expand = TRUE, clip = "on") {
+  check_coord_limits(xlim)
+  check_coord_limits(ylim)
   ggproto(NULL, CoordFlip,
     limits = list(x = xlim, y = ylim),
     expand = expand,

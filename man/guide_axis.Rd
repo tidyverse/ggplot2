@@ -9,6 +9,7 @@ guide_axis(
   check.overlap = FALSE,
   angle = NULL,
   n.dodge = 1,
+  cap = "none",
   order = 0,
   position = waiver()
 )
@@ -29,6 +30,12 @@ you probably want.}
 \item{n.dodge}{The number of rows (for vertical axes) or columns (for
 horizontal axes) that should be used to render the labels. This is
 useful for displaying labels that would otherwise overlap.}
+
+\item{cap}{A \code{character} to cut the axis line back to the last breaks. Can
+be \code{"none"} (default) to draw the axis line along the whole panel, or
+\code{"upper"} and \code{"lower"} to draw the axis to the upper or lower break, or
+\code{"both"} to only draw the line in between the most extreme breaks. \code{TRUE}
+and \code{FALSE} are shorthand for \code{"both"} and \code{"none"} respectively.}
 
 \item{order}{A positive \code{integer} of length 1 that specifies the order of
 this guide among multiple guides. This controls in which order guides are

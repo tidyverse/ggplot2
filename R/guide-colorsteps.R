@@ -13,7 +13,7 @@
 #'   shown irrespective of the value of `show.limits`.
 #' @param ticks A theme object for rendering tick marks at the colourbar.
 #'   Usually, the object of `element_line()` is expected. If `element_blank()`
-#'   (default), no tick marks are drawn. For backward compatability, can also
+#'   (default), no tick marks are drawn. For backward compatibility, can also
 #'   be a logical which translates `TRUE` to `element_line()` and `FALSE` to
 #'   `element_blank()`.
 #' @inheritDotParams guide_colourbar -nbin -raster -ticks -available_aes
@@ -74,7 +74,7 @@ guide_colorsteps <- guide_coloursteps
 #' @usage NULL
 #' @export
 GuideColoursteps <- ggproto(
-  NULL, GuideColourbar,
+  "GuideColoursteps", GuideColourbar,
 
   params = c(
     list(even.steps = TRUE, show.limits = NULL),
@@ -135,7 +135,7 @@ GuideColoursteps <- ggproto(
     return(bar)
   },
 
-  extract_params = function(scale, params, hashables, ...) {
+  extract_params = function(scale, params, ...) {
 
     if (params$even.steps) {
       params$nbin <- nbin <- sum(!is.na(params$key[[1]])) + 1
@@ -164,7 +164,7 @@ GuideColoursteps <- ggproto(
         from = c(0.5, nbin - 0.5) / nbin
       )
       key <- params$key
-      limits <- attr(key, "limits", TRUE)
+      limits <- attr(key, "limits", TRUE) %||% scale$get_limits()
       key <- key[c(NA, seq_len(nrow(key)), NA), , drop = FALSE]
       key$.value[c(1, nrow(key))] <- edges
       key$.label[c(1, nrow(key))] <- scale$get_labels(limits)
@@ -177,6 +177,6 @@ GuideColoursteps <- ggproto(
       params$key <- key
     }
 
-    GuideColourbar$extract_params(scale, params, hashables, ...)
+    GuideColourbar$extract_params(scale, params, ...)
   }
 )
