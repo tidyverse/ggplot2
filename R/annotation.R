@@ -70,8 +70,17 @@ annotate <- function(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
     details <- paste0(names(aesthetics)[bad], " (", lengths[bad], ")")
     cli::cli_abort("Unequal parameter lengths: {details}")
   }
-
   data <- data_frame0(!!!position, .size = n)
+
+  # Re-inject potential `ignore()` expressions
+  mapping <- aes_all(names(data))
+  call <- call_match(fn = annotate)
+  aesthetics <- intersect(names(call), names(mapping))
+  for (aes in aesthetics[is_ignored_aes(call[aesthetics])]) {
+    expr <- quo_get_expr(mapping[[aes]])
+    mapping[[aes]] <- quo(ignore(!!expr))
+  }
+
   layer(
     geom = geom,
     params = list(
@@ -81,7 +90,7 @@ annotate <- function(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
     stat = StatIdentity,
     position = PositionIdentity,
     data = data,
-    mapping = aes_all(names(data)),
+    mapping = mapping,
     inherit.aes = FALSE,
     show.legend = FALSE
   )
