@@ -344,7 +344,8 @@ Layer <- ggproto("Layer", NULL,
     aesthetics <- defaults(aesthetics, self$stat$default_aes)
     aesthetics <- compact(aesthetics)
 
-    new <- strip_dots(aesthetics[is_calculated_aes(aesthetics) | is_staged_aes(aesthetics)])
+    new <- aesthetics[!is_ignored_aes(aesthetics)]
+    new <- strip_dots(new[is_calculated_aes(new) | is_staged_aes(new)])
     if (length(new) == 0) return(data)
 
     # data needs to be non-scaled
