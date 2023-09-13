@@ -429,6 +429,20 @@ Layer <- ggproto("Layer", NULL,
     }
 
     data <- self$geom$handle_na(data, self$computed_geom_params)
+
+    ignored <- self$ignored_aesthetics()
+    if (any(ignored %in% c(ggplot_global$x_aes, ggplot_global$y_aes))) {
+      # Temporarily override global x/y aesthetics
+      old_x <- ggplot_global$x_aes
+      old_y <- ggplot_global$y_aes
+      on.exit({
+        ggplot_global$x_aes <- old_x
+        ggplot_global$y_aes <- old_y
+      }, add = TRUE)
+      ggplot_global$x_aes <- setdiff(old_x, ignored)
+      ggplot_global$y_aes <- setdiff(old_y, ignored)
+    }
+
     self$geom$draw_layer(data, self$computed_geom_params, layout, layout$coord)
   },
 
