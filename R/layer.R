@@ -430,6 +430,22 @@ Layer <- ggproto("Layer", NULL,
 
     data <- self$geom$handle_na(data, self$computed_geom_params)
     self$geom$draw_layer(data, self$computed_geom_params, layout, layout$coord)
+  },
+
+  apply_ignore = function(self, data) {
+    aesthetics <- self$computed_mapping
+    ignored <- names(aesthetics)[is_ignored_aes(aesthetics)]
+    ignored <- names(data) %in% ignored
+    names(data)[ignored] <- paste0(".ignored_", names(data)[ignored])
+    data
+  },
+
+  undo_ignore = function(self, data) {
+    aesthetics <- self$computed_mapping
+    ignored <- names(aesthetics)[is_ignored_aes(aesthetics)]
+    ignored <- names(data) %in% paste0(".ignored_", ignored)
+    names(data)[ignored] <- gsub("^\\.ignored_", "", names(data)[ignored])
+    data
   }
 )
 
