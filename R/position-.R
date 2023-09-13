@@ -78,13 +78,14 @@ transform_position <- function(df, trans_x = NULL, trans_y = NULL, ...) {
   # Treat df as list during transformation for faster set/get
   oldclass <- class(df)
   df <- unclass(df)
-  scales <- aes_to_scale(names(df))
 
   if (!is.null(trans_x)) {
-    df[scales == "x"] <- lapply(df[scales == "x"], trans_x, ...)
+    is_x <- names(df) %in% ggplot_global$x_aes
+    df[is_x] <- lapply(df[is_x], trans_x, ...)
   }
   if (!is.null(trans_y)) {
-    df[scales == "y"] <- lapply(df[scales == "y"], trans_y, ...)
+    is_y <- names(df) %in% ggplot_global$y_aes
+    df[is_y] <- lapply(df[is_y], trans_y, ...)
   }
 
   class(df) <- oldclass
