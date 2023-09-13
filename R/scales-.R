@@ -145,7 +145,7 @@ ScalesList <- ggproto("ScalesList", NULL,
     if (is.null(aesthetics)) {
       return()
     }
-    aesthetics <- aesthetics[is_ignored_aes(aesthetics)]
+    aesthetics <- aesthetics[!is_ignored_aes(aesthetics)]
     names(aesthetics) <- unlist(lapply(names(aesthetics), aes_to_scale))
 
     new_aesthetics <- setdiff(names(aesthetics), self$input())
