@@ -204,6 +204,12 @@ stage_scaled <- function(start = NULL, after_stat = NULL, after_scale = NULL) {
   after_scale
 }
 
+#' @rdname aes_eval
+#' @export
+ignore <- function(x) {
+  x
+}
+
 # Regex to determine if an identifier refers to a calculated aesthetic
 match_calculated_aes <- "^\\.\\.([a-zA-Z._]+)\\.\\.$"
 
@@ -221,6 +227,10 @@ is_scaled_aes <- function(aesthetics) {
 is_staged_aes <- function(aesthetics) {
   vapply(aesthetics, is_staged, logical(1), USE.NAMES = FALSE)
 }
+is_ignored_aes <- function(aesthetics) {
+  vapply(aesthetics, is_ignored, logical(1), USE.NAMES = FALSE)
+}
+
 is_calculated <- function(x, warn = FALSE) {
   if (is_call(get_expr(x), "after_stat")) {
     return(TRUE)
@@ -262,6 +272,9 @@ is_scaled <- function(x) {
 }
 is_staged <- function(x) {
   is_call(get_expr(x), "stage")
+}
+is_ignored <- function(x) {
+  is_call(get_expr(x), "ignore")
 }
 
 # Strip dots from expressions
