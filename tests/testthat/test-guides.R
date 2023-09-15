@@ -152,9 +152,6 @@ test_that("guide_none() can be used in non-position scales", {
   guides <- guides$build(
     plot$scales,
     plot$layers,
-    plot$mapping,
-    "right",
-    theme_gray(),
     plot$labels
   )
 
@@ -181,7 +178,7 @@ test_that("guide merging for guide_legend() works as expected", {
 
     guides <- guides_list(NULL)
     guides <- guides$setup(scales$scales)
-    guides$train(scales$scales, "vertical", labs())
+    guides$train(scales$scales, labs())
     guides$merge()
     guides$params
   }
@@ -282,11 +279,11 @@ test_that("legend reverse argument reverses the key", {
   guides <- guides$setup(list(scale))
 
   guides$params[[1]]$reverse <- FALSE
-  guides$train(list(scale), "horizontal", labels = labs())
+  guides$train(list(scale), labels = labs())
   fwd <- guides$get_params(1)$key
 
   guides$params[[1]]$reverse <- TRUE
-  guides$train(list(scale), "horizontal", labels = labs())
+  guides$train(list(scale), labels = labs())
   rev <- guides$get_params(1)$key
 
   expect_equal(fwd$colour, rev(rev$colour))
@@ -301,10 +298,10 @@ test_that("guide_coloursteps and guide_bins return ordered breaks", {
   key <- g$train(scale = scale, aesthetic = "colour")$key
   expect_true(all(diff(key$.value) > 0))
 
-  # Bins guide is decreasing order
+  # Bins guide is increasing order
   g <- guide_bins()
-  key <- g$train(scale = scale, aesthetics = "colour", direction = "vertical")$key
-  expect_true(all(diff(key$.value) < 0))
+  key <- g$train(scale = scale, aesthetics = "colour")$key
+  expect_true(all(diff(key$.value) > 0))
 })
 
 

@@ -278,28 +278,10 @@ Guides <- ggproto(
   # 5. Guides$assemble()
   #      arrange all guide grobs
 
-  build = function(self, scales, layers, default_mapping,
-                   position, theme, labels) {
+  build = function(self, scales, layers, labels) {
 
-    position  <- legend_position(position)
+    # Empty guides list
     no_guides <- guides_list()
-    if (position == "none") {
-      return(no_guides)
-    }
-
-    theme$legend.key.width  <- theme$legend.key.width  %||% theme$legend.key.size
-    theme$legend.key.height <- theme$legend.key.height %||% theme$legend.key.size
-
-
-    default_direction <- if (position == "inside") "vertical" else position
-    theme$legend.box       <- theme$legend.box       %||% default_direction
-    theme$legend.direction <- theme$legend.direction %||% default_direction
-    theme$legend.box.just  <- theme$legend.box.just  %||% switch(
-      position,
-      inside     = c("center", "center"),
-      vertical   = c("left",   "top"),
-      horizontal = c("center", "top")
-    )
 
     # Setup and train on scales
     scales <- scales$non_position_scales()$scales
@@ -307,7 +289,7 @@ Guides <- ggproto(
       return(no_guides)
     }
     guides <- self$setup(scales)
-    guides$train(scales, theme$legend.direction, labels)
+    guides$train(scales, labels)
     if (length(guides$guides) == 0) {
       return(no_guides)
     }
@@ -411,14 +393,13 @@ Guides <- ggproto(
 
   # Loop over every guide-scale combination to perform training
   # A strong assumption here is that `scales` is parallel to the guides
-  train = function(self, scales, direction, labels) {
+  train = function(self, scales, labels) {
 
     params <- Map(
       function(guide, param, scale, aes) {
         guide$train(
           param, scale, aes,
-          title = labels[[aes]],
-          direction = direction
+          title = labels[[aes]]
         )
       },
       guide = self$guides,
@@ -482,9 +463,9 @@ Guides <- ggproto(
   },
 
   # Loop over every guide, let them draw their grobs
-  draw = function(self, theme) {
+  draw = function(self, theme, position, direction) {
     Map(
-      function(guide, params) guide$draw(theme, params),
+      function(guide, params) guide$draw(theme, position, direction, params),
       guide  = self$guides,
       params = self$params
     )
@@ -498,11 +479,13 @@ Guides <- ggproto(
     }
 
     position  <- legend_position(position)
+    if (position == "none") {
+      return(zeroGrob())
+    }
+    default_direction <- if (position == "inside") "vertical" else position
+
     theme$legend.key.width  <- theme$legend.key.width  %||% theme$legend.key.size
     theme$legend.key.height <- theme$legend.key.height %||% theme$legend.key.size
-
-
-    default_direction <- if (position == "inside") "vertical" else position
     theme$legend.box       <- theme$legend.box       %||% default_direction
     theme$legend.direction <- theme$legend.direction %||% default_direction
     theme$legend.box.just  <- theme$legend.box.just  %||% switch(
@@ -512,7 +495,7 @@ Guides <- ggproto(
       horizontal = c("center", "top")
     )
 
-    grobs <- self$draw(theme)
+    grobs <- self$draw(theme, position, default_direction)
     if (length(grobs) < 1) {
       return(zeroGrob())
     }

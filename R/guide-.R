@@ -280,11 +280,14 @@ Guide <- ggproto(
 
   # Main drawing function that organises more specialised aspects of guide
   # drawing.
-  draw = function(self, theme, params = self$params) {
+  draw = function(self, theme, position = NULL, direction = NULL,
+                  params = self$params) {
 
     key <- params$key
 
     # Setup parameters and theme
+    params$position  <- params$position  %||% position
+    params$direction <- params$direction %||% direction
     params <- self$setup_params(params)
     elems  <- self$setup_elements(params, self$elements, theme)
     elems  <- self$override_elements(params, elems, theme)

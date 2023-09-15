@@ -151,5 +151,5 @@ panel_guides_grob <- function(guides, position, theme) {
     return(zeroGrob())
   }
   pair <- guides$get_position(position)
-  pair$guide$draw(theme, pair$params)
+  pair$guide$draw(theme, params = pair$params)
 }

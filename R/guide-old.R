@@ -90,7 +90,7 @@ GuideOld <- ggproto(
   train = function(self, params, scale, aesthetic = NULL,
                    title = waiver(), direction = NULL) {
     params$title <- scale$make_title(params$title %|W|% scale$name %|W|% title)
-    params$direction <- params$direction %||% direction
+    params$direction <- params$direction %||% direction %||% "vertical"
     params <- guide_train(params, scale, aesthetic)
     params
   },

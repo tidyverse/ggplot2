@@ -244,7 +244,7 @@ GuideLegend <- ggproto(
 
   available_aes = "any",
 
-  hashables = exprs(title, key$.label, direction, name),
+  hashables = exprs(title, key$.label, name),
 
   elements = list(
     background  = "legend.background",
@@ -260,13 +260,9 @@ GuideLegend <- ggproto(
   ),
 
   extract_params = function(scale, params,
-                            title = waiver(), direction = NULL, ...) {
+                            title = waiver(), ...) {
     params$title <- scale$make_title(
       params$title %|W|% scale$name %|W|% title
-    )
-    params$direction <- arg_match0(
-      params$direction %||% direction,
-      c("horizontal", "vertical"), arg_nm = "direction"
     )
     if (isTRUE(params$reverse %||% FALSE)) {
       params$key <- params$key[nrow(params$key):1, , drop = FALSE]
@@ -346,6 +342,11 @@ GuideLegend <- ggproto(
   },
 
   setup_params = function(params) {
+    params$direction <- arg_match0(
+      params$direction %||% direction,
+      c("horizontal", "vertical"), arg_nm = "direction"
+    )
+
     if ("title.position" %in% names(params)) {
       params$title.position <- arg_match0(
         params$title.position %||%
