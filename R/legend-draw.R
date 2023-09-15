@@ -110,20 +110,20 @@ draw_key_boxplot <- function(data, params, size) {
   whisker <- gpar(
     col = data$whisker_colour,
     lty = data$whisker_linetype,
-    lwd = data$whisker_linewidth
+    lwd = len0_null(data$whisker_linewidth * .pt)
   )
 
   median <- gpar(
     col = data$median_colour,
     lty = data$median_linetype,
-    lwd = data$median_linewidth
+    lwd = len0_null(data$median_linewidth * .pt)
   )
 
   staple_size <- 0.5 + c(0.375, -0.375) * params$staplewidth
   staple <- gpar(
     col = data$staple_colour,
     lty = data$staple_linetype,
-    lwd = data$staple_linewidth
+    lwd = len0_null(data$staple_linewidth * .pt)
   )
 
   if (isTRUE(params$flipped_aes)) {
