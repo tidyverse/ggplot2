@@ -559,7 +559,7 @@ test_that("guides are positioned correctly", {
   dat <- data_frame(x = LETTERS[1:3], y = 1)
   p2 <- ggplot(dat, aes(x, y, fill = x, colour = 1:3)) +
     geom_bar(stat = "identity") +
-    guides(color = "colorbar") +
+    guides(color = guide_colourbar(order = 1)) +
     theme_test() +
     theme(legend.background = element_rect(colour = "black"))
 
