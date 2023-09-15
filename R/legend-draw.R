@@ -107,20 +107,43 @@ draw_key_boxplot <- function(data, params, size) {
     linejoin = params$linejoin %||% "mitre"
   )
 
+  whisker <- gpar(
+    col = data$whisker_colour,
+    lty = data$whisker_linetype,
+    lwd = data$whisker_linewidth
+  )
+
+  median <- gpar(
+    col = data$median_colour,
+    lty = data$median_linetype,
+    lwd = data$median_linewidth
+  )
+
+  staple_size <- 0.5 + c(0.375, -0.375) * params$staplewidth
+  staple <- gpar(
+    col = data$staple_colour,
+    lty = data$staple_linetype,
+    lwd = data$staple_linewidth
+  )
+
   if (isTRUE(params$flipped_aes)) {
     grobTree(
-      linesGrob(c(0.1, 0.25), 0.5),
-      linesGrob(c(0.75, 0.9), 0.5),
+      linesGrob(c(0.1, 0.25), 0.5, gp = whisker),
+      linesGrob(c(0.75, 0.9), 0.5, gp = whisker),
       rectGrob(width = 0.5, height = 0.75),
-      linesGrob(0.5, c(0.125, 0.875)),
+      linesGrob(0.5, c(0.125, 0.875), gp = median),
+      linesGrob(0.1, staple_size, gp = staple),
+      linesGrob(0.9, staple_size, gp = staple),
       gp = gp
     )
   } else {
     grobTree(
-      linesGrob(0.5, c(0.1, 0.25)),
-      linesGrob(0.5, c(0.75, 0.9)),
+      linesGrob(0.5, c(0.1, 0.25), gp = whisker),
+      linesGrob(0.5, c(0.75, 0.9), gp = whisker),
       rectGrob(height = 0.5, width = 0.75),
-      linesGrob(c(0.125, 0.875), 0.5),
+      linesGrob(c(0.125, 0.875), 0.5, gp = median),
+      linesGrob(staple_size, 0.1, gp = staple),
+      linesGrob(staple_size, 0.9, gp = staple),
       gp = gp
     )
   }
