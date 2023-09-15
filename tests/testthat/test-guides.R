@@ -158,7 +158,7 @@ test_that("guide_none() can be used in non-position scales", {
     plot$labels
   )
 
-  expect_identical(guides, zeroGrob())
+  expect_length(guides$guides, 0)
 })
 
 test_that("Using non-position guides for position scales results in an informative error", {

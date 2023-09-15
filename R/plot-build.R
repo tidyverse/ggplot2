@@ -177,9 +177,8 @@ ggplot_gtable.ggplot_built <- function(data) {
     position <- "manual"
   }
 
-  legend_box <- plot$guides$build(
-    plot$scales, plot$layers, plot$mapping, position, theme, plot$labels
-  )
+  guides <- plot$guides$build(plot$scales, plot$layers, plot$mapping, position, theme, plot$labels)
+  legend_box <- guides$assemble(theme, position)
 
   if (is.zero(legend_box)) {
     position <- "none"
