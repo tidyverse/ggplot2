@@ -235,36 +235,30 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
       ))
     }
 
-    common <- list(
-      colour = data$colour,
-      linewidth = data$linewidth,
-      linetype = data$linetype,
-      fill = alpha(data$fill, data$alpha),
-      group = data$group
-    )
+    common <- list(fill = alpha(data$fill, data$alpha), group = data$group)
 
     whiskers <- data_frame0(
       x = c(data$x, data$x),
       xend = c(data$x, data$x),
       y = c(data$upper, data$lower),
       yend = c(data$ymax, data$ymin),
+      colour = rep(data$whisker_colour %||% data$colour, 2),
+      linetype = rep(data$whisker_linetype %||% data$linetype, 2),
+      linewidth = rep(data$whisker_linewidth %||% data$linewidth, 2),
       alpha = c(NA_real_, NA_real_),
       !!!common,
       .size = 2
     )
     whiskers <- flip_data(whiskers, flipped_aes)
 
-    box <- data_frame0(
-      xmin = data$xmin,
-      xmax = data$xmax,
-      ymin = data$lower,
-      y = data$middle,
-      ymax = data$upper,
-      ynotchlower = ifelse(notch, data$notchlower, NA),
-      ynotchupper = ifelse(notch, data$notchupper, NA),
-      notchwidth = notchwidth,
-      alpha = data$alpha,
-      !!!common
+    box <- transform(
+      data,
+      y = middle,
+      ymax = upper,
+      ymin = lower,
+      ynotchlower = ifelse(notch, notchlower, NA),
+      ynotchupper = ifelse(notch, notchupper, NA),
+      notchwidth = notchwidth
     )
     box <- flip_data(box, flipped_aes)
 
@@ -294,6 +288,9 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
         xend = rep((data$xmax - data$x) * staplewidth + data$x, 2),
         y    = c(data$ymax, data$ymin),
         yend = c(data$ymax, data$ymin),
+        linetype = rep(data$staple_linetype %||% data$linetype, 2),
+        linewidth = rep(data$staple_linewidth %||% data$linewidth, 2),
+        colour = rep(data$staple_colour %||% data$colour, 2),
         alpha = c(NA_real_, NA_real_),
         !!!common,
         .size = 2
