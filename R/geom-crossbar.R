@@ -54,6 +54,9 @@ GeomCrossbar <- ggproto("GeomCrossbar", Geom,
     data <- flip_data(data, flipped_aes)
 
     middle <- transform(data, x = xmin, xend = xmax, yend = y, linewidth = linewidth * fatten, alpha = NA)
+    middle$linewidth <- data$median_linewidth %||% middle$linewidth
+    middle$linetype  <- data$median_linetype  %||% middle$linetype
+    middle$colour    <- data$median_colour    %||% middle$colour
 
     has_notch <- !is.null(data$ynotchlower) && !is.null(data$ynotchupper) &&
       !is.na(data$ynotchlower) && !is.na(data$ynotchupper)
