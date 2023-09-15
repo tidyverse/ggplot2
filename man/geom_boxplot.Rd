@@ -172,9 +172,18 @@ See McGill et al. (1978) for more details.
 \item \code{\link[=aes_group_order]{group}}
 \item \code{\link[=aes_linetype_size_shape]{linetype}}
 \item \code{\link[=aes_linetype_size_shape]{linewidth}}
+\item \code{median_colour}
+\item \code{median_linetype}
+\item \code{median_linewidth}
 \item \code{\link[=aes_linetype_size_shape]{shape}}
 \item \code{\link[=aes_linetype_size_shape]{size}}
+\item \code{staple_colour}
+\item \code{staple_linetype}
+\item \code{staple_linewidth}
 \item \code{weight}
+\item \code{whisker_colour}
+\item \code{whisker_linetype}
+\item \code{whisker_linewidth}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
