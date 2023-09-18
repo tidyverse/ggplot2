@@ -97,17 +97,18 @@ Coord <- ggproto("Coord",
     aesthetics <- c("x", "y", "x.sec", "y.sec")
     names(aesthetics) <- aesthetics
     is_sec <- grepl("sec$", aesthetics)
+    scales <- panel_params[aesthetics]
 
     # Do guide setup
     guides <- guides$setup(
-      panel_params, aesthetics,
+      scales, aesthetics,
       default = params$guide_default %||% guide_axis(),
       missing = params$guide_missing %||% guide_none()
     )
     guide_params <- guides$get_params(aesthetics)
 
     # Resolve positions
-    scale_position <- lapply(panel_params[aesthetics], `[[`, "position")
+    scale_position <- lapply(scales, `[[`, "position")
     guide_position <- lapply(guide_params, `[[`, "position")
     guide_position[!is_sec] <- Map(
       function(guide, scale) guide %|W|% scale,
