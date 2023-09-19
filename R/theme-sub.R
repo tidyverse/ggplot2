@@ -2,7 +2,7 @@
 
 #' Shortcuts for theme settings
 #'
-#' This collection of functions serves as a shortcut for `[theme()][theme]` with
+#' This collection of functions serves as a shortcut for [`theme()`][theme] with
 #' shorter argument names. Besides the shorter arguments, it also helps in
 #' keeping theme declarations more organised.
 #'
@@ -36,11 +36,21 @@
 #' )
 NULL
 
-subtheme <- function(elements, prefix = "", suffix = "") {
+subtheme <- function(elements, prefix = "", suffix = "", call = caller_env()) {
   if (length(elements) < 1) {
     return(theme())
   }
   names(elements) <- paste0(prefix, names(elements), suffix)
+
+  extra <- setdiff(names(elements), names(get_element_tree()))
+  if (length(extra) > 0) {
+    cli::cli_warn(
+      "Ignoring unknown {.fn theme} element{?s}: {.and {.field {extra}}}.",
+      call = call
+    )
+    elements <- elements[setdiff(names(elements), extra)]
+  }
+
   exec(theme, !!!elements)
 }
 
@@ -121,9 +131,11 @@ theme_strip <- function(background, background.x, background.y, clip,
 }
 
 subtheme_param_doc <- function() {
-  funs <- list(theme_axis, theme_axis_x, theme_axis_y, theme_axis_bottom,
-               theme_axis_top, theme_axis_left, theme_axis_right, theme_legend,
-               theme_panel, theme_plot, theme_strip)
+  funs <- list(
+    theme_axis, theme_axis_x, theme_axis_y, theme_axis_bottom,
+    theme_axis_top, theme_axis_left, theme_axis_right, theme_legend,
+    theme_panel, theme_plot, theme_strip
+  )
   args <- sort(unique(unlist(lapply(funs, fn_fmls_names), use.names = FALSE)))
   paste0(
     "@param ",
