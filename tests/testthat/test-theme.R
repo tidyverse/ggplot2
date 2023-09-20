@@ -492,6 +492,29 @@ test_that("Theme elements are checked during build", {
   expect_snapshot_error(ggplotGrob(p))
 })
 
+test_that("subtheme functions rename arguments as intended", {
+
+  line <- element_line(colour = "red")
+  rect <- element_rect(colour = "red")
+
+  expect_equal(theme_axis(ticks = line),        theme(axis.ticks = line))
+  expect_equal(theme_axis_x(ticks = line),      theme(axis.ticks.x = line))
+  expect_equal(theme_axis_y(ticks = line),      theme(axis.ticks.y = line))
+  expect_equal(theme_axis_top(ticks = line),    theme(axis.ticks.x.top = line))
+  expect_equal(theme_axis_bottom(ticks = line), theme(axis.ticks.x.bottom = line))
+  expect_equal(theme_axis_left(ticks = line),   theme(axis.ticks.y.left = line))
+  expect_equal(theme_axis_right(ticks = line),  theme(axis.ticks.y.right = line))
+  expect_equal(theme_legend(key = rect),        theme(legend.key = rect))
+  expect_equal(theme_panel(border = rect),      theme(panel.border = rect))
+  expect_equal(theme_plot(background = rect),   theme(plot.background = rect))
+  expect_equal(theme_strip(background = rect),  theme(strip.background = rect))
+
+  # Test rejection of unknown theme elements
+  expect_snapshot_error(
+    subtheme(list(foo = 1, bar = 2))
+  )
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("aspect ratio is honored", {
