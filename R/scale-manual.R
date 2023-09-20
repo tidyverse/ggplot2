@@ -142,7 +142,8 @@ scale_discrete_manual <- function(aesthetics, ..., values, breaks = waiver()) {
 }
 
 manual_scale <- function(aesthetic, values = NULL, breaks = waiver(), ...,
-                         limits = NULL) {
+                         limits = NULL, call = caller_call()) {
+  call <- call %||% current_call()
   # check for missing `values` parameter, in lieu of providing
   # a default to all the different scale_*_manual() functions
   if (is_missing(values)) {
@@ -182,5 +183,6 @@ manual_scale <- function(aesthetic, values = NULL, breaks = waiver(), ...,
     }
     values
   }
-  discrete_scale(aesthetic, "manual", pal, breaks = breaks, limits = limits, ...)
+  discrete_scale(aesthetic, palette = pal, breaks = breaks, limits = limits,
+                 call = call, ...)
 }

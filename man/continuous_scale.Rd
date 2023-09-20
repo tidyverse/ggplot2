@@ -6,7 +6,7 @@
 \usage{
 continuous_scale(
   aesthetics,
-  scale_name,
+  scale_name = deprecated(),
   palette,
   name = waiver(),
   breaks = waiver(),
@@ -21,14 +21,15 @@ continuous_scale(
   trans = "identity",
   guide = "legend",
   position = "left",
+  call = caller_call(),
   super = ScaleContinuous
 )
 }
 \arguments{
 \item{aesthetics}{The names of the aesthetics that this scale works with.}
 
-\item{scale_name}{The name of the scale that should be used for error messages
-associated with this scale.}
+\item{scale_name}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} The name of the scale
+that should be used for error messages associated with this scale.}
 
 \item{palette}{A palette function that when called with a numeric vector with
 values between 0 and 1 returns the corresponding output values
@@ -135,6 +136,8 @@ You can create your own transformation with \code{\link[scales:trans_new]{scales
 
 \item{position}{For position scales, The position of the axis.
 \code{left} or \code{right} for y axes, \code{top} or \code{bottom} for x axes.}
+
+\item{call}{The \code{call} used to construct the scale for reporting messages.}
 
 \item{super}{The super class to use for the constructed scale}
 }

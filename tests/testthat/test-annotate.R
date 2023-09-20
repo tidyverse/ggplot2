@@ -33,7 +33,6 @@ test_that("annotation_* has dummy data assigned and don't inherit aes", {
   skip_if(packageVersion("base") < "3.5.0")
   custom <- annotation_custom(zeroGrob())
   logtick <- annotation_logticks()
-  library(maps)
   usamap <- map_data("state")
   map <- annotation_map(usamap)
   rainbow <- matrix(hcl(seq(0, 360, length.out = 50 * 50), 80, 70), nrow = 50)
