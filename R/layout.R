@@ -209,20 +209,27 @@ Layout <- ggproto("Layout", NULL,
     # scales is not elegant, but it is pragmatic
     self$coord$modify_scales(self$panel_scales_x, self$panel_scales_y)
 
-    scales_x <- self$panel_scales_x[self$layout$SCALE_X]
-    scales_y <- self$panel_scales_y[self$layout$SCALE_Y]
+    index <- vec_unique_loc(self$layout$COORD)
+    order <- vec_match(self$layout$COORD, self$layout$COORD[index])
+
+    scales_x <- self$panel_scales_x[self$layout$SCALE_X[index]]
+    scales_y <- self$panel_scales_y[self$layout$SCALE_Y[index]]
 
     setup_panel_params <- function(scale_x, scale_y) {
       self$coord$setup_panel_params(scale_x, scale_y, params = self$coord_params)
     }
-    self$panel_params <- Map(setup_panel_params, scales_x, scales_y)
+    self$panel_params <- Map(setup_panel_params, scales_x, scales_y)[order]
 
     invisible()
   },
 
   setup_panel_guides = function(self, guides, layers) {
+
+    index <- vec_unique_loc(self$layout$COORD)
+    order <- vec_match(self$layout$COORD, self$layout$COORD[index])
+
     self$panel_params <- lapply(
-      self$panel_params,
+      self$panel_params[index],
       self$coord$setup_panel_guides,
       guides,
       self$coord_params
@@ -233,7 +240,7 @@ Layout <- ggproto("Layout", NULL,
       self$coord$train_panel_guides,
       layers,
       self$coord_params
-    )
+    )[order]
 
     invisible()
   },
