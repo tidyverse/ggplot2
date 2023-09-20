@@ -46,22 +46,24 @@ fortify.grouped_df <- function(model, data, ...) {
 .prevalidate_data_frame_like_object <- function(data) {
   orig_dims <- dim(data)
   if (!vec_is(orig_dims, integer(), size=2))
-    cli::cli_abort("`dim(data)` didn't return an integer vector of length 2")
+    cli::cli_abort(paste0("{.code dim(data)} must return ",
+                          "an {.cls integer} of length 2."))
   if (anyNA(orig_dims) || any(orig_dims < 0))  # extra-paranoid mode
-    cli::cli_abort("`dim(data)` returned a vector with NAs or negative values")
+    cli::cli_abort(paste0("{.code dim(data)} can't have {.code NA}s ",
+                          "or negative values."))
   orig_colnames <- colnames(data)
   if (!vec_is(orig_colnames, character(), size = ncol(data)))
-    cli::cli_abort(glue("`colnames(data)` didn't return a ",
-                        "character vector of length 'ncol(data)'"))
+    cli::cli_abort(paste0("{.code colnames(data)} must return a ",
+                          "{.cls character} of length {.code ncol(data)}."))
 }
 .postvalidate_data_frame_like_object <- function(df, data) {
-  msg0 <- "`as.data.frame(data)` did not "
+  msg0 <- "{.code as.data.frame(data)} must "
   if (!is.data.frame(df))
-    cli::cli_abort(glue(msg0, "return a {{.cls data.frame}}"))
+    cli::cli_abort(paste0(msg0, "return a {.cls data.frame}."))
   if (!identical(dim(df), dim(data)))
-    cli::cli_abort(glue(msg0, "preserve the dimensions"))
+    cli::cli_abort(paste0(msg0, "preserve dimensions."))
   if (!identical(colnames(df), colnames(data)))
-    cli::cli_abort(glue(msg0, "preserve the colnames"))
+    cli::cli_abort(paste0(msg0, "preserve column names."))
 }
 validate_as_data_frame <- function(data) {
   if (is.data.frame(data))
@@ -76,8 +78,8 @@ validate_as_data_frame <- function(data) {
 fortify.default <- function(model, data, ...) {
   msg0 <- paste0(
     "{{.arg data}} must be a {{.cls data.frame}}, ",
-    "or an object coercible by `fortify()`, ",
-    "or a valid {{.cls data.frame}}-like object coercible by `as.data.frame()`"
+    "or an object coercible by {{.code fortify()}}, or a valid ",
+    "{{.cls data.frame}}-like object coercible by {{.code as.data.frame()}}"
   )
   if (inherits(model, "uneval")) {
     msg <- c(

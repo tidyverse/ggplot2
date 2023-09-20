@@ -86,7 +86,7 @@ test_that("fortify.default can handle healthy data-frame-like objects", {
 
   # Rejected by fortify.default() because of unhealthy dim() behavior
 
-  dim.foo <- function(x) stop("what?")
+  dim.foo <- function(x) stop("oops!")
   registerS3method("dim", "foo", dim.foo)
   expect_error(fortify(object))
 
@@ -135,7 +135,7 @@ test_that("fortify.default can handle healthy data-frame-like objects", {
 
   # Rejected by fortify.default() because of unhealthy as.data.frame() behavior
 
-  as.data.frame.foo <- function(x, row.names = NULL, ...) stop("what?")
+  as.data.frame.foo <- function(x, row.names = NULL, ...) stop("oops!")
   registerS3method("as.data.frame", "foo", as.data.frame.foo)
   expect_error(fortify(object))
 
