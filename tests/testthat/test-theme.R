@@ -520,8 +520,11 @@ test_that("subtheme functions rename arguments as intended", {
   expect_equal(theme_strip(background = rect),  theme(strip.background = rect))
 
   # Test rejection of unknown theme elements
-  expect_snapshot_error(
-    subtheme(list(foo = 1, bar = 2))
+  expect_snapshot_warning(
+    expect_equal(
+      subtheme(list(foo = 1, bar = 2, axis.line = line)),
+      theme(axis.line = line)
+    )
   )
 })
 
