@@ -69,8 +69,8 @@ If you are looking for innovation, look to ggplot2's rich ecosystem of extension
 
 If you are new to ggplot2 you are better off starting with a systematic introduction, rather than trying to learn from reading individual documentation pages. Currently, there are three good places to start:
 
-1.  The [Data Visualisation][r4ds-vis] and
-    [Graphics for communication][r4ds-comm] chapters in 
+1.  The [Data Visualization][r4ds-vis] and
+    [Communication][r4ds-comm] chapters in 
     [R for Data Science][r4ds]. R for Data Science is designed to
     give you a comprehensive introduction to the
     [tidyverse](https://www.tidyverse.org), and these two chapters will
@@ -107,7 +107,7 @@ There are two main places to get help with ggplot2:
 [gg-book]: https://www.amazon.com/Grammar-Graphics-Statistics-Computing/dp/0387245448/ref=as_li_ss_tl
 [so]: https://stackoverflow.com/questions/tagged/ggplot2?sort=frequent&pageSize=50
 [cookbook]: https://r-graphics.org
-[r4ds]: https://r4ds.had.co.nz
-[r4ds-vis]: https://r4ds.had.co.nz/data-visualisation.html
-[r4ds-comm]: https://r4ds.had.co.nz/graphics-for-communication.html
+[r4ds]: https://r4ds.hadley.nz
+[r4ds-vis]: https://r4ds.hadley.nz/data-visualize
+[r4ds-comm]: https://r4ds.hadley.nz/communication
 [oreilly]: https://learning.oreilly.com/videos/data-visualization-in/9781491963661/

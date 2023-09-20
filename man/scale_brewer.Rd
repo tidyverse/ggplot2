@@ -119,8 +119,9 @@ look good. Your mileage may vary.
 }
 \note{
 The \code{distiller} scales extend \code{brewer} scales by smoothly
-interpolating 7 colours from any palette to a continuous scale. The \code{fermenter}
-scales provide binned versions of the \code{brewer} scales.
+interpolating 7 colours from any palette to a continuous scale.
+The \code{distiller} scales have a default direction = -1. To reverse, use direction = 1.
+The \code{fermenter} scales provide binned versions of the \code{brewer} scales.
 }
 \section{Palettes}{
 
@@ -168,6 +169,8 @@ v <- ggplot(faithfuld) +
 v
 v + scale_fill_distiller()
 v + scale_fill_distiller(palette = "Spectral")
+# the order of colour can be reversed, but with scale_*_distiller(), the default direction = -1, so to reverse, use direction = 1.
+v + scale_fill_distiller(palette = "Spectral", direction = 1)
 
 # or use blender variants to discretise continuous data
 v + scale_fill_fermenter()
