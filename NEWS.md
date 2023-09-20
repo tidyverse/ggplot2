@@ -1,5 +1,11 @@
 # ggplot2 (development version)
 
+* New function family for setting parts of a theme. For example, you can now use 
+  `theme_axis(line, text, ticks, ticks.length, line)` as a substitute for
+  `theme(axis.line, axis.text, axis.ticks, axis.ticks.length, axis.line)`. This
+  should allow slightly terser and more organised theme declarations 
+  (@teunbrand, #5301).
+
 * `ScaleContinuous$get_breaks()` now only calls `scales::zero_range()` on limits
   in transformed space, rather than in data space (#5304).
 
@@ -36,7 +42,7 @@
 
 * Integers are once again valid input to theme arguments that expect numeric
   input (@teunbrand, #5369)
-
+  
 * Nicer error messages for xlim/ylim arguments in coord-* functions
   (@92amartins, #4601, #5297).
 
