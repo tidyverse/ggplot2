@@ -1,5 +1,9 @@
 # ggplot2 (development version)
 
+* `fortify.default()` now accepts a data-frame-like object granted the object
+  exhibits healthy `dim()`, `colnames()`, and `as.data.frame()` behaviors
+  (@hpages, #5390).
+
 * `ScaleContinuous$get_breaks()` now only calls `scales::zero_range()` on limits
   in transformed space, rather than in data space (#5304).
 
