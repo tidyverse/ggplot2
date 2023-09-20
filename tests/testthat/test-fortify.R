@@ -90,7 +90,7 @@ test_that("fortify.default can handle healthy data-frame-like objects", {
   registerS3method("dim", "foo", dim.foo)
   expect_error(fortify(object))
 
-  dim.foo <- function(x) c(length(x), -5)
+  dim.foo <- function(x) c(length(x), 2)
   registerS3method("dim", "foo", dim.foo)
   expect_error(fortify(object))
 
