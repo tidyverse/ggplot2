@@ -191,6 +191,8 @@ Coord <- ggproto("Coord",
   },
 
   setup_layout = function(layout, params) {
+    scales <- layout[c("SCALE_X", "SCALE_Y")]
+    layout$COORD <- vec_match(scales, unique0(scales))
     layout
   },
 
