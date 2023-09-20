@@ -1,5 +1,3 @@
-
-
 #' Shortcuts for theme settings
 #'
 #' This collection of functions serves as a shortcut for [`theme()`][theme] with
