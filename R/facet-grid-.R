@@ -306,9 +306,22 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       cli::cli_abort("{.fn {snake_class(coord)}} doesn't support free scales")
     }
 
+    # Because within a row or column the scales are static, we only need to
+    # render one set of axes per row/column. If scales are fixed, we only need
+    # to render one set of axes, that we can repeat for other panels.
     cols <- which(layout$ROW == 1)
     rows <- which(layout$COL == 1)
-    axes <- render_axes(ranges[cols], ranges[rows], coord, theme, transpose = TRUE)
+    # Figure out unique x/y scale combinations
+    col_idx <- cols[!duplicated(layout$COORD[cols])]
+    row_idx <- rows[!duplicated(layout$COORD[rows])]
+    # Map all combinations to unique ones
+    col_ord <- vec_match(layout$COORD[cols], layout$COORD[col_idx])
+    row_ord <- vec_match(layout$COORD[rows], layout$COORD[row_idx])
+    # Render the axes for unique combinations
+    axes <- render_axes(ranges[col_idx], ranges[row_idx], coord, theme, transpose = TRUE)
+    # Repeat axes for all combinations
+    axes$x <- lapply(axes$x, `[`, i = col_ord)
+    axes$y <- lapply(axes$y, `[`, i = row_ord)
 
     col_vars <- unique0(layout[names(params$cols)])
     row_vars <- unique0(layout[names(params$rows)])
