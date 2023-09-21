@@ -215,10 +215,11 @@ Layout <- ggproto("Layout", NULL,
     scales_x <- self$panel_scales_x[self$layout$SCALE_X[index]]
     scales_y <- self$panel_scales_y[self$layout$SCALE_Y[index]]
 
-    setup_panel_params <- function(scale_x, scale_y) {
-      self$coord$setup_panel_params(scale_x, scale_y, params = self$coord_params)
-    }
-    self$panel_params <- Map(setup_panel_params, scales_x, scales_y)[order]
+    self$panel_params <- Map(
+      self$coord$setup_panel_params,
+      scales_x, scales_y,
+      MoreArgs = list(params = self$coord_params)
+    )[order]
 
     invisible()
   },
