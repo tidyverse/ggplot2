@@ -209,6 +209,8 @@ Layout <- ggproto("Layout", NULL,
     # scales is not elegant, but it is pragmatic
     self$coord$modify_scales(self$panel_scales_x, self$panel_scales_y)
 
+    # We only need to setup panel params once for unique combinations of x/y
+    # scales. These will be repeated for duplicated combinations.
     index <- vec_unique_loc(self$layout$COORD)
     order <- vec_match(self$layout$COORD, self$layout$COORD[index])
 
@@ -219,13 +221,15 @@ Layout <- ggproto("Layout", NULL,
       self$coord$setup_panel_params,
       scales_x, scales_y,
       MoreArgs = list(params = self$coord_params)
-    )[order]
+    )[order] # `[order]` does the repeating
 
     invisible()
   },
 
   setup_panel_guides = function(self, guides, layers) {
 
+    # Like in `setup_panel_params`, we only need to setup guides for unique
+    # combinations of x/y scales.
     index <- vec_unique_loc(self$layout$COORD)
     order <- vec_match(self$layout$COORD, self$layout$COORD[index])
 
