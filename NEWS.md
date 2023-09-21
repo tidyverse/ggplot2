@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `labeller()` now handles unspecified entries from lookup tables
+  (@92amartins, #4599).
+
 * `fortify.default()` now accepts a data-frame-like object granted the object
   exhibits healthy `dim()`, `colnames()`, and `as.data.frame()` behaviors
   (@hpages, #5390).
