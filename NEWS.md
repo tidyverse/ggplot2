@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* (internal) The plot's layout now has a coord parameters that is used to 
+  prevent setting up identical panel parameters (#5427)
+
 * `ScaleContinuous$get_breaks()` now only calls `scales::zero_range()` on limits
   in transformed space, rather than in data space (#5304).
 
