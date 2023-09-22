@@ -132,24 +132,28 @@ GuideAxis <- ggproto(
   ),
 
   extract_key = function(scale, aesthetic, breaks, labels, trans, ...) {
-    limits <- scale$continuous_range
 
-    # Resolve transformation
-    trans  <- function_as_trans(trans, limits, scale$scale$trans)
+    # Retrieve limits information
+    limits <- scale$get_limits()
+    range  <- scale$continuous_range
+
+    # Resolve transformations
+    scale_trans <- scale$scale$trans %||% identity_trans()
+    trans  <- function_as_trans(trans, range, scale_trans)
 
     if (!is.null(trans) || !is.derived(breaks) || !is.derived(labels)) {
       # If anything needs to be computed that is not included in the viewscale,
       # a temporary scale computes the necessary components
       temp_scale <- ggproto(
         NULL, scale$scale,
-        trans  = trans %||% scale$scale$trans,
-        limits = if (scale$is_discrete()) scale$get_limits() else limits,
         breaks = if (is.derived(breaks))  scale$scale$breaks else breaks,
         labels = if (is.derived(labels))  scale$scale$labels else labels
+        trans  = trans %||% scale_trans,
+        limits = scale_trans$inverse(limits),
       )
       # Allow plain numeric breaks for discrete scales
       if (!(scale$is_discrete() && is.numeric(breaks))) {
-        breaks <- temp_scale$get_breaks()
+        breaks <- temp_scale$get_breaks(scale_trans$inverse(range))
       }
     } else {
       temp_scale <- NULL
