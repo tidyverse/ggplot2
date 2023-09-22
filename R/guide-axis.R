@@ -136,10 +136,6 @@ GuideAxis <- ggproto(
 
     # Resolve transformation
     trans  <- function_as_trans(trans, limits, scale$scale$trans)
-    if (!is.null(trans) && scale$is_discrete()) {
-      cli::cli_warn("Cannot use axis transformation with discrete scales.")
-      trans <- NULL
-    }
 
     if (!is.null(trans) || !is.derived(breaks) || !is.derived(labels)) {
       # If anything needs to be computed that is not included in the viewscale,
@@ -625,8 +621,15 @@ axis_label_element_overrides <- function(axis_position, angle = NULL) {
 }
 
 function_as_trans <- function(fun, limits, scale_trans, detail = 1000) {
+  if (is.null(fun)) {
+    return(NULL)
+  }
   if (is.character(fun)) {
     fun <- as.trans(fun)
+  }
+  if (!is.null(fun) && !is.numeric(limits)) {
+    cli::cli_warn("Cannot use axis transformation with discrete scales.")
+    return(NULL)
   }
   if (is.trans(fun)) {
     if (fun$name == "identity") {
