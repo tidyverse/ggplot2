@@ -65,6 +65,26 @@
     Breaks are not formatted correctly for a bin legend.
     i Use `(<lower>, <upper>]` format to indicate bins.
 
+# guide_axis(trans) works as expected.
+
+    The `trans` argument must be a <trans> object, a formula or function, not the number 10.
+
+---
+
+    The `trans` transformation must be monotonic.
+
+---
+
+    The `trans` transformation could not transform the range [0, 10].
+
+---
+
+    The `trans` transformation must preserve the length of input.
+
+---
+
+    `breaks` and `labels` must have the same length
+
 # binning scales understand the different combinations of limits, breaks, labels, and show.limits
 
     `show.limits` is ignored when `labels` are given as a character vector.

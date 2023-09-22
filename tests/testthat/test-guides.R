@@ -339,6 +339,95 @@ test_that("guide_colourbar warns about discrete scales", {
 
 })
 
+test_that("guide_axis(trans) works as expected.", {
+
+  axis_key <- function(limits = c(0, 10), ..., scale = scale_x_continuous()) {
+    scale <- scale$clone()
+    scale$train(limits)
+    vs <- view_scale_primary(scale)
+
+    guide  <- guide_axis(...)
+    params <- guide$params
+    params$position <- "bottom"
+    guide$train(params, vs, "x")$key
+  }
+
+  # Input checking
+  expect_snapshot_error(axis_key(trans = 10))
+  expect_snapshot_error(axis_key(trans = sin))
+  expect_snapshot_error(axis_key(trans = function(x) rep(Inf, length(x))))
+  expect_snapshot_error(axis_key(trans = ~ 1))
+  expect_snapshot_error(axis_key(breaks = 1:2, labels = "A"))
+  expect_silent(axis_key(trans = ~ sin(.x / 100)))
+
+  fmt <- format_format(digits = 3)
+
+  # Identity transformation
+  scale <- scale_x_continuous()
+  key <- axis_key(trans = ~., breaks = waiver(), scale = scale)
+  expect_equal(key$.label, fmt(seq(0, 10, by = 2.5)))
+  expect_equal(key$x, seq(0, 10, by = 2.5), tolerance = 1e-3)
+
+  # Works with subtraction
+  key <- axis_key(trans = ~1-., breaks = waiver(), scale = scale)
+  expect_equal(key$.label, fmt(seq(-7.5, 0, by = 2.5)))
+  expect_equal(key$x, seq(8.5, 1, by = -2.5), tolerance = 1e-3)
+
+  # Works with division
+  key <- axis_key(limits = c(1, 9), trans = ~ 10/., breaks = waiver(), scale = scale)
+  expect_equal(key$.label, fmt(10 / c(4, 2, 4/3, 1)))
+  expect_equal(key$x, c(4, 2, 4/3, 1), tolerance = 1e-3)
+
+  # Works with log transformed scales
+  ## Identity transformation
+  key <- axis_key(trans = ~.x, scale = scale_x_log10())
+  expect_equal(key$.label, fmt(10^c(0, 3, 6, 9)))
+  expect_equal(key$x, c(0, 3, 6, 9), tolerance = 1e-3)
+
+  ## Proper transformation
+  key <- axis_key(trans = ~ . * 100, scale = scale_x_log10())
+  expect_equal(key$.label, fmt(10^c(2, 5, 8, 11)))
+  expect_equal(key$x, c(0, 3, 6, 9), tolerance = 1e-3)
+
+  # Custom breaks/labels
+  key <- axis_key(
+    trans = ~ . * 100,
+    breaks = 10^seq(2, 10, by = 2),
+    labels = math_format(format = log10),
+    scale = scale_x_log10()
+  )
+  expect_equal(as.character(key$.label), paste0("10^", seq(2, 10, by = 2)))
+  expect_equal(key$x, seq(0, 8, by = 2))
+
+  # Plain discrete scale
+  key <- axis_key(
+    c("A", "B", "C"),
+    scale = scale_x_discrete()
+  )
+  expect_equal(key$.label, c("A", "B", "C"))
+  expect_equal(unclass(key$x), c(1, 2, 3))
+
+  # Discrete custom breaks/labels
+  key <- axis_key(
+    c("A", "B", "C"),
+    breaks = c("A", "C"),
+    labels = c("X", "Y"),
+    scale  = scale_x_discrete()
+  )
+  expect_equal(key$.label, c("X", "Y"))
+  expect_equal(unclass(key$x), c(1, 3))
+
+  # Discrete numeric breaks
+  key <- axis_key(
+    c("A", "B", "C"),
+    breaks = c(1.5, 2.5),
+    labels = c("foo", "bar"),
+    scale  = scale_x_discrete()
+  )
+  expect_equal(key$.label, c("foo", "bar"))
+  expect_equal(unclass(key$x), c(1.5, 2.5))
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("axis guides are drawn correctly", {
