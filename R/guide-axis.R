@@ -142,14 +142,20 @@ GuideAxis <- ggproto(
     trans  <- function_as_trans(trans, range, scale_trans)
 
     if (!is.null(trans) || !is.derived(breaks) || !is.derived(labels)) {
+      if (is.derived(breaks)) {
+        breaks <- scale$scale$breaks
+        if (is.waive(breaks)) {
+          breaks <- scale_trans$breaks
+        }
+      }
       # If anything needs to be computed that is not included in the viewscale,
       # a temporary scale computes the necessary components
       temp_scale <- ggproto(
         NULL, scale$scale,
-        breaks = if (is.derived(breaks))  scale$scale$breaks else breaks,
-        labels = if (is.derived(labels))  scale$scale$labels else labels
         trans  = trans %||% scale_trans,
         limits = scale_trans$inverse(limits),
+        breaks = breaks,
+        labels = if (is.derived(labels)) scale$scale$labels else labels
       )
       # Allow plain numeric breaks for discrete scales
       if (!(scale$is_discrete() && is.numeric(breaks))) {
@@ -163,8 +169,11 @@ GuideAxis <- ggproto(
     if (length(breaks) == 0) {
       return(NULL)
     }
-
-    mapped <- scale$map(breaks)
+    if (is.null(trans)) {
+      mapped <- scale$map(breaks)
+    } else {
+      mapped <- scale$map(scale_trans$transform(breaks))
+    }
 
     if (!is.null(temp_scale)) {
       labels <- temp_scale$get_labels(breaks)
@@ -692,7 +701,8 @@ function_as_trans <- function(fun, limits, scale_trans, detail = 1000) {
     "secondary_transformation",
     transform = function(x) approx(trans_seq, origin_seq, x)$y,
     inverse   = fun,
-    format    = format_format(digits = 3)
+    format    = format_format(digits = 3),
+    domain    = range(trans_seq)
   )
 }
 
