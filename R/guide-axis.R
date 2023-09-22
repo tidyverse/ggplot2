@@ -68,7 +68,7 @@ guide_axis <- function(
     cap <- if (cap) "both" else "none"
   }
   cap <- arg_match0(cap, c("none", "both", "upper", "lower"))
-
+  check_breaks_labels(breaks, labels)
 
   new_guide(
     title = title,
@@ -651,6 +651,23 @@ function_as_trans <- function(fun, limits, scale_trans, detail = 1000) {
   limits_seq <- seq(limits[1], limits[2], length.out = detail)
   origin_seq <- scale_trans$inverse(limits_seq)
   trans_seq  <- fun(origin_seq)
+
+  if (length(trans_seq) != detail) {
+    cli::cli_abort(
+      "The {.arg trans} transformation must preserve the length of input."
+    )
+  }
+
+  finite <- is.finite(trans_seq)
+  origin_seq <- origin_seq[finite]
+  trans_seq  <- trans_seq[finite]
+
+  if (length(trans_seq) < detail / 100) {
+    cli::cli_abort(paste0(
+      "The {.arg trans} transformation could not transform the range ",
+      "{.field [{limits[1]}, {limits[2]}]}."
+    ))
+  }
 
   # Test for monotonicity
   if (!is_unique(sign(diff(trans_seq)))) {
