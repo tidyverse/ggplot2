@@ -280,7 +280,7 @@ aes_ <- function(x, y, ...) {
   as_quosure_aes <- function(x) {
     if (is.formula(x) && length(x) == 2) {
       as_quosure(x)
-    } else if (is.call(x) || is.name(x) || is.atomic(x)) {
+    } else if (is.call(x) || is.name(x) || is.atomic(x) || is.null(x)) {
       new_aesthetic(x, caller_env)
     } else {
       cli::cli_abort("Aesthetic must be a one-sided formula, call, name, or constant.")
