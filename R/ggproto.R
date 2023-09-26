@@ -298,7 +298,7 @@ object_summaries <- function(x, exclude = NULL, flat = TRUE) {
     else if (is.ggproto(obj)) format(obj, flat = flat)
     else if (is.environment(obj)) "environment"
     else if (is.null(obj)) "NULL"
-    else if (is.atomic(obj)) trim(paste(as.character(obj), collapse = " "))
+    else if (is.atomic(obj) || is.null(obj)) trim(paste(as.character(obj), collapse = " "))
     else paste(class(obj), collapse = ", ")
   }, FUN.VALUE = character(1))
 

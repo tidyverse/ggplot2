@@ -226,7 +226,7 @@ is_calculated <- function(x, warn = FALSE) {
     return(TRUE)
   }
   # Support of old recursive behaviour
-  if (is.atomic(x)) {
+  if (is.atomic(x) || is.null(x)) {
     FALSE
   } else if (is.symbol(x)) {
     res <- is_dotted_var(as.character(x))
@@ -266,7 +266,7 @@ is_staged <- function(x) {
 
 # Strip dots from expressions
 strip_dots <- function(expr, env, strip_pronoun = FALSE) {
-  if (is.atomic(expr)) {
+  if (is.atomic(expr) || is.null(expr)) {
     expr
   } else if (is.name(expr)) {
     expr_ch <- as.character(expr)
@@ -323,7 +323,7 @@ strip_stage <- function(expr) {
 make_labels <- function(mapping) {
   default_label <- function(aesthetic, mapping) {
     # e.g., geom_smooth(aes(colour = "loess")) or aes(y = NULL)
-    if (is.atomic(mapping)) {
+    if (is.atomic(mapping) || is.null(mapping)) {
       return(aesthetic)
     }
     mapping <- strip_stage(mapping)

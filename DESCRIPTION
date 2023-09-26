@@ -55,7 +55,6 @@ Suggests:
     lattice,
     mapproj,
     maps,
-    maptools,
     multcomp,
     munsell,
     nlme,
