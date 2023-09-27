@@ -222,12 +222,14 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       x_range[2], y_range[2]
     )
 
+    breaks <- sf_breaks(scale_x, scale_y, bbox, params$crs)
+
     # Generate graticule and rescale to plot coords
     graticule <- sf::st_graticule(
       bbox,
       crs = params$crs,
-      lat = scale_y$breaks %|W|% NULL,
-      lon = scale_x$breaks %|W|% NULL,
+      lat = breaks$y %|W|% NULL,
+      lon = breaks$x %|W|% NULL,
       datum = self$datum,
       ndiscr = self$ndiscr
     )
