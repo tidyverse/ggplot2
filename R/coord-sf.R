@@ -598,10 +598,11 @@ parse_axes_labeling <- function(x) {
 #      graticule. This may cause atomic `labels` to be out-of-sync.
 sf_breaks <- function(scale_x, scale_y, bbox, crs) {
 
-  x_breaks <- y_breaks <- waiver()
-
   has_x <- !is.null(scale_x$breaks) || !is.null(scale_x$n.breaks)
   has_y <- !is.null(scale_y$breaks) || !is.null(scale_y$n.breaks)
+
+  x_breaks <- if (has_x) waiver() else NULL
+  y_breaks <- if (has_y) waiver() else NULL
 
 
   if (has_x || has_y) {
