@@ -601,7 +601,7 @@ sf_breaks <- function(scale_x, scale_y, bbox, crs) {
   x_breaks <- y_breaks <- waiver()
 
   has_x <- !is.null(scale_x$breaks) || !is.null(scale_x$n.breaks)
-  has_y <- !is.null(scale_y$breaks) || !is.null(sclae_y$n.breaks)
+  has_y <- !is.null(scale_y$breaks) || !is.null(scale_y$n.breaks)
 
 
   if (has_x || has_y) {
