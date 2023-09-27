@@ -606,12 +606,20 @@ sf_breaks <- function(scale_x, scale_y, bbox, crs) {
 
   if (has_x || has_y) {
     if (!is.null(crs)) {
+      # Atomic breaks input are assumed to be in long/lat coordinates.
+      # To preserve that assumption for function breaks, the bounding box
+      # needs to be translated to long/lat coordinates.
       if (!is_named(bbox)) {
         names(bbox) <- c("xmin", "ymin", "xmax", "ymax")
       }
       # Convert bounding box to long/lat coordinates
       bbox <- sf::st_as_sfc(sf::st_bbox(bbox, crs = crs))
       bbox <- sf::st_bbox(sf::st_transform(bbox, 4326))
+      bbox <- as.numeric(bbox)
+
+      # If any bbox is NA the transformation has probably failed.
+      # (.e.g from IGH to long/lat). In this case, just provide full long/lat.
+      bbox[is.na(bbox)] <- c(-180, -90, 180, 90)[is.na(bbox)]
     }
 
     if (!(is.waive(scale_x$breaks) && is.null(scale_x$n.breaks))) {
