@@ -1,5 +1,9 @@
 # ggplot2 (development version)
 
+* Position scales combined with `coord_sf()` can now use functions in the 
+ `breaks` argument. In addition, `n.breaks` works as intended and 
+ `breaks = NULL` removes grid lines and axes (@teunbrand, #4622).
+
 * `labeller()` now handles unspecified entries from lookup tables
   (@92amartins, #4599).
 
