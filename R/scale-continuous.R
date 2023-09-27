@@ -85,7 +85,7 @@ scale_x_continuous <- function(name = waiver(), breaks = waiver(),
                                guide = waiver(), position = "bottom",
                                sec.axis = waiver()) {
   call <- caller_call()
-  if (is.null(call) || !startsWith(as.character(call[[1]]), "scale_")) {
+  if (is.null(call) || !any(startsWith(as.character(call[[1]]), "scale_"))) {
     call <- current_call()
   }
   sc <- continuous_scale(
@@ -111,7 +111,7 @@ scale_y_continuous <- function(name = waiver(), breaks = waiver(),
                                guide = waiver(), position = "left",
                                sec.axis = waiver()) {
   call <- caller_call()
-  if (is.null(call) || !startsWith(as.character(call[[1]]), "scale_")) {
+  if (is.null(call) || !any(startsWith(as.character(call[[1]]), "scale_"))) {
     call <- current_call()
   }
   sc <- continuous_scale(
