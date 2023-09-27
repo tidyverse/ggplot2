@@ -582,6 +582,42 @@ parse_axes_labeling <- function(x) {
   list(top = labs[1], right = labs[2], bottom = labs[3], left = labs[4])
 }
 
+# This function does two things differently from standard breaks:
+#   1. It does not resolve `waiver()`, unless `n.breaks` is given. In the case
+#      that breaks are `waiver()`, we use the default graticule breaks.
+#   2. It discards non-finite breaks because they are invalid input to the
+#      graticule. This may cause atomic `labels` to be out-of-sync.
+sf_breaks <- function(scale_x, scale_y, bbox, crs) {
+
+  x_breaks <- y_breaks <- waiver()
+
+  has_x <- !is.null(scale_x$breaks) || !is.null(scale_x$n.breaks)
+  has_y <- !is.null(scale_y$breaks) || !is.null(sclae_y$n.breaks)
+
+
+  if (has_x || has_y) {
+    if (!is.null(crs)) {
+      if (!is_named(bbox)) {
+        names(bbox) <- c("xmin", "ymin", "xmax", "ymax")
+      }
+      # Convert bounding box to long/lat coordinates
+      bbox <- sf::st_as_sfc(sf::st_bbox(bbox, crs = crs))
+      bbox <- sf::st_bbox(sf::st_transform(bbox, 4326))
+    }
+
+    if (!(is.waive(scale_x$breaks) && is.null(scale_x$n.breaks))) {
+      x_breaks <- scale_x$get_breaks(limits = bbox[c(1, 3)])
+      x_breaks <- len0_null(x_breaks[is.finite(x_breaks)])
+    }
+
+    if (!(is.waive(scale_y$breaks) && is.null(scale_y$n.breaks))) {
+      y_breaks <- scale_y$get_breaks(limits = bbox[c(2, 4)])
+      y_breaks <- len0_null(y_breaks[is.finite(y_breaks)])
+    }
+  }
+
+  list(x = x_breaks, y = y_breaks)
+}
 
 #' ViewScale from graticule
 #'
