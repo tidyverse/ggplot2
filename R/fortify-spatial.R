@@ -15,7 +15,7 @@ NULL
 #' @export
 #' @method fortify SpatialPolygonsDataFrame
 fortify.SpatialPolygonsDataFrame <- function(model, data, region = NULL, ...) {
-  deprecate_warn0("3.5.0",
+  deprecate_warn0("3.4.4",
     I("`fortify(<SpatialPolygonsDataFrame>)`"),
     details = "Please migrate to sf."
   )
@@ -30,7 +30,7 @@ fortify.SpatialPolygonsDataFrame <- function(model, data, region = NULL, ...) {
     coords <- vec_rbind0(!!!coords)
     cli::cli_inform("Regions defined for each Polygons")
   } else {
-    lifecycle::deprecate_stop("3.5.0",
+    lifecycle::deprecate_stop("3.4.4",
       I("`fortify(<SpatialPolygonsDataFrame>, region = ...)` is defunct'"),
       details = "Please migrate to sf."
     )
@@ -42,7 +42,7 @@ fortify.SpatialPolygonsDataFrame <- function(model, data, region = NULL, ...) {
 #' @export
 #' @method fortify SpatialPolygons
 fortify.SpatialPolygons <- function(model, data, ...) {
-  deprecate_warn0("3.5.0",
+  deprecate_warn0("3.4.4",
     I("`fortify(<SpatialPolygons>)`"),
     details = "Please migrate to sf."
   )
@@ -58,7 +58,7 @@ fortify.SpatialPolygons <- function(model, data, ...) {
 #' @export
 #' @method fortify Polygons
 fortify.Polygons <- function(model, data, ...) {
-  deprecate_warn0("3.5.0",
+  deprecate_warn0("3.4.4",
     I("`fortify(<Polygons>)`"),
     details = "Please migrate to sf."
   )
@@ -82,7 +82,7 @@ fortify.Polygons <- function(model, data, ...) {
 #' @export
 #' @method fortify Polygon
 fortify.Polygon <- function(model, data, ...) {
-  deprecate_warn0("3.5.0",
+  deprecate_warn0("3.4.4",
     I("`fortify(<Polygon>)`"),
     details = "Please migrate to sf."
   )
@@ -98,7 +98,7 @@ fortify.Polygon <- function(model, data, ...) {
 #' @export
 #' @method fortify SpatialLinesDataFrame
 fortify.SpatialLinesDataFrame <- function(model, data, ...) {
-  deprecate_warn0("3.5.0",
+  deprecate_warn0("3.4.4",
     I("`fortify(<SpatialLinesDataFrame>)`"),
     details = "Please migrate to sf."
   )
@@ -111,7 +111,7 @@ fortify.SpatialLinesDataFrame <- function(model, data, ...) {
 #' @export
 #' @method fortify Lines
 fortify.Lines <- function(model, data, ...) {
-  deprecate_warn0("3.5.0",
+  deprecate_warn0("3.4.4",
     I("`fortify(<Lines>)`"),
     details = "Please migrate to sf."
   )
@@ -135,7 +135,7 @@ fortify.Lines <- function(model, data, ...) {
 #' @export
 #' @method fortify Line
 fortify.Line <- function(model, data, ...) {
-  deprecate_warn0("3.5.0",
+  deprecate_warn0("3.4.4",
     I("`fortify(<Line>)`"),
     details = "Please migrate to sf."
   )
