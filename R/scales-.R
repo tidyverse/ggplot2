@@ -194,7 +194,11 @@ ScalesList <- ggproto("ScalesList", NULL,
 
     for (aes in aesthetics) {
       scale_name <- paste("scale", aes, "continuous", sep = "_")
-      self$add(find_global(scale_name, env, mode = "function")(), default = TRUE)
+      scale <- find_global(scale_name, env, mode = "function")()
+      if (!is.null(scale)) {
+        scale$call <- call(scale_name)
+        self$add(scale, default = TRUE)
+      }
     }
   }
 )
