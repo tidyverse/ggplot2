@@ -75,3 +75,25 @@ test_that("partial scale input is checked", {
   )
 
 })
+
+test_that("limits are updated with transformations", {
+
+  p1 <- ggplot() + scale_x_log10(limits = c(1, 100))
+
+  expect_equal(p1$scales$get_scales("x")$limits, c(0, 2))
+
+  p2 <- p1 + scale_x(trans = "sqrt")
+
+  expect_equal(p2$scales$get_scales("x")$limits, c(1, 10))
+
+  p3 <- p2 + scale_x(trans = "identity")
+
+  expect_equal(p3$scales$get_scales("x")$limits, c(1, 100))
+
+  p1 <- ggplot() + scale_x(limits = c(1, 100))
+
+  p2 <- p1 + scale_x_log10()
+
+  expect_equal(p2$scales$get_scales("x")$limits, c(0, 2))
+
+})

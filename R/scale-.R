@@ -882,28 +882,44 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     c("aesthetics", "scale_name", "super", "call", "position")
   ),
 
+  update_params = function(self, params, default = FALSE) {
+
+    if ("trans" %in% names(params)) {
+      # We're using the old transform to revert the limits to input data, so
+      # that new transform returns valid limits.
+      if (!is.null(self$limits) && !is.function(self$limits)) {
+        self$limits <- self$trans$inverse(self$limits)
+      }
+    }
+    ggproto_parent(Scale, self)$update_params(params, default = default)
+    return()
+  },
+
   validate = function(self, fields = self$fields) {
 
     ggproto_parent(Scale, self)$validate(fields)
 
+    limits <- self$limits
     if ("trans" %in% fields) {
-      self$trans <- as.trans(self$trans)
+      self$trans  <- as.trans(self$trans)
+      if (!is.null(limits) && !is.function(limits)) {
+        self$limits <- self$trans$transform(limits)
+      }
     }
-    if ("limits" %in% fields && !is.null(self$limits) &&
-        !is.function(self$limits)) {
-      if (is.discrete(self$limits)) {
+    if ("limits" %in% fields && !is.null(limits) && !is.function(limits)) {
+      if (is.discrete(limits)) {
         cli::cli_abort("Discrete limits supplied to continuous scale.")
       }
-      if (length(self$limits) != 2 || !vec_is(self$limits)) {
+      if (length(limits) != 2 || !vec_is(limits)) {
         cli::cli_abort("{.arg limits} must a vector of length 2.")
       }
-      self$limits <- self$trans$transform(self$limits)
+      self$limits <- self$trans$transform(limits)
     }
     if ("rescaler" %in% fields) {
       check_function(self$rescaler)
     }
     if ("oob" %in% fields) {
-      check_function(self$oob)
+      check_function(oob)
     }
     return()
   },
