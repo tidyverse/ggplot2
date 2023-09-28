@@ -40,12 +40,6 @@ ScalePartial <- ggproto(
 
   update_params = function(self, params, default = FALSE, call = self$call) {
     self$params <- defaults(params, self$params)
-    if (is.null(self$call)) {
-      self$call <- call
-    } else if (!is.null(call)) {
-      self$call <- call("+", self$call, call)
-    }
-    return()
   },
 
   clone = function(self) {
