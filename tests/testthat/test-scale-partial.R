@@ -130,3 +130,19 @@ test_that("limits are updated with transformations", {
   expect_equal(p2$scales$get_scales("x")$limits, c(0, 2))
 
 })
+
+test_that("partial scales may be resolved", {
+
+  s <- resolve_partial(scale_x())
+  expect_null(s)
+
+  s <- resolve_partial(scale_x(limits = LETTERS[1:3]))
+  expect_s3_class(s, "ScaleDiscrete")
+
+  s <- resolve_partial(scale_x(limits = c(0, 10)))
+  expect_s3_class(s, "ScaleContinuous")
+
+  s <- resolve_partial(scale_partial("colour", limits = c(0, 10)))
+  expect_equal(s$guide, "colourbar")
+
+})

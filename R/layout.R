@@ -129,6 +129,10 @@ Layout <- ggproto("Layout", NULL,
   train_position = function(self, data, x_scale, y_scale) {
     # Initialise scales if needed, and possible.
     layout <- self$layout
+
+    x_scale <- resolve_partial(x_scale)
+    y_scale <- resolve_partial(y_scale)
+
     if (is.null(self$panel_scales_x)) {
       self$panel_scales_x <- self$facet$init_scales(layout, x_scale = x_scale,
         params = self$facet_params)$x

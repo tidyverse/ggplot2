@@ -40,6 +40,19 @@ ScalePartial <- ggproto(
 
   clone = function(self) {
     ggproto(NULL, self)
-  }
+  },
 
+  reset = function(self) NULL
 )
+
+resolve_partial <- function(scale) {
+  if (!inherits(scale, "ScalePartial")) {
+    return(scale)
+  }
+  if (is.null(scale$params$limits)) {
+    return(NULL)
+  }
+  new <- limits(scale$params$limits, scale$aesthetics[1])
+  new$update_params(scale$params, default = TRUE)
+  new
+}
