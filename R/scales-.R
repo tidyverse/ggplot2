@@ -17,7 +17,7 @@ ScalesList <- ggproto("ScalesList", NULL,
     any(self$find(aesthetic))
   },
 
-  add = function(self, scale) {
+  add = function(self, scale, default = FALSE) {
     if (is.null(scale)) {
       return()
     }
@@ -157,7 +157,7 @@ ScalesList <- ggproto("ScalesList", NULL,
     data_cols <- compact(data_cols)
 
     for (aes in names(data_cols)) {
-      self$add(find_scale(aes, data_cols[[aes]], env))
+      self$add(find_scale(aes, data_cols[[aes]], env), default = TRUE)
     }
   },
 
@@ -168,7 +168,7 @@ ScalesList <- ggproto("ScalesList", NULL,
 
     for (aes in aesthetics) {
       scale_name <- paste("scale", aes, "continuous", sep = "_")
-      self$add(find_global(scale_name, env, mode = "function")())
+      self$add(find_global(scale_name, env, mode = "function")(), default = TRUE)
     }
   }
 )
