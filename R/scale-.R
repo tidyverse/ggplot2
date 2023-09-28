@@ -572,16 +572,24 @@ Scale <- ggproto("Scale", NULL,
     return()
   },
 
-  update_params = function(self, params, default = FALSE) {
+  update_params = function(self, params, default = FALSE, call = NULL) {
 
     fields <- intersect(self$fields, names(params))
     extra  <- setdiff(names(params), fields)
 
     if (length(extra) > 0) {
       cli::cli_warn(
-        "Ignoring unknown scale parameter{?s}: {.and {.field {extra}}}."
+        "Ignoring unknown scale parameter{?s}: {.and {.field {extra}}}.",
+        call = call
       )
     }
+
+    if (is.null(self$call)) {
+      self$call <- call
+    } else if (!is.null(call)) {
+      self$call <- call("+", self$call, call)
+    }
+    call <- self$call
 
     if (!default) {
       # Don't update fields that were already defined in non-default scale
