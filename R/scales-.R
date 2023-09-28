@@ -33,6 +33,9 @@ ScalesList <- ggproto("ScalesList", NULL,
     if (inherits(scale, "ScalePartial")) {
       # Clone scale to avoid state changes
       prev_scale <- prev_scale$clone()
+      # `default = TRUE` here because upon adding a partial scale,
+      # we need to override parameters, regardless of whether `prev_scale` is
+      # a full or partial scale.
       prev_scale$update_params(scale$params, default = TRUE)
       self$scales <- c(self$scales[!prev_aes], list(prev_scale))
       return()

@@ -583,6 +583,11 @@ Scale <- ggproto("Scale", NULL,
       )
     }
 
+    if (!default) {
+      # Don't update fields that were already defined in non-default scale
+      fields <- setdiff(fields, call_args_names(self$call))
+    }
+
     if (length(fields) < 1) {
       # Nothing to update here
       return()

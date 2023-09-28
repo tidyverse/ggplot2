@@ -76,6 +76,39 @@ test_that("partial scale input is checked", {
 
 })
 
+test_that("scale override mechanics are correct", {
+
+  # Full overrides partial
+  full <- scale_x_continuous(limits = c(0, 10))
+  part <- scale_x(name = "foo", limits = c(0, 1))
+  p1 <- ggplot() + part + full
+
+  # Check inheritance is correct
+  resolved <- p1$scales$get_scales("x")
+  expect_equal(resolved$name, "foo")
+  expect_equal(resolved$limits, c(0, 10))
+
+  # Check state hasn't changed
+  expect_equal(full$name, waiver())
+  expect_equal(full$limits, c(0, 10))
+  expect_equal(part$params, list(name = "foo", limits = c(0, 1)))
+
+  # Partial overrides full
+  full <- scale_x_continuous(name = "foo", limits = c(0, 10))
+  part <- scale_x(limits = c(0, 1))
+  p2 <- ggplot() + full + part
+
+  # Check inheritance is correct
+  resolved <- p2$scales$get_scales("x")
+  expect_equal(resolved$name, "foo")
+  expect_equal(resolved$limits, c(0, 1))
+
+  # Check state hasn't changed
+  expect_equal(full$name, "foo")
+  expect_equal(full$limits, c(0, 10))
+  expect_equal(part$params, list(limits = c(0, 1)))
+})
+
 test_that("limits are updated with transformations", {
 
   p1 <- ggplot() + scale_x_log10(limits = c(1, 100))
