@@ -563,7 +563,36 @@ Scale <- ggproto("Scale", NULL,
     title
   },
 
-  fields = character(0)
+  fields = character(0),
+
+  validate = function(self) {
+    # TODO: make validator
+    return()
+  },
+
+  update_params = function(self, params, default = FALSE) {
+
+    fields <- intersect(self$fields, names(params))
+    extra  <- setdiff(names(params), fields)
+
+    if (length(extra) > 0) {
+      cli::cli_warn(
+        "Ignoring unknown scale parameter{?s}: {.and {.field {extra}}}."
+      )
+    }
+
+    if (length(fields) < 1) {
+      # Nothing to update here
+      return()
+    }
+
+    # Update parameters
+    for (field in fields) {
+      self[[field]] <- params[[field]]
+    }
+    self$validate()
+    return()
+  }
 )
 
 check_breaks_labels <- function(breaks, labels, call = NULL) {
