@@ -579,13 +579,16 @@ Scale <- ggproto("Scale", NULL,
 
     if (length(extra) > 0) {
       cli::cli_warn(
-        "Ignoring unknown scale parameter{?s}: {.and {.field {extra}}}."
+        "Ignoring unknown scale parameter{?s}: {.and {.field {extra}}}.",
+        call = call
       )
     }
 
     if (!default) {
       # Don't update fields that were already defined in non-default scale
       fields <- setdiff(fields, call_args_names(self$call))
+    } else {
+      self$call <- call
     }
 
     if (length(fields) < 1) {
@@ -913,18 +916,24 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     }
     if ("limits" %in% fields && !is.null(limits) && !is.function(limits)) {
       if (is.discrete(limits)) {
-        cli::cli_abort("Discrete limits supplied to continuous scale.")
+        cli::cli_abort(
+          "Discrete limits supplied to continuous scale.",
+          call = self$call
+        )
       }
       if (length(limits) != 2 || !vec_is(limits)) {
-        cli::cli_abort("{.arg limits} must a vector of length 2.")
+        cli::cli_abort(
+          "{.arg limits} must a vector of length 2.",
+          call = self$call
+        )
       }
       self$limits <- self$trans$transform(limits)
     }
     if ("rescaler" %in% fields) {
-      check_function(self$rescaler)
+      check_function(self$rescaler, call = self$call, arg = "rescaler")
     }
     if ("oob" %in% fields) {
-      check_function(oob)
+      check_function(self$oob, call = self$call, arg = "oob")
     }
     return()
   },
