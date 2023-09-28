@@ -3,7 +3,7 @@
 scale_x <- function(...) scale_partial(aesthetic = "x", ...)
 scale_y <- function(...) scale_partial(aesthetic = "y", ...)
 
-scale_partial <- function(aesthetic, ..., call = caller_env()) {
+scale_partial <- function(aesthetic, ..., call = caller_call()) {
 
   check_string(aesthetic, allow_empty = FALSE)
   aesthetic <- standardise_aes_names(aesthetic)
@@ -21,8 +21,11 @@ scale_partial <- function(aesthetic, ..., call = caller_env()) {
   )
   args[lambdas] <- lapply(args[lambdas], allow_lambda)
 
+  call <- call %||% current_call()
+
   ggproto(
     NULL, ScalePartial,
+    call = call,
     aesthetics = aesthetic,
     params = args
   )
@@ -33,8 +36,9 @@ ScalePartial <- ggproto(
 
   aesthetics = character(),
   params = list(),
+  call = NULL,
 
-  update_params = function(self, params, default = FALSE) {
+  update_params = function(self, params, default = FALSE, call = self$call) {
     self$params <- defaults(params, self$params)
   },
 

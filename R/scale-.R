@@ -887,7 +887,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     c("aesthetics", "scale_name", "super", "call", "position")
   ),
 
-  update_params = function(self, params, default = FALSE) {
+  update_params = function(self, params, default = FALSE, call = NULL) {
 
     if ("trans" %in% names(params)) {
       # We're using the old transform to revert the limits to input data, so
@@ -896,7 +896,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
         self$limits <- self$trans$inverse(self$limits)
       }
     }
-    ggproto_parent(Scale, self)$update_params(params, default = default)
+    ggproto_parent(Scale, self)$update_params(params, default = default, call = call)
     return()
   },
 
