@@ -724,6 +724,20 @@ combine_elements <- function(e1, e2) {
     return(e2)
   }
 
+  # Inheritance of rel objects
+  if (is.rel(e1)) {
+    # Both e1 and e2 are rel, give product as another rel
+    if (is.rel(e2)) {
+      return(rel(unclass(e1) * unclass(e2)))
+    }
+    # If e2 is a unit/numeric, return modified unit/numeric
+    # Note that unit objects are considered numeric
+    if (is.numeric(e2) || is.unit(e2)) {
+      return(unclass(e1) * e2)
+    }
+    return(e1)
+  }
+
   # If neither of e1 or e2 are element_* objects, return e1
   if (!inherits(e1, "element") && !inherits(e2, "element")) {
     return(e1)

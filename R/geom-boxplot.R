@@ -268,7 +268,7 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
     )
     box <- flip_data(box, flipped_aes)
 
-    if (!is.null(data$outliers) && length(data$outliers[[1]] >= 1)) {
+    if (!is.null(data$outliers) && length(data$outliers[[1]]) >= 1) {
       outliers <- data_frame0(
         y = data$outliers[[1]],
         x = data$x[1],

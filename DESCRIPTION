@@ -28,7 +28,7 @@ License: MIT + file LICENSE
 URL: https://ggplot2.tidyverse.org, https://github.com/tidyverse/ggplot2
 BugReports: https://github.com/tidyverse/ggplot2/issues
 Depends:
-    R (>= 3.3)
+    R (>= 3.5)
 Imports: 
     cli,
     glue,
