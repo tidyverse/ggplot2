@@ -409,6 +409,9 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
 #' - `make_sec_title()` Hook to modify the title for the second axis that is calculated
 #'   when the `Layout` calculates the x and y labels.
 #'
+#' - `fields` A character vector naming parameters that can be updated by
+#'   partial scales.
+#'
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
@@ -558,7 +561,9 @@ Scale <- ggproto("Scale", NULL,
 
   make_sec_title = function(title) {
     title
-  }
+  },
+
+  fields = character(0)
 )
 
 check_breaks_labels <- function(breaks, labels, call = NULL) {
@@ -841,6 +846,11 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     )
   },
 
+  fields = setdiff(
+    fn_fmls_names(continuous_scale),
+    c("aesthetics", "scale_name", "super", "call", "position")
+  ),
+
   print = function(self, ...) {
     show_range <- function(x) paste0(formatC(x, digits = 3), collapse = " -- ")
 
@@ -1040,7 +1050,12 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
       major_source = major,
       minor_source = NULL
     )
-  }
+  },
+
+  fields = setdiff(
+    fn_fmls_names(discrete_scale),
+    c("aesthetics", "scale_name", "super", "call", "position")
+  )
 )
 
 #' @rdname ggplot2-ggproto
@@ -1271,7 +1286,12 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
     list(range = range, labels = labels,
          major = pal, minor = NULL,
          major_source = major, minor_source = NULL)
-  }
+  },
+
+  fields = setdiff(
+    fn_fmls_names(binned_scale),
+    c("aesthetics", "scale_name", "super", "call", "position")
+  )
 )
 
 # In place modification of a scale to change the primary axis
