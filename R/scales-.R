@@ -23,15 +23,37 @@ ScalesList <- ggproto("ScalesList", NULL,
     }
 
     prev_aes <- self$find(scale$aesthetics)
-    if (any(prev_aes)) {
-      # Get only the first aesthetic name in the returned vector -- it can
-      # sometimes be c("x", "xmin", "xmax", ....)
-      scalename <- self$scales[prev_aes][[1]]$aesthetics[1]
-      cli::cli_inform(c(
-        "Scale for {.field {scalename}} is already present.",
-        "Adding another scale for {.field {scalename}}, which will replace the existing scale."
-      ))
+    if (!any(prev_aes)) {
+      self$scales <- c(self$scales, list(scale))
+      return()
     }
+
+    prev_scale <- self$scales[prev_aes][[1]]
+
+    if (inherits(scale, "ScalePartial")) {
+      # Clone scale to avoid state changes
+      prev_scale <- prev_scale$clone()
+      prev_scale$update_params(scale$params, default = TRUE)
+      self$scales <- c(self$scales[!prev_aes], list(prev_scale))
+      return()
+    }
+
+    if (inherits(prev_scale, "ScalePartial")) {
+      if (!default) {
+        scale <- scale$clone()
+      }
+      scale$update_params(prev_scale$params, default = default)
+      self$scales <- c(self$scales[!prev_aes], list(scale))
+      return()
+    }
+
+    # Get only the first aesthetic name in the returned vector -- it can
+    # sometimes be c("x", "xmin", "xmax", ....)
+    scalename <- self$scales[prev_aes][[1]]$aesthetics[1]
+    cli::cli_inform(c(
+      "Scale for {.field {scalename}} is already present.",
+      "Adding another scale for {.field {scalename}}, which will replace the existing scale."
+    ))
 
     # Remove old scale for this aesthetic (if it exists)
     self$scales <- c(self$scales[!prev_aes], list(scale))
@@ -42,7 +64,8 @@ ScalesList <- ggproto("ScalesList", NULL,
   },
 
   input = function(self) {
-    unlist(lapply(self$scales, "[[", "aesthetics"))
+    idx <- !vapply(self$scales, inherits, logical(1), what = "ScalePartial")
+    unlist(lapply(self$scales[idx], "[[", "aesthetics"))
   },
 
   # This actually makes a descendant of self, which is functionally the same
