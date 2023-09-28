@@ -161,7 +161,8 @@ ScaleContinuousPosition <- ggproto("ScaleContinuousPosition", ScaleContinuous,
     } else {
       ggproto_parent(ScaleContinuous, self)$make_sec_title(title)
     }
-  }
+  },
+  fields = union(setdiff(ScaleContinuous$fields, "palette"), "position")
 )
 
 # Transformed scales ---------------------------------------------------------

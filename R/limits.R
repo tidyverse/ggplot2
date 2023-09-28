@@ -90,13 +90,13 @@ lims <- function(...) {
 #' @export
 #' @rdname lims
 xlim <- function(...) {
-  limits(c(...), "x", call = current_call())
+  scale_x(limits = c(...), call = current_call())
 }
 
 #' @export
 #' @rdname lims
 ylim <- function(...) {
-  limits(c(...), "y", call = current_call())
+  scale_y(limits = c(...), call = current_call())
 }
 
 #' Generate correct scale type for specified limits

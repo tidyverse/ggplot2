@@ -409,6 +409,9 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
 #' - `make_sec_title()` Hook to modify the title for the second axis that is calculated
 #'   when the `Layout` calculates the x and y labels.
 #'
+#' - `fields` A character vector naming parameters that can be updated by
+#'   partial scales.
+#'
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
@@ -558,6 +561,47 @@ Scale <- ggproto("Scale", NULL,
 
   make_sec_title = function(title) {
     title
+  },
+
+  fields = character(0),
+
+  validate = function(self, fields = self$fields) {
+    if (any(c("breaks", "labels") %in% fields)) {
+      check_breaks_labels(self$breaks, self$labels, call = self$call)
+    }
+    return()
+  },
+
+  update_params = function(self, params, default = FALSE, call = NULL) {
+
+    fields <- intersect(self$fields, names(params))
+    extra  <- setdiff(names(params), fields)
+
+    if (length(extra) > 0) {
+      cli::cli_warn(
+        "Ignoring unknown scale parameter{?s}: {.and {.field {extra}}}.",
+        call = call
+      )
+    }
+
+    if (!default) {
+      # Don't update fields that were already defined in non-default scale
+      fields <- setdiff(fields, call_args_names(self$call))
+    } else {
+      self$call <- call
+    }
+
+    if (length(fields) < 1) {
+      # Nothing to update here
+      return()
+    }
+
+    # Update parameters
+    for (field in fields) {
+      self[[field]] <- params[[field]]
+    }
+    self$validate(fields)
+    return()
   }
 )
 
@@ -841,6 +885,59 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     )
   },
 
+  fields = setdiff(
+    fn_fmls_names(continuous_scale),
+    c("aesthetics", "scale_name", "super", "call", "position")
+  ),
+
+  update_params = function(self, params, default = FALSE, call = NULL) {
+
+    if ("trans" %in% names(params)) {
+      # We're using the old transform to revert the limits to input data, so
+      # that new transform returns valid limits.
+      if (!is.null(self$limits) && !is.function(self$limits)) {
+        self$limits <- self$trans$inverse(self$limits)
+      }
+    }
+    ggproto_parent(Scale, self)$update_params(params, default = default, call = call)
+    return()
+  },
+
+  validate = function(self, fields = self$fields) {
+
+    ggproto_parent(Scale, self)$validate(fields)
+
+    limits <- self$limits
+    if ("trans" %in% fields) {
+      self$trans  <- as.trans(self$trans)
+      if (!is.null(limits) && !is.function(limits)) {
+        self$limits <- self$trans$transform(limits)
+      }
+    }
+    if ("limits" %in% fields && !is.null(limits) && !is.function(limits)) {
+      if (is.discrete(limits)) {
+        cli::cli_abort(
+          "Discrete limits supplied to continuous scale.",
+          call = self$call
+        )
+      }
+      if (length(limits) != 2 || !vec_is(limits)) {
+        cli::cli_abort(
+          "{.arg limits} must a vector of length 2.",
+          call = self$call
+        )
+      }
+      self$limits <- self$trans$transform(limits)
+    }
+    if ("rescaler" %in% fields) {
+      check_function(self$rescaler, call = self$call, arg = "rescaler")
+    }
+    if ("oob" %in% fields) {
+      check_function(self$oob, call = self$call, arg = "oob")
+    }
+    return()
+  },
+
   print = function(self, ...) {
     show_range <- function(x) paste0(formatC(x, digits = 3), collapse = " -- ")
 
@@ -1040,7 +1137,24 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
       major_source = major,
       minor_source = NULL
     )
-  }
+  },
+
+  fields = setdiff(
+    fn_fmls_names(discrete_scale),
+    c("aesthetics", "scale_name", "super", "call", "position")
+  ),
+
+  validate = function(self, fields = self$fields) {
+
+    ggproto_parent(Scale, self)$validate(fields)
+
+    if ("limits" %in% fields) {
+      if (!is.discrete(self$limits)) {
+        cli::cli_abort("Continuous limits supplied to discrete scale.")
+      }
+    }
+    return()
+  },
 )
 
 #' @rdname ggplot2-ggproto
@@ -1271,7 +1385,12 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
     list(range = range, labels = labels,
          major = pal, minor = NULL,
          major_source = major, minor_source = NULL)
-  }
+  },
+
+  fields = setdiff(
+    fn_fmls_names(binned_scale),
+    c("aesthetics", "scale_name", "super", "call", "position")
+  )
 )
 
 # In place modification of a scale to change the primary axis

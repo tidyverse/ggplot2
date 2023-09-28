@@ -226,6 +226,7 @@ Collate:
     'scale-linetype.R'
     'scale-linewidth.R'
     'scale-manual.R'
+    'scale-partial.R'
     'scale-shape.R'
     'scale-size.R'
     'scale-steps.R'

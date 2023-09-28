@@ -140,7 +140,9 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
     new$range <- DiscreteRange$new()
     new$range_c <- ContinuousRange$new()
     new
-  }
+  },
+
+  fields = union(setdiff(ScaleDiscrete$fields, "palette"), "position")
 )
 
 # Can't use vctrs - vctrs is too restrictive for mapped_discrete
