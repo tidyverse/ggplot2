@@ -565,8 +565,10 @@ Scale <- ggproto("Scale", NULL,
 
   fields = character(0),
 
-  validate = function(self) {
-    # TODO: make validator
+  validate = function(self, fields = self$fields) {
+    if (any(c("breaks", "labels") %in% fields)) {
+      check_breaks_labels(self$breaks, self$labels, call = self$call)
+    }
     return()
   },
 
@@ -590,7 +592,7 @@ Scale <- ggproto("Scale", NULL,
     for (field in fields) {
       self[[field]] <- params[[field]]
     }
-    self$validate()
+    self$validate(fields)
     return()
   }
 )
@@ -880,6 +882,32 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     c("aesthetics", "scale_name", "super", "call", "position")
   ),
 
+  validate = function(self, fields = self$fields) {
+
+    ggproto_parent(Scale, self)$validate(fields)
+
+    if ("trans" %in% fields) {
+      self$trans <- as.trans(self$trans)
+    }
+    if ("limits" %in% fields && !is.null(self$limits) &&
+        !is.function(self$limits)) {
+      if (is.discrete(self$limits)) {
+        cli::cli_abort("Discrete limits supplied to continuous scale.")
+      }
+      if (length(self$limits) != 2 || !vec_is(self$limits)) {
+        cli::cli_abort("{.arg limits} must a vector of length 2.")
+      }
+      self$limits <- self$trans$transform(self$limits)
+    }
+    if ("rescaler" %in% fields) {
+      check_function(self$rescaler)
+    }
+    if ("oob" %in% fields) {
+      check_function(self$oob)
+    }
+    return()
+  },
+
   print = function(self, ...) {
     show_range <- function(x) paste0(formatC(x, digits = 3), collapse = " -- ")
 
@@ -1084,7 +1112,19 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
   fields = setdiff(
     fn_fmls_names(discrete_scale),
     c("aesthetics", "scale_name", "super", "call", "position")
-  )
+  ),
+
+  validate = function(self, fields = self$fields) {
+
+    ggproto_parent(Scale, self)$validate(fields)
+
+    if ("limits" %in% fields) {
+      if (!is.discrete(self$limits)) {
+        cli::cli_abort("Continuous limits supplied to discrete scale.")
+      }
+    }
+    return()
+  },
 )
 
 #' @rdname ggplot2-ggproto

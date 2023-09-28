@@ -42,3 +42,36 @@ test_that("partial scales can be updated", {
   expect_equal(full$name, "foobar")
   expect_equal(full$limits, c(0, 1))
 })
+
+test_that("partial scale input is checked", {
+
+  expect_error(scale_x(10), "must be named")
+  expect_snapshot_error(
+    scale_x(limits = c(0, 10), limits = c(1, 2))
+  )
+
+  # Check for nonsense arguments
+  p <- ggplot() + scale_x(foo = "bar", limits = c(0, 1))
+
+  expect_warning(
+    p$scales$add_missing(c("x", "y"), env = current_env()),
+    "Ignoring unknown scale parameter"
+  )
+
+  # Check incompatible arguments
+  p <- ggplot() + scale_x(breaks = c(1, 2), labels = c("A", "B", "C"))
+  expect_error(
+    p$scales$add_missing(c("x", "y"), env = current_env()),
+    "must have the same length"
+  )
+
+  expect_error(
+    ggplot() + scale_x(limits = c(0, 10)) + scale_x_discrete(),
+    "Continuous limits supplied to discrete scale"
+  )
+  expect_error(
+    ggplot() + scale_x(limits = c("A", "B")) + scale_x_continuous(),
+    "Discrete limits supplied to continuous scale"
+  )
+
+})

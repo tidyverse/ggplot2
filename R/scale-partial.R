@@ -1,13 +1,18 @@
 
 
-scale_x <- function(...) scale_partial("x", ...)
-scale_y <- function(...) scale_partial("y", ...)
+scale_x <- function(...) scale_partial(aesthetic = "x", ...)
+scale_y <- function(...) scale_partial(aesthetic = "y", ...)
 
-scale_partial <- function(aesthetic, ...) {
+scale_partial <- function(aesthetic, ..., call = caller_env()) {
 
+  check_string(aesthetic, allow_empty = FALSE)
   aesthetic <- standardise_aes_names(aesthetic)
 
-  args <- list2(...)
+  args <- dots_list(..., .homonyms = "error")
+  if (!is_named(args)) {
+    cli::cli_abort("All arguments in {.code ...} must be named.", call = call)
+  }
+
   args <- args[!vapply(args, is.waive, logical(1))]
 
   lambdas <- intersect(
