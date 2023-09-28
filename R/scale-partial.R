@@ -1,8 +1,38 @@
-
-
-scale_x <- function(...) scale_partial(aesthetic = "x", ...)
-scale_y <- function(...) scale_partial(aesthetic = "y", ...)
-
+#' Partial scales
+#'
+#' Partial scales are useful for setting some scale parameters without
+#' committing to any particular scale yet. Partial scales can be added to a plot
+#' and will be combined with full scales.
+#'
+#' @param aesthetic A string specifying an aesthetic to create a partial
+#'   scale for.
+#' @param ... Arguments passed onto full scales.
+#' @param call A `<call>` to report in warning and error messages.
+#'
+#' @return A `<ScalePartial>` object that can be added to a plot.
+#' @export
+#' @name partial-scales
+#'
+#' @examples
+#' # A standard plot
+#' p <- ggplot(mpg, aes(displ, hwy)) +
+#'   geom_point()
+#'
+#' # Adding a partial scale
+#' p + scale_y(trans = "sqrt")
+#'
+#' # Partial scales can be stacked
+#' p + scale_y(trans = "sqrt") + scale_y(breaks = seq(15, 45, by = 5))
+#'
+#' # When two scales declare the same parameter, the latter overrules the first
+#' p + scale_y_continuous(name = "Highway Miles") +
+#'   scale_y(name = "Title from partial scale")
+#'
+#' # But other parameters are kept and not overruled
+#' p + scale_y(name = "Highway Miles",
+#'             breaks = c(20, 30, 40),
+#'             labels = c("A", "B", "C")) +
+#'   scale_y_continuous(name = "Title from full scale")
 scale_partial <- function(aesthetic, ..., call = caller_call()) {
 
   check_string(aesthetic, allow_empty = FALSE)
@@ -31,6 +61,17 @@ scale_partial <- function(aesthetic, ..., call = caller_call()) {
   )
 }
 
+#' @export
+#' @rdname partial-scales
+scale_x <- function(...) scale_partial(aesthetic = "x", ...)
+#' @export
+#' @rdname partial-scales
+scale_y <- function(...) scale_partial(aesthetic = "y", ...)
+
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 ScalePartial <- ggproto(
   "ScalePartial", Scale,
 
