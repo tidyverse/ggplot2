@@ -261,7 +261,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       graticule = graticule,
       crs = params$crs,
       default_crs = params$default_crs,
-      !!viewscales
+      !!!viewscales
     )
   },
 
