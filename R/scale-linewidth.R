@@ -31,7 +31,7 @@ scale_linewidth_continuous <- function(name = waiver(), breaks = waiver(),
                                        labels = waiver(), limits = NULL,
                                        range = c(1, 6), trans = "identity",
                                        guide = "legend") {
-  continuous_scale("linewidth", "linewidth_c", rescale_pal(range), name = name,
+  continuous_scale("linewidth", palette = rescale_pal(range), name = name,
                    breaks = breaks, labels = labels, limits = limits, trans = trans,
                    guide = guide)
 }
@@ -45,7 +45,7 @@ scale_linewidth <- scale_linewidth_continuous
 scale_linewidth_binned <- function(name = waiver(), breaks = waiver(), labels = waiver(),
                               limits = NULL, range = c(1, 6), n.breaks = NULL,
                               nice.breaks = TRUE, trans = "identity", guide = "bins") {
-  binned_scale("linewidth", "linewidth_b", rescale_pal(range), name = name,
+  binned_scale("linewidth", palette = rescale_pal(range), name = name,
                breaks = breaks, labels = labels, limits = limits, trans = trans,
                n.breaks = n.breaks, nice.breaks = nice.breaks, guide = guide)
 }
@@ -55,7 +55,9 @@ scale_linewidth_binned <- function(name = waiver(), breaks = waiver(), labels = 
 #' @usage NULL
 scale_linewidth_discrete <- function(...) {
   cli::cli_warn("Using {.field linewidth} for a discrete variable is not advised.")
-  scale_linewidth_ordinal(...)
+  args <- list2(...)
+  args$call <- args$call %||% current_call()
+  exec(scale_linewidth_ordinal, !!!args)
 }
 
 #' @rdname scale_linewidth
@@ -66,8 +68,7 @@ scale_linewidth_ordinal <- function(..., range = c(2, 6)) {
 
   discrete_scale(
     "linewidth",
-    "linewidth_d",
-    function(n) seq(range[1], range[2], length.out = n),
+    palette = function(n) seq(range[1], range[2], length.out = n),
     ...
   )
 }

@@ -266,7 +266,7 @@ GuideBins <- ggproto(
     return(key)
   },
 
-  extract_params = function(scale, params, hashables,
+  extract_params = function(scale, params,
                             title = waiver(), direction = NULL, ...) {
 
     show.limits <- params$show.limits %||% scale$show.limits %||% FALSE
@@ -320,8 +320,7 @@ GuideBins <- ggproto(
         "not {.val {params$label.position}}."
       ))
     }
-
-    Guide$extract_params(scale, params, hashables)
+    params
   },
 
   setup_params = function(params) {
@@ -340,7 +339,11 @@ GuideBins <- ggproto(
   },
 
   build_labels = function(key, elements, params) {
-    key$.label[c(1, nrow(key))[!params$show.limits]] <- ""
+    n_labels <- length(key$.label)
+    if (n_labels < 1) {
+      return(list(labels = zeroGrob()))
+    }
+    key$.label[c(1, n_labels)[!params$show.limits]] <- ""
 
     just <- if (params$direction == "horizontal") {
       elements$text$vjust

@@ -95,15 +95,21 @@ StatYdensity <- ggproto("StatYdensity", Stat,
     range <- range(data$y, na.rm = TRUE)
     modifier <- if (trim) 0 else 3
     bw <- calc_bw(data$y, bw)
-    dens <- compute_density(data$y, data$w, from = range[1] - modifier*bw, to = range[2] + modifier*bw,
-      bw = bw, adjust = adjust, kernel = kernel)
+    dens <- compute_density(
+      data$y, data[["weight"]],
+      from = range[1] - modifier * bw, to = range[2] + modifier * bw,
+      bw = bw, adjust = adjust, kernel = kernel
+    )
 
     dens$y <- dens$x
-    dens$x <- mean(range(data$x))
 
     # Compute width if x has multiple values
     if (vec_unique_count(data$x) > 1) {
+      dens$x <- mean(range(data$x))
       width <- diff(range(data$x)) * 0.9
+    } else {
+      # Explicitly repeat to preserve data$x's mapped_discrete class
+      dens$x <- vec_rep(data$x[1], nrow(dens))
     }
     dens$width <- width
 

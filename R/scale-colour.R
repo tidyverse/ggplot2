@@ -78,13 +78,18 @@
 scale_colour_continuous <- function(...,
                                     type = getOption("ggplot2.continuous.colour")) {
   type <- type %||% "gradient"
+  args <- list2(...)
+  args$call <- args$call %||% current_call()
 
   if (is.function(type)) {
-    check_scale_type(type(...), "scale_colour_continuous", "colour")
+    if (!any(c("...", "call") %in% fn_fmls_names(type))) {
+      args$call <- NULL
+    }
+    check_scale_type(exec(type, !!!args), "scale_colour_continuous", "colour")
   } else if (identical(type, "gradient")) {
-    scale_colour_gradient(...)
+    exec(scale_colour_gradient, !!!args)
   } else if (identical(type, "viridis")) {
-    scale_colour_viridis_c(...)
+    exec(scale_colour_viridis_c, !!!args)
   } else {
     cli::cli_abort(c(
       "Unknown scale type: {.val {type}}",
@@ -98,13 +103,18 @@ scale_colour_continuous <- function(...,
 scale_fill_continuous <- function(...,
                                   type = getOption("ggplot2.continuous.fill")) {
   type <- type %||% "gradient"
+  args <- list2(...)
+  args$call <- args$call %||% current_call()
 
   if (is.function(type)) {
-    check_scale_type(type(...), "scale_fill_continuous", "fill")
+    if (!any(c("...", "call") %in% fn_fmls_names(type))) {
+      args$call <- NULL
+    }
+    check_scale_type(exec(type, !!!args), "scale_fill_continuous", "fill")
   } else if (identical(type, "gradient")) {
-    scale_fill_gradient(...)
+    exec(scale_fill_gradient, !!!args)
   } else if (identical(type, "viridis")) {
-    scale_fill_viridis_c(...)
+    exec(scale_fill_viridis_c, !!!args)
   } else {
     cli::cli_abort(c(
       "Unknown scale type: {.val {type}}",
@@ -117,8 +127,13 @@ scale_fill_continuous <- function(...,
 #' @rdname scale_colour_continuous
 scale_colour_binned <- function(...,
                                 type = getOption("ggplot2.binned.colour")) {
+  args <- list2(...)
+  args$call <- args$call %||% current_call()
   if (is.function(type)) {
-    check_scale_type(type(...), "scale_colour_binned", "colour")
+    if (!any(c("...", "call") %in% fn_fmls_names(type))) {
+      args$call <- NULL
+    }
+    check_scale_type(exec(type, !!!args), "scale_colour_binned", "colour")
   } else {
     type_fallback <- getOption("ggplot2.continuous.colour", default = "gradient")
     # don't use fallback from scale_colour_continuous() if it is
@@ -130,9 +145,9 @@ scale_colour_binned <- function(...,
     type <- type %||% type_fallback
 
     if (identical(type, "gradient")) {
-      scale_colour_steps(...)
+      exec(scale_colour_steps, !!!args)
     } else if (identical(type, "viridis")) {
-      scale_colour_viridis_b(...)
+      exec(scale_colour_viridis_b, !!!args)
     } else {
       cli::cli_abort(c(
         "Unknown scale type: {.val {type}}",
@@ -146,8 +161,13 @@ scale_colour_binned <- function(...,
 #' @rdname scale_colour_continuous
 scale_fill_binned <- function(...,
                               type = getOption("ggplot2.binned.fill")) {
+  args <- list2(...)
+  args$call <- args$call %||% current_call()
   if (is.function(type)) {
-    check_scale_type(type(...), "scale_fill_binned", "fill")
+    if (!any(c("...", "call") %in% fn_fmls_names(type))) {
+      args$call <- NULL
+    }
+    check_scale_type(exec(type, !!!args), "scale_fill_binned", "fill")
   } else {
     type_fallback <- getOption("ggplot2.continuous.fill", default = "gradient")
     # don't use fallback from scale_colour_continuous() if it is
@@ -159,9 +179,9 @@ scale_fill_binned <- function(...,
     type <- type %||% type_fallback
 
     if (identical(type, "gradient")) {
-      scale_fill_steps(...)
+      exec(scale_fill_steps, !!!args)
     } else if (identical(type, "viridis")) {
-      scale_fill_viridis_b(...)
+      exec(scale_fill_viridis_b, !!!args)
     } else {
       cli::cli_abort(c(
         "Unknown scale type: {.val {type}}",
