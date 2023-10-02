@@ -1,4 +1,7 @@
-# ggplot2 (development version)
+# ggplot2 3.4.4
+
+This hotfix release adapts to a change in r-devel's `base::is.atomic()` and 
+the upcoming retirement of maptools.
 
 * `fortify()` for sp objects (e.g., `SpatialPolygonsDataFrame`) is now deprecated
   and will be removed soon in support of [the upcoming retirement of rproj, rgeos,
