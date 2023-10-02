@@ -3,6 +3,9 @@
 * `resolution()` has a small tolerance, preventing spuriously small resolutions 
   due to rounding errors (@teunbrand, #2516).
 
+* `stage()` now works correctly, even with aesthetics that do not have scales 
+  (#5408)
+
 * `labeller()` now handles unspecified entries from lookup tables
   (@92amartins, #4599).
 
