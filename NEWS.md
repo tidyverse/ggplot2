@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* `stage()` now works correctly, even with aesthetics that do not have scales 
+  (#5408)
 * `labeller()` now handles unspecified entries from lookup tables
   (@92amartins, #4599).
 
