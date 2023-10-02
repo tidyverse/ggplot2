@@ -436,7 +436,7 @@ extract_target_is_likely_data <- function(x, data, env) {
 
   tryCatch({
     data_eval <- eval_tidy(x[[2]], data, env)
-    identical(data_eval, data)
+    identical(unrowname(data_eval), unrowname(data))
   }, error = function(err) FALSE)
 }
 

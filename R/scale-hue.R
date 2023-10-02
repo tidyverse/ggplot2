@@ -55,7 +55,7 @@
 #' }
 scale_colour_hue <- function(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
                              direction = 1, na.value = "grey50", aesthetics = "colour") {
-  discrete_scale(aesthetics, "hue", hue_pal(h, c, l, h.start, direction),
+  discrete_scale(aesthetics, palette = hue_pal(h, c, l, h.start, direction),
     na.value = na.value, ...)
 }
 
@@ -63,7 +63,7 @@ scale_colour_hue <- function(..., h = c(0, 360) + 15, c = 100, l = 65, h.start =
 #' @export
 scale_fill_hue <- function(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
                            direction = 1, na.value = "grey50", aesthetics = "fill") {
-  discrete_scale(aesthetics, "hue", hue_pal(h, c, l, h.start, direction),
+  discrete_scale(aesthetics, palette = hue_pal(h, c, l, h.start, direction),
     na.value = na.value, ...)
 }
 
@@ -124,15 +124,21 @@ scale_fill_hue <- function(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0
 scale_colour_discrete <- function(..., type = getOption("ggplot2.discrete.colour")) {
   # TODO: eventually `type` should default to a set of colour-blind safe color codes (e.g. Okabe-Ito)
   type <- type %||% scale_colour_hue
+  args <- list2(...)
+  args$call <- args$call %||% current_call()
+
   if (is.function(type)) {
+    if (!any(c("...", "call") %in% fn_fmls_names(type))) {
+      args$call <- NULL
+    }
     check_scale_type(
-      type(...),
+      exec(type, !!!args),
       "scale_colour_discrete",
       "colour",
       scale_is_discrete = TRUE
     )
   } else {
-    scale_colour_qualitative(..., type = type)
+    exec(scale_colour_qualitative, !!!args, type = type)
   }
 }
 
@@ -141,22 +147,28 @@ scale_colour_discrete <- function(..., type = getOption("ggplot2.discrete.colour
 scale_fill_discrete <- function(..., type = getOption("ggplot2.discrete.fill")) {
   # TODO: eventually `type` should default to a set of colour-blind safe color codes (e.g. Okabe-Ito)
   type <- type %||% scale_fill_hue
+  args <- list2(...)
+  args$call <- args$call %||% current_call()
+
   if (is.function(type)) {
+    if (!any(c("...", "call") %in% fn_fmls_names(type))) {
+      args$call <- NULL
+    }
     check_scale_type(
-      type(...),
+      exec(type, !!!args),
       "scale_fill_discrete",
       "fill",
       scale_is_discrete = TRUE
     )
   } else {
-    scale_fill_qualitative(..., type = type)
+    exec(scale_fill_qualitative, !!!args, type = type)
   }
 }
 
 scale_colour_qualitative <- function(..., type = NULL, h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
                                      direction = 1, na.value = "grey50", aesthetics = "colour") {
   discrete_scale(
-    aesthetics, "qualitative", qualitative_pal(type, h, c, l, h.start, direction),
+    aesthetics, palette = qualitative_pal(type, h, c, l, h.start, direction),
     na.value = na.value, ...
   )
 }
@@ -164,7 +176,7 @@ scale_colour_qualitative <- function(..., type = NULL, h = c(0, 360) + 15, c = 1
 scale_fill_qualitative <- function(..., type = NULL, h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
                                    direction = 1, na.value = "grey50", aesthetics = "fill") {
   discrete_scale(
-    aesthetics, "qualitative", qualitative_pal(type, h, c, l, h.start, direction),
+    aesthetics, palette = qualitative_pal(type, h, c, l, h.start, direction),
     na.value = na.value, ...
   )
 }
