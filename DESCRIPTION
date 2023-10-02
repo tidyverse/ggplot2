@@ -272,7 +272,6 @@ Collate:
     'utilities-help.R'
     'utilities-matrix.R'
     'utilities-resolution.R'
-    'utilities-table.R'
     'utilities-tidy-eval.R'
     'zxx.R'
     'zzz.R'
