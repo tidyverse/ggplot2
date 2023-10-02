@@ -5,10 +5,20 @@
 #' @usage NULL
 scale_colour_ordinal <- function(..., type = getOption("ggplot2.ordinal.colour", getOption("ggplot2.ordinal.fill"))) {
   type <- type %||% scale_colour_viridis_d
+  args <- list2(...)
+  args$call <- args$call %||% current_call()
   if (is.function(type)) {
-    type(...)
+    if (any(c("...", "call") %in% fn_fmls_names(type))) {
+      args$call <- args$call %||% current_call()
+    }
+    exec(type, !!!args)
   } else {
-    discrete_scale("colour", "ordinal", ordinal_pal(type), ...)
+    exec(
+      discrete_scale,
+      aesthetics = "colour",
+      palette = ordinal_pal(type),
+      !!!args
+    )
   }
 }
 
@@ -72,10 +82,21 @@ scale_color_date <- scale_colour_date
 #' @usage NULL
 scale_fill_ordinal <- function(..., type = getOption("ggplot2.ordinal.fill", getOption("ggplot2.ordinal.colour"))) {
   type <- type %||% scale_fill_viridis_d
+  args <- list2(...)
+  args$call <- args$call %||% current_call()
+
   if (is.function(type)) {
-    type(...)
+    if (any(c("...", "call") %in% fn_fmls_names(type))) {
+      args$call <- args$call %||% current_call()
+    }
+    exec(type, !!!args)
   } else {
-    discrete_scale("fill", "ordinal", ordinal_pal(type), ...)
+    exec(
+      discrete_scale,
+      aesthetics = "fill",
+      palette = ordinal_pal(type),
+      !!!args
+    )
   }
 }
 

@@ -25,3 +25,19 @@ test_that("`drop = FALSE` preserves groups with 1 observations", {
   )
   expect_equal(length(unique(ld$x)), 4)
 })
+
+test_that("mapped_discrete class is preserved", {
+
+  df <- data_frame0(
+    x = factor(rep(c("A", "C"), each = 3), c("A", "B", "C")),
+    y = 1:6
+  )
+
+  ld <- layer_data(
+    ggplot(df, aes(x, y)) + geom_violin() +
+      scale_x_discrete(drop = FALSE)
+  )
+
+  expect_s3_class(ld$x, "mapped_discrete")
+  expect_equal(unique(ld$x), c(1, 3))
+})

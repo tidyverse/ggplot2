@@ -5,13 +5,9 @@ test_that("plot succeeds even if some computation fails", {
   b1 <- ggplot_build(p1)
   expect_equal(length(b1$data), 1)
 
-  p2 <- p1 + geom_smooth()
+  p2 <- p1 + stat_summary(fun = function(x) stop("Failed computation"))
 
-  # TODO: These multiple warnings should be summarized nicely. Until this gets
-  #       fixed, this test ignores all the following errors than the first one.
-  suppressWarnings(
-    expect_warning(b2 <- ggplot_build(p2), "Computation failed")
-  )
+  expect_warning(b2 <- ggplot_build(p2), "Computation failed")
   expect_equal(length(b2$data), 2)
 })
 

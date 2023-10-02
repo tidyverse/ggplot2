@@ -76,12 +76,10 @@ If you are new to ggplot2 you are better off starting with a systematic
 introduction, rather than trying to learn from reading individual
 documentation pages. Currently, there are three good places to start:
 
-1.  The [Data
-    Visualisation](https://r4ds.had.co.nz/data-visualisation.html) and
-    [Graphics for
-    communication](https://r4ds.had.co.nz/graphics-for-communication.html)
-    chapters in [R for Data Science](https://r4ds.had.co.nz). R for Data
-    Science is designed to give you a comprehensive introduction to the
+1.  The [Data Visualization](https://r4ds.hadley.nz/data-visualize) and
+    [Communication](https://r4ds.hadley.nz/communication) chapters in [R
+    for Data Science](https://r4ds.hadley.nz). R for Data Science is
+    designed to give you a comprehensive introduction to the
     [tidyverse](https://www.tidyverse.org), and these two chapters will
     get you up to speed with the essentials of ggplot2 as quickly as
     possible.
