@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* New function `check_device()` for testing the availability of advanced 
+  graphics features introduced in R 4.1.0 onwards (@teunbrand, #5332).
+
 * Failing to fit or predict in `stat_smooth()` now gives a warning and omits
   the failed group, instead of throwing an error (@teunbrand, #5352).
   
