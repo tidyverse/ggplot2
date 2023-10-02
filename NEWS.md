@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Failing to fit or predict in `stat_smooth()` now gives a warning and omits
+  the failed group, instead of throwing an error (@teunbrand, #5352).
+  
 * `resolution()` has a small tolerance, preventing spuriously small resolutions 
   due to rounding errors (@teunbrand, #2516).
 
