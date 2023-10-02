@@ -3,6 +3,27 @@
 * `resolution()` has a small tolerance, preventing spuriously small resolutions 
   due to rounding errors (@teunbrand, #2516).
 
+* `labeller()` now handles unspecified entries from lookup tables
+  (@92amartins, #4599).
+
+* `fortify.default()` now accepts a data-frame-like object granted the object
+  exhibits healthy `dim()`, `colnames()`, and `as.data.frame()` behaviors
+  (@hpages, #5390).
+
+* `ScaleContinuous$get_breaks()` now only calls `scales::zero_range()` on limits
+  in transformed space, rather than in data space (#5304).
+
+* Scales throw more informative messages (@teunbrand, #4185, #4258)
+
+* The `scale_name` argument in `continuous_scale()`, `discrete_scale()` and
+  `binned_scale()` is soft-deprecated (@teunbrand, #1312).
+
+* In `theme()`, some elements can be specified with `rel()` to inherit from
+  `unit`-class objects in a relative fashion (@teunbrand, #3951).
+
+* `stat_ydensity()` with incomplete groups calculates the default `width` 
+  parameter more stably (@teunbrand, #5396)
+
 * `geom_boxplot()` gains a new argument, `staplewidth` that can draw staples
   at the ends of whiskers (@teunbrand, #5126)
 

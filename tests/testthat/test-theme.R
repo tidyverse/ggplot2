@@ -170,6 +170,16 @@ test_that("calculating theme element inheritance works", {
   e1 <- ggplot2:::calc_element("strip.text.x", theme)
   e2 <- ggplot2:::calc_element("strip.text", theme)
   expect_identical(e1, e2)
+
+  # Check that rel units are computed appropriately
+  theme <- theme_gray() +
+    theme(axis.ticks.length = unit(1, "cm"),
+          axis.ticks.length.x = rel(0.5),
+          axis.ticks.length.x.bottom = rel(4))
+
+  expect_equal(calc_element("axis.ticks.length.y.left", theme), unit(1, "cm"))
+  expect_equal(calc_element("axis.ticks.length.x.top", theme), unit(1, "cm") * 0.5)
+  expect_equal(calc_element("axis.ticks.length.x.bottom", theme), unit(1, "cm") * 0.5 * 4)
 })
 
 test_that("complete and non-complete themes interact correctly with each other", {
