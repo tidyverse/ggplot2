@@ -310,7 +310,7 @@ Guides <- ggproto(
     # Ensure a 1:1 mapping between aesthetics and scales
     aesthetics <- lapply(scales, `[[`, "aesthetics")
     scales     <- rep.int(scales, lengths(aesthetics))
-    aesthetics <- unlist(aesthetics, FALSE, FALSE)
+    aesthetics <- unlist(aesthetics, recursive = FALSE, use.names = FALSE)
 
     # Setup and train scales
     guides <- self$setup(scales, aesthetics = aesthetics)
