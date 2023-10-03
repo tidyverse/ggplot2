@@ -6,7 +6,7 @@
 #' the very regular alignment of [geom_bin2d()].
 #'
 #' @eval rd_aesthetics("geom", "hex")
-#' @seealso [stat_bin2d()] for rectangular binning
+#' @seealso [stat_bin_2d()] for rectangular binning
 #' @param geom,stat Override the default connection between `geom_hex()` and
 #'   `stat_binhex()`.
 #' @export
