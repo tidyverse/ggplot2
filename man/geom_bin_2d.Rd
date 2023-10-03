@@ -131,5 +131,5 @@ d + geom_bin_2d(bins = 30)
 d + geom_bin_2d(binwidth = c(0.1, 0.1))
 }
 \seealso{
-\code{\link[=stat_binhex]{stat_binhex()}} for hexagonal binning
+\code{\link[=stat_bin_hex]{stat_bin_hex()}} for hexagonal binning
 }

@@ -12,7 +12,7 @@
 #' @inheritParams geom_point
 #' @param geom,stat Use to override the default connection between
 #'   `geom_bin_2d()` and `stat_bin_2d()`.
-#' @seealso [stat_binhex()] for hexagonal binning
+#' @seealso [stat_bin_hex()] for hexagonal binning
 #' @examples
 #' d <- ggplot(diamonds, aes(x, y)) + xlim(4, 10) + ylim(4, 10)
 #' d + geom_bin_2d()
