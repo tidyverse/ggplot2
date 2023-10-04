@@ -70,7 +70,7 @@ The point geom is used to create scatterplots. The scatterplot is most
 useful for displaying the relationship between two continuous variables.
 It can be used to compare one continuous and one categorical variable, or
 two categorical variables, but a variation like \code{\link[=geom_jitter]{geom_jitter()}},
-\code{\link[=geom_count]{geom_count()}}, or \code{\link[=geom_bin2d]{geom_bin2d()}} is usually more
+\code{\link[=geom_count]{geom_count()}}, or \code{\link[=geom_bin_2d]{geom_bin_2d()}} is usually more
 appropriate. A \emph{bubblechart} is a scatterplot with a third variable
 mapped to the size of points.
 }
