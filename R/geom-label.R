@@ -2,7 +2,7 @@
 #' @rdname geom_text
 #' @param label.padding Amount of padding around label. Defaults to 0.25 lines.
 #' @param label.r Radius of rounded corners. Defaults to 0.15 lines.
-#' @param label.size Size of label border, in mm.
+#' @param label.size `r lifecycle::badge("deprecated")` Please use `linewidth`. Size of label border, in mm.
 geom_label <- function(mapping = NULL, data = NULL,
                        stat = "identity", position = "identity",
                        ...,
@@ -25,6 +25,10 @@ geom_label <- function(mapping = NULL, data = NULL,
     }
 
     position <- position_nudge(nudge_x, nudge_y)
+  }
+
+  if (!missing(label.size)) {
+    message("`label.size` is deprecated. Please use `linewidth` in the future.")
   }
 
   layer(
@@ -58,7 +62,7 @@ GeomLabel <- ggproto("GeomLabel", Geom,
   default_aes = aes(
     colour = "black", fill = "white", size = 3.88, angle = 0,
     hjust = 0.5, vjust = 0.5, alpha = NA, family = "", fontface = 1,
-    lineheight = 1.2
+    lineheight = 1.2, linetype = "solid", linewidth = 0.25
   ),
 
   draw_panel = function(self, data, panel_params, coord, parse = FALSE,
@@ -66,7 +70,9 @@ GeomLabel <- ggproto("GeomLabel", Geom,
                         label.padding = unit(0.25, "lines"),
                         label.r = unit(0.15, "lines"),
                         label.size = 0.25,
-                        size.unit = "mm") {
+                        size.unit = "mm",
+                        border_colour = NULL,
+                        border_color = border_colour) {
     lab <- data$label
     if (parse) {
       lab <- parse_safe(as.character(lab))
@@ -102,9 +108,10 @@ GeomLabel <- ggproto("GeomLabel", Geom,
           lineheight = row$lineheight
         ),
         rect.gp = gpar(
-          col = if (isTRUE(all.equal(label.size, 0))) NA else row$colour,
+          col = ifelse(row$linewidth == 0, NA, border_colour %||% border_color %||% row$colour),
           fill = alpha(row$fill, row$alpha),
-          lwd = label.size * .pt
+          lty = row$linetype,
+          lwd = (row$linewidth %||% label.size) * .pt
         )
       )
     })

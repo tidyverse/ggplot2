@@ -85,7 +85,7 @@ Cannot be jointly specified with \code{position}.}
 
 \item{label.r}{Radius of rounded corners. Defaults to 0.15 lines.}
 
-\item{label.size}{Size of label border, in mm.}
+\item{label.size}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Please use \code{linewidth}. Size of label border, in mm.}
 
 \item{size.unit}{How the \code{size} aesthetic is interpreted: as millimetres
 (\code{"mm"}, default), points (\code{"pt"}), centimetres (\code{"cm"}), inches (\code{"in"}),
@@ -206,6 +206,35 @@ p + geom_text(aes(colour = factor(cyl)))
 p + geom_text(aes(colour = factor(cyl))) +
   scale_colour_discrete(l = 40)
 p + geom_label(aes(fill = factor(cyl)), colour = "white", fontface = "bold")
+
+# Add aesthetics to the border for geom_label
+data.frame(x = 1:10, y = 1:10) |>
+ggplot() +
+  geom_label(aes(
+    label=month.abb[x],
+    x=x,
+    y=y,
+    color = factor(x\%\%3),
+    linewidth = x\%\%2,
+    linetype = factor(x\%\%3)),
+    fill = NA) +
+scale_linewidth(range=c(0.5, 1.5)) +
+scale_linetype_manual(values=c("solid", "blank", "dotted"))
+
+# Override the border color
+data.frame(x = 1:10, y = 1:10) |>
+ggplot() +
+  geom_label(aes(
+    label=month.abb[x],
+    x=x,
+    y=y,
+    color = factor(x\%\%3),
+    linewidth=x\%\%2,
+    linetype=factor(x\%\%3)),
+    border_color = "red",
+    fill=NA) +
+scale_linewidth(range=c(0.5, 1.5)) +
+scale_linetype_manual(values=c("solid", "blank", "dotted"))
 
 p + geom_text(aes(size = wt))
 # Scale height of text, rather than sqrt(height)

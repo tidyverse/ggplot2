@@ -89,6 +89,35 @@
 #'   scale_colour_discrete(l = 40)
 #' p + geom_label(aes(fill = factor(cyl)), colour = "white", fontface = "bold")
 #'
+#' # Add aesthetics to the border for geom_label
+#' data.frame(x = 1:10, y = 1:10) |>
+#' ggplot() +
+#'   geom_label(aes(
+#'     label=month.abb[x],
+#'     x=x,
+#'     y=y,
+#'     color = factor(x%%3),
+#'     linewidth = x%%2,
+#'     linetype = factor(x%%3)),
+#'     fill = NA) +
+#' scale_linewidth(range=c(0.5, 1.5)) +
+#' scale_linetype_manual(values=c("solid", "blank", "dotted"))
+#'
+#' # Override the border color
+#' data.frame(x = 1:10, y = 1:10) |>
+#' ggplot() +
+#'   geom_label(aes(
+#'     label=month.abb[x],
+#'     x=x,
+#'     y=y,
+#'     color = factor(x%%3),
+#'     linewidth=x%%2,
+#'     linetype=factor(x%%3)),
+#'     border_color = "red",
+#'     fill=NA) +
+#' scale_linewidth(range=c(0.5, 1.5)) +
+#' scale_linetype_manual(values=c("solid", "blank", "dotted"))
+#'
 #' p + geom_text(aes(size = wt))
 #' # Scale height of text, rather than sqrt(height)
 #' p +
