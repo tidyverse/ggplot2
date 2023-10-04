@@ -597,5 +597,3 @@ axis_label_element_overrides <- function(axis_position, angle = NULL) {
     ))
   }
 }
-
-.no_labels = function(...) NULL
