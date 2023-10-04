@@ -266,12 +266,12 @@ GuideAxis <- ggproto(
     if (direction == "vertical") {
       params[new_params] <- list(
         "y", "x", "heights", "width", "widths",
-        TRUE, gtable_width, grobWidth
+        TRUE, gtable_width, width_cm
       )
     } else {
       params[new_params] <- list(
         "x", "y", "widths", "height", "heights",
-        FALSE, gtable_height, grobHeight
+        FALSE, gtable_height, height_cm
       )
     }
 
@@ -362,21 +362,19 @@ GuideAxis <- ggproto(
     measure <- params$measure_text
 
     # Ticks
-    range <- range(
-      0, convertUnit(elements$major_length, "cm", valueOnly = TRUE)
-    )
+    major_cm <- convertUnit(elements$major_length, "cm", valueOnly = TRUE)
+    range <- range(0, major_cm)
     if (params$minor.ticks && !inherits(elements$minor, "element_blank")) {
-      range <- range(
-        range, convertUnit(elements$minor_length, "cm", valueOnly = TRUE)
-      )
+      minor_cm <- convertUnit(elements$minor_length, "cm", valueOnly = TRUE)
+      range <- range(range, minor_cm)
     }
 
     length <- unit(range[2], "cm")
     spacer <- max(unit(0, "pt"), unit(-1 * diff(range), "cm"))
 
     # Text
-    labels <- do.call(unit.c, lapply(grobs$label, measure))
-    title  <- measure(grobs$title)
+    labels <- unit(measure(grobs$label), "cm")
+    title  <- unit(measure(grobs$title), "cm")
 
     sizes <- unit.c(length, spacer, labels, title)
     if (params$lab_first) {
