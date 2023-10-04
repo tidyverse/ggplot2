@@ -5,7 +5,7 @@
 #' rectangle's fill. This is a useful alternative to [geom_point()]
 #' in the presence of overplotting.
 #'
-#' @eval rd_aesthetics("stat", "bin2d")
+#' @eval rd_aesthetics("stat", "bin_2d")
 #'
 #' @export
 #' @inheritParams layer
