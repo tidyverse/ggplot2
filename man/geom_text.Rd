@@ -208,8 +208,7 @@ p + geom_text(aes(colour = factor(cyl))) +
 p + geom_label(aes(fill = factor(cyl)), colour = "white", fontface = "bold")
 
 # Add aesthetics to the border for geom_label
-data.frame(x = 1:10, y = 1:10) |>
-ggplot() +
+ggplot(data.frame(x = 1:10, y = 1:10)) +
   geom_label(aes(
     label=month.abb[x],
     x=x,
@@ -222,8 +221,7 @@ scale_linewidth(range=c(0.5, 1.5)) +
 scale_linetype_manual(values=c("solid", "blank", "dotted"))
 
 # Override the border color
-data.frame(x = 1:10, y = 1:10) |>
-ggplot() +
+ggplot(data.frame(x = 1:10, y = 1:10)) +
   geom_label(aes(
     label=month.abb[x],
     x=x,
