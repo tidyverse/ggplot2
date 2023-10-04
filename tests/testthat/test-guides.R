@@ -508,7 +508,7 @@ test_that("absent titles don't take up space", {
       axis.line = element_line(colour = "black")
     )
 
-  expect_doppelganger("left-aligned legend key", plot + coord_trans())
+  expect_doppelganger("left aligned legend key", p)
 })
 
 test_that("axis guides can be capped", {
