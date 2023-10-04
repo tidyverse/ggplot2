@@ -306,18 +306,17 @@ GuideAxis <- ggproto(
 
     major <- Guide$build_ticks(
       vec_slice(key, (key$.type %||% "major") == "major"),
-      elements, params, position,
+      elements$ticks, params, position,
       elements$major_length
     )
 
-    if (!params$minor.ticks || inherits(elements$minor, "element_blank")) {
+    if (!params$minor.ticks) {
       return(major)
     }
 
-    elements$ticks <- elements$minor
     minor <- Guide$build_ticks(
       vec_slice(key, (key$.type %||% "major") == "minor"),
-      elements, params, position,
+      elements$minor, params, position,
       elements$minor_length
     )
     grobTree(major, minor, name = "ticks")
