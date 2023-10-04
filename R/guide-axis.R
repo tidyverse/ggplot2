@@ -113,14 +113,25 @@ GuideAxis <- ggproto(
     if (!minor.ticks) {
       return(major)
     }
-    if (!is.null(major)) {
-      major$.type <- "major"
+
+    minor_breaks <- scale$get_breaks_minor()
+    minor_breaks <- setdiff(minor_breaks, major$.value)
+    minor_breaks <- minor_breaks[is.finite(minor_breaks)]
+
+    if (length(minor_breaks) < 1) {
+      return(major)
     }
-    minor <- setdiff(scale$get_breaks_minor(), major$.value)
-    new_scale <- ggproto(NULL, scale, breaks = minor, get_labels = .no_labels)
-    minor <- Guide$extract_key(new_scale, aesthetic, ...)
+
+    minor <- data_frame0(!!aesthetic := scale$map(minor_breaks))
+    minor$.value <- minor_breaks
     minor$.type <- "minor"
-    vec_rbind(major, minor)
+
+    if (nrow(major) > 0) {
+      major$.type <- "major"
+      vec_rbind(major, minor)
+    } else {
+      minor
+    }
   },
 
   extract_params = function(scale, params, ...) {
