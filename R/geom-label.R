@@ -2,7 +2,7 @@
 #' @rdname geom_text
 #' @param label.padding Amount of padding around label. Defaults to 0.25 lines.
 #' @param label.r Radius of rounded corners. Defaults to 0.15 lines.
-#' @param label.size `r lifecycle::badge("deprecated")` Please use `linewidth`. Size of label border, in mm.
+#' @param label.size `r lifecycle::badge("deprecated")` Please use `linewidth` to set the size of the border.
 #' @param border_colour Colour of the label's border. If `NULL`, it will fall back to the text colour.
 geom_label <- function(mapping = NULL, data = NULL,
                        stat = "identity", position = "identity",
@@ -12,7 +12,7 @@ geom_label <- function(mapping = NULL, data = NULL,
                        nudge_y = 0,
                        label.padding = unit(0.25, "lines"),
                        label.r = unit(0.15, "lines"),
-                       label.size = 0.25,
+                       label.size = deprecated(),
                        size.unit = "mm",
                        border_colour = NULL,
                        na.rm = FALSE,
@@ -46,7 +46,6 @@ geom_label <- function(mapping = NULL, data = NULL,
       parse = parse,
       label.padding = label.padding,
       label.r = label.r,
-      label.size = label.size,
       size.unit = size.unit,
       border_colour = border_colour %||% border_color,
       na.rm = na.rm,
@@ -73,7 +72,6 @@ GeomLabel <- ggproto("GeomLabel", Geom,
                         na.rm = FALSE,
                         label.padding = unit(0.25, "lines"),
                         label.r = unit(0.15, "lines"),
-                        label.size = 0.25,
                         size.unit = "mm",
                         border_colour = NULL) {
     lab <- data$label
@@ -114,7 +112,7 @@ GeomLabel <- ggproto("GeomLabel", Geom,
           col = ifelse(row$linewidth == 0, NA, border_colour %||% row$colour),
           fill = alpha(row$fill, row$alpha),
           lty = row$linetype,
-          lwd = (row$linewidth %||% label.size) * .pt
+          lwd = row$linewidth * .pt
         )
       )
     })

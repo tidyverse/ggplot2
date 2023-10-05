@@ -16,7 +16,7 @@ geom_label(
   nudge_y = 0,
   label.padding = unit(0.25, "lines"),
   label.r = unit(0.15, "lines"),
-  label.size = 0.25,
+  label.size = deprecated(),
   size.unit = "mm",
   border_colour = NULL,
   na.rm = FALSE,
@@ -87,7 +87,7 @@ Cannot be jointly specified with \code{position}.}
 
 \item{label.r}{Radius of rounded corners. Defaults to 0.15 lines.}
 
-\item{label.size}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Please use \code{linewidth}. Size of label border, in mm.}
+\item{label.size}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Please use \code{linewidth} to set the size of the border.}
 
 \item{size.unit}{How the \code{size} aesthetic is interpreted: as millimetres
 (\code{"mm"}, default), points (\code{"pt"}), centimetres (\code{"cm"}), inches (\code{"in"}),
