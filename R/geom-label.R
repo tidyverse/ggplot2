@@ -27,8 +27,8 @@ geom_label <- function(mapping = NULL, data = NULL,
     position <- position_nudge(nudge_x, nudge_y)
   }
 
-  if (!missing(label.size)) {
-    message("`label.size` is deprecated. Please use `linewidth` in the future.")
+  if (lifecycle::is_present(label.size)) {
+    deprecate_warn0("3.5.0", "geom_label(label.size)", "geom_label(linewidth)")
   }
 
   layer(
