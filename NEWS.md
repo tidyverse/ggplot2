@@ -1,5 +1,11 @@
 # ggplot2 (development version)
 
+* The spacing between legend keys and their labels, in addition to legends
+  and their titles, is now controlled by the text's `margin` setting. Not
+  specifying margins will automatically add appropriate text margins. This
+  leaves the `legend.spacing` dedicated to controlling the spacing between
+  different keys (#5455).
+
 * New function `check_device()` for testing the availability of advanced 
   graphics features introduced in R 4.1.0 onwards (@teunbrand, #5332).
 
