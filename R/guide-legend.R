@@ -437,6 +437,17 @@ GuideLegend <- ggproto(
       "cm", valueOnly = TRUE
     )
 
+    if (is.null(params$label.theme$margin %||% theme$legend.text$margin) &&
+        !inherits(elements$text, "element_blank")) {
+      i <- match(params$label.position, .trbl[c(3, 4, 1, 2)])
+      elements$text$margin[i] <- elements$text$margin[i] + gap
+    }
+    if (is.null(params$title.theme$margin %||% theme$legend.title$margin) &&
+        !inherits(elements$title, "element_blank")) {
+      i <- match(params$title.position, .trbl[c(3, 4, 1, 2)])
+      elements$title$margin[i] <- elements$title$margin[i] + gap
+    }
+
     # Evaluate backgrounds early
     if (!is.null(elements$background)) {
       elements$background <- ggname(
