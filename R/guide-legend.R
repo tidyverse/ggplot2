@@ -532,8 +532,8 @@ GuideLegend <- ggproto(
     hgap <- elements$hgap %||% 0
     widths <- switch(
       params$label.position,
-      "left"   = list(label_widths, hgap, widths, hgap),
-      "right"  = list(widths, hgap, label_widths, hgap),
+      "left"   = list(label_widths, widths, hgap),
+      "right"  = list(widths, label_widths, hgap),
       list(pmax(label_widths, widths), hgap * (!byrow))
     )
     widths  <- head(vec_interleave(!!!widths),  -1)
@@ -541,8 +541,8 @@ GuideLegend <- ggproto(
     vgap <- elements$vgap %||% 0
     heights <- switch(
       params$label.position,
-      "top"    = list(label_heights, vgap, heights, vgap),
-      "bottom" = list(heights, vgap, label_heights, vgap),
+      "top"    = list(label_heights, heights, vgap),
+      "bottom" = list(heights, label_heights, vgap),
       list(pmax(label_heights, heights), vgap * (byrow))
     )
     heights <- head(vec_interleave(!!!heights), -1)
@@ -554,14 +554,14 @@ GuideLegend <- ggproto(
     # Combine title with rest of the sizes based on its position
     widths <- switch(
       params$title.position,
-      "left"  = c(title_width, hgap, widths),
-      "right" = c(widths, hgap, title_width),
+      "left"  = c(title_width, widths),
+      "right" = c(widths, title_width),
       c(widths, max(0, title_width - sum(widths)))
     )
     heights <- switch(
       params$title.position,
-      "top"    = c(title_height, vgap, heights),
-      "bottom" = c(heights, vgap, title_height),
+      "top"    = c(title_height, heights),
+      "bottom" = c(heights, title_height),
       c(heights, max(0, title_height - sum(heights)))
     )
 
@@ -596,20 +596,20 @@ GuideLegend <- ggproto(
     switch(
       params$label.position,
       "top" = {
-        key_row   <- key_row   * 2
-        label_row <- label_row * 2 - 2
+        key_row   <- key_row + df$R
+        label_row <- key_row - 1
       },
       "bottom" = {
-        key_row   <- key_row   * 2 - 2
-        label_row <- label_row * 2
+        key_row   <- key_row + df$R - 1
+        label_row <- key_row + 1
       },
       "left" = {
-        key_col   <- key_col   * 2
-        label_col <- label_col * 2 - 2
+        key_col   <- key_col + df$C
+        label_col <- key_col - 1
       },
       "right" = {
-        key_col   <- key_col   * 2 - 2
-        label_col <- label_col * 2
+        key_col   <- key_col + df$C - 1
+        label_col <- key_col + 1
       }
     )
 
@@ -617,8 +617,8 @@ GuideLegend <- ggproto(
     switch(
       params$title.position,
       "top" = {
-        key_row   <- key_row   + 2
-        label_row <- label_row + 2
+        key_row   <- key_row   + 1
+        label_row <- label_row + 1
         title_row <- 2
         title_col <- seq_along(sizes$widths) + 1
       },
@@ -627,8 +627,8 @@ GuideLegend <- ggproto(
         title_col <- seq_along(sizes$widths) + 1
       },
       "left" = {
-        key_col   <- key_col   + 2
-        label_col <- label_col + 2
+        key_col   <- key_col   + 1
+        label_col <- label_col + 1
         title_row <- seq_along(sizes$heights) + 1
         title_col <- 2
       },
