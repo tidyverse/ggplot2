@@ -252,17 +252,15 @@ draw_key_text <- function(data, params, size) {
 #' @export
 #' @rdname draw_key
 draw_key_label <- function(data, params, size) {
-  if(is.null(data$label))         data$label <- "a"
-  if(is.null(data$label.r))       data$label.r <- unit(0.1, "snpc")
   if(is.null(params$label.padding)) params$label.padding <- unit(0.25, "lines")
   if(length(params$label.padding) == 1) params$label.padding[2:4] <- params$label.padding
 
   labelGrob(
-    label = data$label,
+    label = data$label %||% "a",
     x = 0.5,
     y = 0.5,
     padding = params$label.padding,
-    r = data$label.r,
+    r = data$label.r %||% unit(0.1, "snpc"),
     angle = data$angle %||% 0,
     text.gp = gpar(
       col = alpha(data$colour %||% "white", data$alpha),
