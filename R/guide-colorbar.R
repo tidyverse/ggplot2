@@ -429,17 +429,10 @@ GuideColourbar <- ggproto(
       return(list(labels = zeroGrob()))
     }
 
-    just <- if (params$direction == "horizontal") {
-      elements$text$vjust
-    } else {
-      elements$text$hjust
-    }
-
     list(labels = flip_element_grob(
       elements$text,
       label = validate_labels(key$.label),
       x = unit(key$.value, "npc"),
-      y = rep(just, nrow(key)),
       margin_x = FALSE,
       margin_y = TRUE,
       flip = params$direction == "vertical"
