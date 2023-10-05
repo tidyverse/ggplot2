@@ -18,9 +18,11 @@ geom_label(
   label.r = unit(0.15, "lines"),
   label.size = 0.25,
   size.unit = "mm",
+  border_colour = NULL,
   na.rm = FALSE,
   show.legend = NA,
-  inherit.aes = TRUE
+  inherit.aes = TRUE,
+  border_color = border_colour
 )
 
 geom_text(
@@ -90,6 +92,8 @@ Cannot be jointly specified with \code{position}.}
 \item{size.unit}{How the \code{size} aesthetic is interpreted: as millimetres
 (\code{"mm"}, default), points (\code{"pt"}), centimetres (\code{"cm"}), inches (\code{"in"}),
 or picas (\code{"pc"}).}
+
+\item{border_colour}{Colour of the label's border. If \code{NULL}, it will fall back to the text colour.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}

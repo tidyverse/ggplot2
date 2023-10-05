@@ -3,6 +3,7 @@
 #' @param label.padding Amount of padding around label. Defaults to 0.25 lines.
 #' @param label.r Radius of rounded corners. Defaults to 0.15 lines.
 #' @param label.size `r lifecycle::badge("deprecated")` Please use `linewidth`. Size of label border, in mm.
+#' @param border_colour Colour of the label's border. If `NULL`, it will fall back to the text colour.
 geom_label <- function(mapping = NULL, data = NULL,
                        stat = "identity", position = "identity",
                        ...,
@@ -13,9 +14,11 @@ geom_label <- function(mapping = NULL, data = NULL,
                        label.r = unit(0.15, "lines"),
                        label.size = 0.25,
                        size.unit = "mm",
+                       border_colour = NULL,
                        na.rm = FALSE,
                        show.legend = NA,
-                       inherit.aes = TRUE) {
+                       inherit.aes = TRUE,
+                       border_color = border_colour) {
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
       cli::cli_abort(c(
@@ -45,6 +48,7 @@ geom_label <- function(mapping = NULL, data = NULL,
       label.r = label.r,
       label.size = label.size,
       size.unit = size.unit,
+      border_colour = border_colour %||% border_color,
       na.rm = na.rm,
       ...
     )
@@ -71,8 +75,7 @@ GeomLabel <- ggproto("GeomLabel", Geom,
                         label.r = unit(0.15, "lines"),
                         label.size = 0.25,
                         size.unit = "mm",
-                        border_colour = NULL,
-                        border_color = border_colour) {
+                        border_colour = NULL) {
     lab <- data$label
     if (parse) {
       lab <- parse_safe(as.character(lab))
@@ -108,7 +111,7 @@ GeomLabel <- ggproto("GeomLabel", Geom,
           lineheight = row$lineheight
         ),
         rect.gp = gpar(
-          col = ifelse(row$linewidth == 0, NA, border_colour %||% border_color %||% row$colour),
+          col = ifelse(row$linewidth == 0, NA, border_colour %||% row$colour),
           fill = alpha(row$fill, row$alpha),
           lty = row$linetype,
           lwd = (row$linewidth %||% label.size) * .pt
