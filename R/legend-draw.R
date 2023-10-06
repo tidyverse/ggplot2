@@ -269,7 +269,7 @@ draw_key_label <- function(data, params, size) {
       fontsize = (data$size %||% 3.88) * .pt
     ),
     rect.gp = gpar(
-      col = alpha(params$border_colour %||% params$border_color %||% "black", data$alpha),
+      col = alpha(params$border_colour %||% params$border_color %||% data$colour %||% "black", data$alpha),
       fill = alpha(data$fill %||% "white", data$alpha),
       lty = data$linetype,
       lwd = data$linewidth * .pt
