@@ -79,12 +79,13 @@ pattern_alpha <- function(x, alpha) {
     x$colours <- alpha(x$colours, alpha[1])
     return(x)
   }
-  no_alpha <- is.na(alpha[1]) || alpha[1] == 1
-  if (inherits(x, "GridTilingPattern") && !no_alpha) {
+  needs_alpha <- !(is.na(alpha[1]) || alpha[1] == 1)
+  if (needs_alpha && inherits(x, "GridTilingPattern") &&
+      check_device("alpha_masks", action = "warn")) {
     # Dig out the grob from the function environment
     grob <- env_get(environment(x$f), "grob")
     # Apply a mask in the grob's viewport
-    mask <- as.mask(rectGrob(gp = gpar(fill = alpha("black", alpha[1]))))
+    mask <- as.mask(rectGrob(gp = gpar(fill = alpha("white", alpha[1]))))
     if (is.null(grob$vp)) {
       grob$vp <- viewport(mask = mask)
     } else {
