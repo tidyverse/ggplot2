@@ -28,13 +28,7 @@ fill_alpha <- function(fill, alpha) {
     return(alpha(fill, alpha))
   }
   if (any(vapply(fill, is_pattern, logical(1)))) {
-    if (utils::packageVersion("grid") < "4.2") {
-      # Pattern fills were introduced in R 4.1.0, but *vectorised* patterns
-      # were only introduced in R 4.2.0.
-      cli::cli_abort(
-        "Using patterns in {.pkg ggplot2} requires at least R version 4.2.0."
-      )
-    }
+    check_device("patterns", action = "abort")
     fill <- pattern_alpha(fill, alpha)
     return(fill)
   } else {
