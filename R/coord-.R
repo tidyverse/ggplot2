@@ -97,17 +97,18 @@ Coord <- ggproto("Coord",
     aesthetics <- c("x", "y", "x.sec", "y.sec")
     names(aesthetics) <- aesthetics
     is_sec <- grepl("sec$", aesthetics)
+    scales <- panel_params[aesthetics]
 
     # Do guide setup
     guides <- guides$setup(
-      panel_params, aesthetics,
+      scales, aesthetics,
       default = params$guide_default %||% guide_axis(),
       missing = params$guide_missing %||% guide_none()
     )
     guide_params <- guides$get_params(aesthetics)
 
     # Resolve positions
-    scale_position <- lapply(panel_params[aesthetics], `[[`, "position")
+    scale_position <- lapply(scales, `[[`, "position")
     guide_position <- lapply(guide_params, `[[`, "position")
     guide_position[!is_sec] <- Map(
       function(guide, scale) guide %|W|% scale,
@@ -216,5 +217,24 @@ render_axis <- function(panel_params, axis, scale, position, theme) {
     draw_axis(panel_params[[paste0(scale, ".sec.major")]], panel_params[[paste0(scale, ".sec.labels")]], position, theme)
   } else {
     zeroGrob()
+  }
+}
+
+# Utility function to check coord limits
+check_coord_limits <- function(
+    limits, arg = caller_arg(limits), call = caller_env()
+) {
+  if (is.null(limits)) {
+    return(invisible(NULL))
+  }
+  if (!obj_is_vector(limits) || length(limits) != 2) {
+    what <- "{.obj_type_friendly {limits}}"
+    if (is.vector(limits)) {
+      what <- paste0(what, " of length {length(limits)}")
+    }
+    cli::cli_abort(
+      paste0("{.arg {arg}} must be a vector of length 2, not ", what, "."),
+      call = call
+    )
   }
 }

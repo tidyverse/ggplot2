@@ -224,7 +224,7 @@ Shapes take five types of values:
 
 *   A __single character__, to use that character as a plotting symbol.
 
-*   A `.` to draw the smallest rectangle that is visible, usualy 1 pixel.
+*   A `.` to draw the smallest rectangle that is visible, usually 1 pixel.
    
 *   An `NA`, to draw nothing.
 

@@ -256,12 +256,10 @@ GuideLegend <- ggproto(
     key.height  = "legend.key.height",
     key.width   = "legend.key.width",
     text        = "legend.text",
-    text.align  = "legend.text.align",
-    theme.title = "legend.title",
-    title.align = "legend.title.align"
+    theme.title = "legend.title"
   ),
 
-  extract_params = function(scale, params, hashables,
+  extract_params = function(scale, params,
                             title = waiver(), direction = NULL, ...) {
     params$title <- scale$make_title(
       params$title %|W|% scale$name %|W|% title
@@ -273,8 +271,7 @@ GuideLegend <- ggproto(
     if (isTRUE(params$reverse %||% FALSE)) {
       params$key <- params$key[nrow(params$key):1, , drop = FALSE]
     }
-
-    Guide$extract_params(scale, params, hashables)
+    params
   },
 
   merge = function(self, params, new_guide, new_params) {
@@ -331,10 +328,6 @@ GuideLegend <- ggproto(
       }
 
       data <- modify_list(data, params$override.aes)
-
-      if (!is.null(data$size)) {
-        data$size[is.na(data$size)] <- 0
-      }
 
       list(
         draw_key = layer$geom$draw_key,
@@ -395,8 +388,7 @@ GuideLegend <- ggproto(
 
     # Title
     title <- combine_elements(params$title.theme, elements$theme.title)
-    title$hjust <- params$title.hjust %||% elements$title.align %||%
-      title$hjust %||% 0
+    title$hjust <- params$title.hjust %||% title$hjust %||% 0
     title$vjust <- params$title.vjust %||% title$vjust %||% 0.5
     elements$title <- title
 
@@ -421,8 +413,7 @@ GuideLegend <- ggproto(
             is.null(theme$legend.text$vjust)) {
           label$vjust <- NULL
         }
-        label$hjust <- params$label.hjust %||% elements$text.align %||%
-          label$hjust %||% hjust
+        label$hjust <- params$label.hjust %||% label$hjust %||% hjust
         label$vjust <- params$label.vjust %||% label$vjust %||% vjust
       }
       elements$text <- label
@@ -480,6 +471,11 @@ GuideLegend <- ggproto(
   },
 
   build_labels = function(key, elements, params) {
+    n_labels <- length(key$.label)
+    if (n_labels < 1) {
+      out <- rep(list(zeroGrob()), nrow(key))
+      return(out)
+    }
     lapply(key$.label, function(lab) {
       ggname(
         "guide.label",
@@ -728,15 +724,17 @@ measure_legend_keys <- function(decor, n, dim, byrow = FALSE,
   zeroes <- rep(0, prod(dim) - n)
 
   # For every layer, extract the size in cm
-  size <- lapply(decor, function(g) g$data$size / 10) # mm to cm
+  size <- lapply(decor, function(g) {
+    lwd <- g$data$linewidth %||% 0
+    lwd[is.na(lwd)] <- 0
+    size <- g$data$size %||% 0
+    size[is.na(size)] <- 0
+    vec_recycle((size + lwd) / 10, size = nrow(g$data))
+  })
   size <- inject(cbind(!!!size))
 
-  # Guard against layers with no size aesthetic
-  if (any(dim(size) == 0)) {
-    size <- matrix(0, ncol = 1, nrow = n)
-  } else {
-    size <- size[seq_len(n), , drop = FALSE]
-  }
+  # Binned legends may have `n + 1` breaks, but we need to display `n` keys.
+  size <- vec_slice(size, seq_len(n))
 
   # For every key, find maximum across all layers
   size <- apply(size, 1, max)

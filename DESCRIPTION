@@ -1,5 +1,5 @@
 Package: ggplot2
-Version: 3.4.2.9000
+Version: 3.4.3.9000
 Title: Create Elegant Data Visualisations Using the Grammar of Graphics
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@posit.co", role = "aut",
@@ -28,7 +28,7 @@ License: MIT + file LICENSE
 URL: https://ggplot2.tidyverse.org, https://github.com/tidyverse/ggplot2
 BugReports: https://github.com/tidyverse/ggplot2/issues
 Depends:
-    R (>= 3.3)
+    R (>= 3.5)
 Imports: 
     cli,
     glue,
@@ -67,7 +67,7 @@ Suggests:
     sf (>= 0.7-3),
     svglite (>= 1.2.0.9001),
     testthat (>= 3.1.2),
-    vdiffr (>= 1.0.0),
+    vdiffr (>= 1.0.6),
     xml2
 Enhances: 
     sp
@@ -181,6 +181,7 @@ Collate:
     'guide-colorsteps.R'
     'layer.R'
     'guide-none.R'
+    'guide-old.R'
     'guides-.R'
     'guides-grid.R'
     'hexbin.R'
@@ -272,7 +273,6 @@ Collate:
     'utilities-matrix.R'
     'utilities-patterns.R'
     'utilities-resolution.R'
-    'utilities-table.R'
     'utilities-tidy-eval.R'
     'zxx.R'
     'zzz.R'

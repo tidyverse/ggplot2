@@ -42,14 +42,18 @@
 
 # Theme elements are checked during build
 
-    `plot.title.position` should be either "\"panel\"" or "\"plot\"".
+    `plot.title.position` must be one of "panel" or "plot", not "test".
 
 ---
 
-    `plot.caption.position` should be either "\"panel\"" or "\"plot\"".
+    `plot.caption.position` must be one of "panel" or "plot", not "test".
 
 ---
 
     `plot.tag.position` must be one of "topleft", "top", "topright", "left", "right", "bottomleft", "bottom", or "bottomright", not "test".
     i Did you mean "left"?
+
+# Theme validation behaves as expected
+
+    The `aspect.ratio` theme element must be a <numeric/integer> object.
 

@@ -40,7 +40,7 @@
 #' palette) are not suitable to support all viewers, especially those with
 #' color vision deficiencies. Using `viridis` type, which is perceptually
 #' uniform in both colour and black-and-white display is an easy option to
-#' ensure good perceptive properties of your visulizations.
+#' ensure good perceptive properties of your visualizations.
 #' The colorspace package offers functionalities
 #' - to generate color palettes with good perceptive properties,
 #' - to analyse a given color palette, like emulating color blindness,
@@ -141,7 +141,9 @@ scale_discrete_manual <- function(aesthetics, ..., values, breaks = waiver()) {
   manual_scale(aesthetics, values, breaks, ...)
 }
 
-manual_scale <- function(aesthetic, values = NULL, breaks = waiver(), ..., limits = NULL) {
+manual_scale <- function(aesthetic, values = NULL, breaks = waiver(), ...,
+                         limits = NULL, call = caller_call()) {
+  call <- call %||% current_call()
   # check for missing `values` parameter, in lieu of providing
   # a default to all the different scale_*_manual() functions
   if (is_missing(values)) {
@@ -152,7 +154,17 @@ manual_scale <- function(aesthetic, values = NULL, breaks = waiver(), ..., limit
 
   if (is.null(limits) && !is.null(names(values))) {
     # Limits as function to access `values` names later on (#4619)
-    limits <- function(x) intersect(x, names(values)) %||% character()
+    force(aesthetic)
+    limits <- function(x) {
+      x <- intersect(x, c(names(values), NA)) %||% character()
+      if (length(x) < 1) {
+        cli::cli_warn(paste0(
+          "No shared levels found between {.code names(values)} of the manual ",
+          "scale and the data's {.field {aesthetic}} values."
+        ))
+      }
+      x
+    }
   }
 
   # order values according to breaks
@@ -171,5 +183,6 @@ manual_scale <- function(aesthetic, values = NULL, breaks = waiver(), ..., limit
     }
     values
   }
-  discrete_scale(aesthetic, "manual", pal, breaks = breaks, limits = limits, ...)
+  discrete_scale(aesthetic, palette = pal, breaks = breaks, limits = limits,
+                 call = call, ...)
 }

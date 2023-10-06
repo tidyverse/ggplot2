@@ -39,15 +39,16 @@ GeomRect <- ggproto("GeomRect", Geom,
       aesthetics <- setdiff(
         names(data), c("x", "y", "xmin", "xmax", "ymin", "ymax")
       )
+      index <- rep(seq_len(nrow(data)), each = 4)
 
-      polys <- lapply(split(data, seq_len(nrow(data))), function(row) {
-        poly <- rect_to_poly(row$xmin, row$xmax, row$ymin, row$ymax)
-        aes <- row[rep(1,5), aesthetics]
+      new <- data[index, aesthetics, drop = FALSE]
+      new$x <- vec_interleave(data$xmin, data$xmax, data$xmax, data$xmin)
+      new$y <- vec_interleave(data$ymax, data$ymax, data$ymin, data$ymin)
+      new$group <- index
 
-        GeomPolygon$draw_panel(vec_cbind(poly, aes), panel_params, coord, lineend = lineend, linejoin = linejoin)
-      })
-
-      ggname("geom_rect", inject(grobTree(!!!polys)))
+      ggname("geom_rect", GeomPolygon$draw_panel(
+        new, panel_params, coord, lineend = lineend, linejoin = linejoin
+      ))
     } else {
       coords <- coord$transform(data, panel_params)
       ggname("geom_rect", rectGrob(
@@ -72,18 +73,3 @@ GeomRect <- ggproto("GeomRect", Geom,
 
   rename_size = TRUE
 )
-
-
-# Convert rectangle to polygon
-# Useful for non-Cartesian coordinate systems where it's easy to work purely in
-# terms of locations, rather than locations and dimensions. Note that, though
-# `polygonGrob()` expects an open form, closed form is needed for correct
-# munching (c.f. https://github.com/tidyverse/ggplot2/issues/3037#issuecomment-458406857).
-#
-# @keyword internal
-rect_to_poly <- function(xmin, xmax, ymin, ymax) {
-  data_frame0(
-    y = c(ymax, ymax, ymin, ymin, ymax),
-    x = c(xmin, xmax, xmax, xmin, xmin)
-  )
-}

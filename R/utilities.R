@@ -276,7 +276,7 @@ is.discrete <- function(x) {
 # the names of any columns that are not.
 # We define "data" as atomic types or lists, not functions or otherwise.
 # The `inherits(x, "Vector")` check is for checking S4 classes from Bioconductor
-# and wether they can be expected to follow behavior typical of vectors. See
+# and whether they can be expected to follow behavior typical of vectors. See
 # also #3835
 check_nondata_cols <- function(x) {
   idx <- (vapply(x, function(x) {
@@ -429,11 +429,11 @@ switch_orientation <- function(aesthetics) {
 #' features in the data correspond to:
 #'
 #' - `main_is_orthogonal`: This argument controls how the existence of only a `x`
-#'   or `y` aesthetic is understood. If `TRUE` then the exisiting aesthetic
+#'   or `y` aesthetic is understood. If `TRUE` then the existing aesthetic
 #'   would be then secondary axis. This behaviour is present in [stat_ydensity()]
-#'   and [stat_boxplot()]. If `FALSE` then the exisiting aesthetic is the main
+#'   and [stat_boxplot()]. If `FALSE` then the existing aesthetic is the main
 #'   axis as seen in e.g. [stat_bin()], [geom_count()], and [stat_density()].
-#' - `range_is_orthogonal`: This argument controls whether the existance of
+#' - `range_is_orthogonal`: This argument controls whether the existence of
 #'   range-like aesthetics (e.g. `xmin` and `xmax`) represents the main or
 #'   secondary axis. If `TRUE` then the range is given for the secondary axis as
 #'   seen in e.g. [geom_ribbon()] and [geom_linerange()].
@@ -513,7 +513,7 @@ has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA,
   xmax <- data$xmax %||% params$xmax
   ymax <- data$ymax %||% params$ymax
 
-  # Does a single x or y aesthetic corespond to a specific orientation
+  # Does a single x or y aesthetic correspond to a specific orientation
   if (!is.na(main_is_orthogonal) && xor(is.null(x), is.null(y))) {
     return(is.null(y) == main_is_orthogonal)
   }
