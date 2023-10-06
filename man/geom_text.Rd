@@ -213,7 +213,13 @@ p + geom_text(aes(colour = factor(cyl))) +
   scale_colour_discrete(l = 40)
 p + geom_label(aes(fill = factor(cyl)), colour = "white", fontface = "bold")
 
-# Add aesthetics to the border for geom_label
+# Use geom_label's border aesthetics to add highlights
+p + geom_label(
+  aes(fill = factor(cyl), linetype = qsec < 15),
+  border_colour = "black", color = "white", linewidth = 1) +
+scale_linetype_manual(values=c("solid", "blank"), limits = TRUE, labels = "1/4 mi < 15s", name = NULL)
+
+# Multiple border aesthetics can be used
 ggplot(data.frame(x = 1:10, y = 1:10)) +
   geom_label(aes(
     label = month.abb[x],
