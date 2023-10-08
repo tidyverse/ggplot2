@@ -28,10 +28,14 @@ rd_aesthetics_item <- function(x) {
   optional_aes <- setdiff(x$aesthetics(), req_aes)
   all <- union(req, sort(optional_aes))
   docs <- rd_match_docpage(all)
+  default_values <- ifelse(all %in% names(x$default_aes),
+    paste0(": \\code{", x$default_aes[all], "}"),
+    ""
+  )
 
   item <- ifelse(all %in% req,
     paste0("\\strong{\\code{", docs, "}}"),
-    paste0("\\code{", docs, "}")
+    paste0("\\code{", docs, "}", default_values)
   )
 }
 
