@@ -36,7 +36,7 @@ fill_alpha <- function(fill, alpha) {
     # key that is trying to draw a single colour. It can be given that colour
     # as a list due to patterns in other keys.
     msg <- paste0(
-      "{.field fill} must be a valid colour or list of ",
+      "{.field fill} must be a vector of colours or list of ",
       "{.cls GridPattern} objects."
     )
     # If single colour list, try applying `alpha()`
