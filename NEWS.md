@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Legend titles no longer take up space if they've been removed by setting 
+  `legend.title = element_blank()` (@teunbrand, #3587).
+
 * New function `check_device()` for testing the availability of advanced 
   graphics features introduced in R 4.1.0 onwards (@teunbrand, #5332).
 
