@@ -11,7 +11,7 @@ rd_aesthetics <- function(type, name, extra_note = NULL) {
     "@section Aesthetics:",
     paste0(
       "\\code{", type, "_", name, "()} ",
-      "understands the following aesthetics (required aesthetics are in bold):"
+      "understands the following aesthetics. Required aesthetics are displayed in bold and optional aesthetics list their default values."
     ),
     "\\itemize{",
     paste0("  \\item ", aes),
@@ -19,6 +19,72 @@ rd_aesthetics <- function(type, name, extra_note = NULL) {
     if (!is.null(extra_note)) paste0(extra_note, "\n"),
     "Learn more about setting these aesthetics in \\code{vignette(\"ggplot2-specs\")}."
   )
+}
+
+# make the default value of an aesthetic displayable in the docs
+rd_default_value_by_aesthetic <- function(aes, obj) {
+  default_value <- obj$default_aes[aes]
+
+  get_shape_name <- function(value) {
+    # copied from geom-point.R
+    pch_table <- c(
+      "square open"           = 0,
+      "circle open"           = 1,
+      "triangle open"         = 2,
+      "plus"                  = 3,
+      "cross"                 = 4,
+      "diamond open"          = 5,
+      "triangle down open"    = 6,
+      "square cross"          = 7,
+      "asterisk"              = 8,
+      "diamond plus"          = 9,
+      "circle plus"           = 10,
+      "star"                  = 11,
+      "square plus"           = 12,
+      "circle cross"          = 13,
+      "square triangle"       = 14,
+      "triangle square"       = 14,
+      "square"                = 15,
+      "circle small"          = 16,
+      "triangle"              = 17,
+      "diamond"               = 18,
+      "circle"                = 19,
+      "bullet"                = 20,
+      "circle filled"         = 21,
+      "square filled"         = 22,
+      "diamond filled"        = 23,
+      "triangle filled"       = 24,
+      "triangle down filled"  = 25
+    )
+    name <- names(pch_table)[pch_table==value]
+    glue('\\code{{{value}}} or \\code{{"{name}"}}')
+  }
+
+  get_linetype_name <- function(value) {
+    linetype_table <- c(blank = 0, solid = 1, dashed = 2, dotted = 3, dotdash = 4, longdash = 5, twodash = 6)
+    value = value[[1]]
+
+    ifelse(is.numeric(value), glue('\\code{{{value}}} or \\code{{"{names(linetype_table)[linetype_table==value]}"}}'),
+    ifelse(value %in% names(linetype_table), glue('\\code{{{linetype_table[value]}}} or \\code{{"{value}"}}'),
+      glue('\\code{{"{value}"}}')))
+  }
+
+  get_styled_color = function(value) {
+    if(is.na(value) || substring(as.character(value), 1, 1) == "~")
+      return(glue('\\code{{{value}}}'))
+
+    color <- col2rgb(value)
+    hex_string <- rgb(color[1], color[2], color[3], maxColorValue = 255)
+    text_color_string <- ifelse(sum(color * c(0.299, 0.587, 0.114)) < 128, "#FFFFFF", "#000000")
+
+    glue('"<span style="color:{text_color_string}; background:{hex_string};">\\code{{{value}}}</span>"')
+  }
+
+  ifelse(aes == "shape", get_shape_name(default_value),
+  ifelse(aes == "linetype", get_linetype_name(default_value),
+  ifelse(aes %in% c("colour", "fill", "border_colour"), get_styled_color(default_value),
+  ifelse(is.character(default_value[[1]]), glue('\\code{{"{default_value}"}}'),
+    glue('\\code{{{as.character(default_value)}}}')))))
 }
 
 rd_aesthetics_item <- function(x) {
@@ -29,7 +95,7 @@ rd_aesthetics_item <- function(x) {
   all <- union(req, sort(optional_aes))
   docs <- rd_match_docpage(all)
   default_values <- ifelse(all %in% names(x$default_aes),
-    paste0(": \\code{", x$default_aes[all], "}"),
+    paste0(": ", sapply(all, rd_default_value_by_aesthetic, obj=x)),
     ""
   )
 
