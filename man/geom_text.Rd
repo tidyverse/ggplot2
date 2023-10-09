@@ -18,11 +18,11 @@ geom_label(
   label.r = unit(0.15, "lines"),
   label.size = deprecated(),
   size.unit = "mm",
-  border_colour = NULL,
+  border.colour = NULL,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE,
-  border_color = border_colour
+  border.color = border.colour
 )
 
 geom_text(
@@ -93,7 +93,7 @@ Cannot be jointly specified with \code{position}.}
 (\code{"mm"}, default), points (\code{"pt"}), centimetres (\code{"cm"}), inches (\code{"in"}),
 or picas (\code{"pc"}).}
 
-\item{border_colour}{Colour of the label's border. If \code{NULL}, it will fall back to the text colour.}
+\item{border.colour}{Colour of the label's border. If \code{NULL}, it will fall back to the text colour.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
@@ -109,7 +109,7 @@ rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
-\item{border_color}{An alias for \code{border_colour}.}
+\item{border.color}{An alias for \code{border.colour}.}
 
 \item{check_overlap}{If \code{TRUE}, text that overlaps previous text in the
 same layer will not be plotted. \code{check_overlap} happens at draw time and in
@@ -216,7 +216,7 @@ p + geom_label(aes(fill = factor(cyl)), colour = "white", fontface = "bold")
 # Use geom_label's border aesthetics to add highlights
 p + geom_label(
   aes(fill = factor(cyl), linetype = qsec < 15),
-  border_colour = "black", color = "white", linewidth = 1) +
+  border.colour = "black", color = "white", linewidth = 1) +
 scale_linetype_manual(values=c("solid", "blank"), limits = TRUE, labels = "1/4 mi < 15s", name = NULL)
 
 # Multiple border aesthetics can be used
@@ -241,7 +241,7 @@ ggplot(data.frame(x = 1:10, y = 1:10)) +
     color = factor(x\%\%3),
     linewidth = x\%\%2,
     linetype = factor(x\%\%3)),
-    border_color = "red",
+    border.color = "red",
     fill = NA) +
 scale_linewidth(range = c(0.5, 1.5)) +
 scale_linetype_manual(values = c("solid", "blank", "dotted"))

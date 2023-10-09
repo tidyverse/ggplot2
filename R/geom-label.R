@@ -3,8 +3,8 @@
 #' @param label.padding Amount of padding around label. Defaults to 0.25 lines.
 #' @param label.r Radius of rounded corners. Defaults to 0.15 lines.
 #' @param label.size `r lifecycle::badge("deprecated")` Please use `linewidth` to set the size of the border.
-#' @param border_colour Colour of the label's border. If `NULL`, it will fall back to the text colour.
-#' @param border_color An alias for `border_colour`.
+#' @param border.colour Colour of the label's border. If `NULL`, it will fall back to the text colour.
+#' @param border.color An alias for `border.colour`.
 geom_label <- function(mapping = NULL, data = NULL,
                        stat = "identity", position = "identity",
                        ...,
@@ -15,11 +15,11 @@ geom_label <- function(mapping = NULL, data = NULL,
                        label.r = unit(0.15, "lines"),
                        label.size = deprecated(),
                        size.unit = "mm",
-                       border_colour = NULL,
+                       border.colour = NULL,
                        na.rm = FALSE,
                        show.legend = NA,
                        inherit.aes = TRUE,
-                       border_color = border_colour) {
+                       border.color = border.colour) {
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
       cli::cli_abort(c(
@@ -48,7 +48,7 @@ geom_label <- function(mapping = NULL, data = NULL,
       label.padding = label.padding,
       label.r = label.r,
       size.unit = size.unit,
-      border_colour = border_colour %||% border_color,
+      border.colour = border.colour %||% border.color,
       na.rm = na.rm,
       ...
     )
@@ -74,7 +74,7 @@ GeomLabel <- ggproto("GeomLabel", Geom,
                         label.padding = unit(0.25, "lines"),
                         label.r = unit(0.15, "lines"),
                         size.unit = "mm",
-                        border_colour = NULL) {
+                        border.colour = NULL) {
     lab <- data$label
     if (parse) {
       lab <- parse_safe(as.character(lab))
@@ -110,7 +110,7 @@ GeomLabel <- ggproto("GeomLabel", Geom,
           lineheight = row$lineheight
         ),
         rect.gp = gpar(
-          col = ifelse(row$linewidth == 0, NA, border_colour %||% row$colour),
+          col = ifelse(row$linewidth == 0, NA, border.colour %||% row$colour),
           fill = alpha(row$fill, row$alpha),
           lty = row$linetype,
           lwd = row$linewidth * .pt

@@ -92,7 +92,7 @@
 #' # Use geom_label's border aesthetics to add highlights
 #' p + geom_label(
 #'   aes(fill = factor(cyl), linetype = qsec < 15),
-#'   border_colour = "black", color = "white", linewidth = 1) +
+#'   border.colour = "black", color = "white", linewidth = 1) +
 #' scale_linetype_manual(values=c("solid", "blank"), limits = TRUE, labels = "1/4 mi < 15s", name = NULL)
 #'
 #' # Multiple border aesthetics can be used
@@ -117,7 +117,7 @@
 #'     color = factor(x%%3),
 #'     linewidth = x%%2,
 #'     linetype = factor(x%%3)),
-#'     border_color = "red",
+#'     border.color = "red",
 #'     fill = NA) +
 #' scale_linewidth(range = c(0.5, 1.5)) +
 #' scale_linetype_manual(values = c("solid", "blank", "dotted"))
