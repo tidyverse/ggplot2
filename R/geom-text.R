@@ -89,38 +89,17 @@
 #'   scale_colour_discrete(l = 40)
 #' p + geom_label(aes(fill = factor(cyl)), colour = "white", fontface = "bold")
 #'
-#' # Use geom_label's border aesthetics to add highlights
+#' # If border.color is NULL or not set, the border will use the text color
+#' p + geom_label(aes(color = factor(cyl)))
+#'
+#' # Alternatively, border.color can have a static value
+#' p + geom_label(aes(color = factor(cyl)), border.color = "black")
+#'
+#' # Use linetype and linewidth aesthetics to add highlights
 #' p + geom_label(
 #'   aes(fill = factor(cyl), linetype = qsec < 15),
 #'   border.colour = "black", color = "white", linewidth = 1) +
 #' scale_linetype_manual(values=c("solid", "blank"), limits = TRUE, labels = "1/4 mi < 15s", name = NULL)
-#'
-#' # Multiple border aesthetics can be used
-#' ggplot(data.frame(x = 1:10, y = 1:10)) +
-#'   geom_label(aes(
-#'     label = month.abb[x],
-#'     x = x,
-#'     y = y,
-#'     color = factor(x%%3),
-#'     linewidth = x%%2,
-#'     linetype = factor(x%%3)),
-#'     fill = NA) +
-#' scale_linewidth(range = c(0.5, 1.5)) +
-#' scale_linetype_manual(values = c("solid", "blank", "dotted"))
-#'
-#' # Override the border color
-#' ggplot(data.frame(x = 1:10, y = 1:10)) +
-#'   geom_label(aes(
-#'     label = month.abb[x],
-#'     x = x,
-#'     y = y,
-#'     color = factor(x%%3),
-#'     linewidth = x%%2,
-#'     linetype = factor(x%%3)),
-#'     border.color = "red",
-#'     fill = NA) +
-#' scale_linewidth(range = c(0.5, 1.5)) +
-#' scale_linetype_manual(values = c("solid", "blank", "dotted"))
 #'
 #' p + geom_text(aes(size = wt))
 #' # Scale height of text, rather than sqrt(height)
