@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* When using `geom_dotplot(binaxis = "x")` with a discrete y-variable, dots are
+  now stacked from the y-position rather than from 0 (@teunbrand, #5462)
+
 * New function `check_device()` for testing the availability of advanced 
   graphics features introduced in R 4.1.0 onwards (@teunbrand, #5332).
 
