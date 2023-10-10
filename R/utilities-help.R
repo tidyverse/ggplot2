@@ -57,15 +57,15 @@ rd_default_value_by_aesthetic <- function(aes, obj) {
       "triangle down filled"  = 25
     )
     name <- names(pch_table)[pch_table==value]
-    glue('\\code{{{value}}} or \\code{{"{name}"}}')
+    glue('\\code{{{value}}} \\emph{{or}} \\code{{"{name}"}}')
   }
 
   get_linetype_name <- function(value) {
     linetype_table <- c(blank = 0, solid = 1, dashed = 2, dotted = 3, dotdash = 4, longdash = 5, twodash = 6)
     value = value[[1]]
 
-    ifelse(is.numeric(value), glue('\\code{{{value}}} or \\code{{"{names(linetype_table)[linetype_table==value]}"}}'),
-    ifelse(value %in% names(linetype_table), glue('\\code{{{linetype_table[value]}}} or \\code{{"{value}"}}'),
+    ifelse(is.numeric(value), glue('\\code{{{value}}} \\emph{{or}} \\code{{"{names(linetype_table)[linetype_table==value]}"}}'),
+    ifelse(value %in% names(linetype_table), glue('\\code{{{linetype_table[value]}}} \\emph{{or}} \\code{{"{value}"}}'),
       glue('\\code{{"{value}"}}')))
   }
 
