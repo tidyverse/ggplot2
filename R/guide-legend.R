@@ -499,7 +499,7 @@ GuideLegend <- ggproto(
     # A guide may have already specified the size of the decoration, only
     # measure when it hasn't already.
     sizes <- params$sizes %||% measure_legend_keys(
-      params$decor, n = n_breaks, dim = dim, byrow = byrow,
+      grobs$decor, n = n_breaks, dim = dim, byrow = byrow,
       default_width  = elements$key.width,
       default_height = elements$key.height
     )
