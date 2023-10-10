@@ -463,7 +463,9 @@ GuideLegend <- ggproto(
     draw <- function(i) {
       bg <- elements$key
       keys <- lapply(decor, function(g) {
-        g$draw_key(vec_slice(g$data, i), g$params, key_size)
+        data <- vec_slice(g$data, i)
+        key  <- g$draw_key(data, g$params, key_size)
+        set_key_size(key, data$linewidth, data$size, key_size / 10)
       })
       c(list(bg), keys)
     }
@@ -755,4 +757,22 @@ measure_legend_keys <- function(decor, n, dim, byrow = FALSE,
     widths  = pmax(default_width,  apply(size, 2, max)),
     heights = pmax(default_height, apply(size, 1, max))
   )
+}
+
+set_key_size <- function(key, linewidth = NULL, size = NULL, default = NULL) {
+  if (!is.null(attr(key, "width")) && !is.null(attr(key, 'height'))) {
+    return(key)
+  }
+  if (!is.null(size) || !is.null(linewidth)) {
+    size      <- size %||% 0
+    linewidth <- linewidth %||% 0
+    size      <- if (is.na(size)[1]) 0 else size[1]
+    linewidth <- if (is.na(linewidth)[1]) 0 else linewidth[1]
+    size <- (size + linewidth) / 10 # From mm to cm
+  } else {
+    size <- NULL
+  }
+  attr(key, "width")  <- attr(key, "width",  TRUE) %||% size %||% default[1]
+  attr(key, "height") <- attr(key, "height", TRUE) %||% size %||% default[2]
+  key
 }
