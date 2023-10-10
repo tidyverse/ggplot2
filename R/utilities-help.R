@@ -70,21 +70,24 @@ rd_default_value_by_aesthetic <- function(aes, obj) {
   }
 
   get_styled_color = function(value) {
-    if(is.na(value) || substring(as.character(value), 1, 1) == "~")
+    if(is.na(value) || value == "transparent" || substring(as.character(value), 1, 1) == "~")
       return(glue('\\code{{{value}}}'))
 
+    hex_string <- alpha(value)
     color <- col2rgb(value)
-    hex_string <- rgb(color[1], color[2], color[3], maxColorValue = 255)
     text_color_string <- ifelse(sum(color * c(0.299, 0.587, 0.114)) < 128, "#FFFFFF", "#000000")
 
-    glue('"<span style="color:{text_color_string}; background:{hex_string};">\\code{{{value}}}</span>"')
+    # do not use \\code{} because it will override the text color settings
+    glue('"<span style="color:{text_color_string}; background:{hex_string}; font-family:\'Lucida Console\', monospace !important;">{value}</span>"')
   }
 
   ifelse(aes == "shape", get_shape_name(default_value),
   ifelse(aes == "linetype", get_linetype_name(default_value),
-  ifelse(aes %in% c("colour", "fill", "border_colour"), get_styled_color(default_value),
+  ifelse(aes %in% c("colour", "fill", "border_colour"),
+         ifelse(is.na(default_value), '\\code{{NA}} (equivalent to \\code{"transparent"})', get_styled_color(default_value)),
+  ifelse(aes == "alpha" & is.na(default_value), '\\code{NA} (equivalent to \\code{1})',
   ifelse(is.character(default_value[[1]]), glue('\\code{{"{default_value}"}}'),
-    glue('\\code{{{as.character(default_value)}}}')))))
+    glue('\\code{{{as.character(default_value)}}}'))))))
 }
 
 rd_aesthetics_item <- function(x) {
@@ -94,6 +97,7 @@ rd_aesthetics_item <- function(x) {
   optional_aes <- setdiff(x$aesthetics(), req_aes)
   all <- union(req, sort(optional_aes))
   docs <- rd_match_docpage(all)
+
   default_values <- ifelse(all %in% names(x$default_aes),
     paste0(": ", sapply(all, rd_default_value_by_aesthetic, obj=x)),
     ""
