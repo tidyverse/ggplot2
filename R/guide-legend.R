@@ -724,39 +724,35 @@ GuideLegend <- ggproto(
 label_hjust_defaults <- c(top = 0.5, bottom = 0.5, left = 1,   right = 0)
 label_vjust_defaults <- c(top = 0,   bottom = 1,   left = 0.5, right = 0.5)
 
-measure_legend_keys <- function(decor, n, dim, byrow = FALSE,
+measure_legend_keys <- function(keys, n, dim, byrow = FALSE,
                                 default_width = 1, default_height = 1) {
-  if (is.null(decor)) {
+  if (is.null(keys)) {
     ans <- list(widths = NULL, heights = NULL)
     return(ans)
   }
 
   # Vector padding in case rows * cols > keys
-  zeroes <- rep(0, prod(dim) - n)
+  padding_zeroes <- rep(0, prod(dim) - n)
 
   # For every layer, extract the size in cm
-  size <- lapply(decor, function(g) {
-    lwd <- g$data$linewidth %||% 0
-    lwd[is.na(lwd)] <- 0
-    size <- g$data$size %||% 0
-    size[is.na(size)] <- 0
-    vec_recycle((size + lwd) / 10, size = nrow(g$data))
-  })
-  size <- inject(cbind(!!!size))
-
-  # Binned legends may have `n + 1` breaks, but we need to display `n` keys.
-  size <- vec_slice(size, seq_len(n))
-
-  # For every key, find maximum across all layers
-  size <- apply(size, 1, max)
+  widths  <- c(get_key_size(keys, "width", n),  padding_zeroes)
+  heights <- c(get_key_size(keys, "height", n), padding_zeroes)
 
   # Apply legend layout
-  size <- matrix(c(size, zeroes), nrow = dim[1], ncol = dim[2], byrow = byrow)
+  widths  <- matrix(widths,  nrow = dim[1], ncol = dim[2], byrow = byrow)
+  heights <- matrix(heights, nrow = dim[1], ncol = dim[2], byrow = byrow)
 
   list(
-    widths  = pmax(default_width,  apply(size, 2, max)),
-    heights = pmax(default_height, apply(size, 1, max))
+    widths  = pmax(default_width,  apply(widths,  2, max)),
+    heights = pmax(default_height, apply(heights, 1, max))
   )
+}
+
+get_key_size <- function(keys, which = "width", n) {
+  size <- lapply(keys, attr, which = which)
+  size[lengths(size) != 1] <- 0
+  size <- matrix(unlist(size), ncol = n)
+  apply(size, 2, max)
 }
 
 set_key_size <- function(key, linewidth = NULL, size = NULL, default = NULL) {
