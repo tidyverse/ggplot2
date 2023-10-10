@@ -96,10 +96,12 @@
 #' p + geom_label(aes(colour = factor(cyl)), border.colour = "black")
 #'
 #' # Use linetype and linewidth aesthetics to add highlights
-#' p + geom_label(
-#'   aes(fill = factor(cyl), linetype = qsec < 15),
-#'   border.colour = "black", color = "white", linewidth = 1) +
-#' scale_linetype_manual(values=c("solid", "blank"), limits = TRUE, labels = "1/4 mi < 15s", name = NULL)
+#' p + 
+#'  geom_label(
+#'    aes(fill = factor(cyl), linetype = qsec < 15),
+#'    border.colour = "black", colour = "white"
+#'  ) +
+#'  scale_linetype_manual(values = c("solid", "blank"), limits = TRUE)
 #'
 #' p + geom_text(aes(size = wt))
 #' # Scale height of text, rather than sqrt(height)
