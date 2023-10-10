@@ -121,65 +121,50 @@ scale_fill_hue <- function(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0
 #'   print(cty_by_var(fl))
 #' })
 #'
-scale_colour_discrete <- function(..., type = getOption("ggplot2.discrete.colour")) {
-  # TODO: eventually `type` should default to a set of colour-blind safe color codes (e.g. Okabe-Ito)
-  type <- type %||% scale_colour_hue
-  args <- list2(...)
-  args$call <- args$call %||% current_call()
 
-  if (is.function(type)) {
-    if (!any(c("...", "call") %in% fn_fmls_names(type))) {
-      args$call <- NULL
+scale_colour_discrete_factory <- function(aesthetic) {
+  function(..., type = getOption(glue("ggplot2.discrete.{aesthetic}"))) {
+    # TODO: eventually `type` should default to a set of colour-blind safe color codes (e.g. Okabe-Ito)
+    type <- type %||% "hue"
+    args <- list2(...)
+    args$call <- args$call %||% current_call()
+
+    if (is.function(type)) {
+      if (!any(c("...", "call") %in% fn_fmls_names(type))) {
+        args$call <- NULL
+      }
+      check_scale_type(
+        exec(type, !!!args),
+        glue("scale_{aesthetic}_discrete"),
+        "aesthetic",
+        scale_is_discrete = TRUE
+      )
+    } else {
+      exec(glue("scale_{aesthetic}_qualitative"), !!!args, type = type)
     }
-    check_scale_type(
-      exec(type, !!!args),
-      "scale_colour_discrete",
-      "colour",
-      scale_is_discrete = TRUE
-    )
-  } else {
-    exec(scale_colour_qualitative, !!!args, type = type)
   }
 }
+
+scale_colour_qualitative_factory <- function(aesthetic) {
+  function(..., type = NULL, h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
+                                     direction = 1, na.value = "grey50", aesthetics = aesthetic) {
+    discrete_scale(
+      aesthetics, palette = qualitative_pal(type, h, c, l, h.start, direction),
+      na.value = na.value, ...
+    )
+  }
+}
+
+
+scale_colour_discrete <- scale_colour_discrete_factory("colour")
 
 #' @rdname scale_colour_discrete
 #' @export
-scale_fill_discrete <- function(..., type = getOption("ggplot2.discrete.fill")) {
-  # TODO: eventually `type` should default to a set of colour-blind safe color codes (e.g. Okabe-Ito)
-  type <- type %||% scale_fill_hue
-  args <- list2(...)
-  args$call <- args$call %||% current_call()
+scale_fill_discrete <- scale_colour_discrete_factory("fill")
 
-  if (is.function(type)) {
-    if (!any(c("...", "call") %in% fn_fmls_names(type))) {
-      args$call <- NULL
-    }
-    check_scale_type(
-      exec(type, !!!args),
-      "scale_fill_discrete",
-      "fill",
-      scale_is_discrete = TRUE
-    )
-  } else {
-    exec(scale_fill_qualitative, !!!args, type = type)
-  }
-}
+scale_colour_qualitative <- scale_colour_qualitative_factory("colour")
 
-scale_colour_qualitative <- function(..., type = NULL, h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
-                                     direction = 1, na.value = "grey50", aesthetics = "colour") {
-  discrete_scale(
-    aesthetics, palette = qualitative_pal(type, h, c, l, h.start, direction),
-    na.value = na.value, ...
-  )
-}
-
-scale_fill_qualitative <- function(..., type = NULL, h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
-                                   direction = 1, na.value = "grey50", aesthetics = "fill") {
-  discrete_scale(
-    aesthetics, palette = qualitative_pal(type, h, c, l, h.start, direction),
-    na.value = na.value, ...
-  )
-}
+scale_fill_qualitative <- scale_colour_qualitative_factory("fill")
 
 #' Given set(s) of colour codes (i.e., type), find the smallest set that can support n levels
 #' @param type a character vector or a list of character vectors
