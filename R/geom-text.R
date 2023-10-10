@@ -90,10 +90,10 @@
 #' p + geom_label(aes(fill = factor(cyl)), colour = "white", fontface = "bold")
 #'
 #' # If border.color is NULL or not set, the border will use the text color
-#' p + geom_label(aes(color = factor(cyl)))
+#' p + geom_label(aes(colour = factor(cyl)))
 #'
 #' # Alternatively, border.color can have a static value
-#' p + geom_label(aes(color = factor(cyl)), border.color = "black")
+#' p + geom_label(aes(colour = factor(cyl)), border.colour = "black")
 #'
 #' # Use linetype and linewidth aesthetics to add highlights
 #' p + geom_label(
