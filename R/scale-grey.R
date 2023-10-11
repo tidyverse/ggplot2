@@ -1,3 +1,10 @@
+scale_colour_grey_factory <- function(aesthetic) {
+  function(..., start = 0.2, end = 0.8, na.value = "red", aesthetics = aesthetic) {
+    discrete_scale(aesthetics, palette = grey_pal(start, end), na.value = na.value, ...)
+  }
+}
+
+
 #' Sequential grey colour scales
 #'
 #' Based on [gray.colors()]. This is black and white equivalent
@@ -25,13 +32,6 @@
 #' ggplot(mtcars, aes(mpg, wt)) +
 #'   geom_point(aes(colour = miss)) +
 #'   scale_colour_grey(na.value = "green")
-
-scale_colour_grey_factory <- function(aesthetic) {
-  function(..., start = 0.2, end = 0.8, na.value = "red", aesthetics = aesthetic) {
-    discrete_scale(aesthetics, palette = grey_pal(start, end), na.value = na.value, ...)
-  }
-}
-
 #' @rdname scale_grey
 #' @export
 scale_colour_grey <- scale_colour_grey_factory("colour")
@@ -39,3 +39,4 @@ scale_colour_grey <- scale_colour_grey_factory("colour")
 #' @rdname scale_grey
 #' @export
 scale_fill_grey <- scale_colour_grey_factory("fill")
+

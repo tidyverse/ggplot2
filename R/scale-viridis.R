@@ -1,3 +1,52 @@
+scale_colour_viridis_d_factory <- function(aesthetic) {
+  function(..., alpha = 1, begin = 0, end = 1,
+           direction = 1, option = "D", aesthetics = aesthetic) {
+    discrete_scale(
+      aesthetics,
+      palette = viridis_pal(alpha, begin, end, direction, option),
+      ...
+    )
+  }
+}
+
+scale_colour_viridis_c_factory <- function(aesthetic) {
+  function(..., alpha = 1, begin = 0, end = 1,
+           direction = 1, option = "D", values = NULL,
+           space = "Lab", na.value = "grey50",
+           guide = "colourbar", aesthetics = aesthetic) {
+    continuous_scale(
+      aesthetics,
+      palette = gradient_n_pal(
+        viridis_pal(alpha, begin, end, direction, option)(6),
+        values,
+        space
+      ),
+      na.value = na.value,
+      guide = guide,
+      ...
+    )
+  }
+}
+
+scale_colour_viridis_b_factory <- function(aesthetic) {
+  function(..., alpha = 1, begin = 0, end = 1,
+           direction = 1, option = "D", values = NULL,
+           space = "Lab", na.value = "grey50",
+           guide = "coloursteps", aesthetics = aesthetic) {
+    pal <-  binned_pal(
+      viridis_pal(alpha, begin, end, direction, option)
+    )
+
+    binned_scale(
+      aesthetics,
+      palette = pal,
+      na.value = na.value,
+      guide = guide,
+      ...
+    )
+  }
+}
+
 #' Viridis colour scales from viridisLite
 #'
 #' The `viridis` scales provide colour maps that are perceptually uniform in both
@@ -56,56 +105,6 @@
 #' # Use viridis_b to bin continuous data before mapping
 #' v + scale_fill_viridis_b()
 #'
-
-scale_colour_viridis_d_factory <- function(aesthetic) {
-  function(..., alpha = 1, begin = 0, end = 1,
-           direction = 1, option = "D", aesthetics = aesthetic) {
-    discrete_scale(
-      aesthetics,
-      palette = viridis_pal(alpha, begin, end, direction, option),
-      ...
-    )
-  }
-}
-
-scale_colour_viridis_c_factory <- function(aesthetic) {
-  function(..., alpha = 1, begin = 0, end = 1,
-           direction = 1, option = "D", values = NULL,
-           space = "Lab", na.value = "grey50",
-           guide = "colourbar", aesthetics = aesthetic) {
-    continuous_scale(
-      aesthetics,
-      palette = gradient_n_pal(
-        viridis_pal(alpha, begin, end, direction, option)(6),
-        values,
-        space
-      ),
-      na.value = na.value,
-      guide = guide,
-      ...
-    )
-  }
-}
-
-scale_colour_viridis_b_factory <- function(aesthetic) {
-  function(..., alpha = 1, begin = 0, end = 1,
-           direction = 1, option = "D", values = NULL,
-           space = "Lab", na.value = "grey50",
-           guide = "coloursteps", aesthetics = aesthetic) {
-    pal <-  binned_pal(
-      viridis_pal(alpha, begin, end, direction, option)
-    )
-
-    binned_scale(
-      aesthetics,
-      palette = pal,
-      na.value = na.value,
-      guide = guide,
-      ...
-    )
-  }
-}
-
 #' @rdname scale_viridis
 #' @export
 scale_colour_viridis_d <- scale_colour_viridis_d_factory("colour")

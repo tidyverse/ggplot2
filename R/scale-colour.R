@@ -1,3 +1,60 @@
+scale_colour_continuous_factory <- function(aesthetic) {
+  function(..., type = getOption("ggplot2.continuous.colour")) {
+    type <- type %||% "gradient"
+    args <- list2(...)
+    args$call <- args$call %||% current_call()
+
+    if (is.function(type)) {
+      if (!any(c("...", "call") %in% fn_fmls_names(type))) {
+        args$call <- NULL
+      }
+      check_scale_type(exec(type, !!!args), "scale_colour_continuous", aesthetic)
+    } else if (identical(type, "gradient")) {
+      exec("scale_colour_gradient", !!!args, aesthetics = aesthetic)
+    } else if (identical(type, "viridis")) {
+      exec("scale_colour_viridis_c", !!!args, aesthetics = aesthetic)
+    } else {
+      cli::cli_abort(c(
+        "Unknown scale type: {.val {type}}",
+        "i" = "Use either {.val gradient} or {.val viridis}"
+      ))
+    }
+  }
+}
+
+scale_colour_binned_factory <- function(aesthetic) {
+  function(..., type = getOption("ggplot2.binned.colour")) {
+    args <- list2(...)
+    args$call <- args$call %||% current_call()
+    if (is.function(type)) {
+      if (!any(c("...", "call") %in% fn_fmls_names(type))) {
+        args$call <- NULL
+      }
+      check_scale_type(exec(type, !!!args), "scale_colour_binned", aesthetic)
+    } else {
+      type_fallback <- getOption("ggplot2.continuous.colour", default = "gradient")
+      # don't use fallback from scale_colour_continuous() if it is
+      # a function, since that would change the type of the color
+      # scale from binned to continuous
+      if (is.function(type_fallback)) {
+        type_fallback <- "gradient"
+      }
+      type <- type %||% type_fallback
+
+      if (identical(type, "gradient")) {
+        exec("scale_colour_steps", !!!args, aesthetics = aesthetic)
+      } else if (identical(type, "viridis")) {
+        exec("scale_colour_viridis_b", !!!args, aesthetics = aesthetic)
+      } else {
+        cli::cli_abort(c(
+          "Unknown scale type: {.val {type}}",
+          "i" = "Use either {.val gradient} or {.val viridis}"
+        ))
+      }
+    }
+  }
+}
+
 #' Continuous and binned colour scales
 #'
 #' The scales `scale_colour_continuous()` and `scale_fill_continuous()` are
@@ -73,66 +130,8 @@
 #' options(ggplot2.continuous.fill = scale_fill_distiller)
 #' v
 #' options(ggplot2.continuous.fill = tmp) # restore previous setting
-
-scale_colour_continuous_factory <- function(aesthetic) {
-  function(..., type = getOption("ggplot2.continuous.colour")) {
-    type <- type %||% "gradient"
-    args <- list2(...)
-    args$call <- args$call %||% current_call()
-
-    if (is.function(type)) {
-      if (!any(c("...", "call") %in% fn_fmls_names(type))) {
-        args$call <- NULL
-      }
-      check_scale_type(exec(type, !!!args), "scale_colour_continuous", aesthetic)
-    } else if (identical(type, "gradient")) {
-      exec("scale_colour_gradient", !!!args, aesthetics = aesthetic)
-    } else if (identical(type, "viridis")) {
-      exec("scale_colour_viridis_c", !!!args, aesthetics = aesthetic)
-    } else {
-      cli::cli_abort(c(
-        "Unknown scale type: {.val {type}}",
-        "i" = "Use either {.val gradient} or {.val viridis}"
-      ))
-    }
-  }
-}
-
-scale_colour_binned_factory <- function(aesthetic) {
-  function(..., type = getOption("ggplot2.binned.colour")) {
-    args <- list2(...)
-    args$call <- args$call %||% current_call()
-    if (is.function(type)) {
-      if (!any(c("...", "call") %in% fn_fmls_names(type))) {
-        args$call <- NULL
-      }
-      check_scale_type(exec(type, !!!args), "scale_colour_binned", aesthetic)
-    } else {
-      type_fallback <- getOption("ggplot2.continuous.colour", default = "gradient")
-      # don't use fallback from scale_colour_continuous() if it is
-      # a function, since that would change the type of the color
-      # scale from binned to continuous
-      if (is.function(type_fallback)) {
-        type_fallback <- "gradient"
-      }
-      type <- type %||% type_fallback
-
-      if (identical(type, "gradient")) {
-        exec("scale_colour_steps", !!!args, aesthetics = aesthetic)
-      } else if (identical(type, "viridis")) {
-        exec("scale_colour_viridis_b", !!!args, aesthetics = aesthetic)
-      } else {
-        cli::cli_abort(c(
-          "Unknown scale type: {.val {type}}",
-          "i" = "Use either {.val gradient} or {.val viridis}"
-        ))
-      }
-    }
-  }
-}
-
-
 #' @export
+#' @rdname scale_colour_continuous
 scale_colour_continuous <- scale_colour_continuous_factory("colour")
 
 #' @export
@@ -146,6 +145,7 @@ scale_colour_binned <- scale_colour_binned_factory("colour")
 #' @export
 #' @rdname scale_colour_continuous
 scale_fill_binned <- scale_colour_binned_factory("fill")
+
 
 
 # helper function to make sure that the provided scale is of the correct
