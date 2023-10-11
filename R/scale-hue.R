@@ -10,8 +10,6 @@
 #'   example, to apply colour settings to the `colour` and `fill` aesthetics at the
 #'   same time, via `aesthetics = c("colour", "fill")`.
 #' @inheritParams scales::hue_pal
-#' @rdname scale_hue
-#' @export
 #' @family colour scales
 #' @seealso
 #' The documentation on [colour aesthetics][aes_colour_fill_alpha].
@@ -53,19 +51,22 @@
 #'   geom_point(aes(colour = miss)) +
 #'   scale_colour_hue(na.value = "black")
 #' }
-scale_colour_hue <- function(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
-                             direction = 1, na.value = "grey50", aesthetics = "colour") {
-  discrete_scale(aesthetics, palette = hue_pal(h, c, l, h.start, direction),
-    na.value = na.value, ...)
+scale_colour_hue_factory <- function(aesthetic) {
+  function(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
+                               direction = 1, na.value = "grey50", aesthetics = aesthetic) {
+    discrete_scale(aesthetics, palette = hue_pal(h, c, l, h.start, direction),
+      na.value = na.value, ...)
+  }
 }
+
 
 #' @rdname scale_hue
 #' @export
-scale_fill_hue <- function(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
-                           direction = 1, na.value = "grey50", aesthetics = "fill") {
-  discrete_scale(aesthetics, palette = hue_pal(h, c, l, h.start, direction),
-    na.value = na.value, ...)
-}
+scale_colour_hue <- scale_colour_hue_factory("colour")
+
+#' @rdname scale_hue
+#' @export
+scale_fill_hue <- scale_colour_hue_factory("fill")
 
 
 #' Discrete colour scales
@@ -87,7 +88,6 @@ scale_fill_hue <- function(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0
 #'   want to change the color palette based on the number of levels.
 #'   * A function that returns a discrete colour/fill scale (e.g., [scale_fill_hue()],
 #'   [scale_fill_brewer()], etc).
-#' @export
 #' @examples
 #' # Template function for creating densities grouped by a variable
 #' cty_by_var <- function(var) {
@@ -123,7 +123,7 @@ scale_fill_hue <- function(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0
 #'
 
 scale_colour_discrete_factory <- function(aesthetic) {
-  function(..., type = getOption(glue("ggplot2.discrete.{aesthetic}"))) {
+  function(..., type = getOption("ggplot2.discrete.colour")) {
     # TODO: eventually `type` should default to a set of colour-blind safe color codes (e.g. Okabe-Ito)
     type <- type %||% "hue"
     args <- list2(...)
@@ -135,19 +135,19 @@ scale_colour_discrete_factory <- function(aesthetic) {
       }
       check_scale_type(
         exec(type, !!!args),
-        glue("scale_{aesthetic}_discrete"),
+        "scale_colour_discrete",
         "aesthetic",
         scale_is_discrete = TRUE
       )
     } else {
-      exec(glue("scale_{aesthetic}_qualitative"), !!!args, type = type)
+      exec("scale_colour_qualitative", !!!args, type = type, aesthetics = aesthetic)
     }
   }
 }
 
 scale_colour_qualitative_factory <- function(aesthetic) {
   function(..., type = NULL, h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
-                                     direction = 1, na.value = "grey50", aesthetics = aesthetic) {
+           direction = 1, na.value = "grey50", aesthetics = aesthetic) {
     discrete_scale(
       aesthetics, palette = qualitative_pal(type, h, c, l, h.start, direction),
       na.value = na.value, ...
@@ -156,6 +156,7 @@ scale_colour_qualitative_factory <- function(aesthetic) {
 }
 
 
+#' @export
 scale_colour_discrete <- scale_colour_discrete_factory("colour")
 
 #' @rdname scale_colour_discrete

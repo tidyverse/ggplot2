@@ -38,7 +38,6 @@
 #'
 #'   The documentation on [colour aesthetics][aes_colour_fill_alpha].
 #' @family colour scales
-#' @rdname scale_colour_continuous
 #' @section Color Blindness:
 #' Many color palettes derived from RGB combinations (like the "rainbow" color
 #' palette) are not suitable to support all viewers, especially those with
@@ -76,7 +75,7 @@
 #' options(ggplot2.continuous.fill = tmp) # restore previous setting
 
 scale_colour_continuous_factory <- function(aesthetic) {
-  function(..., type = getOption(glue("ggplot2.continuous.{aesthetic}"))) {
+  function(..., type = getOption("ggplot2.continuous.colour")) {
     type <- type %||% "gradient"
     args <- list2(...)
     args$call <- args$call %||% current_call()
@@ -85,11 +84,11 @@ scale_colour_continuous_factory <- function(aesthetic) {
       if (!any(c("...", "call") %in% fn_fmls_names(type))) {
         args$call <- NULL
       }
-      check_scale_type(exec(type, !!!args), glue("scale_{aesthetic}_continuous"), aesthetic)
+      check_scale_type(exec(type, !!!args), "scale_colour_continuous", aesthetic)
     } else if (identical(type, "gradient")) {
-      exec(glue("scale_{aesthetic}_gradient"), !!!args)
+      exec("scale_colour_gradient", !!!args, aesthetics = aesthetic)
     } else if (identical(type, "viridis")) {
-      exec(glue("scale_{aesthetic}_viridis_c"), !!!args)
+      exec("scale_colour_viridis_c", !!!args, aesthetics = aesthetic)
     } else {
       cli::cli_abort(c(
         "Unknown scale type: {.val {type}}",
@@ -100,16 +99,16 @@ scale_colour_continuous_factory <- function(aesthetic) {
 }
 
 scale_colour_binned_factory <- function(aesthetic) {
-  function(..., type = getOption(glue("ggplot2.binned.{aesthetic}"))) {
+  function(..., type = getOption("ggplot2.binned.colour")) {
     args <- list2(...)
     args$call <- args$call %||% current_call()
     if (is.function(type)) {
       if (!any(c("...", "call") %in% fn_fmls_names(type))) {
         args$call <- NULL
       }
-      check_scale_type(exec(type, !!!args), glue("scale_{aesthetic}_binned"), aesthetic)
+      check_scale_type(exec(type, !!!args), "scale_colour_binned", aesthetic)
     } else {
-      type_fallback <- getOption(glue("ggplot2.continuous.{aesthetic}"), default = "gradient")
+      type_fallback <- getOption("ggplot2.continuous.colour", default = "gradient")
       # don't use fallback from scale_colour_continuous() if it is
       # a function, since that would change the type of the color
       # scale from binned to continuous
@@ -119,9 +118,9 @@ scale_colour_binned_factory <- function(aesthetic) {
       type <- type %||% type_fallback
 
       if (identical(type, "gradient")) {
-        exec(glue("scale_{aesthetic}_steps"), !!!args)
+        exec("scale_colour_steps", !!!args, aesthetics = aesthetic)
       } else if (identical(type, "viridis")) {
-        exec(glue("scale_{aesthetic}_viridis_b"), !!!args)
+        exec("scale_colour_viridis_b", !!!args, aesthetics = aesthetic)
       } else {
         cli::cli_abort(c(
           "Unknown scale type: {.val {type}}",

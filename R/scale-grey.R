@@ -9,8 +9,6 @@
 #' @family colour scales
 #' @seealso
 #' The documentation on [colour aesthetics][aes_colour_fill_alpha].
-#' @rdname scale_grey
-#' @export
 #' @examples
 #' p <- ggplot(mtcars, aes(mpg, wt)) + geom_point(aes(colour = factor(cyl)))
 #' p + scale_colour_grey()
@@ -27,14 +25,17 @@
 #' ggplot(mtcars, aes(mpg, wt)) +
 #'   geom_point(aes(colour = miss)) +
 #'   scale_colour_grey(na.value = "green")
-scale_colour_grey <- function(..., start = 0.2, end = 0.8, na.value = "red", aesthetics = "colour") {
-  discrete_scale(aesthetics, palette = grey_pal(start, end),
-    na.value = na.value, ...)
+
+scale_colour_grey_factory <- function(aesthetic) {
+  function(..., start = 0.2, end = 0.8, na.value = "red", aesthetics = aesthetic) {
+    discrete_scale(aesthetics, palette = grey_pal(start, end), na.value = na.value, ...)
+  }
 }
 
 #' @rdname scale_grey
 #' @export
-scale_fill_grey <- function(..., start = 0.2, end = 0.8, na.value = "red", aesthetics = "fill") {
-  discrete_scale(aesthetics, palette = grey_pal(start, end),
-    na.value = na.value, ...)
-}
+scale_colour_grey <- scale_colour_grey_factory("colour")
+
+#' @rdname scale_grey
+#' @export
+scale_fill_grey <- scale_colour_grey_factory("fill")
