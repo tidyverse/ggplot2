@@ -175,6 +175,7 @@ Collate:
     'grouping.R'
     'guide-.R'
     'guide-axis.R'
+    'guide-axis-stack.R'
     'guide-legend.R'
     'guide-bins.R'
     'guide-colorbar.R'

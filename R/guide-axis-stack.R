@@ -1,6 +1,35 @@
+#' @include guide-axis.R
+NULL
 
-
-guide_axis_stack <- function(title = waiver(), first = "axis", ...,
+#' Stacked axis guides
+#'
+#' This guide can stack other position guides that represent position scales,
+#' like those created with [scale_(x|y)_continuous()][scale_x_continuous()] and
+#' [scale_(x|y)_discrete()][scale_x_discrete()].
+#'
+#' @inheritParams guide_axis
+#' @param first A position guide given as one of the following:
+#' * A string, for example `"axis"`.
+#' * A call to a guide function, for example `guide_axis()`.
+#' @param ... Additional guides to stack given in the same manner as `first`.
+#' @param spacing A [unit()] objects that determines how far separate guides are
+#'   spaced apart.
+#'
+#' @details
+#' The `first` guide will be placed closest to the panel and any subsequent
+#' guides provided through `...` will follow in the given order.
+#'
+#' @export
+#'
+#' @examples
+#' #' # A standard plot
+#' p <- ggplot(mpg, aes(displ, hwy)) +
+#'   geom_point() +
+#'   theme(axis.line = element_line())
+#'
+#' # A normal axis first, then a capped axis
+#' p + guides(x = guide_axis_stack("axis", guide_axis(cap = "both")))
+guide_axis_stack <- function(first = "axis", ..., title = waiver(),
                              spacing = NULL, order = 0, position = waiver()) {
 
   check_object(spacing, is.unit, "{.cls unit}", allow_null = TRUE)
@@ -44,6 +73,10 @@ guide_axis_stack <- function(title = waiver(), first = "axis", ...,
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 GuideAxisStack <- ggproto(
   "GuideAxisStack", GuideAxis,
 
