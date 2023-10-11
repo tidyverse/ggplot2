@@ -14,7 +14,7 @@ scale_colour_hue(
   h.start = 0,
   direction = 1,
   na.value = "grey50",
-  aesthetics = "colour"
+  aesthetics = aesthetic
 )
 
 scale_fill_hue(
@@ -25,7 +25,7 @@ scale_fill_hue(
   h.start = 0,
   direction = 1,
   na.value = "grey50",
-  aesthetics = "fill"
+  aesthetics = aesthetic
 )
 }
 \arguments{

@@ -11,7 +11,7 @@ scale_colour_grey(
   start = 0.2,
   end = 0.8,
   na.value = "red",
-  aesthetics = "colour"
+  aesthetics = aesthetic
 )
 
 scale_fill_grey(
@@ -19,7 +19,7 @@ scale_fill_grey(
   start = 0.2,
   end = 0.8,
   na.value = "red",
-  aesthetics = "fill"
+  aesthetics = aesthetic
 )
 }
 \arguments{
