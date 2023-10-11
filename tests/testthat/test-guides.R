@@ -524,6 +524,20 @@ test_that("axis guides can be capped", {
   expect_doppelganger("axis guides with capped ends", p)
 })
 
+test_that("guide_axis_stack stacks axes", {
+
+  left   <- guide_axis_stack("axis", guide_axis(cap = "both"), title = "left")
+  right  <- guide_axis_stack("axis", guide_axis(cap = "both"), title = "right")
+  bottom <- guide_axis_stack("axis", guide_axis(cap = "both"), title = "bottom")
+  top    <- guide_axis_stack("axis", guide_axis(cap = "both"), title = "top")
+
+  p <- ggplot(mtcars, aes(hp, disp)) +
+    geom_point() +
+    theme(axis.line = element_line()) +
+    guides(x = bottom, x.sec = top, y = left, y.sec = right)
+  expect_doppelganger("stacked axes", p)
+})
+
 test_that("guides are positioned correctly", {
   df <- data_frame(x = 1, y = 1, z = factor("a"))
 
