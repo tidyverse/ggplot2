@@ -132,8 +132,8 @@ potentially beyond the data. This does not extend the line into any additional p
 created by \code{expansion}.}
 
 \item{xseq}{A numeric vector of values at which the smoother is evaluated.
-Internally, \code{NULL} defaults to a sequence of \code{n} equally spaced points for
-continuous data.}
+When \code{NULL} (default), \code{xseq} is internally evaluated as a sequence of \code{n}
+equally spaced points for continuous data.}
 
 \item{level}{Level of confidence interval to use (0.95 by default).}
 

@@ -24,8 +24,8 @@
 #'   potentially beyond the data. This does not extend the line into any additional padding
 #'   created by `expansion`.
 #' @param xseq A numeric vector of values at which the smoother is evaluated.
-#'   Internally, `NULL` defaults to a sequence of `n` equally spaced points for
-#'   continuous data.
+#'   When `NULL` (default), `xseq` is internally evaluated as a sequence of `n`
+#'   equally spaced points for continuous data.
 #' @param level Level of confidence interval to use (0.95 by default).
 #' @param span Controls the amount of smoothing for the default loess smoother.
 #'   Smaller numbers produce wigglier lines, larger numbers produce smoother
