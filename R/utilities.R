@@ -598,6 +598,47 @@ is_bang <- function(x) {
   is_call(x, "!", n = 1)
 }
 
+# Puts all columns with 'AsIs' type in a '.ignore' column.
+ignore_data <- function(data) {
+  if (!is_bare_list(data)) {
+    data <- list(data)
+  }
+  lapply(data, function(df) {
+    is_asis <- vapply(df, inherits, logical(1), what = "AsIs")
+    if (!any(is_asis)) {
+      return(df)
+    }
+    df <- unclass(df)
+    # We trust that 'df' is a valid data.frame with equal length columns etc,
+    # so we can use the more performant `new_data_frame()`
+    new_data_frame(c(
+      df[!is_asis],
+      list(.ignored = new_data_frame(df[is_asis]))
+    ))
+  })
+}
+
+# Restores all columns packed into the '.ignored' column.
+expose_data <- function(data) {
+  if (!is_bare_list(data)) {
+    data <- list(data)
+  }
+  lapply(data, function(df) {
+    is_ignored <- which(names(df) == ".ignored")
+    if (length(is_ignored) == 0) {
+      return(df)
+    }
+    df <- unclass(df)
+    new_data_frame(c(df[-is_ignored], df[[is_ignored[1]]]))
+  })
+}
+
+#' @export
+#' @method rescale AsIs
+rescale.AsIs <- function(x, to, from, ...) {
+  x
+}
+
 is_triple_bang <- function(x) {
   if (!is_bang(x)) {
     return(FALSE)
