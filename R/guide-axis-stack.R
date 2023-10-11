@@ -48,10 +48,13 @@ GuideAxisStack <- ggproto(
   "GuideAxisStack", GuideAxis,
 
   params = list(
-    title     = waiver(),
-    name      = "stacked_axis",
+    # List of guides to track the guide objects
     guides    = list(),
+    # List of parameters to each guide
     guide_params = list(),
+    # Standard guide stuff
+    name      = "stacked_axis",
+    title     = waiver(),
     hash      = character(),
     position  = waiver(),
     direction = NULL,
@@ -60,8 +63,10 @@ GuideAxisStack <- ggproto(
 
   available_aes = c("x", "y"),
 
+  # Doesn't depend on keys, but on member axis' class
   hashables = exprs(title, lapply(guides, snake_class), name),
 
+  # Sets position, loops through guides to train
   train = function(self, params = self$params, scale, aesthetic = NULL, ...) {
     position <- arg_match0(params$position, .trbl, arg_nm = "position")
     for (i in seq_along(params$guides)) {
@@ -75,6 +80,7 @@ GuideAxisStack <- ggproto(
     params
   },
 
+  # Just loops through guides
   transform = function(self, params, coord, panel_params) {
     for (i in seq_along(params$guides)) {
       params$guide_params[[i]] <- params$guides[[i]]$transform(
@@ -85,6 +91,7 @@ GuideAxisStack <- ggproto(
     params
   },
 
+  # Just loops through guides
   get_layer_key = function(params, layers) {
     for (i in seq_along(params$guides)) {
       params$guide_params[[i]] <- params$guides[[i]]$get_layer_key(
@@ -96,6 +103,7 @@ GuideAxisStack <- ggproto(
   },
 
   draw = function(self, theme, params = self$params) {
+    # Loop through every guide's draw method
     grobs <- list()
     for (i in seq_along(params$guides)) {
       grobs[[i]] <- params$guides[[i]]$draw(theme, params$guide_params[[i]])
@@ -129,6 +137,7 @@ GuideAxisStack <- ggproto(
       heights <- rev(heights)
     }
 
+    # Place guides in a gtable, apply spacing
     if (position %in% c("bottom", "top")) {
       gt <- gtable(widths = unit(1, "npc"), heights = heights)
       gt <- gtable_add_grob(gt, grobs, t = along, l = 1, name = "axis", clip = "off")
