@@ -2,8 +2,8 @@
 #' Modify fill transparency
 #'
 #' This works much like [alpha()][scales::alpha] in that it modifies the
-#' transparency of fill colours. It differs in that is also attempts to set
-#' the transparency of `<GridPattern>` objects.
+#' transparency of fill colours. It differs in that `fill_alpha()` also attempts
+#' to set the transparency of `<GridPattern>` objects.
 #'
 #' @param fill A fill colour given as a `character` or `integer` vector, or as a
 #'   list of `<GridPattern>` objects.
