@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">3.4.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">3.4.4</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -80,7 +80,13 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.4.3" id="ggplot2-343">ggplot2 3.4.3<a class="anchor" aria-label="anchor" href="#ggplot2-343"></a></h2>
+<h2 class="pkg-version" data-toc-text="3.4.4" id="ggplot2-344">ggplot2 3.4.4<a class="anchor" aria-label="anchor" href="#ggplot2-344"></a></h2><p class="text-muted">CRAN release: 2023-10-12</p>
+<p>This hotfix release adapts to a change in r-devel’s <code><a href="https://rdrr.io/r/base/is.recursive.html" class="external-link">base::is.atomic()</a></code> and the upcoming retirement of maptools.</p>
+<ul><li>
+<code><a href="../reference/fortify.html">fortify()</a></code> for sp objects (e.g., <code>SpatialPolygonsDataFrame</code>) is now deprecated and will be removed soon in support of <a href="https://r-spatial.org/r/2023/05/15/evolution4.html" class="external-link">the upcoming retirement of rproj, rgeos, and maptools</a>. In advance of the whole removal, <code>fortify(&lt;SpatialPolygonsDataFrame&gt;, region = ...)</code> no longer works as of this version (<a href="https://github.com/yutannihilation" class="external-link">@yutannihilation</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5244" class="external-link">#5244</a>).</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="3.4.3" id="ggplot2-343">ggplot2 3.4.3<a class="anchor" aria-label="anchor" href="#ggplot2-343"></a></h2><p class="text-muted">CRAN release: 2023-08-14</p>
 <p>This hotfix release addresses a version comparison change in r-devel. There are no user-facing or breaking changes.</p>
 </div>
     <div class="section level2">
