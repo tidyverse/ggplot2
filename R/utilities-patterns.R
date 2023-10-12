@@ -6,7 +6,7 @@
 #' to set the transparency of `<GridPattern>` objects.
 #'
 #' @param fill A fill colour given as a `character` or `integer` vector, or as a
-#'   list of `<GridPattern>` objects.
+#'   (list of) `<GridPattern>` object(s).
 #' @param alpha A transparency value between 0 (transparent) and 1 (opaque),
 #'   parallel to `fill`.
 #'
@@ -27,7 +27,7 @@ fill_alpha <- function(fill, alpha) {
     # Happy path for no patterns
     return(alpha(fill, alpha))
   }
-  if (any(vapply(fill, is_pattern, logical(1)))) {
+  if (is_pattern(fill) || any(vapply(fill, is_pattern, logical(1)))) {
     check_device("patterns", action = "abort")
     fill <- pattern_alpha(fill, alpha)
     return(fill)

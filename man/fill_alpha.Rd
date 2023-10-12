@@ -8,7 +8,7 @@ fill_alpha(fill, alpha)
 }
 \arguments{
 \item{fill}{A fill colour given as a \code{character} or \code{integer} vector, or as a
-list of \verb{<GridPattern>} objects.}
+(list of) \verb{<GridPattern>} object(s).}
 
 \item{alpha}{A transparency value between 0 (transparent) and 1 (opaque),
 parallel to \code{fill}.}
@@ -18,8 +18,8 @@ A \code{character} vector of colours, or list of \verb{<GridPattern>} objects.
 }
 \description{
 This works much like \link[scales:alpha]{alpha()} in that it modifies the
-transparency of fill colours. It differs in that is also attempts to set
-the transparency of \verb{<GridPattern>} objects.
+transparency of fill colours. It differs in that \code{fill_alpha()} also attempts
+to set the transparency of \verb{<GridPattern>} objects.
 }
 \examples{
 # Typical colour input

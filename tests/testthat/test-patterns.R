@@ -50,6 +50,12 @@ test_that("fill_alpha works as expected", {
   expect_s3_class(environment(ans[[1]]$f)$grob$vp$mask, "GridMask")
   # Should not have altered original environment
   expect_null(environment(pat$f)$grob$vp)
+
+  # Handles plain, unlisted patterns
+  expect_identical(
+    fill_alpha(linearGradient(), 0.5)$colours,
+    c("#00000080", "#FFFFFF80")
+  )
 })
 
 test_that("geoms can use pattern fills", {
