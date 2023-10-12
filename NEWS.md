@@ -1,5 +1,10 @@
 # ggplot2 (development version)
 
+* Plot scales now ignore `AsIs` objects constructed with `I(x)`, instead of
+  invoking the identity scale. This allows these columns to co-exist with other
+  layers that need a non-identity scale for the same aesthetic. Also, it makes
+  it easy to specify relative positions (@teunbrand, #5142).
+
 * Legend titles no longer take up space if they've been removed by setting 
   `legend.title = element_blank()` (@teunbrand, #3587).
 
