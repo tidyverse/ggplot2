@@ -111,19 +111,26 @@ corners (\code{xmin}, \code{xmax}, \code{ymin} and \code{ymax}), while
 \code{y}, \code{width}, \code{height}). \code{geom_raster()} is a high
 performance special case for when all the tiles are the same size.
 }
+\details{
+\code{geom_rect()} and \code{geom_tile()}'s respond differently to scale
+transformations due to their parameterisation. In \code{geom_rect()}, the scale
+transformation is applied to the corners of the rectangles. In \code{geom_tile()},
+the transformation is applied only to the centres and its size is determined
+after transformation.
+}
 \section{Aesthetics}{
 
 \code{geom_tile()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
-\item \strong{\code{x}}
-\item \strong{\code{y}}
-\item \code{alpha}
-\item \code{colour}
-\item \code{fill}
-\item \code{group}
+\item \strong{\code{\link[=aes_position]{x}}}
+\item \strong{\code{\link[=aes_position]{y}}}
+\item \code{\link[=aes_colour_fill_alpha]{alpha}}
+\item \code{\link[=aes_colour_fill_alpha]{colour}}
+\item \code{\link[=aes_colour_fill_alpha]{fill}}
+\item \code{\link[=aes_group_order]{group}}
 \item \code{height}
-\item \code{linetype}
-\item \code{linewidth}
+\item \code{\link[=aes_linetype_size_shape]{linetype}}
+\item \code{\link[=aes_linetype_size_shape]{linewidth}}
 \item \code{width}
 }
 Note that \code{geom_raster()} ignores \code{colour}.
@@ -171,8 +178,8 @@ ggplot(df, aes(x, y, fill = z)) +
 # Inspired by the image-density plots of Ken Knoblauch
 cars <- ggplot(mtcars, aes(mpg, factor(cyl)))
 cars + geom_point()
-cars + stat_bin2d(aes(fill = after_stat(count)), binwidth = c(3,1))
-cars + stat_bin2d(aes(fill = after_stat(density)), binwidth = c(3,1))
+cars + stat_bin_2d(aes(fill = after_stat(count)), binwidth = c(3,1))
+cars + stat_bin_2d(aes(fill = after_stat(density)), binwidth = c(3,1))
 
 cars +
   stat_density(

@@ -90,6 +90,7 @@ theme_get <- function() {
 #' @param new new theme (a list of theme elements)
 #' @export
 theme_set <- function(new) {
+  check_object(new, is.theme, "a {.cls theme} object")
   old <- ggplot_global$theme_current
   ggplot_global$theme_current <- new
   invisible(old)

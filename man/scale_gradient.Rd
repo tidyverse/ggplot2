@@ -88,8 +88,8 @@ scale_fill_gradientn(
 \item{...}{
   Arguments passed on to \code{\link[=continuous_scale]{continuous_scale}}
   \describe{
-    \item{\code{scale_name}}{The name of the scale that should be used for error messages
-associated with this scale.}
+    \item{\code{scale_name}}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} The name of the scale
+that should be used for error messages associated with this scale.}
     \item{\code{palette}}{A palette function that when called with a numeric vector with
 values between 0 and 1 returns the corresponding output values
 (e.g., \code{\link[scales:area_pal]{scales::area_pal()}}).}
@@ -167,9 +167,10 @@ or the object itself. Built-in transformations include "asn", "atanh",
 
 A transformation object bundles together a transform, its inverse,
 and methods for generating breaks and labels. Transformation objects
-are defined in the scales package, and are called \verb{<name>_trans} (e.g.,
-\code{\link[scales:boxcox_trans]{scales::boxcox_trans()}}). You can create your own
-transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
+are defined in the scales package, and are called \verb{<name>_trans}. If
+transformations require arguments, you can call them from the scales
+package, e.g. \code{\link[scales:boxcox_trans]{scales::boxcox_trans(p = 2)}}.
+You can create your own transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
     \item{\code{expand}}{For position scales, a vector of range expansion constants used to add some
 padding around the data to ensure that they are placed some distance
 away from the axes. Use the convenience function \code{\link[=expansion]{expansion()}}
@@ -178,6 +179,7 @@ expand the scale by 5\% on each side for continuous variables, and by
 0.6 units on each side for discrete variables.}
     \item{\code{position}}{For position scales, The position of the axis.
 \code{left} or \code{right} for y axes, \code{top} or \code{bottom} for x axes.}
+    \item{\code{call}}{The \code{call} used to construct the scale for reporting messages.}
     \item{\code{super}}{The super class to use for the constructed scale}
   }}
 
@@ -277,12 +279,16 @@ ggplot(df_na, aes(x = value, y)) +
 \code{\link[scales:seq_gradient_pal]{scales::seq_gradient_pal()}} for details on underlying
 palette, \code{\link[=scale_colour_steps]{scale_colour_steps()}} for binned variants of these scales.
 
+The documentation on \link[=aes_colour_fill_alpha]{colour aesthetics}.
+
 Other colour scales: 
 \code{\link{scale_alpha}()},
 \code{\link{scale_colour_brewer}()},
 \code{\link{scale_colour_continuous}()},
 \code{\link{scale_colour_grey}()},
 \code{\link{scale_colour_hue}()},
+\code{\link{scale_colour_identity}()},
+\code{\link{scale_colour_manual}()},
 \code{\link{scale_colour_steps}()},
 \code{\link{scale_colour_viridis_d}()}
 }

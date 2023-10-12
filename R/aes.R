@@ -33,7 +33,12 @@ NULL
 #' @seealso [vars()] for another quoting function designed for
 #'   faceting specifications.
 #'
+#'   Run `vignette("ggplot2-specs")` to see an overview of other aesthetics
+#'   that can be modified.
+#'
 #'   [Delayed evaluation][aes_eval] for working with computed variables.
+#'
+#' @family aesthetics documentation
 #' @return A list with class `uneval`. Components of the list are either
 #'   quosures or constants.
 #' @export
@@ -431,7 +436,7 @@ extract_target_is_likely_data <- function(x, data, env) {
 
   tryCatch({
     data_eval <- eval_tidy(x[[2]], data, env)
-    identical(data_eval, data)
+    identical(unrowname(data_eval), unrowname(data))
   }, error = function(err) FALSE)
 }
 

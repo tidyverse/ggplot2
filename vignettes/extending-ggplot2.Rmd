@@ -360,7 +360,7 @@ ggplot(mpg, aes(displ, drv, fill = stat(density))) +
     
     Note: be careful when adding parameters to a layer function. The following 
     names *col*, *color*, *pch*, *cex*, *lty*, *lwd*, *srt*, *adj*, *bg*, *fg*, 
-    *min*, and *max* are intentionally renamed to accomodate base graphical 
+    *min*, and *max* are intentionally renamed to accommodate base graphical 
     parameter names. For example, a value passed as *min* to a layer appears as 
     *ymin* in the `setup_params` list of params. It is recommended you avoid 
     using these names for layer parameters.

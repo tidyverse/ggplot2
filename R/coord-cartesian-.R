@@ -43,13 +43,13 @@
 #' # limits. You can set the limits precisely by setting expand = FALSE
 #' p + coord_cartesian(xlim = c(325, 500), expand = FALSE)
 #'
-#' # Simiarly, we can use expand = FALSE to turn off expansion with the
+#' # Similarly, we can use expand = FALSE to turn off expansion with the
 #' # default limits
 #' p + coord_cartesian(expand = FALSE)
 #'
 #' # You can see the same thing with this 2d histogram
 #' d <- ggplot(diamonds, aes(carat, price)) +
-#'   stat_bin2d(bins = 25, colour = "white")
+#'   stat_bin_2d(bins = 25, colour = "white")
 #' d
 #'
 #' # When zooming the scale, the we get 25 new bins that are the same
@@ -61,6 +61,8 @@
 #' d + coord_cartesian(xlim = c(0, 1))
 coord_cartesian <- function(xlim = NULL, ylim = NULL, expand = TRUE,
                             default = FALSE, clip = "on") {
+  check_coord_limits(xlim)
+  check_coord_limits(ylim)
   ggproto(NULL, CoordCartesian,
     limits = list(x = xlim, y = ylim),
     expand = expand,
@@ -144,24 +146,10 @@ view_scales_from_scale <- function(scale, coord_limits = NULL, expand = TRUE) {
   view_scales
 }
 
-panel_guide_label <- function(guides, position, default_label) {
-  guide <- guide_for_position(guides, position) %||% guide_none(title = waiver())
-  guide$title %|W|% default_label
-}
-
 panel_guides_grob <- function(guides, position, theme) {
-  guide <- guide_for_position(guides, position) %||% guide_none()
-  guide_gengrob(guide, theme)
-}
-
-guide_for_position <- function(guides, position) {
-  has_position <- vapply(
-    guides,
-    function(guide) identical(guide$position, position),
-    logical(1)
-  )
-
-  guides <- guides[has_position]
-  guides_order <- vapply(guides, function(guide) as.numeric(guide$order)[1], numeric(1))
-  Reduce(guide_merge, guides[order(guides_order)])
+  if (!inherits(guides, "Guides")) {
+    return(zeroGrob())
+  }
+  pair <- guides$get_position(position)
+  pair$guide$draw(theme, pair$params)
 }

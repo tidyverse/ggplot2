@@ -4,7 +4,7 @@
 #' useful for displaying the relationship between two continuous variables.
 #' It can be used to compare one continuous and one categorical variable, or
 #' two categorical variables, but a variation like [geom_jitter()],
-#' [geom_count()], or [geom_bin2d()] is usually more
+#' [geom_count()], or [geom_bin_2d()] is usually more
 #' appropriate. A _bubblechart_ is a scatterplot with a third variable
 #' mapped to the size of points.
 #'
@@ -143,6 +143,23 @@ GeomPoint <- ggproto("GeomPoint", Geom,
   draw_key = draw_key_point
 )
 
+#' Translating shape strings
+#'
+#' `translate_shape_string()` is a helper function for translating point shapes
+#' given as a character vector into integers that are interpreted by the
+#' grid system.
+#'
+#' @param shape_string A character vector giving point shapes.
+#'
+#' @return An integer vector with translated shapes.
+#' @export
+#' @keywords internal
+#'
+#' @examples
+#' translate_shape_string(c("circle", "square", "triangle"))
+#'
+#' # Strings with 1 or less characters are interpreted as symbols
+#' translate_shape_string(c("a", "b", "?"))
 translate_shape_string <- function(shape_string) {
   # strings of length 0 or 1 are interpreted as symbols by grid
   if (nchar(shape_string[1]) <= 1) {

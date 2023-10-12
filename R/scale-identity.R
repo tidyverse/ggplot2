@@ -21,6 +21,7 @@
 #'   example, to apply colour settings to the `colour` and `fill` aesthetics at the
 #'   same time, via `aesthetics = c("colour", "fill")`.
 #' @param guide Guide to use for this scale. Defaults to `"none"`.
+#' @family colour scales
 #' @examples
 #' ggplot(luv_colours, aes(u, v)) +
 #'   geom_point(aes(colour = col), size = 3) +
@@ -62,7 +63,7 @@ NULL
 #' @rdname scale_identity
 #' @export
 scale_colour_identity <- function(..., guide = "none", aesthetics = "colour") {
-  sc <- discrete_scale(aesthetics, "identity", identity_pal(), ..., guide = guide,
+  sc <- discrete_scale(aesthetics, palette = identity_pal(), ..., guide = guide,
     super = ScaleDiscreteIdentity)
 
   sc
@@ -71,34 +72,40 @@ scale_colour_identity <- function(..., guide = "none", aesthetics = "colour") {
 #' @rdname scale_identity
 #' @export
 scale_fill_identity <- function(..., guide = "none", aesthetics = "fill") {
-  sc <- discrete_scale(aesthetics, "identity", identity_pal(), ..., guide = guide,
+  sc <- discrete_scale(aesthetics, palette = identity_pal(), ..., guide = guide,
     super = ScaleDiscreteIdentity)
 
   sc
 }
 
 #' @rdname scale_identity
+#' @seealso
+#' Other shape scales: [scale_shape()], [scale_shape_manual()].
 #' @export
 scale_shape_identity <- function(..., guide = "none") {
-  sc <- continuous_scale("shape", "identity", identity_pal(), ..., guide = guide,
+  sc <- continuous_scale("shape", palette = identity_pal(), ..., guide = guide,
     super = ScaleContinuousIdentity)
 
   sc
 }
 
 #' @rdname scale_identity
+#' @seealso
+#' Other linetype scales: [scale_linetype()], [scale_linetype_manual()].
 #' @export
 scale_linetype_identity <- function(..., guide = "none") {
-  sc <- discrete_scale("linetype", "identity", identity_pal(), ..., guide = guide,
+  sc <- discrete_scale("linetype", palette = identity_pal(), ..., guide = guide,
     super = ScaleDiscreteIdentity)
 
   sc
 }
 
 #' @rdname scale_identity
+#' @seealso
+#' Other alpha scales: [scale_alpha()], [scale_alpha_manual()].
 #' @export
 scale_linewidth_identity <- function(..., guide = "none") {
-  sc <- continuous_scale("linewidth", "identity", identity_pal(), ...,
+  sc <- continuous_scale("linewidth", palette = identity_pal(), ...,
                          guide = guide, super = ScaleContinuousIdentity)
 
   sc
@@ -107,16 +114,18 @@ scale_linewidth_identity <- function(..., guide = "none") {
 #' @rdname scale_identity
 #' @export
 scale_alpha_identity <- function(..., guide = "none") {
-  sc <- continuous_scale("alpha", "identity", identity_pal(), ..., guide = guide,
+  sc <- continuous_scale("alpha", palette = identity_pal(), ..., guide = guide,
     super = ScaleContinuousIdentity)
 
   sc
 }
 
 #' @rdname scale_identity
+#' @seealso
+#' Other size scales: [scale_size()], [scale_size_manual()].
 #' @export
 scale_size_identity <- function(..., guide = "none") {
-  sc <- continuous_scale("size", "identity", identity_pal(), ..., guide = guide,
+  sc <- continuous_scale("size", palette = identity_pal(), ..., guide = guide,
     super = ScaleContinuousIdentity)
 
   sc
@@ -125,7 +134,7 @@ scale_size_identity <- function(..., guide = "none") {
 #' @rdname scale_identity
 #' @export
 scale_discrete_identity <- function(aesthetics, ..., guide = "none") {
-  sc <- discrete_scale(aesthetics, "identity", identity_pal(), ..., guide = guide,
+  sc <- discrete_scale(aesthetics, palette = identity_pal(), ..., guide = guide,
                        super = ScaleDiscreteIdentity)
 
   sc
@@ -134,7 +143,7 @@ scale_discrete_identity <- function(aesthetics, ..., guide = "none") {
 #' @rdname scale_identity
 #' @export
 scale_continuous_identity <- function(aesthetics, ..., guide = "none") {
-  sc <- continuous_scale(aesthetics, "identity", identity_pal(), ..., guide = guide,
+  sc <- continuous_scale(aesthetics, palette = identity_pal(), ..., guide = guide,
                          super = ScaleContinuousIdentity)
 
   sc

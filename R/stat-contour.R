@@ -5,7 +5,7 @@
 #' @eval rd_aesthetics("stat", "contour_filled")
 #' @eval rd_computed_vars(
 #'   .details = "The computed variables differ somewhat for contour lines
-#'   (compbuted by `stat_contour()`) and contour bands (filled contours,
+#'   (computed by `stat_contour()`) and contour bands (filled contours,
 #'   computed by `stat_contour_filled()`). The variables `nlevel` and `piece`
 #'   are available for both, whereas `level_low`, `level_high`, and `level_mid`
 #'   are only available for bands. The variable `level` is a numeric or a factor
@@ -98,6 +98,10 @@ StatContour <- ggproto("StatContour", Stat,
     params
   },
 
+  setup_data = function(data, params) {
+    contour_deduplicate(data)
+  },
+
   compute_group = function(data, scales, z.range, bins = NULL, binwidth = NULL,
                            breaks = NULL, na.rm = FALSE) {
 
@@ -127,6 +131,10 @@ StatContourFilled <- ggproto("StatContourFilled", Stat,
   setup_params = function(data, params) {
     params$z.range <- range(data$z, na.rm = TRUE, finite = TRUE)
     params
+  },
+
+  setup_data = function(data, params) {
+    contour_deduplicate(data)
   },
 
   compute_group = function(data, scales, z.range, bins = NULL, binwidth = NULL, breaks = NULL, na.rm = FALSE) {
@@ -351,4 +359,31 @@ pretty_isoband_levels <- function(isoband_levels, dig.lab = 3) {
   # the intervals specifying isobands are closed at their lower boundary
   # and open at their upper boundary
   sprintf("(%s, %s]", label_low, label_high)
+}
+
+#' De-duplicate data for contours
+#'
+#' Gives a warning if data has duplicates and throws out duplicated rows.
+#'
+#' @param data A `data.frame`
+#' @param check Column names to check for duplicates
+#'
+#' @return A de-duplicated `data.frame`
+#' @noRd
+contour_deduplicate <- function(data, check = c("x", "y", "group", "PANEL")) {
+  check <- intersect(check, names(data))
+  if (length(check) == 0) {
+    return(data)
+  }
+  if (vec_duplicate_any(data[, check, drop = FALSE])) {
+    # We use fromLast here to be consistent with `isoband_z_matrix()` behaviour
+    dups <- duplicated(data[, check, drop = FALSE], fromLast = TRUE)
+    data <- data[!dups, , drop = FALSE]
+
+    cli::cli_warn(c(
+      "Contour data has duplicated {.field x}, {.field y} coordinates.",
+      i = "{sum(dups)} duplicated row{?s} have been dropped."
+    ))
+  }
+  data
 }

@@ -93,3 +93,24 @@ ggplot(mtcars, aes(mpg, wt)) +
   geom_point(aes(size = cyl)) +
   scale_size_identity()
 }
+\seealso{
+Other shape scales: \code{\link[=scale_shape]{scale_shape()}}, \code{\link[=scale_shape_manual]{scale_shape_manual()}}.
+
+Other linetype scales: \code{\link[=scale_linetype]{scale_linetype()}}, \code{\link[=scale_linetype_manual]{scale_linetype_manual()}}.
+
+Other alpha scales: \code{\link[=scale_alpha]{scale_alpha()}}, \code{\link[=scale_alpha_manual]{scale_alpha_manual()}}.
+
+Other size scales: \code{\link[=scale_size]{scale_size()}}, \code{\link[=scale_size_manual]{scale_size_manual()}}.
+
+Other colour scales: 
+\code{\link{scale_alpha}()},
+\code{\link{scale_colour_brewer}()},
+\code{\link{scale_colour_continuous}()},
+\code{\link{scale_colour_gradient}()},
+\code{\link{scale_colour_grey}()},
+\code{\link{scale_colour_hue}()},
+\code{\link{scale_colour_manual}()},
+\code{\link{scale_colour_steps}()},
+\code{\link{scale_colour_viridis_d}()}
+}
+\concept{colour scales}

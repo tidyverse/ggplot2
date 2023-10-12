@@ -70,7 +70,7 @@ The point geom is used to create scatterplots. The scatterplot is most
 useful for displaying the relationship between two continuous variables.
 It can be used to compare one continuous and one categorical variable, or
 two categorical variables, but a variation like \code{\link[=geom_jitter]{geom_jitter()}},
-\code{\link[=geom_count]{geom_count()}}, or \code{\link[=geom_bin2d]{geom_bin2d()}} is usually more
+\code{\link[=geom_count]{geom_count()}}, or \code{\link[=geom_bin_2d]{geom_bin_2d()}} is usually more
 appropriate. A \emph{bubblechart} is a scatterplot with a third variable
 mapped to the size of points.
 }
@@ -99,14 +99,14 @@ Another technique is to make the points transparent (e.g.
 
 \code{geom_point()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
-\item \strong{\code{x}}
-\item \strong{\code{y}}
-\item \code{alpha}
-\item \code{colour}
-\item \code{fill}
-\item \code{group}
-\item \code{shape}
-\item \code{size}
+\item \strong{\code{\link[=aes_position]{x}}}
+\item \strong{\code{\link[=aes_position]{y}}}
+\item \code{\link[=aes_colour_fill_alpha]{alpha}}
+\item \code{\link[=aes_colour_fill_alpha]{colour}}
+\item \code{\link[=aes_colour_fill_alpha]{fill}}
+\item \code{\link[=aes_group_order]{group}}
+\item \code{\link[=aes_linetype_size_shape]{shape}}
+\item \code{\link[=aes_linetype_size_shape]{size}}
 \item \code{stroke}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.

@@ -10,6 +10,11 @@
 #'   breaks, labels and so forth.
 #' @param range Output range of alpha values. Must lie between 0 and 1.
 #' @family colour scales
+#' @family alpha scales
+#' @seealso
+#' The documentation on [colour aesthetics][aes_colour_fill_alpha].
+#'
+#' Other alpha scales: [scale_alpha_manual()], [scale_alpha_identity()].
 #' @export
 #' @examples
 #' p <- ggplot(mpg, aes(displ, hwy)) +
@@ -19,7 +24,7 @@
 #' p + scale_alpha("cylinders")
 #' p + scale_alpha(range = c(0.4, 0.8))
 scale_alpha <- function(..., range = c(0.1, 1)) {
-  continuous_scale("alpha", "alpha_c", rescale_pal(range), ...)
+  continuous_scale("alpha", palette = rescale_pal(range), ...)
 }
 
 #' @rdname scale_alpha
@@ -29,14 +34,16 @@ scale_alpha_continuous <- scale_alpha
 #' @rdname scale_alpha
 #' @export
 scale_alpha_binned <- function(..., range = c(0.1, 1)) {
-  binned_scale("alpha", "alpha_b", rescale_pal(range), ...)
+  binned_scale("alpha", palette = rescale_pal(range), ...)
 }
 
 #' @rdname scale_alpha
 #' @export
 scale_alpha_discrete <- function(...) {
   cli::cli_warn("Using alpha for a discrete variable is not advised.")
-  scale_alpha_ordinal(...)
+  args <- list2(...)
+  args$call <- args$call %||% current_call()
+  exec(scale_alpha_ordinal, !!!args)
 }
 
 #' @rdname scale_alpha
@@ -44,8 +51,7 @@ scale_alpha_discrete <- function(...) {
 scale_alpha_ordinal <- function(..., range = c(0.1, 1)) {
   discrete_scale(
     "alpha",
-    "alpha_d",
-    function(n) seq(range[1], range[2], length.out = n),
+    palette = function(n) seq(range[1], range[2], length.out = n),
     ...
   )
 }

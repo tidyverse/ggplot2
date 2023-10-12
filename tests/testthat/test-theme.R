@@ -170,6 +170,16 @@ test_that("calculating theme element inheritance works", {
   e1 <- ggplot2:::calc_element("strip.text.x", theme)
   e2 <- ggplot2:::calc_element("strip.text", theme)
   expect_identical(e1, e2)
+
+  # Check that rel units are computed appropriately
+  theme <- theme_gray() +
+    theme(axis.ticks.length = unit(1, "cm"),
+          axis.ticks.length.x = rel(0.5),
+          axis.ticks.length.x.bottom = rel(4))
+
+  expect_equal(calc_element("axis.ticks.length.y.left", theme), unit(1, "cm"))
+  expect_equal(calc_element("axis.ticks.length.x.top", theme), unit(1, "cm") * 0.5)
+  expect_equal(calc_element("axis.ticks.length.x.bottom", theme), unit(1, "cm") * 0.5 * 4)
 })
 
 test_that("complete and non-complete themes interact correctly with each other", {
@@ -264,6 +274,7 @@ test_that("incorrect theme specifications throw meaningful errors", {
   expect_snapshot_error(calc_element("line", theme(line = element_rect())))
   register_theme_elements(element_tree = list(test = el_def("element_rect")))
   expect_snapshot_error(calc_element("test", theme_gray() + theme(test = element_rect())))
+  expect_snapshot_error(theme_set("foo"))
 })
 
 test_that("element tree can be modified", {
@@ -486,8 +497,16 @@ test_that("Theme elements are checked during build", {
   p <- ggplot(mtcars) + geom_point(aes(disp, mpg)) + theme(plot.caption.position = "test")
   expect_snapshot_error(ggplotGrob(p))
 
-  p <- ggplot(mtcars) + geom_point(aes(disp, mpg)) + theme(plot.tag.position = "test")
+  p <- ggplot(mtcars) + geom_point(aes(disp, mpg)) +
+    theme(plot.tag.position = "test") + labs(tag = "test")
   expect_snapshot_error(ggplotGrob(p))
+})
+
+test_that("Theme validation behaves as expected", {
+  tree <- get_element_tree()
+  expect_silent(validate_element(1,  "aspect.ratio", tree))
+  expect_silent(validate_element(1L, "aspect.ratio", tree))
+  expect_snapshot_error(validate_element("A", "aspect.ratio", tree))
 })
 
 # Visual tests ------------------------------------------------------------
@@ -659,6 +678,8 @@ test_that("Strips can render custom elements", {
   element_grob.element_test <- function(element, label = "", x = NULL, y = NULL, ...) {
     rectGrob(width = unit(1, "cm"), height = unit(1, "cm"))
   }
+  registerS3method("element_grob", "element_test", element_grob.element_test)
+
   df <- data_frame(x = 1:3, y = 1:3, a = letters[1:3])
   plot <- ggplot(df, aes(x, y)) +
     geom_point() +

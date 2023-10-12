@@ -18,13 +18,16 @@
 #' resolution(c(2, 10, 20, 50))
 #' resolution(c(2L, 10L, 20L, 50L))
 resolution <- function(x, zero = TRUE) {
-  if (is.integer(x) || zero_range(range(x, na.rm = TRUE)))
+  if (is.integer(x) || is_mapped_discrete(x) ||
+      zero_range(range(x, na.rm = TRUE))) {
     return(1)
+  }
 
   x <- unique0(as.numeric(x))
   if (zero) {
     x <- unique0(c(0, x))
   }
-
-  min(diff(sort(x)))
+  d <- diff(sort(x))
+  tolerance <- sqrt(.Machine$double.eps)
+  min(d[d > tolerance])
 }

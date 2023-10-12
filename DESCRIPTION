@@ -28,7 +28,7 @@ License: MIT + file LICENSE
 URL: https://ggplot2.tidyverse.org, https://github.com/tidyverse/ggplot2
 BugReports: https://github.com/tidyverse/ggplot2/issues
 Depends:
-    R (>= 3.3)
+    R (>= 3.5)
 Imports: 
     cli,
     glue,
@@ -52,7 +52,6 @@ Suggests:
     hexbin,
     Hmisc,
     knitr,
-    lattice,
     mapproj,
     maps,
     multcomp,
@@ -67,7 +66,7 @@ Suggests:
     sf (>= 0.7-3),
     svglite (>= 1.2.0.9001),
     testthat (>= 3.1.2),
-    vdiffr (>= 1.0.0),
+    vdiffr (>= 1.0.6),
     xml2
 Enhances: 
     sp
@@ -173,20 +172,22 @@ Collate:
     'grob-dotstack.R'
     'grob-null.R'
     'grouping.R'
+    'guide-.R'
+    'guide-axis.R'
+    'guide-legend.R'
     'guide-bins.R'
     'guide-colorbar.R'
     'guide-colorsteps.R'
-    'guide-legend.R'
+    'layer.R'
+    'guide-none.R'
+    'guide-old.R'
     'guides-.R'
-    'guides-axis.R'
     'guides-grid.R'
-    'guides-none.R'
     'hexbin.R'
     'import-standalone-obj-type.R'
     'import-standalone-types-check.R'
     'labeller.R'
     'labels.R'
-    'layer.R'
     'layer-sf.R'
     'layout.R'
     'limits.R'
@@ -270,7 +271,6 @@ Collate:
     'utilities-help.R'
     'utilities-matrix.R'
     'utilities-resolution.R'
-    'utilities-table.R'
     'utilities-tidy-eval.R'
     'zxx.R'
     'zzz.R'

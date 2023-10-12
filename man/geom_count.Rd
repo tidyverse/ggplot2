@@ -84,14 +84,14 @@ useful when you have discrete data and overplotting.
 
 \code{geom_point()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
-\item \strong{\code{x}}
-\item \strong{\code{y}}
-\item \code{alpha}
-\item \code{colour}
-\item \code{fill}
-\item \code{group}
-\item \code{shape}
-\item \code{size}
+\item \strong{\code{\link[=aes_position]{x}}}
+\item \strong{\code{\link[=aes_position]{y}}}
+\item \code{\link[=aes_colour_fill_alpha]{alpha}}
+\item \code{\link[=aes_colour_fill_alpha]{colour}}
+\item \code{\link[=aes_colour_fill_alpha]{fill}}
+\item \code{\link[=aes_group_order]{group}}
+\item \code{\link[=aes_linetype_size_shape]{shape}}
+\item \code{\link[=aes_linetype_size_shape]{size}}
 \item \code{stroke}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
@@ -138,5 +138,5 @@ d + geom_count(aes(size = after_stat(prop), group = clarity)) +
   scale_size_area(max_size = 10)
 }
 \seealso{
-For continuous \code{x} and \code{y}, use \code{\link[=geom_bin2d]{geom_bin2d()}}.
+For continuous \code{x} and \code{y}, use \code{\link[=geom_bin_2d]{geom_bin_2d()}}.
 }

@@ -12,6 +12,10 @@
 #' @inheritParams scale_x_discrete
 #' @inheritDotParams discrete_scale -expand -position
 #' @rdname scale_shape
+#' @seealso
+#' The documentation for [differentiation related aesthetics][aes_linetype_size_shape].
+#'
+#' Other shape scales: [scale_shape_manual()], [scale_shape_identity()].
 #' @export
 #' @examples
 #' set.seed(596)
@@ -37,13 +41,13 @@
 #'   facet_wrap(~shape) +
 #'   theme_void()
 scale_shape <- function(..., solid = TRUE) {
-  discrete_scale("shape", "shape_d", shape_pal(solid), ...)
+  discrete_scale("shape", palette = shape_pal(solid), ...)
 }
 
 #' @rdname scale_shape
 #' @export
 scale_shape_binned <- function(..., solid = TRUE) {
-  binned_scale("shape", "shape_b", binned_pal(shape_pal(solid)), ...)
+  binned_scale("shape", palette = binned_pal(shape_pal(solid)), ...)
 }
 
 #' @rdname scale_shape
@@ -56,7 +60,9 @@ scale_shape_discrete <- scale_shape
 #' @usage NULL
 scale_shape_ordinal <- function(...) {
   cli::cli_warn("Using shapes for an ordinal variable is not advised")
-  scale_shape(...)
+  args <- list2(...)
+  args$call <- args$call %||% current_call()
+  exec(scale_shape, !!!args)
 }
 
 #' @rdname scale_shape

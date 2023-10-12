@@ -16,6 +16,8 @@
 #'   example, to apply colour settings to the `colour` and `fill` aesthetics at the
 #'   same time, via `aesthetics = c("colour", "fill")`.
 #' @family colour scales
+#' @seealso
+#' The documentation on [colour aesthetics][aes_colour_fill_alpha].
 #' @rdname scale_viridis
 #' @export
 #' @examples
@@ -47,7 +49,7 @@
 #' # the order of colour can be reversed
 #' p + scale_fill_viridis_d(direction = -1)
 #'
-#' # Use viridis_c with continous data
+#' # Use viridis_c with continuous data
 #' (v <- ggplot(faithfuld) +
 #'   geom_tile(aes(waiting, eruptions, fill = density)))
 #' v + scale_fill_viridis_c()
@@ -60,8 +62,7 @@ scale_colour_viridis_d <- function(..., alpha = 1, begin = 0, end = 1,
                                    direction = 1, option = "D", aesthetics = "colour") {
   discrete_scale(
     aesthetics,
-    "viridis_d",
-    viridis_pal(alpha, begin, end, direction, option),
+    palette = viridis_pal(alpha, begin, end, direction, option),
     ...
   )
 }
@@ -72,8 +73,7 @@ scale_fill_viridis_d <- function(..., alpha = 1, begin = 0, end = 1,
                                  direction = 1, option = "D", aesthetics = "fill") {
   discrete_scale(
     aesthetics,
-    "viridis_d",
-    viridis_pal(alpha, begin, end, direction, option),
+    palette = viridis_pal(alpha, begin, end, direction, option),
     ...
   )
 }
@@ -86,8 +86,7 @@ scale_colour_viridis_c <- function(..., alpha = 1, begin = 0, end = 1,
                                    guide = "colourbar", aesthetics = "colour") {
   continuous_scale(
     aesthetics,
-    "viridis_c",
-    gradient_n_pal(
+    palette = gradient_n_pal(
       viridis_pal(alpha, begin, end, direction, option)(6),
       values,
       space
@@ -106,8 +105,7 @@ scale_fill_viridis_c <- function(..., alpha = 1, begin = 0, end = 1,
                                  guide = "colourbar", aesthetics = "fill") {
   continuous_scale(
     aesthetics,
-    "viridis_c",
-    gradient_n_pal(
+    palette = gradient_n_pal(
       viridis_pal(alpha, begin, end, direction, option)(6),
       values,
       space
@@ -130,8 +128,7 @@ scale_colour_viridis_b <- function(..., alpha = 1, begin = 0, end = 1,
 
   binned_scale(
     aesthetics,
-    "viridis_b",
-    pal,
+    palette = pal,
     na.value = na.value,
     guide = guide,
     ...
@@ -150,8 +147,7 @@ scale_fill_viridis_b <- function(..., alpha = 1, begin = 0, end = 1,
 
   binned_scale(
     aesthetics,
-    "viridis_b",
-    pal,
+    palette = pal,
     na.value = na.value,
     guide = guide,
     ...

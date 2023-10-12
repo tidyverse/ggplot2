@@ -256,7 +256,7 @@ stack_var <- function(data) {
     "y"
   } else {
     cli::cli_warn(c(
-      "Stacking requires either the {.field ymin} {.emph and} {.field ymin} or the {.field y} aesthetics",
+      "Stacking requires either the {.field ymin} {.emph and} {.field ymax} or the {.field y} aesthetics",
       "i" = "Maybe you want {.code position = \"identity\"}?"
     ))
     NULL

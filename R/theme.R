@@ -71,12 +71,8 @@
 #'   `legend.key.size` or can be specified separately
 #' @param legend.text legend item labels ([element_text()]; inherits from
 #'   `text`)
-#' @param legend.text.align alignment of legend labels (number from 0 (left) to
-#'   1 (right))
 #' @param legend.title title of legend ([element_text()]; inherits from
 #'   `title`)
-#' @param legend.title.align alignment of legend title (number from 0 (left) to
-#'   1 (right))
 #' @param legend.position the position of legends ("none", "left", "right",
 #'   "bottom", "top", or two-element numeric vector)
 #' @param legend.direction layout of items in legends ("horizontal" or
@@ -133,10 +129,15 @@
 #'   for margins and plot tag).
 #' @param plot.tag upper-left label to identify a plot (text appearance)
 #'   ([element_text()]; inherits from `title`) left-aligned by default
+#' @param plot.tag.location The placement of the tag as a string, one of
+#'   `"panel"`, `"plot"` or `"margin"`. Respectively, these will place the tag
+#'   inside the panel space, anywhere in the plot as a whole, or in the margin
+#'   around the panel space.
 #' @param plot.tag.position The position of the tag as a string ("topleft",
-#'   "top", "topright", "left", "right", "bottomleft", "bottom", "bottomright)
-#'   or a coordinate. If a string, extra space will be added to accommodate the
-#'   tag.
+#'   "top", "topright", "left", "right", "bottomleft", "bottom", "bottomright")
+#'   or a coordinate. If a coordinate, can be a numeric vector of length 2 to
+#'   set the x,y-coordinate relative to the whole plot. The coordinate option
+#'   is unavailable for `plot.tag.location = "margin"`.
 #' @param plot.margin margin around entire plot (`unit` with the sizes of
 #'   the top, right, bottom, and left margins)
 #'
@@ -325,9 +326,7 @@ theme <- function(line,
                   legend.key.height,
                   legend.key.width,
                   legend.text,
-                  legend.text.align,
                   legend.title,
-                  legend.title.align,
                   legend.position,
                   legend.direction,
                   legend.justification,
@@ -357,6 +356,7 @@ theme <- function(line,
                   plot.caption.position,
                   plot.tag,
                   plot.tag.position,
+                  plot.tag.location,
                   plot.margin,
                   strip.background,
                   strip.background.x,
@@ -412,6 +412,32 @@ theme <- function(line,
     ))
     elements$legend.spacing <- elements$legend.margin
     elements$legend.margin <- margin()
+  }
+  if (!is.null(elements$legend.title.align)) {
+    deprecate_soft0(
+      "3.5.0", "theme(legend.title.align)",
+      I("theme(legend.title = element_text(hjust))")
+    )
+    if (is.null(elements[["legend.title"]])) {
+      elements$legend.title <- element_text(hjust = elements$legend.title.align)
+    } else {
+      elements$legend.title$hjust <- elements$legend.title$hjust %||%
+        elements$legend.title.align
+    }
+    elements$legend.title.align <- NULL
+  }
+  if (!is.null(elements$legend.text.align)) {
+    deprecate_soft0(
+      "3.5.0", "theme(legend.text.align)",
+      I("theme(legend.text = element_text(hjust))")
+    )
+    if (is.null(elements[["legend.text"]])) {
+      elements$legend.text <- element_text(hjust = elements$legend.text.align)
+    } else {
+      elements$legend.text$hjust <- elements$legend.text$hjust %||%
+        elements$legend.text.align
+    }
+    elements$legend.text.align <- NULL
   }
 
   # If complete theme set all non-blank elements to inherit from blanks
@@ -696,6 +722,20 @@ combine_elements <- function(e1, e2) {
   # If e1 is NULL inherit everything from e2
   if (is.null(e1)) {
     return(e2)
+  }
+
+  # Inheritance of rel objects
+  if (is.rel(e1)) {
+    # Both e1 and e2 are rel, give product as another rel
+    if (is.rel(e2)) {
+      return(rel(unclass(e1) * unclass(e2)))
+    }
+    # If e2 is a unit/numeric, return modified unit/numeric
+    # Note that unit objects are considered numeric
+    if (is.numeric(e2) || is.unit(e2)) {
+      return(unclass(e1) * e2)
+    }
+    return(e1)
   }
 
   # If neither of e1 or e2 are element_* objects, return e1

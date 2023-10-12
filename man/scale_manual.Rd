@@ -62,8 +62,8 @@ The default, \code{TRUE}, uses the levels that appear in the data;
     \item{\code{na.translate}}{Unlike continuous scales, discrete scales can easily show
 missing values, and do so by default. If you want to remove missing values
 from a discrete scale, specify \code{na.translate = FALSE}.}
-    \item{\code{scale_name}}{The name of the scale that should be used for error messages
-associated with this scale.}
+    \item{\code{scale_name}}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} The name of the scale
+that should be used for error messages associated with this scale.}
     \item{\code{name}}{The name of the scale. Used as the axis or legend title. If
 \code{waiver()}, the default, the name of the scale is taken from the first
 mapping used for that aesthetic. If \code{NULL}, the legend title will be
@@ -81,6 +81,7 @@ notation.
 }}
     \item{\code{guide}}{A function used to create a guide or its name. See
 \code{\link[=guides]{guides()}} for more information.}
+    \item{\code{call}}{The \code{call} used to construct the scale for reporting messages.}
     \item{\code{super}}{The super class to use for the constructed scale}
   }}
 
@@ -125,7 +126,7 @@ Many color palettes derived from RGB combinations (like the "rainbow" color
 palette) are not suitable to support all viewers, especially those with
 color vision deficiencies. Using \code{viridis} type, which is perceptually
 uniform in both colour and black-and-white display is an easy option to
-ensure good perceptive properties of your visulizations.
+ensure good perceptive properties of your visualizations.
 The colorspace package offers functionalities
 \itemize{
 \item to generate color palettes with good perceptive properties,
@@ -171,3 +172,28 @@ p + scale_colour_manual(
 p + scale_colour_manual(values = cols, limits = c("4", "8"))
 p + scale_colour_manual(values = cols, limits = c("4", "6", "8", "10"))
 }
+\seealso{
+The documentation for \link[=aes_linetype_size_shape]{differentiation related aesthetics}.
+
+The documentation on \link[=aes_colour_fill_alpha]{colour aesthetics}.
+
+Other size scales: \code{\link[=scale_size]{scale_size()}}, \code{\link[=scale_size_identity]{scale_size_identity()}}.
+
+Other shape scales: \code{\link[=scale_shape]{scale_shape()}}, \code{\link[=scale_shape_identity]{scale_shape_identity()}}.
+
+Other linetype scales: \code{\link[=scale_linetype]{scale_linetype()}}, \code{\link[=scale_linetype_identity]{scale_linetype_identity()}}.
+
+Other alpha scales: \code{\link[=scale_alpha]{scale_alpha()}}, \code{\link[=scale_alpha_identity]{scale_alpha_identity()}}.
+
+Other colour scales: 
+\code{\link{scale_alpha}()},
+\code{\link{scale_colour_brewer}()},
+\code{\link{scale_colour_continuous}()},
+\code{\link{scale_colour_gradient}()},
+\code{\link{scale_colour_grey}()},
+\code{\link{scale_colour_hue}()},
+\code{\link{scale_colour_identity}()},
+\code{\link{scale_colour_steps}()},
+\code{\link{scale_colour_viridis_d}()}
+}
+\concept{colour scales}

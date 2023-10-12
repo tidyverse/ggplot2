@@ -77,12 +77,12 @@ it can be used in conjunction with \code{geom_sf()} layers and/or
 \code{geom_map()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{map_id}}
-\item \code{alpha}
-\item \code{colour}
-\item \code{fill}
-\item \code{group}
-\item \code{linetype}
-\item \code{linewidth}
+\item \code{\link[=aes_colour_fill_alpha]{alpha}}
+\item \code{\link[=aes_colour_fill_alpha]{colour}}
+\item \code{\link[=aes_colour_fill_alpha]{fill}}
+\item \code{\link[=aes_group_order]{group}}
+\item \code{\link[=aes_linetype_size_shape]{linetype}}
+\item \code{\link[=aes_linetype_size_shape]{linewidth}}
 \item \code{subgroup}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.

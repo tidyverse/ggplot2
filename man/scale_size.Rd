@@ -102,9 +102,10 @@ or the object itself. Built-in transformations include "asn", "atanh",
 
 A transformation object bundles together a transform, its inverse,
 and methods for generating breaks and labels. Transformation objects
-are defined in the scales package, and are called \verb{<name>_trans} (e.g.,
-\code{\link[scales:boxcox_trans]{scales::boxcox_trans()}}). You can create your own
-transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
+are defined in the scales package, and are called \verb{<name>_trans}. If
+transformations require arguments, you can call them from the scales
+package, e.g. \code{\link[scales:boxcox_trans]{scales::boxcox_trans(p = 2)}}.
+You can create your own transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
 
 \item{guide}{A function used to create a guide or its name. See
 \code{\link[=guides]{guides()}} for more information.}
@@ -151,6 +152,7 @@ expand the scale by 5\% on each side for continuous variables, and by
 0.6 units on each side for discrete variables.}
     \item{\code{position}}{For position scales, The position of the axis.
 \code{left} or \code{right} for y axes, \code{top} or \code{bottom} for x axes.}
+    \item{\code{call}}{The \code{call} used to construct the scale for reporting messages.}
     \item{\code{super}}{The super class to use for the constructed scale}
   }}
 
@@ -197,4 +199,6 @@ p + scale_radius()
 \code{\link[=scale_size_area]{scale_size_area()}} if you want 0 values to be mapped
 to points with size 0. \code{\link[=scale_linewidth]{scale_linewidth()}} if you want to scale the width
 of lines.
+
+The documentation for \link[=aes_linetype_size_shape]{differentiation related aesthetics}.
 }

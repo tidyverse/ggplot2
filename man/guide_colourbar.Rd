@@ -20,12 +20,14 @@ guide_colourbar(
   barheight = NULL,
   nbin = 300,
   raster = TRUE,
+  frame = element_blank(),
   frame.colour = NULL,
-  frame.linewidth = 0.5/.pt,
-  frame.linetype = 1,
-  ticks = TRUE,
-  ticks.colour = "white",
-  ticks.linewidth = 0.5/.pt,
+  frame.linewidth = NULL,
+  frame.linetype = NULL,
+  ticks = element_line(),
+  ticks.colour = NULL,
+  ticks.linewidth = NULL,
+  ticks.length = unit(0.2, "npc"),
   draw.ulim = TRUE,
   draw.llim = TRUE,
   direction = NULL,
@@ -51,12 +53,14 @@ guide_colorbar(
   barheight = NULL,
   nbin = 300,
   raster = TRUE,
+  frame = element_blank(),
   frame.colour = NULL,
-  frame.linewidth = 0.5/.pt,
-  frame.linetype = 1,
-  ticks = TRUE,
-  ticks.colour = "white",
-  ticks.linewidth = 0.5/.pt,
+  frame.linewidth = NULL,
+  frame.linetype = NULL,
+  ticks = element_line(),
+  ticks.colour = NULL,
+  ticks.linewidth = NULL,
+  ticks.length = unit(0.2, "npc"),
   draw.ulim = TRUE,
   draw.llim = TRUE,
   direction = NULL,
@@ -121,8 +125,13 @@ raster object. If \code{FALSE} then the colourbar is rendered as a set of
 rectangles. Note that not all graphics devices are capable of rendering
 raster image.}
 
+\item{frame}{A theme object for rendering a frame drawn around the bar.
+Usually, the object of \code{element_rect()} is expected. If \code{element_blank()}
+(default), no frame is drawn.}
+
 \item{frame.colour}{A string specifying the colour of the frame
-drawn around the bar. If \code{NULL} (the default), no frame is drawn.}
+drawn around the bar. For backward compatibility, if this argument is
+not \code{NULL}, the \code{frame} argument will be set to \code{element_rect()}.}
 
 \item{frame.linewidth}{A numeric specifying the width of the frame
 drawn around the bar in millimetres.}
@@ -130,13 +139,19 @@ drawn around the bar in millimetres.}
 \item{frame.linetype}{A numeric specifying the linetype of the frame
 drawn around the bar.}
 
-\item{ticks}{A logical specifying if tick marks on the colourbar should be
-visible.}
+\item{ticks}{A theme object for rendering tick marks at the colourbar.
+Usually, the object of \code{element_line()} is expected (default). If
+\code{element_blank()}, no tick marks are drawn. For backward compatibility,
+can also be a logical which translates \code{TRUE} to \code{element_line()} and
+\code{FALSE} to \code{element_blank()}.}
 
 \item{ticks.colour}{A string specifying the colour of the tick marks.}
 
 \item{ticks.linewidth}{A numeric specifying the width of the tick marks in
 millimetres.}
+
+\item{ticks.length}{A numeric or a \code{\link[grid:unit]{grid::unit()}} object specifying the
+length of tick marks at the colourbar.}
 
 \item{draw.ulim}{A logical specifying if the upper limit tick marks should
 be visible.}
