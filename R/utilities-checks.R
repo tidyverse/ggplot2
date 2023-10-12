@@ -251,13 +251,13 @@ check_device = function(feature, action = "warn", op = NULL, maybe = FALSE,
   if (dev_name %in% c("agg_jpeg", "agg_ppm", "agg_png", "agg_tiff")) {
     check_installed(
       "ragg", version = "1.2.6",
-      reason = paste0("checking device support for ", feat_name, ".")
+      reason = paste0("for checking device support for ", feat_name, ".")
     )
   }
   if (dev_name == "devSVG") {
     check_installed(
       "svglite", version = "2.1.2",
-      reason = paste0("checking device support for ", feat_name, ".")
+      reason = paste0("for checking device support for ", feat_name, ".")
     )
   }
 
