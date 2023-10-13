@@ -9,13 +9,29 @@
 \alias{scale_color_binned}
 \title{Continuous and binned colour scales}
 \usage{
-scale_colour_continuous(..., type = getOption("ggplot2.continuous.colour"))
+scale_colour_continuous(
+  ...,
+  aesthetics = "colour",
+  type = getOption("ggplot2.continuous.colour")
+)
 
-scale_fill_continuous(..., type = getOption("ggplot2.continuous.fill"))
+scale_fill_continuous(
+  ...,
+  aesthetics = "fill",
+  type = getOption("ggplot2.continuous.colour")
+)
 
-scale_colour_binned(..., type = getOption("ggplot2.binned.colour"))
+scale_colour_binned(
+  ...,
+  aesthetics = "colour",
+  type = getOption("ggplot2.binned.colour")
+)
 
-scale_fill_binned(..., type = getOption("ggplot2.binned.fill"))
+scale_fill_binned(
+  ...,
+  aesthetics = "fill",
+  type = getOption("ggplot2.binned.colour")
+)
 }
 \arguments{
 \item{...}{Additional parameters passed on to the scale type}

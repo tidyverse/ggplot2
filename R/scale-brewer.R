@@ -8,7 +8,7 @@
 #'
 #' @note
 #' The `distiller` scales extend `brewer` scales by smoothly
-#' interpolating 7 colours from any palette to a continuous scale. 
+#' interpolating 7 colours from any palette to a continuous scale.
 #' The `distiller` scales have a default direction = -1. To reverse, use direction = 1.
 #' The `fermenter` scales provide binned versions of the `brewer` scales.
 #'
@@ -88,9 +88,7 @@ scale_colour_brewer <- function(..., type = "seq", palette = 1, direction = 1, a
 
 #' @export
 #' @rdname scale_brewer
-scale_fill_brewer <- function(..., type = "seq", palette = 1, direction = 1, aesthetics = "fill") {
-  discrete_scale(aesthetics, palette = brewer_pal(type, palette, direction), ...)
-}
+scale_fill_brewer <- NULL
 
 #' @export
 #' @rdname scale_brewer
@@ -114,20 +112,7 @@ scale_colour_distiller <- function(..., type = "seq", palette = 1, direction = -
 
 #' @export
 #' @rdname scale_brewer
-scale_fill_distiller <- function(..., type = "seq", palette = 1, direction = -1, values = NULL, space = "Lab", na.value = "grey50", guide = "colourbar", aesthetics = "fill") {
-  type <- arg_match0(type, c("seq", "div", "qual"))
-  if (type == "qual") {
-    cli::cli_warn(c(
-      "Using a discrete colour palette in a continuous scale",
-      "i" = "Consider using {.code type = \"seq\"} or {.code type = \"div\"} instead"
-    ))
-  }
-  continuous_scale(
-    aesthetics,
-    palette = gradient_n_pal(brewer_pal(type, palette, direction)(7), values, space),
-    na.value = na.value, guide = guide, ...
-  )
-}
+scale_fill_distiller <- NULL
 
 #' @export
 #' @rdname scale_brewer
@@ -145,13 +130,4 @@ scale_colour_fermenter <- function(..., type = "seq", palette = 1, direction = -
 
 #' @export
 #' @rdname scale_brewer
-scale_fill_fermenter <- function(..., type = "seq", palette = 1, direction = -1, na.value = "grey50", guide = "coloursteps", aesthetics = "fill") {
-  type <- arg_match0(type, c("seq", "div", "qual"))
-  if (type == "qual") {
-    cli::cli_warn(c(
-      "Using a discrete colour palette in a binned scale",
-      "i" = "Consider using {.code type = \"seq\"} or {.code type = \"div\"} instead"
-    ))
-  }
-  binned_scale(aesthetics, palette = binned_pal(brewer_pal(type, palette, direction)), na.value = na.value, guide = guide, ...)
-}
+scale_fill_fermenter <- NULL

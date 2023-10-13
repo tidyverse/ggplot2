@@ -3,7 +3,7 @@
 #' @export
 #' @rdname scale_viridis
 #' @usage NULL
-scale_colour_ordinal <- function(..., type = getOption("ggplot2.ordinal.colour", getOption("ggplot2.ordinal.fill"))) {
+scale_colour_ordinal <- function(..., aesthetics = "colour", type = getOption("ggplot2.ordinal.colour")) {
   type <- type %||% scale_colour_viridis_d
   args <- list2(...)
   args$call <- args$call %||% current_call()
@@ -11,11 +11,11 @@ scale_colour_ordinal <- function(..., type = getOption("ggplot2.ordinal.colour",
     if (any(c("...", "call") %in% fn_fmls_names(type))) {
       args$call <- args$call %||% current_call()
     }
-    exec(type, !!!args)
+    exec(type, !!!args, aesthetics = aesthetics)
   } else {
     exec(
       discrete_scale,
-      aesthetics = "colour",
+      aesthetics = aesthetics,
       palette = ordinal_pal(type),
       !!!args
     )
@@ -32,13 +32,14 @@ scale_color_ordinal <- scale_colour_ordinal
 #' @rdname scale_gradient
 #' @usage NULL
 scale_colour_datetime <- function(...,
+                                  aesthetics = "colour",
                                   low = "#132B43",
                                   high = "#56B1F7",
                                   space = "Lab",
                                   na.value = "grey50",
                                   guide = "colourbar") {
   datetime_scale(
-    "colour",
+    aesthetics,
     "time",
     palette = seq_gradient_pal(low, high, space),
     na.value = na.value,
@@ -56,13 +57,14 @@ scale_color_datetime <- scale_colour_datetime
 #' @rdname scale_gradient
 #' @usage NULL
 scale_colour_date <- function(...,
+                              aesthetics = "colour",
                               low = "#132B43",
                               high = "#56B1F7",
                               space = "Lab",
                               na.value = "grey50",
                               guide = "colourbar") {
   datetime_scale(
-    "colour",
+    aesthetics,
     "date",
     palette = seq_gradient_pal(low, high, space),
     na.value = na.value,
@@ -80,25 +82,7 @@ scale_color_date <- scale_colour_date
 #' @export
 #' @rdname scale_viridis
 #' @usage NULL
-scale_fill_ordinal <- function(..., type = getOption("ggplot2.ordinal.fill", getOption("ggplot2.ordinal.colour"))) {
-  type <- type %||% scale_fill_viridis_d
-  args <- list2(...)
-  args$call <- args$call %||% current_call()
-
-  if (is.function(type)) {
-    if (any(c("...", "call") %in% fn_fmls_names(type))) {
-      args$call <- args$call %||% current_call()
-    }
-    exec(type, !!!args)
-  } else {
-    exec(
-      discrete_scale,
-      aesthetics = "fill",
-      palette = ordinal_pal(type),
-      !!!args
-    )
-  }
-}
+scale_fill_ordinal <- NULL
 
 ordinal_pal <- function(colours, na.color = "grey50", alpha = TRUE) {
   pal <- scales::colour_ramp(colours, na.color = na.color, alpha = alpha)
@@ -110,40 +94,12 @@ ordinal_pal <- function(colours, na.color = "grey50", alpha = TRUE) {
 #' @export
 #' @rdname scale_gradient
 #' @usage NULL
-scale_fill_datetime <- function(...,
-                                low = "#132B43",
-                                high = "#56B1F7",
-                                space = "Lab",
-                                na.value = "grey50",
-                                guide = "colourbar") {
-  datetime_scale(
-    "fill",
-    "time",
-    palette = seq_gradient_pal(low, high, space),
-    na.value = na.value,
-    guide = guide,
-    ...
-  )
-}
+scale_fill_datetime <- NULL
 
 #' @export
 #' @rdname scale_gradient
 #' @usage NULL
-scale_fill_date <- function(...,
-                            low = "#132B43",
-                            high = "#56B1F7",
-                            space = "Lab",
-                            na.value = "grey50",
-                            guide = "colourbar") {
-  datetime_scale(
-    "fill",
-    "date",
-    palette = seq_gradient_pal(low, high, space),
-    na.value = na.value,
-    guide = guide,
-    ...
-  )
-}
+scale_fill_date <- NULL
 
 
 # Reuse colour scales for fill ----------------------
