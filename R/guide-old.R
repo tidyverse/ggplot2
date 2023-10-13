@@ -107,9 +107,10 @@ GuideOld <- ggproto(
     guide_geom(params, layers, default_mapping = NULL)
   },
 
-  draw = function(self, theme, params) {
+  draw = function(self, theme, position = NULL, direction = NULL, params) {
+    params$direction <- params$direction %||% direction %||% "placeholder"
     params$title.position <- params$title.position %||% switch(
-      params$direction %||% "placeholder",
+      params$direction,
       vertical = "top", horizontal = "left",
       NULL
     )
