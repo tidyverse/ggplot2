@@ -208,6 +208,7 @@ Collate:
     'position-stack.R'
     'quick-plot.R'
     'reshape-add-margins.R'
+    'reuse-scale.R'
     'save.R'
     'scale-.R'
     'scale-alpha.R'
