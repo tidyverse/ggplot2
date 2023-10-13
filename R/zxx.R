@@ -146,6 +146,11 @@ scale_fill_date <- function(...,
 }
 
 
+# Reuse colour scales for fill ----------------------
+
+reuse_all_colour_scales("fill")
+
+
 # British to American spellings ----------------------------------------------
 
 #' @export
