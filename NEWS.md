@@ -3,6 +3,9 @@
 * When using `geom_dotplot(binaxis = "x")` with a discrete y-variable, dots are
   now stacked from the y-position rather than from 0 (@teunbrand, #5462)
 
+* Legend titles no longer take up space if they've been removed by setting 
+  `legend.title = element_blank()` (@teunbrand, #3587).
+
 * New function `check_device()` for testing the availability of advanced 
   graphics features introduced in R 4.1.0 onwards (@teunbrand, #5332).
 
@@ -154,6 +157,17 @@
 * `stat_contour()` and `stat_contour_filled()` now warn about and remove
   duplicated coordinates (@teunbrand, #5215).
 * Improve performance of layers without positional scales (@zeehio, #4990)
+
+# ggplot2 3.4.4
+
+This hotfix release adapts to a change in r-devel's `base::is.atomic()` and 
+the upcoming retirement of maptools.
+
+* `fortify()` for sp objects (e.g., `SpatialPolygonsDataFrame`) is now deprecated
+  and will be removed soon in support of [the upcoming retirement of rgdal, rgeos,
+  and maptools](https://r-spatial.org/r/2023/05/15/evolution4.html). In advance
+  of the whole removal, `fortify(<SpatialPolygonsDataFrame>, region = ...)`
+  no longer works as of this version (@yutannihilation, #5244).
 
 # ggplot2 3.4.3
 This hotfix release addresses a version comparison change in r-devel. There are
