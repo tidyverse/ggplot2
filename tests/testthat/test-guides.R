@@ -107,8 +107,7 @@ test_that("a warning is generated when guides are drawn at a location that doesn
   plot <- ggplot(mpg, aes(class, hwy)) +
     geom_point() +
     scale_y_continuous(guide = guide_axis(position = "top"))
-  built <- expect_silent(ggplot_build(plot))
-  expect_warning(ggplot_gtable(built), "Position guide is perpendicular")
+  expect_warning(ggplot_build(plot), "Position guide is perpendicular")
 })
 
 test_that("a warning is not generated when a guide is specified with duplicate breaks", {
@@ -162,9 +161,7 @@ test_that("Using non-position guides for position scales results in an informati
   p <- ggplot(mpg, aes(cty, hwy)) +
     geom_point() +
     scale_x_continuous(guide = guide_legend())
-
-  built <- ggplot_build(p)
-  expect_snapshot_warning(ggplot_gtable(built))
+  expect_snapshot_warning(ggplot_build(p))
 })
 
 test_that("guide merging for guide_legend() works as expected", {
@@ -813,8 +810,7 @@ test_that("a warning is generated when guides(<scale> = FALSE) is specified", {
 
   # warn on scale_*(guide = FALSE)
   p <- ggplot(df, aes(x, y, colour = x)) + scale_colour_continuous(guide = FALSE)
-  built <- expect_silent(ggplot_build(p))
-  expect_snapshot_warning(ggplot_gtable(built))
+  expect_snapshot_warning(ggplot_build(p))
 })
 
 test_that("guides() warns if unnamed guides are provided", {
