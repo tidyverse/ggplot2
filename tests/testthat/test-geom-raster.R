@@ -68,4 +68,11 @@ test_that("geom_raster draws correctly", {
   expect_doppelganger("irregular categorical",
     ggplot(df, aes(x, y, fill = factor(col))) + geom_raster()
   )
+
+  # Categorical axes -----------------------------------------------------------
+
+  df <- expand.grid(x = c("A", "B"), y = c("C", "D"))
+  expect_doppelganger("discrete positions",
+    ggplot(df, aes(x, y, fill = interaction(x, y))) + geom_raster()
+  )
 })

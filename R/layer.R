@@ -268,12 +268,12 @@ Layer <- ggproto("Layer", NULL,
       aesthetics[["group"]] <- self$aes_params$group
     }
 
-    plot$scales$add_defaults(data, aesthetics, plot$plot_env)
-
     # Evaluate aesthetics
     env <- child_env(baseenv(), stage = stage)
     evaled <- lapply(aesthetics, eval_tidy, data = data, env = env)
     evaled <- compact(evaled)
+
+    plot$scales$add_defaults(evaled, plot$plot_env)
 
     # Check for discouraged usage in mapping
     warn_for_aes_extract_usage(aesthetics, data[setdiff(names(data), "PANEL")])
@@ -376,7 +376,7 @@ Layer <- ggproto("Layer", NULL,
     stat_data <- data_frame0(!!!compact(stat_data))
 
     # Add any new scales, if needed
-    plot$scales$add_defaults(data, new, plot$plot_env)
+    plot$scales$add_defaults(stat_data, plot$plot_env)
     # Transform the values, if the scale say it's ok
     # (see stat_spoke for one exception)
     if (self$stat$retransform) {

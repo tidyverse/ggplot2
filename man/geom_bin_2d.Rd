@@ -96,7 +96,7 @@ in the presence of overplotting.
 }
 \section{Aesthetics}{
 
-\code{stat_bin2d()} understands the following aesthetics (required aesthetics are in bold):
+\code{stat_bin_2d()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{\link[=aes_position]{x}}}
 \item \strong{\code{\link[=aes_position]{y}}}
@@ -131,5 +131,5 @@ d + geom_bin_2d(bins = 30)
 d + geom_bin_2d(binwidth = c(0.1, 0.1))
 }
 \seealso{
-\code{\link[=stat_binhex]{stat_binhex()}} for hexagonal binning
+\code{\link[=stat_bin_hex]{stat_bin_hex()}} for hexagonal binning
 }

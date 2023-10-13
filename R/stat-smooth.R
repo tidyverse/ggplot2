@@ -171,14 +171,25 @@ StatSmooth <- ggproto("StatSmooth", Stat,
       method.args$method <- "REML"
     }
 
-    model <- inject(method(
-      formula,
-      data = data,
-      weights = weight,
-      !!!method.args
-    ))
+    prediction <- try_fetch(
+      {
+        model <- inject(method(
+          formula,
+          data = data,
+          weights = weight,
+          !!!method.args
+        ))
+        predictdf(model, xseq, se, level)
+      },
+      error = function(cnd) {
+        cli::cli_warn("Failed to fit group {data$group[1]}.", parent = cnd)
+        NULL
+      }
+    )
+    if (is.null(prediction)) {
+      return(NULL)
+    }
 
-    prediction <- predictdf(model, xseq, se, level)
     prediction$flipped_aes <- flipped_aes
     flip_data(prediction, flipped_aes)
   },

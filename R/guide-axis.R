@@ -135,11 +135,6 @@ GuideAxis <- ggproto(
       return(params)
     }
 
-    if (inherits(coord, "CoordSf")) {
-      # Positions already given in target crs
-      panel_params$default_crs <- panel_params$crs
-    }
-
     aesthetics <- names(key)[!grepl("^\\.", names(key))]
     if (!all(c("x", "y") %in% aesthetics)) {
       other_aesthetic <- setdiff(c("x", "y"), aesthetics)
