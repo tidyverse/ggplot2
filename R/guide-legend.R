@@ -547,28 +547,32 @@ GuideLegend <- ggproto(
     )
     heights <- head(vec_interleave(!!!heights), -1)
 
-    # Measure title
-    title_width  <- width_cm(grobs$title)
-    title_height <- height_cm(grobs$title)
+    has_title <- !is.zero(grobs$title)
+    if (has_title) {
+      # Measure title
+      title_width  <- width_cm(grobs$title)
+      title_height <- height_cm(grobs$title)
 
-    # Combine title with rest of the sizes based on its position
-    widths <- switch(
-      params$title.position,
-      "left"  = c(title_width, widths),
-      "right" = c(widths, title_width),
-      c(widths, max(0, title_width - sum(widths)))
-    )
-    heights <- switch(
-      params$title.position,
-      "top"    = c(title_height, heights),
-      "bottom" = c(heights, title_height),
-      c(heights, max(0, title_height - sum(heights)))
-    )
+      # Combine title with rest of the sizes based on its position
+      widths <- switch(
+        params$title.position,
+        "left"  = c(title_width, widths),
+        "right" = c(widths, title_width),
+        c(widths, max(0, title_width - sum(widths)))
+      )
+      heights <- switch(
+        params$title.position,
+        "top"    = c(title_height, heights),
+        "bottom" = c(heights, title_height),
+        c(heights, max(0, title_height - sum(heights)))
+      )
+    }
 
     list(
       widths  = widths,
       heights = heights,
-      padding = elements$padding
+      padding = elements$padding,
+      has_title = has_title
     )
   },
 
@@ -614,29 +618,34 @@ GuideLegend <- ggproto(
     )
 
     # Offset layout based on title position
-    switch(
-      params$title.position,
-      "top" = {
-        key_row   <- key_row   + 1
-        label_row <- label_row + 1
-        title_row <- 2
-        title_col <- seq_along(sizes$widths) + 1
-      },
-      "bottom" = {
-        title_row <- length(sizes$heights)   + 1
-        title_col <- seq_along(sizes$widths) + 1
-      },
-      "left" = {
-        key_col   <- key_col   + 1
-        label_col <- label_col + 1
-        title_row <- seq_along(sizes$heights) + 1
-        title_col <- 2
-      },
-      "right" = {
-        title_row <- seq_along(sizes$heights) + 1
-        title_col <- length(sizes$widths)     + 1
-      }
-    )
+    if (sizes$has_title) {
+      switch(
+        params$title.position,
+        "top" = {
+          key_row   <- key_row   + 1
+          label_row <- label_row + 1
+          title_row <- 2
+          title_col <- seq_along(sizes$widths) + 1
+        },
+        "bottom" = {
+          title_row <- length(sizes$heights)   + 1
+          title_col <- seq_along(sizes$widths) + 1
+        },
+        "left" = {
+          key_col   <- key_col   + 1
+          label_col <- label_col + 1
+          title_row <- seq_along(sizes$heights) + 1
+          title_col <- 2
+        },
+        "right" = {
+          title_row <- seq_along(sizes$heights) + 1
+          title_col <- length(sizes$widths)     + 1
+        }
+      )
+    } else {
+      title_row <- NA
+      title_col <- NA
+    }
 
     df <- cbind(df, key_row, key_col, label_row, label_col)
 

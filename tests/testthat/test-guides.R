@@ -495,6 +495,22 @@ test_that("Axis titles won't be blown away by coord_*()", {
   # expect_doppelganger("guide titles with coord_sf()", plot + coord_sf())
 })
 
+test_that("absent titles don't take up space", {
+
+  p <- ggplot(mtcars, aes(disp, mpg, colour = factor(cyl))) +
+    geom_point() +
+    theme(
+      legend.title = element_blank(),
+      legend.margin = margin(),
+      legend.position = "top",
+      legend.justification = "left",
+      legend.key = element_rect(colour = "black"),
+      axis.line = element_line(colour = "black")
+    )
+
+  expect_doppelganger("left aligned legend key", p)
+})
+
 test_that("axis guides can be capped", {
   p <- ggplot(mtcars, aes(hp, disp)) +
     geom_point() +
