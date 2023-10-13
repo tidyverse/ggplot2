@@ -38,12 +38,4 @@
 To figure out the correct variable name for region, inspect
 \code{as.data.frame(model)}.
 }
-\examples{
-if (require("maptools")) {
- sids <- system.file("shapes/sids.shp", package="maptools")
- nc1 <- readShapePoly(sids,
-   proj4string = CRS("+proj=longlat +datum=NAD27"))
- nc1_df <- fortify(nc1)
-}
-}
 \keyword{internal}

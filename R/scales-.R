@@ -141,23 +141,15 @@ ScalesList <- ggproto("ScalesList", NULL,
 
   # `aesthetics` is a list of aesthetic-variable mappings. The name of each
   # item is the aesthetic, and the value of each item is the variable in data.
-  add_defaults = function(self, data, aesthetics, env) {
-    if (is.null(aesthetics)) {
-      return()
-    }
-    names(aesthetics) <- unlist(lapply(names(aesthetics), aes_to_scale))
-
-    new_aesthetics <- setdiff(names(aesthetics), self$input())
+  add_defaults = function(self, data, env) {
+    new_aesthetics <- setdiff(names(data), self$input())
     # No new aesthetics, so no new scales to add
     if (is.null(new_aesthetics)) {
       return()
     }
 
-    data_cols <- lapply(aesthetics[new_aesthetics], eval_tidy, data = data)
-    data_cols <- compact(data_cols)
-
-    for (aes in names(data_cols)) {
-      self$add(find_scale(aes, data_cols[[aes]], env))
+    for (aes in new_aesthetics) {
+      self$add(find_scale(aes, data[[aes]], env))
     }
   },
 
