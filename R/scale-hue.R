@@ -120,7 +120,7 @@ scale_fill_hue <- NULL
 scale_colour_discrete <- function(..., aesthetics = "colour", type = getOption("ggplot2.discrete.colour")) {
   # TODO: eventually `type` should default to a set of colour-blind safe color codes (e.g. Okabe-Ito)
   type <- type %||% "hue"
-  args <- list2(...)
+  args <- list2(..., aesthetics = aesthetics)
   args$call <- args$call %||% current_call()
 
   if (is.function(type)) {
@@ -134,7 +134,7 @@ scale_colour_discrete <- function(..., aesthetics = "colour", type = getOption("
       scale_is_discrete = TRUE
     )
   } else {
-    exec(scale_colour_qualitative, !!!args, aesthetics = aesthetics, type = type)
+    exec(scale_colour_qualitative, !!!args, type = type)
   }
 }
 
