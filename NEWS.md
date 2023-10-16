@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* In the theme element hierarchy, parent elements that are a strict subclass
+  of child elements now confer their subclass upon the children (#5457).
+
 * Legend titles no longer take up space if they've been removed by setting 
   `legend.title = element_blank()` (@teunbrand, #3587).
 
