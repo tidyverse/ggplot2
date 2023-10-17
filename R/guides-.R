@@ -281,9 +281,9 @@ Guides <- ggproto(
   build = function(self, scales, layers, default_mapping,
                    position, theme, labels) {
 
-    position  <- legend_position(position)
+    place  <- legend_position(position)
     no_guides <- zeroGrob()
-    if (position == "none") {
+    if (place == "none") {
       return(no_guides)
     }
 
@@ -291,11 +291,11 @@ Guides <- ggproto(
     theme$legend.key.height <- theme$legend.key.height %||% theme$legend.key.size
 
 
-    default_direction <- if (position == "inside") "vertical" else position
+    default_direction <- if (place == "inside") "vertical" else place
     theme$legend.box       <- theme$legend.box       %||% default_direction
     theme$legend.direction <- theme$legend.direction %||% default_direction
     theme$legend.box.just  <- theme$legend.box.just  %||% switch(
-      position,
+      place,
       inside     = c("center", "center"),
       vertical   = c("left",   "top"),
       horizontal = c("center", "top")
@@ -326,9 +326,22 @@ Guides <- ggproto(
       return(no_guides)
     }
 
+    positions <- vapply(
+      guides$params,
+      function(p) p$position %||% position,
+      character(1)
+    )
+    positions <- factor(positions, levels = c(.trbl, "manual"))
+
     # Draw and assemble
     grobs <- guides$draw(theme)
-    guides$assemble(grobs, theme)
+
+    # Draw separate box for every position
+    lapply(
+      split(grobs, positions),
+      guides$assemble,
+      theme = theme
+    )
   },
 
   # Setup routine for resolving and validating guides based on paired scales.
@@ -490,6 +503,10 @@ Guides <- ggproto(
 
   # Combining multiple guides in a guide box
   assemble = function(grobs, theme) {
+    if (is.zero(grobs) || length(grobs) == 0) {
+      return(zeroGrob())
+    }
+
     # Set spacing
     theme$legend.spacing   <- theme$legend.spacing    %||% unit(0.5, "lines")
     theme$legend.spacing.y <- theme$legend.spacing.y  %||% theme$legend.spacing
