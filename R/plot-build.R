@@ -412,8 +412,12 @@ table_add_legends <- function(table, legends, theme) {
   }
 
   # Extract sizes
-  widths  <- lapply(legends, function(x) unit(gtable_width(x),  "pt"))
-  heights <- lapply(legends, function(x) unit(gtable_height(x), "pt"))
+  widths <- heights <- set_names(
+    rep(list(unit(0, "pt")), length(legends)),
+    names(legends)
+  )
+  widths[!empty]  <- lapply(legends[!empty], gtable_width)
+  heights[!empty] <- lapply(legends[!empty], gtable_height)
   spacing <- theme$legend.box.spacing %||% unit(0.2, "cm")
 
   # Set the justification of the legend box
