@@ -42,6 +42,8 @@
 #' @param keyheight A numeric or a [grid::unit()] object specifying
 #'   the height of the legend key. Default value is `legend.key.height` or
 #'   `legend.key.size` in [theme()].
+#' @param position A character string indicating where the legend should be
+#'   placed relative to the plot panels.
 #' @param direction  A character string indicating the direction of the guide.
 #'   One of "horizontal" or "vertical."
 #' @param default.unit A character string indicating [grid::unit()]
@@ -145,6 +147,7 @@ guide_legend <- function(
   keyheight = NULL,
 
   # General
+  position     = NULL,
   direction    = NULL,
   default.unit = "line",
   override.aes = list(),
@@ -167,6 +170,9 @@ guide_legend <- function(
   }
   if (!is.null(label.position)) {
     label.position <- arg_match0(label.position, .trbl)
+  }
+  if (!is.null(position)) {
+    position <- arg_match0(position, c(.trbl, "manual"))
   }
 
   new_guide(
@@ -196,6 +202,7 @@ guide_legend <- function(
     byrow = byrow,
     reverse = reverse,
     order = order,
+    position = position,
 
     # Fixed parameters
     available_aes = "any",
