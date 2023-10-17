@@ -96,6 +96,8 @@ label text. The default for standard text is 0 (left-aligned) and 1
 (right-aligned) for expressions.}
     \item{\code{label.vjust}}{A numeric specifying vertical justification of the label
 text.}
+    \item{\code{position}}{A character string indicating where the legend should be
+placed relative to the plot panels.}
     \item{\code{order}}{positive integer less than 99 that specifies the order of
 this guide among multiple guides. This controls the order in which
 multiple guides are displayed, not the contents of the guide itself.
