@@ -51,22 +51,21 @@ test_that("Colorbar respects show.legend in layer", {
   df <- data_frame(x = 1:3, y = 1)
   p <- ggplot(df, aes(x = x, y = y, color = x)) +
     geom_point(size = 20, shape = 21, show.legend = FALSE)
-  expect_false("guide-box" %in% ggplotGrob(p)$layout$name)
+  expect_false(any(grepl("guide-box", ggplotGrob(p)$layout$name)))
   p <- ggplot(df, aes(x = x, y = y, color = x)) +
     geom_point(size = 20, shape = 21, show.legend = TRUE)
-  expect_true("guide-box" %in% ggplotGrob(p)$layout$name)
+  expect_true(any(grepl("guide-box", ggplotGrob(p)$layout$name)))
 })
 
 test_that("show.legend handles named vectors", {
   n_legends <- function(p) {
     g <- ggplotGrob(p)
-    gb <- which(g$layout$name == "guide-box")
-    if (length(gb) > 0) {
-      n <- length(g$grobs[[gb]]) - 1
-    } else {
-      n <- 0
-    }
-    n
+    gb <- grep("guide-box", g$layout$name)
+    n <- vapply(g$grobs[gb], function(x) {
+      if (is.zero(x)) return(0)
+      length(x$grobs) - 1
+    }, numeric(1))
+    sum(n)
   }
 
   df <- data_frame(x = 1:3, y = 20:22)
