@@ -2,15 +2,25 @@
 % Please edit documentation in R/reuse-scale.R
 \name{reuse_scale}
 \alias{reuse_scale}
-\title{Make a copy of a color scale for a different aesthetic}
+\alias{reuse_all_colour_scales}
+\title{Make a copy of a color scale for a different aesthetic.
+Example use: \code{scale_outlinecolor_hue <- reuse_scale(scale_color_hue, "outlinecolor")}}
 \usage{
 reuse_scale(scale, aesthetics)
+
+reuse_all_colour_scales(new_aesthetics = c("fill"))
 }
 \arguments{
 \item{scale}{A color scale to copy from}
 
-\item{aesthetic}{The new aesthetic or aesthetics to apply the color scale to}
+\item{new_aesthetics}{The name of one or more new colour-based aesthetics to create scales for}
+
+\item{aesthetic}{The name of the new aesthetic or aesthetics to apply the color scale to}
 }
 \description{
-Make a copy of a color scale for a different aesthetic
+Make a copy of a color scale for a different aesthetic.
+Example use: \code{scale_outlinecolor_hue <- reuse_scale(scale_color_hue, "outlinecolor")}
+
+Find every \verb{scale_colour_*()} in the environment and remap it for a different colour-based aesthetic.
+The new scale functions will be named \verb{scale_[new_aesthetics]_*()}.
 }

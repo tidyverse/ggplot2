@@ -31,7 +31,3 @@ scale_colour_grey <- function(..., start = 0.2, end = 0.8, na.value = "red", aes
   discrete_scale(aesthetics, palette = grey_pal(start, end),
     na.value = na.value, ...)
 }
-
-#' @rdname scale_grey
-#' @export
-scale_fill_grey <- NULL

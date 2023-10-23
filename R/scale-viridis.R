@@ -69,10 +69,6 @@ scale_colour_viridis_d <- function(..., alpha = 1, begin = 0, end = 1,
 
 #' @export
 #' @rdname scale_viridis
-scale_fill_viridis_d <- NULL
-
-#' @export
-#' @rdname scale_viridis
 scale_colour_viridis_c <- function(..., alpha = 1, begin = 0, end = 1,
                                    direction = 1, option = "D", values = NULL,
                                    space = "Lab", na.value = "grey50",
@@ -92,10 +88,6 @@ scale_colour_viridis_c <- function(..., alpha = 1, begin = 0, end = 1,
 
 #' @export
 #' @rdname scale_viridis
-scale_fill_viridis_c <- NULL
-
-#' @export
-#' @rdname scale_viridis
 scale_colour_viridis_b <- function(..., alpha = 1, begin = 0, end = 1,
                                    direction = 1, option = "D", values = NULL,
                                    space = "Lab", na.value = "grey50",
@@ -112,7 +104,3 @@ scale_colour_viridis_b <- function(..., alpha = 1, begin = 0, end = 1,
     ...
   )
 }
-
-#' @export
-#' @rdname scale_viridis
-scale_fill_viridis_b <- NULL

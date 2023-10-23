@@ -1,6 +1,7 @@
-#' Make a copy of a color scale for a different aesthetic
+#' Make a copy of a color scale for a different aesthetic.
+#' Example use: `scale_outlinecolor_hue <- reuse_scale(scale_color_hue, "outlinecolor")`
 #' @param scale A color scale to copy from
-#' @param aesthetic The new aesthetic or aesthetics to apply the color scale to
+#' @param aesthetic The name of the new aesthetic or aesthetics to apply the color scale to
 #' @export
 reuse_scale <- function(scale, aesthetics) {
   check_function(scale)
@@ -18,6 +19,7 @@ reuse_scale <- function(scale, aesthetics) {
 #' The new scale functions will be named `scale_[new_aesthetics]_*()`.
 #'
 #' @param new_aesthetics The name of one or more new colour-based aesthetics to create scales for
+#' @rdname reuse_scale
 #' @export
 reuse_all_colour_scales <- function(new_aesthetics = c("fill")) {
   new_aesthetic_name <- paste(new_aesthetics, collapse="")

@@ -70,10 +70,6 @@ scale_colour_identity <- function(..., guide = "none", aesthetics = "colour") {
 }
 
 #' @rdname scale_identity
-#' @export
-scale_fill_identity <- NULL
-
-#' @rdname scale_identity
 #' @seealso
 #' Other shape scales: [scale_shape()], [scale_shape_manual()].
 #' @export

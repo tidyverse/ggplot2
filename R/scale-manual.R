@@ -92,10 +92,6 @@ scale_colour_manual <- function(..., values, aesthetics = "colour", breaks = wai
 }
 
 #' @rdname scale_manual
-#' @export
-scale_fill_manual <- NULL
-
-#' @rdname scale_manual
 #' @seealso
 #' Other size scales: [scale_size()], [scale_size_identity()].
 #' @export

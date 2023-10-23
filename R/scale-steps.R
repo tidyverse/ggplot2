@@ -65,14 +65,3 @@ scale_colour_stepsn <- function(..., colours, values = NULL, space = "Lab", na.v
   binned_scale(aesthetics = aesthetics, palette = gradient_n_pal(colours, values, space),
                na.value = na.value, guide = guide, ...)
 }
-#' @rdname scale_steps
-#' @export
-scale_fill_steps <- NULL
-
-#' @rdname scale_steps
-#' @export
-scale_fill_steps2 <- NULL
-
-#' @rdname scale_steps
-#' @export
-scale_fill_stepsn <- NULL

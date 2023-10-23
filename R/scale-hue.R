@@ -59,10 +59,6 @@ scale_colour_hue <- function(..., h = c(0, 360) + 15, c = 100, l = 65, h.start =
     na.value = na.value, ...)
 }
 
-#' @rdname scale_hue
-#' @export
-scale_fill_hue <- NULL
-
 
 #' Discrete colour scales
 #'
@@ -138,10 +134,6 @@ scale_colour_discrete <- function(..., aesthetics = "colour", type = getOption("
   }
 }
 
-#' @rdname scale_colour_discrete
-#' @export
-scale_fill_discrete <- NULL
-
 scale_colour_qualitative <- function(..., type = NULL, h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
                                      direction = 1, na.value = "grey50", aesthetics = "colour") {
   discrete_scale(
@@ -149,8 +141,6 @@ scale_colour_qualitative <- function(..., type = NULL, h = c(0, 360) + 15, c = 1
     na.value = na.value, ...
   )
 }
-
-scale_fill_qualitative <- NULL
 
 #' Given set(s) of colour codes (i.e., type), find the smallest set that can support n levels
 #' @param type a character vector or a list of character vectors

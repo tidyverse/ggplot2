@@ -98,10 +98,6 @@ scale_colour_continuous <- function(..., aesthetics = "colour",
   }
 }
 
-#' @rdname scale_colour_continuous
-#' @export
-scale_fill_continuous <- NULL
-
 #' @export
 #' @rdname scale_colour_continuous
 scale_colour_binned <- function(..., aesthetics = "colour",
@@ -135,10 +131,6 @@ scale_colour_binned <- function(..., aesthetics = "colour",
     }
   }
 }
-
-#' @export
-#' @rdname scale_colour_continuous
-scale_fill_binned <- NULL
 
 
 # helper function to make sure that the provided scale is of the correct

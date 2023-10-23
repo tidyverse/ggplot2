@@ -88,10 +88,6 @@ scale_colour_brewer <- function(..., type = "seq", palette = 1, direction = 1, a
 
 #' @export
 #' @rdname scale_brewer
-scale_fill_brewer <- NULL
-
-#' @export
-#' @rdname scale_brewer
 scale_colour_distiller <- function(..., type = "seq", palette = 1, direction = -1, values = NULL, space = "Lab", na.value = "grey50", guide = "colourbar", aesthetics = "colour") {
   # warn about using a qualitative brewer palette to generate the gradient
   type <- arg_match0(type, c("seq", "div", "qual"))
@@ -112,10 +108,6 @@ scale_colour_distiller <- function(..., type = "seq", palette = 1, direction = -
 
 #' @export
 #' @rdname scale_brewer
-scale_fill_distiller <- NULL
-
-#' @export
-#' @rdname scale_brewer
 scale_colour_fermenter <- function(..., type = "seq", palette = 1, direction = -1, na.value = "grey50", guide = "coloursteps", aesthetics = "colour") {
   # warn about using a qualitative brewer palette to generate the gradient
   type <- arg_match0(type, c("seq", "div", "qual"))
@@ -127,7 +119,3 @@ scale_colour_fermenter <- function(..., type = "seq", palette = 1, direction = -
   }
   binned_scale(aesthetics, palette = binned_pal(brewer_pal(type, palette, direction)), na.value = na.value, guide = guide, ...)
 }
-
-#' @export
-#' @rdname scale_brewer
-scale_fill_fermenter <- NULL
