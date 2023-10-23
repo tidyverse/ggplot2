@@ -5,7 +5,7 @@
 #' @export
 #' @rdname scale_viridis
 #' @usage NULL
-scale_colour_ordinal <- function(..., aesthetics = "colour", type = getOption("ggplot2.ordinal.colour")) {
+scale_colour_ordinal <- function(..., aesthetics = "colour", type = getOption(glue("ggplot2.ordinal.{aesthetics[1]}"))) {
   type <- type %||% scale_colour_viridis_d
   args <- list2(...)
   args$call <- args$call %||% current_call()

@@ -76,7 +76,7 @@
 #' options(ggplot2.continuous.fill = tmp) # restore previous setting
 #' @export
 scale_colour_continuous <- function(..., aesthetics = "colour",
-                                    type = getOption("ggplot2.continuous.colour")) {
+                                    type = getOption(glue("ggplot2.continuous.{aesthetics[1]}"))) {
   type <- type %||% "gradient"
   args <- list2(..., aesthetics = aesthetics)
   args$call <- args$call %||% current_call()
@@ -101,7 +101,7 @@ scale_colour_continuous <- function(..., aesthetics = "colour",
 #' @export
 #' @rdname scale_colour_continuous
 scale_colour_binned <- function(..., aesthetics = "colour",
-                                type = getOption("ggplot2.binned.colour")) {
+                                type = getOption(glue("ggplot2.binned.{aesthetics[1]}"))) {
   args <- list2(..., aesthetics = aesthetics)
   args$call <- args$call %||% current_call()
   if (is.function(type)) {
@@ -110,7 +110,7 @@ scale_colour_binned <- function(..., aesthetics = "colour",
     }
     check_scale_type(exec(type, !!!args), "scale_colour_binned", "colour")
   } else {
-    type_fallback <- getOption("ggplot2.continuous.colour", default = "gradient")
+    type_fallback <- getOption(glue("ggplot2.continuous.{aesthetics[1]}"), default = "gradient")
     # don't use fallback from scale_colour_continuous() if it is
     # a function, since that would change the type of the color
     # scale from binned to continuous
