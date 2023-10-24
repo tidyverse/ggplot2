@@ -122,9 +122,9 @@ check_path <- function(path, filename, create.dir,
     ), call = call)
     filename <- filename[1]
   }
-  check_string(filename, allow_empty = FALSE)
+  check_string(filename, allow_empty = FALSE, call = call)
 
-  check_string(path, allow_empty = FALSE, allow_null = TRUE)
+  check_string(path, allow_empty = FALSE, allow_null = TRUE, call = call)
   if (!is.null(path)) {
     filename <- file.path(path, filename)
   } else {
@@ -136,7 +136,7 @@ check_path <- function(path, filename, create.dir,
     return(filename)
   }
 
-  check_bool(create.dir)
+  check_bool(create.dir, call = call)
 
   # Try to ask user to create a new directory
   if (interactive() && !create.dir) {
