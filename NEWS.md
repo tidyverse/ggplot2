@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `ggsave()` no longer sometimes creates new directories, which is now 
+  controlled by the new `create.dir` argument (#5489).
+
 * Legend titles no longer take up space if they've been removed by setting 
   `legend.title = element_blank()` (@teunbrand, #3587).
 
