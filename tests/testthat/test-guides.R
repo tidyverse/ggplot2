@@ -495,6 +495,31 @@ test_that("Axis titles won't be blown away by coord_*()", {
   # expect_doppelganger("guide titles with coord_sf()", plot + coord_sf())
 })
 
+test_that("guide_axis() draws minor ticks correctly", {
+  p <- ggplot(mtcars, aes(wt, disp)) +
+    geom_point() +
+    theme(axis.ticks.length = unit(1, "cm"),
+          axis.ticks.x.bottom = element_line(linetype = 2),
+          axis.ticks.length.x.top = unit(-0.5, "cm"),
+          axis.minor.ticks.x.bottom = element_line(colour = "red"),
+          axis.minor.ticks.length.y.left = unit(-0.5, "cm"),
+          axis.minor.ticks.length.x.top = unit(-0.5, "cm"),
+          axis.minor.ticks.length.x.bottom = unit(0.75, "cm"),
+          axis.minor.ticks.length.y.right = unit(5, "cm")) +
+    scale_x_continuous(labels = math_format()) +
+    guides(
+      # Test for styling and style inheritance
+      x = guide_axis(minor.ticks = TRUE),
+      # # Test for opposed lengths
+      y = guide_axis(minor.ticks = TRUE),
+      # # Test for flipped lenghts
+      x.sec = guide_axis(minor.ticks = TRUE),
+      # # Test that minor.length doesn't influence spacing when no minor ticks are drawn
+      y.sec = guide_axis(minor.ticks = FALSE)
+    )
+  expect_doppelganger("guides with minor ticks", p)
+})
+
 test_that("absent titles don't take up space", {
 
   p <- ggplot(mtcars, aes(disp, mpg, colour = factor(cyl))) +

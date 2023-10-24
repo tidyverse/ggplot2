@@ -48,8 +48,13 @@
 #'   `axis.ticks.y.left`, `axis.ticks.y.right`). `axis.ticks.*.*` inherits from
 #'   `axis.ticks.*` which inherits from `axis.ticks`, which in turn inherits
 #'   from `line`
+#' @param axis.minor.ticks.x.top,axis.minor.ticks.x.bottom,axis.minor.ticks.y.left,axis.minor.ticks.y.right,
+#'   minor tick marks along axes ([element_line()]). `axis.minor.ticks.*.*`
+#'   inherit from the corresponding major ticks `axis.ticks.*.*`.
 #' @param axis.ticks.length,axis.ticks.length.x,axis.ticks.length.x.top,axis.ticks.length.x.bottom,axis.ticks.length.y,axis.ticks.length.y.left,axis.ticks.length.y.right
 #'   length of tick marks (`unit`)
+#' @param axis.minor.ticks.length,axis.minor.ticks.length.x,axis.minor.ticks.length.x.top,axis.minor.ticks.length.x.bottom,axis.minor.ticks.length.y,axis.minor.ticks.length.y.left,axis.minor.ticks.length.y.right
+#'   length of minor tick marks (`unit`), or relative to `axis.ticks.length` when provided with `rel()`.
 #' @param axis.line,axis.line.x,axis.line.x.top,axis.line.x.bottom,axis.line.y,axis.line.y.left,axis.line.y.right
 #'   lines along axes ([element_line()]). Specify lines along all axes (`axis.line`),
 #'   lines for each plane (using `axis.line.x` or `axis.line.y`), or individually
@@ -302,6 +307,10 @@ theme <- function(line,
                   axis.ticks.y,
                   axis.ticks.y.left,
                   axis.ticks.y.right,
+                  axis.minor.ticks.x.top,
+                  axis.minor.ticks.x.bottom,
+                  axis.minor.ticks.y.left,
+                  axis.minor.ticks.y.right,
                   axis.ticks.length,
                   axis.ticks.length.x,
                   axis.ticks.length.x.top,
@@ -309,6 +318,13 @@ theme <- function(line,
                   axis.ticks.length.y,
                   axis.ticks.length.y.left,
                   axis.ticks.length.y.right,
+                  axis.minor.ticks.length,
+                  axis.minor.ticks.length.x,
+                  axis.minor.ticks.length.x.top,
+                  axis.minor.ticks.length.x.bottom,
+                  axis.minor.ticks.length.y,
+                  axis.minor.ticks.length.y.left,
+                  axis.minor.ticks.length.y.right,
                   axis.line,
                   axis.line.x,
                   axis.line.x.top,
