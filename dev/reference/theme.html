@@ -135,6 +135,10 @@ together according to inheritance, read more about theme inheritance below.</p>
 <span>  <span class="va">axis.ticks.y</span>,</span>
 <span>  <span class="va">axis.ticks.y.left</span>,</span>
 <span>  <span class="va">axis.ticks.y.right</span>,</span>
+<span>  <span class="va">axis.minor.ticks.x.top</span>,</span>
+<span>  <span class="va">axis.minor.ticks.x.bottom</span>,</span>
+<span>  <span class="va">axis.minor.ticks.y.left</span>,</span>
+<span>  <span class="va">axis.minor.ticks.y.right</span>,</span>
 <span>  <span class="va">axis.ticks.length</span>,</span>
 <span>  <span class="va">axis.ticks.length.x</span>,</span>
 <span>  <span class="va">axis.ticks.length.x.top</span>,</span>
@@ -142,6 +146,13 @@ together according to inheritance, read more about theme inheritance below.</p>
 <span>  <span class="va">axis.ticks.length.y</span>,</span>
 <span>  <span class="va">axis.ticks.length.y.left</span>,</span>
 <span>  <span class="va">axis.ticks.length.y.right</span>,</span>
+<span>  <span class="va">axis.minor.ticks.length</span>,</span>
+<span>  <span class="va">axis.minor.ticks.length.x</span>,</span>
+<span>  <span class="va">axis.minor.ticks.length.x.top</span>,</span>
+<span>  <span class="va">axis.minor.ticks.length.x.bottom</span>,</span>
+<span>  <span class="va">axis.minor.ticks.length.y</span>,</span>
+<span>  <span class="va">axis.minor.ticks.length.y.left</span>,</span>
+<span>  <span class="va">axis.minor.ticks.length.y.right</span>,</span>
 <span>  <span class="va">axis.line</span>,</span>
 <span>  <span class="va">axis.line.x</span>,</span>
 <span>  <span class="va">axis.line.x.top</span>,</span>
@@ -261,8 +272,17 @@ for each axis (using <code>axis.ticks.x.bottom</code>, <code>axis.ticks.x.top</c
 from <code>line</code></p></dd>
 
 
+<dt>axis.minor.ticks.x.top, axis.minor.ticks.x.bottom, axis.minor.ticks.y.left, axis.minor.ticks.y.right, </dt>
+<dd><p>minor tick marks along axes (<code><a href="element.html">element_line()</a></code>). <code>axis.minor.ticks.*.*</code>
+inherit from the corresponding major ticks <code>axis.ticks.*.*</code>.</p></dd>
+
+
 <dt>axis.ticks.length, axis.ticks.length.x, axis.ticks.length.x.top, axis.ticks.length.x.bottom, axis.ticks.length.y, axis.ticks.length.y.left, axis.ticks.length.y.right</dt>
 <dd><p>length of tick marks (<code>unit</code>)</p></dd>
+
+
+<dt>axis.minor.ticks.length, axis.minor.ticks.length.x, axis.minor.ticks.length.x.top, axis.minor.ticks.length.x.bottom, axis.minor.ticks.length.y, axis.minor.ticks.length.y.left, axis.minor.ticks.length.y.right</dt>
+<dd><p>length of minor tick marks (<code>unit</code>), or relative to <code>axis.ticks.length</code> when provided with <code><a href="element.html">rel()</a></code>.</p></dd>
 
 
 <dt>axis.line, axis.line.x, axis.line.x.top, axis.line.x.bottom, axis.line.y, axis.line.y.left, axis.line.y.right</dt>
