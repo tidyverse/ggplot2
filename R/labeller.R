@@ -450,7 +450,11 @@ labeller <- function(..., .rows = NULL, .cols = NULL,
       # Apply named labeller one by one
       out <- lapply(names(labels), function(label) {
         if (label %in% names(labellers)) {
-          labellers[[label]](labels[label])[[1]]
+          # Yield custom labels with any NA replaced with original
+          lbls <- labellers[[label]](labels[label])[[1]]
+          ind <- which(is.na(lbls))
+          lbls[ind] <- .default(labels[label])[[1]][ind]
+          lbls
         } else {
           .default(labels[label])[[1]]
         }

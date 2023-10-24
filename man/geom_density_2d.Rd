@@ -266,6 +266,6 @@ d + stat_density_2d(geom = "point", aes(size = after_stat(density)), n = 20, con
 }
 \seealso{
 \code{\link[=geom_contour]{geom_contour()}}, \code{\link[=geom_contour_filled]{geom_contour_filled()}} for information about
-how contours are drawn; \code{\link[=geom_bin2d]{geom_bin2d()}} for another way of dealing with
+how contours are drawn; \code{\link[=geom_bin_2d]{geom_bin_2d()}} for another way of dealing with
 overplotting.
 }

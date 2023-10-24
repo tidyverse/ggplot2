@@ -293,8 +293,8 @@ datetime_scale <- function(aesthetics, trans, palette,
                            labels = waiver(), date_breaks = waiver(),
                            date_labels = waiver(),
                            date_minor_breaks = waiver(), timezone = NULL,
-                           guide = "legend", ...) {
-
+                           guide = "legend", call = caller_call(), ...) {
+  call <- call %||% current_call()
 
   # Backward compatibility
   if (is.character(breaks)) breaks <- breaks_width(breaks)
@@ -312,11 +312,6 @@ datetime_scale <- function(aesthetics, trans, palette,
       date_format(date_labels, tz)(x)
     }
   }
-
-  name <- switch(trans,
-    date = "date",
-    time = "datetime"
-  )
 
   # x/y position aesthetics should use ScaleContinuousDate or
   # ScaleContinuousDatetime; others use ScaleContinuous
@@ -337,13 +332,13 @@ datetime_scale <- function(aesthetics, trans, palette,
 
   sc <- continuous_scale(
     aesthetics,
-    name,
     palette = palette,
     breaks = breaks,
     minor_breaks = minor_breaks,
     labels = labels,
     guide = guide,
     trans = trans,
+    call = call,
     ...,
     super = scale_class
   )

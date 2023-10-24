@@ -148,5 +148,5 @@ d + stat_summary_hex(fun = ~ sum(.x^2))
 }
 \seealso{
 \code{\link[=stat_summary_hex]{stat_summary_hex()}} for hexagonal summarization.
-\code{\link[=stat_bin2d]{stat_bin2d()}} for the binning options.
+\code{\link[=stat_bin_2d]{stat_bin_2d()}} for the binning options.
 }
