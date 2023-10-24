@@ -91,7 +91,7 @@ ggplot_build.ggplot <- function(plot) {
   npscales <- scales$non_position_scales()
   if (npscales$n() > 0) {
     lapply(data, npscales$train_df)
-    plot$guides <- plot$guides$build(npscales, plot$layers, plot$labels)
+    plot$guides <- plot$guides$build(npscales, plot$layers, plot$labels, data)
     data <- lapply(data, npscales$map_df)
   } else {
     # Assign empty guides if there are no non-position scales

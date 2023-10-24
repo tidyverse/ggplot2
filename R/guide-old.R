@@ -103,7 +103,7 @@ GuideOld <- ggproto(
     guide_transform(params, coord, panel_params)
   },
 
-  get_layer_key = function(params, layers) {
+  process_layers = function(self, params, layers, data = NULL) {
     guide_geom(params, layers, default_mapping = NULL)
   },
 

@@ -364,24 +364,8 @@ GuideColourbar <- ggproto(
     return(list(guide = self, params = params))
   },
 
-  get_layer_key = function(params, layers) {
-
-    guide_layers <- lapply(layers, function(layer) {
-
-      matched_aes <- matched_aes(layer, params)
-
-      # Check if this layer should be included
-      if (include_layer_in_guide(layer, matched_aes)) {
-        layer
-      } else {
-        NULL
-      }
-    })
-
-    if (length(compact(guide_layers)) == 0) {
-      return(NULL)
-    }
-    return(params)
+  get_layer_key = function(params, layers, data = NULL) {
+    params
   },
 
   setup_params = function(params) {

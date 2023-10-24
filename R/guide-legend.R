@@ -287,16 +287,25 @@ GuideLegend <- ggproto(
   },
 
   # Arrange common data for vertical and horizontal legends
-  get_layer_key = function(params, layers) {
+  process_layers = function(self, params, layers, data = NULL) {
+
+    include <- vapply(layers, function(layer) {
+      aes <- matched_aes(layer, params)
+      include_layer_in_guide(layer, aes)
+    }, logical(1))
+
+    if (!any(include)) {
+      return(NULL)
+    }
+
+    self$get_layer_key(params, layers[include], data[include])
+  },
+
+  get_layer_key = function(params, layers, data) {
 
     decor <- lapply(layers, function(layer) {
 
       matched_aes <- matched_aes(layer, params)
-
-      # Check if this layer should be included
-      if (!include_layer_in_guide(layer, matched_aes)) {
-        return(NULL)
-      }
 
       if (length(matched_aes) > 0) {
         # Filter out aesthetics that can't be applied to the legend
@@ -334,10 +343,6 @@ GuideLegend <- ggproto(
 
     # Remove NULL geoms
     params$decor <- compact(decor)
-
-    if (length(params$decor) == 0) {
-      return(NULL)
-    }
     return(params)
   },
 
