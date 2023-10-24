@@ -85,7 +85,7 @@ test_that("ggsave warns about empty or multiple filenames", {
 
   expect_error(
     ggsave(character(), plot),
-    "`filename` cannot be empty."
+    "`filename` must be a single string"
   )
 })
 
