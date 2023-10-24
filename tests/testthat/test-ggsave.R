@@ -9,6 +9,21 @@ test_that("ggsave creates file", {
   expect_true(file.exists(path))
 })
 
+test_that("ggsave can create directories", {
+  dir <- tempdir()
+  path <- file.path(dir, "foobar", "tmp.pdf")
+  on.exit(unlink(path))
+
+  p <- ggplot(mpg, aes(displ, hwy)) + geom_point()
+
+  expect_error(ggsave(path, p))
+  expect_false(dir.exists(dirname(path)))
+
+  # 2 messages: 1 for saving and 1 informing about directory creation
+  expect_message(expect_message(ggsave(path, p, create.dir = TRUE)))
+  expect_true(dir.exists(dirname(path)))
+})
+
 test_that("ggsave restores previous graphics device", {
   # When multiple devices are open, dev.off() restores the next one in the list,
   # not the previously-active one. (#2363)
