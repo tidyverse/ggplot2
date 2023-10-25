@@ -62,7 +62,4 @@ p <- ggplot(mtcars, aes(disp, mpg)) +
 
 # The `angle` argument can be used to set relative angles
 p + guides(theta = guide_axis_theta(angle = 0))
-
-# Minor ticks can be activated by providing a line element
-p + guides(theta = guide_axis_theta(minor.ticks = element_line()))
 }
