@@ -185,18 +185,15 @@ GuideAxisTheta <- ggproto(
 
     # Note that element_grob expects 1 angle for *all* labels, so we're
     # rendering one grob per label to propagate angle properly
-    labels <- Map(
-      element_grob,
+    element_grob(
+      elements$text,
       label = labels,
       x     = unit(key$x, "npc") + xoffset,
       y     = unit(key$y, "npc") + yoffset,
       hjust = 0.5 - sin(theta + rad) / 2,
       vjust = 0.5 - cos(theta + rad) / 2,
-      angle = angle,
-      MoreArgs = list(element = elements$text)
+      angle = angle
     )
-
-    inject(grobTree(!!!labels))
   },
 
   build_ticks = function(key, elements, params, position = params$position) {
