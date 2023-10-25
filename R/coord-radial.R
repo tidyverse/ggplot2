@@ -25,12 +25,12 @@
 #' be used for the `theta` positions. Using the `theta.sec` position is only
 #' sensible when `donut > 0`.
 #'
+#' @export
 #' @examples
 #' # A partial polar plot
 #' ggplot(mtcars, aes(disp, mpg)) +
 #'   geom_point() +
 #'   coord_radial(start = -0.4 * pi, end = 0.4 * pi, donut = 0.3)
-#'
 coord_radial <- function(theta = "x",
                          start = 0, end = NULL,
                          expand = TRUE,

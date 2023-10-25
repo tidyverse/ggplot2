@@ -7,11 +7,9 @@
 guide_axis_theta(
   title = waiver(),
   angle = waiver(),
+  minor.ticks = FALSE,
   cap = "none",
   order = 0,
-  major.length = 1,
-  minor.length = 0.75,
-  minor.ticks = element_blank(),
   position = waiver()
 )
 }
@@ -30,6 +28,9 @@ you probably want. Can be one of the following:
 \item A number representing the text angle in degrees.
 }}
 
+\item{minor.ticks}{Whether to draw the minor ticks (\code{TRUE}) or not draw
+minor ticks (\code{FALSE}, default).}
+
 \item{cap}{A \code{character} to cut the axis line back to the last breaks. Can
 be \code{"none"} (default) to draw the axis line along the whole panel, or
 \code{"upper"} and \code{"lower"} to draw the axis to the upper or lower break, or
@@ -41,20 +42,11 @@ this guide among multiple guides. This controls in which order guides are
 merged if there are multiple guides for the same position. If 0 (default),
 the order is determined by a secret algorithm.}
 
-\item{major.length, minor.length}{A \code{numeric} of length 1 giving the length of
-major and minor ticks relative to the theme's setting.}
-
-\item{minor.ticks}{A theme element inheriting from \code{element_line} or
-\code{element_blank} for drawing minor ticks. Alternatively, a \code{logical} of
-length 1 as shorthand for \code{element_line()} (\code{TRUE}) or \code{element_blank}
-(\code{FALSE}). \code{minor.ticks = element_line(...)} can be used to style the
-minor ticks.}
-
 \item{position}{Where this guide should be drawn: one of top, bottom,
 left, or right.}
 }
 \description{
-This is a specialised guide used in \code{coord_polar2()} to represent the theta
+This is a specialised guide used in \code{coord_radial()} to represent the theta
 position scale.
 }
 \note{
@@ -63,10 +55,10 @@ settings. The distance from the tick marks to the labels is determined by
 the largest \code{margin} size set in the theme.
 }
 \examples{
-# A basic polar plot
+# A plot using coord_radial
 p <- ggplot(mtcars, aes(disp, mpg)) +
   geom_point() +
-  coord_polar2()
+  coord_radial()
 
 # The `angle` argument can be used to set relative angles
 p + guides(theta = guide_axis_theta(angle = 0))
