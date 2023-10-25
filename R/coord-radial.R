@@ -83,13 +83,13 @@ CoordRadial <- ggproto("CoordPolar2", Coord,
     arc <- details$arc %||% c(0, 2 * pi)
     if (self$theta == "x") {
       r <- rescale(y, from = details$r.range, to = self$donut / 0.4)
-      theta <- theta_rescale_no_clip2(
+      theta <- theta_rescale_no_clip(
         x, details$theta.range,
         arc, self$direction
       )
     } else {
       r <- rescale(x, from = details$r.range, to = self$donut / 0.4)
-      theta <- theta_rescale_no_clip2(
+      theta <- theta_rescale_no_clip(
         y, details$theta.range,
         arc, self$direction
       )
@@ -222,8 +222,8 @@ CoordRadial <- ggproto("CoordPolar2", Coord,
     bbox <- panel_params$bbox %||% list(x = c(0, 1), y = c(0, 1))
     arc  <- panel_params$arc  %||% c(0, 2 * pi)
 
-    data$r  <- r_rescale2(data$r, panel_params$r.range, panel_params$donut)
-    data$theta <- theta_rescale2(
+    data$r  <- r_rescale(data$r, panel_params$r.range, panel_params$donut)
+    data$theta <- theta_rescale(
       data$theta, panel_params$theta.range,
       arc, self$direction
     )
@@ -269,14 +269,14 @@ CoordRadial <- ggproto("CoordPolar2", Coord,
     theta_min <- setdiff(panel_params$theta.minor, theta_maj)
 
     if (length(theta_maj) > 0) {
-      theta_maj <- theta_rescale2(theta_maj, theta_lim, arc, dir)
+      theta_maj <- theta_rescale(theta_maj, theta_lim, arc, dir)
     }
     if (length(theta_min) > 0) {
-      theta_min <- theta_rescale2(theta_min, theta_lim, arc, dir)
+      theta_min <- theta_rescale(theta_min, theta_lim, arc, dir)
     }
     theta_fine <- seq(self$arc[1], self$arc[2], length.out = 100)
 
-    r_fine <- r_rescale2(panel_params$r.major, panel_params$r.range,
+    r_fine <- r_rescale(panel_params$r.major, panel_params$r.range,
                          panel_params$donut)
 
     # This gets the proper theme element for theta and r grid lines:
@@ -418,20 +418,6 @@ CoordRadial <- ggproto("CoordPolar2", Coord,
     return(NULL)
   }
 )
-
-theta_rescale_no_clip2 <- function(x, range, arc = c(0, 2 * pi), direction = 1) {
-  rescale(x, to = arc, from = range) * direction
-}
-
-theta_rescale2 <- function(x, range, arc = c(0, 2 * pi), direction = 1) {
-  x <- squish_infinite(x, range)
-  rescale(x, to = arc, from = range) %% (2 * pi) * direction
-}
-
-r_rescale2 <- function(x, range, donut = c(0, 0.4)) {
-  x <- squish_infinite(x, range)
-  rescale(x, donut, range)
-}
 
 view_scales_polar <- function(scale, theta = "x", expand = TRUE) {
 
