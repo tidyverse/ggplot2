@@ -285,7 +285,7 @@ news:
 
 navbar:
   structure:
-    left: [reference, news, articles, extensions]
+    left: [intro, reference, news, articles, extensions]
   components:
     extensions:
       text: Extensions

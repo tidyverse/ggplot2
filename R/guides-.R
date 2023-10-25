@@ -301,12 +301,19 @@ Guides <- ggproto(
       horizontal = c("center", "top")
     )
 
-    # Setup and train on scales
+    # Extract the non-position scales
     scales <- scales$non_position_scales()$scales
     if (length(scales) == 0) {
       return(no_guides)
     }
-    guides <- self$setup(scales)
+
+    # Ensure a 1:1 mapping between aesthetics and scales
+    aesthetics <- lapply(scales, `[[`, "aesthetics")
+    scales     <- rep.int(scales, lengths(aesthetics))
+    aesthetics <- unlist(aesthetics, recursive = FALSE, use.names = FALSE)
+
+    # Setup and train scales
+    guides <- self$setup(scales, aesthetics = aesthetics)
     guides$train(scales, theme$legend.direction, labels)
     if (length(guides$guides) == 0) {
       return(no_guides)
@@ -343,28 +350,16 @@ Guides <- ggproto(
     default = self$missing,
     missing = self$missing
   ) {
-
-    if (is.null(aesthetics)) {
-      # Aesthetics from scale, as in non-position guides
-      aesthetics <- lapply(scales, `[[`, "aesthetics")
-      scale_idx  <- rep(seq_along(scales), lengths(aesthetics))
-      aesthetics <- unlist(aesthetics, FALSE, FALSE)
-    } else {
-      # Scale based on aesthetics, as in position guides
-      scale_idx  <- seq_along(scales)[match(aesthetics, names(scales))]
-    }
-
     guides <- self$guides
 
     # For every aesthetic-scale combination, find and validate guide
-    new_guides <- lapply(seq_along(scale_idx), function(i) {
-      idx <- scale_idx[i]
+    new_guides <- lapply(seq_along(scales), function(idx) {
 
       # Find guide for aesthetic-scale combination
       # Hierarchy is in the order:
       # plot + guides(XXX) + scale_ZZZ(guide = XXX) > default(i.e., legend)
       guide <- resolve_guide(
-        aesthetic = aesthetics[i],
+        aesthetic = aesthetics[idx],
         scale     = scales[[idx]],
         guides    = guides,
         default   = default,

@@ -128,6 +128,14 @@ test_that("warn_for_aes_extract_usage() warns for discouraged uses of $ and [[ w
     warn_for_aes_extract_usage(aes(df[["x"]]), df),
     'Use of `df\\[\\["x"\\]\\]` is discouraged'
   )
+
+  # Check that rownames are ignored (#5392)
+  df2 <- df
+  rownames(df2) <- LETTERS[seq_len(nrow(df))]
+  expect_warning(
+    warn_for_aes_extract_usage(aes(df$x), df2),
+    "Use of `df\\$x` is discouraged"
+  )
 })
 
 test_that("warn_for_aes_extract_usage() does not evaluate function calls", {
