@@ -77,6 +77,22 @@ test_that("default smoothing methods for small and large data sets work", {
   expect_equal(plot_data$y, as.numeric(out))
 })
 
+test_that("geom_smooth() works when one group fails", {
+  # Group A fails, B succeeds
+  df <- data_frame0(
+    x = c(1, 2, 1, 2, 3),
+    y = c(1, 2, 3, 2, 1),
+    g = rep(c("A", "B"), 2:3)
+  )
+  p <- ggplot(df, aes(x, y, group = g)) +
+    geom_smooth(method = "loess", formula = y ~ x)
+
+  suppressWarnings(
+    expect_warning(ld <- layer_data(p), "Failed to fit group 1")
+  )
+  expect_equal(unique(ld$group), 2)
+  expect_gte(nrow(ld), 2)
+})
 
 # Visual tests ------------------------------------------------------------
 

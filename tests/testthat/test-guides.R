@@ -121,11 +121,7 @@ test_that("a warning is generated when more than one position guide is drawn at 
     )
   built <- expect_silent(ggplot_build(plot))
 
-  # TODO: These multiple warnings should be summarized nicely. Until this gets
-  #       fixed, this test ignores all the following errors than the first one.
-  suppressWarnings(
-    expect_warning(ggplot_gtable(built), "Discarding guide")
-  )
+  expect_warning(ggplot_gtable(built), "Discarding guide")
 })
 
 test_that("a warning is not generated when properly changing the position of a guide_axis()", {
@@ -175,10 +171,15 @@ test_that("guide merging for guide_legend() works as expected", {
     scales <- scales_list()
     scales$add(scale1)
     scales$add(scale2)
+    scales <- scales$scales
+
+    aesthetics <- lapply(scales, `[[`, "aesthetics")
+    scales <- rep.int(scales, lengths(aesthetics))
+    aesthetics <- unlist(aesthetics, FALSE, FALSE)
 
     guides <- guides_list(NULL)
-    guides <- guides$setup(scales$scales)
-    guides$train(scales$scales, "vertical", labs())
+    guides <- guides$setup(scales, aesthetics)
+    guides$train(scales, "vertical", labs())
     guides$merge()
     guides$params
   }
@@ -276,7 +277,7 @@ test_that("legend reverse argument reverses the key", {
   scale$train(LETTERS[1:4])
 
   guides <- guides_list(NULL)
-  guides <- guides$setup(list(scale))
+  guides <- guides$setup(list(scale), "colour")
 
   guides$params[[1]]$reverse <- FALSE
   guides$train(list(scale), "horizontal", labels = labs())
@@ -302,6 +303,38 @@ test_that("guide_coloursteps and guide_bins return ordered breaks", {
   g <- guide_bins()
   key <- g$train(scale = scale, aesthetics = "colour", direction = "vertical")$key
   expect_true(all(diff(key$.value) < 0))
+})
+
+
+test_that("guide_colourbar merging preserves both aesthetics", {
+  # See issue 5324
+
+  scale1 <- scale_colour_viridis_c()
+  scale1$train(c(0, 2))
+
+  scale2 <- scale_fill_viridis_c()
+  scale2$train(c(0, 2))
+
+  g <- guide_colourbar()
+  p <- g$params
+
+  p1 <- g$train(p, scale1, "colour")
+  p2 <- g$train(p, scale2, "fill")
+
+  merged <- g$merge(p1, g, p2)
+
+  expect_true(all(c("colour", "fill") %in% names(merged$params$key)))
+})
+
+test_that("guide_colourbar warns about discrete scales", {
+
+  g <- guide_colourbar()
+  s <- scale_colour_discrete()
+  s$train(LETTERS[1:3])
+
+  expect_warning(g <- g$train(g$params, s, "colour"), "needs continuous scales")
+  expect_null(g)
+
 })
 
 # Visual tests ------------------------------------------------------------
@@ -453,6 +486,47 @@ test_that("Axis titles won't be blown away by coord_*()", {
   # expect_doppelganger("guide titles with coord_polar()", plot + coord_polar())
   # TODO
   # expect_doppelganger("guide titles with coord_sf()", plot + coord_sf())
+})
+
+test_that("guide_axis() draws minor ticks correctly", {
+  p <- ggplot(mtcars, aes(wt, disp)) +
+    geom_point() +
+    theme(axis.ticks.length = unit(1, "cm"),
+          axis.ticks.x.bottom = element_line(linetype = 2),
+          axis.ticks.length.x.top = unit(-0.5, "cm"),
+          axis.minor.ticks.x.bottom = element_line(colour = "red"),
+          axis.minor.ticks.length.y.left = unit(-0.5, "cm"),
+          axis.minor.ticks.length.x.top = unit(-0.5, "cm"),
+          axis.minor.ticks.length.x.bottom = unit(0.75, "cm"),
+          axis.minor.ticks.length.y.right = unit(5, "cm")) +
+    scale_x_continuous(labels = math_format()) +
+    guides(
+      # Test for styling and style inheritance
+      x = guide_axis(minor.ticks = TRUE),
+      # # Test for opposed lengths
+      y = guide_axis(minor.ticks = TRUE),
+      # # Test for flipped lenghts
+      x.sec = guide_axis(minor.ticks = TRUE),
+      # # Test that minor.length doesn't influence spacing when no minor ticks are drawn
+      y.sec = guide_axis(minor.ticks = FALSE)
+    )
+  expect_doppelganger("guides with minor ticks", p)
+})
+
+test_that("absent titles don't take up space", {
+
+  p <- ggplot(mtcars, aes(disp, mpg, colour = factor(cyl))) +
+    geom_point() +
+    theme(
+      legend.title = element_blank(),
+      legend.margin = margin(),
+      legend.position = "top",
+      legend.justification = "left",
+      legend.key = element_rect(colour = "black"),
+      axis.line = element_line(colour = "black")
+    )
+
+  expect_doppelganger("left aligned legend key", p)
 })
 
 test_that("axis guides can be capped", {
@@ -612,6 +686,17 @@ test_that("guides title and text are positioned correctly", {
     )
 
   expect_doppelganger("rotated guide titles and labels", p )
+})
+
+test_that("size and linewidth affect key size", {
+  df <- data_frame(x = c(0, 1, 2))
+  p  <- ggplot(df, aes(x, x)) +
+    geom_point(aes(size = x)) +
+    geom_line(aes(linewidth = 2 - x)) +
+    scale_size_continuous(range = c(1, 12)) +
+    scale_linewidth_continuous(range = c(1, 20))
+
+  expect_doppelganger("enlarged guides", p)
 })
 
 test_that("colorbar can be styled", {
@@ -784,13 +869,67 @@ test_that("a warning is generated when guides(<scale> = FALSE) is specified", {
   expect_snapshot_warning(ggplot_gtable(built))
 })
 
-test_that("guides() errors if unnamed guides are provided", {
-  expect_error(
+test_that("guides() warns if unnamed guides are provided", {
+  expect_warning(
     guides("axis"),
     "All guides are unnamed."
   )
-  expect_error(
+  expect_warning(
     guides(x = "axis", "axis"),
     "The 2nd guide is unnamed"
+  )
+  expect_null(guides())
+})
+
+test_that("old S3 guides can be implemented", {
+
+  my_env <- env()
+  my_env$guide_circle <- function() {
+    structure(
+      list(available_aes = c("x", "y"), position = "bottom"),
+      class = c("guide", "circle")
+    )
+  }
+
+  registerS3method(
+    "guide_train", "circle",
+    function(guide, ...) guide,
+    envir = my_env
+  )
+  registerS3method(
+    "guide_transform", "circle",
+    function(guide, ...) guide,
+    envir = my_env
+  )
+  registerS3method(
+    "guide_merge", "circle",
+    function(guide, ...) guide,
+    envir = my_env
+  )
+  registerS3method(
+    "guide_geom", "circle",
+    function(guide, ...) guide,
+    envir = my_env
+  )
+  registerS3method(
+    "guide_gengrob", "circle",
+    function(guide, ...) {
+      absoluteGrob(
+        gList(circleGrob()),
+        height = unit(1, "cm"), width = unit(1, "cm")
+      )
+    },
+    envir = my_env
+  )
+
+  withr::local_environment(my_env)
+
+  expect_snapshot_warning(
+    expect_doppelganger(
+      "old S3 guide drawing a circle",
+      ggplot(mtcars, aes(disp, mpg)) +
+        geom_point() +
+        guides(x = "circle")
+    )
   )
 })

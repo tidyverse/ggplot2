@@ -20,7 +20,7 @@ Guide class object.}
 A \code{Guide} ggproto object.
 }
 \description{
-A constructor function for guides, which performs some standard compatability
+A constructor function for guides, which performs some standard compatibility
 checks between the guide and provided arguments.
 }
 \keyword{internal}

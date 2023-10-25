@@ -44,8 +44,8 @@ from a discrete scale, specify \code{na.translate = FALSE}.}
 missing values be displayed as? Does not apply to position scales
 where \code{NA} is always placed at the far right.}
     \item{\code{aesthetics}}{The names of the aesthetics that this scale works with.}
-    \item{\code{scale_name}}{The name of the scale that should be used for error messages
-associated with this scale.}
+    \item{\code{scale_name}}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} The name of the scale
+that should be used for error messages associated with this scale.}
     \item{\code{name}}{The name of the scale. Used as the axis or legend title. If
 \code{waiver()}, the default, the name of the scale is taken from the first
 mapping used for that aesthetic. If \code{NULL}, the legend title will be
@@ -61,6 +61,7 @@ transformation object
 as output. Also accepts rlang \link[rlang:as_function]{lambda} function
 notation.
 }}
+    \item{\code{call}}{The \code{call} used to construct the scale for reporting messages.}
     \item{\code{super}}{The super class to use for the constructed scale}
   }}
 

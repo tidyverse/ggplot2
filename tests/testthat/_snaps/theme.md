@@ -53,3 +53,7 @@
     `plot.tag.position` must be one of "topleft", "top", "topright", "left", "right", "bottomleft", "bottom", or "bottomright", not "test".
     i Did you mean "left"?
 
+# Theme validation behaves as expected
+
+    The `aspect.ratio` theme element must be a <numeric/integer> object.
+

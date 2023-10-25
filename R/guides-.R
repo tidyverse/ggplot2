@@ -84,7 +84,12 @@ guides <- function(...) {
     return(guides_list(guides = args))
   }
 
-  # Raise error about unnamed guides
+  # If there are no guides, do nothing
+  if (length(args) == 0) {
+    return(NULL)
+  }
+
+  # Raise warning about unnamed guides
   nms <- names(args)
   if (is.null(nms)) {
     msg <- "All guides are unnamed."
@@ -97,10 +102,11 @@ guides <- function(...) {
       msg <- "The {.and {unnamed}} guide{?s} {?is/are} unnamed."
     }
   }
-  cli::cli_abort(c(
+  cli::cli_warn(c(
     "Guides provided to {.fun guides} must be named.",
     i = msg
   ))
+  NULL
 }
 
 update_guides <- function(p, guides) {
@@ -213,6 +219,35 @@ Guides <- ggproto(
     }
   },
 
+  get_position = function(self, position) {
+    check_string("position")
+
+    guide_positions <- lapply(self$params, `[[`, "position")
+    idx <- which(vapply(guide_positions, identical, logical(1), y = position))
+
+    if (length(idx) < 1) {
+      # No guide found for position, return missing (guide_none) guide
+      return(list(guide = self$missing, params = self$missing$params))
+    }
+    if (length(idx) == 1) {
+      # Happy path when nothing needs to merge
+      return(list(guide = self$guides[[idx]], params = self$params[[idx]]))
+    }
+
+    # Pair up guides and parameters
+    params <- self$params[idx]
+    pairs  <- Map(list, guide = self$guides[idx], params = params)
+
+    # Merge pairs sequentially
+    order <- order(vapply(params, function(p) as.numeric(p$order), numeric(1)))
+    Reduce(
+      function(old, new) {
+        old$guide$merge(old$params, new$guide, new$params)
+      },
+      pairs[order]
+    )
+  },
+
   ## Building ------------------------------------------------------------------
 
   # The `Guides$build()` method is called in ggplotGrob (plot-build.R) and makes
@@ -266,12 +301,19 @@ Guides <- ggproto(
       horizontal = c("center", "top")
     )
 
-    # Setup and train on scales
+    # Extract the non-position scales
     scales <- scales$non_position_scales()$scales
     if (length(scales) == 0) {
       return(no_guides)
     }
-    guides <- self$setup(scales)
+
+    # Ensure a 1:1 mapping between aesthetics and scales
+    aesthetics <- lapply(scales, `[[`, "aesthetics")
+    scales     <- rep.int(scales, lengths(aesthetics))
+    aesthetics <- unlist(aesthetics, recursive = FALSE, use.names = FALSE)
+
+    # Setup and train scales
+    guides <- self$setup(scales, aesthetics = aesthetics)
     guides$train(scales, theme$legend.direction, labels)
     if (length(guides$guides) == 0) {
       return(no_guides)
@@ -308,28 +350,16 @@ Guides <- ggproto(
     default = self$missing,
     missing = self$missing
   ) {
-
-    if (is.null(aesthetics)) {
-      # Aesthetics from scale, as in non-position guides
-      aesthetics <- lapply(scales, `[[`, "aesthetics")
-      scale_idx  <- rep(seq_along(scales), lengths(aesthetics))
-      aesthetics <- unlist(aesthetics, FALSE, FALSE)
-    } else {
-      # Scale based on aesthetics, as in position guides
-      scale_idx  <- seq_along(scales)[match(aesthetics, names(scales))]
-    }
-
     guides <- self$guides
 
     # For every aesthetic-scale combination, find and validate guide
-    new_guides <- lapply(seq_along(scale_idx), function(i) {
-      idx <- scale_idx[i]
+    new_guides <- lapply(seq_along(scales), function(idx) {
 
       # Find guide for aesthetic-scale combination
       # Hierarchy is in the order:
       # plot + guides(XXX) + scale_ZZZ(guide = XXX) > default(i.e., legend)
       guide <- resolve_guide(
-        aesthetic = aesthetics[i],
+        aesthetic = aesthetics[idx],
         scale     = scales[[idx]],
         guides    = guides,
         default   = default,
@@ -635,8 +665,10 @@ validate_guide <- function(guide) {
     }
   }
   if (inherits(guide, "Guide")) {
-    guide
-  } else {
-    cli::cli_abort("Unknown guide: {guide}")
+    return(guide)
   }
+  if (inherits(guide, "guide") && is.list(guide)) {
+    return(old_guide(guide))
+  }
+  cli::cli_abort("Unknown guide: {guide}")
 }

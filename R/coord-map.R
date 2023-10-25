@@ -135,6 +135,9 @@ coord_map <- function(projection="mercator", ..., parameters = NULL, orientation
     params <- parameters
   }
 
+  check_coord_limits(xlim)
+  check_coord_limits(ylim)
+
   ggproto(NULL, CoordMap,
     projection = projection,
     orientation = orientation,

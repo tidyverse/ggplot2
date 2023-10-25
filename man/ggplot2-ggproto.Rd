@@ -3,18 +3,18 @@
 %   R/annotation-logticks.R, R/geom-polygon.R, R/geom-map.R, R/annotation-map.R,
 %   R/geom-raster.R, R/annotation-raster.R, R/axis-secondary.R, R/coord-.R,
 %   R/coord-cartesian-.R, R/coord-fixed.R, R/coord-flip.R, R/coord-map.R,
-%   R/coord-polar.R, R/coord-polar2.R, R/coord-quickmap.R, R/coord-transform.R,
-%   R/facet-.R, R/facet-grid-.R, R/facet-null.R, R/facet-wrap.R, R/stat-.R,
-%   R/geom-abline.R, R/geom-rect.R, R/geom-bar.R, R/geom-blank.R,
-%   R/geom-boxplot.R, R/geom-col.R, R/geom-path.R, R/geom-contour.R,
-%   R/geom-crossbar.R, R/geom-segment.R, R/geom-curve.R, R/geom-ribbon.R,
-%   R/geom-density.R, R/geom-density2d.R, R/geom-dotplot.R, R/geom-errorbar.R,
-%   R/geom-errorbarh.R, R/geom-function.R, R/geom-hex.R, R/geom-hline.R,
-%   R/geom-label.R, R/geom-linerange.R, R/geom-point.R, R/geom-pointrange.R,
-%   R/geom-quantile.R, R/geom-rug.R, R/geom-smooth.R, R/geom-spoke.R,
-%   R/geom-text.R, R/geom-tile.R, R/geom-violin.R, R/geom-vline.R, R/guide-.R,
-%   R/guide-axis.R, R/guide-legend.R, R/guide-bins.R, R/guide-colorbar.R,
-%   R/guide-colorsteps.R, R/guide-none.R, R/layout.R, R/position-.R,
+%   R/coord-polar.R, R/coord-quickmap.R, R/coord-transform.R, R/facet-.R,
+%   R/facet-grid-.R, R/facet-null.R, R/facet-wrap.R, R/stat-.R, R/geom-abline.R,
+%   R/geom-rect.R, R/geom-bar.R, R/geom-blank.R, R/geom-boxplot.R, R/geom-col.R,
+%   R/geom-path.R, R/geom-contour.R, R/geom-crossbar.R, R/geom-segment.R,
+%   R/geom-curve.R, R/geom-ribbon.R, R/geom-density.R, R/geom-density2d.R,
+%   R/geom-dotplot.R, R/geom-errorbar.R, R/geom-errorbarh.R, R/geom-function.R,
+%   R/geom-hex.R, R/geom-hline.R, R/geom-label.R, R/geom-linerange.R,
+%   R/geom-point.R, R/geom-pointrange.R, R/geom-quantile.R, R/geom-rug.R,
+%   R/geom-smooth.R, R/geom-spoke.R, R/geom-text.R, R/geom-tile.R,
+%   R/geom-violin.R, R/geom-vline.R, R/guide-.R, R/guide-axis.R,
+%   R/guide-legend.R, R/guide-bins.R, R/guide-colorbar.R, R/guide-colorsteps.R,
+%   R/guide-none.R, R/guide-old.R, R/layout.R, R/position-.R,
 %   R/position-dodge.R, R/position-dodge2.R, R/position-identity.R,
 %   R/position-jitter.R, R/position-jitterdodge.R, R/position-nudge.R,
 %   R/position-stack.R, R/scale-.R, R/scale-binned.R, R/scale-continuous.R,
@@ -95,6 +95,7 @@
 \alias{GuideColourbar}
 \alias{GuideColoursteps}
 \alias{GuideNone}
+\alias{GuideOld}
 \alias{Layout}
 \alias{Position}
 \alias{PositionDodge}
@@ -384,7 +385,64 @@ top-level \code{Guide}, and each implements their own methods for drawing.
 To create a new type of Guide object, you typically will want to override
 one or more of the following:
 
-TODO: Fill this in properly
+Properties:
+\itemize{
+\item \code{available_aes} A \code{character} vector with aesthetics that this guide
+supports. The value \code{"any"} indicates all non-position aesthetics.
+\item \code{params} A named \code{list} of parameters that the guide needs to function.
+It has the following roles:
+\itemize{
+\item \code{params} provides the defaults for a guide.
+\item \code{names(params)} determines what are valid arguments to \code{new_guide()}.
+Some parameters are \emph{required} to render the guide. These are: \code{title},
+\code{name}, \code{position}, \code{direction}, \code{order} and \code{hash}.
+\item During build stages, \code{params} holds information about the guide.
+}
+\item \code{elements} A named list of \code{character}s, giving the name of theme elements
+that should be retrieved automatically, for example \code{"legend.text"}.
+\item \code{hashables} An \code{expression} that can be evaluated in the context of
+\code{params}. The hash of the evaluated expression determines the merge
+compatibility of guides, and is stored in \code{params$hash}.
+}
+
+Methods:
+\itemize{
+\item \code{extract_key()} Returns a \code{data.frame} with (mapped) breaks and labels
+extracted from the scale, which will be stored in \code{params$key}.
+\item \code{extract_decor()} Returns a \code{data.frame} containing other structured
+information extracted from the scale, which will be stored in
+\code{params$decor}. The \code{decor} has a guide-specific  meaning: it is the bar in
+\code{guide_colourbar()}, but specifies the \code{axis.line} in \code{guide_axis()}.
+\item \code{extract_params()} Updates the \code{params} with other, unstructured
+information from the scale. An example of this is inheriting the guide's
+title from the \code{scale$name} field.
+\item \code{transform()} Updates the \code{params$key} based on the coordinates. This
+applies to position guides, as it rescales the aesthetic to the [0, 1]
+range.
+\item \code{merge()} Combines information from multiple guides with the same
+\code{params$hash}. This ensures that e.g. \code{guide_legend()} can display both
+\code{shape} and \code{colour} in the same guide.
+\item \code{get_layer_key()} Extract information from layers. This can be used to
+check that the guide's aesthetic is actually in use, or to gather
+information about how legend keys should be displayed.
+\item \code{setup_params()} Set up parameters at the beginning of drawing stages.
+It can be used to overrule user-supplied parameters or perform checks on
+the \code{params} property.
+\item \code{override_elements()} Take populated theme elements derived from the
+\code{elements} property and allows overriding these theme settings.
+\item \code{build_title()} Render the guide's title.
+\item \code{build_labels()} Render the guide's labels.
+\item \code{build_decor()} Render the \code{params$decor}, which is different for every
+guide.
+\item \code{build_ticks()} Render tick marks.
+\item \code{measure_grobs()} Measure dimensions of the graphical objects produced
+by the \verb{build_*()} methods to be used in the layout or assembly.
+\item \code{arrange_layout()} Set up a layout for how graphical objects produced by
+the \verb{build_*()} methods should be arranged.
+\item \code{assemble_drawing()} Take the graphical objects produced by the \verb{build_*()}
+methods, the measurements from \code{measure_grobs()} and layout from
+\code{arrange_layout()} to finalise the guide.
+}
 }
 
 \section{Positions}{
@@ -492,7 +550,7 @@ These methods are only valid for position (x and y) scales:
 \item \code{dimension()} For continuous scales, the dimension is the same concept as the limits.
 For discrete scales, \code{dimension()} returns a continuous range, where the limits
 would be placed at integer positions. \code{dimension()} optionally expands
-this range given an expantion of length 4 (see \code{\link[=expansion]{expansion()}}).
+this range given an expansion of length 4 (see \code{\link[=expansion]{expansion()}}).
 \item \code{break_info()} Returns a \code{list()} with calculated values needed for the \code{Coord}
 to transform values in transformed data space. Axis and grid guides also use
 these values to draw guides. This is called with

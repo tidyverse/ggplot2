@@ -1,5 +1,67 @@
 # ggplot2 (development version)
 
+* Legend titles no longer take up space if they've been removed by setting 
+  `legend.title = element_blank()` (@teunbrand, #3587).
+
+* New function `check_device()` for testing the availability of advanced 
+  graphics features introduced in R 4.1.0 onwards (@teunbrand, #5332).
+
+* Failing to fit or predict in `stat_smooth()` now gives a warning and omits
+  the failed group, instead of throwing an error (@teunbrand, #5352).
+  
+* `resolution()` has a small tolerance, preventing spuriously small resolutions 
+  due to rounding errors (@teunbrand, #2516).
+
+* `stage()` now works correctly, even with aesthetics that do not have scales 
+  (#5408)
+
+* `labeller()` now handles unspecified entries from lookup tables
+  (@92amartins, #4599).
+
+* `fortify.default()` now accepts a data-frame-like object granted the object
+  exhibits healthy `dim()`, `colnames()`, and `as.data.frame()` behaviors
+  (@hpages, #5390).
+
+* `ScaleContinuous$get_breaks()` now only calls `scales::zero_range()` on limits
+  in transformed space, rather than in data space (#5304).
+
+* Scales throw more informative messages (@teunbrand, #4185, #4258)
+
+* The `scale_name` argument in `continuous_scale()`, `discrete_scale()` and
+  `binned_scale()` is soft-deprecated (@teunbrand, #1312).
+
+* In `theme()`, some elements can be specified with `rel()` to inherit from
+  `unit`-class objects in a relative fashion (@teunbrand, #3951).
+
+* `stat_ydensity()` with incomplete groups calculates the default `width` 
+  parameter more stably (@teunbrand, #5396)
+
+* `geom_boxplot()` gains a new argument, `staplewidth` that can draw staples
+  at the ends of whiskers (@teunbrand, #5126)
+
+* The `size` argument in `annotation_logticks()` has been deprecated in favour
+  of the `linewidth` argument (#5292).
+
+* `geom_boxplot()` gains an `outliers` argument to switch outliers on or off,
+  in a manner that does affects the scale range. For hiding outliers that does
+  not affect the scale range, you can continue to use `outlier.shape = NA` 
+  (@teunbrand, #4892).
+
+* Binned scales now treat `NA`s in limits the same way continuous scales do 
+  (#5355).
+
+* Binned scales work better with `trans = "reverse"` (#5355).
+
+* The `legend.text.align` and `legend.title.align` arguments in `theme()` are 
+  deprecated. The `hjust` setting of the `legend.text` and `legend.title` 
+  elements continues to fulfil the role of text alignment (@teunbrand, #5347).
+
+* Integers are once again valid input to theme arguments that expect numeric
+  input (@teunbrand, #5369)
+
+* Nicer error messages for xlim/ylim arguments in coord-* functions
+  (@92amartins, #4601, #5297).
+
 * `coord_sf()` now uses customisable guides provided in the scales or 
   `guides()` function (@teunbrand).
 
@@ -27,6 +89,13 @@
   in ggproto. The axes and legends now inherit from a <Guide> class, which makes
   them extensible in the same manner as geoms, stats, facets and coords 
   (#3329, @teunbrand). In addition, the following changes were made:
+    * A fallback for old S3 guides is encapsulated in the `GuideOld` ggproto
+      class, which mostly just calls the old S3 generics.
+    * While the S3 guide generics are still in place, the S3 methods for 
+      `guide_train()`, `guide_merge()`, `guide_geom()`, `guide_transform()`,
+      `guide_gengrob()` have been superseded by the respective ggproto methods.
+      In practise, this will mean that `NextMethod()` or sub-classing ggplot2's
+      guides with the S3 system will no longer work.
     * Styling theme parts of the guide now inherit from the plot's theme 
       (#2728). 
     * Styling non-theme parts of the guides accept <element> objects, so that
@@ -45,8 +114,13 @@
     * More informative error for mismatched 
      `direction`/`theme(legend.direction = ...)` arguments (#4364, #4930).
     * `guide_coloursteps()` and `guide_bins()` sort breaks (#5152).
+    * `guide_axis()` gains a `minor.ticks` argument to draw minor ticks (#4387).
     * `guide_axis()` gains a `cap` argument that can be used to trim the
       axis line to extreme breaks (#4907).
+    * `guide_colourbar()` and `guide_coloursteps()` merge properly when one
+      of aesthetics is dropped (#5324).
+    * Fixed regression in `guide_legend()` where the `linewidth` key size
+      wasn't adapted to the width of the lines (#5160).
 
 * `geom_label()` now uses the `angle` aesthetic (@teunbrand, #2785)
 * 'lines' units in `geom_label()`, often used in the `label.padding` argument, 
@@ -81,6 +155,21 @@
 * `stat_contour()` and `stat_contour_filled()` now warn about and remove
   duplicated coordinates (@teunbrand, #5215).
 * Improve performance of layers without positional scales (@zeehio, #4990)
+
+# ggplot2 3.4.4
+
+This hotfix release adapts to a change in r-devel's `base::is.atomic()` and 
+the upcoming retirement of maptools.
+
+* `fortify()` for sp objects (e.g., `SpatialPolygonsDataFrame`) is now deprecated
+  and will be removed soon in support of [the upcoming retirement of rgdal, rgeos,
+  and maptools](https://r-spatial.org/r/2023/05/15/evolution4.html). In advance
+  of the whole removal, `fortify(<SpatialPolygonsDataFrame>, region = ...)`
+  no longer works as of this version (@yutannihilation, #5244).
+
+# ggplot2 3.4.3
+This hotfix release addresses a version comparison change in r-devel. There are
+no user-facing or breaking changes.
 
 # ggplot2 3.4.2
 This is a hotfix release anticipating changes in r-devel, but folds in upkeep
