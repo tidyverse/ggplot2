@@ -73,7 +73,7 @@ coord_radial <- function(theta = "x",
 #' @format NULL
 #' @usage NULL
 #' @export
-CoordRadial <- ggproto("CoordPolar2", Coord,
+CoordRadial <- ggproto("CoordRadial", Coord,
 
   aspect = function(details) {
     diff(details$bbox$y) / diff(details$bbox$x)

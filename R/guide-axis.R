@@ -180,10 +180,10 @@ GuideAxis <- ggproto(
 
     params$decor <- coord_munch(coord, params$decor, panel_params)
 
-    if (inherits(coord, "CoordPolar2")) {
-      # Radius axis that needs to correct the other aesthetic
-      # for having incorrect theta.
+    if (!coord$is_linear()) {
+      # For non-linear coords, we hardcode the opposite position
       params$decor$x <- switch(position, left = 1, right = 0, params$decor$x)
+      params$decor$y <- switch(position, top = 0, bottom = 1, params$decor$y)
     }
 
     # Ported over from `warn_for_position_guide`
