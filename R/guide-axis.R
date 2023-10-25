@@ -62,12 +62,16 @@ guide_axis <- function(
   order = 0,
   position = waiver()
 ) {
-
   if (is.logical(cap)) {
     check_bool(cap)
     cap <- if (cap) "both" else "none"
   }
   cap <- arg_match0(cap, c("none", "both", "upper", "lower"))
+  if (is.logical(minor.breaks)) {
+    check_bool(minor.breaks)
+    minor.breaks <- if (minor.breaks) derive() else NULL
+  }
+
   check_breaks_labels(breaks, labels)
 
   new_guide(
@@ -76,7 +80,7 @@ guide_axis <- function(
     # Override settings
     breaks = breaks,
     labels = labels,
-    minor.breaks = minor.breaks,
+    minor_breaks = minor.breaks,
     trans  = allow_lambda(trans),
 
     # customisations
@@ -107,11 +111,12 @@ GuideAxis <- ggproto(
     title     = waiver(),
     breaks    = derive(),
     labels    = derive(),
-    minor.breaks = NULL,
+    minor_breaks = NULL,
     trans     = NULL,
     name      = "axis",
     hash      = character(),
     position  = waiver(),
+    minor_ticks = FALSE,
     direction = NULL,
     angle     = NULL,
     n.dodge   = 1,
@@ -128,10 +133,14 @@ GuideAxis <- ggproto(
     line  = "axis.line",
     text  = "axis.text",
     ticks = "axis.ticks",
-    ticks_length = "axis.ticks.length"
+    minor = "axis.minor.ticks",
+    major_length = "axis.ticks.length",
+    minor_length = "axis.minor.ticks.length"
   ),
 
-  extract_key = function(scale, aesthetic, breaks, labels, trans, ...) {
+  extract_key = function(scale, aesthetic,
+                         breaks, minor_breaks, labels,
+                         trans, ...) {
 
     # Retrieve limits information
     limits <- scale$get_limits()
@@ -139,14 +148,18 @@ GuideAxis <- ggproto(
 
     # Resolve transformations
     scale_trans <- scale$scale$trans %||% identity_trans()
-    trans  <- function_as_trans(trans, range, scale_trans)
+    trans <- function_as_trans(trans, range, scale_trans)
 
-    if (!is.null(trans) || !is.derived(breaks) || !is.derived(labels)) {
+    if (!is.null(trans) || is.custom(breaks) || is.custom(labels) ||
+        is.custom(minor_breaks)) {
       if (is.derived(breaks)) {
         breaks <- scale$scale$breaks
         if (is.waive(breaks)) {
           breaks <- scale_trans$breaks
         }
+      }
+      if (is.derived(minor_breaks)) {
+        minor_breaks <- scale$scale$minor_breaks
       }
       if (!scale$is_discrete()) {
         limits <- scale_trans$inverse(limits)
@@ -158,6 +171,7 @@ GuideAxis <- ggproto(
         trans  = trans %||% scale_trans,
         limits = limits,
         breaks = breaks,
+        minor_breaks = minor_breaks,
         labels = if (is.derived(labels)) scale$scale$labels else labels
       )
       # Allow plain numeric breaks for discrete scales
@@ -166,11 +180,15 @@ GuideAxis <- ggproto(
           breaks <- temp_scale$get_breaks(limits)
         }
       } else {
-        breaks <- temp_scale$get_breaks(scale_trans$inverse(range))
+        breaks <- temp_scale$get_breaks(limits)
+        minor_breaks <- temp_scale$get_breaks_minor(b = breaks, limits = limits)
       }
     } else {
       temp_scale <- scale
       breaks <- scale$get_breaks()
+      if (!is.null(minor_breaks)) {
+        minor_breaks <- scale$get_breaks_minor()
+      }
     }
 
     if (length(breaks) == 0) {
@@ -192,13 +210,37 @@ GuideAxis <- ggproto(
     key$.label <- labels
 
     if (is.numeric(breaks)) {
-      vec_slice(key, is.finite(breaks))
-    } else {
-      key
+      key <- vec_slice(key, is.finite(breaks))
     }
+    if (!is.null(minor_breaks)) {
+
+      minor_breaks <- setdiff(minor_breaks, key$.value)
+      minor_breaks <- minor_breaks[is.finite(minor_breaks)]
+
+      if (length(minor_breaks) < 1) {
+        return(key)
+      }
+      if (is.null(trans)) {
+        minor <- scale$map(minor_breaks)
+      } else {
+        minor <- scale$map(scale_trans$transform(minor_breaks))
+      }
+      minor <- data_frame0(!!aesthetic := minor)
+      minor$.value <- minor_breaks
+      minor$.type <- "minor"
+
+      if (nrow(key) > 0) {
+        key$.type <- "major"
+        key <- vec_rbind(key, minor)
+      } else {
+        return(minor)
+      }
+    }
+    key
   },
 
   extract_params = function(scale, params, ...) {
+    params$minor_ticks <- any(params$key$.type == "minor")
     params$name <- paste0(params$name, "_", params$aesthetic)
     params
   },
@@ -280,7 +322,7 @@ GuideAxis <- ggproto(
   },
 
   setup_elements = function(params, elements, theme) {
-    axis_elem <- c("line", "text", "ticks", "ticks_length")
+    axis_elem <- c("line", "text", "ticks", "minor", "major_length", "minor_length")
     is_char  <- vapply(elements[axis_elem], is.character, logical(1))
     axis_elem <- axis_elem[is_char]
     elements[axis_elem] <- lapply(
@@ -320,26 +362,17 @@ GuideAxis <- ggproto(
       "horizontal"
     }
 
-    # TODO: delete following comment at some point:
-    # I found the 'position_*'/'non-position_*' and '*_dim' names confusing.
-    # For my own understanding, these have been renamed as follows:
-    # * 'aes' and 'orth_aes' for the aesthetic direction and the direction
-    #   orthogonal to the aesthetic direction, respectively.
-    # * 'para_sizes' and 'orth_size(s)' for the dimension parallel to the
-    #   aesthetic and orthogonal to the aesthetic respectively.
-    # I also tried to trim down the verbosity of the variable names a bit
-
     new_params <- c("aes", "orth_aes", "para_sizes", "orth_size", "orth_sizes",
                     "vertical", "measure_gtable", "measure_text")
     if (direction == "vertical") {
       params[new_params] <- list(
         "y", "x", "heights", "width", "widths",
-        TRUE, gtable_width, grobWidth
+        TRUE, gtable_width, width_cm
       )
     } else {
       params[new_params] <- list(
         "x", "y", "widths", "height", "heights",
-        FALSE, gtable_height, grobHeight
+        FALSE, gtable_height, height_cm
       )
     }
 
@@ -370,7 +403,32 @@ GuideAxis <- ggproto(
     )
   },
 
+  build_ticks = function(key, elements, params, position = params$opposite) {
+
+    major <- Guide$build_ticks(
+      vec_slice(key, (key$.type %||% "major") == "major"),
+      elements$ticks, params, position,
+      elements$major_length
+    )
+
+    if (!params$minor_ticks) {
+      return(major)
+    }
+
+    minor <- Guide$build_ticks(
+      vec_slice(key, (key$.type %||% "major") == "minor"),
+      elements$minor, params, position,
+      elements$minor_length
+    )
+    grobTree(major, minor, name = "ticks")
+  },
+
   build_labels = function(key, elements, params) {
+
+    if (".type" %in% names(key)) {
+      key <- vec_slice(key, key$.type == "major")
+    }
+
     labels   <- validate_labels(key$.label)
     n_labels <- length(labels)
 
@@ -404,10 +462,20 @@ GuideAxis <- ggproto(
 
     measure <- params$measure_text
 
-    length <- elements$ticks_length
-    spacer <- max(unit(0, "pt"), -1 * length)
-    labels <- do.call(unit.c, lapply(grobs$labels, measure))
-    title  <- measure(grobs$title)
+    # Ticks
+    major_cm <- convertUnit(elements$major_length, "cm", valueOnly = TRUE)
+    range <- range(0, major_cm)
+    if (params$minor_ticks && !inherits(elements$minor, "element_blank")) {
+      minor_cm <- convertUnit(elements$minor_length, "cm", valueOnly = TRUE)
+      range <- range(range, minor_cm)
+    }
+
+    length <- unit(range[2], "cm")
+    spacer <- max(unit(0, "pt"), unit(-1 * diff(range), "cm"))
+
+    # Text
+    labels <- unit(measure(grobs$label), "cm")
+    title  <- unit(measure(grobs$title), "cm")
 
     sizes <- unit.c(length, spacer, labels, title)
     if (params$lab_first) {
@@ -703,4 +771,6 @@ function_as_trans <- function(fun, limits, scale_trans, detail = 1000) {
     domain    = range(trans_seq)
   )
 }
+
+is.custom <- function(x) !is.null(x) && !is.derived(x)
 
