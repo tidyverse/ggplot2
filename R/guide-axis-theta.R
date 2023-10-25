@@ -7,13 +7,6 @@ NULL
 #' position scale.
 #'
 #' @inheritParams guide_axis
-#' @param major.length,minor.length A `numeric` of length 1 giving the length of
-#'   major and minor ticks relative to the theme's setting.
-#' @param minor.ticks A theme element inheriting from `element_line` or
-#'   `element_blank` for drawing minor ticks. Alternatively, a `logical` of
-#'   length 1 as shorthand for `element_line()` (`TRUE`) or `element_blank`
-#'   (`FALSE`). `minor.ticks = element_line(...)` can be used to style the
-#'   minor ticks.
 #'
 #' @note
 #' The axis labels in this guide are insensitive to `hjust` and `vjust`
@@ -34,25 +27,15 @@ NULL
 #' # Minor ticks can be activated by providing a line element
 #' p + guides(theta = guide_axis_theta(minor.ticks = element_line()))
 guide_axis_theta <- function(title = waiver(), angle = waiver(),
-                             cap = "none", order = 0,
-                             major.length = 1, minor.length = 0.75,
-                             minor.ticks = element_blank(),
+                             minor.ticks = FALSE, cap = "none", order = 0,
                              position = waiver()) {
 
+  check_bool(minor.ticks)
   if (is.logical(cap)) {
     check_bool(cap)
     cap <- if (cap) "both" else "none"
   }
   cap <- arg_match0(cap, c("none", "both", "upper", "lower"))
-
-  if (is.logical(minor.ticks)) {
-    check_bool(minor.ticks)
-    minor.ticks <- if (minor.ticks) element_line() else element_blank()
-  }
-  check_inherits(minor.ticks, c("element_line", "element_blank"))
-  if (inherits(minor.ticks, "element_blank")) {
-    minor.length <- 0
-  }
 
   new_guide(
     title = title,
@@ -60,8 +43,6 @@ guide_axis_theta <- function(title = waiver(), angle = waiver(),
     # customisations
     angle = angle,
     cap = cap,
-    major.length = major.length,
-    minor.length = minor.length,
     minor.ticks  = minor.ticks,
 
     # parameter
@@ -77,32 +58,6 @@ guide_axis_theta <- function(title = waiver(), angle = waiver(),
 
 GuideAxisTheta <- ggproto(
   "GuideAxisTheta", GuideAxis,
-
-  # TODO: delete if minor ticks PR (#5287) gets merged
-  params = c(GuideAxis$params, list(
-    major.length = 1,
-    minor.length = 0.75,
-    minor.ticks  = NULL
-  )),
-
-  # TODO: delete if minor ticks PR (#5287) gets merged
-  extract_key = function(scale, aesthetic, minor.ticks, ...) {
-    major <- Guide$extract_key(scale, aesthetic, ...)
-    if (is.expression(major$.label)) {
-      major$.label <- as.list(major$.label)
-    }
-    if (inherits(minor.ticks, "element_blank")) {
-      return(major)
-    }
-    if (!is.null(major)) {
-      major$.type <- "major"
-    }
-    minor <- setdiff(scale$get_breaks_minor(), major$.value)
-    new_scale <- ggproto(NULL, scale, breaks = minor, get_labels = function(...) NULL)
-    minor <- Guide$extract_key(new_scale, aesthetic, ...)
-    minor$.type <- "minor"
-    vec_rbind(major, minor)
-  },
 
   extract_decor = function(scale, aesthetic, key, cap = "none", position, ...) {
     # For theta position, we pretend we're left/right because that will put
@@ -173,7 +128,8 @@ GuideAxisTheta <- ggproto(
   },
 
   setup_elements = function(params, elements, theme) {
-    axis_elem <- c("line", "text", "ticks", "ticks_length")
+
+    axis_elem <- c("line", "text", "ticks", "minor", "major_length", "minor_length")
     is_char <- vapply(elements[axis_elem], is.character, logical(1))
     axis_elem <- axis_elem[is_char]
 
@@ -188,13 +144,14 @@ GuideAxisTheta <- ggproto(
       paste(unlist(elements[axis_elem]), aes, sep = "."),
       calc_element, theme = theme
     )
-    elements$minor_ticks <- combine_elements(params$minor.ticks, elements$ticks)
 
     # Offset distance from axis arc to text positions
-    offset <- max(0, params$major.length, params$minor.length)
-    offset <- max(elements$ticks_length * offset, unit(0, "pt")) +
-      max(elements$text$margin)
-    elements$offset <- offset
+    if (!params$minor.ticks) {
+      elements$minor_length <- unit(0, "pt")
+    }
+
+    offset <- max(unit(0, "pt"), elements$major_length, elements$minor_length)
+    elements$offset <- offset + max(elements$text$margin)
     elements
   },
 
@@ -231,36 +188,29 @@ GuideAxisTheta <- ggproto(
 
     # Note that element_grob expects 1 angle for *all* labels, so we're
     # rendering one grob per label to propagate angle properly
-    do.call(grobTree, Map(
+    labels <- Map(
       element_grob,
       label = labels,
-      x = unit(key$x, "npc") + xoffset,
-      y = unit(key$y, "npc") + yoffset,
+      x     = unit(key$x, "npc") + xoffset,
+      y     = unit(key$y, "npc") + yoffset,
       hjust = 0.5 - sin(theta + rad) / 2,
       vjust = 0.5 - cos(theta + rad) / 2,
       angle = angle,
       MoreArgs = list(element = elements$text)
-    ))
+    )
+
+    inject(grobTree(!!!labels))
   },
 
   build_ticks = function(key, elements, params, position = params$position) {
 
-    if (".type" %in% names(key)) {
-      major <- vec_slice(key, key$.type == "major")
-      minor <- vec_slice(key, key$.type == "minor")
-    } else {
-      major <- key
-      minor <- NULL
-    }
-
     major <- theta_tickmarks(
-      elements$ticks, major,
-      elements$ticks_length * params$major.length
+      vec_slice(key, (key$.type %||% "major") == "major"),
+      elements$ticks, elements$major_length
     )
-
     minor <- theta_tickmarks(
-      elements$minor_ticks, minor,
-      elements$ticks_length * params$minor.length
+      vec_slice(key, (key$.type %||% "major") == "minor"),
+      elements$minor, elements$minor_length
     )
 
     grobTree(major, minor, name = "ticks")
@@ -276,7 +226,7 @@ GuideAxisTheta <- ggproto(
 
   assemble_drawing = function(grobs, layout, sizes, params, elements) {
     if (params$position %in% c("theta", "theta.sec")) {
-      return(do.call(grobTree, grobs))
+      return(inject(grobTree(!!!grobs)))
     }
 
     # As a fallback, we adjust the viewport to act like regular axes.
@@ -303,7 +253,7 @@ GuideAxisTheta <- ggproto(
     }
 
     absoluteGrob(
-      do.call(gList, grobs),
+      inject(gList(!!!grobs)),
       width  = vp$width,
       height = vp$height,
       vp = vp
@@ -311,7 +261,7 @@ GuideAxisTheta <- ggproto(
   }
 )
 
-theta_tickmarks <- function(element, key, length) {
+theta_tickmarks <- function(key, element, length) {
   n_breaks <- nrow(key)
   if (n_breaks < 1 || inherits(element, "element_blank")) {
     return(zeroGrob())

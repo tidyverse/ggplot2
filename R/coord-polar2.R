@@ -125,12 +125,13 @@ CoordPolar2 <- ggproto("CoordPolar2", Coord,
     aesthetics <- c("r", "theta", "r.sec", "theta.sec")
     names(aesthetics) <- aesthetics
     is_sec <- grepl("sec$", aesthetics)
+    scales <- panel_params[aesthetics]
 
     # Fill in theta guide default
     panel_params$theta$guide <- panel_params$theta$guide %|W|% guide_axis_theta()
 
     guides <- guides$setup(
-      panel_params, aesthetics,
+      scales, aesthetics,
       default = params$guide_default %||% guide_axis(),
       missing = params$guide_missing %||% guide_none()
     )
