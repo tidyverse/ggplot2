@@ -829,7 +829,7 @@ test_that("guide_axis_theta sets relative angle", {
   p <- ggplot(mtcars, aes(disp, mpg)) +
     geom_point() +
     scale_x_continuous(breaks = breaks_width(25)) +
-    coord_polar2(donut = 0.5) +
+    coord_radial(donut = 0.5) +
     guides(
       theta = guide_axis_theta(angle = 0, cap = "none"),
       theta.sec = guide_axis_theta(angle = 90, cap = "both")

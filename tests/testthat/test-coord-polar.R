@@ -79,20 +79,20 @@ test_that("Inf is squished to range", {
   expect_equal(d[[3]]$theta, mapped_discrete(0))
 })
 
-test_that("coord_polar2 warns about axes", {
+test_that("coord_radial warns about axes", {
 
   p <- ggplot(mtcars, aes(disp, mpg)) +
     geom_point()
 
   # Cannot use regular axis for theta position
   expect_snapshot_warning(ggplotGrob(
-    p + coord_polar2() + guides(theta = "axis")
+    p + coord_radial() + guides(theta = "axis")
   ))
 
   # If arc doesn't contain the top/bottom/left/right of a circle,
   # axis placement cannot be outside panel
   expect_snapshot_warning(ggplotGrob(
-    p + coord_polar2(start = 0.1 * pi, end = 0.4 * pi, r_axis_inside = FALSE)
+    p + coord_radial(start = 0.1 * pi, end = 0.4 * pi, r_axis_inside = FALSE)
   ))
 
 })
@@ -186,7 +186,7 @@ test_that("polar coordinates draw correctly", {
   )
 })
 
-test_that("coord_polar2() draws correctly", {
+test_that("coord_radial() draws correctly", {
 
   # Theme to test for axis placement
   theme <- theme(
@@ -201,12 +201,12 @@ test_that("coord_polar2() draws correctly", {
     theme
 
   expect_doppelganger("donut with all axes", {
-    p + coord_polar2(donut = 0.3, r_axis_inside = FALSE) +
+    p + coord_radial(donut = 0.3, r_axis_inside = FALSE) +
       guides(r.sec = "axis", theta.sec = "axis_theta")
   })
 
   expect_doppelganger("partial with all axes", {
-    p + coord_polar2(start = 0.25 * pi, end = 0.75 * pi, donut = 0.3,
+    p + coord_radial(start = 0.25 * pi, end = 0.75 * pi, donut = 0.3,
                      r_axis_inside = TRUE, theta = "y") +
       guides(r.sec = "axis", theta.sec = "axis_theta")
   })
@@ -218,7 +218,7 @@ test_that("coord_polar2() draws correctly", {
   ggplot(df, aes(x, label = lab)) +
     geom_text(aes(y = "0 degrees"),  angle = 0) +
     geom_text(aes(y = "90 degrees"), angle = 90) +
-    coord_polar2(start = 0.5 * pi, end = 1.5 * pi,
+    coord_radial(start = 0.5 * pi, end = 1.5 * pi,
                  rotate_angle = TRUE) +
     theme
 
@@ -227,7 +227,7 @@ test_that("coord_polar2() draws correctly", {
     ggplot(df, aes(x, label = lab)) +
       geom_text(aes(y = "0 degrees"),  angle = 0) +
       geom_text(aes(y = "90 degrees"), angle = 90) +
-      coord_polar2(start = 0.5 * pi, end = 1.5 * pi,
+      coord_radial(start = 0.5 * pi, end = 1.5 * pi,
                    rotate_angle = TRUE, r_axis_inside = FALSE) +
       theme
   )

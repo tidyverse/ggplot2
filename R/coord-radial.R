@@ -18,7 +18,7 @@
 #' @param donut A `numeric` between 0 and 1 setting the size of a donut hole.
 #'
 #' @note
-#' In `coord_polar2()`, position guides are can be defined by using
+#' In `coord_radial()`, position guides are can be defined by using
 #' `guides(r = ..., theta = ..., r.sec = ..., theta.sec = ...)`. Note that
 #' these guides require `r` and `theta` as available aesthetics. The classic
 #' `guide_axis()` can be used for the `r` positions and `guide_axis_theta()` can
@@ -29,9 +29,9 @@
 #' # A partial polar plot
 #' ggplot(mtcars, aes(disp, mpg)) +
 #'   geom_point() +
-#'   coord_polar2(start = -0.4 * pi, end = 0.4 * pi, donut = 0.3)
+#'   coord_radial(start = -0.4 * pi, end = 0.4 * pi, donut = 0.3)
 #'
-coord_polar2 <- function(theta = "x",
+coord_radial <- function(theta = "x",
                          start = 0, end = NULL,
                          expand = TRUE,
                          direction = 1,
@@ -56,7 +56,7 @@ coord_polar2 <- function(theta = "x",
   }
   r_axis_inside <- r_axis_inside %||% !(abs(end - start) >= 1.999 * pi)
 
-  ggproto(NULL, CoordPolar2,
+  ggproto(NULL, CoordRadial,
     theta = theta,
     r = r,
     arc = c(start, end),
@@ -73,7 +73,7 @@ coord_polar2 <- function(theta = "x",
 #' @format NULL
 #' @usage NULL
 #' @export
-CoordPolar2 <- ggproto("CoordPolar2", Coord,
+CoordRadial <- ggproto("CoordPolar2", Coord,
 
   aspect = function(details) {
     diff(details$bbox$y) / diff(details$bbox$x)

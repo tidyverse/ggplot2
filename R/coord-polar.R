@@ -1,7 +1,7 @@
 #' Polar coordinates
 #'
 #' The polar coordinate system is most commonly used for pie charts, which
-#' are a stacked bar chart in polar coordinates. `coord_polar2()` has extended
+#' are a stacked bar chart in polar coordinates. `coord_radial()` has extended
 #' options.
 #'
 #' @param theta variable to map angle to (`x` or `y`)

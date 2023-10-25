@@ -3,7 +3,7 @@ NULL
 
 #' Angle axis guide
 #'
-#' This is a specialised guide used in `coord_polar2()` to represent the theta
+#' This is a specialised guide used in `coord_radial()` to represent the theta
 #' position scale.
 #'
 #' @inheritParams guide_axis
@@ -16,10 +16,10 @@ NULL
 #' @export
 #'
 #' @examples
-#' # A plot using coord_polar2
+#' # A plot using coord_radial
 #' p <- ggplot(mtcars, aes(disp, mpg)) +
 #'   geom_point() +
-#'   coord_polar2()
+#'   coord_radial()
 #'
 #' # The `angle` argument can be used to set relative angles
 #' p + guides(theta = guide_axis_theta(angle = 0))

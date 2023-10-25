@@ -1,4 +1,4 @@
-# coord_polar2 warns about axes
+# coord_radial warns about axes
 
     `guide_axis()` cannot be used for theta.
     i Use one of x, y, or r instead.
