@@ -38,7 +38,7 @@
 #' # set these manually
 #' p + guides(custom = guide_custom(
 #'   title = "My circle",
-#'   grob = circleGrob(r = unit(1, "cm"))
+#'   grob = grid::circleGrob(r = unit(1, "cm"))
 #' ))
 guide_custom <- function(
   grob, width = grobWidth(grob), height = grobHeight(grob),
