@@ -154,16 +154,14 @@ GuideAxis <- ggproto(
         is.custom(minor_breaks)) {
       if (is.derived(breaks)) {
         breaks <- scale$scale$breaks
-        if (is.waive(breaks)) {
+        if (is.waive(breaks) && !scale$is_discrete()) {
           breaks <- scale_trans$breaks
         }
       }
       if (is.derived(minor_breaks)) {
         minor_breaks <- scale$scale$minor_breaks
       }
-      if (!scale$is_discrete()) {
-        limits <- scale_trans$inverse(limits)
-      }
+      limits <- scale_trans$inverse(limits)
       # If anything needs to be computed that is not included in the viewscale,
       # a temporary scale computes the necessary components
       temp_scale <- ggproto(
@@ -174,10 +172,14 @@ GuideAxis <- ggproto(
         minor_breaks = minor_breaks,
         labels = if (is.derived(labels)) scale$scale$labels else labels
       )
-      # Allow plain numeric breaks for discrete scales
       if (scale$is_discrete()) {
+        # Allow plain numeric breaks for discrete scales
         if (!is.numeric(breaks)) {
           breaks <- temp_scale$get_breaks(limits)
+        }
+        # Allow minor breaks to be a function
+        if (is.function(minor_breaks)) {
+          minor_breaks <- minor_breaks(limits)
         }
       } else {
         breaks <- temp_scale$get_breaks(limits)
@@ -185,48 +187,49 @@ GuideAxis <- ggproto(
       }
     } else {
       temp_scale <- scale
-      breaks <- scale$get_breaks()
+      if (!is.null(breaks)) {
+        breaks <- scale$get_breaks()
+      }
       if (!is.null(minor_breaks)) {
         minor_breaks <- scale$get_breaks_minor()
       }
     }
 
-    if (length(breaks) == 0) {
-      return(NULL)
-    }
     if (is.null(trans)) {
-      mapped <- scale$map(breaks)
+      map <- function(x) scale$map(x)
     } else {
-      mapped <- scale$map(scale_trans$transform(breaks))
+      map <- function(x) scale$map(scale_trans$transform(x))
     }
 
-    labels <- temp_scale$get_labels(breaks)
-    if (is.expression(labels)) {
-      labels <- as.list(labels)
+    if (!is.null(breaks)) {
+      if (!is.null(labels)) {
+        labels <- temp_scale$get_labels(breaks)
+      }
+      if (is.expression(labels)) {
+        labels <- as.list(labels)
+      }
+      key <- data_frame(!!aesthetic := map(breaks))
+      key$.value <- breaks
+      key$.label <- labels
+      key <- vec_slice(key, is_finite(breaks))
+    } else {
+      key <- data_frame0()
     }
 
-    key <- data_frame(!!aesthetic := mapped)
-    key$.value <- breaks
-    key$.label <- labels
-
-    if (is.numeric(breaks)) {
-      key <- vec_slice(key, is.finite(breaks))
-    }
     if (!is.null(minor_breaks)) {
 
       minor_breaks <- setdiff(minor_breaks, key$.value)
-      minor_breaks <- minor_breaks[is.finite(minor_breaks)]
+      minor_breaks <- minor_breaks[is_finite(minor_breaks)]
 
       if (length(minor_breaks) < 1) {
         return(key)
       }
-      if (is.null(trans)) {
-        minor <- scale$map(minor_breaks)
-      } else {
-        minor <- scale$map(scale_trans$transform(minor_breaks))
+      minor <- data_frame0(!!aesthetic := map(minor_breaks))
+
+      if (!scale$is_discrete()) {
+        minor$.value <- minor_breaks
       }
-      minor <- data_frame0(!!aesthetic := minor)
-      minor$.value <- minor_breaks
+
       minor$.type <- "minor"
 
       if (nrow(key) > 0) {
@@ -235,6 +238,9 @@ GuideAxis <- ggproto(
       } else {
         return(minor)
       }
+    }
+    if (nrow(key) == 0) {
+      return(NULL)
     }
     key
   },
