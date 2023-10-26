@@ -598,13 +598,13 @@ test_that("guide_axis() draws minor ticks correctly", {
     scale_x_continuous(labels = math_format()) +
     guides(
       # Test for styling and style inheritance
-      x = guide_axis(minor.ticks = TRUE),
+      x = guide_axis(minor.breaks = TRUE),
       # # Test for opposed lengths
-      y = guide_axis(minor.ticks = TRUE),
+      y = guide_axis(minor.breaks = TRUE),
       # # Test for flipped lenghts
-      x.sec = guide_axis(minor.ticks = TRUE),
+      x.sec = guide_axis(minor.breaks = TRUE),
       # # Test that minor.length doesn't influence spacing when no minor ticks are drawn
-      y.sec = guide_axis(minor.ticks = FALSE)
+      y.sec = guide_axis(minor.breaks = FALSE)
     )
   expect_doppelganger("guides with minor ticks", p)
 })
