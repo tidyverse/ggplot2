@@ -128,6 +128,7 @@ reference:
   - guide_axis
   - guide_bins
   - guide_coloursteps
+  - guide_custom
   - guide_none
   - guides
   - sec_axis
