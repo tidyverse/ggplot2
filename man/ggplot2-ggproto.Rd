@@ -14,7 +14,7 @@
 %   R/geom-smooth.R, R/geom-spoke.R, R/geom-text.R, R/geom-tile.R,
 %   R/geom-violin.R, R/geom-vline.R, R/guide-.R, R/guide-axis.R,
 %   R/guide-legend.R, R/guide-bins.R, R/guide-colorbar.R, R/guide-colorsteps.R,
-%   R/guide-none.R, R/guide-old.R, R/layout.R, R/position-.R,
+%   R/guide-custom.R, R/guide-none.R, R/guide-old.R, R/layout.R, R/position-.R,
 %   R/position-dodge.R, R/position-dodge2.R, R/position-identity.R,
 %   R/position-jitter.R, R/position-jitterdodge.R, R/position-nudge.R,
 %   R/position-stack.R, R/scale-.R, R/scale-binned.R, R/scale-continuous.R,
@@ -93,6 +93,7 @@
 \alias{GuideBins}
 \alias{GuideColourbar}
 \alias{GuideColoursteps}
+\alias{GuideCustom}
 \alias{GuideNone}
 \alias{GuideOld}
 \alias{Layout}

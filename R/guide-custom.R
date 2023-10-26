@@ -1,20 +1,61 @@
-
-
-
+#' Custom guides
+#'
+#' This is a special guide that can be used to display any graphical object
+#' (grob) along with the regular guides. This guide has no associated scale.
+#'
+#' @param grob A grob to display.
+#' @param width,height The allocated width and height to display the grob, given
+#'  in [grid::unit()]s.
+#' @param title A character string or expression indicating the title of guide.
+#'   If `NULL` (default), no title is shown.
+#' @param title.position A character string indicating the position of a title.
+#'   One of `"top"` (default), `"bottom"`, `"left"` or `"right"`.
+#' @param margin Margins around the guide. See [margin()] for more details. If
+#'   `NULL` (default), margins are taken from the `legend.margin` theme setting.
+#' @param position Currently not in use.
+#' @inheritParams guide_legend
+#'
+#' @export
+#'
+#' @examples
+#' # A standard plot
+#' p <- ggplot(mpg, aes(displ, hwy)) +
+#'   geom_point()
+#'
+#' # Define a graphical object
+#' circle <- grid::circleGrob()
+#'
+#' # Rendering a grob as a guide
+#' p + guides(custom = guide_custom(circle, title = "My circle"))
+#'
+#' # Controlling the size of the grob defined in relative units
+#' p + guides(custom = guide_custom(
+#'   circle, title = "My circle",
+#'   width = unit(2, "cm"), height = unit(2, "cm"))
+#' )
+#'
+#' # Size of grobs in absolute units is taken directly without the need to
+#' # set these manually
+#' p + guides(custom = guide_custom(
+#'   title = "My circle",
+#'   grob = circleGrob(r = unit(1, "cm"))
+#' ))
 guide_custom <- function(
   grob, width = grobWidth(grob), height = grobHeight(grob),
-  title = waiver(), title.position = "top",
+  title = NULL, title.position = "top", margin = NULL,
   position = waiver(), order = 0
 ) {
   check_object(grob, is.grob, "a {.cls grob} object")
   check_object(width, is.unit, "a {.cls unit} object")
   check_object(height, is.unit, "a {.cls unit} object")
+  check_object(margin, is.margin, "a {.cls margin} object", allow_null = TRUE)
   if (length(width) != 1) {
     cli::cli_abort("{.arg width} must be a single {.cls unit}, not a unit vector.")
   }
   if (length(height) != 1) {
     cli::cli_abort("{.arg height} must be a single {.cls unit}, not a unit vector.")
   }
+  title.position <- arg_match0(title.position, .trbl)
 
   new_guide(
     grob = grob,
@@ -22,6 +63,7 @@ guide_custom <- function(
     height = height,
     title = title,
     title.position = title.position,
+    margin = margin,
     hash = hash(list(title, grob)), # hash is already known
     position = position,
     order = order,
@@ -30,21 +72,26 @@ guide_custom <- function(
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 GuideCustom <- ggproto(
   "GuideCustom", Guide,
 
   params = c(Guide$params, list(
     grob = NULL, width = NULL, height = NULL,
-    title = waiver(),
+    margin = NULL,
+    title = NULL,
     title.position = "top"
   )),
 
   hashables = exprs(title, grob),
 
   elements = list(
-    background  = "legend.background",
-    margin      = "legend.margin",
-    theme.title = "legend.title"
+    background   = "legend.background",
+    theme.margin = "legend.margin",
+    theme.title  = "legend.title"
   ),
 
   train = function(...) {
@@ -57,6 +104,7 @@ GuideCustom <- ggproto(
 
   override_elements = function(params, elements, theme) {
     elements$title <- elements$theme.title
+    elements$margin <- params$margin %||% elements$theme.margin
     elements
   },
 
@@ -78,7 +126,7 @@ GuideCustom <- ggproto(
     width  <- convertWidth(params$width, "cm")
     height <- convertHeight(params$height, "cm")
     gt <- gtable(widths = width, heights = height)
-    gt <- gtable_add_grob(gt, params$grob, t = 1, l = 1)
+    gt <- gtable_add_grob(gt, params$grob, t = 1, l = 1, clip = "off")
 
     if (params$title.position == "top") {
       gt <- gtable_add_rows(gt, elems$margin[1], pos = 0)

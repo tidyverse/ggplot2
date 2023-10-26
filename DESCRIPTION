@@ -178,6 +178,7 @@ Collate:
     'guide-bins.R'
     'guide-colorbar.R'
     'guide-colorsteps.R'
+    'guide-custom.R'
     'layer.R'
     'guide-none.R'
     'guide-old.R'
