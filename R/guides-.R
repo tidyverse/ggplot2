@@ -434,11 +434,6 @@ Guides <- ggproto(
     # Bundle together guides and their parameters
     pairs <- Map(list, guide = self$guides, params = self$params)
 
-    # If there is only one guide, we can exit early, because nothing to merge
-    if (length(pairs) == 1) {
-      return()
-    }
-
     # The `{order}_{hash}` combination determines groups of guides
     orders <- vapply(self$params, `[[`, 0, "order")
     orders[orders == 0] <- 99
@@ -446,10 +441,16 @@ Guides <- ggproto(
     hashes <- vapply(self$params, `[[`, "", "hash")
     hashes <- paste(orders, hashes, sep = "_")
 
+    # If there is only one guide, we can exit early, because nothing to merge
+    if (length(pairs) == 1) {
+      names(self$guides) <- hashes
+      return()
+    }
+
     # Split by hashes
     indices <- split(seq_along(pairs), hashes)
     indices <- vapply(indices, `[[`, 0L, 1L, USE.NAMES = FALSE) # First index
-    groups  <- unname(split(pairs, hashes))
+    groups  <- split(pairs, hashes)
     lens    <- lengths(groups)
 
     # Merge groups with >1 member
