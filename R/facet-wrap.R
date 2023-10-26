@@ -241,7 +241,15 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     panels <- panels[panel_order]
     panel_pos <- convertInd(layout$ROW, layout$COL, nrow)
 
-    axes <- render_axes(ranges, ranges, coord, theme, transpose = TRUE)
+    # If scales are fixed, we only need to render one set of axes which can be
+    # repeated. Below, we find the unique combinations of scales, and map all
+    # combinations to the unique ones.
+    index <- vec_unique_loc(layout$COORD)
+    order <- vec_match(layout$COORD, layout$COORD[index])
+
+    # Render axes and repeat them for all combinations
+    axes <- render_axes(ranges[index], ranges[index], coord, theme, transpose = TRUE)
+    axes <- lapply(axes, lapply, function(x) x[order])
 
     if (length(params$facets) == 0) {
       # Add a dummy label

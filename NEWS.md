@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* (internal) The plot's layout now has a coord parameters that is used to 
+  prevent setting up identical panel parameters (#5427)
+
 * Legend titles no longer take up space if they've been removed by setting 
   `legend.title = element_blank()` (@teunbrand, #3587).
 
