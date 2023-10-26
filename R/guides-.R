@@ -301,6 +301,19 @@ Guides <- ggproto(
       horizontal = c("center", "top")
     )
 
+    custom <- vapply(self$guides, inherits, logical(1), what = "GuideCustom")
+    n_custom <- sum(custom)
+    if (n_custom > 0) {
+      custom <- guides_list(self$guides[custom])
+      custom$params <- lapply(custom$guides, `[[`, "params")
+      custom$merge()
+      custom <- compact(custom$draw(theme))
+      # We assign the return value for no guides to assembled custom grobs
+      no_guides <- self$assemble(custom, theme)
+    } else {
+      custom <- list()
+    }
+
     # Extract the non-position scales
     scales <- scales$non_position_scales()$scales
     if (length(scales) == 0) {
@@ -326,8 +339,14 @@ Guides <- ggproto(
       return(no_guides)
     }
 
-    # Draw and assemble
+    # Draw
     grobs <- guides$draw(theme)
+
+    # Combine with custom guides
+    grobs <- c(grobs, custom)
+    grobs <- grobs[order(names(grobs))]
+
+    # Assemble guides into guide-box
     guides$assemble(grobs, theme)
   },
 
