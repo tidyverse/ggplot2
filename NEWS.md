@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* `geom_violin()` gains a `bounds` argument analogous to `geom_density()`s (@eliocamp, #5493).
+
 * Legend titles no longer take up space if they've been removed by setting 
   `legend.title = element_blank()` (@teunbrand, #3587).
 
