@@ -107,6 +107,7 @@ boxplot.</p>
 <span>  <span class="va">...</span>,</span>
 <span>  draw_quantiles <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  trim <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  bounds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="cn">Inf</span>, <span class="cn">Inf</span><span class="op">)</span>,</span>
 <span>  scale <span class="op">=</span> <span class="st">"area"</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  orientation <span class="op">=</span> <span class="cn">NA</span>,</span>
@@ -129,7 +130,8 @@ boxplot.</p>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  orientation <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
-<span>  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  bounds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="cn">Inf</span>, <span class="cn">Inf</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -178,6 +180,14 @@ at the given quantiles of the density estimate.</p></dd>
 <dt>trim</dt>
 <dd><p>If <code>TRUE</code> (default), trim the tails of the violins
 to the range of the data. If <code>FALSE</code>, don't trim the tails.</p></dd>
+
+
+<dt>bounds</dt>
+<dd><p>Known lower and upper bounds for estimated data. Default
+<code>c(-Inf, Inf)</code> means that there are no (finite) bounds. If any bound is
+finite, boundary effect of default density estimation will be corrected by
+reflecting tails outside <code>bounds</code> around their closest edge. Data points
+outside of bounds are removed with a warning.</p></dd>
 
 
 <dt>scale</dt>
