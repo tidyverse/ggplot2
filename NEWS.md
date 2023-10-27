@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `geom_boxplot()` gains additional arguments to style the colour, linetype and
+  linewidths of the box, whiskers, median line and staples (@teunbrand, #5126)
+
 * `geom_violin()` gains a `bounds` argument analogous to `geom_density()`s (@eliocamp, #5493).
 
 * Legend titles no longer take up space if they've been removed by setting 

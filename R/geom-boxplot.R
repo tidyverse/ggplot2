@@ -41,11 +41,17 @@
 #'   needs to show the full data range, please use `outlier.shape = NA` instead.
 #' @param outlier.colour,outlier.color,outlier.fill,outlier.shape,outlier.size,outlier.stroke,outlier.alpha
 #'   Default aesthetics for outliers. Set to `NULL` to inherit from the
-#'   aesthetics used for the box.
-#'
-#'   In the unlikely event you specify both US and UK spellings of colour, the
-#'   US spelling will take precedence.
-#'
+#'   data's aesthetics.
+#' @param whisker.colour,whisker.color,whisker.linetype,whisker.linewidth
+#'   Default aesthetics for the whiskers. Set to `NULL` to inherit from the
+#'   data's aesthetics.
+#' @param median.colour,median.color,median.linetype,median.linewidth
+#'   Default aesthetics for the median line. Set to `NULL` to inherit from the
+#'   data's aesthetics.
+#' @param staple.colour,staple.color,staple.linetype,staple.linewidth
+#'   Default aesthetics for the staples. Set to `NULL` to inherit from the
+#'   data's aesthetics. Note that staples don't appear unless the `staplewidth`
+#'   argument is set to a non-zero size.
 #' @param notch If `FALSE` (default) make a standard box plot. If
 #'   `TRUE`, make a notched box plot. Notches are used to compare groups;
 #'   if the notches of two boxes do not overlap, this suggests that the medians
@@ -58,6 +64,9 @@
 #'   `TRUE`, boxes are drawn with widths proportional to the
 #'   square-roots of the number of observations in the groups (possibly
 #'   weighted, using the `weight` aesthetic).
+#' @note In the unlikely event you specify both US and UK spellings of colour,
+#'   the US spelling will take precedence.
+#'
 #' @export
 #' @references McGill, R., Tukey, J. W. and Larsen, W. A. (1978) Variations of
 #'     box plots. The American Statistician 32, 12-16.
