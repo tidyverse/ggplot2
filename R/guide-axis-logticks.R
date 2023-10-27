@@ -1,8 +1,8 @@
 
 guide_axis_logticks <- function(
-  long  = rel(2.25),
-  mid   = rel(1.5),
-  short = rel(0.75),
+  long  = 2.25,
+  mid   = 1.5,
+  short = 0.75,
   prescale_base = NULL,
   negative_small = 0.1,
   cap = "none",
@@ -13,6 +13,10 @@ guide_axis_logticks <- function(
     cap <- if (cap) "both" else "none"
   }
   cap <- arg_match0(cap, c("none", "both", "upper", "lower"))
+
+  if (is_bare_numeric(long))   long <- rel(long)
+  if (is_bare_numeric(mid))    mid  <- rel(mid)
+  if (is_bare_numeric(short)) short <- rel(short)
 
   check_fun <- function(x) (is.rel(x) || is.unit(x)) && length(x) == 1
   what <- "a {.cls rel} or {.cls unit} object of length 1"
