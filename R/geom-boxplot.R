@@ -138,6 +138,15 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
     }
   }
 
+  outlier_gp <- list(
+    colour = outlier.color %||% outlier.colour,
+    fill   = outlier.fill,
+    shape  = outlier.shape,
+    size   = outlier.size,
+    stroke = outlier.stroke,
+    alpha  = outlier.alpha
+  )
+
   check_number_decimal(staplewidth)
   check_bool(outliers)
 
@@ -151,12 +160,7 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
     inherit.aes = inherit.aes,
     params = list2(
       outliers = outliers,
-      outlier.colour = outlier.color %||% outlier.colour,
-      outlier.fill = outlier.fill,
-      outlier.shape = outlier.shape,
-      outlier.size = outlier.size,
-      outlier.stroke = outlier.stroke,
-      outlier.alpha = outlier.alpha,
+      outlier_gp = outlier_gp,
       notch = notch,
       notchwidth = notchwidth,
       staplewidth = staplewidth,
@@ -221,9 +225,7 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
 
   draw_group = function(self, data, panel_params, coord, lineend = "butt",
                         linejoin = "mitre", fatten = 2, outlier.colour = NULL,
-                        outlier.fill = NULL, outlier.shape = 19,
-                        outlier.size = 1.5, outlier.stroke = 0.5,
-                        outlier.alpha = NULL, notch = FALSE, notchwidth = 0.5,
+                        outlier_gp = NULL, notch = FALSE, notchwidth = 0.5,
                         staplewidth = 0, varwidth = FALSE, flipped_aes = FALSE) {
     data <- check_linewidth(data, snake_class(self))
     data <- flip_data(data, flipped_aes)
@@ -266,13 +268,13 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
       outliers <- data_frame0(
         y = data$outliers[[1]],
         x = data$x[1],
-        colour = outlier.colour %||% data$colour[1],
-        fill = outlier.fill %||% data$fill[1],
-        shape = outlier.shape %||% data$shape[1],
-        size = outlier.size %||% data$size[1],
-        stroke = outlier.stroke %||% data$stroke[1],
+        colour = outlier_gp$colour %||% data$colour[1],
+        fill   = outlier_gp$fill   %||% data$fill[1],
+        shape  = outlier_gp$shape  %||% data$shape[1]  %||% 19,
+        size   = outlier_gp$size   %||% data$size[1]   %||% 1.5,
+        stroke = outlier_gp$stroke %||% data$stroke[1] %||% 0.5,
         fill = NA,
-        alpha = outlier.alpha %||% data$alpha[1],
+        alpha = outlier_gp$alpha %||% data$alpha[1],
         .size = length(data$outliers[[1]])
       )
       outliers <- flip_data(outliers, flipped_aes)
