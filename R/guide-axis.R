@@ -771,7 +771,7 @@ function_as_trans <- function(fun, limits, scale_trans, detail = 1000) {
 
   trans_new(
     "secondary_transformation",
-    transform = function(x) approx(trans_seq, origin_seq, x)$y,
+    transform = function(x) stats::approx(trans_seq, origin_seq, x)$y,
     inverse   = fun,
     format    = format_format(digits = 3),
     domain    = range(trans_seq)
