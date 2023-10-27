@@ -69,13 +69,13 @@ GuideAxisLogticks <- ggproto(
 
     # Reconstruct original range
     limits <- trans$inverse(scale$get_limits())
-    has_negatives <- any(limits < 0)
+    has_negatives <- any(limits <= 0)
 
     if (!has_negatives) {
       start <- floor(log10(min(limits))) - 1L
       end   <- ceiling(log10(max(limits))) + 1L
     } else {
-      start <- log10(abs(params$negative_small))
+      start <- floor(log10(abs(params$negative_small)))
       end   <- ceiling(log10(max(abs(limits)))) + 1L
     }
 
@@ -87,19 +87,22 @@ GuideAxisLogticks <- ggproto(
     # Set ticks back into transformed space
     ticks  <- trans$transform(c(tens, fives, ones))
     nticks <- c(length(tens), length(fives), length(ones))
-    type   <- 1:3
-
-    if (has_negatives) {
-      # Mirror ticks around 0
-      ticks  <- c(ticks, -ticks,  0)
-      nticks <- c(nticks, nticks, 1)
-      type   <- c(type,   type,   1)
-    }
 
     logkey <- data_frame0(
       !!aesthetic := ticks,
-      .type = rep(type, times = nticks)
+      .type = rep(1:3, times = nticks)
     )
+
+    if (has_negatives) {
+      # Mirror ticks around 0
+      logkey <- vec_slice(logkey, logkey[[aesthetic]] >= params$negative_small)
+      mirror <- logkey
+      mirror[[aesthetic]] <- 1 * mirror[[aesthetic]]
+      zero <- data_frame0(!!aesthetic := 0, .type = 1L)
+      logkey <- vec_rbind(logkey, mirror, zero)
+    }
+
+
 
     # Discard out-of-bounds ticks
     range  <- scale$continuous_range
