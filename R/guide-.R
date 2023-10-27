@@ -351,7 +351,14 @@ Guide <- ggproto(
   },
 
   # Renders tickmarks
-  build_ticks = function(key, elements, params, position = params$position) {
+  build_ticks = function(key, elements, params, position = params$position,
+                         length = elements$ticks_length) {
+    if (!inherits(elements, "element")) {
+      elements <- elements$ticks
+    }
+    if (!inherits(elements, "element_line")) {
+      return(zeroGrob())
+    }
 
     if (!is.list(key)) {
       breaks <- key
@@ -365,8 +372,7 @@ Guide <- ggproto(
       return(zeroGrob())
     }
 
-    tick_len <- rep(elements$ticks_length %||% unit(0.2, "npc"),
-                    length.out = n_breaks)
+    tick_len <- rep(length %||% unit(0.2, "npc"), length.out = n_breaks)
 
     # Resolve mark
     mark <- unit(rep(breaks, each = 2), "npc")
@@ -375,12 +381,12 @@ Guide <- ggproto(
     pos <- unname(c(top = 1, bottom = 0, left = 0, right = 1)[position])
     dir <- -2 * pos + 1
     pos <- unit(rep(pos, 2 * n_breaks), "npc")
-    dir <- rep(vec_interleave(0, dir), n_breaks) * tick_len
+    dir <- rep(vec_interleave(dir, 0), n_breaks) * tick_len
     tick <- pos + dir
 
     # Build grob
     flip_element_grob(
-      elements$ticks,
+      elements,
       x = tick, y = mark,
       id.lengths = rep(2, n_breaks),
       flip = position %in% c("top", "bottom")

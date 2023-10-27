@@ -648,6 +648,36 @@ test_that("scale functions accurately report their calls", {
   expect_equal(calls, construct)
 })
 
+test_that("scale call is found accurately", {
+
+  call_template <- quote(scale_x_continuous(trans = "log10"))
+
+  sc <- do.call("scale_x_continuous", list(trans = "log10"))
+  expect_equal(sc$call, call_template)
+
+  sc <- inject(scale_x_continuous(!!!list(trans = "log10")))
+  expect_equal(sc$call, call_template)
+
+  sc <- exec("scale_x_continuous", trans = "log10")
+  expect_equal(sc$call, call_template)
+
+  foo <- function() scale_x_continuous(trans = "log10")
+  expect_equal(foo()$call, call_template)
+
+  env <- new_environment()
+  env$bar <- function() scale_x_continuous(trans = "log10")
+  expect_equal(env$bar()$call, call_template)
+
+  # Now should recognise the outer function
+  scale_x_new <- function() {
+    scale_x_continuous(trans = "log10")
+  }
+  expect_equal(
+    scale_x_new()$call,
+    quote(scale_x_new())
+  )
+})
+
 test_that("training incorrectly appropriately communicates the offenders", {
 
   sc <- scale_colour_viridis_d()

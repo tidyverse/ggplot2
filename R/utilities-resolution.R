@@ -27,6 +27,7 @@ resolution <- function(x, zero = TRUE) {
   if (zero) {
     x <- unique0(c(0, x))
   }
-
-  min(diff(sort(x)))
+  d <- diff(sort(x))
+  tolerance <- sqrt(.Machine$double.eps)
+  min(d[d > tolerance])
 }

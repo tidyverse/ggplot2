@@ -20,3 +20,15 @@ test_that("labeller function catches overlap in names", {
     )
   expect_snapshot_error(ggplotGrob(p))
 })
+
+test_that("labeller handles badly specified labels from lookup tables", {
+  df <- data_frame0(am = c(0, 1))
+  labs <- labeller(am = c("0" = "Automatic", "11" = "Manual"))
+  expect_equal(labs(df), list(am = c("Automatic", "1")))
+})
+
+test_that("labeller allows cherry-pick some labels", {
+  df <- data_frame0(am = c(0, 1))
+  labs <- labeller(am = c("0" = "Automatic"))
+  expect_equal(labs(df), list(am = c("Automatic", "1")))
+})

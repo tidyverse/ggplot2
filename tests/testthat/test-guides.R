@@ -178,10 +178,15 @@ test_that("guide merging for guide_legend() works as expected", {
     scales <- scales_list()
     scales$add(scale1)
     scales$add(scale2)
+    scales <- scales$scales
+
+    aesthetics <- lapply(scales, `[[`, "aesthetics")
+    scales <- rep.int(scales, lengths(aesthetics))
+    aesthetics <- unlist(aesthetics, FALSE, FALSE)
 
     guides <- guides_list(NULL)
-    guides <- guides$setup(scales$scales)
-    guides$train(scales$scales, "vertical", labs())
+    guides <- guides$setup(scales, aesthetics)
+    guides$train(scales, "vertical", labs())
     guides$merge()
     guides$params
   }
@@ -279,7 +284,7 @@ test_that("legend reverse argument reverses the key", {
   scale$train(LETTERS[1:4])
 
   guides <- guides_list(NULL)
-  guides <- guides$setup(list(scale))
+  guides <- guides$setup(list(scale), "colour")
 
   guides$params[[1]]$reverse <- FALSE
   guides$train(list(scale), "horizontal", labels = labs())
@@ -488,6 +493,47 @@ test_that("Axis titles won't be blown away by coord_*()", {
   # expect_doppelganger("guide titles with coord_polar()", plot + coord_polar())
   # TODO
   # expect_doppelganger("guide titles with coord_sf()", plot + coord_sf())
+})
+
+test_that("guide_axis() draws minor ticks correctly", {
+  p <- ggplot(mtcars, aes(wt, disp)) +
+    geom_point() +
+    theme(axis.ticks.length = unit(1, "cm"),
+          axis.ticks.x.bottom = element_line(linetype = 2),
+          axis.ticks.length.x.top = unit(-0.5, "cm"),
+          axis.minor.ticks.x.bottom = element_line(colour = "red"),
+          axis.minor.ticks.length.y.left = unit(-0.5, "cm"),
+          axis.minor.ticks.length.x.top = unit(-0.5, "cm"),
+          axis.minor.ticks.length.x.bottom = unit(0.75, "cm"),
+          axis.minor.ticks.length.y.right = unit(5, "cm")) +
+    scale_x_continuous(labels = math_format()) +
+    guides(
+      # Test for styling and style inheritance
+      x = guide_axis(minor.ticks = TRUE),
+      # # Test for opposed lengths
+      y = guide_axis(minor.ticks = TRUE),
+      # # Test for flipped lenghts
+      x.sec = guide_axis(minor.ticks = TRUE),
+      # # Test that minor.length doesn't influence spacing when no minor ticks are drawn
+      y.sec = guide_axis(minor.ticks = FALSE)
+    )
+  expect_doppelganger("guides with minor ticks", p)
+})
+
+test_that("absent titles don't take up space", {
+
+  p <- ggplot(mtcars, aes(disp, mpg, colour = factor(cyl))) +
+    geom_point() +
+    theme(
+      legend.title = element_blank(),
+      legend.margin = margin(),
+      legend.position = "top",
+      legend.justification = "left",
+      legend.key = element_rect(colour = "black"),
+      axis.line = element_line(colour = "black")
+    )
+
+  expect_doppelganger("left aligned legend key", p)
 })
 
 test_that("axis guides can be capped", {
