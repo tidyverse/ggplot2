@@ -49,14 +49,14 @@ GeomCrossbar <- ggproto("GeomCrossbar", Geom,
 
   draw_panel = function(self, data, panel_params, coord, lineend = "butt",
                         linejoin = "mitre", fatten = 2.5, width = NULL,
-                        flipped_aes = FALSE) {
+                        flipped_aes = FALSE, middle_gp = NULL, box_gp = NULL) {
     data <- check_linewidth(data, snake_class(self))
     data <- flip_data(data, flipped_aes)
 
     middle <- transform(data, x = xmin, xend = xmax, yend = y, linewidth = linewidth * fatten, alpha = NA)
-    middle$linewidth <- data$median_linewidth %||% middle$linewidth
-    middle$linetype  <- data$median_linetype  %||% middle$linetype
-    middle$colour    <- data$median_colour    %||% middle$colour
+    middle$linewidth <- middle_gp$linewidth %||% middle$linewidth
+    middle$linetype  <- middle_gp$linetype  %||% middle$linetype
+    middle$colour    <- middle_gp$colour    %||% middle$colour
 
     has_notch <- !is.null(data$ynotchlower) && !is.null(data$ynotchupper) &&
       !is.na(data$ynotchlower) && !is.na(data$ynotchupper)
@@ -85,9 +85,9 @@ GeomCrossbar <- ggproto("GeomCrossbar", Geom,
           data$ymax
         ),
         alpha = rep(data$alpha, 11),
-        colour = rep(data$colour, 11),
-        linewidth = rep(data$linewidth, 11),
-        linetype = rep(data$linetype, 11),
+        colour    = rep(box_gp$colour    %||% data$colour,    11),
+        linewidth = rep(box_gp$linewidth %||% data$linewidth, 11),
+        linetype  = rep(box_gp$linetype  %||% data$linetype,  11),
         fill = rep(data$fill, 11),
         group = rep(seq_len(nrow(data)), 11)
       )
@@ -97,9 +97,9 @@ GeomCrossbar <- ggproto("GeomCrossbar", Geom,
         x = c(data$xmin, data$xmin, data$xmax, data$xmax, data$xmin),
         y = c(data$ymax, data$ymin, data$ymin, data$ymax, data$ymax),
         alpha = rep(data$alpha, 5),
-        colour = rep(data$colour, 5),
-        linewidth = rep(data$linewidth, 5),
-        linetype = rep(data$linetype, 5),
+        colour    = rep(box_gp$colour    %||% data$colour,    5),
+        linewidth = rep(box_gp$linewidth %||% data$linewidth, 5),
+        linetype  = rep(box_gp$linetype  %||% data$linetype,  5),
         fill = rep(data$fill, 5),
         group = rep(seq_len(nrow(data)), 5) # each bar forms it's own group
       )
