@@ -39,6 +39,7 @@ guide_axis_logticks <- function(
     long  = long,
     mid   = mid,
     short = short,
+    cap   = cap,
     minor.ticks = TRUE,
     ...,
     super = GuideAxisLogticks
@@ -127,6 +128,14 @@ GuideAxisLogticks <- ggproto(
     # Discard out-of-bounds ticks
     range <- if (params$expanded) scale$continuous_range else scale$get_limits()
     logkey <- vec_slice(logkey, ticks >= range[1] & ticks <= range[2])
+
+    # Adjust capping based on these ticks instead of regular ticks
+    if (params$cap %in% c("both", "upper")) {
+      params$decor[[aesthetic]][2] <- max(logkey[[aesthetic]])
+    }
+    if (params$cap %in% c("both", "lower")) {
+      params$decor[[aesthetic]][1] <- min(logkey[[aesthetic]])
+    }
 
     params$logkey <- logkey
     params
