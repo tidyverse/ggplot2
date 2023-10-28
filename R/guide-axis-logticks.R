@@ -5,6 +5,7 @@ guide_axis_logticks <- function(
   short = 0.75,
   prescale_base = NULL,
   negative_small = 0.1,
+  expanded = TRUE,
   cap = "none",
   ...
 ) {
@@ -23,11 +24,13 @@ guide_axis_logticks <- function(
   check_object(long,  check_fun, what)
   check_object(mid,   check_fun, what)
   check_object(short, check_fun, what)
+  check_bool(expanded)
 
   new_guide(
     available_aes  = c("x", "y"),
     prescale_base  = prescale_base,
     negative_small = negative_small,
+    expanded       = expanded,
     long  = long,
     mid   = mid,
     short = short,
@@ -48,7 +51,8 @@ GuideAxisLogticks <- ggproto(
       minor.ticks    = TRUE, # for spacing calculation
       long  = 2.25,
       mid   = 1.5,
-      short = 0.75
+      short = 0.75,
+      expanded = TRUE
     ),
     GuideAxis$params
   ),
@@ -116,7 +120,7 @@ GuideAxisLogticks <- ggproto(
     )
 
     # Discard out-of-bounds ticks
-    range  <- scale$continuous_range
+    range <- if (params$expanded) scale$continuous_range else scale$get_limits()
     logkey <- vec_slice(logkey, ticks >= range[1] & ticks <= range[2])
 
     params$logkey <- logkey
