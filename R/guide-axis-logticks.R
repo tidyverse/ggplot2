@@ -24,6 +24,11 @@ guide_axis_logticks <- function(
   check_object(long,  check_fun, what)
   check_object(mid,   check_fun, what)
   check_object(short, check_fun, what)
+  check_number_decimal(
+    negative_small, min = 1e-100, # minimal domain of scales::log_trans
+    allow_infinite = FALSE,
+    allow_null = TRUE
+  )
   check_bool(expanded)
 
   new_guide(
