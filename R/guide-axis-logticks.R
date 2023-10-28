@@ -1,4 +1,65 @@
+#' @include guide-axis.R
+NULL
 
+#' Axis with logarithmic tick marks
+#'
+#' This axis guide replaces the placement of ticks marks at intervals in
+#' log10 space.
+#'
+#' @param long,mid,short A [grid::unit()] object or [rel()] object setting
+#'   the (relative) length of the long, middle and short ticks. Numeric values
+#'   are interpreted as [rel()] objects. The [rel()] values are used to multiply
+#'   values of the `axis.ticks.length` theme setting.
+#' @param prescale_base Base of logarithm used to transform data manually. The
+#'   default, `NULL`, will use the scale transformation to calculate positions.
+#'   Only set `prescale_base` if the data has already been log-transformed.
+#'   When using a log-transform in the position scale or in `coord_trans()`,
+#'   keep the default `NULL` argument.
+#' @param negative_small When the scale limits include 0 or negative numbers,
+#'   what should be the smallest absolute value that is marked with a tick?
+#' @param expanded Whether the ticks should cover the range after scale
+#'   expansion (`TRUE`, default), or be restricted to the scale limits
+#'   (`FALSE`).
+#' @inheritParams guide_axis
+#' @inheritDotParams guide_axis -minor.ticks
+#'
+#' @export
+#'
+#' @examples
+#' # A standard plot
+#' p <- ggplot(msleep, aes(bodywt, brainwt)) +
+#'   geom_point(na.rm = TRUE)
+#'
+#' # The logticks axis works well with log scales
+#' p + scale_x_log10(guide = "axis_logticks") +
+#'   scale_y_log10(guide = "axis_logticks")
+#'
+#' # Or with log-transformed coordinates
+#' p + coord_trans(x = "log10", y = "log10") +
+#'   guides(x = "axis_logticks", y = "axis_logticks")
+#'
+#' # When data is transformed manually, one should provide `prescale_base`
+#' # Keep in mind that this axis uses log10 space for placement, not log2
+#' p + aes(x = log2(bodywt), y = log10(brainwt)) +
+#'   guides(
+#'     x = guide_axis_logticks(prescale_base = 2),
+#'     y = guide_axis_logticks(prescale_base = 10)
+#'   )
+#'
+#' # A plot with both positive and negative extremes, pseudo-log transformed
+#' set.seed(42)
+#' p2 <- ggplot(data.frame(x = rcauchy(1000)), aes(x = x)) +
+#'   geom_density() +
+#'   scale_x_continuous(
+#'     breaks = c(-10^(4:0), 0, 10^(0:4)),
+#'     trans = "pseudo_log"
+#'   )
+#'
+#' # The log ticks are mirrored when 0 is included
+#' p2 + guides(x = "axis_logticks")
+#'
+#' # To control the tick density around 0, one can set `negative_small`
+#' p2 + guides(x = guide_axis_logticks(negative_small = 1))
 guide_axis_logticks <- function(
   long  = 2.25,
   mid   = 1.5,
@@ -46,7 +107,10 @@ guide_axis_logticks <- function(
   )
 }
 
-
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 GuideAxisLogticks <- ggproto(
   "GuideAxisLogticks", GuideAxis,
 
