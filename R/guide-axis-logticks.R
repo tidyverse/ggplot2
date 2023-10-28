@@ -46,9 +46,9 @@ GuideAxisLogticks <- ggproto(
       prescale_base  = NULL,
       negative_small = 0.1,
       minor.ticks    = TRUE, # for spacing calculation
-      long  = rel(2.25),
-      mid   = rel(1.5),
-      short = rel(0.75)
+      long  = 2.25,
+      mid   = 1.5,
+      short = 0.75
     ),
     GuideAxis$params
   ),
@@ -129,7 +129,7 @@ GuideAxisLogticks <- ggproto(
 
     # Multiply rel units with theme's tick length
     tick_length <- lapply(params[c("long", "mid", "short")], function(x) {
-      if (is.rel(x)) unclass(x) * length else x
+      if (is.unit(x)) x else unclass(x) * length
     })
     tick_length <- inject(unit.c(!!!tick_length))
     elements$tick_length  <- tick_length
