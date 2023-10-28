@@ -66,6 +66,13 @@ GuideAxisLogticks <- ggproto(
 
     # Reconstruct a transformation if user has prescaled data
     if (!is.null(params$prescale_base)) {
+      trans_name <- scale$scale$trans$name
+      if (trans_name != "identity") {
+        cli::cli_warn(paste0(
+          "The {.arg prescale_base} argument will override the scale's ",
+          "{.field {trans_name}} transformation in log-tick positioning."
+        ))
+      }
       trans <- log_trans(base = params$prescale_base)
     } else {
       trans <- scale$scale$trans
@@ -87,7 +94,7 @@ GuideAxisLogticks <- ggproto(
     # Calculate tick marks
     tens  <- 10^seq(start, end, by = 1)
     fives <- tens * 5
-    ones  <- as.vector(outer(tens, setdiff(2:9, 5)))
+    ones  <- as.vector(outer(setdiff(2:9, 5), tens))
 
     if (has_negatives) {
       # Filter and mirror ticks around 0
@@ -110,7 +117,7 @@ GuideAxisLogticks <- ggproto(
 
     # Discard out-of-bounds ticks
     range  <- scale$continuous_range
-    logkey <- vec_slice(logkey, ticks > range[1] & ticks < range[2])
+    logkey <- vec_slice(logkey, ticks >= range[1] & ticks <= range[2])
 
     params$logkey <- logkey
     params
