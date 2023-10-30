@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* (internal) guide building is now part of `ggplot_build()` instead of 
+  `ggplot_gtable()` to allow guides to observe unmapped data (#5483).
+
 * Legend titles no longer take up space if they've been removed by setting 
   `legend.title = element_blank()` (@teunbrand, #3587).
 
