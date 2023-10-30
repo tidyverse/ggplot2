@@ -278,28 +278,10 @@ Guides <- ggproto(
   # 5. Guides$assemble()
   #      arrange all guide grobs
 
-  build = function(self, scales, layers, default_mapping,
-                   position, theme, labels) {
+  build = function(self, scales, layers, labels, layer_data) {
 
-    position  <- legend_position(position)
-    no_guides <- zeroGrob()
-    if (position == "none") {
-      return(no_guides)
-    }
-
-    theme$legend.key.width  <- theme$legend.key.width  %||% theme$legend.key.size
-    theme$legend.key.height <- theme$legend.key.height %||% theme$legend.key.size
-
-
-    default_direction <- if (position == "inside") "vertical" else position
-    theme$legend.box       <- theme$legend.box       %||% default_direction
-    theme$legend.direction <- theme$legend.direction %||% default_direction
-    theme$legend.box.just  <- theme$legend.box.just  %||% switch(
-      position,
-      inside     = c("center", "center"),
-      vertical   = c("left",   "top"),
-      horizontal = c("center", "top")
-    )
+    # Empty guides list
+    no_guides <- guides_list()
 
     # Extract the non-position scales
     scales <- scales$non_position_scales()$scales
@@ -314,21 +296,19 @@ Guides <- ggproto(
 
     # Setup and train scales
     guides <- self$setup(scales, aesthetics = aesthetics)
-    guides$train(scales, theme$legend.direction, labels)
+    guides$train(scales, labels)
+
     if (length(guides$guides) == 0) {
       return(no_guides)
     }
 
     # Merge and process layers
     guides$merge()
-    guides$process_layers(layers)
+    guides$process_layers(layers, layer_data)
     if (length(guides$guides) == 0) {
       return(no_guides)
     }
-
-    # Draw and assemble
-    grobs <- guides$draw(theme)
-    guides$assemble(grobs, theme)
+    guides
   },
 
   # Setup routine for resolving and validating guides based on paired scales.
@@ -409,14 +389,13 @@ Guides <- ggproto(
 
   # Loop over every guide-scale combination to perform training
   # A strong assumption here is that `scales` is parallel to the guides
-  train = function(self, scales, direction, labels) {
+  train = function(self, scales, labels) {
 
     params <- Map(
       function(guide, param, scale, aes) {
         guide$train(
           param, scale, aes,
-          title = labels[[aes]],
-          direction = direction
+          title = labels[[aes]]
         )
       },
       guide = self$guides,
@@ -468,9 +447,9 @@ Guides <- ggproto(
   },
 
   # Loop over guides to let them extract information from layers
-  process_layers = function(self, layers) {
+  process_layers = function(self, layers, data = NULL) {
     self$params <- Map(
-      function(guide, param) guide$get_layer_key(param, layers),
+      function(guide, param) guide$process_layers(param, layers, data),
       guide = self$guides,
       param = self$params
     )
@@ -480,16 +459,43 @@ Guides <- ggproto(
   },
 
   # Loop over every guide, let them draw their grobs
-  draw = function(self, theme) {
+  draw = function(self, theme, position, direction) {
     Map(
-      function(guide, params) guide$draw(theme, params),
+      function(guide, params) guide$draw(theme, position, direction, params),
       guide  = self$guides,
       params = self$params
     )
   },
 
   # Combining multiple guides in a guide box
-  assemble = function(grobs, theme) {
+  assemble = function(self, theme, position) {
+
+    if (length(self$guides) < 1) {
+      return(zeroGrob())
+    }
+
+    position  <- legend_position(position)
+    if (position == "none") {
+      return(zeroGrob())
+    }
+    default_direction <- if (position == "inside") "vertical" else position
+
+    theme$legend.key.width  <- theme$legend.key.width  %||% theme$legend.key.size
+    theme$legend.key.height <- theme$legend.key.height %||% theme$legend.key.size
+    theme$legend.box       <- theme$legend.box       %||% default_direction
+    theme$legend.direction <- theme$legend.direction %||% default_direction
+    theme$legend.box.just  <- theme$legend.box.just  %||% switch(
+      position,
+      inside     = c("center", "center"),
+      vertical   = c("left",   "top"),
+      horizontal = c("center", "top")
+    )
+
+    grobs <- self$draw(theme, position, default_direction)
+    if (length(grobs) < 1) {
+      return(zeroGrob())
+    }
+
     # Set spacing
     theme$legend.spacing   <- theme$legend.spacing    %||% unit(0.5, "lines")
     theme$legend.spacing.y <- theme$legend.spacing.y  %||% theme$legend.spacing

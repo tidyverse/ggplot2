@@ -486,7 +486,7 @@ draw_axis <- function(break_positions, break_labels, axis_position, theme,
     !!aes := c(0, 1),
     !!opp := opp_value
   )
-  guide$draw(theme, params)
+  guide$draw(theme, params = params)
 }
 
 draw_axis_labels <- function(break_positions, break_labels, label_element, is_vertical,

@@ -7,14 +7,16 @@ test_that("alternative key glyphs work", {
   expect_doppelganger("time series and polygon key glyphs",
     ggplot(df, aes(x, y)) +
       geom_line(aes(color = "line"), key_glyph = "timeseries") +
-      geom_point(aes(fill = z), pch = 21, size = 3, key_glyph = "polygon")
+      geom_point(aes(fill = z), pch = 21, size = 3, key_glyph = "polygon") +
+      guides(fill = guide_legend(order = 1))
    )
 
   # specify key glyph by function
   expect_doppelganger("rectangle and dotplot key glyphs",
     ggplot(df, aes(x, y)) +
       geom_line(aes(color = "line"), key_glyph = draw_key_rect) +
-      geom_point(aes(fill = z), pch = 21, size = 3, stroke = 2, key_glyph = draw_key_dotplot)
+      geom_point(aes(fill = z), pch = 21, size = 3, stroke = 2, key_glyph = draw_key_dotplot) +
+      guides(fill = guide_legend(order = 1))
   )
 })
 
@@ -43,11 +45,13 @@ test_that("horizontal key glyphs work", {
   expect_doppelganger("horizontal boxplot and crossbar",
     p +
       geom_boxplot(aes(y = group1, color = group1), stat = "identity") +
-      geom_crossbar(aes(y = group2, fill = group2))
+      geom_crossbar(aes(y = group2, fill = group2)) +
+      guides(color = guide_legend(order = 1))
   )
   expect_doppelganger("horizontal linerange and pointrange",
     p +
       geom_linerange(aes(y = group1, color = group1)) +
-      geom_pointrange(aes(y = group2, shape = group2))
+      geom_pointrange(aes(y = group2, shape = group2)) +
+      guides(color = guide_legend(order = 1))
   )
 })
