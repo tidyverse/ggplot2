@@ -111,6 +111,7 @@ extension.</p>
 <span>  dpi <span class="op">=</span> <span class="fl">300</span>,</span>
 <span>  limitsize <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  bg <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  create.dir <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -166,6 +167,13 @@ specifying dimensions in pixels.</p></dd>
 <dt>bg</dt>
 <dd><p>Background colour. If <code>NULL</code>, uses the <code>plot.background</code> fill value
 from the plot theme.</p></dd>
+
+
+<dt>create.dir</dt>
+<dd><p>Whether to create new directories if a non-existing
+directory is specified in the <code>filename</code> or <code>path</code> (<code>TRUE</code>) or return an
+error (<code>FALSE</code>, default). If <code>FALSE</code> and run in an interactive session,
+a prompt will appear asking to create a new directory when necessary.</p></dd>
 
 
 <dt>...</dt>
