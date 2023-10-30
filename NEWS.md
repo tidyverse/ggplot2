@@ -4,6 +4,12 @@
   the value is is the layer's data. To revert to the old behaviour, you
   can still set `show.legend = c({aesthetic} = TRUE)` (@teunbrand, #3648).
 
+* `ggsave()` no longer sometimes creates new directories, which is now 
+  controlled by the new `create.dir` argument (#5489).
+
+* `guide_coloursteps(even.steps = FALSE)` now draws one rectangle per interval
+  instead of many small ones (#5481).
+
 * (internal) guide building is now part of `ggplot_build()` instead of 
   `ggplot_gtable()` to allow guides to observe unmapped data (#5483).
 
