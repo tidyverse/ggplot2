@@ -327,6 +327,7 @@ GuideLegend <- ggproto(
             layer$geom$use_defaults(params$key[matched_aes], layer_params, list())
           }
         )
+        data$.draw <- keep_key_data(params$key, df, matched_aes, layer$show.legend)
       } else {
         reps <- rep(1, nrow(params$key))
         data <- layer$geom$use_defaults(NULL, layer$aes_params)[reps, ]
@@ -766,4 +767,39 @@ measure_legend_keys <- function(decor, n, dim, byrow = FALSE,
     widths  = pmax(default_width,  apply(size, 2, max)),
     heights = pmax(default_height, apply(size, 1, max))
   )
+}
+
+# For legend keys, check if the guide key's `.value` also occurs in the layer
+# data when `show.legend = NA` and data is discrete. Note that `show.legend`
+# besides TRUE (always show), FALSE (never show) and NA (show in relevant legend),
+# can also take *named* logical vector to set this behaviour per aesthetic.
+keep_key_data <- function(key, data, aes, show) {
+  # First, can we exclude based on anything else than actually checking the
+  # data that we should include or drop the key?
+  if (!is.discrete(key$.value)) {
+    return(TRUE)
+  }
+  if (is_named(show)) {
+    aes  <- intersect(aes, names(show))
+    show <- show[aes]
+  } else {
+    show <- show[rep(1L, length(aes))]
+  }
+  if (isTRUE(any(show)) || length(show) == 0) {
+    return(TRUE)
+  }
+  if (isTRUE(all(!show))) {
+    return(FALSE)
+  }
+  # Second, we go find if the value is actually present in the data.
+  aes <- aes[is.na(show)]
+  match <- which(names(data) %in% aes)
+  if (length(match) == 0) {
+    return(TRUE)
+  }
+  keep <- rep(FALSE, nrow(key))
+  for (column in match) {
+    keep <- keep | vec_in(key$.value, data[[column]])
+  }
+  keep
 }
