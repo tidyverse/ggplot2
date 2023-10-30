@@ -173,23 +173,6 @@ GuideColoursteps <- ggproto(
     params$title <- scale$make_title(
       params$title %|W|% scale$name %|W|% title
     )
-    params$direction <- arg_match0(
-      params$direction %||% direction,
-      c("horizontal", "vertical"), arg_nm = "direction"
-    )
-    valid_label_pos <- switch(
-      params$direction,
-      "horizontal" = c("bottom", "top"),
-      "vertical"   = c("right", "left")
-    )
-    params$label.position <- params$label.position %||% valid_label_pos[1]
-    if (!params$label.position %in% valid_label_pos) {
-      cli::cli_abort(paste0(
-        "When {.arg direction} is {.val {params$direction}}, ",
-        "{.arg label.position} must be one of {.or {.val {valid_label_pos}}}, ",
-        "not {.val {params$label.position}}."
-      ))
-    }
 
     limits <- c(params$decor$min[1], params$decor$max[nrow(params$decor)])
     if (params$reverse) {
