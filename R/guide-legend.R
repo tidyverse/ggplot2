@@ -303,7 +303,7 @@ GuideLegend <- ggproto(
 
   get_layer_key = function(params, layers, data) {
 
-    decor <- lapply(layers, function(layer) {
+    decor <- Map(layer = layers, df = data, f = function(layer, df) {
 
       matched_aes <- matched_aes(layer, params)
 
