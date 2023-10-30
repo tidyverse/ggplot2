@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `guide_coloursteps(even.steps = FALSE)` now draws one rectangle per interval
+  instead of many small ones (#5481).
+
 * (internal) guide building is now part of `ggplot_build()` instead of 
   `ggplot_gtable()` to allow guides to observe unmapped data (#5483).
 
