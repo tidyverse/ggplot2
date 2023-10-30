@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `ggsave()` no longer sometimes creates new directories, which is now 
+  controlled by the new `create.dir` argument (#5489).
+
 * `guide_coloursteps(even.steps = FALSE)` now draws one rectangle per interval
   instead of many small ones (#5481).
 
