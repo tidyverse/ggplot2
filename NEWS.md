@@ -2,6 +2,14 @@
 
 * `geom_boxplot()` gains additional arguments to style the colour, linetype and
   linewidths of the box, whiskers, median line and staples (@teunbrand, #5126)
+* `ggsave()` no longer sometimes creates new directories, which is now 
+  controlled by the new `create.dir` argument (#5489).
+
+* `guide_coloursteps(even.steps = FALSE)` now draws one rectangle per interval
+  instead of many small ones (#5481).
+
+* (internal) guide building is now part of `ggplot_build()` instead of 
+  `ggplot_gtable()` to allow guides to observe unmapped data (#5483).
 
 * `geom_violin()` gains a `bounds` argument analogous to `geom_density()`s (@eliocamp, #5493).
 
