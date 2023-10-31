@@ -509,6 +509,11 @@ Guides <- ggproto(
       MoreArgs = list(theme = theme)
     )
 
+    # Set spacing
+    theme$legend.spacing   <- theme$legend.spacing    %||% unit(0.5, "lines")
+    theme$legend.spacing.y <- theme$legend.spacing.y  %||% theme$legend.spacing
+    theme$legend.spacing.x <- theme$legend.spacing.x  %||% theme$legend.spacing
+
     Map(
       grobs    = grobs,
       position = levels(positions),
@@ -537,11 +542,6 @@ Guides <- ggproto(
       left = , right = c("left", "top"),
       top = , bottom = c("center", "top")
     )
-
-    # Set spacing
-    theme$legend.spacing   <- theme$legend.spacing    %||% unit(0.5, "lines")
-    theme$legend.spacing.y <- theme$legend.spacing.y  %||% theme$legend.spacing
-    theme$legend.spacing.x <- theme$legend.spacing.x  %||% theme$legend.spacing
 
     # Measure guides
     widths  <- lapply(grobs, function(g) sum(g$widths))
