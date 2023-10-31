@@ -459,27 +459,8 @@ Guides <- ggproto(
   },
 
   # Loop over every guide, let them draw their grobs
-  draw = function(self, params = self$params, guides = self$guides,
-                  theme, position) {
+  draw = function(self, theme, params = self$params, guides = self$guides) {
     if (length(guides) == 0) {
-      return(zeroGrob())
-    }
-    direction <- switch(
-      position,
-      inside = , left = , right = "vertical",
-      top = , bottom = "horizontal"
-    )
-    Map(
-      function(guide, params) guide$draw(theme, position, direction, params),
-      guide  = guides,
-      params = params
-    )
-  },
-
-  # Combining multiple guides in a guide box
-  assemble = function(self, theme) {
-
-    if (length(self$guides) < 1) {
       return(zeroGrob())
     }
 
@@ -490,24 +471,40 @@ Guides <- ggproto(
     if (default_position == "none") {
       return(zeroGrob())
     }
-
     positions <- vapply(
-      self$params,
-      function(p) p$position %||% default_position,
-      character(1)
+      params, function(p) p$position[1] %||% default_position, character(1)
     )
     positions <- factor(positions, levels = c(.trbl, "inside"))
 
     theme$legend.key.width  <- theme$legend.key.width  %||% theme$legend.key.size
     theme$legend.key.height <- theme$legend.key.height %||% theme$legend.key.size
 
+    directions <- rep("vertical", length(positions))
+    directions[positions %in% c("top", "bottom")] <- "horizontal"
+
     grobs <- Map(
-      params   = split(self$params, positions),
-      guides   = split(self$guides, positions),
-      position = levels(positions),
-      f = self$draw,
-      MoreArgs = list(theme = theme)
+      function(guide, params, position, direction) {
+        guide$draw(theme, position, direction, params)
+      },
+      guide  = guides,
+      params = params,
+      direction = directions,
+      position  = as.character(positions)
     )
+    split(grobs, positions)
+  },
+
+  # Combining multiple guides in a guide box
+  assemble = function(self, theme) {
+
+    if (length(self$guides) < 1) {
+      return(zeroGrob())
+    }
+
+    theme$legend.key.width  <- theme$legend.key.width  %||% theme$legend.key.size
+    theme$legend.key.height <- theme$legend.key.height %||% theme$legend.key.size
+
+    grobs <- self$draw(theme)
 
     # Set spacing
     theme$legend.spacing   <- theme$legend.spacing    %||% unit(0.5, "lines")
@@ -516,7 +513,7 @@ Guides <- ggproto(
 
     Map(
       grobs    = grobs,
-      position = levels(positions),
+      position = names(grobs),
       self$package_box,
       MoreArgs = list(theme = theme)
     )
