@@ -537,10 +537,9 @@ Guides <- ggproto(
     theme$legend.box       <- theme$legend.box       %||% direction
     theme$legend.direction <- theme$legend.direction %||% direction
     theme$legend.box.just  <- theme$legend.box.just  %||% switch(
-      position,
-      inside = c("center", "center"),
-      left = , right = c("left", "top"),
-      top = , bottom = c("center", "top")
+      direction,
+      vertical   = c("left", "top"),
+      horizontal = c("center", "top")
     )
 
     # Measure guides
