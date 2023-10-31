@@ -250,8 +250,8 @@ Guides <- ggproto(
 
   ## Building ------------------------------------------------------------------
 
-  # The `Guides$build()` method is called in ggplotGrob (plot-build.R) and makes
-  # the guide box for *non-position* scales.
+  # The `Guides$build()` method is called in ggplot_build (plot-build.R) and
+  # collects all information needed from the plot.
   # Note that position scales are handled in `Coord`s, which have their own
   # procedures to do equivalent steps.
   #
@@ -271,12 +271,7 @@ Guides <- ggproto(
   # 3. Guides$process_layers()
   #      process layer information and generate geom info.
   #
-  # 4. Guides$draw()
-  #      generate guide grob from each guide object
-  #      one guide grob for one guide object
-  #
-  # 5. Guides$assemble()
-  #      arrange all guide grobs
+  # The resulting guide is then drawn in ggplot_gtable
 
   build = function(self, scales, layers, labels, layer_data) {
 
@@ -458,42 +453,19 @@ Guides <- ggproto(
     invisible()
   },
 
-  # Loop over every guide, let them draw their grobs
-  draw = function(self, theme, params = self$params, guides = self$guides) {
-    if (length(guides) == 0) {
-      return(zeroGrob())
-    }
-
-    default_position <- theme$legend.position %||% "right"
-    if (length(default_position) == 2) {
-      default_position <- "inside"
-    }
-    if (default_position == "none") {
-      return(zeroGrob())
-    }
-    positions <- vapply(
-      params, function(p) p$position[1] %||% default_position, character(1)
-    )
-    positions <- factor(positions, levels = c(.trbl, "inside"))
-
-    theme$legend.key.width  <- theme$legend.key.width  %||% theme$legend.key.size
-    theme$legend.key.height <- theme$legend.key.height %||% theme$legend.key.size
-
-    directions <- rep("vertical", length(positions))
-    directions[positions %in% c("top", "bottom")] <- "horizontal"
-
-    grobs <- Map(
-      function(guide, params, position, direction) {
-        guide$draw(theme, position, direction, params)
-      },
-      guide  = guides,
-      params = params,
-      direction = directions,
-      position  = as.character(positions)
-    )
-    split(grobs, positions)
-  },
-
+  # The `Guides$assemble()` method is called in ggplot_gtable (plot-build.R) and
+  # applies the styling from the theme to render each guide and package them
+  # into guide boxes.
+  #
+  # The procedure is as follows
+  #
+  # 1. Guides$draw()
+  #      for every guide object, draw one grob,
+  #      then group the grobs in a list per position
+  #
+  # 2. Guides$package_box()
+  #      for every position, collect all individual guides and arrange them
+  #      into a guide box which will be inserted into the main gtable
   # Combining multiple guides in a guide box
   assemble = function(self, theme) {
 
@@ -517,6 +489,40 @@ Guides <- ggproto(
       self$package_box,
       MoreArgs = list(theme = theme)
     )
+  },
+
+  # Render the guides into grobs
+  draw = function(self, theme, params = self$params, guides = self$guides) {
+    if (length(guides) == 0) {
+      return(zeroGrob())
+    }
+
+    default_position <- theme$legend.position %||% "right"
+    if (length(default_position) == 2) {
+      default_position <- "inside"
+    }
+    if (default_position == "none") {
+      return(zeroGrob())
+    }
+    positions <- vapply(
+      params, function(p) p$position[1] %||% default_position, character(1)
+    )
+    positions <- factor(positions, levels = c(.trbl, "inside"))
+
+    theme$legend.key.width  <- theme$legend.key.width  %||% theme$legend.key.size
+    theme$legend.key.height <- theme$legend.key.height %||% theme$legend.key.size
+
+    directions <- rep("vertical", length(positions))
+    directions[positions %in% c("top", "bottom")] <- "horizontal"
+
+    grobs <- vector("list", length(guides))
+    for (i in seq_along(grobs)) {
+      grobs[[i]] <- guides[[i]]$draw(
+        theme = theme, position = as.character(positions[i]),
+        direction = directions[i], params = params[[i]]
+      )
+    }
+    split(grobs, positions)
   },
 
   package_box = function(grobs, position, theme) {
