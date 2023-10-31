@@ -123,7 +123,7 @@ guide_bins <- function(
     title.position <- arg_match0(title.position, .trbl)
   }
   if (!is.null(position)) {
-    position <- arg_match0(position, c(.trbl, "manual"))
+    position <- arg_match0(position, c(.trbl, "inside"))
   }
   if (!is.null(direction)) {
     direction <- arg_match0(direction, c("horizontal", "vertical"))

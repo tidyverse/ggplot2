@@ -172,7 +172,7 @@ guide_legend <- function(
     label.position <- arg_match0(label.position, .trbl)
   }
   if (!is.null(position)) {
-    position <- arg_match0(position, c(.trbl, "manual"))
+    position <- arg_match0(position, c(.trbl, "inside"))
   }
 
   new_guide(
