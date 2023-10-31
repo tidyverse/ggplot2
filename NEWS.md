@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* `geom_boxplot()` gains additional arguments to style the colour, linetype and
+  linewidths of the box, whiskers, median line and staples (@teunbrand, #5126)
 * `ggsave()` no longer sometimes creates new directories, which is now 
   controlled by the new `create.dir` argument (#5489).
 
