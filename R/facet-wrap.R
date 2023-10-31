@@ -332,22 +332,14 @@ FacetWrap <- ggproto("FacetWrap", Facet,
       axis_mat_y_left[, -1] <- list(zeroGrob())
       axis_mat_y_right[, -ncol] <- list(zeroGrob())
     }
-    axis_height_top <- unit(
-      apply(axis_mat_x_top, 1, max_height, value_only = TRUE),
-      "cm"
+    axis_size <- measure_axis_mats(
+      empty  = empties,
+      top    = axis_mat_x_top,
+      bottom = axis_mat_x_bottom,
+      left   = axis_mat_y_left,
+      right  = axis_mat_y_right
     )
-    axis_height_bottom <- unit(
-      apply(axis_mat_x_bottom, 1, max_height, value_only = TRUE),
-      "cm"
-    )
-    axis_width_left <- unit(
-      apply(axis_mat_y_left, 2, max_width, value_only = TRUE),
-      "cm"
-    )
-    axis_width_right <- unit(
-      apply(axis_mat_y_right, 2, max_width, value_only = TRUE),
-      "cm"
-    )
+
     # Add back missing axes
     if (any(empties)) {
       row_ind <- row(empties)
@@ -430,10 +422,10 @@ FacetWrap <- ggproto("FacetWrap", Facet,
         }
       }
     }
-    panel_table <- weave_tables_row(panel_table, axis_mat_x_top, -1, axis_height_top, "axis-t", 3)
-    panel_table <- weave_tables_row(panel_table, axis_mat_x_bottom, 0, axis_height_bottom, "axis-b", 3)
-    panel_table <- weave_tables_col(panel_table, axis_mat_y_left, -1, axis_width_left, "axis-l", 3)
-    panel_table <- weave_tables_col(panel_table, axis_mat_y_right, 0, axis_width_right, "axis-r", 3)
+    panel_table <- weave_tables_row(panel_table, axis_mat_x_top, -1, axis_size$top, "axis-t", 3)
+    panel_table <- weave_tables_row(panel_table, axis_mat_x_bottom, 0, axis_size$bottom, "axis-b", 3)
+    panel_table <- weave_tables_col(panel_table, axis_mat_y_left, -1, axis_size$left, "axis-l", 3)
+    panel_table <- weave_tables_col(panel_table, axis_mat_y_right, 0, axis_size$right, "axis-r", 3)
 
     strip_padding <- convertUnit(theme$strip.switch.pad.wrap, "cm")
     strip_name <- paste0("strip-", substr(params$strip.position, 1, 1))
@@ -443,10 +435,10 @@ FacetWrap <- ggproto("FacetWrap", Facet,
       inside_x <- (theme$strip.placement.x %||% theme$strip.placement %||% "inside") == "inside"
       if (params$strip.position == "top") {
         placement <- if (inside_x) -1 else -2
-        strip_pad <- axis_height_top
+        strip_pad <- axis_size$top
       } else {
         placement <- if (inside_x) 0 else 1
-        strip_pad <- axis_height_bottom
+        strip_pad <- axis_size$bottom
       }
       strip_height <- unit(apply(strip_mat, 1, max_height, value_only = TRUE), "cm")
       panel_table <- weave_tables_row(panel_table, strip_mat, placement, strip_height, strip_name, 2, coord$clip)
@@ -458,10 +450,10 @@ FacetWrap <- ggproto("FacetWrap", Facet,
       inside_y <- (theme$strip.placement.y %||% theme$strip.placement %||% "inside") == "inside"
       if (params$strip.position == "left") {
         placement <- if (inside_y) -1 else -2
-        strip_pad <- axis_width_left
+        strip_pad <- axis_size$left
       } else {
         placement <- if (inside_y) 0 else 1
-        strip_pad <- axis_width_right
+        strip_pad <- axis_size$right
       }
       strip_pad[as.numeric(strip_pad) != 0] <- strip_padding
       strip_width <- unit(apply(strip_mat, 2, max_width, value_only = TRUE), "cm")
@@ -536,4 +528,35 @@ weave_tables_row <- function(table, table2, row_shift, row_height, name, z = 1, 
     }
   }
   table
+}
+
+# Measures the size of axes while ignoring those bordering empty panels
+measure_axes <- function(empty_idx, axes, margin = 1L, shift = 0) {
+  dim  <- dim(axes)
+
+  measure <- switch(margin, height_cm, width_cm)
+  cm <- matrix(measure(axes), dim[1], dim[2])
+
+  if (nrow(empty_idx) > 0 && shift != 0) {
+    set_zero <- empty_idx
+    set_zero[, margin] <- set_zero[, margin] + shift
+    keep <- set_zero[, margin] <= dim[margin] & set_zero[, margin] > 0
+    set_zero <- set_zero[keep, , drop = FALSE]
+  } else {
+    set_zero <- matrix(integer(), nrow = 0, ncol = 2)
+  }
+
+  cm[set_zero] <- 0
+  unit(apply(cm, margin, max), "cm")
+}
+
+# Measure the axis layout heights and widths
+measure_axis_mats <- function(empty, top, bottom, left, right) {
+  empty  <- which(empty, arr.ind = TRUE)
+  list(
+    top    = measure_axes(empty, top,    1L, 1L),
+    bottom = measure_axes(empty, bottom, 1L, -1L),
+    left   = measure_axes(empty, left,   2L,  1L),
+    right  = measure_axes(empty, right,  2L, -1L)
+  )
 }
