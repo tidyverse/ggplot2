@@ -135,11 +135,15 @@ GuideAxisStack <- ggproto(
     params
   },
 
-  draw = function(self, theme, params = self$params) {
+  draw = function(self, theme, position = NULL, direction = NULL,
+                  params = self$params) {
     # Loop through every guide's draw method
     grobs <- list()
     for (i in seq_along(params$guides)) {
-      grobs[[i]] <- params$guides[[i]]$draw(theme, params$guide_params[[i]])
+      grobs[[i]] <- params$guides[[i]]$draw(
+        theme, position = position, direction = direction,
+        params = params$guide_params[[i]]
+      )
     }
 
     # Remove empty grobs
