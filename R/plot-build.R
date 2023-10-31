@@ -178,11 +178,6 @@ ggplot_gtable.ggplot_built <- function(data) {
   plot_table <- layout$render(geom_grobs, data, theme, plot$labels)
 
   # Legends
-  position <- theme$legend.position %||% "right"
-  if (length(position) == 2) {
-    position <- "manual"
-  }
-
   legend_box <- plot$guides$assemble(theme)
   plot_table <- table_add_legends(plot_table, legend_box, theme)
 
@@ -430,7 +425,6 @@ table_add_legends <- function(table, legends, theme) {
   xjust <- just[1]
   yjust <- just[2]
 
-
   if (!is.zero(legends$inside)) {
     position <- theme$legend.position
     if (!is.numeric(position) || length(position) != 2) {
@@ -463,10 +457,8 @@ table_add_legends <- function(table, legends, theme) {
           height = height, width = width
         )
       )
-      box <- gtable_add_rows(box, unit(yjust, "null"))
-      box <- gtable_add_rows(box, unit(1 - yjust, "null"), 0)
-      box <- gtable_add_cols(box, unit(xjust, "null"), 0)
-      box <- gtable_add_cols(box, unit(1 - xjust, "null"))
+      margin <- margin(1 - yjust, 1 - xjust, yjust, xjust, unit = "null")
+      box <- gtable_add_padding(box, margin)
       box
     }
   )
