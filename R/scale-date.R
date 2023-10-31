@@ -308,8 +308,8 @@ datetime_scale <- function(aesthetics, trans, palette,
   }
   if (!is.waive(date_labels)) {
     labels <- function(self, x) {
-      tz <- if (is.null(self$timezone)) "UTC" else self$timezone
-      date_format(date_labels, tz)(x)
+      tz <- self$timezone %||% "UTC"
+      label_date(date_labels, tz)(x)
     }
   }
 

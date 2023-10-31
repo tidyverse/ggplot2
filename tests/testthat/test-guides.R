@@ -500,7 +500,7 @@ test_that("guide_axis() draws minor ticks correctly", {
           axis.minor.ticks.length.x.top = unit(-0.5, "cm"),
           axis.minor.ticks.length.x.bottom = unit(0.75, "cm"),
           axis.minor.ticks.length.y.right = unit(5, "cm")) +
-    scale_x_continuous(labels = math_format()) +
+    scale_x_continuous(labels = label_math()) +
     guides(
       # Test for styling and style inheritance
       x = guide_axis(minor.ticks = TRUE),
