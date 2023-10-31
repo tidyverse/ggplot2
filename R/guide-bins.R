@@ -303,15 +303,15 @@ GuideBins <- ggproto(
     params$title <- scale$make_title(
       params$title %|W|% scale$name %|W|% title
     )
+    params$key <- key
+    params
+  },
+
+  setup_params = function(params) {
     params$direction <- arg_match0(
-      params$direction %||% direction,
+      params$direction,
       c("horizontal", "vertical"), arg_nm = "direction"
     )
-    if (params$direction == "vertical") {
-      key$.value <- 1 - key$.value
-    }
-
-    params$key <- key
     valid_label_pos <- switch(
       params$direction,
       "horizontal" = c("bottom", "top"),
@@ -325,10 +325,6 @@ GuideBins <- ggproto(
         "not {.val {params$label.position}}."
       ))
     }
-    params
-  },
-
-  setup_params = function(params) {
     params <- GuideLegend$setup_params(params)
     params$byrow <- FALSE
     params$rejust_labels <- FALSE
@@ -350,10 +346,15 @@ GuideBins <- ggproto(
     }
     key$.label[c(1, n_labels)[!params$show.limits]] <- ""
 
-    just <- if (params$direction == "horizontal") {
-      elements$text$vjust
-    } else {
-      elements$text$hjust
+    just <- switch(
+      params$direction,
+      horizontal = elements$text$vjust,
+      vertical   = elements$text$hjust,
+      0.5
+    )
+
+    if (params$direction == "vertical") {
+      key$.value <- 1 - key$.value
     }
 
     list(labels = flip_element_grob(
@@ -368,6 +369,9 @@ GuideBins <- ggproto(
   },
 
   build_ticks = function(key, elements, params, position = params$position) {
+    if (params$direction == "vertical") {
+      key$.value <- 1 - key$.value
+    }
     key$.value[c(1, nrow(key))[!params$show.limits]] <- NA
     Guide$build_ticks(key$.value, elements, params, params$label.position)
   },

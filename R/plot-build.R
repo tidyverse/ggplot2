@@ -84,11 +84,18 @@ ggplot_build.ggplot <- function(plot) {
   layout$setup_panel_params()
   data <- layout$map_position(data)
 
-  # Train and map non-position scales
+  # Hand off position guides to layout
+  layout$setup_panel_guides(plot$guides, plot$layers)
+
+  # Train and map non-position scales and guides
   npscales <- scales$non_position_scales()
   if (npscales$n() > 0) {
     lapply(data, npscales$train_df)
+    plot$guides <- plot$guides$build(npscales, plot$layers, plot$labels, data)
     data <- lapply(data, npscales$map_df)
+  } else {
+    # Assign empty guides if there are no non-position scales
+    plot$guides <- guides_list()
   }
 
   # Fill in defaults etc.
@@ -168,7 +175,6 @@ ggplot_gtable.ggplot_built <- function(data) {
 
   geom_grobs <- by_layer(function(l, d) l$draw_geom(d, layout), plot$layers, data, "converting geom to grob")
 
-  layout$setup_panel_guides(plot$guides, plot$layers)
   plot_table <- layout$render(geom_grobs, data, theme, plot$labels)
 
   # Legends
@@ -177,9 +183,7 @@ ggplot_gtable.ggplot_built <- function(data) {
     position <- "manual"
   }
 
-  legend_box <- plot$guides$build(
-    plot$scales, plot$layers, plot$mapping, position, theme, plot$labels
-  )
+  legend_box <- plot$guides$assemble(theme)
   plot_table <- table_add_legends(plot_table, legend_box, theme)
 
   # Title
@@ -510,9 +514,9 @@ table_add_legends <- function(table, legends, theme) {
   # Add manual legend
   panels <- find_panel(table)
   table <- gtable_add_grob(
-    table, legends$manual, clip = "off",
+    table, legends$inside, clip = "off",
     t = panels$t, b = panels$b, l = panels$l, r = panels$r,
-    name = "guide-box-manual"
+    name = "guide-box-inside"
   )
 
   table

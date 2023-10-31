@@ -13,6 +13,7 @@ geom_violin(
   ...,
   draw_quantiles = NULL,
   trim = TRUE,
+  bounds = c(-Inf, Inf),
   scale = "area",
   na.rm = FALSE,
   orientation = NA,
@@ -35,7 +36,8 @@ stat_ydensity(
   na.rm = FALSE,
   orientation = NA,
   show.legend = NA,
-  inherit.aes = TRUE
+  inherit.aes = TRUE,
+  bounds = c(-Inf, Inf)
 )
 }
 \arguments{
@@ -74,6 +76,12 @@ at the given quantiles of the density estimate.}
 
 \item{trim}{If \code{TRUE} (default), trim the tails of the violins
 to the range of the data. If \code{FALSE}, don't trim the tails.}
+
+\item{bounds}{Known lower and upper bounds for estimated data. Default
+\code{c(-Inf, Inf)} means that there are no (finite) bounds. If any bound is
+finite, boundary effect of default density estimation will be corrected by
+reflecting tails outside \code{bounds} around their closest edge. Data points
+outside of bounds are removed with a warning.}
 
 \item{scale}{if "area" (default), all violins have the same area (before trimming
 the tails). If "count", areas are scaled proportionally to the number of

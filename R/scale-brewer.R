@@ -76,7 +76,8 @@
 #' v
 #' v + scale_fill_distiller()
 #' v + scale_fill_distiller(palette = "Spectral")
-#' # the order of colour can be reversed, but with scale_*_distiller(), the default direction = -1, so to reverse, use direction = 1.
+#' # the order of colour can be reversed, but with scale_*_distiller(),
+#' # the default direction = -1, so to reverse, use direction = 1.
 #' v + scale_fill_distiller(palette = "Spectral", direction = 1)
 #'
 #' # or use blender variants to discretise continuous data

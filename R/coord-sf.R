@@ -93,8 +93,8 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     # transform and normalize regular position data
     data <- transform_position(
       sf_transform_xy(data, target_crs, source_crs),
-      function(x) sf_rescale01_x(x, panel_params$x_range),
-      function(x) sf_rescale01_x(x, panel_params$y_range)
+      function(x) rescale(x, from = panel_params$x_range),
+      function(x) rescale(x, from = panel_params$y_range)
     )
 
     transform_position(data, squish_infinite, squish_infinite)
@@ -250,10 +250,10 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
 
     # Rescale graticule for panel grid
     sf::st_geometry(graticule) <- sf_rescale01(sf::st_geometry(graticule), x_range, y_range)
-    graticule$x_start <- sf_rescale01_x(graticule$x_start, x_range)
-    graticule$x_end <- sf_rescale01_x(graticule$x_end, x_range)
-    graticule$y_start <- sf_rescale01_x(graticule$y_start, y_range)
-    graticule$y_end <- sf_rescale01_x(graticule$y_end, y_range)
+    graticule$x_start <- rescale(graticule$x_start, from = x_range)
+    graticule$x_end   <- rescale(graticule$x_end,   from = x_range)
+    graticule$y_start <- rescale(graticule$y_start, from = y_range)
+    graticule$y_end   <- rescale(graticule$y_end,   from = y_range)
 
     list2(
       x_range = x_range,
@@ -403,11 +403,6 @@ sf_rescale01 <- function(x, x_range, y_range) {
   }
 
   sf::st_normalize(x, c(x_range[1], y_range[1], x_range[2], y_range[2]))
-}
-
-# normalize position data (variable x is x or y position)
-sf_rescale01_x <- function(x, range) {
-  (x - range[1]) / diff(range)
 }
 
 # different limits methods

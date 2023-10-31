@@ -31,6 +31,10 @@ theme(
   axis.ticks.y,
   axis.ticks.y.left,
   axis.ticks.y.right,
+  axis.minor.ticks.x.top,
+  axis.minor.ticks.x.bottom,
+  axis.minor.ticks.y.left,
+  axis.minor.ticks.y.right,
   axis.ticks.length,
   axis.ticks.length.x,
   axis.ticks.length.x.top,
@@ -38,6 +42,13 @@ theme(
   axis.ticks.length.y,
   axis.ticks.length.y.left,
   axis.ticks.length.y.right,
+  axis.minor.ticks.length,
+  axis.minor.ticks.length.x,
+  axis.minor.ticks.length.x.top,
+  axis.minor.ticks.length.x.bottom,
+  axis.minor.ticks.length.y,
+  axis.minor.ticks.length.y.left,
+  axis.minor.ticks.length.y.right,
   axis.line,
   axis.line.x,
   axis.line.x.top,
@@ -139,7 +150,12 @@ for each axis (using \code{axis.ticks.x.bottom}, \code{axis.ticks.x.top},
 \verb{axis.ticks.*} which inherits from \code{axis.ticks}, which in turn inherits
 from \code{line}}
 
+\item{axis.minor.ticks.x.top, axis.minor.ticks.x.bottom, axis.minor.ticks.y.left, axis.minor.ticks.y.right, }{minor tick marks along axes (\code{\link[=element_line]{element_line()}}). \verb{axis.minor.ticks.*.*}
+inherit from the corresponding major ticks \verb{axis.ticks.*.*}.}
+
 \item{axis.ticks.length, axis.ticks.length.x, axis.ticks.length.x.top, axis.ticks.length.x.bottom, axis.ticks.length.y, axis.ticks.length.y.left, axis.ticks.length.y.right}{length of tick marks (\code{unit})}
+
+\item{axis.minor.ticks.length, axis.minor.ticks.length.x, axis.minor.ticks.length.x.top, axis.minor.ticks.length.x.bottom, axis.minor.ticks.length.y, axis.minor.ticks.length.y.left, axis.minor.ticks.length.y.right}{length of minor tick marks (\code{unit}), or relative to \code{axis.ticks.length} when provided with \code{rel()}.}
 
 \item{axis.line, axis.line.x, axis.line.x.top, axis.line.x.bottom, axis.line.y, axis.line.y.left, axis.line.y.right}{lines along axes (\code{\link[=element_line]{element_line()}}). Specify lines along all axes (\code{axis.line}),
 lines for each plane (using \code{axis.line.x} or \code{axis.line.y}), or individually
