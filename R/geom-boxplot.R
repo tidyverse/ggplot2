@@ -52,6 +52,9 @@
 #'   Default aesthetics for the staples. Set to `NULL` to inherit from the
 #'   data's aesthetics. Note that staples don't appear unless the `staplewidth`
 #'   argument is set to a non-zero size.
+#' @param box.colour,box.color,box.linetype,box.linewidth
+#'   Default aesthetics for the boxes. Set to `NULL` to inherit from the
+#'   data's aesthetics.
 #' @param notch If `FALSE` (default) make a standard box plot. If
 #'   `TRUE`, make a notched box plot. Notches are used to compare groups;
 #'   if the notches of two boxes do not overlap, this suggests that the medians

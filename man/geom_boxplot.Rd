@@ -109,6 +109,9 @@ argument is set to a non-zero size.}
 \item{median.colour, median.color, median.linetype, median.linewidth}{Default aesthetics for the median line. Set to \code{NULL} to inherit from the
 data's aesthetics.}
 
+\item{box.colour, box.color, box.linetype, box.linewidth}{Default aesthetics for the boxes. Set to \code{NULL} to inherit from the
+data's aesthetics.}
+
 \item{notch}{If \code{FALSE} (default) make a standard box plot. If
 \code{TRUE}, make a notched box plot. Notches are used to compare groups;
 if the notches of two boxes do not overlap, this suggests that the medians
