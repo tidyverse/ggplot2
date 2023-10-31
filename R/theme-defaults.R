@@ -147,6 +147,7 @@ theme_grey <- function(base_size = 11, base_family = "",
     axis.ticks.length.y = NULL,
     axis.ticks.length.y.left = NULL,
     axis.ticks.length.y.right = NULL,
+    axis.minor.ticks.length = rel(0.75),
     axis.title.x =       element_text(
                            margin = margin(t = half_line / 2),
                            vjust = 1
@@ -478,6 +479,7 @@ theme_void <- function(base_size = 11, base_family = "",
     axis.ticks.length.y = NULL,
     axis.ticks.length.y.left = NULL,
     axis.ticks.length.y.right = NULL,
+    axis.minor.ticks.length = unit(0, "pt"),
     legend.box =         NULL,
     legend.key.size =    unit(1.2, "lines"),
     legend.position =    "right",
@@ -559,6 +561,7 @@ theme_test <- function(base_size = 11, base_family = "",
     axis.ticks.length.y = NULL,
     axis.ticks.length.y.left = NULL,
     axis.ticks.length.y.right = NULL,
+    axis.minor.ticks.length = rel(0.75),
     axis.title.x =       element_text(
                            margin = margin(t = half_line / 2),
                            vjust = 1
