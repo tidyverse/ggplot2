@@ -432,11 +432,15 @@ table_add_legends <- function(table, legends, theme) {
 
 
   if (!is.zero(legends$inside)) {
+    position <- theme$legend.position
+    if (!is.numeric(position) || length(position) != 2) {
+      position <- c(0.5, 0.5)
+    }
     legends$inside <- editGrob(
       legends$inside,
       vp = viewport(
-        x = theme$legend.position[1],
-        y = theme$legend.position[2],
+        x = position[1],
+        y = position[2],
         just = just,
         height = heights$inside,
         width  = widths$inside
