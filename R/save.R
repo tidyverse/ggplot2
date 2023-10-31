@@ -26,13 +26,16 @@
 #' @param plot Plot to save, defaults to last plot displayed.
 #' @param device Device to use. Can either be a device function
 #'   (e.g. [png]), or one of "eps", "ps", "tex" (pictex),
-#'   "pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only).
+#'   "pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only). If
+#'   `NULL` (default), the device is guessed based on the `filename` extension.
 #' @param path Path of the directory to save plot to: `path` and `filename`
 #'   are combined to create the fully qualified file name. Defaults to the
 #'   working directory.
 #' @param scale Multiplicative scaling factor.
-#' @param width,height,units Plot size in `units` ("in", "cm", "mm", or "px").
-#'   If not supplied, uses the size of current graphics device.
+#' @param width,height Plot size in units expressed by the `units` argument.
+#'   If not supplied, uses the size of the current graphics device.
+#' @param units One of the following units in which the `width` and `height`
+#'   arguments are expressed: `"in"`, `"cm"`, `"mm"` or `"px"`.
 #' @param dpi Plot resolution. Also accepts a string input: "retina" (320),
 #'   "print" (300), or "screen" (72). Applies only to raster output types.
 #' @param limitsize When `TRUE` (the default), `ggsave()` will not
@@ -40,6 +43,10 @@
 #'   specifying dimensions in pixels.
 #' @param bg Background colour. If `NULL`, uses the `plot.background` fill value
 #'   from the plot theme.
+#' @param create.dir Whether to create new directories if a non-existing
+#'   directory is specified in the `filename` or `path` (`TRUE`) or return an
+#'   error (`FALSE`, default). If `FALSE` and run in an interactive session,
+#'   a prompt will appear asking to create a new directory when necessary.
 #' @param ... Other arguments passed on to the graphics device function,
 #'   as specified by `device`.
 #' @export
@@ -48,11 +55,16 @@
 #' ggplot(mtcars, aes(mpg, wt)) +
 #'   geom_point()
 #'
+#' # here, the device is inferred from the filename extension
 #' ggsave("mtcars.pdf")
 #' ggsave("mtcars.png")
 #'
+#' # setting dimensions of the plot
 #' ggsave("mtcars.pdf", width = 4, height = 4)
 #' ggsave("mtcars.pdf", width = 20, height = 20, units = "cm")
+#'
+#' # passing device-specific arguments to '...'
+#' ggsave("mtcars.pdf", colormodel = "cmyk")
 #'
 #' # delete files with base::unlink()
 #' unlink("mtcars.pdf")
@@ -76,27 +88,16 @@
 ggsave <- function(filename, plot = last_plot(),
                    device = NULL, path = NULL, scale = 1,
                    width = NA, height = NA, units = c("in", "cm", "mm", "px"),
-                   dpi = 300, limitsize = TRUE, bg = NULL, ...) {
-  if (length(filename) != 1) {
-    if (length(filename) == 0) {
-      cli::cli_abort("{.arg filename} cannot be empty.")
-    }
-    len <- length(filename)
-    filename <- filename[1]
-    cli::cli_warn(c(
-      "{.arg filename} must have length 1, not length {len}.",
-      "!" = "Only the first, {.file {filename}}, will be used."
-    ))
-  }
+                   dpi = 300, limitsize = TRUE, bg = NULL,
+                   create.dir = FALSE,
+                   ...) {
+  filename <- check_path(path, filename, create.dir)
 
   dpi <- parse_dpi(dpi)
   dev <- plot_dev(device, filename, dpi = dpi)
   dim <- plot_dim(c(width, height), scale = scale, units = units,
     limitsize = limitsize, dpi = dpi)
 
-  if (!is.null(path)) {
-    filename <- file.path(path, filename)
-  }
   if (is_null(bg)) {
     bg <- calc_element("plot.background", plot_theme(plot))$fill %||% "transparent"
   }
@@ -109,6 +110,56 @@ ggsave <- function(filename, plot = last_plot(),
   grid.draw(plot)
 
   invisible(filename)
+}
+
+check_path <- function(path, filename, create.dir,
+                       call = caller_env()) {
+
+  if (length(filename) > 1 && is.character(filename)) {
+    cli::cli_warn(c(
+      "{.arg filename} must have length 1, not {length(filename)}.",
+      "!" = "Only the first, {.file {filename[1]}}, will be used."
+    ), call = call)
+    filename <- filename[1]
+  }
+  check_string(filename, allow_empty = FALSE, call = call)
+
+  check_string(path, allow_empty = FALSE, allow_null = TRUE, call = call)
+  if (!is.null(path)) {
+    filename <- file.path(path, filename)
+  } else {
+    path <- dirname(filename)
+  }
+
+  # Happy path: target file is in valid directory
+  if (dir.exists(path)) {
+    return(filename)
+  }
+
+  check_bool(create.dir, call = call)
+
+  # Try to ask user to create a new directory
+  if (interactive() && !create.dir) {
+    cli::cli_bullets(c(
+      "Cannot find directory {.path {path}}.",
+      "i" = "Would you like to create a new directory?"
+    ))
+    create.dir <- utils::menu(c("Yes", "No")) == 1
+  }
+
+  # Create new directory
+  if (create.dir) {
+    dir.create(path, recursive = TRUE)
+    if (dir.exists(path)) {
+      cli::cli_alert_success("Created directory: {.path {path}}.")
+      return(filename)
+    }
+  }
+
+  cli::cli_abort(c(
+    "Cannot find directory {.path {path}}.",
+    i = "Please supply an existing directory or use {.code create.dir = TRUE}."
+  ), call = call)
 }
 
 #' Parse a DPI input from the user
@@ -138,7 +189,6 @@ parse_dpi <- function(dpi, call = caller_env()) {
 
 plot_dim <- function(dim = c(NA, NA), scale = 1, units = "in",
                      limitsize = TRUE, dpi = 300, call = caller_env()) {
-
   units <- arg_match0(units, c("in", "cm", "mm", "px"))
   to_inches <- function(x) x / c(`in` = 1, cm = 2.54, mm = 2.54 * 10, px = dpi)[units]
   from_inches <- function(x) x * c(`in` = 1, cm = 2.54, mm = 2.54 * 10, px = dpi)[units]
@@ -233,7 +283,8 @@ plot_dev <- function(device, filename = NULL, dpi = 300, call = caller_env()) {
     jpg =  function(...) jpeg_dev(..., res = dpi, units = "in"),
     jpeg = function(...) jpeg_dev(..., res = dpi, units = "in"),
     bmp =  function(...) grDevices::bmp(..., res = dpi, units = "in"),
-    tiff = function(...) tiff_dev(..., res = dpi, units = "in")
+    tiff = function(...) tiff_dev(..., res = dpi, units = "in"),
+    tif  = function(...) tiff_dev(..., res = dpi, units = "in")
   )
 
   if (is.null(device)) {

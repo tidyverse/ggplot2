@@ -31,7 +31,7 @@ shown irrespective of the value of \code{show.limits}.}
 
 \item{ticks}{A theme object for rendering tick marks at the colourbar.
 Usually, the object of \code{element_line()} is expected. If \code{element_blank()}
-(default), no tick marks are drawn. For backward compatability, can also
+(default), no tick marks are drawn. For backward compatibility, can also
 be a logical which translates \code{TRUE} to \code{element_line()} and \code{FALSE} to
 \code{element_blank()}.}
 

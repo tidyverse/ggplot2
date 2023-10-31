@@ -48,8 +48,13 @@
 #'   `axis.ticks.y.left`, `axis.ticks.y.right`). `axis.ticks.*.*` inherits from
 #'   `axis.ticks.*` which inherits from `axis.ticks`, which in turn inherits
 #'   from `line`
+#' @param axis.minor.ticks.x.top,axis.minor.ticks.x.bottom,axis.minor.ticks.y.left,axis.minor.ticks.y.right,
+#'   minor tick marks along axes ([element_line()]). `axis.minor.ticks.*.*`
+#'   inherit from the corresponding major ticks `axis.ticks.*.*`.
 #' @param axis.ticks.length,axis.ticks.length.x,axis.ticks.length.x.top,axis.ticks.length.x.bottom,axis.ticks.length.y,axis.ticks.length.y.left,axis.ticks.length.y.right
 #'   length of tick marks (`unit`)
+#' @param axis.minor.ticks.length,axis.minor.ticks.length.x,axis.minor.ticks.length.x.top,axis.minor.ticks.length.x.bottom,axis.minor.ticks.length.y,axis.minor.ticks.length.y.left,axis.minor.ticks.length.y.right
+#'   length of minor tick marks (`unit`), or relative to `axis.ticks.length` when provided with `rel()`.
 #' @param axis.line,axis.line.x,axis.line.x.top,axis.line.x.bottom,axis.line.y,axis.line.y.left,axis.line.y.right
 #'   lines along axes ([element_line()]). Specify lines along all axes (`axis.line`),
 #'   lines for each plane (using `axis.line.x` or `axis.line.y`), or individually
@@ -71,12 +76,8 @@
 #'   `legend.key.size` or can be specified separately
 #' @param legend.text legend item labels ([element_text()]; inherits from
 #'   `text`)
-#' @param legend.text.align alignment of legend labels (number from 0 (left) to
-#'   1 (right))
 #' @param legend.title title of legend ([element_text()]; inherits from
 #'   `title`)
-#' @param legend.title.align alignment of legend title (number from 0 (left) to
-#'   1 (right))
 #' @param legend.position the position of legends ("none", "left", "right",
 #'   "bottom", "top", or two-element numeric vector)
 #' @param legend.direction layout of items in legends ("horizontal" or
@@ -306,6 +307,10 @@ theme <- function(line,
                   axis.ticks.y,
                   axis.ticks.y.left,
                   axis.ticks.y.right,
+                  axis.minor.ticks.x.top,
+                  axis.minor.ticks.x.bottom,
+                  axis.minor.ticks.y.left,
+                  axis.minor.ticks.y.right,
                   axis.ticks.length,
                   axis.ticks.length.x,
                   axis.ticks.length.x.top,
@@ -313,6 +318,13 @@ theme <- function(line,
                   axis.ticks.length.y,
                   axis.ticks.length.y.left,
                   axis.ticks.length.y.right,
+                  axis.minor.ticks.length,
+                  axis.minor.ticks.length.x,
+                  axis.minor.ticks.length.x.top,
+                  axis.minor.ticks.length.x.bottom,
+                  axis.minor.ticks.length.y,
+                  axis.minor.ticks.length.y.left,
+                  axis.minor.ticks.length.y.right,
                   axis.line,
                   axis.line.x,
                   axis.line.x.top,
@@ -330,9 +342,7 @@ theme <- function(line,
                   legend.key.height,
                   legend.key.width,
                   legend.text,
-                  legend.text.align,
                   legend.title,
-                  legend.title.align,
                   legend.position,
                   legend.direction,
                   legend.justification,
@@ -418,6 +428,32 @@ theme <- function(line,
     ))
     elements$legend.spacing <- elements$legend.margin
     elements$legend.margin <- margin()
+  }
+  if (!is.null(elements$legend.title.align)) {
+    deprecate_soft0(
+      "3.5.0", "theme(legend.title.align)",
+      I("theme(legend.title = element_text(hjust))")
+    )
+    if (is.null(elements[["legend.title"]])) {
+      elements$legend.title <- element_text(hjust = elements$legend.title.align)
+    } else {
+      elements$legend.title$hjust <- elements$legend.title$hjust %||%
+        elements$legend.title.align
+    }
+    elements$legend.title.align <- NULL
+  }
+  if (!is.null(elements$legend.text.align)) {
+    deprecate_soft0(
+      "3.5.0", "theme(legend.text.align)",
+      I("theme(legend.text = element_text(hjust))")
+    )
+    if (is.null(elements[["legend.text"]])) {
+      elements$legend.text <- element_text(hjust = elements$legend.text.align)
+    } else {
+      elements$legend.text$hjust <- elements$legend.text$hjust %||%
+        elements$legend.text.align
+    }
+    elements$legend.text.align <- NULL
   }
 
   # If complete theme set all non-blank elements to inherit from blanks
@@ -702,6 +738,20 @@ combine_elements <- function(e1, e2) {
   # If e1 is NULL inherit everything from e2
   if (is.null(e1)) {
     return(e2)
+  }
+
+  # Inheritance of rel objects
+  if (is.rel(e1)) {
+    # Both e1 and e2 are rel, give product as another rel
+    if (is.rel(e2)) {
+      return(rel(unclass(e1) * unclass(e2)))
+    }
+    # If e2 is a unit/numeric, return modified unit/numeric
+    # Note that unit objects are considered numeric
+    if (is.numeric(e2) || is.unit(e2)) {
+      return(unclass(e1) * e2)
+    }
+    return(e1)
   }
 
   # If neither of e1 or e2 are element_* objects, return e1

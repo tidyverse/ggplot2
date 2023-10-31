@@ -90,13 +90,13 @@ lims <- function(...) {
 #' @export
 #' @rdname lims
 xlim <- function(...) {
-  limits(c(...), "x")
+  limits(c(...), "x", call = current_call())
 }
 
 #' @export
 #' @rdname lims
 ylim <- function(...) {
-  limits(c(...), "y")
+  limits(c(...), "y", call = current_call())
 }
 
 #' Generate correct scale type for specified limits
@@ -122,42 +122,45 @@ limits.numeric <- function(lims, var, call = caller_env()) {
     trans <- "identity"
   }
 
-  make_scale("continuous", var, limits = lims, trans = trans)
+  make_scale("continuous", var, limits = lims, trans = trans, call = call)
 }
 
-make_scale <- function(type, var, ...) {
-  scale <- match.fun(paste("scale_", var, "_", type, sep = ""))
-  scale(...)
+make_scale <- function(type, var, ..., call = NULL) {
+  name <- paste("scale_", var, "_", type, sep = "")
+  scale <- match.fun(name)
+  sc <- scale(...)
+  sc$call <- call %||% parse_expr(paste0(name, "()"))
+  sc
 }
 
 #' @export
 limits.character <- function(lims, var, call = caller_env()) {
-  make_scale("discrete", var, limits = lims)
+  make_scale("discrete", var, limits = lims, call = call)
 }
 #' @export
 limits.factor <- function(lims, var, call = caller_env()) {
-  make_scale("discrete", var, limits = as.character(lims))
+  make_scale("discrete", var, limits = as.character(lims), call = call)
 }
 #' @export
 limits.Date <- function(lims, var, call = caller_env()) {
   if (length(lims) != 2) {
     cli::cli_abort("{.arg {var}} must be a two-element vector", call = call)
   }
-  make_scale("date", var, limits = lims)
+  make_scale("date", var, limits = lims, call = call)
 }
 #' @export
 limits.POSIXct <- function(lims, var, call = caller_env()) {
   if (length(lims) != 2) {
     cli::cli_abort("{.arg {var}} must be a two-element vector", call = call)
   }
-  make_scale("datetime", var, limits = lims)
+  make_scale("datetime", var, limits = lims, call = call)
 }
 #' @export
 limits.POSIXlt <- function(lims, var, call = caller_env()) {
   if (length(lims) != 2) {
     cli::cli_abort("{.arg {var}} must be a two-element vector", call = call)
   }
-  make_scale("datetime", var, limits = as.POSIXct(lims))
+  make_scale("datetime", var, limits = as.POSIXct(lims), call = call)
 }
 
 #' Expand the plot limits, using data

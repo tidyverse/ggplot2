@@ -14,6 +14,13 @@
 #' @param n.dodge The number of rows (for vertical axes) or columns (for
 #'   horizontal axes) that should be used to render the labels. This is
 #'   useful for displaying labels that would otherwise overlap.
+#' @param minor.ticks Whether to draw the minor ticks (`TRUE`) or not draw
+#'   minor ticks (`FALSE`, default).
+#' @param cap A `character` to cut the axis line back to the last breaks. Can
+#'   be `"none"` (default) to draw the axis line along the whole panel, or
+#'   `"upper"` and `"lower"` to draw the axis to the upper or lower break, or
+#'   `"both"` to only draw the line in between the most extreme breaks. `TRUE`
+#'   and `FALSE` are shorthand for `"both"` and `"none"` respectively.
 #' @param order A positive `integer` of length 1 that specifies the order of
 #'   this guide among multiple guides. This controls in which order guides are
 #'   merged if there are multiple guides for the same position. If 0 (default),
@@ -37,7 +44,15 @@
 #' # can also be used to add a duplicate guide
 #' p + guides(x = guide_axis(n.dodge = 2), y.sec = guide_axis())
 guide_axis <- function(title = waiver(), check.overlap = FALSE, angle = NULL,
-                       n.dodge = 1, order = 0, position = waiver()) {
+                       n.dodge = 1, minor.ticks = FALSE, cap = "none",
+                       order = 0, position = waiver()) {
+  check_bool(minor.ticks)
+  if (is.logical(cap)) {
+    check_bool(cap)
+    cap <- if (cap) "both" else "none"
+  }
+  cap <- arg_match0(cap, c("none", "both", "upper", "lower"))
+
   new_guide(
     title = title,
 
@@ -45,6 +60,8 @@ guide_axis <- function(title = waiver(), check.overlap = FALSE, angle = NULL,
     check.overlap = check.overlap,
     angle = angle,
     n.dodge = n.dodge,
+    minor.ticks = minor.ticks,
+    cap = cap,
 
     # parameter
     available_aes = c("x", "y"),
@@ -72,6 +89,8 @@ GuideAxis <- ggproto(
     direction = NULL,
     angle     = NULL,
     n.dodge   = 1,
+    minor.ticks = FALSE,
+    cap       = "none",
     order     = 0,
     check.overlap = FALSE
   ),
@@ -84,12 +103,59 @@ GuideAxis <- ggproto(
     line  = "axis.line",
     text  = "axis.text",
     ticks = "axis.ticks",
-    ticks_length = "axis.ticks.length"
+    minor = "axis.minor.ticks",
+    major_length = "axis.ticks.length",
+    minor_length = "axis.minor.ticks.length"
   ),
 
-  extract_params = function(scale, params, hashables, ...) {
+  extract_key = function(scale, aesthetic, minor.ticks, ...) {
+    major <- Guide$extract_key(scale, aesthetic, ...)
+    if (!minor.ticks) {
+      return(major)
+    }
+
+    minor_breaks <- scale$get_breaks_minor()
+    minor_breaks <- setdiff(minor_breaks, major$.value)
+    minor_breaks <- minor_breaks[is.finite(minor_breaks)]
+
+    if (length(minor_breaks) < 1) {
+      return(major)
+    }
+
+    minor <- data_frame0(!!aesthetic := scale$map(minor_breaks))
+    minor$.value <- minor_breaks
+    minor$.type <- "minor"
+
+    if (nrow(major) > 0) {
+      major$.type <- "major"
+      vec_rbind(major, minor)
+    } else {
+      minor
+    }
+  },
+
+  extract_params = function(scale, params, ...) {
     params$name <- paste0(params$name, "_", params$aesthetic)
-    Guide$extract_params(scale, params, hashables)
+    params
+  },
+
+  extract_decor = function(scale, aesthetic, position, key, cap = "none", ...) {
+
+    value <- c(-Inf, Inf)
+    if (cap %in% c("both", "upper")) {
+      value[2] <- max(key[[aesthetic]])
+    }
+    if (cap %in% c("both", "lower")) {
+      value[1] <- min(key[[aesthetic]])
+    }
+
+    opposite <- setdiff(c("x", "y"), aesthetic)
+    opposite_value <- if (position %in% c("top", "right")) -Inf else Inf
+
+    data_frame(
+      !!aesthetic := value,
+      !!opposite  := opposite_value
+    )
   },
 
   transform = function(self, params, coord, panel_params) {
@@ -108,6 +174,8 @@ GuideAxis <- ggproto(
     }
     key <- coord$transform(key, panel_params)
     params$key <- key
+
+    params$decor <- coord_munch(coord, params$decor, panel_params)
 
     # Ported over from `warn_for_position_guide`
     # This is trying to catch when a user specifies a position perpendicular
@@ -148,7 +216,7 @@ GuideAxis <- ggproto(
   },
 
   setup_elements = function(params, elements, theme) {
-    axis_elem <- c("line", "text", "ticks", "ticks_length")
+    axis_elem <- c("line", "text", "ticks", "minor", "major_length", "minor_length")
     is_char  <- vapply(elements[axis_elem], is.character, logical(1))
     axis_elem <- axis_elem[is_char]
     elements[axis_elem] <- lapply(
@@ -188,26 +256,17 @@ GuideAxis <- ggproto(
       "horizontal"
     }
 
-    # TODO: delete following comment at some point:
-    # I found the 'position_*'/'non-position_*' and '*_dim' names confusing.
-    # For my own understanding, these have been renamed as follows:
-    # * 'aes' and 'orth_aes' for the aesthetic direction and the direction
-    #   orthogonal to the aesthetic direction, respectively.
-    # * 'para_sizes' and 'orth_size(s)' for the dimension parallel to the
-    #   aesthetic and orthogonal to the aesthetic respectively.
-    # I also tried to trim down the verbosity of the variable names a bit
-
     new_params <- c("aes", "orth_aes", "para_sizes", "orth_size", "orth_sizes",
                     "vertical", "measure_gtable", "measure_text")
     if (direction == "vertical") {
       params[new_params] <- list(
         "y", "x", "heights", "width", "widths",
-        TRUE, gtable_width, grobWidth
+        TRUE, gtable_width, width_cm
       )
     } else {
       params[new_params] <- list(
         "x", "y", "widths", "height", "heights",
-        FALSE, gtable_height, grobHeight
+        FALSE, gtable_height, height_cm
       )
     }
 
@@ -228,31 +287,50 @@ GuideAxis <- ggproto(
 
   # The decor in the axis guide is the axis line
   build_decor = function(decor, grobs, elements, params) {
-    exec(
-      element_grob,
-      element = elements$line,
-      !!params$aes := unit(c(0, 1), "npc"),
-      !!params$orth_aes := unit(rep(params$orth_side, 2), "npc")
+    if (empty(decor)) {
+      return(zeroGrob())
+    }
+    element_grob(
+      elements$line,
+      x = unit(decor$x, "npc"),
+      y = unit(decor$y, "npc")
     )
   },
 
+  build_ticks = function(key, elements, params, position = params$opposite) {
+
+    major <- Guide$build_ticks(
+      vec_slice(key, (key$.type %||% "major") == "major"),
+      elements$ticks, params, position,
+      elements$major_length
+    )
+
+    if (!params$minor.ticks) {
+      return(major)
+    }
+
+    minor <- Guide$build_ticks(
+      vec_slice(key, (key$.type %||% "major") == "minor"),
+      elements$minor, params, position,
+      elements$minor_length
+    )
+    grobTree(major, minor, name = "ticks")
+  },
+
   build_labels = function(key, elements, params) {
-    labels <- key$.label
+
+    if (".type" %in% names(key)) {
+      key <- vec_slice(key, key$.type == "major")
+    }
+
+    labels   <- validate_labels(key$.label)
     n_labels <- length(labels)
 
     if (n_labels < 1) {
       return(list(zeroGrob()))
     }
 
-    pos    <- key[[params$aes]]
-
-    if (is.list(labels)) {
-      if (any(vapply(labels, is.language, logical(1)))) {
-        labels <- do.call(expression, labels)
-      } else {
-        labels <- unlist(labels)
-      }
-    }
+    pos <- key[[params$aes]]
 
     dodge_pos     <- rep(seq_len(params$n.dodge %||% 1), length.out = n_labels)
     dodge_indices <- unname(split(seq_len(n_labels), dodge_pos))
@@ -278,10 +356,20 @@ GuideAxis <- ggproto(
 
     measure <- params$measure_text
 
-    length <- elements$ticks_length
-    spacer <- max(unit(0, "pt"), -1 * length)
-    labels <- do.call(unit.c, lapply(grobs$label, measure))
-    title  <- measure(grobs$title)
+    # Ticks
+    major_cm <- convertUnit(elements$major_length, "cm", valueOnly = TRUE)
+    range <- range(0, major_cm)
+    if (params$minor.ticks && !inherits(elements$minor, "element_blank")) {
+      minor_cm <- convertUnit(elements$minor_length, "cm", valueOnly = TRUE)
+      range <- range(range, minor_cm)
+    }
+
+    length <- unit(range[2], "cm")
+    spacer <- max(unit(0, "pt"), unit(-1 * diff(range), "cm"))
+
+    # Text
+    labels <- unit(measure(grobs$label), "cm")
+    title  <- unit(measure(grobs$title), "cm")
 
     sizes <- unit.c(length, spacer, labels, title)
     if (params$lab_first) {
@@ -311,8 +399,8 @@ GuideAxis <- ggproto(
 
     # Unlist the 'label' grobs
     z <- if (params$position == "left") c(2, 1, 3) else 1:3
-    z <- rep(z, c(1, length(grobs$label), 1))
-    grobs  <- c(list(grobs$ticks), grobs$label, list(grobs$title))
+    z <- rep(z, c(1, length(grobs$labels), 1))
+    grobs  <- c(list(grobs$ticks), grobs$labels, list(grobs$title))
 
     # Initialise empty gtable
     gt <- exec(
@@ -347,7 +435,8 @@ GuideAxis <- ggproto(
   },
 
   draw_early_exit = function(self, params, elements) {
-    line <- self$build_decor(elements = elements, params = params)
+    line <- self$build_decor(decor = params$decor, elements = elements,
+                             params = params)
     absoluteGrob(
       gList(line),
       width  = grobWidth(line),
@@ -385,12 +474,19 @@ draw_axis <- function(break_positions, break_labels, axis_position, theme,
                       position = axis_position)
   params <- guide$params
   aes <- if (axis_position %in% c("top", "bottom")) "x" else "y"
-  key <- data_frame(
-    break_positions, break_positions, break_labels,
-    .name_repair = ~ c(aes, ".value", ".label")
+  opp <- setdiff(c("x", "y"), aes)
+  opp_value <- if (axis_position %in% c("top", "right")) 0 else 1
+  key <- data_frame0(
+    !!aes := break_positions,
+    .value = break_positions,
+    .label = break_labels
   )
   params$key <- key
-  guide$draw(theme, params)
+  params$decor <- data_frame0(
+    !!aes := c(0, 1),
+    !!opp := opp_value
+  )
+  guide$draw(theme, params = params)
 }
 
 draw_axis_labels <- function(break_positions, break_labels, label_element, is_vertical,

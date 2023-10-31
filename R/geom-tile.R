@@ -15,7 +15,7 @@
 #'
 #' @details
 #' `geom_rect()` and `geom_tile()`'s respond differently to scale
-#' transformations due to their parametrisation. In `geom_rect()`, the scale
+#' transformations due to their parameterisation. In `geom_rect()`, the scale
 #' transformation is applied to the corners of the rectangles. In `geom_tile()`,
 #' the transformation is applied only to the centres and its size is determined
 #' after transformation.
@@ -60,8 +60,8 @@
 #' # Inspired by the image-density plots of Ken Knoblauch
 #' cars <- ggplot(mtcars, aes(mpg, factor(cyl)))
 #' cars + geom_point()
-#' cars + stat_bin2d(aes(fill = after_stat(count)), binwidth = c(3,1))
-#' cars + stat_bin2d(aes(fill = after_stat(density)), binwidth = c(3,1))
+#' cars + stat_bin_2d(aes(fill = after_stat(count)), binwidth = c(3,1))
+#' cars + stat_bin_2d(aes(fill = after_stat(density)), binwidth = c(3,1))
 #'
 #' cars +
 #'   stat_density(

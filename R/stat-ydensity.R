@@ -35,7 +35,8 @@ stat_ydensity <- function(mapping = NULL, data = NULL,
                           na.rm = FALSE,
                           orientation = NA,
                           show.legend = NA,
-                          inherit.aes = TRUE) {
+                          inherit.aes = TRUE,
+                          bounds = c(-Inf, Inf)) {
   scale <- arg_match0(scale, c("area", "count", "width"))
 
   layer(
@@ -54,6 +55,7 @@ stat_ydensity <- function(mapping = NULL, data = NULL,
       scale = scale,
       drop  = drop,
       na.rm = na.rm,
+      bounds = bounds,
       ...
     )
   )
@@ -78,7 +80,7 @@ StatYdensity <- ggproto("StatYdensity", Stat,
 
   compute_group = function(self, data, scales, width = NULL, bw = "nrd0", adjust = 1,
                        kernel = "gaussian", trim = TRUE, na.rm = FALSE,
-                       drop = TRUE, flipped_aes = FALSE) {
+                       drop = TRUE, flipped_aes = FALSE, bounds = c(-Inf, Inf)) {
     if (nrow(data) < 2) {
       if (isTRUE(drop)) {
         cli::cli_warn(c(
@@ -95,15 +97,21 @@ StatYdensity <- ggproto("StatYdensity", Stat,
     range <- range(data$y, na.rm = TRUE)
     modifier <- if (trim) 0 else 3
     bw <- calc_bw(data$y, bw)
-    dens <- compute_density(data$y, data$w, from = range[1] - modifier*bw, to = range[2] + modifier*bw,
-      bw = bw, adjust = adjust, kernel = kernel)
+    dens <- compute_density(
+      data$y, data[["weight"]],
+      from = range[1] - modifier * bw, to = range[2] + modifier * bw,
+      bw = bw, adjust = adjust, kernel = kernel, bounds = bounds
+    )
 
     dens$y <- dens$x
-    dens$x <- mean(range(data$x))
 
     # Compute width if x has multiple values
     if (vec_unique_count(data$x) > 1) {
+      dens$x <- mean(range(data$x))
       width <- diff(range(data$x)) * 0.9
+    } else {
+      # Explicitly repeat to preserve data$x's mapped_discrete class
+      dens$x <- vec_rep(data$x[1], nrow(dens))
     }
     dens$width <- width
 
@@ -112,11 +120,12 @@ StatYdensity <- ggproto("StatYdensity", Stat,
 
   compute_panel = function(self, data, scales, width = NULL, bw = "nrd0", adjust = 1,
                            kernel = "gaussian", trim = TRUE, na.rm = FALSE,
-                           scale = "area", flipped_aes = FALSE, drop = TRUE) {
+                           scale = "area", flipped_aes = FALSE, drop = TRUE,
+                           bounds = c(-Inf, Inf)) {
     data <- flip_data(data, flipped_aes)
     data <- ggproto_parent(Stat, self)$compute_panel(
       data, scales, width = width, bw = bw, adjust = adjust, kernel = kernel,
-      trim = trim, na.rm = na.rm, drop = drop
+      trim = trim, na.rm = na.rm, drop = drop, bounds = bounds,
     )
     if (!drop && any(data$n < 2)) {
       cli::cli_warn(

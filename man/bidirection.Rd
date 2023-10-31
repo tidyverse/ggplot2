@@ -79,11 +79,11 @@ How the layer data should be interpreted depends on its specific features.
 features in the data correspond to:
 \itemize{
 \item \code{main_is_orthogonal}: This argument controls how the existence of only a \code{x}
-or \code{y} aesthetic is understood. If \code{TRUE} then the exisiting aesthetic
+or \code{y} aesthetic is understood. If \code{TRUE} then the existing aesthetic
 would be then secondary axis. This behaviour is present in \code{\link[=stat_ydensity]{stat_ydensity()}}
-and \code{\link[=stat_boxplot]{stat_boxplot()}}. If \code{FALSE} then the exisiting aesthetic is the main
+and \code{\link[=stat_boxplot]{stat_boxplot()}}. If \code{FALSE} then the existing aesthetic is the main
 axis as seen in e.g. \code{\link[=stat_bin]{stat_bin()}}, \code{\link[=geom_count]{geom_count()}}, and \code{\link[=stat_density]{stat_density()}}.
-\item \code{range_is_orthogonal}: This argument controls whether the existance of
+\item \code{range_is_orthogonal}: This argument controls whether the existence of
 range-like aesthetics (e.g. \code{xmin} and \code{xmax}) represents the main or
 secondary axis. If \code{TRUE} then the range is given for the secondary axis as
 seen in e.g. \code{\link[=geom_ribbon]{geom_ribbon()}} and \code{\link[=geom_linerange]{geom_linerange()}}.
