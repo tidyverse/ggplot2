@@ -78,8 +78,10 @@
 #'   `text`)
 #' @param legend.title title of legend ([element_text()]; inherits from
 #'   `title`)
-#' @param legend.position the position of legends ("none", "left", "right",
-#'   "bottom", "top", or two-element numeric vector)
+#' @param legend.position the default position of legends ("none", "left",
+#'   "right", "bottom", "top", "inside")
+#' @param legend.position.inside A numeric vector of length two setting the
+#'   placement of legends that have the `"inside"` position.
 #' @param legend.direction layout of items in legends ("horizontal" or
 #'   "vertical")
 #' @param legend.justification anchor point for positioning legend inside plot
@@ -344,6 +346,7 @@ theme <- function(line,
                   legend.text,
                   legend.title,
                   legend.position,
+                  legend.position.inside,
                   legend.direction,
                   legend.justification,
                   legend.box,
@@ -454,6 +457,14 @@ theme <- function(line,
         elements$legend.text.align
     }
     elements$legend.text.align <- NULL
+  }
+  if (is.numeric(elements$legend.position)) {
+    deprecate_soft0(
+      "3.5.0", I("A numeric `legend.position` argument in `theme()`"),
+      "theme(legend.position.inside)"
+    )
+    elements$legend.position.inside <- elements$legend.position
+    elements$legend.position <- "inside"
   }
 
   # If complete theme set all non-blank elements to inherit from blanks

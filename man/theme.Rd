@@ -68,6 +68,7 @@ theme(
   legend.text,
   legend.title,
   legend.position,
+  legend.position.inside,
   legend.direction,
   legend.justification,
   legend.box,
@@ -184,8 +185,11 @@ inherits from \code{rect})}
 \item{legend.title}{title of legend (\code{\link[=element_text]{element_text()}}; inherits from
 \code{title})}
 
-\item{legend.position}{the position of legends ("none", "left", "right",
-"bottom", "top", or two-element numeric vector)}
+\item{legend.position}{the default position of legends ("none", "left",
+"right", "bottom", "top", "inside")}
+
+\item{legend.position.inside}{A numeric vector of length two setting the
+placement of legends that have the \code{"inside"} position.}
 
 \item{legend.direction}{layout of items in legends ("horizontal" or
 "vertical")}
