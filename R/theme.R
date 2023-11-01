@@ -87,6 +87,9 @@
 #' @param legend.justification anchor point for positioning legend inside plot
 #'   ("center" or two-element numeric vector) or the justification according to
 #'   the plot area when positioned outside the plot
+#' @param legend.location Relative placement of legends outside the plot as a
+#'   string. Can be `"panel"` (default) to align legends to the panels or
+#'   `"plot"` to align legends to the plot as a whole.
 #' @param legend.box arrangement of multiple legends ("horizontal" or
 #'   "vertical")
 #' @param legend.box.just justification of each legend within the overall
@@ -349,6 +352,7 @@ theme <- function(line,
                   legend.position.inside,
                   legend.direction,
                   legend.justification,
+                  legend.location,
                   legend.box,
                   legend.box.just,
                   legend.box.margin,

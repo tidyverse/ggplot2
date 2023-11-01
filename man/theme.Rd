@@ -71,6 +71,7 @@ theme(
   legend.position.inside,
   legend.direction,
   legend.justification,
+  legend.location,
   legend.box,
   legend.box.just,
   legend.box.margin,
@@ -197,6 +198,10 @@ placement of legends that have the \code{"inside"} position.}
 \item{legend.justification}{anchor point for positioning legend inside plot
 ("center" or two-element numeric vector) or the justification according to
 the plot area when positioned outside the plot}
+
+\item{legend.location}{Relative placement of legends outside the plot as a
+string. Can be \code{"panel"} (default) to align legends to the panels or
+\code{"plot"} to align legends to the plot as a whole.}
 
 \item{legend.box}{arrangement of multiple legends ("horizontal" or
 "vertical")}

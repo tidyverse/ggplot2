@@ -464,14 +464,20 @@ table_add_legends <- function(table, legends, theme) {
   zero    <- unit(0, "pt")
   spacing <- lapply(legends, function(x) if (is.zero(x)) zero else spacing)
 
-  panels <- find_panel(table)
+  location <- switch(
+    theme$legend.location %||% "panel",
+    "plot" = plot_extent,
+    find_panel
+  )
+
+  place <- location(table)
 
   # Add right legend
   table <- gtable_add_cols(table, spacing$right, pos = -1)
   table <- gtable_add_cols(table, widths$right,  pos = -1)
   table <- gtable_add_grob(
     table, legends$right, clip = "off",
-    t = panels$t, b = panels$b, l = -1, r = -1,
+    t = place$t, b = place$b, l = -1, r = -1,
     name = "guide-box-right"
   )
 
@@ -480,18 +486,18 @@ table_add_legends <- function(table, legends, theme) {
   table <- gtable_add_cols(table, widths$left,  pos = 0)
   table <- gtable_add_grob(
     table, legends$left, clip = "off",
-    t = panels$t, b = panels$b, l = 1, r = 1,
+    t = place$t, b = place$b, l = 1, r = 1,
     name = "guide-box-left"
   )
 
-  panels <- find_panel(table)
+  place <- location(table)
 
   # Add bottom legend
   table <- gtable_add_rows(table, spacing$bottom, pos = -1)
   table <- gtable_add_rows(table, heights$bottom, pos = -1)
   table <- gtable_add_grob(
     table, legends$bottom, clip = "off",
-    t = -1, b = -1, l = panels$l, r = panels$r,
+    t = -1, b = -1, l = place$l, r = place$r,
     name = "guide-box-bottom"
   )
 
@@ -500,17 +506,28 @@ table_add_legends <- function(table, legends, theme) {
   table <- gtable_add_rows(table, heights$top, pos = 0)
   table <- gtable_add_grob(
     table, legends$top, clip = "off",
-    t = 1, b = 1, l = panels$l, r = panels$r,
+    t = 1, b = 1, l = place$l, r = place$r,
     name = "guide-box-top"
   )
 
   # Add manual legend
-  panels <- find_panel(table)
+  place <- find_panel(table)
   table <- gtable_add_grob(
     table, legends$inside, clip = "off",
-    t = panels$t, b = panels$b, l = panels$l, r = panels$r,
+    t = place$t, b = place$b, l = place$l, r = place$r,
     name = "guide-box-inside"
   )
 
   table
+}
+
+plot_extent <- function(table) {
+  layout <- table$layout
+  data_frame0(
+    t = min(.subset2(layout, "t")),
+    r = max(.subset2(layout, "r")),
+    b = max(.subset2(layout, "b")),
+    l = min(.subset2(layout, "l")),
+    .size = 1L
+  )
 }
