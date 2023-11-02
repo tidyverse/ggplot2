@@ -473,10 +473,18 @@ Guides <- ggproto(
       return(zeroGrob())
     }
 
+    default_position <- theme$legend.position %||% "right"
+    if (length(default_position) == 2) {
+      default_position <- "inside"
+    }
+    if (default_position == "none") {
+      return(zeroGrob())
+    }
+
     theme$legend.key.width  <- theme$legend.key.width  %||% theme$legend.key.size
     theme$legend.key.height <- theme$legend.key.height %||% theme$legend.key.size
 
-    grobs <- self$draw(theme)
+    grobs <- self$draw(theme, default_position)
 
     # Set spacing
     theme$legend.spacing   <- theme$legend.spacing    %||% unit(0.5, "lines")
@@ -492,18 +500,8 @@ Guides <- ggproto(
   },
 
   # Render the guides into grobs
-  draw = function(self, theme, params = self$params, guides = self$guides) {
-    if (length(guides) == 0) {
-      return(zeroGrob())
-    }
-
-    default_position <- theme$legend.position %||% "right"
-    if (length(default_position) == 2) {
-      default_position <- "inside"
-    }
-    if (default_position == "none") {
-      return(zeroGrob())
-    }
+  draw = function(self, theme, default_position = "right",
+                  params = self$params, guides = self$guides) {
     positions <- vapply(
       params, function(p) p$position[1] %||% default_position, character(1)
     )
