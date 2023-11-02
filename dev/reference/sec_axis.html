@@ -204,7 +204,7 @@ may consider adapting secondary axis labels.</p>
 <span class="r-in"><span>    date_breaks <span class="op">=</span> <span class="st">"6 hour"</span>,</span></span>
 <span class="r-in"><span>    sec.axis <span class="op">=</span> <span class="fu">dup_axis</span><span class="op">(</span></span></span>
 <span class="r-in"><span>      name <span class="op">=</span> <span class="st">"Time of Day"</span>,</span></span>
-<span class="r-in"><span>      labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/date_format.html" class="external-link">time_format</a></span><span class="op">(</span><span class="st">"%I %p"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>      labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/label_date.html" class="external-link">label_time</a></span><span class="op">(</span><span class="st">"%I %p"</span><span class="op">)</span></span></span>
 <span class="r-in"><span>    <span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-plt img"><img src="sec_axis-5.png" alt="" width="700" height="433"></span>
@@ -218,7 +218,7 @@ may consider adapting secondary axis labels.</p>
 <span class="r-in"><span>    sec.axis <span class="op">=</span> <span class="fu">sec_axis</span><span class="op">(</span></span></span>
 <span class="r-in"><span>      <span class="op">~</span> <span class="va">.</span> <span class="op">+</span> <span class="fl">8</span> <span class="op">*</span> <span class="fl">3600</span>,</span></span>
 <span class="r-in"><span>      name <span class="op">=</span> <span class="st">"GMT+8"</span>,</span></span>
-<span class="r-in"><span>      labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/date_format.html" class="external-link">time_format</a></span><span class="op">(</span><span class="st">"%b %d %I %p"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>      labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/label_date.html" class="external-link">label_time</a></span><span class="op">(</span><span class="st">"%b %d %I %p"</span><span class="op">)</span></span></span>
 <span class="r-in"><span>    <span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-plt img"><img src="sec_axis-6.png" alt="" width="700" height="433"></span>
