@@ -76,7 +76,7 @@
 #'     date_breaks = "6 hour",
 #'     sec.axis = dup_axis(
 #'       name = "Time of Day",
-#'       labels = scales::time_format("%I %p")
+#'       labels = scales::label_time("%I %p")
 #'     )
 #'   )
 #'
@@ -89,14 +89,14 @@
 #'     sec.axis = sec_axis(
 #'       ~ . + 8 * 3600,
 #'       name = "GMT+8",
-#'       labels = scales::time_format("%b %d %I %p")
+#'       labels = scales::label_time("%b %d %I %p")
 #'     )
 #'   )
 #'
 #' @export
 sec_axis <- function(trans = NULL, name = waiver(), breaks = waiver(), labels = waiver(),
                      guide = waiver()) {
-  # sec_axis() historically accpeted two-sided formula, so be permissive.
+  # sec_axis() historically accepted two-sided formula, so be permissive.
   if (length(trans) > 2) trans <- trans[c(1,3)]
 
   trans <- as_function(trans)

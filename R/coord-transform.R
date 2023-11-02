@@ -86,6 +86,9 @@ coord_trans <- function(x = "identity", y = "identity", xlim = NULL, ylim = NULL
     ylim <- limy
   }
 
+  check_coord_limits(xlim)
+  check_coord_limits(ylim)
+
   # resolve transformers
   if (is.character(x)) x <- as.trans(x)
   if (is.character(y)) y <- as.trans(y)

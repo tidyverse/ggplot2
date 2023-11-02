@@ -93,7 +93,7 @@ or \code{sf::st_point_on_surface()}.
 For the first step, you can use an arbitrary function via \code{fun.geometry}.
 By default, \code{function(x) sf::st_point_on_surface(sf::st_zm(x))} is used;
 \code{sf::st_point_on_surface()} seems more appropriate than \code{sf::st_centroid()}
-since lables and text usually are intended to be put within the polygon or
+since labels and text usually are intended to be put within the polygon or
 the line. \code{sf::st_zm()} is needed to drop Z and M dimension beforehand,
 otherwise \code{sf::st_point_on_surface()} may fail when the geometries have M
 dimension.

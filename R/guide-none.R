@@ -35,7 +35,7 @@ GuideNone <- ggproto(
   },
 
   # Draw nothing
-  draw = function(self, params, theme) {
+  draw = function(self, ...) {
     zeroGrob()
   }
 )

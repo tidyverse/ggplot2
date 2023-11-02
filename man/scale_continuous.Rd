@@ -140,9 +140,10 @@ or the object itself. Built-in transformations include "asn", "atanh",
 
 A transformation object bundles together a transform, its inverse,
 and methods for generating breaks and labels. Transformation objects
-are defined in the scales package, and are called \verb{<name>_trans} (e.g.,
-\code{\link[scales:boxcox_trans]{scales::boxcox_trans()}}). You can create your own
-transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
+are defined in the scales package, and are called \verb{<name>_trans}. If
+transformations require arguments, you can call them from the scales
+package, e.g. \code{\link[scales:boxcox_trans]{scales::boxcox_trans(p = 2)}}.
+You can create your own transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
 
 \item{guide}{A function used to create a guide or its name. See
 \code{\link[=guides]{guides()}} for more information.}
@@ -203,9 +204,9 @@ df <- data.frame(
   y = seq(0, 1, length.out = 10)
 )
 p2 <- ggplot(df, aes(x, y)) + geom_point()
-p2 + scale_y_continuous(labels = scales::percent)
-p2 + scale_y_continuous(labels = scales::dollar)
-p2 + scale_x_continuous(labels = scales::comma)
+p2 + scale_y_continuous(labels = scales::label_percent())
+p2 + scale_y_continuous(labels = scales::label_dollar())
+p2 + scale_x_continuous(labels = scales::label_comma())
 
 # You can also override the default linear mapping by using a
 # transformation. There are three shortcuts:

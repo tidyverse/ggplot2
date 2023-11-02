@@ -6,7 +6,7 @@
 \usage{
 binned_scale(
   aesthetics,
-  scale_name,
+  scale_name = deprecated(),
   palette,
   name = waiver(),
   breaks = waiver(),
@@ -23,14 +23,15 @@ binned_scale(
   show.limits = FALSE,
   guide = "bins",
   position = "left",
+  call = caller_call(),
   super = ScaleBinned
 )
 }
 \arguments{
 \item{aesthetics}{The names of the aesthetics that this scale works with.}
 
-\item{scale_name}{The name of the scale that should be used for error messages
-associated with this scale.}
+\item{scale_name}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} The name of the scale
+that should be used for error messages associated with this scale.}
 
 \item{palette}{A palette function that when called with a numeric vector with
 values between 0 and 1 returns the corresponding output values
@@ -127,9 +128,10 @@ or the object itself. Built-in transformations include "asn", "atanh",
 
 A transformation object bundles together a transform, its inverse,
 and methods for generating breaks and labels. Transformation objects
-are defined in the scales package, and are called \verb{<name>_trans} (e.g.,
-\code{\link[scales:boxcox_trans]{scales::boxcox_trans()}}). You can create your own
-transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
+are defined in the scales package, and are called \verb{<name>_trans}. If
+transformations require arguments, you can call them from the scales
+package, e.g. \code{\link[scales:boxcox_trans]{scales::boxcox_trans(p = 2)}}.
+You can create your own transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
 
 \item{show.limits}{should the limits of the scale appear as ticks}
 
@@ -138,6 +140,8 @@ transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
 
 \item{position}{For position scales, The position of the axis.
 \code{left} or \code{right} for y axes, \code{top} or \code{bottom} for x axes.}
+
+\item{call}{The \code{call} used to construct the scale for reporting messages.}
 
 \item{super}{The super class to use for the constructed scale}
 }

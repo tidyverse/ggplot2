@@ -101,20 +101,27 @@ Facet <- ggproto("Facet", NULL,
   train_scales = function(x_scales, y_scales, layout, data, params) {
     # loop over each layer, training x and y scales in turn
     for (layer_data in data) {
-      match_id <- match(layer_data$PANEL, layout$PANEL)
+      match_id <- NULL
 
       if (!is.null(x_scales)) {
         x_vars <- intersect(x_scales[[1]]$aesthetics, names(layer_data))
-        SCALE_X <- layout$SCALE_X[match_id]
-
-        scale_apply(layer_data, x_vars, "train", SCALE_X, x_scales)
+        if (length(x_vars) > 0) {
+          match_id <- match(layer_data$PANEL, layout$PANEL)
+          SCALE_X <- layout$SCALE_X[match_id]
+          scale_apply(layer_data, x_vars, "train", SCALE_X, x_scales)
+        }
       }
 
       if (!is.null(y_scales)) {
         y_vars <- intersect(y_scales[[1]]$aesthetics, names(layer_data))
-        SCALE_Y <- layout$SCALE_Y[match_id]
+        if (length(y_vars) > 0) {
+          if (is.null(match_id)) {
+            match_id <- match(layer_data$PANEL, layout$PANEL)
+          }
+          SCALE_Y <- layout$SCALE_Y[match_id]
 
-        scale_apply(layer_data, y_vars, "train", SCALE_Y, y_scales)
+          scale_apply(layer_data, y_vars, "train", SCALE_Y, y_scales)
+        }
       }
     }
   },

@@ -297,11 +297,11 @@
 <rect x='672.18' y='317.53' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
 <circle cx='680.82' cy='326.17' r='1.95' style='stroke-width: 0.71; stroke: #4EA1E1; fill: #4EA1E1;' />
 <polyline points='689.46,334.81 689.46,248.41 ' style='stroke-width: 0.38; stroke-linecap: butt;' />
-<polyline points='689.46,248.41 686.01,248.41 ' style='stroke-width: 0.38; stroke-linecap: butt;' />
-<polyline points='689.46,265.69 686.01,265.69 ' style='stroke-width: 0.38; stroke-linecap: butt;' />
-<polyline points='689.46,282.97 686.01,282.97 ' style='stroke-width: 0.38; stroke-linecap: butt;' />
-<polyline points='689.46,300.25 686.01,300.25 ' style='stroke-width: 0.38; stroke-linecap: butt;' />
-<polyline points='689.46,317.53 686.01,317.53 ' style='stroke-width: 0.38; stroke-linecap: butt;' />
+<polyline points='686.01,248.41 689.46,248.41 ' style='stroke-width: 0.38; stroke-linecap: butt;' />
+<polyline points='686.01,265.69 689.46,265.69 ' style='stroke-width: 0.38; stroke-linecap: butt;' />
+<polyline points='686.01,282.97 689.46,282.97 ' style='stroke-width: 0.38; stroke-linecap: butt;' />
+<polyline points='686.01,300.25 689.46,300.25 ' style='stroke-width: 0.38; stroke-linecap: butt;' />
+<polyline points='686.01,317.53 689.46,317.53 ' style='stroke-width: 0.38; stroke-linecap: butt;' />
 <text x='694.94' y='251.44' style='font-size: 8.80px; font-family: sans;' textLength='19.58px' lengthAdjust='spacingAndGlyphs'>1999</text>
 <text x='694.94' y='268.72' style='font-size: 8.80px; font-family: sans;' textLength='19.58px' lengthAdjust='spacingAndGlyphs'>2000</text>
 <text x='694.94' y='286.00' style='font-size: 8.80px; font-family: sans;' textLength='19.58px' lengthAdjust='spacingAndGlyphs'>2002</text>

@@ -11,6 +11,7 @@ geom_boxplot(
   stat = "boxplot",
   position = "dodge2",
   ...,
+  outliers = TRUE,
   outlier.colour = NULL,
   outlier.color = NULL,
   outlier.fill = NULL,
@@ -20,6 +21,7 @@ geom_boxplot(
   outlier.alpha = NULL,
   notch = FALSE,
   notchwidth = 0.5,
+  staplewidth = 0,
   varwidth = FALSE,
   na.rm = FALSE,
   orientation = NA,
@@ -71,17 +73,18 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 \code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
+\item{outliers}{Whether to display (\code{TRUE}) or discard (\code{FALSE}) outliers
+from the plot. Hiding or discarding outliers can be useful when, for
+example, raw data points need to be displayed on top of the boxplot.
+By discarding outliers, the axis limits will adapt to the box and whiskers
+only, not the full data range. If outliers need to be hidden and the axes
+needs to show the full data range, please use \code{outlier.shape = NA} instead.}
+
 \item{outlier.colour, outlier.color, outlier.fill, outlier.shape, outlier.size, outlier.stroke, outlier.alpha}{Default aesthetics for outliers. Set to \code{NULL} to inherit from the
 aesthetics used for the box.
 
 In the unlikely event you specify both US and UK spellings of colour, the
-US spelling will take precedence.
-
-Sometimes it can be useful to hide the outliers, for example when overlaying
-the raw data points on top of the boxplot. Hiding the outliers can be achieved
-by setting \code{outlier.shape = NA}. Importantly, this does not remove the outliers,
-it only hides them, so the range calculated for the y-axis will be the
-same with outliers shown and outliers hidden.}
+US spelling will take precedence.}
 
 \item{notch}{If \code{FALSE} (default) make a standard box plot. If
 \code{TRUE}, make a notched box plot. Notches are used to compare groups;
@@ -90,6 +93,9 @@ are significantly different.}
 
 \item{notchwidth}{For a notched box plot, width of the notch relative to
 the body (defaults to \code{notchwidth = 0.5}).}
+
+\item{staplewidth}{The relative width of staples to the width of the box.
+Staples mark the ends of the whiskers with a line.}
 
 \item{varwidth}{If \code{FALSE} (default) make a standard box plot. If
 \code{TRUE}, boxes are drawn with widths proportional to the

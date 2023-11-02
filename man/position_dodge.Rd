@@ -34,7 +34,7 @@ horizontal position. \code{position_dodge()} requires the grouping variable to b
 be specified in the global or \verb{geom_*} layer. Unlike \code{position_dodge()},
 \code{position_dodge2()} works without a grouping variable in a layer.
 \code{position_dodge2()} works with bars and rectangles, but is
-particulary useful for arranging box plots, which
+particularly useful for arranging box plots, which
 can have variable widths.
 }
 \examples{

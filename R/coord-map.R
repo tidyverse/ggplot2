@@ -135,6 +135,9 @@ coord_map <- function(projection="mercator", ..., parameters = NULL, orientation
     params <- parameters
   }
 
+  check_coord_limits(xlim)
+  check_coord_limits(ylim)
+
   ggproto(NULL, CoordMap,
     projection = projection,
     orientation = orientation,
@@ -331,7 +334,7 @@ CoordMap <- ggproto("CoordMap", Coord,
 
 
 mproject <- function(coord, x, y, orientation) {
-  check_installed("mapproj", reason = "for `coord_map()`")
+  check_installed("mapproj", reason = "for `coord_map()`.")
   suppressWarnings(mapproj::mapproject(x, y,
     projection = coord$projection,
     parameters  = coord$params,
