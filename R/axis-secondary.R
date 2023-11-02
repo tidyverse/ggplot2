@@ -76,7 +76,7 @@
 #'     date_breaks = "6 hour",
 #'     sec.axis = dup_axis(
 #'       name = "Time of Day",
-#'       labels = scales::time_format("%I %p")
+#'       labels = scales::label_time("%I %p")
 #'     )
 #'   )
 #'
@@ -89,7 +89,7 @@
 #'     sec.axis = sec_axis(
 #'       ~ . + 8 * 3600,
 #'       name = "GMT+8",
-#'       labels = scales::time_format("%b %d %I %p")
+#'       labels = scales::label_time("%b %d %I %p")
 #'     )
 #'   )
 #'
