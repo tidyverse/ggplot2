@@ -338,6 +338,23 @@ test_that("guide_colourbar warns about discrete scales", {
 
 })
 
+test_that("legend directions are set correctly", {
+
+  p <- ggplot(mtcars, aes(disp, mpg, shape = factor(cyl), colour = drat)) +
+    geom_point() +
+    theme_test()
+
+  expect_doppelganger(
+    "vertical legend direction",
+    p + theme(legend.direction = "vertical")
+  )
+
+  expect_doppelganger(
+    "horizontal legend direction",
+    p + theme(legend.direction = "horizontal")
+  )
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("axis guides are drawn correctly", {
