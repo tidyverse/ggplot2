@@ -267,9 +267,6 @@ GuideLegend <- ggproto(
   elements = list(
     background  = "legend.background",
     margin      = "legend.margin",
-    spacing     = "legend.spacing",
-    spacing.x   = "legend.spacing.x",
-    spacing.y   = "legend.spacing.y",
     key         = "legend.key",
     key.height  = "legend.key.height",
     key.width   = "legend.key.width",
