@@ -16,6 +16,11 @@
 #'   to the range of the data. If `FALSE`, don't trim the tails.
 #' @param geom,stat Use to override the default connection between
 #'   `geom_violin()` and `stat_ydensity()`.
+#' @param bounds Known lower and upper bounds for estimated data. Default
+#'   `c(-Inf, Inf)` means that there are no (finite) bounds. If any bound is
+#'   finite, boundary effect of default density estimation will be corrected by
+#'   reflecting tails outside `bounds` around their closest edge. Data points
+#'   outside of bounds are removed with a warning.
 #' @export
 #' @references Hintze, J. L., Nelson, R. D. (1998) Violin Plots: A Box
 #' Plot-Density Trace Synergism. The American Statistician 52, 181-184.
@@ -86,6 +91,7 @@ geom_violin <- function(mapping = NULL, data = NULL,
                         ...,
                         draw_quantiles = NULL,
                         trim = TRUE,
+                        bounds = c(-Inf, Inf),
                         scale = "area",
                         na.rm = FALSE,
                         orientation = NA,
@@ -105,6 +111,7 @@ geom_violin <- function(mapping = NULL, data = NULL,
       draw_quantiles = draw_quantiles,
       na.rm = na.rm,
       orientation = orientation,
+      bounds = bounds,
       ...
     )
   )

@@ -244,7 +244,7 @@ GuideLegend <- ggproto(
 
   available_aes = "any",
 
-  hashables = exprs(title, key$.label, direction, name),
+  hashables = exprs(title, key$.label, name),
 
   elements = list(
     background  = "legend.background",
@@ -260,13 +260,9 @@ GuideLegend <- ggproto(
   ),
 
   extract_params = function(scale, params,
-                            title = waiver(), direction = NULL, ...) {
+                            title = waiver(), ...) {
     params$title <- scale$make_title(
       params$title %|W|% scale$name %|W|% title
-    )
-    params$direction <- arg_match0(
-      params$direction %||% direction,
-      c("horizontal", "vertical"), arg_nm = "direction"
     )
     if (isTRUE(params$reverse %||% FALSE)) {
       params$key <- params$key[nrow(params$key):1, , drop = FALSE]
@@ -291,16 +287,25 @@ GuideLegend <- ggproto(
   },
 
   # Arrange common data for vertical and horizontal legends
-  get_layer_key = function(params, layers) {
+  process_layers = function(self, params, layers, data = NULL) {
+
+    include <- vapply(layers, function(layer) {
+      aes <- matched_aes(layer, params)
+      include_layer_in_guide(layer, aes)
+    }, logical(1))
+
+    if (!any(include)) {
+      return(NULL)
+    }
+
+    self$get_layer_key(params, layers[include], data[include])
+  },
+
+  get_layer_key = function(params, layers, data) {
 
     decor <- lapply(layers, function(layer) {
 
       matched_aes <- matched_aes(layer, params)
-
-      # Check if this layer should be included
-      if (!include_layer_in_guide(layer, matched_aes)) {
-        return(NULL)
-      }
 
       if (length(matched_aes) > 0) {
         # Filter out aesthetics that can't be applied to the legend
@@ -338,14 +343,15 @@ GuideLegend <- ggproto(
 
     # Remove NULL geoms
     params$decor <- compact(decor)
-
-    if (length(params$decor) == 0) {
-      return(NULL)
-    }
     return(params)
   },
 
   setup_params = function(params) {
+    params$direction <- arg_match0(
+      params$direction %||% direction,
+      c("horizontal", "vertical"), arg_nm = "direction"
+    )
+
     if ("title.position" %in% names(params)) {
       params$title.position <- arg_match0(
         params$title.position %||%
@@ -547,28 +553,33 @@ GuideLegend <- ggproto(
     )
     heights <- head(vec_interleave(!!!heights), -1)
 
-    # Measure title
-    title_width  <- width_cm(grobs$title)
-    title_height <- height_cm(grobs$title)
+    has_title <- !is.zero(grobs$title)
 
-    # Combine title with rest of the sizes based on its position
-    widths <- switch(
-      params$title.position,
-      "left"  = c(title_width, widths),
-      "right" = c(widths, title_width),
-      c(widths, max(0, title_width - sum(widths)))
-    )
-    heights <- switch(
-      params$title.position,
-      "top"    = c(title_height, heights),
-      "bottom" = c(heights, title_height),
-      c(heights, max(0, title_height - sum(heights)))
-    )
+    if (has_title) {
+      # Measure title
+      title_width  <- width_cm(grobs$title)
+      title_height <- height_cm(grobs$title)
+
+      # Combine title with rest of the sizes based on its position
+      widths <- switch(
+        params$title.position,
+        "left"  = c(title_width, widths),
+        "right" = c(widths, title_width),
+        c(widths, max(0, title_width - sum(widths)))
+      )
+      heights <- switch(
+        params$title.position,
+        "top"    = c(title_height, heights),
+        "bottom" = c(heights, title_height),
+        c(heights, max(0, title_height - sum(heights)))
+      )
+    }
 
     list(
       widths  = widths,
       heights = heights,
-      padding = elements$padding
+      padding = elements$padding,
+      has_title = has_title
     )
   },
 
@@ -614,29 +625,34 @@ GuideLegend <- ggproto(
     )
 
     # Offset layout based on title position
-    switch(
-      params$title.position,
-      "top" = {
-        key_row   <- key_row   + 1
-        label_row <- label_row + 1
-        title_row <- 2
-        title_col <- seq_along(sizes$widths) + 1
-      },
-      "bottom" = {
-        title_row <- length(sizes$heights)   + 1
-        title_col <- seq_along(sizes$widths) + 1
-      },
-      "left" = {
-        key_col   <- key_col   + 1
-        label_col <- label_col + 1
-        title_row <- seq_along(sizes$heights) + 1
-        title_col <- 2
-      },
-      "right" = {
-        title_row <- seq_along(sizes$heights) + 1
-        title_col <- length(sizes$widths)     + 1
-      }
-    )
+    if (sizes$has_title) {
+      switch(
+        params$title.position,
+        "top" = {
+          key_row   <- key_row   + 1
+          label_row <- label_row + 1
+          title_row <- 2
+          title_col <- seq_along(sizes$widths) + 1
+        },
+        "bottom" = {
+          title_row <- length(sizes$heights)   + 1
+          title_col <- seq_along(sizes$widths) + 1
+        },
+        "left" = {
+          key_col   <- key_col   + 1
+          label_col <- label_col + 1
+          title_row <- seq_along(sizes$heights) + 1
+          title_col <- 2
+        },
+        "right" = {
+          title_row <- seq_along(sizes$heights) + 1
+          title_col <- length(sizes$widths)     + 1
+        }
+      )
+    } else {
+      title_row <- NA
+      title_col <- NA
+    }
 
     df <- cbind(df, key_row, key_col, label_row, label_col)
 

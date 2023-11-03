@@ -21,7 +21,7 @@
 #'   \item{`z`}{After binning, the z values of individual data points are no longer available.}
 #' }
 #' @seealso [stat_summary_hex()] for hexagonal summarization.
-#'   [stat_bin2d()] for the binning options.
+#'   [stat_bin_2d()] for the binning options.
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @inheritParams stat_bin_2d
