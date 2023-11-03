@@ -338,6 +338,16 @@ test_that("guide_colourbar warns about discrete scales", {
 
 })
 
+test_that("guide_legend uses key.spacing correctly", {
+  p <- ggplot(mtcars, aes(disp, mpg, colour = factor(carb))) +
+    geom_point() +
+    guides(colour = guide_legend(
+      ncol = 2, key.spacing.y = 1, key.spacing.x = 2
+    ))
+
+  expect_doppelganger("legend with widely spaced keys", p)
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("axis guides are drawn correctly", {
