@@ -42,6 +42,10 @@
 #' @param keyheight A numeric or a [grid::unit()] object specifying
 #'   the height of the legend key. Default value is `legend.key.height` or
 #'   `legend.key.size` in [theme()].
+#' @param key.spacing,key.spacing.x,key.spacing.y A numeric or [grid::unit()]
+#'   object specifying the distance between key-label pairs in the horizontal
+#'   direction (`key.spacing.x`), vertical direction (`key.spacing.y`) or both
+#'   (`key.spacing`).
 #' @param direction  A character string indicating the direction of the guide.
 #'   One of "horizontal" or "vertical."
 #' @param default.unit A character string indicating [grid::unit()]
