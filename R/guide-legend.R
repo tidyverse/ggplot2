@@ -143,6 +143,9 @@ guide_legend <- function(
   # Key size
   keywidth  = NULL,
   keyheight = NULL,
+  key.spacing = NULL,
+  key.spacing.x = NULL,
+  key.spacing.y = NULL,
 
   # General
   direction    = NULL,
@@ -156,12 +159,24 @@ guide_legend <- function(
   ...
 ) {
   # Resolve key sizes
-  if (!inherits(keywidth, c("NULL", "unit"))) {
+  if (!(is.null(keywidth) | is.unit(keywidth))) {
     keywidth <- unit(keywidth, default.unit)
   }
-  if (!inherits(keyheight, c("NULL", "unit"))) {
+  if (!(is.null(keyheight) | is.unit(keyheight))) {
     keyheight <- unit(keyheight, default.unit)
   }
+
+  # Resolve spacing
+  key.spacing.x <- key.spacing.x %||% key.spacing
+  if (!is.null(key.spacing.x) | is.unit(key.spacing.x)) {
+    key.spacing.x <- unit(key.spacing.x, default.unit)
+  }
+  key.spacing.y <- key.spacing.y %||% key.spacing
+  if (!is.null(key.spacing.y) | is.unit(key.spacing.y)) {
+    key.spacing.y <- unit(key.spacing.y, default.unit)
+  }
+
+
   if (!is.null(title.position)) {
     title.position <- arg_match0(title.position, .trbl)
   }
@@ -187,6 +202,8 @@ guide_legend <- function(
     # Key size
     keywidth  = keywidth,
     keyheight = keyheight,
+    key.spacing.x = key.spacing.x,
+    key.spacing.y = key.spacing.y,
 
     # General
     direction = direction,
@@ -226,9 +243,10 @@ GuideLegend <- ggproto(
 
     keywidth  = NULL,
     keyheight = NULL,
+    key.spacing.x = NULL,
+    key.spacing.y = NULL,
 
     # General
-    direction = NULL,
     override.aes = list(),
     nrow = NULL,
     ncol = NULL,
@@ -436,8 +454,16 @@ GuideLegend <- ggproto(
       elements$text$size %||% 11
     gap <- unit(gap * 0.5, "pt")
     # Should maybe be elements$spacing.{x/y} instead of the theme's spacing?
-    elements$hgap <- width_cm( theme$legend.spacing.x %||% gap)
-    elements$vgap <- height_cm(theme$legend.spacing.y %||% gap)
+
+    if (params$direction == "vertical") {
+      # For backward compatibility, vertical default is no spacing
+      vgap <- params$key.spacing.y %||% unit(0, "pt")
+    } else {
+      vgap <- params$key.spacing.y %||% gap
+    }
+
+    elements$hgap <- width_cm( params$key.spacing.x %||% gap)
+    elements$vgap <- height_cm(vgap)
     elements$padding <- convertUnit(
       elements$margin %||% margin(),
       "cm", valueOnly = TRUE
@@ -540,7 +566,7 @@ GuideLegend <- ggproto(
       params$label.position,
       "left"   = list(label_widths, widths, hgap),
       "right"  = list(widths, label_widths, hgap),
-      list(pmax(label_widths, widths), hgap * (!byrow))
+      list(pmax(label_widths, widths), hgap)
     )
     widths  <- head(vec_interleave(!!!widths),  -1)
 
@@ -549,7 +575,7 @@ GuideLegend <- ggproto(
       params$label.position,
       "top"    = list(label_heights, heights, vgap),
       "bottom" = list(heights, label_heights, vgap),
-      list(pmax(label_heights, heights), vgap * (byrow))
+      list(pmax(label_heights, heights), vgap)
     )
     heights <- head(vec_interleave(!!!heights), -1)
 
