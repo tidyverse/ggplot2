@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* The `guide_data()` function can be used to extract position and label
+  information from the plot (#5004).
+
 * `ggsave()` no longer sometimes creates new directories, which is now 
   controlled by the new `create.dir` argument (#5489).
 
