@@ -509,6 +509,23 @@ test_that("Theme validation behaves as expected", {
   expect_snapshot_error(validate_element("A", "aspect.ratio", tree))
 })
 
+test_that("Minor tick length supports biparental inheritance", {
+  my_theme <- theme_gray() + theme(
+    axis.ticks.length = unit(1, "cm"),
+    axis.ticks.length.y.left = unit(1, "pt"),
+    axis.minor.ticks.length.y = unit(1, "inch"),
+    axis.minor.ticks.length = rel(0.5)
+  )
+  expect_equal( # Inherits rel(0.5) from minor, 1cm from major
+    calc_element("axis.minor.ticks.length.x.bottom", my_theme),
+    unit(1, "cm") * 0.5
+  )
+  expect_equal( # Inherits 1inch directly from minor
+    calc_element("axis.minor.ticks.length.y.left", my_theme),
+    unit(1, "inch")
+  )
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("aspect ratio is honored", {

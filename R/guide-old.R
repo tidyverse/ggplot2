@@ -90,7 +90,7 @@ GuideOld <- ggproto(
   train = function(self, params, scale, aesthetic = NULL,
                    title = waiver(), direction = NULL) {
     params$title <- scale$make_title(params$title %|W|% scale$name %|W|% title)
-    params$direction <- params$direction %||% direction
+    params$direction <- params$direction %||% direction %||% "vertical"
     params <- guide_train(params, scale, aesthetic)
     params
   },
@@ -103,13 +103,14 @@ GuideOld <- ggproto(
     guide_transform(params, coord, panel_params)
   },
 
-  get_layer_key = function(params, layers) {
+  process_layers = function(self, params, layers, data = NULL) {
     guide_geom(params, layers, default_mapping = NULL)
   },
 
-  draw = function(self, theme, params) {
+  draw = function(self, theme, position = NULL, direction = NULL, params) {
+    params$direction <- params$direction %||% direction %||% "placeholder"
     params$title.position <- params$title.position %||% switch(
-      params$direction %||% "placeholder",
+      params$direction,
       vertical = "top", horizontal = "left",
       NULL
     )

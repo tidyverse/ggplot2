@@ -244,7 +244,7 @@ GuideLegend <- ggproto(
 
   available_aes = "any",
 
-  hashables = exprs(title, key$.label, direction, name),
+  hashables = exprs(title, key$.label, name),
 
   elements = list(
     background  = "legend.background",
@@ -260,13 +260,9 @@ GuideLegend <- ggproto(
   ),
 
   extract_params = function(scale, params,
-                            title = waiver(), direction = NULL, ...) {
+                            title = waiver(), ...) {
     params$title <- scale$make_title(
       params$title %|W|% scale$name %|W|% title
-    )
-    params$direction <- arg_match0(
-      params$direction %||% direction,
-      c("horizontal", "vertical"), arg_nm = "direction"
     )
     if (isTRUE(params$reverse %||% FALSE)) {
       params$key <- params$key[nrow(params$key):1, , drop = FALSE]
@@ -291,16 +287,25 @@ GuideLegend <- ggproto(
   },
 
   # Arrange common data for vertical and horizontal legends
-  get_layer_key = function(params, layers) {
+  process_layers = function(self, params, layers, data = NULL) {
+
+    include <- vapply(layers, function(layer) {
+      aes <- matched_aes(layer, params)
+      include_layer_in_guide(layer, aes)
+    }, logical(1))
+
+    if (!any(include)) {
+      return(NULL)
+    }
+
+    self$get_layer_key(params, layers[include], data[include])
+  },
+
+  get_layer_key = function(params, layers, data) {
 
     decor <- lapply(layers, function(layer) {
 
       matched_aes <- matched_aes(layer, params)
-
-      # Check if this layer should be included
-      if (!include_layer_in_guide(layer, matched_aes)) {
-        return(NULL)
-      }
 
       if (length(matched_aes) > 0) {
         # Filter out aesthetics that can't be applied to the legend
@@ -338,14 +343,15 @@ GuideLegend <- ggproto(
 
     # Remove NULL geoms
     params$decor <- compact(decor)
-
-    if (length(params$decor) == 0) {
-      return(NULL)
-    }
     return(params)
   },
 
   setup_params = function(params) {
+    params$direction <- arg_match0(
+      params$direction %||% direction,
+      c("horizontal", "vertical"), arg_nm = "direction"
+    )
+
     if ("title.position" %in% names(params)) {
       params$title.position <- arg_match0(
         params$title.position %||%
