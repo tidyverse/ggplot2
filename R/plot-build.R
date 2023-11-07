@@ -452,8 +452,8 @@ table_add_legends <- function(table, legends, theme) {
 
     vp <- viewport(
       x = xjust, y = yjust, just = just,
-      height = heights[position],
-      width  = widths[position]
+      height = .subset2(heights, position),
+      width  = .subset2(widths,  position)
     )
     box <- editGrob(box, vp = vp)
     gtable_add_padding(box, margin)
