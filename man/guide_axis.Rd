@@ -9,6 +9,7 @@ guide_axis(
   check.overlap = FALSE,
   angle = NULL,
   n.dodge = 1,
+  minor.ticks = FALSE,
   cap = "none",
   order = 0,
   position = waiver()
@@ -30,6 +31,9 @@ you probably want.}
 \item{n.dodge}{The number of rows (for vertical axes) or columns (for
 horizontal axes) that should be used to render the labels. This is
 useful for displaying labels that would otherwise overlap.}
+
+\item{minor.ticks}{Whether to draw the minor ticks (\code{TRUE}) or not draw
+minor ticks (\code{FALSE}, default).}
 
 \item{cap}{A \code{character} to cut the axis line back to the last breaks. Can
 be \code{"none"} (default) to draw the axis line along the whole panel, or

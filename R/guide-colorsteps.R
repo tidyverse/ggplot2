@@ -57,9 +57,7 @@ guide_coloursteps <- function(
   guide_colourbar(
     even.steps  = even.steps,
     show.limits = show.limits,
-    raster      = FALSE,
     ticks       = ticks,
-    nbin        = 100,
     ...,
     super       = GuideColoursteps
   )
@@ -97,7 +95,7 @@ GuideColoursteps <- ggproto(
     breaks <- parsed$breaks
 
     key <- data_frame(scale$map(breaks), .name_repair = ~ aesthetic)
-    key$.value <- seq_along(breaks) - 0.5
+    key$.value <- seq_along(breaks)
     key$.label <- scale$get_labels(breaks)
 
     if (breaks[1] %in% limits) {
@@ -117,31 +115,29 @@ GuideColoursteps <- ggproto(
   extract_decor = function(scale, aesthetic, key,
                            reverse = FALSE, even.steps = TRUE,
                            nbin = 100, ...) {
-    if (!(even.steps || !is.numeric(scale$get_breaks()))) {
-      return(GuideColourbar$extract_decor(scale, aesthetic, reverse = reverse,
-                                          nbin = nbin))
-    }
-
-    bin_at <- attr(key, "bin_at", TRUE)
-
-    bar <- data_frame0(
-      colour = scale$map(bin_at),
-      value  = seq_along(bin_at) - 1,
-      .size  = length(bin_at)
-    )
-    if (reverse) {
-      bar <- bar[nrow(bar):1, , drop = FALSE]
+    if (even.steps) {
+      bin_at <- attr(key, "bin_at", TRUE)
+      bar <- data_frame0(
+        colour = scale$map(bin_at),
+        min    = seq_along(bin_at) - 1,
+        max    = seq_along(bin_at),
+        .size  = length(bin_at)
+      )
+    } else {
+      breaks <- unique(sort(c(scale$get_limits(), scale$get_breaks())))
+      n <- length(breaks)
+      bin_at <- (breaks[-1] + breaks[-n]) / 2
+      bar <- data_frame0(
+        colour = scale$map(bin_at),
+        min    = head(breaks, -1),
+        max    = tail(breaks, -1),
+        .size  = length(bin_at)
+      )
     }
     return(bar)
   },
 
-  extract_params = function(scale, params, ...) {
-
-    if (params$even.steps) {
-      params$nbin <- nbin <- sum(!is.na(params$key[[1]])) + 1
-    } else {
-      nbin <- params$nbin
-    }
+  extract_params = function(scale, params, direction = "vertical", title = waiver(), ...) {
 
     show.limits <- params$show.limits %||% scale$show.limits %||% FALSE
 
@@ -158,25 +154,56 @@ GuideColoursteps <- ggproto(
     }
 
     if (show.limits) {
-      edges <- rescale(
-        c(0, 1),
-        to   = params$decor$value[c(1, nrow(params$decor))],
-        from = c(0.5, nbin - 0.5) / nbin
-      )
       key <- params$key
       limits <- attr(key, "limits", TRUE) %||% scale$get_limits()
       key <- key[c(NA, seq_len(nrow(key)), NA), , drop = FALSE]
-      key$.value[c(1, nrow(key))] <- edges
-      key$.label[c(1, nrow(key))] <- scale$get_labels(limits)
+      n <- nrow(key)
+      key$.value[c(1, n)] <- range(params$decor$min, params$decor$max)
+      key$.label[c(1, n)] <- scale$get_labels(limits)
       if (key$.value[1] == key$.value[2]) {
-        key <- key[-1, , drop = FALSE]
+        key <- vec_slice(key, -1)
+        n <- n - 1
       }
-      if (key$.value[nrow(key) - 1] == key$.value[nrow(key)]) {
-        key <- key[-nrow(key), , drop = FALSE]
+      if (key$.value[n - 1] == key$.value[n]) {
+        key <- vec_slice(key, -n)
       }
       params$key <- key
     }
 
-    GuideColourbar$extract_params(scale, params, ...)
+    params$title <- scale$make_title(
+      params$title %|W|% scale$name %|W|% title
+    )
+
+    limits <- c(params$decor$min[1], params$decor$max[nrow(params$decor)])
+    if (params$reverse) {
+      limits <- rev(limits)
+    }
+    params$key$.value <- rescale(params$key$.value, from = limits)
+    params$decor$min  <- rescale(params$decor$min,  from = limits)
+    params$decor$max  <- rescale(params$decor$max,  from = limits)
+    params
+  },
+
+  build_decor = function(decor, grobs, elements, params) {
+
+    size <- abs(decor$max - decor$min)
+    just <- as.numeric(decor$min > decor$max)
+    gp   <- gpar(col = NA, fill = decor$colour)
+    if (params$direction == "vertical") {
+      grob <- rectGrob(
+        x = 0, y = decor$min,
+        width = 1, height = size,
+        vjust = just, hjust = 0, gp = gp
+      )
+    } else {
+      grob <- rectGrob(
+        x = decor$min, y = 0,
+        height = 1, width = size,
+        hjust = just, vjust = 0, gp = gp
+      )
+    }
+
+    frame <- element_grob(elements$frame, fill = NA)
+    list(bar = grob, frame = frame, ticks = grobs$ticks)
   }
 )
