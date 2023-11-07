@@ -144,29 +144,33 @@ guide_bins <- function(
     ticks$arrow <- NULL
   }
 
+  label.theme <- if (!isFALSE(label)) label.theme else element_blank()
+
+  internal_theme <- theme(
+    legend.text = combine_elements(
+      label.theme,
+      element_text(hjust = label.hjust, vjust = label.vjust)
+    ),
+    legend.title = combine_elements(
+      title.theme,
+      element_text(hjust = title.hjust, vjust = title.vjust)
+    ),
+    legend.key.width  = keywidth,
+    legend.key.height = keyheight,
+    legend.direction  = direction,
+    axis_line  = axis,
+    ticks     = ticks,
+    ticks_length = ticks.length
+  )
+
   new_guide(
     # title
     title = title,
     title.position = title.position,
-    title.theme = title.theme,
-    title.hjust = title.hjust,
-    title.vjust = title.vjust,
-
-    # label
-    label = label,
     label.position = label.position,
-    label.theme = label.theme,
-    label.hjust = label.hjust,
-    label.vjust = label.vjust,
 
-    # key
-    keywidth  = keywidth,
-    keyheight = keyheight,
-
-    # ticks
-    line  = axis,
-    ticks = ticks,
-    ticks_length = ticks.length,
+    # theme
+    internal_theme = internal_theme,
 
     # general
     direction = direction,
@@ -193,20 +197,11 @@ GuideBins <- ggproto(
   params = list(
     title = waiver(),
     title.position = NULL,
-    title.theme = NULL,
-    title.hjust = NULL,
-    title.vjust = NULL,
-
-    label = TRUE,
     label.position = NULL,
-    label.theme = NULL,
-    label.hjust = NULL,
-    label.vjust = NULL,
 
-    keywidth  = NULL,
-    keyheight = NULL,
+    internal_theme = NULL,
 
-    direction = NULL,
+    # direction = NULL,
     override.aes = list(),
     reverse = FALSE,
     order = 0,
@@ -221,8 +216,8 @@ GuideBins <- ggproto(
   elements = c(
     GuideLegend$elements,
     list(
-      line  = "line",
-      ticks = "line",
+      axis_line = "line",
+      ticks     = "line",
       ticks_length = unit(0.2, "npc")
     )
   ),
@@ -329,8 +324,9 @@ GuideBins <- ggproto(
   },
 
   override_elements = function(params, elements, theme) {
-    elements$ticks <- combine_elements(elements$ticks, theme$line)
-    elements$line  <- combine_elements(elements$line,  theme$line)
+    itheme <- params$internal_theme
+    elements$ticks <- combine_elements(itheme$ticks, elements$ticks)
+    elements$line  <- combine_elements(itheme$axis_line, elements$axis_line)
     GuideLegend$override_elements(params, elements, theme)
   },
 
@@ -341,13 +337,6 @@ GuideBins <- ggproto(
     }
     key$.label[c(1, n_labels)[!params$show.limits]] <- ""
 
-    just <- switch(
-      params$direction,
-      horizontal = elements$text$vjust,
-      vertical   = elements$text$hjust,
-      0.5
-    )
-
     if (params$direction == "vertical") {
       key$.value <- 1 - key$.value
     }
@@ -356,7 +345,6 @@ GuideBins <- ggproto(
       elements$text,
       label = key$.label,
       x = unit(key$.value, "npc"),
-      y = rep(just, nrow(key)),
       margin_x = FALSE,
       margin_y = TRUE,
       flip = params$direction == "vertical"
