@@ -205,6 +205,25 @@ guide_colourbar <- function(
     ticks$linewidth <- ticks.linewidth %||% ticks$linewidth %||% (0.5 / .pt)
   }
 
+  label.theme <- if (!isFALSE(label)) label.theme else element_blank()
+
+  internal_theme <- theme(
+    legend.text = combine_elements(
+      label.theme,
+      element_text(hjust = label.hjust, vjust = label.vjust)
+    ),
+    legend.title = combine_elements(
+      title.theme,
+      element_text(hjust = title.hjust, vjust = title.vjust)
+    ),
+    legend.key.width  = barwidth,
+    legend.key.height = barheight,
+    legend.direction  = direction,
+    frame = frame,
+    ticks = ticks,
+    ticks.length = ticks.length
+  )
+
   # Trick to re-use this constructor in `guide_coloursteps()`.
   args  <- list2(...)
   super <- args$super %||% GuideColourbar
@@ -214,29 +233,14 @@ guide_colourbar <- function(
     # title
     title = title,
     title.position = title.position,
-    title.theme = title.theme,
-    title.hjust = title.hjust,
-    title.vjust = title.vjust,
-
-    # label
-    label = label,
     label.position = label.position,
-    label.theme = label.theme,
-    label.hjust = label.hjust,
-    label.vjust = label.vjust,
+
+    # theme
+    internal_theme = internal_theme,
 
     # bar
-    keywidth = barwidth,
-    keyheight = barheight,
     nbin = nbin,
     raster = raster,
-
-    # frame
-    frame = frame,
-
-    # ticks
-    ticks = ticks,
-    ticks_length = ticks.length,
     draw_lim = c(isTRUE(draw.llim), isTRUE(draw.ulim)),
 
     # general
@@ -267,20 +271,10 @@ GuideColourbar <- ggproto(
     # title
     title = waiver(),
     title.position = NULL,
-    title.theme = NULL,
-    title.hjust = NULL,
-    title.vjust = NULL,
-
-    # label
-    label = TRUE,
     label.position = NULL,
-    label.theme = NULL,
-    label.hjust = NULL,
-    label.vjust = NULL,
 
     # bar
-    keywidth  = NULL,
-    keyheight = NULL,
+    internal_theme = NULL,
     nbin = 300,
     raster = TRUE,
 
@@ -314,7 +308,7 @@ GuideColourbar <- ggproto(
     key.height  = "legend.key.height",
     key.width   = "legend.key.width",
     text        = "legend.text",
-    theme.title = "legend.title"
+    title       = "legend.title"
   ),
 
   extract_key = function(scale, aesthetic, ...) {
@@ -395,15 +389,20 @@ GuideColourbar <- ggproto(
     params
   },
 
-  override_elements = function(params, elements, theme) {
-    # These key sizes are the defaults, the GuideLegend method may overrule this
+  setup_elements = function(params, elements, theme) {
+    # Key sizes are already calculated before `Guides$draw()`
     if (params$direction == "horizontal") {
-      elements$key.width <- elements$key.width * 5
+      theme$legend.key.width  <- theme$legend.key.width * 5
     } else {
-      elements$key.height <- elements$key.height * 5
+      theme$legend.key.height <- theme$legend.key.height * 5
     }
-    elements$ticks <- combine_elements(elements$ticks, theme$line)
-    elements$frame <- combine_elements(elements$frame, theme$rect)
+    GuideLegend$setup_elements(params, elements, theme)
+  },
+
+  override_elements = function(params, elements, theme) {
+    itheme <- params$internal_theme
+    elements$ticks <- combine_elements(itheme$ticks, elements$ticks)
+    elements$frame <- combine_elements(itheme$frame, elements$frame)
     GuideLegend$override_elements(params, elements, theme)
   },
 
