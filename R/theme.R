@@ -783,7 +783,19 @@ combine_elements <- function(e1, e2) {
     e1$linewidth <- e2$linewidth * unclass(e1$linewidth)
   }
 
+  # If e2 is 'richer' than e1, fill e2 with e1 parameters
+  if (is.subclass(e2, e1)) {
+    new <- defaults(e1, e2)
+    e2[names(new)] <- new
+    return(e2)
+  }
+
   e1
+}
+
+is.subclass <- function(x, y) {
+  inheritance <- inherits(x, class(y), which = TRUE)
+  !any(inheritance == 0) && length(setdiff(class(x), class(y))) > 0
 }
 
 #' Reports whether x is a theme object
