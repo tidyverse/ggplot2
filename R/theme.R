@@ -469,7 +469,7 @@ theme <- function(line,
     }
     elements$legend.text.align <- NULL
   }
-  if (is.numeric(elements$legend.position)) {
+  if (is.numeric(.subset2(elements, "legend.position"))) {
     deprecate_soft0(
       "3.5.0", I("A numeric `legend.position` argument in `theme()`"),
       "theme(legend.position.inside)"
