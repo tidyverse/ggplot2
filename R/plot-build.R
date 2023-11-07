@@ -419,13 +419,10 @@ table_add_legends <- function(table, legends, theme) {
   heights[!empty] <- lapply(legends[!empty], gtable_height)
   spacing <- theme$legend.box.spacing %||% unit(0.2, "cm")
 
-  # Set the justification of the legend box
-  # First value is xjust, second value is yjust
-  just  <- valid.just(theme$legend.justification)
-  xjust <- just[1]
-  yjust <- just[2]
-
   if (!is.zero(legends$inside)) {
+    # Set the justification of the legend box
+    just <- valid.just(calc_element("legend.justification.inside", theme))
+
     position <- theme$legend.position.inside %||% just
     legends$inside <- editGrob(
       legends$inside,
@@ -439,26 +436,28 @@ table_add_legends <- function(table, legends, theme) {
     )
   }
 
-  legends[.trbl] <- Map(
-    box    = legends[.trbl],
-    width  = widths[.trbl],
-    height = heights[.trbl],
-    f = function(box, width, height) {
-      if (is.zero(box)) {
-        return(box)
-      }
-      box <- editGrob(
-        box,
-        vp = viewport(
-          x = xjust, y = yjust, just = just,
-          height = height, width = width
-        )
-      )
-      margin <- margin(1 - yjust, 1 - xjust, yjust, xjust, unit = "null")
-      box <- gtable_add_padding(box, margin)
-      box
+  legends[.trbl] <- lapply(.trbl, function(position) {
+    box <- .subset2(legends, position)
+    if (is.zero(box)) {
+      return(box)
     }
-  )
+    just <- paste0("legend.justification.", position)
+    just <- valid.just(calc_element(just, theme))
+
+    # First value is xjust, second value is yjust
+    xjust <- just[1]
+    yjust <- just[2]
+
+    margin <- margin(1 - yjust, 1 - xjust, yjust, xjust, unit = "null")
+
+    vp <- viewport(
+      x = xjust, y = yjust, just = just,
+      height = heights[position],
+      width  = widths[position]
+    )
+    box <- editGrob(box, vp = vp)
+    gtable_add_padding(box, margin)
+  })
 
   # If legend is missing, set spacing to zero for that legend
   zero    <- unit(0, "pt")
