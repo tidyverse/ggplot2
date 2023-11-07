@@ -505,7 +505,29 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   legend.position     = el_def("character"),
   legend.position.inside = el_def(c("numeric", "integer")),
   legend.direction    = el_def("character"),
+
   legend.justification = el_def(c("character", "numeric", "integer")),
+  legend.justification.top = el_def(
+    c("character", "numeric", "integer"),
+    "legend.justification"
+  ),
+  legend.justification.bottom = el_def(
+    c("character", "numeric", "integer"),
+    "legend.justification"
+  ),
+  legend.justification.left = el_def(
+    c("character", "numeric", "integer"),
+    "legend.justification"
+  ),
+  legend.justification.right = el_def(
+    c("character", "numeric", "integer"),
+    "legend.justification"
+  ),
+  legend.justification.inside = el_def(
+    c("character", "numeric", "integer"),
+    "legend.justification"
+  ),
+
   legend.location     = el_def("character"),
 
   legend.box          = el_def("character"),
