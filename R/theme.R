@@ -87,6 +87,8 @@
 #' @param legend.justification anchor point for positioning legend inside plot
 #'   ("center" or two-element numeric vector) or the justification according to
 #'   the plot area when positioned outside the plot
+#' @param legend.justification.top,legend.justification.bottom,legend.justification.left,legend.justification.right,legend.justification.inside
+#'   Same as `legend.justification` but specified per `legend.position` option.
 #' @param legend.location Relative placement of legends outside the plot as a
 #'   string. Can be `"panel"` (default) to align legends to the panels or
 #'   `"plot"` to align legends to the plot as a whole.
