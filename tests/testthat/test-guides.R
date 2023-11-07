@@ -604,18 +604,19 @@ test_that("guides are positioned correctly", {
 
   expect_doppelganger("padding in legend box", p2)
 
+  p2 <- p2 + theme(legend.position = "inside")
   # Placement of legend inside
   expect_doppelganger("legend inside plot, centered",
-    p2 + theme(legend.position = c(.5, .5))
+    p2 + theme(legend.position.inside = c(.5, .5))
   )
   expect_doppelganger("legend inside plot, bottom left",
-    p2 + theme(legend.justification = c(0,0), legend.position = c(0,0))
+    p2 + theme(legend.justification = c(0,0), legend.position.inside = c(0,0))
   )
   expect_doppelganger("legend inside plot, top right",
-    p2 + theme(legend.justification = c(1,1), legend.position = c(1,1))
+    p2 + theme(legend.justification = c(1,1), legend.position.inside = c(1,1))
   )
   expect_doppelganger("legend inside plot, bottom left of legend at center",
-    p2 + theme(legend.justification = c(0,0), legend.position = c(.5,.5))
+    p2 + theme(legend.justification = c(0,0), legend.position.inside = c(.5,.5))
   )
 })
 
