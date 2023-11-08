@@ -523,6 +523,7 @@ Guides <- ggproto(
                         height = heightDetails(grobs[[i]]))
         )
       }
+      widths <- redistribute_null_units(widths, "width")
 
       guides <- gtable_row(name = "guides",
                            grobs = grobs,
@@ -540,6 +541,7 @@ Guides <- ggproto(
                         width = widthDetails(grobs[[i]]))
         )
       }
+      heights <- redistribute_null_units(heights, "height")
 
       guides <- gtable_col(name = "guides",
                            grobs = grobs,
@@ -677,4 +679,40 @@ validate_guide <- function(guide) {
     return(old_guide(guide))
   }
   cli::cli_abort("Unknown guide: {guide}")
+}
+
+redistribute_null_units <- function(unit, type = "width") {
+  if (!any(unitType(unit) %in% c("sum", "max", "min"))) {
+    return(unit)
+  }
+
+  # Find out the absolute part of the units
+  cms <- absolute.size(unit)
+  cms <- switch(
+    type,
+    width  = convertWidth( cms, "cm", valueOnly = TRUE),
+    height = convertHeight(cms, "cm", valueOnly = TRUE)
+  )
+  fixed <- sum(cms)
+
+  # Try to grab the nulls from sum units
+  nulls <- rep(0, length(unit))
+  is_sum <- unitType(unit) == "sum"
+  nulls[is_sum] <- vapply(unclass(unit)[is_sum], function(x) {
+    if (is.null(x)) {
+      return(0)
+    }
+    x <- x[[2]]
+    sum(as.numeric(x[unitType(x) == "null"]))
+  }, numeric(1))
+  # Add the plain nulls not part of sums/min/max
+  nulls <- nulls + as.numeric(unit) * (unitType(unit) == "null")
+  null_sum <- sum(nulls)
+  if (null_sum == 0) {
+    null_sum <- 1
+  }
+  nulls <- nulls / null_sum
+
+
+  (unit(1, "npc") - unit(fixed, "cm")) * nulls + unit(cms, "cm")
 }
