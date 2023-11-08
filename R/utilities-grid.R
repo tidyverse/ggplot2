@@ -35,3 +35,10 @@ height_cm <- function(x) {
     cli::cli_abort("Don't know how to get height of {.cls {class(x)}} object")
   }
 }
+
+set_default_unit <- function(x, default.unit) {
+  if (is.null(x) || is.unit(x)) {
+    return(x)
+  }
+  unit(x, default.unit)
+}
