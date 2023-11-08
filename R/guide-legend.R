@@ -32,8 +32,7 @@
 #'   object of [element_text()] is expected. By default, the theme is
 #'   specified by `legend.text` in [theme()].
 #' @param label.hjust A numeric specifying horizontal justification of the
-#'   label text. The default for standard text is 0 (left-aligned) and 1
-#'   (right-aligned) for expressions.
+#'   label text.
 #' @param label.vjust A numeric specifying vertical justification of the label
 #'   text.
 #' @param keywidth A numeric or a [grid::unit()] object specifying

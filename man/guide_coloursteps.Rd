@@ -92,8 +92,7 @@ label. One of "top", "bottom" (default for horizontal guide), "left", or
 object of \code{\link[=element_text]{element_text()}} is expected. By default, the theme is
 specified by \code{legend.text} in \code{\link[=theme]{theme()}}.}
     \item{\code{label.hjust}}{A numeric specifying horizontal justification of the
-label text. The default for standard text is 0 (left-aligned) and 1
-(right-aligned) for expressions.}
+label text.}
     \item{\code{label.vjust}}{A numeric specifying vertical justification of the label
 text.}
     \item{\code{order}}{positive integer less than 99 that specifies the order of
