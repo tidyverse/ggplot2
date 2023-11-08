@@ -578,8 +578,8 @@ add_theme_preserve_blank <- function(old, new, new_name = caller_arg(new)) {
   is_blank <- vapply(old[nms], inherits, logical(1), what = "element_blank")
 
   # Only merge in elements that shouldn't become blank
-  new[] <- new[!(inherit_blank & is_blank)]
-  add_theme(old, new, t2name = new_name)
+  keep <- nms[!(inherit_blank & is_blank)]
+  add_theme(old, new[keep], t2name = new_name)
 }
 
 
