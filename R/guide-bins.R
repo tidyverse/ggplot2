@@ -108,16 +108,6 @@ guide_bins <- function(
   show.limits  = NULL,
   ...
 ) {
-
-  if (!(is.null(keywidth) || is.unit(keywidth))) {
-    keywidth <- unit(keywidth, default.unit)
-  }
-  if (!(is.null(keyheight) || is.unit(keyheight))) {
-    keyheight <- unit(keyheight, default.unit)
-  }
-  if (!is.unit(ticks.length)) {
-    ticks.length <- unit(ticks.length, default.unit)
-  }
   if (!is.null(title.position)) {
     title.position <- arg_match0(title.position, .trbl)
   }
@@ -127,13 +117,12 @@ guide_bins <- function(
   if (!is.null(label.position)) {
     label.position <- arg_match0(label.position, .trbl)
   }
-
   if (is.logical(axis)) {
-    axis <- if (axis) element_line() else element_rect()
+    axis <- if (!isFALSE(axis)) element_line() else element_blank()
   }
   if (inherits(axis, "element_line")) {
-    axis$colour    <- axis.colour    %||% axis$colour      %||% "black"
-    axis$linewidth <- axis.linewidth %||% axis$linewidth   %||% (0.5 / .pt)
+    axis$colour    <- axis.colour    %||% axis$colour    %||% "black"
+    axis$linewidth <- axis.linewidth %||% axis$linewidth %||% (0.5 / .pt)
     axis$arrow     <- axis.arrow     %||% axis$arrow
   } else {
     axis <- element_blank()
@@ -145,22 +134,23 @@ guide_bins <- function(
   }
 
   label.theme <- if (!isFALSE(label)) label.theme else element_blank()
+  label.theme <- combine_elements(
+    label.theme,
+    element_text(hjust = label.hjust, vjust = label.vjust, inherit.blank = TRUE)
+  )
+  title.theme <- combine_elements(
+    title.theme,
+    element_text(hjust = title.hjust, vjust = title.vjust, inherit.blank = TRUE)
+  )
 
   internal_theme <- theme(
-    legend.text = combine_elements(
-      label.theme,
-      element_text(hjust = label.hjust, vjust = label.vjust)
-    ),
-    legend.title = combine_elements(
-      title.theme,
-      element_text(hjust = title.hjust, vjust = title.vjust)
-    ),
-    legend.key.width  = keywidth,
-    legend.key.height = keyheight,
-    legend.direction  = direction,
-    axis_line  = axis,
-    ticks     = ticks,
-    ticks_length = ticks.length
+    legend.text       = label.theme,
+    legend.title      = title.theme,
+    legend.key.width  = set_default_unit(keywidth,  default.unit),
+    legend.key.height = set_default_unit(keyheight, default.unit),
+    axis_line         = axis,
+    ticks             = ticks,
+    ticks_length      = set_default_unit(ticks.length, default.unit)
   )
 
   new_guide(
@@ -198,7 +188,6 @@ GuideBins <- ggproto(
     title = waiver(),
     title.position = NULL,
     label.position = NULL,
-
     internal_theme = NULL,
 
     # direction = NULL,

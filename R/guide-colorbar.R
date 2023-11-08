@@ -158,16 +158,6 @@ guide_colourbar <- function(
   available_aes = c("colour", "color", "fill"),
   ...
 ) {
-  if (!(is.null(barwidth) || is.unit(barwidth))) {
-    barwidth <- unit(barwidth, default.unit)
-  }
-  if (!(is.null(barheight) || is.unit(barheight))) {
-    barheight <- unit(barheight, default.unit)
-  }
-  if (!is.unit(ticks.length)) {
-    ticks.length <- unit(ticks.length, default.unit)
-  }
-
   if (!is.null(title.position)) {
     title.position <- arg_match0(title.position, .trbl)
   }
@@ -206,22 +196,23 @@ guide_colourbar <- function(
   }
 
   label.theme <- if (!isFALSE(label)) label.theme else element_blank()
+  label.theme <- combine_elements(
+    label.theme,
+    element_text(hjust = label.hjust, vjust = label.vjust)
+  )
+  title.theme <- combine_elements(
+    title.theme,
+    element_text(hjust = title.hjust, vjust = title.vjust)
+  )
 
   internal_theme <- theme(
-    legend.text = combine_elements(
-      label.theme,
-      element_text(hjust = label.hjust, vjust = label.vjust)
-    ),
-    legend.title = combine_elements(
-      title.theme,
-      element_text(hjust = title.hjust, vjust = title.vjust)
-    ),
-    legend.key.width  = barwidth,
-    legend.key.height = barheight,
-    legend.direction  = direction,
-    frame = frame,
-    ticks = ticks,
-    ticks.length = ticks.length
+    legend.text       = label.theme,
+    legend.title      = title.theme,
+    legend.key.width  = set_default_unit(barwidth,  default.unit),
+    legend.key.height = set_default_unit(barheight, default.unit),
+    frame             = frame,
+    ticks             = ticks,
+    ticks.length      = set_default_unit(ticks.length, default.unit)
   )
 
   # Trick to re-use this constructor in `guide_coloursteps()`.

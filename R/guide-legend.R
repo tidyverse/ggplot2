@@ -156,12 +156,6 @@ guide_legend <- function(
   ...
 ) {
   # Resolve key sizes
-  if (!inherits(keywidth, c("NULL", "unit"))) {
-    keywidth <- unit(keywidth, default.unit)
-  }
-  if (!inherits(keyheight, c("NULL", "unit"))) {
-    keyheight <- unit(keyheight, default.unit)
-  }
   if (!is.null(title.position)) {
     title.position <- arg_match0(title.position, .trbl)
   }
@@ -169,19 +163,20 @@ guide_legend <- function(
     label.position <- arg_match0(label.position, .trbl)
   }
   label.theme <- if (!isFALSE(label)) label.theme else element_blank()
+  label.theme <- combine_elements(
+    label.theme,
+    element_text(hjust = label.hjust, vjust = label.vjust, inherit.blank = TRUE)
+  )
+  title.theme <- combine_elements(
+    title.theme,
+    element_text(hjust = title.hjust, vjust = label.vjust, inherit.blank = TRUE)
+  )
 
   internal_theme <- theme(
-    legend.text = combine_elements(
-      label.theme,
-      element_text(hjust = label.hjust, vjust = label.vjust, inherit.blank = TRUE)
-    ),
-    legend.title = combine_elements(
-      title.theme,
-      element_text(hjust = title.hjust, vjust = title.vjust, inherit.blank = TRUE)
-    ),
-    legend.key.width  = keywidth,
-    legend.key.height = keyheight,
-    legend.direction  = direction
+    legend.text       = label.theme,
+    legend.title      = title.theme,
+    legend.key.width  = set_default_unit(keywidth,  default.unit),
+    legend.key.height = set_default_unit(keyheight, default.unit),
   )
 
   new_guide(
@@ -221,9 +216,7 @@ GuideLegend <- ggproto(
   params = list(
     title = waiver(),
     title.position = NULL,
-
     label.position = NULL,
-
     internal_theme = NULL,
 
     # General
