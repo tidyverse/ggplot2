@@ -560,8 +560,23 @@ add_theme <- function(t1, t2, t2name, call = caller_env()) {
   t1
 }
 
-# Calls `add_theme()`, but drops the elements of the new theme that inherit
-# blank and that are blank in the old theme.
+#' Combine themes while preserving blank elements
+#'
+#' This calls `add_theme()` but with the following modifications:
+#'
+#' * Elements in `new` that have `inherit.blank = TRUE` and are blank in `old`
+#'   will remain blank.
+#' * `NULL` elements in `new` are ignored.
+#'
+#' This logic is used in the guide system to merge theme settings provided
+#' at the guide level with theme settings provided at the plot level.
+#'
+#' @param old A theme object, typically the plot level theme.
+#' @param new A theme object
+#' @param new_name A name to display in error messages
+#'
+#' @keywords internal
+#' @noRd
 add_theme_preserve_blank <- function(old, new, new_name = caller_arg(new)) {
   if (is.null(new)) {
     return(old)

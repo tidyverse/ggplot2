@@ -122,6 +122,11 @@ new_guide <- function(..., available_aes = "any", super) {
 #'   It can be used to overrule user-supplied parameters or perform checks on
 #'   the `params` property.
 #'
+#' - `setup_elements()` Used to extract elements from the theme. The base
+#'   `Guide` uses this method to merge a potential `internal_theme` with the
+#'   global theme and to calculate the elements declared in `Guide$elements`.
+#'   For other guides, this is a good place to intervene in theme inheritance.
+#'
 #' - `override_elements()` Take populated theme elements derived from the
 #'   `elements` property and allows overriding these theme settings.
 #'

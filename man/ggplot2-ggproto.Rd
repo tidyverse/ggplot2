@@ -421,12 +421,18 @@ range.
 \item \code{merge()} Combines information from multiple guides with the same
 \code{params$hash}. This ensures that e.g. \code{guide_legend()} can display both
 \code{shape} and \code{colour} in the same guide.
-\item \code{get_layer_key()} Extract information from layers. This can be used to
-check that the guide's aesthetic is actually in use, or to gather
-information about how legend keys should be displayed.
+\item \code{process_layers()} Extract information from layers. This acts mostly
+as a filter for which layers to include and these are then (typically)
+forwarded to \code{get_layer_key()}.
+\item \code{get_layer_key()} This can be used to gather information about how legend
+keys should be displayed.
 \item \code{setup_params()} Set up parameters at the beginning of drawing stages.
 It can be used to overrule user-supplied parameters or perform checks on
 the \code{params} property.
+\item \code{setup_elements()} Used to extract elements from the theme. The base
+\code{Guide} uses this method to merge a potential \code{internal_theme} with the
+global theme and to calculate the elements declared in \code{Guide$elements}.
+For other guides, this is a good place to intervene in theme inheritance.
 \item \code{override_elements()} Take populated theme elements derived from the
 \code{elements} property and allows overriding these theme settings.
 \item \code{build_title()} Render the guide's title.
