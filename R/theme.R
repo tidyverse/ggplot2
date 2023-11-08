@@ -560,6 +560,28 @@ add_theme <- function(t1, t2, t2name, call = caller_env()) {
   t1
 }
 
+# Calls `add_theme()`, but drops the elements of the new theme that inherit
+# blank and that are blank in the old theme.
+add_theme_preserve_blank <- function(old, new, new_name = caller_arg(new)) {
+  if (is.null(new)) {
+    return(old)
+  }
+  # Get non empty names of new theme
+  nms <- names(new)[!vapply(new, is.null, logical(1))]
+
+  # Does any of the new theme elements carry over blank elements?
+  inherit_blank <- vapply(
+    new[nms], FUN.VALUE = logical(1),
+    function(x) is.list(x) && isTRUE(x$inherit.blank)
+  )
+  # Are their equivalents in the old theme blank?
+  is_blank <- vapply(old[nms], inherits, logical(1), what = "element_blank")
+
+  # Only merge in elements that shouldn't become blank
+  new[] <- new[!(inherit_blank & is_blank)]
+  add_theme(old, new, t2name = new_name)
+}
+
 
 #' Calculate the element properties, by inheriting properties from its parents
 #'

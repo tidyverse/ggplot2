@@ -268,6 +268,7 @@ Guide <- ggproto(
   # Converts the `elements` field to proper elements to be accepted by
   # `element_grob()`. String-interpolates aesthetic/position dependent elements.
   setup_elements = function(params, elements, theme) {
+    theme <- add_theme_preserve_blank(theme, params$internal_theme)
     is_char  <- vapply(elements, is.character, logical(1))
     elements[is_char] <- lapply(elements[is_char], calc_element, theme = theme)
     elements

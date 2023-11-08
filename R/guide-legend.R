@@ -389,13 +389,11 @@ GuideLegend <- ggproto(
   },
 
   setup_elements = function(params, elements, theme) {
-    default_just <- legend_label_just(params$label.position)
 
     # We break inheritance of text justification for intuition purposes
+    default_just <- legend_label_just(params$label.position)
     theme$legend.text$hjust <- theme$legend.text$hjust %||% default_just[1]
     theme$legend.text$vjust <- theme$legend.text$vjust %||% default_just[2]
-
-    theme <- theme + compact(params$internal_theme)
 
     Guide$setup_elements(params, elements, theme)
   },
