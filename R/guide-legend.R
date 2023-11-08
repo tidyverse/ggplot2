@@ -648,11 +648,19 @@ GuideLegend <- ggproto(
   },
 
   assemble_drawing = function(grobs, layout, sizes, params, elements) {
+    widths <- unit(c(sizes$padding[4], sizes$widths, sizes$padding[2]), "cm")
+    if (is.unit(params$keywidth) && unitType(params$keywidth) == "null") {
+      i <- unique(layout$layout$key_col)
+      widths[i] <- params$keywidth
+    }
 
-    gt <- gtable(
-      widths  = unit(c(sizes$padding[4], sizes$widths, sizes$padding[2]), "cm"),
-      heights = unit(c(sizes$padding[1], sizes$heights, sizes$padding[3]), "cm")
-    )
+    heights <- unit(c(sizes$padding[1], sizes$heights, sizes$padding[3]), "cm")
+    if (is.unit(params$keyheight) && unitType(params$keyheight) == "null") {
+      i <- unique(layout$layout$key_row)
+      heights[i] <- params$keyheight
+    }
+
+    gt <- gtable(widths = widths, heights = heights)
 
     # Add background
     if (!is.zero(elements$background)) {
