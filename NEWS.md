@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* In the theme element hierarchy, parent elements that are a strict subclass
+  of child elements now confer their subclass upon the children (#5457).
+
 * `ggsave()` no longer sometimes creates new directories, which is now 
   controlled by the new `create.dir` argument (#5489).
 
