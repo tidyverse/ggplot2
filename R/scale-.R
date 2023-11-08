@@ -632,12 +632,8 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
 
   map = function(self, x, limits = self$get_limits()) {
     x <- self$rescale(self$oob(x, range = limits), limits)
-
-    uniq <- unique0(x)
-    pal <- self$palette(uniq)
-    scaled <- pal[match(x, uniq)]
-
-    ifelse(!is.na(scaled), scaled, self$na.value)
+    scaled <- self$palette(x)
+    vec_assign(scaled, is.na(scaled), self$na.value)
   },
 
   rescale = function(self, x, limits = self$get_limits(), range = limits) {
