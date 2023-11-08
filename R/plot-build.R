@@ -192,6 +192,15 @@ ggplot_gtable.ggplot_built <- function(data) {
     legend_width  <- gtable_width(legend_box)
     legend_height <- gtable_height(legend_box)
 
+    relative_height <- unitType(legend_height) == "sum"
+    relative_width  <- unitType(legend_width)  == "sum"
+    if (relative_height) {
+      legend_height <- unit(1, "npc")
+    }
+    if (relative_width) {
+      legend_width <- unit(1, "npc")
+    }
+
     # Set the justification of the legend box
     # First value is xjust, second value is yjust
     just <- valid.just(theme$legend.justification)
@@ -225,10 +234,14 @@ ggplot_gtable.ggplot_built <- function(data) {
           width = legend_width
         )
       )
-      legend_box <- gtable_add_rows(legend_box, unit(yjust, 'null'))
-      legend_box <- gtable_add_rows(legend_box, unit(1 - yjust, 'null'), 0)
-      legend_box <- gtable_add_cols(legend_box, unit(xjust, 'null'), 0)
-      legend_box <- gtable_add_cols(legend_box, unit(1 - xjust, 'null'))
+      if (!relative_height) {
+        legend_box <- gtable_add_rows(legend_box, unit(yjust, 'null'))
+        legend_box <- gtable_add_rows(legend_box, unit(1 - yjust, 'null'), 0)
+      }
+      if (!relative_width) {
+        legend_box <- gtable_add_cols(legend_box, unit(xjust, 'null'), 0)
+        legend_box <- gtable_add_cols(legend_box, unit(1 - xjust, 'null'))
+      }
     }
   }
 
