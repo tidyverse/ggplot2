@@ -189,16 +189,16 @@ ggplot_gtable.ggplot_built <- function(data) {
     position <- "none"
   } else {
     # these are a bad hack, since it modifies the contents of viewpoint directly...
-    legend_width  <- gtable_width(legend_box)
-    legend_height <- gtable_height(legend_box)
 
-    relative_height <- unitType(legend_height) == "sum"
-    relative_width  <- unitType(legend_width)  == "sum"
-    if (relative_height) {
-      legend_height <- unit(1, "npc")
+    if (any(unitType(legend_box$widths) == "sum")) {
+      legend_width  <- unit(1, "npc")
+    } else {
+      legend_width <- gtable_width(legend_box)
     }
-    if (relative_width) {
-      legend_width <- unit(1, "npc")
+    if (any(unitType(legend_box$heights) == "sum")) {
+      legend_height <- unit(1, "npc")
+    } else {
+      legend_height <- gtable_height(legend_box)
     }
 
     # Set the justification of the legend box
@@ -234,11 +234,11 @@ ggplot_gtable.ggplot_built <- function(data) {
           width = legend_width
         )
       )
-      if (!relative_height) {
+      if (unitType(legend_height) != "npc") {
         legend_box <- gtable_add_rows(legend_box, unit(yjust, 'null'))
         legend_box <- gtable_add_rows(legend_box, unit(1 - yjust, 'null'), 0)
       }
-      if (!relative_width) {
+      if (unitType(legend_width) != "npc") {
         legend_box <- gtable_add_cols(legend_box, unit(xjust, 'null'), 0)
         legend_box <- gtable_add_cols(legend_box, unit(1 - xjust, 'null'))
       }
