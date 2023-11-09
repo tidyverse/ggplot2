@@ -22,6 +22,12 @@ unitType <- function(x) {
   if (!is.null(unit)) {
     return(unit)
   }
+  if (is.list(x) && is.unit(x[[1]])) {
+    unit <- vapply(x, unitType, character(1))
+    return(unit)
+  } else if ("fname" %in% names(x)) {
+    return(x$fname)
+  }
   rep("", length(x)) # we're only interested in simple units for now
 }
 
