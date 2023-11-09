@@ -49,7 +49,7 @@
 #'
 #' # You can see the same thing with this 2d histogram
 #' d <- ggplot(diamonds, aes(carat, price)) +
-#'   stat_bin2d(bins = 25, colour = "white")
+#'   stat_bin_2d(bins = 25, colour = "white")
 #' d
 #'
 #' # When zooming the scale, the we get 25 new bins that are the same
@@ -151,5 +151,5 @@ panel_guides_grob <- function(guides, position, theme) {
     return(zeroGrob())
   }
   pair <- guides$get_position(position)
-  pair$guide$draw(theme, pair$params)
+  pair$guide$draw(theme, params = pair$params)
 }

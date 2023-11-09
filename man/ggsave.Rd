@@ -16,6 +16,7 @@ ggsave(
   dpi = 300,
   limitsize = TRUE,
   bg = NULL,
+  create.dir = FALSE,
   ...
 )
 }
@@ -50,6 +51,11 @@ specifying dimensions in pixels.}
 
 \item{bg}{Background colour. If \code{NULL}, uses the \code{plot.background} fill value
 from the plot theme.}
+
+\item{create.dir}{Whether to create new directories if a non-existing
+directory is specified in the \code{filename} or \code{path} (\code{TRUE}) or return an
+error (\code{FALSE}, default). If \code{FALSE} and run in an interactive session,
+a prompt will appear asking to create a new directory when necessary.}
 
 \item{...}{Other arguments passed on to the graphics device function,
 as specified by \code{device}.}

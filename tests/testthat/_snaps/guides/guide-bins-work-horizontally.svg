@@ -66,9 +66,9 @@
 <rect x='697.24' y='268.63' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
 <circle cx='705.88' cy='277.27' r='6.41' style='stroke-width: 0.71; fill: #000000;' />
 <polyline points='645.40,285.91 714.52,285.91 ' style='stroke-width: 0.38; stroke-linecap: butt;' />
-<polyline points='662.68,285.91 662.68,282.45 ' style='stroke-width: 0.38; stroke-linecap: butt;' />
-<polyline points='679.96,285.91 679.96,282.45 ' style='stroke-width: 0.38; stroke-linecap: butt;' />
-<polyline points='697.24,285.91 697.24,282.45 ' style='stroke-width: 0.38; stroke-linecap: butt;' />
+<polyline points='662.68,282.45 662.68,285.91 ' style='stroke-width: 0.38; stroke-linecap: butt;' />
+<polyline points='679.96,282.45 679.96,285.91 ' style='stroke-width: 0.38; stroke-linecap: butt;' />
+<polyline points='697.24,282.45 697.24,285.91 ' style='stroke-width: 0.38; stroke-linecap: butt;' />
 <text x='662.68' y='297.44' text-anchor='middle' style='font-size: 8.80px; font-family: sans;' textLength='12.23px' lengthAdjust='spacingAndGlyphs'>1.5</text>
 <text x='679.96' y='297.44' text-anchor='middle' style='font-size: 8.80px; font-family: sans;' textLength='12.23px' lengthAdjust='spacingAndGlyphs'>2.0</text>
 <text x='697.24' y='297.44' text-anchor='middle' style='font-size: 8.80px; font-family: sans;' textLength='12.23px' lengthAdjust='spacingAndGlyphs'>2.5</text>
