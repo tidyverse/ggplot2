@@ -94,8 +94,8 @@ ggplot_build.ggplot <- function(plot) {
     plot$guides <- plot$guides$build(npscales, plot$layers, plot$labels, data)
     data <- lapply(data, npscales$map_df)
   } else {
-    # Assign empty guides if there are no non-position scales
-    plot$guides <- guides_list()
+    # Only keep custom guides if there are no non-position scales
+    plot$guides <- plot$guides$get_custom()
   }
 
   # Fill in defaults etc.
