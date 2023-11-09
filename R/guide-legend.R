@@ -36,12 +36,11 @@
 #'   (right-aligned) for expressions.
 #' @param label.vjust A numeric specifying vertical justification of the label
 #'   text.
-#' @param keywidth A numeric or a [grid::unit()] object specifying
-#'   the width of the legend key. Default value is `legend.key.width` or
-#'   `legend.key.size` in [theme()].
-#' @param keyheight A numeric or a [grid::unit()] object specifying
-#'   the height of the legend key. Default value is `legend.key.height` or
-#'   `legend.key.size` in [theme()].
+#' @param keywidth,keyheight A numeric or [grid::unit()] object specifying the
+#'   width and height of the legend key respectively. Default value is
+#'   `legend.key.width`, `legend.key.height` or `legend.key` in [theme()].\cr
+#'   `r lifecycle::badge("experimental")`: optionally a `"null"` unit to stretch
+#'   keys to the available space.
 #' @param direction  A character string indicating the direction of the guide.
 #'   One of "horizontal" or "vertical."
 #' @param default.unit A character string indicating [grid::unit()]

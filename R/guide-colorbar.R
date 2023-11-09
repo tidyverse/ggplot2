@@ -15,12 +15,11 @@ NULL
 #' see [guides()].
 #'
 #' @inheritParams guide_legend
-#' @param barwidth A numeric or a [grid::unit()] object specifying
-#'   the width of the colourbar. Default value is `legend.key.width` or
-#'   `legend.key.size` in [theme()] or theme.
-#' @param barheight A numeric or a [grid::unit()] object specifying
-#'   the height of the colourbar. Default value is `legend.key.height` or
-#'   `legend.key.size` in [theme()] or theme.
+#' @param barwidth,barheight A numeric or [grid::unit()] object specifying the
+#'   width and height of the bar respectively. Default value is derived from
+#'   `legend.key.width`, `legend.key.height` or `legend.key` in [theme()].\cr
+#'   `r lifecycle::badge("experimental")`: optionally a `"null"` unit to stretch
+#'   the bar to the available space.
 #' @param frame A theme object for rendering a frame drawn around the bar.
 #'   Usually, the object of `element_rect()` is expected. If `element_blank()`
 #'   (default), no frame is drawn.
