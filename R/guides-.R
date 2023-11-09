@@ -513,6 +513,7 @@ Guides <- ggproto(
     if (length(grobs) < 1) {
       return(zeroGrob())
     }
+    grobs <- grobs[order(names(grobs))]
 
     # Set spacing
     theme$legend.spacing   <- theme$legend.spacing    %||% unit(0.5, "lines")
